@@ -266,18 +266,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/TypeRewriter.
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/AccessFlags.java`
-#### Snippet
-```java
-    }
-
-    private AccessFlags(int value, String accessFlagName, boolean validForClass, boolean validForMethod,
-                        boolean validForField) {
-        this.value = value;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Format.java`
 #### Snippet
 ```java
@@ -301,15 +289,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Format.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/iface/instruction/SwitchElement.java`
+Modifier `private` is redundant for enum constructors
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/AccessFlags.java`
 #### Snippet
 ```java
-public interface SwitchElement {
-    public int getKey();
-    public int getOffset();
-}
+    }
 
+    private AccessFlags(int value, String accessFlagName, boolean validForClass, boolean validForMethod,
+                        boolean validForField) {
+        this.value = value;
 ```
 
 ### UnnecessaryModifier
@@ -322,6 +310,18 @@ public interface SwitchElement {
     public int getKey();
     public int getOffset();
 }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/iface/instruction/SwitchElement.java`
+#### Snippet
+```java
+public interface SwitchElement {
+    public int getKey();
+    public int getOffset();
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -365,11 +365,11 @@ Modifier `public` is redundant for interface members
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/AnnotationsDirectory.java`
 #### Snippet
 ```java
-         * @return The annotation offset associated with the requested key, or 0 if not found.
+         * Resets the iterator to the beginning of its list.
          */
-        public int seekTo(int key);
+        public void reset();
+    }
 
-        /**
 ```
 
 ### UnnecessaryModifier
@@ -413,11 +413,11 @@ Modifier `public` is redundant for interface members
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/AnnotationsDirectory.java`
 #### Snippet
 ```java
-         * Resets the iterator to the beginning of its list.
+         * @return The annotation offset associated with the requested key, or 0 if not found.
          */
-        public void reset();
-    }
+        public int seekTo(int key);
 
+        /**
 ```
 
 ### UnnecessaryModifier
@@ -532,30 +532,6 @@ private static final byte _SyntheticAccessorFSM_trans_actions[] = init__Syntheti
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_trans_keys`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
-#### Snippet
-```java
-}
-
-private static final short _SyntheticAccessorFSM_trans_keys[] = init__SyntheticAccessorFSM_trans_keys_0();
-
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_actions`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
-#### Snippet
-```java
-}
-
-private static final byte _SyntheticAccessorFSM_actions[] = init__SyntheticAccessorFSM_actions_0();
-
-
-```
-
-### CStyleArrayDeclaration
 C-style array declaration of field `_SyntheticAccessorFSM_single_lengths`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
 #### Snippet
@@ -568,25 +544,13 @@ private static final byte _SyntheticAccessorFSM_single_lengths[] = init__Synthet
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_range_lengths`
+C-style array declaration of field `_SyntheticAccessorFSM_key_offsets`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
 #### Snippet
 ```java
 }
 
-private static final byte _SyntheticAccessorFSM_range_lengths[] = init__SyntheticAccessorFSM_range_lengths_0();
-
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_trans_targs`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
-#### Snippet
-```java
-}
-
-private static final byte _SyntheticAccessorFSM_trans_targs[] = init__SyntheticAccessorFSM_trans_targs_0();
+private static final short _SyntheticAccessorFSM_key_offsets[] = init__SyntheticAccessorFSM_key_offsets_0();
 
 
 ```
@@ -604,13 +568,49 @@ private static final byte _SyntheticAccessorFSM_indicies[] = init__SyntheticAcce
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_key_offsets`
+C-style array declaration of field `_SyntheticAccessorFSM_actions`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
 #### Snippet
 ```java
 }
 
-private static final short _SyntheticAccessorFSM_key_offsets[] = init__SyntheticAccessorFSM_key_offsets_0();
+private static final byte _SyntheticAccessorFSM_actions[] = init__SyntheticAccessorFSM_actions_0();
+
+
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `_SyntheticAccessorFSM_range_lengths`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
+#### Snippet
+```java
+}
+
+private static final byte _SyntheticAccessorFSM_range_lengths[] = init__SyntheticAccessorFSM_range_lengths_0();
+
+
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `_SyntheticAccessorFSM_trans_keys`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
+#### Snippet
+```java
+}
+
+private static final short _SyntheticAccessorFSM_trans_keys[] = init__SyntheticAccessorFSM_trans_keys_0();
+
+
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `_SyntheticAccessorFSM_trans_targs`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
+#### Snippet
+```java
+}
+
+private static final byte _SyntheticAccessorFSM_trans_targs[] = init__SyntheticAccessorFSM_trans_targs_0();
 
 
 ```
@@ -634,6 +634,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/util/CharSequenceUtils.java`
 #### Snippet
 ```java
 
+    public static int listHashCode(List<? extends CharSequence> list) {
+        return Lists.transform(list, TO_STRING).hashCode();
+    }
+
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `dexlib2/src/main/java/com/android/tools/smali/util/CharSequenceUtils.java`
+#### Snippet
+```java
+
     public static boolean listEquals(List<? extends CharSequence> list1, List<? extends CharSequence> list2) {
         return Lists.transform(list1, TO_STRING).equals(
                 Lists.transform(list2, TO_STRING));
@@ -650,18 +662,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/util/CharSequenceUtils.java`
                 Lists.transform(list2, TO_STRING));
     }
 }
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `dexlib2/src/main/java/com/android/tools/smali/util/CharSequenceUtils.java`
-#### Snippet
-```java
-
-    public static int listHashCode(List<? extends CharSequence> list) {
-        return Lists.transform(list, TO_STRING).hashCode();
-    }
-
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -726,6 +726,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderSparseSwitchPayload.java`
+#### Snippet
+```java
+            this.switchElements = ImmutableList.of();
+        } else {
+            this.switchElements = Lists.transform(switchElements, new Function<SwitchLabelElement, BuilderSwitchElement>() {
+                @Nullable @Override public BuilderSwitchElement apply(@Nullable SwitchLabelElement element) {
+                    assert element != null;
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
 #### Snippet
 ```java
@@ -782,18 +794,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
         return Iterables.transform(method.getParameters(), new Function<BuilderMethodParameter, BuilderStringReference>() {
             @Nullable @Override public BuilderStringReference apply(BuilderMethodParameter input) {
                 return input.name;
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderSparseSwitchPayload.java`
-#### Snippet
-```java
-            this.switchElements = ImmutableList.of();
-        } else {
-            this.switchElements = Lists.transform(switchElements, new Function<SwitchLabelElement, BuilderSwitchElement>() {
-                @Nullable @Override public BuilderSwitchElement apply(@Nullable SwitchLabelElement element) {
-                    assert element != null;
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -936,8 +936,8 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MethodLocation
 #### Snippet
 ```java
     @Nonnull
-    public Set<Label> getLabels() {
-        return labels.getModifiableItems(MethodLocation.this);
+    public Set<BuilderDebugItem> getDebugItems() {
+        return debugItems.getModifiableItems(MethodLocation.this);
     }
 
 ```
@@ -948,8 +948,8 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MethodLocation
 #### Snippet
 ```java
     @Nonnull
-    public Set<BuilderDebugItem> getDebugItems() {
-        return debugItems.getModifiableItems(MethodLocation.this);
+    public Set<Label> getLabels() {
+        return labels.getModifiableItems(MethodLocation.this);
     }
 
 ```
@@ -1513,15 +1513,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/util/ImmutableConverter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`oatDexFiles.size() == 0` can be replaced with 'oatDexFiles.isEmpty()'
+`partialEntries.size() == 0` can be replaced with 'partialEntries.isEmpty()'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
 #### Snippet
 ```java
-                List<? extends DexFile> oatDexFiles = oatFile.getDexFiles();
+            }
 
-                if (oatDexFiles.size() == 0) {
-                    throw new DexFileNotFoundException("Oat file %s contains no dex files", file.getName());
-                }
+            if (partialEntries.size() == 0) {
+                throw new DexFileNotFoundException("Could not find a dex entry in %s matching %s",
+                        filename, targetEntry);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1537,15 +1537,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`partialEntries.size() == 0` can be replaced with 'partialEntries.isEmpty()'
+`oatDexFiles.size() == 0` can be replaced with 'oatDexFiles.isEmpty()'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
 #### Snippet
 ```java
-            }
+                List<? extends DexFile> oatDexFiles = oatFile.getDexFiles();
 
-            if (partialEntries.size() == 0) {
-                throw new DexFileNotFoundException("Could not find a dex entry in %s matching %s",
-                        filename, targetEntry);
+                if (oatDexFiles.size() == 0) {
+                    throw new DexFileNotFoundException("Oat file %s contains no dex files", file.getName());
+                }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1609,6 +1609,42 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 ```
 
 ### SizeReplaceableByIsEmpty
+`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    @Nullable @Override public Set<? extends Annotation> getClassAnnotations(@Nonnull PoolClassDef classDef) {
+        Set<? extends Annotation> annotations = classDef.getAnnotations();
+        if (annotations.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    @Nullable @Override public Set<? extends Annotation> getFieldAnnotations(@Nonnull Field field) {
+        Set<? extends Annotation> annotations = field.getAnnotations();
+        if (annotations.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    @Nullable @Override public Set<? extends Annotation> getMethodAnnotations(@Nonnull PoolMethod method) {
+        Set<? extends Annotation> annotations = method.getAnnotations();
+        if (annotations.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `input.getAnnotations().size() > 0` can be replaced with '!input.getAnnotations().isEmpty()'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
 #### Snippet
@@ -1630,42 +1666,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.
             if (!hasInstruction && tryBlocks.size() > 0) {
                 throw new ExceptionWithContext("Method %s has no instructions, but has try blocks.", method);
             }
-```
-
-### SizeReplaceableByIsEmpty
-`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nullable @Override public Set<? extends Annotation> getClassAnnotations(@Nonnull PoolClassDef classDef) {
-        Set<? extends Annotation> annotations = classDef.getAnnotations();
-        if (annotations.size() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nullable @Override public Set<? extends Annotation> getMethodAnnotations(@Nonnull PoolMethod method) {
-        Set<? extends Annotation> annotations = method.getAnnotations();
-        if (annotations.size() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nullable @Override public Set<? extends Annotation> getFieldAnnotations(@Nonnull Field field) {
-        Set<? extends Annotation> annotations = field.getAnnotations();
-        if (annotations.size() == 0) {
-            return null;
-        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1705,39 +1705,87 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstr
 ```
 
 ### SizeReplaceableByIsEmpty
-`switchElements.size() == 0` can be replaced with 'switchElements.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
+`tryBlocks.size() > 0` can be replaced with '!tryBlocks.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-                                                                     @Nonnull SparseSwitchPayload instruction) {
-        List<? extends SwitchElement> switchElements = instruction.getSwitchElements();
-        if (switchElements.size() == 0) {
-            return new BuilderSparseSwitchPayload(null);
-        }
+            }
+
+            if (tryBlocks.size() > 0) {
+                writer.align();
+
 ```
 
 ### SizeReplaceableByIsEmpty
-`switchElements.size() == 0` can be replaced with 'switchElements.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
+`tryBlock.getExceptionHandlers().size() == 0` can be replaced with 'tryBlock.getExceptionHandlers().isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-                                                                     @Nonnull PackedSwitchPayload instruction) {
-        List<? extends SwitchElement> switchElements = instruction.getSwitchElements();
-        if (switchElements.size() == 0) {
-            return new BuilderPackedSwitchPayload(0, null);
-        }
+                    writer.writeUshort(tbCodeUnitCount);
+
+                    if (tryBlock.getExceptionHandlers().size() == 0) {
+                        throw new ExceptionWithContext("No exception handlers for the try block!");
+                    }
 ```
 
 ### SizeReplaceableByIsEmpty
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/TypeRewriter.java`
+`annotationSetSection.getAnnotations(annotationSetKey).size() > 0` can be replaced with '!annotationSetSection.getAnnotations(annotationSetKey).isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-public class TypeRewriter implements Rewriter<String> {
-    @Nonnull @Override public String rewrite(@Nonnull String value) {
-        if (value.length() > 0 && value.charAt(0) == '[') {
-            int dimensions = 0;
-            while (value.charAt(dimensions) == '[') {
+                        writer.writeInt(parameterAnnotations.size());
+                        for (AnnotationSetKey annotationSetKey: parameterAnnotations) {
+                            if (annotationSetSection.getAnnotations(annotationSetKey).size() > 0) {
+                                writer.writeInt(annotationSetSection.getItemOffset(annotationSetKey));
+                            } else if (shouldCreateEmptyAnnotationSet()) {
+```
+
+### SizeReplaceableByIsEmpty
+`staticFields.size() > 0` can be replaced with '!staticFields.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+        Collection<? extends MethodKey> directMethods = classSection.getSortedDirectMethods(key);
+        Collection<? extends MethodKey> virtualMethods = classSection.getSortedVirtualMethods(key);
+        boolean classHasData = staticFields.size() > 0 ||
+                instanceFields.size() > 0 ||
+                directMethods.size() > 0 ||
+```
+
+### SizeReplaceableByIsEmpty
+`instanceFields.size() > 0` can be replaced with '!instanceFields.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+        Collection<? extends MethodKey> virtualMethods = classSection.getSortedVirtualMethods(key);
+        boolean classHasData = staticFields.size() > 0 ||
+                instanceFields.size() > 0 ||
+                directMethods.size() > 0 ||
+                virtualMethods.size() > 0;
+```
+
+### SizeReplaceableByIsEmpty
+`directMethods.size() > 0` can be replaced with '!directMethods.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+        boolean classHasData = staticFields.size() > 0 ||
+                instanceFields.size() > 0 ||
+                directMethods.size() > 0 ||
+                virtualMethods.size() > 0;
+
+```
+
+### SizeReplaceableByIsEmpty
+`virtualMethods.size() > 0` can be replaced with '!virtualMethods.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+                instanceFields.size() > 0 ||
+                directMethods.size() > 0 ||
+                virtualMethods.size() > 0;
+
+        if (classHasData) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1885,123 +1933,63 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`staticFields.size() > 0` can be replaced with '!staticFields.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+`switchElements.size() == 0` can be replaced with 'switchElements.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
 #### Snippet
 ```java
-        Collection<? extends MethodKey> directMethods = classSection.getSortedDirectMethods(key);
-        Collection<? extends MethodKey> virtualMethods = classSection.getSortedVirtualMethods(key);
-        boolean classHasData = staticFields.size() > 0 ||
-                instanceFields.size() > 0 ||
-                directMethods.size() > 0 ||
+                                                                     @Nonnull SparseSwitchPayload instruction) {
+        List<? extends SwitchElement> switchElements = instruction.getSwitchElements();
+        if (switchElements.size() == 0) {
+            return new BuilderSparseSwitchPayload(null);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
-`instanceFields.size() > 0` can be replaced with '!instanceFields.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+`switchElements.size() == 0` can be replaced with 'switchElements.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
 #### Snippet
 ```java
-        Collection<? extends MethodKey> virtualMethods = classSection.getSortedVirtualMethods(key);
-        boolean classHasData = staticFields.size() > 0 ||
-                instanceFields.size() > 0 ||
-                directMethods.size() > 0 ||
-                virtualMethods.size() > 0;
+                                                                     @Nonnull PackedSwitchPayload instruction) {
+        List<? extends SwitchElement> switchElements = instruction.getSwitchElements();
+        if (switchElements.size() == 0) {
+            return new BuilderPackedSwitchPayload(0, null);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
-`directMethods.size() > 0` can be replaced with '!directMethods.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+`value.length() > 0` can be replaced with '!value.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/TypeRewriter.java`
 #### Snippet
 ```java
-        boolean classHasData = staticFields.size() > 0 ||
-                instanceFields.size() > 0 ||
-                directMethods.size() > 0 ||
-                virtualMethods.size() > 0;
-
+public class TypeRewriter implements Rewriter<String> {
+    @Nonnull @Override public String rewrite(@Nonnull String value) {
+        if (value.length() > 0 && value.charAt(0) == '[') {
+            int dimensions = 0;
+            while (value.charAt(dimensions) == '[') {
 ```
 
 ### SizeReplaceableByIsEmpty
-`virtualMethods.size() > 0` can be replaced with '!virtualMethods.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+`unresolvedInterfaces.size() > 0` can be replaced with '!unresolvedInterfaces.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
-                instanceFields.size() > 0 ||
-                directMethods.size() > 0 ||
-                virtualMethods.size() > 0;
+                    }
 
-        if (classHasData) {
-```
-
-### SizeReplaceableByIsEmpty
-`annotationSetSection.getAnnotations(annotationSetKey).size() > 0` can be replaced with '!annotationSetSection.getAnnotations(annotationSetKey).isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-                        writer.writeInt(parameterAnnotations.size());
-                        for (AnnotationSetKey annotationSetKey: parameterAnnotations) {
-                            if (annotationSetSection.getAnnotations(annotationSetKey).size() > 0) {
-                                writer.writeInt(annotationSetSection.getItemOffset(annotationSetKey));
-                            } else if (shouldCreateEmptyAnnotationSet()) {
-```
-
-### SizeReplaceableByIsEmpty
-`tryBlocks.size() > 0` can be replaced with '!tryBlocks.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-            }
-
-            if (tryBlocks.size() > 0) {
-                writer.align();
-
-```
-
-### SizeReplaceableByIsEmpty
-`tryBlock.getExceptionHandlers().size() == 0` can be replaced with 'tryBlock.getExceptionHandlers().isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-                    writer.writeUshort(tbCodeUnitCount);
-
-                    if (tryBlock.getExceptionHandlers().size() == 0) {
-                        throw new ExceptionWithContext("No exception handlers for the try block!");
+                    if (unresolvedInterfaces.size() > 0) {
+                        ClassProto.this.unresolvedInterfaces = unresolvedInterfaces;
                     }
 ```
 
 ### SizeReplaceableByIsEmpty
-`elements.size() == 0` can be replaced with 'elements.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+`unresolvedInterfaces.size() > 0` can be replaced with '!unresolvedInterfaces.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
-            List<? extends SwitchElement> elements = instruction.getSwitchElements();
-            writer.writeUshort(elements.size());
-            if (elements.size() == 0) {
-                writer.writeInt(0);
-            } else {
-```
+                    }
 
-### SizeReplaceableByIsEmpty
-`elements.size() > 0` can be replaced with '!elements.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem.java`
-#### Snippet
-```java
-            out.indent();
-            out.annotate(2, "size = %d", elements.size());
-            if (elements.size() > 0) {
-                out.annotate(0, "keys:");
-                out.indent();
-```
-
-### SizeReplaceableByIsEmpty
-`elements.size() == 0` can be replaced with 'elements.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem.java`
-#### Snippet
-```java
-
-            out.annotate(2, "size = %d", elements.size());
-            if (elements.size() == 0) {
-                out.annotate(4, "first_key");
-            } else {
+                    if (unresolvedInterfaces.size() > 0) {
+                        ClassProto.this.unresolvedInterfaces = unresolvedInterfaces;
+                    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2029,27 +2017,39 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem
 ```
 
 ### SizeReplaceableByIsEmpty
-`unresolvedInterfaces.size() > 0` can be replaced with '!unresolvedInterfaces.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+`elements.size() == 0` can be replaced with 'elements.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem.java`
 #### Snippet
 ```java
-                    }
 
-                    if (unresolvedInterfaces.size() > 0) {
-                        ClassProto.this.unresolvedInterfaces = unresolvedInterfaces;
-                    }
+            out.annotate(2, "size = %d", elements.size());
+            if (elements.size() == 0) {
+                out.annotate(4, "first_key");
+            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
-`unresolvedInterfaces.size() > 0` can be replaced with '!unresolvedInterfaces.isEmpty()'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+`elements.size() > 0` can be replaced with '!elements.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem.java`
 #### Snippet
 ```java
-                    }
+            out.indent();
+            out.annotate(2, "size = %d", elements.size());
+            if (elements.size() > 0) {
+                out.annotate(0, "keys:");
+                out.indent();
+```
 
-                    if (unresolvedInterfaces.size() > 0) {
-                        ClassProto.this.unresolvedInterfaces = unresolvedInterfaces;
-                    }
+### SizeReplaceableByIsEmpty
+`elements.size() == 0` can be replaced with 'elements.isEmpty()'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+            List<? extends SwitchElement> elements = instruction.getSwitchElements();
+            writer.writeUshort(elements.size());
+            if (elements.size() == 0) {
+                writer.writeInt(0);
+            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2077,6 +2077,18 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.ja
 ```
 
 ### SizeReplaceableByIsEmpty
+`values.size() == 0` can be replaced with 'values.isEmpty()'
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
+#### Snippet
+```java
+        writer.write('{');
+        Collection<? extends EncodedValue> values = array.getValue();
+        if (values.size() == 0) {
+            writer.write('}');
+            return;
+```
+
+### SizeReplaceableByIsEmpty
 `sb.length() != 0` can be replaced with '!sb.isEmpty()'
 in `third_party/util/src/main/java/com/android/tools/smali/util/PathUtil.java`
 #### Snippet
@@ -2101,39 +2113,15 @@ in `third_party/util/src/main/java/com/android/tools/smali/util/PathUtil.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`values.size() == 0` can be replaced with 'values.isEmpty()'
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
+`annotations.size() > 0` can be replaced with '!annotations.isEmpty()'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/FieldDefinition.java`
 #### Snippet
 ```java
-        writer.write('{');
-        Collection<? extends EncodedValue> values = array.getValue();
-        if (values.size() == 0) {
-            writer.write('}');
-            return;
-```
 
-### SizeReplaceableByIsEmpty
-`byteLiteral.length() == 0` can be replaced with 'byteLiteral.isEmpty()'
-in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
-#### Snippet
-```java
-            throw new NumberFormatException("string is null");
-        }
-        if (byteLiteral.length() == 0) {
-            throw new NumberFormatException("string is blank");
-        }
-```
+        Collection<? extends Annotation> annotations = field.getAnnotations();
+        if (annotations.size() > 0) {
+            writer.indent(4);
 
-### SizeReplaceableByIsEmpty
-`shortLiteral.length() == 0` can be replaced with 'shortLiteral.isEmpty()'
-in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
-#### Snippet
-```java
-            throw new NumberFormatException("string is null");
-        }
-        if (shortLiteral.length() == 0) {
-            throw new NumberFormatException("string is blank");
-        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2144,6 +2132,18 @@ in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.j
             throw new NumberFormatException("string is null");
         }
         if (longLiteral.length() == 0) {
+            throw new NumberFormatException("string is blank");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`byteLiteral.length() == 0` can be replaced with 'byteLiteral.isEmpty()'
+in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
+#### Snippet
+```java
+            throw new NumberFormatException("string is null");
+        }
+        if (byteLiteral.length() == 0) {
             throw new NumberFormatException("string is blank");
         }
 ```
@@ -2161,15 +2161,15 @@ in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.j
 ```
 
 ### SizeReplaceableByIsEmpty
-`annotations.size() > 0` can be replaced with '!annotations.isEmpty()'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/FieldDefinition.java`
+`shortLiteral.length() == 0` can be replaced with 'shortLiteral.isEmpty()'
+in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
 #### Snippet
 ```java
-
-        Collection<? extends Annotation> annotations = field.getAnnotations();
-        if (annotations.size() > 0) {
-            writer.indent(4);
-
+            throw new NumberFormatException("string is null");
+        }
+        if (shortLiteral.length() == 0) {
+            throw new NumberFormatException("string is blank");
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2197,6 +2197,18 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
 ```
 
 ### SizeReplaceableByIsEmpty
+`tryBlocks.size() == 0` can be replaced with 'tryBlocks.isEmpty()'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+    private void addTries(List<MethodItem> methodItems) {
+        List<? extends TryBlock<? extends ExceptionHandler>> tryBlocks = methodImpl.getTryBlocks();
+        if (tryBlocks.size() == 0) {
+            return;
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `annotations.size() != 0` can be replaced with '!annotations.isEmpty()'
 in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
@@ -2218,18 +2230,6 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
                 if (annotations.size() > 0) {
                     writer.indent(4);
                     AnnotationFormatter.writeTo(writer, annotations);
-```
-
-### SizeReplaceableByIsEmpty
-`tryBlocks.size() == 0` can be replaced with 'tryBlocks.isEmpty()'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-    private void addTries(List<MethodItem> methodItems) {
-        List<? extends TryBlock<? extends ExceptionHandler>> tryBlocks = methodImpl.getTryBlocks();
-        if (tryBlocks.size() == 0) {
-            return;
-        }
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -2271,6 +2271,18 @@ in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `value > 0xFF | value < -0x80`
+in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
+#### Snippet
+```java
+
+    public static void checkByte(long value) {
+        if (value > 0xFF | value < -0x80) {
+            throw new NumberFormatException(Long.toString(value) + " cannot fit into a byte");
+        }
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `value > 0x0F | value < -0x08`
 in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
 #### Snippet
@@ -2294,18 +2306,6 @@ in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.j
         }
 ```
 
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `value > 0xFF | value < -0x80`
-in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
-#### Snippet
-```java
-
-    public static void checkByte(long value) {
-        if (value > 0xFF | value < -0x80) {
-            throw new NumberFormatException(Long.toString(value) + " cannot fit into a byte");
-        }
-```
-
 ## RuleId[ruleID=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.min()' call
@@ -2316,91 +2316,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/util/WrappedIndentingWriter.ja
         }
         if (currentIndent > maxIndent) {
             return maxIndent;
-        }
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `NibbleUtils` has no concrete subclass
-in `dexlib2/src/main/java/com/android/tools/smali/util/NibbleUtils.java`
-#### Snippet
-```java
-package com.android.tools.smali.util;
-
-public abstract class NibbleUtils {
-    /**
-     * Extracts the high signed 4-bit nibble from the least significant
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AlignmentUtils` has no concrete subclass
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/AlignmentUtils.java`
-#### Snippet
-```java
-package com.android.tools.smali.dexlib2.util;
-
-public abstract class AlignmentUtils {
-    public static int alignOffset(int offset, int alignment) {
-        int mask = alignment - 1;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BuilderEncodedValues` has no concrete subclass
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-import java.util.Set;
-
-public abstract class BuilderEncodedValues {
-    public static interface BuilderEncodedValue extends EncodedValue {
-    }
-```
-
-### AbstractClassNeverImplemented
-Abstract class `VariableSizeCollection` has no concrete subclass
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeCollection.java`
-#### Snippet
-```java
-import java.util.AbstractCollection;
-
-public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
-    @Nonnull private final DexBuffer buffer;
-    private final int offset;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DexBackedReference` has no concrete subclass
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedReference.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-public abstract class DexBackedReference {
-    public static Reference makeReference(@Nonnull DexBackedDexFile dexFile, int referenceType, int referenceIndex) {
-        switch (referenceType) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DexBackedEncodedValue` has no concrete subclass
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedEncodedValue.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-public abstract class DexBackedEncodedValue {
-    @Nonnull
-    public static EncodedValue readFrom(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ANTLRLexerWithErrorInterface` has no concrete subclass
-in `third_party/smali/src/main/java/com/android/tools/smali/smali/LexerErrorInterface.java`
-#### Snippet
-```java
-    //ANTLR doesn't provide any way to add interfaces to the lexer class directly, so this is an intermediate
-    //class that implements LexerErrorInterface that we can have the ANTLR parser extend 
-    public abstract static class ANTLRLexerWithErrorInterface extends Lexer implements LexerErrorInterface {
-        public ANTLRLexerWithErrorInterface() {
         }
 ```
 
@@ -2622,6 +2537,42 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassPath.jav
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Method`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+    }
+
+    private int findMethodIndexInVtable(@Nonnull List<Method> vtable, MethodReference method) {
+        for (int i=0; i<vtable.size(); i++) {
+            Method candidate = vtable.get(i);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Method`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+    }
+
+    private int findMethodIndexInVtableReverse(@Nonnull List<Method> vtable, MethodReference method) {
+        for (int i=vtable.size() - 1; i>=0; i--) {
+            Method candidate = vtable.get(i);
+```
+
+### BoundedWildcard
+Can generalize to `? super FieldGap`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+                }
+
+                private void addFieldGap(int gapStart, int gapEnd, @Nonnull PriorityQueue<FieldGap> gaps) {
+                    int offset = gapStart;
+
+```
+
+### BoundedWildcard
 Can generalize to `? super StringRef`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
 #### Snippet
@@ -2706,39 +2657,27 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWrit
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Method`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+Can generalize to `? super MethodItem`
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
     }
 
-    private int findMethodIndexInVtableReverse(@Nonnull List<Method> vtable, MethodReference method) {
-        for (int i=vtable.size() - 1; i>=0; i--) {
-            Method candidate = vtable.get(i);
+    private void addAnalyzedInstructionMethodItems(List<MethodItem> methodItems) {
+        MethodAnalyzer methodAnalyzer = new MethodAnalyzer(classDef.options.classPath, method,
+                classDef.options.inlineResolver, classDef.options.normalizeVirtualMethods);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super FieldGap`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-                }
-
-                private void addFieldGap(int gapStart, int gapEnd, @Nonnull PriorityQueue<FieldGap> gaps) {
-                    int offset = gapStart;
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Method`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+Can generalize to `? super MethodItem`
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
     }
 
-    private int findMethodIndexInVtable(@Nonnull List<Method> vtable, MethodReference method) {
-        for (int i=0; i<vtable.size(); i++) {
-            Method candidate = vtable.get(i);
+    private void addTries(List<MethodItem> methodItems) {
+        List<? extends TryBlock<? extends ExceptionHandler>> tryBlocks = methodImpl.getTryBlocks();
+        if (tryBlocks.size() == 0) {
 ```
 
 ### BoundedWildcard
@@ -2760,33 +2699,94 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
 ```java
     }
 
-    private void addAnalyzedInstructionMethodItems(List<MethodItem> methodItems) {
-        MethodAnalyzer methodAnalyzer = new MethodAnalyzer(classDef.options.classPath, method,
-                classDef.options.inlineResolver, classDef.options.normalizeVirtualMethods);
-```
-
-### BoundedWildcard
-Can generalize to `? super MethodItem`
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-    }
-
     private void addDebugInfo(final List<MethodItem> methodItems) {
         for (DebugItem debugItem: methodImpl.getDebugItems()) {
             methodItems.add(DebugMethodItem.build(classDef, registerFormatter, debugItem));
 ```
 
-### BoundedWildcard
-Can generalize to `? super MethodItem`
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `NibbleUtils` has no concrete subclass
+in `dexlib2/src/main/java/com/android/tools/smali/util/NibbleUtils.java`
 #### Snippet
 ```java
-    }
+package com.android.tools.smali.util;
 
-    private void addTries(List<MethodItem> methodItems) {
-        List<? extends TryBlock<? extends ExceptionHandler>> tryBlocks = methodImpl.getTryBlocks();
-        if (tryBlocks.size() == 0) {
+public abstract class NibbleUtils {
+    /**
+     * Extracts the high signed 4-bit nibble from the least significant
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AlignmentUtils` has no concrete subclass
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/AlignmentUtils.java`
+#### Snippet
+```java
+package com.android.tools.smali.dexlib2.util;
+
+public abstract class AlignmentUtils {
+    public static int alignOffset(int offset, int alignment) {
+        int mask = alignment - 1;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BuilderEncodedValues` has no concrete subclass
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+import java.util.Set;
+
+public abstract class BuilderEncodedValues {
+    public static interface BuilderEncodedValue extends EncodedValue {
+    }
+```
+
+### AbstractClassNeverImplemented
+Abstract class `VariableSizeCollection` has no concrete subclass
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeCollection.java`
+#### Snippet
+```java
+import java.util.AbstractCollection;
+
+public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
+    @Nonnull private final DexBuffer buffer;
+    private final int offset;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DexBackedReference` has no concrete subclass
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedReference.java`
+#### Snippet
+```java
+import javax.annotation.Nonnull;
+
+public abstract class DexBackedReference {
+    public static Reference makeReference(@Nonnull DexBackedDexFile dexFile, int referenceType, int referenceIndex) {
+        switch (referenceType) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DexBackedEncodedValue` has no concrete subclass
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedEncodedValue.java`
+#### Snippet
+```java
+import javax.annotation.Nonnull;
+
+public abstract class DexBackedEncodedValue {
+    @Nonnull
+    public static EncodedValue readFrom(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ANTLRLexerWithErrorInterface` has no concrete subclass
+in `third_party/smali/src/main/java/com/android/tools/smali/smali/LexerErrorInterface.java`
+#### Snippet
+```java
+    //ANTLR doesn't provide any way to add interfaces to the lexer class directly, so this is an intermediate
+    //class that implements LexerErrorInterface that we can have the ANTLR parser extend 
+    public abstract static class ANTLRLexerWithErrorInterface extends Lexer implements LexerErrorInterface {
+        public ANTLRLexerWithErrorInterface() {
+        }
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -2821,9 +2821,9 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedDex
 ```java
     }
 
-    public static abstract class OptionalIndexedSection<T> extends IndexedSection<T> {
+    public static abstract class IndexedSection<T> extends AbstractList<T> {
         /**
-         * @param index The index of the item, or -1 for a null item.
+         * @param index The index of the item to get the offset for.
 ```
 
 ### MissortedModifiers
@@ -2833,9 +2833,9 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedDex
 ```java
     }
 
-    public static abstract class IndexedSection<T> extends AbstractList<T> {
+    public static abstract class OptionalIndexedSection<T> extends IndexedSection<T> {
         /**
-         * @param index The index of the item to get the offset for.
+         * @param index The index of the item, or -1 for a null item.
 ```
 
 ### MissortedModifiers
@@ -2888,18 +2888,6 @@ in `smali/src/main/java/com/android/tools/smali/smali/SmaliMethodParameter.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `smali/src/main/java/com/android/tools/smali/smali/SmaliMethodParameter.java`
-#### Snippet
-```java
-public class SmaliMethodParameter extends BaseMethodParameter implements WithRegister {
-    public final int register;
-    @Nonnull public final String type;
-    @Nonnull public Set<? extends Annotation> annotations;
-    @Nullable public String name;
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `smali/src/main/java/com/android/tools/smali/smali/SmaliMethodParameter.java`
 #### Snippet
@@ -2913,14 +2901,14 @@ in `smali/src/main/java/com/android/tools/smali/smali/SmaliMethodParameter.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `util/src/main/java/com/android/tools/smali/util/jcommander/Command.java`
+in `smali/src/main/java/com/android/tools/smali/smali/SmaliMethodParameter.java`
 #### Snippet
 ```java
-public abstract class Command {
-
-    @Nonnull
-    protected final List<JCommander> commandAncestors;
-
+public class SmaliMethodParameter extends BaseMethodParameter implements WithRegister {
+    public final int register;
+    @Nonnull public final String type;
+    @Nonnull public Set<? extends Annotation> annotations;
+    @Nullable public String name;
 ```
 
 ### NullableProblems
@@ -2936,15 +2924,15 @@ public class RandomAccessFileOutputStream extends OutputStream {
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/util/AbstractForwardSequentialList.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `util/src/main/java/com/android/tools/smali/util/jcommander/Command.java`
 #### Snippet
 ```java
-        return new AbstractListIterator<T>() {
-            private int index = initialIndex - 1;
-            @Nullable private Iterator<T> forwardIterator = initialIterator;
+public abstract class Command {
 
-            @Nonnull
+    @Nonnull
+    protected final List<JCommander> commandAncestors;
+
 ```
 
 ### NullableProblems
@@ -2972,6 +2960,18 @@ public class ArraySortedSet<T> implements SortedSet<T> {
 ```
 
 ### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/util/AbstractForwardSequentialList.java`
+#### Snippet
+```java
+        return new AbstractListIterator<T>() {
+            private int index = initialIndex - 1;
+            @Nullable private Iterator<T> forwardIterator = initialIterator;
+
+            @Nonnull
+```
+
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/util/RandomAccessFileInputStream.java`
 #### Snippet
@@ -2988,11 +2988,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcodes.java`
 #### Snippet
 ```java
-    public final int api;
-    public final int artVersion;
     @Nonnull private final Opcode[] opcodesByValue = new Opcode[256];
     @Nonnull private final EnumMap<Opcode, Short> opcodeValues;
     @Nonnull private final HashMap<String, Opcode> opcodesByName;
+
+    @Nonnull
 ```
 
 ### NullableProblems
@@ -3000,11 +3000,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcodes.java`
 #### Snippet
 ```java
+    public final int api;
+    public final int artVersion;
     @Nonnull private final Opcode[] opcodesByValue = new Opcode[256];
     @Nonnull private final EnumMap<Opcode, Short> opcodeValues;
     @Nonnull private final HashMap<String, Opcode> opcodesByName;
-
-    @Nonnull
 ```
 
 ### NullableProblems
@@ -3056,6 +3056,18 @@ public class InstructionOffsetMap {
 ```
 
 ### NullableProblems
+Overridden methods are not annotated
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/iface/MultiDexContainer.java`
+#### Snippet
+```java
+         * @return The dex file associated with this entry
+         */
+        @Nonnull T getDexFile();
+
+        /**
+```
+
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorResolver.java`
 #### Snippet
@@ -3068,15 +3080,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessor
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/iface/MultiDexContainer.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/AnnotatedBytes.java`
 #### Snippet
 ```java
-         * @return The dex file associated with this entry
-         */
-        @Nonnull T getDexFile();
-
-        /**
+    private static class AnnotationEndpoint {
+        /** Annotations that are associated with a specific point between bytes */
+        @Nonnull
+        public final List<AnnotationItem> pointAnnotations = Lists.newArrayList();
+        /** Annotations that are associated with a range of bytes */
 ```
 
 ### NullableProblems
@@ -3101,18 +3113,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/AnnotatedBytes.ja
     @Nonnull private TreeMap<Integer, AnnotationEndpoint> annotatations = Maps.newTreeMap();
 
     private int cursor;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/AnnotatedBytes.java`
-#### Snippet
-```java
-    private static class AnnotationEndpoint {
-        /** Annotations that are associated with a specific point between bytes */
-        @Nonnull
-        public final List<AnnotationItem> pointAnnotations = Lists.newArrayList();
-        /** Annotations that are associated with a range of bytes */
 ```
 
 ### NullableProblems
@@ -3180,6 +3180,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DebugWriter.java`
 #### Snippet
 ```java
+
+public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSequence> {
+    @Nonnull private final StringSection<StringKey, ?> stringSection;
+    @Nonnull private final TypeSection<StringKey, TypeKey, ?> typeSection;
+    @Nonnull private final DexDataWriter writer;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DebugWriter.java`
+#### Snippet
+```java
 public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSequence> {
     @Nonnull private final StringSection<StringKey, ?> stringSection;
     @Nonnull private final TypeSection<StringKey, TypeKey, ?> typeSection;
@@ -3201,14 +3213,14 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DebugWriter.jav
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DebugWriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/io/FileDeferredOutputStream.java`
 #### Snippet
 ```java
 
-public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSequence> {
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<StringKey, TypeKey, ?> typeSection;
-    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final File backingFile;
+    @Nonnull private final NakedBufferedOutputStream output;
+    private int writtenBytes;
+
 ```
 
 ### NullableProblems
@@ -3225,13 +3237,13 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/io/FileDeferred
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/io/FileDeferredOutputStream.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/BasePool.java`
 #### Snippet
 ```java
-
-    @Nonnull private final File backingFile;
-    @Nonnull private final NakedBufferedOutputStream output;
-    private int writtenBytes;
+public class BasePool<Key, Value> implements Markable {
+    @Nonnull protected final DexPool dexPool;
+    @Nonnull protected final Map<Key, Value> internedItems = Maps.newLinkedHashMap();
+    private int markedItemCount = -1;
 
 ```
 
@@ -3245,54 +3257,6 @@ public class BasePool<Key, Value> implements Markable {
     @Nonnull protected final DexPool dexPool;
     @Nonnull protected final Map<Key, Value> internedItems = Maps.newLinkedHashMap();
     private int markedItemCount = -1;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/BasePool.java`
-#### Snippet
-```java
-public class BasePool<Key, Value> implements Markable {
-    @Nonnull protected final DexPool dexPool;
-    @Nonnull protected final Map<Key, Value> internedItems = Maps.newLinkedHashMap();
-    private int markedItemCount = -1;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
-#### Snippet
-```java
-
-    private static class VersionConstraint {
-        @Nonnull public final Range<Integer> apiRange;
-        @Nonnull public final Range<Integer> artVersionRange;
-        public final int opcodeValue;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
-#### Snippet
-```java
-    private static class VersionConstraint {
-        @Nonnull public final Range<Integer> apiRange;
-        @Nonnull public final Range<Integer> artVersionRange;
-        public final int opcodeValue;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/TypeListPool.java`
-#### Snippet
-```java
-    public static class Key<TypeCollection extends Collection<? extends CharSequence>>
-            implements Comparable<Key<? extends Collection<? extends CharSequence>>> {
-        @Nonnull TypeCollection types;
-
-        public Key(@Nonnull TypeCollection types) {
 ```
 
 ### NullableProblems
@@ -3300,11 +3264,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassDef.java`
 #### Snippet
 ```java
+    @Nonnull final ClassDef classDef;
+    @Nonnull final TypeListPool.Key<List<String>> interfaces;
     @Nonnull final ImmutableSortedSet<Field> staticFields;
     @Nonnull final ImmutableSortedSet<Field> instanceFields;
     @Nonnull final ImmutableSortedSet<PoolMethod> directMethods;
-    @Nonnull final ImmutableSortedSet<PoolMethod> virtualMethods;
-
 ```
 
 ### NullableProblems
@@ -3317,6 +3281,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassD
     @Nonnull final ImmutableSortedSet<Field> instanceFields;
     @Nonnull final ImmutableSortedSet<PoolMethod> directMethods;
     @Nonnull final ImmutableSortedSet<PoolMethod> virtualMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassDef.java`
+#### Snippet
+```java
+    @Nonnull final ImmutableSortedSet<Field> staticFields;
+    @Nonnull final ImmutableSortedSet<Field> instanceFields;
+    @Nonnull final ImmutableSortedSet<PoolMethod> directMethods;
+    @Nonnull final ImmutableSortedSet<PoolMethod> virtualMethods;
+
 ```
 
 ### NullableProblems
@@ -3336,11 +3312,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassDef.java`
 #### Snippet
 ```java
+
+class PoolClassDef extends BaseTypeReference implements ClassDef {
     @Nonnull final ClassDef classDef;
     @Nonnull final TypeListPool.Key<List<String>> interfaces;
     @Nonnull final ImmutableSortedSet<Field> staticFields;
-    @Nonnull final ImmutableSortedSet<Field> instanceFields;
-    @Nonnull final ImmutableSortedSet<PoolMethod> directMethods;
 ```
 
 ### NullableProblems
@@ -3357,50 +3333,14 @@ class PoolClassDef extends BaseTypeReference implements ClassDef {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassDef.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/TypeListPool.java`
 #### Snippet
 ```java
+    public static class Key<TypeCollection extends Collection<? extends CharSequence>>
+            implements Comparable<Key<? extends Collection<? extends CharSequence>>> {
+        @Nonnull TypeCollection types;
 
-class PoolClassDef extends BaseTypeReference implements ClassDef {
-    @Nonnull final ClassDef classDef;
-    @Nonnull final TypeListPool.Key<List<String>> interfaces;
-    @Nonnull final ImmutableSortedSet<Field> staticFields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-        ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-        MethodRefKey extends MethodReference, AnnotationElement extends com.android.tools.smali.dexlib2.iface.AnnotationElement,
-        ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
-
+        public Key(@Nonnull TypeCollection types) {
 ```
 
 ### NullableProblems
@@ -3420,11 +3360,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/EncodedValueWriter.java`
 #### Snippet
 ```java
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
+        MethodRefKey extends MethodReference, AnnotationElement extends com.android.tools.smali.dexlib2.iface.AnnotationElement,
+        ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<StringKey, ?> stringSection;
+    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
 ```
 
 ### NullableProblems
@@ -3456,11 +3396,47 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/EncodedValueWriter.java`
 #### Snippet
 ```java
+        ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<StringKey, ?> stringSection;
+    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
     @Nonnull private final StringSection<StringKey, ?> stringSection;
     @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
     @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
     @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
     @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
+
 ```
 
 ### NullableProblems
@@ -3525,54 +3501,6 @@ class BuilderAnnotationPool extends BaseBuilderPool implements AnnotationSection
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderStringPool.java`
-#### Snippet
-```java
-
-class BuilderStringPool implements StringSection<BuilderStringReference, BuilderStringReference> {
-    @Nonnull private final ConcurrentMap<String, BuilderStringReference> internedItems = Maps.newConcurrentMap();
-
-    @Nonnull BuilderStringReference internString(@Nonnull String string) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderFieldPool.java`
-#### Snippet
-```java
-        implements
-    FieldSection<BuilderStringReference, BuilderTypeReference, BuilderFieldReference, BuilderField> {
-    @Nonnull private final ConcurrentMap<FieldReference, BuilderFieldReference> internedItems =
-            Maps.newConcurrentMap();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderAnnotationElement.java`
-#### Snippet
-```java
-
-public class BuilderAnnotationElement extends BaseAnnotationElement {
-    @Nonnull final BuilderStringReference name;
-    @Nonnull final BuilderEncodedValue value;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderAnnotationElement.java`
-#### Snippet
-```java
-public class BuilderAnnotationElement extends BaseAnnotationElement {
-    @Nonnull final BuilderStringReference name;
-    @Nonnull final BuilderEncodedValue value;
-
-    public BuilderAnnotationElement(@Nonnull BuilderStringReference name, @Nonnull BuilderEncodedValue value) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodPool.java`
 #### Snippet
 ```java
@@ -3581,6 +3509,30 @@ class BuilderMethodPool extends BaseBuilderPool implements MethodSection<Builder
     @Nonnull private final ConcurrentMap<MethodReference, BuilderMethodReference> internedItems =
             Maps.newConcurrentMap();
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodPool.java`
+#### Snippet
+```java
+    private static class MethodKey extends BaseMethodReference implements MethodReference {
+        @Nonnull private final String definingClass;
+        @Nonnull private final String name;
+        @Nonnull private final List<? extends CharSequence> parameterTypes;
+        @Nonnull private final String returnType;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodPool.java`
+#### Snippet
+```java
+
+    private static class MethodKey extends BaseMethodReference implements MethodReference {
+        @Nonnull private final String definingClass;
+        @Nonnull private final String name;
+        @Nonnull private final List<? extends CharSequence> parameterTypes;
 ```
 
 ### NullableProblems
@@ -3609,26 +3561,86 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodPool.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderStringPool.java`
 #### Snippet
 ```java
-    private static class MethodKey extends BaseMethodReference implements MethodReference {
-        @Nonnull private final String definingClass;
-        @Nonnull private final String name;
-        @Nonnull private final List<? extends CharSequence> parameterTypes;
-        @Nonnull private final String returnType;
+
+class BuilderStringPool implements StringSection<BuilderStringReference, BuilderStringReference> {
+    @Nonnull private final ConcurrentMap<String, BuilderStringReference> internedItems = Maps.newConcurrentMap();
+
+    @Nonnull BuilderStringReference internString(@Nonnull String string) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodPool.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderFieldPool.java`
+#### Snippet
+```java
+        implements
+    FieldSection<BuilderStringReference, BuilderTypeReference, BuilderFieldReference, BuilderField> {
+    @Nonnull private final ConcurrentMap<FieldReference, BuilderFieldReference> internedItems =
+            Maps.newConcurrentMap();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderAnnotationElement.java`
+#### Snippet
+```java
+public class BuilderAnnotationElement extends BaseAnnotationElement {
+    @Nonnull final BuilderStringReference name;
+    @Nonnull final BuilderEncodedValue value;
+
+    public BuilderAnnotationElement(@Nonnull BuilderStringReference name, @Nonnull BuilderEncodedValue value) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderAnnotationElement.java`
 #### Snippet
 ```java
 
-    private static class MethodKey extends BaseMethodReference implements MethodReference {
-        @Nonnull private final String definingClass;
-        @Nonnull private final String name;
-        @Nonnull private final List<? extends CharSequence> parameterTypes;
+public class BuilderAnnotationElement extends BaseAnnotationElement {
+    @Nonnull final BuilderStringReference name;
+    @Nonnull final BuilderEncodedValue value;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderCallSiteReference.java`
+#### Snippet
+```java
+public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
+    @Nonnull final String name;
+    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
+    int index = DexWriter.NO_INDEX;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderCallSiteReference.java`
+#### Snippet
+```java
+
+public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
+    @Nonnull final String name;
+    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
+    int index = DexWriter.NO_INDEX;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderTypeListPool.java`
+#### Snippet
+```java
+class BuilderTypeListPool extends BaseBuilderPool implements
+    TypeListSection<BuilderTypeReference, BuilderTypeList> {
+    @Nonnull private final ConcurrentMap<List<? extends CharSequence>, BuilderTypeList> internedItems =
+            Maps.newConcurrentMap();
+
 ```
 
 ### NullableProblems
@@ -3660,6 +3672,30 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethod.java`
 #### Snippet
 ```java
+    @Nonnull final List<? extends BuilderMethodParameter> parameters;
+    final int accessFlags;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final Set<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nullable final MethodImplementation methodImplementation;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethod.java`
+#### Snippet
+```java
+    final int accessFlags;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final Set<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nullable final MethodImplementation methodImplementation;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethod.java`
+#### Snippet
+```java
 
 public class BuilderMethod extends BaseMethodReference implements Method {
     @Nonnull final BuilderMethodReference methodReference;
@@ -3669,114 +3705,6 @@ public class BuilderMethod extends BaseMethodReference implements Method {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethod.java`
-#### Snippet
-```java
-    @Nonnull final List<? extends BuilderMethodParameter> parameters;
-    final int accessFlags;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final Set<HiddenApiRestriction> hiddenApiRestrictions;
-    @Nullable final MethodImplementation methodImplementation;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethod.java`
-#### Snippet
-```java
-    final int accessFlags;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final Set<HiddenApiRestriction> hiddenApiRestrictions;
-    @Nullable final MethodImplementation methodImplementation;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodHandleReference.java`
-#### Snippet
-```java
-public class BuilderMethodHandleReference extends BaseMethodHandleReference implements BuilderReference {
-    final int methodHandleType;
-    @Nonnull final BuilderReference memberReference;
-    int index = DexWriter.NO_INDEX;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderTypeListPool.java`
-#### Snippet
-```java
-class BuilderTypeListPool extends BaseBuilderPool implements
-    TypeListSection<BuilderTypeReference, BuilderTypeList> {
-    @Nonnull private final ConcurrentMap<List<? extends CharSequence>, BuilderTypeList> internedItems =
-            Maps.newConcurrentMap();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
-#### Snippet
-```java
-
-    private static class TryBounds<EH extends ExceptionHandler> {
-        @Nonnull public final MutableTryBlock<EH> start;
-        @Nonnull public final MutableTryBlock<EH> end;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
-#### Snippet
-```java
-    private static class TryBounds<EH extends ExceptionHandler> {
-        @Nonnull public final MutableTryBlock<EH> start;
-        @Nonnull public final MutableTryBlock<EH> end;
-
-        public TryBounds(@Nonnull MutableTryBlock<EH> start, @Nonnull MutableTryBlock<EH> end) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
-#### Snippet
-```java
-        return Lists.newArrayList(new Iterator<TryBlock<EH>>() {
-            // The next TryBlock to return. This has already been merged, if needed.
-            @Nullable private MutableTryBlock<EH> next;
-
-            {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
-#### Snippet
-```java
-        public int startCodeAddress;
-        public int endCodeAddress;
-        @Nonnull public List<EH> exceptionHandlers = Lists.newArrayList();
-
-        public MutableTryBlock(int startCodeAddress, int endCodeAddress) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderFieldReference.java`
-#### Snippet
-```java
-    @Nonnull final BuilderTypeReference definingClass;
-    @Nonnull final BuilderStringReference name;
-    @Nonnull final BuilderTypeReference fieldType;
-    int index = DexWriter.NO_INDEX;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderFieldReference.java`
 #### Snippet
 ```java
@@ -3797,6 +3725,18 @@ public class BuilderFieldReference extends BaseFieldReference implements Builder
     @Nonnull final BuilderStringReference name;
     @Nonnull final BuilderTypeReference fieldType;
     int index = DexWriter.NO_INDEX;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderFieldReference.java`
+#### Snippet
+```java
+    @Nonnull final BuilderTypeReference definingClass;
+    @Nonnull final BuilderStringReference name;
+    @Nonnull final BuilderTypeReference fieldType;
+    int index = DexWriter.NO_INDEX;
+
 ```
 
 ### NullableProblems
@@ -3813,26 +3753,26 @@ public class BuilderTypeReference extends BaseTypeReference implements BuilderRe
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderCallSiteReference.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 #### Snippet
 ```java
-public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
-    @Nonnull final String name;
-    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
-    int index = DexWriter.NO_INDEX;
+    private static class VersionConstraint {
+        @Nonnull public final Range<Integer> apiRange;
+        @Nonnull public final Range<Integer> artVersionRange;
+        public final int opcodeValue;
 
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderCallSiteReference.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 #### Snippet
 ```java
 
-public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
-    @Nonnull final String name;
-    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
-    int index = DexWriter.NO_INDEX;
+    private static class VersionConstraint {
+        @Nonnull public final Range<Integer> apiRange;
+        @Nonnull public final Range<Integer> artVersionRange;
+        public final int opcodeValue;
 ```
 
 ### NullableProblems
@@ -3861,6 +3801,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodHandleReference.java`
+#### Snippet
+```java
+public class BuilderMethodHandleReference extends BaseMethodHandleReference implements BuilderReference {
+    final int methodHandleType;
+    @Nonnull final BuilderReference memberReference;
+    int index = DexWriter.NO_INDEX;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderTryBlock.java`
 #### Snippet
 ```java
@@ -3872,27 +3824,51 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderTypePool.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
 #### Snippet
 ```java
-class BuilderTypePool extends BaseBuilderPool
-        implements TypeSection<BuilderStringReference, BuilderTypeReference, BuilderTypeReference> {
-    @Nonnull private final ConcurrentMap<String, BuilderTypeReference> internedItems = Maps.newConcurrentMap();
+        return Lists.newArrayList(new Iterator<TryBlock<EH>>() {
+            // The next TryBlock to return. This has already been merged, if needed.
+            @Nullable private MutableTryBlock<EH> next;
 
-    public BuilderTypePool(@Nonnull DexBuilder dexBuilder) {
+            {
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodParameter.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
 #### Snippet
 ```java
-public class BuilderMethodParameter extends BaseMethodParameter {
-    @Nonnull final BuilderTypeReference type;
-    @Nullable final BuilderStringReference name;
-    @Nonnull final BuilderAnnotationSet annotations;
+    private static class TryBounds<EH extends ExceptionHandler> {
+        @Nonnull public final MutableTryBlock<EH> start;
+        @Nonnull public final MutableTryBlock<EH> end;
 
+        public TryBounds(@Nonnull MutableTryBlock<EH> start, @Nonnull MutableTryBlock<EH> end) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
+#### Snippet
+```java
+
+    private static class TryBounds<EH extends ExceptionHandler> {
+        @Nonnull public final MutableTryBlock<EH> start;
+        @Nonnull public final MutableTryBlock<EH> end;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
+#### Snippet
+```java
+        public int startCodeAddress;
+        public int endCodeAddress;
+        @Nonnull public List<EH> exceptionHandlers = Lists.newArrayList();
+
+        public MutableTryBlock(int startCodeAddress, int endCodeAddress) {
 ```
 
 ### NullableProblems
@@ -3905,6 +3881,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
     @Nonnull final BuilderAnnotationSet annotations;
 
     public BuilderMethodParameter(@Nonnull BuilderTypeReference type,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodParameter.java`
+#### Snippet
+```java
+public class BuilderMethodParameter extends BaseMethodParameter {
+    @Nonnull final BuilderTypeReference type;
+    @Nullable final BuilderStringReference name;
+    @Nonnull final BuilderAnnotationSet annotations;
+
 ```
 
 ### NullableProblems
@@ -3929,66 +3917,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
     @Nonnull final Set<BuilderAnnotation> annotations;
     int offset = DexWriter.NO_OFFSET;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderField.java`
-#### Snippet
-```java
-    @Nullable final BuilderEncodedValue initialValue;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
-
-    BuilderField(@Nonnull BuilderFieldReference fieldReference,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderField.java`
-#### Snippet
-```java
-    @Nonnull final BuilderFieldReference fieldReference;
-    final int accessFlags;
-    @Nullable final BuilderEncodedValue initialValue;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderField.java`
-#### Snippet
-```java
-    final int accessFlags;
-    @Nullable final BuilderEncodedValue initialValue;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderField.java`
-#### Snippet
-```java
-
-public class BuilderField extends BaseFieldReference implements Field {
-    @Nonnull final BuilderFieldReference fieldReference;
-    final int accessFlags;
-    @Nullable final BuilderEncodedValue initialValue;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nonnull @Override public Collection<? extends Map.Entry<PoolClassDef, Integer>> getItems() {
-        class MapEntry implements Map.Entry<PoolClassDef, Integer> {
-            @Nonnull private final PoolClassDef classDef;
-
-            public MapEntry(@Nonnull PoolClassDef classDef) {
 ```
 
 ### NullableProblems
@@ -4017,6 +3945,78 @@ class BuilderAnnotationSetPool extends BaseBuilderPool
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    @Nonnull @Override public Collection<? extends Map.Entry<PoolClassDef, Integer>> getItems() {
+        class MapEntry implements Map.Entry<PoolClassDef, Integer> {
+            @Nonnull private final PoolClassDef classDef;
+
+            public MapEntry(@Nonnull PoolClassDef classDef) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderTypePool.java`
+#### Snippet
+```java
+class BuilderTypePool extends BaseBuilderPool
+        implements TypeSection<BuilderStringReference, BuilderTypeReference, BuilderTypeReference> {
+    @Nonnull private final ConcurrentMap<String, BuilderTypeReference> internedItems = Maps.newConcurrentMap();
+
+    public BuilderTypePool(@Nonnull DexBuilder dexBuilder) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderField.java`
+#### Snippet
+```java
+    @Nonnull final BuilderFieldReference fieldReference;
+    final int accessFlags;
+    @Nullable final BuilderEncodedValue initialValue;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderField.java`
+#### Snippet
+```java
+
+public class BuilderField extends BaseFieldReference implements Field {
+    @Nonnull final BuilderFieldReference fieldReference;
+    final int accessFlags;
+    @Nullable final BuilderEncodedValue initialValue;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderField.java`
+#### Snippet
+```java
+    @Nullable final BuilderEncodedValue initialValue;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
+
+    BuilderField(@Nonnull BuilderFieldReference fieldReference,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderField.java`
+#### Snippet
+```java
+    final int accessFlags;
+    @Nullable final BuilderEncodedValue initialValue;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderStringReference.java`
 #### Snippet
 ```java
@@ -4024,6 +4024,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 public class BuilderStringReference extends BaseStringReference implements BuilderReference {
     @Nonnull final String string;
     int index = DexWriter.NO_INDEX;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderCallSitePool.java`
+#### Snippet
+```java
+public class BuilderCallSitePool extends BaseBuilderPool
+        implements CallSiteSection<BuilderCallSiteReference, BuilderArrayEncodedValue> {
+    @Nonnull private final ConcurrentMap<CallSiteReference, BuilderCallSiteReference> internedItems =
+            Maps.newConcurrentMap();
 
 ```
 
@@ -4041,14 +4053,14 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderProtoPool.java`
 #### Snippet
 ```java
-    public static class BuilderEnumEncodedValue extends BaseEnumEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderFieldReference enumReference;
+        implements
+    ProtoSection<BuilderStringReference, BuilderTypeReference, BuilderMethodProtoReference, BuilderTypeList> {
+    @Nonnull private final ConcurrentMap<MethodProtoReference, BuilderMethodProtoReference> internedItems =
+            Maps.newConcurrentMap();
 
-        BuilderEnumEncodedValue(@Nonnull BuilderFieldReference enumReference) {
 ```
 
 ### NullableProblems
@@ -4056,35 +4068,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
 #### Snippet
 ```java
+    public static class BuilderAnnotationEncodedValue extends BaseAnnotationEncodedValue
             implements BuilderEncodedValue {
         @Nonnull final BuilderTypeReference typeReference;
         @Nonnull final Set<? extends BuilderAnnotationElement> elements;
 
-        BuilderAnnotationEncodedValue(@Nonnull BuilderTypeReference typeReference,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderMethodTypeEncodedValue extends BaseMethodTypeEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderMethodProtoReference methodProtoReference;
-
-        public BuilderMethodTypeEncodedValue(@Nonnull BuilderMethodProtoReference methodProtoReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderTypeEncodedValue extends BaseTypeEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderTypeReference typeReference;
-
-        BuilderTypeEncodedValue(@Nonnull BuilderTypeReference typeReference) {
 ```
 
 ### NullableProblems
@@ -4104,11 +4092,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
 #### Snippet
 ```java
-    public static class BuilderFieldEncodedValue extends BaseFieldEncodedValue
+    public static class BuilderEnumEncodedValue extends BaseEnumEncodedValue
             implements BuilderEncodedValue {
-        @Nonnull final BuilderFieldReference fieldReference;
+        @Nonnull final BuilderFieldReference enumReference;
 
-        BuilderFieldEncodedValue(@Nonnull BuilderFieldReference fieldReference) {
+        BuilderEnumEncodedValue(@Nonnull BuilderFieldReference enumReference) {
 ```
 
 ### NullableProblems
@@ -4116,11 +4104,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
 #### Snippet
 ```java
-    public static class BuilderStringEncodedValue extends BaseStringEncodedValue
+    public static class BuilderMethodTypeEncodedValue extends BaseMethodTypeEncodedValue
             implements BuilderEncodedValue {
-        @Nonnull final BuilderStringReference stringReference;
+        @Nonnull final BuilderMethodProtoReference methodProtoReference;
 
-        BuilderStringEncodedValue(@Nonnull BuilderStringReference stringReference) {
+        public BuilderMethodTypeEncodedValue(@Nonnull BuilderMethodProtoReference methodProtoReference) {
 ```
 
 ### NullableProblems
@@ -4140,6 +4128,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
 #### Snippet
 ```java
+    public static class BuilderFieldEncodedValue extends BaseFieldEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderFieldReference fieldReference;
+
+        BuilderFieldEncodedValue(@Nonnull BuilderFieldReference fieldReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
 
     public static class BuilderArrayEncodedValue extends BaseArrayEncodedValue implements BuilderEncodedValue {
         @Nonnull final List<? extends BuilderEncodedValue> elements;
@@ -4152,47 +4152,35 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
 #### Snippet
 ```java
-    public static class BuilderAnnotationEncodedValue extends BaseAnnotationEncodedValue
+    public static class BuilderStringEncodedValue extends BaseStringEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderStringReference stringReference;
+
+        BuilderStringEncodedValue(@Nonnull BuilderStringReference stringReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+    public static class BuilderTypeEncodedValue extends BaseTypeEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderTypeReference typeReference;
+
+        BuilderTypeEncodedValue(@Nonnull BuilderTypeReference typeReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
             implements BuilderEncodedValue {
         @Nonnull final BuilderTypeReference typeReference;
         @Nonnull final Set<? extends BuilderAnnotationElement> elements;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodReference.java`
-#### Snippet
-```java
-public class BuilderMethodReference extends BaseMethodReference implements BuilderReference {
-    @Nonnull final BuilderTypeReference definingClass;
-    @Nonnull final BuilderStringReference name;
-    @Nonnull final BuilderMethodProtoReference proto;
-    int index = DexWriter.NO_INDEX;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodReference.java`
-#### Snippet
-```java
-
-public class BuilderMethodReference extends BaseMethodReference implements BuilderReference {
-    @Nonnull final BuilderTypeReference definingClass;
-    @Nonnull final BuilderStringReference name;
-    @Nonnull final BuilderMethodProtoReference proto;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodReference.java`
-#### Snippet
-```java
-    @Nonnull final BuilderTypeReference definingClass;
-    @Nonnull final BuilderStringReference name;
-    @Nonnull final BuilderMethodProtoReference proto;
-    int index = DexWriter.NO_INDEX;
-
+        BuilderAnnotationEncodedValue(@Nonnull BuilderTypeReference typeReference,
 ```
 
 ### NullableProblems
@@ -4200,11 +4188,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodProtoReference.java`
 #### Snippet
 ```java
-        MethodProtoReference, BuilderReference {
     @Nonnull final BuilderStringReference shorty;
     @Nonnull final BuilderTypeList parameterTypes;
     @Nonnull final BuilderTypeReference returnType;
     int index = DexWriter.NO_INDEX;
+
 ```
 
 ### NullableProblems
@@ -4224,33 +4212,57 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodProtoReference.java`
 #### Snippet
 ```java
+        MethodProtoReference, BuilderReference {
     @Nonnull final BuilderStringReference shorty;
     @Nonnull final BuilderTypeList parameterTypes;
     @Nonnull final BuilderTypeReference returnType;
+    int index = DexWriter.NO_INDEX;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodReference.java`
+#### Snippet
+```java
+public class BuilderMethodReference extends BaseMethodReference implements BuilderReference {
+    @Nonnull final BuilderTypeReference definingClass;
+    @Nonnull final BuilderStringReference name;
+    @Nonnull final BuilderMethodProtoReference proto;
+    int index = DexWriter.NO_INDEX;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodReference.java`
+#### Snippet
+```java
+
+public class BuilderMethodReference extends BaseMethodReference implements BuilderReference {
+    @Nonnull final BuilderTypeReference definingClass;
+    @Nonnull final BuilderStringReference name;
+    @Nonnull final BuilderMethodProtoReference proto;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderMethodReference.java`
+#### Snippet
+```java
+    @Nonnull final BuilderTypeReference definingClass;
+    @Nonnull final BuilderStringReference name;
+    @Nonnull final BuilderMethodProtoReference proto;
     int index = DexWriter.NO_INDEX;
 
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderProtoPool.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedArrayPool.java`
 #### Snippet
 ```java
-        implements
-    ProtoSection<BuilderStringReference, BuilderTypeReference, BuilderMethodProtoReference, BuilderTypeList> {
-    @Nonnull private final ConcurrentMap<MethodProtoReference, BuilderMethodProtoReference> internedItems =
-            Maps.newConcurrentMap();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderCallSitePool.java`
-#### Snippet
-```java
-public class BuilderCallSitePool extends BaseBuilderPool
-        implements CallSiteSection<BuilderCallSiteReference, BuilderArrayEncodedValue> {
-    @Nonnull private final ConcurrentMap<CallSiteReference, BuilderCallSiteReference> internedItems =
+public class BuilderEncodedArrayPool extends BaseBuilderPool implements
+    EncodedArraySection<BuilderArrayEncodedValue, BuilderEncodedValue> {
+    @Nonnull private final ConcurrentMap<ArrayEncodedValue, BuilderArrayEncodedValue> internedItems =
             Maps.newConcurrentMap();
 
 ```
@@ -4268,15 +4280,27 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderEncodedArrayPool.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/ItemWithLocation.java`
 #### Snippet
 ```java
-public class BuilderEncodedArrayPool extends BaseBuilderPool implements
-    EncodedArraySection<BuilderArrayEncodedValue, BuilderEncodedValue> {
-    @Nonnull private final ConcurrentMap<ArrayEncodedValue, BuilderArrayEncodedValue> internedItems =
-            Maps.newConcurrentMap();
 
+public abstract class ItemWithLocation {
+    @Nullable
+    MethodLocation location;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderInstruction.java`
+#### Snippet
+```java
+
+public abstract class BuilderInstruction implements Instruction {
+    @Nonnull protected final Opcode opcode;
+
+    @Nullable MethodLocation location;
 ```
 
 ### NullableProblems
@@ -4293,14 +4317,14 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderInstruc
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderInstruction.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderTryBlock.java`
 #### Snippet
 ```java
-
-public abstract class BuilderInstruction implements Instruction {
-    @Nonnull protected final Opcode opcode;
-
-    @Nullable MethodLocation location;
+public class BuilderTryBlock extends BaseTryBlock<BuilderExceptionHandler> {
+    // We only ever have one exception handler per try block. They are later merged as needed in TryListBuilder
+    @Nonnull public final BuilderExceptionHandler exceptionHandler;
+    @Nonnull public final Label start;
+    // The end location is exclusive, it should point to the codeAddress of the instruction immediately after the last
 ```
 
 ### NullableProblems
@@ -4329,18 +4353,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderTryBloc
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderTryBlock.java`
-#### Snippet
-```java
-public class BuilderTryBlock extends BaseTryBlock<BuilderExceptionHandler> {
-    // We only ever have one exception handler per try block. They are later merged as needed in TryListBuilder
-    @Nonnull public final BuilderExceptionHandler exceptionHandler;
-    @Nonnull public final Label start;
-    // The end location is exclusive, it should point to the codeAddress of the instruction immediately after the last
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/SwitchLabelElement.java`
 #### Snippet
 ```java
@@ -4349,30 +4361,6 @@ public class SwitchLabelElement {
     @Nonnull public final Label target;
 
     public SwitchLabelElement(int key, @Nonnull Label target) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/ItemWithLocation.java`
-#### Snippet
-```java
-
-public abstract class ItemWithLocation {
-    @Nullable
-    MethodLocation location;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderSwitchPayload.java`
-#### Snippet
-```java
-
-public abstract class BuilderSwitchPayload extends BuilderInstruction implements SwitchPayload {
-    @Nullable
-    MethodLocation referrer;
-
 ```
 
 ### NullableProblems
@@ -4389,25 +4377,13 @@ public abstract class BuilderExceptionHandler extends BaseExceptionHandler {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/LocatedItems.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderSwitchPayload.java`
 #### Snippet
 ```java
-    // when building a new dex file, so it's worth the trouble of lazily creating
-    // the labels and debugItems lists only when they are needed
+
+public abstract class BuilderSwitchPayload extends BuilderInstruction implements SwitchPayload {
     @Nullable
-    private List<T> items = null;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/LocatedItems.java`
-#### Snippet
-```java
-
-                return new Iterator<T>() {
-                    private @Nullable
-                    T currentItem = null;
+    MethodLocation referrer;
 
 ```
 
@@ -4424,6 +4400,30 @@ public class MethodLocation {
 ```
 
 ### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/LocatedItems.java`
+#### Snippet
+```java
+
+                return new Iterator<T>() {
+                    private @Nullable
+                    T currentItem = null;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/LocatedItems.java`
+#### Snippet
+```java
+    // when building a new dex file, so it's worth the trouble of lazily creating
+    // the labels and debugItems lists only when they are needed
+    @Nullable
+    private List<T> items = null;
+
+```
+
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MethodImplementationBuilder.java`
 #### Snippet
@@ -4433,126 +4433,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MethodImplemen
     @Nonnull
     private final MutableMethodImplementation impl;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-
-public class BuilderClassDef extends BaseTypeReference implements ClassDef {
-    @Nonnull final BuilderTypeReference type;
-    final int accessFlags;
-    @Nullable final BuilderTypeReference superclass;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final BuilderTypeReference type;
-    final int accessFlags;
-    @Nullable final BuilderTypeReference superclass;
-    @Nonnull final BuilderTypeList interfaces;
-    @Nullable final BuilderStringReference sourceFile;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final SortedSet<BuilderField> instanceFields;
-    @Nonnull final SortedSet<BuilderMethod> directMethods;
-    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
-    @Nullable final BuilderArrayEncodedValue staticInitializers;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nullable final BuilderTypeReference superclass;
-    @Nonnull final BuilderTypeList interfaces;
-    @Nullable final BuilderStringReference sourceFile;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final SortedSet<BuilderField> staticFields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    final int accessFlags;
-    @Nullable final BuilderTypeReference superclass;
-    @Nonnull final BuilderTypeList interfaces;
-    @Nullable final BuilderStringReference sourceFile;
-    @Nonnull final BuilderAnnotationSet annotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final SortedSet<BuilderMethod> directMethods;
-    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
-    @Nullable final BuilderArrayEncodedValue staticInitializers;
-
-    int classDefIndex = DexWriter.NO_INDEX;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final SortedSet<BuilderField> staticFields;
-    @Nonnull final SortedSet<BuilderField> instanceFields;
-    @Nonnull final SortedSet<BuilderMethod> directMethods;
-    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
-    @Nullable final BuilderArrayEncodedValue staticInitializers;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final SortedSet<BuilderField> staticFields;
-    @Nonnull final SortedSet<BuilderField> instanceFields;
-    @Nonnull final SortedSet<BuilderMethod> directMethods;
-    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nullable final BuilderStringReference sourceFile;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final SortedSet<BuilderField> staticFields;
-    @Nonnull final SortedSet<BuilderField> instanceFields;
-    @Nonnull final SortedSet<BuilderMethod> directMethods;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final BuilderTypeList interfaces;
-    @Nullable final BuilderStringReference sourceFile;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final SortedSet<BuilderField> staticFields;
-    @Nonnull final SortedSet<BuilderField> instanceFields;
 ```
 
 ### NullableProblems
@@ -4572,11 +4452,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/debug/BuilderStartLocal.java`
 #### Snippet
 ```java
+public class BuilderStartLocal extends BuilderDebugItem implements StartLocal {
     private final int register;
     @Nullable private final StringReference name;
     @Nullable private final TypeReference type;
     @Nullable private final StringReference signature;
-
 ```
 
 ### NullableProblems
@@ -4584,11 +4464,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/debug/BuilderStartLocal.java`
 #### Snippet
 ```java
-public class BuilderStartLocal extends BuilderDebugItem implements StartLocal {
     private final int register;
     @Nullable private final StringReference name;
     @Nullable private final TypeReference type;
     @Nullable private final StringReference signature;
+
 ```
 
 ### NullableProblems
@@ -4629,26 +4509,14 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/Bu
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderSwitchElement.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderSparseSwitchPayload.java`
 #### Snippet
 ```java
+    public static final Opcode OPCODE = Opcode.SPARSE_SWITCH_PAYLOAD;
 
-public class BuilderSwitchElement implements SwitchElement {
-    @Nonnull
-    BuilderSwitchPayload parent;
-    private final int key;
-```
+    @Nonnull protected final List<BuilderSwitchElement> switchElements;
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassPool.java`
-#### Snippet
-```java
-        BuilderTypeReference, BuilderTypeList, BuilderClassDef, BuilderField, BuilderMethod, BuilderAnnotationSet,
-        BuilderArrayEncodedValue> {
-    @Nonnull private final ConcurrentMap<String, BuilderClassDef> internedItems =
-            Maps.newConcurrentMap();
-
+    public BuilderSparseSwitchPayload(@Nullable List<? extends SwitchLabelElement> switchElements) {
 ```
 
 ### NullableProblems
@@ -4665,14 +4533,158 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/Bu
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderSparseSwitchPayload.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderSwitchElement.java`
 #### Snippet
 ```java
-    public static final Opcode OPCODE = Opcode.SPARSE_SWITCH_PAYLOAD;
 
-    @Nonnull protected final List<BuilderSwitchElement> switchElements;
+public class BuilderSwitchElement implements SwitchElement {
+    @Nonnull
+    BuilderSwitchPayload parent;
+    private final int key;
+```
 
-    public BuilderSparseSwitchPayload(@Nullable List<? extends SwitchLabelElement> switchElements) {
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final SortedSet<BuilderField> instanceFields;
+    @Nonnull final SortedSet<BuilderMethod> directMethods;
+    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
+    @Nullable final BuilderArrayEncodedValue staticInitializers;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nullable final BuilderStringReference sourceFile;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final SortedSet<BuilderField> staticFields;
+    @Nonnull final SortedSet<BuilderField> instanceFields;
+    @Nonnull final SortedSet<BuilderMethod> directMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final SortedSet<BuilderField> staticFields;
+    @Nonnull final SortedSet<BuilderField> instanceFields;
+    @Nonnull final SortedSet<BuilderMethod> directMethods;
+    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final SortedSet<BuilderMethod> directMethods;
+    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
+    @Nullable final BuilderArrayEncodedValue staticInitializers;
+
+    int classDefIndex = DexWriter.NO_INDEX;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+
+public class BuilderClassDef extends BaseTypeReference implements ClassDef {
+    @Nonnull final BuilderTypeReference type;
+    final int accessFlags;
+    @Nullable final BuilderTypeReference superclass;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final SortedSet<BuilderField> staticFields;
+    @Nonnull final SortedSet<BuilderField> instanceFields;
+    @Nonnull final SortedSet<BuilderMethod> directMethods;
+    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
+    @Nullable final BuilderArrayEncodedValue staticInitializers;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassPool.java`
+#### Snippet
+```java
+        BuilderTypeReference, BuilderTypeList, BuilderClassDef, BuilderField, BuilderMethod, BuilderAnnotationSet,
+        BuilderArrayEncodedValue> {
+    @Nonnull private final ConcurrentMap<String, BuilderClassDef> internedItems =
+            Maps.newConcurrentMap();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    final int accessFlags;
+    @Nullable final BuilderTypeReference superclass;
+    @Nonnull final BuilderTypeList interfaces;
+    @Nullable final BuilderStringReference sourceFile;
+    @Nonnull final BuilderAnnotationSet annotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final BuilderTypeList interfaces;
+    @Nullable final BuilderStringReference sourceFile;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final SortedSet<BuilderField> staticFields;
+    @Nonnull final SortedSet<BuilderField> instanceFields;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final BuilderTypeReference type;
+    final int accessFlags;
+    @Nullable final BuilderTypeReference superclass;
+    @Nonnull final BuilderTypeList interfaces;
+    @Nullable final BuilderStringReference sourceFile;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nullable final BuilderTypeReference superclass;
+    @Nonnull final BuilderTypeList interfaces;
+    @Nullable final BuilderStringReference sourceFile;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final SortedSet<BuilderField> staticFields;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderInstruction20bc.java`
+#### Snippet
+```java
+
+    protected final int verificationError;
+    @Nonnull protected final Reference reference;
+
+    public BuilderInstruction20bc(@Nonnull Opcode opcode,
 ```
 
 ### NullableProblems
@@ -4697,18 +4709,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/Bu
     @Nonnull protected final Reference reference2;
 
     public BuilderInstruction4rcc(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderInstruction20bc.java`
-#### Snippet
-```java
-
-    protected final int verificationError;
-    @Nonnull protected final Reference reference;
-
-    public BuilderInstruction20bc(@Nonnull Opcode opcode,
 ```
 
 ### NullableProblems
@@ -4749,30 +4749,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/Bu
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderInstruction45cc.java`
-#### Snippet
-```java
-    protected final int registerG;
-    @Nonnull protected final Reference reference;
-    @Nonnull protected final Reference reference2;
-
-    public BuilderInstruction45cc(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderInstruction45cc.java`
-#### Snippet
-```java
-    protected final int registerF;
-    protected final int registerG;
-    @Nonnull protected final Reference reference;
-    @Nonnull protected final Reference reference2;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderInstruction3rc.java`
 #### Snippet
 ```java
@@ -4793,6 +4769,30 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/Bu
     @Nonnull protected final List<BuilderSwitchElement> switchElements;
 
     public BuilderPackedSwitchPayload(final int startKey,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderInstruction45cc.java`
+#### Snippet
+```java
+    protected final int registerF;
+    protected final int registerG;
+    @Nonnull protected final Reference reference;
+    @Nonnull protected final Reference reference2;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderInstruction45cc.java`
+#### Snippet
+```java
+    protected final int registerG;
+    @Nonnull protected final Reference reference;
+    @Nonnull protected final Reference reference2;
+
+    public BuilderInstruction45cc(@Nonnull Opcode opcode,
 ```
 
 ### NullableProblems
@@ -4824,18 +4824,6 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/CustomInlineMethodResolver.java`
 #### Snippet
 ```java
-
-public class CustomInlineMethodResolver extends InlineMethodResolver {
-    @Nonnull private final ClassPath classPath;
-    @Nonnull private final Method[] inlineMethods;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/CustomInlineMethodResolver.java`
-#### Snippet
-```java
 public class CustomInlineMethodResolver extends InlineMethodResolver {
     @Nonnull private final ClassPath classPath;
     @Nonnull private final Method[] inlineMethods;
@@ -4845,14 +4833,14 @@ public class CustomInlineMethodResolver extends InlineMethodResolver {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassPath.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/CustomInlineMethodResolver.java`
 #### Snippet
 ```java
 
-public class ClassPath {
-    @Nonnull private final TypeProto unknownClass;
-    @Nonnull private List<ClassProvider> classProviders;
-    private final boolean checkPackagePrivateAccess;
+public class CustomInlineMethodResolver extends InlineMethodResolver {
+    @Nonnull private final ClassPath classPath;
+    @Nonnull private final Method[] inlineMethods;
+
 ```
 
 ### NullableProblems
@@ -4880,15 +4868,15 @@ public class ClassPath {
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/OdexedFieldInstructionMapper.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassPath.java`
 #### Snippet
 ```java
-        @Nonnull public final Opcode normalOpcode;
-        @Nullable public final Opcode quickOpcode;
-        @Nullable public final Opcode volatileOpcode;
 
-        public FieldOpcode(char type, @Nonnull Opcode normalOpcode, @Nullable Opcode quickOpcode,
+public class ClassPath {
+    @Nonnull private final TypeProto unknownClass;
+    @Nonnull private List<ClassProvider> classProviders;
+    private final boolean checkPackagePrivateAccess;
 ```
 
 ### NullableProblems
@@ -4901,6 +4889,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/OdexedFieldIn
         @Nonnull public final Opcode normalOpcode;
         @Nullable public final Opcode quickOpcode;
         @Nullable public final Opcode volatileOpcode;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/OdexedFieldInstructionMapper.java`
+#### Snippet
+```java
+        @Nonnull public final Opcode normalOpcode;
+        @Nullable public final Opcode quickOpcode;
+        @Nullable public final Opcode volatileOpcode;
+
+        public FieldOpcode(char type, @Nonnull Opcode normalOpcode, @Nullable Opcode quickOpcode,
 ```
 
 ### NullableProblems
@@ -4932,10 +4932,46 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstruction.java`
 #### Snippet
 ```java
+     * The actual instruction
+     */
+    @Nonnull
+    protected Instruction instruction;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstruction.java`
+#### Snippet
+```java
      * Instructions that can pass on execution to this one during normal execution
      */
     @Nonnull
     protected final TreeSet<AnalyzedInstruction> predecessors = new TreeSet<AnalyzedInstruction>();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstruction.java`
+#### Snippet
+```java
+     * The MethodAnalyzer containing this instruction
+     */
+    @Nonnull
+    protected final MethodAnalyzer methodAnalyzer;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstruction.java`
+#### Snippet
+```java
+     * Instructions that can execution could pass on to next during normal execution
+     */
+    @Nonnull
+    protected final LinkedList<AnalyzedInstruction> successors = new LinkedList<AnalyzedInstruction>();
 
 ```
 
@@ -4968,46 +5004,22 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstruction.java`
 #### Snippet
 ```java
-     * Instructions that can execution could pass on to next during normal execution
-     */
-    @Nonnull
-    protected final LinkedList<AnalyzedInstruction> successors = new LinkedList<AnalyzedInstruction>();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstruction.java`
-#### Snippet
-```java
-     * The actual instruction
-     */
-    @Nonnull
-    protected Instruction instruction;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstruction.java`
-#### Snippet
-```java
-     * The MethodAnalyzer containing this instruction
-     */
-    @Nonnull
-    protected final MethodAnalyzer methodAnalyzer;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/AnalyzedInstruction.java`
-#### Snippet
-```java
      * This contains the register types *before* the instruction has executed
      */
     @Nonnull
     protected final RegisterType[] preRegisterMap;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+
+    private static class CodeItemOffset<MethodKey> {
+        @Nonnull MethodKey method;
+        int codeOffset;
 
 ```
 
@@ -5037,66 +5049,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodI
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/DexFileRewriter.java`
-#### Snippet
-```java
-
-    protected class RewrittenDexFile implements DexFile {
-        @Nonnull protected final DexFile dexFile;
-
-        public RewrittenDexFile(@Nonnull DexFile dexFile) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/DexFileRewriter.java`
-#### Snippet
-```java
-
-public class DexFileRewriter implements Rewriter<DexFile> {
-    @Nonnull protected final Rewriters rewriters;
-
-    public DexFileRewriter(@Nonnull Rewriters rewriters) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-
-    private static class CodeItemOffset<MethodKey> {
-        @Nonnull MethodKey method;
-        int codeOffset;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodReferenceRewriter.java`
-#### Snippet
-```java
-
-    protected class RewrittenMethodReference extends BaseMethodReference {
-        @Nonnull protected MethodReference methodReference;
-
-        public RewrittenMethodReference(@Nonnull MethodReference methodReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodReferenceRewriter.java`
-#### Snippet
-```java
-
-public class MethodReferenceRewriter implements Rewriter<MethodReference> {
-    @Nonnull protected final Rewriters rewriters;
-
-    public MethodReferenceRewriter(@Nonnull Rewriters rewriters) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/FieldRewriter.java`
 #### Snippet
 ```java
@@ -5121,26 +5073,26 @@ public class FieldRewriter implements Rewriter<Field> {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodParameterRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/DexFileRewriter.java`
 #### Snippet
 ```java
 
-public class MethodParameterRewriter implements Rewriter<MethodParameter> {
+public class DexFileRewriter implements Rewriter<DexFile> {
     @Nonnull protected final Rewriters rewriters;
 
-    public MethodParameterRewriter(@Nonnull Rewriters rewriters) {
+    public DexFileRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodParameterRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/DexFileRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenMethodParameter extends BaseMethodParameter {
-        @Nonnull protected MethodParameter methodParameter;
+    protected class RewrittenDexFile implements DexFile {
+        @Nonnull protected final DexFile dexFile;
 
-        public RewrittenMethodParameter(@Nonnull MethodParameter methodParameter) {
+        public RewrittenDexFile(@Nonnull DexFile dexFile) {
 ```
 
 ### NullableProblems
@@ -5193,14 +5145,26 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/DebugItemRewr
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/ExceptionHandlerRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodReferenceRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenExceptionHandler extends BaseExceptionHandler {
-        @Nonnull protected ExceptionHandler exceptionHandler;
+public class MethodReferenceRewriter implements Rewriter<MethodReference> {
+    @Nonnull protected final Rewriters rewriters;
 
-        public RewrittenExceptionHandler(@Nonnull ExceptionHandler exceptionHandler) {
+    public MethodReferenceRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodReferenceRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenMethodReference extends BaseMethodReference {
+        @Nonnull protected MethodReference methodReference;
+
+        public RewrittenMethodReference(@Nonnull MethodReference methodReference) {
 ```
 
 ### NullableProblems
@@ -5217,38 +5181,38 @@ public class ExceptionHandlerRewriter implements Rewriter<ExceptionHandler> {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodImplementationRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/ExceptionHandlerRewriter.java`
 #### Snippet
 ```java
 
-public class MethodImplementationRewriter implements Rewriter<MethodImplementation> {
-    @Nonnull protected final Rewriters rewriters;
+    protected class RewrittenExceptionHandler extends BaseExceptionHandler {
+        @Nonnull protected ExceptionHandler exceptionHandler;
 
-    public MethodImplementationRewriter(@Nonnull Rewriters rewriters) {
+        public RewrittenExceptionHandler(@Nonnull ExceptionHandler exceptionHandler) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodImplementationRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodParameterRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenMethodImplementation implements MethodImplementation {
-        @Nonnull protected MethodImplementation methodImplementation;
+public class MethodParameterRewriter implements Rewriter<MethodParameter> {
+    @Nonnull protected final Rewriters rewriters;
 
-        public RewrittenMethodImplementation(@Nonnull MethodImplementation methodImplementation) {
+    public MethodParameterRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/FieldReferenceRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodParameterRewriter.java`
 #### Snippet
 ```java
 
-public class FieldReferenceRewriter implements Rewriter<FieldReference> {
-    @Nonnull protected final Rewriters rewriters;
+    protected class RewrittenMethodParameter extends BaseMethodParameter {
+        @Nonnull protected MethodParameter methodParameter;
 
-    public FieldReferenceRewriter(@Nonnull Rewriters rewriters) {
+        public RewrittenMethodParameter(@Nonnull MethodParameter methodParameter) {
 ```
 
 ### NullableProblems
@@ -5265,38 +5229,62 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/FieldReferenc
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/TryBlockRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/FieldReferenceRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenTryBlock extends BaseTryBlock<ExceptionHandler> {
-        @Nonnull protected TryBlock<? extends ExceptionHandler> tryBlock;
-
-        public RewrittenTryBlock(@Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/TryBlockRewriter.java`
-#### Snippet
-```java
-
-public class TryBlockRewriter implements Rewriter<TryBlock<? extends ExceptionHandler>> {
+public class FieldReferenceRewriter implements Rewriter<FieldReference> {
     @Nonnull protected final Rewriters rewriters;
 
-    public TryBlockRewriter(@Nonnull Rewriters rewriters) {
+    public FieldReferenceRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/EncodedValueRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodImplementationRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenEnumEncodedValue extends BaseEnumEncodedValue {
-        @Nonnull protected EnumEncodedValue enumEncodedValue;
+    protected class RewrittenMethodImplementation implements MethodImplementation {
+        @Nonnull protected MethodImplementation methodImplementation;
 
-        public RewrittenEnumEncodedValue(@Nonnull EnumEncodedValue enumEncodedValue) {
+        public RewrittenMethodImplementation(@Nonnull MethodImplementation methodImplementation) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodImplementationRewriter.java`
+#### Snippet
+```java
+
+public class MethodImplementationRewriter implements Rewriter<MethodImplementation> {
+    @Nonnull protected final Rewriters rewriters;
+
+    public MethodImplementationRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/AnnotationRewriter.java`
+#### Snippet
+```java
+
+public class AnnotationRewriter implements Rewriter<Annotation> {
+    @Nonnull protected final Rewriters rewriters;
+
+    public AnnotationRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/AnnotationRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenAnnotation extends BaseAnnotation {
+        @Nonnull protected Annotation annotation;
+
+        public RewrittenAnnotation(@Nonnull Annotation annotation) {
 ```
 
 ### NullableProblems
@@ -5317,34 +5305,10 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/EncodedValueR
 #### Snippet
 ```java
 
-public class EncodedValueRewriter implements Rewriter<EncodedValue> {
-    @Nonnull protected final Rewriters rewriters;
-
-    public EncodedValueRewriter(@Nonnull Rewriters rewriters) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/EncodedValueRewriter.java`
-#### Snippet
-```java
-
     protected class RewrittenTypeEncodedValue extends BaseTypeEncodedValue {
         @Nonnull protected TypeEncodedValue typeEncodedValue;
 
         public RewrittenTypeEncodedValue(@Nonnull TypeEncodedValue typeEncodedValue) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/EncodedValueRewriter.java`
-#### Snippet
-```java
-
-    protected class RewrittenArrayEncodedValue extends BaseArrayEncodedValue {
-        @Nonnull protected ArrayEncodedValue arrayEncodedValue;
-
-        public RewrittenArrayEncodedValue(@Nonnull ArrayEncodedValue arrayEncodedValue) {
 ```
 
 ### NullableProblems
@@ -5373,26 +5337,62 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/EncodedValueR
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/AnnotationRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/EncodedValueRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenAnnotation extends BaseAnnotation {
-        @Nonnull protected Annotation annotation;
+    protected class RewrittenEnumEncodedValue extends BaseEnumEncodedValue {
+        @Nonnull protected EnumEncodedValue enumEncodedValue;
 
-        public RewrittenAnnotation(@Nonnull Annotation annotation) {
+        public RewrittenEnumEncodedValue(@Nonnull EnumEncodedValue enumEncodedValue) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/AnnotationRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/EncodedValueRewriter.java`
 #### Snippet
 ```java
 
-public class AnnotationRewriter implements Rewriter<Annotation> {
+public class EncodedValueRewriter implements Rewriter<EncodedValue> {
     @Nonnull protected final Rewriters rewriters;
 
-    public AnnotationRewriter(@Nonnull Rewriters rewriters) {
+    public EncodedValueRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/EncodedValueRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenArrayEncodedValue extends BaseArrayEncodedValue {
+        @Nonnull protected ArrayEncodedValue arrayEncodedValue;
+
+        public RewrittenArrayEncodedValue(@Nonnull ArrayEncodedValue arrayEncodedValue) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/TryBlockRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenTryBlock extends BaseTryBlock<ExceptionHandler> {
+        @Nonnull protected TryBlock<? extends ExceptionHandler> tryBlock;
+
+        public RewrittenTryBlock(@Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/AnnotationElementRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenAnnotationElement extends BaseAnnotationElement {
+        @Nonnull protected AnnotationElement annotationElement;
+
+        public RewrittenAnnotationElement(@Nonnull AnnotationElement annotationElement) {
 ```
 
 ### NullableProblems
@@ -5409,14 +5409,14 @@ public class AnnotationElementRewriter implements Rewriter<AnnotationElement> {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/AnnotationElementRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/TryBlockRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenAnnotationElement extends BaseAnnotationElement {
-        @Nonnull protected AnnotationElement annotationElement;
+public class TryBlockRewriter implements Rewriter<TryBlock<? extends ExceptionHandler>> {
+    @Nonnull protected final Rewriters rewriters;
 
-        public RewrittenAnnotationElement(@Nonnull AnnotationElement annotationElement) {
+    public TryBlockRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
@@ -5445,14 +5445,98 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/MethodRewrite
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/ClassDefRewriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
 #### Snippet
 ```java
 
-    protected class RewrittenClassDef extends BaseTypeReference implements ClassDef {
-        @Nonnull protected ClassDef classDef;
+    // Which instructions have been analyzed, keyed by instruction index
+    @Nonnull private final BitSet analyzedState;
 
-        public RewrittenClassDef(@Nonnull ClassDef classdef) {
+    @Nullable private AnalysisException analysisException = null;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+public class MethodAnalyzer {
+    @Nonnull private final Method method;
+    @Nonnull private final MethodImplementation methodImpl;
+
+    private final boolean normalizeVirtualMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+
+    @Nonnull private final ClassPath classPath;
+    @Nullable private final InlineMethodResolver inlineResolver;
+
+    // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+
+    // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
+    @Nonnull private final SparseArray<AnalyzedInstruction> analyzedInstructions =
+            new SparseArray<AnalyzedInstruction>(0);
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+    private final int paramRegisterCount;
+
+    @Nonnull private final ClassPath classPath;
+    @Nullable private final InlineMethodResolver inlineResolver;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+    @Nonnull private final BitSet analyzedState;
+
+    @Nullable private AnalysisException analysisException = null;
+
+    // This is a dummy instruction that occurs immediately before the first real instruction. We can initialize the
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+ */
+public class MethodAnalyzer {
+    @Nonnull private final Method method;
+    @Nonnull private final MethodImplementation methodImpl;
+
+```
+
+### NullableProblems
+Parameter annotated @Nonnull must not override @Nullable parameter
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedOdexFile.java`
+#### Snippet
+```java
+    }
+
+    @Nonnull public static DexBackedOdexFile fromInputStream(@Nonnull Opcodes opcodes, @Nonnull InputStream is)
+            throws IOException {
+        DexUtil.verifyOdexHeader(is);
 ```
 
 ### NullableProblems
@@ -5465,6 +5549,18 @@ public class ClassDefRewriter implements Rewriter<ClassDef> {
     @Nonnull protected final Rewriters rewriters;
 
     public ClassDefRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/rewriter/ClassDefRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenClassDef extends BaseTypeReference implements ClassDef {
+        @Nonnull protected ClassDef classDef;
+
+        public RewrittenClassDef(@Nonnull ClassDef classdef) {
 ```
 
 ### NullableProblems
@@ -5484,18 +5580,6 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedAnnotationElement.java`
 #### Snippet
 ```java
-    @Nonnull private final DexBackedDexFile dexFile;
-    public final int nameIndex;
-    @Nonnull public final EncodedValue value;
-
-    public DexBackedAnnotationElement(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedAnnotationElement.java`
-#### Snippet
-```java
 
 public class DexBackedAnnotationElement extends BaseAnnotationElement {
     @Nonnull private final DexBackedDexFile dexFile;
@@ -5504,15 +5588,15 @@ public class DexBackedAnnotationElement extends BaseAnnotationElement {
 ```
 
 ### NullableProblems
-Parameter annotated @Nonnull must not override @Nullable parameter
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedOdexFile.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedAnnotationElement.java`
 #### Snippet
 ```java
-    }
+    @Nonnull private final DexBackedDexFile dexFile;
+    public final int nameIndex;
+    @Nonnull public final EncodedValue value;
 
-    @Nonnull public static DexBackedOdexFile fromInputStream(@Nonnull Opcodes opcodes, @Nonnull InputStream is)
-            throws IOException {
-        DexUtil.verifyOdexHeader(is);
+    public DexBackedAnnotationElement(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
 ```
 
 ### NullableProblems
@@ -5577,6 +5661,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/ZipDexContai
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexReader.java`
+#### Snippet
+```java
+
+public class DexReader<T extends DexBuffer> {
+    @Nonnull public final T dexBuf;
+    private int offset;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedTypedExceptionHandler.java`
 #### Snippet
 ```java
@@ -5585,6 +5681,30 @@ public class DexBackedTypedExceptionHandler extends DexBackedExceptionHandler {
     @Nonnull private final DexBackedDexFile dexFile;
     private final int typeId;
     private final int handlerCodeAddress;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedField.java`
+#### Snippet
+```java
+
+public class DexBackedField extends BaseFieldReference implements Field {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final ClassDef classDef;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedField.java`
+#### Snippet
+```java
+public class DexBackedField extends BaseFieldReference implements Field {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final ClassDef classDef;
+
+    public final int accessFlags;
 ```
 
 ### NullableProblems
@@ -5601,121 +5721,13 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedFie
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedField.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedMethod.java`
 #### Snippet
 ```java
-public class DexBackedField extends BaseFieldReference implements Field {
+
+public class DexBackedMethod extends BaseMethodReference implements Method {
     @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final ClassDef classDef;
-
-    public final int accessFlags;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedField.java`
-#### Snippet
-```java
-
-public class DexBackedField extends BaseFieldReference implements Field {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final ClassDef classDef;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexReader.java`
-#### Snippet
-```java
-
-public class DexReader<T extends DexBuffer> {
-    @Nonnull public final T dexBuf;
-    private int offset;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-
-    // Which instructions have been analyzed, keyed by instruction index
-    @Nonnull private final BitSet analyzedState;
-
-    @Nullable private AnalysisException analysisException = null;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-public class MethodAnalyzer {
-    @Nonnull private final Method method;
-    @Nonnull private final MethodImplementation methodImpl;
-
-    private final boolean normalizeVirtualMethods;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-    @Nonnull private final BitSet analyzedState;
-
-    @Nullable private AnalysisException analysisException = null;
-
-    // This is a dummy instruction that occurs immediately before the first real instruction. We can initialize the
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-
-    // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
-    @Nonnull private final SparseArray<AnalyzedInstruction> analyzedInstructions =
-            new SparseArray<AnalyzedInstruction>(0);
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-
-    @Nonnull private final ClassPath classPath;
-    @Nullable private final InlineMethodResolver inlineResolver;
-
-    // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-    private final int paramRegisterCount;
-
-    @Nonnull private final ClassPath classPath;
-    @Nullable private final InlineMethodResolver inlineResolver;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
- */
-public class MethodAnalyzer {
-    @Nonnull private final Method method;
-    @Nonnull private final MethodImplementation methodImpl;
+    @Nonnull public final DexBackedClassDef classDef;
 
 ```
 
@@ -5733,14 +5745,26 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedMethod.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/SectionAnnotator.java`
 #### Snippet
 ```java
 
-public class DexBackedMethod extends BaseMethodReference implements Method {
+public abstract class SectionAnnotator {
+    @Nonnull public final DexAnnotator annotator;
     @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final DexBackedClassDef classDef;
+    public final int itemType;
+```
 
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/SectionAnnotator.java`
+#### Snippet
+```java
+public abstract class SectionAnnotator {
+    @Nonnull public final DexAnnotator annotator;
+    @Nonnull public final DexBackedDexFile dexFile;
+    public final int itemType;
+    public final int sectionOffset;
 ```
 
 ### NullableProblems
@@ -5757,30 +5781,6 @@ public class CdexDebugOffsetTable {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/SectionAnnotator.java`
-#### Snippet
-```java
-public abstract class SectionAnnotator {
-    @Nonnull public final DexAnnotator annotator;
-    @Nonnull public final DexBackedDexFile dexFile;
-    public final int itemType;
-    public final int sectionOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/SectionAnnotator.java`
-#### Snippet
-```java
-
-public abstract class SectionAnnotator {
-    @Nonnull public final DexAnnotator annotator;
-    @Nonnull public final DexBackedDexFile dexFile;
-    public final int itemType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedDexFile.java`
 #### Snippet
 ```java
@@ -5793,134 +5793,14 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedDex
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final Opcodes opcodes;
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-        CallSiteKey extends CallSiteReference> {
-    @Nonnull private final Opcodes opcodes;
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
-
-    @Nonnull static <StringRef extends StringReference, TypeRef extends TypeReference,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-        ProtoRefKey extends MethodProtoReference, MethodHandleKey extends MethodHandleReference,
-        CallSiteKey extends CallSiteReference> {
-    @Nonnull private final Opcodes opcodes;
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/OatFile.java`
 #### Snippet
 ```java
-
-    class SymbolTable {
-        @Nonnull private final StringTable stringTable;
-        private final int offset;
-        private final int entryCount;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/OatFile.java`
-#### Snippet
-```java
-
     private final boolean is64bit;
     @Nonnull private final OatHeader oatHeader;
     @Nonnull private final Opcodes opcodes;
     @Nullable private final VdexProvider vdexProvider;
+
 ```
 
 ### NullableProblems
@@ -5940,647 +5820,23 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/OatFile.java`
 #### Snippet
 ```java
+
     private final boolean is64bit;
     @Nonnull private final OatHeader oatHeader;
     @Nonnull private final Opcodes opcodes;
     @Nullable private final VdexProvider vdexProvider;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-                            dexFile.getDataBuffer(), methodsStartOffset) {
-                        private int count;
-                        @Nullable private MethodReference previousMethod;
-                        private int previousIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-    private final int virtualMethodCount;
-
-    @Nullable private AnnotationsDirectory annotationsDirectory;
-
-    public DexBackedClassDef(@Nonnull DexBackedDexFile dexFile,
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-    static final int NO_HIDDEN_API_RESTRICTIONS = 7;
-
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int classDefOffset;
-    @Nullable private final HiddenApiRestrictionsReader hiddenApiRestrictionsReader;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-                            dexFile.getDataBuffer(), fieldsStartOffset) {
-                        private int count;
-                        @Nullable private FieldReference previousField;
-                        private int previousIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-                            dexFile.getDataBuffer(), fieldsStartOffset) {
-                        private int count;
-                        @Nullable private FieldReference previousField;
-                        private int previousIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int classDefOffset;
-    @Nullable private final HiddenApiRestrictionsReader hiddenApiRestrictionsReader;
-
-    private final int staticFieldsOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-                            dexFile.getDataBuffer(), methodsStartOffset) {
-                        private int count;
-                        @Nullable private MethodReference previousMethod;
-                        private int previousIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeLookaheadIterator.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/OatFile.java`
 #### Snippet
 ```java
 
-public abstract class VariableSizeLookaheadIterator<T> extends AbstractIterator<T> implements Iterator<T> {
-    @Nonnull private final DexReader reader;
-
-    protected VariableSizeLookaheadIterator(@Nonnull DexBuffer buffer, int offset) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeCollection.java`
-#### Snippet
-```java
-
-public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
-    @Nonnull private final DexBuffer buffer;
-    private final int offset;
-    private final int size;
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/FixedSizeList.java`
-#### Snippet
-```java
-     * @return The item at the given index
-     */
-    @Nonnull
-    public abstract T readItem(int index);
-}
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeList.java`
-#### Snippet
-```java
-
-public abstract class VariableSizeList<T> extends AbstractSequentialList<T> {
-    @Nonnull private final DexBuffer buffer;
-    private final int offset;
-    private final int size;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeSet.java`
-#### Snippet
-```java
-
-public abstract class VariableSizeSet<T> extends AbstractSet<T> {
-    @Nonnull private final DexBuffer buffer;
-    private final int offset;
-    private final int size;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
-#### Snippet
-```java
-    private static class EncodedArrayItemIteratorImpl extends EncodedArrayItemIterator {
-        @Nonnull private final DexReader reader;
-        @Nonnull private final DexBackedDexFile dexFile;
-        private final int size;
-        private int index = 0;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
-#### Snippet
-```java
-
-    private static class EncodedArrayItemIteratorImpl extends EncodedArrayItemIterator {
-        @Nonnull private final DexReader reader;
-        @Nonnull private final DexBackedDexFile dexFile;
-        private final int size;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeIterator.java`
-#### Snippet
-```java
-
-public abstract class VariableSizeIterator<T> implements Iterator<T> {
-    @Nonnull private final DexReader reader;
-    protected final int size;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeListIterator.java`
-#### Snippet
-```java
-
-public abstract class VariableSizeListIterator<T> implements ListIterator<T> {
-    @Nonnull private DexReader<? extends DexBuffer> reader;
-    protected final int size;
-    private final int startOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedStringEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedStringEncodedValue extends BaseStringEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int stringIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedMethodHandleEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedMethodHandleEncodedValue extends BaseMethodHandleEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int methodHandleIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/HeaderItem.java`
-#### Snippet
-```java
-    public static final int DATA_START_OFFSET = 108;
-
-    @Nonnull private DexBackedDexFile dexFile;
-
-    public HeaderItem(@Nonnull DexBackedDexFile dexFile) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedEnumEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedEnumEncodedValue extends BaseEnumEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int fieldIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedTypeEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedTypeEncodedValue extends BaseTypeEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int typeIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedMethodTypeEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedMethodTypeEncodedValue extends BaseMethodTypeEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int methodProtoIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
-#### Snippet
-```java
-public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final String type;
-    private final int elementCount;
-    private final int elementsOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final String type;
-    private final int elementCount;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedFieldEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedFieldEncodedValue extends BaseFieldEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int fieldIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedArrayEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedArrayEncodedValue extends BaseArrayEncodedValue implements ArrayEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int elementCount;
-    private final int encodedArrayOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedMethodEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedMethodEncodedValue extends BaseMethodEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int methodIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/AnnotationsDirectory.java`
-#### Snippet
-```java
-
-    private static class AnnotationsDirectoryImpl extends AnnotationsDirectory {
-        @Nonnull public final DexBackedDexFile dexFile;
-        private final int directoryOffset;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedStringReference.java`
-#### Snippet
-```java
-
-public class DexBackedStringReference extends BaseStringReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    public final int stringIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedMethodHandleReference.java`
-#### Snippet
-```java
-
-public class DexBackedMethodHandleReference extends BaseMethodHandleReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    public final int methodHandleIndex;
-    public final int methodHandleOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedTypeReference.java`
-#### Snippet
-```java
-
-public class DexBackedTypeReference extends BaseTypeReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    public final int typeIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedMethodReference.java`
-#### Snippet
-```java
-
-public class DexBackedMethodReference extends BaseMethodReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int methodIndex;
-    private int protoIdItemOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedFieldReference.java`
-#### Snippet
-```java
-
-public class DexBackedFieldReference extends BaseFieldReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int fieldIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/DebugInfo.java`
-#### Snippet
-```java
-        @Nonnull public final DexBackedDexFile dexFile;
-        private final int debugInfoOffset;
-        @Nonnull private final DexBackedMethodImplementation methodImpl;
-
-        public DebugInfoImpl(@Nonnull DexBackedDexFile dexFile,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/DebugInfo.java`
-#### Snippet
-```java
-
-    private static class DebugInfoImpl extends DebugInfo {
-        @Nonnull public final DexBackedDexFile dexFile;
-        private final int debugInfoOffset;
-        @Nonnull private final DexBackedMethodImplementation methodImpl;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/util/DexAnnotator.java`
-#### Snippet
-```java
-
-public class DexAnnotator extends AnnotatedBytes {
-    @Nonnull public final DexBackedDexFile dexFile;
-
-    private final Map<Integer, SectionAnnotator> annotators = Maps.newHashMap();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedMethodProtoReference.java`
-#### Snippet
-```java
-
-public class DexBackedMethodProtoReference extends BaseMethodProtoReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int protoIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedCallSiteReference.java`
-#### Snippet
-```java
-
-public class DexBackedCallSiteReference extends BaseCallSiteReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    public final int callSiteIndex;
-    public final int callSiteIdOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/instruction/DexBackedInstruction.java`
-#### Snippet
-```java
-
-public abstract class DexBackedInstruction implements Instruction {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final Opcode opcode;
-    public final int instructionStart;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/instruction/DexBackedInstruction.java`
-#### Snippet
-```java
-public abstract class DexBackedInstruction implements Instruction {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final Opcode opcode;
-    public final int instructionStart;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableDexFile.java`
-#### Snippet
-```java
-
-public class ImmutableDexFile implements DexFile {
-    @Nonnull protected final ImmutableSet<? extends ImmutableClassDef> classes;
-    @Nonnull private final Opcodes opcodes;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableDexFile.java`
-#### Snippet
-```java
-public class ImmutableDexFile implements DexFile {
-    @Nonnull protected final ImmutableSet<? extends ImmutableClassDef> classes;
-    @Nonnull private final Opcodes opcodes;
-
-    public ImmutableDexFile(@Nonnull Opcodes opcodes, @Nullable Collection<? extends ClassDef> classes) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableAnnotationElement.java`
-#### Snippet
-```java
-
-public class ImmutableAnnotationElement extends BaseAnnotationElement {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableEncodedValue value;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableAnnotationElement.java`
-#### Snippet
-```java
-public class ImmutableAnnotationElement extends BaseAnnotationElement {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableEncodedValue value;
-
-    public ImmutableAnnotationElement(@Nonnull String name,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter.java`
-#### Snippet
-```java
-    @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nullable protected final String name;
-
-    public ImmutableMethodParameter(@Nonnull String type,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter.java`
-#### Snippet
-```java
-
-public class ImmutableMethodParameter extends BaseMethodParameter {
-    @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nullable protected final String name;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter.java`
-#### Snippet
-```java
-public class ImmutableMethodParameter extends BaseMethodParameter {
-    @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nullable protected final String name;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableExceptionHandler.java`
-#### Snippet
-```java
-
-public class ImmutableExceptionHandler extends BaseExceptionHandler implements ExceptionHandler {
-    @Nullable protected final String exceptionType;
-    protected final int handlerCodeAddress;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-    });
-
-    @Nonnull private final Supplier<List<Method>> postDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
-        @Override public List<Method> get() {
-            List<Method> vtable = Lists.newArrayList();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-    }
-
-    @Nonnull private final Supplier<SparseArray<FieldReference>> artInstanceFieldsSupplier =
-            Suppliers.memoize(new Supplier<SparseArray<FieldReference>>() {
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-     * generate an identical vtable
-     */
-    @Nonnull private final Supplier<List<Method>> buggyPostDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
-        @Override public List<Method> get() {
-            List<Method> vtable = Lists.newArrayList();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-     * This calculates the interfaces in the order required for vtable generation for post-default method ART
-     */
-    @Nonnull
-    private final Supplier<LinkedHashMap<String, ClassDef>> postDefaultMethodInterfaceSupplier =
-            Suppliers.memoize(new Supplier<LinkedHashMap<String, ClassDef>>() {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-    private static final byte OTHER = 2;
-
-    @Nonnull protected final ClassPath classPath;
-    @Nonnull protected final String type;
-
+    class SymbolTable {
+        @Nonnull private final StringTable stringTable;
+        private final int offset;
+        private final int entryCount;
 ```
 
 ### NullableProblems
@@ -6624,11 +5880,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
-
-    @Nonnull protected final ClassPath classPath;
-    @Nonnull protected final String type;
-
-    protected boolean vtableFullyResolved = true;
+     * generate an identical vtable
+     */
+    @Nonnull private final Supplier<List<Method>> buggyPostDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
+        @Override public List<Method> get() {
+            List<Method> vtable = Lists.newArrayList();
 ```
 
 ### NullableProblems
@@ -6641,6 +5897,762 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.ja
     @Nonnull private final Supplier<List<Method>> preDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
         @Override public List<Method> get() {
             List<Method> vtable = Lists.newArrayList();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+    }
+
+    @Nonnull private final Supplier<SparseArray<FieldReference>> artInstanceFieldsSupplier =
+            Suppliers.memoize(new Supplier<SparseArray<FieldReference>>() {
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+    private static final byte OTHER = 2;
+
+    @Nonnull protected final ClassPath classPath;
+    @Nonnull protected final String type;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+
+    @Nonnull protected final ClassPath classPath;
+    @Nonnull protected final String type;
+
+    protected boolean vtableFullyResolved = true;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+    });
+
+    @Nonnull private final Supplier<List<Method>> postDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
+        @Override public List<Method> get() {
+            List<Method> vtable = Lists.newArrayList();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+     * This calculates the interfaces in the order required for vtable generation for post-default method ART
+     */
+    @Nonnull
+    private final Supplier<LinkedHashMap<String, ClassDef>> postDefaultMethodInterfaceSupplier =
+            Suppliers.memoize(new Supplier<LinkedHashMap<String, ClassDef>>() {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+                            dexFile.getDataBuffer(), fieldsStartOffset) {
+                        private int count;
+                        @Nullable private FieldReference previousField;
+                        private int previousIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+                            dexFile.getDataBuffer(), fieldsStartOffset) {
+                        private int count;
+                        @Nullable private FieldReference previousField;
+                        private int previousIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+                            dexFile.getDataBuffer(), methodsStartOffset) {
+                        private int count;
+                        @Nullable private MethodReference previousMethod;
+                        private int previousIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+    static final int NO_HIDDEN_API_RESTRICTIONS = 7;
+
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int classDefOffset;
+    @Nullable private final HiddenApiRestrictionsReader hiddenApiRestrictionsReader;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+                            dexFile.getDataBuffer(), methodsStartOffset) {
+                        private int count;
+                        @Nullable private MethodReference previousMethod;
+                        private int previousIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+    private final int virtualMethodCount;
+
+    @Nullable private AnnotationsDirectory annotationsDirectory;
+
+    public DexBackedClassDef(@Nonnull DexBackedDexFile dexFile,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int classDefOffset;
+    @Nullable private final HiddenApiRestrictionsReader hiddenApiRestrictionsReader;
+
+    private final int staticFieldsOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeLookaheadIterator.java`
+#### Snippet
+```java
+
+public abstract class VariableSizeLookaheadIterator<T> extends AbstractIterator<T> implements Iterator<T> {
+    @Nonnull private final DexReader reader;
+
+    protected VariableSizeLookaheadIterator(@Nonnull DexBuffer buffer, int offset) {
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/FixedSizeList.java`
+#### Snippet
+```java
+     * @return The item at the given index
+     */
+    @Nonnull
+    public abstract T readItem(int index);
+}
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/HeaderItem.java`
+#### Snippet
+```java
+    public static final int DATA_START_OFFSET = 108;
+
+    @Nonnull private DexBackedDexFile dexFile;
+
+    public HeaderItem(@Nonnull DexBackedDexFile dexFile) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeCollection.java`
+#### Snippet
+```java
+
+public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
+    @Nonnull private final DexBuffer buffer;
+    private final int offset;
+    private final int size;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeIterator.java`
+#### Snippet
+```java
+
+public abstract class VariableSizeIterator<T> implements Iterator<T> {
+    @Nonnull private final DexReader reader;
+    protected final int size;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
+#### Snippet
+```java
+    private static class EncodedArrayItemIteratorImpl extends EncodedArrayItemIterator {
+        @Nonnull private final DexReader reader;
+        @Nonnull private final DexBackedDexFile dexFile;
+        private final int size;
+        private int index = 0;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
+#### Snippet
+```java
+
+    private static class EncodedArrayItemIteratorImpl extends EncodedArrayItemIterator {
+        @Nonnull private final DexReader reader;
+        @Nonnull private final DexBackedDexFile dexFile;
+        private final int size;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeSet.java`
+#### Snippet
+```java
+
+public abstract class VariableSizeSet<T> extends AbstractSet<T> {
+    @Nonnull private final DexBuffer buffer;
+    private final int offset;
+    private final int size;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeList.java`
+#### Snippet
+```java
+
+public abstract class VariableSizeList<T> extends AbstractSequentialList<T> {
+    @Nonnull private final DexBuffer buffer;
+    private final int offset;
+    private final int size;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedMethodHandleEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedMethodHandleEncodedValue extends BaseMethodHandleEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int methodHandleIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedStringEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedStringEncodedValue extends BaseStringEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int stringIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeListIterator.java`
+#### Snippet
+```java
+
+public abstract class VariableSizeListIterator<T> implements ListIterator<T> {
+    @Nonnull private DexReader<? extends DexBuffer> reader;
+    protected final int size;
+    private final int startOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/AnnotationsDirectory.java`
+#### Snippet
+```java
+
+    private static class AnnotationsDirectoryImpl extends AnnotationsDirectory {
+        @Nonnull public final DexBackedDexFile dexFile;
+        private final int directoryOffset;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedTypeEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedTypeEncodedValue extends BaseTypeEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int typeIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedEnumEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedEnumEncodedValue extends BaseEnumEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int fieldIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedMethodTypeEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedMethodTypeEncodedValue extends BaseMethodTypeEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int methodProtoIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedMethodEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedMethodEncodedValue extends BaseMethodEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int methodIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedFieldEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedFieldEncodedValue extends BaseFieldEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int fieldIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
+#### Snippet
+```java
+public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final String type;
+    private final int elementCount;
+    private final int elementsOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final String type;
+    private final int elementCount;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/value/DexBackedArrayEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedArrayEncodedValue extends BaseArrayEncodedValue implements ArrayEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int elementCount;
+    private final int encodedArrayOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedStringReference.java`
+#### Snippet
+```java
+
+public class DexBackedStringReference extends BaseStringReference {
+    @Nonnull public final DexBackedDexFile dexFile;
+    public final int stringIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/util/DexAnnotator.java`
+#### Snippet
+```java
+
+public class DexAnnotator extends AnnotatedBytes {
+    @Nonnull public final DexBackedDexFile dexFile;
+
+    private final Map<Integer, SectionAnnotator> annotators = Maps.newHashMap();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedMethodHandleReference.java`
+#### Snippet
+```java
+
+public class DexBackedMethodHandleReference extends BaseMethodHandleReference {
+    @Nonnull public final DexBackedDexFile dexFile;
+    public final int methodHandleIndex;
+    public final int methodHandleOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedTypeReference.java`
+#### Snippet
+```java
+
+public class DexBackedTypeReference extends BaseTypeReference {
+    @Nonnull public final DexBackedDexFile dexFile;
+    public final int typeIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedMethodReference.java`
+#### Snippet
+```java
+
+public class DexBackedMethodReference extends BaseMethodReference {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int methodIndex;
+    private int protoIdItemOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedMethodProtoReference.java`
+#### Snippet
+```java
+
+public class DexBackedMethodProtoReference extends BaseMethodProtoReference {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int protoIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedFieldReference.java`
+#### Snippet
+```java
+
+public class DexBackedFieldReference extends BaseFieldReference {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int fieldIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/reference/DexBackedCallSiteReference.java`
+#### Snippet
+```java
+
+public class DexBackedCallSiteReference extends BaseCallSiteReference {
+    @Nonnull public final DexBackedDexFile dexFile;
+    public final int callSiteIndex;
+    public final int callSiteIdOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/DebugInfo.java`
+#### Snippet
+```java
+        @Nonnull public final DexBackedDexFile dexFile;
+        private final int debugInfoOffset;
+        @Nonnull private final DexBackedMethodImplementation methodImpl;
+
+        public DebugInfoImpl(@Nonnull DexBackedDexFile dexFile,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/DebugInfo.java`
+#### Snippet
+```java
+
+    private static class DebugInfoImpl extends DebugInfo {
+        @Nonnull public final DexBackedDexFile dexFile;
+        private final int debugInfoOffset;
+        @Nonnull private final DexBackedMethodImplementation methodImpl;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+        CallSiteKey extends CallSiteReference> {
+    @Nonnull private final Opcodes opcodes;
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+        ProtoRefKey extends MethodProtoReference, MethodHandleKey extends MethodHandleReference,
+        CallSiteKey extends CallSiteReference> {
+    @Nonnull private final Opcodes opcodes;
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
+
+    @Nonnull static <StringRef extends StringReference, TypeRef extends TypeReference,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final Opcodes opcodes;
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/instruction/DexBackedInstruction.java`
+#### Snippet
+```java
+
+public abstract class DexBackedInstruction implements Instruction {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final Opcode opcode;
+    public final int instructionStart;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/instruction/DexBackedInstruction.java`
+#### Snippet
+```java
+public abstract class DexBackedInstruction implements Instruction {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final Opcode opcode;
+    public final int instructionStart;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableDexFile.java`
+#### Snippet
+```java
+public class ImmutableDexFile implements DexFile {
+    @Nonnull protected final ImmutableSet<? extends ImmutableClassDef> classes;
+    @Nonnull private final Opcodes opcodes;
+
+    public ImmutableDexFile(@Nonnull Opcodes opcodes, @Nullable Collection<? extends ClassDef> classes) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableDexFile.java`
+#### Snippet
+```java
+
+public class ImmutableDexFile implements DexFile {
+    @Nonnull protected final ImmutableSet<? extends ImmutableClassDef> classes;
+    @Nonnull private final Opcodes opcodes;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter.java`
+#### Snippet
+```java
+public class ImmutableMethodParameter extends BaseMethodParameter {
+    @Nonnull protected final String type;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nullable protected final String name;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter.java`
+#### Snippet
+```java
+    @Nonnull protected final String type;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nullable protected final String name;
+
+    public ImmutableMethodParameter(@Nonnull String type,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter.java`
+#### Snippet
+```java
+
+public class ImmutableMethodParameter extends BaseMethodParameter {
+    @Nonnull protected final String type;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nullable protected final String name;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableAnnotationElement.java`
+#### Snippet
+```java
+
+public class ImmutableAnnotationElement extends BaseAnnotationElement {
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableEncodedValue value;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableAnnotationElement.java`
+#### Snippet
+```java
+public class ImmutableAnnotationElement extends BaseAnnotationElement {
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableEncodedValue value;
+
+    public ImmutableAnnotationElement(@Nonnull String name,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableExceptionHandler.java`
+#### Snippet
+```java
+
+public class ImmutableExceptionHandler extends BaseExceptionHandler implements ExceptionHandler {
+    @Nullable protected final String exceptionType;
+    protected final int handlerCodeAddress;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethodImplementation.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
+    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
+    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
+
+    public ImmutableMethodImplementation(int registerCount,
 ```
 
 ### NullableProblems
@@ -6669,90 +6681,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMet
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethodImplementation.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
-    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
-    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
-
-    public ImmutableMethodImplementation(int registerCount,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
-#### Snippet
-```java
-public class ImmutableField extends BaseFieldReference implements Field {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final String type;
-    protected final int accessFlags;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
-#### Snippet
-```java
-    protected final int accessFlags;
-    @Nullable protected final ImmutableEncodedValue initialValue;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
-#### Snippet
-```java
-    @Nonnull protected final String type;
-    protected final int accessFlags;
-    @Nullable protected final ImmutableEncodedValue initialValue;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
-#### Snippet
-```java
-
-public class ImmutableField extends BaseFieldReference implements Field {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final String type;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
-#### Snippet
-```java
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final String type;
-    protected final int accessFlags;
-    @Nullable protected final ImmutableEncodedValue initialValue;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
-#### Snippet
-```java
-    @Nullable protected final ImmutableEncodedValue initialValue;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-
-    public ImmutableField(@Nonnull String definingClass,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableAnnotation.java`
 #### Snippet
 ```java
@@ -6776,6 +6704,42 @@ public class ImmutableAnnotation extends BaseAnnotation {
 ```
 
 ### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+#### Snippet
+```java
+public class ImmutableRestartLocal extends ImmutableDebugItem implements RestartLocal {
+    protected final int register;
+    @Nullable protected final String name;
+    @Nullable protected final String type;
+    @Nullable protected final String signature;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+#### Snippet
+```java
+    protected final int register;
+    @Nullable protected final String name;
+    @Nullable protected final String type;
+    @Nullable protected final String signature;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+#### Snippet
+```java
+    @Nullable protected final String name;
+    @Nullable protected final String type;
+    @Nullable protected final String signature;
+
+    public ImmutableRestartLocal(int codeAddress,
+```
+
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableTryBlock.java`
 #### Snippet
@@ -6785,6 +6749,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableTry
     @Nonnull protected final ImmutableList<? extends ImmutableExceptionHandler> exceptionHandlers;
 
     public ImmutableTryBlock(int startCodeAddress,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableStartLocal.java`
+#### Snippet
+```java
+    @Nullable protected final String name;
+    @Nullable protected final String type;
+    @Nullable protected final String signature;
+
+    public ImmutableStartLocal(int codeAddress,
 ```
 
 ### NullableProblems
@@ -6813,50 +6789,182 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableStartLocal.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
 #### Snippet
 ```java
-    @Nullable protected final String name;
-    @Nullable protected final String type;
-    @Nullable protected final String signature;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nullable protected final ImmutableMethodImplementation methodImplementation;
 
-    public ImmutableStartLocal(int codeAddress,
+    public ImmutableMethod(@Nonnull String definingClass,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
+    @Nonnull protected final String returnType;
+    protected final int accessFlags;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
+    @Nonnull protected final String returnType;
+    protected final int accessFlags;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    protected final int accessFlags;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nullable protected final ImmutableMethodImplementation methodImplementation;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+public class ImmutableMethod extends BaseMethodReference implements Method {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
+    @Nonnull protected final String returnType;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    @Nonnull protected final String returnType;
+    protected final int accessFlags;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nullable protected final ImmutableMethodImplementation methodImplementation;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+
+public class ImmutableMethod extends BaseMethodReference implements Method {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableSetSourceFile.java`
 #### Snippet
 ```java
-    protected final int register;
-    @Nullable protected final String name;
-    @Nullable protected final String type;
-    @Nullable protected final String signature;
 
+public class ImmutableSetSourceFile extends ImmutableDebugItem implements SetSourceFile {
+    @Nullable protected final String sourceFile;
+
+    public ImmutableSetSourceFile(int codeAddress,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
+#### Snippet
+```java
+public class ImmutableField extends BaseFieldReference implements Field {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final String type;
+    protected final int accessFlags;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
+#### Snippet
+```java
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final String type;
+    protected final int accessFlags;
+    @Nullable protected final ImmutableEncodedValue initialValue;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
 #### Snippet
 ```java
-    @Nullable protected final String name;
-    @Nullable protected final String type;
-    @Nullable protected final String signature;
-
-    public ImmutableRestartLocal(int codeAddress,
+    @Nonnull protected final String type;
+    protected final int accessFlags;
+    @Nullable protected final ImmutableEncodedValue initialValue;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
 #### Snippet
 ```java
-public class ImmutableRestartLocal extends ImmutableDebugItem implements RestartLocal {
-    protected final int register;
-    @Nullable protected final String name;
-    @Nullable protected final String type;
-    @Nullable protected final String signature;
+    @Nullable protected final ImmutableEncodedValue initialValue;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+
+    public ImmutableField(@Nonnull String definingClass,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
+#### Snippet
+```java
+
+public class ImmutableField extends BaseFieldReference implements Field {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final String type;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableField.java`
+#### Snippet
+```java
+    protected final int accessFlags;
+    @Nullable protected final ImmutableEncodedValue initialValue;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableFieldEncodedValue.java`
+#### Snippet
+```java
+
+public class ImmutableFieldEncodedValue extends BaseFieldEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final ImmutableFieldReference value;
+
+    public ImmutableFieldEncodedValue(@Nonnull ImmutableFieldReference value) {
 ```
 
 ### NullableProblems
@@ -6897,126 +7005,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/Immuta
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableFieldEncodedValue.java`
-#### Snippet
-```java
-
-public class ImmutableFieldEncodedValue extends BaseFieldEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final ImmutableFieldReference value;
-
-    public ImmutableFieldEncodedValue(@Nonnull ImmutableFieldReference value) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    protected final int accessFlags;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-    @Nullable protected final ImmutableMethodImplementation methodImplementation;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
-    @Nonnull protected final String returnType;
-    protected final int accessFlags;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
-    @Nonnull protected final String returnType;
-    protected final int accessFlags;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-
-public class ImmutableMethod extends BaseMethodReference implements Method {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    @Nonnull protected final String returnType;
-    protected final int accessFlags;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-    @Nullable protected final ImmutableMethodImplementation methodImplementation;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-public class ImmutableMethod extends BaseMethodReference implements Method {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
-    @Nonnull protected final String returnType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-    @Nullable protected final ImmutableMethodImplementation methodImplementation;
-
-    public ImmutableMethod(@Nonnull String definingClass,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/debug/ImmutableSetSourceFile.java`
-#### Snippet
-```java
-
-public class ImmutableSetSourceFile extends ImmutableDebugItem implements SetSourceFile {
-    @Nullable protected final String sourceFile;
-
-    public ImmutableSetSourceFile(int codeAddress,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableArrayEncodedValue.java`
-#### Snippet
-```java
-
-public class ImmutableArrayEncodedValue extends BaseArrayEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> value;
-
-    public ImmutableArrayEncodedValue(@Nonnull Collection<? extends EncodedValue> value) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableTypeEncodedValue.java`
 #### Snippet
 ```java
@@ -7025,18 +7013,6 @@ public class ImmutableTypeEncodedValue extends BaseTypeEncodedValue implements I
     @Nonnull protected final String value;
 
     public ImmutableTypeEncodedValue(@Nonnull String value) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableStringEncodedValue.java`
-#### Snippet
-```java
-
-public class ImmutableStringEncodedValue extends BaseStringEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final String value;
-
-    public ImmutableStringEncodedValue(@Nonnull String value) {
 ```
 
 ### NullableProblems
@@ -7053,38 +7029,26 @@ public class ImmutableMethodEncodedValue extends BaseMethodEncodedValue implemen
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableMethodTypeEncodedValue.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableStringEncodedValue.java`
 #### Snippet
 ```java
 
-public class ImmutableMethodTypeEncodedValue extends BaseMethodTypeEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final ImmutableMethodProtoReference methodProtoReference;
+public class ImmutableStringEncodedValue extends BaseStringEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final String value;
 
-    public ImmutableMethodTypeEncodedValue(@Nonnull ImmutableMethodProtoReference methodProtoReference) {
+    public ImmutableStringEncodedValue(@Nonnull String value) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableAnnotationEncodedValue.java`
-#### Snippet
-```java
-public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
-
-    public ImmutableAnnotationEncodedValue(@Nonnull String type,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableAnnotationEncodedValue.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableArrayEncodedValue.java`
 #### Snippet
 ```java
 
-public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
+public class ImmutableArrayEncodedValue extends BaseArrayEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> value;
 
+    public ImmutableArrayEncodedValue(@Nonnull Collection<? extends EncodedValue> value) {
 ```
 
 ### NullableProblems
@@ -7101,6 +7065,30 @@ public class ImmutableMethodHandleEncodedValue extends BaseMethodHandleEncodedVa
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableAnnotationEncodedValue.java`
+#### Snippet
+```java
+
+public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final String type;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableAnnotationEncodedValue.java`
+#### Snippet
+```java
+public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final String type;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
+
+    public ImmutableAnnotationEncodedValue(@Nonnull String type,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableEnumEncodedValue.java`
 #### Snippet
 ```java
@@ -7113,14 +7101,14 @@ public class ImmutableEnumEncodedValue extends BaseEnumEncodedValue implements I
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableStringReference.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableMethodHandleReference.java`
 #### Snippet
 ```java
+public class ImmutableMethodHandleReference extends BaseMethodHandleReference implements ImmutableReference {
+    protected final int methodHandleType;
+    @Nonnull protected final ImmutableReference memberReference;
 
-public class ImmutableStringReference extends BaseStringReference implements ImmutableReference {
-    @Nonnull protected final String str;
-
-    public ImmutableStringReference(String str) {
+    public ImmutableMethodHandleReference(int methodHandleType, @Nonnull ImmutableReference memberReference) {
 ```
 
 ### NullableProblems
@@ -7133,6 +7121,18 @@ public class ImmutableFieldReference extends BaseFieldReference implements Immut
     @Nonnull protected final String name;
     @Nonnull protected final String type;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableFieldReference.java`
+#### Snippet
+```java
+
+public class ImmutableFieldReference extends BaseFieldReference implements ImmutableReference {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final String type;
 ```
 
 ### NullableProblems
@@ -7149,14 +7149,26 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/Im
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableFieldReference.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/ImmutableMethodTypeEncodedValue.java`
 #### Snippet
 ```java
 
-public class ImmutableFieldReference extends BaseFieldReference implements ImmutableReference {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final String type;
+public class ImmutableMethodTypeEncodedValue extends BaseMethodTypeEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final ImmutableMethodProtoReference methodProtoReference;
+
+    public ImmutableMethodTypeEncodedValue(@Nonnull ImmutableMethodProtoReference methodProtoReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableStringReference.java`
+#### Snippet
+```java
+
+public class ImmutableStringReference extends BaseStringReference implements ImmutableReference {
+    @Nonnull protected final String str;
+
+    public ImmutableStringReference(String str) {
 ```
 
 ### NullableProblems
@@ -7169,54 +7181,6 @@ public class ImmutableTypeReference extends BaseTypeReference implements Immutab
     @Nonnull protected final String type;
 
     public ImmutableTypeReference(String type) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction22c.java`
-#### Snippet
-```java
-    protected final int registerA;
-    protected final int registerB;
-    @Nonnull protected final ImmutableReference reference;
-
-    public ImmutableInstruction22c(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
-#### Snippet
-```java
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
-    @Nonnull protected final String methodName;
-    @Nonnull protected final ImmutableMethodProtoReference methodProto;
-    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
-    @Nonnull protected final String methodName;
-    @Nonnull protected final ImmutableMethodProtoReference methodProto;
-    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
-#### Snippet
-```java
-public class ImmutableCallSiteReference extends BaseCallSiteReference implements ImmutableReference {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
-    @Nonnull protected final String methodName;
-    @Nonnull protected final ImmutableMethodProtoReference methodProto;
 ```
 
 ### NullableProblems
@@ -7236,11 +7200,59 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
 #### Snippet
 ```java
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
+    @Nonnull protected final String methodName;
+    @Nonnull protected final ImmutableMethodProtoReference methodProto;
+    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
+    @Nonnull protected final String methodName;
+    @Nonnull protected final ImmutableMethodProtoReference methodProto;
+    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
+#### Snippet
+```java
 
 public class ImmutableCallSiteReference extends BaseCallSiteReference implements ImmutableReference {
     @Nonnull protected final String name;
     @Nonnull protected final ImmutableMethodHandleReference methodHandle;
     @Nonnull protected final String methodName;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
+#### Snippet
+```java
+public class ImmutableCallSiteReference extends BaseCallSiteReference implements ImmutableReference {
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
+    @Nonnull protected final String methodName;
+    @Nonnull protected final ImmutableMethodProtoReference methodProto;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableMethodReference.java`
+#### Snippet
+```java
+public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<String> parameters;
+    @Nonnull protected final String returnType;
 ```
 
 ### NullableProblems
@@ -7253,6 +7265,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/Im
     @Nonnull protected final ImmutableList<String> parameters;
     @Nonnull protected final String returnType;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableMethodReference.java`
+#### Snippet
+```java
+
+public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<String> parameters;
 ```
 
 ### NullableProblems
@@ -7269,158 +7293,14 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/Im
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableMethodReference.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction22c.java`
 #### Snippet
 ```java
-public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<String> parameters;
-    @Nonnull protected final String returnType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableMethodReference.java`
-#### Snippet
-```java
-
-public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<String> parameters;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction35c.java`
-#### Snippet
-```java
-    protected final int registerF;
-    protected final int registerG;
+    protected final int registerA;
+    protected final int registerB;
     @Nonnull protected final ImmutableReference reference;
 
-    public ImmutableInstruction35c(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/reference/ImmutableMethodHandleReference.java`
-#### Snippet
-```java
-public class ImmutableMethodHandleReference extends BaseMethodHandleReference implements ImmutableReference {
-    protected final int methodHandleType;
-    @Nonnull protected final ImmutableReference memberReference;
-
-    public ImmutableMethodHandleReference(int methodHandleType, @Nonnull ImmutableReference memberReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nullable protected final String sourceFile;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nullable protected final String superclass;
-    @Nonnull protected final ImmutableList<String> interfaces;
-    @Nullable protected final String sourceFile;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    protected final int accessFlags;
-    @Nullable protected final String superclass;
-    @Nonnull protected final ImmutableList<String> interfaces;
-    @Nullable protected final String sourceFile;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableList<String> interfaces;
-    @Nullable protected final String sourceFile;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
-
-    public ImmutableClassDef(@Nonnull String type,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-
-public class ImmutableClassDef extends BaseTypeReference implements ClassDef {
-    @Nonnull protected final String type;
-    protected final int accessFlags;
-    @Nullable protected final String superclass;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nonnull protected final String type;
-    protected final int accessFlags;
-    @Nullable protected final String superclass;
-    @Nonnull protected final ImmutableList<String> interfaces;
-    @Nullable protected final String sourceFile;
+    public ImmutableInstruction22c(@Nonnull Opcode opcode,
 ```
 
 ### NullableProblems
@@ -7449,25 +7329,121 @@ public class ImmutableMethodProtoReference extends BaseMethodProtoReference impl
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction45cc.java`
-#### Snippet
-```java
-    protected final int registerG;
-    @Nonnull protected final ImmutableReference reference;
-    @Nonnull protected final ImmutableReference reference2;
-
-    public ImmutableInstruction45cc(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction45cc.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction35c.java`
 #### Snippet
 ```java
     protected final int registerF;
     protected final int registerG;
     @Nonnull protected final ImmutableReference reference;
-    @Nonnull protected final ImmutableReference reference2;
+
+    public ImmutableInstruction35c(@Nonnull Opcode opcode,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    protected final int accessFlags;
+    @Nullable protected final String superclass;
+    @Nonnull protected final ImmutableList<String> interfaces;
+    @Nullable protected final String sourceFile;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nullable protected final String sourceFile;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nullable protected final String superclass;
+    @Nonnull protected final ImmutableList<String> interfaces;
+    @Nullable protected final String sourceFile;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
+
+    public ImmutableClassDef(@Nonnull String type,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableList<String> interfaces;
+    @Nullable protected final String sourceFile;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nonnull protected final String type;
+    protected final int accessFlags;
+    @Nullable protected final String superclass;
+    @Nonnull protected final ImmutableList<String> interfaces;
+    @Nullable protected final String sourceFile;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+
+public class ImmutableClassDef extends BaseTypeReference implements ClassDef {
+    @Nonnull protected final String type;
+    protected final int accessFlags;
+    @Nullable protected final String superclass;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
 
 ```
 
@@ -7485,18 +7461,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutablePackedSwitchPayload.java`
-#### Snippet
-```java
-    public static final Opcode OPCODE = Opcode.PACKED_SWITCH_PAYLOAD;
-
-    @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
-
-    public ImmutablePackedSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction20bc.java`
 #### Snippet
 ```java
@@ -7505,18 +7469,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/
     @Nonnull protected final ImmutableReference reference;
 
     public ImmutableInstruction20bc(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction31c.java`
-#### Snippet
-```java
-
-    protected final int registerA;
-    @Nonnull protected final ImmutableReference reference;
-
-    public ImmutableInstruction31c(@Nonnull Opcode opcode,
 ```
 
 ### NullableProblems
@@ -7541,6 +7493,54 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/
     @Nonnull protected final ImmutableReference reference;
     @Nonnull protected final ImmutableReference reference2;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction31c.java`
+#### Snippet
+```java
+
+    protected final int registerA;
+    @Nonnull protected final ImmutableReference reference;
+
+    public ImmutableInstruction31c(@Nonnull Opcode opcode,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutablePackedSwitchPayload.java`
+#### Snippet
+```java
+    public static final Opcode OPCODE = Opcode.PACKED_SWITCH_PAYLOAD;
+
+    @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
+
+    public ImmutablePackedSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction45cc.java`
+#### Snippet
+```java
+    protected final int registerF;
+    protected final int registerG;
+    @Nonnull protected final ImmutableReference reference;
+    @Nonnull protected final ImmutableReference reference2;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/ImmutableInstruction45cc.java`
+#### Snippet
+```java
+    protected final int registerG;
+    @Nonnull protected final ImmutableReference reference;
+    @Nonnull protected final ImmutableReference reference2;
+
+    public ImmutableInstruction45cc(@Nonnull Opcode opcode,
 ```
 
 ### NullableProblems
@@ -7596,6 +7596,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Debug/StartLocalMethodItem.java`
 #### Snippet
 ```java
+public class StartLocalMethodItem extends DebugMethodItem {
+    @Nonnull private final ClassDefinition classDef;
+    @Nonnull private final StartLocal startLocal;
+    @Nonnull private final RegisterFormatter registerFormatter;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Debug/StartLocalMethodItem.java`
+#### Snippet
+```java
 
 public class StartLocalMethodItem extends DebugMethodItem {
     @Nonnull private final ClassDefinition classDef;
@@ -7616,18 +7628,6 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Debug/Start
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Debug/StartLocalMethodItem.java`
-#### Snippet
-```java
-public class StartLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final ClassDefinition classDef;
-    @Nonnull private final StartLocal startLocal;
-    @Nonnull private final RegisterFormatter registerFormatter;
-
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Debug/SetSourceFileMethodItem.java`
 #### Snippet
@@ -7637,6 +7637,18 @@ public class SetSourceFileMethodItem extends DebugMethodItem {
     @Nullable private final String sourceFile;
 
     public SetSourceFileMethodItem(int codeAddress, int sortOrder, @Nonnull SetSourceFile setSourceFile) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Debug/RestartLocalMethodItem.java`
+#### Snippet
+```java
+
+public class RestartLocalMethodItem extends DebugMethodItem {
+    @Nonnull private final ClassDefinition classDef;
+    @Nonnull private final RestartLocal restartLocal;
+    @Nonnull private final RegisterFormatter registerFormatter;
 ```
 
 ### NullableProblems
@@ -7656,23 +7668,23 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Debug/RestartLocalMethodItem.java`
 #### Snippet
 ```java
-
 public class RestartLocalMethodItem extends DebugMethodItem {
     @Nonnull private final ClassDefinition classDef;
     @Nonnull private final RestartLocal restartLocal;
     @Nonnull private final RegisterFormatter registerFormatter;
+
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Debug/RestartLocalMethodItem.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliFormatter.java`
 #### Snippet
 ```java
-public class RestartLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final ClassDefinition classDef;
-    @Nonnull private final RestartLocal restartLocal;
-    @Nonnull private final RegisterFormatter registerFormatter;
+public class BaksmaliFormatter extends DexFormatter {
 
+    @Nullable private final String classContext;
+
+    public BaksmaliFormatter() {
 ```
 
 ### NullableProblems
@@ -7701,14 +7713,26 @@ public class EndLocalMethodItem extends DebugMethodItem {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliFormatter.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
 #### Snippet
 ```java
-public class BaksmaliFormatter extends DexFormatter {
+public class BaksmaliWriter extends DexFormattedWriter {
 
     @Nullable private final String classContext;
 
-    public BaksmaliFormatter() {
+    protected final char[] buffer = new char[24];
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/PostInstructionRegisterInfoMethodItem.java`
+#### Snippet
+```java
+
+public class PostInstructionRegisterInfoMethodItem extends MethodItem {
+    @Nonnull private final RegisterFormatter registerFormatter;
+    @Nonnull private final AnalyzedInstruction analyzedInstruction;
+
 ```
 
 ### NullableProblems
@@ -7721,78 +7745,6 @@ public class PostInstructionRegisterInfoMethodItem extends MethodItem {
     @Nonnull private final AnalyzedInstruction analyzedInstruction;
 
     public PostInstructionRegisterInfoMethodItem(@Nonnull RegisterFormatter registerFormatter,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/PostInstructionRegisterInfoMethodItem.java`
-#### Snippet
-```java
-
-public class PostInstructionRegisterInfoMethodItem extends MethodItem {
-    @Nonnull private final RegisterFormatter registerFormatter;
-    @Nonnull private final AnalyzedInstruction analyzedInstruction;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-
-    private class DirectoryEntry extends FileSystemEntry {
-        @Nullable private File file = null;
-        private int caseSensitivity = forcedCaseSensitivity;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-    private abstract class FileSystemEntry {
-        @Nullable public final DirectoryEntry parent;
-        @Nonnull public final String logicalName;
-        @Nullable protected String physicalName = null;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-
-    private abstract class FileSystemEntry {
-        @Nullable public final DirectoryEntry parent;
-        @Nonnull public final String logicalName;
-        @Nullable protected String physicalName = null;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-        @Nullable public final DirectoryEntry parent;
-        @Nonnull public final String logicalName;
-        @Nullable protected String physicalName = null;
-
-        private FileSystemEntry(@Nullable DirectoryEntry parent, @Nonnull String logicalName) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
-#### Snippet
-```java
-public class BaksmaliWriter extends DexFormattedWriter {
-
-    @Nullable private final String classContext;
-
-    protected final char[] buffer = new char[24];
 ```
 
 ### NullableProblems
@@ -7824,6 +7776,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/PreInstructionRegisterInfoMethodItem.java`
 #### Snippet
 ```java
+public class PreInstructionRegisterInfoMethodItem extends MethodItem {
+    private final int registerInfo;
+    @Nonnull private final MethodAnalyzer methodAnalyzer;
+    @Nonnull private final RegisterFormatter registerFormatter;
+    @Nonnull private final AnalyzedInstruction analyzedInstruction;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/PreInstructionRegisterInfoMethodItem.java`
+#### Snippet
+```java
     private final int registerInfo;
     @Nonnull private final MethodAnalyzer methodAnalyzer;
     @Nonnull private final RegisterFormatter registerFormatter;
@@ -7832,15 +7796,51 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/PreInstructionRegisterInfoMethodItem.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
 #### Snippet
 ```java
-public class PreInstructionRegisterInfoMethodItem extends MethodItem {
-    private final int registerInfo;
-    @Nonnull private final MethodAnalyzer methodAnalyzer;
-    @Nonnull private final RegisterFormatter registerFormatter;
-    @Nonnull private final AnalyzedInstruction analyzedInstruction;
+        @Nullable public final DirectoryEntry parent;
+        @Nonnull public final String logicalName;
+        @Nullable protected String physicalName = null;
+
+        private FileSystemEntry(@Nullable DirectoryEntry parent, @Nonnull String logicalName) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
+#### Snippet
+```java
+    private abstract class FileSystemEntry {
+        @Nullable public final DirectoryEntry parent;
+        @Nonnull public final String logicalName;
+        @Nullable protected String physicalName = null;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
+#### Snippet
+```java
+
+    private abstract class FileSystemEntry {
+        @Nullable public final DirectoryEntry parent;
+        @Nonnull public final String logicalName;
+        @Nullable protected String physicalName = null;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
+#### Snippet
+```java
+
+    private class DirectoryEntry extends FileSystemEntry {
+        @Nullable private File file = null;
+        private int caseSensitivity = forcedCaseSensitivity;
+
 ```
 
 ### NullableProblems
@@ -7853,6 +7853,30 @@ public class ClassDefinition {
     @Nonnull public final ClassDef classDef;
     @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
     @Nonnull private final BaksmaliFormatter formatter;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+
+public class ClassDefinition {
+    @Nonnull public final BaksmaliOptions options;
+    @Nonnull public final ClassDef classDef;
+    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+    @Nonnull public final BaksmaliOptions options;
+    @Nonnull public final ClassDef classDef;
+    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
+    @Nonnull private final BaksmaliFormatter formatter;
+
 ```
 
 ### NullableProblems
@@ -7869,25 +7893,13 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/ClassDefinition.java`
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
 
-public class ClassDefinition {
-    @Nonnull public final BaksmaliOptions options;
-    @Nonnull public final ClassDef classDef;
-    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-    @Nonnull public final BaksmaliOptions options;
-    @Nonnull public final ClassDef classDef;
-    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
-    @Nonnull private final BaksmaliFormatter formatter;
+    @Nonnull private final SparseIntArray packedSwitchMap;
+    @Nonnull private final SparseIntArray sparseSwitchMap;
+    @Nonnull private final InstructionOffsetMap instructionOffsetMap;
 
 ```
 
@@ -7908,18 +7920,6 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
-public class MethodDefinition {
-    @Nonnull public final ClassDefinition classDef;
-    @Nonnull public final Method method;
-    @Nonnull public final MethodImplementation methodImpl;
-    @Nonnull public final ImmutableList<Instruction> instructions;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
     public RegisterFormatter registerFormatter;
 
     @Nonnull private final LabelCache labelCache = new LabelCache();
@@ -7932,11 +7932,71 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
+    @Nonnull public final Method method;
+    @Nonnull public final MethodImplementation methodImpl;
+    @Nonnull public final ImmutableList<Instruction> instructions;
+    @Nonnull public final List<Instruction> effectiveInstructions;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+
+public class MethodDefinition {
+    @Nonnull public final ClassDefinition classDef;
+    @Nonnull public final Method method;
+    @Nonnull public final MethodImplementation methodImpl;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+    @Nonnull public final MethodImplementation methodImpl;
+    @Nonnull public final ImmutableList<Instruction> instructions;
+    @Nonnull public final List<Instruction> effectiveInstructions;
+
+    @Nonnull public final ImmutableList<MethodParameter> methodParameters;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+public class MethodDefinition {
+    @Nonnull public final ClassDefinition classDef;
+    @Nonnull public final Method method;
+    @Nonnull public final MethodImplementation methodImpl;
+    @Nonnull public final ImmutableList<Instruction> instructions;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
     @Nonnull public final List<Instruction> effectiveInstructions;
 
     @Nonnull public final ImmutableList<MethodParameter> methodParameters;
     public RegisterFormatter registerFormatter;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+    @Nonnull public final ClassDefinition classDef;
+    @Nonnull public final Method method;
+    @Nonnull public final MethodImplementation methodImpl;
+    @Nonnull public final ImmutableList<Instruction> instructions;
+    @Nonnull public final List<Instruction> effectiveInstructions;
 ```
 
 ### NullableProblems
@@ -7949,66 +8009,6 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
     @Nonnull private final InstructionOffsetMap instructionOffsetMap;
 
     public MethodDefinition(@Nonnull ClassDefinition classDef, @Nonnull Method method,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-    @Nonnull public final Method method;
-    @Nonnull public final MethodImplementation methodImpl;
-    @Nonnull public final ImmutableList<Instruction> instructions;
-    @Nonnull public final List<Instruction> effectiveInstructions;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-
-public class MethodDefinition {
-    @Nonnull public final ClassDefinition classDef;
-    @Nonnull public final Method method;
-    @Nonnull public final MethodImplementation methodImpl;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-
-    @Nonnull private final SparseIntArray packedSwitchMap;
-    @Nonnull private final SparseIntArray sparseSwitchMap;
-    @Nonnull private final InstructionOffsetMap instructionOffsetMap;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-    @Nonnull public final MethodImplementation methodImpl;
-    @Nonnull public final ImmutableList<Instruction> instructions;
-    @Nonnull public final List<Instruction> effectiveInstructions;
-
-    @Nonnull public final ImmutableList<MethodParameter> methodParameters;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-    @Nonnull public final ClassDefinition classDef;
-    @Nonnull public final Method method;
-    @Nonnull public final MethodImplementation methodImpl;
-    @Nonnull public final ImmutableList<Instruction> instructions;
-    @Nonnull public final List<Instruction> effectiveInstructions;
 ```
 
 ### NullableProblems
@@ -8334,18 +8334,6 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDexCommand.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `inputList` are queried, but never updated
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
-#### Snippet
-```java
-    @Parameter(description = "An oat/odex file")
-    @ExtendedParameter(argumentNames = "file")
-    private List<String> inputList = Lists.newArrayList();
-
-    public ListDependenciesCommand(@Nonnull List<JCommander> commandAncestors) {
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `commands` are queried, but never updated
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/HelpCommand.java`
 #### Snippet
@@ -8358,15 +8346,15 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/HelpCommand.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `commands` are queried, but never updated
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
+Contents of collection `inputList` are queried, but never updated
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
 #### Snippet
 ```java
-    @Parameter(description = "If specified, show the detailed usage information for the given commands")
-    @ExtendedParameter(argumentNames = "commands")
-    private List<String> commands;
+    @Parameter(description = "An oat/odex file")
+    @ExtendedParameter(argumentNames = "file")
+    private List<String> inputList = Lists.newArrayList();
 
-    public ListHelpCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListDependenciesCommand(@Nonnull List<JCommander> commandAncestors) {
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -8391,6 +8379,18 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.j
     private List<String> registerInfoTypes = Lists.newArrayList();
 
     @Parameter(names = {"--sequential-labels", "--seq", "--sl"},
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `commands` are queried, but never updated
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
+    @Parameter(description = "If specified, show the detailed usage information for the given commands")
+    @ExtendedParameter(argumentNames = "commands")
+    private List<String> commands;
+
+    public ListHelpCommand(@Nonnull List<JCommander> commandAncestors) {
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -8460,11 +8460,11 @@ Field initialization to `null` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/util/TwoColumnOutput.java`
 #### Snippet
 ```java
+    }
 
     private String[] leftLines = null;
     private String[] rightLines = null;
     public void write(String left, String right) throws IOException {
-        leftLines = StringWrapper.wrapString(left, leftWidth, leftLines);
 ```
 
 ### RedundantFieldInitialization
@@ -8472,11 +8472,11 @@ Field initialization to `null` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/util/TwoColumnOutput.java`
 #### Snippet
 ```java
-    }
 
     private String[] leftLines = null;
     private String[] rightLines = null;
     public void write(String left, String right) throws IOException {
+        leftLines = StringWrapper.wrapString(left, leftWidth, leftLines);
 ```
 
 ### RedundantFieldInitialization
@@ -8504,18 +8504,6 @@ public class SparseArray<E> {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
-#### Snippet
-```java
-
-        @Nullable
-        private byte[] buf = null;
-        private boolean loadedVdex = false;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
 #### Snippet
@@ -8525,6 +8513,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
         private boolean loadedVdex = false;
 
         public FilenameVdexProvider(File oatFile) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
+#### Snippet
+```java
+
+        @Nullable
+        private byte[] buf = null;
+        private boolean loadedVdex = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -8616,11 +8616,11 @@ Field initialization to `null` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/LocatedItems.java`
 #### Snippet
 ```java
-    // the labels and debugItems lists only when they are needed
-    @Nullable
-    private List<T> items = null;
+                return new Iterator<T>() {
+                    private @Nullable
+                    T currentItem = null;
 
-    @Nonnull
+                    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -8628,11 +8628,11 @@ Field initialization to `null` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/LocatedItems.java`
 #### Snippet
 ```java
-                return new Iterator<T>() {
-                    private @Nullable
-                    T currentItem = null;
+    // the labels and debugItems lists only when they are needed
+    @Nullable
+    private List<T> items = null;
 
-                    @Override
+    @Nonnull
 ```
 
 ### RedundantFieldInitialization
@@ -8664,35 +8664,11 @@ Field initialization to `0` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-    protected boolean hasHiddenApiRestrictions = false;
-
-    protected int numAnnotationSetRefItems = 0;
-    protected int numAnnotationDirectoryItems = 0;
-    protected int numDebugInfoItems = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
     protected int numAnnotationDirectoryItems = 0;
     protected int numDebugInfoItems = 0;
     protected int numCodeItemItems = 0;
     protected int numClassDataItems = 0;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-
-        private boolean writeRestrictionsForClass = false;
-        private int pendingBlankEntries = 0;
-
-        public RestrictionsWriter(DexDataStore dataStore, DexDataWriter offsetWriter, int numClasses)
 ```
 
 ### RedundantFieldInitialization
@@ -8712,35 +8688,23 @@ Field initialization to `0` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-
-    protected int numAnnotationSetRefItems = 0;
-    protected int numAnnotationDirectoryItems = 0;
-    protected int numDebugInfoItems = 0;
-    protected int numCodeItemItems = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-    protected int numAnnotationSetRefItems = 0;
-    protected int numAnnotationDirectoryItems = 0;
-    protected int numDebugInfoItems = 0;
-    protected int numCodeItemItems = 0;
-    protected int numClassDataItems = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
     protected int numDebugInfoItems = 0;
     protected int numCodeItemItems = 0;
     protected int numClassDataItems = 0;
 
     // The sections defined here must be kept in sync with these section arrays:
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+    protected boolean hasHiddenApiRestrictions = false;
+
+    protected int numAnnotationSetRefItems = 0;
+    protected int numAnnotationDirectoryItems = 0;
+    protected int numDebugInfoItems = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -8753,6 +8717,42 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
         private boolean writeRestrictionsForClass = false;
         private int pendingBlankEntries = 0;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+    protected int numAnnotationSetRefItems = 0;
+    protected int numAnnotationDirectoryItems = 0;
+    protected int numDebugInfoItems = 0;
+    protected int numCodeItemItems = 0;
+    protected int numClassDataItems = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+
+        private boolean writeRestrictionsForClass = false;
+        private int pendingBlankEntries = 0;
+
+        public RestrictionsWriter(DexDataStore dataStore, DexDataWriter offsetWriter, int numClasses)
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+
+    protected int numAnnotationSetRefItems = 0;
+    protected int numAnnotationDirectoryItems = 0;
+    protected int numDebugInfoItems = 0;
+    protected int numCodeItemItems = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -8792,6 +8792,30 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/OatFile.java
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/ClassDefItem.java`
+#### Snippet
+```java
+    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+        return new SectionAnnotator(annotator, mapItem) {
+            private SectionAnnotator classDataAnnotator = null;
+
+            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+    protected boolean interfacesFullyResolved = true;
+
+    protected Set<String> unresolvedInterfaces = null;
+
+    public ClassProto(@Nonnull ClassPath classPath, @Nonnull String type) {
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedClassDef.java`
 #### Snippet
@@ -8828,18 +8852,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBackedCla
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/ClassDefItem.java`
-#### Snippet
-```java
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
-        return new SectionAnnotator(annotator, mapItem) {
-            private SectionAnnotator classDataAnnotator = null;
-
-            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
 #### Snippet
@@ -8865,18 +8877,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/FixedSi
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem.java`
-#### Snippet
-```java
-    public static final int INSTRUCTION_START_OFFSET = 16;
-
-    public static int CDEX_TRIES_SIZE_SHIFT = 0;
-    public static int CDEX_OUTS_COUNT_SHIFT = 4;
-    public static int CDEX_INS_COUNT_SHIFT = 8;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/DebugInfo.java`
 #### Snippet
 ```java
@@ -8888,15 +8888,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/DebugIn
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem.java`
 #### Snippet
 ```java
-    protected boolean interfacesFullyResolved = true;
+    public static final int INSTRUCTION_START_OFFSET = 16;
 
-    protected Set<String> unresolvedInterfaces = null;
-
-    public ClassProto(@Nonnull ClassPath classPath, @Nonnull String type) {
+    public static int CDEX_TRIES_SIZE_SHIFT = 0;
+    public static int CDEX_OUTS_COUNT_SHIFT = 4;
+    public static int CDEX_INS_COUNT_SHIFT = 8;
 ```
 
 ### RedundantFieldInitialization
@@ -8936,15 +8936,39 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
 #### Snippet
 ```java
-    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
-    public InlineMethodResolver inlineResolver = null;
-    public ClassPath classPath = null;
-    public SyntheticAccessorResolver syntheticAccessorResolver = null;
+                        "by default for oat files. For odex files, this is only needed for odexes from 4.2.0. It " +
+                        "was reverted in 4.2.1.")
+        public boolean checkPackagePrivateAccess = false;
+    }
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
+#### Snippet
+```java
+                    "specify multiple directories to search. They will be searched in the order they are provided.")
+    @ExtendedParameter(argumentNames = "dir")
+    public List<String> classPathDirectories = null;
+
+    public static class CheckPackagePrivateArgument {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
+#### Snippet
+```java
+            splitter = ColonParameterSplitter.class)
+    @ExtendedParameter(argumentNames = "classpath")
+    public List<String> bootClassPath = null;
+
+    @Parameter(names = {"-c", "--classpath", "--cp"},
 ```
 
 ### RedundantFieldInitialization
@@ -8957,6 +8981,18 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java
     public boolean allowOdex = false;
     public boolean deodex = false;
     public boolean implicitReferences = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean allowOdex = false;
+    public boolean deodex = false;
+    public boolean implicitReferences = false;
+    public boolean normalizeVirtualMethods = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -8976,11 +9012,23 @@ Field initialization to `false` is redundant
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
 #### Snippet
 ```java
-    public boolean deodex = false;
-    public boolean implicitReferences = false;
-    public boolean normalizeVirtualMethods = false;
 
-    // register info values
+    public boolean parameterRegisters = true;
+    public boolean localsDirective = false;
+    public boolean sequentialLabels = false;
+    public boolean debugInfo = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
+    public InlineMethodResolver inlineResolver = null;
+    public ClassPath classPath = null;
+    public SyntheticAccessorResolver syntheticAccessorResolver = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -8993,30 +9041,6 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java
     public InlineMethodResolver inlineResolver = null;
     public ClassPath classPath = null;
     public SyntheticAccessorResolver syntheticAccessorResolver = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public boolean allowOdex = false;
-    public boolean deodex = false;
-    public boolean implicitReferences = false;
-    public boolean normalizeVirtualMethods = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public boolean accessorComments = true;
-    public boolean allowOdex = false;
-    public boolean deodex = false;
-    public boolean implicitReferences = false;
-    public boolean normalizeVirtualMethods = false;
 ```
 
 ### RedundantFieldInitialization
@@ -9044,6 +9068,30 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean deodex = false;
+    public boolean implicitReferences = false;
+    public boolean normalizeVirtualMethods = false;
+
+    // register info values
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean accessorComments = true;
+    public boolean allowOdex = false;
+    public boolean deodex = false;
+    public boolean implicitReferences = false;
+    public boolean normalizeVirtualMethods = false;
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
 #### Snippet
@@ -9053,90 +9101,6 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java
     public int registerInfo = 0;
 
     public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-
-    public boolean parameterRegisters = true;
-    public boolean localsDirective = false;
-    public boolean sequentialLabels = false;
-    public boolean debugInfo = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
-#### Snippet
-```java
-            splitter = ColonParameterSplitter.class)
-    @ExtendedParameter(argumentNames = "classpath")
-    public List<String> bootClassPath = null;
-
-    @Parameter(names = {"-c", "--classpath", "--cp"},
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
-#### Snippet
-```java
-                        "by default for oat files. For odex files, this is only needed for odexes from 4.2.0. It " +
-                        "was reverted in 4.2.1.")
-        public boolean checkPackagePrivateAccess = false;
-    }
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
-#### Snippet
-```java
-                    "specify multiple directories to search. They will be searched in the order they are provided.")
-    @ExtendedParameter(argumentNames = "dir")
-    public List<String> classPathDirectories = null;
-
-    public static class CheckPackagePrivateArgument {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
-#### Snippet
-```java
-            description = "A comma separated list of classes. Only disassemble these classes")
-    @ExtendedParameter(argumentNames = "classes")
-    private List<String> classes = null;
-
-    public DisassembleCommand(@Nonnull List<JCommander> commandAncestors) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
-#### Snippet
-```java
-            description = "Use implicit method and field references (without the class name) for methods and " +
-                    "fields from the current class.")
-    private boolean implicitReferences = false;
-
-    @Parameter(names = "--allow-odex-opcodes",
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
-#### Snippet
-```java
-            description = "When disassembling, output the .locals directive with the number of non-parameter " +
-                    "registers instead of the .registers directive with the total number of registers.")
-    private boolean localsDirective = false;
-
-    @Parameter(names = {"--accessor-comments", "--ac"}, arity = 1,
 ```
 
 ### RedundantFieldInitialization
@@ -9164,6 +9128,30 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.j
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
+#### Snippet
+```java
+            description = "A comma separated list of classes. Only disassemble these classes")
+    @ExtendedParameter(argumentNames = "classes")
+    private List<String> classes = null;
+
+    public DisassembleCommand(@Nonnull List<JCommander> commandAncestors) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
+#### Snippet
+```java
+            description = "When disassembling, output the .locals directive with the number of non-parameter " +
+                    "registers instead of the .registers directive with the total number of registers.")
+    private boolean localsDirective = false;
+
+    @Parameter(names = {"--accessor-comments", "--ac"}, arity = 1,
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
 #### Snippet
@@ -9173,6 +9161,18 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.j
     private boolean codeOffsets = false;
 
     @Parameter(names = {"--resolve-resources", "--rr"}, arity = 2,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
+#### Snippet
+```java
+            description = "Use implicit method and field references (without the class name) for methods and " +
+                    "fields from the current class.")
+    private boolean implicitReferences = false;
+
+    @Parameter(names = "--allow-odex-opcodes",
 ```
 
 ### RedundantFieldInitialization
@@ -9204,11 +9204,11 @@ Field initialization to `null` is redundant
 in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
 #### Snippet
 ```java
+        @Nullable public final DirectoryEntry parent;
+        @Nonnull public final String logicalName;
+        @Nullable protected String physicalName = null;
 
-    private class DirectoryEntry extends FileSystemEntry {
-        @Nullable private File file = null;
-        private int caseSensitivity = forcedCaseSensitivity;
-
+        private FileSystemEntry(@Nullable DirectoryEntry parent, @Nonnull String logicalName) {
 ```
 
 ### RedundantFieldInitialization
@@ -9216,11 +9216,11 @@ Field initialization to `null` is redundant
 in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
 #### Snippet
 ```java
-        @Nullable public final DirectoryEntry parent;
-        @Nonnull public final String logicalName;
-        @Nullable protected String physicalName = null;
 
-        private FileSystemEntry(@Nullable DirectoryEntry parent, @Nonnull String logicalName) {
+    private class DirectoryEntry extends FileSystemEntry {
+        @Nullable private File file = null;
+        private int caseSensitivity = forcedCaseSensitivity;
+
 ```
 
 ## RuleId[ruleID=EqualsAndHashcode]
@@ -9384,18 +9384,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/InstructionOffset
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `InvalidFile` does not end with 'Exception'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/DexUtil.java`
-#### Snippet
-```java
-    }
-
-    public static class InvalidFile extends RuntimeException {
-        public InvalidFile() {
-        }
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `UnsupportedFile` does not end with 'Exception'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/DexUtil.java`
 #### Snippet
@@ -9404,6 +9392,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/DexUtil.java`
 
     public static class UnsupportedFile extends RuntimeException {
         public UnsupportedFile() {
+        }
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `InvalidFile` does not end with 'Exception'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/DexUtil.java`
+#### Snippet
+```java
+    }
+
+    public static class InvalidFile extends RuntimeException {
+        public InvalidFile() {
         }
 ```
 
@@ -9445,18 +9445,6 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
 
 ## RuleId[ruleID=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
-`StringBuffer buffer` may be declared as 'StringBuilder'
-in `third_party/util/src/main/java/com/android/tools/smali/util/ConsoleUtil.java`
-#### Snippet
-```java
-
-    private static String attemptCommand(String[] command) {
-        StringBuffer buffer = null;
-
-        try {
-```
-
-### StringBufferReplaceableByStringBuilder
 `StringBuffer sb` may be declared as 'StringBuilder'
 in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
 #### Snippet
@@ -9466,6 +9454,18 @@ in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
         StringBuffer sb = new StringBuffer(length * 4 + 6);
         boolean bol = true;
         int col = 0;
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer buffer` may be declared as 'StringBuilder'
+in `third_party/util/src/main/java/com/android/tools/smali/util/ConsoleUtil.java`
+#### Snippet
+```java
+
+    private static String attemptCommand(String[] command) {
+        StringBuffer buffer = null;
+
+        try {
 ```
 
 ## RuleId[ruleID=TextLabelInSwitchStatement]
@@ -9556,30 +9556,6 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.ja
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
-#### Snippet
-```java
-                File inlineTableFile = new File(inlineTable);
-                if (!inlineTableFile.exists()) {
-                    System.err.println(String.format("Could not find file: %s", inlineTable));
-                    System.exit(-1);
-                }
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
-#### Snippet
-```java
-                    options.inlineResolver = new CustomInlineMethodResolver(options.classPath, inlineTableFile);
-                } catch (IOException ex) {
-                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
-                    ex.printStackTrace(System.err);
-                    System.exit(-1);
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
 #### Snippet
 ```java
@@ -9600,6 +9576,30 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.j
                 System.err.println(String.format("Invalid register info type: %s", registerInfoType));
                 usage();
                 System.exit(-1);
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
+#### Snippet
+```java
+                File inlineTableFile = new File(inlineTable);
+                if (!inlineTableFile.exists()) {
+                    System.err.println(String.format("Could not find file: %s", inlineTable));
+                    System.exit(-1);
+                }
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
+#### Snippet
+```java
+                    options.inlineResolver = new CustomInlineMethodResolver(options.classPath, inlineTableFile);
+                } catch (IOException ex) {
+                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
+                    ex.printStackTrace(System.err);
+                    System.exit(-1);
 ```
 
 ### RedundantStringFormatCall
@@ -9864,11 +9864,11 @@ Field must be marked with '@com.google.common.annotations.Beta' annotation becau
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 #### Snippet
 ```java
+    // values and minApis provide a mapping of api -> bytecode value.
     // the apis in minApis are guaranteed to be
     public final RangeMap<Integer, Short> apiToValueMap;
     public final RangeMap<Integer, Short> artVersionToValueMap;
 
-    public final String name;
 ```
 
 ### UnstableTypeUsedInSignature
@@ -9876,11 +9876,11 @@ Field must be marked with '@com.google.common.annotations.Beta' annotation becau
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 #### Snippet
 ```java
-    // values and minApis provide a mapping of api -> bytecode value.
     // the apis in minApis are guaranteed to be
     public final RangeMap<Integer, Short> apiToValueMap;
     public final RangeMap<Integer, Short> artVersionToValueMap;
 
+    public final String name;
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -10069,18 +10069,6 @@ in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHan
 ```
 
 ### FieldMayBeStatic
-Field `CASE_SENSITIVE` may be 'static'
-in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-    private final int NO_VALUE = -1;
-    private final int CASE_INSENSITIVE = 0;
-    private final int CASE_SENSITIVE = 1;
-    private int forcedCaseSensitivity = NO_VALUE;
-
-```
-
-### FieldMayBeStatic
 Field `CASE_INSENSITIVE` may be 'static'
 in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
 #### Snippet
@@ -10092,19 +10080,19 @@ in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHan
     private int forcedCaseSensitivity = NO_VALUE;
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `Smali` has only 'static' members, and lacks a 'private' constructor
-in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
+### FieldMayBeStatic
+Field `CASE_SENSITIVE` may be 'static'
+in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
 #### Snippet
 ```java
-import java.util.TreeSet;
+    private final int NO_VALUE = -1;
+    private final int CASE_INSENSITIVE = 0;
+    private final int CASE_SENSITIVE = 1;
+    private int forcedCaseSensitivity = NO_VALUE;
 
-public class Smali {
-
-    /**
 ```
 
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `LinearSearch` has only 'static' members, and lacks a 'private' constructor
 in `util/src/main/java/com/android/tools/smali/util/LinearSearch.java`
@@ -10142,6 +10130,18 @@ public class CharSequenceUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CollectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/util/CollectionUtils.java`
+#### Snippet
+```java
+import javax.annotation.Nonnull;
+
+public class CollectionUtils {
+    public static <T> int listHashCode(@Nonnull Iterable<T> iterable) {
+        int hashCode = 1;
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ImmutableUtils` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/com/android/tools/smali/util/ImmutableUtils.java`
 #### Snippet
@@ -10166,25 +10166,13 @@ public class BitSetUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CollectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/util/CollectionUtils.java`
+Class `Smali` has only 'static' members, and lacks a 'private' constructor
+in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
 #### Snippet
 ```java
-import javax.annotation.Nonnull;
+import java.util.TreeSet;
 
-public class CollectionUtils {
-    public static <T> int listHashCode(@Nonnull Iterable<T> iterable) {
-        int hashCode = 1;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/util/StringUtils.java`
-#### Snippet
-```java
-import java.io.Writer;
-
-public class StringUtils {
+public class Smali {
 
     /**
 ```
@@ -10202,6 +10190,18 @@ public final class Utf8Utils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/util/StringUtils.java`
+#### Snippet
+```java
+import java.io.Writer;
+
+public class StringUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `NumberUtils` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/com/android/tools/smali/util/NumberUtils.java`
 #### Snippet
@@ -10211,6 +10211,18 @@ import java.text.DecimalFormat;
 public class NumberUtils {
     private static final int canonicalFloatNaN = Float.floatToRawIntBits(Float.NaN);
     private static final int maxFloat = Float.floatToRawIntBits(Float.MAX_VALUE);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MethodHandleType` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/MethodHandleType.java`
+#### Snippet
+```java
+import javax.annotation.Nonnull;
+
+public class MethodHandleType {
+    public static final int STATIC_PUT = 0;
+    public static final int STATIC_GET = 1;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10235,18 +10247,6 @@ import java.util.HashMap;
 public class VerificationError {
     public static final int GENERIC = 1;
     public static final int NO_SUCH_CLASS = 2;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MethodHandleType` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/MethodHandleType.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-public class MethodHandleType {
-    public static final int STATIC_PUT = 0;
-    public static final int STATIC_GET = 1;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10394,6 +10394,18 @@ public class EncodedArrayItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `StringDataItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/StringDataItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class StringDataItem {
+    @Nonnull
+    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `CdexDebugOffsetTable` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CdexDebugOffsetTable.java`
 #### Snippet
@@ -10415,18 +10427,6 @@ import javax.annotation.Nullable;
 public class AnnotationSetItem {
     public static final int SIZE_OFFSET = 0;
     public static final int LIST_OFFSET = 4;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringDataItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/StringDataItem.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class StringDataItem {
-    @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10454,18 +10454,6 @@ public class MethodIdItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ItemType` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/ItemType.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-public class ItemType {
-    public static final int HEADER_ITEM = 0x0000;
-    public static final int STRING_ID_ITEM = 0x0001;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ClassDataItem` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/ClassDataItem.java`
 #### Snippet
@@ -10478,15 +10466,15 @@ public class ClassDataItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AnnotationDirectoryItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/AnnotationDirectoryItem.java`
+Class `ItemType` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/ItemType.java`
 #### Snippet
 ```java
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
-public class AnnotationDirectoryItem {
-    public static final int CLASS_ANNOTATIONS_OFFSET  = 0;
-    public static final int FIELD_SIZE_OFFSET = 4;
+public class ItemType {
+    public static final int HEADER_ITEM = 0x0000;
+    public static final int STRING_ID_ITEM = 0x0001;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10502,6 +10490,30 @@ public class TypeListItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `AnnotationDirectoryItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/AnnotationDirectoryItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class AnnotationDirectoryItem {
+    public static final int CLASS_ANNOTATIONS_OFFSET  = 0;
+    public static final int FIELD_SIZE_OFFSET = 4;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TypeIdItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/TypeIdItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class TypeIdItem {
+    public static final int ITEM_SIZE = 4;
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `StringIdItem` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/StringIdItem.java`
 #### Snippet
@@ -10511,18 +10523,6 @@ import javax.annotation.Nullable;
 public class StringIdItem {
     public static final int ITEM_SIZE = 4;
 
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AnnotationSetRefList` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/AnnotationSetRefList.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class AnnotationSetRefList {
-    public static final int SIZE_OFFSET = 0;
-    public static final int LIST_OFFSET = 4;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10538,15 +10538,15 @@ public class OdexHeaderItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TypeIdItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/TypeIdItem.java`
+Class `AnnotationSetRefList` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/AnnotationSetRefList.java`
 #### Snippet
 ```java
 import javax.annotation.Nullable;
 
-public class TypeIdItem {
-    public static final int ITEM_SIZE = 4;
-
+public class AnnotationSetRefList {
+    public static final int SIZE_OFFSET = 0;
+    public static final int LIST_OFFSET = 4;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10574,6 +10574,18 @@ public class AnnotationItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ClassDefItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/ClassDefItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class ClassDefItem {
+    public static final int ITEM_SIZE = 32;
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `EncodedValue` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/EncodedValue.java`
 #### Snippet
@@ -10595,18 +10607,6 @@ import javax.annotation.Nullable;
 public class HiddenApiClassDataItem {
     public static final int SIZE_OFFSET = 0x0;
     public static final int OFFSETS_LIST_OFFSET = 0x4;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClassDefItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/ClassDefItem.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class ClassDefItem {
-    public static final int ITEM_SIZE = 32;
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10742,15 +10742,15 @@ public class ConsoleUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Baksmali` has only 'static' members, and lacks a 'private' constructor
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Baksmali.java`
+Class `FieldDefinition` has only 'static' members, and lacks a 'private' constructor
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/FieldDefinition.java`
 #### Snippet
 ```java
 import java.util.Set;
 
-public class Baksmali {
-    public static boolean disassembleDexFile(DexFile dexFile, File outputDir, int jobs, final BaksmaliOptions options) {
-        return disassembleDexFile(dexFile, outputDir, jobs, options, null);
+public class FieldDefinition {
+    public static void writeTo(BaksmaliWriter writer, Field field,
+                               boolean setInStaticConstructor) throws IOException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10766,15 +10766,15 @@ public class LiteralTools
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FieldDefinition` has only 'static' members, and lacks a 'private' constructor
-in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/FieldDefinition.java`
+Class `Baksmali` has only 'static' members, and lacks a 'private' constructor
+in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Baksmali.java`
 #### Snippet
 ```java
 import java.util.Set;
 
-public class FieldDefinition {
-    public static void writeTo(BaksmaliWriter writer, Field field,
-                               boolean setInStaticConstructor) throws IOException {
+public class Baksmali {
+    public static boolean disassembleDexFile(DexFile dexFile, File outputDir, int jobs, final BaksmaliOptions options) {
+        return disassembleDexFile(dexFile, outputDir, jobs, options, null);
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -10797,9 +10797,9 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
 ```java
 
             try {
-                DexBackedOdexFile odexFile = DexBackedOdexFile.fromInputStream(opcodes, inputStream);
-                return new SingletonMultiDexContainer(file.getPath(), odexFile);
+                return DexBackedOdexFile.fromInputStream(opcodes, inputStream);
             } catch (DexBackedOdexFile.NotAnOdexFile ex) {
+                // just eat it
 ```
 
 ### DataFlowIssue
@@ -10809,45 +10809,9 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/DexFileFactory.java`
 ```java
 
             try {
-                return DexBackedOdexFile.fromInputStream(opcodes, inputStream);
+                DexBackedOdexFile odexFile = DexBackedOdexFile.fromInputStream(opcodes, inputStream);
+                return new SingletonMultiDexContainer(file.getPath(), odexFile);
             } catch (DexBackedOdexFile.NotAnOdexFile ex) {
-                // just eat it
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
-#### Snippet
-```java
-            case LONG: {
-                if (constantValue == 1) {
-                    negativeConstant = false;
-                } else if (constantValue == -1) {
-                    negativeConstant = true;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
-#### Snippet
-```java
-                float val = Float.intBitsToFloat((int)constantValue);
-                if (val == 1) {
-                    negativeConstant = false;
-                } else if (val == -1) {
-                    negativeConstant = true;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
-#### Snippet
-```java
-                double val = Double.longBitsToDouble(constantValue);
-                if (val == 1) {
-                    negativeConstant = false;
-                } else if (val == -1) {
-                    negativeConstant = true;
 ```
 
 ### DataFlowIssue
@@ -10911,6 +10875,42 @@ case 2:
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
+#### Snippet
+```java
+            case LONG: {
+                if (constantValue == 1) {
+                    negativeConstant = false;
+                } else if (constantValue == -1) {
+                    negativeConstant = true;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
+#### Snippet
+```java
+                float val = Float.intBitsToFloat((int)constantValue);
+                if (val == 1) {
+                    negativeConstant = false;
+                } else if (val == -1) {
+                    negativeConstant = true;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/SyntheticAccessorFSM.java`
+#### Snippet
+```java
+                double val = Double.longBitsToDouble(constantValue);
+                if (val == 1) {
+                    negativeConstant = false;
+                } else if (val == -1) {
+                    negativeConstant = true;
+```
+
+### DataFlowIssue
 Dereference of `next` may produce `NullPointerException`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBuilder.java`
 #### Snippet
@@ -10920,18 +10920,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/util/TryListBui
                 MutableTryBlock<EH> ret = next.next;
 
                 if (ret == listEnd) {
-```
-
-### DataFlowIssue
-Argument `poolMethod.getImplementation()` might be null
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nonnull @Override
-    public MutableMethodImplementation makeMutableMethodImplementation(@Nonnull PoolMethod poolMethod) {
-        return new MutableMethodImplementation(poolMethod.getImplementation());
-    }
-
 ```
 
 ### DataFlowIssue
@@ -10947,15 +10935,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 ```
 
 ### DataFlowIssue
-@Nullable method 'getExceptionTypeReference' always returns a non-null value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderExceptionHandler.java`
+Argument `poolMethod.getImplementation()` might be null
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/ClassPool.java`
 #### Snippet
 ```java
-            }
+    @Nonnull @Override
+    public MutableMethodImplementation makeMutableMethodImplementation(@Nonnull PoolMethod poolMethod) {
+        return new MutableMethodImplementation(poolMethod.getImplementation());
+    }
 
-            @Nullable @Override public TypeReference getExceptionTypeReference() {
-                return exceptionType;
-            }
 ```
 
 ### DataFlowIssue
@@ -10966,6 +10954,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderExcepti
         }
         return new BuilderExceptionHandler(handler) {
             @Nullable @Override public String getExceptionType() {
+                return exceptionType;
+            }
+```
+
+### DataFlowIssue
+@Nullable method 'getExceptionTypeReference' always returns a non-null value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/BuilderExceptionHandler.java`
+#### Snippet
+```java
+            }
+
+            @Nullable @Override public TypeReference getExceptionTypeReference() {
                 return exceptionType;
             }
 ```
@@ -10995,18 +10995,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MethodImplemen
 ```
 
 ### DataFlowIssue
-Argument `impl` might be null
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassPool.java`
-#### Snippet
-```java
-            return (MutableMethodImplementation)impl;
-        }
-        return new MutableMethodImplementation(impl);
-    }
-
-```
-
-### DataFlowIssue
 @Nullable method 'apply' always returns a non-null value
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/BuilderSparseSwitchPayload.java`
 #### Snippet
@@ -11019,27 +11007,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/instruction/Bu
 ```
 
 ### DataFlowIssue
-Method invocation `getDexFile` may produce `NullPointerException`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/PathEntryLoader.java`
+Argument `impl` might be null
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassPool.java`
 #### Snippet
 ```java
-
-        for (String entryName : entryNames) {
-            classProviders.add(new DexClassProvider(container.getEntry(entryName).getDexFile()));
+            return (MutableMethodImplementation)impl;
         }
+        return new MutableMethodImplementation(impl);
+    }
 
-```
-
-### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/DexBuilder.java`
-#### Snippet
-```java
-                        Iterators.transform(value.getValue().iterator(),
-                                new Function<EncodedValue, BuilderEncodedValue>() {
-                                    @Nullable @Override public BuilderEncodedValue apply(EncodedValue input) {
-                                        return internEncodedValue(input);
-                                    }
 ```
 
 ### DataFlowIssue
@@ -11068,6 +11044,30 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/DexBuil
 
 ### DataFlowIssue
 @Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/DexBuilder.java`
+#### Snippet
+```java
+                        Iterators.transform(value.getValue().iterator(),
+                                new Function<EncodedValue, BuilderEncodedValue>() {
+                                    @Nullable @Override public BuilderEncodedValue apply(EncodedValue input) {
+                                        return internEncodedValue(input);
+                                    }
+```
+
+### DataFlowIssue
+Method invocation `getDexFile` may produce `NullPointerException`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/PathEntryLoader.java`
+#### Snippet
+```java
+
+        for (String entryName : entryNames) {
+            classProviders.add(new DexClassProvider(container.getEntry(entryName).getDexFile()));
+        }
+
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
 #### Snippet
 ```java
@@ -11076,54 +11076,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodI
                     @Nullable @Override public Iterable<? extends DebugItem> apply(@Nullable MethodLocation input) {
                         assert input != null;
                         if (fixInstructions) {
-```
-
-### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
-#### Snippet
-```java
-                        Iterators.transform(Iterators.forArray(cls.getDeclaredMethods()),
-                                new Function<java.lang.reflect.Method, Method>() {
-                                    @Nullable @Override public Method apply(@Nullable java.lang.reflect.Method input) {
-                                        return new ReflectionMethod(input);
-                                    }
-```
-
-### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
-#### Snippet
-```java
-                return Iterators.transform(directMethods,
-                        new Function<java.lang.reflect.Method, Method>() {
-                            @Nullable @Override public Method apply(@Nullable java.lang.reflect.Method input) {
-                                return new ReflectionMethod(input);
-                            }
-```
-
-### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
-#### Snippet
-```java
-                return Iterators.transform(staticFields,
-                        new Function<java.lang.reflect.Field, Field>() {
-                            @Nullable @Override public Field apply(@Nullable java.lang.reflect.Field input) {
-                                return new ReflectionField(input);
-                            }
-```
-
-### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
-#### Snippet
-```java
-                        Iterators.transform(Iterators.forArray(cls.getDeclaredConstructors()),
-                                new Function<Constructor, Method>() {
-                                    @Nullable @Override public Method apply(@Nullable Constructor input) {
-                                        return new ReflectionConstructor(input);
-                                    }
 ```
 
 ### DataFlowIssue
@@ -11155,11 +11107,59 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/Re
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
 #### Snippet
 ```java
+                return Iterators.transform(directMethods,
+                        new Function<java.lang.reflect.Method, Method>() {
+                            @Nullable @Override public Method apply(@Nullable java.lang.reflect.Method input) {
+                                return new ReflectionMethod(input);
+                            }
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
+#### Snippet
+```java
                 return Iterators.transform(staticFields,
                         new Function<java.lang.reflect.Field, Field>() {
                             @Nullable @Override public Field apply(@Nullable java.lang.reflect.Field input) {
                                 return new ReflectionField(input);
                             }
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
+#### Snippet
+```java
+                return Iterators.transform(staticFields,
+                        new Function<java.lang.reflect.Field, Field>() {
+                            @Nullable @Override public Field apply(@Nullable java.lang.reflect.Field input) {
+                                return new ReflectionField(input);
+                            }
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
+#### Snippet
+```java
+                        Iterators.transform(Iterators.forArray(cls.getDeclaredMethods()),
+                                new Function<java.lang.reflect.Method, Method>() {
+                                    @Nullable @Override public Method apply(@Nullable java.lang.reflect.Method input) {
+                                        return new ReflectionMethod(input);
+                                    }
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/reflection/ReflectionClassDef.java`
+#### Snippet
+```java
+                        Iterators.transform(Iterators.forArray(cls.getDeclaredConstructors()),
+                                new Function<Constructor, Method>() {
+                                    @Nullable @Override public Method apply(@Nullable Constructor input) {
+                                        return new ReflectionConstructor(input);
+                                    }
 ```
 
 ### DataFlowIssue
@@ -11235,18 +11235,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/value/Immuta
 ```
 
 ### DataFlowIssue
-Dereference of `parent` may produce `NullPointerException`
-in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-            }
-            String physicalName = getPhysicalNameWithSuffix(suffix);
-            File file = new File(parent.file, physicalName).getCanonicalFile();
-            this.physicalName = file.getName();
-            createIfNeeded();
-```
-
-### DataFlowIssue
 Argument `getLabelPrefix()` might be null
 in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors/Format/OffsetInstructionFormatMethodItem.java`
 #### Snippet
@@ -11256,6 +11244,18 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
         label = new LabelMethodItem(options, codeAddress + instruction.getCodeOffset(), getLabelPrefix());
         label = methodDef.getLabelCache().internLabel(label);
     }
+```
+
+### DataFlowIssue
+Dereference of `parent` may produce `NullPointerException`
+in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
+#### Snippet
+```java
+            }
+            String physicalName = getPhysicalNameWithSuffix(suffix);
+            File file = new File(parent.file, physicalName).getCanonicalFile();
+            this.physicalName = file.getName();
+            createIfNeeded();
 ```
 
 ### DataFlowIssue
@@ -11301,30 +11301,6 @@ Unnecessary `Long.toString()` call
 in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
 #### Snippet
 ```java
-    public static void checkNibble(long value) {
-        if (value > 0x0F | value < -0x08) {
-            throw new NumberFormatException(Long.toString(value) + " cannot fit into a nibble");
-        }
-    }
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Long.toString()` call
-in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
-#### Snippet
-```java
-    public static void checkShort(long value) {
-        if (value > 0xFFFF | value < -0x8000) {
-            throw new NumberFormatException(Long.toString(value) + " cannot fit into a short");
-        }
-    }
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Long.toString()` call
-in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
-#### Snippet
-```java
     public static void checkByte(long value) {
         if (value > 0xFF | value < -0x80) {
             throw new NumberFormatException(Long.toString(value) + " cannot fit into a byte");
@@ -11340,6 +11316,30 @@ in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.j
     public static void checkInt(long value) {
         if (value > 0xFFFFFFFF || value < -0x80000000) {
             throw new NumberFormatException(Long.toString(value) + " cannot fit into an int");
+        }
+    }
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Long.toString()` call
+in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
+#### Snippet
+```java
+    public static void checkNibble(long value) {
+        if (value > 0x0F | value < -0x08) {
+            throw new NumberFormatException(Long.toString(value) + " cannot fit into a nibble");
+        }
+    }
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Long.toString()` call
+in `third_party/smali/src/main/java/com/android/tools/smali/smali/LiteralTools.java`
+#### Snippet
+```java
+    public static void checkShort(long value) {
+        if (value > 0xFFFF | value < -0x8000) {
+            throw new NumberFormatException(Long.toString(value) + " cannot fit into a short");
         }
     }
 ```
@@ -11383,18 +11383,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/immutable/instruction/
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `mark()` overrides synchronized method
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/io/MemoryDataStore.java`
-#### Snippet
-```java
-            }
-
-            @Override public void mark(int i) {
-                mark = position;
-            }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `reset()` overrides synchronized method
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/io/MemoryDataStore.java`
 #### Snippet
@@ -11403,6 +11391,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/io/MemoryDataSt
 
             @Override public void reset() throws IOException {
                 position = mark;
+            }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `mark()` overrides synchronized method
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/io/MemoryDataStore.java`
+#### Snippet
+```java
+            }
+
+            @Override public void mark(int i) {
+                mark = position;
             }
 ```
 
@@ -11806,11 +11806,11 @@ StandardCharsets.US_ASCII can be used instead
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/OatFile.java`
 #### Snippet
 ```java
+            }
 
-                // TODO: what is the correct character encoding?
-                String filename = new String(buf, offset, filenameLength, Charset.forName("US-ASCII"));
-                offset += filenameLength;
-
+            return new String(buf, start, end-start, Charset.forName("US-ASCII"));
+        }
+    }
 ```
 
 ### CharsetObjectCanBeUsed
@@ -11818,11 +11818,11 @@ StandardCharsets.US_ASCII can be used instead
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/OatFile.java`
 #### Snippet
 ```java
-            }
 
-            return new String(buf, start, end-start, Charset.forName("US-ASCII"));
-        }
-    }
+                // TODO: what is the correct character encoding?
+                String filename = new String(buf, offset, filenameLength, Charset.forName("US-ASCII"));
+                offset += filenameLength;
+
 ```
 
 ### CharsetObjectCanBeUsed
@@ -11876,78 +11876,6 @@ in `smali/src/main/java/com/android/tools/smali/smali/Main.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
-#### Snippet
-```java
-                    tokenName = smaliParser.tokenNames[token.getType()];
-                }
-                System.out.println(tokenName + "(\"" + StringUtils.escapeString(token.getText()) + "\")");
-            }
-            System.out.flush();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
-#### Snippet
-```java
-                System.out.println(tokenName + "(\"" + StringUtils.escapeString(token.getText()) + "\")");
-            }
-            System.out.flush();
-
-            return lexer.getNumberOfSyntaxErrors() == 0;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
-#### Snippet
-```java
-                        tokenName = smaliParser.tokenNames[token.getType()];
-                    }
-                    System.out.println(tokenName + ": " + token.getText());
-                }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
-#### Snippet
-```java
-                }
-
-                System.out.flush();
-            }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
-#### Snippet
-```java
-
-            if (options.printTokens) {
-                System.out.println(t.toStringTree());
-            }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `util/src/main/java/com/android/tools/smali/util/jcommander/Command.java`
-#### Snippet
-```java
-
-    public void usage() {
-        System.out.println(new HelpFormatter()
-                .width(ConsoleUtil.getConsoleWidth())
-                .format(getCommandHierarchy()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `smali/src/main/java/com/android/tools/smali/smali/HelpCommand.java`
 #### Snippet
 ```java
@@ -11992,6 +11920,78 @@ in `smali/src/main/java/com/android/tools/smali/smali/HelpCommand.java`
                 System.out.println(new HelpFormatter()
                         .width(ConsoleUtil.getConsoleWidth())
                         .format(commandAncestors));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `util/src/main/java/com/android/tools/smali/util/jcommander/Command.java`
+#### Snippet
+```java
+
+    public void usage() {
+        System.out.println(new HelpFormatter()
+                .width(ConsoleUtil.getConsoleWidth())
+                .format(getCommandHierarchy()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
+#### Snippet
+```java
+                        tokenName = smaliParser.tokenNames[token.getType()];
+                    }
+                    System.out.println(tokenName + ": " + token.getText());
+                }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
+#### Snippet
+```java
+                }
+
+                System.out.flush();
+            }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
+#### Snippet
+```java
+
+            if (options.printTokens) {
+                System.out.println(t.toStringTree());
+            }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
+#### Snippet
+```java
+                    tokenName = smaliParser.tokenNames[token.getType()];
+                }
+                System.out.println(tokenName + "(\"" + StringUtils.escapeString(token.getText()) + "\")");
+            }
+            System.out.flush();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
+#### Snippet
+```java
+                System.out.println(tokenName + "(\"" + StringUtils.escapeString(token.getText()) + "\")");
+            }
+            System.out.flush();
+
+            return lexer.getNumberOfSyntaxErrors() == 0;
 ```
 
 ### SystemOutErr
@@ -12068,6 +12068,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/TypeList
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/TypeIdItem.java`
+#### Snippet
+```java
+            return String.format("type_id_item[%d]: %s", typeIndex, typeString);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+        }
+        return String.format("type_id_item[%d]", typeIndex);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/StringIdItem.java`
 #### Snippet
 ```java
@@ -12116,18 +12128,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/StringId
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/TypeIdItem.java`
-#### Snippet
-```java
-            return String.format("type_id_item[%d]: %s", typeIndex, typeString);
-        } catch (Exception ex) {
-            ex.printStackTrace(System.err);
-        }
-        return String.format("type_id_item[%d]", typeIndex);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/AnnotationItem.java`
 #### Snippet
 ```java
@@ -12136,18 +12136,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/Annotati
             ex.printStackTrace(System.err);
         }
         return String.format("annotation_item[0x%x]", annotationItemOffset);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem.java`
-#### Snippet
-```java
-                }
-            } catch (ExceptionWithContext ex) {
-                ex.printStackTrace(System.err);
-                out.annotate(0, "annotation error: %s", ex.getMessage());
-                out.moveTo(end);
 ```
 
 ### SystemOutErr
@@ -12172,6 +12160,54 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/util/Dex
                     ex.printStackTrace(System.err);
                 }
             }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/CodeItem.java`
+#### Snippet
+```java
+                }
+            } catch (ExceptionWithContext ex) {
+                ex.printStackTrace(System.err);
+                out.annotate(0, "annotation error: %s", ex.getMessage());
+                out.moveTo(end);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `dexlib2/accessorTestGenerator/src/main/java/com/android/tools/smali/dexlib2/AccessorTestGenerator.java`
+#### Snippet
+```java
+    public static void main(String[] args) throws IOException {
+        if (args.length != 1) {
+            System.err.println("Usage: java com.android.tools.smali.dexlib2.AccessorTestGenerator <output_file>");
+        }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListClassesCommand.java`
+#### Snippet
+```java
+
+        if (inputList.size() > 1) {
+            System.err.println("Too many files specified");
+            usage();
+            return;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListClassesCommand.java`
+#### Snippet
+```java
+
+        for (ClassDef classDef: dexFile.getClasses()) {
+            System.out.println(formatter.getType(classDef.getType()));
+        }
+    }
 ```
 
 ### SystemOutErr
@@ -12212,7 +12248,79 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDexCommand.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListClassesCommand.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DexInputCommand.java`
+#### Snippet
+```java
+
+        if (file == null || !file.exists() || file.isDirectory()) {
+            System.err.println("Can't find file: " + input);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
+#### Snippet
+```java
+                    dexEntry, checkPackagePrivateArgument.checkPackagePrivateAccess, oatVersion);
+        } catch (Exception ex) {
+            System.err.println("Error occurred while loading class path files.");
+            ex.printStackTrace(System.err);
+            return null;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
+#### Snippet
+```java
+        } catch (Exception ex) {
+            System.err.println("Error occurred while loading class path files.");
+            ex.printStackTrace(System.err);
+            return null;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
+#### Snippet
+```java
+        String className = "Class " + classProto.getType() + " extends " + classProto.getSuperclass() +
+                " : " + methods.size() + " methods\n";
+        System.out.write(className.getBytes());
+        for (int i = 0; i < methods.size(); i++) {
+            Method method = methods.get(i);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
+#### Snippet
+```java
+            }
+            methodString += ")" + method.getReturnType() + "\n";
+            System.out.write(methodString.getBytes());
+        }
+        System.out.write("\n".getBytes());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
+#### Snippet
+```java
+            System.out.write(methodString.getBytes());
+        }
+        System.out.write("\n".getBytes());
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
 #### Snippet
 ```java
 
@@ -12224,13 +12332,37 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListClassesCommand.j
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListClassesCommand.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/Main.java`
 #### Snippet
 ```java
 
-        for (ClassDef classDef: dexFile.getClasses()) {
-            System.out.println(formatter.getType(classDef.getType()));
-        }
+    protected static void version() {
+        System.out.println("baksmali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/Main.java`
+#### Snippet
+```java
+    protected static void version() {
+        System.out.println("baksmali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+        System.exit(0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/Main.java`
+#### Snippet
+```java
+        System.out.println("baksmali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+        System.exit(0);
     }
 ```
 
@@ -12279,198 +12411,6 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/DumpCommand.java`
             System.err.println("There was an error while dumping the dex file");
             ex.printStackTrace(System.err);
         }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DexInputCommand.java`
-#### Snippet
-```java
-
-        if (file == null || !file.exists() || file.isDirectory()) {
-            System.err.println("Can't find file: " + input);
-            System.exit(1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
-#### Snippet
-```java
-        String className = "Class " + classProto.getType() + " extends " + classProto.getSuperclass() +
-                " : " + methods.size() + " methods\n";
-        System.out.write(className.getBytes());
-        for (int i = 0; i < methods.size(); i++) {
-            Method method = methods.get(i);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
-#### Snippet
-```java
-            }
-            methodString += ")" + method.getReturnType() + "\n";
-            System.out.write(methodString.getBytes());
-        }
-        System.out.write("\n".getBytes());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
-#### Snippet
-```java
-            System.out.write(methodString.getBytes());
-        }
-        System.out.write("\n".getBytes());
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
-#### Snippet
-```java
-                    dexEntry, checkPackagePrivateArgument.checkPackagePrivateAccess, oatVersion);
-        } catch (Exception ex) {
-            System.err.println("Error occurred while loading class path files.");
-            ex.printStackTrace(System.err);
-            return null;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
-#### Snippet
-```java
-        } catch (Exception ex) {
-            System.err.println("Error occurred while loading class path files.");
-            ex.printStackTrace(System.err);
-            return null;
-        }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListVtablesCommand.java`
-#### Snippet
-```java
-
-        if (inputList.size() > 1) {
-            System.err.println("Too many files specified");
-            usage();
-            return;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `dexlib2/accessorTestGenerator/src/main/java/com/android/tools/smali/dexlib2/AccessorTestGenerator.java`
-#### Snippet
-```java
-    public static void main(String[] args) throws IOException {
-        if (args.length != 1) {
-            System.err.println("Usage: java com.android.tools.smali.dexlib2.AccessorTestGenerator <output_file>");
-        }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
-#### Snippet
-```java
-
-        if (inputList.size() > 1) {
-            System.err.println("Too many files specified");
-            usage();
-            return;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
-#### Snippet
-```java
-            inputStream = new BufferedInputStream(new FileInputStream(input));
-        } catch (FileNotFoundException ex) {
-            System.err.println("Could not find file: " + input);
-            System.exit(-1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
-#### Snippet
-```java
-            OatFile oatFile = OatFile.fromInputStream(inputStream);
-            for (String entry: oatFile.getBootClassPath()) {
-                System.out.println(entry);
-            }
-            return;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
-#### Snippet
-```java
-            DexBackedOdexFile odexFile = DexBackedOdexFile.fromInputStream(Opcodes.getDefault(), inputStream);
-            for (String entry: odexFile.getDependencies()) {
-                System.out.println(entry);
-            }
-            return;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
-#### Snippet
-```java
-        }
-
-        System.err.println(input + " is not an odex or oat file.");
-        System.exit(-1);
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/Main.java`
-#### Snippet
-```java
-
-    protected static void version() {
-        System.out.println("baksmali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/Main.java`
-#### Snippet
-```java
-    protected static void version() {
-        System.out.println("baksmali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-        System.exit(0);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/Main.java`
-#### Snippet
-```java
-        System.out.println("baksmali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-        System.exit(0);
     }
 ```
 
@@ -12560,26 +12500,86 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/HelpCommand.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListFieldOffsetsCommand.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
 #### Snippet
 ```java
-                    inputFile.getAbsoluteFile().getParentFile(), dexEntry, false);
-        } catch (Exception ex) {
-            System.err.println("Error occurred while loading class path files.");
-            ex.printStackTrace(System.err);
-            System.exit(-1);
+                File file = new File(dir);
+                if (!file.exists()) {
+                    System.err.println(String.format("Warning: directory %s does not exist. Ignoring.", dir));
+                } else if (!file.isDirectory()) {
+                    System.err.println(String.format("Warning: %s is not a directory. Ignoring.", dir));
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListFieldOffsetsCommand.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
 #### Snippet
 ```java
-        } catch (Exception ex) {
-            System.err.println("Error occurred while loading class path files.");
-            ex.printStackTrace(System.err);
+                    System.err.println(String.format("Warning: directory %s does not exist. Ignoring.", dir));
+                } else if (!file.isDirectory()) {
+                    System.err.println(String.format("Warning: %s is not a directory. Ignoring.", dir));
+                } else {
+                    filteredClassPathDirectories.add(dir);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
+#### Snippet
+```java
+
+        if (inputList.size() > 1) {
+            System.err.println("Too many files specified");
+            usage();
+            return;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
+#### Snippet
+```java
+            inputStream = new BufferedInputStream(new FileInputStream(input));
+        } catch (FileNotFoundException ex) {
+            System.err.println("Could not find file: " + input);
             System.exit(-1);
         }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
+#### Snippet
+```java
+            OatFile oatFile = OatFile.fromInputStream(inputStream);
+            for (String entry: oatFile.getBootClassPath()) {
+                System.out.println(entry);
+            }
+            return;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
+#### Snippet
+```java
+            DexBackedOdexFile odexFile = DexBackedOdexFile.fromInputStream(Opcodes.getDefault(), inputStream);
+            for (String entry: odexFile.getDependencies()) {
+                System.out.println(entry);
+            }
+            return;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListDependenciesCommand.java`
+#### Snippet
+```java
+        }
+
+        System.err.println(input + " is not an odex or oat file.");
+        System.exit(-1);
+    }
 ```
 
 ### SystemOutErr
@@ -12644,6 +12644,30 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListFieldOffsetsComm
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListFieldOffsetsCommand.java`
+#### Snippet
+```java
+                    inputFile.getAbsoluteFile().getParentFile(), dexEntry, false);
+        } catch (Exception ex) {
+            System.err.println("Error occurred while loading class path files.");
+            ex.printStackTrace(System.err);
+            System.exit(-1);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListFieldOffsetsCommand.java`
+#### Snippet
+```java
+        } catch (Exception ex) {
+            System.err.println("Error occurred while loading class path files.");
+            ex.printStackTrace(System.err);
+            System.exit(-1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
 in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListReferencesCommand.java`
 #### Snippet
 ```java
@@ -12668,110 +12692,38 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListReferencesComman
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
 #### Snippet
 ```java
-                File file = new File(dir);
-                if (!file.exists()) {
-                    System.err.println(String.format("Warning: directory %s does not exist. Ignoring.", dir));
-                } else if (!file.isDirectory()) {
-                    System.err.println(String.format("Warning: %s is not a directory. Ignoring.", dir));
+
+        if (inputList.size() > 1) {
+            System.err.println("Too many files specified");
+            usage();
+            return;
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
 #### Snippet
 ```java
-                    System.err.println(String.format("Warning: directory %s does not exist. Ignoring.", dir));
-                } else if (!file.isDirectory()) {
-                    System.err.println(String.format("Warning: %s is not a directory. Ignoring.", dir));
-                } else {
-                    filteredClassPathDirectories.add(dir);
+
+        if (showDeodexWarning() && dexFile.supportsOptimizedOpcodes()) {
+            StringWrapper.printWrappedString(System.err,
+                    "Warning: You are disassembling an odex/oat file without deodexing it. You won't be able to " +
+                            "re-assemble the results unless you deodex it. See \"baksmali help deodex\"",
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
 #### Snippet
 ```java
-                File inlineTableFile = new File(inlineTable);
-                if (!inlineTableFile.exists()) {
-                    System.err.println(String.format("Could not find file: %s", inlineTable));
-                    System.exit(-1);
-                }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
-#### Snippet
-```java
-                    options.inlineResolver = new CustomInlineMethodResolver(options.classPath, inlineTableFile);
-                } catch (IOException ex) {
-                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
-                    ex.printStackTrace(System.err);
-                    System.exit(-1);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
-#### Snippet
-```java
-                } catch (IOException ex) {
-                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
-                    ex.printStackTrace(System.err);
-                    System.exit(-1);
-                }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
-    public void run() {
-        if (commands == null || commands.isEmpty()) {
-            System.out.println(new HelpFormatter()
-                    .width(ConsoleUtil.getConsoleWidth())
-                    .format(commandAncestors));
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
-                JCommander command = ExtendedCommands.getSubcommand(parentJc, cmd);
-                if (command == null) {
-                    System.err.println("No such command: " + cmd);
-                } else {
-                    printedHelp = true;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
-                } else {
-                    printedHelp = true;
-                    System.out.println(new HelpFormatter()
-                            .width(ConsoleUtil.getConsoleWidth())
-                            .format(((Command)command.getObjects().get(0)).getCommandHierarchy()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
+        if (!outputDirectoryFile.exists()) {
+            if (!outputDirectoryFile.mkdirs()) {
+                System.err.println("Can't create the output directory " + outputDir);
+                System.exit(-1);
             }
-            if (!printedHelp) {
-                System.out.println(new HelpFormatter()
-                        .width(ConsoleUtil.getConsoleWidth())
-                        .format(commandAncestors));
 ```
 
 ### SystemOutErr
@@ -12872,38 +12824,86 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.j
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
 #### Snippet
 ```java
-
-        if (inputList.size() > 1) {
-            System.err.println("Too many files specified");
-            usage();
-            return;
+                File inlineTableFile = new File(inlineTable);
+                if (!inlineTableFile.exists()) {
+                    System.err.println(String.format("Could not find file: %s", inlineTable));
+                    System.exit(-1);
+                }
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
 #### Snippet
 ```java
-
-        if (showDeodexWarning() && dexFile.supportsOptimizedOpcodes()) {
-            StringWrapper.printWrappedString(System.err,
-                    "Warning: You are disassembling an odex/oat file without deodexing it. You won't be able to " +
-                            "re-assemble the results unless you deodex it. See \"baksmali help deodex\"",
+                    options.inlineResolver = new CustomInlineMethodResolver(options.classPath, inlineTableFile);
+                } catch (IOException ex) {
+                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
+                    ex.printStackTrace(System.err);
+                    System.exit(-1);
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/DisassembleCommand.java`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/DeodexCommand.java`
 #### Snippet
 ```java
-        if (!outputDirectoryFile.exists()) {
-            if (!outputDirectoryFile.mkdirs()) {
-                System.err.println("Can't create the output directory " + outputDir);
-                System.exit(-1);
+                } catch (IOException ex) {
+                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
+                    ex.printStackTrace(System.err);
+                    System.exit(-1);
+                }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
+    public void run() {
+        if (commands == null || commands.isEmpty()) {
+            System.out.println(new HelpFormatter()
+                    .width(ConsoleUtil.getConsoleWidth())
+                    .format(commandAncestors));
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
+                JCommander command = ExtendedCommands.getSubcommand(parentJc, cmd);
+                if (command == null) {
+                    System.err.println("No such command: " + cmd);
+                } else {
+                    printedHelp = true;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
+                } else {
+                    printedHelp = true;
+                    System.out.println(new HelpFormatter()
+                            .width(ConsoleUtil.getConsoleWidth())
+                            .format(((Command)command.getObjects().get(0)).getCommandHierarchy()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
             }
+            if (!printedHelp) {
+                System.out.println(new HelpFormatter()
+                        .width(ConsoleUtil.getConsoleWidth())
+                        .format(commandAncestors));
 ```
 
 ### SystemOutErr
@@ -13112,18 +13112,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/base/reference/BaseMet
 ```
 
 ### ConditionCoveredByFurtherCondition
-Condition 'o != null' covered by subsequent condition 'o instanceof MethodHandleReference'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/base/reference/BaseMethodHandleReference.java`
-#### Snippet
-```java
-    @Override
-    public boolean equals(Object o) {
-        if (o != null && o instanceof MethodHandleReference) {
-            MethodHandleReference other = (MethodHandleReference) o;
-            return getMethodHandleType() == other.getMethodHandleType() &&
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'o != null' covered by subsequent condition 'o instanceof CallSiteReference'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/base/reference/BaseCallSiteReference.java`
 #### Snippet
@@ -13133,6 +13121,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/base/reference/BaseCal
         if (o != null && o instanceof CallSiteReference) {
             CallSiteReference other = (CallSiteReference) o;
             return getMethodHandle().equals(other.getMethodHandle()) &&
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'o != null' covered by subsequent condition 'o instanceof MethodHandleReference'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/base/reference/BaseMethodHandleReference.java`
+#### Snippet
+```java
+    @Override
+    public boolean equals(Object o) {
+        if (o != null && o instanceof MethodHandleReference) {
+            MethodHandleReference other = (MethodHandleReference) o;
+            return getMethodHandleType() == other.getMethodHandleType() &&
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -13235,18 +13235,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/StringType
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseIndexPool()` of an abstract class should not be declared 'public'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/BaseIndexPool.java`
-#### Snippet
-```java
-    IndexSection<Key> {
-
-    public BaseIndexPool(@Nonnull DexPool dexPool) {
-        super(dexPool);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `BaseOffsetPool()` of an abstract class should not be declared 'public'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/BaseOffsetPool.java`
 #### Snippet
@@ -13254,6 +13242,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/BaseOffset
     OffsetSection<Key> {
 
     public BaseOffsetPool(@Nonnull DexPool dexPool) {
+        super(dexPool);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseIndexPool()` of an abstract class should not be declared 'public'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/BaseIndexPool.java`
+#### Snippet
+```java
+    IndexSection<Key> {
+
+    public BaseIndexPool(@Nonnull DexPool dexPool) {
         super(dexPool);
     }
 ```
@@ -13355,18 +13355,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/Variabl
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `VariableSizeList()` of an abstract class should not be declared 'public'
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeList.java`
-#### Snippet
-```java
-    private final int size;
-
-    public VariableSizeList(@Nonnull DexBuffer buffer, int offset, int size) {
-        this.buffer = buffer;
-        this.offset = offset;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `VariableSizeSet()` of an abstract class should not be declared 'public'
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeSet.java`
 #### Snippet
@@ -13374,6 +13362,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/Variabl
     private final int size;
 
     public VariableSizeSet(@Nonnull DexBuffer buffer, int offset, int size) {
+        this.buffer = buffer;
+        this.offset = offset;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `VariableSizeList()` of an abstract class should not be declared 'public'
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/VariableSizeList.java`
+#### Snippet
+```java
+    private final int size;
+
+    public VariableSizeList(@Nonnull DexBuffer buffer, int offset, int size) {
         this.buffer = buffer;
         this.offset = offset;
 ```
@@ -13431,11 +13431,11 @@ Constructor `ANTLRLexerWithErrorInterface()` of an abstract class should not be 
 in `third_party/smali/src/main/java/com/android/tools/smali/smali/LexerErrorInterface.java`
 #### Snippet
 ```java
+    //class that implements LexerErrorInterface that we can have the ANTLR parser extend 
+    public abstract static class ANTLRLexerWithErrorInterface extends Lexer implements LexerErrorInterface {
+        public ANTLRLexerWithErrorInterface() {
         }
 
-        public ANTLRLexerWithErrorInterface(CharStream input, RecognizerSharedState state) {
-            super(input, state);
-        }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13443,11 +13443,11 @@ Constructor `ANTLRLexerWithErrorInterface()` of an abstract class should not be 
 in `third_party/smali/src/main/java/com/android/tools/smali/smali/LexerErrorInterface.java`
 #### Snippet
 ```java
-    //class that implements LexerErrorInterface that we can have the ANTLR parser extend 
-    public abstract static class ANTLRLexerWithErrorInterface extends Lexer implements LexerErrorInterface {
-        public ANTLRLexerWithErrorInterface() {
         }
 
+        public ANTLRLexerWithErrorInterface(CharStream input, RecognizerSharedState state) {
+            super(input, state);
+        }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13513,15 +13513,15 @@ in `smali/src/main/java/com/android/tools/smali/smali/SmaliMethodParameter.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
+Anonymous new Comparator\>() can be replaced with lambda
+in `dexlib2/src/main/java/com/android/tools/smali/util/CollectionUtils.java`
 #### Snippet
 ```java
-
-        for (final File file: filesToProcessSet) {
-            tasks.add(executor.submit(new Callable<Boolean>() {
-                @Override public Boolean call() throws Exception {
-                    return assembleSmaliFile(file, dexBuilder, options);
+    public static <T> Comparator<Collection<? extends T>> setComparator(
+            @Nonnull final Comparator<? super T> elementComparator) {
+        return new Comparator<Collection<? extends T>>() {
+            @Override
+            public int compare(Collection<? extends T> list1, Collection<? extends T> list2) {
 ```
 
 ### Convert2Lambda
@@ -13537,27 +13537,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/util/CollectionUtils.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator\>() can be replaced with lambda
-in `dexlib2/src/main/java/com/android/tools/smali/util/CollectionUtils.java`
-#### Snippet
-```java
-    public static <T> Comparator<Collection<? extends T>> setComparator(
-            @Nonnull final Comparator<? super T> elementComparator) {
-        return new Comparator<Collection<? extends T>>() {
-            @Override
-            public int compare(Collection<? extends T> list1, Collection<? extends T> list2) {
-```
-
-### Convert2Lambda
-Anonymous new Comparator\>() can be replaced with lambda
-in `util/src/main/java/com/android/tools/smali/util/jcommander/HelpFormatter.java`
+Anonymous new Callable() can be replaced with lambda
+in `smali/src/main/java/com/android/tools/smali/smali/Smali.java`
 #### Snippet
 ```java
 
-                List<Entry<String, JCommander>> entryList = Lists.newArrayList(leafJc.getCommands().entrySet());
-                Collections.sort(entryList, new Comparator<Entry<String, JCommander>>() {
-                    @Override public int compare(Entry<String, JCommander> o1, Entry<String, JCommander> o2) {
-                        return o1.getKey().compareTo(o2.getKey());
+        for (final File file: filesToProcessSet) {
+            tasks.add(executor.submit(new Callable<Boolean>() {
+                @Override public Boolean call() throws Exception {
+                    return assembleSmaliFile(file, dexBuilder, options);
 ```
 
 ### Convert2Lambda
@@ -13570,6 +13558,18 @@ in `util/src/main/java/com/android/tools/smali/util/jcommander/HelpFormatter.jav
         Collections.sort(parameters, new Comparator<ParameterDescription>() {
             @Override public int compare(ParameterDescription o1, ParameterDescription o2) {
                 String s1;
+```
+
+### Convert2Lambda
+Anonymous new Comparator\>() can be replaced with lambda
+in `util/src/main/java/com/android/tools/smali/util/jcommander/HelpFormatter.java`
+#### Snippet
+```java
+
+                List<Entry<String, JCommander>> entryList = Lists.newArrayList(leafJc.getCommands().entrySet());
+                Collections.sort(entryList, new Comparator<Entry<String, JCommander>>() {
+                    @Override public int compare(Entry<String, JCommander> o1, Entry<String, JCommander> o2) {
+                        return o1.getKey().compareTo(o2.getKey());
 ```
 
 ### Convert2Lambda
@@ -13609,15 +13609,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/base/BaseExceptionHand
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
+Anonymous new Comparator\>() can be replaced with lambda
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
 
-    private static Comparator<Map.Entry> toStringKeyComparator =
-            new Comparator<Map.Entry>() {
-                @Override public int compare(Entry o1, Entry o2) {
-                    return o1.getKey().toString().compareTo(o2.getKey().toString());
+    private static <T extends Comparable<? super T>> Comparator<Entry<?, ? extends T>> comparableValueComparator() {
+        return new Comparator<Entry<?, ? extends T>>() {
+            @Override public int compare(Entry<?, ? extends T> o1, Entry<?, ? extends T> o2) {
+                return o1.getValue().compareTo(o2.getValue());
 ```
 
 ### Convert2Lambda
@@ -13633,39 +13633,27 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator\>() can be replaced with lambda
+Anonymous new Comparator() can be replaced with lambda
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
 
-    private static <T extends Comparable<? super T>> Comparator<Entry<?, ? extends T>> comparableValueComparator() {
-        return new Comparator<Entry<?, ? extends T>>() {
-            @Override public int compare(Entry<?, ? extends T> o1, Entry<?, ? extends T> o2) {
-                return o1.getValue().compareTo(o2.getValue());
+    private static Comparator<Map.Entry> toStringKeyComparator =
+            new Comparator<Map.Entry>() {
+                @Override public int compare(Entry o1, Entry o2) {
+                    return o1.getKey().toString().compareTo(o2.getKey().toString());
 ```
 
 ### Convert2Lambda
 Anonymous new Comparator() can be replaced with lambda
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
-    }
+                }
 
-    private final Comparator<SwitchElement> switchElementComparator = new Comparator<SwitchElement>() {
-        @Override public int compare(SwitchElement element1, SwitchElement element2) {
-            return Ints.compare(element1.getKey(), element2.getKey());
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/util/DexAnnotator.java`
-#### Snippet
-```java
-        List<MapItem> mapItems = dexFile.getMapItems();
-        // sort the map items based on the order defined by sectionAnnotationOrder
-        Ordering<MapItem> ordering = Ordering.from(new Comparator<MapItem>() {
-            @Override public int compare(MapItem o1, MapItem o2) {
-                return Ints.compare(sectionAnnotationOrder.get(o1.getType()), sectionAnnotationOrder.get(o2.getType()));
+                Comparator<MethodReference> comparator = new Comparator<MethodReference>() {
+                    @Override public int compare(MethodReference o1, MethodReference o2) {
+                        return Ints.compare(methodOrder.get(o1), methodOrder.get(o2));
 ```
 
 ### Convert2Lambda
@@ -13694,14 +13682,26 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.ja
 
 ### Convert2Lambda
 Anonymous new Comparator() can be replaced with lambda
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/raw/util/DexAnnotator.java`
 #### Snippet
 ```java
-                }
+        List<MapItem> mapItems = dexFile.getMapItems();
+        // sort the map items based on the order defined by sectionAnnotationOrder
+        Ordering<MapItem> ordering = Ordering.from(new Comparator<MapItem>() {
+            @Override public int compare(MapItem o1, MapItem o2) {
+                return Ints.compare(sectionAnnotationOrder.get(o1.getType()), sectionAnnotationOrder.get(o2.getType()));
+```
 
-                Comparator<MethodReference> comparator = new Comparator<MethodReference>() {
-                    @Override public int compare(MethodReference o1, MethodReference o2) {
-                        return Ints.compare(methodOrder.get(o1), methodOrder.get(o2));
+### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    }
+
+    private final Comparator<SwitchElement> switchElementComparator = new Comparator<SwitchElement>() {
+        @Override public int compare(SwitchElement element1, SwitchElement element2) {
+            return Ints.compare(element1.getKey(), element2.getKey());
 ```
 
 ### Convert2Lambda
@@ -13727,6 +13727,18 @@ in `dexlib2/src/main/java/com/android/tools/smali/util/TwoColumnOutput.java`
             amt--;
         }
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `utf16Length`
+in `dexlib2/src/main/java/com/android/tools/smali/util/Utf8Utils.java`
+#### Snippet
+```java
+
+        int at = 0;
+        for (at = start; utf16Length > 0; utf16Length--) {
+            int v0 = bytes[at] & 0xFF;
+            char out;
 ```
 
 ### AssignmentToMethodParameter
@@ -13763,18 +13775,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/util/Utf8Utils.java`
                     length -= 3;
                     if (length < 0) {
                         return throwBadUtf8(v0, at);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `utf16Length`
-in `dexlib2/src/main/java/com/android/tools/smali/util/Utf8Utils.java`
-#### Snippet
-```java
-
-        int at = 0;
-        for (at = start; utf16Length > 0; utf16Length--) {
-            int v0 = bytes[at] & 0xFF;
-            char out;
 ```
 
 ### AssignmentToMethodParameter
@@ -13818,9 +13818,9 @@ Assignment to method parameter `arr`
 in `dexlib2/src/main/java/com/android/tools/smali/util/StringWrapper.java`
 #### Snippet
 ```java
-    private static String[] addString(@Nonnull String[] arr, String str, int index) {
+    private static String[] addString(@Nonnull String[] arr, String str, int index, int newLength) {
         if (index >= arr.length) {
-            arr = enlargeArray(arr, (int)(Math.ceil((arr.length + 1) * 1.5)));
+            arr = enlargeArray(arr, newLength);
         }
 
 ```
@@ -13878,9 +13878,9 @@ Assignment to method parameter `arr`
 in `dexlib2/src/main/java/com/android/tools/smali/util/StringWrapper.java`
 #### Snippet
 ```java
-    private static String[] addString(@Nonnull String[] arr, String str, int index, int newLength) {
+    private static String[] addString(@Nonnull String[] arr, String str, int index) {
         if (index >= arr.length) {
-            arr = enlargeArray(arr, newLength);
+            arr = enlargeArray(arr, (int)(Math.ceil((arr.length + 1) * 1.5)));
         }
 
 ```
@@ -13890,11 +13890,11 @@ Assignment to method parameter `value`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexDataWriter.java`
 #### Snippet
 ```java
-        while ((value & 0xffffffffL) > 0x7f) {
-            out.write((value & 0x7f) | 0x80);
-            value >>>= 7;
-        }
-        out.write(value);
+        do {
+            tempBuf[index--] = (byte)((value & 0xFF00000000000000L) >>> 56);
+            value <<= 8;
+        } while (value != 0);
+
 ```
 
 ### AssignmentToMethodParameter
@@ -13962,6 +13962,18 @@ Assignment to method parameter `value`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexDataWriter.java`
 #### Snippet
 ```java
+        do {
+            tempBuf[index--] = (byte)((value & 0xFF000000) >>> 24);
+            value <<= 8;
+        } while (value != 0);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexDataWriter.java`
+#### Snippet
+```java
             while (value > 0x3f) {
                 out.write((value & 0x7f) | 0x80);
                 value >>>= 7;
@@ -13986,23 +13998,11 @@ Assignment to method parameter `value`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexDataWriter.java`
 #### Snippet
 ```java
-        do {
-            tempBuf[index--] = (byte)((value & 0xFF00000000000000L) >>> 56);
-            value <<= 8;
-        } while (value != 0);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexDataWriter.java`
-#### Snippet
-```java
-        do {
-            tempBuf[index--] = (byte)((value & 0xFF000000) >>> 24);
-            value <<= 8;
-        } while (value != 0);
-
+        while ((value & 0xffffffffL) > 0x7f) {
+            out.write((value & 0x7f) | 0x80);
+            value >>>= 7;
+        }
+        out.write(value);
 ```
 
 ### AssignmentToMethodParameter
@@ -14042,18 +14042,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `interfaces`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/DexBuilder.java`
-#### Snippet
-```java
-                                                   @Nullable Iterable<? extends BuilderMethod> methods) {
-        if (interfaces == null) {
-            interfaces = ImmutableList.of();
-        } else {
-            Set<String> interfaces_copy = Sets.newHashSet(interfaces);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `parameters`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/DexBuilder.java`
 #### Snippet
@@ -14066,51 +14054,27 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/DexBuil
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `index2`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
+Assignment to method parameter `interfaces`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/DexBuilder.java`
 #### Snippet
 ```java
-        if (index2 < index1) {
-            int tmp = index2;
-            index2 = index1;
-            index1 = tmp;
-        }
+                                                   @Nullable Iterable<? extends BuilderMethod> methods) {
+        if (interfaces == null) {
+            interfaces = ImmutableList.of();
+        } else {
+            Set<String> interfaces_copy = Sets.newHashSet(interfaces);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `index1`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
+Assignment to method parameter `tryBlocks`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-            int tmp = index2;
-            index2 = index1;
-            index1 = tmp;
-        }
 
-```
+        if (instructions != null) {
+            tryBlocks = TryListBuilder.massageTryBlocks(tryBlocks);
 
-### AssignmentToMethodParameter
-Assignment to method parameter `codeAddress`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
-#### Snippet
-```java
-        do {
-            if (codeAddress >= codeAddressToIndex.length) {
-                codeAddress = codeAddressToIndex.length - 1;
-            }
-            index = codeAddressToIndex[codeAddress];
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `codeAddress`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
-#### Snippet
-```java
-            index = codeAddressToIndex[codeAddress];
-            if (index < 0) {
-                codeAddress--;
-            } else {
-                return index;
+            int outParamCount = 0;
 ```
 
 ### AssignmentToMethodParameter
@@ -14150,15 +14114,87 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `tryBlocks`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/DexWriter.java`
+Assignment to method parameter `codeAddress`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
 #### Snippet
 ```java
+        do {
+            if (codeAddress >= codeAddressToIndex.length) {
+                codeAddress = codeAddressToIndex.length - 1;
+            }
+            index = codeAddressToIndex[codeAddress];
+```
 
-        if (instructions != null) {
-            tryBlocks = TryListBuilder.massageTryBlocks(tryBlocks);
+### AssignmentToMethodParameter
+Assignment to method parameter `codeAddress`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
+#### Snippet
+```java
+            index = codeAddressToIndex[codeAddress];
+            if (index < 0) {
+                codeAddress--;
+            } else {
+                return index;
+```
 
-            int outParamCount = 0;
+### AssignmentToMethodParameter
+Assignment to method parameter `index2`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
+#### Snippet
+```java
+        if (index2 < index1) {
+            int tmp = index2;
+            index2 = index1;
+            index1 = tmp;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index1`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/builder/MutableMethodImplementation.java`
+#### Snippet
+```java
+            int tmp = index2;
+            index2 = index1;
+            index1 = tmp;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `destRegisterType`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+            if (BooleanCategories.get(source1RegisterType.category) &&
+                    BooleanCategories.get(source2RegisterType.category)) {
+                destRegisterType = RegisterType.BOOLEAN_TYPE;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `destRegisterType`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+            if (BooleanCategories.get(source1RegisterType.category) &&
+                    BooleanCategories.get(source2RegisterType.category)) {
+                destRegisterType = RegisterType.BOOLEAN_TYPE;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `destRegisterType`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+                int literal = ((NarrowLiteralInstruction)analyzedInstruction.instruction).getNarrowLiteral();
+                if (literal == 0 || literal == 1) {
+                    destRegisterType = RegisterType.BOOLEAN_TYPE;
+                }
+            }
 ```
 
 ### AssignmentToMethodParameter
@@ -14166,10 +14202,10 @@ Assignment to method parameter `offset`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBuffer.java`
 #### Snippet
 ```java
-    public long readLong(int offset) {
+    public int readLongAsSmallUint(int offset) {
         byte[] buf = this.buf;
         offset += baseOffset;
-        return (buf[offset] & 0xff) |
+        long result = (buf[offset] & 0xff) |
                 ((buf[offset+1] & 0xff) << 8) |
 ```
 
@@ -14190,11 +14226,11 @@ Assignment to method parameter `offset`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBuffer.java`
 #### Snippet
 ```java
-    public int readUshort(int offset) {
+    public long readLong(int offset) {
         byte[] buf = this.buf;
         offset += baseOffset;
         return (buf[offset] & 0xff) |
-                ((buf[offset+1] & 0xff) << 8);
+                ((buf[offset+1] & 0xff) << 8) |
 ```
 
 ### AssignmentToMethodParameter
@@ -14214,35 +14250,35 @@ Assignment to method parameter `offset`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBuffer.java`
 #### Snippet
 ```java
-    public int readShort(int offset) {
-        byte[] buf = this.buf;
-        offset += baseOffset;
-        return (buf[offset] & 0xff) |
-                (buf[offset+1] << 8);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBuffer.java`
-#### Snippet
-```java
-    public int readLongAsSmallUint(int offset) {
-        byte[] buf = this.buf;
-        offset += baseOffset;
-        long result = (buf[offset] & 0xff) |
-                ((buf[offset+1] & 0xff) << 8) |
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBuffer.java`
-#### Snippet
-```java
     public int readInt(int offset) {
         byte[] buf = this.buf;
         offset += baseOffset;
         return (buf[offset] & 0xff) |
                 ((buf[offset+1] & 0xff) << 8) |
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBuffer.java`
+#### Snippet
+```java
+    public int readUshort(int offset) {
+        byte[] buf = this.buf;
+        offset += baseOffset;
+        return (buf[offset] & 0xff) |
+                ((buf[offset+1] & 0xff) << 8);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/DexBuffer.java`
+#### Snippet
+```java
+    public int readShort(int offset) {
+        byte[] buf = this.buf;
+        offset += baseOffset;
+        return (buf[offset] & 0xff) |
+                (buf[offset+1] << 8);
 ```
 
 ### AssignmentToMethodParameter
@@ -14258,39 +14294,15 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassPathReso
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `destRegisterType`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
+Assignment to method parameter `localMethods`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
-                int literal = ((NarrowLiteralInstruction)analyzedInstruction.instruction).getNarrowLiteral();
-                if (literal == 0 || literal == 1) {
-                    destRegisterType = RegisterType.BOOLEAN_TYPE;
-                }
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `destRegisterType`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-            if (BooleanCategories.get(source1RegisterType.category) &&
-                    BooleanCategories.get(source2RegisterType.category)) {
-                destRegisterType = RegisterType.BOOLEAN_TYPE;
-            }
+            ArrayList<Method> methods = Lists.newArrayList(localMethods);
+            Collections.sort(methods);
+            localMethods = methods;
         }
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `destRegisterType`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-            if (BooleanCategories.get(source1RegisterType.category) &&
-                    BooleanCategories.get(source2RegisterType.category)) {
-                destRegisterType = RegisterType.BOOLEAN_TYPE;
-            }
-        }
 ```
 
 ### AssignmentToMethodParameter
@@ -14315,18 +14327,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/dexbacked/util/DebugIn
                 reader = dexFile.getDataBuffer().readerAt(debugInfoOffset);
                 reader.skipUleb128();
             }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `localMethods`
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-            ArrayList<Method> methods = Lists.newArrayList(localMethods);
-            Collections.sort(methods);
-            localMethods = methods;
-        }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -14438,15 +14438,39 @@ in `baksmali/src/main/java/com/android/tools/smali/baksmali/AnalysisArguments.ja
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/IndentingWriter.java`
+Assignment to method parameter `value`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
 #### Snippet
 ```java
-                beginningOfLine = true;
-                pos++;
-                start = pos;
-            } else {
-                pos++;
+            buffer[bufferIndex--] = (char)(digit + '0');
+
+            value = value / 10;
+        } while (value != 0);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
+#### Snippet
+```java
+            buffer[bufferIndex--] = (char)(digit + '0');
+
+            value = value / 10;
+        } while (value != 0);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
+#### Snippet
+```java
+            }
+
+            value >>>= 4;
+        } while (value != 0);
+
 ```
 
 ### AssignmentToMethodParameter
@@ -14462,27 +14486,15 @@ in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/IndentingWrit
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
+Assignment to method parameter `start`
+in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/IndentingWriter.java`
 #### Snippet
 ```java
-        if (v < 0) {
-            result[0] = '-';
-            v = -v;
-        } else {
-            result[0] = '+';
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
-#### Snippet
-```java
-        for (int i = 0; i < 8; i++) {
-            result[8 - i] = Character.forDigit(v & 0x0f, 16);
-            v >>= 4;
-        }
-
+                beginningOfLine = true;
+                pos++;
+                start = pos;
+            } else {
+                pos++;
 ```
 
 ### AssignmentToMethodParameter
@@ -14502,42 +14514,6 @@ Assignment to method parameter `v`
 in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
 #### Snippet
 ```java
-        for (int i = 0; i < 6; i++) {
-            result[5 - i] = Character.forDigit(v & 0x0f, 16);
-            v >>= 4;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
-#### Snippet
-```java
-        for (int i = 0; i < 4; i++) {
-            result[3 - i] = Character.forDigit(v & 0x0f, 16);
-            v >>= 4;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
-#### Snippet
-```java
-        for (int i = 0; i < 16; i++) {
-            result[15 - i] = Character.forDigit((int) v & 0x0f, 16);
-            v >>= 4;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
-#### Snippet
-```java
         if (v < 0) {
             result[0] = '-';
             v = -v;
@@ -14550,8 +14526,8 @@ Assignment to method parameter `v`
 in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
 #### Snippet
 ```java
-        for (int i = 0; i < 16; i++) {
-            result[16 - i] = Character.forDigit((int) v & 0x0f, 16);
+        for (int i = 0; i < 4; i++) {
+            result[4 - i] = Character.forDigit(v & 0x0f, 16);
             v >>= 4;
         }
 
@@ -14586,8 +14562,68 @@ Assignment to method parameter `v`
 in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
 #### Snippet
 ```java
+        for (int i = 0; i < 4; i++) {
+            result[3 - i] = Character.forDigit(v & 0x0f, 16);
+            v >>= 4;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
+#### Snippet
+```java
+        for (int i = 0; i < 16; i++) {
+            result[15 - i] = Character.forDigit((int) v & 0x0f, 16);
+            v >>= 4;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
+#### Snippet
+```java
         for (int i = 0; i < 8; i++) {
             result[7 - i] = Character.forDigit(v & 0x0f, 16);
+            v >>= 4;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
+#### Snippet
+```java
+        if (v < 0) {
+            result[0] = '-';
+            v = -v;
+        } else {
+            result[0] = '+';
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
+#### Snippet
+```java
+        for (int i = 0; i < 8; i++) {
+            result[8 - i] = Character.forDigit(v & 0x0f, 16);
+            v >>= 4;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
+#### Snippet
+```java
+        for (int i = 0; i < 6; i++) {
+            result[5 - i] = Character.forDigit(v & 0x0f, 16);
             v >>= 4;
         }
 
@@ -14646,8 +14682,8 @@ Assignment to method parameter `v`
 in `third_party/dexlib2/src/main/java/com/android/tools/smali/util/Hex.java`
 #### Snippet
 ```java
-        for (int i = 0; i < 4; i++) {
-            result[4 - i] = Character.forDigit(v & 0x0f, 16);
+        for (int i = 0; i < 16; i++) {
+            result[16 - i] = Character.forDigit((int) v & 0x0f, 16);
             v >>= 4;
         }
 
@@ -14674,54 +14710,6 @@ in `third_party/util/src/main/java/com/android/tools/smali/util/PathUtil.java`
         if (baseFile.isFile()) {
             baseFile = baseFile.getParentFile();
         }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bytesToRemove`
-in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-    static String shortenPathComponent(@Nonnull String pathComponent, int bytesToRemove) {
-        // We replace the removed part with a #, so we need to remove 1 extra char
-        bytesToRemove++;
-
-        int[] codePoints;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
-#### Snippet
-```java
-            buffer[bufferIndex--] = (char)(digit + '0');
-
-            value = value / 10;
-        } while (value != 0);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
-#### Snippet
-```java
-            buffer[bufferIndex--] = (char)(digit + '0');
-
-            value = value / 10;
-        } while (value != 0);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `baksmali/src/main/java/com/android/tools/smali/baksmali/formatter/BaksmaliWriter.java`
-#### Snippet
-```java
-            }
-
-            value >>>= 4;
-        } while (value != 0);
 
 ```
 
@@ -14759,6 +14747,18 @@ in `third_party/baksmali/src/main/java/com/android/tools/smali/baksmali/Adaptors
             writer = methodDef.classDef.getCommentingWriter(writer);
         }
         writer.write(".packed-switch ");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bytesToRemove`
+in `third_party/util/src/main/java/com/android/tools/smali/util/ClassFileNameHandler.java`
+#### Snippet
+```java
+    static String shortenPathComponent(@Nonnull String pathComponent, int bytesToRemove) {
+        // We replace the removed part with a #, so we need to remove 1 extra char
+        bytesToRemove++;
+
+        int[] codePoints;
 ```
 
 ### AssignmentToMethodParameter
@@ -14958,6 +14958,30 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/util/DexUtil.java`
 ```
 
 ### UnstableApiUsage
+'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassDef.java`
+#### Snippet
+```java
+        return new AbstractCollection<PoolMethod>() {
+            @Nonnull @Override public Iterator<PoolMethod> iterator() {
+                return Iterators.mergeSorted(
+                        ImmutableList.of(directMethods.iterator(), virtualMethods.iterator()),
+                        Ordering.natural());
+```
+
+### UnstableApiUsage
+'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassDef.java`
+#### Snippet
+```java
+        return new AbstractCollection<Field>() {
+            @Nonnull @Override public Iterator<Field> iterator() {
+                return Iterators.mergeSorted(
+                        ImmutableList.of(staticFields.iterator(), instanceFields.iterator()),
+                        Ordering.natural());
+```
+
+### UnstableApiUsage
 'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 #### Snippet
@@ -15106,18 +15130,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 #### Snippet
 ```java
-    // the apis in minApis are guaranteed to be
-    public final RangeMap<Integer, Short> apiToValueMap;
-    public final RangeMap<Integer, Short> artVersionToValueMap;
-
-    public final String name;
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
-#### Snippet
-```java
     // values and minApis provide a mapping of api -> bytecode value.
     // the apis in minApis are guaranteed to be
     public final RangeMap<Integer, Short> apiToValueMap;
@@ -15126,24 +15138,24 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 ```
 
 ### UnstableApiUsage
-'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassDef.java`
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/Opcode.java`
 #### Snippet
 ```java
-        return new AbstractCollection<Field>() {
-            @Nonnull @Override public Iterator<Field> iterator() {
-                return Iterators.mergeSorted(
-                        ImmutableList.of(staticFields.iterator(), instanceFields.iterator()),
-                        Ordering.natural());
+    // the apis in minApis are guaranteed to be
+    public final RangeMap<Integer, Short> apiToValueMap;
+    public final RangeMap<Integer, Short> artVersionToValueMap;
+
+    public final String name;
 ```
 
 ### UnstableApiUsage
 'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/pool/PoolClassDef.java`
+in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
 #### Snippet
 ```java
-        return new AbstractCollection<PoolMethod>() {
-            @Nonnull @Override public Iterator<PoolMethod> iterator() {
+        return new AbstractCollection<BuilderMethod>() {
+            @Nonnull @Override public Iterator<BuilderMethod> iterator() {
                 return Iterators.mergeSorted(
                         ImmutableList.of(directMethods.iterator(), virtualMethods.iterator()),
                         Ordering.natural());
@@ -15158,18 +15170,6 @@ in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/Builder
             @Nonnull @Override public Iterator<BuilderField> iterator() {
                 return Iterators.mergeSorted(
                         ImmutableList.of(staticFields.iterator(), instanceFields.iterator()),
-                        Ordering.natural());
-```
-
-### UnstableApiUsage
-'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
-in `dexlib2/src/main/java/com/android/tools/smali/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-        return new AbstractCollection<BuilderMethod>() {
-            @Nonnull @Override public Iterator<BuilderMethod> iterator() {
-                return Iterators.mergeSorted(
-                        ImmutableList.of(directMethods.iterator(), virtualMethods.iterator()),
                         Ordering.natural());
 ```
 
