@@ -115,10 +115,10 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an HTTP interaction URL with the given CBID.
+   * @return an interaction hostname with the given CBID.
    */
-  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
-    return String.format("http://%s/%s", hostAndPort, cbid);
+  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
+    return String.format("%s.%s", cbid, hostAndPort);
   }
 ```
 
@@ -127,10 +127,10 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an interaction hostname with the given CBID.
+   * @return an HTTP interaction URL with the given CBID.
    */
-  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
-    return String.format("%s.%s", cbid, hostAndPort);
+  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
+    return String.format("http://%s/%s", hostAndPort, cbid);
   }
 ```
 
@@ -172,6 +172,18 @@ public abstract class PollingServerConfig {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `RedisStorageConfig` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/callbackserver/common/config/RedisStorageConfig.java`
+#### Snippet
+```java
+/** Data model for the Redis storage configuration. */
+@AutoValue
+public abstract class RedisStorageConfig {
+  public abstract Duration interactionTtl();
+  public abstract String readEndpointHost();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `DnsRecordingServerConfig` has no concrete subclass
 in `common/src/main/java/com/google/tsunami/callbackserver/common/config/DnsRecordingServerConfig.java`
 #### Snippet
@@ -193,18 +205,6 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/config/Recordi
 public abstract class RecordingServerConfig {
   public abstract Optional<HttpRecordingServerConfig> httpRecordingServerConfig();
   public abstract Optional<DnsRecordingServerConfig> dnsRecordingServerConfig();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RedisStorageConfig` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/callbackserver/common/config/RedisStorageConfig.java`
-#### Snippet
-```java
-/** Data model for the Redis storage configuration. */
-@AutoValue
-public abstract class RedisStorageConfig {
-  public abstract Duration interactionTtl();
-  public abstract String readEndpointHost();
 ```
 
 ### AbstractClassNeverImplemented
@@ -357,10 +357,10 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsR
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an HTTP interaction URL with the given CBID.
+   * @return an interaction hostname with the given CBID.
    */
-  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
-    return String.format("http://%s/%s", hostAndPort, cbid);
+  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
+    return String.format("%s.%s", cbid, hostAndPort);
   }
 ```
 
@@ -369,10 +369,10 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an interaction hostname with the given CBID.
+   * @return an HTTP interaction URL with the given CBID.
    */
-  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
-    return String.format("%s.%s", cbid, hostAndPort);
+  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
+    return String.format("http://%s/%s", hostAndPort, cbid);
   }
 ```
 
