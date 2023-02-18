@@ -260,18 +260,6 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
 #### Snippet
 ```java
-                        .pythonPackage(rootPackage)
-                        .text(String.format(
-                                "__version__ = \"%s\"", config.packageVersion().get()))
-                        .build()));
-        return builder.build();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
                 .addContents(PythonMetaYaml.builder()
                         .pythonPackage(rootPackage)
                         .condaPackageName(config.packageName().get())
@@ -289,6 +277,18 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
                         .packageVersion(config.packageVersion().get())
                         .addInstallDependencies("requests")
                         .addInstallDependencies(String.format(
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+                        .pythonPackage(rootPackage)
+                        .text(String.format(
+                                "__version__ = \"%s\"", config.packageVersion().get()))
+                        .build()));
+        return builder.build();
 ```
 
 ### OptionalGetWithoutIsPresent
