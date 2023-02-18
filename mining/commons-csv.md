@@ -92,11 +92,11 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/csv/CSVRecord.java`
 #### Snippet
 ```java
-        }
-        try {
-            return values[index.intValue()];
-        } catch (final ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException(String.format(
+     */
+    public boolean isSet(final String name) {
+        return isMapped(name) && getHeaderMapRaw().get(name).intValue() < values.length;
+    }
+
 ```
 
 ### UnnecessaryUnboxing
@@ -104,11 +104,11 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/csv/CSVRecord.java`
 #### Snippet
 ```java
-     */
-    public boolean isSet(final String name) {
-        return isMapped(name) && getHeaderMapRaw().get(name).intValue() < values.length;
-    }
-
+        }
+        try {
+            return values[index.intValue()];
+        } catch (final ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(String.format(
 ```
 
 ### UnnecessaryUnboxing
@@ -120,6 +120,66 @@ in `src/main/java/org/apache/commons/csv/Lexer.java`
     private char mapNullToDisabled(final Character c) {
         return c == null ? DISABLED : c.charValue();
     }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+        final char[] delim = getDelimiterString().toCharArray();
+        final int delimLength = delim.length;
+        final char quoteChar = getQuoteCharacter().charValue();
+        // If escape char not specified, default to the quote char
+        // This avoids having to keep checking whether there is an escape character
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+        // This avoids having to keep checking whether there is an escape character
+        // at the cost of checking against quote twice
+        final char escapeChar = isEscapeCharacterSet() ? getEscapeCharacter().charValue() : quoteChar;
+
+        QuoteMode quoteModePolicy = getQuoteMode();
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+        int pos = 0;
+
+        final char quote = getQuoteCharacter().charValue();
+        final StringBuilder builder = new StringBuilder(IOUtils.DEFAULT_BUFFER_SIZE);
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+        final char[] delim = getDelimiterString().toCharArray();
+        final int delimLength = delim.length;
+        final char escape = getEscapeCharacter().charValue();
+
+        while (pos < end) {
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+        final char[] delim = getDelimiterString().toCharArray();
+        final int delimLength = delim.length;
+        final char escape = getEscapeCharacter().charValue();
+        final StringBuilder builder = new StringBuilder(IOUtils.DEFAULT_BUFFER_SIZE);
 
 ```
 
@@ -157,66 +217,6 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
         if (commentMarker != null && contains(delimiter, commentMarker.charValue())) {
             throw new IllegalArgumentException("The comment start character and the delimiter cannot be the same ('" + commentMarker + "')");
         }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-        final char[] delim = getDelimiterString().toCharArray();
-        final int delimLength = delim.length;
-        final char escape = getEscapeCharacter().charValue();
-        final StringBuilder builder = new StringBuilder(IOUtils.DEFAULT_BUFFER_SIZE);
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-        int pos = 0;
-
-        final char quote = getQuoteCharacter().charValue();
-        final StringBuilder builder = new StringBuilder(IOUtils.DEFAULT_BUFFER_SIZE);
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-        final char[] delim = getDelimiterString().toCharArray();
-        final int delimLength = delim.length;
-        final char escape = getEscapeCharacter().charValue();
-
-        while (pos < end) {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-        final char[] delim = getDelimiterString().toCharArray();
-        final int delimLength = delim.length;
-        final char quoteChar = getQuoteCharacter().charValue();
-        // If escape char not specified, default to the quote char
-        // This avoids having to keep checking whether there is an escape character
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-        // This avoids having to keep checking whether there is an escape character
-        // at the cost of checking against quote twice
-        final char escapeChar = isEscapeCharacterSet() ? getEscapeCharacter().charValue() : quoteChar;
-
-        QuoteMode quoteModePolicy = getQuoteMode();
 ```
 
 ## RuleId[ruleID=UnnecessarySuperQualifier]
@@ -319,18 +319,6 @@ in `src/main/java/org/apache/commons/csv/CSVParser.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `forEach` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/csv/CSVRecord.java`
-#### Snippet
-```java
-            return map;
-        }
-        getHeaderMapRaw().forEach((key, value) -> {
-            if (value < values.length) {
-                map.put(key, values[value]);
-```
-
-### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/org/apache/commons/csv/CSVRecord.java`
 #### Snippet
@@ -340,6 +328,18 @@ in `src/main/java/org/apache/commons/csv/CSVRecord.java`
         return isMapped(name) && getHeaderMapRaw().get(name).intValue() < values.length;
     }
 
+```
+
+### DataFlowIssue
+Method invocation `forEach` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/csv/CSVRecord.java`
+#### Snippet
+```java
+            return map;
+        }
+        getHeaderMapRaw().forEach((key, value) -> {
+            if (value < values.length) {
+                map.put(key, values[value]);
 ```
 
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
@@ -364,8 +364,8 @@ in `src/main/java/org/apache/commons/csv/IOUtils.java`
         long count = 0;
         int n;
         while (EOF != (n = input.read(buffer))) {
-            output.write(buffer, 0, n);
-            count += n;
+            ((Buffer) buffer).flip();
+            output.append(buffer, 0, n);
 ```
 
 ### NestedAssignment
@@ -376,20 +376,8 @@ in `src/main/java/org/apache/commons/csv/IOUtils.java`
         long count = 0;
         int n;
         while (EOF != (n = input.read(buffer))) {
-            ((Buffer) buffer).flip();
-            output.append(buffer, 0, n);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-
-        int c;
-        while (-1 != (c = bufferedReader.read())) {
-            builder.append((char) c);
-            final boolean isDelimiterStart = isDelimiter((char) c, builder.toString() + new String(bufferedReader.lookAhead(delimLength - 1)), pos, delim,
+            output.write(buffer, 0, n);
+            count += n;
 ```
 
 ### NestedAssignment
@@ -404,7 +392,79 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
             if (c == quote) {
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+
+        int c;
+        while (-1 != (c = bufferedReader.read())) {
+            builder.append((char) c);
+            final boolean isDelimiterStart = isDelimiter((char) c, builder.toString() + new String(bufferedReader.lookAhead(delimLength - 1)), pos, delim,
+```
+
 ## RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'withQuote' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withQuote(final char quoteChar) {
+        return builder().setQuote(quoteChar).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withSkipHeaderRecord' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withSkipHeaderRecord(final boolean skipHeaderRecord) {
+        return builder().setSkipHeaderRecord(skipHeaderRecord).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withQuoteMode' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withQuoteMode(final QuoteMode quoteMode) {
+        return builder().setQuoteMode(quoteMode).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withHeaderComments' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withHeaderComments(final Object... headerComments) {
+        return builder().setHeaderComments(headerComments).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withQuote' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withQuote(final Character quoteChar) {
+        return builder().setQuote(quoteChar).build();
+    }
+```
+
 ### DeprecatedIsStillUsed
 Deprecated member 'withEscape' is still used
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
@@ -418,14 +478,98 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'withIgnoreHeaderCase' is still used
+Deprecated member 'setAllowDuplicateHeaderNames' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        public Builder setAllowDuplicateHeaderNames(final boolean allowDuplicateHeaderNames) {
+            setDuplicateHeaderMode(allowDuplicateHeaderNames ? DuplicateHeaderMode.ALLOW_ALL : DuplicateHeaderMode.ALLOW_EMPTY);
+            return this;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withIgnoreEmptyLines' is still used
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public CSVFormat withIgnoreHeaderCase(final boolean ignoreHeaderCase) {
-        return builder().setIgnoreHeaderCase(ignoreHeaderCase).build();
+    public CSVFormat withIgnoreEmptyLines(final boolean ignoreEmptyLines) {
+        return builder().setIgnoreEmptyLines(ignoreEmptyLines).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withEscape' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withEscape(final Character escape) {
+        return builder().setEscape(escape).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withHeader' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withHeader(final ResultSetMetaData resultSetMetaData) throws SQLException {
+        return builder().setHeader(resultSetMetaData).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withCommentMarker' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withCommentMarker(final Character commentMarker) {
+        return builder().setCommentMarker(commentMarker).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withTrim' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withTrim() {
+        return builder().setTrim(true).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withCommentMarker' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withCommentMarker(final char commentMarker) {
+        return builder().setCommentMarker(commentMarker).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withIgnoreEmptyLines' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withIgnoreEmptyLines() {
+        return builder().setIgnoreEmptyLines(true).build();
     }
 ```
 
@@ -442,14 +586,50 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'withEscape' is still used
+Deprecated member 'withHeader' is still used
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public CSVFormat withEscape(final Character escape) {
-        return builder().setEscape(escape).build();
+    public CSVFormat withHeader(final Class<? extends Enum<?>> headerEnum) {
+        return builder().setHeader(headerEnum).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withIgnoreHeaderCase' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withIgnoreHeaderCase(final boolean ignoreHeaderCase) {
+        return builder().setIgnoreHeaderCase(ignoreHeaderCase).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withTrailingDelimiter' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withTrailingDelimiter() {
+        return builder().setTrailingDelimiter(true).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withHeader' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withHeader(final ResultSet resultSet) throws SQLException {
+        return builder().setHeader(resultSet).build();
     }
 ```
 
@@ -466,38 +646,14 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'withTrim' is still used
+Deprecated member 'withAllowDuplicateHeaderNames' is still used
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public CSVFormat withTrim() {
-        return builder().setTrim(true).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withSystemRecordSeparator' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withSystemRecordSeparator() {
-        return builder().setRecordSeparator(System.lineSeparator()).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withTrailingDelimiter' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withTrailingDelimiter() {
-        return builder().setTrailingDelimiter(true).build();
+    public CSVFormat withAllowDuplicateHeaderNames() {
+        return builder().setDuplicateHeaderMode(DuplicateHeaderMode.ALLOW_ALL).build();
     }
 ```
 
@@ -526,174 +682,6 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setAllowDuplicateHeaderNames' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        public Builder setAllowDuplicateHeaderNames(final boolean allowDuplicateHeaderNames) {
-            setDuplicateHeaderMode(allowDuplicateHeaderNames ? DuplicateHeaderMode.ALLOW_ALL : DuplicateHeaderMode.ALLOW_EMPTY);
-            return this;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withTrim' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withTrim(final boolean trim) {
-        return builder().setTrim(trim).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withQuoteMode' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withQuoteMode(final QuoteMode quoteMode) {
-        return builder().setQuoteMode(quoteMode).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withCommentMarker' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withCommentMarker(final char commentMarker) {
-        return builder().setCommentMarker(commentMarker).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withHeaderComments' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withHeaderComments(final Object... headerComments) {
-        return builder().setHeaderComments(headerComments).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withRecordSeparator' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withRecordSeparator(final String recordSeparator) {
-        return builder().setRecordSeparator(recordSeparator).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withHeader' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withHeader(final ResultSetMetaData resultSetMetaData) throws SQLException {
-        return builder().setHeader(resultSetMetaData).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withIgnoreHeaderCase' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withIgnoreHeaderCase() {
-        return builder().setIgnoreHeaderCase(true).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withAllowDuplicateHeaderNames' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withAllowDuplicateHeaderNames() {
-        return builder().setDuplicateHeaderMode(DuplicateHeaderMode.ALLOW_ALL).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withIgnoreSurroundingSpaces' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withIgnoreSurroundingSpaces() {
-        return builder().setIgnoreSurroundingSpaces(true).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withIgnoreEmptyLines' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withIgnoreEmptyLines() {
-        return builder().setIgnoreEmptyLines(true).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withCommentMarker' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withCommentMarker(final Character commentMarker) {
-        return builder().setCommentMarker(commentMarker).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withAutoFlush' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withAutoFlush(final boolean autoFlush) {
-        return builder().setAutoFlush(autoFlush).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withQuote' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withQuote(final char quoteChar) {
-        return builder().setQuote(quoteChar).build();
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'withAllowMissingColumnNames' is still used
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
@@ -706,110 +694,14 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'withSkipHeaderRecord' is still used
+Deprecated member 'withTrim' is still used
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public CSVFormat withSkipHeaderRecord() {
-        return builder().setSkipHeaderRecord(true).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withIgnoreEmptyLines' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withIgnoreEmptyLines(final boolean ignoreEmptyLines) {
-        return builder().setIgnoreEmptyLines(ignoreEmptyLines).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getAllowDuplicateHeaderNames' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public boolean getAllowDuplicateHeaderNames() {
-        return duplicateHeaderMode == DuplicateHeaderMode.ALLOW_ALL;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withSkipHeaderRecord' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withSkipHeaderRecord(final boolean skipHeaderRecord) {
-        return builder().setSkipHeaderRecord(skipHeaderRecord).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getDelimiter' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public char getDelimiter() {
-        return delimiter.charAt(0);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withHeader' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withHeader(final Class<? extends Enum<?>> headerEnum) {
-        return builder().setHeader(headerEnum).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withHeader' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withHeader(final ResultSet resultSet) throws SQLException {
-        return builder().setHeader(resultSet).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withQuote' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withQuote(final Character quoteChar) {
-        return builder().setQuote(quoteChar).build();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'withIgnoreSurroundingSpaces' is still used
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CSVFormat withIgnoreSurroundingSpaces(final boolean ignoreSurroundingSpaces) {
-        return builder().setIgnoreSurroundingSpaces(ignoreSurroundingSpaces).build();
+    public CSVFormat withTrim(final boolean trim) {
+        return builder().setTrim(trim).build();
     }
 ```
 
@@ -826,6 +718,18 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'getAllowDuplicateHeaderNames' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public boolean getAllowDuplicateHeaderNames() {
+        return duplicateHeaderMode == DuplicateHeaderMode.ALLOW_ALL;
+    }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'withNullString' is still used
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
@@ -837,19 +741,103 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
     }
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `ch`
-in `src/main/java/org/apache/commons/csv/Lexer.java`
+### DeprecatedIsStillUsed
+Deprecated member 'withSystemRecordSeparator' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
 ```java
-        if (ch == CR && reader.lookAhead() == LF) {
-            // note: does not change ch outside of this method!
-            ch = reader.read();
-            // Save the EOL state
-            if (firstEol == null) {
+     */
+    @Deprecated
+    public CSVFormat withSystemRecordSeparator() {
+        return builder().setRecordSeparator(System.lineSeparator()).build();
+    }
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'withRecordSeparator' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withRecordSeparator(final String recordSeparator) {
+        return builder().setRecordSeparator(recordSeparator).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withIgnoreSurroundingSpaces' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withIgnoreSurroundingSpaces() {
+        return builder().setIgnoreSurroundingSpaces(true).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withAutoFlush' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withAutoFlush(final boolean autoFlush) {
+        return builder().setAutoFlush(autoFlush).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withIgnoreSurroundingSpaces' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withIgnoreSurroundingSpaces(final boolean ignoreSurroundingSpaces) {
+        return builder().setIgnoreSurroundingSpaces(ignoreSurroundingSpaces).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getDelimiter' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public char getDelimiter() {
+        return delimiter.charAt(0);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withSkipHeaderRecord' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withSkipHeaderRecord() {
+        return builder().setSkipHeaderRecord(true).build();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withIgnoreHeaderCase' is still used
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CSVFormat withIgnoreHeaderCase() {
+        return builder().setIgnoreHeaderCase(true).build();
+    }
+```
+
+## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `ch`
 in `src/main/java/org/apache/commons/csv/Lexer.java`
@@ -860,6 +848,18 @@ in `src/main/java/org/apache/commons/csv/Lexer.java`
             ch = reader.read(); // continue
         }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ch`
+in `src/main/java/org/apache/commons/csv/Lexer.java`
+#### Snippet
+```java
+        if (ch == CR && reader.lookAhead() == LF) {
+            // note: does not change ch outside of this method!
+            ch = reader.read();
+            // Save the EOL state
+            if (firstEol == null) {
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -928,9 +928,9 @@ Return of `null`
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
 ```java
-     */
-    public String[] getHeader() {
-        return headers != null ? headers.clone() : null;
+    @SafeVarargs
+    static <T> T[] clone(final T... values) {
+        return values == null ? null : values.clone();
     }
 
 ```
@@ -940,9 +940,21 @@ Return of `null`
 in `src/main/java/org/apache/commons/csv/CSVFormat.java`
 #### Snippet
 ```java
-    @SafeVarargs
-    static <T> T[] clone(final T... values) {
-        return values == null ? null : values.clone();
+     */
+    public String[] getHeaderComments() {
+        return headerComments != null ? headerComments.clone() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/csv/CSVFormat.java`
+#### Snippet
+```java
+     */
+    public String[] getHeader() {
+        return headers != null ? headers.clone() : null;
     }
 
 ```
@@ -959,22 +971,10 @@ in `src/main/java/org/apache/commons/csv/CSVFormat.java`
         final String[] strings = new String[values.length];
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/csv/CSVFormat.java`
-#### Snippet
-```java
-     */
-    public String[] getHeaderComments() {
-        return headerComments != null ? headerComments.clone() : null;
-    }
-
-```
-
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-14-23-12-26.280.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-18-20-52-07.800.html`
 #### Snippet
 ```java
               <td>0</td>
