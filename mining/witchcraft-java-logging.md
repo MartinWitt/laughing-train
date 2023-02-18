@@ -103,6 +103,19 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
             // Use the slf4j provided utility directly
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `TestReportFormattingPlugin` has no concrete subclass
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestReportFormattingPlugin.java`
+#### Snippet
+```java
+ * lines much like our intellij plugin.
+ */
+public abstract class TestReportFormattingPlugin implements Plugin<Project> {
+
+    @Override
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super StringBuilder`
@@ -117,15 +130,39 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
+Can generalize to `? extends T`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
 #### Snippet
 ```java
-    }
+    private final Supplier<T> supplier;
 
-    private static String interpolateParameters(String original, Function<String, Object> lookup) {
-        Matcher matcher = PARAMETER_PATTERN.matcher(original);
-        String current = original;
+    SupplierLogVisitor(Supplier<T> supplier) {
+        this.supplier = supplier;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
+#### Snippet
+```java
+
+    static void createOrUpdateXmlFile(
+            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
+        Node rootNode;
+        if (configurationFile.isFile()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
+#### Snippet
+```java
+
+    static void createOrUpdateXmlFile(
+            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
+        Node rootNode;
+        if (configurationFile.isFile()) {
 ```
 
 ### BoundedWildcard
@@ -177,75 +214,15 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
-#### Snippet
-```java
-    private final Supplier<T> supplier;
-
-    SupplierLogVisitor(Supplier<T> supplier) {
-        this.supplier = supplier;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+Can generalize to `? super String`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
 #### Snippet
 ```java
     }
 
-    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
-        return parseJson(logLine, clazz).flatMap(function);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
-        return parseJson(logLine, clazz).flatMap(function);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
-        try {
-            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
-#### Snippet
-```java
-
-    static void createOrUpdateXmlFile(
-            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
-        Node rootNode;
-        if (configurationFile.isFile()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
-#### Snippet
-```java
-
-    static void createOrUpdateXmlFile(
-            File configurationFile, Consumer<Node> configure, Supplier<Node> defaultRootNode) {
-        Node rootNode;
-        if (configurationFile.isFile()) {
+    private static String interpolateParameters(String original, Function<String, Object> lookup) {
+        Matcher matcher = PARAMETER_PATTERN.matcher(original);
+        String current = original;
 ```
 
 ### BoundedWildcard
@@ -308,17 +285,40 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
         this.second = second;
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `TestReportFormattingPlugin` has no concrete subclass
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestReportFormattingPlugin.java`
+### BoundedWildcard
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
 #### Snippet
 ```java
- * lines much like our intellij plugin.
- */
-public abstract class TestReportFormattingPlugin implements Plugin<Project> {
+    }
 
-    @Override
+    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
+```
+
+### BoundedWildcard
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
+        return parseJson(logLine, clazz).flatMap(function);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
+        return parseJson(logLine, clazz).flatMap(function);
+    }
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
