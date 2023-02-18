@@ -17,8 +17,8 @@ I found 54 bad smells with 9 repairable:
 | EqualsAndHashcode | 2 | false |
 | UnusedAssignment | 2 | false |
 | StringOperationCanBeSimplified | 1 | false |
-| CommentedOutCode | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
+| CommentedOutCode | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | EqualsBetweenInconvertibleTypes | 1 | false |
@@ -56,6 +56,18 @@ in `src/main/java/gumtree/spoon/diff/Diff.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
+Method invocation `getRoleInParent` may produce `NullPointerException`
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+			nodeTypeName = element.getRoleInParent().toString();
+		}
+		if (element.getRoleInParent() == CtRole.SUPER_TYPE) {
+			nodeTypeName = "SUPER_TYPE";
+		}
+```
+
+### DataFlowIssue
 Argument `cu` might be null
 in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 #### Snippet
@@ -89,18 +101,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 		return new SourcePositionImpl(cu, sourceStart, sourceEnd, cu.getLineSeparatorPositions());
 	}
 
-```
-
-### DataFlowIssue
-Method invocation `getRoleInParent` may produce `NullPointerException`
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-			nodeTypeName = element.getRoleInParent().toString();
-		}
-		if (element.getRoleInParent() == CtRole.SUPER_TYPE) {
-			nodeTypeName = "SUPER_TYPE";
-		}
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -153,19 +153,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-		// 1000 OK
-		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
-		// System.setProperty("gumtree.match.bu.size","10");
-		// System.setProperty("gt.bum.szt", "1000");
-	}
-```
-
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'getNode' is still used
@@ -176,6 +163,19 @@ in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 	@Deprecated
 	public CtElement getNode() {
 		return node;
+	}
+```
+
+## RuleId[ruleID=CommentedOutCode]
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+		// 1000 OK
+		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
+		// System.setProperty("gumtree.match.bu.size","10");
+		// System.setProperty("gt.bum.szt", "1000");
 	}
 ```
 
@@ -269,18 +269,6 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SourcePosition`
-in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
-#### Snippet
-```java
-	}
-
-	private static SourcePosition computeSourcePositionOfVirtualElement(List<SourcePosition> modifierPositions) {
-		CompilationUnit cu = null;
-		Integer sourceStart = null;
-```
-
-### BoundedWildcard
 Can generalize to `? extends NodePainter`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
@@ -290,18 +278,6 @@ in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
 
 		JsonObject o = new JsonObject();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
-
-	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-		clean();
-
 ```
 
 ### BoundedWildcard
@@ -317,27 +293,27 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
+
+	public ActionClassifier(MappingStore mappings, List<Action> actions) {
+		clean();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends SourcePosition`
+in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 #### Snippet
 ```java
 	}
 
-	private String toDebugString(List<Operation> ops) {
-		String result = "";
-		for (Operation operation : ops) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+	private static SourcePosition computeSourcePositionOfVirtualElement(List<SourcePosition> modifierPositions) {
+		CompilationUnit cu = null;
+		Integer sourceStart = null;
 ```
 
 ### BoundedWildcard
@@ -359,9 +335,21 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private String toDebugString(List<Operation> ops) {
+		String result = "";
+		for (Operation operation : ops) {
 ```
 
 ### BoundedWildcard
@@ -374,6 +362,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
 			String nodeLabel) {
 		return operations.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -569,7 +569,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-01-07-15.096.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-18-05-35-51.010.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -606,18 +606,6 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
-#### Snippet
-```java
-	/** returns the new version of the node (only for update) */
-	public CtElement getDstNode() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -625,6 +613,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		if (factory.Type().getAll().size() == 0) {
 			return null;
 		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+#### Snippet
+```java
+	/** returns the new version of the node (only for update) */
+	public CtElement getDstNode() {
+		return null;
+	}
 
 ```
 
