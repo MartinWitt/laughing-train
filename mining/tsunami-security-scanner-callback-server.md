@@ -172,18 +172,6 @@ public abstract class PollingServerConfig {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `RedisStorageConfig` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/callbackserver/common/config/RedisStorageConfig.java`
-#### Snippet
-```java
-/** Data model for the Redis storage configuration. */
-@AutoValue
-public abstract class RedisStorageConfig {
-  public abstract Duration interactionTtl();
-  public abstract String readEndpointHost();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `DnsRecordingServerConfig` has no concrete subclass
 in `common/src/main/java/com/google/tsunami/callbackserver/common/config/DnsRecordingServerConfig.java`
 #### Snippet
@@ -193,6 +181,18 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/config/DnsReco
 public abstract class DnsRecordingServerConfig {
   public abstract int port();
   public abstract Optional<Integer> workerPoolSize();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RedisStorageConfig` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/callbackserver/common/config/RedisStorageConfig.java`
+#### Snippet
+```java
+/** Data model for the Redis storage configuration. */
+@AutoValue
+public abstract class RedisStorageConfig {
+  public abstract Duration interactionTtl();
+  public abstract String readEndpointHost();
 ```
 
 ### AbstractClassNeverImplemented
