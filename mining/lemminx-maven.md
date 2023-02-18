@@ -1,7 +1,7 @@
 # lemminx-maven 
  
 # Bad smells
-I found 242 bad smells with 28 repairable:
+I found 243 bad smells with 28 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 60 | false |
@@ -46,6 +46,7 @@ I found 242 bad smells with 28 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | EmptyMethod | 1 | false |
 | RedundantFieldInitialization | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | AssignmentToLambdaParameter | 1 | false |
 | DuplicateThrows | 1 | false |
 | ClassCanBeRecord | 1 | false |
@@ -73,6 +74,42 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 	static interface GAVInsertionStrategy {
 		/**
 		 * set current element value and add siblings as addition textEdits
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+		 * insert elements as children of the parent element
+		 */
+		public static final GAVInsertionStrategy CHILDREN_ELEMENTS = new GAVInsertionStrategy() {
+		};
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+		 * insert elements as children of the parent element
+		 */
+		public static final GAVInsertionStrategy CHILDREN_ELEMENTS = new GAVInsertionStrategy() {
+		};
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+		 * insert elements as children of the parent element
+		 */
+		public static final GAVInsertionStrategy CHILDREN_ELEMENTS = new GAVInsertionStrategy() {
+		};
+
 ```
 
 ### UnnecessaryModifier
@@ -135,53 +172,29 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 
 ```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-		 * insert elements as children of the parent element
-		 */
-		public static final GAVInsertionStrategy CHILDREN_ELEMENTS = new GAVInsertionStrategy() {
-		};
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-		 * insert elements as children of the parent element
-		 */
-		public static final GAVInsertionStrategy CHILDREN_ELEMENTS = new GAVInsertionStrategy() {
-		};
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-		 * insert elements as children of the parent element
-		 */
-		public static final GAVInsertionStrategy CHILDREN_ELEMENTS = new GAVInsertionStrategy() {
-		};
-
-```
-
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `DOMUtils` has only 'static' members, and lacks a 'private' constructor
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/DOMUtils.java`
+Class `VersionValidator` has only 'static' members, and lacks a 'private' constructor
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/VersionValidator.java`
 #### Snippet
 ```java
-import org.w3c.dom.Text;
+import org.eclipse.lsp4j.DiagnosticSeverity;
 
-public class DOMUtils {
+class VersionValidator {
 
-	public static DOMNode findClosestParentNode(final DOMNode node, final String localName) {
+	private static final Logger LOGGER = Logger.getLogger(VersionValidator.class.getName());
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PlexusConfigHelper` has only 'static' members, and lacks a 'private' constructor
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
+#### Snippet
+```java
+ * @see org.codehaus.plexus.component.configurator.converters.composite.ObjectWithFieldsConverter
+ */
+public class PlexusConfigHelper {
+	// TODO: Rename this class maybe?
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -197,15 +210,15 @@ public class MavenParseUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `VersionValidator` has only 'static' members, and lacks a 'private' constructor
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/VersionValidator.java`
+Class `DOMUtils` has only 'static' members, and lacks a 'private' constructor
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/DOMUtils.java`
 #### Snippet
 ```java
-import org.eclipse.lsp4j.DiagnosticSeverity;
+import org.w3c.dom.Text;
 
-class VersionValidator {
+public class DOMUtils {
 
-	private static final Logger LOGGER = Logger.getLogger(VersionValidator.class.getName());
+	public static DOMNode findClosestParentNode(final DOMNode node, final String localName) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -220,18 +233,6 @@ public class ParticipantUtils {
 
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PlexusConfigHelper` has only 'static' members, and lacks a 'private' constructor
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
-#### Snippet
-```java
- * @see org.codehaus.plexus.component.configurator.converters.composite.ObjectWithFieldsConverter
- */
-public class PlexusConfigHelper {
-	// TODO: Rename this class maybe?
-
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `charStream` may produce `NullPointerException`
@@ -243,18 +244,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/Re
 				JsonObject bodyObject = JsonParser.parseReader(response.body().charStream()).getAsJsonObject();
 				if (bodyObject.has("response")) {
 					JsonObject responseObject = bodyObject.get("response").getAsJsonObject();
-```
-
-### DataFlowIssue
-Argument `str` might be null
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
-#### Snippet
-```java
-        if ( ( c < '0' || c > '9' ) && ( c < 'a' || c > 'z' ) )
-        {
-            Validate.notBlank( str, "Argument can neither be null, empty nor blank" );
-        }
-    }
 ```
 
 ### DataFlowIssue
@@ -294,29 +283,40 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 ```
 
 ### DataFlowIssue
-Argument `parent.listFiles()` might be null
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+Argument `str` might be null
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
 #### Snippet
 ```java
-	private List<File> collectRelativePropertiesFiles(File parent) {
-		List<File> result = new ArrayList<>();
-		List<File> parentFiles = Arrays.asList(parent.listFiles());
-		
-		parentFiles.stream().filter(file -> (file.isFile() && file.getName().endsWith(".properties")))
+        if ( ( c < '0' || c > '9' ) && ( c < 'a' || c > 'z' ) )
+        {
+            Validate.notBlank( str, "Argument can neither be null, empty nor blank" );
+        }
+    }
 ```
 
 ### DataFlowIssue
-Argument `prefixFile.getParentFile() .listFiles(file -> (file.getName().startsWith(thePrefixFile.getName...` might be null
+Argument `prefixFile.getParentFile() .listFiles(file -> file.getName().startsWith(thePrefixFile.getName(...` might be null
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
 ```java
 			if (!prefix.endsWith("/")) {
 				final File thePrefixFile = prefixFile;
 				files.addAll(Arrays.asList(prefixFile.getParentFile()
-						.listFiles(file -> (file.getName().startsWith(thePrefixFile.getName())
-								&& file.getName().endsWith(".properties")))));
+						.listFiles(file -> file.getName().startsWith(thePrefixFile.getName()))));
 			}
 		}
+```
+
+### DataFlowIssue
+Argument `prefixFile.listFiles()` might be null
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+		}
+		if (prefixFile.isDirectory()) {
+			files.addAll(Arrays.asList(prefixFile.listFiles()));
+		}
+		return files.stream().filter(file -> file.isFile() || file.isDirectory())
 ```
 
 ### DataFlowIssue
@@ -357,53 +357,41 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 ```
 
 ### DataFlowIssue
-Argument `prefixFile.getParentFile() .listFiles(file -> file.getName().startsWith(thePrefixFile.getName(...` might be null
+Method invocation `getMojos` may produce `NullPointerException`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+		try {
+			pluginDescriptor = MavenPluginUtils.getContainingPluginDescriptor(request.getNode(), plugin);
+			return collectSimpleCompletionItems(pluginDescriptor.getMojos(), MojoDescriptor::getGoal,
+					MojoDescriptor::getDescription, request);
+		} catch (PluginResolutionException | PluginDescriptorParsingException | InvalidPluginDescriptorException e) {
+```
+
+### DataFlowIssue
+Argument `prefixFile.getParentFile() .listFiles(file -> (file.getName().startsWith(thePrefixFile.getName...` might be null
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
 ```java
 			if (!prefix.endsWith("/")) {
 				final File thePrefixFile = prefixFile;
 				files.addAll(Arrays.asList(prefixFile.getParentFile()
-						.listFiles(file -> file.getName().startsWith(thePrefixFile.getName()))));
+						.listFiles(file -> (file.getName().startsWith(thePrefixFile.getName())
+								&& file.getName().endsWith(".properties")))));
 			}
 		}
 ```
 
 ### DataFlowIssue
-Argument `prefixFile.listFiles()` might be null
+Argument `parent.listFiles()` might be null
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
 ```java
-		}
-		if (prefixFile.isDirectory()) {
-			files.addAll(Arrays.asList(prefixFile.listFiles()));
-		}
-		return files.stream().filter(file -> file.isDirectory())
-```
-
-### DataFlowIssue
-Argument `prefixFile.getParentFile() .listFiles(file -> file.getName().startsWith(thePrefixFile.getName(...` might be null
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-			if (!prefix.endsWith("/")) {
-				final File thePrefixFile = prefixFile;
-				files.addAll(Arrays.asList(prefixFile.getParentFile()
-						.listFiles(file -> file.getName().startsWith(thePrefixFile.getName()))));
-			}
-		}
-```
-
-### DataFlowIssue
-Argument `prefixFile.listFiles()` might be null
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-		}
-		if (prefixFile.isDirectory()) {
-			files.addAll(Arrays.asList(prefixFile.listFiles()));
-		}
-		return files.stream().filter(file -> file.isFile() || file.isDirectory())
+	private List<File> collectRelativePropertiesFiles(File parent) {
+		List<File> result = new ArrayList<>();
+		List<File> parentFiles = Arrays.asList(parent.listFiles());
+		
+		parentFiles.stream().filter(file -> (file.isFile() && file.getName().endsWith(".properties")))
 ```
 
 ### DataFlowIssue
@@ -443,6 +431,31 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 ```
 
 ### DataFlowIssue
+Argument `prefixFile.getParentFile() .listFiles(file -> file.getName().startsWith(thePrefixFile.getName(...` might be null
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+			if (!prefix.endsWith("/")) {
+				final File thePrefixFile = prefixFile;
+				files.addAll(Arrays.asList(prefixFile.getParentFile()
+						.listFiles(file -> file.getName().startsWith(thePrefixFile.getName()))));
+			}
+		}
+```
+
+### DataFlowIssue
+Argument `prefixFile.listFiles()` might be null
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+		}
+		if (prefixFile.isDirectory()) {
+			files.addAll(Arrays.asList(prefixFile.listFiles()));
+		}
+		return files.stream().filter(file -> file.isDirectory())
+```
+
+### DataFlowIssue
 Argument `prefixFile.getParentFile().listFiles((dir, name) -> name.startsWith(prefixFile.getName()))` might be null
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
@@ -466,18 +479,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 		// make folder that have a pom show higher
 ```
 
-### DataFlowIssue
-Method invocation `getMojos` may produce `NullPointerException`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-		try {
-			pluginDescriptor = MavenPluginUtils.getContainingPluginDescriptor(request.getNode(), plugin);
-			return collectSimpleCompletionItems(pluginDescriptor.getMojos(), MojoDescriptor::getGoal,
-					MojoDescriptor::getDescription, request);
-		} catch (PluginResolutionException | PluginDescriptorParsingException | InvalidPluginDescriptorException e) {
-```
-
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -492,42 +493,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
-#### Snippet
-```java
-						// Don't add a diagnostic if it already exists
-						diagnostics.addAll(diagnosticList.stream()
-								.filter(diagnostic -> !diagnostics.contains(diagnostic)).collect(Collectors.toList()));
-					});
-				}
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
-#### Snippet
-```java
-        remoteRepositories.add(RemoteCentralRepositorySearcher.CENTRAL_REPO);
-		if (isPlugin(element)) {
-			pproject.getRemotePluginRepositories().stream().forEach(r -> {
-				if (!remoteRepositories.contains(r)) {
-					remoteRepositories.add(r);
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
-#### Snippet
-```java
-			
-		} else if (isDependency(element)) {
-			pproject.getRemoteArtifactRepositories().stream().forEach(ar -> {
-				RemoteRepository r = new RemoteRepository.Builder(ar.getId(), "default", ar.getUrl()).build();
-				if (!remoteRepositories.contains(r)) {
-```
-
 ### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
@@ -589,27 +554,15 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/Maven
 ```
 
 ### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
+'collect(toList())' can be replaced with 'toList()'
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
 #### Snippet
 ```java
-
-			reader.addToWorkspace(projectsToAdd);
-			projectsToRemove.stream().forEach(reader::remove);
-		}
-	}
-```
-
-### SimplifyStreamApiCallChains
-'collect(toUnmodifiableList())' can be replaced with 'toList()'
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
-#### Snippet
-```java
-				return p.getFile().toPath().startsWith(removedPath);
-			});
-		}).map(p -> p.getFile().toURI()).collect(Collectors.toUnmodifiableList());
-	}
-
+			List<MojoParameter> parentParameters = parameters.stream()
+					.filter(mojoParameter -> mojoParameter.name.equals(parentParameterNode.getLocalName()))
+					.collect(Collectors.toList());
+			if (!parentParameters.isEmpty()) {
+				MojoParameter parentParameter = parentParameters.get(0);
 ```
 
 ### SimplifyStreamApiCallChains
@@ -637,15 +590,39 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemmin
 ```
 
 ### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
 #### Snippet
 ```java
-			List<MojoParameter> parentParameters = parameters.stream()
-					.filter(mojoParameter -> mojoParameter.name.equals(parentParameterNode.getLocalName()))
-					.collect(Collectors.toList());
-			if (!parentParameters.isEmpty()) {
-				MojoParameter parentParameter = parentParameters.get(0);
+
+			reader.addToWorkspace(projectsToAdd);
+			projectsToRemove.stream().forEach(reader::remove);
+		}
+	}
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
+#### Snippet
+```java
+				return p.getFile().toPath().startsWith(removedPath);
+			});
+		}).map(p -> p.getFile().toURI()).collect(Collectors.toUnmodifiableList());
+	}
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
+#### Snippet
+```java
+						// Don't add a diagnostic if it already exists
+						diagnostics.addAll(diagnosticList.stream()
+								.filter(diagnostic -> !diagnostics.contains(diagnostic)).collect(Collectors.toList()));
+					});
+				}
 ```
 
 ### SimplifyStreamApiCallChains
@@ -661,6 +638,30 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemmin
 ```
 
 ### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
+#### Snippet
+```java
+        remoteRepositories.add(RemoteCentralRepositorySearcher.CENTRAL_REPO);
+		if (isPlugin(element)) {
+			pproject.getRemotePluginRepositories().stream().forEach(r -> {
+				if (!remoteRepositories.contains(r)) {
+					remoteRepositories.add(r);
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
+#### Snippet
+```java
+			
+		} else if (isDependency(element)) {
+			pproject.getRemoteArtifactRepositories().stream().forEach(ar -> {
+				RemoteRepository r = new RemoteRepository.Builder(ar.getId(), "default", ar.getUrl()).build();
+				if (!remoteRepositories.contains(r)) {
+```
+
+### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
@@ -670,6 +671,18 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 						.collect(Collectors.toList());
 				if (!parentParameters.isEmpty()) {
 					MojoParameter parentParameter = parentParameters.get(0);
+```
+
+### SimplifyStreamApiCallChains
+'filter()' and 'map()' can be swapped
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+		String prefix = request.getNode().getNodeValue() != null ? request.getNode().getNodeValue() : "";
+		List<String> defaultValues = parameters.stream().filter(p -> (p.getDefaultValue() != null))
+				.map(p -> p.getDefaultValue())
+				.collect(Collectors.toList());
+
 ```
 
 ### SimplifyStreamApiCallChains
@@ -708,18 +721,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 			break;
 ```
 
-### SimplifyStreamApiCallChains
-'filter()' and 'map()' can be swapped
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-		String prefix = request.getNode().getNodeValue() != null ? request.getNode().getNodeValue() : "";
-		List<String> defaultValues = parameters.stream().filter(p -> (p.getDefaultValue() != null))
-				.map(p -> p.getDefaultValue())
-				.collect(Collectors.toList());
-
-```
-
 ## RuleId[ruleID=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Call to `substring()` is redundant
@@ -734,18 +735,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/Parti
 ```
 
 ### StringOperationCanBeSimplified
-Inefficient conversion from ByteArrayOutputStream
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-					new Range(new Position(0, 0),
-							request.getXMLDocument().positionAt(request.getXMLDocument().getText().length())),
-					new String(stream.toByteArray()));
-			item.setTextEdit(Either.forLeft(textEdit));
-		}
-```
-
-### StringOperationCanBeSimplified
 Call to `toString()` is redundant
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
@@ -755,6 +744,18 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 				.map(defaultValue -> toCompletionItem(defaultValue.toString(), null, request.getReplaceRange()))
 				.collect(Collectors.toList());
 	}
+```
+
+### StringOperationCanBeSimplified
+Inefficient conversion from ByteArrayOutputStream
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+					new Range(new Position(0, 0),
+							request.getXMLDocument().positionAt(request.getXMLDocument().getText().length())),
+					new String(stream.toByteArray()));
+			item.setTextEdit(Either.forLeft(textEdit));
+		}
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -773,74 +774,26 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemmin
 ## RuleId[ruleID=OptionalContainsCollection]
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
-#### Snippet
-```java
-		
-		DOMElement documentElement = xmlDocument.getDocumentElement();
-		Map<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> tagDiagnostics = configureDiagnosticFunctions();
-
-		Deque<DOMNode> nodes = new ArrayDeque<>();
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
-#### Snippet
-```java
-		while (!nodes.isEmpty()) {
-			DOMNode node = nodes.pop();
-			for (Entry<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> entry : tagDiagnostics
-					.entrySet()) {
-				if (node.getLocalName() != null && node.getLocalName().equals(entry.getKey())) {
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/SubModuleValidator.java`
 #### Snippet
 ```java
 	}
 
-	private Map<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> configureDiagnosticFunctions() {
-		PluginValidator pluginValidator = new PluginValidator(plugin);
-
+	public Optional<List<Diagnostic>> validateSubModuleExistence(DiagnosticRequest diagnosticRequest) {
+		DOMNode node = diagnosticRequest.getNode();
+		String tagContent = null;
 ```
 
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/VersionValidator.java`
 #### Snippet
 ```java
-		PluginValidator pluginValidator = new PluginValidator(plugin);
+	private static final Logger LOGGER = Logger.getLogger(VersionValidator.class.getName());
 
-		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginConfiguration = pluginValidator::validateConfiguration;
-		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginGoal = pluginValidator::validateGoal;
-
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
-#### Snippet
-```java
-
-		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginConfiguration = pluginValidator::validateConfiguration;
-		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginGoal = pluginValidator::validateGoal;
-
-		Map<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> tagDiagnostics = new HashMap<>();
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
-#### Snippet
-```java
-		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginGoal = pluginValidator::validateGoal;
-
-		Map<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> tagDiagnostics = new HashMap<>();
-		tagDiagnostics.put(CONFIGURATION_ELT, validatePluginConfiguration);
-		tagDiagnostics.put(GOAL_ELT, validatePluginGoal);
+	public static Optional<List<Diagnostic>> validateVersion(DiagnosticRequest diagnosticRequest) {
+		DOMNode node = diagnosticRequest.getNode();
+		Dependency model = MavenParseUtils.parseArtifact(node);
 ```
 
 ### OptionalContainsCollection
@@ -905,29 +858,89 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/SubModuleValidator.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
 #### Snippet
 ```java
 	}
 
-	public Optional<List<Diagnostic>> validateSubModuleExistence(DiagnosticRequest diagnosticRequest) {
-		DOMNode node = diagnosticRequest.getNode();
-		String tagContent = null;
+	private Map<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> configureDiagnosticFunctions() {
+		PluginValidator pluginValidator = new PluginValidator(plugin);
+
 ```
 
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/VersionValidator.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
 #### Snippet
 ```java
-	private static final Logger LOGGER = Logger.getLogger(VersionValidator.class.getName());
+		PluginValidator pluginValidator = new PluginValidator(plugin);
 
-	public static Optional<List<Diagnostic>> validateVersion(DiagnosticRequest diagnosticRequest) {
-		DOMNode node = diagnosticRequest.getNode();
-		Dependency model = MavenParseUtils.parseArtifact(node);
+		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginConfiguration = pluginValidator::validateConfiguration;
+		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginGoal = pluginValidator::validateGoal;
+
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
+#### Snippet
+```java
+
+		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginConfiguration = pluginValidator::validateConfiguration;
+		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginGoal = pluginValidator::validateGoal;
+
+		Map<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> tagDiagnostics = new HashMap<>();
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
+#### Snippet
+```java
+		Function<DiagnosticRequest, Optional<List<Diagnostic>>> validatePluginGoal = pluginValidator::validateGoal;
+
+		Map<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> tagDiagnostics = new HashMap<>();
+		tagDiagnostics.put(CONFIGURATION_ELT, validatePluginConfiguration);
+		tagDiagnostics.put(GOAL_ELT, validatePluginGoal);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
+#### Snippet
+```java
+		
+		DOMElement documentElement = xmlDocument.getDocumentElement();
+		Map<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> tagDiagnostics = configureDiagnosticFunctions();
+
+		Deque<DOMNode> nodes = new ArrayDeque<>();
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/MavenDiagnosticParticipant.java`
+#### Snippet
+```java
+		while (!nodes.isEmpty()) {
+			DOMNode node = nodes.pop();
+			for (Entry<String, Function<DiagnosticRequest, Optional<List<Diagnostic>>>> entry : tagDiagnostics
+					.entrySet()) {
+				if (node.getLocalName() != null && node.getLocalName().equals(entry.getKey())) {
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+		String prefix = request.getNode().getNodeValue() != null ? request.getNode().getNodeValue() : "";
+		List<String> defaultValues = parameters.stream().filter(p -> (p.getDefaultValue() != null))
+				.map(p -> p.getDefaultValue())
+				.collect(Collectors.toList());
+
+```
+
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
@@ -962,18 +975,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 		return files.stream().filter(file -> file.isDirectory())
 				.filter( file -> !file.equals(docFolder))
 				.sorted(Comparator.comparing(File::isDirectory) // only folders
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-		String prefix = request.getNode().getNodeValue() != null ? request.getNode().getNodeValue() : "";
-		List<String> defaultValues = parameters.stream().filter(p -> (p.getDefaultValue() != null))
-				.map(p -> p.getDefaultValue())
-				.collect(Collectors.toList());
-
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -1033,10 +1034,10 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/Re
 #### Snippet
 ```java
 	}
-	
-	private static final boolean isEmpty(String s) {
-		return s == null || s.trim().isEmpty();
-	}
+
+	private static final Artifact toArtifactInfo(JsonObject object) {
+		String g = object.has(GROUP_ID) ? object.get(GROUP_ID).getAsString() : null;
+		String a = object.has(ARTIFACT_ID) ? object.get(ARTIFACT_ID).getAsString() : null;
 ```
 
 ### FinalPrivateMethod
@@ -1045,35 +1046,10 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/Re
 #### Snippet
 ```java
 	}
-
-	private static final Artifact toArtifactInfo(JsonObject object) {
-		String g = object.has(GROUP_ID) ? object.get(GROUP_ID).getAsString() : null;
-		String a = object.has(ARTIFACT_ID) ? object.get(ARTIFACT_ID).getAsString() : null;
-```
-
-## RuleId[ruleID=DuplicateExpressions]
-### DuplicateExpressions
-Multiple occurrences of `name.substring(0, name.length() - 2)`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
-#### Snippet
-```java
-			return name.substring(0, name.length() - 3) + "y";
-		} else if (name.endsWith("ches")) {
-			return name.substring(0, name.length() - 2);
-		} else if (name.endsWith("xes")) {
-			return name.substring(0, name.length() - 2);
-```
-
-### DuplicateExpressions
-Multiple occurrences of `name.substring(0, name.length() - 2)`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
-#### Snippet
-```java
-			return name.substring(0, name.length() - 2);
-		} else if (name.endsWith("xes")) {
-			return name.substring(0, name.length() - 2);
-		} else if (name.endsWith("s") && (name.length() != 1)) {
-			return name.substring(0, name.length() - 1);
+	
+	private static final boolean isEmpty(String s) {
+		return s == null || s.trim().isEmpty();
+	}
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1125,6 +1101,31 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 				.forEach(response::addCompletionItem);
 ```
 
+## RuleId[ruleID=DuplicateExpressions]
+### DuplicateExpressions
+Multiple occurrences of `name.substring(0, name.length() - 2)`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
+#### Snippet
+```java
+			return name.substring(0, name.length() - 3) + "y";
+		} else if (name.endsWith("ches")) {
+			return name.substring(0, name.length() - 2);
+		} else if (name.endsWith("xes")) {
+			return name.substring(0, name.length() - 2);
+```
+
+### DuplicateExpressions
+Multiple occurrences of `name.substring(0, name.length() - 2)`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
+#### Snippet
+```java
+			return name.substring(0, name.length() - 2);
+		} else if (name.endsWith("xes")) {
+			return name.substring(0, name.length() - 2);
+		} else if (name.endsWith("s") && (name.length() != 1)) {
+			return name.substring(0, name.length() - 1);
+```
+
 ## RuleId[ruleID=EnhancedSwitchMigration]
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
@@ -1155,11 +1156,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
 ```java
-		String artifactIdFilter = artifactId.orElse(null);
-		
-		switch (parent.getLocalName()) {
-		case ARTIFACT_ID_ELT:
-			plugin.getProjectCache().getProjects().stream() //
+				CompletableFuture.runAsync(() -> {
+						cancelChecker.checkCanceled();
+						switch (node.getLocalName()) {
+						case GROUP_ID_ELT:
+							// TODO: just pass only plugins boolean, and make getGroupId's accept a boolean
 ```
 
 ### EnhancedSwitchMigration
@@ -1167,11 +1168,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
 ```java
-				CompletableFuture.runAsync(() -> {
-						cancelChecker.checkCanceled();
-						switch (node.getLocalName()) {
-						case GROUP_ID_ELT:
-							// TODO: just pass only plugins boolean, and make getGroupId's accept a boolean
+		String artifactIdFilter = artifactId.orElse(null);
+		
+		switch (parent.getLocalName()) {
+		case ARTIFACT_ID_ELT:
+			plugin.getProjectCache().getProjects().stream() //
 ```
 
 ### EnhancedSwitchMigration
@@ -1255,10 +1256,10 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/Re
 #### Snippet
 ```java
 	}
-	
-	private static final boolean isEmpty(String s) {
-		return s == null || s.trim().isEmpty();
-	}
+
+	private static final Artifact toArtifactInfo(JsonObject object) {
+		String g = object.has(GROUP_ID) ? object.get(GROUP_ID).getAsString() : null;
+		String a = object.has(ARTIFACT_ID) ? object.get(ARTIFACT_ID).getAsString() : null;
 ```
 
 ### FinalStaticMethod
@@ -1267,10 +1268,10 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/Re
 #### Snippet
 ```java
 	}
-
-	private static final Artifact toArtifactInfo(JsonObject object) {
-		String g = object.has(GROUP_ID) ? object.get(GROUP_ID).getAsString() : null;
-		String a = object.has(ARTIFACT_ID) ? object.get(ARTIFACT_ID).getAsString() : null;
+	
+	private static final boolean isEmpty(String s) {
+		return s == null || s.trim().isEmpty();
+	}
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -1300,6 +1301,18 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Range`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+	}
+
+	private Hover collectProperty(IHoverRequest request, Map.Entry<Range, String> property) {
+		boolean supportsMarkdown = request.canSupportMarkupKind(MarkupKind.MARKDOWN);
+		String lineBreak = MarkdownUtils.getLineBreak(supportsMarkdown);
+```
+
+### BoundedWildcard
 Can generalize to `? extends ArtifactRepository`
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
 #### Snippet
@@ -1312,15 +1325,39 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemmin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Range`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+Can generalize to `? super ArtifactWithDescription`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+
+	private void internalCollectRemoteGAVCompletion(ICompletionRequest request, boolean onlyPlugins,
+			Collection<ArtifactWithDescription> artifactInfosCollector, ICompletionResponse nonArtifactCollector, CancelChecker cancelChecker) {
+		DOMElement node = request.getParentElement();
+		Dependency artifactToSearch = MavenParseUtils.parseArtifact(node);
+```
+
+### BoundedWildcard
+Can generalize to `? extends MojoParameter`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
 ```java
 	}
 
-	private Hover collectProperty(IHoverRequest request, Map.Entry<Range, String> property) {
-		boolean supportsMarkdown = request.canSupportMarkupKind(MarkupKind.MARKDOWN);
-		String lineBreak = MarkdownUtils.getLineBreak(supportsMarkdown);
+	private Collection<CompletionItem> collectMojoParametersDefaultCompletion(ICompletionRequest request, Set<MojoParameter> parameters) {
+		String prefix = request.getNode().getNodeValue() != null ? request.getNode().getNodeValue() : "";
+		List<String> defaultValues = parameters.stream().filter(p -> (p.getDefaultValue() != null))
+```
+
+### BoundedWildcard
+Can generalize to `? super ArtifactWithDescription`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
+	}
+	
+	private void internalCollectWorkspaceArtifacts(ICompletionRequest request, Collection<ArtifactWithDescription> artifactInfosCollector,
+			Optional<String> groupId, Optional<String> artifactId) {
+		DOMElement parent = request.getParentElement();
 ```
 
 ### BoundedWildcard
@@ -1357,42 +1394,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 			Function<T, String> insertionTextExtractor, Function<T, String> documentationExtractor,
 			ICompletionRequest request) {
 		DOMElement node = request.getParentElement();
-```
-
-### BoundedWildcard
-Can generalize to `? super ArtifactWithDescription`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-	}
-	
-	private void internalCollectWorkspaceArtifacts(ICompletionRequest request, Collection<ArtifactWithDescription> artifactInfosCollector,
-			Optional<String> groupId, Optional<String> artifactId) {
-		DOMElement parent = request.getParentElement();
-```
-
-### BoundedWildcard
-Can generalize to `? super ArtifactWithDescription`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-
-	private void internalCollectRemoteGAVCompletion(ICompletionRequest request, boolean onlyPlugins,
-			Collection<ArtifactWithDescription> artifactInfosCollector, ICompletionResponse nonArtifactCollector, CancelChecker cancelChecker) {
-		DOMElement node = request.getParentElement();
-		Dependency artifactToSearch = MavenParseUtils.parseArtifact(node);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MojoParameter`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-	}
-
-	private Collection<CompletionItem> collectMojoParametersDefaultCompletion(ICompletionRequest request, Set<MojoParameter> parameters) {
-		String prefix = request.getNode().getNodeValue() != null ? request.getNode().getNodeValue() : "";
-		List<String> defaultValues = parameters.stream().filter(p -> (p.getDefaultValue() != null))
 ```
 
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
@@ -1457,7 +1458,32 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 		if (parent == null || parent.getLocalName() == null) {
 ```
 
+## RuleId[ruleID=UnnecessaryUnboxing]
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenProjectCache.java`
+#### Snippet
+```java
+	private void check(DOMDocument document) {
+		Integer last = lastCheckedVersion.get(URI.create(document.getTextDocument().getUri()).normalize());
+		if (last == null || last.intValue() < document.getTextDocument().getVersion()) {
+			parseAndCache(document);
+		}
+```
+
 ## RuleId[ruleID=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
+#### Snippet
+```java
+		try {
+			url.append(SEARCH_URI).append("rows=200&")
+				.append(SEARCH_PARAMS).append(URLEncoder.encode(query.toString(), "UTF-8"));
+		} catch(UnsupportedEncodingException ex) {
+			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
+```
+
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
@@ -1480,31 +1506,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/Re
 				.append(SEARCH_PARAMS).append(URLEncoder.encode(query.toString(), "UTF-8"));
 		} catch(UnsupportedEncodingException ex) {
 			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
-#### Snippet
-```java
-		try {
-			url.append(SEARCH_URI).append("rows=200&")
-				.append(SEARCH_PARAMS).append(URLEncoder.encode(query.toString(), "UTF-8"));
-		} catch(UnsupportedEncodingException ex) {
-			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
-```
-
-## RuleId[ruleID=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenProjectCache.java`
-#### Snippet
-```java
-	private void check(DOMDocument document) {
-		Integer last = lastCheckedVersion.get(URI.create(document.getTextDocument().getUri()).normalize());
-		if (last == null || last.intValue() < document.getTextDocument().getVersion()) {
-			parseAndCache(document);
-		}
 ```
 
 ## RuleId[ruleID=RedundantStreamOptionalCall]
@@ -1551,6 +1552,18 @@ Can be replaced with 'isEmpty()'
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
 #### Snippet
 ```java
+					RELATIVE_PATH_ELT);
+		}
+		if (!relativePath.isPresent()) {
+			relativePath = Optional.of("..");
+		}
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
+#### Snippet
+```java
 				allArtifactInfos.addAll((isPlugin ? plugin.getLocalRepositorySearcher().getLocalPluginArtifacts()
 						: plugin.getLocalRepositorySearcher().getLocalArtifactsLastVersion()).stream()
 								.filter(gav -> !groupId.isPresent() || gav.getGroupId().equals(groupId.get()))
@@ -1568,18 +1581,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 							.filter(gav -> !groupId.isPresent() || gav.getGroupId().equals(groupId.get())).findAny()
 							.map(Artifact::getVersion).map(DefaultArtifactVersion::new)
 							.map(version -> toCompletionItem(version.toString(), null, request.getReplaceRange()))
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/completion/MavenCompletionParticipant.java`
-#### Snippet
-```java
-					RELATIVE_PATH_ELT);
-		}
-		if (!relativePath.isPresent()) {
-			relativePath = Optional.of("..");
-		}
 ```
 
 ### SimplifyOptionalCallChains
@@ -1625,11 +1626,11 @@ Qualifier `org.apache.maven.artifact` is unnecessary, and can be replaced with a
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/DependencyScope.java`
 #### Snippet
 ```java
-	PROVIDED(org.apache.maven.artifact.Artifact.SCOPE_PROVIDED,
-			"This is much like compile, but indicates you expect the JDK or a container to provide the dependency at runtime. For example, when building a web application for the Java Enterprise Edition, you would set the dependency on the Servlet API and related Java EE APIs to scope provided because the web container provides those classes. This scope is only available on the compilation and test classpath, and is not transitive."),
 	RUNTIME(org.apache.maven.artifact.Artifact.SCOPE_RUNTIME,
 			"This scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath."),
 	TEST(org.apache.maven.artifact.Artifact.SCOPE_TEST,
+			"This scope indicates that the dependency is not required for normal use of the application, and is only available for the test compilation and execution phases. This scope is not transitive."),
+	SYSTEM(org.apache.maven.artifact.Artifact.SCOPE_SYSTEM,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1642,6 +1643,18 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/DependencyS
 	SYSTEM(org.apache.maven.artifact.Artifact.SCOPE_SYSTEM,
 			"This scope is similar to provided except that you have to provide the JAR which contains it explicitly. The artifact is always available and is not looked up in a repository."),
 	IMPORT_SCOPE(org.apache.maven.artifact.Artifact.SCOPE_IMPORT,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.artifact` is unnecessary, and can be replaced with an import
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/DependencyScope.java`
+#### Snippet
+```java
+	COMPILE(org.apache.maven.artifact.Artifact.SCOPE_COMPILE,
+			"This is the default scope, used if none is specified. Compile dependencies are available in all classpaths of a project. Furthermore, those dependencies are propagated to dependent projects."),
+	PROVIDED(org.apache.maven.artifact.Artifact.SCOPE_PROVIDED,
+			"This is much like compile, but indicates you expect the JDK or a container to provide the dependency at runtime. For example, when building a web application for the Java Enterprise Edition, you would set the dependency on the Servlet API and related Java EE APIs to scope provided because the web container provides those classes. This scope is only available on the compilation and test classpath, and is not transitive."),
+	RUNTIME(org.apache.maven.artifact.Artifact.SCOPE_RUNTIME,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1661,35 +1674,23 @@ Qualifier `org.apache.maven.artifact` is unnecessary, and can be replaced with a
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/DependencyScope.java`
 #### Snippet
 ```java
-	RUNTIME(org.apache.maven.artifact.Artifact.SCOPE_RUNTIME,
-			"This scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath."),
-	TEST(org.apache.maven.artifact.Artifact.SCOPE_TEST,
-			"This scope indicates that the dependency is not required for normal use of the application, and is only available for the test compilation and execution phases. This scope is not transitive."),
-	SYSTEM(org.apache.maven.artifact.Artifact.SCOPE_SYSTEM,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.artifact` is unnecessary, and can be replaced with an import
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/DependencyScope.java`
-#### Snippet
-```java
-	COMPILE(org.apache.maven.artifact.Artifact.SCOPE_COMPILE,
-			"This is the default scope, used if none is specified. Compile dependencies are available in all classpaths of a project. Furthermore, those dependencies are propagated to dependent projects."),
-	PROVIDED(org.apache.maven.artifact.Artifact.SCOPE_PROVIDED,
-			"This is much like compile, but indicates you expect the JDK or a container to provide the dependency at runtime. For example, when building a web application for the Java Enterprise Edition, you would set the dependency on the Servlet API and related Java EE APIs to scope provided because the web container provides those classes. This scope is only available on the compilation and test classpath, and is not transitive."),
-	RUNTIME(org.apache.maven.artifact.Artifact.SCOPE_RUNTIME,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.artifact` is unnecessary, and can be replaced with an import
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/DependencyScope.java`
-#### Snippet
-```java
 	SYSTEM(org.apache.maven.artifact.Artifact.SCOPE_SYSTEM,
 			"This scope is similar to provided except that you have to provide the JAR which contains it explicitly. The artifact is always available and is not looked up in a repository."),
 	IMPORT_SCOPE(org.apache.maven.artifact.Artifact.SCOPE_IMPORT,
 			"This scope is only supported on a dependency of type pom in the <dependencyManagement> section. It indicates the dependency to be replaced with the effective list of dependencies in the specified POM's <dependencyManagement> section. Since they are replaced, dependencies with a scope of import do not actually participate in limiting the transitivity of a dependency.");
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.artifact` is unnecessary, and can be replaced with an import
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/DependencyScope.java`
+#### Snippet
+```java
+	PROVIDED(org.apache.maven.artifact.Artifact.SCOPE_PROVIDED,
+			"This is much like compile, but indicates you expect the JDK or a container to provide the dependency at runtime. For example, when building a web application for the Java Enterprise Edition, you would set the dependency on the Servlet API and related Java EE APIs to scope provided because the web container provides those classes. This scope is only available on the compilation and test classpath, and is not transitive."),
+	RUNTIME(org.apache.maven.artifact.Artifact.SCOPE_RUNTIME,
+			"This scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath."),
+	TEST(org.apache.maven.artifact.Artifact.SCOPE_TEST,
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1793,18 +1794,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenProjec
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `localRepositorySearcher` is accessed in both synchronized and unsynchronized contexts
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
-#### Snippet
-```java
-	private MavenProjectCache cache;
-	private RemoteCentralRepositorySearcher centralSearcher;
-	private LocalRepositorySearcher localRepositorySearcher;
-	private MavenExecutionRequest mavenRequest;
-	private MavenPluginManager mavenPluginManager;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `mavenPluginManager` is accessed in both synchronized and unsynchronized contexts
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
 #### Snippet
@@ -1814,18 +1803,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemmin
 	private MavenPluginManager mavenPluginManager;
 	private PlexusContainer container;
 	private MavenSession mavenSession;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `mavenSession` is accessed in both synchronized and unsynchronized contexts
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
-#### Snippet
-```java
-	private MavenPluginManager mavenPluginManager;
-	private PlexusContainer container;
-	private MavenSession mavenSession;
-	private BuildPluginManager buildPluginManager;
-
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1841,27 +1818,15 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemmin
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `initialWorkspaceFolders` is accessed in both synchronized and unsynchronized contexts
+Field `mavenSession` is accessed in both synchronized and unsynchronized contexts
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
 #### Snippet
 ```java
-	XMLMavenSettings settings = new XMLMavenSettings();
-	private URIResolverExtensionManager resolverExtensionManager;
-	private List<WorkspaceFolder> initialWorkspaceFolders = List.of();
-	
-	@Override
-```
+	private MavenPluginManager mavenPluginManager;
+	private PlexusContainer container;
+	private MavenSession mavenSession;
+	private BuildPluginManager buildPluginManager;
 
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `centralSearcher` is accessed in both synchronized and unsynchronized contexts
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
-#### Snippet
-```java
-
-	private MavenProjectCache cache;
-	private RemoteCentralRepositorySearcher centralSearcher;
-	private LocalRepositorySearcher localRepositorySearcher;
-	private MavenExecutionRequest mavenRequest;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1874,6 +1839,54 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemmin
 	private BuildPluginManager buildPluginManager;
 
 	XMLMavenSettings settings = new XMLMavenSettings();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `initialWorkspaceFolders` is accessed in both synchronized and unsynchronized contexts
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
+#### Snippet
+```java
+	XMLMavenSettings settings = new XMLMavenSettings();
+	private URIResolverExtensionManager resolverExtensionManager;
+	private List<WorkspaceFolder> initialWorkspaceFolders = List.of();
+	
+	@Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `localRepositorySearcher` is accessed in both synchronized and unsynchronized contexts
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
+#### Snippet
+```java
+	private MavenProjectCache cache;
+	private RemoteCentralRepositorySearcher centralSearcher;
+	private LocalRepositorySearcher localRepositorySearcher;
+	private MavenExecutionRequest mavenRequest;
+	private MavenPluginManager mavenPluginManager;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `mavenRequest` is accessed in both synchronized and unsynchronized contexts
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
+#### Snippet
+```java
+	private RemoteCentralRepositorySearcher centralSearcher;
+	private LocalRepositorySearcher localRepositorySearcher;
+	private MavenExecutionRequest mavenRequest;
+	private MavenPluginManager mavenPluginManager;
+	private PlexusContainer container;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `centralSearcher` is accessed in both synchronized and unsynchronized contexts
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
+#### Snippet
+```java
+
+	private MavenProjectCache cache;
+	private RemoteCentralRepositorySearcher centralSearcher;
+	private LocalRepositorySearcher localRepositorySearcher;
+	private MavenExecutionRequest mavenRequest;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1898,18 +1911,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemmin
 	private XMLExtensionsRegistry currentRegistry;
 
 	private ICompletionParticipant completionParticipant;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `mavenRequest` is accessed in both synchronized and unsynchronized contexts
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
-#### Snippet
-```java
-	private RemoteCentralRepositorySearcher centralSearcher;
-	private LocalRepositorySearcher localRepositorySearcher;
-	private MavenExecutionRequest mavenRequest;
-	private MavenPluginManager mavenPluginManager;
-	private PlexusContainer container;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1987,6 +1988,19 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/Parti
 									|| originalDependency.getGroupId().equals(dep.getGroupId())
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-18-13-21-34.123.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -1995,6 +2009,18 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 ```java
 	public <T> T getComponent(Class clazz) {
 		// TODO: Not sure how to implement this..
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/DiagnosticRequest.java`
+#### Snippet
+```java
+	@Override
+	public Position getPosition() {
 		return null;
 	}
 
@@ -2018,6 +2044,18 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 #### Snippet
 ```java
 	@Override
+	public String getCurrentAttributeName() {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/DiagnosticRequest.java`
+#### Snippet
+```java
+	@Override
 	public DOMAttr getCurrentAttribute() {
 		return node instanceof DOMAttr attr ? attr : null;
 	}
@@ -2026,11 +2064,23 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 
 ### ReturnNull
 Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/DiagnosticRequest.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
 #### Snippet
 ```java
-	@Override
-	public Position getPosition() {
+			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
+					artifactToSearch.getArtifactId(), artifactToSearch.getVersion()), ex.getMessage());
+			return null;
+		}
+		return new Request.Builder().url(url.toString()).build();
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
+#### Snippet
+```java
+					artifactToSearch.getArtifactId(), artifactToSearch.getVersion()), ex);
+		}
 		return null;
 	}
 
@@ -2038,14 +2088,386 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 
 ### ReturnNull
 Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/diagnostics/DiagnosticRequest.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
 #### Snippet
 ```java
-	@Override
-	public String getCurrentAttributeName() {
+			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
+					artifactToSearch.getArtifactId(), artifactToSearch.getVersion()), ex.getMessage());
+			return null;
+		}
+		return new Request.Builder().url(url.toString()).build();
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
+#### Snippet
+```java
+			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
+					artifactToSearch.getArtifactId(), artifactToSearch.getVersion()), ex.getMessage());
+			return null;
+		}
+		return new Request.Builder().url(url.toString()).build();
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
+#### Snippet
+```java
+			return (Class<?>) paramedType.getRawType();
+		}
 		return null;
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
+#### Snippet
+```java
+		}
+		if (!Collection.class.isAssignableFrom(paramClass)) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
+#### Snippet
+```java
+	private static LocationLink toLocationNoRange(File target, DOMNode originNode) {
+		if (target == null) {
+			return null;
+		}
+		Range dumbRange = new Range(new Position(0, 0), new Position(0, 0));
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
+#### Snippet
+```java
+		Map.Entry<Range, String> mavenProperty = ParticipantUtils.getMavenPropertyInRequest(request);
+		if (mavenProperty == null) {
+			return null;
+		}
+		DOMDocument xmlDocument = request.getXMLDocument();
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
+#### Snippet
+```java
+		MavenProject project = plugin.getProjectCache().getLastSuccessfulMavenProject(xmlDocument);
+		if (project == null) {
+			return null;
+		}
+		MavenProject childProj = project;
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
+#### Snippet
+```java
+
+		if (propertyDeclaration == null) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenPluginUtils.java`
+#### Snippet
+```java
+				.getLastSuccessfulMavenProject(node.getOwnerDocument());
+		if (project == null) {
+			return null;
+		}
+		DOMNode pluginNode = DOMUtils.findClosestParentNode(node, PLUGIN_ELT);
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenPluginUtils.java`
+#### Snippet
+```java
+		DOMNode pluginNode = DOMUtils.findClosestParentNode(node, PLUGIN_ELT);
+		if (pluginNode == null) {
+			return null;
+		}
+		Optional<String> groupId = DOMUtils.findChildElementText(pluginNode, GROUP_ID_ELT);
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+			PluginDescriptor pluginDescriptor = MavenPluginUtils.getContainingPluginDescriptor(node, plugin);
+			if (pluginDescriptor == null) { // probable incorrect pom file at this moment
+				return null;
+			}
+			for (MojoDescriptor mojo : pluginDescriptor.getMojos()) {
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+	private static String getActualVersionText(boolean supportsMarkdown, Model model) {
+		if (model == null) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+		
+		// we don't have description or other valuable information for non-local artifacts.
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+	private String getManagedVersionText(IHoverRequest request) {
+		if (!MavenLemminxExtension.match(request.getXMLDocument())) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+		DOMElement element = ParticipantUtils.findInterestingElement(request.getNode());
+		if (element == null || (!DEPENDENCY_ELT.equals(element.getLocalName()) && !PLUGIN_ELT.equals(element.getLocalName()))) {
+			return null;
+		}
+		
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+					request.getNode().getOwnerDocument().getResolverExtensionManager());
+			if (parentXmlDocument == null) {
+				return null; // An error occurred while loading the document
+			}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+			parentPomFile = getParentPomFile(parentMavenProject);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+	private static String getActualVersionText(boolean supportsMarkdown, MavenProject project) {
+		if (project == null) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+		} catch (PluginResolutionException | PluginDescriptorParsingException | InvalidPluginDescriptorException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+			return null;
+		}
+		if (CONFIGURATION_ELT.equals(request.getParentElement().getLocalName())) {
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+	public Hover onText(IHoverRequest request) throws Exception {
+		if (!MavenLemminxExtension.match(request.getXMLDocument())) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+		case GOAL_ELT -> collectGoal(request);
+		// TODO consider incomplete GAV (eg plugins), by querying the "key" against project
+		default -> null;
+		};
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+
+		if (message.isBlank()) {
+			return null;
+		}
+		return new Hover(new MarkupContent(supportsMarkdown ? MarkupKind.MARKDOWN : MarkupKind.PLAINTEXT,
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+	public Hover onTag(IHoverRequest request) throws Exception {
+		if (!MavenLemminxExtension.match(request.getXMLDocument())) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+
+		if (tag.getLocalName() == null) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
+#### Snippet
+```java
+
+		// TODO: Get rid of this?
+		return CONFIGURATION_ELT.equals(parent.getLocalName()) ? collectPluginConfiguration(request) : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenParseUtils.java`
+#### Snippet
+```java
+	private static Dependency parseArtifactInternal(DOMElement element) {
+		if (element == null) {
+			return null;
+		}
+		Dependency res = new Dependency();
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenParseUtils.java`
+#### Snippet
+```java
+			LOGGER.log(Level.SEVERE, "Error parsing Artifact", e);
+		}
+		return isEmpty(res) ? null : res;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenParseUtils.java`
+#### Snippet
+```java
+	public static Dependency parseArtifact(DOMNode node) {
+		if (node == null) {
+			return null;
+		}
+		if (node.isElement()) {
 ```
 
 ### ReturnNull
@@ -2110,37 +2532,61 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/DOMUt
 
 ### ReturnNull
 Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenParseUtils.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
 #### Snippet
 ```java
-	public static Dependency parseArtifact(DOMNode node) {
-		if (node == null) {
+			return container.lookup(SettingsBuilder.class).build(request).getEffectiveSettings();
+		} catch (SettingsBuildingException | ComponentLookupException ex) {
 			return null;
 		}
-		if (node.isElement()) {
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenParseUtils.java`
-#### Snippet
-```java
-	private static Dependency parseArtifactInternal(DOMElement element) {
-		if (element == null) {
-			return null;
-		}
-		Dependency res = new Dependency();
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenParseUtils.java`
-#### Snippet
-```java
-			LOGGER.log(Level.SEVERE, "Error parsing Artifact", e);
-		}
-		return isEmpty(res) ? null : res;
 	}
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxWorkspaceReader.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+	
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxWorkspaceReader.java`
+#### Snippet
+```java
+			return projectArtifact.getFile();
+		}
+		return null;
+	}
+	
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MojoParameter.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MojoParameter.java`
+#### Snippet
+```java
+
+		if (param == null) {
+			return null;
+		}
 
 ```
 
@@ -2158,46 +2604,22 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenProjec
 
 ### ReturnNull
 Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
 #### Snippet
 ```java
-			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
-					artifactToSearch.getArtifactId(), artifactToSearch.getVersion()), ex.getMessage());
+		// Here we can search only if all artifact is well defined
+		if (!isWellDefinedDependency(artifactToSearch)) {
 			return null;
 		}
-		return new Request.Builder().url(url.toString()).build();
+		
 ```
 
 ### ReturnNull
 Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
 #### Snippet
 ```java
-			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
-					artifactToSearch.getArtifactId(), artifactToSearch.getVersion()), ex.getMessage());
-			return null;
-		}
-		return new Request.Builder().url(url.toString()).build();
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
-#### Snippet
-```java
-			LOGGER.log(Level.SEVERE, "Maven Central Repo search failed for " + String.join(":", artifactToSearch.getGroupId(),
-					artifactToSearch.getArtifactId(), artifactToSearch.getVersion()), ex.getMessage());
-			return null;
-		}
-		return new Request.Builder().url(url.toString()).build();
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/searcher/RemoteCentralRepositorySearcher.java`
-#### Snippet
-```java
-					artifactToSearch.getArtifactId(), artifactToSearch.getVersion()), ex);
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return null;
 	}
@@ -2274,414 +2696,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/Parti
 		return null;
 	}
 	
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
-#### Snippet
-```java
-		// Here we can search only if all artifact is well defined
-		if (!isWellDefinedDependency(artifactToSearch)) {
-			return null;
-		}
-		
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
-#### Snippet
-```java
-			LOGGER.log(Level.SEVERE, e.getMessage(), e);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MojoParameter.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MojoParameter.java`
-#### Snippet
-```java
-
-		if (param == null) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
-#### Snippet
-```java
-	private static LocationLink toLocationNoRange(File target, DOMNode originNode) {
-		if (target == null) {
-			return null;
-		}
-		Range dumbRange = new Range(new Position(0, 0), new Position(0, 0));
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
-#### Snippet
-```java
-		Map.Entry<Range, String> mavenProperty = ParticipantUtils.getMavenPropertyInRequest(request);
-		if (mavenProperty == null) {
-			return null;
-		}
-		DOMDocument xmlDocument = request.getXMLDocument();
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
-#### Snippet
-```java
-		MavenProject project = plugin.getProjectCache().getLastSuccessfulMavenProject(xmlDocument);
-		if (project == null) {
-			return null;
-		}
-		MavenProject childProj = project;
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
-#### Snippet
-```java
-
-		if (propertyDeclaration == null) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
-#### Snippet
-```java
-		}
-		if (!Collection.class.isAssignableFrom(paramClass)) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/PlexusConfigHelper.java`
-#### Snippet
-```java
-			return (Class<?>) paramedType.getRawType();
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenPluginUtils.java`
-#### Snippet
-```java
-				.getLastSuccessfulMavenProject(node.getOwnerDocument());
-		if (project == null) {
-			return null;
-		}
-		DOMNode pluginNode = DOMUtils.findClosestParentNode(node, PLUGIN_ELT);
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/MavenPluginUtils.java`
-#### Snippet
-```java
-		DOMNode pluginNode = DOMUtils.findClosestParentNode(node, PLUGIN_ELT);
-		if (pluginNode == null) {
-			return null;
-		}
-		Optional<String> groupId = DOMUtils.findChildElementText(pluginNode, GROUP_ID_ELT);
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxExtension.java`
-#### Snippet
-```java
-			return container.lookup(SettingsBuilder.class).build(request).getEffectiveSettings();
-		} catch (SettingsBuildingException | ComponentLookupException ex) {
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-	private static String getActualVersionText(boolean supportsMarkdown, MavenProject project) {
-		if (project == null) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-		} catch (PluginResolutionException | PluginDescriptorParsingException | InvalidPluginDescriptorException e) {
-			LOGGER.log(Level.SEVERE, e.getMessage(), e);
-			return null;
-		}
-		if (CONFIGURATION_ELT.equals(request.getParentElement().getLocalName())) {
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-	private String getManagedVersionText(IHoverRequest request) {
-		if (!MavenLemminxExtension.match(request.getXMLDocument())) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-		DOMElement element = ParticipantUtils.findInterestingElement(request.getNode());
-		if (element == null || (!DEPENDENCY_ELT.equals(element.getLocalName()) && !PLUGIN_ELT.equals(element.getLocalName()))) {
-			return null;
-		}
-		
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-					request.getNode().getOwnerDocument().getResolverExtensionManager());
-			if (parentXmlDocument == null) {
-				return null; // An error occurred while loading the document
-			}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-			parentPomFile = getParentPomFile(parentMavenProject);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-	public Hover onTag(IHoverRequest request) throws Exception {
-		if (!MavenLemminxExtension.match(request.getXMLDocument())) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-
-		if (tag.getLocalName() == null) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-
-		// TODO: Get rid of this?
-		return CONFIGURATION_ELT.equals(parent.getLocalName()) ? collectPluginConfiguration(request) : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-			PluginDescriptor pluginDescriptor = MavenPluginUtils.getContainingPluginDescriptor(node, plugin);
-			if (pluginDescriptor == null) { // probable incorrect pom file at this moment
-				return null;
-			}
-			for (MojoDescriptor mojo : pluginDescriptor.getMojos()) {
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxWorkspaceReader.java`
-#### Snippet
-```java
-			return projectArtifact.getFile();
-		}
-		return null;
-	}
-	
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxWorkspaceReader.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-	
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-			LOGGER.log(Level.SEVERE, e.getMessage(), e);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-		
-		// we don't have description or other valuable information for non-local artifacts.
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-	public Hover onText(IHoverRequest request) throws Exception {
-		if (!MavenLemminxExtension.match(request.getXMLDocument())) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-		case GOAL_ELT -> collectGoal(request);
-		// TODO consider incomplete GAV (eg plugins), by querying the "key" against project
-		default -> null;
-		};
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-}
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-	private static String getActualVersionText(boolean supportsMarkdown, Model model) {
-		if (model == null) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/hover/MavenHoverParticipant.java`
-#### Snippet
-```java
-
-		if (message.isBlank()) {
-			return null;
-		}
-		return new Hover(new MarkupContent(supportsMarkdown ? MarkupKind.MARKDOWN : MarkupKind.PLAINTEXT,
 ```
 
 ### ReturnNull
@@ -2790,11 +2804,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxWorkspaceReader.java`
 #### Snippet
 ```java
-			while (!toProcess.isEmpty()) {
-				try {
-					Thread.sleep(POLLING_INTERVAL);
-				} catch (InterruptedException e) {
-					LOGGER.severe(e.getMessage());
+						while (!toProcess.isEmpty() && getCurrentWorkspaceArtifact(projectKey).isEmpty()) {
+							try {
+								Thread.sleep(POLLING_INTERVAL);
+							} catch (InterruptedException e) {
+								LOGGER.severe(e.getMessage());
 ```
 
 ### BusyWait
@@ -2802,11 +2816,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/MavenLemminxWorkspaceReader.java`
 #### Snippet
 ```java
-						while (!toProcess.isEmpty() && getCurrentWorkspaceArtifact(projectKey).isEmpty()) {
-							try {
-								Thread.sleep(POLLING_INTERVAL);
-							} catch (InterruptedException e) {
-								LOGGER.severe(e.getMessage());
+			while (!toProcess.isEmpty()) {
+				try {
+					Thread.sleep(POLLING_INTERVAL);
+				} catch (InterruptedException e) {
+					LOGGER.severe(e.getMessage());
 ```
 
 ## RuleId[ruleID=ClassCanBeRecord]
@@ -2836,30 +2850,6 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 ```
 
 ### UnusedAssignment
-Variable `index` initializer `-1` is redundant
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
-#### Snippet
-```java
-		
-		StringBuilder sb = new StringBuilder();
-		int index = -1;
-		int closeIndex = -1;
-		int start = 0;
-```
-
-### UnusedAssignment
-Variable `closeIndex` initializer `-1` is redundant
-in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
-#### Snippet
-```java
-		StringBuilder sb = new StringBuilder();
-		int index = -1;
-		int closeIndex = -1;
-		int start = 0;
-		while((index = value.indexOf("${", start)) != -1 && 
-```
-
-### UnusedAssignment
 Variable `propertyDeclaration` initializer `null` is redundant
 in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participants/definition/MavenDefinitionParticipant.java`
 #### Snippet
@@ -2881,6 +2871,30 @@ in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/participant
 		String message = null;
 		if (version != null) {
 			message = toBold.apply(MessageFormat.format(PomTextHover_managed_version, version));
+```
+
+### UnusedAssignment
+Variable `index` initializer `-1` is redundant
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
+#### Snippet
+```java
+		
+		StringBuilder sb = new StringBuilder();
+		int index = -1;
+		int closeIndex = -1;
+		int start = 0;
+```
+
+### UnusedAssignment
+Variable `closeIndex` initializer `-1` is redundant
+in `lemminx-maven/src/main/java/org/eclipse/lemminx/extensions/maven/utils/ParticipantUtils.java`
+#### Snippet
+```java
+		StringBuilder sb = new StringBuilder();
+		int index = -1;
+		int closeIndex = -1;
+		int start = 0;
+		while((index = value.indexOf("${", start)) != -1 && 
 ```
 
 ### UnusedAssignment
