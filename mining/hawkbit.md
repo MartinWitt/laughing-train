@@ -1,7 +1,7 @@
 # hawkbit 
  
 # Bad smells
-I found 882 bad smells with 55 repairable:
+I found 883 bad smells with 55 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 320 | false |
@@ -61,11 +61,12 @@ I found 882 bad smells with 55 repairable:
 | AbstractClassNeverImplemented | 1 | false |
 | MissortedModifiers | 1 | false |
 | UnnecessaryUnboxing | 1 | false |
-| RedundantMethodOverride | 1 | false |
 | ClassNameSameAsAncestorName | 1 | false |
+| RedundantMethodOverride | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | UseOfPropertiesAsHashtable | 1 | false |
 | EqualsAndHashcode | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ExceptionNameDoesntEndWithException | 1 | false |
 | NullArgumentToVariableArgMethod | 1 | false |
 | IndexOfReplaceableByContains | 1 | false |
@@ -82,6 +83,30 @@ I found 882 bad smells with 55 repairable:
 | AssignmentToMethodParameter | 1 | false |
 | UseBulkOperation | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Column\[columns.size()\]'
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
+#### Snippet
+```java
+            column.setResizable(false);
+        });
+        final Column<?, ?>[] columnArray = columns.toArray(new Column<?, ?>[columns.size()]);
+        headerRow.join(columnArray).setText(headerCaption);
+    }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Predicate\[accept.size()\]'
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RSQLUtility.java`
+#### Snippet
+```java
+
+            if (!CollectionUtils.isEmpty(accept)) {
+                return cb.and(accept.toArray(new Predicate[accept.size()]));
+            }
+            return cb.conjunction();
+```
+
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Long\[assigned.size()\]'
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetManagement.java`
@@ -107,15 +132,15 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Predicate\[accept.size()\]'
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RSQLUtility.java`
+Call to `toArray()` with pre-sized array argument 'new Predicate\[childs.size()\]'
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
 #### Snippet
 ```java
-
-            if (!CollectionUtils.isEmpty(accept)) {
-                return cb.and(accept.toArray(new Predicate[accept.size()]));
-            }
-            return cb.conjunction();
+        endLevel();
+        if (!childs.isEmpty()) {
+            return toSingleList(cb.or(childs.toArray(new Predicate[childs.size()])));
+        }
+        return toSingleList(cb.conjunction());
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -130,77 +155,53 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
         return toSingleList(cb.conjunction());
 ```
 
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Predicate\[childs.size()\]'
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
-#### Snippet
-```java
-        endLevel();
-        if (!childs.isEmpty()) {
-            return toSingleList(cb.or(childs.toArray(new Predicate[childs.size()])));
-        }
-        return toSingleList(cb.conjunction());
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Column\[columns.size()\]'
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
-#### Snippet
-```java
-            column.setResizable(false);
-        });
-        final Column<?, ?>[] columnArray = columns.toArray(new Column<?, ?>[columns.size()]);
-        headerRow.join(columnArray).setText(headerCaption);
-    }
-```
-
 ## RuleId[ruleID=WrapperTypeMayBePrimitive]
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleTypeResource.java`
 #### Snippet
 ```java
-    private JpaRollout createRollout(final JpaRollout rollout) {
-        WeightValidationHelper.usingContext(systemSecurityContext, tenantConfigurationManagement).validate(rollout);
-        final Long totalTargets = targetManagement.countByRsqlAndCompatible(rollout.getTargetFilterQuery(),
-                rollout.getDistributionSet().getType().getId());
-        if (totalTargets == 0) {
+
+        final Slice<SoftwareModuleType> findModuleTypessAll;
+        Long countModulesAll;
+        if (rsqlParam != null) {
+            findModuleTypessAll = softwareModuleTypeManagement.findByRsql(pageable, rsqlParam);
 ```
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rollout/condition/ThresholdRolloutGroupSuccessCondition.java`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetFilterQueryResource.java`
 #### Snippet
 ```java
-                rolloutGroup.getId(), completeActionStatus);
-        try {
-            final Integer threshold = Integer.valueOf(expression);
-            // calculate threshold
-            return ((float) finished / (float) totalGroup) >= ((float) threshold / 100F);
+        final Pageable pageable = new OffsetBasedPageRequest(sanitizedOffsetParam, sanitizedLimitParam, sorting);
+        final Slice<TargetFilterQuery> findTargetFiltersAll;
+        final Long countTargetsAll;
+        if (rsqlParam != null) {
+            final Page<TargetFilterQuery> findFilterPage = filterManagement.findByRsql(pageable, rsqlParam);
 ```
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rollout/condition/RolloutGroupConditionEvaluator.java`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtActionResource.java`
 #### Snippet
 ```java
-        // percentage value between 0 and 100
-        try {
-            final Integer value = Integer.valueOf(expression);
-            return value >= 0 && value <= 100;
-        } catch (final NumberFormatException e) {
+
+        final Slice<Action> actions;
+        final Long totalActionCount;
+        if (rsqlParam != null) {
+            actions = this.deploymentManagement.findActions(rsqlParam, pageable);
 ```
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rollout/condition/ThresholdRolloutGroupErrorCondition.java`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetResource.java`
 #### Snippet
 ```java
-                rolloutGroup.getId(), Action.Status.ERROR);
-        try {
-            final Integer threshold = Integer.valueOf(expression);
 
-            if (totalGroup == 0) {
+        final Slice<Action> activeActions;
+        final Long totalActionCount;
+        if (rsqlParam != null) {
+            activeActions = this.deploymentManagement.findActionsByTarget(rsqlParam, targetId, pageable);
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -253,74 +254,86 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignm
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleTypeResource.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
 #### Snippet
 ```java
-
-        final Slice<SoftwareModuleType> findModuleTypessAll;
-        Long countModulesAll;
-        if (rsqlParam != null) {
-            findModuleTypessAll = softwareModuleTypeManagement.findByRsql(pageable, rsqlParam);
+    private JpaRollout createRollout(final JpaRollout rollout) {
+        WeightValidationHelper.usingContext(systemSecurityContext, tenantConfigurationManagement).validate(rollout);
+        final Long totalTargets = targetManagement.countByRsqlAndCompatible(rollout.getTargetFilterQuery(),
+                rollout.getDistributionSet().getType().getId());
+        if (totalTargets == 0) {
 ```
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetFilterQueryResource.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rollout/condition/RolloutGroupConditionEvaluator.java`
 #### Snippet
 ```java
-        final Pageable pageable = new OffsetBasedPageRequest(sanitizedOffsetParam, sanitizedLimitParam, sorting);
-        final Slice<TargetFilterQuery> findTargetFiltersAll;
-        final Long countTargetsAll;
-        if (rsqlParam != null) {
-            final Page<TargetFilterQuery> findFilterPage = filterManagement.findByRsql(pageable, rsqlParam);
+        // percentage value between 0 and 100
+        try {
+            final Integer value = Integer.valueOf(expression);
+            return value >= 0 && value <= 100;
+        } catch (final NumberFormatException e) {
 ```
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtActionResource.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rollout/condition/ThresholdRolloutGroupErrorCondition.java`
 #### Snippet
 ```java
+                rolloutGroup.getId(), Action.Status.ERROR);
+        try {
+            final Integer threshold = Integer.valueOf(expression);
 
-        final Slice<Action> actions;
-        final Long totalActionCount;
-        if (rsqlParam != null) {
-            actions = this.deploymentManagement.findActions(rsqlParam, pageable);
+            if (totalGroup == 0) {
 ```
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetResource.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rollout/condition/ThresholdRolloutGroupSuccessCondition.java`
 #### Snippet
 ```java
-
-        final Slice<Action> activeActions;
-        final Long totalActionCount;
-        if (rsqlParam != null) {
-            activeActions = this.deploymentManagement.findActionsByTarget(rsqlParam, targetId, pageable);
+                rolloutGroup.getId(), completeActionStatus);
+        try {
+            final Integer threshold = Integer.valueOf(expression);
+            // calculate threshold
+            return ((float) finished / (float) totalGroup) >= ((float) threshold / 100F);
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetMetadataFields.java`
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/distributionset/MgmtActionType.java`
 #### Snippet
 ```java
-    private final String fieldName;
+    private final String name;
 
-    private DistributionSetMetadataFields(final String fieldName) {
-        this.fieldName = fieldName;
+    private MgmtActionType(final String name) {
+        this.name = name;
     }
 ```
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/SoftwareModuleTypeFields.java`
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/distributionset/MgmtCancelationType.java`
 #### Snippet
 ```java
-    private final String fieldName;
+    private final String name;
 
-    private SoftwareModuleTypeFields(final String fieldName) {
-        this.fieldName = fieldName;
+    private MgmtCancelationType(final String name) {
+        this.name = name;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/rest/api/MgmtRepresentationMode.java`
+#### Snippet
+```java
+    private final String mode;
+
+    private MgmtRepresentationMode(final String mode) {
+        this.mode = mode;
     }
 ```
 
@@ -350,12 +363,24 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TagFields.java`
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/ActionStatusFields.java`
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/SoftwareModuleTypeFields.java`
 #### Snippet
 ```java
     private final String fieldName;
 
-    private ActionStatusFields(final String fieldName) {
+    private SoftwareModuleTypeFields(final String fieldName) {
+        this.fieldName = fieldName;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetMetadataFields.java`
+#### Snippet
+```java
+    private final String fieldName;
+
+    private DistributionSetMetadataFields(final String fieldName) {
         this.fieldName = fieldName;
     }
 ```
@@ -368,6 +393,42 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/RolloutFields.java
     private final String fieldName;
 
     private RolloutFields(final String fieldName) {
+        this.fieldName = fieldName;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/ActionStatusFields.java`
+#### Snippet
+```java
+    private final String fieldName;
+
+    private ActionStatusFields(final String fieldName) {
+        this.fieldName = fieldName;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/SoftwareModuleMetadataFields.java`
+#### Snippet
+```java
+    private final String fieldName;
+
+    private SoftwareModuleMetadataFields(final String fieldName) {
+        this.fieldName = fieldName;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetTypeFields.java`
+#### Snippet
+```java
+    private final String fieldName;
+
+    private DistributionSetTypeFields(final String fieldName) {
         this.fieldName = fieldName;
     }
 ```
@@ -398,37 +459,13 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/ActionFields.java`
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetTypeFields.java`
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetMetadataFields.java`
 #### Snippet
 ```java
     private final String fieldName;
 
-    private DistributionSetTypeFields(final String fieldName) {
+    private TargetMetadataFields(final String fieldName) {
         this.fieldName = fieldName;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/SoftwareModuleMetadataFields.java`
-#### Snippet
-```java
-    private final String fieldName;
-
-    private SoftwareModuleMetadataFields(final String fieldName) {
-        this.fieldName = fieldName;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetFilterQueryFields.java`
-#### Snippet
-```java
-    }
-
-    private TargetFilterQueryFields(final String fieldName, final String... subEntityAttribues) {
-        this(fieldName, Arrays.asList(subEntityAttribues));
     }
 ```
 
@@ -458,14 +495,50 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetFilterQueryF
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetMetadataFields.java`
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetFilterQueryFields.java`
 #### Snippet
 ```java
-    private final String fieldName;
-
-    private TargetMetadataFields(final String fieldName) {
-        this.fieldName = fieldName;
     }
+
+    private TargetFilterQueryFields(final String fieldName, final String... subEntityAttribues) {
+        this(fieldName, Arrays.asList(subEntityAttribues));
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetFields.java`
+#### Snippet
+```java
+    private Entry<String, String> subEntityMapTuple;
+
+    private DistributionSetFields(final String fieldName) {
+        this(fieldName, false, null);
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetFields.java`
+#### Snippet
+```java
+    }
+
+    private DistributionSetFields(final String fieldName, final Entry<String, String> subEntityMapTuple) {
+        this(fieldName, true, subEntityMapTuple);
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetFields.java`
+#### Snippet
+```java
+    }
+
+    private DistributionSetFields(final String fieldName, final boolean mapField,
+            final Entry<String, String> subEntityMapTuple) {
+        this.fieldName = fieldName;
 ```
 
 ### UnnecessaryModifier
@@ -506,61 +579,13 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/SoftwareModuleFiel
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetFields.java`
-#### Snippet
-```java
-    }
-
-    private DistributionSetFields(final String fieldName, final Entry<String, String> subEntityMapTuple) {
-        this(fieldName, true, subEntityMapTuple);
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetFields.java`
-#### Snippet
-```java
-    }
-
-    private DistributionSetFields(final String fieldName, final boolean mapField,
-            final Entry<String, String> subEntityMapTuple) {
-        this.fieldName = fieldName;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/DistributionSetFields.java`
-#### Snippet
-```java
-    private Entry<String, String> subEntityMapTuple;
-
-    private DistributionSetFields(final String fieldName) {
-        this(fieldName, false, null);
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
 in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetFields.java`
 #### Snippet
 ```java
     }
 
-    private TargetFields(final String fieldName, final Entry<String, String> subEntityMapTuple) {
-        this(fieldName, true, Collections.emptyList(), subEntityMapTuple);
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetFields.java`
-#### Snippet
-```java
-    private Entry<String, String> subEntityMapTuple;
-
-    private TargetFields(final String fieldName) {
-        this(fieldName, false, Collections.emptyList(), null);
+    private TargetFields(final String fieldName, final String... subEntityAttribues) {
+        this(fieldName, false, Arrays.asList(subEntityAttribues), null);
     }
 ```
 
@@ -595,44 +620,20 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetFields.java`
 ```java
     }
 
-    private TargetFields(final String fieldName, final String... subEntityAttribues) {
-        this(fieldName, false, Arrays.asList(subEntityAttribues), null);
+    private TargetFields(final String fieldName, final Entry<String, String> subEntityMapTuple) {
+        this(fieldName, true, Collections.emptyList(), subEntityMapTuple);
     }
 ```
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/distributionset/MgmtActionType.java`
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/TargetFields.java`
 #### Snippet
 ```java
-    private final String name;
+    private Entry<String, String> subEntityMapTuple;
 
-    private MgmtActionType(final String name) {
-        this.name = name;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/distributionset/MgmtCancelationType.java`
-#### Snippet
-```java
-    private final String name;
-
-    private MgmtCancelationType(final String name) {
-        this.name = name;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/rest/api/MgmtRepresentationMode.java`
-#### Snippet
-```java
-    private final String mode;
-
-    private MgmtRepresentationMode(final String mode) {
-        this.mode = mode;
+    private TargetFields(final String fieldName) {
+        this(fieldName, false, Collections.emptyList(), null);
     }
 ```
 
@@ -714,18 +715,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/Target
 ## RuleId[ruleID=FinalPrivateMethod]
 ### FinalPrivateMethod
 'private' method declared `final`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaArtifactManagement.java`
-#### Snippet
-```java
-    }
-
-    private final DbArtifact wrapInEncryptionAwareDbArtifact(final long smId, final DbArtifact dbArtifact) {
-        if (dbArtifact == null) {
-            return null;
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/CommonDialogWindow.java`
 #### Snippet
 ```java
@@ -765,6 +754,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/Abstract
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/groupschart/client/GroupsPieChartWidget.java`
 #### Snippet
 ```java
+    }
+
+    private static final native double getTextWidth(Element e)/*-{
+                                                              return e.getBBox().width;
+                                                              }-*/;
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/groupschart/client/GroupsPieChartWidget.java`
+#### Snippet
+```java
                                                               }-*/;
 
     private static final native double getTextHeight(Element e)/*-{
@@ -774,14 +775,14 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/groupschart/client/G
 
 ### FinalPrivateMethod
 'private' method declared `final`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/groupschart/client/GroupsPieChartWidget.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaArtifactManagement.java`
 #### Snippet
 ```java
     }
 
-    private static final native double getTextWidth(Element e)/*-{
-                                                              return e.getBBox().width;
-                                                              }-*/;
+    private final DbArtifact wrapInEncryptionAwareDbArtifact(final long smId, final DbArtifact dbArtifact) {
+        if (dbArtifact == null) {
+            return null;
 ```
 
 ## RuleId[ruleID=RegExpSimplifiable]
@@ -811,42 +812,6 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`diffSet.size() > 0` can be replaced with '!diffSet.isEmpty()'
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/EventVerifier.java`
-#### Snippet
-```java
-
-        final Set<Class<?>> diffSet = eventCaptor.diff(expectedEvents);
-        if (diffSet.size() > 0) {
-            final StringBuilder failMessage = new StringBuilder("Missing event verification for ");
-            final Iterator<Class<?>> itr = diffSet.iterator();
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() > 0` can be replaced with '!prefix.isEmpty()'
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-
-        return distributionSetManagement.create(
-                entityFactory.distributionSet().create().name(prefix != null && prefix.length() > 0 ? prefix : "DS")
-                        .version(version).description(LOREM.words(10)).type(findOrCreateDefaultTestDsType())
-                        .modules(modules.stream().map(SoftwareModule::getId).collect(Collectors.toList()))
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() > 0` can be replaced with '!prefix.isEmpty()'
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-
-        return distributionSetManagement.create(
-                entityFactory.distributionSet().create().name(prefix != null && prefix.length() > 0 ? prefix : "DS")
-                        .version(version).description(LOREM.words(10)).type(findOrCreateDefaultTestDsType())
-                        .modules(Arrays.asList(osMod.getId(), runtimeMod.getId(), appMod.getId()))
-```
-
-### SizeReplaceableByIsEmpty
 `ip.length() == 0` can be replaced with 'ip.isEmpty()'
 in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/DosFilter.java`
 #### Snippet
@@ -871,6 +836,18 @@ in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/F
 ```
 
 ### SizeReplaceableByIsEmpty
+`diffSet.size() > 0` can be replaced with '!diffSet.isEmpty()'
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/EventVerifier.java`
+#### Snippet
+```java
+
+        final Set<Class<?>> diffSet = eventCaptor.diff(expectedEvents);
+        if (diffSet.size() > 0) {
+            final StringBuilder failMessage = new StringBuilder("Missing event verification for ");
+            final Iterator<Class<?>> itr = diffSet.iterator();
+```
+
+### SizeReplaceableByIsEmpty
 `delim.length() > 0` can be replaced with '!delim.isEmpty()'
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/utils/HawkbitCommonUtil.java`
 #### Snippet
@@ -880,6 +857,30 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/utils/HawkbitCommonUtil.java
         return delim.length() > 0 && conCatedStr.startsWith(delim) ? conCatedStr.substring(1) : conCatedStr;
     }
 
+```
+
+### SizeReplaceableByIsEmpty
+`prefix.length() > 0` can be replaced with '!prefix.isEmpty()'
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+
+        return distributionSetManagement.create(
+                entityFactory.distributionSet().create().name(prefix != null && prefix.length() > 0 ? prefix : "DS")
+                        .version(version).description(LOREM.words(10)).type(findOrCreateDefaultTestDsType())
+                        .modules(Arrays.asList(osMod.getId(), runtimeMod.getId(), appMod.getId()))
+```
+
+### SizeReplaceableByIsEmpty
+`prefix.length() > 0` can be replaced with '!prefix.isEmpty()'
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+
+        return distributionSetManagement.create(
+                entityFactory.distributionSet().create().name(prefix != null && prefix.length() > 0 ? prefix : "DS")
+                        .version(version).description(LOREM.words(10)).type(findOrCreateDefaultTestDsType())
+                        .modules(modules.stream().map(SoftwareModule::getId).collect(Collectors.toList()))
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -1052,18 +1053,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileUploadI
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder countLabelBuilder` can be replaced with 'String'
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/TargetBulkUpdateWindowLayout.java`
-#### Snippet
-```java
-
-    private String getFormattedCountLabelValue(final int successfulUploadCount, final int failedUploadCount) {
-        final StringBuilder countLabelBuilder = new StringBuilder();
-        countLabelBuilder.append(
-                i18n.getMessage(UIMessageIdProvider.MESSAGE_TARGET_BULKUPLOAD_RESULT_SUCCESS, successfulUploadCount));
-```
-
-### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/TargetBulkUpdateWindowLayout.java`
 #### Snippet
@@ -1073,6 +1062,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/Target
                 new StringBuilder().append("<font color=RED>").append(failureReason).append("</font>").toString());
 
         uinotification.displayValidationError(failureReason);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder countLabelBuilder` can be replaced with 'String'
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/TargetBulkUpdateWindowLayout.java`
+#### Snippet
+```java
+
+    private String getFormattedCountLabelValue(final int successfulUploadCount, final int failedUploadCount) {
+        final StringBuilder countLabelBuilder = new StringBuilder();
+        countLabelBuilder.append(
+                i18n.getMessage(UIMessageIdProvider.MESSAGE_TARGET_BULKUPLOAD_RESULT_SUCCESS, successfulUploadCount));
 ```
 
 ### StringBufferReplaceableByString
@@ -1115,6 +1116,18 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 ## RuleId[ruleID=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/BaseAmqpService.java`
+#### Snippet
+```java
+    }
+
+    protected static final void logAndThrowMessageError(final Message message, final String error) {
+        LOGGER.debug("Warning! \"{}\" reported by message: {}", error, message);
+        throw new AmqpRejectAndDontRequeueException(error);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/tagdetails/TagListField.java`
 #### Snippet
 ```java
@@ -1123,18 +1136,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/tagdetails/TagListFie
     private static final Label buildColourIcon(final Long clickedFilterId, final String colour) {
         final ProxyFontIcon colourFontIcon = new ProxyFontIcon(VaadinIcons.CIRCLE, ValoTheme.LABEL_TINY, "", colour);
         final String colourIconId = new StringBuilder(UIComponentIdProvider.ASSIGNED_TAG_ID_PREFIX)
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/groupschart/client/GroupsPieChartWidget.java`
-#### Snippet
-```java
-                                                              }-*/;
-
-    private static final native double getTextHeight(Element e)/*-{
-                                                               return e.getBBox().height;
-                                                               }-*/;
 ```
 
 ### FinalStaticMethod
@@ -1151,14 +1152,14 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/groupschart/client/G
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/BaseAmqpService.java`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/groupschart/client/GroupsPieChartWidget.java`
 #### Snippet
 ```java
-    }
+                                                              }-*/;
 
-    protected static final void logAndThrowMessageError(final Message message, final String error) {
-        LOGGER.debug("Warning! \"{}\" reported by message: {}", error, message);
-        throw new AmqpRejectAndDontRequeueException(error);
+    private static final native double getTextHeight(Element e)/*-{
+                                                               return e.getBBox().height;
+                                                               }-*/;
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -1175,954 +1176,6 @@ public abstract class AbstractBooleanTenantConfigurationItem extends VerticalLay
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super Long`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/BaseEntityMatcher.java`
-#### Snippet
-```java
-    private static class HasIdMatcher extends FeatureMatcher<BaseEntity, Long> {
-
-        public HasIdMatcher(final Matcher<Long> subMatcher) {
-            super(subMatcher, "getId()", "id");
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends UserPrincipal`
-in `hawkbit-autoconfigure/src/main/java/org/eclipse/hawkbit/autoconfigure/security/InMemoryUserManagementAutoConfiguration.java`
-#### Snippet
-```java
-        private final HashMap<String, UserPrincipal> userPrincipalMap = new HashMap<>();
-
-        public FixedInMemoryUserPrincipalUserDetailsService(final Collection<UserPrincipal> userPrincipals) {
-            for (final UserPrincipal user : userPrincipals) {
-                userPrincipalMap.put(user.getUsername(), user);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSystemManagement.java`
-#### Snippet
-```java
-    // intended in this case
-    @SuppressWarnings("squid:S2229")
-    public void forEachTenant(final Consumer<String> consumer) {
-
-        Page<String> tenants;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaTenantConfigurationManagement.java`
-#### Snippet
-```java
-    @Override
-    public <T extends Serializable> TenantConfigurationValue<T> buildTenantConfigurationValueByKey(
-            final TenantConfigurationKey configurationKey, final Class<T> propertyType,
-            final TenantConfiguration tenantConfiguration) {
-        if (tenantConfiguration != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super J`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaManagementHelper.java`
-#### Snippet
-```java
-
-    public static <J extends AbstractJpaBaseEntity> J touch(final EntityManager entityManager,
-            final CrudRepository<J, ?> repository, final J entity) {
-        // merge base entity so optLockRevision gets updated and audit
-        // log written because modifying e.g. metadata is modifying the base
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaTarget`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OfflineDsAssignmentStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public void sendTargetUpdatedEvents(final DistributionSet set, final List<JpaTarget> targets) {
-        targets.forEach(target -> {
-            target.setUpdateStatus(TargetUpdateStatus.IN_SYNC);
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OfflineDsAssignmentStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public void setAssignedDistributionSetAndTargetStatus(final JpaDistributionSet set, final List<List<Long>> targetIds,
-            final String currentUser) {
-        targetIds.forEach(tIds -> targetRepository.setAssignedAndInstalledDistributionSetAndUpdateStatus(
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetTypeCreate`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetTypeManagement.java`
-#### Snippet
-```java
-    @Retryable(include = {
-            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
-    public List<DistributionSetType> create(final Collection<DistributionSetTypeCreate> types) {
-        return types.stream().map(this::create).collect(Collectors.toList());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super SoftwareModuleType`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetTypeManagement.java`
-#### Snippet
-```java
-
-    private void addModuleTypes(final Collection<Long> currentSmTypeIds, final Collection<Long> updatedSmTypeIds,
-            final Function<SoftwareModuleType, JpaDistributionSetType> addModuleTypeCallback) {
-        final Set<Long> smTypeIdsToAdd = updatedSmTypeIds.stream().filter(id -> !currentSmTypeIds.contains(id))
-                .collect(Collectors.toSet());
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetTypeCreate`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaTargetTypeManagement.java`
-#### Snippet
-```java
-    @Retryable(include = {
-            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
-    public List<TargetType> create(final Collection<TargetTypeCreate> creates) {
-        return creates.stream().map(this::create).collect(Collectors.toList());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public void setAssignedDistributionSetAndTargetStatus(final JpaDistributionSet set, final List<List<Long>> targetIds,
-            final String currentUser) {
-        targetIds.forEach(tIds -> targetRepository.setAssignedDistributionSetAndUpdateStatus(TargetUpdateStatus.PENDING,
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<Long> cancelActiveActions(final List<List<Long>> targetIds) {
-        return targetIds.stream().map(this::overrideObsoleteUpdateActions).flatMap(Collection::stream)
-                .collect(Collectors.toSet());
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetAssignmentResult`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public void sendDeploymentEvents(final List<DistributionSetAssignmentResult> assignmentResults) {
-        if (isMultiAssignmentsEnabled()) {
-            sendDeploymentEvent(assignmentResults.stream().flatMap(result -> result.getAssignedEntity().stream())
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaTarget`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public void sendTargetUpdatedEvents(final DistributionSet set, final List<JpaTarget> targets) {
-        targets.forEach(target -> {
-            target.setUpdateStatus(TargetUpdateStatus.PENDING);
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public void closeActiveActions(final List<List<Long>> targetIds) {
-        targetIds.forEach(this::closeObsoleteUpdateActions);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Target`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/AbstractIntegrationTest.java`
-#### Snippet
-```java
-
-    protected DistributionSetAssignmentResult assignDistributionSet(final DistributionSet ds,
-            final List<Target> targets) {
-        final List<String> targetIds = targets.stream().map(Target::getControllerId).collect(Collectors.toList());
-        return assignDistributionSet(ds.getId(), targetIds, ActionType.FORCED);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModuleTypeCreate`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSoftwareModuleTypeManagement.java`
-#### Snippet
-```java
-    @Retryable(include = {
-            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
-    public List<SoftwareModuleType> create(final Collection<SoftwareModuleTypeCreate> creates) {
-        return creates.stream().map(this::create).collect(Collectors.toList());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Specification`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSoftwareModuleManagement.java`
-#### Snippet
-```java
-    }
-
-    private Predicate[] specificationsToPredicate(final List<Specification<JpaSoftwareModule>> specifications,
-            final Root<JpaSoftwareModule> root, final CriteriaQuery<?> query, final CriteriaBuilder cb,
-            final Predicate... additionalPredicates) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModuleCreate`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSoftwareModuleManagement.java`
-#### Snippet
-```java
-    @Retryable(include = {
-            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
-    public List<SoftwareModule> create(final Collection<SoftwareModuleCreate> swModules) {
-        return swModules.stream().map(this::create).collect(Collectors.toList());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaRolloutGroup`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutExecutor.java`
-#### Snippet
-```java
-    }
-
-    private void executeRolloutGroups(final JpaRollout rollout, final List<JpaRolloutGroup> rolloutGroups) {
-        for (final JpaRolloutGroup rolloutGroup : rolloutGroups) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Target`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutExecutor.java`
-#### Snippet
-```java
-     * is created in-active.
-     */
-    private void createScheduledAction(final Collection<Target> targets, final DistributionSet distributionSet,
-            final ActionType actionType, final Long forcedTime, final Rollout rollout,
-            final RolloutGroup rolloutGroup) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Target`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutExecutor.java`
-#### Snippet
-```java
-    }
-
-    private void createAssignmentOfTargetsToGroup(final Slice<Target> targets, final RolloutGroup group) {
-        targets.forEach(target -> rolloutTargetGroupRepository.save(new RolloutTargetGroup(group, target)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetManagement.java`
-#### Snippet
-```java
-    @Retryable(include = {
-            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
-    public List<DistributionSetMetadata> createMetaData(final long dsId, final Collection<MetaData> md) {
-
-        md.forEach(meta -> checkAndThrowIfDistributionSetMetadataAlreadyExists(
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetCreate`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetManagement.java`
-#### Snippet
-```java
-    @Retryable(include = {
-            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
-    public List<DistributionSet> create(final Collection<DistributionSetCreate> creates) {
-        return creates.stream().map(this::create).collect(Collectors.toList());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super SuggestToken`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-
-    private static void setExceptionDetails(final String rsqlQuery, final Exception ex,
-            final List<SuggestToken> expectedTokens) {
-        final ParseException parseException = findParseException(ex);
-        if (parseException == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SuggestToken`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-    }
-
-    private static String getCustomMessage(final String message, final List<SuggestToken> expectedTokens) {
-        String builder = message;
-
-```
-
-### BoundedWildcard
-Can generalize to `? super SuggestToken`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-    }
-
-    private static void addSuggestionOnTokenImage(final List<SuggestToken> listTokens, final int nextTokenBeginColumn,
-            final int currentTokenEndColumn, final int[] is) {
-        for (final int i : is) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaTargetManagement.java`
-#### Snippet
-```java
-    @Retryable(include = {
-            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
-    public List<TargetMetadata> createMetaData(final String controllerId, final Collection<MetaData> md) {
-
-        final JpaTarget target = getByControllerIdAndThrowIfNotFound(controllerId);
-```
-
-### BoundedWildcard
-Can generalize to `? extends RolloutGroupCreate`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
-#### Snippet
-```java
-    }
-
-    private Rollout createRolloutGroups(final List<RolloutGroupCreate> groupList,
-            final RolloutGroupConditions conditions, final Rollout rollout) {
-        RolloutHelper.verifyRolloutInStatus(rollout, RolloutStatus.CREATING);
-```
-
-### BoundedWildcard
-Can generalize to `? extends RolloutGroupCreate`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
-#### Snippet
-```java
-    @Override
-    @Async
-    public ListenableFuture<RolloutGroupsValidation> validateTargetsInGroups(final List<RolloutGroupCreate> groups,
-            final String targetFilter, final Long createdAt, final Long dsTypeId) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
-#### Snippet
-```java
-
-    private long countOverlappingTargetsWithPreviousGroups(final String baseFilter, final List<RolloutGroup> groups,
-            final RolloutGroup group, final int groupIndex, final Map<String, Long> targetFilterCounts) {
-        // there can't be overlapping targets in the first group
-        if (groupIndex == 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Rollout`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
-#### Snippet
-```java
-    }
-
-    private void setRolloutStatusDetails(final Slice<Rollout> rollouts) {
-        final List<Long> rolloutIds = rollouts.getContent().stream().map(Rollout::getId).collect(Collectors.toList());
-        final Map<Long, List<TotalTargetCountActionStatus>> allStatesForRollout = getStatusCountItemForRollout(
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetPoll`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaControllerManagement.java`
-#### Snippet
-```java
-    }
-
-    private Void updateLastTargetQueries(final String tenant, final List<TargetPoll> polls) {
-        LOG.debug("Persist {} targetqueries.", polls.size());
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaControllerManagement.java`
-#### Snippet
-```java
-    }
-
-    private static void copy(final Map<String, String> src, final Map<String, String> trg) {
-        if (src == null || src.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaControllerManagement.java`
-#### Snippet
-```java
-    }
-
-    private static void copy(final Map<String, String> src, final Map<String, String> trg) {
-        if (src == null || src.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModule`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     */
-    public DistributionSet generateDistributionSet(final String name, final String version,
-            final DistributionSetType type, final Collection<SoftwareModule> modules,
-            final boolean requiredMigrationStep) {
-        return entityFactory.distributionSet().create().name(name).version(version).description(LOREM.words(10))
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModule`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     */
-    public DistributionSet createDistributionSet(final String prefix, final String version,
-            final boolean isRequiredMigrationStep, final Collection<SoftwareModule> modules) {
-
-        return distributionSetManagement.create(
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetTag`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     */
-    public DistributionSet createDistributionSet(final String prefix, final String version,
-            final Collection<DistributionSetTag> tags) {
-
-        final DistributionSet set = createDistributionSet(prefix, version, false);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModule`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     */
-    public DistributionSet createDistributionSet(final String name, final String version,
-            final DistributionSetType type, final Collection<SoftwareModule> modules) {
-        return distributionSetManagement.create(
-                entityFactory.distributionSet().create().name(name).version(version).description(LOREM.words(10))
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetType`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     * @return persisted {@link TargetType}
-     */
-    public TargetType createTargetType(final String targetTypeName, final List<DistributionSetType> compatibleDsTypes) {
-        return targetTypeManagement.create(entityFactory.targetType().create().name(targetTypeName)
-                .description(targetTypeName + " description").colour(DEFAULT_COLOUR)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Target`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     * @return updated {@link Action}.
-     */
-    public List<Action> sendUpdateActionStatusToTargets(final Collection<Target> targets, final Status status,
-            final Collection<String> msgs) {
-        final List<Action> result = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModuleType`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     */
-    public DistributionSetType findOrCreateDistributionSetType(final String dsTypeKey, final String dsTypeName,
-            final Collection<SoftwareModuleType> mandatory, final Collection<SoftwareModuleType> optional) {
-        return distributionSetTypeManagement.getByKey(dsTypeKey)
-                .orElseGet(() -> distributionSetTypeManagement.create(entityFactory.distributionSetType().create()
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModuleType`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     */
-    public DistributionSetType findOrCreateDistributionSetType(final String dsTypeKey, final String dsTypeName,
-            final Collection<SoftwareModuleType> mandatory, final Collection<SoftwareModuleType> optional) {
-        return distributionSetTypeManagement.getByKey(dsTypeKey)
-                .orElseGet(() -> distributionSetTypeManagement.create(entityFactory.distributionSetType().create()
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModule`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaDistributionSet.java`
-#### Snippet
-```java
-     */
-    public JpaDistributionSet(final String name, final String version, final String description,
-            final DistributionSetType type, final Collection<SoftwareModule> moduleList,
-            final boolean requiredMigrationStep) {
-        super(name, version, description);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeploymentRequest`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/utils/WeightValidationHelper.java`
-#### Snippet
-```java
-     *            the {@linkplain List} of {@link DeploymentRequest}s
-     */
-    public void validate(final List<DeploymentRequest> deploymentRequests) {
-        final long assignmentsWithWeight = deploymentRequests.stream()
-                .filter(request -> request.getTargetWithActionType().getWeight() != null).count();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CleanupTask`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/autocleanup/AutoCleanupScheduler.java`
-#### Snippet
-```java
-    public AutoCleanupScheduler(final SystemManagement systemManagement,
-            final SystemSecurityContext systemSecurityContext, final LockRegistry lockRegistry,
-            final List<CleanupTask> cleanupTasks) {
-        this.systemManagement = systemManagement;
-        this.systemSecurityContext = systemSecurityContext;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Specification`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/specifications/SpecificationsBuilder.java`
-#### Snippet
-```java
-     * @return <null> if the given specification list is empty
-     */
-    public static <T> Specification<T> combineWithAnd(final List<Specification<T>> specList) {
-        if (specList.isEmpty()) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? super TargetFilterQuery`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/autoassign/AbstractAutoAssignExecutor.java`
-#### Snippet
-```java
-    }
-
-    protected void forEachFilterWithAutoAssignDS(final Consumer<TargetFilterQuery> consumer) {
-        Slice<TargetFilterQuery> filterQueries;
-        Pageable query = PageRequest.of(0, PAGE_SIZE);
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/InMemoryUserAuthoritiesResolver.java`
-#### Snippet
-```java
-     *            The authority map to read from. Must not be <code>null</code>.
-     */
-    public InMemoryUserAuthoritiesResolver(final Map<String, List<String>> usernamesToAuthorities) {
-        this.usernamesToAuthorities = usernamesToAuthorities;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
-#### Snippet
-```java
-
-    private static Optional<Path<?>> getFieldPath(final Root<?> root, final String[] split, final boolean isMapKeyField,
-            final BiFunction<Path<?>, String, Path<?>> joinFieldPathProvider) {
-        Path<?> fieldPath = null;
-        for (int i = 0; i < split.length; i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
-#### Snippet
-```java
-
-    private static Optional<Path<?>> getFieldPath(final Root<?> root, final String[] split, final boolean isMapKeyField,
-            final BiFunction<Path<?>, String, Path<?>> joinFieldPathProvider) {
-        Path<?> fieldPath = null;
-        for (int i = 0; i < split.length; i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
-#### Snippet
-```java
-
-    private static Optional<Path<?>> getFieldPath(final Root<?> root, final String[] split, final boolean isMapKeyField,
-            final BiFunction<Path<?>, String, Path<?>> joinFieldPathProvider) {
-        Path<?> fieldPath = null;
-        for (int i = 0; i < split.length; i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Expression`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
-#### Snippet
-```java
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    private Predicate toNotExistsSubQueryPredicate(final String[] fieldNames, final A enumField,
-            final Function<Expression<String>, Predicate> subQueryPredicateProvider) {
-        final Class<?> javaType = root.getJavaType();
-        final Subquery<?> subquery = query.subquery(javaType);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Predicate`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
-#### Snippet
-```java
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    private Predicate toNotExistsSubQueryPredicate(final String[] fieldNames, final A enumField,
-            final Function<Expression<String>, Predicate> subQueryPredicateProvider) {
-        final Class<?> javaType = root.getJavaType();
-        final Subquery<?> subquery = query.subquery(javaType);
-```
-
-### BoundedWildcard
-Can generalize to `? extends RolloutGroup`
-in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutHelper.java`
-#### Snippet
-```java
-    }
-
-    private static boolean isTargetFilterInGroups(final String groupFilter, final List<RolloutGroup> groups) {
-        return !StringUtils.isEmpty(groupFilter)
-                && groups.stream().anyMatch(prevGroup -> !StringUtils.isEmpty(prevGroup.getTargetFilterQuery())
-```
-
-### BoundedWildcard
-Can generalize to `? extends RolloutGroup`
-in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutHelper.java`
-#### Snippet
-```java
-     *         string.
-     */
-    public static String getAllGroupsTargetFilter(final List<RolloutGroup> groups) {
-        if (groups.stream().anyMatch(group -> StringUtils.isEmpty(group.getTargetFilterQuery()))) {
-            return "";
-```
-
-### BoundedWildcard
-Can generalize to `? extends RolloutGroup`
-in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutHelper.java`
-#### Snippet
-```java
-     * @return list of groups
-     */
-    public static List<Long> getGroupsByStatusIncludingGroup(final List<RolloutGroup> groups,
-            final RolloutGroup.RolloutGroupStatus status, final RolloutGroup group) {
-        return groups.stream().filter(innerGroup -> innerGroup.getStatus() == status || innerGroup.equals(group))
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetWithActionType`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-     */
-    private DistributionSetAssignmentResult assignDistributionSetToTargets(final String initiatedBy, final Long dsID,
-            final Collection<TargetWithActionType> targetsWithActionType, final String actionMessage,
-            final AbstractDsAssignmentStrategy assignmentStrategy) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaAction`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    }
-
-    private void setAssignmentOnTargets(final List<JpaAction> actions) {
-        final List<JpaTarget> assignedDsTargets = actions.stream().map(savedAction -> {
-            final JpaTarget mergedTarget = (JpaTarget) entityManager.merge(savedAction.getTarget());
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaAction`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-
-    private static DistributionSetAssignmentResult buildAssignmentResult(final JpaDistributionSet distributionSet,
-            final List<JpaAction> assignedActions, final int totalTargetsForAssignment) {
-        final int alreadyAssignedTargetsCount = totalTargetsForAssignment - assignedActions.size();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaTarget`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-     * statements
-     */
-    private static List<List<Long>> getTargetEntitiesAsChunks(final List<JpaTarget> targetEntities) {
-        return Lists.partition(targetEntities.stream().map(Target::getId).collect(Collectors.toList()),
-                Constants.MAX_ENTRIES_IN_STATEMENT);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeploymentRequest`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    }
-
-    private static void checkIfRequiresMultiAssignment(final Collection<DeploymentRequest> deploymentRequests) {
-        final long distinctTargetsInRequest = deploymentRequests.stream()
-                .map(request -> request.getTargetWithActionType().getControllerId()).distinct().count();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeploymentRequest`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    }
-
-    private void checkForTargetTypeCompatibility(final List<DeploymentRequest> deploymentRequests) {
-        final List<String> controllerIds = deploymentRequests.stream().map(DeploymentRequest::getControllerId)
-                .distinct().collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeploymentRequest`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    }
-
-    private void enforceMaxActionsPerTarget(final Collection<DeploymentRequest> deploymentRequests) {
-        final int quota = quotaManagement.getMaxActionsPerTarget();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Entry`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    @Transactional(isolation = Isolation.READ_COMMITTED)
-    public List<DistributionSetAssignmentResult> offlineAssignedDistributionSets(
-            final Collection<Entry<String, Long>> assignments) {
-        final Collection<Entry<String, Long>> distinctAssignments = assignments.stream().distinct()
-                .collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetWithActionType`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-
-    private Map<TargetWithActionType, JpaAction> createActions(final String initiatedBy,
-            final Collection<TargetWithActionType> targetsWithActionType, final List<JpaTarget> targets,
-            final AbstractDsAssignmentStrategy assignmentStrategy, final JpaDistributionSet set) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeploymentRequest`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-
-    private static Map<Long, List<TargetWithActionType>> convertRequest(
-            final Collection<DeploymentRequest> deploymentRequests) {
-        return deploymentRequests.stream().collect(Collectors.groupingBy(DeploymentRequest::getDistributionSetId,
-                Collectors.mapping(DeploymentRequest::getTargetWithActionType, Collectors.toList())));
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaAction`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    }
-
-    private void setInitialActionStatusOfRolloutGroup(final List<JpaAction> actions) {
-        final List<JpaActionStatus> statusList = new ArrayList<>();
-        for (final JpaAction action : actions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaAction`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    }
-
-    private void closeOrCancelOpenDeviceActions(final List<JpaAction> actions){
-        final List<Long> targetIds = actions.stream().map(JpaAction::getTarget).map(Target::getId)
-              .collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetWithActionType`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    }
-
-    private void createActionsStatus(final Map<TargetWithActionType, JpaAction> actions,
-            final AbstractDsAssignmentStrategy assignmentStrategy, final String actionMessage) {
-        actionStatusRepository.saveAll(actions.entrySet().stream().map(entry -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JpaAction`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
-#### Snippet
-```java
-    }
-
-    private void createActionsStatus(final Map<TargetWithActionType, JpaAction> actions,
-            final AbstractDsAssignmentStrategy assignmentStrategy, final String actionMessage) {
-        actionStatusRepository.saveAll(actions.entrySet().stream().map(entry -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutStatusCache.java`
-#### Snippet
-```java
-    }
-
-    private void putIntoCache(final Map<Long, List<TotalTargetCountActionStatus>> put, @NotNull final Cache cache) {
-        put.forEach((k, v) -> cache.put(k, new CachedTotalTargetCountActionStatus(k, v)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/TargetAssignDistributionSetEvent.java`
-#### Snippet
-```java
-     *            see {@link Action#isMaintenanceWindowAvailable()}
-     */
-    public TargetAssignDistributionSetEvent(final String tenant, final long distributionSetId, final List<Action> a,
-            final String applicationId, final boolean maintenanceWindowAvailable) {
-        super(distributionSetId, tenant,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/AbstractAssignmentEvent.java`
-#### Snippet
-```java
-    }
-
-    protected AbstractAssignmentEvent(final Object source, final String tenant, final List<Action> a,
-            final String applicationId) {
-        super(source, tenant, applicationId);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/MultiActionEvent.java`
-#### Snippet
-```java
-    }
-
-    private static List<Long> getIdsFromActions(final List<Action> actions) {
-        return actions.stream().map(Identifiable::getId).collect(Collectors.toList());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/MultiActionEvent.java`
-#### Snippet
-```java
-    }
-
-    private static List<String> getControllerIdsFromActions(final List<Action> actions) {
-        return actions.stream().map(Action::getTarget).map(Target::getControllerId).distinct()
-                .collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends TotalTargetCountActionStatus`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/model/TotalTargetCountStatus.java`
-#### Snippet
-```java
-     *            all target {@link Status} with total count
-     */
-    private void addToTotalCount(final List<TotalTargetCountActionStatus> targetCountActionStatus) {
-        if (targetCountActionStatus == null) {
-            statusTotalCountMap.put(TotalTargetCountStatus.Status.NOTSTARTED, totalTargetCount);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DmfTarget`
-in `hawkbit-dmf/hawkbit-dmf-api/src/main/java/org/eclipse/hawkbit/dmf/json/model/DmfBatchDownloadAndUpdateRequest.java`
-#### Snippet
-```java
-     *            the target
-     */
-    public void addTargets(final List<DmfTarget> targets) {
-        if (this.targets == null) {
-            this.targets = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DmfArtifact`
-in `hawkbit-dmf/hawkbit-dmf-api/src/main/java/org/eclipse/hawkbit/dmf/json/model/DmfSoftwareModule.java`
-#### Snippet
-```java
-    }
-
-    public void setArtifacts(final List<DmfArtifact> artifacts) {
-        this.artifacts = artifacts;
-    }
-```
-
 ### BoundedWildcard
 Can generalize to `? extends DdiArtifact`
 in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/json/model/DdiChunk.java`
@@ -2172,27 +1225,435 @@ in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/F
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoftwareModuleMetadata`
-in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DataConversionHelper.java`
+Can generalize to `? extends MgmtTargetTypeRequestBodyPost`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetTypeMapper.java`
 #### Snippet
 ```java
-    }
 
-    private static List<DdiMetadata> mapMetadata(final List<SoftwareModuleMetadata> metadata) {
-        return CollectionUtils.isEmpty(metadata) ? null
-                : metadata.stream().map(md -> new DdiMetadata(md.getKey(), md.getValue())).collect(Collectors.toList());
+    static List<TargetTypeCreate> targetFromRequest(final EntityFactory entityFactory,
+            final Collection<MgmtTargetTypeRequestBodyPost> targetTypesRest) {
+        if (targetTypesRest == null) {
+            return Collections.emptyList();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/PreAuthTokenSourceTrustAuthenticationProvider.java`
+Can generalize to `? extends TargetType`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetTypeMapper.java`
 #### Snippet
 ```java
-     *            a list of IP addresses.
-     */
-    public PreAuthTokenSourceTrustAuthenticationProvider(final List<String> authorizedSourceIps) {
-        this.authorizedSourceIps = authorizedSourceIps;
     }
+
+    static List<MgmtTargetType> toListResponse(final List<TargetType> types) {
+        if (types == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtArtifact> artifactsToResponse(final Collection<Artifact> artifacts) {
+        if (artifacts == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtSoftwareModuleRequestBodyPost`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
+#### Snippet
+```java
+
+    static List<SoftwareModuleCreate> smFromRequest(final EntityFactory entityFactory,
+            final Collection<MgmtSoftwareModuleRequestBodyPost> smsRest) {
+        if (smsRest == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtSoftwareModuleMetadata`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
+#### Snippet
+```java
+
+    static List<SoftwareModuleMetadataCreate> fromRequestSwMetadata(final EntityFactory entityFactory,
+            final Long softwareModuleId, final Collection<MgmtSoftwareModuleMetadata> metadata) {
+        if (metadata == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModuleMetadata`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtSoftwareModuleMetadata> toResponseSwMetadata(final Collection<SoftwareModuleMetadata> metadata) {
+        if (metadata == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModule`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtSoftwareModule> toResponse(final Collection<SoftwareModule> softwareModules) {
+        if (softwareModules == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtSoftwareModuleTypeRequestBodyPost`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleTypeMapper.java`
+#### Snippet
+```java
+
+    static List<SoftwareModuleTypeCreate> smFromRequest(final EntityFactory entityFactory,
+            final Collection<MgmtSoftwareModuleTypeRequestBodyPost> smTypesRest) {
+        if (smTypesRest == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModuleType`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleTypeMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtSoftwareModuleType> toTypesResponse(final Collection<SoftwareModuleType> types) {
+        if (types == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtAssignedTargetRequestBody`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetTagResource.java`
+#### Snippet
+```java
+
+    private List<String> findTargetControllerIds(
+            final List<MgmtAssignedTargetRequestBody> assignedTargetRequestBodies) {
+        return assignedTargetRequestBodies.stream().map(MgmtAssignedTargetRequestBody::getControllerId)
+                .collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtDistributionSetTypeAssignment`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetTypeResource.java`
+#### Snippet
+```java
+    @Override
+    public ResponseEntity<Void> addCompatibleDistributionSets(@PathVariable("targetTypeId") final Long targetTypeId,
+            @RequestBody final List<MgmtDistributionSetTypeAssignment> distributionSetTypeIds) {
+
+        targetTypeManagement.assignCompatibleDistributionSetTypes(targetTypeId, distributionSetTypeIds.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtTargetAssignmentRequestBody`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetResource.java`
+#### Snippet
+```java
+    public ResponseEntity<MgmtTargetAssignmentResponseBody> createAssignedTarget(
+            @PathVariable("distributionSetId") final Long distributionSetId,
+            @RequestBody final List<MgmtTargetAssignmentRequestBody> assignments,
+            @RequestParam(value = "offline", required = false) final boolean offline) {
+        if (offline) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtSoftwareModuleAssigment`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetResource.java`
+#### Snippet
+```java
+    @Override
+    public ResponseEntity<Void> assignSoftwareModules(@PathVariable("distributionSetId") final Long distributionSetId,
+            @RequestBody final List<MgmtSoftwareModuleAssigment> softwareModuleIDs) {
+
+        distributionSetManagement.assignSoftwareModules(distributionSetId,
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSet`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtDistributionSet> toResponseFromDsList(final List<DistributionSet> sets) {
+        if (sets == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSet`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtDistributionSet> toResponseDistributionSets(final Collection<DistributionSet> sets) {
+        if (sets == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSetMetadata`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtMetadata> toResponseDsMetadata(final List<DistributionSetMetadata> metadata) {
+
+        final List<MgmtMetadata> mappedList = new ArrayList<>(metadata.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSetAssignmentResult`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
+#### Snippet
+```java
+
+    static MgmtTargetAssignmentResponseBody toResponse(
+            final List<DistributionSetAssignmentResult> dsAssignmentResults) {
+        final MgmtTargetAssignmentResponseBody result = new MgmtTargetAssignmentResponseBody();
+        final int alreadyAssigned = dsAssignmentResults.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtMetadata`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MetaData> fromRequestDsMetadata(final List<MgmtMetadata> metadata, final EntityFactory entityFactory) {
+        if (metadata == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtDistributionSetRequestBodyPost`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
+#### Snippet
+```java
+     * @return converted list of {@link DistributionSet}s
+     */
+    static List<DistributionSetCreate> dsFromRequest(final Collection<MgmtDistributionSetRequestBodyPost> sets,
+            final EntityFactory entityFactory) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtAssignedDistributionSetRequestBody`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetTagResource.java`
+#### Snippet
+```java
+
+    private static List<Long> findDistributionSetIds(
+            final List<MgmtAssignedDistributionSetRequestBody> assignedDistributionSetRequestBodies) {
+        return assignedDistributionSetRequestBodies.stream()
+                .map(MgmtAssignedDistributionSetRequestBody::getDistributionSetId).collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetFilterQuery`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetFilterQueryMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtTargetFilterQuery> toResponse(final List<TargetFilterQuery> filters,
+            final boolean confirmationFlowEnabled) {
+        if (CollectionUtils.isEmpty(filters)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtActionMapper.java`
+#### Snippet
+```java
+     * @return the response
+     */
+    public static List<MgmtAction> toResponse(final Collection<Action> actions, final MgmtRepresentationMode repMode) {
+        if (actions == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtTagRequestBodyPut`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTagMapper.java`
+#### Snippet
+```java
+
+    static List<TagCreate> mapTagFromRequest(final EntityFactory entityFactory,
+            final Collection<MgmtTagRequestBodyPut> tags) {
+        return tags.stream()
+                .map(tagRest -> entityFactory.tag().create().name(tagRest.getName())
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSetTag`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTagMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtTag> toResponseDistributionSetTag(final List<DistributionSetTag> distributionSetTags) {
+        final List<MgmtTag> tagsRest = new ArrayList<>();
+        if (distributionSetTags == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetTag`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTagMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtTag> toResponse(final List<TargetTag> targetTags) {
+        final List<MgmtTag> tagsRest = new ArrayList<>();
+        if (targetTags == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RolloutGroup`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRolloutMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtRolloutGroupResponseBody> toResponseRolloutGroup(final List<RolloutGroup> rollouts,
+            final boolean confirmationFlowEnabled) {
+        if (rollouts == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Rollout`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRolloutMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtRolloutResponseBody> toResponseRollout(final List<Rollout> rollouts, final boolean withDetails) {
+        if (rollouts == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtDistributionSetTypeRequestBodyPost`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetTypeMapper.java`
+#### Snippet
+```java
+
+    static List<DistributionSetTypeCreate> smFromRequest(final EntityFactory entityFactory,
+            final Collection<MgmtDistributionSetTypeRequestBodyPost> smTypesRest) {
+        if (smTypesRest == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSetType`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetTypeMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtDistributionSetType> toListResponse(final Collection<DistributionSetType> types) {
+        if (types == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? super Long`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/BaseEntityMatcher.java`
+#### Snippet
+```java
+    private static class HasIdMatcher extends FeatureMatcher<BaseEntity, Long> {
+
+        public HasIdMatcher(final Matcher<Long> subMatcher) {
+            super(subMatcher, "getId()", "id");
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Target`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+#### Snippet
+```java
+     * @return the response
+     */
+    public static List<MgmtTarget> toResponse(final Collection<Target> targets, final TenantConfigHelper configHelper) {
+        if (targets == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ActionStatus`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtActionStatus> toActionStatusRestResponse(final Collection<ActionStatus> actionStatus,
+            final DeploymentManagement deploymentManagement) {
+        if (actionStatus == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtMetadata`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MetaData> fromRequestTargetMetadata(final List<MgmtMetadata> metadata,
+            final EntityFactory entityFactory) {
+        if (metadata == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MgmtTargetRequestBody`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+#### Snippet
+```java
+
+    static List<TargetCreate> fromRequest(final EntityFactory entityFactory,
+            final Collection<MgmtTargetRequestBody> targetsRest) {
+        if (targetsRest == null) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetMetadata`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtMetadata> toResponseTargetMetadata(final List<TargetMetadata> metadata) {
+        return metadata.stream().map(MgmtTargetMapper::toResponseTargetMetadata).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+#### Snippet
+```java
+    }
+
+    static List<MgmtAction> toResponse(final String targetId, final Collection<Action> actions) {
+        if (actions == null) {
+            return Collections.emptyList();
 ```
 
 ### BoundedWildcard
@@ -2208,18 +1669,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/error/HawkbitUIErrorHandler.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ConstraintViolation`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/error/extractors/ConstraintViolationErrorExtractor.java`
-#### Snippet
-```java
-    }
-
-    private static String formatViolations(final Set<ConstraintViolation<?>> violations) {
-        return violations.stream().map(violation -> violation.getPropertyPath() + " " + violation.getMessage())
-                .collect(Collectors.joining(System.lineSeparator()));
-```
-
-### BoundedWildcard
 Can generalize to `? extends DashboardMenuItem`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/menu/DashboardMenu.java`
 #### Snippet
@@ -2232,27 +1681,15 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/menu/DashboardMenu.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
-#### Snippet
-```java
-
-    private static Status handleCaseCancelCanceled(final DdiActionFeedback feedback, final Target target,
-            final Long actionId, final List<String> messages) {
-        final Status status;
-        LOG.error(
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
+Can generalize to `? extends ConstraintViolation`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/error/extractors/ConstraintViolationErrorExtractor.java`
 #### Snippet
 ```java
     }
 
-    private static void addMessageIfEmpty(final String text, final List<String> messages) {
-        if (messages != null && messages.isEmpty()) {
-            messages.add(RepositoryConstants.SERVER_MESSAGE_PREFIX + text + ".");
+    private static String formatViolations(final Set<ConstraintViolation<?>> violations) {
+        return violations.stream().map(violation -> violation.getPropertyPath() + " " + violation.getMessage())
+                .collect(Collectors.joining(System.lineSeparator()));
 ```
 
 ### BoundedWildcard
@@ -2292,27 +1729,135 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEventListener
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEntityWindowBuilder.java`
+Can generalize to `? super Collection`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
 #### Snippet
 ```java
 
-    protected CommonDialogWindow getWindowForEntity(final T proxyEntity,
-            final AbstractEntityWindowController<T, ?, ?> controller, final Component windowContent) {
-        controller.populateWithData(proxyEntity);
+    private static <T, R> List<R> partitionedParallelExecution(final Collection<T> controllerIds,
+            final Function<Collection<T>, List<R>> loadingFunction) {
+        // Ensure not exceeding the max value of MAX_PROCESSING_SIZE
+        if (controllerIds.size() > MAX_PROCESSING_SIZE) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+
+    private static <T, R> List<R> partitionedParallelExecution(final Collection<T> controllerIds,
+            final Function<Collection<T>, List<R>> loadingFunction) {
+        // Ensure not exceeding the max value of MAX_PROCESSING_SIZE
+        if (controllerIds.size() > MAX_PROCESSING_SIZE) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+    }
+
+    protected void sendMultiActionRequestToTarget(final String tenant, final Target target, final List<Action> actions,
+            final Function<Action, Map<SoftwareModule, List<SoftwareModuleMetadata>>> getSoftwareModuleMetaData) {
 
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EntityIdEvent`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/push/DelayedEventBusPushStrategy.java`
+Can generalize to `? super Action`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
 #### Snippet
 ```java
-        }
 
-        private List<Long> getEventIds(final List<EntityIdEvent> events) {
-            return events.stream().map(EntityIdEvent::getEntityId).collect(Collectors.toList());
-        }
+    protected void sendMultiActionRequestToTarget(final String tenant, final Target target, final List<Action> actions,
+            final Function<Action, Map<SoftwareModule, List<SoftwareModuleMetadata>>> getSoftwareModuleMetaData) {
+
+        final URI targetAddress = target.getAddress();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`>
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+
+    protected void sendMultiActionRequestToTarget(final String tenant, final Target target, final List<Action> actions,
+            final Function<Action, Map<SoftwareModule, List<SoftwareModuleMetadata>>> getSoftwareModuleMetaData) {
+
+        final URI targetAddress = target.getAddress();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+    }
+
+    private List<DmfArtifact> convertArtifacts(final Target target, final List<Artifact> localArtifacts) {
+        if (localArtifacts.isEmpty()) {
+            return Collections.emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ActionProperties`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+    }
+
+    private void sendBatchUpdateMessage(final Map<String, ActionProperties> actions, final List<Target> targets,
+            final Map<SoftwareModule, List<SoftwareModuleMetadata>> modules) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Target`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+    }
+
+    private void sendBatchUpdateMessage(final Map<String, ActionProperties> actions, final List<Target> targets,
+            final Map<SoftwareModule, List<SoftwareModuleMetadata>> modules) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModuleMetadata`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+    }
+
+    private List<DmfMetadata> convertMetadata(final List<SoftwareModuleMetadata> metadata) {
+        return metadata.stream().map(md -> new DmfMetadata(md.getKey(), md.getValue())).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModule`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+
+    private DmfSoftwareModule convertToAmqpSoftwareModule(final Target target,
+            final Entry<SoftwareModule, List<SoftwareModuleMetadata>> entry) {
+        final DmfSoftwareModule amqpSoftwareModule = new DmfSoftwareModule();
+        amqpSoftwareModule.setModuleId(entry.getKey().getId());
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+
+    private DmfSoftwareModule convertToAmqpSoftwareModule(final Target target,
+            final Entry<SoftwareModule, List<SoftwareModuleMetadata>> entry) {
+        final DmfSoftwareModule amqpSoftwareModule = new DmfSoftwareModule();
+        amqpSoftwareModule.setModuleId(entry.getKey().getId());
 ```
 
 ### BoundedWildcard
@@ -2334,9 +1879,45 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/push/DelayedEventBusPushStra
 ```java
         }
 
+        private List<Long> getEventIds(final List<EntityIdEvent> events) {
+            return events.stream().map(EntityIdEvent::getEntityId).collect(Collectors.toList());
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends EntityIdEvent`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/push/DelayedEventBusPushStrategy.java`
+#### Snippet
+```java
+        }
+
         private Map<Long, List<Long>> getParentAwareEventIds(final List<EntityIdEvent> events) {
             return events.stream().filter(event -> event instanceof ParentIdAwareEvent)
                     .collect(Collectors.groupingBy(event -> ((ParentIdAwareEvent) event).getParentEntityId(),
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEntityWindowBuilder.java`
+#### Snippet
+```java
+
+    protected CommonDialogWindow getWindowForEntity(final T proxyEntity,
+            final AbstractEntityWindowController<T, ?, ?> controller, final Component windowContent) {
+        controller.populateWithData(proxyEntity);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Target`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/AbstractIntegrationTest.java`
+#### Snippet
+```java
+
+    protected DistributionSetAssignmentResult assignDistributionSet(final DistributionSet ds,
+            final List<Target> targets) {
+        final List<String> targetIds = targets.stream().map(Target::getControllerId).collect(Collectors.toList());
+        return assignDistributionSet(ds.getId(), targetIds, ActionType.FORCED);
 ```
 
 ### BoundedWildcard
@@ -2364,18 +1945,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/Abstra
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BreadcrumbLink`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractBreadcrumbGridHeader.java`
-#### Snippet
-```java
-    protected abstract String getHeaderCaptionDetailsId();
-
-    protected void addBreadcrumbLinks(final Collection<BreadcrumbLink> breadcrumbLinks) {
-        breadcrumbLinks.forEach(this::addBreadcrumbLink);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends QuerySortOrder`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/AbstractGenericDataProvider.java`
 #### Snippet
@@ -2385,6 +1954,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/Abstra
     private List<Order> convertToListOfOrders(final List<QuerySortOrder> querySortOrders) {
         return querySortOrders.stream()
                 .map(querySortOrder -> convertToOrderCriteria(querySortOrder))
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/AbstractProxyDataProvider.java`
+#### Snippet
+```java
+
+    @Override
+    protected Stream<T> getProxyEntities(final Slice<U> backendEntities) {
+        return backendEntities.stream().map(entityMapper::map);
+    }
 ```
 
 ### BoundedWildcard
@@ -2412,18 +1993,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/Abstra
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends U`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/AbstractProxyDataProvider.java`
-#### Snippet
-```java
-
-    @Override
-    protected Stream<T> getProxyEntities(final Slice<U> backendEntities) {
-        return backendEntities.stream().map(entityMapper::map);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends HeaderSupport`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractGridHeader.java`
 #### Snippet
@@ -2432,6 +2001,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractG
 
     protected void addHeaderSupports(final Collection<HeaderSupport> headerSupports) {
         headerSupports.forEach(this::addHeaderSupport);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends BreadcrumbLink`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractBreadcrumbGridHeader.java`
+#### Snippet
+```java
+    protected abstract String getHeaderCaptionDetailsId();
+
+    protected void addBreadcrumbLinks(final Collection<BreadcrumbLink> breadcrumbLinks) {
+        breadcrumbLinks.forEach(this::addBreadcrumbLink);
     }
 ```
 
@@ -2472,26 +2053,14 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/MasterEn
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyTarget`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetsToTagAssignmentSupport.java`
+Can generalize to `? extends ProxyDistributionSet`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/DistributionSetsToTagAssignmentSupport.java`
 #### Snippet
 ```java
 
     @Override
-    protected AbstractAssignmentResult<Target> toggleTagAssignment(final List<ProxyTarget> sourceItems,
-            final String tagName) {
-        final Collection<String> controllerIdsToAssign = sourceItems.stream().map(ProxyTarget::getControllerId)
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyTarget`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetsToTagAssignmentSupport.java`
-#### Snippet
-```java
-
-    @Override
-    protected void publishTagAssignmentEvent(final List<ProxyTarget> sourceItemsToAssign) {
-        final List<Long> assignedTargetIds = sourceItemsToAssign.stream().map(ProxyIdentifiableEntity::getId)
+    protected void publishTagAssignmentEvent(final List<ProxyDistributionSet> sourceItemsToAssign) {
+        final List<Long> assignedDsIds = sourceItemsToAssign.stream().map(ProxyIdentifiableEntity::getId)
                 .collect(Collectors.toList());
 ```
 
@@ -2508,51 +2077,27 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignme
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyDistributionSet`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/DistributionSetsToTagAssignmentSupport.java`
+Can generalize to `? extends ProxyTarget`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetsToTagAssignmentSupport.java`
 #### Snippet
 ```java
 
     @Override
-    protected void publishTagAssignmentEvent(final List<ProxyDistributionSet> sourceItemsToAssign) {
-        final List<Long> assignedDsIds = sourceItemsToAssign.stream().map(ProxyIdentifiableEntity::getId)
+    protected void publishTagAssignmentEvent(final List<ProxyTarget> sourceItemsToAssign) {
+        final List<Long> assignedTargetIds = sourceItemsToAssign.stream().map(ProxyIdentifiableEntity::getId)
                 .collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Long`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/SelectionSupport.java`
+Can generalize to `? extends ProxyTarget`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetsToTagAssignmentSupport.java`
 #### Snippet
 ```java
-            final EventView view, final LongFunction<Optional<T>> mapIdToProxyEntityFunction,
-            final Supplier<Long> selectedEntityIdUiStateProvider,
-            final Consumer<Long> setSelectedEntityIdUiStateCallback) {
-        this.grid = grid;
-        this.eventBus = eventBus;
-```
 
-### BoundedWildcard
-Can generalize to `? extends AssignmentSupport`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DragAndDropSupport.java`
-#### Snippet
-```java
-    public DragAndDropSupport(final AbstractGrid<T, ?> grid, final VaadinMessageSource i18n,
-            final UINotification notification,
-            final Map<String, AssignmentSupport<?, T>> sourceTargetAssignmentStrategies, final UIEventBus eventBus) {
-        this.grid = grid;
-        this.i18n = i18n;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DeleteSupport.java`
-#### Snippet
-```java
-     */
-    public void setConfirmationQuestionDetailsGenerator(
-            final Function<T, String> confirmationQuestionDetailsGenerator) {
-        this.confirmationQuestionDetailsGenerator = confirmationQuestionDetailsGenerator;
-    }
+    @Override
+    protected AbstractAssignmentResult<Target> toggleTagAssignment(final List<ProxyTarget> sourceItems,
+            final String tagName) {
+        final Collection<String> controllerIdsToAssign = sourceItems.stream().map(ProxyTarget::getControllerId)
 ```
 
 ### BoundedWildcard
@@ -2565,18 +2110,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DeleteSu
             final Function<T, String> entityNameGenerator, final Predicate<Collection<T>> itemsDeletionCallback,
             final String deletionWindowId) {
         this.grid = grid;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyTarget`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/AbstractTargetsToTargetTypeAssignmentSupport.java`
-#### Snippet
-```java
-    }
-
-    protected void publishTypeAssignmentEvent(final List<ProxyTarget> sourceItemsToAssign) {
-        final List<Long> assignedTargetIds = sourceItemsToAssign.stream().map(ProxyIdentifiableEntity::getId)
-                .collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
@@ -2592,6 +2125,54 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DeleteSu
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DeleteSupport.java`
+#### Snippet
+```java
+     */
+    public void setConfirmationQuestionDetailsGenerator(
+            final Function<T, String> confirmationQuestionDetailsGenerator) {
+        this.confirmationQuestionDetailsGenerator = confirmationQuestionDetailsGenerator;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends AssignmentSupport`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DragAndDropSupport.java`
+#### Snippet
+```java
+    public DragAndDropSupport(final AbstractGrid<T, ?> grid, final VaadinMessageSource i18n,
+            final UINotification notification,
+            final Map<String, AssignmentSupport<?, T>> sourceTargetAssignmentStrategies, final UIEventBus eventBus) {
+        this.grid = grid;
+        this.i18n = i18n;
+```
+
+### BoundedWildcard
+Can generalize to `? super Long`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/SelectionSupport.java`
+#### Snippet
+```java
+            final EventView view, final LongFunction<Optional<T>> mapIdToProxyEntityFunction,
+            final Supplier<Long> selectedEntityIdUiStateProvider,
+            final Consumer<Long> setSelectedEntityIdUiStateCallback) {
+        this.grid = grid;
+        this.eventBus = eventBus;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTarget`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/AbstractTargetsToTargetTypeAssignmentSupport.java`
+#### Snippet
+```java
+    }
+
+    protected void publishTypeAssignmentEvent(final List<ProxyTarget> sourceItemsToAssign) {
+        final List<Long> assignedTargetIds = sourceItemsToAssign.stream().map(ProxyIdentifiableEntity::getId)
+                .collect(Collectors.toList());
+```
+
+### BoundedWildcard
 Can generalize to `? extends ProxyTag`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TagsAssignmentSupport.java`
 #### Snippet
@@ -2601,54 +2182,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignme
     protected void performAssignment(final List<ProxyTag> sourceItemsToAssign, final T targetItem) {
 
         // we are taking first tag because multi-tag assignment is
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxySoftwareModule`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/SwModulesToDistributionSetAssignmentSupport.java`
-#### Snippet
-```java
-
-    @Override
-    protected List<ProxySoftwareModule> getFilteredSourceItems(final List<ProxySoftwareModule> sourceItemsToAssign,
-            final ProxyDistributionSet targetItem) {
-        final DistributionSetType dsType = dsTypeManagement.get(targetItem.getTypeInfo().getId()).orElse(null);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxySoftwareModule`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/SwModulesToDistributionSetAssignmentSupport.java`
-#### Snippet
-```java
-    }
-
-    private void assignSwModulesToDistribution(final List<ProxySoftwareModule> swModules,
-            final ProxyDistributionSet ds) {
-        final Set<Long> swModuleIdsToAssign = swModules.stream().map(ProxySoftwareModule::getId)
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyTargetType`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TypeToTargetAssignmentSupport.java`
-#### Snippet
-```java
-    }
-
-    protected void publishTypeAssignmentEvent(final List<ProxyTargetType> sourceItemsToAssign) {
-        final List<Long> assignedTargetIds = sourceItemsToAssign.stream().map(ProxyIdentifiableEntity::getId)
-                .collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyTag`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetTagsToDistributionSetAssignmentSupport.java`
-#### Snippet
-```java
-
-    @Override
-    protected void performAssignment(final List<ProxyTag> sourceItemsToAssign, final ProxyDistributionSet targetItem) {
-        // we are taking first tag because multi-tag assignment is
-        // not supported
 ```
 
 ### BoundedWildcard
@@ -2664,15 +2197,51 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignme
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyTarget`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetsToTargetTypeAssignmentSupport.java`
+Can generalize to `? extends ProxyTag`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetTagsToDistributionSetAssignmentSupport.java`
 #### Snippet
 ```java
-     * @return false if some targets already have a type assigned
-     */
-    private boolean isAssignmentValid(List<ProxyTarget> sourceItemsToAssign, ProxyTargetType targetItem) {
-        if(sourceItemsToAssign.size() > 1) {
-            List<ProxyTarget> targetsWithDifferentType = sourceItemsToAssign.stream().filter(
+
+    @Override
+    protected void performAssignment(final List<ProxyTag> sourceItemsToAssign, final ProxyDistributionSet targetItem) {
+        // we are taking first tag because multi-tag assignment is
+        // not supported
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTarget`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetsToNoTargetTypeAssignmentSupport.java`
+#### Snippet
+```java
+    }
+
+    protected AbstractAssignmentResult<Target> initiateTargetTypeUnAssignment(final List<ProxyTarget> sourceItems) {
+        final Collection<String> controllerIdsToAssign = sourceItems.stream().map(ProxyTarget::getControllerId)
+                .collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxySoftwareModule`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/SwModulesToDistributionSetAssignmentSupport.java`
+#### Snippet
+```java
+    }
+
+    private void assignSwModulesToDistribution(final List<ProxySoftwareModule> swModules,
+            final ProxyDistributionSet ds) {
+        final Set<Long> swModuleIdsToAssign = swModules.stream().map(ProxySoftwareModule::getId)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxySoftwareModule`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/SwModulesToDistributionSetAssignmentSupport.java`
+#### Snippet
+```java
+
+    @Override
+    protected List<ProxySoftwareModule> getFilteredSourceItems(final List<ProxySoftwareModule> sourceItemsToAssign,
+            final ProxyDistributionSet targetItem) {
+        final DistributionSetType dsType = dsTypeManagement.get(targetItem.getTypeInfo().getId()).orElse(null);
 ```
 
 ### BoundedWildcard
@@ -2685,6 +2254,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignme
     private AbstractAssignmentResult<Target> initiateTargetTypeAssignment(final List<ProxyTarget> sourceItems,
                                                                           final Long typeId) {
         final Collection<String> controllerIdsToAssign = sourceItems.stream().map(ProxyTarget::getControllerId)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTarget`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetsToTargetTypeAssignmentSupport.java`
+#### Snippet
+```java
+     * @return false if some targets already have a type assigned
+     */
+    private boolean isAssignmentValid(List<ProxyTarget> sourceItemsToAssign, ProxyTargetType targetItem) {
+        if(sourceItemsToAssign.size() > 1) {
+            List<ProxyTarget> targetsWithDifferentType = sourceItemsToAssign.stream().filter(
 ```
 
 ### BoundedWildcard
@@ -2796,15 +2377,27 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/PinSuppo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyTarget`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TargetsToNoTargetTypeAssignmentSupport.java`
+Can generalize to `? extends ProxyTargetType`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/TypeToTargetAssignmentSupport.java`
 #### Snippet
 ```java
     }
 
-    protected AbstractAssignmentResult<Target> initiateTargetTypeUnAssignment(final List<ProxyTarget> sourceItems) {
-        final Collection<String> controllerIdsToAssign = sourceItems.stream().map(ProxyTarget::getControllerId)
+    protected void publishTypeAssignmentEvent(final List<ProxyTargetType> sourceItemsToAssign) {
+        final List<Long> assignedTargetIds = sourceItemsToAssign.stream().map(ProxyIdentifiableEntity::getId)
                 .collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyDistributionSet`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/DistributionSetsToTargetAssignmentSupport.java`
+#### Snippet
+```java
+    }
+
+    private boolean areSourceDsValid(final List<ProxyDistributionSet> sourceItemsToAssign) {
+        return sourceItemsToAssign.stream().allMatch(this::isSourceDsValid);
+    }
 ```
 
 ### BoundedWildcard
@@ -2840,18 +2433,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/TenantConfigCha
      */
     public <T> Optional<T> getValue(final Class<T> fromClass) {
         return fromClass.isInstance(value) ? Optional.of(fromClass.cast(value)) : Optional.empty();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyDistributionSet`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/DistributionSetsToTargetAssignmentSupport.java`
-#### Snippet
-```java
-    }
-
-    private boolean areSourceDsValid(final List<ProxyDistributionSet> sourceItemsToAssign) {
-        return sourceItemsToAssign.stream().allMatch(this::isSourceDsValid);
     }
 ```
 
@@ -2892,18 +2473,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/Gener
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/SelectGridEntityListener.java`
-#### Snippet
-```java
-
-    @EventBusListenerMethod(scope = EventScope.UI)
-    private void onSelectGridEntityEvent(final SelectionChangedEventPayload<T> eventPayload) {
-        if (getLayoutViewAware().suitableViewLayout(eventPayload)) {
-            selectionSupport.deselectAll();
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/SelectGridEntityListener.java`
 #### Snippet
@@ -2913,6 +2482,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/Selec
             final SelectionSupport<T> selectionSupport) {
         super(eventBus, CommandTopics.SELECT_GRID_ENTITY, layoutViewAware);
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/SelectGridEntityListener.java`
+#### Snippet
+```java
+
+    @EventBusListenerMethod(scope = EventScope.UI)
+    private void onSelectGridEntityEvent(final SelectionChangedEventPayload<T> eventPayload) {
+        if (getLayoutViewAware().suitableViewLayout(eventPayload)) {
+            selectionSupport.deselectAll();
 ```
 
 ### BoundedWildcard
@@ -2964,30 +2545,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/Pinni
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ResizeHandler`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/LayoutResizeListener.java`
-#### Snippet
-```java
-     */
-    public LayoutResizeListener(final UIEventBus eventBus, final EventViewAware viewAware,
-            final Map<EventLayout, ResizeHandler> layoutResizeHandlers) {
-        super(eventBus, CommandTopics.RESIZE_LAYOUT, viewAware);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/support/EntityModifiedPinAwareSupport.java`
-#### Snippet
-```java
-    public EntityModifiedPinAwareSupport(final PinSupport<T, ?> pinSupport,
-            final boolean shouldUpdatePinStylingOnUpdate, final boolean shouldReApplyPinningOnUpdate,
-            final LongFunction<Optional<T>> getFromBackendCallback, final Predicate<T> shouldUnpinnOnUpdateCallback) {
-        this.pinSupport = pinSupport;
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends EntityModifiedAwareSupport`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/EntityModifiedListener.java`
 #### Snippet
@@ -3012,27 +2569,15 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/Entit
 ```
 
 ### BoundedWildcard
-Can generalize to `? super F`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/FilterSupport.java`
+Can generalize to `? extends ResizeHandler`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/LayoutResizeListener.java`
 #### Snippet
 ```java
-     *            Generic
      */
-    public <R> void updateFilter(final BiConsumer<F, R> setter, final R filterValue) {
-        if (setter != null) {
-            setter.accept(entityFilter, filterValue);
-```
+    public LayoutResizeListener(final UIEventBus eventBus, final EventViewAware viewAware,
+            final Map<EventLayout, ResizeHandler> layoutResizeHandlers) {
+        super(eventBus, CommandTopics.RESIZE_LAYOUT, viewAware);
 
-### BoundedWildcard
-Can generalize to `? extends T`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/ShowEntityFormLayoutListener.java`
-#### Snippet
-```java
-
-    @EventBusListenerMethod(scope = EventScope.UI)
-    private void onShowFormEvent(final ShowFormEventPayload<T> eventPayload) {
-        if (!suitableEntityType(eventPayload.getEntityType())
-                || !suitableParentEntityType(eventPayload.getParentEntityType())
 ```
 
 ### BoundedWildcard
@@ -3048,6 +2593,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/ShowE
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/ShowEntityFormLayoutListener.java`
+#### Snippet
+```java
+
+    @EventBusListenerMethod(scope = EventScope.UI)
+    private void onShowFormEvent(final ShowFormEventPayload<T> eventPayload) {
+        if (!suitableEntityType(eventPayload.getEntityType())
+                || !suitableParentEntityType(eventPayload.getParentEntityType())
+```
+
+### BoundedWildcard
 Can generalize to `? super Collection`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/support/EntityModifiedGridRefreshAwareSupport.java`
 #### Snippet
@@ -3057,6 +2614,30 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/suppo
             final Consumer<Collection<Long>> refreshGridItemsCallback) {
         this.refreshGridCallback = refreshGridCallback;
         this.refreshGridItemsCallback = refreshGridItemsCallback;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/support/EntityModifiedPinAwareSupport.java`
+#### Snippet
+```java
+    public EntityModifiedPinAwareSupport(final PinSupport<T, ?> pinSupport,
+            final boolean shouldUpdatePinStylingOnUpdate, final boolean shouldReApplyPinningOnUpdate,
+            final LongFunction<Optional<T>> getFromBackendCallback, final Predicate<T> shouldUnpinnOnUpdateCallback) {
+        this.pinSupport = pinSupport;
+
+```
+
+### BoundedWildcard
+Can generalize to `? super F`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/FilterSupport.java`
+#### Snippet
+```java
+     *            Generic
+     */
+    public <R> void updateFilter(final BiConsumer<F, R> setter, final R filterValue) {
+        if (setter != null) {
+            setter.accept(entityFilter, filterValue);
 ```
 
 ### BoundedWildcard
@@ -3108,18 +2689,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/tagdetails/TagPanelLa
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyTag`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/tagdetails/TagAssignementComboBox.java`
-#### Snippet
-```java
-     *            assignable tags
-     */
-    void initializeAssignableTags(final List<ProxyTag> assignableTags) {
-        allAssignableTags.addAll(assignableTags);
-        assignableTagsComboBox.getDataProvider().refreshAll();
-```
-
-### BoundedWildcard
 Can generalize to `? super Collection`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/support/EntityModifiedGenericSupport.java`
 #### Snippet
@@ -3156,6 +2725,30 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/suppo
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ProxyTag`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/tagdetails/TagListField.java`
+#### Snippet
+```java
+     *            assigned tags
+     */
+    void initializeAssignedTags(final List<ProxyTag> assignedTags) {
+        removeAllComponents();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTag`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/tagdetails/TagAssignementComboBox.java`
+#### Snippet
+```java
+     *            assignable tags
+     */
+    void initializeAssignableTags(final List<ProxyTag> assignableTags) {
+        allAssignableTags.addAll(assignableTags);
+        assignableTagsComboBox.getDataProvider().refreshAll();
+```
+
+### BoundedWildcard
 Can generalize to `? super ProxyTargetType`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/TargetTypeFilterButtonClick.java`
 #### Snippet
@@ -3177,18 +2770,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/TargetTy
             final BiConsumer<ProxyTargetType, ClickBehaviourType> filterChangedCallback) {
         this.filterChangedCallback = filterChangedCallback;
         this.noTargetTypeBtnClicked = false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyTag`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/tagdetails/TagListField.java`
-#### Snippet
-```java
-     *            assigned tags
-     */
-    void initializeAssignedTags(final List<ProxyTag> assignedTags) {
-        removeAllComponents();
-
 ```
 
 ### BoundedWildcard
@@ -3336,6 +2917,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/Abstrac
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ProxyMetaData`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/MetadataDetailsGrid.java`
+#### Snippet
+```java
+     */
+    public MetadataDetailsGrid(final VaadinMessageSource i18n, final UIEventBus eventBus, final String typePrefix,
+            final Consumer<ProxyMetaData> showMetadataDetailsCallback,
+            final AbstractMetaDataDataProvider<?, F> metaDataDataProvider) {
+        super(i18n, eventBus);
+```
+
+### BoundedWildcard
 Can generalize to `? extends Entry`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/AbstractGridDetailsLayout.java`
 #### Snippet
@@ -3345,42 +2938,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/Abstrac
     protected void addDetailsComponents(final Collection<Entry<String, Component>> detailsComponents) {
         this.detailsComponents.addAll(detailsComponents);
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyMetaData`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/MetaDataAddUpdateWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return Target field CheckBox
-     */
-    public CheckBox createVisibleForTargetsField(final Binder<ProxyMetaData> binder) {
-        return FormComponentBuilder.createCheckBox(i18n.getMessage(TARGET_VISIBLE),
-                UIComponentIdProvider.METADATA_TARGET_VISIBLE_ID, binder, ProxyMetaData::isVisibleForTargets,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyMetaData`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/MetaDataAddUpdateWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return Value textarea
-     */
-    public TextArea createValueField(final Binder<ProxyMetaData> binder) {
-        final TextArea valueField = new TextAreaBuilder(MetaData.VALUE_MAX_SIZE)
-                .id(UIComponentIdProvider.METADATA_VALUE_ID).caption(i18n.getMessage(TEXTFIELD_VALUE))
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyMetaData`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/MetaDataAddUpdateWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return Key textfield
-     */
-    public TextField createKeyField(final Binder<ProxyMetaData> binder) {
-        final TextField keyField = new TextFieldBuilder(MetaData.KEY_MAX_SIZE)
-                .id(UIComponentIdProvider.METADATA_KEY_FIELD_ID).caption(i18n.getMessage(TEXTFIELD_KEY))
 ```
 
 ### BoundedWildcard
@@ -3420,15 +2977,39 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/UpdateM
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ProxyMetaData`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/MetadataDetailsGrid.java`
+Can generalize to `? extends ProxyMetaData`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/MetaDataAddUpdateWindowLayoutComponentBuilder.java`
 #### Snippet
 ```java
+     * @return Value textarea
      */
-    public MetadataDetailsGrid(final VaadinMessageSource i18n, final UIEventBus eventBus, final String typePrefix,
-            final Consumer<ProxyMetaData> showMetadataDetailsCallback,
-            final AbstractMetaDataDataProvider<?, F> metaDataDataProvider) {
-        super(i18n, eventBus);
+    public TextArea createValueField(final Binder<ProxyMetaData> binder) {
+        final TextArea valueField = new TextAreaBuilder(MetaData.VALUE_MAX_SIZE)
+                .id(UIComponentIdProvider.METADATA_VALUE_ID).caption(i18n.getMessage(TEXTFIELD_VALUE))
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyMetaData`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/MetaDataAddUpdateWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return Key textfield
+     */
+    public TextField createKeyField(final Binder<ProxyMetaData> binder) {
+        final TextField keyField = new TextFieldBuilder(MetaData.KEY_MAX_SIZE)
+                .id(UIComponentIdProvider.METADATA_KEY_FIELD_ID).caption(i18n.getMessage(TEXTFIELD_KEY))
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyMetaData`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/MetaDataAddUpdateWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return Target field CheckBox
+     */
+    public CheckBox createVisibleForTargetsField(final Binder<ProxyMetaData> binder) {
+        return FormComponentBuilder.createCheckBox(i18n.getMessage(TARGET_VISIBLE),
+                UIComponentIdProvider.METADATA_TARGET_VISIBLE_ID, binder, ProxyMetaData::isVisibleForTargets,
 ```
 
 ### BoundedWildcard
@@ -3456,6 +3037,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/distributionset/Abstr
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Boolean`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/layouts/AbstractRolloutWindowLayout.java`
+#### Snippet
+```java
+
+    @Override
+    public void addValidationListener(final Consumer<Boolean> validationCallback) {
+        this.validationCallback = validationCallback;
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends ValidatableLayout`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/layouts/AbstractRolloutWindowLayout.java`
 #### Snippet
@@ -3468,15 +3061,15 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/layouts/Abstr
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Boolean`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/layouts/AbstractRolloutWindowLayout.java`
+Can generalize to `? super T`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/StatusIconBuilder.java`
 #### Snippet
 ```java
-
-    @Override
-    public void addValidationListener(final Consumer<Boolean> validationCallback) {
-        this.validationCallback = validationCallback;
-
+        protected EntityStatusIconBuilderWithGenetaredTooltip(final VaadinMessageSource i18n, final Class<T> statusType,
+                final Function<E, T> getEntityStatus, final String labelIdPrefix,
+                final Function<T, String> tooltipGenerator) {
+            super(i18n, statusType, getEntityStatus, labelIdPrefix);
+            this.tooltipGenerator = tooltipGenerator;
 ```
 
 ### BoundedWildcard
@@ -3540,15 +3133,147 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/Ad
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/StatusIconBuilder.java`
+Can generalize to `? extends DistributionSetTag`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
 #### Snippet
 ```java
-        protected EntityStatusIconBuilderWithGenetaredTooltip(final VaadinMessageSource i18n, final Class<T> statusType,
-                final Function<E, T> getEntityStatus, final String labelIdPrefix,
-                final Function<T, String> tooltipGenerator) {
-            super(i18n, statusType, getEntityStatus, labelIdPrefix);
-            this.tooltipGenerator = tooltipGenerator;
+     */
+    public DistributionSet createDistributionSet(final String prefix, final String version,
+            final Collection<DistributionSetTag> tags) {
+
+        final DistributionSet set = createDistributionSet(prefix, version, false);
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModuleType`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     */
+    public DistributionSetType findOrCreateDistributionSetType(final String dsTypeKey, final String dsTypeName,
+            final Collection<SoftwareModuleType> mandatory, final Collection<SoftwareModuleType> optional) {
+        return distributionSetTypeManagement.getByKey(dsTypeKey)
+                .orElseGet(() -> distributionSetTypeManagement.create(entityFactory.distributionSetType().create()
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModuleType`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     */
+    public DistributionSetType findOrCreateDistributionSetType(final String dsTypeKey, final String dsTypeName,
+            final Collection<SoftwareModuleType> mandatory, final Collection<SoftwareModuleType> optional) {
+        return distributionSetTypeManagement.getByKey(dsTypeKey)
+                .orElseGet(() -> distributionSetTypeManagement.create(entityFactory.distributionSetType().create()
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModule`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     */
+    public DistributionSet createDistributionSet(final String prefix, final String version,
+            final boolean isRequiredMigrationStep, final Collection<SoftwareModule> modules) {
+
+        return distributionSetManagement.create(
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSetType`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     * @return persisted {@link TargetType}
+     */
+    public TargetType createTargetType(final String targetTypeName, final List<DistributionSetType> compatibleDsTypes) {
+        return targetTypeManagement.create(entityFactory.targetType().create().name(targetTypeName)
+                .description(targetTypeName + " description").colour(DEFAULT_COLOUR)
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModule`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     */
+    public DistributionSet generateDistributionSet(final String name, final String version,
+            final DistributionSetType type, final Collection<SoftwareModule> modules,
+            final boolean requiredMigrationStep) {
+        return entityFactory.distributionSet().create().name(name).version(version).description(LOREM.words(10))
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModule`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     */
+    public DistributionSet createDistributionSet(final String name, final String version,
+            final DistributionSetType type, final Collection<SoftwareModule> modules) {
+        return distributionSetManagement.create(
+                entityFactory.distributionSet().create().name(name).version(version).description(LOREM.words(10))
+```
+
+### BoundedWildcard
+Can generalize to `? extends Target`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     * @return updated {@link Action}.
+     */
+    public List<Action> sendUpdateActionStatusToTargets(final Collection<Target> targets, final Status status,
+            final Collection<String> msgs) {
+        final List<Action> result = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Column`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
+#### Snippet
+```java
+     */
+    public static void joinToIconColumn(final HeaderRow headerRow, final String headerCaption,
+            final List<Column<?, ?>> columns) {
+        columns.forEach(column -> {
+            column.setWidth(30D);
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
+#### Snippet
+```java
+     */
+    public static <E extends ProxyIdentifiableEntity> Column<E, Button> addDeleteColumn(final Grid<E> grid,
+            final VaadinMessageSource i18n, final String columnId, final DeleteSupport<E> deleteSupport,
+            final String buttonIdPrefix, final Predicate<E> buttonEnabled) {
+        final ValueProvider<E, Button> getDelButton = entity -> buildActionButton(i18n,
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
+#### Snippet
+```java
+    public static <E extends ProxyIdentifiableEntity> Column<E, Button> addDeleteColumn(final Grid<E> grid,
+            final VaadinMessageSource i18n, final String columnId, final DeleteSupport<E> deleteSupport,
+            final String buttonIdPrefix, final Predicate<E> buttonEnabled) {
+        final ValueProvider<E, Button> getDelButton = entity -> buildActionButton(i18n,
+                clickEvent -> deleteSupport.openConfirmationWindowDeleteAction(entity), VaadinIcons.TRASH,
+```
+
+### BoundedWildcard
+Can generalize to `? extends StyleGenerator`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
+#### Snippet
+```java
+    }
+
+    private static <T> StyleGenerator<T> merge(final Collection<StyleGenerator<T>> generators) {
+        return item -> generators.stream().filter(Objects::nonNull).map(gen -> gen.apply(item)).filter(Objects::nonNull)
+                .collect(Collectors.joining(" "));
 ```
 
 ### BoundedWildcard
@@ -3588,54 +3313,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/controllers/A
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StyleGenerator`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
-#### Snippet
-```java
-    }
-
-    private static <T> StyleGenerator<T> merge(final Collection<StyleGenerator<T>> generators) {
-        return item -> generators.stream().filter(Objects::nonNull).map(gen -> gen.apply(item)).filter(Objects::nonNull)
-                .collect(Collectors.joining(" "));
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
-#### Snippet
-```java
-     */
-    public static <E extends ProxyIdentifiableEntity> Column<E, Button> addDeleteColumn(final Grid<E> grid,
-            final VaadinMessageSource i18n, final String columnId, final DeleteSupport<E> deleteSupport,
-            final String buttonIdPrefix, final Predicate<E> buttonEnabled) {
-        final ValueProvider<E, Button> getDelButton = entity -> buildActionButton(i18n,
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
-#### Snippet
-```java
-    public static <E extends ProxyIdentifiableEntity> Column<E, Button> addDeleteColumn(final Grid<E> grid,
-            final VaadinMessageSource i18n, final String columnId, final DeleteSupport<E> deleteSupport,
-            final String buttonIdPrefix, final Predicate<E> buttonEnabled) {
-        final ValueProvider<E, Button> getDelButton = entity -> buildActionButton(i18n,
-                clickEvent -> deleteSupport.openConfirmationWindowDeleteAction(entity), VaadinIcons.TRASH,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Column`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/GridComponentBuilder.java`
-#### Snippet
-```java
-     */
-    public static void joinToIconColumn(final HeaderRow headerRow, final String headerCaption,
-            final List<Column<?, ?>> columns) {
-        columns.forEach(column -> {
-            column.setWidth(30D);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProxyType`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtype/SmTypeWindowLayoutComponentBuilder.java`
 #### Snippet
@@ -3645,6 +3322,42 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtype/SmTypeWindo
     public RadioButtonGroup<SmTypeAssign> createSmTypeAssignOptionGroup(final Binder<ProxyType> binder) {
         final RadioButtonGroup<SmTypeAssign> smTypeAssignOptionGroup = new RadioButtonGroup<>();
         smTypeAssignOptionGroup.setId(UIComponentIdProvider.ASSIGN_OPTION_GROUP_SOFTWARE_MODULE_TYPE_ID);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+     */
+    public static <T extends TypeInfoAware> BoundComponent<ComboBox<ProxyTypeInfo>> createTypeCombo(
+            final Binder<T> binder, final AbstractProxyDataProvider<ProxyTypeInfo, ?, String> dataProvider,
+            final VaadinMessageSource i18n, final String componentId, final boolean isRequired) {
+        final ComboBox<ProxyTypeInfo> typeCombo = SPUIComponentProvider.getComboBox(componentId,
+```
+
+### BoundedWildcard
+Can generalize to `? super ProxyTargetFilterQuery`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+     */
+    public static <T extends TargetFilterQueryAware> BoundComponent<ComboBox<ProxyTargetFilterQuery>> createTargetFilterQueryCombo(
+            final Binder<T> binder, final Validator<ProxyTargetFilterQuery> validator,
+            final TargetFilterQueryDataProvider dataProvider, final VaadinMessageSource i18n,
+            final String componentId) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyType`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+     * @return text field
+     */
+    public static TextField createTypeKeyField(final Binder<ProxyType> binder, final VaadinMessageSource i18n) {
+        final TextField typeKey = new TextFieldBuilder(Type.KEY_MAX_SIZE).id(UIComponentIdProvider.TYPE_POPUP_KEY)
+                .caption(i18n.getMessage("textfield.key")).prompt(i18n.getMessage("textfield.key"))
 ```
 
 ### BoundedWildcard
@@ -3678,21 +3391,9 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SmWindowLa
 ```java
      * @return input component
      */
-    public CheckBox createArtifactEncryptionCheck(final Binder<ProxySoftwareModule> binder) {
-        return FormComponentBuilder.createCheckBox(i18n.getMessage(ARTIFACT_ENCRYPTION),
-                UIComponentIdProvider.ARTIFACT_ENCRYPTION_ID, binder, ProxySoftwareModule::isEncrypted,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxySoftwareModule`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SmWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return input component
-     */
-    public TextArea createDescription(final Binder<ProxySoftwareModule> binder) {
+    public ComboBox<ProxyTypeInfo> createSoftwareModuleTypeCombo(final Binder<ProxySoftwareModule> binder) {
         return FormComponentBuilder
-                .createDescriptionInput(binder, i18n, UIComponentIdProvider.ADD_SW_MODULE_DESCRIPTION).getComponent();
+                .createTypeCombo(binder, smTypeDataProvider, i18n, UIComponentIdProvider.SW_MODULE_TYPE, true)
 ```
 
 ### BoundedWildcard
@@ -3714,18 +3415,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SmWindowLa
 ```java
      * @return input component
      */
-    public TextField createVersionField(final Binder<ProxySoftwareModule> binder) {
-        return FormComponentBuilder.createVersionInput(binder, i18n, UIComponentIdProvider.SOFT_MODULE_VERSION)
-                .getComponent();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxySoftwareModule`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SmWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return input component
-     */
     public TextField createNameField(final Binder<ProxySoftwareModule> binder) {
         return FormComponentBuilder.createNameInput(binder, i18n, UIComponentIdProvider.SOFT_MODULE_NAME)
                 .getComponent();
@@ -3738,9 +3427,33 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SmWindowLa
 ```java
      * @return input component
      */
-    public ComboBox<ProxyTypeInfo> createSoftwareModuleTypeCombo(final Binder<ProxySoftwareModule> binder) {
+    public TextArea createDescription(final Binder<ProxySoftwareModule> binder) {
         return FormComponentBuilder
-                .createTypeCombo(binder, smTypeDataProvider, i18n, UIComponentIdProvider.SW_MODULE_TYPE, true)
+                .createDescriptionInput(binder, i18n, UIComponentIdProvider.ADD_SW_MODULE_DESCRIPTION).getComponent();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxySoftwareModule`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SmWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return input component
+     */
+    public CheckBox createArtifactEncryptionCheck(final Binder<ProxySoftwareModule> binder) {
+        return FormComponentBuilder.createCheckBox(i18n.getMessage(ARTIFACT_ENCRYPTION),
+                UIComponentIdProvider.ARTIFACT_ENCRYPTION_ID, binder, ProxySoftwareModule::isEncrypted,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxySoftwareModule`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SmWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return input component
+     */
+    public TextField createVersionField(final Binder<ProxySoftwareModule> binder) {
+        return FormComponentBuilder.createVersionInput(binder, i18n, UIComponentIdProvider.SOFT_MODULE_VERSION)
+                .getComponent();
 ```
 
 ### BoundedWildcard
@@ -3753,42 +3466,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/details/ArtifactDe
     private boolean artifactsDeletionCallback(final Collection<ProxyArtifact> artifactsToBeDeleted) {
         final Collection<Long> artifactToBeDeletedIds = artifactsToBeDeleted.stream()
                 .map(ProxyIdentifiableEntity::getId).collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? super ProxyTargetFilterQuery`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-     */
-    public static <T extends TargetFilterQueryAware> BoundComponent<ComboBox<ProxyTargetFilterQuery>> createTargetFilterQueryCombo(
-            final Binder<T> binder, final Validator<ProxyTargetFilterQuery> validator,
-            final TargetFilterQueryDataProvider dataProvider, final VaadinMessageSource i18n,
-            final String componentId) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-     */
-    public static <T extends TypeInfoAware> BoundComponent<ComboBox<ProxyTypeInfo>> createTypeCombo(
-            final Binder<T> binder, final AbstractProxyDataProvider<ProxyTypeInfo, ?, String> dataProvider,
-            final VaadinMessageSource i18n, final String componentId, final boolean isRequired) {
-        final ComboBox<ProxyTypeInfo> typeCombo = SPUIComponentProvider.getComboBox(componentId,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyType`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-     * @return text field
-     */
-    public static TextField createTypeKeyField(final Binder<ProxyType> binder, final VaadinMessageSource i18n) {
-        final TextField typeKey = new TextFieldBuilder(Type.KEY_MAX_SIZE).id(UIComponentIdProvider.TYPE_POPUP_KEY)
-                .caption(i18n.getMessage("textfield.key")).prompt(i18n.getMessage("textfield.key"))
 ```
 
 ### BoundedWildcard
@@ -3828,18 +3505,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/AssignmentW
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Boolean`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsAffectedEntitiesDialog.java`
-#### Snippet
-```java
-     */
-    public InvalidateDsAffectedEntitiesDialog(final List<ProxyDistributionSet> allDistributionSetsForInvalidation,
-            final VaadinMessageSource i18n, final Consumer<Boolean> callback,
-            final DistributionSetInvalidationCount affectedEntities) {
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProxyDistributionSet`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsAffectedEntitiesDialog.java`
 #### Snippet
@@ -3849,6 +3514,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/Invalidat
     private String createConsequencesText(final List<ProxyDistributionSet> allDistributionSetsForInvalidation) {
         String consequencesText = "";
         if (allDistributionSetsForInvalidation.size() == 1) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsAffectedEntitiesDialog.java`
+#### Snippet
+```java
+     */
+    public InvalidateDsAffectedEntitiesDialog(final List<ProxyDistributionSet> allDistributionSetsForInvalidation,
+            final VaadinMessageSource i18n, final Consumer<Boolean> callback,
+            final DistributionSetInvalidationCount affectedEntities) {
+
 ```
 
 ### BoundedWildcard
@@ -3900,18 +3577,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/AssignmentW
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Boolean`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsConsequencesDialog.java`
-#### Snippet
-```java
-     */
-    public InvalidateDsConsequencesDialog(final List<ProxyDistributionSet> allDistributionSetsForInvalidation,
-            final VaadinMessageSource i18n, final UiProperties uiProperties, final Consumer<Boolean> callback) {
-
-        this.i18n = i18n;
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProxyTarget`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/DeploymentAssignmentWindowController.java`
 #### Snippet
@@ -3921,6 +3586,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/DeploymentA
     public void assignTargetsToDistributions(final List<ProxyTarget> proxyTargets,
             final List<ProxyDistributionSet> proxyDistributionSets) {
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyDistributionSet`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/DeploymentAssignmentWindowController.java`
+#### Snippet
+```java
+     */
+    public void assignTargetsToDistributions(final List<ProxyTarget> proxyTargets,
+            final List<ProxyDistributionSet> proxyDistributionSets) {
+
+        final ActionType actionType = proxyAssignmentWindow.getActionType();
 ```
 
 ### BoundedWildcard
@@ -3936,15 +3613,15 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/Invalidat
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyDistributionSet`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/DeploymentAssignmentWindowController.java`
+Can generalize to `? super Boolean`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsConsequencesDialog.java`
 #### Snippet
 ```java
      */
-    public void assignTargetsToDistributions(final List<ProxyTarget> proxyTargets,
-            final List<ProxyDistributionSet> proxyDistributionSets) {
+    public InvalidateDsConsequencesDialog(final List<ProxyDistributionSet> allDistributionSetsForInvalidation,
+            final VaadinMessageSource i18n, final UiProperties uiProperties, final Consumer<Boolean> callback) {
 
-        final ActionType actionType = proxyAssignmentWindow.getActionType();
+        this.i18n = i18n;
 ```
 
 ### BoundedWildcard
@@ -3972,42 +3649,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettag/filter/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyTargetType`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettag/targettype/TargetTypeWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return layout of target type distribution set selection
-     */
-    public TargetTypeDsTypeSelectLayout createTargetTypeDsSelectLayout(final Binder<ProxyTargetType> binder) {
-
-        final TargetTypeDsTypeSelectLayout targetTypeDsTypeSelectLayout = new TargetTypeDsTypeSelectLayout(i18n, distributionSetTypeManagement);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyTargetType`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettag/filter/TargetTypeFilterButtons.java`
-#### Snippet
-```java
-
-    @Override
-    protected boolean deleteFilterButtons(Collection<ProxyTargetType> filterButtonsToDelete) {
-        final ProxyTargetType targetTypeToDelete = filterButtonsToDelete.iterator().next();
-        final String targetTypeToDeleteName = targetTypeToDelete.getName();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyDistributionSet`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDistributionSetSupport.java`
-#### Snippet
-```java
-    }
-
-    private String createFailureNotificationText(final List<ProxyDistributionSet> allDistributionSetsForInvalidation) {
-        String failureNotificationText = "";
-        if (allDistributionSetsForInvalidation.size() == 1) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProxyDistributionSet`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDistributionSetSupport.java`
 #### Snippet
@@ -4032,15 +3673,39 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/Invalidat
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyBulkUploadWindow`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadWindowLayoutComponentBuilder.java`
+Can generalize to `? extends ProxyDistributionSet`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDistributionSetSupport.java`
 #### Snippet
 ```java
-     * @return ComboBox
+    }
+
+    private String createFailureNotificationText(final List<ProxyDistributionSet> allDistributionSetsForInvalidation) {
+        String failureNotificationText = "";
+        if (allDistributionSetsForInvalidation.size() == 1) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTargetType`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettag/filter/TargetTypeFilterButtons.java`
+#### Snippet
+```java
+
+    @Override
+    protected boolean deleteFilterButtons(Collection<ProxyTargetType> filterButtonsToDelete) {
+        final ProxyTargetType targetTypeToDelete = filterButtonsToDelete.iterator().next();
+        final String targetTypeToDeleteName = targetTypeToDelete.getName();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTargetType`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettag/targettype/TargetTypeWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return layout of target type distribution set selection
      */
-    public ComboBox<ProxyDistributionSet> createDistributionSetCombo(final Binder<ProxyBulkUploadWindow> binder) {
-        final BoundComponent<ComboBox<ProxyDistributionSet>> boundComboBox = FormComponentBuilder
-                .createDistributionSetComboBox(binder, distributionSetDataProvider, i18n,
+    public TargetTypeDsTypeSelectLayout createTargetTypeDsSelectLayout(final Binder<ProxyTargetType> binder) {
+
+        final TargetTypeDsTypeSelectLayout targetTypeDsTypeSelectLayout = new TargetTypeDsTypeSelectLayout(i18n, distributionSetTypeManagement);
 ```
 
 ### BoundedWildcard
@@ -4068,15 +3733,15 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUp
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyTarget`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetWindowLayoutComponentBuilder.java`
+Can generalize to `? extends ProxyBulkUploadWindow`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadWindowLayoutComponentBuilder.java`
 #### Snippet
 ```java
-     * @return input component
+     * @return ComboBox
      */
-    public TextArea createDescriptionField(final Binder<ProxyTarget> binder) {
-        return FormComponentBuilder.createDescriptionInput(binder, i18n, UIComponentIdProvider.TARGET_ADD_DESC)
-                .getComponent();
+    public ComboBox<ProxyDistributionSet> createDistributionSetCombo(final Binder<ProxyBulkUploadWindow> binder) {
+        final BoundComponent<ComboBox<ProxyDistributionSet>> boundComboBox = FormComponentBuilder
+                .createDistributionSetComboBox(binder, distributionSetDataProvider, i18n,
 ```
 
 ### BoundedWildcard
@@ -4096,11 +3761,11 @@ Can generalize to `? extends ProxyTarget`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetWindowLayoutComponentBuilder.java`
 #### Snippet
 ```java
-     * @return input component
+     * @return Target controller id Text field
      */
-    public BoundComponent<ComboBox<ProxyTypeInfo>> createTargetTypeCombo(final Binder<ProxyTarget> binder, TargetTypeDataProvider<ProxyTypeInfo> targetTypeDataProvider) {
-        return FormComponentBuilder
-                .createTypeCombo(binder, targetTypeDataProvider, i18n, UIComponentIdProvider.TARGET_ADD_TARGETTYPE, false);
+    public TextField createControllerIdField(final Binder<ProxyTarget> binder) {
+        final TextField targetControllerId = new TextFieldBuilder(Target.CONTROLLER_ID_MAX_SIZE)
+                .id(UIComponentIdProvider.TARGET_ADD_CONTROLLER_ID).caption(i18n.getMessage(TEXTFIELD_CONTROLLER_ID))
 ```
 
 ### BoundedWildcard
@@ -4108,11 +3773,23 @@ Can generalize to `? extends ProxyTarget`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetWindowLayoutComponentBuilder.java`
 #### Snippet
 ```java
-     * @return Target controller id Text field
+     * @return input component
      */
-    public TextField createControllerIdField(final Binder<ProxyTarget> binder) {
-        final TextField targetControllerId = new TextFieldBuilder(Target.CONTROLLER_ID_MAX_SIZE)
-                .id(UIComponentIdProvider.TARGET_ADD_CONTROLLER_ID).caption(i18n.getMessage(TEXTFIELD_CONTROLLER_ID))
+    public TextArea createDescriptionField(final Binder<ProxyTarget> binder) {
+        return FormComponentBuilder.createDescriptionInput(binder, i18n, UIComponentIdProvider.TARGET_ADD_DESC)
+                .getComponent();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTarget`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return input component
+     */
+    public BoundComponent<ComboBox<ProxyTypeInfo>> createTargetTypeCombo(final Binder<ProxyTarget> binder, TargetTypeDataProvider<ProxyTypeInfo> targetTypeDataProvider) {
+        return FormComponentBuilder
+                .createTypeCombo(binder, targetTypeDataProvider, i18n, UIComponentIdProvider.TARGET_ADD_TARGETTYPE, false);
 ```
 
 ### BoundedWildcard
@@ -4128,15 +3805,15 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/Targe
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyTargetConfirmationOptions`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetAutoConfActivationLayout.java`
+Can generalize to `? extends ProxyBulkUploadWindow`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
 #### Snippet
 ```java
-    }
-
-    public TextField createInitiatorField(final Binder<ProxyTargetConfirmationOptions> binder) {
-        final TextField initiatorField = new TextFieldBuilder(64).id(AUTO_CONFIRMATION_ACTIVATION_DIALOG_INITIATOR)
-                .caption(i18n.getMessage(CAPTION_TEXTFIELD_INITIATOR))
+            final TargetManagement targetManagement, final TargetTagManagement tagManagement,
+            final DistributionSetManagement distributionSetManagement, final DeploymentManagement deploymentManagement,
+            final Supplier<ProxyBulkUploadWindow> bulkUploadInputsProvider) {
+        this.targetManagement = targetManagement;
+        this.deploymentManagement = deploymentManagement;
 ```
 
 ### BoundedWildcard
@@ -4156,11 +3833,35 @@ Can generalize to `? extends ProxyTargetConfirmationOptions`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetAutoConfActivationLayout.java`
 #### Snippet
 ```java
+    }
+
+    public TextField createInitiatorField(final Binder<ProxyTargetConfirmationOptions> binder) {
+        final TextField initiatorField = new TextFieldBuilder(64).id(AUTO_CONFIRMATION_ACTIVATION_DIALOG_INITIATOR)
+                .caption(i18n.getMessage(CAPTION_TEXTFIELD_INITIATOR))
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTargetConfirmationOptions`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetAutoConfActivationLayout.java`
+#### Snippet
+```java
      * @return input component
      */
     public TextArea createRemarkInputArea(final Binder<ProxyTargetConfirmationOptions> binder) {
         return FormComponentBuilder
                 .createBigTextInput(binder, i18n, AUTO_CONFIRMATION_ACTIVATION_DIALOG_REMARK,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTarget`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetGrid.java`
+#### Snippet
+```java
+    }
+
+    private boolean deleteTargets(final Collection<ProxyTarget> targetsToBeDeleted) {
+        final Collection<Long> targetToBeDeletedIds = targetsToBeDeleted.stream().map(ProxyIdentifiableEntity::getId)
+                .collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
@@ -4188,30 +3889,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/Targe
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyTarget`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetGrid.java`
-#### Snippet
-```java
-    }
-
-    private boolean deleteTargets(final Collection<ProxyTarget> targetsToBeDeleted) {
-        final Collection<Long> targetToBeDeletedIds = targetsToBeDeleted.stream().map(ProxyIdentifiableEntity::getId)
-                .collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyBulkUploadWindow`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
-#### Snippet
-```java
-            final TargetManagement targetManagement, final TargetTagManagement tagManagement,
-            final DistributionSetManagement distributionSetManagement, final DeploymentManagement deploymentManagement,
-            final Supplier<ProxyBulkUploadWindow> bulkUploadInputsProvider) {
-        this.targetManagement = targetManagement;
-        this.deploymentManagement = deploymentManagement;
-```
-
-### BoundedWildcard
 Can generalize to `? extends SoftwareModuleType`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/smtype/filter/SmTypeCssStylesHandler.java`
 #### Snippet
@@ -4224,39 +3901,15 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/smtype/filter/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyDistributionSet`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/dstable/DsWindowLayoutComponentBuilder.java`
+Can generalize to `? extends ProxyType`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/disttype/DsTypeWindowLayoutComponentBuilder.java`
 #### Snippet
 ```java
-     * @return input component
+     * @return layout of distribution set software module selection
      */
-    public TextField createVersionField(final Binder<ProxyDistributionSet> binder) {
-        return FormComponentBuilder.createVersionInput(binder, i18n, UIComponentIdProvider.DIST_ADD_VERSION)
-                .getComponent();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyDistributionSet`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/dstable/DsWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return Distribution set type combobox
-     */
-    public ComboBox<ProxyTypeInfo> createDistributionSetTypeCombo(final Binder<ProxyDistributionSet> binder) {
-        return FormComponentBuilder
-                .createTypeCombo(binder, dsTypeDataProvider, i18n, UIComponentIdProvider.DIST_ADD_DISTSETTYPE, true)
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyDistributionSet`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/dstable/DsWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return input component
-     */
-    public TextField createNameField(final Binder<ProxyDistributionSet> binder) {
-        return FormComponentBuilder.createNameInput(binder, i18n, UIComponentIdProvider.DIST_ADD_NAME).getComponent();
-    }
+    public DsTypeSmSelectLayout createDsTypeSmSelectLayout(final Binder<ProxyType> binder) {
+        final DsTypeSmSelectLayout dsTypeSmSelectLayout = new DsTypeSmSelectLayout(i18n, softwareModuleTypeManagement);
+        dsTypeSmSelectLayout.setRequiredIndicatorVisible(true);
 ```
 
 ### BoundedWildcard
@@ -4278,21 +3931,45 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/dstable/DsWind
 ```java
      * @return input component
      */
+    public TextField createNameField(final Binder<ProxyDistributionSet> binder) {
+        return FormComponentBuilder.createNameInput(binder, i18n, UIComponentIdProvider.DIST_ADD_NAME).getComponent();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyDistributionSet`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/dstable/DsWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return Distribution set type combobox
+     */
+    public ComboBox<ProxyTypeInfo> createDistributionSetTypeCombo(final Binder<ProxyDistributionSet> binder) {
+        return FormComponentBuilder
+                .createTypeCombo(binder, dsTypeDataProvider, i18n, UIComponentIdProvider.DIST_ADD_DISTSETTYPE, true)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyDistributionSet`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/dstable/DsWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return input component
+     */
     public TextArea createDescription(final Binder<ProxyDistributionSet> binder) {
         return FormComponentBuilder.createDescriptionInput(binder, i18n, UIComponentIdProvider.DIST_ADD_DESC)
                 .getComponent();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxyType`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/disttype/DsTypeWindowLayoutComponentBuilder.java`
+Can generalize to `? extends ProxyDistributionSet`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/distributions/dstable/DsWindowLayoutComponentBuilder.java`
 #### Snippet
 ```java
-     * @return layout of distribution set software module selection
+     * @return input component
      */
-    public DsTypeSmSelectLayout createDsTypeSmSelectLayout(final Binder<ProxyType> binder) {
-        final DsTypeSmSelectLayout dsTypeSmSelectLayout = new DsTypeSmSelectLayout(i18n, softwareModuleTypeManagement);
-        dsTypeSmSelectLayout.setRequiredIndicatorVisible(true);
+    public TextField createVersionField(final Binder<ProxyDistributionSet> binder) {
+        return FormComponentBuilder.createVersionInput(binder, i18n, UIComponentIdProvider.DIST_ADD_VERSION)
+                .getComponent();
 ```
 
 ### BoundedWildcard
@@ -4312,18 +3989,6 @@ Can generalize to `? extends ProxyTargetFilterQuery`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/TargetFilterAddUpdateLayoutComponentBuilder.java`
 #### Snippet
 ```java
-     * @return input component
-     */
-    public TextField createNameField(final Binder<ProxyTargetFilterQuery> binder) {
-        final TextField filterName = FormComponentBuilder
-                .createNameInput(binder, i18n, UIComponentIdProvider.CUSTOM_FILTER_ADD_NAME).getComponent();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyTargetFilterQuery`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/TargetFilterAddUpdateLayoutComponentBuilder.java`
-#### Snippet
-```java
      * @return Auto complete query field component
      */
     public AutoCompleteTextFieldComponent createQueryField(final Binder<ProxyTargetFilterQuery> binder) {
@@ -4333,14 +3998,14 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/TargetFilte
 
 ### BoundedWildcard
 Can generalize to `? extends ProxyTargetFilterQuery`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowLayoutComponentBuilder.java`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/TargetFilterAddUpdateLayoutComponentBuilder.java`
 #### Snippet
 ```java
-     * @return Auto assignment checkbox
+     * @return input component
      */
-    public CheckBox createEnableCheckbox(final Binder<ProxyTargetFilterQuery> binder) {
-        final String caption = i18n.getMessage(UIMessageIdProvider.LABEL_AUTO_ASSIGNMENT_ENABLE);
-        return FormComponentBuilder.createCheckBox(caption, UIComponentIdProvider.DIST_SET_SELECT_ENABLE_ID, binder,
+    public TextField createNameField(final Binder<ProxyTargetFilterQuery> binder) {
+        final TextField filterName = FormComponentBuilder
+                .createNameInput(binder, i18n, UIComponentIdProvider.CUSTOM_FILTER_ADD_NAME).getComponent();
 ```
 
 ### BoundedWildcard
@@ -4372,6 +4037,18 @@ Can generalize to `? extends ProxyTargetFilterQuery`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowLayoutComponentBuilder.java`
 #### Snippet
 ```java
+     * @return Auto assignment checkbox
+     */
+    public CheckBox createEnableCheckbox(final Binder<ProxyTargetFilterQuery> binder) {
+        final String caption = i18n.getMessage(UIMessageIdProvider.LABEL_AUTO_ASSIGNMENT_ENABLE);
+        return FormComponentBuilder.createCheckBox(caption, UIComponentIdProvider.DIST_SET_SELECT_ENABLE_ID, binder,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyTargetFilterQuery`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
      */
     public BoundComponent<ComboBox<ProxyDistributionSet>> createDistributionSetCombo(
             final Binder<ProxyTargetFilterQuery> binder, final DistributionSetStatelessDataProvider dataProvider) {
@@ -4392,18 +4069,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/TargetFilte
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProxySystemConfigDsType`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/window/SystemConfigWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-     * @return Distribution set type combo box
-     */
-    public ComboBox<ProxyTypeInfo> createDistributionSetTypeCombo(final Binder<ProxySystemConfigDsType> binder) {
-        final ComboBox<ProxyTypeInfo> dsTypeCombo = SPUIComponentProvider.getComboBox(
-                UIComponentIdProvider.SYSTEM_CONFIGURATION_DEFAULTDIS_COMBOBOX, null,
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProxyTypeInfo`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/DefaultDistributionSetTypeView.java`
 #### Snippet
@@ -4413,6 +4078,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/DefaultD
     private void selectDistributionSetTypeValue(final HasValue.ValueChangeEvent<ProxyTypeInfo> event) {
         changeIcon.setVisible(!event.getValue().getId().equals(currentDefaultDistSetTypeId));
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxySystemConfigDsType`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/window/SystemConfigWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+     * @return Distribution set type combo box
+     */
+    public ComboBox<ProxyTypeInfo> createDistributionSetTypeCombo(final Binder<ProxySystemConfigDsType> binder) {
+        final ComboBox<ProxyTypeInfo> dsTypeCombo = SPUIComponentProvider.getComboBox(
+                UIComponentIdProvider.SYSTEM_CONFIGURATION_DEFAULTDIS_COMBOBOX, null,
 ```
 
 ### BoundedWildcard
@@ -4440,327 +4117,51 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/TenantCo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TargetType`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetTypeMapper.java`
+Can generalize to `? extends UserPrincipal`
+in `hawkbit-autoconfigure/src/main/java/org/eclipse/hawkbit/autoconfigure/security/InMemoryUserManagementAutoConfiguration.java`
+#### Snippet
+```java
+        private final HashMap<String, UserPrincipal> userPrincipalMap = new HashMap<>();
+
+        public FixedInMemoryUserPrincipalUserDetailsService(final Collection<UserPrincipal> userPrincipals) {
+            for (final UserPrincipal user : userPrincipals) {
+                userPrincipalMap.put(user.getUsername(), user);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DmfTarget`
+in `hawkbit-dmf/hawkbit-dmf-api/src/main/java/org/eclipse/hawkbit/dmf/json/model/DmfBatchDownloadAndUpdateRequest.java`
+#### Snippet
+```java
+     *            the target
+     */
+    public void addTargets(final List<DmfTarget> targets) {
+        if (this.targets == null) {
+            this.targets = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DmfArtifact`
+in `hawkbit-dmf/hawkbit-dmf-api/src/main/java/org/eclipse/hawkbit/dmf/json/model/DmfSoftwareModule.java`
 #### Snippet
 ```java
     }
 
-    static List<MgmtTargetType> toListResponse(final List<TargetType> types) {
-        if (types == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtTargetTypeRequestBodyPost`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetTypeMapper.java`
-#### Snippet
-```java
-
-    static List<TargetTypeCreate> targetFromRequest(final EntityFactory entityFactory,
-            final Collection<MgmtTargetTypeRequestBodyPost> targetTypesRest) {
-        if (targetTypesRest == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
-#### Snippet
-```java
+    public void setArtifacts(final List<DmfArtifact> artifacts) {
+        this.artifacts = artifacts;
     }
-
-    static List<MgmtArtifact> artifactsToResponse(final Collection<Artifact> artifacts) {
-        if (artifacts == null) {
-            return Collections.emptyList();
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends SoftwareModuleMetadata`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
+in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DataConversionHelper.java`
 #### Snippet
 ```java
     }
 
-    static List<MgmtSoftwareModuleMetadata> toResponseSwMetadata(final Collection<SoftwareModuleMetadata> metadata) {
-        if (metadata == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtSoftwareModuleMetadata`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
-#### Snippet
-```java
-
-    static List<SoftwareModuleMetadataCreate> fromRequestSwMetadata(final EntityFactory entityFactory,
-            final Long softwareModuleId, final Collection<MgmtSoftwareModuleMetadata> metadata) {
-        if (metadata == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModule`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtSoftwareModule> toResponse(final Collection<SoftwareModule> softwareModules) {
-        if (softwareModules == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtSoftwareModuleRequestBodyPost`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
-#### Snippet
-```java
-
-    static List<SoftwareModuleCreate> smFromRequest(final EntityFactory entityFactory,
-            final Collection<MgmtSoftwareModuleRequestBodyPost> smsRest) {
-        if (smsRest == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoftwareModuleType`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleTypeMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtSoftwareModuleType> toTypesResponse(final Collection<SoftwareModuleType> types) {
-        if (types == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtSoftwareModuleTypeRequestBodyPost`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleTypeMapper.java`
-#### Snippet
-```java
-
-    static List<SoftwareModuleTypeCreate> smFromRequest(final EntityFactory entityFactory,
-            final Collection<MgmtSoftwareModuleTypeRequestBodyPost> smTypesRest) {
-        if (smTypesRest == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtAssignedTargetRequestBody`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetTagResource.java`
-#### Snippet
-```java
-
-    private List<String> findTargetControllerIds(
-            final List<MgmtAssignedTargetRequestBody> assignedTargetRequestBodies) {
-        return assignedTargetRequestBodies.stream().map(MgmtAssignedTargetRequestBody::getControllerId)
-                .collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetMetadata`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtMetadata> toResponseDsMetadata(final List<DistributionSetMetadata> metadata) {
-
-        final List<MgmtMetadata> mappedList = new ArrayList<>(metadata.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSet`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtDistributionSet> toResponseFromDsList(final List<DistributionSet> sets) {
-        if (sets == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtDistributionSetRequestBodyPost`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
-#### Snippet
-```java
-     * @return converted list of {@link DistributionSet}s
-     */
-    static List<DistributionSetCreate> dsFromRequest(final Collection<MgmtDistributionSetRequestBodyPost> sets,
-            final EntityFactory entityFactory) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSet`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtDistributionSet> toResponseDistributionSets(final Collection<DistributionSet> sets) {
-        if (sets == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtMetadata`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MetaData> fromRequestDsMetadata(final List<MgmtMetadata> metadata, final EntityFactory entityFactory) {
-        if (metadata == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetAssignmentResult`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
-#### Snippet
-```java
-
-    static MgmtTargetAssignmentResponseBody toResponse(
-            final List<DistributionSetAssignmentResult> dsAssignmentResults) {
-        final MgmtTargetAssignmentResponseBody result = new MgmtTargetAssignmentResponseBody();
-        final int alreadyAssigned = dsAssignmentResults.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtDistributionSetTypeAssignment`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetTypeResource.java`
-#### Snippet
-```java
-    @Override
-    public ResponseEntity<Void> addCompatibleDistributionSets(@PathVariable("targetTypeId") final Long targetTypeId,
-            @RequestBody final List<MgmtDistributionSetTypeAssignment> distributionSetTypeIds) {
-
-        targetTypeManagement.assignCompatibleDistributionSetTypes(targetTypeId, distributionSetTypeIds.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtAssignedDistributionSetRequestBody`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetTagResource.java`
-#### Snippet
-```java
-
-    private static List<Long> findDistributionSetIds(
-            final List<MgmtAssignedDistributionSetRequestBody> assignedDistributionSetRequestBodies) {
-        return assignedDistributionSetRequestBodies.stream()
-                .map(MgmtAssignedDistributionSetRequestBody::getDistributionSetId).collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtTargetAssignmentRequestBody`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetResource.java`
-#### Snippet
-```java
-    public ResponseEntity<MgmtTargetAssignmentResponseBody> createAssignedTarget(
-            @PathVariable("distributionSetId") final Long distributionSetId,
-            @RequestBody final List<MgmtTargetAssignmentRequestBody> assignments,
-            @RequestParam(value = "offline", required = false) final boolean offline) {
-        if (offline) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtSoftwareModuleAssigment`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetResource.java`
-#### Snippet
-```java
-    @Override
-    public ResponseEntity<Void> assignSoftwareModules(@PathVariable("distributionSetId") final Long distributionSetId,
-            @RequestBody final List<MgmtSoftwareModuleAssigment> softwareModuleIDs) {
-
-        distributionSetManagement.assignSoftwareModules(distributionSetId,
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetFilterQuery`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetFilterQueryMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtTargetFilterQuery> toResponse(final List<TargetFilterQuery> filters,
-            final boolean confirmationFlowEnabled) {
-        if (CollectionUtils.isEmpty(filters)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtActionMapper.java`
-#### Snippet
-```java
-     * @return the response
-     */
-    public static List<MgmtAction> toResponse(final Collection<Action> actions, final MgmtRepresentationMode repMode) {
-        if (actions == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Rollout`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRolloutMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtRolloutResponseBody> toResponseRollout(final List<Rollout> rollouts, final boolean withDetails) {
-        if (rollouts == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends RolloutGroup`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRolloutMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtRolloutGroupResponseBody> toResponseRolloutGroup(final List<RolloutGroup> rollouts,
-            final boolean confirmationFlowEnabled) {
-        if (rollouts == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetTag`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTagMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtTag> toResponse(final List<TargetTag> targetTags) {
-        final List<MgmtTag> tagsRest = new ArrayList<>();
-        if (targetTags == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetTag`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTagMapper.java`
-#### Snippet
-```java
-    }
-
-    static List<MgmtTag> toResponseDistributionSetTag(final List<DistributionSetTag> distributionSetTags) {
-        final List<MgmtTag> tagsRest = new ArrayList<>();
-        if (distributionSetTags == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MgmtTagRequestBodyPut`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTagMapper.java`
-#### Snippet
-```java
-
-    static List<TagCreate> mapTagFromRequest(final EntityFactory entityFactory,
-            final Collection<MgmtTagRequestBodyPut> tags) {
-        return tags.stream()
-                .map(tagRest -> entityFactory.tag().create().name(tagRest.getName())
+    private static List<DdiMetadata> mapMetadata(final List<SoftwareModuleMetadata> metadata) {
+        return CollectionUtils.isEmpty(metadata) ? null
+                : metadata.stream().map(md -> new DdiMetadata(md.getKey(), md.getValue())).collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
@@ -4776,27 +4177,39 @@ in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/mo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MgmtDistributionSetTypeRequestBodyPost`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetTypeMapper.java`
-#### Snippet
-```java
-
-    static List<DistributionSetTypeCreate> smFromRequest(final EntityFactory entityFactory,
-            final Collection<MgmtDistributionSetTypeRequestBodyPost> smTypesRest) {
-        if (smTypesRest == null) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistributionSetType`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetTypeMapper.java`
+Can generalize to `? extends RolloutGroup`
+in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutHelper.java`
 #### Snippet
 ```java
     }
 
-    static List<MgmtDistributionSetType> toListResponse(final Collection<DistributionSetType> types) {
-        if (types == null) {
-            return Collections.emptyList();
+    private static boolean isTargetFilterInGroups(final String groupFilter, final List<RolloutGroup> groups) {
+        return !StringUtils.isEmpty(groupFilter)
+                && groups.stream().anyMatch(prevGroup -> !StringUtils.isEmpty(prevGroup.getTargetFilterQuery())
+```
+
+### BoundedWildcard
+Can generalize to `? extends RolloutGroup`
+in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutHelper.java`
+#### Snippet
+```java
+     * @return list of groups
+     */
+    public static List<Long> getGroupsByStatusIncludingGroup(final List<RolloutGroup> groups,
+            final RolloutGroup.RolloutGroupStatus status, final RolloutGroup group) {
+        return groups.stream().filter(innerGroup -> innerGroup.getStatus() == status || innerGroup.equals(group))
+```
+
+### BoundedWildcard
+Can generalize to `? extends RolloutGroup`
+in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutHelper.java`
+#### Snippet
+```java
+     *         string.
+     */
+    public static String getAllGroupsTargetFilter(final List<RolloutGroup> groups) {
+        if (groups.stream().anyMatch(group -> StringUtils.isEmpty(group.getTargetFilterQuery()))) {
+            return "";
 ```
 
 ### BoundedWildcard
@@ -4812,207 +4225,795 @@ in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/mo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TargetMetadata`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+Can generalize to `? super String`
+in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
 #### Snippet
 ```java
     }
 
-    static List<MgmtMetadata> toResponseTargetMetadata(final List<TargetMetadata> metadata) {
-        return metadata.stream().map(MgmtTargetMapper::toResponseTargetMetadata).collect(Collectors.toList());
+    private static void addMessageIfEmpty(final String text, final List<String> messages) {
+        if (messages != null && messages.isEmpty()) {
+            messages.add(RepositoryConstants.SERVER_MESSAGE_PREFIX + text + ".");
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
+#### Snippet
+```java
+
+    private static Status handleCaseCancelCanceled(final DdiActionFeedback feedback, final Target target,
+            final Long actionId, final List<String> messages) {
+        final Status status;
+        LOG.error(
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaTenantConfigurationManagement.java`
+#### Snippet
+```java
+    @Override
+    public <T extends Serializable> TenantConfigurationValue<T> buildTenantConfigurationValueByKey(
+            final TenantConfigurationKey configurationKey, final Class<T> propertyType,
+            final TenantConfiguration tenantConfiguration) {
+        if (tenantConfiguration != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutStatusCache.java`
+#### Snippet
+```java
+    }
+
+    private void putIntoCache(final Map<Long, List<TotalTargetCountActionStatus>> put, @NotNull final Cache cache) {
+        put.forEach((k, v) -> cache.put(k, new CachedTotalTargetCountActionStatus(k, v)));
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ActionStatus`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+Can generalize to `? super String`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSystemManagement.java`
 #### Snippet
 ```java
-    }
+    // intended in this case
+    @SuppressWarnings("squid:S2229")
+    public void forEachTenant(final Consumer<String> consumer) {
 
-    static List<MgmtActionStatus> toActionStatusRestResponse(final Collection<ActionStatus> actionStatus,
-            final DeploymentManagement deploymentManagement) {
-        if (actionStatus == null) {
+        Page<String> tenants;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MgmtMetadata`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+Can generalize to `? extends List`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OfflineDsAssignmentStrategy.java`
 #### Snippet
 ```java
-    }
 
-    static List<MetaData> fromRequestTargetMetadata(final List<MgmtMetadata> metadata,
-            final EntityFactory entityFactory) {
-        if (metadata == null) {
+    @Override
+    public void setAssignedDistributionSetAndTargetStatus(final JpaDistributionSet set, final List<List<Long>> targetIds,
+            final String currentUser) {
+        targetIds.forEach(tIds -> targetRepository.setAssignedAndInstalledDistributionSetAndUpdateStatus(
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MgmtTargetRequestBody`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+Can generalize to `? extends JpaTarget`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OfflineDsAssignmentStrategy.java`
 #### Snippet
 ```java
 
-    static List<TargetCreate> fromRequest(final EntityFactory entityFactory,
-            final Collection<MgmtTargetRequestBody> targetsRest) {
-        if (targetsRest == null) {
-            return Collections.emptyList();
+    @Override
+    public void sendTargetUpdatedEvents(final DistributionSet set, final List<JpaTarget> targets) {
+        targets.forEach(target -> {
+            target.setUpdateStatus(TargetUpdateStatus.IN_SYNC);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+Can generalize to `? super J`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaManagementHelper.java`
 #### Snippet
 ```java
-    }
 
-    static List<MgmtAction> toResponse(final String targetId, final Collection<Action> actions) {
-        if (actions == null) {
-            return Collections.emptyList();
+    public static <J extends AbstractJpaBaseEntity> J touch(final EntityManager entityManager,
+            final CrudRepository<J, ?> repository, final J entity) {
+        // merge base entity so optLockRevision gets updated and audit
+        // log written because modifying e.g. metadata is modifying the base
+```
+
+### BoundedWildcard
+Can generalize to `? super SoftwareModuleType`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetTypeManagement.java`
+#### Snippet
+```java
+
+    private void addModuleTypes(final Collection<Long> currentSmTypeIds, final Collection<Long> updatedSmTypeIds,
+            final Function<SoftwareModuleType, JpaDistributionSetType> addModuleTypeCallback) {
+        final Set<Long> smTypeIdsToAdd = updatedSmTypeIds.stream().filter(id -> !currentSmTypeIds.contains(id))
+                .collect(Collectors.toSet());
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSetTypeCreate`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetTypeManagement.java`
+#### Snippet
+```java
+    @Retryable(include = {
+            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
+    public List<DistributionSetType> create(final Collection<DistributionSetTypeCreate> types) {
+        return types.stream().map(this::create).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetTypeCreate`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaTargetTypeManagement.java`
+#### Snippet
+```java
+    @Retryable(include = {
+            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
+    public List<TargetType> create(final Collection<TargetTypeCreate> creates) {
+        return creates.stream().map(this::create).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JpaTarget`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
+#### Snippet
+```java
+
+    @Override
+    public void sendTargetUpdatedEvents(final DistributionSet set, final List<JpaTarget> targets) {
+        targets.forEach(target -> {
+            target.setUpdateStatus(TargetUpdateStatus.PENDING);
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
+#### Snippet
+```java
+
+    @Override
+    public void setAssignedDistributionSetAndTargetStatus(final JpaDistributionSet set, final List<List<Long>> targetIds,
+            final String currentUser) {
+        targetIds.forEach(tIds -> targetRepository.setAssignedDistributionSetAndUpdateStatus(TargetUpdateStatus.PENDING,
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
+#### Snippet
+```java
+
+    @Override
+    public void closeActiveActions(final List<List<Long>> targetIds) {
+        targetIds.forEach(this::closeObsoleteUpdateActions);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<Long> cancelActiveActions(final List<List<Long>> targetIds) {
+        return targetIds.stream().map(this::overrideObsoleteUpdateActions).flatMap(Collection::stream)
+                .collect(Collectors.toSet());
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSetAssignmentResult`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/OnlineDsAssignmentStrategy.java`
+#### Snippet
+```java
+
+    @Override
+    public void sendDeploymentEvents(final List<DistributionSetAssignmentResult> assignmentResults) {
+        if (isMultiAssignmentsEnabled()) {
+            sendDeploymentEvent(assignmentResults.stream().flatMap(result -> result.getAssignedEntity().stream())
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModuleTypeCreate`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSoftwareModuleTypeManagement.java`
+#### Snippet
+```java
+    @Retryable(include = {
+            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
+    public List<SoftwareModuleType> create(final Collection<SoftwareModuleTypeCreate> creates) {
+        return creates.stream().map(this::create).collect(Collectors.toList());
+    }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Target`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutExecutor.java`
 #### Snippet
 ```java
-     * @return the response
+     * is created in-active.
      */
-    public static List<MgmtTarget> toResponse(final Collection<Target> targets, final TenantConfigHelper configHelper) {
-        if (targets == null) {
-            return Collections.emptyList();
+    private void createScheduledAction(final Collection<Target> targets, final DistributionSet distributionSet,
+            final ActionType actionType, final Long forcedTime, final Rollout rollout,
+            final RolloutGroup rolloutGroup) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+Can generalize to `? extends JpaRolloutGroup`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutExecutor.java`
 #### Snippet
 ```java
     }
 
-    protected void sendMultiActionRequestToTarget(final String tenant, final Target target, final List<Action> actions,
-            final Function<Action, Map<SoftwareModule, List<SoftwareModuleMetadata>>> getSoftwareModuleMetaData) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Action`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
-#### Snippet
-```java
-
-    protected void sendMultiActionRequestToTarget(final String tenant, final Target target, final List<Action> actions,
-            final Function<Action, Map<SoftwareModule, List<SoftwareModuleMetadata>>> getSoftwareModuleMetaData) {
-
-        final URI targetAddress = target.getAddress();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`>
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
-#### Snippet
-```java
-
-    protected void sendMultiActionRequestToTarget(final String tenant, final Target target, final List<Action> actions,
-            final Function<Action, Map<SoftwareModule, List<SoftwareModuleMetadata>>> getSoftwareModuleMetaData) {
-
-        final URI targetAddress = target.getAddress();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ActionProperties`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
-#### Snippet
-```java
-    }
-
-    private void sendBatchUpdateMessage(final Map<String, ActionProperties> actions, final List<Target> targets,
-            final Map<SoftwareModule, List<SoftwareModuleMetadata>> modules) {
+    private void executeRolloutGroups(final JpaRollout rollout, final List<JpaRolloutGroup> rolloutGroups) {
+        for (final JpaRolloutGroup rolloutGroup : rolloutGroups) {
 
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Target`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutExecutor.java`
 #### Snippet
 ```java
     }
 
-    private void sendBatchUpdateMessage(final Map<String, ActionProperties> actions, final List<Target> targets,
-            final Map<SoftwareModule, List<SoftwareModuleMetadata>> modules) {
+    private void createAssignmentOfTargetsToGroup(final Slice<Target> targets, final RolloutGroup group) {
+        targets.forEach(target -> rolloutTargetGroupRepository.save(new RolloutTargetGroup(group, target)));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoftwareModuleCreate`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSoftwareModuleManagement.java`
+#### Snippet
+```java
+    @Retryable(include = {
+            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
+    public List<SoftwareModule> create(final Collection<SoftwareModuleCreate> swModules) {
+        return swModules.stream().map(this::create).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Specification`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSoftwareModuleManagement.java`
+#### Snippet
+```java
+    }
+
+    private Predicate[] specificationsToPredicate(final List<Specification<JpaSoftwareModule>> specifications,
+            final Root<JpaSoftwareModule> root, final CriteriaQuery<?> query, final CriteriaBuilder cb,
+            final Predicate... additionalPredicates) {
+```
+
+### BoundedWildcard
+Can generalize to `? super SuggestToken`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+
+    private static void setExceptionDetails(final String rsqlQuery, final Exception ex,
+            final List<SuggestToken> expectedTokens) {
+        final ParseException parseException = findParseException(ex);
+        if (parseException == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SuggestToken`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+    }
+
+    private static String getCustomMessage(final String message, final List<SuggestToken> expectedTokens) {
+        String builder = message;
 
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+Can generalize to `? super SuggestToken`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
 #### Snippet
 ```java
     }
 
-    private List<DmfArtifact> convertArtifacts(final Target target, final List<Artifact> localArtifacts) {
-        if (localArtifacts.isEmpty()) {
-            return Collections.emptyList();
+    private static void addSuggestionOnTokenImage(final List<SuggestToken> listTokens, final int nextTokenBeginColumn,
+            final int currentTokenEndColumn, final int[] is) {
+        for (final int i : is) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoftwareModuleMetadata`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+Can generalize to `? extends MetaData`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetManagement.java`
+#### Snippet
+```java
+    @Retryable(include = {
+            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
+    public List<DistributionSetMetadata> createMetaData(final long dsId, final Collection<MetaData> md) {
+
+        md.forEach(meta -> checkAndThrowIfDistributionSetMetadataAlreadyExists(
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistributionSetCreate`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDistributionSetManagement.java`
+#### Snippet
+```java
+    @Retryable(include = {
+            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
+    public List<DistributionSet> create(final Collection<DistributionSetCreate> creates) {
+        return creates.stream().map(this::create).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaData`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaTargetManagement.java`
+#### Snippet
+```java
+    @Retryable(include = {
+            ConcurrencyFailureException.class }, maxAttempts = Constants.TX_RT_MAX, backoff = @Backoff(delay = Constants.TX_RT_DELAY))
+    public List<TargetMetadata> createMetaData(final String controllerId, final Collection<MetaData> md) {
+
+        final JpaTarget target = getByControllerIdAndThrowIfNotFound(controllerId);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaControllerManagement.java`
 #### Snippet
 ```java
     }
 
-    private List<DmfMetadata> convertMetadata(final List<SoftwareModuleMetadata> metadata) {
-        return metadata.stream().map(md -> new DmfMetadata(md.getKey(), md.getValue())).collect(Collectors.toList());
+    private static void copy(final Map<String, String> src, final Map<String, String> trg) {
+        if (src == null || src.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaControllerManagement.java`
+#### Snippet
+```java
     }
+
+    private static void copy(final Map<String, String> src, final Map<String, String> trg) {
+        if (src == null || src.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetPoll`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaControllerManagement.java`
+#### Snippet
+```java
+    }
+
+    private Void updateLastTargetQueries(final String tenant, final List<TargetPoll> polls) {
+        LOG.debug("Persist {} targetqueries.", polls.size());
+
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends SoftwareModule`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaDistributionSet.java`
+#### Snippet
+```java
+     */
+    public JpaDistributionSet(final String name, final String version, final String description,
+            final DistributionSetType type, final Collection<SoftwareModule> moduleList,
+            final boolean requiredMigrationStep) {
+        super(name, version, description);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeploymentRequest`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/utils/WeightValidationHelper.java`
+#### Snippet
+```java
+     *            the {@linkplain List} of {@link DeploymentRequest}s
+     */
+    public void validate(final List<DeploymentRequest> deploymentRequests) {
+        final long assignmentsWithWeight = deploymentRequests.stream()
+                .filter(request -> request.getTargetWithActionType().getWeight() != null).count();
+```
+
+### BoundedWildcard
+Can generalize to `? extends RolloutGroupCreate`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
+#### Snippet
+```java
+    @Override
+    @Async
+    public ListenableFuture<RolloutGroupsValidation> validateTargetsInGroups(final List<RolloutGroupCreate> groups,
+            final String targetFilter, final Long createdAt, final Long dsTypeId) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Rollout`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
+#### Snippet
+```java
+    }
+
+    private void setRolloutStatusDetails(final Slice<Rollout> rollouts) {
+        final List<Long> rolloutIds = rollouts.getContent().stream().map(Rollout::getId).collect(Collectors.toList());
+        final Map<Long, List<TotalTargetCountActionStatus>> allStatesForRollout = getStatusCountItemForRollout(
+```
+
+### BoundedWildcard
+Can generalize to `? extends RolloutGroupCreate`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
+#### Snippet
+```java
+    }
+
+    private Rollout createRolloutGroups(final List<RolloutGroupCreate> groupList,
+            final RolloutGroupConditions conditions, final Rollout rollout) {
+        RolloutHelper.verifyRolloutInStatus(rollout, RolloutStatus.CREATING);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
 #### Snippet
 ```java
 
-    private DmfSoftwareModule convertToAmqpSoftwareModule(final Target target,
-            final Entry<SoftwareModule, List<SoftwareModuleMetadata>> entry) {
-        final DmfSoftwareModule amqpSoftwareModule = new DmfSoftwareModule();
-        amqpSoftwareModule.setModuleId(entry.getKey().getId());
+    private long countOverlappingTargetsWithPreviousGroups(final String baseFilter, final List<RolloutGroup> groups,
+            final RolloutGroup group, final int groupIndex, final Map<String, Long> targetFilterCounts) {
+        // there can't be overlapping targets in the first group
+        if (groupIndex == 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CleanupTask`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/autocleanup/AutoCleanupScheduler.java`
+#### Snippet
+```java
+    public AutoCleanupScheduler(final SystemManagement systemManagement,
+            final SystemSecurityContext systemSecurityContext, final LockRegistry lockRegistry,
+            final List<CleanupTask> cleanupTasks) {
+        this.systemManagement = systemManagement;
+        this.systemSecurityContext = systemSecurityContext;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Specification`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/specifications/SpecificationsBuilder.java`
+#### Snippet
+```java
+     * @return <null> if the given specification list is empty
+     */
+    public static <T> Specification<T> combineWithAnd(final List<Specification<T>> specList) {
+        if (specList.isEmpty()) {
+            return null;
+```
+
+### BoundedWildcard
+Can generalize to `? super TargetFilterQuery`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/autoassign/AbstractAutoAssignExecutor.java`
+#### Snippet
+```java
+    }
+
+    protected void forEachFilterWithAutoAssignDS(final Consumer<TargetFilterQuery> consumer) {
+        Slice<TargetFilterQuery> filterQueries;
+        Pageable query = PageRequest.of(0, PAGE_SIZE);
+```
+
+### BoundedWildcard
+Can generalize to `? super Path`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
+#### Snippet
+```java
+
+    private static Optional<Path<?>> getFieldPath(final Root<?> root, final String[] split, final boolean isMapKeyField,
+            final BiFunction<Path<?>, String, Path<?>> joinFieldPathProvider) {
+        Path<?> fieldPath = null;
+        for (int i = 0; i < split.length; i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
+#### Snippet
+```java
+
+    private static Optional<Path<?>> getFieldPath(final Root<?> root, final String[] split, final boolean isMapKeyField,
+            final BiFunction<Path<?>, String, Path<?>> joinFieldPathProvider) {
+        Path<?> fieldPath = null;
+        for (int i = 0; i < split.length; i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
+#### Snippet
+```java
+
+    private static Optional<Path<?>> getFieldPath(final Root<?> root, final String[] split, final boolean isMapKeyField,
+            final BiFunction<Path<?>, String, Path<?>> joinFieldPathProvider) {
+        Path<?> fieldPath = null;
+        for (int i = 0; i < split.length; i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Expression`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
+#### Snippet
+```java
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private Predicate toNotExistsSubQueryPredicate(final String[] fieldNames, final A enumField,
+            final Function<Expression<String>, Predicate> subQueryPredicateProvider) {
+        final Class<?> javaType = root.getJavaType();
+        final Subquery<?> subquery = query.subquery(javaType);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Predicate`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
+#### Snippet
+```java
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private Predicate toNotExistsSubQueryPredicate(final String[] fieldNames, final A enumField,
+            final Function<Expression<String>, Predicate> subQueryPredicateProvider) {
+        final Class<?> javaType = root.getJavaType();
+        final Subquery<?> subquery = query.subquery(javaType);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/MultiActionEvent.java`
+#### Snippet
+```java
+    }
+
+    private static List<Long> getIdsFromActions(final List<Action> actions) {
+        return actions.stream().map(Identifiable::getId).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/MultiActionEvent.java`
+#### Snippet
+```java
+    }
+
+    private static List<String> getControllerIdsFromActions(final List<Action> actions) {
+        return actions.stream().map(Action::getTarget).map(Target::getControllerId).distinct()
+                .collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/AbstractAssignmentEvent.java`
+#### Snippet
+```java
+    }
+
+    protected AbstractAssignmentEvent(final Object source, final String tenant, final List<Action> a,
+            final String applicationId) {
+        super(source, tenant, applicationId);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/TargetAssignDistributionSetEvent.java`
+#### Snippet
+```java
+     *            see {@link Action#isMaintenanceWindowAvailable()}
+     */
+    public TargetAssignDistributionSetEvent(final String tenant, final long distributionSetId, final List<Action> a,
+            final String applicationId, final boolean maintenanceWindowAvailable) {
+        super(distributionSetId, tenant,
+```
+
+### BoundedWildcard
+Can generalize to `? extends TotalTargetCountActionStatus`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/model/TotalTargetCountStatus.java`
+#### Snippet
+```java
+     *            all target {@link Status} with total count
+     */
+    private void addToTotalCount(final List<TotalTargetCountActionStatus> targetCountActionStatus) {
+        if (targetCountActionStatus == null) {
+            statusTotalCountMap.put(TotalTargetCountStatus.Status.NOTSTARTED, totalTargetCount);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/PreAuthTokenSourceTrustAuthenticationProvider.java`
+#### Snippet
+```java
+     *            a list of IP addresses.
+     */
+    public PreAuthTokenSourceTrustAuthenticationProvider(final List<String> authorizedSourceIps) {
+        this.authorizedSourceIps = authorizedSourceIps;
+    }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends List`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/InMemoryUserAuthoritiesResolver.java`
 #### Snippet
 ```java
-
-    private DmfSoftwareModule convertToAmqpSoftwareModule(final Target target,
-            final Entry<SoftwareModule, List<SoftwareModuleMetadata>> entry) {
-        final DmfSoftwareModule amqpSoftwareModule = new DmfSoftwareModule();
-        amqpSoftwareModule.setModuleId(entry.getKey().getId());
+     *            The authority map to read from. Must not be <code>null</code>.
+     */
+    public InMemoryUserAuthoritiesResolver(final Map<String, List<String>> usernamesToAuthorities) {
+        this.usernamesToAuthorities = usernamesToAuthorities;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Collection`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+Can generalize to `? extends JpaAction`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
 #### Snippet
 ```java
 
-    private static <T, R> List<R> partitionedParallelExecution(final Collection<T> controllerIds,
-            final Function<Collection<T>, List<R>> loadingFunction) {
-        // Ensure not exceeding the max value of MAX_PROCESSING_SIZE
-        if (controllerIds.size() > MAX_PROCESSING_SIZE) {
+    private static DistributionSetAssignmentResult buildAssignmentResult(final JpaDistributionSet distributionSet,
+            final List<JpaAction> assignedActions, final int totalTargetsForAssignment) {
+        final int alreadyAssignedTargetsCount = totalTargetsForAssignment - assignedActions.size();
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+Can generalize to `? extends JpaAction`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    }
+
+    private void setInitialActionStatusOfRolloutGroup(final List<JpaAction> actions) {
+        final List<JpaActionStatus> statusList = new ArrayList<>();
+        for (final JpaAction action : actions) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetWithActionType`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+     */
+    private DistributionSetAssignmentResult assignDistributionSetToTargets(final String initiatedBy, final Long dsID,
+            final Collection<TargetWithActionType> targetsWithActionType, final String actionMessage,
+            final AbstractDsAssignmentStrategy assignmentStrategy) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends JpaAction`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    }
+
+    private void closeOrCancelOpenDeviceActions(final List<JpaAction> actions){
+        final List<Long> targetIds = actions.stream().map(JpaAction::getTarget).map(Target::getId)
+              .collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Entry`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public List<DistributionSetAssignmentResult> offlineAssignedDistributionSets(
+            final Collection<Entry<String, Long>> assignments) {
+        final Collection<Entry<String, Long>> distinctAssignments = assignments.stream().distinct()
+                .collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends JpaAction`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    }
+
+    private void setAssignmentOnTargets(final List<JpaAction> actions) {
+        final List<JpaTarget> assignedDsTargets = actions.stream().map(savedAction -> {
+            final JpaTarget mergedTarget = (JpaTarget) entityManager.merge(savedAction.getTarget());
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetWithActionType`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
 #### Snippet
 ```java
 
-    private static <T, R> List<R> partitionedParallelExecution(final Collection<T> controllerIds,
-            final Function<Collection<T>, List<R>> loadingFunction) {
-        // Ensure not exceeding the max value of MAX_PROCESSING_SIZE
-        if (controllerIds.size() > MAX_PROCESSING_SIZE) {
+    private Map<TargetWithActionType, JpaAction> createActions(final String initiatedBy,
+            final Collection<TargetWithActionType> targetsWithActionType, final List<JpaTarget> targets,
+            final AbstractDsAssignmentStrategy assignmentStrategy, final JpaDistributionSet set) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeploymentRequest`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    }
+
+    private void enforceMaxActionsPerTarget(final Collection<DeploymentRequest> deploymentRequests) {
+        final int quota = quotaManagement.getMaxActionsPerTarget();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetWithActionType`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    }
+
+    private void createActionsStatus(final Map<TargetWithActionType, JpaAction> actions,
+            final AbstractDsAssignmentStrategy assignmentStrategy, final String actionMessage) {
+        actionStatusRepository.saveAll(actions.entrySet().stream().map(entry -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JpaAction`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    }
+
+    private void createActionsStatus(final Map<TargetWithActionType, JpaAction> actions,
+            final AbstractDsAssignmentStrategy assignmentStrategy, final String actionMessage) {
+        actionStatusRepository.saveAll(actions.entrySet().stream().map(entry -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeploymentRequest`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+
+    private static Map<Long, List<TargetWithActionType>> convertRequest(
+            final Collection<DeploymentRequest> deploymentRequests) {
+        return deploymentRequests.stream().collect(Collectors.groupingBy(DeploymentRequest::getDistributionSetId,
+                Collectors.mapping(DeploymentRequest::getTargetWithActionType, Collectors.toList())));
+```
+
+### BoundedWildcard
+Can generalize to `? extends JpaTarget`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+     * statements
+     */
+    private static List<List<Long>> getTargetEntitiesAsChunks(final List<JpaTarget> targetEntities) {
+        return Lists.partition(targetEntities.stream().map(Target::getId).collect(Collectors.toList()),
+                Constants.MAX_ENTRIES_IN_STATEMENT);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeploymentRequest`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    }
+
+    private static void checkIfRequiresMultiAssignment(final Collection<DeploymentRequest> deploymentRequests) {
+        final long distinctTargetsInRequest = deploymentRequests.stream()
+                .map(request -> request.getTargetWithActionType().getControllerId()).distinct().count();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeploymentRequest`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+#### Snippet
+```java
+    }
+
+    private void checkForTargetTypeCompatibility(final List<DeploymentRequest> deploymentRequests) {
+        final List<String> controllerIds = deploymentRequests.stream().map(DeploymentRequest::getControllerId)
+                .distinct().collect(Collectors.toList());
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -5030,18 +5031,6 @@ public class JpaTargetBuilder implements TargetBuilder {
 
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `URI.create()` is ignored
-in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/builder/AbstractTargetUpdateCreate.java`
-#### Snippet
-```java
-        if (address != null) {
-            try {
-                URI.create(StringUtils.trimWhitespace(address));
-            } catch (final IllegalArgumentException e) {
-                throw new InvalidTargetAddressException(
-```
-
-### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `hawkbit-artifact-repository-filesystem/src/main/java/org/eclipse/hawkbit/artifact/repository/ArtifactFilesystemRepository.java`
 #### Snippet
@@ -5051,6 +5040,18 @@ in `hawkbit-artifact-repository-filesystem/src/main/java/org/eclipse/hawkbit/art
         aritfactDirectory.mkdirs();
         return new File(aritfactDirectory, sha1);
     }
+```
+
+### IgnoreResultOfCall
+Result of `URI.create()` is ignored
+in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/builder/AbstractTargetUpdateCreate.java`
+#### Snippet
+```java
+        if (address != null) {
+            try {
+                URI.create(StringUtils.trimWhitespace(address));
+            } catch (final IllegalArgumentException e) {
+                throw new InvalidTargetAddressException(
 ```
 
 ### IgnoreResultOfCall
@@ -5068,18 +5069,6 @@ in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/mo
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
 ### FunctionalExpressionCanBeFolded
 Method reference can be replaced with qualifier
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutExecutor.java`
-#### Snippet
-```java
-        if (hasScheduledActions) {
-            try {
-                final Iterable<JpaAction> iterable = scheduledActions::iterator;
-                final List<Long> actionIds = StreamSupport.stream(iterable.spliterator(), false).map(Action::getId)
-                        .collect(Collectors.toList());
-```
-
-### FunctionalExpressionCanBeFolded
-Method reference can be replaced with qualifier
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/EntityModifiedListener.java`
 #### Snippet
 ```java
@@ -5088,6 +5077,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/Entit
         UI.getCurrent().access(() -> entityModifiedAwareSupports.forEach(handler::accept));
     }
 
+```
+
+### FunctionalExpressionCanBeFolded
+Method reference can be replaced with qualifier
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutExecutor.java`
+#### Snippet
+```java
+        if (hasScheduledActions) {
+            try {
+                final Iterable<JpaAction> iterable = scheduledActions::iterator;
+                final List<Long> actionIds = StreamSupport.stream(iterable.spliterator(), false).map(Action::getId)
+                        .collect(Collectors.toList());
 ```
 
 ## RuleId[ruleID=UnnecessaryUnboxing]
@@ -5103,19 +5104,6 @@ in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/
                 applicationId);
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `isFilterPreviouslyClicked()` is identical to its super method
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/TargetTypeFilterButtonClick.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isFilterPreviouslyClicked(final ProxyTargetType clickedFilter) {
-        return (previouslyClickedFilterId != null && previouslyClickedFilterId.equals(clickedFilter.getId()));
-    }
-```
-
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
 Class name `ErrorController` is the same as one of its superclass' names
@@ -5129,7 +5117,44 @@ public class ErrorController extends BasicErrorController {
     private static final String PATH = "path";
 ```
 
+## RuleId[ruleID=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `isFilterPreviouslyClicked()` is identical to its super method
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/TargetTypeFilterButtonClick.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isFilterPreviouslyClicked(final ProxyTargetType clickedFilter) {
+        return (previouslyClickedFilterId != null && previouslyClickedFilterId.equals(clickedFilter.getId()));
+    }
+```
+
 ## RuleId[ruleID=DefaultAnnotationParam]
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/json/model/DdiActivateAutoConfirmation.java`
+#### Snippet
+```java
+    private final String initiator;
+
+    @JsonProperty(required = false)
+    private final String remark;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/json/model/DdiActivateAutoConfirmation.java`
+#### Snippet
+```java
+public class DdiActivateAutoConfirmation {
+
+    @JsonProperty(required = false)
+    private final String initiator;
+
+```
+
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/TestConfiguration.java`
@@ -5140,6 +5165,78 @@ in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit
 @EnableGlobalMethodSecurity(prePostEnabled = true, mode = AdviceMode.PROXY, proxyTargetClass = false, securedEnabled = true)
 @EnableConfigurationProperties({ HawkbitServerProperties.class, DdiSecurityProperties.class,
         ArtifactUrlHandlerProperties.class, ArtifactFilesystemProperties.class, HawkbitSecurityProperties.class,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/system/MgmtSystemTenantConfigurationValue.java`
+#### Snippet
+```java
+public class MgmtSystemTenantConfigurationValue extends RepresentationModel<MgmtSystemTenantConfigurationValue> {
+
+    @JsonInclude(Include.ALWAYS)
+    private Object value;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/system/MgmtSystemTenantConfigurationValue.java`
+#### Snippet
+```java
+    private Object value;
+
+    @JsonInclude(Include.ALWAYS)
+    private boolean isGlobal = true;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/target/MgmtTargetAutoConfirmUpdate.java`
+#### Snippet
+```java
+ */
+public class MgmtTargetAutoConfirmUpdate {
+    @JsonProperty(required = false)
+    private final String initiator;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/target/MgmtTargetAutoConfirmUpdate.java`
+#### Snippet
+```java
+    private final String initiator;
+
+    @JsonProperty(required = false)
+    private final String remark;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/target/MgmtDistributionSetAssignment.java`
+#### Snippet
+```java
+    @JsonProperty(required = false)
+    private Integer weight;
+    @JsonProperty(required = false)
+    private Boolean confirmationRequired;
+    private MgmtActionType type;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/target/MgmtDistributionSetAssignment.java`
+#### Snippet
+```java
+
+    private long forcetime;
+    @JsonProperty(required = false)
+    private Integer weight;
+    @JsonProperty(required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -5156,6 +5253,78 @@ in `hawkbit-autoconfigure/src/main/java/org/eclipse/hawkbit/autoconfigure/securi
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/targetfilter/MgmtTargetFilterQuery.java`
+#### Snippet
+```java
+ *
+ */
+@JsonInclude(Include.ALWAYS)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MgmtTargetFilterQuery extends MgmtBaseEntity {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/targetfilter/MgmtDistributionSetAutoAssignment.java`
+#### Snippet
+```java
+    private Integer weight;
+
+    @JsonProperty(required = false)
+    private Boolean confirmationRequired;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/targetfilter/MgmtDistributionSetAutoAssignment.java`
+#### Snippet
+```java
+    private MgmtActionType type;
+
+    @JsonProperty(required = false)
+    private Integer weight;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/targetfilter/MgmtDistributionSetAutoAssignment.java`
+#### Snippet
+```java
+public class MgmtDistributionSetAutoAssignment extends MgmtId {
+
+    @JsonProperty(required = false)
+    private MgmtActionType type;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/rollout/MgmtRolloutRestRequestBody.java`
+#### Snippet
+```java
+    private Integer weight;
+
+    @JsonProperty(required = false)
+    private Boolean confirmationRequired;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/rollout/MgmtRolloutRestRequestBody.java`
+#### Snippet
+```java
+    private Long startAt;
+
+    @JsonProperty(required = false)
+    private Integer weight;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTargetType.java`
 #### Snippet
 ```java
@@ -5164,6 +5333,30 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
     @Column(name = "colour", nullable = true, length = TargetType.COLOUR_MAX_SIZE)
     @Size(max = TargetType.COLOUR_MAX_SIZE)
     private String colour;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaAction.java`
+#### Snippet
+```java
+    private String initiatedBy;
+
+    @Column(name = "last_action_status_code", nullable = true, updatable = true)
+    private Integer lastActionStatusCode;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaAction.java`
+#### Snippet
+```java
+    private String initiatedBy;
+
+    @Column(name = "last_action_status_code", nullable = true, updatable = true)
+    private Integer lastActionStatusCode;
+
 ```
 
 ### DefaultAnnotationParam
@@ -5183,10 +5376,10 @@ Redundant default parameter value assignment
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTargetFilterQuery.java`
 #### Snippet
 ```java
-    private Integer autoAssignWeight;
+    private ActionType autoAssignActionType;
 
-    @Column(name = "auto_assign_initiated_by", nullable = true, length = USERNAME_FIELD_LENGTH)
-    private String autoAssignInitiatedBy;
+    @Column(name = "auto_assign_weight", nullable = true)
+    private Integer autoAssignWeight;
 
 ```
 
@@ -5195,10 +5388,10 @@ Redundant default parameter value assignment
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTargetFilterQuery.java`
 #### Snippet
 ```java
-    private ActionType autoAssignActionType;
-
-    @Column(name = "auto_assign_weight", nullable = true)
     private Integer autoAssignWeight;
+
+    @Column(name = "auto_assign_initiated_by", nullable = true, length = USERNAME_FIELD_LENGTH)
+    private String autoAssignInitiatedBy;
 
 ```
 
@@ -5252,30 +5445,6 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaAction.java`
-#### Snippet
-```java
-    private String initiatedBy;
-
-    @Column(name = "last_action_status_code", nullable = true, updatable = true)
-    private Integer lastActionStatusCode;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaAction.java`
-#### Snippet
-```java
-    private String initiatedBy;
-
-    @Column(name = "last_action_status_code", nullable = true, updatable = true)
-    private Integer lastActionStatusCode;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTag.java`
 #### Snippet
 ```java
@@ -5284,54 +5453,6 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
     @Column(name = "colour", nullable = true, length = Tag.COLOUR_MAX_SIZE)
     @Size(max = Tag.COLOUR_MAX_SIZE)
     private String colour;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
-#### Snippet
-```java
-    private JpaDistributionSet installedDistributionSet;
-
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "assigned_distribution_set", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_target_assign_ds"))
-    private JpaDistributionSet assignedDistributionSet;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
-#### Snippet
-```java
-
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "assigned_distribution_set", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_target_assign_ds"))
-    private JpaDistributionSet assignedDistributionSet;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
-#### Snippet
-```java
-    private TargetUpdateStatus updateStatus = TargetUpdateStatus.UNKNOWN;
-
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "installed_distribution_set", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_target_inst_ds"))
-    private JpaDistributionSet installedDistributionSet;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
-#### Snippet
-```java
-
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "installed_distribution_set", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_target_inst_ds"))
-    private JpaDistributionSet installedDistributionSet;
-
 ```
 
 ### DefaultAnnotationParam
@@ -5375,11 +5496,23 @@ Redundant default parameter value assignment
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
 #### Snippet
 ```java
-    @ElementCollection
-    @Column(name = "attribute_value", length = Target.CONTROLLER_ATTRIBUTE_VALUE_SIZE)
-    @MapKeyColumn(name = "attribute_key", nullable = false, length = Target.CONTROLLER_ATTRIBUTE_KEY_SIZE)
-    @CollectionTable(name = "sp_target_attributes", joinColumns = {
-            @JoinColumn(name = "target_id", nullable = false, updatable = false) }, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_targ_attrib_target"))
+    private TargetUpdateStatus updateStatus = TargetUpdateStatus.UNKNOWN;
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "installed_distribution_set", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_target_inst_ds"))
+    private JpaDistributionSet installedDistributionSet;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
+#### Snippet
+```java
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "installed_distribution_set", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_target_inst_ds"))
+    private JpaDistributionSet installedDistributionSet;
+
 ```
 
 ### DefaultAnnotationParam
@@ -5396,14 +5529,38 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaArtifact.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
 #### Snippet
 ```java
-    private JpaSoftwareModule softwareModule;
+    private JpaDistributionSet installedDistributionSet;
 
-    @Column(name = "md5_hash", length = 32, updatable = false, nullable = true)
-    private String md5Hash;
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigned_distribution_set", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_target_assign_ds"))
+    private JpaDistributionSet assignedDistributionSet;
+```
 
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
+#### Snippet
+```java
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigned_distribution_set", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_target_assign_ds"))
+    private JpaDistributionSet assignedDistributionSet;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
+#### Snippet
+```java
+    @ElementCollection
+    @Column(name = "attribute_value", length = Target.CONTROLLER_ATTRIBUTE_VALUE_SIZE)
+    @MapKeyColumn(name = "attribute_key", nullable = false, length = Target.CONTROLLER_ATTRIBUTE_KEY_SIZE)
+    @CollectionTable(name = "sp_target_attributes", joinColumns = {
+            @JoinColumn(name = "target_id", nullable = false, updatable = false) }, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_targ_attrib_target"))
 ```
 
 ### DefaultAnnotationParam
@@ -5415,6 +5572,18 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
     @Column(name = "sha256_hash", length = 64, updatable = false, nullable = true)
     private String sha256Hash;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaArtifact.java`
+#### Snippet
+```java
+    private JpaSoftwareModule softwareModule;
+
+    @Column(name = "md5_hash", length = 32, updatable = false, nullable = true)
+    private String md5Hash;
 
 ```
 
@@ -5444,37 +5613,85 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
 #### Snippet
 ```java
-
-    @Override
-    @Transactional(readOnly = false)
-    public int deleteActionsByStatusAndLastModifiedBefore(final Set<Status> status, final long lastModified) {
-        if (status.isEmpty()) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/json/model/DdiActivateAutoConfirmation.java`
-#### Snippet
-```java
-    private final String initiator;
+    private Map<String, String> headers;
 
     @JsonProperty(required = false)
-    private final String remark;
+    private final FileResource fileResource;
 
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/json/model/DdiActivateAutoConfirmation.java`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
 #### Snippet
 ```java
-public class DdiActivateAutoConfirmation {
+    @JsonProperty(required = false)
+    private final Long tenantId;
+    @JsonProperty(required = false)
+    private final String controllerId;
+    @JsonProperty(required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+#### Snippet
+```java
+        @JsonProperty(required = false)
+        private Long artifactId;
+        @JsonProperty(required = false)
+        private String filename;
+        @JsonProperty(required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+#### Snippet
+```java
+    @JsonProperty(required = false)
+    private String tenant;
+    @JsonProperty(required = false)
+    private final Long tenantId;
+    @JsonProperty(required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class FileResource {
+        @JsonProperty(required = false)
+        private String sha1;
+        @JsonProperty(required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+#### Snippet
+```java
+    private final Long targetId;
 
     @JsonProperty(required = false)
-    private final String initiator;
+    private Map<String, String> headers;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+#### Snippet
+```java
+            @JsonProperty(required = false)
+            private Long softwareModuleId;
+            @JsonProperty(required = false)
+            private String filename;
 
 ```
 
@@ -5488,6 +5705,18 @@ in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfT
     @JsonProperty(required = false)
     private final Long targetId;
 
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+#### Snippet
+```java
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class SoftwareModuleFilenameResource {
+            @JsonProperty(required = false)
+            private Long softwareModuleId;
+            @JsonProperty(required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -5519,42 +5748,6 @@ Redundant default parameter value assignment
 in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
 #### Snippet
 ```java
-    private Map<String, String> headers;
-
-    @JsonProperty(required = false)
-    private final FileResource fileResource;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
-#### Snippet
-```java
-    private final Long targetId;
-
-    @JsonProperty(required = false)
-    private Map<String, String> headers;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
-#### Snippet
-```java
-    @JsonProperty(required = false)
-    private final Long tenantId;
-    @JsonProperty(required = false)
-    private final String controllerId;
-    @JsonProperty(required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
-#### Snippet
-```java
         @JsonProperty(required = false)
         private String filename;
         @JsonProperty(required = false)
@@ -5564,255 +5757,100 @@ in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfT
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
 #### Snippet
 ```java
-            @JsonProperty(required = false)
-            private Long softwareModuleId;
-            @JsonProperty(required = false)
-            private String filename;
+
+    @Override
+    @Transactional(readOnly = false)
+    public int deleteActionsByStatusAndLastModifiedBefore(final Set<Status> status, final long lastModified) {
+        if (status.isEmpty()) {
+```
+
+## RuleId[ruleID=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/AbstractMetaDataWindowLayout.java`
+#### Snippet
+```java
+        public MetaDataWindowGridLayout(final MetadataWindowGridHeader metadataWindowGridHeader,
+                final MetaDataWindowGrid<?> metaDataWindowGrid) {
+            super.buildLayout(metadataWindowGridHeader, metaDataWindowGrid);
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/polling/DurationField.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("The duaration has to be smaller than 23:59:59.");
+        }
+        super.setValue(durationToLocalDateTime(duration));
+    }
 
 ```
 
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaTenantAwareBaseEntity.java`
 #### Snippet
 ```java
-        @JsonIgnoreProperties(ignoreUnknown = true)
-        public static class SoftwareModuleFilenameResource {
-            @JsonProperty(required = false)
-            private Long softwareModuleId;
-            @JsonProperty(required = false)
+            throw new TenantNotExistException("Tenant "
+                    + TenantAwareHolder.getInstance().getTenantAware().getCurrentTenant()
+                    + " does not exists, cannot create entity " + this.getClass() + " with id " + super.getId());
+        }
+        setTenant(currentTenant.toUpperCase());
 ```
 
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaTenantAwareBaseEntity.java`
 #### Snippet
 ```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class FileResource {
-        @JsonProperty(required = false)
-        private String sha1;
-        @JsonProperty(required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
-#### Snippet
-```java
-        @JsonProperty(required = false)
-        private Long artifactId;
-        @JsonProperty(required = false)
-        private String filename;
-        @JsonProperty(required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
-#### Snippet
-```java
-    @JsonProperty(required = false)
-    private String tenant;
-    @JsonProperty(required = false)
-    private final Long tenantId;
-    @JsonProperty(required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/target/MgmtTargetAutoConfirmUpdate.java`
-#### Snippet
-```java
-    private final String initiator;
-
-    @JsonProperty(required = false)
-    private final String remark;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/target/MgmtTargetAutoConfirmUpdate.java`
-#### Snippet
-```java
- */
-public class MgmtTargetAutoConfirmUpdate {
-    @JsonProperty(required = false)
-    private final String initiator;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/system/MgmtSystemTenantConfigurationValue.java`
-#### Snippet
-```java
-    private Object value;
-
-    @JsonInclude(Include.ALWAYS)
-    private boolean isGlobal = true;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/system/MgmtSystemTenantConfigurationValue.java`
-#### Snippet
-```java
-public class MgmtSystemTenantConfigurationValue extends RepresentationModel<MgmtSystemTenantConfigurationValue> {
-
-    @JsonInclude(Include.ALWAYS)
-    private Object value;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/target/MgmtDistributionSetAssignment.java`
-#### Snippet
-```java
-    @JsonProperty(required = false)
-    private Integer weight;
-    @JsonProperty(required = false)
-    private Boolean confirmationRequired;
-    private MgmtActionType type;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/target/MgmtDistributionSetAssignment.java`
-#### Snippet
-```java
-
-    private long forcetime;
-    @JsonProperty(required = false)
-    private Integer weight;
-    @JsonProperty(required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/rollout/MgmtRolloutRestRequestBody.java`
-#### Snippet
-```java
-    private Long startAt;
-
-    @JsonProperty(required = false)
-    private Integer weight;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/rollout/MgmtRolloutRestRequestBody.java`
-#### Snippet
-```java
-    private Integer weight;
-
-    @JsonProperty(required = false)
-    private Boolean confirmationRequired;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/targetfilter/MgmtTargetFilterQuery.java`
-#### Snippet
-```java
- *
- */
-@JsonInclude(Include.ALWAYS)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class MgmtTargetFilterQuery extends MgmtBaseEntity {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/targetfilter/MgmtDistributionSetAutoAssignment.java`
-#### Snippet
-```java
-public class MgmtDistributionSetAutoAssignment extends MgmtId {
-
-    @JsonProperty(required = false)
-    private MgmtActionType type;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/targetfilter/MgmtDistributionSetAutoAssignment.java`
-#### Snippet
-```java
-    private Integer weight;
-
-    @JsonProperty(required = false)
-    private Boolean confirmationRequired;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/targetfilter/MgmtDistributionSetAutoAssignment.java`
-#### Snippet
-```java
-    private MgmtActionType type;
-
-    @JsonProperty(required = false)
-    private Integer weight;
+    @Override
+    public String toString() {
+        return "BaseEntity [id=" + super.getId() + "]";
+    }
 
 ```
 
 ## RuleId[ruleID=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutGroupManagement.java`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
 #### Snippet
 ```java
-        final Optional<RolloutGroup> rolloutGroup = get(rolloutGroupId);
+                .findActiveActionWithHighestWeight(target.getControllerId());
 
-        if (!rolloutGroup.isPresent()) {
-            return rolloutGroup;
+        if (!actionOptional.isPresent()) {
+            return;
         }
 ```
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaAction.java`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
 #### Snippet
 ```java
-    @Override
-    public boolean isMaintenanceScheduleLapsed() {
-        return !getMaintenanceWindowStartTime().isPresent();
-    }
 
+        final Optional<Action> findActionWithDetails = controllerManagement.findActionWithDetails(actionId);
+        if (!findActionWithDetails.isPresent()) {
+            logAndThrowMessageError(message,
+                    "Got intermediate notification about action " + actionId + " but action does not exist");
 ```
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleResource.java`
 #### Snippet
 ```java
-        final Optional<Rollout> rollout = get(rolloutId);
+                .orElseThrow(() -> new EntityNotFoundException(SoftwareModule.class, softwareModuleId));
 
-        if (!rollout.isPresent()) {
-            return rollout;
+        if (artifactId != null && !module.getArtifact(artifactId).isPresent()) {
+            throw new EntityNotFoundException(Artifact.class, artifactId);
         }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/MaintenanceScheduleHelper.java`
-#### Snippet
-```java
-            // check if there is a window currently active or available in
-            // future.
-            if (!getNextMaintenanceWindow(cronSchedule, duration, timezone).isPresent()) {
-                throw new InvalidMaintenanceScheduleException(
-                        "No valid maintenance window available after current time");
 ```
 
 ### SimplifyOptionalCallChains
@@ -5825,18 +5863,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/error/extractors/ArtifactEnc
                 .orElseGet(() -> findExceptionOf(error, ArtifactEncryptionFailedException.class)
                         .map(ex -> UiErrorDetails.create(i18n.getMessage(UIMessageIdProvider.CAPTION_ERROR),
                                 getEncryptionFailedDetailsMsg(ex))));
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
-#### Snippet
-```java
-
-    private static boolean checkModule(final String fileName, final SoftwareModule module) {
-        return null == module || !module.getArtifactByFilename(fileName).isPresent();
-    }
-
 ```
 
 ### SimplifyOptionalCallChains
@@ -5892,18 +5918,6 @@ Can be replaced with 'isEmpty()'
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
 #### Snippet
 ```java
-            final Long dsId = bulkUploadInputs.getDistributionSetInfo().getId();
-
-            if (!distributionSetManagement.get(dsId).isPresent()) {
-                return i18n.getMessage("message.bulk.upload.assignment.failed");
-            }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
-#### Snippet
-```java
 
             for (final Entry<Long, String> tagIdWithName : tagIdsWithName.entrySet()) {
                 if (!tagManagement.get(tagIdWithName.getKey()).isPresent()) {
@@ -5913,102 +5927,77 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUp
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
 #### Snippet
 ```java
+            final Long dsId = bulkUploadInputs.getDistributionSetInfo().getId();
 
-        final Optional<Action> findActionWithDetails = controllerManagement.findActionWithDetails(actionId);
-        if (!findActionWithDetails.isPresent()) {
-            logAndThrowMessageError(message,
-                    "Got intermediate notification about action " + actionId + " but action does not exist");
+            if (!distributionSetManagement.get(dsId).isPresent()) {
+                return i18n.getMessage("message.bulk.upload.assignment.failed");
+            }
 ```
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
+in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
 #### Snippet
 ```java
-                .findActiveActionWithHighestWeight(target.getControllerId());
 
-        if (!actionOptional.isPresent()) {
-            return;
+    private static boolean checkModule(final String fileName, final SoftwareModule module) {
+        return null == module || !module.getArtifactByFilename(fileName).isPresent();
+    }
+
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutGroupManagement.java`
+#### Snippet
+```java
+        final Optional<RolloutGroup> rolloutGroup = get(rolloutGroupId);
+
+        if (!rolloutGroup.isPresent()) {
+            return rolloutGroup;
         }
 ```
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleResource.java`
-#### Snippet
-```java
-                .orElseThrow(() -> new EntityNotFoundException(SoftwareModule.class, softwareModuleId));
-
-        if (artifactId != null && !module.getArtifact(artifactId).isPresent()) {
-            throw new EntityNotFoundException(Artifact.class, artifactId);
-        }
-```
-
-## RuleId[ruleID=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaTenantAwareBaseEntity.java`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaAction.java`
 #### Snippet
 ```java
     @Override
-    public String toString() {
-        return "BaseEntity [id=" + super.getId() + "]";
+    public boolean isMaintenanceScheduleLapsed() {
+        return !getMaintenanceWindowStartTime().isPresent();
     }
 
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaTenantAwareBaseEntity.java`
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
 #### Snippet
 ```java
-            throw new TenantNotExistException("Tenant "
-                    + TenantAwareHolder.getInstance().getTenantAware().getCurrentTenant()
-                    + " does not exists, cannot create entity " + this.getClass() + " with id " + super.getId());
+        final Optional<Rollout> rollout = get(rolloutId);
+
+        if (!rollout.isPresent()) {
+            return rollout;
         }
-        setTenant(currentTenant.toUpperCase());
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/AbstractMetaDataWindowLayout.java`
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/MaintenanceScheduleHelper.java`
 #### Snippet
 ```java
-        public MetaDataWindowGridLayout(final MetadataWindowGridHeader metadataWindowGridHeader,
-                final MetaDataWindowGrid<?> metaDataWindowGrid) {
-            super.buildLayout(metadataWindowGridHeader, metaDataWindowGrid);
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/polling/DurationField.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("The duaration has to be smaller than 23:59:59.");
-        }
-        super.setValue(durationToLocalDateTime(duration));
-    }
-
+            // check if there is a window currently active or available in
+            // future.
+            if (!getNextMaintenanceWindow(cronSchedule, duration, timezone).isPresent()) {
+                throw new InvalidMaintenanceScheduleException(
+                        "No valid maintenance window available after current time");
 ```
 
 ## RuleId[ruleID=SlowListContainsAll]
-### SlowListContainsAll
-Call to 'list.containsAll(collection)' may have poor performance
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaDistributionSetType.java`
-#### Snippet
-```java
-            return false;
-        }
-        return smTypes.containsAll(getMandatoryModuleTypes());
-    }
-
-```
-
 ### SlowListContainsAll
 Call to 'list.containsAll(collection)' may have poor performance
 in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/data/ResponseList.java`
@@ -6017,6 +6006,18 @@ in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/data/R
     @Override
     public boolean containsAll(final Collection<?> c) {
         return content.containsAll(c);
+    }
+
+```
+
+### SlowListContainsAll
+Call to 'list.containsAll(collection)' may have poor performance
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaDistributionSetType.java`
+#### Snippet
+```java
+            return false;
+        }
+        return smTypes.containsAll(getMandatoryModuleTypes());
     }
 
 ```
@@ -6216,18 +6217,6 @@ import com.vaadin.ui.Window;
 
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
-`outputValue = outputValue / 1024.0` could be simplified to 'outputValue /= 1024.0'
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/SizeConversionHelper.java`
-#### Snippet
-```java
-        String unit = KB;
-        if (outputValue >= 1024) {
-            outputValue = outputValue / 1024.0;
-            unit = MB;
-        }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `total = total + value` could be simplified to 'total += value'
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/DistributionBarHelper.java`
 #### Snippet
@@ -6239,7 +6228,43 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/DistributionBarHelpe
         return total;
 ```
 
+### ReplaceAssignmentWithOperatorAssignment
+`outputValue = outputValue / 1024.0` could be simplified to 'outputValue /= 1024.0'
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/SizeConversionHelper.java`
+#### Snippet
+```java
+        String unit = KB;
+        if (outputValue >= 1024) {
+            outputValue = outputValue / 1024.0;
+            unit = MB;
+        }
+```
+
 ## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/utils/HawkbitCommonUtil.java`
+#### Snippet
+```java
+            slice = provider.apply(query);
+            entities.addAll(slice.getContent());
+        } while ((query = slice.nextPageable()) != Pageable.unpaged());
+
+        return entities;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
+#### Snippet
+```java
+            try (final LineNumberReader reader = new LineNumberReader(
+                    new InputStreamReader(tempStream, Charset.defaultCharset()))) {
+                while ((line = reader.readLine()) != null) {
+                    readLine(line, reader.getLineNumber(), totalNumberOfLines);
+                }
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSystemManagement.java`
@@ -6266,18 +6291,6 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### NestedAssignment
 Result of assignment expression used
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/util/IpUtil.java`
-#### Snippet
-```java
-        if (trackRemoteIp) {
-            ip = request.getHeader(forwardHeader);
-            if (ip == null || (ip = findClientIpAddress(ip)) == null) {
-                ip = request.getRemoteAddr();
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedSecurityHeaderFilter.java`
 #### Snippet
 ```java
@@ -6290,41 +6303,17 @@ in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/Cont
 
 ### NestedAssignment
 Result of assignment expression used
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/utils/HawkbitCommonUtil.java`
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/util/IpUtil.java`
 #### Snippet
 ```java
-            slice = provider.apply(query);
-            entities.addAll(slice.getContent());
-        } while ((query = slice.nextPageable()) != Pageable.unpaged());
-
-        return entities;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
-#### Snippet
-```java
-            try (final LineNumberReader reader = new LineNumberReader(
-                    new InputStreamReader(tempStream, Charset.defaultCharset()))) {
-                while ((line = reader.readLine()) != null) {
-                    readLine(line, reader.getLineNumber(), totalNumberOfLines);
-                }
+        if (trackRemoteIp) {
+            ip = request.getHeader(forwardHeader);
+            if (ip == null || (ip = findClientIpAddress(ip)) == null) {
+                ip = request.getRemoteAddr();
+            }
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DeleteSupport.java`
-#### Snippet
-```java
-            final String failureNotificationText) {
-        return ConfirmationDialog.newBuilder(i18n, deletionWindowId).caption(confirmationCaption)
-                .question(confirmationQuestion).onSaveOrUpdate(() -> {
-                    handleOkDelete(itemsToBeDeleted, successNotificationText, failureNotificationText);
-                }).build();
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
@@ -6335,18 +6324,6 @@ in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/re
         action.getLastActionStatusCode().ifPresent(statusCode -> {
             result.setLastStatusCode(statusCode);
         });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
-#### Snippet
-```java
-    private List<Target> getTargetsWithoutPendingCancellations(final Set<String> controllerIds) {
-        return partitionedParallelExecution(controllerIds, partition -> {
-            return targetManagement.getByControllerID(partition).stream().filter(target -> {
-                if (hasPendingCancellations(target.getControllerId())) {
-                    LOG.debug("Target {} has pending cancellations. Will not send update message to it.",
 ```
 
 ### CodeBlock2Expr
@@ -6373,7 +6350,43 @@ in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMess
                                 target.getAddress());
 ```
 
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageDispatcherService.java`
+#### Snippet
+```java
+    private List<Target> getTargetsWithoutPendingCancellations(final Set<String> controllerIds) {
+        return partitionedParallelExecution(controllerIds, partition -> {
+            return targetManagement.getByControllerID(partition).stream().filter(target -> {
+                if (hasPendingCancellations(target.getControllerId())) {
+                    LOG.debug("Target {} has pending cancellations. Will not send update message to it.",
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DeleteSupport.java`
+#### Snippet
+```java
+            final String failureNotificationText) {
+        return ConfirmationDialog.newBuilder(i18n, deletionWindowId).caption(confirmationCaption)
+                .question(confirmationQuestion).onSaveOrUpdate(() -> {
+                    handleOkDelete(itemsToBeDeleted, successNotificationText, failureNotificationText);
+                }).build();
+```
+
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
+### MismatchedCollectionQueryUpdate
+Contents of collection `configurationChangeListeners` are updated, but never queried
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/BaseConfigurationView.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    private final List<ConfigurationItemChangeListener> configurationChangeListeners = new ArrayList<>();
+    private final transient TenantConfigurationManagement tenantConfigurationManagement;
+    private final Binder<B> binder;
+```
+
 ### MismatchedCollectionQueryUpdate
 Contents of collection `actionStatus` are queried, but never updated
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaAction.java`
@@ -6396,18 +6409,6 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
     private List<DistributionSet> assignedToDistributionSet;
 
     /**
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `rolloutTargetGroup` are queried, but never updated
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaRolloutGroup.java`
-#### Snippet
-```java
-    @OneToMany(mappedBy = "rolloutGroup", fetch = FetchType.LAZY, cascade = {
-            CascadeType.PERSIST }, targetEntity = RolloutTargetGroup.class)
-    private List<RolloutTargetGroup> rolloutTargetGroup;
-
-    // No foreign key to avoid to many nested cascades on delete which some DBs cannot handle
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -6447,18 +6448,6 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `assignedToTargets` are queried, but never updated
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTargetTag.java`
-#### Snippet
-```java
-    @CascadeOnDelete
-    @ManyToMany(mappedBy = "tags", targetEntity = JpaTarget.class, fetch = FetchType.LAZY)
-    private List<Target> assignedToTargets;
-
-    /**
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `assignedTo` are queried, but never updated
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaSoftwareModule.java`
 #### Snippet
@@ -6468,6 +6457,30 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
     private List<DistributionSet> assignedTo;
 
     @Column(name = "deleted")
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `rolloutTargetGroup` are queried, but never updated
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaRolloutGroup.java`
+#### Snippet
+```java
+    @OneToMany(mappedBy = "rolloutGroup", fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST }, targetEntity = RolloutTargetGroup.class)
+    private List<RolloutTargetGroup> rolloutTargetGroup;
+
+    // No foreign key to avoid to many nested cascades on delete which some DBs cannot handle
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `assignedToTargets` are queried, but never updated
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTargetTag.java`
+#### Snippet
+```java
+    @CascadeOnDelete
+    @ManyToMany(mappedBy = "tags", targetEntity = JpaTarget.class, fetch = FetchType.LAZY)
+    private List<Target> assignedToTargets;
+
+    /**
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -6492,18 +6505,6 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
     private List<JpaAction> actions;
 
     @CascadeOnDelete
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `configurationChangeListeners` are updated, but never queried
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/BaseConfigurationView.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    private final List<ConfigurationItemChangeListener> configurationChangeListeners = new ArrayList<>();
-    private final transient TenantConfigurationManagement tenantConfigurationManagement;
-    private final Binder<B> binder;
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -6583,6 +6584,30 @@ public class RolloutTestApprovalStrategy implements RolloutApprovalStrategy {
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/rollout/MgmtRolloutSuccessAction.java`
+#### Snippet
+```java
+
+    private SuccessAction action = SuccessAction.NEXTGROUP;
+    private String expression = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/DdiSecurityProperties.java`
+#### Snippet
+```java
+             * Gateway token based authentication enabled.
+             */
+            private boolean enabled = false;
+
+            /**
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/DdiSecurityProperties.java`
 #### Snippet
@@ -6608,18 +6633,6 @@ in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/DdiSecurity
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/DdiSecurityProperties.java`
-#### Snippet
-```java
-             * Gateway token based authentication enabled.
-             */
-            private boolean enabled = false;
-
-            /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/HawkbitSecurityProperties.java`
 #### Snippet
 ```java
@@ -6628,18 +6641,6 @@ in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/HawkbitSecu
         private boolean enabled = false;
 
         /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hawkbit-rest/hawkbit-mgmt-api/src/main/java/org/eclipse/hawkbit/mgmt/json/model/rollout/MgmtRolloutSuccessAction.java`
-#### Snippet
-```java
-
-    private SuccessAction action = SuccessAction.NEXTGROUP;
-    private String expression = null;
-
-    /**
 ```
 
 ## RuleId[ruleID=EqualsAndHashcode]
@@ -6655,19 +6656,33 @@ public class DdiConfirmationBaseAction extends RepresentationModel<DdiConfirmati
     @JsonProperty("id")
 ```
 
-## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-19-17-30-46.112.html`
 #### Snippet
 ```java
-            final StringBuilder tokens = new StringBuilder();
-            expectedTokens.stream().forEach(value -> tokens.append(value.getSuggestion() + ","));
-            builder = builder.concat("Was expecting :" + tokens.toString().substring(0, tokens.length() - 1));
-        }
-        builder = builder.replace('\r', ' ');
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
+## RuleId[ruleID=ExceptionNameDoesntEndWithException]
+### ExceptionNameDoesntEndWithException
+Exception class name `IllegalFieldAccessExeption` does not end with 'Exception'
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/ParseExceptionWrapper.java`
+#### Snippet
+```java
+    }
+
+    static class IllegalFieldAccessExeption extends RuntimeException {
+        public IllegalFieldAccessExeption(Throwable e) {
+            super(e);
+```
+
+## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/tagdetails/TagListField.java`
@@ -6692,17 +6707,16 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/detailslayout/KeyValu
         keyValueDetailsLayout.addComponent(keyValueDetailLayout);
 ```
 
-## RuleId[ruleID=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `IllegalFieldAccessExeption` does not end with 'Exception'
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/ParseExceptionWrapper.java`
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
 #### Snippet
 ```java
-    }
-
-    static class IllegalFieldAccessExeption extends RuntimeException {
-        public IllegalFieldAccessExeption(Throwable e) {
-            super(e);
+            final StringBuilder tokens = new StringBuilder();
+            expectedTokens.stream().forEach(value -> tokens.append(value.getSuggestion() + ","));
+            builder = builder.concat("Was expecting :" + tokens.toString().substring(0, tokens.length() - 1));
+        }
+        builder = builder.replace('\r', ' ');
 ```
 
 ## RuleId[ruleID=FuseStreamOperations]
@@ -6781,6 +6795,30 @@ in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/TargetManagementStateDataProvider.java`
+#### Snippet
+```java
+        final Long distributionId = filter.getDistributionId();
+        final boolean noTagClicked = filter.isNoTagClicked();
+        final String[] targetTags = filter.getTargetTags().toArray(new String[0]);
+        final Long targetFilterQueryId = filter.getTargetFilterQueryId();
+        final boolean noTargetTypeClicked = filter.isNoTargetTypeClicked();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/TargetManagementStateDataProvider.java`
+#### Snippet
+```java
+        final Long distributionId = filter.getDistributionId();
+        final boolean noTagClicked = filter.isNoTagClicked();
+        final String[] targetTags = filter.getTargetTags().toArray(new String[0]);
+        final boolean noTargetTypeClicked = filter.isNoTargetTypeClicked();
+        final Long targetTypeId = filter.getTargetTypeId();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `hawkbit-autoconfigure/src/main/java/org/eclipse/hawkbit/autoconfigure/security/OidcUserManagementAutoConfiguration.java`
 #### Snippet
 ```java
@@ -6827,30 +6865,6 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/ActionFields.java`
 
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/TargetManagementStateDataProvider.java`
-#### Snippet
-```java
-        final Long distributionId = filter.getDistributionId();
-        final boolean noTagClicked = filter.isNoTagClicked();
-        final String[] targetTags = filter.getTargetTags().toArray(new String[0]);
-        final Long targetFilterQueryId = filter.getTargetFilterQueryId();
-        final boolean noTargetTypeClicked = filter.isNoTargetTypeClicked();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/TargetManagementStateDataProvider.java`
-#### Snippet
-```java
-        final Long distributionId = filter.getDistributionId();
-        final boolean noTagClicked = filter.isNoTagClicked();
-        final String[] targetTags = filter.getTargetTags().toArray(new String[0]);
-        final boolean noTargetTypeClicked = filter.isNoTargetTypeClicked();
-        final Long targetTypeId = filter.getTargetTypeId();
-```
-
 ## RuleId[ruleID=NullArgumentToVariableArgMethod]
 ### NullArgumentToVariableArgMethod
 Confusing argument `tagNames`, unclear if a varargs or non-varargs call is desired
@@ -6878,18 +6892,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/components/NotificationUnrea
 ```
 
 ### UnusedAssignment
-Variable `consequencesText` initializer `""` is redundant
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsAffectedEntitiesDialog.java`
-#### Snippet
-```java
-
-    private String createConsequencesText(final List<ProxyDistributionSet> allDistributionSetsForInvalidation) {
-        String consequencesText = "";
-        if (allDistributionSetsForInvalidation.size() == 1) {
-            final ProxyDistributionSet distributionSet = allDistributionSetsForInvalidation.get(0);
-```
-
-### UnusedAssignment
 Variable `buttonDecorator` initializer `null` is redundant
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/components/SPUIComponentProvider.java`
 #### Snippet
@@ -6899,6 +6901,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/components/SPUIComponentProv
         SPUIButtonDecorator buttonDecorator = null;
         try {
             // Create instance
+```
+
+### UnusedAssignment
+Variable `consequencesText` initializer `""` is redundant
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsAffectedEntitiesDialog.java`
+#### Snippet
+```java
+
+    private String createConsequencesText(final List<ProxyDistributionSet> allDistributionSetsForInvalidation) {
+        String consequencesText = "";
+        if (allDistributionSetsForInvalidation.size() == 1) {
+            final ProxyDistributionSet distributionSet = allDistributionSetsForInvalidation.get(0);
 ```
 
 ### UnusedAssignment
@@ -6914,18 +6928,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/Invalidat
 ```
 
 ### UnusedAssignment
-Variable `failureNotificationText` initializer `""` is redundant
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDistributionSetSupport.java`
-#### Snippet
-```java
-
-    private String createFailureNotificationText(final List<ProxyDistributionSet> allDistributionSetsForInvalidation) {
-        String failureNotificationText = "";
-        if (allDistributionSetsForInvalidation.size() == 1) {
-            failureNotificationText = i18n.getMessage(
-```
-
-### UnusedAssignment
 Variable `successNotificationText` initializer `""` is redundant
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDistributionSetSupport.java`
 #### Snippet
@@ -6937,77 +6939,16 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/Invalidat
             successNotificationText = i18n.getMessage(
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+### UnusedAssignment
+Variable `failureNotificationText` initializer `""` is redundant
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDistributionSetSupport.java`
 #### Snippet
 ```java
 
-        // load also lazy stuff
-        return distributionSetManagement.getWithDetails(set.getId()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-        tags.forEach(tag -> distributionSetManagement.toggleTagAssignment(Arrays.asList(set.getId()), tag.getName()));
-
-        return distributionSetManagement.get(set.getId()).get();
-
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-        rolloutManagement.handleRollouts();
-
-        return rolloutManagement.get(rollout.getId()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
-#### Snippet
-```java
-        }
-
-        return findActionWithDetails.get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleResource.java`
-#### Snippet
-```java
-        final SoftwareModule module = findSoftwareModuleWithExceptionIfNotFound(softwareModuleId, artifactId);
-
-        final MgmtArtifact reponse = MgmtSoftwareModuleMapper.toResponse(module.getArtifact(artifactId).get());
-        if (!module.isDeleted()) {
-            MgmtSoftwareModuleMapper.addLinks(module.getArtifact(artifactId).get(), reponse);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleResource.java`
-#### Snippet
-```java
-        final MgmtArtifact reponse = MgmtSoftwareModuleMapper.toResponse(module.getArtifact(artifactId).get());
-        if (!module.isDeleted()) {
-            MgmtSoftwareModuleMapper.addLinks(module.getArtifact(artifactId).get(), reponse);
-        }
-
+    private String createFailureNotificationText(final List<ProxyDistributionSet> allDistributionSetsForInvalidation) {
+        String failureNotificationText = "";
+        if (allDistributionSetsForInvalidation.size() == 1) {
+            failureNotificationText = i18n.getMessage(
 ```
 
 ## RuleId[ruleID=IndexOfReplaceableByContains]
@@ -7060,6 +7001,79 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ```
 
+## RuleId[ruleID=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
+#### Snippet
+```java
+        }
+
+        return findActionWithDetails.get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleResource.java`
+#### Snippet
+```java
+        final SoftwareModule module = findSoftwareModuleWithExceptionIfNotFound(softwareModuleId, artifactId);
+
+        final MgmtArtifact reponse = MgmtSoftwareModuleMapper.toResponse(module.getArtifact(artifactId).get());
+        if (!module.isDeleted()) {
+            MgmtSoftwareModuleMapper.addLinks(module.getArtifact(artifactId).get(), reponse);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleResource.java`
+#### Snippet
+```java
+        final MgmtArtifact reponse = MgmtSoftwareModuleMapper.toResponse(module.getArtifact(artifactId).get());
+        if (!module.isDeleted()) {
+            MgmtSoftwareModuleMapper.addLinks(module.getArtifact(artifactId).get(), reponse);
+        }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+
+        // load also lazy stuff
+        return distributionSetManagement.getWithDetails(set.getId()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+        rolloutManagement.handleRollouts();
+
+        return rolloutManagement.get(rollout.getId()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+        tags.forEach(tag -> distributionSetManagement.toggleTagAssignment(Arrays.asList(set.getId()), tag.getName()));
+
+        return distributionSetManagement.get(set.getId()).get();
+
+    }
+```
+
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
@@ -7071,18 +7085,6 @@ in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit
                 failMessage.append(element + " with count: " + count + " ");
             }
             fail(failMessage.toString());
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-        if (!CollectionUtils.isEmpty(expectedTokens)) {
-            final StringBuilder tokens = new StringBuilder();
-            expectedTokens.stream().forEach(value -> tokens.append(value.getSuggestion() + ","));
-            builder = builder.concat("Was expecting :" + tokens.toString().substring(0, tokens.length() - 1));
-        }
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -7121,19 +7123,19 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/ArtifactUploadStat
     }
 ```
 
-## RuleId[ruleID=OptionalIsPresent]
-### OptionalIsPresent
-Can be replaced with single expression in functional style
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/error/HawkbitUIErrorHandler.java`
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
 #### Snippet
 ```java
-
-        final Optional<Page> errorOriginPage = getErrorOriginPage(event);
-        if (errorOriginPage.isPresent()) {
-            return errorOriginPage.get();
+        if (!CollectionUtils.isEmpty(expectedTokens)) {
+            final StringBuilder tokens = new StringBuilder();
+            expectedTokens.stream().forEach(value -> tokens.append(value.getSuggestion() + ","));
+            builder = builder.concat("Was expecting :" + tokens.toString().substring(0, tokens.length() - 1));
         }
 ```
 
+## RuleId[ruleID=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
 in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/MessageConversionExceptionHandler.java`
@@ -7146,19 +7148,19 @@ in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/MessageC
 
 ```
 
-## RuleId[ruleID=ReplaceInefficientStreamCount]
-### ReplaceInefficientStreamCount
-Can be replaced with 'Stream.mapToLong().sum()'
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/error/HawkbitUIErrorHandler.java`
 #### Snippet
 ```java
-            return Arrays.stream(TargetFields.values())
-                    .filter(field -> field.toString().equalsIgnoreCase(finalTmpTokenName))
-                    .map(TargetFields::getSubEntityAttributes).flatMap(List::stream).count() > 0;
-        }
 
+        final Optional<Page> errorOriginPage = getErrorOriginPage(event);
+        if (errorOriginPage.isPresent()) {
+            return errorOriginPage.get();
+        }
 ```
 
+## RuleId[ruleID=ReplaceInefficientStreamCount]
 ### ReplaceInefficientStreamCount
 Can be replaced with 'stream.anyMatch()'
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
@@ -7195,6 +7197,18 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ```
 
+### ReplaceInefficientStreamCount
+Can be replaced with 'Stream.mapToLong().sum()'
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+            return Arrays.stream(TargetFields.values())
+                    .filter(field -> field.toString().equalsIgnoreCase(finalTmpTokenName))
+                    .map(TargetFields::getSubEntityAttributes).flatMap(List::stream).count() > 0;
+        }
+
+```
+
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `Start` has only 'static' members, and lacks a 'private' constructor
@@ -7224,36 +7238,12 @@ in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/PreA
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/exception/ArtifactEncryptionFailedException.java`
-#### Snippet
-```java
-     */
-    public enum EncryptionOperation {
-        GENERATE_SECRETS, ENCRYPT, DECRYPT;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyUploadProgress.java`
 #### Snippet
 ```java
      */
     public enum ProgressSatus {
         INPROGRESS, FINISHED, FAILED;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRolloutWindow.java`
-#### Snippet
-```java
-     */
-    public enum GroupDefinitionMode {
-        SIMPLE, ADVANCED;
     }
 }
 ```
@@ -7268,6 +7258,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyTyp
         SINGLE, MULTI;
     }
 
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRolloutWindow.java`
+#### Snippet
+```java
+     */
+    public enum GroupDefinitionMode {
+        SIMPLE, ADVANCED;
+    }
+}
 ```
 
 ### UnnecessarySemicolon
@@ -7296,12 +7298,12 @@ public enum FilterType {
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/LayoutResizeEventPayload.java`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/ActionsVisibilityEventPayload.java`
 #### Snippet
 ```java
      */
-    public enum ResizeType {
-        MINIMIZE, MAXIMIZE;
+    public enum ActionsVisibilityType {
+        SHOW_EDIT, SHOW_DELETE, HIDE_ALL;
     }
 }
 ```
@@ -7320,12 +7322,24 @@ public enum TargetFilterTabChangedEventPayload {
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/ActionsVisibilityEventPayload.java`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/LayoutResizeEventPayload.java`
 #### Snippet
 ```java
      */
-    public enum ActionsVisibilityType {
-        SHOW_EDIT, SHOW_DELETE, HIDE_ALL;
+    public enum ResizeType {
+        MINIMIZE, MAXIMIZE;
+    }
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/LayoutVisibilityEventPayload.java`
+#### Snippet
+```java
+     */
+    public enum VisibilityType {
+        SHOW, HIDE;
     }
 }
 ```
@@ -7344,18 +7358,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/EntityDraggingE
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/ShowFormEventPayload.java`
-#### Snippet
-```java
-     */
-    public enum FormType {
-        ADD, EDIT;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/EventLayout.java`
 #### Snippet
 ```java
@@ -7368,24 +7370,24 @@ public enum EventLayout {
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/LayoutVisibilityEventPayload.java`
-#### Snippet
-```java
-     */
-    public enum VisibilityType {
-        SHOW, HIDE;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/SelectionChangedEventPayload.java`
 #### Snippet
 ```java
      */
     public enum SelectionChangedEventType {
         ENTITY_SELECTED, ENTITY_DESELECTED;
+    }
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/ShowFormEventPayload.java`
+#### Snippet
+```java
+     */
+    public enum FormType {
+        ADD, EDIT;
     }
 }
 ```
@@ -7416,24 +7418,24 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/PinningChangedE
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/AbstractFilterButtonClickBehaviour.java`
-#### Snippet
-```java
-     */
-    public enum ClickBehaviourType {
-        CLICKED, UNCLICKED;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/event/EntityModifiedEventPayload.java`
 #### Snippet
 ```java
      */
     public enum EntityModifiedEventType {
         ENTITY_ADDED, ENTITY_UPDATED, ENTITY_REMOVED;
+    }
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/AbstractFilterButtonClickBehaviour.java`
+#### Snippet
+```java
+     */
+    public enum ClickBehaviourType {
+        CLICKED, UNCLICKED;
     }
 }
 ```
@@ -7450,103 +7452,19 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/Au
     }
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Method invocation `getBeginColumn` may produce `NullPointerException`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-        final int currentTokenKind = currentToken.getKind();
-        final String currentTokenImageName = currentToken.getImage();
-        final int nextTokenBeginColumn = nextToken.getBeginColumn();
-        final int currentTokenEndColumn = currentToken.getEndColumn();
-
-```
-
-### DataFlowIssue
-Argument `currentTokenImageName` might be null
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-        if (currentTokenKind == 5) {
-            final Optional<List<SuggestToken>> handleFieldTokenSuggestion = handleFieldTokenSuggestion(
-                    currentTokenImageName, nextTokenBeginColumn, currentTokenEndColumn);
-            if (handleFieldTokenSuggestion.isPresent()) {
-                return handleFieldTokenSuggestion.get();
-```
-
-### DataFlowIssue
-The call to 'isNotNull' always fails as an argument is out of bounds
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-    private void assertTargetProperlyCreated(final Target target) {
-        assertThat(target.getCreatedBy()).isNotNull();
-        assertThat(target.getCreatedAt()).isNotNull();
-        assertThat(target.getLastModifiedBy()).isNotNull();
-        assertThat(target.getLastModifiedAt()).isNotNull();
-```
-
-### DataFlowIssue
-Method invocation `clear` may produce `NullPointerException`
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/cache/TenantAwareCacheManager.java`
-#### Snippet
-```java
-    @Override
-    public void evictCaches(final String tenant) {
-        getCacheNames(tenant).forEach(cachename -> delegate.getCache(buildKey(tenant, cachename)).clear());
-    }
-
-```
-
-### DataFlowIssue
-Unboxing of `Optional.ofNullable(set).map(DistributionSet::getId).orElse(null)` may produce `NullPointerException`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/builder/RolloutCreate.java`
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/exception/ArtifactEncryptionFailedException.java`
 #### Snippet
 ```java
      */
-    default RolloutCreate set(final DistributionSet set) {
-        return set(Optional.ofNullable(set).map(DistributionSet::getId).orElse(null));
+    public enum EncryptionOperation {
+        GENERATE_SECRETS, ENCRYPT, DECRYPT;
     }
 
 ```
 
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DataConversionHelper.java`
-#### Snippet
-```java
-            result.add(WebMvcLinkBuilder
-                    .linkTo(WebMvcLinkBuilder.methodOn(DdiRootController.class, tenantAware.getCurrentTenant())
-                            .putConfigData(null, tenantAware.getCurrentTenant(), target.getControllerId()))
-                    .withRel(DdiRestConstants.CONFIG_DATA_ACTION));
-        }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/PreAuthTokenSourceTrustAuthenticationProvider.java`
-#### Snippet
-```java
-                        "Cannot determine the controller remote-ip-address based on the given authentication token - {} , token details are not TenantAwareWebAuthenticationDetails! ",
-                        tokenDetails);
-                success = false;
-            } else {
-                remoteAddress = ((TenantAwareWebAuthenticationDetails) tokenDetails).getRemoteAddress();
-```
-
-### DataFlowIssue
-Argument `dsType` might be null
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/SwModulesToDistributionSetAssignmentSupport.java`
-#### Snippet
-```java
-        return sourceItemsToAssign.stream()
-                .filter(sm -> checkDuplicateSmToDsAssignment(sm, targetItem, smIdsAlreadyAssignedToDs)
-                        && checkValidTypeAssignment(sm, targetItem, dsType))
-                .collect(Collectors.toList());
-    }
-```
-
+## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Method reference argument might be null
 in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSystemManagementResource.java`
@@ -7595,7 +7513,127 @@ in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/re
         return ResponseEntity.ok(response);
 ```
 
+### DataFlowIssue
+Argument `dsType` might be null
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/assignment/SwModulesToDistributionSetAssignmentSupport.java`
+#### Snippet
+```java
+        return sourceItemsToAssign.stream()
+                .filter(sm -> checkDuplicateSmToDsAssignment(sm, targetItem, smIdsAlreadyAssignedToDs)
+                        && checkValidTypeAssignment(sm, targetItem, dsType))
+                .collect(Collectors.toList());
+    }
+```
+
+### DataFlowIssue
+The call to 'isNotNull' always fails as an argument is out of bounds
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+    private void assertTargetProperlyCreated(final Target target) {
+        assertThat(target.getCreatedBy()).isNotNull();
+        assertThat(target.getCreatedAt()).isNotNull();
+        assertThat(target.getLastModifiedBy()).isNotNull();
+        assertThat(target.getLastModifiedAt()).isNotNull();
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DataConversionHelper.java`
+#### Snippet
+```java
+            result.add(WebMvcLinkBuilder
+                    .linkTo(WebMvcLinkBuilder.methodOn(DdiRootController.class, tenantAware.getCurrentTenant())
+                            .putConfigData(null, tenantAware.getCurrentTenant(), target.getControllerId()))
+                    .withRel(DdiRestConstants.CONFIG_DATA_ACTION));
+        }
+```
+
+### DataFlowIssue
+Method invocation `getBeginColumn` may produce `NullPointerException`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+        final int currentTokenKind = currentToken.getKind();
+        final String currentTokenImageName = currentToken.getImage();
+        final int nextTokenBeginColumn = nextToken.getBeginColumn();
+        final int currentTokenEndColumn = currentToken.getEndColumn();
+
+```
+
+### DataFlowIssue
+Argument `currentTokenImageName` might be null
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+        if (currentTokenKind == 5) {
+            final Optional<List<SuggestToken>> handleFieldTokenSuggestion = handleFieldTokenSuggestion(
+                    currentTokenImageName, nextTokenBeginColumn, currentTokenEndColumn);
+            if (handleFieldTokenSuggestion.isPresent()) {
+                return handleFieldTokenSuggestion.get();
+```
+
+### DataFlowIssue
+Unboxing of `Optional.ofNullable(set).map(DistributionSet::getId).orElse(null)` may produce `NullPointerException`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/builder/RolloutCreate.java`
+#### Snippet
+```java
+     */
+    default RolloutCreate set(final DistributionSet set) {
+        return set(Optional.ofNullable(set).map(DistributionSet::getId).orElse(null));
+    }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/PreAuthTokenSourceTrustAuthenticationProvider.java`
+#### Snippet
+```java
+                        "Cannot determine the controller remote-ip-address based on the given authentication token - {} , token details are not TenantAwareWebAuthenticationDetails! ",
+                        tokenDetails);
+                success = false;
+            } else {
+                remoteAddress = ((TenantAwareWebAuthenticationDetails) tokenDetails).getRemoteAddress();
+```
+
+### DataFlowIssue
+Method invocation `clear` may produce `NullPointerException`
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/cache/TenantAwareCacheManager.java`
+#### Snippet
+```java
+    @Override
+    public void evictCaches(final String tenant) {
+        getCacheNames(tenant).forEach(cachename -> delegate.getCache(buildKey(tenant, cachename)).clear());
+    }
+
+```
+
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with 'java.util.ArrayList' constructor
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetDetails.java`
+#### Snippet
+```java
+
+            final List<Map.Entry<String, String>> targetAttributes = targetManagement
+                    .getControllerAttributes(controllerId).entrySet().stream().collect(Collectors.toList());
+
+            final List<ProxyKeyValueDetails> attributes = IntStream.range(0, targetAttributes.size())
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with 'String.join'
+in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutHelper.java`
+#### Snippet
+```java
+
+    private static String concatAndTargetFilters(final String... filters) {
+        return "(" + Arrays.stream(filters).collect(Collectors.joining(");(")) + ")";
+    }
+
+```
+
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
@@ -7618,43 +7656,6 @@ in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/Pe
         authentication.getAuthorities().stream().forEach(authority -> permissions.add(authority.getAuthority()));
 
         return permissions;
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'String.join'
-in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutHelper.java`
-#### Snippet
-```java
-
-    private static String concatAndTargetFilters(final String... filters) {
-        return "(" + Arrays.stream(filters).collect(Collectors.joining(");(")) + ")";
-    }
-
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'java.util.ArrayList' constructor
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettable/TargetDetails.java`
-#### Snippet
-```java
-
-            final List<Map.Entry<String, String>> targetAttributes = targetManagement
-                    .getControllerAttributes(controllerId).entrySet().stream().collect(Collectors.toList());
-
-            final List<ProxyKeyValueDetails> attributes = IntStream.range(0, targetAttributes.size())
-```
-
-## RuleId[ruleID=TypeParameterHidesVisibleType]
-### TypeParameterHidesVisibleType
-Type parameter `T` hides type parameter 'T'
-in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/data/ResponseList.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T[] toArray(final T[] a) {
-        return content.toArray(a);
-    }
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -7682,6 +7683,19 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
         builder = builder.replace('\r', ' ');
 ```
 
+## RuleId[ruleID=TypeParameterHidesVisibleType]
+### TypeParameterHidesVisibleType
+Type parameter `T` hides type parameter 'T'
+in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/data/ResponseList.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T[] toArray(final T[] a) {
+        return content.toArray(a);
+    }
+```
+
 ## RuleId[ruleID=MethodOverloadsParentMethod]
 ### MethodOverloadsParentMethod
 Method `extend()` overloads a compatible method of a superclass, when overriding might have been intended
@@ -7696,18 +7710,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/TextFieldSu
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains array `Expect[]`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/EventVerifier.java`
-#### Snippet
-```java
-    @Override
-    public void beforeTestMethod(final TestContext testContext) throws Exception {
-        final Optional<Expect[]> expectedEvents = getExpectationsFrom(testContext.getTestMethod());
-        expectedEvents.ifPresent(events -> beforeTest(testContext));
-    }
-```
-
 ### OptionalContainsCollection
 'Optional' contains array `Expect[]`
 in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/EventVerifier.java`
@@ -7733,39 +7735,15 @@ in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `List`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+'Optional' contains array `Expect[]`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/EventVerifier.java`
 #### Snippet
 ```java
+    @Override
+    public void beforeTestMethod(final TestContext testContext) throws Exception {
+        final Optional<Expect[]> expectedEvents = getExpectationsFrom(testContext.getTestMethod());
+        expectedEvents.ifPresent(events -> beforeTest(testContext));
     }
-
-    private static Optional<List<SuggestToken>> handleFieldTokenSuggestion(final String currentTokenImageName,
-            final int nextTokenBeginColumn, final int currentTokenEndColumn) {
-        final boolean containsDot = currentTokenImageName.indexOf('.') != -1;
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-    }
-
-    private static Optional<List<SuggestToken>> handleSubtokenSuggestion(final String currentTokenImageName,
-            final int nextTokenBeginColumn) {
-        final String[] split = currentTokenImageName.split("\\.");
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-        // token == 5 is the field token, reverse engineering.
-        if (currentTokenKind == 5) {
-            final Optional<List<SuggestToken>> handleFieldTokenSuggestion = handleFieldTokenSuggestion(
-                    currentTokenImageName, nextTokenBeginColumn, currentTokenEndColumn);
-            if (handleFieldTokenSuggestion.isPresent()) {
 ```
 
 ### OptionalContainsCollection
@@ -7804,43 +7782,43 @@ in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit
     }
 ```
 
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+        // token == 5 is the field token, reverse engineering.
+        if (currentTokenKind == 5) {
+            final Optional<List<SuggestToken>> handleFieldTokenSuggestion = handleFieldTokenSuggestion(
+                    currentTokenImageName, nextTokenBeginColumn, currentTokenEndColumn);
+            if (handleFieldTokenSuggestion.isPresent()) {
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+    }
+
+    private static Optional<List<SuggestToken>> handleSubtokenSuggestion(final String currentTokenImageName,
+            final int nextTokenBeginColumn) {
+        final String[] split = currentTokenImageName.split("\\.");
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+    }
+
+    private static Optional<List<SuggestToken>> handleFieldTokenSuggestion(final String currentTokenImageName,
+            final int nextTokenBeginColumn, final int currentTokenEndColumn) {
+        final boolean containsDot = currentTokenImageName.indexOf('.') != -1;
+```
+
 ## RuleId[ruleID=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/EventVerifier.java`
-#### Snippet
-```java
-        final Optional<Expect[]> expectedEvents = getExpectationsFrom(testContext.getTestMethod());
-        try {
-            expectedEvents.ifPresent(events -> afterTest(events));
-        } finally {
-            expectedEvents.ifPresent(listener -> removeEventListener(testContext));
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticateSecurityTokenFilter.java`
-#### Snippet
-```java
-
-        return target.map(t -> new HeaderAuthentication(t.getControllerId(),
-                systemSecurityContext.runAsSystemAsTenant(() -> t.getSecurityToken(), securityToken.getTenant())))
-                .orElse(null);
-    }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/AbstractGenericDataProvider.java`
-#### Snippet
-```java
-    private List<Order> convertToListOfOrders(final List<QuerySortOrder> querySortOrders) {
-        return querySortOrders.stream()
-                .map(querySortOrder -> convertToOrderCriteria(querySortOrder))
-                .collect(Collectors.toList());
-    }
-```
-
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSystemManagementResource.java`
@@ -7863,6 +7841,116 @@ in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/re
             result.setLastStatusCode(statusCode);
         });
         
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/matcher/EventVerifier.java`
+#### Snippet
+```java
+        final Optional<Expect[]> expectedEvents = getExpectationsFrom(testContext.getTestMethod());
+        try {
+            expectedEvents.ifPresent(events -> afterTest(events));
+        } finally {
+            expectedEvents.ifPresent(listener -> removeEventListener(testContext));
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/providers/AbstractGenericDataProvider.java`
+#### Snippet
+```java
+    private List<Order> convertToListOfOrders(final List<QuerySortOrder> querySortOrders) {
+        return querySortOrders.stream()
+                .map(querySortOrder -> convertToOrderCriteria(querySortOrder))
+                .collect(Collectors.toList());
+    }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticateSecurityTokenFilter.java`
+#### Snippet
+```java
+
+        return target.map(t -> new HeaderAuthentication(t.getControllerId(),
+                systemSecurityContext.runAsSystemAsTenant(() -> t.getSecurityToken(), securityToken.getTenant())))
+                .orElse(null);
+    }
+```
+
+## RuleId[ruleID=NonSerializableFieldInSerializableClass]
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'tenant' in a Serializable class
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/TenantUserPasswordAuthenticationToken.java`
+#### Snippet
+```java
+    // Exception squid:S1948 - no need to be Serializable
+    @SuppressWarnings({ "squid:S1948" })
+    final Object tenant;
+
+    /**
+```
+
+## RuleId[ruleID=RedundantCollectionOperation]
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DragAndDropSupport.java`
+#### Snippet
+```java
+    private boolean isDropValid(final String sourceId, final T dropTargetItem,
+            final AssignmentSupport<?, T> assignmentStrategy) {
+        if (StringUtils.isEmpty(sourceId) || !sourceTargetAssignmentStrategies.keySet().contains(sourceId)
+                || dropTargetItem == null || assignmentStrategy == null) {
+            showActionNotAllowedNotification();
+```
+
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/LayoutVisibilityListener.java`
+#### Snippet
+```java
+    private void onSelectionChangedEvent(final LayoutVisibilityEventPayload eventPayload) {
+        if (!getViewAware().suitableView(eventPayload)
+                || !layoutVisibilityHandlers.keySet().contains(eventPayload.getLayout())) {
+            return;
+        }
+```
+
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/LayoutResizeListener.java`
+#### Snippet
+```java
+    private void onSelectionChangedEvent(final LayoutResizeEventPayload eventPayload) {
+        if (!getViewAware().suitableView(eventPayload)
+                || !layoutResizeHandlers.keySet().contains(eventPayload.getLayout())) {
+            return;
+        }
+```
+
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/FilterSupport.java`
+#### Snippet
+```java
+     */
+    public boolean isFilterTypeSupported(final FilterType filterType) {
+        return filterTypeToSetterMapping.keySet().contains(filterType);
+    }
+
+```
+
+### RedundantCollectionOperation
+Unnecessary 'containsKey()' check
+in `hawkbit-runtime/hawkbit-update-server/src/main/java/org/eclipse/hawkbit/app/ErrorController.java`
+#### Snippet
+```java
+    private Map<String, Object> getErrorAttributesWithoutPath(final HttpServletRequest request) {
+        final Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
+        if (body != null && body.containsKey(PATH)) {
+            body.remove(PATH);
+        }
 ```
 
 ## RuleId[ruleID=AbstractMethodCallInConstructor]
@@ -7888,30 +7976,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractD
             this.metaDataDetailsHeaderSupport = new MetaDataDetailsHeaderSupport(i18n, getMetaDataIconId(),
                     this::showMetaData);
         } else {
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getCrudMenuBarId()` during object construction
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractFilterHeader.java`
-#### Snippet
-```java
-        super(i18n, permChecker, eventBus);
-
-        this.crudMenuHeaderSupport = new CrudMenuHeaderSupport(i18n, getCrudMenuBarId(),
-                permChecker.hasCreateRepositoryPermission(), permChecker.hasUpdateRepositoryPermission(),
-                permChecker.hasDeleteRepositoryPermission(), this::addNewItem, this::publishShowEditMode,
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getCloseIconId()` during object construction
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractFilterHeader.java`
-#### Snippet
-```java
-                permChecker.hasDeleteRepositoryPermission(), this::addNewItem, this::publishShowEditMode,
-                this::publishShowDeleteMode, this::publishHideAllMode);
-        this.closeHeaderSupport = new CloseHeaderSupport(i18n, getCloseIconId(), this::hideFilterLayout);
-        addHeaderSupports(Arrays.asList(crudMenuHeaderSupport, closeHeaderSupport));
-    }
 ```
 
 ### AbstractMethodCallInConstructor
@@ -7963,6 +8027,30 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractE
 ```
 
 ### AbstractMethodCallInConstructor
+Call to 'abstract' method `getCrudMenuBarId()` during object construction
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractFilterHeader.java`
+#### Snippet
+```java
+        super(i18n, permChecker, eventBus);
+
+        this.crudMenuHeaderSupport = new CrudMenuHeaderSupport(i18n, getCrudMenuBarId(),
+                permChecker.hasCreateRepositoryPermission(), permChecker.hasUpdateRepositoryPermission(),
+                permChecker.hasDeleteRepositoryPermission(), this::addNewItem, this::publishShowEditMode,
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getCloseIconId()` during object construction
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/header/AbstractFilterHeader.java`
+#### Snippet
+```java
+                permChecker.hasDeleteRepositoryPermission(), this::addNewItem, this::publishShowEditMode,
+                this::publishShowDeleteMode, this::publishHideAllMode);
+        this.closeHeaderSupport = new CloseHeaderSupport(i18n, getCloseIconId(), this::hideFilterLayout);
+        addHeaderSupports(Arrays.asList(crudMenuHeaderSupport, closeHeaderSupport));
+    }
+```
+
+### AbstractMethodCallInConstructor
 Call to 'abstract' method `getMessageKeyEntityTypeSing()` during object construction
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/AbstractFilterButtons.java`
 #### Snippet
@@ -7986,105 +8074,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/Abstract
     }
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'tenant' in a Serializable class
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/TenantUserPasswordAuthenticationToken.java`
-#### Snippet
-```java
-    // Exception squid:S1948 - no need to be Serializable
-    @SuppressWarnings({ "squid:S1948" })
-    final Object tenant;
-
-    /**
-```
-
-## RuleId[ruleID=RedundantCollectionOperation]
-### RedundantCollectionOperation
-Unnecessary 'containsKey()' check
-in `hawkbit-runtime/hawkbit-update-server/src/main/java/org/eclipse/hawkbit/app/ErrorController.java`
-#### Snippet
-```java
-    private Map<String, Object> getErrorAttributesWithoutPath(final HttpServletRequest request) {
-        final Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
-        if (body != null && body.containsKey(PATH)) {
-            body.remove(PATH);
-        }
-```
-
-### RedundantCollectionOperation
-`contains` can be replaced with 'Map.containsKey()'
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/DragAndDropSupport.java`
-#### Snippet
-```java
-    private boolean isDropValid(final String sourceId, final T dropTargetItem,
-            final AssignmentSupport<?, T> assignmentStrategy) {
-        if (StringUtils.isEmpty(sourceId) || !sourceTargetAssignmentStrategies.keySet().contains(sourceId)
-                || dropTargetItem == null || assignmentStrategy == null) {
-            showActionNotAllowedNotification();
-```
-
-### RedundantCollectionOperation
-`contains` can be replaced with 'Map.containsKey()'
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/LayoutVisibilityListener.java`
-#### Snippet
-```java
-    private void onSelectionChangedEvent(final LayoutVisibilityEventPayload eventPayload) {
-        if (!getViewAware().suitableView(eventPayload)
-                || !layoutVisibilityHandlers.keySet().contains(eventPayload.getLayout())) {
-            return;
-        }
-```
-
-### RedundantCollectionOperation
-`contains` can be replaced with 'Map.containsKey()'
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/LayoutResizeListener.java`
-#### Snippet
-```java
-    private void onSelectionChangedEvent(final LayoutResizeEventPayload eventPayload) {
-        if (!getViewAware().suitableView(eventPayload)
-                || !layoutResizeHandlers.keySet().contains(eventPayload.getLayout())) {
-            return;
-        }
-```
-
-### RedundantCollectionOperation
-`contains` can be replaced with 'Map.containsKey()'
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/FilterSupport.java`
-#### Snippet
-```java
-     */
-    public boolean isFilterTypeSupported(final FilterType filterType) {
-        return filterTypeToSetterMapping.keySet().contains(filterType);
-    }
-
-```
-
-## RuleId[ruleID=CatchMayIgnoreException]
-### CatchMayIgnoreException
-'catch' parameter named `ignored` is used
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/DistributedResourceBundleMessageSource.java`
-#### Snippet
-```java
-                }
-            }
-        } catch (final IOException ignored) {
-            LOGGER.warn("Resource with filename " + filename + " couldn't load", ignored);
-        }
-```
-
-### CatchMayIgnoreException
-'catch' parameter named `ignore` is used
-in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/FileStreamingUtil.java`
-#### Snippet
-```java
-                    ranges.add(full);
-                }
-            } catch (final IllegalArgumentException ignore) {
-                LOG.info("Invalid if-range header field", ignore);
-                ranges.add(full);
-```
-
 ## RuleId[ruleID=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
@@ -8096,90 +8085,6 @@ in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit
      * @return a list of {@link Expect}
      */
     Expect[] value() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return set but the return type is list
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     * @param prefix
-     *            prefix used for the controller ID and description
-     * @return set of {@link Target}
-     */
-    public List<Target> createTargets(final int numberOfTargets, final String prefix) {
-```
-
-### MismatchedJavadocCode
-Method is specified to return set but the return type is list
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     * @param descriptionPrefix
-     *            prefix used for the description
-     * @return set of {@link Target}
-     */
-    public List<Target> createTargets(final int numberOfTargets, final String controllerIdPrefix,
-```
-
-### MismatchedJavadocCode
-Method is specified to return set but the return type is list
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
-#### Snippet
-```java
-     * @param lastTargetQuery
-     *            last time the target polled
-     * @return set of {@link Target}
-     */
-    public List<Target> createTargets(final int numberOfTargets, final String controllerIdPrefix,
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is set
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/ArtifactEncryption.java`
-#### Snippet
-```java
-     * Defines the required secret keys for particular encryption algorithm.
-     *
-     * @return list of required secret keys
-     */
-    Set<String> requiredSecretKeys();
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is map
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/ControllerManagement.java`
-#### Snippet
-```java
-     * @param moduleId
-     *            of the {@link SoftwareModule}
-     * @return list of {@link SoftwareModuleMetadata} with maximum size of
-     *         {@link RepositoryConstants#MAX_META_DATA_COUNT}
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return map but the return type is list
-in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutStatusCache.java`
-#### Snippet
-```java
-     * @param rolloutId
-     *            to retrieve cache entries for
-     * @return map of cached entries
-     */
-    public List<TotalTargetCountActionStatus> getRolloutStatus(final Long rolloutId) {
-```
-
-### MismatchedJavadocCode
-Method is specified to return map but the return type is list
-in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutStatusCache.java`
-#### Snippet
-```java
-     * @param groupId
-     *            to retrieve cache entries for
-     * @return map of cached entries
-     */
-    public List<TotalTargetCountActionStatus> getRolloutGroupStatus(final Long groupId) {
 ```
 
 ### MismatchedJavadocCode
@@ -8204,6 +8109,42 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/Abstract
      * @return List of all previously clicked filter ids
      */
     public Set<Long> getPreviouslyClickedFilterIds() {
+```
+
+### MismatchedJavadocCode
+Method is specified to return set but the return type is list
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     * @param lastTargetQuery
+     *            last time the target polled
+     * @return set of {@link Target}
+     */
+    public List<Target> createTargets(final int numberOfTargets, final String controllerIdPrefix,
+```
+
+### MismatchedJavadocCode
+Method is specified to return set but the return type is list
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     * @param descriptionPrefix
+     *            prefix used for the description
+     * @return set of {@link Target}
+     */
+    public List<Target> createTargets(final int numberOfTargets, final String controllerIdPrefix,
+```
+
+### MismatchedJavadocCode
+Method is specified to return set but the return type is list
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/TestdataFactory.java`
+#### Snippet
+```java
+     * @param prefix
+     *            prefix used for the controller ID and description
+     * @return set of {@link Target}
+     */
+    public List<Target> createTargets(final int numberOfTargets, final String prefix) {
 ```
 
 ### MismatchedJavadocCode
@@ -8240,6 +8181,79 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/reposito
          * @return List of status
          */
         public Set<Status> getStatus() {
+```
+
+### MismatchedJavadocCode
+Method is specified to return map but the return type is list
+in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutStatusCache.java`
+#### Snippet
+```java
+     * @param groupId
+     *            to retrieve cache entries for
+     * @return map of cached entries
+     */
+    public List<TotalTargetCountActionStatus> getRolloutGroupStatus(final Long groupId) {
+```
+
+### MismatchedJavadocCode
+Method is specified to return map but the return type is list
+in `hawkbit-repository/hawkbit-repository-core/src/main/java/org/eclipse/hawkbit/repository/RolloutStatusCache.java`
+#### Snippet
+```java
+     * @param rolloutId
+     *            to retrieve cache entries for
+     * @return map of cached entries
+     */
+    public List<TotalTargetCountActionStatus> getRolloutStatus(final Long rolloutId) {
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is set
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/ArtifactEncryption.java`
+#### Snippet
+```java
+     * Defines the required secret keys for particular encryption algorithm.
+     *
+     * @return list of required secret keys
+     */
+    Set<String> requiredSecretKeys();
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is map
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/ControllerManagement.java`
+#### Snippet
+```java
+     * @param moduleId
+     *            of the {@link SoftwareModule}
+     * @return list of {@link SoftwareModuleMetadata} with maximum size of
+     *         {@link RepositoryConstants#MAX_META_DATA_COUNT}
+     */
+```
+
+## RuleId[ruleID=CatchMayIgnoreException]
+### CatchMayIgnoreException
+'catch' parameter named `ignore` is used
+in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/FileStreamingUtil.java`
+#### Snippet
+```java
+                    ranges.add(full);
+                }
+            } catch (final IllegalArgumentException ignore) {
+                LOG.info("Invalid if-range header field", ignore);
+                ranges.add(full);
+```
+
+### CatchMayIgnoreException
+'catch' parameter named `ignored` is used
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/DistributedResourceBundleMessageSource.java`
+#### Snippet
+```java
+                }
+            }
+        } catch (final IOException ignored) {
+            LOGGER.warn("Resource with filename " + filename + " couldn't load", ignored);
+        }
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -8283,6 +8297,18 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/AbstractHawkbitUI.java`
 
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### UnnecessaryBoxing
+Redundant boxing, `Double.parseDouble()` call can be used instead
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/notification/client/ParallelNotificationConnector.java`
+#### Snippet
+```java
+    private static double getMarginBottom(final VNotification notification) {
+        try {
+            return Double.valueOf(
+                    notification.getElement().getStyle().getMarginBottom().trim().toLowerCase().replace("px", ""));
+        } catch (final NumberFormatException e) {
+```
+
+### UnnecessaryBoxing
 Unnecessary boxing
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutGroupManagement.java`
 #### Snippet
@@ -8318,43 +8344,7 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
         return totalTargetCountStatus;
 ```
 
-### UnnecessaryBoxing
-Redundant boxing, `Double.parseDouble()` call can be used instead
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/notification/client/ParallelNotificationConnector.java`
-#### Snippet
-```java
-    private static double getMarginBottom(final VNotification notification) {
-        try {
-            return Double.valueOf(
-                    notification.getElement().getStyle().getMarginBottom().trim().toLowerCase().replace("px", ""));
-        } catch (final NumberFormatException e) {
-```
-
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
-#### Snippet
-```java
-            if (tokenImageName.contains(".")) {
-                final String[] split = tokenImageName.split("\\.");
-                if (split.length <= 0) {
-                    return false;
-                }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaControllerManagement.java`
-#### Snippet
-```java
-
-        final int size = queue.size();
-        if (size <= 0) {
-            return;
-        }
-```
-
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/push/DelayedEventBusPushStrategy.java`
@@ -8376,6 +8366,30 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/DistributionBarHelpe
         final Long totalValue = getTotalSizes(statusTotalCountMap);
         if (statusMapWithNonZeroValues.size() <= 0) {
             return getUnintialisedBar();
+        }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
+#### Snippet
+```java
+            if (tokenImageName.contains(".")) {
+                final String[] split = tokenImageName.split("\\.");
+                if (split.length <= 0) {
+                    return false;
+                }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaControllerManagement.java`
+#### Snippet
+```java
+
+        final int size = queue.size();
+        if (size <= 0) {
+            return;
         }
 ```
 
@@ -8420,18 +8434,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/rollout/RolloutGrid.
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/autocleanup/AutoActionCleanup.java`
-#### Snippet
-```java
-        final TenantConfigurationValue<String> statusStr = getConfigValue(ACTION_CLEANUP_ACTION_STATUS, String.class);
-        if (statusStr != null) {
-            return Arrays.stream(statusStr.getValue().split("[;,]")).map(Status::valueOf)
-                    .collect(Collectors.toCollection(() -> EnumSet.noneOf(Status.class)));
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/HttpUtil.java`
 #### Snippet
 ```java
@@ -8456,18 +8458,6 @@ in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/F
 
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedSecurityHeaderFilter.java`
-#### Snippet
-```java
-
-    private static List<String> splitMultiHashBySemicolon(final String knownIssuerHashes) {
-        return Arrays.stream(knownIssuerHashes.split("[;,]")).map(String::toLowerCase).collect(Collectors.toList());
-    }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/RepositoryConfigurationView.java`
 #### Snippet
 ```java
@@ -8478,187 +8468,31 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/tenantconfiguration/Reposito
         }
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/autocleanup/AutoActionCleanup.java`
+#### Snippet
+```java
+        final TenantConfigurationValue<String> statusStr = getConfigValue(ACTION_CLEANUP_ACTION_STATUS, String.class);
+        if (statusStr != null) {
+            return Arrays.stream(statusStr.getValue().split("[;,]")).map(Status::valueOf)
+                    .collect(Collectors.toCollection(() -> EnumSet.noneOf(Status.class)));
+        }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedSecurityHeaderFilter.java`
+#### Snippet
+```java
+
+    private static List<String> splitMultiHashBySemicolon(final String knownIssuerHashes) {
+        return Arrays.stream(knownIssuerHashes.split("[;,]")).map(String::toLowerCase).collect(Collectors.toList());
+    }
+}
+```
+
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.boot.autoconfigure.orm.jpa` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/RepositoryApplicationConfiguration.java`
-#### Snippet
-```java
-     * {@link MultiTenantJpaTransactionManager} bean.
-     *
-     * @see org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration#transactionManager(ObjectProvider)
-     * @return a new {@link PlatformTransactionManager}
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaBaseEntity.java`
-#### Snippet
-```java
-     * {@link #getOptLockRevision()} and class.
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaBaseEntity.java`
-#### Snippet
-```java
-     * {@link #getOptLockRevision()} and class.
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaBaseEntity.java`
-#### Snippet
-```java
-     * {@link #getOptLockRevision()} and class.
-     * 
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaTenantAwareBaseEntity.java`
-#### Snippet
-```java
-     * different tenants.
-     * 
-     * @see org.eclipse.hawkbit.repository.model.BaseEntity#equals(java.lang.Object)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.validation` is unnecessary, and can be replaced with an import
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/aspects/ExceptionMappingAspectHandler.java`
-#### Snippet
-```java
-        do {
-            final Throwable cause = exception.getCause();
-            if (cause instanceof javax.validation.ConstraintViolationException) {
-                return (Exception) cause;
-            }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/UserAuthenticationFilter.java`
-#### Snippet
-```java
- * in any remote call through HTTP except the SP login screen. E.g. using the SP
- * REST-API. To authenticate user e.g. using Basic-Authentication implement the
- * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
- * method.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/UserAuthenticationFilter.java`
-#### Snippet
-```java
- * in any remote call through HTTP except the SP login screen. E.g. using the SP
- * REST-API. To authenticate user e.g. using Basic-Authentication implement the
- * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
- * method.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/UserAuthenticationFilter.java`
-#### Snippet
-```java
- * in any remote call through HTTP except the SP login screen. E.g. using the SP
- * REST-API. To authenticate user e.g. using Basic-Authentication implement the
- * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
- * method.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.hawkbit.tenancy` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/SystemManagement.java`
-#### Snippet
-```java
-    /**
-     * Runs consumer for each teant as
-     * {@link TenantAware#runAsTenant(String, org.eclipse.hawkbit.tenancy.TenantAware.TenantRunner)}
-     * sliently (i.e. exceptions will be logged but operations will continue for
-     * further tenants).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.hawkbit.repository.model` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/TargetManagement.java`
-#### Snippet
-```java
-     *
-     * @param controllerId
-     *            of the {@link org.eclipse.hawkbit.repository.model.Target} to
-     *            check
-     * @param distributionSetId
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.hawkbit.repository.model` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/TargetManagement.java`
-#### Snippet
-```java
-     * @param distributionSetId
-     *            of the
-     *            {@link org.eclipse.hawkbit.repository.model.DistributionSet}
-     *            to consider
-     * @param targetFilterQuery
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.hawkbit.repository.model` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/model/DeploymentRequest.java`
-#### Snippet
-```java
-     *            required, the action will be automatically confirmed and put in
-     *            the
-     *            {@link org.eclipse.hawkbit.repository.model.Action.Status#RUNNING}
-     *            state. Otherwise the confirmation flow will be triggered
-     *            and the {@link Action} will stay in the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.hawkbit.repository.model` is unnecessary and can be removed
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/model/DeploymentRequest.java`
-#### Snippet
-```java
-     *            state. Otherwise the confirmation flow will be triggered
-     *            and the {@link Action} will stay in the
-     *            {@link org.eclipse.hawkbit.repository.model.Action.Status#WAIT_FOR_CONFIRMATION}
-     *            state until the confirmation is given. (Only considered
-     *            with CONFIRMATION_FLOW active via tenant configuration)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.http` is unnecessary and can be removed
-in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/rest/api/DdiRootControllerRestApi.java`
-#### Snippet
-```java
-     * @param controllerId
-     *            to disable auto-confirmation for
-     * @return {@link org.springframework.http.HttpStatus#OK} if successfully
-     *         executed
-     */
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.http` is unnecessary and can be removed
 in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/rest/api/DdiRootControllerRestApi.java`
@@ -8680,6 +8514,18 @@ in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/rest/api/
      * @return {@link org.springframework.http.HttpStatus#OK} if successful or
      *         {@link org.springframework.http.HttpStatus#CONFLICT} in case
      *         auto-confirmation was active already.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.http` is unnecessary and can be removed
+in `hawkbit-rest/hawkbit-ddi-api/src/main/java/org/eclipse/hawkbit/ddi/rest/api/DdiRootControllerRestApi.java`
+#### Snippet
+```java
+     * @param controllerId
+     *            to disable auto-confirmation for
+     * @return {@link org.springframework.http.HttpStatus#OK} if successfully
+     *         executed
      */
 ```
 
@@ -8772,33 +8618,9 @@ Qualifier `com.vaadin.ui` is unnecessary and can be removed
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
 #### Snippet
 ```java
-     * Create stream for {@link Upload} variant.
+     * Upload failed for {@link Upload} variant.
      *
-     * @see com.vaadin.ui.Upload.Receiver#receiveUpload(java.lang.String,
-     *      java.lang.String)
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
-#### Snippet
-```java
-     * Create stream for {@link Upload} variant.
-     *
-     * @see com.vaadin.ui.Upload.Receiver#receiveUpload(java.lang.String,
-     *      java.lang.String)
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
-#### Snippet
-```java
-     *
-     * @see com.vaadin.ui.Upload.Receiver#receiveUpload(java.lang.String,
-     *      java.lang.String)
+     * @see com.vaadin.ui.Upload.FailedListener#uploadFailed(com.vaadin.ui.Upload.FailedEvent)
      */
     @Override
 ```
@@ -8820,9 +8642,21 @@ Qualifier `com.vaadin.ui` is unnecessary and can be removed
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
 #### Snippet
 ```java
-     * Upload failed for {@link Upload} variant.
+     * variant.
      *
-     * @see com.vaadin.ui.Upload.FailedListener#uploadFailed(com.vaadin.ui.Upload.FailedEvent)
+     * @see com.vaadin.ui.Upload.FinishedListener#uploadFinished(com.vaadin.ui.Upload.FinishedEvent)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.vaadin.ui` is unnecessary and can be removed
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
+#### Snippet
+```java
+     * variant.
+     *
+     * @see com.vaadin.ui.Upload.FinishedListener#uploadFinished(com.vaadin.ui.Upload.FinishedEvent)
      */
     @Override
 ```
@@ -8844,54 +8678,6 @@ Qualifier `com.vaadin.ui` is unnecessary and can be removed
 in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
 #### Snippet
 ```java
-     * Upload started for {@link Upload} variant.
-     *
-     * @see com.vaadin.ui.Upload.StartedListener#uploadStarted(com.vaadin.ui.Upload.StartedEvent)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.vaadin.ui` is unnecessary and can be removed
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
-#### Snippet
-```java
-     * Upload started for {@link Upload} variant.
-     *
-     * @see com.vaadin.ui.Upload.StartedListener#uploadStarted(com.vaadin.ui.Upload.StartedEvent)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.vaadin.ui` is unnecessary and can be removed
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
-#### Snippet
-```java
-     * variant.
-     *
-     * @see com.vaadin.ui.Upload.FinishedListener#uploadFinished(com.vaadin.ui.Upload.FinishedEvent)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.vaadin.ui` is unnecessary and can be removed
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
-#### Snippet
-```java
-     * variant.
-     *
-     * @see com.vaadin.ui.Upload.FinishedListener#uploadFinished(com.vaadin.ui.Upload.FinishedEvent)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.vaadin.ui` is unnecessary and can be removed
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
-#### Snippet
-```java
      * Upload sucessfull for {@link Upload} variant.
      *
      * @see com.vaadin.ui.Upload.SucceededListener#uploadSucceeded(com.vaadin.ui.Upload.SucceededEvent)
@@ -8912,25 +8698,61 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransfe
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.vaadin.server` is unnecessary and can be removed
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerStreamVariable.java`
+Qualifier `com.vaadin.ui` is unnecessary and can be removed
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
 #### Snippet
 ```java
-     * Reports progress in {@link StreamVariable} variant. Interrupts
+     * Create stream for {@link Upload} variant.
      *
-     * @see com.vaadin.server.StreamVariable#onProgress(com.vaadin.server.StreamVariable.StreamingProgressEvent)
+     * @see com.vaadin.ui.Upload.Receiver#receiveUpload(java.lang.String,
+     *      java.lang.String)
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
+#### Snippet
+```java
+     * Create stream for {@link Upload} variant.
+     *
+     * @see com.vaadin.ui.Upload.Receiver#receiveUpload(java.lang.String,
+     *      java.lang.String)
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
+#### Snippet
+```java
+     *
+     * @see com.vaadin.ui.Upload.Receiver#receiveUpload(java.lang.String,
+     *      java.lang.String)
      */
     @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.vaadin.server` is unnecessary and can be removed
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerStreamVariable.java`
+Qualifier `com.vaadin.ui` is unnecessary and can be removed
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
 #### Snippet
 ```java
-     * Reports progress in {@link StreamVariable} variant. Interrupts
+     * Upload started for {@link Upload} variant.
      *
-     * @see com.vaadin.server.StreamVariable#onProgress(com.vaadin.server.StreamVariable.StreamingProgressEvent)
+     * @see com.vaadin.ui.Upload.StartedListener#uploadStarted(com.vaadin.ui.Upload.StartedEvent)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.vaadin.ui` is unnecessary and can be removed
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerVaadinUpload.java`
+#### Snippet
+```java
+     * Upload started for {@link Upload} variant.
+     *
+     * @see com.vaadin.ui.Upload.StartedListener#uploadStarted(com.vaadin.ui.Upload.StartedEvent)
      */
     @Override
 ```
@@ -8955,6 +8777,30 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransfe
      * case.
      *
      * @see com.vaadin.server.StreamVariable#streamingFinished(com.vaadin.server.StreamVariable.StreamingEndEvent)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.vaadin.server` is unnecessary and can be removed
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerStreamVariable.java`
+#### Snippet
+```java
+     * Reports progress in {@link StreamVariable} variant. Interrupts
+     *
+     * @see com.vaadin.server.StreamVariable#onProgress(com.vaadin.server.StreamVariable.StreamingProgressEvent)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.vaadin.server` is unnecessary and can be removed
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/upload/FileTransferHandlerStreamVariable.java`
+#### Snippet
+```java
+     * Reports progress in {@link StreamVariable} variant. Interrupts
+     *
+     * @see com.vaadin.server.StreamVariable#onProgress(com.vaadin.server.StreamVariable.StreamingProgressEvent)
      */
     @Override
 ```
@@ -8969,6 +8815,174 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/client/Text
      * {@link TextFieldSuggestionBoxClientRpc#showSuggestions(org.eclipse.hawkbit.ui.filtermanagement.client.SuggestionContextDto)}
      * is called as a callback mechanism back to the client.
      * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.boot.autoconfigure.orm.jpa` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/RepositoryApplicationConfiguration.java`
+#### Snippet
+```java
+     * {@link MultiTenantJpaTransactionManager} bean.
+     *
+     * @see org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration#transactionManager(ObjectProvider)
+     * @return a new {@link PlatformTransactionManager}
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaBaseEntity.java`
+#### Snippet
+```java
+     * {@link #getOptLockRevision()} and class.
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaBaseEntity.java`
+#### Snippet
+```java
+     * {@link #getOptLockRevision()} and class.
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaBaseEntity.java`
+#### Snippet
+```java
+     * {@link #getOptLockRevision()} and class.
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/AbstractJpaTenantAwareBaseEntity.java`
+#### Snippet
+```java
+     * different tenants.
+     * 
+     * @see org.eclipse.hawkbit.repository.model.BaseEntity#equals(java.lang.Object)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.validation` is unnecessary, and can be replaced with an import
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/aspects/ExceptionMappingAspectHandler.java`
+#### Snippet
+```java
+        do {
+            final Throwable cause = exception.getCause();
+            if (cause instanceof javax.validation.ConstraintViolationException) {
+                return (Exception) cause;
+            }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.hawkbit.tenancy` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/SystemManagement.java`
+#### Snippet
+```java
+    /**
+     * Runs consumer for each teant as
+     * {@link TenantAware#runAsTenant(String, org.eclipse.hawkbit.tenancy.TenantAware.TenantRunner)}
+     * sliently (i.e. exceptions will be logged but operations will continue for
+     * further tenants).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.hawkbit.repository.model` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/TargetManagement.java`
+#### Snippet
+```java
+     *
+     * @param controllerId
+     *            of the {@link org.eclipse.hawkbit.repository.model.Target} to
+     *            check
+     * @param distributionSetId
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.hawkbit.repository.model` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/TargetManagement.java`
+#### Snippet
+```java
+     * @param distributionSetId
+     *            of the
+     *            {@link org.eclipse.hawkbit.repository.model.DistributionSet}
+     *            to consider
+     * @param targetFilterQuery
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.hawkbit.repository.model` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/model/DeploymentRequest.java`
+#### Snippet
+```java
+     *            required, the action will be automatically confirmed and put in
+     *            the
+     *            {@link org.eclipse.hawkbit.repository.model.Action.Status#RUNNING}
+     *            state. Otherwise the confirmation flow will be triggered
+     *            and the {@link Action} will stay in the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.hawkbit.repository.model` is unnecessary and can be removed
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/model/DeploymentRequest.java`
+#### Snippet
+```java
+     *            state. Otherwise the confirmation flow will be triggered
+     *            and the {@link Action} will stay in the
+     *            {@link org.eclipse.hawkbit.repository.model.Action.Status#WAIT_FOR_CONFIRMATION}
+     *            state until the confirmation is given. (Only considered
+     *            with CONFIRMATION_FLOW active via tenant configuration)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/UserAuthenticationFilter.java`
+#### Snippet
+```java
+ * in any remote call through HTTP except the SP login screen. E.g. using the SP
+ * REST-API. To authenticate user e.g. using Basic-Authentication implement the
+ * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
+ * method.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/UserAuthenticationFilter.java`
+#### Snippet
+```java
+ * in any remote call through HTTP except the SP login screen. E.g. using the SP
+ * REST-API. To authenticate user e.g. using Basic-Authentication implement the
+ * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
+ * method.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/im/authentication/UserAuthenticationFilter.java`
+#### Snippet
+```java
+ * in any remote call through HTTP except the SP login screen. E.g. using the SP
+ * REST-API. To authenticate user e.g. using Basic-Authentication implement the
+ * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
+ * method.
+ *
 ```
 
 ## RuleId[ruleID=ComparatorMethodParameterNotUsed]
@@ -9000,6 +9014,270 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/ControllerTenantAwareAuthenticationDetailsSource.java`
+#### Snippet
+```java
+            LOGGER.info("Controller request not matching tenant aware request pattern requestpath: {}, pattern {}",
+                    requestURI, TENANT_AWARE_CONTROLLER_PATTERN);
+            return null;
+        }
+        final Map<String, String> extractUriTemplateVariables = pathExtractor
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/HttpDownloadAuthenticationFilter.java`
+#### Snippet
+```java
+        final Matcher matcher = pattern.matcher(requestURI);
+        if (!matcher.matches()) {
+            return null;
+        }
+        LOG.debug("retrieving id from URI request {}", requestURI);
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/HttpDownloadAuthenticationFilter.java`
+#### Snippet
+```java
+        final String id = groups[groups.length - 1];
+        if (id == null) {
+            return null;
+        }
+        return downloadIdCache.get(id);
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-artifact-repository-filesystem/src/main/java/org/eclipse/hawkbit/artifact/repository/ArtifactFilesystemRepository.java`
+#### Snippet
+```java
+        final File file = getFile(tenant, sha1);
+        if (!file.exists()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpControllerAuthentication.java`
+#### Snippet
+```java
+
+        if (!filter.isEnable(secruityToken)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpControllerAuthentication.java`
+#### Snippet
+```java
+        if (principal == null) {
+            LOGGER.debug("No pre-authenticated principal found in message");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/AbstractHttpControllerAuthenticationFilter.java`
+#### Snippet
+```java
+        final DmfTenantSecurityToken secruityToken = createTenantSecruityTokenVariables(request);
+        if (secruityToken == null) {
+            return null;
+        }
+        return abstractControllerAuthenticationFilter.getPreAuthenticatedCredentials(secruityToken);
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/AbstractHttpControllerAuthenticationFilter.java`
+#### Snippet
+```java
+        final DmfTenantSecurityToken secruityToken = createTenantSecruityTokenVariables(request);
+        if (secruityToken == null) {
+            return null;
+        }
+        return abstractControllerAuthenticationFilter.getPreAuthenticatedPrincipal(secruityToken);
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/AbstractHttpControllerAuthenticationFilter.java`
+#### Snippet
+```java
+                        CONTROLLER_REQUEST_ANT_PATTERN);
+            }
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/BaseAmqpService.java`
+#### Snippet
+```java
+        if (value == null) {
+            logAndThrowMessageError(message, errorMessageIfNull);
+            return null;
+        }
+        return value.toString();
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
+#### Snippet
+```java
+            SecurityContextHolder.setContext(oldContext);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
+#### Snippet
+```java
+        logAndThrowMessageError(message,
+                "Cancel rejected message is not allowed, if action is on state: " + action.getStatus());
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
+#### Snippet
+```java
+            return UpdateMode.valueOf(mode.name());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/FileStreamingUtil.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRestModelMapper.java`
+#### Snippet
+```java
+    public static MgmtActionType convertActionType(final ActionType actionType) {
+        if (actionType == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRestModelMapper.java`
+#### Snippet
+```java
+    public static CancelationType convertCancelationType(final MgmtCancelationType cancelationType) {
+        if (cancelationType == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRestModelMapper.java`
+#### Snippet
+```java
+    public static ActionType convertActionType(final MgmtActionType actionTypeRest) {
+        if (actionTypeRest == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
+#### Snippet
+```java
+    static MgmtSoftwareModule toResponse(final SoftwareModule softwareModule) {
+        if (softwareModule == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
+#### Snippet
+```java
+    static MgmtDistributionSet toResponse(final DistributionSet distributionSet) {
+        if (distributionSet == null) {
+            return null;
+        }
+        final MgmtDistributionSet response = new MgmtDistributionSet();
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetResource.java`
+#### Snippet
+```java
+
+    private <T, R> R getNullIfEmpty(final T object, final Function<T, R> extractMethod) {
+        return object == null ? null : extractMethod.apply(object);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTagMapper.java`
+#### Snippet
+```java
+        final MgmtTag response = new MgmtTag();
+        if (distributionSetTag == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/HashGeneratorUtils.java`
+#### Snippet
+```java
+            LOG.error("Algorithm could not be found", e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/CleanupTestExecutionListener.java`
 #### Snippet
 ```java
@@ -9024,18 +9302,6 @@ in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/HashGeneratorUtils.java`
-#### Snippet
-```java
-            LOG.error("Algorithm could not be found", e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/JpaTestRepositoryManagement.java`
 #### Snippet
 ```java
@@ -9044,6 +9310,18 @@ in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit
                     return null;
                 });
             } catch (final Exception e) {
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/WithSpringAuthorityRule.java`
+#### Snippet
+```java
+            @Override
+            public String credentials() {
+                return null;
+            }
+
 ```
 
 ### ReturnNull
@@ -9060,13 +9338,601 @@ in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-repository/hawkbit-repository-test/src/main/java/org/eclipse/hawkbit/repository/test/util/WithSpringAuthorityRule.java`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
 #### Snippet
 ```java
-            @Override
-            public String credentials() {
+    public static MgmtTarget toResponse(final Target target, final TenantConfigHelper configHelper) {
+        if (target == null) {
+            return null;
+        }
+        final MgmtTarget targetRest = new MgmtTarget();
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/UserDetailsFormatter.java`
+#### Snippet
+```java
+        final UserDetails userDetails = getCurrentUser();
+        if (!(userDetails instanceof UserPrincipal)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/utils/SPDateTimeUtil.java`
+#### Snippet
+```java
+            return format.format(new Date(lastQueryDate));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEntityWindowController.java`
+#### Snippet
+```java
+
+    protected Class<? extends ProxyIdentifiableEntity> getParentEntityClass() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEventListenersAwareView.java`
+#### Snippet
+```java
+                return new AbstractMap.SimpleEntry<>(keyValue[0], keyValue[1]);
+            }
+            return null;
+        }).filter(Objects::nonNull)
+                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEntityWindowBuilder.java`
+#### Snippet
+```java
+    protected String getHelpLink() {
+        // can be overriden to provide help link to documentation
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/mappers/TargetToProxyTargetMapper.java`
+#### Snippet
+```java
+                    i18n));
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRolloutForm.java`
+#### Snippet
+```java
+
+    public String getTargetFilterQuery() {
+        return targetFilterInfo != null ? targetFilterInfo.getQuery() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyAdvancedRolloutGroup.java`
+#### Snippet
+```java
+
+    public String getTargetFilterQuery() {
+        return targetFilterInfo != null ? targetFilterInfo.getQuery() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRolloutWindow.java`
+#### Snippet
+```java
+     */
+    public Long getDistributionSetId() {
+        return rolloutForm.getDistributionSetInfo() != null ? rolloutForm.getDistributionSetInfo().getId() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRolloutWindow.java`
+#### Snippet
+```java
+        case MANUAL:
+        default:
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRollout.java`
+#### Snippet
+```java
+
+    public String getDsNameVersion() {
+        return dsInfo != null ? dsInfo.getNameVersion() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/MasterEntitySupport.java`
+#### Snippet
+```java
+    private Object getMasterEntityFilter(final M masterEntity) {
+        if (masterEntity == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/PinSupport.java`
+#### Snippet
+```java
+    public String getPinningStyle(final T item) {
+        if (isPinned(item.getId())) {
+            return null;
+        } else {
+            return SPUIStyleDefinitions.UN_PINNED_STYLE;
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/PinSupport.java`
+#### Snippet
+```java
+    public String getAssignedOrInstalledRowStyle(final Long itemId) {
+        if (!isPinFilterActive()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/PinSupport.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/ViewAwareListener.java`
+#### Snippet
+```java
+     */
+    public EventView getView() {
+        return viewAware != null ? viewAware.getView() : null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/AbstractFilterButtons.java`
+#### Snippet
+```java
+                return SPUIStyleDefinitions.SP_FILTER_BTN_CLICKED_STYLE;
+            } else {
                 return null;
             }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/layouts/AbstractRolloutWindowLayout.java`
+#### Snippet
+```java
+                    e.getMessage(), validationErrors);
+
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/layouts/AddRolloutWindowLayout.java`
+#### Snippet
+```java
+    private Long getTotalTargets(final String filterQuery, final Long distSetTypeId) {
+        if (StringUtils.isEmpty(filterQuery)) {
+            return null;
+        }
+        if (distSetTypeId == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/StatusIconBuilder.java`
+#### Snippet
+```java
+        public Label getLabel(final ProxyAction action) {
+            if (ActionType.TIMEFORCED != action.getActionType()) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/AutoStartOptionGroupLayout.java`
+#### Snippet
+```java
+                return VaadinIcons.CLOCK;
+            default:
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/AutoStartOptionGroupLayout.java`
+#### Snippet
+```java
+                return i18n.getMessage("caption.rollout.start.scheduled");
+            default:
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/AutoStartOptionGroupLayout.java`
+#### Snippet
+```java
+                return i18n.getMessage("caption.rollout.start.scheduled.desc");
+            default:
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/SimpleGroupsLayout.java`
+#### Snippet
+```java
+                }).withConverter(errorThresholdPresentation -> {
+                    if (errorThresholdPresentation == null) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/SimpleGroupsLayout.java`
+#### Snippet
+```java
+                }, errorThresholdModel -> {
+                    if (errorThresholdModel == null) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtype/SmTypeWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+                return i18n.getMessage("label.multiAssign.type");
+            default:
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtype/SmTypeWindowLayoutComponentBuilder.java`
+#### Snippet
+```java
+                return i18n.getMessage("label.multiAssign.type.desc");
+            default:
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+                .withConverter(ds -> {
+                    if (ds == null) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+                }, dsInfo -> {
+                    if (dsInfo == null) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+        final Binding<T, ProxyTargetFilterQueryInfo> binding = bindingBuilder.withConverter(tfq -> {
+            if (tfq == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+        }, tfqInfo -> {
+            if (tfqInfo == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+                .asRequired(i18n.getMessage("message.forcedTime.cannotBeEmpty")).withConverter(localDateTime -> {
+                    if (localDateTime == null) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+                }, forcedTime -> {
+                    if (forcedTime == null) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+                .asRequired(i18n.getMessage("message.scheduledTime.cannotBeEmpty")).withConverter(localDateTime -> {
+                    if (localDateTime == null) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
+#### Snippet
+```java
+                }, startAtTime -> {
+                    if (startAtTime == null) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/rollout/RolloutGrid.java`
+#### Snippet
+```java
+            return SPUIDefinitions.INVALID_DISTRIBUTION;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SoftwareModuleGrid.java`
+#### Snippet
+```java
+        setStyleGenerator(sm -> {
+            if (masterEntitySupport.getMasterId() == null || !sm.isAssigned()) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/AbstractActionTypeOptionGroupLayout.java`
+#### Snippet
+```java
+                return VaadinIcons.DOWNLOAD;
+            default:
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/AbstractActionTypeOptionGroupLayout.java`
+#### Snippet
+```java
+                return i18n.getMessage(UIMessageIdProvider.CAPTION_ACTION_DOWNLOAD_ONLY);
+            default:
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/AbstractActionTypeOptionGroupLayout.java`
+#### Snippet
+```java
+                return i18n.getMessage(UIMessageIdProvider.TOOLTIP_DOWNLOAD_ONLY_ITEM);
+            default:
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsConsequencesDialog.java`
+#### Snippet
+```java
+            return i18n.getMessage(UIMessageIdProvider.LABEL_CANCEL_ACTION_NONE);
+        default:
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsConsequencesDialog.java`
+#### Snippet
+```java
+            return i18n.getMessage(UIMessageIdProvider.TOOLTIP_DISTRIBUTIONSET_INVALIDATE_NONE);
+        default:
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettag/filter/TargetFilterQueryButtons.java`
+#### Snippet
+```java
+                return SPUIStyleDefinitions.SP_FILTER_BTN_CLICKED_STYLE;
+            } else {
+                return null;
+            }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
+#### Snippet
+```java
+            }
+            if (deletedTags.isEmpty()) {
+                return null;
+            }
+            if (deletedTags.size() == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowController.java`
+#### Snippet
+```java
+        // this subclass cares itself for persisting the entity because of
+        // special requirements (multiple confirmation dialogs)
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowController.java`
+#### Snippet
+```java
+        // this subclass cares itself for persisting the entity because of
+        // special requirements (multiple confirmation dialogs)
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowController.java`
+#### Snippet
+```java
+        // this subclass cares itself for persisting the entity because of
+        // special requirements (multiple confirmation dialogs).
+        return null;
+    }
 
 ```
 
@@ -9084,10 +9950,34 @@ in `hawkbit-autoconfigure/src/main/java/org/eclipse/hawkbit/autoconfigure/reposi
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaArtifactManagement.java`
+in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DataConversionHelper.java`
 #### Snippet
 ```java
-            }
+
+    private static List<DdiMetadata> mapMetadata(final List<SoftwareModuleMetadata> metadata) {
+        return CollectionUtils.isEmpty(metadata) ? null
+                : metadata.stream().map(md -> new DdiMetadata(md.getKey(), md.getValue())).collect(Collectors.toList());
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
+#### Snippet
+```java
+                    : DdiMaintenanceWindowStatus.UNAVAILABLE;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
+#### Snippet
+```java
+            return UpdateMode.valueOf(mode.name());
         }
         return null;
     }
@@ -9108,11 +9998,47 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### ReturnNull
 Return of `null`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaArtifactManagement.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/AbstractDsAssignmentStrategy.java`
 #### Snippet
 ```java
         }).orElseGet(() -> {
             LOG.warn("Cannot find target for targetWithActionType '{}'.", targetWithActionType.getControllerId());
+            return null;
+        });
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaTenantConfigurationManagement.java`
+#### Snippet
+```java
+                    .value(getGlobalConfigurationValue(configurationKey.getKeyName(), propertyType)).build();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSystemManagement.java`
+#### Snippet
+```java
+            artifactRepository.deleteByTenant(tenant);
+            softwareModuleTypeRepository.deleteByTenant(tenant);
             return null;
         });
     }
@@ -9144,30 +10070,6 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaSystemManagement.java`
-#### Snippet
-```java
-            artifactRepository.deleteByTenant(tenant);
-            softwareModuleTypeRepository.deleteByTenant(tenant);
-            return null;
-        });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaTenantConfigurationManagement.java`
-#### Snippet
-```java
-                    .value(getGlobalConfigurationValue(configurationKey.getKeyName(), propertyType)).build();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/HawkBitEclipseLinkJpaDialect.java`
 #### Snippet
 ```java
@@ -9188,6 +10090,18 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/ParseExceptionWrapper.java`
+#### Snippet
+```java
+        public TokenWrapper getNext() {
+            final Object nextToken = getValue(nextTokenField);
+            return nextToken != null ? new TokenWrapper(nextToken) : null;
+
+        }
 ```
 
 ### ReturnNull
@@ -9216,58 +10130,10 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/ParseExceptionWrapper.java`
-#### Snippet
-```java
-        public TokenWrapper getNext() {
-            final Object nextToken = getValue(nextTokenField);
-            return nextToken != null ? new TokenWrapper(nextToken) : null;
-
-        }
-```
-
-### ReturnNull
-Return of `null`
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/RsqlParserValidationOracle.java`
 #### Snippet
 ```java
             return findParseException(e.getCause());
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
-#### Snippet
-```java
-    private Map<Long, List<TotalTargetCountActionStatus>> getStatusCountItemForRollout(final List<Long> rollouts) {
-        if (rollouts.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
-#### Snippet
-```java
-    public PollStatus getPollStatus() {
-        if (lastTargetQuery == null) {
-            return null;
-        }
-        return SystemSecurityContextHolder.getInstance().getSystemSecurityContext().runAsSystem(() -> {
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
-#### Snippet
-```java
-            return securityToken;
         }
         return null;
     }
@@ -9300,6 +10166,30 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### ReturnNull
 Return of `null`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
+#### Snippet
+```java
+    public PollStatus getPollStatus() {
+        if (lastTargetQuery == null) {
+            return null;
+        }
+        return SystemSecurityContextHolder.getInstance().getSystemSecurityContext().runAsSystem(() -> {
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/model/JpaTarget.java`
+#### Snippet
+```java
+            return securityToken;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/utils/DeploymentHelper.java`
 #### Snippet
 ```java
@@ -9308,6 +10198,18 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
             return null;
         });
     }
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
+#### Snippet
+```java
+    private Map<Long, List<TotalTargetCountActionStatus>> getStatusCountItemForRollout(final List<Long> rollouts) {
+        if (rollouts.isEmpty()) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -9384,6 +10286,102 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### ReturnNull
 Return of `null`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/tenancy/configuration/DurationHelper.java`
+#### Snippet
+```java
+    public static String durationToFormattedString(final Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/tenancy/configuration/DurationHelper.java`
+#### Snippet
+```java
+    public static Duration formattedStringToDuration(final String formattedDuration) {
+        if (formattedDuration == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
+#### Snippet
+```java
+    private Predicate mapToMapPredicate(final ComparisonNode node, final Path<Object> fieldPath, final A enumField) {
+        if (!enumField.isMap()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/entity/RemoteEntityEvent.java`
+#### Snippet
+```java
+            LOG.error("Cannot reload entity because class is not found", e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/model/BaseEntity.java`
+#### Snippet
+```java
+
+    static Long getIdOrNull(final BaseEntity entity) {
+        return entity == null ? null : entity.getId();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedSecurityHeaderFilter.java`
+#### Snippet
+```java
+            return new HeaderAuthentication(commonNameValue, sslIssuerHashValue);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedSecurityHeaderFilter.java`
+#### Snippet
+```java
+                "Certificate request but no matching hash found in headers {} for common name {} in request",
+                sslIssuerHashBasicHeader, securityToken.getHeader(caCommonNameHeader));
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedGatewaySecurityTokenFilter.java`
+#### Snippet
+```java
+                "security token filter is enabled but request does not contain either the necessary secruity token {} or the authorization header with scheme {}",
+                secruityToken, GATEWAY_SECURITY_TOKEN_AUTH_SCHEME);
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/util/IpUtil.java`
 #### Snippet
 ```java
@@ -9396,12 +10394,36 @@ in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/util/IpUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SystemSecurityContext.java`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticateSecurityTokenFilter.java`
 #### Snippet
 ```java
-        @Override
-        public Object getDetails() {
-            return oldAuthentication != null ? oldAuthentication.getDetails() : null;
+                "security token filter is enabled but requst does not contain either the necessary path variables {} or the authorization header with scheme {}",
+                secruityToken, TARGET_SECURITY_TOKEN_AUTH_SCHEME);
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/PreAuthTokenSourceTrustAuthenticationProvider.java`
+#### Snippet
+```java
+    public Authentication authenticate(final Authentication authentication) {
+        if (!supports(authentication.getClass())) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
+#### Snippet
+```java
+    public String getHeader(final String name) {
+        if (headers == null) {
+            return null;
         }
 
 ```
@@ -9412,8 +10434,8 @@ in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SystemSecur
 #### Snippet
 ```java
         @Override
-        public String getName() {
-            return null;
+        public Object getPrincipal() {
+            return oldAuthentication != null ? oldAuthentication.getPrincipal() : null;
         }
 
 ```
@@ -9436,19 +10458,7 @@ in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SystemSecur
 #### Snippet
 ```java
         @Override
-        public Object getPrincipal() {
-            return oldAuthentication != null ? oldAuthentication.getPrincipal() : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/rsql/JpaQueryRsqlVisitor.java`
-#### Snippet
-```java
-    private Predicate mapToMapPredicate(final ComparisonNode node, final Path<Object> fieldPath, final A enumField) {
-        if (!enumField.isMap()) {
+        public String getName() {
             return null;
         }
 
@@ -9456,12 +10466,12 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SecurityContextTenantAware.java`
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SystemSecurityContext.java`
 #### Snippet
 ```java
         @Override
-        public Object getCredentials() {
-            return delegate != null ? delegate.getCredentials() : null;
+        public Object getDetails() {
+            return oldAuthentication != null ? oldAuthentication.getDetails() : null;
         }
 
 ```
@@ -9495,6 +10505,18 @@ Return of `null`
 in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SecurityContextTenantAware.java`
 #### Snippet
 ```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SecurityContextTenantAware.java`
+#### Snippet
+```java
         @Override
         public String toString() {
             return delegate != null ? delegate.toString() : null;
@@ -9507,10 +10529,10 @@ Return of `null`
 in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SecurityContextTenantAware.java`
 #### Snippet
 ```java
-            }
+        @Override
+        public Object getCredentials() {
+            return delegate != null ? delegate.getCredentials() : null;
         }
-        return null;
-    }
 
 ```
 
@@ -9522,18 +10544,6 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/cache/DefaultDownloadIdCache.
     public DownloadArtifactCache get(final String downloadId) {
         final ValueWrapper valueWrapper = getCache().get(downloadId);
         return (valueWrapper == null) ? null : (DownloadArtifactCache) valueWrapper.get();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-core/src/main/java/org/eclipse/hawkbit/api/PropertyBasedArtifactUrlHandler.java`
-#### Snippet
-```java
-
-    private static String getPort(final UrlProtocol protocol) {
-        return protocol.getPort() == null ? null : String.valueOf(protocol.getPort());
     }
 
 ```
@@ -9552,30 +10562,6 @@ in `hawkbit-core/src/main/java/org/eclipse/hawkbit/repository/ActionFields.java`
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/tenancy/configuration/DurationHelper.java`
-#### Snippet
-```java
-    public static Duration formattedStringToDuration(final String formattedDuration) {
-        if (formattedDuration == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/tenancy/configuration/DurationHelper.java`
-#### Snippet
-```java
-    public static String durationToFormattedString(final Duration duration) {
-        if (duration == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaDeploymentManagement.java`
 #### Snippet
 ```java
@@ -9588,1001 +10574,17 @@ in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/
 
 ### ReturnNull
 Return of `null`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/event/remote/entity/RemoteEntityEvent.java`
+in `hawkbit-core/src/main/java/org/eclipse/hawkbit/api/PropertyBasedArtifactUrlHandler.java`
 #### Snippet
 ```java
-            LOG.error("Cannot reload entity because class is not found", e);
-        }
-        return null;
-    }
 
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-repository/hawkbit-repository-api/src/main/java/org/eclipse/hawkbit/repository/model/BaseEntity.java`
-#### Snippet
-```java
-
-    static Long getIdOrNull(final BaseEntity entity) {
-        return entity == null ? null : entity.getId();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/HttpDownloadAuthenticationFilter.java`
-#### Snippet
-```java
-        final Matcher matcher = pattern.matcher(requestURI);
-        if (!matcher.matches()) {
-            return null;
-        }
-        LOG.debug("retrieving id from URI request {}", requestURI);
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/HttpDownloadAuthenticationFilter.java`
-#### Snippet
-```java
-        final String id = groups[groups.length - 1];
-        if (id == null) {
-            return null;
-        }
-        return downloadIdCache.get(id);
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/ControllerTenantAwareAuthenticationDetailsSource.java`
-#### Snippet
-```java
-            LOGGER.info("Controller request not matching tenant aware request pattern requestpath: {}, pattern {}",
-                    requestURI, TENANT_AWARE_CONTROLLER_PATTERN);
-            return null;
-        }
-        final Map<String, String> extractUriTemplateVariables = pathExtractor
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/AbstractHttpControllerAuthenticationFilter.java`
-#### Snippet
-```java
-        final DmfTenantSecurityToken secruityToken = createTenantSecruityTokenVariables(request);
-        if (secruityToken == null) {
-            return null;
-        }
-        return abstractControllerAuthenticationFilter.getPreAuthenticatedCredentials(secruityToken);
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/AbstractHttpControllerAuthenticationFilter.java`
-#### Snippet
-```java
-        final DmfTenantSecurityToken secruityToken = createTenantSecruityTokenVariables(request);
-        if (secruityToken == null) {
-            return null;
-        }
-        return abstractControllerAuthenticationFilter.getPreAuthenticatedPrincipal(secruityToken);
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-http-security/src/main/java/org/eclipse/hawkbit/security/AbstractHttpControllerAuthenticationFilter.java`
-#### Snippet
-```java
-                        CONTROLLER_REQUEST_ANT_PATTERN);
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/FileStreamingUtil.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DataConversionHelper.java`
-#### Snippet
-```java
-
-    private static List<DdiMetadata> mapMetadata(final List<SoftwareModuleMetadata> metadata) {
-        return CollectionUtils.isEmpty(metadata) ? null
-                : metadata.stream().map(md -> new DdiMetadata(md.getKey(), md.getValue())).collect(Collectors.toList());
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/PreAuthTokenSourceTrustAuthenticationProvider.java`
-#### Snippet
-```java
-    public Authentication authenticate(final Authentication authentication) {
-        if (!supports(authentication.getClass())) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticateSecurityTokenFilter.java`
-#### Snippet
-```java
-                "security token filter is enabled but requst does not contain either the necessary path variables {} or the authorization header with scheme {}",
-                secruityToken, TARGET_SECURITY_TOKEN_AUTH_SCHEME);
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedGatewaySecurityTokenFilter.java`
-#### Snippet
-```java
-                "security token filter is enabled but request does not contain either the necessary secruity token {} or the authorization header with scheme {}",
-                secruityToken, GATEWAY_SECURITY_TOKEN_AUTH_SCHEME);
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedSecurityHeaderFilter.java`
-#### Snippet
-```java
-            return new HeaderAuthentication(commonNameValue, sslIssuerHashValue);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/ControllerPreAuthenticatedSecurityHeaderFilter.java`
-#### Snippet
-```java
-                "Certificate request but no matching hash found in headers {} for common name {} in request",
-                sslIssuerHashBasicHeader, securityToken.getHeader(caCommonNameHeader));
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/DmfTenantSecurityToken.java`
-#### Snippet
-```java
-    public String getHeader(final String name) {
-        if (headers == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
-#### Snippet
-```java
-                    : DdiMaintenanceWindowStatus.UNAVAILABLE;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-ddi-resource/src/main/java/org/eclipse/hawkbit/ddi/rest/resource/DdiRootController.java`
-#### Snippet
-```java
-            return UpdateMode.valueOf(mode.name());
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/UserDetailsFormatter.java`
-#### Snippet
-```java
-        final UserDetails userDetails = getCurrentUser();
-        if (!(userDetails instanceof UserPrincipal)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/utils/SPDateTimeUtil.java`
-#### Snippet
-```java
-            return format.format(new Date(lastQueryDate));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEventListenersAwareView.java`
-#### Snippet
-```java
-                return new AbstractMap.SimpleEntry<>(keyValue[0], keyValue[1]);
-            }
-            return null;
-        }).filter(Objects::nonNull)
-                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEntityWindowController.java`
-#### Snippet
-```java
-
-    protected Class<? extends ProxyIdentifiableEntity> getParentEntityClass() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/AbstractEntityWindowBuilder.java`
-#### Snippet
-```java
-    protected String getHelpLink() {
-        // can be overriden to provide help link to documentation
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/mappers/TargetToProxyTargetMapper.java`
-#### Snippet
-```java
-                    i18n));
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRolloutForm.java`
-#### Snippet
-```java
-
-    public String getTargetFilterQuery() {
-        return targetFilterInfo != null ? targetFilterInfo.getQuery() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyAdvancedRolloutGroup.java`
-#### Snippet
-```java
-
-    public String getTargetFilterQuery() {
-        return targetFilterInfo != null ? targetFilterInfo.getQuery() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRolloutWindow.java`
-#### Snippet
-```java
-        case MANUAL:
-        default:
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRolloutWindow.java`
-#### Snippet
-```java
-     */
-    public Long getDistributionSetId() {
-        return rolloutForm.getDistributionSetInfo() != null ? rolloutForm.getDistributionSetInfo().getId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/data/proxies/ProxyRollout.java`
-#### Snippet
-```java
-
-    public String getDsNameVersion() {
-        return dsInfo != null ? dsInfo.getNameVersion() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/MasterEntitySupport.java`
-#### Snippet
-```java
-    private Object getMasterEntityFilter(final M masterEntity) {
-        if (masterEntity == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/PinSupport.java`
-#### Snippet
-```java
-    public String getAssignedOrInstalledRowStyle(final Long itemId) {
-        if (!isPinFilterActive()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/PinSupport.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/grid/support/PinSupport.java`
-#### Snippet
-```java
-    public String getPinningStyle(final T item) {
-        if (isPinned(item.getId())) {
-            return null;
-        } else {
-            return SPUIStyleDefinitions.UN_PINNED_STYLE;
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/layout/listener/ViewAwareListener.java`
-#### Snippet
-```java
-     */
-    public EventView getView() {
-        return viewAware != null ? viewAware.getView() : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/filterlayout/AbstractFilterButtons.java`
-#### Snippet
-```java
-                return SPUIStyleDefinitions.SP_FILTER_BTN_CLICKED_STYLE;
-            } else {
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/layouts/AbstractRolloutWindowLayout.java`
-#### Snippet
-```java
-                    e.getMessage(), validationErrors);
-
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/layouts/AddRolloutWindowLayout.java`
-#### Snippet
-```java
-    private Long getTotalTargets(final String filterQuery, final Long distSetTypeId) {
-        if (StringUtils.isEmpty(filterQuery)) {
-            return null;
-        }
-        if (distSetTypeId == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/AutoStartOptionGroupLayout.java`
-#### Snippet
-```java
-                return VaadinIcons.CLOCK;
-            default:
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/AutoStartOptionGroupLayout.java`
-#### Snippet
-```java
-                return i18n.getMessage("caption.rollout.start.scheduled");
-            default:
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/AutoStartOptionGroupLayout.java`
-#### Snippet
-```java
-                return i18n.getMessage("caption.rollout.start.scheduled.desc");
-            default:
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/StatusIconBuilder.java`
-#### Snippet
-```java
-        public Label getLabel(final ProxyAction action) {
-            if (ActionType.TIMEFORCED != action.getActionType()) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/SimpleGroupsLayout.java`
-#### Snippet
-```java
-                }).withConverter(errorThresholdPresentation -> {
-                    if (errorThresholdPresentation == null) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/window/components/SimpleGroupsLayout.java`
-#### Snippet
-```java
-                }, errorThresholdModel -> {
-                    if (errorThresholdModel == null) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtype/SmTypeWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-                return i18n.getMessage("label.multiAssign.type");
-            default:
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtype/SmTypeWindowLayoutComponentBuilder.java`
-#### Snippet
-```java
-                return i18n.getMessage("label.multiAssign.type.desc");
-            default:
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/rollout/rollout/RolloutGrid.java`
-#### Snippet
-```java
-            return SPUIDefinitions.INVALID_DISTRIBUTION;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-        final Binding<T, ProxyTargetFilterQueryInfo> binding = bindingBuilder.withConverter(tfq -> {
-            if (tfq == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-        }, tfqInfo -> {
-            if (tfqInfo == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-                .withConverter(ds -> {
-                    if (ds == null) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-                }, dsInfo -> {
-                    if (dsInfo == null) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-                .asRequired(i18n.getMessage("message.forcedTime.cannotBeEmpty")).withConverter(localDateTime -> {
-                    if (localDateTime == null) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-                }, forcedTime -> {
-                    if (forcedTime == null) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-                .asRequired(i18n.getMessage("message.scheduledTime.cannotBeEmpty")).withConverter(localDateTime -> {
-                    if (localDateTime == null) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/common/builder/FormComponentBuilder.java`
-#### Snippet
-```java
-                }, startAtTime -> {
-                    if (startAtTime == null) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/artifacts/smtable/SoftwareModuleGrid.java`
-#### Snippet
-```java
-        setStyleGenerator(sm -> {
-            if (masterEntitySupport.getMasterId() == null || !sm.isAssigned()) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/AbstractActionTypeOptionGroupLayout.java`
-#### Snippet
-```java
-                return VaadinIcons.DOWNLOAD;
-            default:
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/AbstractActionTypeOptionGroupLayout.java`
-#### Snippet
-```java
-                return i18n.getMessage(UIMessageIdProvider.CAPTION_ACTION_DOWNLOAD_ONLY);
-            default:
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/miscs/AbstractActionTypeOptionGroupLayout.java`
-#### Snippet
-```java
-                return i18n.getMessage(UIMessageIdProvider.TOOLTIP_DOWNLOAD_ONLY_ITEM);
-            default:
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsConsequencesDialog.java`
-#### Snippet
-```java
-            return i18n.getMessage(UIMessageIdProvider.TOOLTIP_DISTRIBUTIONSET_INVALIDATE_NONE);
-        default:
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/dstable/InvalidateDsConsequencesDialog.java`
-#### Snippet
-```java
-            return i18n.getMessage(UIMessageIdProvider.LABEL_CANCEL_ACTION_NONE);
-        default:
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/targettag/filter/TargetFilterQueryButtons.java`
-#### Snippet
-```java
-                return SPUIStyleDefinitions.SP_FILTER_BTN_CLICKED_STYLE;
-            } else {
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUploadHandler.java`
-#### Snippet
-```java
-            }
-            if (deletedTags.isEmpty()) {
-                return null;
-            }
-            if (deletedTags.size() == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowController.java`
-#### Snippet
-```java
-        // this subclass cares itself for persisting the entity because of
-        // special requirements (multiple confirmation dialogs).
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowController.java`
-#### Snippet
-```java
-        // this subclass cares itself for persisting the entity because of
-        // special requirements (multiple confirmation dialogs)
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/filtermanagement/AutoAssignmentWindowController.java`
-#### Snippet
-```java
-        // this subclass cares itself for persisting the entity because of
-        // special requirements (multiple confirmation dialogs)
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpControllerAuthentication.java`
-#### Snippet
-```java
-
-        if (!filter.isEnable(secruityToken)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpControllerAuthentication.java`
-#### Snippet
-```java
-        if (principal == null) {
-            LOGGER.debug("No pre-authenticated principal found in message");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/BaseAmqpService.java`
-#### Snippet
-```java
-        if (value == null) {
-            logAndThrowMessageError(message, errorMessageIfNull);
-            return null;
-        }
-        return value.toString();
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRestModelMapper.java`
-#### Snippet
-```java
-    public static CancelationType convertCancelationType(final MgmtCancelationType cancelationType) {
-        if (cancelationType == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRestModelMapper.java`
-#### Snippet
-```java
-    public static ActionType convertActionType(final MgmtActionType actionTypeRest) {
-        if (actionTypeRest == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtRestModelMapper.java`
-#### Snippet
-```java
-    public static MgmtActionType convertActionType(final ActionType actionType) {
-        if (actionType == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
-#### Snippet
-```java
-            SecurityContextHolder.setContext(oldContext);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
-#### Snippet
-```java
-            return UpdateMode.valueOf(mode.name());
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-dmf/hawkbit-dmf-amqp/src/main/java/org/eclipse/hawkbit/amqp/AmqpMessageHandlerService.java`
-#### Snippet
-```java
-        logAndThrowMessageError(message,
-                "Cancel rejected message is not allowed, if action is on state: " + action.getStatus());
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtSoftwareModuleMapper.java`
-#### Snippet
-```java
-    static MgmtSoftwareModule toResponse(final SoftwareModule softwareModule) {
-        if (softwareModule == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtDistributionSetMapper.java`
-#### Snippet
-```java
-    static MgmtDistributionSet toResponse(final DistributionSet distributionSet) {
-        if (distributionSet == null) {
-            return null;
-        }
-        final MgmtDistributionSet response = new MgmtDistributionSet();
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetResource.java`
-#### Snippet
-```java
-
-    private <T, R> R getNullIfEmpty(final T object, final Function<T, R> extractMethod) {
-        return object == null ? null : extractMethod.apply(object);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTagMapper.java`
-#### Snippet
-```java
-        final MgmtTag response = new MgmtTag();
-        if (distributionSetTag == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-artifact-repository-filesystem/src/main/java/org/eclipse/hawkbit/artifact/repository/ArtifactFilesystemRepository.java`
-#### Snippet
-```java
-        final File file = getFile(tenant, sha1);
-        if (!file.exists()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
-#### Snippet
-```java
-    public static MgmtTarget toResponse(final Target target, final TenantConfigHelper configHelper) {
-        if (target == null) {
-            return null;
-        }
-        final MgmtTarget targetRest = new MgmtTarget();
-```
-
-### ReturnNull
-Return of `null`
-in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/rest/resource/MgmtTargetMapper.java`
-#### Snippet
-```java
-        }
-
-        return null;
+    private static String getPort(final UrlProtocol protocol) {
+        return protocol.getPort() == null ? null : String.valueOf(protocol.getPort());
     }
 
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `savedRollout` is redundant
-in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
-#### Snippet
-```java
-        RolloutHelper.verifyRolloutGroupConditions(conditions);
-
-        final JpaRollout savedRollout = rollout;
-
-        // we can enforce the 'max targets per group' quota right here because
-```
-
 ### UnnecessaryLocalVariable
 Local variable `r` is redundant
 in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/FileStreamingUtil.java`
@@ -10607,19 +10609,19 @@ in `hawkbit-rest/hawkbit-mgmt-resource/src/main/java/org/eclipse/hawkbit/mgmt/re
         }
 ```
 
-## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SecurityContextTenantAware.java`
+### UnnecessaryLocalVariable
+Local variable `savedRollout` is redundant
+in `hawkbit-repository/hawkbit-repository-jpa/src/main/java/org/eclipse/hawkbit/repository/jpa/JpaRolloutManagement.java`
 #### Snippet
 ```java
+        RolloutHelper.verifyRolloutGroupConditions(conditions);
 
-        @Override
-        public boolean equals(final Object another) {
-            if (delegate != null) {
-                return delegate.equals(another);
+        final JpaRollout savedRollout = rollout;
+
+        // we can enforce the 'max targets per group' quota right here because
 ```
 
+## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
 in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/data/ResponseList.java`
@@ -10630,6 +10632,18 @@ in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/data/R
     public boolean equals(final Object o) {
         return content.equals(o);
     }
+```
+
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `hawkbit-security-core/src/main/java/org/eclipse/hawkbit/security/SecurityContextTenantAware.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean equals(final Object another) {
+            if (delegate != null) {
+                return delegate.equals(another);
 ```
 
 ## RuleId[ruleID=UseBulkOperation]
@@ -10646,6 +10660,18 @@ in `hawkbit-security-integration/src/main/java/org/eclipse/hawkbit/security/PreA
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
+'move(java.io.File, java.io.File)' is marked unstable with @Beta
+in `hawkbit-artifact-repository-filesystem/src/main/java/org/eclipse/hawkbit/artifact/repository/ArtifactFilesystemRepository.java`
+#### Snippet
+```java
+            FileUtils.deleteQuietly(file);
+        } else {
+            Files.move(file, fileSHA1Naming);
+        }
+
+```
+
 ### UnstableApiUsage
 'skipFully(java.io.InputStream, long)' is marked unstable with @Beta
 in `hawkbit-rest/hawkbit-rest-core/src/main/java/org/eclipse/hawkbit/rest/util/FileStreamingUtil.java`
@@ -10727,18 +10753,6 @@ in `hawkbit-ui/src/main/java/org/eclipse/hawkbit/ui/management/bulkupload/BulkUp
 
         return ByteStreams.nullOutputStream();
     }
-
-```
-
-### UnstableApiUsage
-'move(java.io.File, java.io.File)' is marked unstable with @Beta
-in `hawkbit-artifact-repository-filesystem/src/main/java/org/eclipse/hawkbit/artifact/repository/ArtifactFilesystemRepository.java`
-#### Snippet
-```java
-            FileUtils.deleteQuietly(file);
-        } else {
-            Files.move(file, fileSHA1Naming);
-        }
 
 ```
 
