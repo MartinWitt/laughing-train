@@ -15,18 +15,6 @@ I found 20 bad smells with 3 repairable:
 | StringEqualsEmptyString | 1 | false |
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
-#### Snippet
-```java
-  private ImmutableList.Builder<String> rowAccumulator;
-  private boolean bodyElementStarted = false;
-  private int bodyRowCounter = 0;
-
-  /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
 #### Snippet
@@ -36,6 +24,18 @@ in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
   private boolean bodyElementStarted = false;
   private int bodyRowCounter = 0;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
+#### Snippet
+```java
+  private ImmutableList.Builder<String> rowAccumulator;
+  private boolean bodyElementStarted = false;
+  private int bodyRowCounter = 0;
+
+  /**
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -190,15 +190,15 @@ import java.io.File;
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/dswebquerytobigquery/TransferConfig.java`
+Abstract class `ColumnHeader` has no concrete subclass
+in `src/main/java/dswebquerytobigquery/ColumnHeader.java`
 #### Snippet
 ```java
+/** Model to store information on the WebQuery's columns. */
+@AutoValue
+public abstract class ColumnHeader {
 
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setBigQueryConfig(BigQueryConfig newBigQueryConfig);
+  public abstract String name();
 ```
 
 ### AbstractClassNeverImplemented
@@ -214,15 +214,15 @@ public abstract class TransferConfig {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ColumnHeader` has no concrete subclass
-in `src/main/java/dswebquerytobigquery/ColumnHeader.java`
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/dswebquerytobigquery/TransferConfig.java`
 #### Snippet
 ```java
-/** Model to store information on the WebQuery's columns. */
-@AutoValue
-public abstract class ColumnHeader {
 
-  public abstract String name();
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setBigQueryConfig(BigQueryConfig newBigQueryConfig);
 ```
 
 ### AbstractClassNeverImplemented
