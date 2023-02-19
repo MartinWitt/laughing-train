@@ -95,55 +95,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
         packColumn(myTable, 0, 2);
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `IntrospectionUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
-#### Snippet
-```java
-import java.lang.reflect.Method;
-
-public class IntrospectionUtil
-{
-    private static final Logger LOG = Logger.getInstance(IntrospectionUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Helpers` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
-#### Snippet
-```java
-import java.net.URL;
-
-public final class Helpers
-{
-    private static final Logger LOG = Logger.getInstance(Helpers.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PluginPsiUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/PluginPsiUtil.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.Nullable;
-
-public class PluginPsiUtil
-{
-    @Nullable
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ActionEventUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/ActionEventUtil.java`
-#### Snippet
-```java
-import com.intellij.psi.PsiFile;
-
-public class ActionEventUtil
-{
-    public static Project getProject(AnActionEvent event)
-```
-
 ## RuleId[ruleID=MarkedForRemoval]
 ### MarkedForRemoval
 'Integer(int)' is deprecated and marked for removal
@@ -167,6 +118,55 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
             final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
             if (pluginId != null) {
                 final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
+```
+
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `IntrospectionUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+#### Snippet
+```java
+import java.lang.reflect.Method;
+
+public class IntrospectionUtil
+{
+    private static final Logger LOG = Logger.getInstance(IntrospectionUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PluginPsiUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/idea/plugin/psiviewer/util/PluginPsiUtil.java`
+#### Snippet
+```java
+import org.jetbrains.annotations.Nullable;
+
+public class PluginPsiUtil
+{
+    @Nullable
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Helpers` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
+#### Snippet
+```java
+import java.net.URL;
+
+public final class Helpers
+{
+    private static final Logger LOG = Logger.getInstance(Helpers.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ActionEventUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/idea/plugin/psiviewer/util/ActionEventUtil.java`
+#### Snippet
+```java
+import com.intellij.psi.PsiFile;
+
+public class ActionEventUtil
+{
+    public static Project getProject(AnActionEvent event)
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -307,6 +307,18 @@ public class PropertySheetPanel extends JPanel {
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field '_caretMover' in a Serializable class
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+    private JSplitPane _splitPane;
+    private final ViewerTreeSelectionListener _treeSelectionListener;
+    private final EditorCaretMover _caretMover;
+    private final EditorPsiElementHighlighter _highlighter;
+    private final PsiViewerProjectService _projectComponent;
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field '_model' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
@@ -316,18 +328,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
     private PsiViewerTreeModel _model;
     private PsiElement _rootElement; // The root element of the tree
     private PsiElement _selectedElement; // The currently selected element in the tree
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_treeSelectionListener' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private ToolWindow _toolWindow;
-    private JSplitPane _splitPane;
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -343,6 +343,18 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field '_treeSelectionListener' in a Serializable class
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+    private ToolWindow _toolWindow;
+    private JSplitPane _splitPane;
+    private final ViewerTreeSelectionListener _treeSelectionListener;
+    private final EditorCaretMover _caretMover;
+    private final EditorPsiElementHighlighter _highlighter;
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field '_highlighter' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
@@ -352,18 +364,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
     private final EditorPsiElementHighlighter _highlighter;
     private final PsiViewerProjectService _projectComponent;
     private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_caretMover' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private JSplitPane _splitPane;
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -722,31 +722,6 @@ import idea.plugin.psiviewer.controller.actions.PropertyToggleAction;
 import idea.plugin.psiviewer.util.Helpers;
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
-#### Snippet
-```java
-    return (now.compareTo(myDateFormat.parse(cookieExpires))) <= 0;
-} catch (ParseException pe) {
-    pe.printStackTrace();
-    return false;
-}
-```
-
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -784,17 +759,54 @@ for (int i=1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
     Map cookie = new HashMap();
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+## RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-        public boolean AUTOSCROLL_TO_SOURCE = false;
-        public boolean AUTOSCROLL_FROM_SOURCE = false;
-    }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+    return (now.compareTo(myDateFormat.parse(cookieExpires))) <= 0;
+} catch (ParseException pe) {
+    pe.printStackTrace();
+    return false;
+}
+```
+
+## RuleId[ruleID=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+    private String myDescription = null;
+    private String myExtraInformation = "";
+    private String myAffectedVersion = null;
+    private final boolean myShowDialog = ApplicationInfo.getInstance().getBuild().getBaselineVersion() > 110;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+    private static final String PROJECT_NAME = "PSI";
+
+    private String myDescription = null;
+    private String myExtraInformation = "";
+    private String myAffectedVersion = null;
 ```
 
 ### RedundantFieldInitialization
@@ -835,6 +847,18 @@ in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectServi
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+        public boolean SHOW_PROPERTIES = true;
+        public int SPLIT_DIVIDER_POSITION = 300;
+        public boolean AUTOSCROLL_TO_SOURCE = false;
+        public boolean AUTOSCROLL_FROM_SOURCE = false;
+    }
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
 ```java
@@ -845,55 +869,7 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
     private void setSelectedElement(PsiElement element, String reason)
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-    private String myDescription = null;
-    private String myExtraInformation = "";
-    private String myAffectedVersion = null;
-    private final boolean myShowDialog = ApplicationInfo.getInstance().getBuild().getBaselineVersion() > 110;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-    private static final String PROJECT_NAME = "PSI";
-
-    private String myDescription = null;
-    private String myExtraInformation = "";
-    private String myAffectedVersion = null;
-```
-
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `rootElement`
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-                if( selectedRoot != null )
-                {
-                    rootElement = selectedRoot;
-                }
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `element`
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-        {
-            list.addFirst(element);
-            element = element.getParent();
-        }
-        if (element != null)
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `user`
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
@@ -916,6 +892,30 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
         if (description == null) description = "<none>";
 
         descBuilder.append("\n\nDescription: ").append(description).append("\n\nUser: ").append(user);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `element`
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+        {
+            list.addFirst(element);
+            element = element.getParent();
+        }
+        if (element != null)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rootElement`
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+                if( selectedRoot != null )
+                {
+                    rootElement = selectedRoot;
+                }
+            }
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -1084,11 +1084,11 @@ Allocation of zero length array
 in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
 #### Snippet
 ```java
-            LOG.debug("Introspector.getBeanInfo(" + targetClass + ") exception...");
-            LOG.debug(ex);
-            propertyDescriptors = new PropertyDescriptor[0];
-        }
-        return propertyDescriptors;
+        try
+        {
+            Object args[] = {};
+            getter.setAccessible(true);
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1096,11 +1096,11 @@ Allocation of zero length array
 in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
 #### Snippet
 ```java
-        try
-        {
-            Object args[] = {};
-            getter.setAccessible(true);
-
+            LOG.debug("Introspector.getBeanInfo(" + targetClass + ") exception...");
+            LOG.debug(ex);
+            propertyDescriptors = new PropertyDescriptor[0];
+        }
+        return propertyDescriptors;
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
