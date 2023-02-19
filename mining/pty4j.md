@@ -28,8 +28,8 @@ I found 179 bad smells with 7 repairable:
 | ConditionalBreakInInfiniteLoop | 1 | false |
 | DataFlowIssue | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
-| PublicFieldAccessedInSynchronizedContext | 1 | false |
 | AnonymousHasLambdaAlternative | 1 | false |
+| PublicFieldAccessedInSynchronizedContext | 1 | false |
 | RedundantSuppression | 1 | false |
 | UnnecessaryBoxing | 1 | false |
 | WhileLoopSpinsOnField | 1 | false |
@@ -53,18 +53,6 @@ in `src/com/pty4j/windows/CygwinPTYOutputStream.java`
 
 ### Finalize
 'finalize()' should not be overridden
-in `src/com/pty4j/unix/Pty.java`
-#### Snippet
-```java
-
-  @Override
-  protected void finalize() throws Throwable {
-    close();
-    super.finalize();
-```
-
-### Finalize
-'finalize()' should not be overridden
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
 ```java
@@ -77,7 +65,7 @@ in `src/com/pty4j/windows/NamedPipe.java`
 
 ### Finalize
 'finalize()' should not be overridden
-in `src/com/pty4j/windows/CygwinPTYInputStream.java`
+in `src/com/pty4j/unix/Pty.java`
 #### Snippet
 ```java
 
@@ -89,7 +77,7 @@ in `src/com/pty4j/windows/CygwinPTYInputStream.java`
 
 ### Finalize
 'finalize()' should not be overridden
-in `src/com/pty4j/windows/WinPty.java`
+in `src/com/pty4j/windows/CygwinPTYInputStream.java`
 #### Snippet
 ```java
 
@@ -108,6 +96,18 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
   @Override
   protected void finalize() throws Throwable {
     closeUnusedStreams();
+    super.finalize();
+```
+
+### Finalize
+'finalize()' should not be overridden
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+
+  @Override
+  protected void finalize() throws Throwable {
+    close();
     super.finalize();
 ```
 
@@ -199,18 +199,6 @@ in `src/com/pty4j/windows/conpty/WinConPtyProcess.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `ConsoleProcessListChildProcessMain` has only 'static' members, and lacks a 'private' constructor
-in `src/com/pty4j/windows/conpty/ConsoleProcessListChildProcessMain.java`
-#### Snippet
-```java
-import com.sun.jna.win32.W32APIOptions;
-
-public class ConsoleProcessListChildProcessMain {
-  static final String PREFIX = "Process list count: ";
-  static final String SUFFIX = " attached to the console";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `WindowsVersion` has only 'static' members, and lacks a 'private' constructor
 in `src/com/pty4j/windows/WindowsVersion.java`
 #### Snippet
@@ -235,15 +223,15 @@ public class PtyHelpers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PtyUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/com/pty4j/util/PtyUtil.java`
+Class `ConsoleProcessListChildProcessMain` has only 'static' members, and lacks a 'private' constructor
+in `src/com/pty4j/windows/conpty/ConsoleProcessListChildProcessMain.java`
 #### Snippet
 ```java
- * @author traff
- */
-public class PtyUtil {
+import com.sun.jna.win32.W32APIOptions;
 
-  public static final String PREFERRED_NATIVE_FOLDER_KEY = "pty4j.preferred.native.folder";
+public class ConsoleProcessListChildProcessMain {
+  static final String PREFIX = "Process list count: ";
+  static final String SUFFIX = " attached to the console";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -256,6 +244,18 @@ import java.util.stream.Collectors;
 public class ConsoleProcessListFetcher {
   private static final Logger LOG = LoggerFactory.getLogger(ConsoleProcessListFetcher.class);
   private static final int TIMEOUT_MILLIS = 5000;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PtyUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/com/pty4j/util/PtyUtil.java`
+#### Snippet
+```java
+ * @author traff
+ */
+public class PtyUtil {
+
+  public static final String PREFERRED_NATIVE_FOLDER_KEY = "pty4j.preferred.native.folder";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -281,31 +281,6 @@ in `src/com/pty4j/windows/CygwinPtyProcess.java`
             success = false;
           }
           else {
-```
-
-## RuleId[ruleID=CommentedOutCode]
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/com/pty4j/unix/PtyHelpers.java`
-#### Snippet
-```java
-
-    term.c_cc[JTermios.VEOF] = CTRLKEY('D');
-//    term.c_cc[VEOL] = -1;
-//    term.c_cc[VEOL2] = -1;
-    term.c_cc[VERASE] = 0x7f;           // DEL
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/com/pty4j/unix/PtyHelpers.java`
-#### Snippet
-```java
-    term.c_cc[JTermios.VSTART] = CTRLKEY('Q');
-    term.c_cc[JTermios.VSTOP] = CTRLKEY('S');
-//    term.c_cc[VLNEXT] = CTRLKEY('V');
-//    term.c_cc[VDISCARD] = CTRLKEY('O');
-//    term.c_cc[VMIN] = 1;
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -789,6 +764,31 @@ in `src/com/pty4j/unix/linux/OSFacadeImpl.java`
 
 ```
 
+## RuleId[ruleID=CommentedOutCode]
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/com/pty4j/unix/PtyHelpers.java`
+#### Snippet
+```java
+
+    term.c_cc[JTermios.VEOF] = CTRLKEY('D');
+//    term.c_cc[VEOL] = -1;
+//    term.c_cc[VEOL2] = -1;
+    term.c_cc[VERASE] = 0x7f;           // DEL
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/com/pty4j/unix/PtyHelpers.java`
+#### Snippet
+```java
+    term.c_cc[JTermios.VSTART] = CTRLKEY('Q');
+    term.c_cc[JTermios.VSTOP] = CTRLKEY('S');
+//    term.c_cc[VLNEXT] = CTRLKEY('V');
+//    term.c_cc[VDISCARD] = CTRLKEY('O');
+//    term.c_cc[VMIN] = 1;
+```
+
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
 C-style array declaration of local variable `b`
@@ -865,48 +865,48 @@ in `src/com/pty4j/windows/WinPtyProcess.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `src/com/pty4j/windows/WinPty.java`
+in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
 ```java
-        pipe.close();
       }
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
+    }
+    try {
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+      }
+    }
+    catch (IOException e) {
+    }
+    try {
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+      }
+    }
+    catch (IOException e) {
     }
   }
 ```
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `src/com/pty4j/unix/UnixPtyProcess.java`
+in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
+        pipe.close();
       }
-    }
-    catch (IOException e) {
-    }
-    try {
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-      }
-    }
-    catch (IOException e) {
-    }
-    try {
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-      }
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
     }
   }
 ```
@@ -961,19 +961,6 @@ in `src/com/pty4j/util/LazyValue.java`
   }
 ```
 
-## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `myCloseHandleOnFinalize` accessed in synchronized context
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-    // this flag is set, avoid using the ReentrantLock objects.
-    myFinalizedFlag = true;
-    if (myCloseHandleOnFinalize) {
-      close();
-    }
-```
-
 ## RuleId[ruleID=AnonymousHasLambdaAlternative]
 ### AnonymousHasLambdaAlternative
 Anonymous new Thread() can be replaced with new Thread(() -\> {...})
@@ -985,6 +972,19 @@ in `src/com/pty4j/windows/CygwinPtyProcess.java`
     new Thread() {
       @Override
       public void run() {
+```
+
+## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `myCloseHandleOnFinalize` accessed in synchronized context
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+    // this flag is set, avoid using the ReentrantLock objects.
+    myFinalizedFlag = true;
+    if (myCloseHandleOnFinalize) {
+      close();
+    }
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -1138,66 +1138,6 @@ in `src/com/pty4j/unix/PTYInputStream.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.jna` is unnecessary, and can be replaced with an import
-in `src/com/pty4j/unix/NativePtyExecutor.java`
-#### Snippet
-```java
-  }
-
-  private interface Pty4J extends com.sun.jna.Library {
-    int exec_pty(String full_path, String[] argv, String[] envp, String dirpath, String pts_name, int fdm,
-                 String err_pts_name, int err_fdm, boolean console);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.pty4j` is unnecessary and can be removed
-in `src/com/pty4j/unix/Pty.java`
-#### Snippet
-```java
-   * Returns the current window size of this Pty.
-   *
-   * @return a {@link com.pty4j.WinSize} instance with information about the master sid of the Pty.
-   * @throws UnixPtyException in case obtaining the window size failed.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/com/pty4j/windows/WinPTYInputStream.java`
-#### Snippet
-```java
-   * Implementation of read for the InputStream.
-   *
-   * @throws java.io.IOException on error.
-   */
-  @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
-in `src/com/pty4j/unix/PtyHelpers.java`
-#### Snippet
-```java
-    int waitpid(int pid, int[] stat, int options);
-
-    int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset);
-
-    String strerror(int errno);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
-in `src/com/pty4j/unix/PtyHelpers.java`
-#### Snippet
-```java
-    int waitpid(int pid, int[] stat, int options);
-
-    int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset);
-
-    String strerror(int errno);
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.pty4j.unix.macosx` is unnecessary, and can be replaced with an import
 in `src/com/pty4j/unix/PtyHelpers.java`
 #### Snippet
@@ -1247,6 +1187,66 @@ in `src/com/pty4j/unix/PtyHelpers.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
+in `src/com/pty4j/unix/PtyHelpers.java`
+#### Snippet
+```java
+    int waitpid(int pid, int[] stat, int options);
+
+    int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset);
+
+    String strerror(int errno);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
+in `src/com/pty4j/unix/PtyHelpers.java`
+#### Snippet
+```java
+    int waitpid(int pid, int[] stat, int options);
+
+    int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset);
+
+    String strerror(int errno);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.jna` is unnecessary, and can be replaced with an import
+in `src/com/pty4j/unix/NativePtyExecutor.java`
+#### Snippet
+```java
+  }
+
+  private interface Pty4J extends com.sun.jna.Library {
+    int exec_pty(String full_path, String[] argv, String[] envp, String dirpath, String pts_name, int fdm,
+                 String err_pts_name, int err_fdm, boolean console);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/com/pty4j/windows/WinPTYInputStream.java`
+#### Snippet
+```java
+   * Implementation of read for the InputStream.
+   *
+   * @throws java.io.IOException on error.
+   */
+  @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.pty4j` is unnecessary and can be removed
+in `src/com/pty4j/unix/Pty.java`
+#### Snippet
+```java
+   * Returns the current window size of this Pty.
+   *
+   * @return a {@link com.pty4j.WinSize} instance with information about the master sid of the Pty.
+   * @throws UnixPtyException in case obtaining the window size failed.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
 in `src/com/pty4j/unix/macosx/OSFacadeImpl.java`
 #### Snippet
 ```java
@@ -1267,30 +1267,6 @@ in `src/com/pty4j/unix/macosx/OSFacadeImpl.java`
   public int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset) {
     return m_Clib.sigprocmask(how, set, oldset);
   }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
-in `src/com/pty4j/unix/macosx/OSFacadeImpl.java`
-#### Snippet
-```java
-    int waitpid(int pid, int[] stat, int options);
-
-    int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset);
-
-    String strerror(int errno);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
-in `src/com/pty4j/unix/macosx/OSFacadeImpl.java`
-#### Snippet
-```java
-    int waitpid(int pid, int[] stat, int options);
-
-    int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset);
-
-    String strerror(int errno);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1315,6 +1291,30 @@ in `src/com/pty4j/unix/macosx/OSFacadeImpl.java`
  * Provides a {@link com.pty4j.unix.PtyHelpers.OSFacade} implementation for MacOSX.
  */
 public class OSFacadeImpl implements PtyHelpers.OSFacade {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
+in `src/com/pty4j/unix/macosx/OSFacadeImpl.java`
+#### Snippet
+```java
+    int waitpid(int pid, int[] stat, int options);
+
+    int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset);
+
+    String strerror(int errno);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.jna.ptr` is unnecessary, and can be replaced with an import
+in `src/com/pty4j/unix/macosx/OSFacadeImpl.java`
+#### Snippet
+```java
+    int waitpid(int pid, int[] stat, int options);
+
+    int sigprocmask(int how, com.sun.jna.ptr.IntByReference set, com.sun.jna.ptr.IntByReference oldset);
+
+    String strerror(int errno);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1348,11 +1348,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
-        }
-        catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+      return 25;
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -1360,11 +1360,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-      return 25;
-    }
+        }
+        catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
 ```
 
 ### ThrowablePrintStackTrace
@@ -1382,18 +1382,6 @@ in `src/com/pty4j/windows/conpty/WinConPtyProcess.java`
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/com/pty4j/util/ExtractedNative.java`
-#### Snippet
-```java
-      byte[] buffer = new byte[8192];
-      int bufferSize;
-      while ((bufferSize = in.read(buffer)) >= 0) {
-        md5.update(buffer, 0, bufferSize);
-      }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/com/pty4j/windows/conpty/ConsoleProcessListFetcher.java`
 #### Snippet
 ```java
@@ -1402,6 +1390,18 @@ in `src/com/pty4j/windows/conpty/ConsoleProcessListFetcher.java`
         while (!myIsStopped && (readCount = myReader.read(buf)) >= 0) {
           myBuffer.append(buf, 0, readCount);
         }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/com/pty4j/util/ExtractedNative.java`
+#### Snippet
+```java
+      byte[] buffer = new byte[8192];
+      int bufferSize;
+      while ((bufferSize = in.read(buffer)) >= 0) {
+        md5.update(buffer, 0, bufferSize);
+      }
 ```
 
 ### NestedAssignment
@@ -1443,14 +1443,38 @@ in `src/com/pty4j/windows/WindowsVersion.java`
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `myHandle` is accessed in both synchronized and unsynchronized contexts
+Field `readLock` is accessed in both synchronized and unsynchronized contexts
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+  private volatile boolean myFinalizedFlag = false;
+
+  private ReentrantLock readLock = new ReentrantLock();
+  private ReentrantLock writeLock = new ReentrantLock();
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `writeEvent` is accessed in both synchronized and unsynchronized contexts
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
 ```java
 
-public class NamedPipe {
-  private WinNT.HANDLE myHandle;
-  boolean myCloseHandleOnFinalize;
+  private WinNT.HANDLE readEvent;
+  private WinNT.HANDLE writeEvent;
+
+  private WinNT.HANDLE[] readWaitHandles;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `readEvent` is accessed in both synchronized and unsynchronized contexts
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+  private Memory writeBuffer = new Memory(16 * 1024);
+
+  private WinNT.HANDLE readEvent;
+  private WinNT.HANDLE writeEvent;
 
 ```
 
@@ -1467,39 +1491,27 @@ in `src/com/pty4j/windows/NamedPipe.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `writeEvent` is accessed in both synchronized and unsynchronized contexts
+Field `myHandle` is accessed in both synchronized and unsynchronized contexts
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
 ```java
 
-  private WinNT.HANDLE readEvent;
-  private WinNT.HANDLE writeEvent;
-
-  private WinNT.HANDLE[] readWaitHandles;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `readLock` is accessed in both synchronized and unsynchronized contexts
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-  private volatile boolean myFinalizedFlag = false;
-
-  private ReentrantLock readLock = new ReentrantLock();
-  private ReentrantLock writeLock = new ReentrantLock();
+public class NamedPipe {
+  private WinNT.HANDLE myHandle;
+  boolean myCloseHandleOnFinalize;
 
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `readEvent` is accessed in both synchronized and unsynchronized contexts
-in `src/com/pty4j/windows/NamedPipe.java`
+Field `myResourceOsArchSubPath` is accessed in both synchronized and unsynchronized contexts
+in `src/com/pty4j/util/ExtractedNative.java`
 #### Snippet
 ```java
-  private Memory writeBuffer = new Memory(16 * 1024);
 
-  private WinNT.HANDLE readEvent;
-  private WinNT.HANDLE writeEvent;
-
+  private static final ExtractedNative INSTANCE = new ExtractedNative();
+  private String myResourceOsArchSubPath;
+  private String myResourceNamePrefix;
+  private boolean myInitialized;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1527,78 +1539,6 @@ in `src/com/pty4j/util/ExtractedNative.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `myResourceOsArchSubPath` is accessed in both synchronized and unsynchronized contexts
-in `src/com/pty4j/util/ExtractedNative.java`
-#### Snippet
-```java
-
-  private static final ExtractedNative INSTANCE = new ExtractedNative();
-  private String myResourceOsArchSubPath;
-  private String myResourceNamePrefix;
-  private boolean myInitialized;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `myClosed` is accessed in both synchronized and unsynchronized contexts
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  private boolean myChildExited = false;
-  private int myStatus = -1;
-  private boolean myClosed = false;
-  private WinSize myLastWinSize;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `myStatusByRef` is accessed in both synchronized and unsynchronized contexts
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  // for INFINITE waits.
-  private class WaitForExitThread extends Thread {
-    private IntByReference myStatusByRef = new IntByReference(-1);
-
-    @Override
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `myWinpty` is accessed in both synchronized and unsynchronized contexts
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-    !Boolean.getBoolean("disable.minimal.initial.terminal.window.height");
-
-  private Pointer myWinpty;
-
-  private WinNT.HANDLE myProcess;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `INSTANCE` is accessed in both synchronized and unsynchronized contexts
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  }
-
-  private static WinPtyLib INSTANCE = Native.loadLibrary(getLibraryPath(), WinPtyLib.class);
-
-  private static String getLibraryPath() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `myProcess` is accessed in both synchronized and unsynchronized contexts
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  private Pointer myWinpty;
-
-  private WinNT.HANDLE myProcess;
-  private NamedPipe myConinPipe;
-  private NamedPipe myConoutPipe;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `pid` is accessed in both synchronized and unsynchronized contexts
 in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
@@ -1622,6 +1562,66 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
   private OutputStream out;
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `myStatusByRef` is accessed in both synchronized and unsynchronized contexts
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  // for INFINITE waits.
+  private class WaitForExitThread extends Thread {
+    private IntByReference myStatusByRef = new IntByReference(-1);
+
+    @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `myProcess` is accessed in both synchronized and unsynchronized contexts
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  private Pointer myWinpty;
+
+  private WinNT.HANDLE myProcess;
+  private NamedPipe myConinPipe;
+  private NamedPipe myConoutPipe;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `INSTANCE` is accessed in both synchronized and unsynchronized contexts
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  }
+
+  private static WinPtyLib INSTANCE = Native.loadLibrary(getLibraryPath(), WinPtyLib.class);
+
+  private static String getLibraryPath() {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `myClosed` is accessed in both synchronized and unsynchronized contexts
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  private boolean myChildExited = false;
+  private int myStatus = -1;
+  private boolean myClosed = false;
+  private WinSize myLastWinSize;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `myWinpty` is accessed in both synchronized and unsynchronized contexts
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+    !Boolean.getBoolean("disable.minimal.initial.terminal.window.height");
+
+  private Pointer myWinpty;
+
+  private WinNT.HANDLE myProcess;
+```
+
 ## RuleId[ruleID=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Callable() can be replaced with lambda
@@ -1636,6 +1636,42 @@ in `src/com/pty4j/windows/WindowsVersion.java`
 ```
 
 ## RuleId[ruleID=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/com/pty4j/unix/PtyHelpers.java`
+#### Snippet
+```java
+  public static int ONLCR = 0x04;
+
+  public static int VINTR = 0;
+  public static int VQUIT = 1;
+  public static int VERASE = 2;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+
+  private WinNT.HANDLE shutdownEvent;
+  private volatile boolean shutdownFlag = false;
+  private volatile boolean myFinalizedFlag = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+  private WinNT.HANDLE shutdownEvent;
+  private volatile boolean shutdownFlag = false;
+  private volatile boolean myFinalizedFlag = false;
+
+  private ReentrantLock readLock = new ReentrantLock();
+```
+
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/com/pty4j/windows/WinPtyProcess.java`
@@ -1653,18 +1689,6 @@ Field initialization to `false` is redundant
 in `src/com/pty4j/windows/WinPtyProcess.java`
 #### Snippet
 ```java
-
-    private boolean myUsedInputStream = false;
-    private boolean myUsedOutputStream = false;
-    private boolean myUsedErrorStream = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/com/pty4j/windows/WinPtyProcess.java`
-#### Snippet
-```java
     private boolean myUsedInputStream = false;
     private boolean myUsedOutputStream = false;
     private boolean myUsedErrorStream = false;
@@ -1674,38 +1698,14 @@ in `src/com/pty4j/windows/WinPtyProcess.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-  private WinNT.HANDLE shutdownEvent;
-  private volatile boolean shutdownFlag = false;
-  private volatile boolean myFinalizedFlag = false;
-
-  private ReentrantLock readLock = new ReentrantLock();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/com/pty4j/windows/NamedPipe.java`
+in `src/com/pty4j/windows/WinPtyProcess.java`
 #### Snippet
 ```java
 
-  private WinNT.HANDLE shutdownEvent;
-  private volatile boolean shutdownFlag = false;
-  private volatile boolean myFinalizedFlag = false;
+    private boolean myUsedInputStream = false;
+    private boolean myUsedOutputStream = false;
+    private boolean myUsedErrorStream = false;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/com/pty4j/unix/PtyHelpers.java`
-#### Snippet
-```java
-  public static int ONLCR = 0x04;
-
-  public static int VINTR = 0;
-  public static int VQUIT = 1;
-  public static int VERASE = 2;
 ```
 
 ### RedundantFieldInitialization
@@ -1737,18 +1737,6 @@ Field initialization to `false` is redundant
 in `src/com/pty4j/PtyProcessBuilder.java`
 #### Snippet
 ```java
-  private boolean myWindowsAnsiColorEnabled = false;
-  private boolean myUnixOpenTtyToPreserveOutputAfterTermination = false;
-  private boolean myUseWinConPty = false;
-
-  public PtyProcessBuilder() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/com/pty4j/PtyProcessBuilder.java`
-#### Snippet
-```java
   private boolean myCygwin;
   private File myLogFile;
   private boolean myRedirectErrorStream = false;
@@ -1773,6 +1761,18 @@ Field initialization to `false` is redundant
 in `src/com/pty4j/PtyProcessBuilder.java`
 #### Snippet
 ```java
+  private boolean myWindowsAnsiColorEnabled = false;
+  private boolean myUnixOpenTtyToPreserveOutputAfterTermination = false;
+  private boolean myUseWinConPty = false;
+
+  public PtyProcessBuilder() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/com/pty4j/PtyProcessBuilder.java`
+#### Snippet
+```java
   private Integer myInitialRows;
   private boolean myWindowsAnsiColorEnabled = false;
   private boolean myUnixOpenTtyToPreserveOutputAfterTermination = false;
@@ -1782,13 +1782,37 @@ in `src/com/pty4j/PtyProcessBuilder.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `src/com/pty4j/windows/conpty/WinHandleInputStream.java`
+in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
 ```java
-  private volatile boolean myClosed;
-  private final ReentrantLock myLock = new ReentrantLock();
-  private int myReadCount = 0; // guarded by myLock
-  private final Condition myReadCountChanged = myLock.newCondition();
+  private final boolean myConsoleMode;
+
+  private int pid = 0;
+  private int myExitCode;
+  private boolean isDone;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  private NamedPipe myConerrPipe;
+
+  private boolean myChildExited = false;
+  private int myStatus = -1;
+  private boolean myClosed = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  private boolean myChildExited = false;
+  private int myStatus = -1;
+  private boolean myClosed = false;
+  private WinSize myLastWinSize;
 
 ```
 
@@ -1805,39 +1829,15 @@ in `src/com/pty4j/windows/WinPty.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  private boolean myChildExited = false;
-  private int myStatus = -1;
-  private boolean myClosed = false;
-  private WinSize myLastWinSize;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  private NamedPipe myConerrPipe;
-
-  private boolean myChildExited = false;
-  private int myStatus = -1;
-  private boolean myClosed = false;
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `src/com/pty4j/unix/UnixPtyProcess.java`
+in `src/com/pty4j/windows/conpty/WinHandleInputStream.java`
 #### Snippet
 ```java
-  private final boolean myConsoleMode;
+  private volatile boolean myClosed;
+  private final ReentrantLock myLock = new ReentrantLock();
+  private int myReadCount = 0; // guarded by myLock
+  private final Condition myReadCountChanged = myLock.newCondition();
 
-  private int pid = 0;
-  private int myExitCode;
-  private boolean isDone;
 ```
 
 ### RedundantFieldInitialization
@@ -2014,54 +2014,6 @@ in `src/com/pty4j/util/ExtractedNative.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-      Kernel32.INSTANCE.WaitForSingleObject(myProcess, INFINITE);
-      Kernel32.INSTANCE.GetExitCodeProcess(myProcess, myStatusByRef);
-      synchronized (WinPty.this) {
-        WinPty.this.myChildExited = true;
-        WinPty.this.myStatus = myStatusByRef.getValue();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-        WinPty.this.myStatus = myStatusByRef.getValue();
-        closeUnusedProcessHandle();
-        WinPty.this.notifyAll();
-      }
-    }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  synchronized int waitFor() throws InterruptedException {
-    while (!myChildExited) {
-      wait();
-    }
-    return myStatus;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-  public synchronized int waitFor() throws InterruptedException {
-    while (!isDone) {
-      wait();
-    }
-    return myExitCode;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
 in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
 ```java
@@ -2130,6 +2082,54 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
           UnixPtyProcess.this.notifyAll();
         }
         myPty.breakRead();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+  public synchronized int waitFor() throws InterruptedException {
+    while (!isDone) {
+      wait();
+    }
+    return myExitCode;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  synchronized int waitFor() throws InterruptedException {
+    while (!myChildExited) {
+      wait();
+    }
+    return myStatus;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+      Kernel32.INSTANCE.WaitForSingleObject(myProcess, INFINITE);
+      Kernel32.INSTANCE.GetExitCodeProcess(myProcess, myStatusByRef);
+      synchronized (WinPty.this) {
+        WinPty.this.myChildExited = true;
+        WinPty.this.myStatus = myStatusByRef.getValue();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+        WinPty.this.myStatus = myStatusByRef.getValue();
+        closeUnusedProcessHandle();
+        WinPty.this.notifyAll();
+      }
+    }
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
