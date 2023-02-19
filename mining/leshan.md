@@ -1,7 +1,7 @@
 # leshan 
  
 # Bad smells
-I found 1079 bad smells with 278 repairable:
+I found 1078 bad smells with 278 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 209 | false |
@@ -71,7 +71,6 @@ I found 1079 bad smells with 278 repairable:
 | KeySetIterationMayUseEntrySet | 1 | false |
 | RedundantArrayCreation | 1 | true |
 | AnonymousHasLambdaAlternative | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | DuplicateThrows | 1 | false |
 | RedundantOperationOnEmptyContainer | 1 | false |
 | FieldMayBeStatic | 1 | false |
@@ -84,18 +83,6 @@ I found 1079 bad smells with 278 repairable:
 | UseBulkOperation | 1 | false |
 | BigDecimalMethodWithoutRoundingCalled | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Certificate\[trustStore.size()\]'
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/LeshanServerDemo.java`
-#### Snippet
-```java
-            // Define trust store
-            List<Certificate> trustStore = cli.identity.getTrustStore();
-            builder.setTrustedCertificates(trustStore.toArray(new Certificate[trustStore.size()]));
-        } else if (cli.identity.isRPK()) {
-            // use RPK only
-```
-
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Link\[links.size()\]'
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/DefaultLinkParser.java`
@@ -116,30 +103,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/Mixe
             }
         }
         return queries.toArray(new String[queries.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new LwM2mResource\[resources.size()\]'
-in `leshan-core/src/main/java/org/eclipse/leshan/core/request/CreateRequest.java`
-#### Snippet
-```java
-     */
-    public CreateRequest(String path, Collection<LwM2mResource> resources) throws InvalidRequestException {
-        this(path, resources.toArray(new LwM2mResource[resources.size()]));
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new LwM2mResource\[resources.size()\]'
-in `leshan-core/src/main/java/org/eclipse/leshan/core/request/CreateRequest.java`
-#### Snippet
-```java
-     */
-    public CreateRequest(int objectId, Collection<LwM2mResource> resources) {
-        this(objectId, resources.toArray(new LwM2mResource[resources.size()]));
     }
 
 ```
@@ -181,6 +144,174 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/request/CreateRequest.java
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new LwM2mResource\[resources.size()\]'
+in `leshan-core/src/main/java/org/eclipse/leshan/core/request/CreateRequest.java`
+#### Snippet
+```java
+     */
+    public CreateRequest(String path, Collection<LwM2mResource> resources) throws InvalidRequestException {
+        this(path, resources.toArray(new LwM2mResource[resources.size()]));
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new LwM2mResource\[resources.size()\]'
+in `leshan-core/src/main/java/org/eclipse/leshan/core/request/CreateRequest.java`
+#### Snippet
+```java
+     */
+    public CreateRequest(int objectId, Collection<LwM2mResource> resources) {
+        this(objectId, resources.toArray(new LwM2mResource[resources.size()]));
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Certificate\[trustStore.size()\]'
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/LeshanBootstrapServerDemo.java`
+#### Snippet
+```java
+            // Define trust store
+            List<Certificate> trustStore = cli.identity.getTrustStore();
+            builder.setTrustedCertificates(trustStore.toArray(new Certificate[trustStore.size()]));
+        } else if (cli.identity.isRPK()) {
+            // use RPK only
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Attribute\[attributes.size()\]'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
+#### Snippet
+```java
+                attributes.put(attr.getName(), attr);
+            }
+            return attributes.values().toArray(new Attribute[attributes.size()]);
+        }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new LwM2mLink\[links.size()\]'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
+#### Snippet
+```java
+            links.add(getResourceDescription(objectEnabler, instanceId, resourceId, rootPath));
+        }
+        return links.toArray(new LwM2mLink[links.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new LwM2mLink\[links.size()\]'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
+#### Snippet
+```java
+        }
+
+        return links.toArray(new LwM2mLink[links.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new LwM2mPath\[newInstances.size()\]'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
+#### Snippet
+```java
+        // Either we raise resource instance changes or resource change.
+        if (!newInstances.isEmpty()) {
+            fireResourcesChange(newInstances.toArray(new LwM2mPath[newInstances.size()]));
+        } else if (!newValue.equals(previousValue)) {
+            fireResourceChange(resourceid);
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new LwM2mPath\[changingResources.size()\]'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
+#### Snippet
+```java
+        }
+
+        return changingResources.toArray(new LwM2mPath[changingResources.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new LwM2mPath\[resourcesChanged.size()\]'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/TransactionalObjectListener.java`
+#### Snippet
+```java
+            fireObjectInstancesRemoved(toIntArray(instancesRemoved));
+        if (!resourcesChanged.isEmpty())
+            fireResourcesChanged(resourcesChanged.toArray(new LwM2mPath[resourcesChanged.size()]));
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Certificate\[trustStore.size()\]'
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/LeshanServerDemo.java`
+#### Snippet
+```java
+            // Define trust store
+            List<Certificate> trustStore = cli.identity.getTrustStore();
+            builder.setTrustedCertificates(trustStore.toArray(new Certificate[trustStore.size()]));
+        } else if (cli.identity.isRPK()) {
+            // use RPK only
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new ModuleDefinitionsProvider\[moduleProviders.size()\]'
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpointsProvider.java`
+#### Snippet
+```java
+            // create Californium Configuration
+            Configuration configuration = new Configuration(
+                    moduleProviders.toArray(new ModuleDefinitionsProvider[moduleProviders.size()]));
+
+            // apply default value
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Resource\[resources.size()\]'
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpointsProvider.java`
+#### Snippet
+```java
+        // create resources
+        List<Resource> resources = messagetranslator.createResources(requestReceiver, toolbox, identityHandlerProvider);
+        coapServer.add(resources.toArray(new Resource[resources.size()]));
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new ModuleDefinitionsProvider\[moduleProviders.size()\]'
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpointsProvider.java`
+#### Snippet
+```java
+            // create Californium Configuration
+            Configuration configuration = new Configuration(
+                    moduleProviders.toArray(new ModuleDefinitionsProvider[moduleProviders.size()]));
+
+            // apply default value
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Resource\[resources.size()\]'
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpointsProvider.java`
+#### Snippet
+```java
+        // create resources
+        List<Resource> resources = messagetranslator.createResources(requestReceiver, toolbox, identityHandlerProvider);
+        coapServer.add(resources.toArray(new Resource[resources.size()]));
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new LwM2mObjectInstance\[object.getInstances().values().size()\]'
 in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
 #### Snippet
@@ -216,151 +347,7 @@ in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoin
             // apply default value
 ```
 
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Resource\[resources.size()\]'
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpointsProvider.java`
-#### Snippet
-```java
-        // create resources
-        List<Resource> resources = messagetranslator.createResources(requestReceiver, toolbox, identityHandlerProvider);
-        coapServer.add(resources.toArray(new Resource[resources.size()]));
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new ModuleDefinitionsProvider\[moduleProviders.size()\]'
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpointsProvider.java`
-#### Snippet
-```java
-            // create Californium Configuration
-            Configuration configuration = new Configuration(
-                    moduleProviders.toArray(new ModuleDefinitionsProvider[moduleProviders.size()]));
-
-            // apply default value
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Resource\[resources.size()\]'
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpointsProvider.java`
-#### Snippet
-```java
-        // create resources
-        List<Resource> resources = messagetranslator.createResources(requestReceiver, toolbox, identityHandlerProvider);
-        coapServer.add(resources.toArray(new Resource[resources.size()]));
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new ModuleDefinitionsProvider\[moduleProviders.size()\]'
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpointsProvider.java`
-#### Snippet
-```java
-            // create Californium Configuration
-            Configuration configuration = new Configuration(
-                    moduleProviders.toArray(new ModuleDefinitionsProvider[moduleProviders.size()]));
-
-            // apply default value
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Certificate\[trustStore.size()\]'
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/LeshanBootstrapServerDemo.java`
-#### Snippet
-```java
-            // Define trust store
-            List<Certificate> trustStore = cli.identity.getTrustStore();
-            builder.setTrustedCertificates(trustStore.toArray(new Certificate[trustStore.size()]));
-        } else if (cli.identity.isRPK()) {
-            // use RPK only
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new LwM2mLink\[links.size()\]'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
-#### Snippet
-```java
-        }
-
-        return links.toArray(new LwM2mLink[links.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new LwM2mLink\[links.size()\]'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
-#### Snippet
-```java
-            links.add(getResourceDescription(objectEnabler, instanceId, resourceId, rootPath));
-        }
-        return links.toArray(new LwM2mLink[links.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Attribute\[attributes.size()\]'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
-#### Snippet
-```java
-                attributes.put(attr.getName(), attr);
-            }
-            return attributes.values().toArray(new Attribute[attributes.size()]);
-        }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new LwM2mPath\[changingResources.size()\]'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
-#### Snippet
-```java
-        }
-
-        return changingResources.toArray(new LwM2mPath[changingResources.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new LwM2mPath\[newInstances.size()\]'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
-#### Snippet
-```java
-        // Either we raise resource instance changes or resource change.
-        if (!newInstances.isEmpty()) {
-            fireResourcesChange(newInstances.toArray(new LwM2mPath[newInstances.size()]));
-        } else if (!newValue.equals(previousValue)) {
-            fireResourceChange(resourceid);
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new LwM2mPath\[resourcesChanged.size()\]'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/TransactionalObjectListener.java`
-#### Snippet
-```java
-            fireObjectInstancesRemoved(toIntArray(instancesRemoved));
-        if (!resourcesChanged.isEmpty())
-            fireResourcesChanged(resourcesChanged.toArray(new LwM2mPath[resourcesChanged.size()]));
-    }
-
-```
-
 ## RuleId[ruleID=WrapperTypeMayBePrimitive]
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/DdfDownloader.java`
-#### Snippet
-```java
-                Node item = items.item(i);
-                Node id = ((Element) item).getElementsByTagName("ObjectID").item(0);
-                Integer objectId;
-                if (id == null) {
-                    LOG.warn("Item without ObjectID : {}" + item.getTextContent());
-```
-
 ### WrapperTypeMayBePrimitive
 Type may be primitive
 in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
@@ -457,17 +444,1205 @@ in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/P
         if (res < 0 || 65535 < res)
 ```
 
-## RuleId[ruleID=UnnecessaryModifier]
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `leshan-core/src/main/java/org/eclipse/leshan/core/SecurityMode.java`
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/DdfDownloader.java`
 #### Snippet
 ```java
-    public final int code;
+                Node item = items.item(i);
+                Node id = ((Element) item).getElementsByTagName("ObjectID").item(0);
+                Integer objectId;
+                if (id == null) {
+                    LOG.warn("Item without ObjectID : {}" + item.getTextContent());
+```
 
-    private SecurityMode(int code) {
-        this.code = code;
-    }
+## RuleId[ruleID=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* SECURITY RESOURCES */
+
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* SECURITY RESOURCES */
+
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* SECURITY RESOURCES */
+
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* OBJECTS */
+
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* OBJECTS */
+
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* OBJECTS */
+
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+
+    /* SECURITY RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+
+    /* SECURITY RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+
+    /* SECURITY RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+
+    /* SERVER RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+
+    /* SERVER RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+
+    /* SERVER RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* OSCORE RESOURCES */
+
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* OSCORE RESOURCES */
+
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* OSCORE RESOURCES */
+
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* SERVER RESOURCES */
+
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* SERVER RESOURCES */
+
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* SERVER RESOURCES */
+
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* ACCESS CONTROL RESOURCES */
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* ACCESS CONTROL RESOURCES */
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* ACCESS CONTROL RESOURCES */
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    /* ACCESS CONTROL RESOURCES */
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    /* ACCESS CONTROL RESOURCES */
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    /* ACCESS CONTROL RESOURCES */
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_URI = 0;
+    public static final int SEC_BOOTSTRAP = 1;
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SECURITY = 0;
+    public static final int SERVER = 1;
+    public static final int ACCESS_CONTROL = 2;
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SECURITY_MODE = 2;
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+
+    /* OSCORE RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+
+    /* OSCORE RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+    public static final int SEC_OSCORE_SECURITY_MODE = 17;
+
+    /* OSCORE RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+
+    /* ACCESS CONTROL RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+
+    /* ACCESS CONTROL RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+
+    /* ACCESS CONTROL RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* DEVICE RESOURCES */
+
+    public static final int DVC_SUPPORTED_BINDING = 16;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* DEVICE RESOURCES */
+
+    public static final int DVC_SUPPORTED_BINDING = 16;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    /* DEVICE RESOURCES */
+
+    public static final int DVC_SUPPORTED_BINDING = 16;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int OSCORE_MASTER_SECRET = 0;
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int OSCORE_SENDER_ID = 1;
+    public static final int OSCORE_RECIPIENT_ID = 2;
+    public static final int OSCORE_AEAD_ALGORITHM = 3;
+    public static final int OSCORE_HMAC_ALGORITHM = 4;
+    public static final int OSCORE_MASTER_SALT = 5;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+    public static final int OSCORE = 21;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int DEVICE = 3;
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACL_OBJECT_ID = 0;
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+
+    /* DEVICE RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+
+    /* DEVICE RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int ACL_OBJECT_INSTANCE_ID = 1;
+    public static final int ACL_ACL = 2;
+    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
+
+    /* DEVICE RESOURCES */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+
+    public static final int SRV_SERVER_ID = 0;
+    public static final int SRV_LIFETIME = 1;
+    public static final int SRV_BINDING = 7;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int SEC_PUBKEY_IDENTITY = 3;
+    public static final int SEC_SERVER_PUBKEY = 4;
+    public static final int SEC_SECRET_KEY = 5;
+    public static final int SEC_SERVER_ID = 10;
+    public static final int SEC_CERTIFICATE_USAGE = 15;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+#### Snippet
+```java
+    public static final int CONNECTIVITY_MONITORING = 4;
+    public static final int FIRMWARE = 5;
+    public static final int LOCATION = 6;
+    public static final int CONNECTIVITY_STATISTICS = 7;
+    public static final int SOFTWARE_MANAGEMENT = 9;
 ```
 
 ### UnnecessaryModifier
@@ -484,518 +1659,14 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/CertificateUsage.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/json/LwM2mJsonEncoder.java`
 #### Snippet
 ```java
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-```
+public interface LwM2mJsonEncoder {
 
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-```
+    public String toJsonLwM2m(JsonRootObject jro) throws LwM2mJsonException;
 
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* OBJECTS */
-
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* OBJECTS */
-
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* OBJECTS */
-
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* ACCESS CONTROL RESOURCES */
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* ACCESS CONTROL RESOURCES */
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* ACCESS CONTROL RESOURCES */
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-
-    /* SECURITY RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-
-    /* SECURITY RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-
-    /* SECURITY RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-
-    /* SERVER RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-
-    /* SERVER RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-
-    /* SERVER RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* SERVER RESOURCES */
-
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* SERVER RESOURCES */
-
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* SERVER RESOURCES */
-
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* DEVICE RESOURCES */
-
-    public static final int DVC_SUPPORTED_BINDING = 16;
 }
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* DEVICE RESOURCES */
-
-    public static final int DVC_SUPPORTED_BINDING = 16;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* DEVICE RESOURCES */
-
-    public static final int DVC_SUPPORTED_BINDING = 16;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* OSCORE RESOURCES */
-
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* OSCORE RESOURCES */
-
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* OSCORE RESOURCES */
-
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-
-    /* OSCORE RESOURCES */
 ```
 
 ### UnnecessaryModifier
@@ -1011,723 +1682,15 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/MatchingType.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
+Modifier `private` is redundant for enum constructors
+in `leshan-core/src/main/java/org/eclipse/leshan/core/SecurityMode.java`
 #### Snippet
 ```java
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-
-    /* OSCORE RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-
-    /* OSCORE RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-    public static final int OSCORE = 21;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int OSCORE_MASTER_SECRET = 0;
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    /* ACCESS CONTROL RESOURCES */
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    /* ACCESS CONTROL RESOURCES */
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    /* ACCESS CONTROL RESOURCES */
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-    public static final int LOCATION = 6;
-    public static final int CONNECTIVITY_STATISTICS = 7;
-    public static final int SOFTWARE_MANAGEMENT = 9;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-    public static final int FIRMWARE = 5;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SERVER_PUBKEY = 4;
-    public static final int SEC_SECRET_KEY = 5;
-    public static final int SEC_SERVER_ID = 10;
-    public static final int SEC_CERTIFICATE_USAGE = 15;
-    public static final int SEC_OSCORE_SECURITY_MODE = 17;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* SECURITY RESOURCES */
-
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* SECURITY RESOURCES */
-
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    /* SECURITY RESOURCES */
-
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACL_OBJECT_ID = 0;
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SECURITY = 0;
-    public static final int SERVER = 1;
-    public static final int ACCESS_CONTROL = 2;
-    public static final int DEVICE = 3;
-    public static final int CONNECTIVITY_MONITORING = 4;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-
-    /* ACCESS CONTROL RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-
-    /* ACCESS CONTROL RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SRV_SERVER_ID = 0;
-    public static final int SRV_LIFETIME = 1;
-    public static final int SRV_BINDING = 7;
-
-    /* ACCESS CONTROL RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int SEC_SERVER_URI = 0;
-    public static final int SEC_BOOTSTRAP = 1;
-    public static final int SEC_SECURITY_MODE = 2;
-    public static final int SEC_PUBKEY_IDENTITY = 3;
-    public static final int SEC_SERVER_PUBKEY = 4;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int OSCORE_SENDER_ID = 1;
-    public static final int OSCORE_RECIPIENT_ID = 2;
-    public static final int OSCORE_AEAD_ALGORITHM = 3;
-    public static final int OSCORE_HMAC_ALGORITHM = 4;
-    public static final int OSCORE_MASTER_SALT = 5;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-
-    /* DEVICE RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-
-    /* DEVICE RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2mId.java`
-#### Snippet
-```java
-    public static final int ACL_OBJECT_INSTANCE_ID = 1;
-    public static final int ACL_ACL = 2;
-    public static final int ACL_ACCESS_CONTROL_OWNER = 3;
-
-    /* DEVICE RESOURCES */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/json/LwM2mJsonEncoder.java`
-#### Snippet
-```java
-public interface LwM2mJsonEncoder {
-
-    public String toJsonLwM2m(JsonRootObject jro) throws LwM2mJsonException;
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
-#### Snippet
-```java
-
-    /** The default CoAP port for secure CoAP communication */
-    public static final int DEFAULT_COAP_SECURE_PORT = 5684;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
-#### Snippet
-```java
-
-    /** The default CoAP port for secure CoAP communication */
-    public static final int DEFAULT_COAP_SECURE_PORT = 5684;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
-#### Snippet
-```java
-
-    /** The default CoAP port for secure CoAP communication */
-    public static final int DEFAULT_COAP_SECURE_PORT = 5684;
-}
-
+    public final int code;
+
+    private SecurityMode(int code) {
+        this.code = code;
+    }
 ```
 
 ### UnnecessaryModifier
@@ -1792,12 +1755,36 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `leshan-core/src/main/java/org/eclipse/leshan/core/model/DDFFileValidator.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
 #### Snippet
 ```java
-     * @throws InvalidDDFFileException if ddf file is invalid.
-     */
-    public void validate(Node xmlToValidate) throws InvalidDDFFileException;
+
+    /** The default CoAP port for secure CoAP communication */
+    public static final int DEFAULT_COAP_SECURE_PORT = 5684;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
+#### Snippet
+```java
+
+    /** The default CoAP port for secure CoAP communication */
+    public static final int DEFAULT_COAP_SECURE_PORT = 5684;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
+#### Snippet
+```java
+
+    /** The default CoAP port for secure CoAP communication */
+    public static final int DEFAULT_COAP_SECURE_PORT = 5684;
 }
 
 ```
@@ -1812,6 +1799,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
         private GeneralName(final int value) {
             this.value = value;
         }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-core/src/main/java/org/eclipse/leshan/core/model/DDFFileValidator.java`
+#### Snippet
+```java
+     * @throws InvalidDDFFileException if ddf file is invalid.
+     */
+    public void validate(Node xmlToValidate) throws InvalidDDFFileException;
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -1839,15 +1838,27 @@ public interface SenMLEncoder {
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionListener.java`
+Modifier `static` is redundant for inner interfaces
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
 #### Snippet
 ```java
-     *
-     */
-    public void onResponseError(BootstrapSession session, BootstrapDownlinkRequest<? extends LwM2mResponse> request,
-            LwM2mResponse response);
+    /* ***************** Random Generator ****************** */
 
+    static interface ValueGenerator<T> {
+        T generate();
+    }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+    private final boolean queueMode;
+
+    private static enum Status {
+        SUCCESS, FAILURE, TIMEOUT
+    }
 ```
 
 ### UnnecessaryModifier
@@ -1863,15 +1874,15 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/Bootstr
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/SmsSecurityMode.java`
+Modifier `public` is redundant for interface members
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionListener.java`
 #### Snippet
 ```java
-    public final int code;
+     *
+     */
+    public void onResponseError(BootstrapSession session, BootstrapDownlinkRequest<? extends LwM2mResponse> request,
+            LwM2mResponse response);
 
-    private SmsSecurityMode(int code) {
-        this.code = code;
-    }
 ```
 
 ### UnnecessaryModifier
@@ -1887,15 +1898,15 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/Bootstr
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionManager.java`
+Modifier `private` is redundant for enum constructors
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/SmsSecurityMode.java`
 #### Snippet
 ```java
-     * If the session continue, it also define which request must be send next.
-     */
-    public class BootstrapPolicy {
+    public final int code;
 
-        private final boolean failed;
+    private SmsSecurityMode(int code) {
+        this.code = code;
+    }
 ```
 
 ### UnnecessaryModifier
@@ -1927,10 +1938,34 @@ Modifier `public` is redundant for interface members
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionManager.java`
 #### Snippet
 ```java
-     * @param cause why the bootstrap failed.
+     * @return the first request to send.
      */
-    public void failed(BootstrapSession bsSession, BootstrapFailureCause cause);
-}
+    public BootstrapDownlinkRequest<? extends LwM2mResponse> getFirstRequest(BootstrapSession bsSession);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionManager.java`
+#### Snippet
+```java
+     * If the session continue, it also define which request must be send next.
+     */
+    public class BootstrapPolicy {
+
+        private final boolean failed;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionManager.java`
+#### Snippet
+```java
+     * @return a {@link BootstrapPolicy} given the way to continue the bootstrap session.
+     */
+    public BootstrapPolicy onResponseError(BootstrapSession bsSession,
+            BootstrapDownlinkRequest<? extends LwM2mResponse> request, LwM2mResponse response);
 
 ```
 
@@ -1963,18 +1998,6 @@ Modifier `public` is redundant for interface members
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionManager.java`
 #### Snippet
 ```java
-     * @return the first request to send.
-     */
-    public BootstrapDownlinkRequest<? extends LwM2mResponse> getFirstRequest(BootstrapSession bsSession);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionManager.java`
-#### Snippet
-```java
      * @return a BootstrapSession, possibly authorized.
      */
     public BootstrapSession begin(BootstrapRequest request, Identity clientIdentity, URI endpointUsed);
@@ -1987,35 +2010,11 @@ Modifier `public` is redundant for interface members
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapSessionManager.java`
 #### Snippet
 ```java
-     * @return a {@link BootstrapPolicy} given the way to continue the bootstrap session.
+     * @param cause why the bootstrap failed.
      */
-    public BootstrapPolicy onResponseError(BootstrapSession bsSession,
-            BootstrapDownlinkRequest<? extends LwM2mResponse> request, LwM2mResponse response);
+    public void failed(BootstrapSession bsSession, BootstrapFailureCause cause);
+}
 
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
-#### Snippet
-```java
-    /* ***************** Random Generator ****************** */
-
-    static interface ValueGenerator<T> {
-        T generate();
-    }
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-    private final boolean queueMode;
-
-    private static enum Status {
-        SUCCESS, FAILURE, TIMEOUT
-    }
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -2131,54 +2130,6 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registr
 
 ## RuleId[ruleID=LongLiteralsEndingWithLowercaseL]
 ### LongLiteralsEndingWithLowercaseL
-'long' literal `1000l` ends with lowercase 'l'
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/DefaultBootstrapHandler.java`
-#### Snippet
-```java
-    // We choose a default timeout a bit higher to the MAX_TRANSMIT_WAIT(62-93s) which is the time from starting to
-    // send a Confirmable message to the time when an acknowledgement is no longer expected.
-    public static final long DEFAULT_TIMEOUT = 2 * 60 * 1000l; // 2min in ms
-
-    protected final BootstrapDownlinkRequestSender sender;
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `1000l` ends with lowercase 'l'
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/LeshanServer.java`
-#### Snippet
-```java
-    // We choose a default timeout a bit higher to the MAX_TRANSMIT_WAIT(62-93s) which is the time from starting to
-    // send a Confirmable message to the time when an acknowledgement is no longer expected.
-    private static final long DEFAULT_TIMEOUT = 2 * 60 * 1000l; // 2min in ms
-
-    // LWM2M attributes
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpoint.java`
-#### Snippet
-```java
-    }
-
-    private final AtomicLong idGenerator = new AtomicLong(0l);
-
-    private class CleanerMessageObserver extends MessageObserverAdapter {
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpoint.java`
-#### Snippet
-```java
-    }
-
-    private final AtomicLong idGenerator = new AtomicLong(0l);
-
-    private class CleanerMessageObserver extends MessageObserverAdapter {
-```
-
-### LongLiteralsEndingWithLowercaseL
 'long' literal `946684800000l` ends with lowercase 'l'
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
 #### Snippet
@@ -2188,6 +2139,30 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestO
     public static final Date INITIAL_TIME_VALUE = new Date(946684800000l);
     public static final ObjectLink INITIAL_OBJLINK_VALUE = new ObjectLink(3, 0);
     public static final Link[] INITIAL_CORELINK_VALUE = new Link[] { new LwM2mLink(null, new LwM2mPath(3442)) };
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `31557600000l` ends with lowercase 'l'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
+#### Snippet
+```java
+
+            // remove year randomly
+            rd -= (random.nextInt(20) - 10) * 31557600000l;
+
+            // add some variance in the year
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `1000l` ends with lowercase 'l'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
+#### Snippet
+```java
+
+            // add some variance in the year
+            rd += random.nextInt(3155760) * 1000l;
+
+            return new Date(rd);
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -2239,30 +2214,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestO
 ```
 
 ### LongLiteralsEndingWithLowercaseL
-'long' literal `31557600000l` ends with lowercase 'l'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
-#### Snippet
-```java
-
-            // remove year randomly
-            rd -= (random.nextInt(20) - 10) * 31557600000l;
-
-            // add some variance in the year
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `1000l` ends with lowercase 'l'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
-#### Snippet
-```java
-
-            // add some variance in the year
-            rd += random.nextInt(3155760) * 1000l;
-
-            return new Date(rd);
-```
-
-### LongLiteralsEndingWithLowercaseL
 'long' literal `1000l` ends with lowercase 'l'
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
 #### Snippet
@@ -2272,6 +2223,54 @@ public class DefaultRegistrationEngineFactory implements RegistrationEngineFacto
     private long requestTimeoutInMs = 2 * 60 * 1000l; // 2min in ms
     private long deregistrationTimeoutInMs = 1000; // 1s in ms
     private int bootstrapSessionTimeoutInSec = 93;
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `1000l` ends with lowercase 'l'
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/DefaultBootstrapHandler.java`
+#### Snippet
+```java
+    // We choose a default timeout a bit higher to the MAX_TRANSMIT_WAIT(62-93s) which is the time from starting to
+    // send a Confirmable message to the time when an acknowledgement is no longer expected.
+    public static final long DEFAULT_TIMEOUT = 2 * 60 * 1000l; // 2min in ms
+
+    protected final BootstrapDownlinkRequestSender sender;
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `1000l` ends with lowercase 'l'
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/LeshanServer.java`
+#### Snippet
+```java
+    // We choose a default timeout a bit higher to the MAX_TRANSMIT_WAIT(62-93s) which is the time from starting to
+    // send a Confirmable message to the time when an acknowledgement is no longer expected.
+    private static final long DEFAULT_TIMEOUT = 2 * 60 * 1000l; // 2min in ms
+
+    // LWM2M attributes
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpoint.java`
+#### Snippet
+```java
+    }
+
+    private final AtomicLong idGenerator = new AtomicLong(0l);
+
+    private class CleanerMessageObserver extends MessageObserverAdapter {
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpoint.java`
+#### Snippet
+```java
+    }
+
+    private final AtomicLong idGenerator = new AtomicLong(0l);
+
+    private class CleanerMessageObserver extends MessageObserverAdapter {
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -2302,18 +2301,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/tlv/Tlv.java`
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/json/JacksonLwM2mNodeSerializer.java`
-#### Snippet
-```java
-            // We use String to be consistent with INTEGER but to be sure to not get any restriction from javascript
-            // world.
-            return value.toString();
-        case CORELINK:
-            return linkSerializer.serializeCoreLinkFormat((Link[]) value);
-```
-
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
@@ -2350,6 +2337,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNode
                 return ObjectLink.decodeFromString((String) value);
 ```
 
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/json/JacksonLwM2mNodeSerializer.java`
+#### Snippet
+```java
+            // We use String to be consistent with INTEGER but to be sure to not get any restriction from javascript
+            // world.
+            return value.toString();
+        case CORELINK:
+            return linkSerializer.serializeCoreLinkFormat((Link[]) value);
+```
+
 ## RuleId[ruleID=DuplicateExpressions]
 ### DuplicateExpressions
 Multiple occurrences of `Paths.get(downloadFolderPath)`
@@ -2377,27 +2376,15 @@ in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/DdfDow
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`lwm2mPath.size() == 0` can be replaced with 'lwm2mPath.isEmpty()'
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+`parmName.length() == 0` can be replaced with 'parmName.isEmpty()'
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/DefaultLinkParser.java`
 #### Snippet
 ```java
-            }
 
-            if (lwm2mPath.size() == 0) {
-                throw new IllegalStateException("missing paths in request context");
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`lwm2mPaths.size() == 0` can be replaced with 'lwm2mPaths.isEmpty()'
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-            }
-
-            if (lwm2mPaths == null || lwm2mPaths.size() == 0) {
-                throw new IllegalStateException("missing path in request context");
-            }
+        // check parmName is at least 1 char length
+        if (parmName.length() == 0) {
+            throw new LinkParseException("Unable to parse [%s] : parmname should not be empty after %s",
+                    parser.getStringToParse(), parser.getAlreadyParsedString());
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2413,18 +2400,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/DefaultLinkParser.jav
 ```
 
 ### SizeReplaceableByIsEmpty
-`parmName.length() == 0` can be replaced with 'parmName.isEmpty()'
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/DefaultLinkParser.java`
-#### Snippet
-```java
-
-        // check parmName is at least 1 char length
-        if (parmName.length() == 0) {
-            throw new LinkParseException("Unable to parse [%s] : parmname should not be empty after %s",
-                    parser.getStringToParse(), parser.getAlreadyParsedString());
-```
-
-### SizeReplaceableByIsEmpty
 `ptoken.length() == 0` can be replaced with 'ptoken.isEmpty()'
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/attributes/UnquotedStringAttribute.java`
 #### Snippet
@@ -2434,6 +2409,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/attributes/UnquotedSt
         if (ptoken.length() == 0) {
             parser.raiseException("Unable to parse [%s] : ptoken should not be empty after %s",
                     parser.getStringToParse(), parser.getAlreadyParsedString());
+```
+
+### SizeReplaceableByIsEmpty
+`timestampedNodes.size() == 0` can be replaced with 'timestampedNodes.isEmpty()'
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
+#### Snippet
+```java
+            JsonRootObject json = decoder.fromJsonLwM2m(jsonStrValue);
+            List<TimestampedLwM2mNode> timestampedNodes = parseJSON(json, path, model, nodeClass);
+            if (timestampedNodes.size() == 0) {
+                return null;
+            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2461,18 +2448,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`string.length() == 0` can be replaced with 'string.isEmpty()'
-in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
-#### Snippet
-```java
-     */
-    public static void notEmpty(String string, String message) {
-        if (string == null || string.length() == 0) {
-            throw new IllegalArgumentException(message);
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `collection.size() == 0` can be replaced with 'collection.isEmpty()'
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
 #### Snippet
@@ -2485,15 +2460,15 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`timestampedNodes.size() == 0` can be replaced with 'timestampedNodes.isEmpty()'
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
+`string.length() == 0` can be replaced with 'string.isEmpty()'
+in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
 #### Snippet
 ```java
-            JsonRootObject json = decoder.fromJsonLwM2m(jsonStrValue);
-            List<TimestampedLwM2mNode> timestampedNodes = parseJSON(json, path, model, nodeClass);
-            if (timestampedNodes.size() == 0) {
-                return null;
-            } else {
+     */
+    public static void notEmpty(String string, String message) {
+        if (string == null || string.length() == 0) {
+            throw new IllegalArgumentException(message);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2545,6 +2520,42 @@ in `leshan-core/src/main/java/org/eclipse/leshan/senml/json/jackson/SenMLJsonRec
 ```
 
 ### SizeReplaceableByIsEmpty
+`instances.size() > 0` can be replaced with '!instances.isEmpty()'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
+#### Snippet
+```java
+    @Override
+    protected CreateResponse doCreate(ServerIdentity identity, CreateRequest request) {
+        if (!getObjectModel().multiple && instances.size() > 0) {
+            return CreateResponse.badRequest("an instance already exist for this single instance object");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`lwm2mPaths.size() == 0` can be replaced with 'lwm2mPaths.isEmpty()'
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+            }
+
+            if (lwm2mPaths == null || lwm2mPaths.size() == 0) {
+                throw new IllegalStateException("missing path in request context");
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`lwm2mPath.size() == 0` can be replaced with 'lwm2mPath.isEmpty()'
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+            }
+
+            if (lwm2mPath.size() == 0) {
+                throw new IllegalStateException("missing paths in request context");
+            }
+```
+
+### SizeReplaceableByIsEmpty
 `certChain.getCertificates().size() == 0` can be replaced with 'certChain.getCertificates().isEmpty()'
 in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/BaseCertificateVerifier.java`
 #### Snippet
@@ -2568,79 +2579,7 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registr
             return;
 ```
 
-### SizeReplaceableByIsEmpty
-`instances.size() > 0` can be replaced with '!instances.isEmpty()'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
-#### Snippet
-```java
-    @Override
-    protected CreateResponse doCreate(ServerIdentity identity, CreateRequest request) {
-        if (!getObjectModel().multiple && instances.size() > 0) {
-            return CreateResponse.badRequest("an instance already exist for this single instance object");
-        }
-```
-
 ## RuleId[ruleID=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-        @Override
-        public void onAwake(Registration registration) {
-            String data = new StringBuilder("{\"ep\":\"").append(registration.getEndpoint()).append("\"}").toString();
-            sendEvent(EVENT_AWAKE, data, registration.getEndpoint());
-        }
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-                    String jsonContent = EventServlet.this.mapper.writeValueAsString(data.getNodes());
-
-                    String eventData = new StringBuilder("{\"ep\":\"") //
-                            .append(registration.getEndpoint()) //
-                            .append("\",\"val\":") //
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-        @Override
-        public void onSleeping(Registration registration) {
-            String data = new StringBuilder("{\"ep\":\"").append(registration.getEndpoint()).append("\"}").toString();
-
-            sendEvent(EVENT_SLEEPING, data, registration.getEndpoint());
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-
-            if (registration != null) {
-                String data = new StringBuilder("{\"ep\":\"") //
-                        .append(registration.getEndpoint()) //
-                        .append("\",\"kind\":\"composite\"") //
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-
-            if (registration != null) {
-                String data = new StringBuilder("{\"ep\":\"") //
-                        .append(registration.getEndpoint()) //
-                        .append("\",\"kind\":\"single\"") //
-```
-
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
 in `leshan-core/src/main/java/org/eclipse/leshan/core/model/ResourceModel.java`
@@ -2663,78 +2602,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/request/CreateRequest.java
         StringBuilder builder = new StringBuilder();
         builder.append("CreateRequest [").append(getPath()).append("]");
         return builder.toString();
-```
-
-### StringBufferReplaceableByString
-`StringBuilder b` can be replaced with 'String'
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-            try {
-                String endpointName = session.getEndpoint();
-                StringBuilder b = new StringBuilder();
-                b.append("Bootstrap session failed : ");
-                b.append(cause.toString());
-```
-
-### StringBufferReplaceableByString
-`StringBuilder b` can be replaced with 'String'
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-            try {
-                String endpointName = request.getEndpointName();
-                StringBuilder b = new StringBuilder();
-                b.append(clientIdentity);
-                b.append(" is not allowed to connect.");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder b` can be replaced with 'String'
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-            try {
-                String endpointName = session.getEndpoint();
-                StringBuilder b = new StringBuilder();
-                b.append("Bootstrap session finished with success");
-
-```
-
-### StringBufferReplaceableByString
-`StringBuilder b` can be replaced with 'String'
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-            try {
-                String endpointName = session.getEndpoint();
-                StringBuilder b = new StringBuilder();
-                b.append(session.getIdentity());
-                b.append(" is allowed to connect.");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder b` can be replaced with 'String'
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-                if (request instanceof BootstrapDiscoverResponse) {
-                    String endpointName = session.getEndpoint();
-                    StringBuilder b = new StringBuilder();
-                    b.append("Receive DISCOVER reponse\n");
-                    b.append(response.getCode().toString());
-```
-
-### StringBufferReplaceableByString
-`StringBuilder b` can be replaced with 'String'
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-                } else {
-                    String endpointName = session.getEndpoint();
-                    StringBuilder b = new StringBuilder();
-                    b.append("Receive ");
-                    b.append(response.getCode().toString());
 ```
 
 ### StringBufferReplaceableByString
@@ -2779,10 +2646,142 @@ in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/
 #### Snippet
 ```java
             try {
+                String endpointName = request.getEndpointName();
+                StringBuilder b = new StringBuilder();
+                b.append(clientIdentity);
+                b.append(" is not allowed to connect.");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder b` can be replaced with 'String'
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+            try {
+                String endpointName = session.getEndpoint();
+                StringBuilder b = new StringBuilder();
+                b.append("Bootstrap session finished with success");
+
+```
+
+### StringBufferReplaceableByString
+`StringBuilder b` can be replaced with 'String'
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+            try {
                 String endpointName = session.getEndpoint();
                 StringBuilder b = new StringBuilder();
                 b.append("No config to apply to this client.");
 
+```
+
+### StringBufferReplaceableByString
+`StringBuilder b` can be replaced with 'String'
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+            try {
+                String endpointName = session.getEndpoint();
+                StringBuilder b = new StringBuilder();
+                b.append("Bootstrap session failed : ");
+                b.append(cause.toString());
+```
+
+### StringBufferReplaceableByString
+`StringBuilder b` can be replaced with 'String'
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+            try {
+                String endpointName = session.getEndpoint();
+                StringBuilder b = new StringBuilder();
+                b.append(session.getIdentity());
+                b.append(" is allowed to connect.");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder b` can be replaced with 'String'
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+                if (request instanceof BootstrapDiscoverResponse) {
+                    String endpointName = session.getEndpoint();
+                    StringBuilder b = new StringBuilder();
+                    b.append("Receive DISCOVER reponse\n");
+                    b.append(response.getCode().toString());
+```
+
+### StringBufferReplaceableByString
+`StringBuilder b` can be replaced with 'String'
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+                } else {
+                    String endpointName = session.getEndpoint();
+                    StringBuilder b = new StringBuilder();
+                    b.append("Receive ");
+                    b.append(response.getCode().toString());
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+
+            if (registration != null) {
+                String data = new StringBuilder("{\"ep\":\"") //
+                        .append(registration.getEndpoint()) //
+                        .append("\",\"kind\":\"single\"") //
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+        @Override
+        public void onAwake(Registration registration) {
+            String data = new StringBuilder("{\"ep\":\"").append(registration.getEndpoint()).append("\"}").toString();
+            sendEvent(EVENT_AWAKE, data, registration.getEndpoint());
+        }
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+                    String jsonContent = EventServlet.this.mapper.writeValueAsString(data.getNodes());
+
+                    String eventData = new StringBuilder("{\"ep\":\"") //
+                            .append(registration.getEndpoint()) //
+                            .append("\",\"val\":") //
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+
+            if (registration != null) {
+                String data = new StringBuilder("{\"ep\":\"") //
+                        .append(registration.getEndpoint()) //
+                        .append("\",\"kind\":\"composite\"") //
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+        @Override
+        public void onSleeping(Registration registration) {
+            String data = new StringBuilder("{\"ep\":\"").append(registration.getEndpoint()).append("\"}").toString();
+
+            sendEvent(EVENT_SLEEPING, data, registration.getEndpoint());
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -2812,10 +2811,106 @@ in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/Clie
 
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+            registerFuture = schedExecutor.submit(new RegistrationTask(dmServer));
+        }
+        return;
+    }
+
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/send/SendResource.java`
+#### Snippet
+```java
+                exchange.respond(toCoapResponseCode(response.getCode()));
+                sendableResponse.sent();
+                return;
+            } else {
+                exchange.respond(toCoapResponseCode(response.getCode()), response.getErrorMessage());
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/send/SendResource.java`
+#### Snippet
+```java
+                exchange.respond(toCoapResponseCode(response.getCode()), response.getErrorMessage());
+                sendableResponse.sent();
+                return;
+            }
+        } catch (CodecException e) {
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/send/SendResource.java`
+#### Snippet
+```java
+                    new InvalidRequestException(e, "Invalid payload in [%s] from [%s]", coapRequest, sender),
+                    SendRequest.class, exchange.advanced().getEndpoint().getUri());
+            return;
+        } catch (RuntimeException e) {
+            receiver.onError(sender, clientProfile, e, SendRequest.class, exchange.advanced().getEndpoint().getUri());
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registration/RegisterResource.java`
+#### Snippet
+```java
+        if (uri.size() == 1) {
+            handleRegister(exchange, request);
+            return;
+        } else if (uri.size() == 2) {
+            handleUpdate(exchange, request, uri.get(1));
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registration/RegisterResource.java`
+#### Snippet
+```java
+        } else if (uri.size() == 2) {
+            handleUpdate(exchange, request, uri.get(1));
+            return;
+        } else {
+            handleInvalidRequest(exchange, "Bad URI");
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registration/RegisterResource.java`
+#### Snippet
+```java
+        } else {
+            handleInvalidRequest(exchange, "Bad URI");
+            return;
+        }
+    }
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
 in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/RootResource.java`
 #### Snippet
 ```java
                     MediaTypeRegistry.APPLICATION_LINK_FORMAT);
+        }
+        return;
+    }
+
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/RootResource.java`
+#### Snippet
+```java
+            exchange.respond(toCoapResponseCode(response.getCode()));
         }
         return;
     }
@@ -2860,14 +2955,38 @@ in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/RootRes
 
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/RootResource.java`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
 #### Snippet
 ```java
-            exchange.respond(toCoapResponseCode(response.getCode()));
-        }
-        return;
-    }
+                    exchange.setLocationPath(response.getLocation());
+                exchange.respond(toCoapResponseCode(response.getCode()));
+                return;
+            } else {
+                exchange.respond(toCoapResponseCode(response.getCode()), response.getErrorMessage());
+```
 
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
+#### Snippet
+```java
+            } else {
+                exchange.respond(toCoapResponseCode(response.getCode()), response.getErrorMessage());
+                return;
+            }
+        } catch (CodecException e) {
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
+#### Snippet
+```java
+        } catch (CodecException e) {
+            handleInvalidRequest(exchange.advanced(), "Unable to decode payload on CREATE", e);
+            return;
+        }
+    }
 ```
 
 ### UnnecessaryReturn
@@ -2904,42 +3023,6 @@ in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/
                 return;
             }
 
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
-#### Snippet
-```java
-                    exchange.setLocationPath(response.getLocation());
-                exchange.respond(toCoapResponseCode(response.getCode()));
-                return;
-            } else {
-                exchange.respond(toCoapResponseCode(response.getCode()), response.getErrorMessage());
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
-#### Snippet
-```java
-            } else {
-                exchange.respond(toCoapResponseCode(response.getCode()), response.getErrorMessage());
-                return;
-            }
-        } catch (CodecException e) {
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
-#### Snippet
-```java
-        } catch (CodecException e) {
-            handleInvalidRequest(exchange.advanced(), "Unable to decode payload on CREATE", e);
-            return;
-        }
-    }
 ```
 
 ### UnnecessaryReturn
@@ -3038,90 +3121,6 @@ in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/
                 }
 ```
 
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/send/SendResource.java`
-#### Snippet
-```java
-                exchange.respond(toCoapResponseCode(response.getCode()));
-                sendableResponse.sent();
-                return;
-            } else {
-                exchange.respond(toCoapResponseCode(response.getCode()), response.getErrorMessage());
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/send/SendResource.java`
-#### Snippet
-```java
-                exchange.respond(toCoapResponseCode(response.getCode()), response.getErrorMessage());
-                sendableResponse.sent();
-                return;
-            }
-        } catch (CodecException e) {
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/send/SendResource.java`
-#### Snippet
-```java
-                    new InvalidRequestException(e, "Invalid payload in [%s] from [%s]", coapRequest, sender),
-                    SendRequest.class, exchange.advanced().getEndpoint().getUri());
-            return;
-        } catch (RuntimeException e) {
-            receiver.onError(sender, clientProfile, e, SendRequest.class, exchange.advanced().getEndpoint().getUri());
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registration/RegisterResource.java`
-#### Snippet
-```java
-        if (uri.size() == 1) {
-            handleRegister(exchange, request);
-            return;
-        } else if (uri.size() == 2) {
-            handleUpdate(exchange, request, uri.get(1));
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registration/RegisterResource.java`
-#### Snippet
-```java
-        } else if (uri.size() == 2) {
-            handleUpdate(exchange, request, uri.get(1));
-            return;
-        } else {
-            handleInvalidRequest(exchange, "Bad URI");
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registration/RegisterResource.java`
-#### Snippet
-```java
-        } else {
-            handleInvalidRequest(exchange, "Bad URI");
-            return;
-        }
-    }
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-            registerFuture = schedExecutor.submit(new RegistrationTask(dmServer));
-        }
-        return;
-    }
-
-```
-
 ## RuleId[ruleID=NumberEquality]
 ### NumberEquality
 Number objects are compared using `!=`, not 'equals()'
@@ -3160,66 +3159,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseInst
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super T`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/AsyncRequestObserver.java`
-#### Snippet
-```java
-     * @param executor used to scheduled timeout tasks.
-     */
-    public AsyncRequestObserver(Request coapRequest, final ResponseCallback<T> responseCallback,
-            final ErrorCallback errorCallback, long timeoutInMs, ScheduledExecutorService executor,
-            ExceptionTranslator exceptionTranslator) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-     * @param paths the list of {@link LwM2mPath}
-     */
-    public static void addPathsIntoContext(Map<String, String> context, List<LwM2mPath> paths) {
-        StringBuilder sb = new StringBuilder();
-        for (LwM2mPath path : paths) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-     * @param paths the list of {@link LwM2mPath}
-     */
-    public static void addPathsIntoContext(Map<String, String> context, List<LwM2mPath> paths) {
-        StringBuilder sb = new StringBuilder();
-        for (LwM2mPath path : paths) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends LwM2mPath`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-     * @param paths the list of {@link LwM2mPath}
-     */
-    public static void addPathsIntoContext(Map<String, String> context, List<LwM2mPath> paths) {
-        StringBuilder sb = new StringBuilder();
-        for (LwM2mPath path : paths) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends LwM2mPath`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/json/JacksonRegistrationSerializer.java`
-#### Snippet
-```java
-    }
-
-    private Map<Integer, Set<Integer>> serializeAvailableInstances(Set<LwM2mPath> instances) {
-        SortedMap<Integer, Set<Integer>> result = new TreeMap<>();
-        for (LwM2mPath path : instances) {
-```
-
 ### BoundedWildcard
 Can generalize to `? extends Attribute`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/Link.java`
@@ -3297,18 +3236,6 @@ Can generalize to `? extends JsonArrayEntry`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
 #### Snippet
 ```java
-     * @return a map (instanceId => collection of JsonArrayEntry)
-     */
-    private Map<Integer, Collection<JsonArrayEntry>> groupJsonEntryByInstanceId(Collection<JsonArrayEntry> jsonEntries,
-            String baseName, LwM2mPath requestPath) throws CodecException {
-        Map<Integer, Collection<JsonArrayEntry>> result = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends JsonArrayEntry`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
-#### Snippet
-```java
     }
 
     private Map<Integer, LwM2mResource> extractLwM2mResources(Collection<JsonArrayEntry> jsonArrayEntries,
@@ -3317,15 +3244,15 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJ
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TimestampedLwM2mNode`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLEncoder.java`
+Can generalize to `? extends JsonArrayEntry`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
 #### Snippet
 ```java
-
-    @Override
-    public byte[] encodeTimestampedData(List<TimestampedLwM2mNode> timestampedNodes, LwM2mPath path, LwM2mModel model,
-            LwM2mValueConverter converter) throws CodecException {
-        Validate.notNull(timestampedNodes);
+     * @return a map (instanceId => collection of JsonArrayEntry)
+     */
+    private Map<Integer, Collection<JsonArrayEntry>> groupJsonEntryByInstanceId(Collection<JsonArrayEntry> jsonEntries,
+            String baseName, LwM2mPath requestPath) throws CodecException {
+        Map<Integer, Collection<JsonArrayEntry>> result = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -3350,6 +3277,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/json/JacksonJsonSerDe
     public List<T> deserialize(Iterator<JsonNode> nodes) throws JsonException {
         ArrayList<T> res = new ArrayList<>();
         while (nodes.hasNext()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TimestampedLwM2mNode`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLEncoder.java`
+#### Snippet
+```java
+
+    @Override
+    public byte[] encodeTimestampedData(List<TimestampedLwM2mNode> timestampedNodes, LwM2mPath path, LwM2mModel model,
+            LwM2mValueConverter converter) throws CodecException {
+        Validate.notNull(timestampedNodes);
 ```
 
 ### BoundedWildcard
@@ -3389,6 +3328,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/model/LwM2mModelRepository
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends LwM2mPath`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
+#### Snippet
+```java
+     * E.g. for recordPath="/3/0/1" and paths=["/1/0","/2/0/","/3"] result will be "/3"
+     */
+    private LwM2mPath selectPath(LwM2mPath recordPath, List<LwM2mPath> paths) {
+        for (LwM2mPath path : paths) {
+            if (recordPath.startWith(path)) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends LwM2mResolvedSenMLRecord`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
 #### Snippet
@@ -3398,30 +3349,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNode
     private Map<Integer, LwM2mResource> extractLwM2mResources(Collection<LwM2mResolvedSenMLRecord> records,
             LwM2mPath requestPath, LwM2mModel model) throws CodecException {
         if (records == null)
-```
-
-### BoundedWildcard
-Can generalize to `? extends SenMLRecord`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
-#### Snippet
-```java
-     * Resolved record then group it by LwM2mPath
-     */
-    private Map<LwM2mPath, Collection<LwM2mResolvedSenMLRecord>> groupByPath(List<SenMLRecord> records,
-            List<LwM2mPath> paths) throws SenMLException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends SenMLRecord`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
-#### Snippet
-```java
-     */
-    private SortedMap<BigDecimal, Collection<LwM2mResolvedSenMLRecord>> groupRecordByTimestamp(
-            List<SenMLRecord> records, LwM2mPath requestPath) throws SenMLException {
-        SortedMap<BigDecimal, Collection<LwM2mResolvedSenMLRecord>> result = new TreeMap<>(
-                new Comparator<BigDecimal>() {
 ```
 
 ### BoundedWildcard
@@ -3437,15 +3364,27 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNode
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LwM2mPath`
+Can generalize to `? extends SenMLRecord`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
 #### Snippet
 ```java
-     * E.g. for recordPath="/3/0/1" and paths=["/1/0","/2/0/","/3"] result will be "/3"
      */
-    private LwM2mPath selectPath(LwM2mPath recordPath, List<LwM2mPath> paths) {
-        for (LwM2mPath path : paths) {
-            if (recordPath.startWith(path)) {
+    private SortedMap<BigDecimal, Collection<LwM2mResolvedSenMLRecord>> groupRecordByTimestamp(
+            List<SenMLRecord> records, LwM2mPath requestPath) throws SenMLException {
+        SortedMap<BigDecimal, Collection<LwM2mResolvedSenMLRecord>> result = new TreeMap<>(
+                new Comparator<BigDecimal>() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SenMLRecord`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
+#### Snippet
+```java
+     * Resolved record then group it by LwM2mPath
+     */
+    private Map<LwM2mPath, Collection<LwM2mResolvedSenMLRecord>> groupByPath(List<SenMLRecord> records,
+            List<LwM2mPath> paths) throws SenMLException {
+
 ```
 
 ### BoundedWildcard
@@ -3473,102 +3412,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/senml/SenMLPack.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/request/DefaultDownlinkRequestSender.java`
-#### Snippet
-```java
-    @Override
-    public <T extends LwM2mResponse> void send(final Registration destination, DownlinkRequest<T> request,
-            LowerLayerConfig lowerLayerConfig, long timeoutInMs, final ResponseCallback<T> responseCallback,
-            ErrorCallback errorCallback) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends SecurityInfo`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/security/SecurityChecker.java`
-#### Snippet
-```java
-     * @see SecurityInfo
-     */
-    public boolean checkSecurityInfos(String endpoint, Identity clientIdentity, Iterator<SecurityInfo> securityInfos) {
-        // if this is a secure end-point, we must check that the registering client is using the right identity.
-        if (clientIdentity.isSecure()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/request/DefaultBootstrapDownlinkRequestSender.java`
-#### Snippet
-```java
-    @Override
-    public <T extends LwM2mResponse> void send(final BootstrapSession destination, BootstrapDownlinkRequest<T> request,
-            long timeoutInMs, final ResponseCallback<T> responseCallback, ErrorCallback errorCallback) {
-
-        // find endpoint to use
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpoint.java`
-#### Snippet
-```java
-
-    @Override
-    public <T extends LwM2mResponse> void send(ServerIdentity server, UplinkRequest<T> lwm2mRequest,
-            ResponseCallback<T> responseCallback, ErrorCallback errorCallback, long timeoutInMs) {
-        Validate.notNull(responseCallback);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Certificate`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
-#### Snippet
-```java
-    protected DtlsConnectorConfig.Builder createEffectiveDtlsConnectorConfigBuilder(InetSocketAddress addr,
-            ServerInfo serverInfo, DtlsConnectorConfig.Builder rootDtlsConfigBuilder, Configuration coapConfig,
-            boolean clientInitiatedOnly, List<Certificate> trustStore) {
-
-        if (serverInfo.isSecure()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpoint.java`
-#### Snippet
-```java
-
-    @Override
-    public <T extends LwM2mResponse> void send(ClientProfile destination, DownlinkRequest<T> lwm2mRequest,
-            ResponseCallback<T> responseCallback, ErrorCallback errorCallback, LowerLayerConfig lowerLayerConfig,
-            long timeoutInMs) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpoint.java`
-#### Snippet
-```java
-
-    @Override
-    public <T extends LwM2mResponse> void send(BootstrapSession destination, BootstrapDownlinkRequest<T> lwm2mRequest,
-            ResponseCallback<T> responseCallback, ErrorCallback errorCallback, long timeoutInMs) {
-        Validate.notNull(responseCallback);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Jedis`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
-#### Snippet
-```java
-    private final List<SecurityStoreListener> listeners = new CopyOnWriteArrayList<>();
-
-    public RedisSecurityStore(Pool<Jedis> pool) {
-        this.pool = pool;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends LwM2mObjectEnabler`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
 #### Snippet
@@ -3581,18 +3424,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHe
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`>
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
-#### Snippet
-```java
-
-    private static List<LwM2mLink> getBootstrapObjectDescriptionWithoutRoot(LwM2mObjectEnabler objectEnabler,
-            Map<Integer, List<LwM2mAttribute<?>>> oscoreAttributesByInstanceId) {
-        List<LwM2mLink> links = new ArrayList<>();
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends LwM2mObjectEnabler`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
 #### Snippet
@@ -3602,6 +3433,18 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHe
     public static Link[] getClientDescription(Collection<LwM2mObjectEnabler> objectEnablers, String rootPath,
             List<ContentFormat> supportedContentFormats) {
         List<Link> links = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`>
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
+#### Snippet
+```java
+
+    private static List<LwM2mLink> getBootstrapObjectDescriptionWithoutRoot(LwM2mObjectEnabler objectEnabler,
+            Map<Integer, List<LwM2mAttribute<?>>> oscoreAttributesByInstanceId) {
+        List<LwM2mLink> links = new ArrayList<>();
+
 ```
 
 ### BoundedWildcard
@@ -3653,15 +3496,15 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseObje
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/DefaultBootstrapConsistencyChecker.java`
+Can generalize to `? extends LwM2mResource`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
 #### Snippet
 ```java
-    }
 
-    private void checkOscoreIsValid(ServerInfo serverInfo, List<String> errors) {
-        if (serverInfo.useOscore) {
-            try {
+    protected LwM2mInstanceEnabler createInstance(ServerIdentity identity, Integer instanceId,
+            Collection<LwM2mResource> resources) {
+        // create the new instance
+        LwM2mInstanceEnabler newInstance = instanceFactory.create(getObjectModel(), instanceId, instances.keySet());
 ```
 
 ### BoundedWildcard
@@ -3677,15 +3520,15 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/Default
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LwM2mResource`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
+Can generalize to `? super String`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/DefaultBootstrapConsistencyChecker.java`
 #### Snippet
 ```java
+    }
 
-    protected LwM2mInstanceEnabler createInstance(ServerIdentity identity, Integer instanceId,
-            Collection<LwM2mResource> resources) {
-        // create the new instance
-        LwM2mInstanceEnabler newInstance = instanceFactory.create(getObjectModel(), instanceId, instances.keySet());
+    private void checkOscoreIsValid(ServerInfo serverInfo, List<String> errors) {
+        if (serverInfo.useOscore) {
+            try {
 ```
 
 ### BoundedWildcard
@@ -3737,6 +3580,42 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BaseBoo
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends LwM2mPath`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/json/JacksonRegistrationSerializer.java`
+#### Snippet
+```java
+    }
+
+    private Map<Integer, Set<Integer>> serializeAvailableInstances(Set<LwM2mPath> instances) {
+        SortedMap<Integer, Set<Integer>> result = new TreeMap<>();
+        for (LwM2mPath path : instances) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SecurityInfo`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/security/SecurityChecker.java`
+#### Snippet
+```java
+     * @see SecurityInfo
+     */
+    public boolean checkSecurityInfos(String endpoint, Identity clientIdentity, Iterator<SecurityInfo> securityInfos) {
+        // if this is a secure end-point, we must check that the registering client is using the right identity.
+        if (clientIdentity.isSecure()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/request/DefaultDownlinkRequestSender.java`
+#### Snippet
+```java
+    @Override
+    public <T extends LwM2mResponse> void send(final Registration destination, DownlinkRequest<T> request,
+            LowerLayerConfig lowerLayerConfig, long timeoutInMs, final ResponseCallback<T> responseCallback,
+            ErrorCallback errorCallback) {
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends DmServerInfo`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
 #### Snippet
@@ -3748,17 +3627,137 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultReg
             if (servers.size() > 1) {
 ```
 
+### BoundedWildcard
+Can generalize to `? super T`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/request/DefaultBootstrapDownlinkRequestSender.java`
+#### Snippet
+```java
+    @Override
+    public <T extends LwM2mResponse> void send(final BootstrapSession destination, BootstrapDownlinkRequest<T> request,
+            long timeoutInMs, final ResponseCallback<T> responseCallback, ErrorCallback errorCallback) {
+
+        // find endpoint to use
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/AsyncRequestObserver.java`
+#### Snippet
+```java
+     * @param executor used to scheduled timeout tasks.
+     */
+    public AsyncRequestObserver(Request coapRequest, final ResponseCallback<T> responseCallback,
+            final ErrorCallback errorCallback, long timeoutInMs, ScheduledExecutorService executor,
+            ExceptionTranslator exceptionTranslator) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+     * @param paths the list of {@link LwM2mPath}
+     */
+    public static void addPathsIntoContext(Map<String, String> context, List<LwM2mPath> paths) {
+        StringBuilder sb = new StringBuilder();
+        for (LwM2mPath path : paths) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+     * @param paths the list of {@link LwM2mPath}
+     */
+    public static void addPathsIntoContext(Map<String, String> context, List<LwM2mPath> paths) {
+        StringBuilder sb = new StringBuilder();
+        for (LwM2mPath path : paths) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends LwM2mPath`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+     * @param paths the list of {@link LwM2mPath}
+     */
+    public static void addPathsIntoContext(Map<String, String> context, List<LwM2mPath> paths) {
+        StringBuilder sb = new StringBuilder();
+        for (LwM2mPath path : paths) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpoint.java`
+#### Snippet
+```java
+
+    @Override
+    public <T extends LwM2mResponse> void send(ClientProfile destination, DownlinkRequest<T> lwm2mRequest,
+            ResponseCallback<T> responseCallback, ErrorCallback errorCallback, LowerLayerConfig lowerLayerConfig,
+            long timeoutInMs) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpoint.java`
+#### Snippet
+```java
+
+    @Override
+    public <T extends LwM2mResponse> void send(BootstrapSession destination, BootstrapDownlinkRequest<T> lwm2mRequest,
+            ResponseCallback<T> responseCallback, ErrorCallback errorCallback, long timeoutInMs) {
+        Validate.notNull(responseCallback);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpoint.java`
+#### Snippet
+```java
+
+    @Override
+    public <T extends LwM2mResponse> void send(ServerIdentity server, UplinkRequest<T> lwm2mRequest,
+            ResponseCallback<T> responseCallback, ErrorCallback errorCallback, long timeoutInMs) {
+        Validate.notNull(responseCallback);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Jedis`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
+#### Snippet
+```java
+    private final List<SecurityStoreListener> listeners = new CopyOnWriteArrayList<>();
+
+    public RedisSecurityStore(Pool<Jedis> pool) {
+        this.pool = pool;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Certificate`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
+#### Snippet
+```java
+    protected DtlsConnectorConfig.Builder createEffectiveDtlsConnectorConfigBuilder(InetSocketAddress addr,
+            ServerInfo serverInfo, DtlsConnectorConfig.Builder rootDtlsConfigBuilder, Configuration coapConfig,
+            boolean clientInitiatedOnly, List<Certificate> trustStore) {
+
+        if (serverInfo.isSecure()) {
+```
+
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static int REQUEST_ENTITY_INCOMPLETE_CODE = 408;
-    /** Supported LwM2M Versions of the Server and the Client are not compatible */
-    public final static int PRECONDITION_FAILED_CODE = 412;
+    public final static int NOT_FOUND_CODE = 404;
     /** None of the preferred Content-Formats can be returned */
-    public final static int REQUEST_ENTITY_TOO_LARGE_CODE = 413;
+    public final static int NOT_ACCEPTABLE_CODE = 406;
+    /** None of the preferred Content-Formats can be returned */
+    public final static int REQUEST_ENTITY_INCOMPLETE_CODE = 408;
 ```
 
 ### MissortedModifiers
@@ -3766,11 +3765,59 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static ResponseCode FORBIDDEN = new ResponseCode(FORBIDDEN_CODE, "FORBIDDEN");
-    public final static ResponseCode NOT_FOUND = new ResponseCode(NOT_FOUND_CODE, "NOT_FOUND");
-    public final static ResponseCode NOT_ACCEPTABLE = new ResponseCode(NOT_ACCEPTABLE_CODE, "NOT_ACCEPTABLE");
-    public final static ResponseCode REQUEST_ENTITY_INCOMPLETE = new ResponseCode(REQUEST_ENTITY_INCOMPLETE_CODE,
-            "REQUEST_ENTITY_INCOMPLETE");
+
+    /** Resource correctly created */
+    public final static int CREATED_CODE = 201;
+    /** Resource correctly deleted */
+    public final static int DELETED_CODE = 202;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static int CHANGED_CODE = 204;
+    /** Content correctly delivered */
+    public final static int CONTENT_CODE = 205;
+    /** Bad request format (missing parameters, bad encoding ...) */
+    public final static int BAD_REQUEST_CODE = 400;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static ResponseCode REQUEST_ENTITY_TOO_LARGE = new ResponseCode(REQUEST_ENTITY_TOO_LARGE_CODE,
+            "REQUEST_ENTITY_TOO_LARGE");
+    public final static ResponseCode UNSUPPORTED_CONTENT_FORMAT = new ResponseCode(UNSUPPORTED_CONTENT_FORMAT_CODE,
+            "UNSUPPORTED_CONTENT_FORMAT");
+    public final static ResponseCode INTERNAL_SERVER_ERROR = new ResponseCode(INTERNAL_SERVER_ERROR_CODE,
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static int DELETED_CODE = 202;
+    /** Resource correctly changed */
+    public final static int CHANGED_CODE = 204;
+    /** Content correctly delivered */
+    public final static int CONTENT_CODE = 205;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static int PRECONDITION_FAILED_CODE = 412;
+    /** None of the preferred Content-Formats can be returned */
+    public final static int REQUEST_ENTITY_TOO_LARGE_CODE = 413;
+    /** The specified format is not supported */
+    public final static int UNSUPPORTED_CONTENT_FORMAT_CODE = 415;
 ```
 
 ### MissortedModifiers
@@ -3790,11 +3837,11 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
     public final static ResponseCode BAD_REQUEST = new ResponseCode(BAD_REQUEST_CODE, "BAD_REQUEST");
     public final static ResponseCode UNAUTHORIZED = new ResponseCode(UNAUTHORIZED_CODE, "UNAUTHORIZED");
     public final static ResponseCode METHOD_NOT_ALLOWED = new ResponseCode(METHOD_NOT_ALLOWED_CODE,
             "METHOD_NOT_ALLOWED");
+    public final static ResponseCode FORBIDDEN = new ResponseCode(FORBIDDEN_CODE, "FORBIDDEN");
 ```
 
 ### MissortedModifiers
@@ -3814,71 +3861,11 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    // LwM2m Response codes
-    public final static ResponseCode CREATED = new ResponseCode(CREATED_CODE, "CREATED");
-    public final static ResponseCode DELETED = new ResponseCode(DELETED_CODE, "DELETED");
-    public final static ResponseCode CHANGED = new ResponseCode(CHANGED_CODE, "CHANGED");
-    public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static int NOT_ACCEPTABLE_CODE = 406;
-    /** None of the preferred Content-Formats can be returned */
-    public final static int REQUEST_ENTITY_INCOMPLETE_CODE = 408;
-    /** Supported LwM2M Versions of the Server and the Client are not compatible */
-    public final static int PRECONDITION_FAILED_CODE = 412;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static ResponseCode REQUEST_ENTITY_TOO_LARGE = new ResponseCode(REQUEST_ENTITY_TOO_LARGE_CODE,
-            "REQUEST_ENTITY_TOO_LARGE");
-    public final static ResponseCode UNSUPPORTED_CONTENT_FORMAT = new ResponseCode(UNSUPPORTED_CONTENT_FORMAT_CODE,
-            "UNSUPPORTED_CONTENT_FORMAT");
-    public final static ResponseCode INTERNAL_SERVER_ERROR = new ResponseCode(INTERNAL_SERVER_ERROR_CODE,
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
 
     // LwM2m Response codes
     public final static ResponseCode CREATED = new ResponseCode(CREATED_CODE, "CREATED");
     public final static ResponseCode DELETED = new ResponseCode(DELETED_CODE, "DELETED");
     public final static ResponseCode CHANGED = new ResponseCode(CHANGED_CODE, "CHANGED");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static ResponseCode NOT_FOUND = new ResponseCode(NOT_FOUND_CODE, "NOT_FOUND");
-    public final static ResponseCode NOT_ACCEPTABLE = new ResponseCode(NOT_ACCEPTABLE_CODE, "NOT_ACCEPTABLE");
-    public final static ResponseCode REQUEST_ENTITY_INCOMPLETE = new ResponseCode(REQUEST_ENTITY_INCOMPLETE_CODE,
-            "REQUEST_ENTITY_INCOMPLETE");
-    public final static ResponseCode PRECONDITION_FAILED = new ResponseCode(PRECONDITION_FAILED_CODE,
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static int BAD_REQUEST_CODE = 400;
-    /** Access Right Permission Denied */
-    public final static int UNAUTHORIZED_CODE = 401;
-    /** This method (GET/PUT/POST/DELETE) is not allowed on this resource */
-    public final static int METHOD_NOT_ALLOWED_CODE = 405;
 ```
 
 ### MissortedModifiers
@@ -3898,11 +3885,11 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static int REQUEST_ENTITY_TOO_LARGE_CODE = 413;
-    /** The specified format is not supported */
-    public final static int UNSUPPORTED_CONTENT_FORMAT_CODE = 415;
-    /** generic response code for unexpected error */
-    public final static int INTERNAL_SERVER_ERROR_CODE = 500;
+    public final static ResponseCode FORBIDDEN = new ResponseCode(FORBIDDEN_CODE, "FORBIDDEN");
+    public final static ResponseCode NOT_FOUND = new ResponseCode(NOT_FOUND_CODE, "NOT_FOUND");
+    public final static ResponseCode NOT_ACCEPTABLE = new ResponseCode(NOT_ACCEPTABLE_CODE, "NOT_ACCEPTABLE");
+    public final static ResponseCode REQUEST_ENTITY_INCOMPLETE = new ResponseCode(REQUEST_ENTITY_INCOMPLETE_CODE,
+            "REQUEST_ENTITY_INCOMPLETE");
 ```
 
 ### MissortedModifiers
@@ -3910,35 +3897,11 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static ResponseCode CREATED = new ResponseCode(CREATED_CODE, "CREATED");
-    public final static ResponseCode DELETED = new ResponseCode(DELETED_CODE, "DELETED");
-    public final static ResponseCode CHANGED = new ResponseCode(CHANGED_CODE, "CHANGED");
-    public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
-    public final static ResponseCode BAD_REQUEST = new ResponseCode(BAD_REQUEST_CODE, "BAD_REQUEST");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static ResponseCode CHANGED = new ResponseCode(CHANGED_CODE, "CHANGED");
-    public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
-    public final static ResponseCode BAD_REQUEST = new ResponseCode(BAD_REQUEST_CODE, "BAD_REQUEST");
-    public final static ResponseCode UNAUTHORIZED = new ResponseCode(UNAUTHORIZED_CODE, "UNAUTHORIZED");
-    public final static ResponseCode METHOD_NOT_ALLOWED = new ResponseCode(METHOD_NOT_ALLOWED_CODE,
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
+    public final static int BAD_REQUEST_CODE = 400;
+    /** Access Right Permission Denied */
     public final static int UNAUTHORIZED_CODE = 401;
     /** This method (GET/PUT/POST/DELETE) is not allowed on this resource */
     public final static int METHOD_NOT_ALLOWED_CODE = 405;
-    /** The Endpoint Client Name registration in the LWM2M Server is not allowed */
-    public final static int FORBIDDEN_CODE = 403;
 ```
 
 ### MissortedModifiers
@@ -3958,11 +3921,119 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static int CONTENT_CODE = 205;
-    /** Bad request format (missing parameters, bad encoding ...) */
-    public final static int BAD_REQUEST_CODE = 400;
-    /** Access Right Permission Denied */
+    public final static int REQUEST_ENTITY_INCOMPLETE_CODE = 408;
+    /** Supported LwM2M Versions of the Server and the Client are not compatible */
+    public final static int PRECONDITION_FAILED_CODE = 412;
+    /** None of the preferred Content-Formats can be returned */
+    public final static int REQUEST_ENTITY_TOO_LARGE_CODE = 413;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+            "METHOD_NOT_ALLOWED");
+    public final static ResponseCode FORBIDDEN = new ResponseCode(FORBIDDEN_CODE, "FORBIDDEN");
+    public final static ResponseCode NOT_FOUND = new ResponseCode(NOT_FOUND_CODE, "NOT_FOUND");
+    public final static ResponseCode NOT_ACCEPTABLE = new ResponseCode(NOT_ACCEPTABLE_CODE, "NOT_ACCEPTABLE");
+    public final static ResponseCode REQUEST_ENTITY_INCOMPLETE = new ResponseCode(REQUEST_ENTITY_INCOMPLETE_CODE,
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    // LwM2m Response codes
+    public final static ResponseCode CREATED = new ResponseCode(CREATED_CODE, "CREATED");
+    public final static ResponseCode DELETED = new ResponseCode(DELETED_CODE, "DELETED");
+    public final static ResponseCode CHANGED = new ResponseCode(CHANGED_CODE, "CHANGED");
+    public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static int REQUEST_ENTITY_TOO_LARGE_CODE = 413;
+    /** The specified format is not supported */
+    public final static int UNSUPPORTED_CONTENT_FORMAT_CODE = 415;
+    /** generic response code for unexpected error */
+    public final static int INTERNAL_SERVER_ERROR_CODE = 500;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static ResponseCode DELETED = new ResponseCode(DELETED_CODE, "DELETED");
+    public final static ResponseCode CHANGED = new ResponseCode(CHANGED_CODE, "CHANGED");
+    public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
+    public final static ResponseCode BAD_REQUEST = new ResponseCode(BAD_REQUEST_CODE, "BAD_REQUEST");
+    public final static ResponseCode UNAUTHORIZED = new ResponseCode(UNAUTHORIZED_CODE, "UNAUTHORIZED");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
+    public final static ResponseCode BAD_REQUEST = new ResponseCode(BAD_REQUEST_CODE, "BAD_REQUEST");
+    public final static ResponseCode UNAUTHORIZED = new ResponseCode(UNAUTHORIZED_CODE, "UNAUTHORIZED");
+    public final static ResponseCode METHOD_NOT_ALLOWED = new ResponseCode(METHOD_NOT_ALLOWED_CODE,
+            "METHOD_NOT_ALLOWED");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
     public final static int UNAUTHORIZED_CODE = 401;
+    /** This method (GET/PUT/POST/DELETE) is not allowed on this resource */
+    public final static int METHOD_NOT_ALLOWED_CODE = 405;
+    /** The Endpoint Client Name registration in the LWM2M Server is not allowed */
+    public final static int FORBIDDEN_CODE = 403;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static int UNSUPPORTED_CONTENT_FORMAT_CODE = 415;
+    /** generic response code for unexpected error */
+    public final static int INTERNAL_SERVER_ERROR_CODE = 500;
+
+    // LwM2m Response codes
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static ResponseCode NOT_FOUND = new ResponseCode(NOT_FOUND_CODE, "NOT_FOUND");
+    public final static ResponseCode NOT_ACCEPTABLE = new ResponseCode(NOT_ACCEPTABLE_CODE, "NOT_ACCEPTABLE");
+    public final static ResponseCode REQUEST_ENTITY_INCOMPLETE = new ResponseCode(REQUEST_ENTITY_INCOMPLETE_CODE,
+            "REQUEST_ENTITY_INCOMPLETE");
+    public final static ResponseCode PRECONDITION_FAILED = new ResponseCode(PRECONDITION_FAILED_CODE,
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static ResponseCode CREATED = new ResponseCode(CREATED_CODE, "CREATED");
+    public final static ResponseCode DELETED = new ResponseCode(DELETED_CODE, "DELETED");
+    public final static ResponseCode CHANGED = new ResponseCode(CHANGED_CODE, "CHANGED");
+    public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
+    public final static ResponseCode BAD_REQUEST = new ResponseCode(BAD_REQUEST_CODE, "BAD_REQUEST");
 ```
 
 ### MissortedModifiers
@@ -3982,83 +4053,11 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static ResponseCode BAD_REQUEST = new ResponseCode(BAD_REQUEST_CODE, "BAD_REQUEST");
-    public final static ResponseCode UNAUTHORIZED = new ResponseCode(UNAUTHORIZED_CODE, "UNAUTHORIZED");
-    public final static ResponseCode METHOD_NOT_ALLOWED = new ResponseCode(METHOD_NOT_ALLOWED_CODE,
-            "METHOD_NOT_ALLOWED");
-    public final static ResponseCode FORBIDDEN = new ResponseCode(FORBIDDEN_CODE, "FORBIDDEN");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static int UNSUPPORTED_CONTENT_FORMAT_CODE = 415;
-    /** generic response code for unexpected error */
-    public final static int INTERNAL_SERVER_ERROR_CODE = 500;
-
-    // LwM2m Response codes
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static int PRECONDITION_FAILED_CODE = 412;
-    /** None of the preferred Content-Formats can be returned */
-    public final static int REQUEST_ENTITY_TOO_LARGE_CODE = 413;
-    /** The specified format is not supported */
-    public final static int UNSUPPORTED_CONTENT_FORMAT_CODE = 415;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-
-    /** Resource correctly created */
-    public final static int CREATED_CODE = 201;
-    /** Resource correctly deleted */
-    public final static int DELETED_CODE = 202;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static int DELETED_CODE = 202;
-    /** Resource correctly changed */
-    public final static int CHANGED_CODE = 204;
-    /** Content correctly delivered */
     public final static int CONTENT_CODE = 205;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static int FORBIDDEN_CODE = 403;
-    /** Resource not found */
-    public final static int NOT_FOUND_CODE = 404;
-    /** None of the preferred Content-Formats can be returned */
-    public final static int NOT_ACCEPTABLE_CODE = 406;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-    public final static int NOT_FOUND_CODE = 404;
-    /** None of the preferred Content-Formats can be returned */
-    public final static int NOT_ACCEPTABLE_CODE = 406;
-    /** None of the preferred Content-Formats can be returned */
-    public final static int REQUEST_ENTITY_INCOMPLETE_CODE = 408;
+    /** Bad request format (missing parameters, bad encoding ...) */
+    public final static int BAD_REQUEST_CODE = 400;
+    /** Access Right Permission Denied */
+    public final static int UNAUTHORIZED_CODE = 401;
 ```
 
 ### MissortedModifiers
@@ -4071,18 +4070,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
     public final static int DELETED_CODE = 202;
     /** Resource correctly changed */
     public final static int CHANGED_CODE = 204;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
-#### Snippet
-```java
-            "METHOD_NOT_ALLOWED");
-    public final static ResponseCode FORBIDDEN = new ResponseCode(FORBIDDEN_CODE, "FORBIDDEN");
-    public final static ResponseCode NOT_FOUND = new ResponseCode(NOT_FOUND_CODE, "NOT_FOUND");
-    public final static ResponseCode NOT_ACCEPTABLE = new ResponseCode(NOT_ACCEPTABLE_CODE, "NOT_ACCEPTABLE");
-    public final static ResponseCode REQUEST_ENTITY_INCOMPLETE = new ResponseCode(REQUEST_ENTITY_INCOMPLETE_CODE,
 ```
 
 ### MissortedModifiers
@@ -4102,11 +4089,11 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static int CHANGED_CODE = 204;
-    /** Content correctly delivered */
-    public final static int CONTENT_CODE = 205;
-    /** Bad request format (missing parameters, bad encoding ...) */
-    public final static int BAD_REQUEST_CODE = 400;
+    public final static int FORBIDDEN_CODE = 403;
+    /** Resource not found */
+    public final static int NOT_FOUND_CODE = 404;
+    /** None of the preferred Content-Formats can be returned */
+    public final static int NOT_ACCEPTABLE_CODE = 406;
 ```
 
 ### MissortedModifiers
@@ -4114,11 +4101,23 @@ Missorted modifiers `final static`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
-    public final static ResponseCode DELETED = new ResponseCode(DELETED_CODE, "DELETED");
     public final static ResponseCode CHANGED = new ResponseCode(CHANGED_CODE, "CHANGED");
     public final static ResponseCode CONTENT = new ResponseCode(CONTENT_CODE, "CONTENT");
     public final static ResponseCode BAD_REQUEST = new ResponseCode(BAD_REQUEST_CODE, "BAD_REQUEST");
     public final static ResponseCode UNAUTHORIZED = new ResponseCode(UNAUTHORIZED_CODE, "UNAUTHORIZED");
+    public final static ResponseCode METHOD_NOT_ALLOWED = new ResponseCode(METHOD_NOT_ALLOWED_CODE,
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
+#### Snippet
+```java
+    public final static int NOT_ACCEPTABLE_CODE = 406;
+    /** None of the preferred Content-Formats can be returned */
+    public final static int REQUEST_ENTITY_INCOMPLETE_CODE = 408;
+    /** Supported LwM2M Versions of the Server and the Client are not compatible */
+    public final static int PRECONDITION_FAILED_CODE = 412;
 ```
 
 ### MissortedModifiers
@@ -4167,18 +4166,6 @@ public class LwM2mDemoConstant {
     public final static String[] modelPaths = new String[] { "8.xml", "9.xml", "10-1_0.xml", "10.xml", "11-1_0.xml",
             "11.xml", "12-1_0.xml", "12.xml", "13-1_0.xml", "13.xml", "14.xml", "15-1_0.xml", "15.xml", "16.xml",
             "19.xml", "20.xml", "22-1_0.xml", "22.xml", "25.xml", "28.xml", "500.xml", "501.xml", "502.xml", "503.xml",
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/LeshanBootstrapServer.java`
-#### Snippet
-```java
-public class LeshanBootstrapServer {
-
-    private final static Logger LOG = LoggerFactory.getLogger(LeshanBootstrapServer.class);
-
-    private final BootstrapSessionDispatcher dispatcher = new BootstrapSessionDispatcher();
 ```
 
 ### MissortedModifiers
@@ -4241,6 +4228,18 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServerIde
 
 ```
 
+### MissortedModifiers
+Missorted modifiers `final static`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/LeshanBootstrapServer.java`
+#### Snippet
+```java
+public class LeshanBootstrapServer {
+
+    private final static Logger LOG = LoggerFactory.getLogger(LeshanBootstrapServer.class);
+
+    private final BootstrapSessionDispatcher dispatcher = new BootstrapSessionDispatcher();
+```
+
 ## RuleId[ruleID=AnonymousHasLambdaAlternative]
 ### AnonymousHasLambdaAlternative
 Anonymous new Thread() can be replaced with new Thread(() -\> {...})
@@ -4255,6 +4254,30 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/LeshanClient
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/JSONFileBootstrapStore.java`
+#### Snippet
+```java
+                File parent = file.getParentFile();
+                if (parent != null) {
+                    parent.mkdirs();
+                }
+                file.createNewFile();
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/JSONFileBootstrapStore.java`
+#### Snippet
+```java
+                    parent.mkdirs();
+                }
+                file.createNewFile();
+            }
+
+```
+
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/security/FileSecurityStore.java`
@@ -4291,80 +4314,7 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/observation/Obser
     }
 ```
 
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/JSONFileBootstrapStore.java`
-#### Snippet
-```java
-                File parent = file.getParentFile();
-                if (parent != null) {
-                    parent.mkdirs();
-                }
-                file.createNewFile();
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/JSONFileBootstrapStore.java`
-#### Snippet
-```java
-                    parent.mkdirs();
-                }
-                file.createNewFile();
-            }
-
-```
-
-## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `createConnectionController()` is identical to its super method
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapOscoreClientEndpointFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public CaliforniumConnectionController createConnectionController() {
-        return new CaliforniumConnectionController() {
-            @Override
-```
-
-### RedundantMethodOverride
-Method `execute()` only delegates to its super method
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
-#### Snippet
-```java
-
-    @Override
-    public ExecuteResponse execute(ServerIdentity identity, int resourceid, Arguments arguments) {
-        return super.execute(identity, resourceid, arguments);
-    }
-```
-
-### RedundantMethodOverride
-Method `execute()` is identical to its super method
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
-#### Snippet
-```java
-
-    @Override
-    public ExecuteResponse execute(ServerIdentity identity, int resourceid, Arguments arguments) {
-        return ExecuteResponse.notFound();
-    }
-```
-
 ## RuleId[ruleID=MalformedFormatString]
-### MalformedFormatString
-Too few arguments for format string (found: 1, expected: 2)
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapClientEndpointFactory.java`
-#### Snippet
-```java
-            return String.format("[%s-%s]", loggingTagPrefix, uri);
-        } else {
-            return String.format("[%s-%s]", uri);
-        }
-    }
-```
-
 ### MalformedFormatString
 Too few arguments for format string (found: 1, expected: 2)
 in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coap/CoapServerEndpointFactory.java`
@@ -4385,18 +4335,6 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoin
             return String.format("[%s-%s]", loggingTagPrefix, getUri().toString());
         } else {
             return String.format("[%s-%s]", getUri().toString());
-        }
-    }
-```
-
-### MalformedFormatString
-Too few arguments for format string (found: 1, expected: 2)
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
-#### Snippet
-```java
-            return String.format("[%s-%s]", loggingTagPrefix, uri);
-        } else {
-            return String.format("[%s-%s]", uri);
         }
     }
 ```
@@ -4425,19 +4363,68 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstr
     }
 ```
 
-## RuleId[ruleID=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/cli/LeshanServerDemoCLI.java`
+### MalformedFormatString
+Too few arguments for format string (found: 1, expected: 2)
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapClientEndpointFactory.java`
+#### Snippet
+```java
+            return String.format("[%s-%s]", loggingTagPrefix, uri);
+        } else {
+            return String.format("[%s-%s]", uri);
+        }
+    }
+```
+
+### MalformedFormatString
+Too few arguments for format string (found: 1, expected: 2)
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
+#### Snippet
+```java
+            return String.format("[%s-%s]", loggingTagPrefix, uri);
+        } else {
+            return String.format("[%s-%s]", uri);
+        }
+    }
+```
+
+## RuleId[ruleID=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `execute()` only delegates to its super method
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
 #### Snippet
 ```java
 
-    /* ********************************** Identity Section ******************************** */
-    @ArgGroup(exclusive = true)
-    public IdentitySection identity = new IdentitySection();
-
+    @Override
+    public ExecuteResponse execute(ServerIdentity identity, int resourceid, Arguments arguments) {
+        return super.execute(identity, resourceid, arguments);
+    }
 ```
 
+### RedundantMethodOverride
+Method `execute()` is identical to its super method
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
+#### Snippet
+```java
+
+    @Override
+    public ExecuteResponse execute(ServerIdentity identity, int resourceid, Arguments arguments) {
+        return ExecuteResponse.notFound();
+    }
+```
+
+### RedundantMethodOverride
+Method `createConnectionController()` is identical to its super method
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapOscoreClientEndpointFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public CaliforniumConnectionController createConnectionController() {
+        return new CaliforniumConnectionController() {
+            @Override
+```
+
+## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/cli/IdentitySection.java`
@@ -4465,6 +4452,18 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/cli/LeshanCl
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/cli/LeshanBsServerDemoCLI.java`
+#### Snippet
+```java
+
+    /* ********************************** Identity Section ******************************** */
+    @ArgGroup(exclusive = true)
+    public IdentitySection identity = new IdentitySection();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/cli/LeshanServerDemoCLI.java`
 #### Snippet
 ```java
 
@@ -4538,30 +4537,6 @@ in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/oscore/cf/InMemoryOscoreContextDB.java`
-#### Snippet
-```java
-                osCoreCtx = deriveContext(params);
-                // add new new context in local DB
-                super.addContext(osCoreCtx);
-            }
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/oscore/cf/InMemoryOscoreContextDB.java`
-#### Snippet
-```java
-                osCoreCtx = deriveContext(params);
-                // add new new context in local DB
-                super.addContext(osCoreCtx);
-            }
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributeSet.java`
 #### Snippet
 ```java
@@ -4570,6 +4545,91 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2
         return super.contains(model.getName());
     }
 }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/oscore/cf/InMemoryOscoreContextDB.java`
+#### Snippet
+```java
+                osCoreCtx = deriveContext(params);
+                // add new new context in local DB
+                super.addContext(osCoreCtx);
+            }
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/oscore/cf/InMemoryOscoreContextDB.java`
+#### Snippet
+```java
+                osCoreCtx = deriveContext(params);
+                // add new new context in local DB
+                super.addContext(osCoreCtx);
+            }
+        }
+```
+
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`f = f | toDigit(data[j], j)` could be simplified to 'f \|= toDigit(data\[j\], j)'
+in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Hex.java`
+#### Snippet
+```java
+            int f = toDigit(data[j], j) << 4;
+            j++;
+            f = f | toDigit(data[j], j);
+            j++;
+            out[i] = (byte) (f & 0xFF);
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`latitude = latitude + delta * scaleFactor` could be simplified to 'latitude += delta \* scaleFactor'
+in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/MyLocation.java`
+#### Snippet
+```java
+
+    private void moveLatitude(float delta) {
+        latitude = latitude + delta * scaleFactor;
+        timestamp = new Date();
+        fireResourcesChange(getResourcePath(0), getResourcePath(5));
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`longitude = longitude + delta * scaleFactor` could be simplified to 'longitude += delta \* scaleFactor'
+in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/MyLocation.java`
+#### Snippet
+```java
+
+    private void moveLongitude(float delta) {
+        longitude = longitude + delta * scaleFactor;
+        timestamp = new Date();
+        fireResourcesChange(getResourcePath(1), getResourcePath(5));
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`i = i + 2` could be simplified to 'i += 2'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
+#### Snippet
+```java
+        if (initialValues.length > 0) {
+            this.initialValues = new HashMap<>(initialValues.length / 2);
+            for (int i = 0; i < initialValues.length; i = i + 2) {
+                this.initialValues.put((Integer) initialValues[i], initialValues[i + 1]);
+            }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`rootPath = rootPath + "/"` could be simplified to 'rootPath += "/"'
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/Registration.java`
+#### Snippet
+```java
+                    rootPath = root.getUriReference();
+                    if (!rootPath.endsWith("/")) {
+                        rootPath = rootPath + "/";
+                    }
+                } else {
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -4621,67 +4681,6 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observa
         }
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`f = f | toDigit(data[j], j)` could be simplified to 'f \|= toDigit(data\[j\], j)'
-in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Hex.java`
-#### Snippet
-```java
-            int f = toDigit(data[j], j) << 4;
-            j++;
-            f = f | toDigit(data[j], j);
-            j++;
-            out[i] = (byte) (f & 0xFF);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`longitude = longitude + delta * scaleFactor` could be simplified to 'longitude += delta \* scaleFactor'
-in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/MyLocation.java`
-#### Snippet
-```java
-
-    private void moveLongitude(float delta) {
-        longitude = longitude + delta * scaleFactor;
-        timestamp = new Date();
-        fireResourcesChange(getResourcePath(1), getResourcePath(5));
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`latitude = latitude + delta * scaleFactor` could be simplified to 'latitude += delta \* scaleFactor'
-in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/MyLocation.java`
-#### Snippet
-```java
-
-    private void moveLatitude(float delta) {
-        latitude = latitude + delta * scaleFactor;
-        timestamp = new Date();
-        fireResourcesChange(getResourcePath(0), getResourcePath(5));
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`rootPath = rootPath + "/"` could be simplified to 'rootPath += "/"'
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/Registration.java`
-#### Snippet
-```java
-                    rootPath = root.getUriReference();
-                    if (!rootPath.endsWith("/")) {
-                        rootPath = rootPath + "/";
-                    }
-                } else {
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`i = i + 2` could be simplified to 'i += 2'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
-#### Snippet
-```java
-        if (initialValues.length > 0) {
-            this.initialValues = new HashMap<>(initialValues.length / 2);
-            for (int i = 0; i < initialValues.length; i = i + 2) {
-                this.initialValues.put((Integer) initialValues[i], initialValues[i + 1]);
-            }
-```
-
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -4721,30 +4720,6 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/RandomTemper
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `started` is accessed in both synchronized and unsynchronized contexts
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-            new NamedThreadFactory("Leshan Async Request timeout"));
-
-    protected boolean started = false;
-
-    private final Configuration serverConfig;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `coapServer` is accessed in both synchronized and unsynchronized contexts
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-    private ServerIdentity currentServer;
-    private CaliforniumClientEndpoint endpoint;
-    private CoapServer coapServer;
-
-    public CaliforniumClientEndpointsProvider() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `dataSenderManager` is accessed in both synchronized and unsynchronized contexts
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/send/ManualDataSender.java`
 #### Snippet
@@ -4781,18 +4756,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/Bootstr
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `bootstrapFuture` is accessed in both synchronized and unsynchronized contexts
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-    // tasks stuff
-    private boolean started = false;
-    private Future<?> bootstrapFuture;
-    private Future<?> registerFuture;
-    private Future<?> updateFuture;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `registerFuture` is accessed in both synchronized and unsynchronized contexts
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
 #### Snippet
@@ -4814,6 +4777,42 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultReg
     private Future<?> updateFuture;
     private final Object taskLock = new Object(); // a lock to avoid several task to be executed at the same time
     private final ScheduledExecutorService schedExecutor;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `bootstrapFuture` is accessed in both synchronized and unsynchronized contexts
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+    // tasks stuff
+    private boolean started = false;
+    private Future<?> bootstrapFuture;
+    private Future<?> registerFuture;
+    private Future<?> updateFuture;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `started` is accessed in both synchronized and unsynchronized contexts
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+            new NamedThreadFactory("Leshan Async Request timeout"));
+
+    protected boolean started = false;
+
+    private final Configuration serverConfig;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `coapServer` is accessed in both synchronized and unsynchronized contexts
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+    private ServerIdentity currentServer;
+    private CaliforniumClientEndpoint endpoint;
+    private CoapServer coapServer;
+
+    public CaliforniumClientEndpointsProvider() {
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -4854,18 +4853,6 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/observation/Obser
 ```
 
 ## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/CoapAsyncRequestObserver.java`
-#### Snippet
-```java
-    private final long timeoutInMs;
-    private ScheduledFuture<?> cleaningTask;
-    private boolean cancelled = false;
-    private final ScheduledExecutorService executor;
-    private final ExceptionTranslator exceptionTranslator;
-```
-
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `leshan-core/src/main/java/org/eclipse/leshan/core/json/JsonRootObject.java`
@@ -4987,6 +4974,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/senml/SenMLRecord.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/StandardHelpOptions.java`
+#### Snippet
+```java
+    private boolean versionRequested;
+
+    private int verboseLevel = 0;
+
+    @Option(names = { "-v", "--verbose" },
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/DtlsSessionLogger.java`
 #### Snippet
@@ -4999,15 +4998,123 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/DtlsSessionL
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/StandardHelpOptions.java`
+Field initialization to `false` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServerInfo.java`
 #### Snippet
 ```java
-    private boolean versionRequested;
 
-    private int verboseLevel = 0;
+    public long serverId;
+    public boolean bootstrap = false;
+    public URI serverUri;
+    public SecurityMode secureMode;
+```
 
-    @Option(names = { "-v", "--verbose" },
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
+#### Snippet
+```java
+    private int bootstrapSessionTimeoutInSec = 93;
+    private int retryWaitingTimeInMs = 10 * 60 * 1000; // 10min in ms
+    private Integer communicationPeriodInMs = null;
+    private boolean reconnectOnUpdate = false;
+    private boolean resumeOnConnect = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
+#### Snippet
+```java
+    private int retryWaitingTimeInMs = 10 * 60 * 1000; // 10min in ms
+    private Integer communicationPeriodInMs = null;
+    private boolean reconnectOnUpdate = false;
+    private boolean resumeOnConnect = true;
+    private boolean queueMode = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
+#### Snippet
+```java
+    private boolean reconnectOnUpdate = false;
+    private boolean resumeOnConnect = true;
+    private boolean queueMode = false;
+    private ContentFormat preferredContentFormat = ContentFormat.SENML_CBOR;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
+#### Snippet
+```java
+
+    // state
+    protected boolean started = false;
+
+    public DefaultEndpointsManager(LwM2mClientEndpointsProvider endpointProvider, ClientEndpointToolbox toolbox,
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseInstanceEnabler.java`
+#### Snippet
+```java
+
+    protected List<ResourceListener> listeners = new ArrayList<>();
+    protected Integer id = null;
+    protected ObjectModel model;
+    protected LwM2mClient lwm2mClient;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/TransactionalObjectListener.java`
+#### Snippet
+```java
+    private static Logger LOG = LoggerFactory.getLogger(TransactionalObjectListener.class);
+
+    protected int currentLevel = 0;
+    protected List<Integer> instancesAdded = new ArrayList<>();
+    protected List<Integer> instancesRemoved = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
+public class ServersInfoExtractor {
+    private static final Logger LOG = LoggerFactory.getLogger(ServersInfoExtractor.class);
+    private static LwM2mObject oscores = null;
+
+    public static ServersInfo getInfo(Map<Integer, LwM2mObjectEnabler> objectEnablers) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BootstrapHandler.java`
+#### Snippet
+```java
+public class BootstrapHandler {
+
+    private boolean bootstrapping = false;
+    private CountDownLatch bootstrappingLatch = new CountDownLatch(1);
+    // last session state (null means no error)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BootstrapHandler.java`
+#### Snippet
+```java
+    private CountDownLatch bootstrappingLatch = new CountDownLatch(1);
+    // last session state (null means no error)
+    private volatile List<String> lastConsistencyError = null;
+
+    private final Map<Integer, LwM2mObjectEnabler> objects;
 ```
 
 ### RedundantFieldInitialization
@@ -5023,15 +5130,15 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/LeshanServerBuild
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
 #### Snippet
 ```java
-         * Server/Bootstrap-Server, called the Master Secret.
-         */
-        public byte[] oscoreMasterSecret = null;
-        /**
-         * This resource MUST store an OSCORE identifier for the LwM2M Client called the Sender ID.
+     * more details .
+     */
+    public boolean autoIdForSecurityObject = false;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -5039,9 +5146,57 @@ Field initialization to `null` is redundant
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
 #### Snippet
 ```java
-         * Since Server v1.1
+         * parameter being included in an Observation.
          */
-        public Integer apnLink = null;
+        public Integer defaultMaxPeriod = null;
+        /**
+         * If this Resource is executed, this LwM2M Server Object is disabled for a certain period defined in the
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * Since Security v1.1
+         */
+        public String sni = null;
+
+        /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * OSCORE.
+         */
+        public Integer oscoreHmacAlgorithm = null;
+        /**
+         * This resource MUST be used to store a non-secret random value called the Master Salt. The Master Salt is used
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * This resource MUST store an OSCORE identifier for the LwM2M Client called the Sender ID.
+         */
+        public byte[] oscoreSenderId = null;
+        /**
+         * This resource MUST store an OSCORE identifier for the LwM2M Client called the Recipient ID.
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * Since Security v1.1
+         */
+        public MatchingType matchingType = null;
 
         /**
 ```
@@ -5063,11 +5218,11 @@ Field initialization to `null` is redundant
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
 #### Snippet
 ```java
-         * parameter being included in an Observation.
+         * Since Server v1.1
          */
-        public Integer defaultMaxPeriod = null;
+        public Integer apnLink = null;
+
         /**
-         * If this Resource is executed, this LwM2M Server Object is disabled for a certain period defined in the
 ```
 
 ### RedundantFieldInitialization
@@ -5075,11 +5230,95 @@ Field initialization to `null` is redundant
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
 #### Snippet
 ```java
-         * This resource MUST store an OSCORE identifier for the LwM2M Client called the Sender ID.
+         * Server/Bootstrap-Server, called the Master Secret.
          */
-        public byte[] oscoreSenderId = null;
+        public byte[] oscoreMasterSecret = null;
         /**
+         * This resource MUST store an OSCORE identifier for the LwM2M Client called the Sender ID.
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * Since Server v1.1
+         */
+        public Boolean trigger = null;
+
+        /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * Since Security v1.1
+         */
+        public ULong cipherSuite = null;
+
+        @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+     * if <code>null</code> content format used is the preferred one by the client (pct attribute from BootstrapRequest)
+     */
+    public ContentFormat contentFormat = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
          * This resource MUST store an OSCORE identifier for the LwM2M Client called the Recipient ID.
+         */
+        public byte[] oscoreRecipientId = null;
+        /**
+         * This resource MUST be used to store the encoding of the AEAD Algorithm as defined in Table 10 of RFC 8152.
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * Since Server v1.1
+         */
+        public BindingMode preferredTransport = null;
+        /**
+         * If true or the Resource is not present, the LwM2M Client Send command capability is de-activated. If false,
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * The AEAD is used by OSCORE for encryption and integrity protection of CoAP message fields.
+         */
+        public Integer oscoreAeadAlgorithm = null;
+        /**
+         * This resource MUST be used to store the encoding of the HMAC Algorithm used in the HKDF. The encoding of HMAC
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * (false).
+         */
+        public boolean bootstrapServer = false;
+        /**
+         * Determines which UDP payload security mode is used
 ```
 
 ### RedundantFieldInitialization
@@ -5111,18 +5350,6 @@ Field initialization to `null` is redundant
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
 #### Snippet
 ```java
-         * Since Server v1.1
-         */
-        public BindingMode preferredTransport = null;
-        /**
-         * If true or the Resource is not present, the LwM2M Client Send command capability is de-activated. If false,
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
          * MUST NOT send any message to the Server and ignore all the messages from the LwM2M Server for the period.
          */
         public Integer disableTimeout = null;
@@ -5132,122 +5359,14 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/Bootstr
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
 #### Snippet
 ```java
-         * (false).
-         */
-        public boolean bootstrapServer = false;
-        /**
-         * Determines which UDP payload security mode is used
-```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * Since Security v1.1
-         */
-        public String sni = null;
-
-        /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * Since Security v1.1
-         */
-        public MatchingType matchingType = null;
-
-        /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * OSCORE.
-         */
-        public Integer oscoreHmacAlgorithm = null;
-        /**
-         * This resource MUST be used to store a non-secret random value called the Master Salt. The Master Salt is used
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * This resource MUST store an OSCORE identifier for the LwM2M Client called the Recipient ID.
-         */
-        public byte[] oscoreRecipientId = null;
-        /**
-         * This resource MUST be used to store the encoding of the AEAD Algorithm as defined in Table 10 of RFC 8152.
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * Since Server v1.1
-         */
-        public Boolean trigger = null;
-
-        /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-     * if <code>null</code> content format used is the preferred one by the client (pct attribute from BootstrapRequest)
-     */
-    public ContentFormat contentFormat = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * The AEAD is used by OSCORE for encryption and integrity protection of CoAP message fields.
-         */
-        public Integer oscoreAeadAlgorithm = null;
-        /**
-         * This resource MUST be used to store the encoding of the HMAC Algorithm used in the HKDF. The encoding of HMAC
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * Since Security v1.1
-         */
-        public ULong cipherSuite = null;
-
-        @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-     * more details .
-     */
-    public boolean autoIdForSecurityObject = false;
-
-    /**
+    // tasks stuff
+    private boolean started = false;
+    private Future<?> bootstrapFuture;
+    private Future<?> registerFuture;
 ```
 
 ### RedundantFieldInitialization
@@ -5264,14 +5383,14 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMe
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/DefaultBootstrapSession.java`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/CoapAsyncRequestObserver.java`
 #### Snippet
 ```java
-    private volatile List<LwM2mResponse> responses;
-    private volatile boolean moreTasks = false;
-    private volatile boolean cancelled = false;
-
-    /**
+    private final long timeoutInMs;
+    private ScheduledFuture<?> cleaningTask;
+    private boolean cancelled = false;
+    private final ScheduledExecutorService executor;
+    private final ExceptionTranslator exceptionTranslator;
 ```
 
 ### RedundantFieldInitialization
@@ -5288,14 +5407,14 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/Default
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/DefaultBootstrapSession.java`
 #### Snippet
 ```java
-            new NamedThreadFactory("Leshan Async Request timeout"));
+    private volatile List<LwM2mResponse> responses;
+    private volatile boolean moreTasks = false;
+    private volatile boolean cancelled = false;
 
-    protected boolean started = false;
-
-    private final Configuration serverConfig;
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -5348,74 +5467,14 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstr
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
 #### Snippet
 ```java
-    private int retryWaitingTimeInMs = 10 * 60 * 1000; // 10min in ms
-    private Integer communicationPeriodInMs = null;
-    private boolean reconnectOnUpdate = false;
-    private boolean resumeOnConnect = true;
-    private boolean queueMode = false;
-```
+            new NamedThreadFactory("Leshan Async Request timeout"));
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
-#### Snippet
-```java
-    private boolean reconnectOnUpdate = false;
-    private boolean resumeOnConnect = true;
-    private boolean queueMode = false;
-    private ContentFormat preferredContentFormat = ContentFormat.SENML_CBOR;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
-#### Snippet
-```java
-    private int bootstrapSessionTimeoutInSec = 93;
-    private int retryWaitingTimeInMs = 10 * 60 * 1000; // 10min in ms
-    private Integer communicationPeriodInMs = null;
-    private boolean reconnectOnUpdate = false;
-    private boolean resumeOnConnect = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServerInfo.java`
-#### Snippet
-```java
-
-    public long serverId;
-    public boolean bootstrap = false;
-    public URI serverUri;
-    public SecurityMode secureMode;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
-#### Snippet
-```java
-
-    // state
     protected boolean started = false;
 
-    public DefaultEndpointsManager(LwM2mClientEndpointsProvider endpointProvider, ClientEndpointToolbox toolbox,
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseInstanceEnabler.java`
-#### Snippet
-```java
-
-    protected List<ResourceListener> listeners = new ArrayList<>();
-    protected Integer id = null;
-    protected ObjectModel model;
-    protected LwM2mClient lwm2mClient;
+    private final Configuration serverConfig;
 ```
 
 ### RedundantFieldInitialization
@@ -5428,79 +5487,6 @@ in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegis
     private boolean started = false;
 
     private final long cleanPeriod; // in seconds
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/TransactionalObjectListener.java`
-#### Snippet
-```java
-    private static Logger LOG = LoggerFactory.getLogger(TransactionalObjectListener.class);
-
-    protected int currentLevel = 0;
-    protected List<Integer> instancesAdded = new ArrayList<>();
-    protected List<Integer> instancesRemoved = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BootstrapHandler.java`
-#### Snippet
-```java
-    private CountDownLatch bootstrappingLatch = new CountDownLatch(1);
-    // last session state (null means no error)
-    private volatile List<String> lastConsistencyError = null;
-
-    private final Map<Integer, LwM2mObjectEnabler> objects;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BootstrapHandler.java`
-#### Snippet
-```java
-public class BootstrapHandler {
-
-    private boolean bootstrapping = false;
-    private CountDownLatch bootstrappingLatch = new CountDownLatch(1);
-    // last session state (null means no error)
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
-#### Snippet
-```java
-public class ServersInfoExtractor {
-    private static final Logger LOG = LoggerFactory.getLogger(ServersInfoExtractor.class);
-    private static LwM2mObject oscores = null;
-
-    public static ServersInfo getInfo(Map<Integer, LwM2mObjectEnabler> objectEnablers) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-
-    // tasks stuff
-    private boolean started = false;
-    private Future<?> bootstrapFuture;
-    private Future<?> registerFuture;
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-17-19-04-12.110.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
@@ -5533,11 +5519,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
 #### Snippet
 ```java
-    @Override
-    public void stop(boolean deregister) {
+    public void destroy(boolean deregister) {
+        boolean wasStarted = false;
         synchronized (this) {
-            if (!started)
-                return;
+            wasStarted = started;
+            started = false;
 ```
 
 ### SynchronizeOnThis
@@ -5546,10 +5532,10 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultReg
 #### Snippet
 ```java
     @Override
-    public boolean triggerClientInitiatedBootstrap(final boolean deregister) {
+    public void triggerRegistrationUpdate(RegistrationUpdate registrationUpdate) {
         synchronized (this) {
             if (started) {
-
+                LOG.info("Triggering registration update...");
 ```
 
 ### SynchronizeOnThis
@@ -5562,18 +5548,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultReg
         synchronized (this) {
             if (started) {
                 LOG.info("Triggering registration update...");
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-    public void destroy(boolean deregister) {
-        boolean wasStarted = false;
-        synchronized (this) {
-            wasStarted = started;
-            started = false;
 ```
 
 ### SynchronizeOnThis
@@ -5594,10 +5568,22 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultReg
 #### Snippet
 ```java
     @Override
-    public void triggerRegistrationUpdate(RegistrationUpdate registrationUpdate) {
+    public void stop(boolean deregister) {
+        synchronized (this) {
+            if (!started)
+                return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+    @Override
+    public boolean triggerClientInitiatedBootstrap(final boolean deregister) {
         synchronized (this) {
             if (started) {
-                LOG.info("Triggering registration update...");
+
 ```
 
 ## RuleId[ruleID=NonFinalFieldOfException]
@@ -5726,18 +5712,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mPath.java`
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-core/src/main/java/org/eclipse/leshan/core/tlv/TlvDecoder.java`
-#### Snippet
-```java
-            }
-
-            return tlvs.toArray(new Tlv[] {});
-        } catch (TlvException ex) {
-            String printHexBinary = Hex.encodeHexString(input.array());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/DefaultLinkParser.java`
 #### Snippet
 ```java
@@ -5750,14 +5724,14 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/DefaultLinkParser.jav
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ClientServlet.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/tlv/TlvDecoder.java`
 #### Snippet
 ```java
             }
 
-            String json = this.mapper.writeValueAsString(registrations.toArray(new Registration[] {}));
-            resp.setContentType("application/json");
-            resp.getOutputStream().write(json.getBytes(StandardCharsets.UTF_8));
+            return tlvs.toArray(new Tlv[] {});
+        } catch (TlvException ex) {
+            String printHexBinary = Hex.encodeHexString(input.array());
 ```
 
 ### ZeroLengthArrayInitialization
@@ -5798,18 +5772,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/opaque/LwM2mNod
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mMultipleResource.java`
-#### Snippet
-```java
-            break;
-        case CORELINK:
-            LwM2mNodeUtil.allElementsOfType(values.values(), (new Link[] {}).getClass());
-            break;
-        case UNSIGNED_INTEGER:
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/SecurityUtil.java`
 #### Snippet
 ```java
@@ -5822,182 +5784,86 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/SecurityUtil.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/security/FileSecurityStore.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mMultipleResource.java`
 #### Snippet
 ```java
-            }
-            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));) {
-                out.writeObject(this.getAll().toArray(new SecurityInfo[0]));
-            }
-        } catch (IOException e) {
+            break;
+        case CORELINK:
+            LwM2mNodeUtil.allElementsOfType(values.values(), (new Link[] {}).getClass());
+            break;
+        case UNSIGNED_INTEGER:
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
 #### Snippet
 ```java
-         * The format is defined in Section E.1.1 of the LwM2M version 1.0 specification.
-         */
-        public byte[] serverPublicKey = new byte[] {};
-        /**
-         * Stores the secret key or private key of the security mode.
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * The format is defined in Section E.1.2 of the LwM2M version 1.0 specification.
-         */
-        public byte[] smsBindingKeyParam = new byte[] {};
-        /**
-         * 16-32-48 bytes array stores the values of the key(s) for the SMS binding. This resource MUST only be changed
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * The format is defined in Section E.1.1 of the LwM2M version 1.0 specification.
-         */
-        public byte[] publicKeyOrId = new byte[] {};
-        /**
-         * Stores the LwM2M Server’s or LwM2M Bootstrap-Server’s Certificate (Certificate mode), public key (RPK mode).
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * This Resource MUST only be changed by a bootstrap-server and MUST NOT be readable by any server.
-         */
-        public byte[] secretKey = new byte[] {};
-        /**
-         * Determines which SMS security mode is used (see section 7.2 of the LwM2M version 1.0 specification)
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
-#### Snippet
-```java
-         * by a bootstrap-server and MUST NOT be readable by any server.
-         */
-        public byte[] smsBindingKeySecret = new byte[] {};
-        /**
-         * MSISDN used by the LwM2M Client to send messages to the LwM2M Server via the SMS binding. The LwM2M Client
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/X509Util.java`
-#### Snippet
-```java
-        }
-
-        return x509Certificates.toArray(new X509Certificate[0]);
+     */
+    public static Security noSec(String serverUri, int shortServerId) {
+        return new Security(serverUri, false, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0],
+                shortServerId, CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
     }
-}
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
 #### Snippet
 ```java
-                // This is probably the pretty strange use case where
-                // instance ID is not defined an no resources available.
-                createRequest = new CreateRequest(contentFormat, coapRequest, URI, new LwM2mResource[0]);
-            } else if (object.getInstances().size() == 1 && newInstance != null) {
-                // the instance Id was not part of the create request payload.
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/ServerCoapMessageTranslator.java`
-#### Snippet
-```java
-        } catch (CodecException e) {
-            if (LOG.isDebugEnabled()) {
-                byte[] payload = coapResponse.getPayload() == null ? new byte[0] : coapResponse.getPayload();
-                LOG.debug(String.format("Unable to decode notification payload [%s] of observation [%s] ",
-                        Hex.encodeHexString(payload), observation), e);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/request/LwM2mResponseBuilder.java`
-#### Snippet
-```java
-        } catch (CodecException e) {
-            if (LOG.isDebugEnabled()) {
-                byte[] payload = coapResponse.getPayload() == null ? new byte[0] : coapResponse.getPayload();
-                LOG.debug(
-                        String.format("Unable to decode response payload of request [%s] from client [%s] [payload:%s]",
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request/LwM2mResponseBuilder.java`
-#### Snippet
-```java
-        } catch (CodecException e) {
-            if (LOG.isDebugEnabled()) {
-                byte[] payload = coapResponse.getPayload() == null ? new byte[0] : coapResponse.getPayload();
-                LOG.debug(
-                        String.format("Unable to decode response payload of request [%s] from client [%s] [payload:%s]",
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request/LwM2mResponseBuilder.java`
-#### Snippet
-```java
-        } catch (CodecException e) {
-            if (LOG.isDebugEnabled()) {
-                byte[] payload = coapResponse.getPayload() == null ? new byte[0] : coapResponse.getPayload();
-                LOG.debug(
-                        String.format("Unable to decode response payload of request [%s] from client [%s] [payload:%s]",
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
-#### Snippet
-```java
-            links.addAll(getBootstrapObjectDescriptionWithoutRoot(objectEnabler, oscoreAttributesByInstanceId));
-        }
-        return links.toArray(new LwM2mLink[] {});
+     */
+    public static Security noSec(String serverUri, int shortServerId) {
+        return new Security(serverUri, false, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0],
+                shortServerId, CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
     }
-
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
 #### Snippet
 ```java
-        links.addAll(getBootstrapObjectDescriptionWithoutRoot(objectEnabler, null));
-
-        return links.toArray(new LwM2mLink[] {});
+     */
+    public static Security noSec(String serverUri, int shortServerId) {
+        return new Security(serverUri, false, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0],
+                shortServerId, CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
     }
-
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
 #### Snippet
 ```java
-        }
-
-        return links.toArray(new Link[] {});
+     */
+    public static Security noSecBootstrap(String serverUri) {
+        return new Security(serverUri, true, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0], null,
+                CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
     }
+```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
+#### Snippet
+```java
+     */
+    public static Security noSecBootstrap(String serverUri) {
+        return new Security(serverUri, true, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0], null,
+                CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
+#### Snippet
+```java
+     */
+    public static Security noSecBootstrap(String serverUri) {
+        return new Security(serverUri, true, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0], null,
+                CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
+    }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -6014,6 +5880,18 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestO
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
+#### Snippet
+```java
+     */
+    public static Security psk(String serverUri, int shortServerId, byte[] pskIdentity, byte[] privateKey) {
+        return new Security(serverUri, false, SecurityMode.PSK.code, pskIdentity.clone(), new byte[0],
+                privateKey.clone(), shortServerId, CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
 #### Snippet
 ```java
@@ -6022,42 +5900,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestO
         clearedValues.put(180, new Link[0]);
 
         // multi
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
-#### Snippet
-```java
-     */
-    public static Security noSecBootstrap(String serverUri) {
-        return new Security(serverUri, true, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0], null,
-                CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
-#### Snippet
-```java
-     */
-    public static Security noSecBootstrap(String serverUri) {
-        return new Security(serverUri, true, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0], null,
-                CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
-#### Snippet
-```java
-     */
-    public static Security noSecBootstrap(String serverUri) {
-        return new Security(serverUri, true, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0], null,
-                CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
-    }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -6146,50 +5988,38 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.j
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
 #### Snippet
 ```java
-     */
-    public static Security psk(String serverUri, int shortServerId, byte[] pskIdentity, byte[] privateKey) {
-        return new Security(serverUri, false, SecurityMode.PSK.code, pskIdentity.clone(), new byte[0],
-                privateKey.clone(), shortServerId, CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
+            links.addAll(getBootstrapObjectDescriptionWithoutRoot(objectEnabler, oscoreAttributesByInstanceId));
+        }
+        return links.toArray(new LwM2mLink[] {});
     }
+
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
 #### Snippet
 ```java
-     */
-    public static Security noSec(String serverUri, int shortServerId) {
-        return new Security(serverUri, false, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0],
-                shortServerId, CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
+        }
+
+        return links.toArray(new Link[] {});
     }
+
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
 #### Snippet
 ```java
-     */
-    public static Security noSec(String serverUri, int shortServerId) {
-        return new Security(serverUri, false, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0],
-                shortServerId, CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
-    }
-```
+        links.addAll(getBootstrapObjectDescriptionWithoutRoot(objectEnabler, null));
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Security.java`
-#### Snippet
-```java
-     */
-    public static Security noSec(String serverUri, int shortServerId) {
-        return new Security(serverUri, false, SecurityMode.NO_SEC.code, new byte[0], new byte[0], new byte[0],
-                shortServerId, CertificateUsage.DOMAIN_ISSUER_CERTIFICATE.code, new ObjectLink());
+        return links.toArray(new LwM2mLink[] {});
     }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -6206,18 +6036,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectsI
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-                    this.scanResult = new ArrayList<>();
-                    if (sr.getResult() != null && !sr.getResult().isEmpty()) {
-                        for (byte[] value : j.mget(sr.getResult().toArray(new byte[][] {}))) {
-                            this.scanResult.add(deserializeReg(value));
-                        }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
 #### Snippet
 ```java
@@ -6228,103 +6046,175 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleIn
 }
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ClientServlet.java`
+#### Snippet
+```java
+            }
+
+            String json = this.mapper.writeValueAsString(registrations.toArray(new Registration[] {}));
+            resp.setContentType("application/json");
+            resp.getOutputStream().write(json.getBytes(StandardCharsets.UTF_8));
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * This Resource MUST only be changed by a bootstrap-server and MUST NOT be readable by any server.
+         */
+        public byte[] secretKey = new byte[] {};
+        /**
+         * Determines which SMS security mode is used (see section 7.2 of the LwM2M version 1.0 specification)
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * The format is defined in Section E.1.1 of the LwM2M version 1.0 specification.
+         */
+        public byte[] serverPublicKey = new byte[] {};
+        /**
+         * Stores the secret key or private key of the security mode.
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * The format is defined in Section E.1.1 of the LwM2M version 1.0 specification.
+         */
+        public byte[] publicKeyOrId = new byte[] {};
+        /**
+         * Stores the LwM2M Server’s or LwM2M Bootstrap-Server’s Certificate (Certificate mode), public key (RPK mode).
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * by a bootstrap-server and MUST NOT be readable by any server.
+         */
+        public byte[] smsBindingKeySecret = new byte[] {};
+        /**
+         * MSISDN used by the LwM2M Client to send messages to the LwM2M Server via the SMS binding. The LwM2M Client
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfig.java`
+#### Snippet
+```java
+         * The format is defined in Section E.1.2 of the LwM2M version 1.0 specification.
+         */
+        public byte[] smsBindingKeyParam = new byte[] {};
+        /**
+         * 16-32-48 bytes array stores the values of the key(s) for the SMS binding. This resource MUST only be changed
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/security/FileSecurityStore.java`
+#### Snippet
+```java
+            }
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));) {
+                out.writeObject(this.getAll().toArray(new SecurityInfo[0]));
+            }
+        } catch (IOException e) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/ServerCoapMessageTranslator.java`
+#### Snippet
+```java
+        } catch (CodecException e) {
+            if (LOG.isDebugEnabled()) {
+                byte[] payload = coapResponse.getPayload() == null ? new byte[0] : coapResponse.getPayload();
+                LOG.debug(String.format("Unable to decode notification payload [%s] of observation [%s] ",
+                        Hex.encodeHexString(payload), observation), e);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/request/LwM2mResponseBuilder.java`
+#### Snippet
+```java
+        } catch (CodecException e) {
+            if (LOG.isDebugEnabled()) {
+                byte[] payload = coapResponse.getPayload() == null ? new byte[0] : coapResponse.getPayload();
+                LOG.debug(
+                        String.format("Unable to decode response payload of request [%s] from client [%s] [payload:%s]",
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request/LwM2mResponseBuilder.java`
+#### Snippet
+```java
+        } catch (CodecException e) {
+            if (LOG.isDebugEnabled()) {
+                byte[] payload = coapResponse.getPayload() == null ? new byte[0] : coapResponse.getPayload();
+                LOG.debug(
+                        String.format("Unable to decode response payload of request [%s] from client [%s] [payload:%s]",
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request/LwM2mResponseBuilder.java`
+#### Snippet
+```java
+        } catch (CodecException e) {
+            if (LOG.isDebugEnabled()) {
+                byte[] payload = coapResponse.getPayload() == null ? new byte[0] : coapResponse.getPayload();
+                LOG.debug(
+                        String.format("Unable to decode response payload of request [%s] from client [%s] [payload:%s]",
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/X509Util.java`
+#### Snippet
+```java
+        }
+
+        return x509Certificates.toArray(new X509Certificate[0]);
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/object/ObjectResource.java`
+#### Snippet
+```java
+                // This is probably the pretty strange use case where
+                // instance ID is not defined an no resources available.
+                createRequest = new CreateRequest(contentFormat, coapRequest, URI, new LwM2mResource[0]);
+            } else if (object.getInstances().size() == 1 && newInstance != null) {
+                // the instance Id was not part of the create request payload.
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+                    this.scanResult = new ArrayList<>();
+                    if (sr.getResult() != null && !sr.getResult().isEmpty()) {
+                        for (byte[] value : j.mget(sr.getResult().toArray(new byte[][] {}))) {
+                            this.scanResult.add(deserializeReg(value));
+                        }
+```
+
 ## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `timeElapsed` initializer `false` is redundant
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/CoapSyncRequestObserver.java`
-#### Snippet
-```java
-    public Response waitForCoapResponse() throws InterruptedException {
-        try {
-            boolean timeElapsed = false;
-            timeElapsed = !latch.await(timeout, TimeUnit.MILLISECONDS);
-            if (timeElapsed || coapTimeout.get()) {
-```
-
-### UnusedAssignment
-Variable `node` initializer `null` is redundant
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/json/JacksonLwM2mNodeDeserializer.java`
-#### Snippet
-```java
-        JsonNode object = p.getCodec().readTree(p);
-
-        LwM2mNode node = null;
-
-        if (object.isObject()) {
-```
-
-### UnusedAssignment
-Variable `jReg` initializer `null` is redundant
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-            regUpdate.registration = updatedRegistration;
-            regUpdate.update = update;
-            String jReg = null;
-            try {
-                jReg = EventServlet.this.mapper.writeValueAsString(regUpdate);
-```
-
-### UnusedAssignment
-Variable `jReg` initializer `null` is redundant
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-        public void unregistered(Registration registration, Collection<Observation> observations, boolean expired,
-                Registration newReg) {
-            String jReg = null;
-            try {
-                jReg = EventServlet.this.mapper.writeValueAsString(registration);
-```
-
-### UnusedAssignment
-Variable `jsonContent` initializer `null` is redundant
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-                LOG.debug("Received composite notificationfrom [{}] containing value [{}]", response.getContent());
-            }
-            String jsonContent = null;
-            String jsonListOfPath = null;
-            try {
-```
-
-### UnusedAssignment
-Variable `jsonListOfPath` initializer `null` is redundant
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-            }
-            String jsonContent = null;
-            String jsonListOfPath = null;
-            try {
-                jsonContent = mapper.writeValueAsString(response.getContent());
-```
-
-### UnusedAssignment
-Variable `jsonContent` initializer `null` is redundant
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-                        response.getContent());
-            }
-            String jsonContent = null;
-            try {
-                jsonContent = mapper.writeValueAsString(response.getContent());
-```
-
-### UnusedAssignment
-Variable `jReg` initializer `null` is redundant
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-        public void registered(Registration registration, Registration previousReg,
-                Collection<Observation> previousObservations) {
-            String jReg = null;
-            try {
-                jReg = EventServlet.this.mapper.writeValueAsString(registration);
-```
-
 ### UnusedAssignment
 The value `0b0001_1000` assigned to `typeByte` is never used
 in `leshan-core/src/main/java/org/eclipse/leshan/core/tlv/TlvEncoder.java`
@@ -6362,6 +6252,90 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNode
 ```
 
 ### UnusedAssignment
+Variable `jReg` initializer `null` is redundant
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+        public void registered(Registration registration, Registration previousReg,
+                Collection<Observation> previousObservations) {
+            String jReg = null;
+            try {
+                jReg = EventServlet.this.mapper.writeValueAsString(registration);
+```
+
+### UnusedAssignment
+Variable `jReg` initializer `null` is redundant
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+        public void unregistered(Registration registration, Collection<Observation> observations, boolean expired,
+                Registration newReg) {
+            String jReg = null;
+            try {
+                jReg = EventServlet.this.mapper.writeValueAsString(registration);
+```
+
+### UnusedAssignment
+Variable `jsonContent` initializer `null` is redundant
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+                        response.getContent());
+            }
+            String jsonContent = null;
+            try {
+                jsonContent = mapper.writeValueAsString(response.getContent());
+```
+
+### UnusedAssignment
+Variable `jsonContent` initializer `null` is redundant
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+                LOG.debug("Received composite notificationfrom [{}] containing value [{}]", response.getContent());
+            }
+            String jsonContent = null;
+            String jsonListOfPath = null;
+            try {
+```
+
+### UnusedAssignment
+Variable `jsonListOfPath` initializer `null` is redundant
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+            }
+            String jsonContent = null;
+            String jsonListOfPath = null;
+            try {
+                jsonContent = mapper.writeValueAsString(response.getContent());
+```
+
+### UnusedAssignment
+Variable `jReg` initializer `null` is redundant
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+            regUpdate.registration = updatedRegistration;
+            regUpdate.update = update;
+            String jReg = null;
+            try {
+                jReg = EventServlet.this.mapper.writeValueAsString(regUpdate);
+```
+
+### UnusedAssignment
+Variable `node` initializer `null` is redundant
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/json/JacksonLwM2mNodeDeserializer.java`
+#### Snippet
+```java
+        JsonNode object = p.getCodec().readTree(p);
+
+        LwM2mNode node = null;
+
+        if (object.isObject()) {
+```
+
+### UnusedAssignment
 Variable `response` initializer `null` is redundant
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/queue/QueueModeLwM2mRequestSender.java`
 #### Snippet
@@ -6374,27 +6348,63 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/queue/QueueModeLw
 ```
 
 ### UnusedAssignment
-Variable `hkdfAlg` initializer `null` is redundant
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapOscoreClientEndpointFactory.java`
+The value `null` assigned to `registrationID` is never used
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
 #### Snippet
 ```java
-            }
-
-            AlgorithmID hkdfAlg = null;
-            try {
-                hkdfAlg = AlgorithmID
+            UpdateResponse response = sender.send(server, request, requestTimeoutInMs);
+            if (response == null) {
+                registrationID = null;
+                LOG.info("Registration update failed: Timeout.");
+                if (observer != null) {
 ```
 
 ### UnusedAssignment
-Variable `aeadAlg` initializer `null` is redundant
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapOscoreClientEndpointFactory.java`
+Variable `wasStarted` initializer `false` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
 #### Snippet
 ```java
-                        serverInfo, serverInfo.oscoreSetting), e);
-            }
-            AlgorithmID aeadAlg = null;
-            try {
-                aeadAlg = AlgorithmID
+    @Override
+    public void destroy(boolean deregister) {
+        boolean wasStarted = false;
+        synchronized (this) {
+            wasStarted = started;
+```
+
+### UnusedAssignment
+The value `null` assigned to `registrationID` is never used
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+            DeregisterResponse response = sender.send(server, request, deregistrationTimeoutInMs);
+            if (response == null) {
+                registrationID = null;
+                LOG.info("Deregistration failed: Timeout.");
+                if (observer != null) {
+```
+
+### UnusedAssignment
+The value `null` assigned to `registrationID` is never used
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+            } else if (response.isSuccess() || response.getCode() == ResponseCode.NOT_FOUND) {
+                registeredServers.remove(registrationID);
+                registrationID = null;
+                cancelUpdateTask(true);
+                LOG.info("De-register response {} {}.", response.getCode(), response.getErrorMessage());
+```
+
+### UnusedAssignment
+Variable `timeElapsed` initializer `false` is redundant
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/CoapSyncRequestObserver.java`
+#### Snippet
+```java
+    public Response waitForCoapResponse() throws InterruptedException {
+        try {
+            boolean timeElapsed = false;
+            timeElapsed = !latch.await(timeout, TimeUnit.MILLISECONDS);
+            if (timeElapsed || coapTimeout.get()) {
 ```
 
 ### UnusedAssignment
@@ -6419,18 +6429,6 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoin
     protected URI endpointUri = null;
 
     public CoapsServerEndpointFactory(URI uri) {
-```
-
-### UnusedAssignment
-Variable `endpointUri` initializer `null` is redundant
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coap/CoapBootstrapServerEndpointFactory.java`
-#### Snippet
-```java
-
-    protected final String loggingTagPrefix;
-    protected URI endpointUri = null;
-
-    public CoapBootstrapServerEndpointFactory(URI uri) {
 ```
 
 ### UnusedAssignment
@@ -6471,6 +6469,18 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstr
 
 ### UnusedAssignment
 Variable `endpointUri` initializer `null` is redundant
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coap/CoapBootstrapServerEndpointFactory.java`
+#### Snippet
+```java
+
+    protected final String loggingTagPrefix;
+    protected URI endpointUri = null;
+
+    public CoapBootstrapServerEndpointFactory(URI uri) {
+```
+
+### UnusedAssignment
+Variable `endpointUri` initializer `null` is redundant
 in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
 #### Snippet
 ```java
@@ -6482,66 +6492,30 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstr
 ```
 
 ### UnusedAssignment
-The value `null` assigned to `registrationID` is never used
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+Variable `hkdfAlg` initializer `null` is redundant
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapOscoreClientEndpointFactory.java`
 #### Snippet
 ```java
-            DeregisterResponse response = sender.send(server, request, deregistrationTimeoutInMs);
-            if (response == null) {
-                registrationID = null;
-                LOG.info("Deregistration failed: Timeout.");
-                if (observer != null) {
+            }
+
+            AlgorithmID hkdfAlg = null;
+            try {
+                hkdfAlg = AlgorithmID
 ```
 
 ### UnusedAssignment
-The value `null` assigned to `registrationID` is never used
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+Variable `aeadAlg` initializer `null` is redundant
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapOscoreClientEndpointFactory.java`
 #### Snippet
 ```java
-            } else if (response.isSuccess() || response.getCode() == ResponseCode.NOT_FOUND) {
-                registeredServers.remove(registrationID);
-                registrationID = null;
-                cancelUpdateTask(true);
-                LOG.info("De-register response {} {}.", response.getCode(), response.getErrorMessage());
-```
-
-### UnusedAssignment
-Variable `wasStarted` initializer `false` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-    @Override
-    public void destroy(boolean deregister) {
-        boolean wasStarted = false;
-        synchronized (this) {
-            wasStarted = started;
-```
-
-### UnusedAssignment
-The value `null` assigned to `registrationID` is never used
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-            UpdateResponse response = sender.send(server, request, requestTimeoutInMs);
-            if (response == null) {
-                registrationID = null;
-                LOG.info("Registration update failed: Timeout.");
-                if (observer != null) {
+                        serverInfo, serverInfo.oscoreSetting), e);
+            }
+            AlgorithmID aeadAlg = null;
+            try {
+                aeadAlg = AlgorithmID
 ```
 
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `path.length >= 3` is always `true`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ClientServlet.java`
-#### Snippet
-```java
-            Registration registration = server.getRegistrationService().getByEndpoint(clientEndpoint);
-            if (registration != null) {
-                if (path.length >= 3 && "attributes".equals(path[path.length - 1])) {
-                    // create & process request WriteAttributes request
-                    target = StringUtils.removeEnd(target, path[path.length - 1]);
-```
-
 ### ConstantValue
 Condition `attributes == null` is always `false`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/attributes/AttributeSet.java`
@@ -6627,6 +6601,78 @@ in `leshan-core/src/main/java/org/eclipse/leshan/senml/SenMLRecord.java`
 ```
 
 ### ConstantValue
+Condition `aeadAlgorithm != null` is always `true`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Oscore.java`
+#### Snippet
+```java
+            Long longValue = (Long) value.getValue();
+            aeadAlgorithm = AeadAlgorithm.fromValue(longValue);
+            if (aeadAlgorithm != null) {
+                return WriteResponse.success();
+            } else {
+```
+
+### ConstantValue
+Condition `hkdfAlgorithm != null` is always `true`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Oscore.java`
+#### Snippet
+```java
+            Long longValue = (Long) value.getValue();
+            hkdfAlgorithm = HkdfAlgorithm.fromValue(longValue);
+            if (hkdfAlgorithm != null) {
+                return WriteResponse.success();
+            } else {
+```
+
+### ConstantValue
+Condition `isBootstrapServer != null` is always `true`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
+#### Snippet
+```java
+                    Boolean isBootstrapServer = objectEnabler.getId() == LwM2mId.SECURITY
+                            && ServersInfoExtractor.isBootstrapServer(objectEnabler, instanceId);
+                    if (isBootstrapServer != null && !isBootstrapServer) {
+                        Long shortServerId = ServersInfoExtractor.getServerId(objectEnabler, instanceId);
+                        if (shortServerId != null)
+```
+
+### ConstantValue
+Value `format` is always 'null'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
+#### Snippet
+```java
+        // handle null case
+        if (format == null) {
+            this.preferredContentFormat = format;
+            return this;
+        }
+```
+
+### ConstantValue
+Result of `instances.size()` is always '0'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
+#### Snippet
+```java
+            instances.clear();
+            // fired instances removed
+            int[] instanceIds = new int[instances.size()];
+            int i = 0;
+            for (Entry<Integer, LwM2mInstanceEnabler> instance : instances.entrySet()) {
+```
+
+### ConstantValue
+Condition `path.length >= 3` is always `true`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ClientServlet.java`
+#### Snippet
+```java
+            Registration registration = server.getRegistrationService().getByEndpoint(clientEndpoint);
+            if (registration != null) {
+                if (path.length >= 3 && "attributes".equals(path[path.length - 1])) {
+                    // create & process request WriteAttributes request
+                    target = StringUtils.removeEnd(target, path[path.length - 1]);
+```
+
+### ConstantValue
 Condition `"observation must be a CompositeObservation or a SingleObservation but was " + observation == null` is always `false`
 in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/ServerCoapMessageTranslator.java`
 #### Snippet
@@ -6686,66 +6732,6 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/registr
                 }
 ```
 
-### ConstantValue
-Condition `isBootstrapServer != null` is always `true`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
-#### Snippet
-```java
-                    Boolean isBootstrapServer = objectEnabler.getId() == LwM2mId.SECURITY
-                            && ServersInfoExtractor.isBootstrapServer(objectEnabler, instanceId);
-                    if (isBootstrapServer != null && !isBootstrapServer) {
-                        Long shortServerId = ServersInfoExtractor.getServerId(objectEnabler, instanceId);
-                        if (shortServerId != null)
-```
-
-### ConstantValue
-Condition `aeadAlgorithm != null` is always `true`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Oscore.java`
-#### Snippet
-```java
-            Long longValue = (Long) value.getValue();
-            aeadAlgorithm = AeadAlgorithm.fromValue(longValue);
-            if (aeadAlgorithm != null) {
-                return WriteResponse.success();
-            } else {
-```
-
-### ConstantValue
-Condition `hkdfAlgorithm != null` is always `true`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/Oscore.java`
-#### Snippet
-```java
-            Long longValue = (Long) value.getValue();
-            hkdfAlgorithm = HkdfAlgorithm.fromValue(longValue);
-            if (hkdfAlgorithm != null) {
-                return WriteResponse.success();
-            } else {
-```
-
-### ConstantValue
-Value `format` is always 'null'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngineFactory.java`
-#### Snippet
-```java
-        // handle null case
-        if (format == null) {
-            this.preferredContentFormat = format;
-            return this;
-        }
-```
-
-### ConstantValue
-Result of `instances.size()` is always '0'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
-#### Snippet
-```java
-            instances.clear();
-            // fired instances removed
-            int[] instanceIds = new int[instances.size()];
-            int i = 0;
-            for (Entry<Integer, LwM2mInstanceEnabler> instance : instances.entrySet()) {
-```
-
 ## RuleId[ruleID=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
 Method `getDefault()` tries to override a static method of a superclass
@@ -6760,98 +6746,26 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
 ```
 
 ### MethodOverridesStaticMethod
-Method `unauthorized()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
-#### Snippet
-```java
-    }
-
-    public static CancelObservationResponse unauthorized() {
-        return new CancelObservationResponse(ResponseCode.UNAUTHORIZED, null, null, null, null);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `internalServerError()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
-#### Snippet
-```java
-    }
-
-    public static CancelObservationResponse internalServerError(String errorMessage) {
-        return new CancelObservationResponse(ResponseCode.INTERNAL_SERVER_ERROR, null, null, null, errorMessage);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `methodNotAllowed()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
-#### Snippet
-```java
-    }
-
-    public static CancelObservationResponse methodNotAllowed() {
-        return new CancelObservationResponse(ResponseCode.METHOD_NOT_ALLOWED, null, null, null, null);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `success()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
-#### Snippet
-```java
-    // Syntactic sugar static constructors :
-
-    public static CancelObservationResponse success(LwM2mNode content) {
-        return new CancelObservationResponse(ResponseCode.CONTENT, content, null, null, null);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `notAcceptable()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
-#### Snippet
-```java
-    }
-
-    public static CancelObservationResponse notAcceptable() {
-        return new CancelObservationResponse(ResponseCode.NOT_ACCEPTABLE, null, null, null, null);
-    }
-```
-
-### MethodOverridesStaticMethod
 Method `notFound()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeResponse.java`
 #### Snippet
 ```java
     }
 
-    public static CancelObservationResponse notFound() {
-        return new CancelObservationResponse(ResponseCode.NOT_FOUND, null, null, null, null);
+    public static ObserveCompositeResponse notFound() {
+        return new ObserveCompositeResponse(ResponseCode.NOT_FOUND, null, null, null, null);
     }
 ```
 
 ### MethodOverridesStaticMethod
-Method `success()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+Method `unauthorized()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeResponse.java`
 #### Snippet
 ```java
     }
 
-    public static CancelObservationResponse success(List<TimestampedLwM2mNode> timestampedValues) {
-        return new CancelObservationResponse(ResponseCode.CONTENT, null, timestampedValues, null, null);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `badRequest()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
-#### Snippet
-```java
-    }
-
-    public static CancelObservationResponse badRequest(String errorMessage) {
-        return new CancelObservationResponse(ResponseCode.BAD_REQUEST, null, null, null, errorMessage);
+    public static ObserveCompositeResponse unauthorized() {
+        return new ObserveCompositeResponse(ResponseCode.UNAUTHORIZED, null, null, null, null);
     }
 ```
 
@@ -6880,14 +6794,14 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeR
 ```
 
 ### MethodOverridesStaticMethod
-Method `success()` tries to override a static method of a superclass
+Method `badRequest()` tries to override a static method of a superclass
 in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeResponse.java`
 #### Snippet
 ```java
-    // Syntactic sugar static constructors:
+    }
 
-    public static ObserveCompositeResponse success(Map<LwM2mPath, LwM2mNode> content) {
-        return new ObserveCompositeResponse(ResponseCode.CONTENT, content, null, null, null);
+    public static ObserveCompositeResponse badRequest(String errorMessage) {
+        return new ObserveCompositeResponse(ResponseCode.BAD_REQUEST, null, errorMessage, null, null);
     }
 ```
 
@@ -6904,86 +6818,110 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeR
 ```
 
 ### MethodOverridesStaticMethod
-Method `notFound()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeResponse.java`
-#### Snippet
-```java
-    }
-
-    public static ObserveCompositeResponse notFound() {
-        return new ObserveCompositeResponse(ResponseCode.NOT_FOUND, null, null, null, null);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `unauthorized()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeResponse.java`
-#### Snippet
-```java
-    }
-
-    public static ObserveCompositeResponse unauthorized() {
-        return new ObserveCompositeResponse(ResponseCode.UNAUTHORIZED, null, null, null, null);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `badRequest()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeResponse.java`
-#### Snippet
-```java
-    }
-
-    public static ObserveCompositeResponse badRequest(String errorMessage) {
-        return new ObserveCompositeResponse(ResponseCode.BAD_REQUEST, null, errorMessage, null, null);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `badRequest()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
-#### Snippet
-```java
-    }
-
-    public static ObserveResponse badRequest(String errorMessage) {
-        return new ObserveResponse(ResponseCode.BAD_REQUEST, null, null, null, errorMessage);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `internalServerError()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
-#### Snippet
-```java
-    }
-
-    public static ObserveResponse internalServerError(String errorMessage) {
-        return new ObserveResponse(ResponseCode.INTERNAL_SERVER_ERROR, null, null, null, errorMessage);
-    }
-```
-
-### MethodOverridesStaticMethod
 Method `success()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveCompositeResponse.java`
 #### Snippet
 ```java
-    // Syntactic sugar static constructors :
+    // Syntactic sugar static constructors:
 
-    public static ObserveResponse success(LwM2mNode content) {
-        return new ObserveResponse(ResponseCode.CONTENT, content, null, null, null);
+    public static ObserveCompositeResponse success(Map<LwM2mPath, LwM2mNode> content) {
+        return new ObserveCompositeResponse(ResponseCode.CONTENT, content, null, null, null);
     }
 ```
 
 ### MethodOverridesStaticMethod
 Method `methodNotAllowed()` tries to override a static method of a superclass
-in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
 #### Snippet
 ```java
     }
 
-    public static ObserveResponse methodNotAllowed() {
-        return new ObserveResponse(ResponseCode.METHOD_NOT_ALLOWED, null, null, null, null);
+    public static CancelObservationResponse methodNotAllowed() {
+        return new CancelObservationResponse(ResponseCode.METHOD_NOT_ALLOWED, null, null, null, null);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `internalServerError()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+#### Snippet
+```java
+    }
+
+    public static CancelObservationResponse internalServerError(String errorMessage) {
+        return new CancelObservationResponse(ResponseCode.INTERNAL_SERVER_ERROR, null, null, null, errorMessage);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `notAcceptable()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+#### Snippet
+```java
+    }
+
+    public static CancelObservationResponse notAcceptable() {
+        return new CancelObservationResponse(ResponseCode.NOT_ACCEPTABLE, null, null, null, null);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `success()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+#### Snippet
+```java
+    }
+
+    public static CancelObservationResponse success(List<TimestampedLwM2mNode> timestampedValues) {
+        return new CancelObservationResponse(ResponseCode.CONTENT, null, timestampedValues, null, null);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `success()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+#### Snippet
+```java
+    // Syntactic sugar static constructors :
+
+    public static CancelObservationResponse success(LwM2mNode content) {
+        return new CancelObservationResponse(ResponseCode.CONTENT, content, null, null, null);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `badRequest()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+#### Snippet
+```java
+    }
+
+    public static CancelObservationResponse badRequest(String errorMessage) {
+        return new CancelObservationResponse(ResponseCode.BAD_REQUEST, null, null, null, errorMessage);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `unauthorized()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+#### Snippet
+```java
+    }
+
+    public static CancelObservationResponse unauthorized() {
+        return new CancelObservationResponse(ResponseCode.UNAUTHORIZED, null, null, null, null);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `notFound()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/CancelObservationResponse.java`
+#### Snippet
+```java
+    }
+
+    public static CancelObservationResponse notFound() {
+        return new CancelObservationResponse(ResponseCode.NOT_FOUND, null, null, null, null);
     }
 ```
 
@@ -7000,6 +6938,30 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.j
 ```
 
 ### MethodOverridesStaticMethod
+Method `badRequest()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
+#### Snippet
+```java
+    }
+
+    public static ObserveResponse badRequest(String errorMessage) {
+        return new ObserveResponse(ResponseCode.BAD_REQUEST, null, null, null, errorMessage);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `methodNotAllowed()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
+#### Snippet
+```java
+    }
+
+    public static ObserveResponse methodNotAllowed() {
+        return new ObserveResponse(ResponseCode.METHOD_NOT_ALLOWED, null, null, null, null);
+    }
+```
+
+### MethodOverridesStaticMethod
 Method `unauthorized()` tries to override a static method of a superclass
 in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
 #### Snippet
@@ -7012,6 +6974,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.j
 ```
 
 ### MethodOverridesStaticMethod
+Method `internalServerError()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
+#### Snippet
+```java
+    }
+
+    public static ObserveResponse internalServerError(String errorMessage) {
+        return new ObserveResponse(ResponseCode.INTERNAL_SERVER_ERROR, null, null, null, errorMessage);
+    }
+```
+
+### MethodOverridesStaticMethod
 Method `notFound()` tries to override a static method of a superclass
 in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
 #### Snippet
@@ -7020,6 +6994,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.j
 
     public static ObserveResponse notFound() {
         return new ObserveResponse(ResponseCode.NOT_FOUND, null, null, null, null);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `success()` tries to override a static method of a superclass
+in `leshan-core/src/main/java/org/eclipse/leshan/core/response/ObserveResponse.java`
+#### Snippet
+```java
+    // Syntactic sugar static constructors :
+
+    public static ObserveResponse success(LwM2mNode content) {
+        return new ObserveResponse(ResponseCode.CONTENT, content, null, null, null);
     }
 ```
 
@@ -7050,54 +7036,6 @@ in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/SingleInst
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ResponseCodeUtil` has only 'static' members, and lacks a 'private' constructor
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
-#### Snippet
-```java
-import org.eclipse.leshan.core.util.Validate;
-
-public class ResponseCodeUtil {
-
-    public static int toLwM2mCode(org.eclipse.californium.core.coap.CoAP.ResponseCode coapResponseCode) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FileLister` has only 'static' members, and lacks a 'private' constructor
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/FileLister.java`
-#### Snippet
-```java
- * LeshanClientDemo.
- */
-public class FileLister {
-    public static void main(String[] args) throws InvalidDDFFileException, IOException {
-        String ddfFilesPath = DdfDownloader.DOWNLOAD_FOLDER_PATH;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ObserveUtil` has only 'static' members, and lacks a 'private' constructor
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
- * Utility functions to help to handle observation in Leshan.
- */
-public class ObserveUtil {
-
-    /* keys used to populate the request context */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LeshanServerDemo` has only 'static' members, and lacks a 'private' constructor
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/LeshanServerDemo.java`
-#### Snippet
-```java
-import picocli.CommandLine;
-
-public class LeshanServerDemo {
-
-    static {
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `TlvEncoder` has only 'static' members, and lacks a 'private' constructor
 in `leshan-core/src/main/java/org/eclipse/leshan/core/tlv/TlvEncoder.java`
@@ -7171,6 +7109,18 @@ public class SecurityUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `X509CertUtil` has only 'static' members, and lacks a 'private' constructor
+in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
+#### Snippet
+```java
+ * X.509 Certificate Utilities for accessing certificate details.
+ */
+public class X509CertUtil {
+    /**
+     * <a href="https://tools.ietf.org/html/rfc3280#section-4.2.1.7">rfc3280#section-4.2.1.7</a> - GeneralName
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/StringUtils.java`
 #### Snippet
@@ -7180,18 +7130,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/StringUtils.java`
 public class StringUtils {
 
     // Equals
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RandomStringUtils` has only 'static' members, and lacks a 'private' constructor
-in `leshan-core/src/main/java/org/eclipse/leshan/core/util/RandomStringUtils.java`
-#### Snippet
-```java
- * @version $Id: RandomStringUtils.java 1056988 2011-01-09 17:58:53Z niallp $
- */
-public class RandomStringUtils {
-
-    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7207,6 +7145,18 @@ public class Validate {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `RandomStringUtils` has only 'static' members, and lacks a 'private' constructor
+in `leshan-core/src/main/java/org/eclipse/leshan/core/util/RandomStringUtils.java`
+#### Snippet
+```java
+ * @version $Id: RandomStringUtils.java 1056988 2011-01-09 17:58:53Z niallp $
+ */
+public class RandomStringUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `LwM2mValueUtil` has only 'static' members, and lacks a 'private' constructor
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/datatype/LwM2mValueUtil.java`
 #### Snippet
@@ -7219,27 +7169,15 @@ public class LwM2mValueUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `X509CertUtil` has only 'static' members, and lacks a 'private' constructor
-in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
+Class `URN` has only 'static' members, and lacks a 'private' constructor
+in `leshan-core/src/main/java/org/eclipse/leshan/core/model/URN.java`
 #### Snippet
 ```java
- * X.509 Certificate Utilities for accessing certificate details.
+ * @since 1.1
  */
-public class X509CertUtil {
-    /**
-     * <a href="https://tools.ietf.org/html/rfc3280#section-4.2.1.7">rfc3280#section-4.2.1.7</a> - GeneralName
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ObjectLoader` has only 'static' members, and lacks a 'private' constructor
-in `leshan-core/src/main/java/org/eclipse/leshan/core/model/ObjectLoader.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class ObjectLoader {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ObjectLoader.class);
+public class URN {
+    public static final String OMA_LABEL = "oma";
+    public static final String EXT_LABEL = "ext";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7255,15 +7193,15 @@ public class NumberUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `URN` has only 'static' members, and lacks a 'private' constructor
-in `leshan-core/src/main/java/org/eclipse/leshan/core/model/URN.java`
+Class `ObjectLoader` has only 'static' members, and lacks a 'private' constructor
+in `leshan-core/src/main/java/org/eclipse/leshan/core/model/ObjectLoader.java`
 #### Snippet
 ```java
- * @since 1.1
- */
-public class URN {
-    public static final String OMA_LABEL = "oma";
-    public static final String EXT_LABEL = "ext";
+import org.slf4j.LoggerFactory;
+
+public class ObjectLoader {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ObjectLoader.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7303,6 +7241,66 @@ public class LeshanClientDemo {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `LeshanBootstrapServerDemo` has only 'static' members, and lacks a 'private' constructor
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/LeshanBootstrapServerDemo.java`
+#### Snippet
+```java
+import picocli.CommandLine;
+
+public class LeshanBootstrapServerDemo {
+
+    static {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CertPathUtil` has only 'static' members, and lacks a 'private' constructor
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/CertPathUtil.java`
+#### Snippet
+```java
+ * @since 2.1
+ */
+public class CertPathUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CertPathUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ServersInfoExtractor` has only 'static' members, and lacks a 'private' constructor
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
+ * Extract from LwM2m object tree all the servers information like server uri, security mode, ...
+ */
+public class ServersInfoExtractor {
+    private static final Logger LOG = LoggerFactory.getLogger(ServersInfoExtractor.class);
+    private static LwM2mObject oscores = null;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileLister` has only 'static' members, and lacks a 'private' constructor
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/FileLister.java`
+#### Snippet
+```java
+ * LeshanClientDemo.
+ */
+public class FileLister {
+    public static void main(String[] args) throws InvalidDDFFileException, IOException {
+        String ddfFilesPath = DdfDownloader.DOWNLOAD_FOLDER_PATH;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LeshanServerDemo` has only 'static' members, and lacks a 'private' constructor
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/LeshanServerDemo.java`
+#### Snippet
+```java
+import picocli.CommandLine;
+
+public class LeshanServerDemo {
+
+    static {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `BootstrapUtil` has only 'static' members, and lacks a 'private' constructor
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapUtil.java`
 #### Snippet
@@ -7312,6 +7310,30 @@ import org.eclipse.leshan.server.bootstrap.BootstrapConfig.ServerSecurity;
 public class BootstrapUtil {
     public static LwM2mObjectInstance toSecurityInstance(int instanceId, ServerSecurity securityConfig) {
         Collection<LwM2mResource> resources = new ArrayList<>();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ResponseCodeUtil` has only 'static' members, and lacks a 'private' constructor
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
+#### Snippet
+```java
+import org.eclipse.leshan.core.util.Validate;
+
+public class ResponseCodeUtil {
+
+    public static int toLwM2mCode(org.eclipse.californium.core.coap.CoAP.ResponseCode coapResponseCode) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ObserveUtil` has only 'static' members, and lacks a 'private' constructor
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+ * Utility functions to help to handle observation in Leshan.
+ */
+public class ObserveUtil {
+
+    /* keys used to populate the request context */
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7339,30 +7361,6 @@ public class EndpointContextSerDes {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LeshanBootstrapServerDemo` has only 'static' members, and lacks a 'private' constructor
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/LeshanBootstrapServerDemo.java`
-#### Snippet
-```java
-import picocli.CommandLine;
-
-public class LeshanBootstrapServerDemo {
-
-    static {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RedisLock` has only 'static' members, and lacks a 'private' constructor
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisLock.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class RedisLock {
-    private static final Logger LOG = LoggerFactory.getLogger(RedisLock.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `IdentitySerDes` has only 'static' members, and lacks a 'private' constructor
 in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/serialization/IdentitySerDes.java`
 #### Snippet
@@ -7387,6 +7385,18 @@ public class SecurityInfoSerDes {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `RedisLock` has only 'static' members, and lacks a 'private' constructor
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisLock.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class RedisLock {
+    private static final Logger LOG = LoggerFactory.getLogger(RedisLock.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ObservationSerDes` has only 'static' members, and lacks a 'private' constructor
 in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/serialization/ObservationSerDes.java`
 #### Snippet
@@ -7396,30 +7406,6 @@ in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/serializat
 public class ObservationSerDes {
 
     private static final String OBS_ID = "id";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CertPathUtil` has only 'static' members, and lacks a 'private' constructor
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/CertPathUtil.java`
-#### Snippet
-```java
- * @since 2.1
- */
-public class CertPathUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CertPathUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ServersInfoExtractor` has only 'static' members, and lacks a 'private' constructor
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
-#### Snippet
-```java
- * Extract from LwM2m object tree all the servers information like server uri, security mode, ...
- */
-public class ServersInfoExtractor {
-    private static final Logger LOG = LoggerFactory.getLogger(ServersInfoExtractor.class);
-    private static LwM2mObject oscores = null;
 ```
 
 ## RuleId[ruleID=ManualArrayToCollectionCopy]
@@ -7433,6 +7419,199 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/Regi
             for (ContentFormat contentFormat : supportedContentFormats) {
                 this.supportedContentFormats.add(contentFormat);
             }
+```
+
+## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Variable update does nothing
+in `leshan-core/src/main/java/org/eclipse/leshan/core/tlv/TlvEncoder.java`
+#### Snippet
+```java
+
+        if (length < 8) {
+            size += 0;
+        } else if (length < MAX_LENGTH_8BIT) {
+            size += 1;
+```
+
+### DataFlowIssue
+Dereference of `modelsDir.listFiles()` may produce `NullPointerException`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/model/ObjectLoader.java`
+#### Snippet
+```java
+        } else {
+            // get all files
+            for (File file : modelsDir.listFiles()) {
+                if (!file.canRead())
+                    continue;
+```
+
+### DataFlowIssue
+Argument `in` might be null
+in `leshan-core/src/main/java/org/eclipse/leshan/core/credentials/CredentialsReader.java`
+#### Snippet
+```java
+    public T readFromResource(String resourcePath) throws IOException, GeneralSecurityException {
+        try (InputStream in = ClassLoader.getSystemResourceAsStream(resourcePath)) {
+            return decode(in);
+        }
+    }
+```
+
+### DataFlowIssue
+Dereference of `files` may produce `NullPointerException`
+in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/TruststoreConverter.java`
+#### Snippet
+```java
+                files = new File[] { input };
+            }
+            for (File file : files) {
+                try {
+                    trustStore.add(SecurityUtil.certificate.readFromFile(file.getAbsolutePath()));
+```
+
+### DataFlowIssue
+Method invocation `toExternalForm` may produce `NullPointerException`
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/LeshanBootstrapServerDemo.java`
+#### Snippet
+```java
+        WebAppContext root = new WebAppContext();
+        root.setContextPath("/");
+        root.setResourceBase(LeshanBootstrapServerDemo.class.getClassLoader().getResource("webapp").toExternalForm());
+        root.setParentLoaderPriority(true);
+
+```
+
+### DataFlowIssue
+Unboxing of `ServersInfoExtractor.isBootstrapServer(objectEnabler, instanceId)` may produce `NullPointerException`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
+#### Snippet
+```java
+                if (objectEnabler.getId() == LwM2mId.SECURITY || objectEnabler.getId() == LwM2mId.SERVER) {
+                    Boolean isBootstrapServer = objectEnabler.getId() == LwM2mId.SECURITY
+                            && ServersInfoExtractor.isBootstrapServer(objectEnabler, instanceId);
+                    if (isBootstrapServer != null && !isBootstrapServer) {
+                        Long shortServerId = ServersInfoExtractor.getServerId(objectEnabler, instanceId);
+```
+
+### DataFlowIssue
+Dereference of `info` may produce `NullPointerException`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
+                    // create device management info
+                    DmServerInfo info = createDMServerInfo(security, servers);
+                    infos.deviceManagements.put(info.serverId, info);
+                } catch (RuntimeException e) {
+                    LOG.debug("Unable to get info for DM server /O/{}", security.getId(), e);
+```
+
+### DataFlowIssue
+Dereference of `files` may produce `NullPointerException`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/FileLister.java`
+#### Snippet
+```java
+        StringBuilder builder = new StringBuilder();
+        SortedMap<String, String> sortedFiles = new TreeMap<>();
+        for (File file : files) {
+            DDFFileParser ddfFileParser = new DDFFileParser();
+            ObjectModel model = ddfFileParser.parse(file).iterator().next();
+```
+
+### DataFlowIssue
+Method invocation `toExternalForm` may produce `NullPointerException`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/LeshanServerDemo.java`
+#### Snippet
+```java
+        WebAppContext root = new WebAppContext();
+        root.setContextPath("/");
+        root.setResourceBase(LeshanServerDemo.class.getClassLoader().getResource("webapp").toExternalForm());
+        root.setParentLoaderPriority(true);
+        server.setHandler(root);
+```
+
+### DataFlowIssue
+Dereference of `info` may produce `NullPointerException`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BaseBootstrapConsistencyChecker.java`
+#### Snippet
+```java
+            ServersInfo info = ServersInfoExtractor.getInfo(objectEnablers, true);
+
+            if (info.bootstrap != null) {
+                checkBootstrapServerInfo(info.bootstrap, errors);
+            }
+```
+
+### DataFlowIssue
+Method invocation `getUri` may produce `NullPointerException`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+                            return null;
+                        } else {
+                            LOG.info("Bootstrap finished {}.", bootstrapServer.getUri());
+                            ServerInfo serverInfo = selectServer(
+                                    ServersInfoExtractor.getInfo(objectEnablers).deviceManagements);
+```
+
+### DataFlowIssue
+Method invocation `getPeerAddress` may produce `NullPointerException`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
+#### Snippet
+```java
+                            .add(DtlsEndpointContext.KEY_HANDSHAKE_MODE, DtlsEndpointContext.HANDSHAKE_MODE_AUTO));
+                }
+                return new AddressEndpointContext(identity.getPeerAddress(), peerIdentity);
+            }
+        };
+```
+
+### DataFlowIssue
+Dereference of `removed` may produce `NullPointerException`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observation/LwM2mObservationStore.java`
+#### Snippet
+```java
+            }
+        }
+        for (org.eclipse.leshan.core.observation.Observation observation : removed) {
+            notificationListener.cancelled(observation);
+        }
+```
+
+### DataFlowIssue
+Dereference of `removed` may produce `NullPointerException`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observation/LwM2mObservationStore.java`
+#### Snippet
+```java
+            }
+        }
+        for (org.eclipse.leshan.core.observation.Observation observation : removed) {
+            notificationListener.cancelled(observation);
+        }
+```
+
+### DataFlowIssue
+Method invocation `getPeerAddress` may produce `NullPointerException`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
+#### Snippet
+```java
+                            .add(DtlsEndpointContext.KEY_HANDSHAKE_MODE, DtlsEndpointContext.HANDSHAKE_MODE_AUTO));
+                }
+                return new AddressEndpointContext(identity.getPeerAddress(), peerIdentity);
+            }
+        };
+```
+
+### DataFlowIssue
+Method invocation `getPeerAddress` may produce `NullPointerException`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
+#### Snippet
+```java
+                            .add(DtlsEndpointContext.KEY_HANDSHAKE_MODE, DtlsEndpointContext.HANDSHAKE_MODE_AUTO));
+                }
+                return new AddressEndpointContext(identity.getPeerAddress(), peerIdentity);
+            }
+        };
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -7481,7 +7660,7 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2
             return null;
         };
     };
-    // lt
+    // epmax
 ```
 
 ### UnnecessarySemicolon
@@ -7493,7 +7672,43 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2
             return null;
         };
     };
-    public static Map<String, LwM2mAttributeModel<?>> modelMap;
+    // pmax
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
+#### Snippet
+```java
+            }
+            return null;
+        };
+    };
+    // gt
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
+#### Snippet
+```java
+            }
+            return null;
+        };
+    };
+    // st
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
+#### Snippet
+```java
+            }
+            return null;
+        };
+    };
+    // lt
 ```
 
 ### UnnecessarySemicolon
@@ -7517,7 +7732,31 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2
             return null;
         };
     };
-    // gt
+    public static Map<String, LwM2mAttributeModel<?>> modelMap;
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
+#### Snippet
+```java
+            }
+            return null;
+        };
+
+        @Override
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
+#### Snippet
+```java
+            }
+            return null;
+        };
+    };
+    // uri
 ```
 
 ### UnnecessarySemicolon
@@ -7558,62 +7797,14 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/DefaultLwM2mDecoder.java`
 #### Snippet
 ```java
-            }
-            return null;
-        };
+    public Set<ContentFormat> getSupportedContentFormat() {
+        return nodeDecoders.keySet();
     };
-    // epmax
-```
+}
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
-#### Snippet
-```java
-            }
-            return null;
-        };
-    };
-    // pmax
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
-#### Snippet
-```java
-            }
-            return null;
-        };
-
-        @Override
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
-#### Snippet
-```java
-            }
-            return null;
-        };
-    };
-    // uri
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
-#### Snippet
-```java
-            }
-            return null;
-        };
-    };
-    // st
 ```
 
 ### UnnecessarySemicolon
@@ -7629,18 +7820,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mSenM
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/DefaultLwM2mDecoder.java`
-#### Snippet
-```java
-    public Set<ContentFormat> getSupportedContentFormat() {
-        return nodeDecoders.keySet();
-    };
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/parser/StringParser.java`
 #### Snippet
 ```java
@@ -7649,6 +7828,40 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/parser/StringParser.java`
     };
 
     /**
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/VersionConverter.java`
+#### Snippet
+```java
+        return new Version(input);
+    }
+};
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/CIDConverter.java`
+#### Snippet
+```java
+        }
+    }
+};
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/cli/IdentitySection.java`
+#### Snippet
+```java
+                return CertificateUsage.fromCode(Integer.parseInt(s));
+            }
+        };
+
+        @Option(names = { "-ts", "--truststore" },
 ```
 
 ### UnnecessarySemicolon
@@ -7673,18 +7886,6 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/cli/OscoreSe
     };
 
     // ---------------------------------------------------------------------------------------//
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/cli/IdentitySection.java`
-#### Snippet
-```java
-                return CertificateUsage.fromCode(Integer.parseInt(s));
-            }
-        };
-
-        @Option(names = { "-ts", "--truststore" },
 ```
 
 ### UnnecessarySemicolon
@@ -7725,28 +7926,6 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/cli/LeshanCl
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/VersionConverter.java`
-#### Snippet
-```java
-        return new Version(input);
-    }
-};
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/CIDConverter.java`
-#### Snippet
-```java
-        }
-    }
-};
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/LeshanClientDemo.java`
 #### Snippet
 ```java
@@ -7755,6 +7934,17 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/LeshanClient
                     };
                 };
             }
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `leshan-server-core-demo/src/main/java/org/eclipse/leshan/server/core/demo/cli/converters/ServerCIDConverter.java`
+#### Snippet
+```java
+        super(6);
+    }
+};
+
 ```
 
 ### UnnecessarySemicolon
@@ -7839,210 +8029,6 @@ in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoin
     };
 
     @Override
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `leshan-server-core-demo/src/main/java/org/eclipse/leshan/server/core/demo/cli/converters/ServerCIDConverter.java`
-#### Snippet
-```java
-        super(6);
-    }
-};
-
-```
-
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Dereference of `files` may produce `NullPointerException`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/FileLister.java`
-#### Snippet
-```java
-        StringBuilder builder = new StringBuilder();
-        SortedMap<String, String> sortedFiles = new TreeMap<>();
-        for (File file : files) {
-            DDFFileParser ddfFileParser = new DDFFileParser();
-            ObjectModel model = ddfFileParser.parse(file).iterator().next();
-```
-
-### DataFlowIssue
-Method invocation `toExternalForm` may produce `NullPointerException`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/LeshanServerDemo.java`
-#### Snippet
-```java
-        WebAppContext root = new WebAppContext();
-        root.setContextPath("/");
-        root.setResourceBase(LeshanServerDemo.class.getClassLoader().getResource("webapp").toExternalForm());
-        root.setParentLoaderPriority(true);
-        server.setHandler(root);
-```
-
-### DataFlowIssue
-Variable update does nothing
-in `leshan-core/src/main/java/org/eclipse/leshan/core/tlv/TlvEncoder.java`
-#### Snippet
-```java
-
-        if (length < 8) {
-            size += 0;
-        } else if (length < MAX_LENGTH_8BIT) {
-            size += 1;
-```
-
-### DataFlowIssue
-Dereference of `modelsDir.listFiles()` may produce `NullPointerException`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/model/ObjectLoader.java`
-#### Snippet
-```java
-        } else {
-            // get all files
-            for (File file : modelsDir.listFiles()) {
-                if (!file.canRead())
-                    continue;
-```
-
-### DataFlowIssue
-Argument `in` might be null
-in `leshan-core/src/main/java/org/eclipse/leshan/core/credentials/CredentialsReader.java`
-#### Snippet
-```java
-    public T readFromResource(String resourcePath) throws IOException, GeneralSecurityException {
-        try (InputStream in = ClassLoader.getSystemResourceAsStream(resourcePath)) {
-            return decode(in);
-        }
-    }
-```
-
-### DataFlowIssue
-Dereference of `files` may produce `NullPointerException`
-in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/TruststoreConverter.java`
-#### Snippet
-```java
-                files = new File[] { input };
-            }
-            for (File file : files) {
-                try {
-                    trustStore.add(SecurityUtil.certificate.readFromFile(file.getAbsolutePath()));
-```
-
-### DataFlowIssue
-Method invocation `getPeerAddress` may produce `NullPointerException`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
-#### Snippet
-```java
-                            .add(DtlsEndpointContext.KEY_HANDSHAKE_MODE, DtlsEndpointContext.HANDSHAKE_MODE_AUTO));
-                }
-                return new AddressEndpointContext(identity.getPeerAddress(), peerIdentity);
-            }
-        };
-```
-
-### DataFlowIssue
-Method invocation `getPeerAddress` may produce `NullPointerException`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
-#### Snippet
-```java
-                            .add(DtlsEndpointContext.KEY_HANDSHAKE_MODE, DtlsEndpointContext.HANDSHAKE_MODE_AUTO));
-                }
-                return new AddressEndpointContext(identity.getPeerAddress(), peerIdentity);
-            }
-        };
-```
-
-### DataFlowIssue
-Dereference of `removed` may produce `NullPointerException`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observation/LwM2mObservationStore.java`
-#### Snippet
-```java
-            }
-        }
-        for (org.eclipse.leshan.core.observation.Observation observation : removed) {
-            notificationListener.cancelled(observation);
-        }
-```
-
-### DataFlowIssue
-Dereference of `removed` may produce `NullPointerException`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observation/LwM2mObservationStore.java`
-#### Snippet
-```java
-            }
-        }
-        for (org.eclipse.leshan.core.observation.Observation observation : removed) {
-            notificationListener.cancelled(observation);
-        }
-```
-
-### DataFlowIssue
-Method invocation `getPeerAddress` may produce `NullPointerException`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
-#### Snippet
-```java
-                            .add(DtlsEndpointContext.KEY_HANDSHAKE_MODE, DtlsEndpointContext.HANDSHAKE_MODE_AUTO));
-                }
-                return new AddressEndpointContext(identity.getPeerAddress(), peerIdentity);
-            }
-        };
-```
-
-### DataFlowIssue
-Method invocation `toExternalForm` may produce `NullPointerException`
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/LeshanBootstrapServerDemo.java`
-#### Snippet
-```java
-        WebAppContext root = new WebAppContext();
-        root.setContextPath("/");
-        root.setResourceBase(LeshanBootstrapServerDemo.class.getClassLoader().getResource("webapp").toExternalForm());
-        root.setParentLoaderPriority(true);
-
-```
-
-### DataFlowIssue
-Unboxing of `ServersInfoExtractor.isBootstrapServer(objectEnabler, instanceId)` may produce `NullPointerException`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
-#### Snippet
-```java
-                if (objectEnabler.getId() == LwM2mId.SECURITY || objectEnabler.getId() == LwM2mId.SERVER) {
-                    Boolean isBootstrapServer = objectEnabler.getId() == LwM2mId.SECURITY
-                            && ServersInfoExtractor.isBootstrapServer(objectEnabler, instanceId);
-                    if (isBootstrapServer != null && !isBootstrapServer) {
-                        Long shortServerId = ServersInfoExtractor.getServerId(objectEnabler, instanceId);
-```
-
-### DataFlowIssue
-Dereference of `info` may produce `NullPointerException`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
-#### Snippet
-```java
-                    // create device management info
-                    DmServerInfo info = createDMServerInfo(security, servers);
-                    infos.deviceManagements.put(info.serverId, info);
-                } catch (RuntimeException e) {
-                    LOG.debug("Unable to get info for DM server /O/{}", security.getId(), e);
-```
-
-### DataFlowIssue
-Dereference of `info` may produce `NullPointerException`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BaseBootstrapConsistencyChecker.java`
-#### Snippet
-```java
-            ServersInfo info = ServersInfoExtractor.getInfo(objectEnablers, true);
-
-            if (info.bootstrap != null) {
-                checkBootstrapServerInfo(info.bootstrap, errors);
-            }
-```
-
-### DataFlowIssue
-Method invocation `getUri` may produce `NullPointerException`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-                            return null;
-                        } else {
-                            LOG.info("Bootstrap finished {}.", bootstrapServer.getUri());
-                            ServerInfo serverInfo = selectServer(
-                                    ServersInfoExtractor.getInfo(objectEnablers).deviceManagements);
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -8159,20 +8145,32 @@ in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'serializer' in a Serializable class
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ObjectSpecServlet.java`
+Non-serializable field 'publicKeySerDes' in a Serializable class
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/ServerServlet.java`
 #### Snippet
 ```java
-    private static final long serialVersionUID = 1L;
 
-    private final ObjectModelSerDes serializer;
+    private final X509CertificateSerDes certificateSerDes;
+    private final PublicKeySerDes publicKeySerDes;
 
-    private final LwM2mModelProvider modelProvider;
+    private final LeshanBootstrapServer server;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'server' in a Serializable class
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/ServerServlet.java`
+#### Snippet
+```java
+    private final PublicKeySerDes publicKeySerDes;
+
+    private final LeshanBootstrapServer server;
+    private final PublicKey publicKey;
+    private final X509Certificate serverCertificate;
 ```
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'certificateSerDes' in a Serializable class
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ServerServlet.java`
+in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/ServerServlet.java`
 #### Snippet
 ```java
     private static final long serialVersionUID = 1L;
@@ -8180,6 +8178,42 @@ in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/Serv
     private final X509CertificateSerDes certificateSerDes;
     private final PublicKeySerDes publicKeySerDes;
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'publicKeySerDes' in a Serializable class
+in `leshan-server-core-demo/src/main/java/org/eclipse/leshan/server/core/demo/json/servlet/SecurityServlet.java`
+#### Snippet
+```java
+
+    private final X509CertificateSerDes certificateSerDes;
+    private final PublicKeySerDes publicKeySerDes;
+
+    private final ObjectMapper mapper;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'certificateSerDes' in a Serializable class
+in `leshan-server-core-demo/src/main/java/org/eclipse/leshan/server/core/demo/json/servlet/SecurityServlet.java`
+#### Snippet
+```java
+    private final X509Certificate serverCertificate;
+
+    private final X509CertificateSerDes certificateSerDes;
+    private final PublicKeySerDes publicKeySerDes;
+
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'publicKeySerDes' in a Serializable class
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ServerServlet.java`
+#### Snippet
+```java
+
+    private final X509CertificateSerDes certificateSerDes;
+    private final PublicKeySerDes publicKeySerDes;
+
+    private final LeshanServer server;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -8195,15 +8229,27 @@ in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/Serv
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'publicKeySerDes' in a Serializable class
+Non-serializable field 'certificateSerDes' in a Serializable class
 in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ServerServlet.java`
 #### Snippet
 ```java
+    private static final long serialVersionUID = 1L;
 
     private final X509CertificateSerDes certificateSerDes;
     private final PublicKeySerDes publicKeySerDes;
 
-    private final LeshanServer server;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'serializer' in a Serializable class
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ObjectSpecServlet.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    private final ObjectModelSerDes serializer;
+
+    private final LwM2mModelProvider modelProvider;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -8230,66 +8276,6 @@ in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/Clie
     private final LwM2mAttributeParser attributeParser;
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'server' in a Serializable class
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/ServerServlet.java`
-#### Snippet
-```java
-    private final PublicKeySerDes publicKeySerDes;
-
-    private final LeshanBootstrapServer server;
-    private final PublicKey publicKey;
-    private final X509Certificate serverCertificate;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'publicKeySerDes' in a Serializable class
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/ServerServlet.java`
-#### Snippet
-```java
-
-    private final X509CertificateSerDes certificateSerDes;
-    private final PublicKeySerDes publicKeySerDes;
-
-    private final LeshanBootstrapServer server;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'certificateSerDes' in a Serializable class
-in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/ServerServlet.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    private final X509CertificateSerDes certificateSerDes;
-    private final PublicKeySerDes publicKeySerDes;
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'publicKeySerDes' in a Serializable class
-in `leshan-server-core-demo/src/main/java/org/eclipse/leshan/server/core/demo/json/servlet/SecurityServlet.java`
-#### Snippet
-```java
-
-    private final X509CertificateSerDes certificateSerDes;
-    private final PublicKeySerDes publicKeySerDes;
-
-    private final ObjectMapper mapper;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'certificateSerDes' in a Serializable class
-in `leshan-server-core-demo/src/main/java/org/eclipse/leshan/server/core/demo/json/servlet/SecurityServlet.java`
-#### Snippet
-```java
-    private final X509Certificate serverCertificate;
-
-    private final X509CertificateSerDes certificateSerDes;
-    private final PublicKeySerDes publicKeySerDes;
-
-```
-
 ## RuleId[ruleID=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
@@ -8301,30 +8287,6 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/MyDevice.jav
                     } catch (InterruptedException e) {
                     }
                     getLwM2mClient().start();
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisLock.java`
-#### Snippet
-```java
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-            }
-        }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/SingleInstanceJedisLock.java`
-#### Snippet
-```java
-            try {
-                Thread.sleep(iterationTime);
-            } catch (InterruptedException e) {
-            }
-        }
 ```
 
 ### CatchMayIgnoreException
@@ -8363,7 +8325,55 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultReg
     }
 ```
 
+### CatchMayIgnoreException
+Empty `catch` block
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/SingleInstanceJedisLock.java`
+#### Snippet
+```java
+            try {
+                Thread.sleep(iterationTime);
+            } catch (InterruptedException e) {
+            }
+        }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisLock.java`
+#### Snippet
+```java
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+            }
+        }
+```
+
 ## RuleId[ruleID=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
+#### Snippet
+```java
+                        int val = Integer.parseInt(name.substring(i + 1, i + 2), 16);
+                        value.append((char) val);
+                        i += 2;
+                    } else {
+                        value.append(nextCh);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
+#### Snippet
+```java
+                    } else {
+                        value.append(nextCh);
+                        i++;
+                    }
+                } else if (ch == ',' || ch == '+') {
+```
+
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `j`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Hex.java`
@@ -8412,55 +8422,7 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Hex.java`
         return out;
 ```
 
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
-#### Snippet
-```java
-                        int val = Integer.parseInt(name.substring(i + 1, i + 2), 16);
-                        value.append((char) val);
-                        i += 2;
-                    } else {
-                        value.append(nextCh);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
-#### Snippet
-```java
-                    } else {
-                        value.append(nextCh);
-                        i++;
-                    }
-                } else if (ch == ',' || ch == '+') {
-```
-
 ## RuleId[ruleID=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/FileLister.java`
-#### Snippet
-```java
-        }
-
-        System.out.println(builder.toString());
-
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-                    sendEvent(EVENT_SEND, eventData, registration.getEndpoint());
-                } catch (JsonProcessingException e) {
-                    Log.warn(String.format("Error while processing json [%s] : [%s]", data.toString(), e.getMessage()));
-                }
-            }
-```
-
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/MixedLwM2mLink.java`
@@ -8535,19 +8497,31 @@ in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/T
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/FileLister.java`
 #### Snippet
 ```java
-                    throw new IllegalStateException(
-                            String.format("Unable to extract sender identity : unexpected type of Principal %s [%s]",
-                                    senderIdentity.getClass(), senderIdentity.toString()));
-                }
-                return null;
+        }
+
+        System.out.println(builder.toString());
+
+    }
 ```
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+                    sendEvent(EVENT_SEND, eventData, registration.getEndpoint());
+                } catch (JsonProcessingException e) {
+                    Log.warn(String.format("Error while processing json [%s] : [%s]", data.toString(), e.getMessage()));
+                }
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
 #### Snippet
 ```java
                     throw new IllegalStateException(
@@ -8569,19 +8543,19 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstr
                 return null;
 ```
 
-## RuleId[ruleID=SuspiciousMethodCalls]
-### SuspiciousMethodCalls
-'ConcurrentMap' may not contain keys of type 'Identity'
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/OscoreBootstrapListener.java`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
 #### Snippet
 ```java
-    @Override
-    public void end(BootstrapSession session) {
-        addrToSession.remove(session.getIdentity(), session);
-
-    }
+                    throw new IllegalStateException(
+                            String.format("Unable to extract sender identity : unexpected type of Principal %s [%s]",
+                                    senderIdentity.getClass(), senderIdentity.toString()));
+                }
+                return null;
 ```
 
+## RuleId[ruleID=SuspiciousMethodCalls]
 ### SuspiciousMethodCalls
 'ConcurrentMap' may not contain keys of type 'Identity'
 in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/OscoreBootstrapListener.java`
@@ -8594,19 +8568,19 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstr
 
 ```
 
-## RuleId[ruleID=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `RegUpdate` may be 'static'
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+### SuspiciousMethodCalls
+'ConcurrentMap' may not contain keys of type 'Identity'
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/OscoreBootstrapListener.java`
 #### Snippet
 ```java
+    @Override
+    public void end(BootstrapSession session) {
+        addrToSession.remove(session.getIdentity(), session);
 
-    @SuppressWarnings("unused")
-    private class RegUpdate {
-        public Registration registration;
-        public RegistrationUpdate update;
+    }
 ```
 
+## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `BootstrapEvent` may be 'static'
 in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/servlet/EventServlet.java`
@@ -8631,127 +8605,19 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/request/DefaultDo
         private final ResponseCode code;
 ```
 
+### InnerClassMayBeStatic
+Inner class `RegUpdate` may be 'static'
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("unused")
+    private class RegUpdate {
+        public Registration registration;
+        public RegistrationUpdate update;
+```
+
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `coapRequest` accessed in synchronized context
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/CoapAsyncRequestObserver.java`
-#### Snippet
-```java
-        if (!cancelled)
-            if (cleaningTask == null) {
-                LOG.trace("Schedule Cleaning Task for {}", coapRequest);
-                cleaningTask = executor.schedule(new Runnable() {
-                    @Override
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void destroy() {
-        if (started)
-            started = false;
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-    public synchronized void destroy() {
-        if (started)
-            started = false;
-
-        executor.shutdownNow();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void start() {
-        if (started)
-            return;
-        started = true;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-        if (started)
-            return;
-        started = true;
-
-        // we don't have any endpoint so nothing to start
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void stop() {
-        if (!started)
-            return;
-        started = false;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-        if (!started)
-            return;
-        started = false;
-
-        // If we have no endpoint this means that we never start coap server
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `endpointProvider` accessed in synchronized context
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void stop() {
-        endpointProvider.stop();
-
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `endpointProvider` accessed in synchronized context
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
-#### Snippet
-```java
-
-    public synchronized LwM2mClientEndpoint getEndpoint(ServerIdentity server) {
-        return endpointProvider.getEndpoint(server);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `endpointProvider` accessed in synchronized context
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void start() {
-        endpointProvider.start();
-    }
-
-```
-
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `endpointProvider` accessed in synchronized context
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
@@ -8813,6 +8679,42 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultE
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `endpointProvider` accessed in synchronized context
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
+#### Snippet
+```java
+    @Override
+    public synchronized void start() {
+        endpointProvider.start();
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `endpointProvider` accessed in synchronized context
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
+#### Snippet
+```java
+    @Override
+    public synchronized void stop() {
+        endpointProvider.stop();
+
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `endpointProvider` accessed in synchronized context
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultEndpointsManager.java`
+#### Snippet
+```java
+
+    public synchronized LwM2mClientEndpoint getEndpoint(ServerIdentity server) {
+        return endpointProvider.getEndpoint(server);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `instances` accessed in synchronized context
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
 #### Snippet
@@ -8822,18 +8724,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEn
         LwM2mInstanceEnabler removedInstance = instances.remove(instanceId);
         if (removedInstance != null) {
             fireInstancesRemoved(removedInstance.getId());
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `instances` accessed in synchronized context
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
-#### Snippet
-```java
-
-    public synchronized LwM2mInstanceEnabler getInstance(int instanceId) {
-        return instances.get(instanceId);
-    }
-
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8854,6 +8744,18 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEn
 #### Snippet
 ```java
     @Override
+    public synchronized List<Integer> getAvailableResourceIds(int instanceId) {
+        LwM2mInstanceEnabler instanceEnabler = instances.get(instanceId);
+        if (instanceEnabler != null) {
+            return instanceEnabler.getAvailableResourceIds(getObjectModel());
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `instances` accessed in synchronized context
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
+#### Snippet
+```java
+    @Override
     public synchronized List<Integer> getAvailableInstanceIds() {
         List<Integer> ids = new ArrayList<>(instances.keySet());
         Collections.sort(ids);
@@ -8865,26 +8767,98 @@ Non-private field `instances` accessed in synchronized context
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectEnabler.java`
 #### Snippet
 ```java
+
+    public synchronized LwM2mInstanceEnabler getInstance(int instanceId) {
+        return instances.get(instanceId);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `coapRequest` accessed in synchronized context
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/CoapAsyncRequestObserver.java`
+#### Snippet
+```java
+        if (!cancelled)
+            if (cleaningTask == null) {
+                LOG.trace("Schedule Cleaning Task for {}", coapRequest);
+                cleaningTask = executor.schedule(new Runnable() {
+                    @Override
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
     @Override
-    public synchronized List<Integer> getAvailableResourceIds(int instanceId) {
-        LwM2mInstanceEnabler instanceEnabler = instances.get(instanceId);
-        if (instanceEnabler != null) {
-            return instanceEnabler.getAvailableResourceIds(getObjectModel());
+    public synchronized void destroy() {
+        if (started)
+            started = false;
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+    public synchronized void destroy() {
+        if (started)
+            started = false;
+
+        executor.shutdownNow();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+    @Override
+    public synchronized void stop() {
+        if (!started)
+            return;
+        started = false;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+        if (!started)
+            return;
+        started = false;
+
+        // If we have no endpoint this means that we never start coap server
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+    @Override
+    public synchronized void start() {
+        if (started)
+            return;
+        started = true;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+        if (started)
+            return;
+        started = true;
+
+        // we don't have any endpoint so nothing to start
 ```
 
 ## RuleId[ruleID=UtilityClassWithPublicConstructor]
-### UtilityClassWithPublicConstructor
-Class `RandomStringUtils` has only 'static' members, and a 'public' constructor
-in `leshan-core/src/main/java/org/eclipse/leshan/core/util/RandomStringUtils.java`
-#### Snippet
-```java
- * @version $Id: RandomStringUtils.java 1056988 2011-01-09 17:58:53Z niallp $
- */
-public class RandomStringUtils {
-
-    /**
-```
-
 ### UtilityClassWithPublicConstructor
 Class `Validate` has only 'static' members, and a 'public' constructor
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
@@ -8897,7 +8871,31 @@ public class Validate {
 
 ```
 
+### UtilityClassWithPublicConstructor
+Class `RandomStringUtils` has only 'static' members, and a 'public' constructor
+in `leshan-core/src/main/java/org/eclipse/leshan/core/util/RandomStringUtils.java`
+#### Snippet
+```java
+ * @version $Id: RandomStringUtils.java 1056988 2011-01-09 17:58:53Z niallp $
+ */
+public class RandomStringUtils {
+
+    /**
+```
+
 ## RuleId[ruleID=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/text/LwM2mNodeTextDecoder.java`
+#### Snippet
+```java
+            // number of seconds since 1970/1/1
+            try {
+                return new Date(Long.valueOf(value) * 1000L);
+            } catch (NumberFormatException e) {
+                throw new CodecException("Invalid value [%s] for date resource [%s]", value, path);
+```
+
 ### UnnecessaryBoxing
 Redundant boxing, `Integer.parseInt()` call can be used instead
 in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ClientServlet.java`
@@ -8920,18 +8918,6 @@ in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/Clie
                         replace = Boolean.valueOf(replaceParam);
 
                     // create & process request
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/text/LwM2mNodeTextDecoder.java`
-#### Snippet
-```java
-            // number of seconds since 1970/1/1
-            try {
-                return new Date(Long.valueOf(value) * 1000L);
-            } catch (NumberFormatException e) {
-                throw new CodecException("Invalid value [%s] for date resource [%s]", value, path);
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -9036,114 +9022,6 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/cli/OscoreSe
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
-#### Snippet
-```java
-public class ResponseCodeUtil {
-
-    public static int toLwM2mCode(org.eclipse.californium.core.coap.CoAP.ResponseCode coapResponseCode) {
-        return coapResponseCode.codeClass * 100 + coapResponseCode.codeDetail;
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
-#### Snippet
-```java
-
-    public static ResponseCode toLwM2mResponseCode(
-            org.eclipse.californium.core.coap.CoAP.ResponseCode coapResponseCode) {
-        return ResponseCode.fromCode(toLwM2mCode(coapResponseCode));
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
-#### Snippet
-```java
-    }
-
-    public static org.eclipse.californium.core.coap.CoAP.ResponseCode toCoapResponseCode(
-            ResponseCode Lwm2mResponseCode) {
-        Validate.notNull(Lwm2mResponseCode);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
-#### Snippet
-```java
-        Validate.notNull(Lwm2mResponseCode);
-        try {
-            return org.eclipse.californium.core.coap.CoAP.ResponseCode.valueOf(toCoapCode(Lwm2mResponseCode.getCode()));
-        } catch (MessageFormatException e) {
-            throw new IllegalArgumentException("Invalid CoAP code for LWM2M response: " + Lwm2mResponseCode);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-     * Validate the Californium observation. It is valid if it contains all necessary context for Leshan.
-     */
-    public static String validateCoapObservation(org.eclipse.californium.core.observe.Observation observation) {
-        if (!observation.getRequest().getUserContext().containsKey(CTX_REGID))
-            throw new IllegalStateException("missing registrationId info in the request context");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-    }
-
-    public static List<LwM2mPath> extractLwm2mPaths(org.eclipse.californium.core.observe.Observation observation) {
-        if (observation.getRequest().getCode() == CoAP.Code.FETCH) {
-            List<LwM2mPath> lwm2mPath = new ArrayList<>();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-    }
-
-    public static LwM2mPath extractLwm2mPath(org.eclipse.californium.core.observe.Observation observation) {
-        if (observation.getRequest().getCode() == CoAP.Code.GET) {
-            return new LwM2mPath(observation.getRequest().getUserContext().get(CTX_LWM2M_PATH));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-    }
-
-    public static String extractEndpoint(org.eclipse.californium.core.observe.Observation observation) {
-        return observation.getRequest().getUserContext().get(CTX_ENDPOINT);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-    }
-
-    public static String extractRegistrationId(org.eclipse.californium.core.observe.Observation observation) {
-        return observation.getRequest().getUserContext().get(CTX_REGID);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/StringUtils.java`
 #### Snippet
@@ -9204,63 +9082,63 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/credentials/CredentialsRea
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseInstanceEnablerFactory.java`
 #### Snippet
 ```java
-            lwM2mresponse = new UpdateResponse(toLwM2mResponseCode(coapResponse.getCode()),
-                    coapResponse.getPayloadString());
-        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CHANGED) {
-            // handle success response:
-            lwM2mresponse = UpdateResponse.success();
+            return 0;
+        } else {
+            return java.util.Collections.max(alreadyUsedIdentifier) + 1;
+        }
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
+Qualifier `org.eclipse.californium.core.coap` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
 #### Snippet
 ```java
-            lwM2mresponse = new DeregisterResponse(toLwM2mResponseCode(coapResponse.getCode()),
-                    coapResponse.getPayloadString());
-        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.DELETED) {
-            // handle success response:
-            lwM2mresponse = DeregisterResponse.success();
+public class ResponseCodeUtil {
+
+    public static int toLwM2mCode(org.eclipse.californium.core.coap.CoAP.ResponseCode coapResponseCode) {
+        return coapResponseCode.codeClass * 100 + coapResponseCode.codeDetail;
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
+Qualifier `org.eclipse.californium.core.coap` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
 #### Snippet
 ```java
-            lwM2mresponse = new SendResponse(toLwM2mResponseCode(coapResponse.getCode()),
-                    coapResponse.getPayloadString());
-        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CHANGED) {
-            // handle success response:
-            lwM2mresponse = SendResponse.success();
+    }
+
+    public static org.eclipse.californium.core.coap.CoAP.ResponseCode toCoapResponseCode(
+            ResponseCode Lwm2mResponseCode) {
+        Validate.notNull(Lwm2mResponseCode);
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
+Qualifier `org.eclipse.californium.core.coap` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
 #### Snippet
 ```java
-            lwM2mresponse = new BootstrapResponse(toLwM2mResponseCode(coapResponse.getCode()),
-                    coapResponse.getPayloadString());
-        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CHANGED) {
-            // handle success response:
-            lwM2mresponse = BootstrapResponse.success();
+        Validate.notNull(Lwm2mResponseCode);
+        try {
+            return org.eclipse.californium.core.coap.CoAP.ResponseCode.valueOf(toCoapCode(Lwm2mResponseCode.getCode()));
+        } catch (MessageFormatException e) {
+            throw new IllegalArgumentException("Invalid CoAP code for LWM2M response: " + Lwm2mResponseCode);
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
+Qualifier `org.eclipse.californium.core.coap` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ResponseCodeUtil.java`
 #### Snippet
 ```java
-            lwM2mresponse = new RegisterResponse(toLwM2mResponseCode(coapResponse.getCode()), null,
-                    coapResponse.getPayloadString());
-        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CREATED) {
-            // handle success response:
-            lwM2mresponse = RegisterResponse.success(coapResponse.getOptions().getLocationString());
+
+    public static ResponseCode toLwM2mResponseCode(
+            org.eclipse.californium.core.coap.CoAP.ResponseCode coapResponseCode) {
+        return ResponseCode.fromCode(toLwM2mCode(coapResponseCode));
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9273,6 +9151,66 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPs
     public void setResultHandler(org.eclipse.californium.scandium.dtls.HandshakeResultHandler resultHandler) {
         // we don't use async mode.
     }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+     * Validate the Californium observation. It is valid if it contains all necessary context for Leshan.
+     */
+    public static String validateCoapObservation(org.eclipse.californium.core.observe.Observation observation) {
+        if (!observation.getRequest().getUserContext().containsKey(CTX_REGID))
+            throw new IllegalStateException("missing registrationId info in the request context");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+    }
+
+    public static String extractEndpoint(org.eclipse.californium.core.observe.Observation observation) {
+        return observation.getRequest().getUserContext().get(CTX_ENDPOINT);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+    }
+
+    public static LwM2mPath extractLwm2mPath(org.eclipse.californium.core.observe.Observation observation) {
+        if (observation.getRequest().getCode() == CoAP.Code.GET) {
+            return new LwM2mPath(observation.getRequest().getUserContext().get(CTX_LWM2M_PATH));
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+    }
+
+    public static String extractRegistrationId(org.eclipse.californium.core.observe.Observation observation) {
+        return observation.getRequest().getUserContext().get(CTX_REGID);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.observe` is unnecessary and can be removed
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+    }
+
+    public static List<LwM2mPath> extractLwm2mPaths(org.eclipse.californium.core.observe.Observation observation) {
+        if (observation.getRequest().getCode() == CoAP.Code.FETCH) {
+            List<LwM2mPath> lwm2mPath = new ArrayList<>();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9293,6 +9231,18 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstr
 #### Snippet
 ```java
 
+    private boolean isResponseCodeContent() {
+        return coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/request/LwM2mResponseBuilder.java`
+#### Snippet
+```java
+
     private boolean isResponseCodeChanged() {
         return coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CHANGED;
     }
@@ -9304,16 +9254,16 @@ Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replace
 in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/request/LwM2mResponseBuilder.java`
 #### Snippet
 ```java
-
-    private boolean isResponseCodeContent() {
-        return coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
-    }
-
+            lwM2mresponse = new BootstrapDeleteResponse(toLwM2mResponseCode(coapResponse.getCode()),
+                    coapResponse.getPayloadString(), coapResponse);
+        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.DELETED) {
+            // handle success response:
+            lwM2mresponse = new BootstrapDeleteResponse(ResponseCode.DELETED, null, coapResponse);
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/request/LwM2mResponseBuilder.java`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request/LwM2mResponseBuilder.java`
 #### Snippet
 ```java
             lwM2mresponse = new BootstrapDeleteResponse(toLwM2mResponseCode(coapResponse.getCode()),
@@ -9353,6 +9303,18 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request
 #### Snippet
 ```java
 
+    private boolean isResponseCodeContent() {
+        return coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request/LwM2mResponseBuilder.java`
+#### Snippet
+```java
+
     private boolean isResponseCodeChanged() {
         return coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CHANGED;
     }
@@ -9361,53 +9323,65 @@ in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request/LwM2mResponseBuilder.java`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
 #### Snippet
 ```java
-            lwM2mresponse = new BootstrapDeleteResponse(toLwM2mResponseCode(coapResponse.getCode()),
-                    coapResponse.getPayloadString(), coapResponse);
-        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.DELETED) {
+            lwM2mresponse = new RegisterResponse(toLwM2mResponseCode(coapResponse.getCode()), null,
+                    coapResponse.getPayloadString());
+        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CREATED) {
             // handle success response:
-            lwM2mresponse = new BootstrapDeleteResponse(ResponseCode.DELETED, null, coapResponse);
+            lwM2mresponse = RegisterResponse.success(coapResponse.getOptions().getLocationString());
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/request/LwM2mResponseBuilder.java`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
 #### Snippet
 ```java
-
-    private boolean isResponseCodeContent() {
-        return coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
-    }
-
+            lwM2mresponse = new BootstrapResponse(toLwM2mResponseCode(coapResponse.getCode()),
+                    coapResponse.getPayloadString());
+        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CHANGED) {
+            // handle success response:
+            lwM2mresponse = BootstrapResponse.success();
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseInstanceEnablerFactory.java`
+Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
 #### Snippet
 ```java
-            return 0;
-        } else {
-            return java.util.Collections.max(alreadyUsedIdentifier) + 1;
-        }
-    }
+            lwM2mresponse = new DeregisterResponse(toLwM2mResponseCode(coapResponse.getCode()),
+                    coapResponse.getPayloadString());
+        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.DELETED) {
+            // handle success response:
+            lwM2mresponse = DeregisterResponse.success();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
+#### Snippet
+```java
+            lwM2mresponse = new SendResponse(toLwM2mResponseCode(coapResponse.getCode()),
+                    coapResponse.getPayloadString());
+        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CHANGED) {
+            // handle success response:
+            lwM2mresponse = SendResponse.success();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.californium.core.coap` is unnecessary, and can be replaced with an import
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/request/LwM2mResponseBuilder.java`
+#### Snippet
+```java
+            lwM2mresponse = new UpdateResponse(toLwM2mResponseCode(coapResponse.getCode()),
+                    coapResponse.getPayloadString());
+        } else if (coapResponse.getCode() == org.eclipse.californium.core.coap.CoAP.ResponseCode.CHANGED) {
+            // handle success response:
+            lwM2mresponse = UpdateResponse.success();
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
-#### Snippet
-```java
-                emitter.event(event, data);
-            } catch (IOException e) {
-                e.printStackTrace();
-                onClose();
-            }
-```
-
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/interactive/TerminalAppender.java`
@@ -9429,18 +9403,6 @@ in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/interactive/
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpoint.java`
-#### Snippet
-```java
-        } catch (URISyntaxException e) {
-            // TODO TL : handle this properly
-            e.printStackTrace();
-            throw new IllegalStateException(e);
         }
 ```
 
@@ -9468,6 +9430,30 @@ in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/
             }
 ```
 
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/EventServlet.java`
+#### Snippet
+```java
+                emitter.event(event, data);
+            } catch (IOException e) {
+                e.printStackTrace();
+                onClose();
+            }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpoint.java`
+#### Snippet
+```java
+        } catch (URISyntaxException e) {
+            // TODO TL : handle this properly
+            e.printStackTrace();
+            throw new IllegalStateException(e);
+        }
+```
+
 ## RuleId[ruleID=SuspiciousToArrayCall]
 ### SuspiciousToArrayCall
 Array of type 'org.eclipse.leshan.core.link.Link\[\]' expected, 'org.eclipse.leshan.core.link.lwm2m.LwM2mLink\[\]' found
@@ -9482,42 +9468,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHe
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `SyncRequestObserver()` of an abstract class should not be declared 'public'
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/SyncRequestObserver.java`
-#### Snippet
-```java
-public abstract class SyncRequestObserver<T extends LwM2mResponse> extends CoapSyncRequestObserver {
-
-    public SyncRequestObserver(Request coapRequest, long timeout, ExceptionTranslator exceptionTranslator) {
-        super(coapRequest, timeout, exceptionTranslator);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRequestObserver()` of an abstract class should not be declared 'public'
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/AbstractRequestObserver.java`
-#### Snippet
-```java
-    Request coapRequest;
-
-    public AbstractRequestObserver(Request coapRequest) {
-        this.coapRequest = coapRequest;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AsyncRequestObserver()` of an abstract class should not be declared 'public'
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/AsyncRequestObserver.java`
-#### Snippet
-```java
-     * @param executor used to scheduled timeout tasks.
-     */
-    public AsyncRequestObserver(Request coapRequest, final ResponseCallback<T> responseCallback,
-            final ErrorCallback errorCallback, long timeoutInMs, ScheduledExecutorService executor,
-            ExceptionTranslator exceptionTranslator) {
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `AttributeModel()` of an abstract class should not be declared 'public'
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/attributes/AttributeModel.java`
@@ -9591,15 +9541,15 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/observation/Observation.ja
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SafeResponseCallback()` of an abstract class should not be declared 'public'
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/DefaultBootstrapHandler.java`
+Constructor `BaseObjectEnabler()` of an abstract class should not be declared 'public'
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseObjectEnabler.java`
 #### Snippet
 ```java
-        private final BootstrapSession session;
+    private LwM2mClient lwm2mClient;
 
-        public SafeResponseCallback(BootstrapSession session) {
-            this.session = session;
-        }
+    public BaseObjectEnabler(int id, ObjectModel objectModel) {
+        this.id = id;
+        this.objectModel = objectModel;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -9615,15 +9565,51 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/Default
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseObjectEnabler()` of an abstract class should not be declared 'public'
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseObjectEnabler.java`
+Constructor `SafeResponseCallback()` of an abstract class should not be declared 'public'
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/DefaultBootstrapHandler.java`
 #### Snippet
 ```java
-    private LwM2mClient lwm2mClient;
+        private final BootstrapSession session;
 
-    public BaseObjectEnabler(int id, ObjectModel objectModel) {
-        this.id = id;
-        this.objectModel = objectModel;
+        public SafeResponseCallback(BootstrapSession session) {
+            this.session = session;
+        }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SyncRequestObserver()` of an abstract class should not be declared 'public'
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/SyncRequestObserver.java`
+#### Snippet
+```java
+public abstract class SyncRequestObserver<T extends LwM2mResponse> extends CoapSyncRequestObserver {
+
+    public SyncRequestObserver(Request coapRequest, long timeout, ExceptionTranslator exceptionTranslator) {
+        super(coapRequest, timeout, exceptionTranslator);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractRequestObserver()` of an abstract class should not be declared 'public'
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/AbstractRequestObserver.java`
+#### Snippet
+```java
+    Request coapRequest;
+
+    public AbstractRequestObserver(Request coapRequest) {
+        this.coapRequest = coapRequest;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AsyncRequestObserver()` of an abstract class should not be declared 'public'
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/AsyncRequestObserver.java`
+#### Snippet
+```java
+     * @param executor used to scheduled timeout tasks.
+     */
+    public AsyncRequestObserver(Request coapRequest, final ResponseCallback<T> responseCallback,
+            final ErrorCallback errorCallback, long timeoutInMs, ScheduledExecutorService executor,
+            ExceptionTranslator exceptionTranslator) {
 ```
 
 ## RuleId[ruleID=Anonymous2MethodRef]
@@ -9678,6 +9664,78 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/request
 ## RuleId[ruleID=Java8MapApi]
 ### Java8MapApi
 Can be replaced with single 'Map.computeIfAbsent' method call
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
+#### Snippet
+```java
+            // Get jsonArray for this time-stamp
+            Collection<JsonArrayEntry> jsonArray = result.get(time);
+            if (jsonArray == null) {
+                jsonArray = new ArrayList<>();
+                result.put(time, jsonArray);
+```
+
+### Java8MapApi
+Can be replaced with single 'Map.computeIfAbsent' method call
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
+#### Snippet
+```java
+                        nodePath.getResourceId());
+                Map<Integer, JsonArrayEntry> multiResource = multiResourceMap.get(resourcePath);
+                if (multiResource == null) {
+                    multiResource = new HashMap<>();
+                    multiResourceMap.put(resourcePath, multiResource);
+```
+
+### Java8MapApi
+Can be replaced with single 'Map.computeIfAbsent' method call
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
+#### Snippet
+```java
+            // Get jsonArray for this instance
+            Collection<JsonArrayEntry> jsonArray = result.get(nodePath.getObjectInstanceId());
+            if (jsonArray == null) {
+                jsonArray = new ArrayList<>();
+                result.put(nodePath.getObjectInstanceId(), jsonArray);
+```
+
+### Java8MapApi
+Can be replaced with single 'Map.computeIfAbsent' method call
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
+#### Snippet
+```java
+                        nodePath.getResourceId());
+                Map<Integer, SenMLRecord> multiResource = multiResourceMap.get(resourcePath);
+                if (multiResource == null) {
+                    multiResource = new HashMap<>();
+                    multiResourceMap.put(resourcePath, multiResource);
+```
+
+### Java8MapApi
+Can be replaced with single 'Map.computeIfAbsent' method call
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
+#### Snippet
+```java
+            // Get SenML records for this instance
+            Collection<LwM2mResolvedSenMLRecord> recordForInstance = result.get(record.getPath().getObjectInstanceId());
+            if (recordForInstance == null) {
+                recordForInstance = new ArrayList<>();
+                result.put(record.getPath().getObjectInstanceId(), recordForInstance);
+```
+
+### Java8MapApi
+Can be replaced with single 'Map.computeIfAbsent' method call
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
+#### Snippet
+```java
+            // Get record list for this time-stamp
+            Collection<LwM2mResolvedSenMLRecord> recordList = result.get(resolvedRecord.getTimeStamp());
+            if (recordList == null) {
+                recordList = new ArrayList<>();
+                result.put(resolvedRecord.getTimeStamp(), recordList);
+```
+
+### Java8MapApi
+Can be replaced with single 'Map.computeIfAbsent' method call
 in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/log/CoapMessage.java`
 #### Snippet
 ```java
@@ -9700,103 +9758,7 @@ in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/json
                 result.put(path.getObjectId(), instancesList);
 ```
 
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
-#### Snippet
-```java
-            // Get jsonArray for this time-stamp
-            Collection<JsonArrayEntry> jsonArray = result.get(time);
-            if (jsonArray == null) {
-                jsonArray = new ArrayList<>();
-                result.put(time, jsonArray);
-```
-
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
-#### Snippet
-```java
-            // Get jsonArray for this instance
-            Collection<JsonArrayEntry> jsonArray = result.get(nodePath.getObjectInstanceId());
-            if (jsonArray == null) {
-                jsonArray = new ArrayList<>();
-                result.put(nodePath.getObjectInstanceId(), jsonArray);
-```
-
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
-#### Snippet
-```java
-                        nodePath.getResourceId());
-                Map<Integer, JsonArrayEntry> multiResource = multiResourceMap.get(resourcePath);
-                if (multiResource == null) {
-                    multiResource = new HashMap<>();
-                    multiResourceMap.put(resourcePath, multiResource);
-```
-
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
-#### Snippet
-```java
-                        nodePath.getResourceId());
-                Map<Integer, SenMLRecord> multiResource = multiResourceMap.get(resourcePath);
-                if (multiResource == null) {
-                    multiResource = new HashMap<>();
-                    multiResourceMap.put(resourcePath, multiResource);
-```
-
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
-#### Snippet
-```java
-            // Get record list for this time-stamp
-            Collection<LwM2mResolvedSenMLRecord> recordList = result.get(resolvedRecord.getTimeStamp());
-            if (recordList == null) {
-                recordList = new ArrayList<>();
-                result.put(resolvedRecord.getTimeStamp(), recordList);
-```
-
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/senml/LwM2mNodeSenMLDecoder.java`
-#### Snippet
-```java
-            // Get SenML records for this instance
-            Collection<LwM2mResolvedSenMLRecord> recordForInstance = result.get(record.getPath().getObjectInstanceId());
-            if (recordForInstance == null) {
-                recordForInstance = new ArrayList<>();
-                result.put(record.getPath().getObjectInstanceId(), recordForInstance);
-```
-
 ## RuleId[ruleID=Convert2Lambda]
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/CoapAsyncRequestObserver.java`
-#### Snippet
-```java
-            if (cleaningTask == null) {
-                LOG.trace("Schedule Cleaning Task for {}", coapRequest);
-                cleaningTask = executor.schedule(new Runnable() {
-                    @Override
-                    public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ObjectSpecServlet.java`
-#### Snippet
-```java
-            resp.setContentType("application/json");
-            List<ObjectModel> objectModels = new ArrayList<>(model.getObjectModels());
-            Collections.sort(objectModels, new Comparator<ObjectModel>() {
-                @Override
-                public int compare(ObjectModel o1, ObjectModel o2) {
-```
-
 ### Convert2Lambda
 Anonymous new Comparator() can be replaced with lambda
 in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
@@ -9834,6 +9796,42 @@ in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/RandomTemper
 ```
 
 ### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
+#### Snippet
+```java
+        // sort object
+        List<LwM2mObjectEnabler> objEnablerList = new ArrayList<>(objectEnablers);
+        Collections.sort(objEnablerList, new Comparator<LwM2mObjectEnabler>() {
+            @Override
+            public int compare(LwM2mObjectEnabler o1, LwM2mObjectEnabler o2) {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BootstrapHandler.java`
+#### Snippet
+```java
+            }
+
+            Runnable whenSent = new Runnable() {
+                @Override
+                public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/servlet/ObjectSpecServlet.java`
+#### Snippet
+```java
+            resp.setContentType("application/json");
+            List<ObjectModel> objectModels = new ArrayList<>(model.getObjectModels());
+            Collections.sort(objectModels, new Comparator<ObjectModel>() {
+                @Override
+                public int compare(ObjectModel o1, ObjectModel o2) {
+```
+
+### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/send/SendHandler.java`
 #### Snippet
@@ -9859,6 +9857,18 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/queue/PresenceSer
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+                cancelBootstrapTask();
+
+                schedExecutor.submit(new Runnable() {
+
+                    @Override
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/DefaultBootstrapHandler.java`
 #### Snippet
 ```java
@@ -9874,11 +9884,11 @@ Anonymous new Runnable() can be replaced with lambda
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/RegistrationHandler.java`
 #### Snippet
 ```java
-            LOG.debug("Deregistered client: {}", deregistration.getRegistration());
-            // Create callback to notify new de-registration
-            Runnable whenSent = new Runnable() {
-                @Override
-                public void run() {
+        // Create callback to notify new registration and de-registration
+        LOG.debug("New registration: {}", approvedRegistration);
+        Runnable whenSent = new Runnable() {
+            @Override
+            public void run() {
 ```
 
 ### Convert2Lambda
@@ -9898,11 +9908,23 @@ Anonymous new Runnable() can be replaced with lambda
 in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/RegistrationHandler.java`
 #### Snippet
 ```java
-        // Create callback to notify new registration and de-registration
-        LOG.debug("New registration: {}", approvedRegistration);
-        Runnable whenSent = new Runnable() {
-            @Override
-            public void run() {
+            LOG.debug("Deregistered client: {}", deregistration.getRegistration());
+            // Create callback to notify new de-registration
+            Runnable whenSent = new Runnable() {
+                @Override
+                public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/CoapAsyncRequestObserver.java`
+#### Snippet
+```java
+            if (cleaningTask == null) {
+                LOG.trace("Schedule Cleaning Task for {}", coapRequest);
+                cleaningTask = executor.schedule(new Runnable() {
+                    @Override
+                    public void run() {
 ```
 
 ### Convert2Lambda
@@ -9915,42 +9937,6 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/Regi
         Arrays.sort(res, new Comparator<Link>() {
 
             /* sort by path */
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHelper.java`
-#### Snippet
-```java
-        // sort object
-        List<LwM2mObjectEnabler> objEnablerList = new ArrayList<>(objectEnablers);
-        Collections.sort(objEnablerList, new Comparator<LwM2mObjectEnabler>() {
-            @Override
-            public int compare(LwM2mObjectEnabler o1, LwM2mObjectEnabler o2) {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BootstrapHandler.java`
-#### Snippet
-```java
-            }
-
-            Runnable whenSent = new Runnable() {
-                @Override
-                public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-                cancelBootstrapTask();
-
-                schedExecutor.submit(new Runnable() {
-
-                    @Override
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -10183,15 +10169,15 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/BaseInst
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `cursor`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+Assignment to method parameter `registrationID`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
 #### Snippet
 ```java
-                    }
-
-                    cursor = sr.getCursor();
-                } while (!"0".equals(cursor) && scanResult.isEmpty());
-
+            UpdateResponse response = sender.send(server, request, requestTimeoutInMs);
+            if (response == null) {
+                registrationID = null;
+                LOG.info("Registration update failed: Timeout.");
+                if (observer != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -10219,15 +10205,15 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultReg
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `registrationID`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+Assignment to method parameter `cursor`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
 #### Snippet
 ```java
-            UpdateResponse response = sender.send(server, request, requestTimeoutInMs);
-            if (response == null) {
-                registrationID = null;
-                LOG.info("Registration update failed: Timeout.");
-                if (observer != null) {
+                    }
+
+                    cursor = sr.getCursor();
+                } while (!"0".equals(cursor) && scanResult.isEmpty());
+
 ```
 
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
@@ -10258,190 +10244,10 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/Default
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/SyncRequestObserver.java`
-#### Snippet
-```java
-            return buildResponse(coapResponse);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/identity/DefaultCoapIdentityHandler.java`
-#### Snippet
-```java
-            return Identity.unsecure(peerAddress);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/oscore/cf/InMemoryOscoreContextDB.java`
-#### Snippet
-```java
-        } catch (OSException e) {
-            LOG.error("Unable to derive context from {}", oscoreParameters, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/LwM2mCoapResource.java`
-#### Snippet
-```java
-        } catch (RuntimeException e) {
-            LOG.error("Unable to extract identity", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/LwM2mCoapResource.java`
-#### Snippet
-```java
-            return identityHandler.getIdentity(receivedMessage);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ResourceModelSerDes.java`
-#### Snippet
-```java
-    public ResourceModel deserialize(JsonNode o) {
-        if (o == null)
-            return null;
-
-        if (!o.isObject())
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ResourceModelSerDes.java`
-#### Snippet
-```java
-
-        if (!o.isObject())
-            return null;
-
-        int id = o.get("id").asInt(-1);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ResourceModelSerDes.java`
-#### Snippet
-```java
-        int id = o.get("id").asInt(-1);
-        if (id < 0)
-            return null;
-
-        String name = o.get("name").asText();
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-            return lwm2mPaths;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
-#### Snippet
-```java
-            String serializedObservation) {
-        if (observation == null)
-            return null;
-
-        if (observation.getRequest().getCode() == CoAP.Code.GET) {
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ObjectModelSerDes.java`
-#### Snippet
-```java
-    public ObjectModel deserialize(JsonNode o) throws JsonException {
-        if (o == null)
-            return null;
-
-        if (!o.isObject())
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ObjectModelSerDes.java`
-#### Snippet
-```java
-
-        if (!o.isObject())
-            return null;
-
-        int id = o.get("id").asInt(-1);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ObjectModelSerDes.java`
-#### Snippet
-```java
-        int id = o.get("id").asInt(-1);
-        if (id < 0)
-            return null;
-
-        String name = o.get("name").asText();
-```
-
-### ReturnNull
-Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/ResponseCode.java`
 #### Snippet
 ```java
             }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/json/JsonArrayEntry.java`
-#### Snippet
-```java
-            return Type.STRING;
         }
         return null;
     }
@@ -10462,6 +10268,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/json/JsonArrayEntry.java`
 
 ### ReturnNull
 Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/json/JsonArrayEntry.java`
+#### Snippet
+```java
+            return Type.STRING;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/json/jackson/JsonRootObjectSerDes.java`
 #### Snippet
 ```java
@@ -10470,6 +10288,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/json/jackson/JsonRootObjec
             return null;
 
         JsonRootObject jro = new JsonRootObject();
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/LwM2m.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -10506,6 +10336,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/StringAttributeModel.java`
+#### Snippet
+```java
+            parser.raiseException(e, "%s value '%s' is not a valid in %s", getName(), strValue,
+                    parser.getStringToParse());
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -10570,18 +10412,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/Doub
 
 ### ReturnNull
 Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/StringAttributeModel.java`
-#### Snippet
-```java
-            parser.raiseException(e, "%s value '%s' is not a valid in %s", getName(), strValue,
-                    parser.getStringToParse());
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/DefaultLinkParser.java`
 #### Snippet
 ```java
@@ -10598,7 +10428,7 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/attributes/ValuelessA
 #### Snippet
 ```java
     @Override
-    public String getCoreLinkValue() {
+    public Object getValue() {
         return null;
     }
 
@@ -10610,7 +10440,7 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/attributes/ValuelessA
 #### Snippet
 ```java
     @Override
-    public Object getValue() {
+    public String getCoreLinkValue() {
         return null;
     }
 
@@ -10633,35 +10463,11 @@ Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
 #### Snippet
 ```java
-                return "'Short Server ID' attribute value must be between [1-65534]";
+                return "'Dimension' attribute value must be between [0-255]";
             }
             return null;
         };
 
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
-#### Snippet
-```java
-                return "'Server URI' attribute is only applicable to Security(ID:0)";
-            }
-            return null;
-        };
-    };
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        };
-    };
 ```
 
 ### ReturnNull
@@ -10717,7 +10523,19 @@ Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
 #### Snippet
 ```java
-                }
+                return "'Short Server ID' attribute value must be between [1-65534]";
+            }
+            return null;
+        };
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
+#### Snippet
+```java
+                return "'Server URI' attribute is only applicable to Security(ID:0)";
             }
             return null;
         };
@@ -10753,35 +10571,23 @@ Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
 #### Snippet
 ```java
-                return "'Dimension' attribute value must be between [0-255]";
+                }
             }
             return null;
         };
-
+    };
 ```
 
 ### ReturnNull
 Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/LwM2mAttributes.java`
 #### Snippet
 ```java
-            return String.format("Invalid object id %d, It MUST be an unsigned int.", id);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
-#### Snippet
-```java
-                    path.getResourceId(), path.getResourceInstanceId());
-        }
-        return null;
-    }
-
+                }
+            }
+            return null;
+        };
+    };
 ```
 
 ### ReturnNull
@@ -10790,6 +10596,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
 #### Snippet
 ```java
             return String.format("Instance id should be undefined(%d) but was %d", LwM2mObjectInstance.UNDEFINED, id);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
+#### Snippet
+```java
+            }
         }
         return null;
     }
@@ -10825,18 +10643,6 @@ Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
-#### Snippet
-```java
                     path.getObjectInstanceId(), path.getResourceId(), path.getResourceInstanceId());
         }
         return null;
@@ -10858,10 +10664,22 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/MixedLwM2mAttributeSet.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
 #### Snippet
 ```java
-            return (LwM2mAttribute<?>) attribute;
+                    path.getResourceId(), path.getResourceInstanceId());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mNodeUtil.java`
+#### Snippet
+```java
+            return String.format("Invalid object id %d, It MUST be an unsigned int.", id);
         }
         return null;
     }
@@ -10874,6 +10692,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/Mixe
 #### Snippet
 ```java
             }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/link/lwm2m/attributes/MixedLwM2mAttributeSet.java`
+#### Snippet
+```java
+            return (LwM2mAttribute<?>) attribute;
         }
         return null;
     }
@@ -10909,11 +10739,11 @@ Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/cbor/LwM2mNodeCborDecoder.java`
 #### Snippet
 ```java
+        try {
+            if (cborObject.isNull())
+                return null;
 
-        if (content == null)
-            return null;
-
-        // Parse CBOR
+            switch (type) {
 ```
 
 ### ReturnNull
@@ -10921,11 +10751,11 @@ Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/cbor/LwM2mNodeCborDecoder.java`
 #### Snippet
 ```java
-        try {
-            if (cborObject.isNull())
-                return null;
 
-            switch (type) {
+        if (content == null)
+            return null;
+
+        // Parse CBOR
 ```
 
 ### ReturnNull
@@ -10959,6 +10789,30 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/node/LwM2mMultipleResource
 ```java
         if (resourceInstance != null)
             return resourceInstance.getValue();
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
+#### Snippet
+```java
+            List<TimestampedLwM2mNode> timestampedNodes = parseJSON(json, path, model, nodeClass);
+            if (timestampedNodes.size() == 0) {
+                return null;
+            } else {
+                // return the most recent value
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -11002,30 +10856,6 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/StringUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/util/X509CertUtil.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/node/codec/json/LwM2mNodeJsonDecoder.java`
-#### Snippet
-```java
-            List<TimestampedLwM2mNode> timestampedNodes = parseJSON(json, path, model, nodeClass);
-            if (timestampedNodes.size() == 0) {
-                return null;
-            } else {
-                // return the most recent value
-```
-
-### ReturnNull
-Return of `null`
 in `leshan-core/src/main/java/org/eclipse/leshan/core/model/StaticModel.java`
 #### Snippet
 ```java
@@ -11038,14 +10868,14 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/model/StaticModel.java`
 
 ### ReturnNull
 Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/model/LwM2mModelRepository.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/oscore/AeadAlgorithm.java`
 #### Snippet
 ```java
-                ObjectModel objectModel = getObjectModel(objectId);
-                if (objectModel == null)
-                    return null;
+                return alg;
+        }
+        return null;
+    }
 
-                return objectModel.resources.get(resourceId);
 ```
 
 ### ReturnNull
@@ -11062,14 +10892,14 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/model/LwM2mModelRepository
 
 ### ReturnNull
 Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/core/oscore/AeadAlgorithm.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/core/model/LwM2mModelRepository.java`
 #### Snippet
 ```java
-                return alg;
-        }
-        return null;
-    }
+                ObjectModel objectModel = getObjectModel(objectId);
+                if (objectModel == null)
+                    return null;
 
+                return objectModel.resources.get(resourceId);
 ```
 
 ### ReturnNull
@@ -11242,14 +11072,14 @@ in `leshan-core/src/main/java/org/eclipse/leshan/senml/cbor/upokecenter/SenMLCbo
 
 ### ReturnNull
 Return of `null`
-in `leshan-core/src/main/java/org/eclipse/leshan/senml/json/jackson/SenMLJsonJacksonEncoderDecoder.java`
+in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/LeshanProperties.java`
 #### Snippet
 ```java
-    public byte[] toSenML(SenMLPack pack) throws SenMLException {
-        if (pack == null)
+        String timestamp = prop.getProperty(TIMESTAMP);
+        if (!hasRealValue(timestamp)) {
             return null;
-        try {
-            return serDes.bSerialize(pack.getRecords());
+        } else {
+            return Long.parseLong(timestamp);
 ```
 
 ### ReturnNull
@@ -11266,26 +11096,14 @@ in `leshan-core/src/main/java/org/eclipse/leshan/senml/json/jackson/SenMLJsonRec
 
 ### ReturnNull
 Return of `null`
-in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/RandomTemperatureSensor.java`
+in `leshan-core/src/main/java/org/eclipse/leshan/senml/json/jackson/SenMLJsonJacksonEncoderDecoder.java`
 #### Snippet
 ```java
-            return MIN_MEASURED_VALUE;
-        } else {
+    public byte[] toSenML(SenMLPack pack) throws SenMLException {
+        if (pack == null)
             return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/LeshanProperties.java`
-#### Snippet
-```java
-        String timestamp = prop.getProperty(TIMESTAMP);
-        if (!hasRealValue(timestamp)) {
-            return null;
-        } else {
-            return Long.parseLong(timestamp);
+        try {
+            return serDes.bSerialize(pack.getRecords());
 ```
 
 ### ReturnNull
@@ -11314,650 +11132,14 @@ in `leshan-core-demo/src/main/java/org/eclipse/leshan/core/demo/cli/converters/C
 
 ### ReturnNull
 Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/model/VersionedModelProvider.java`
+in `leshan-client-demo/src/main/java/org/eclipse/leshan/client/demo/RandomTemperatureSensor.java`
 #### Snippet
 ```java
-                return objectModel.resources.get(resourceId);
-            else
-                return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/model/VersionedModelProvider.java`
-#### Snippet
-```java
-                return repository.getObjectModel(objectId, version);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/security/BootstrapSecurityStoreAdapter.java`
-#### Snippet
-```java
-        SecurityInfo securityInfo = store.getByEndpoint(endpoint);
-        if (securityInfo == null)
-            return null;
-        return Arrays.asList(securityInfo).iterator();
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/model/VersionedBootstrapModelProvider.java`
-#### Snippet
-```java
-                return repository.getObjectModel(objectId, version);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/model/VersionedBootstrapModelProvider.java`
-#### Snippet
-```java
-                return objectModel.resources.get(resourceId);
-            else
-                return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfigStoreTaskProvider.java`
-#### Snippet
-```java
-        BootstrapConfig config = store.get(session.getEndpoint(), session.getIdentity(), session);
-        if (config == null)
-            return null;
-
-        if (previousResponse == null && shouldStartWithDiscover(config)) {
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfigStoreTaskProvider.java`
-#### Snippet
-```java
-                            "Bootstrap Discover return error {} : unable to continue bootstrap session with autoIdForSecurityObject mode. {}",
-                            response, session);
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfigStoreTaskProvider.java`
-#### Snippet
-```java
-                            "Unable to find bootstrap server instance in Security Object (0) in response {}: unable to continue bootstrap session with autoIdForSecurityObject mode. {}",
-                            response, session);
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfigStoreTaskProvider.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/InMemoryBootstrapConfigStore.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/LeshanBootstrapServer.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/ConfigurationChecker.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/LeshanServer.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/LwM2mClientCoapResource.java`
-#### Snippet
-```java
-        Identity foreignPeerIdentity = getForeignPeerIdentity(exchange, receivedMessage);
-        if (foreignPeerIdentity == null)
-            return null;
-        return serverIdentityExtractor.extractIdentity(exchange, foreignPeerIdentity);
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/LwM2mClientCoapResource.java`
-#### Snippet
-```java
-
-        exchange.respond(ResponseCode.INTERNAL_SERVER_ERROR, "unknown server");
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
-#### Snippet
-```java
-                return observation;
-            }
-            return null;
-        } finally {
-            lock.writeLock().unlock();
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
-#### Snippet
-```java
-                return new Deregistration(registration, observationsRemoved);
-            }
-            return null;
-        } finally {
-            lock.writeLock().unlock();
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
-#### Snippet
-```java
-            lock.writeLock().unlock();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
-#### Snippet
-```java
-                return observation;
-            }
-            return null;
-        } finally {
-            lock.readLock().unlock();
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
-#### Snippet
-```java
-                return observation;
-            }
-            return null;
-        } finally {
-            lock.readLock().unlock();
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
-#### Snippet
-```java
-            Registration registration = getRegistration(update.getRegistrationId());
-            if (registration == null) {
-                return null;
-            } else {
-                Registration updatedRegistration = update.update(registration);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPskStore.java`
-#### Snippet
-```java
-    public PskPublicInformation getIdentity(InetSocketAddress peerAddress, ServerNames virtualHost) {
-        if (registrationStore == null)
-            return null;
-
-        Registration registration = registrationStore.getRegistrationByAdress(peerAddress);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPskStore.java`
-#### Snippet
-```java
-                return new PskPublicInformation(securityInfo.getPskIdentity());
-            }
-            return null;
-        }
-        return null;
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPskStore.java`
-#### Snippet
-```java
-            return null;
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPskStore.java`
-#### Snippet
-```java
-            boolean useExtendedMasterSecret) {
-        if (securityStore == null)
-            return null;
-
-        SecurityInfo info = securityStore.getByIdentity(identity.getPublicInfoAsString());
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapOscoreClientEndpointFactory.java`
-#### Snippet
-```java
-                    return Identity.unsecure(peerAddress);
-                } else {
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mOscoreStore.java`
-#### Snippet
-```java
-        } catch (URISyntaxException | SecurityException | IllegalArgumentException e) {
-            LOG.error("Unable to extract InetScocketAddress from uri %s", uri, e);
-            return null;
-        }
-        return null;
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mOscoreStore.java`
-#### Snippet
-```java
-            return null;
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mOscoreStore.java`
-#### Snippet
-```java
-        SecurityInfo securityInfo = securityStore.getByOscoreIdentity(oscoreIdentity);
-        if (securityInfo == null || !securityInfo.useOSCORE())
-            return null;
-
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mOscoreStore.java`
-#### Snippet
-```java
-        } catch (CoseException e) {
-            LOG.error("Unable to create OscoreParameters from OoscoreSetting %s", securityInfo.getOscoreSetting(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-            return endpoint;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-            boolean clientInitiatedOnly, List<Certificate> trustStore, ClientEndpointToolbox toolbox) {
-        // TODO TL : need to be implemented or removed ?
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-                    if (endpoint.getProtocol().equals(Protocol.COAP) && !currentServer.getIdentity().getPeerAddress()
-                            .equals(foreignPeerIdentity.getPeerAddress())) {
-                        return null;
-                    }
-                    // For OSCORE, be sure OSCORE is used.
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-                                || !foreignPeerIdentity.getOscoreIdentity()
-                                        .equals(currentServer.getIdentity().getOscoreIdentity())) {
-                            return null;
-                        }
-                    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-                    return currentServer;
-                }
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpointsProvider.java`
-#### Snippet
-```java
-                return endpoint;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coap/CoapOscoreServerEndpointFactory.java`
-#### Snippet
-```java
-                    return Identity.unsecure(peerAddress);
-                } else {
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/LwM2mBootstrapOscoreStore.java`
-#### Snippet
-```java
-        SecurityInfo securityInfo = securityStore.getByOscoreIdentity(oscoreIdentity);
-        if (securityInfo == null || !securityInfo.useOSCORE())
-            return null;
-
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/LwM2mBootstrapOscoreStore.java`
-#### Snippet
-```java
-        } catch (CoseException e) {
-            LOG.error("Unable to create OscoreParameters from OoscoreSetting %s", securityInfo.getOscoreSetting(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/LwM2mBootstrapOscoreStore.java`
-#### Snippet
-```java
-        } catch (URISyntaxException | SecurityException | IllegalArgumentException e) {
-            LOG.error("Unable to extract InetScocketAddress from uri %s", uri, e);
-            return null;
-        }
-        return null;
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/LwM2mBootstrapOscoreStore.java`
-#### Snippet
-```java
-            return null;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
-#### Snippet
-```java
-                                    senderIdentity.getClass(), senderIdentity.toString()));
-                }
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
-#### Snippet
-```java
-        // we do no create coaps endpoint if server does have security store
-        if (server.getSecurityStore() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
-#### Snippet
-```java
-        } catch (IllegalStateException e) {
-            LOG.warn("Unable to create DTLS config for endpont {}.", endpointUri.toString(), e);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
-#### Snippet
-```java
-                                    senderIdentity.getClass(), senderIdentity.toString()));
-                }
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
-#### Snippet
-```java
-        // we can not create CoAPs endpoint if server is not secure data.
-        if (!serverInfo.isSecure()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
-#### Snippet
-```java
-        } catch (IllegalStateException e) {
-            LOG.warn("Unable to create DTLS config to create endpont to connect to {}.", serverInfo.getFullUri(), e);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
-#### Snippet
-```java
-            return effectiveBuilder;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/Registration.java`
-#### Snippet
-```java
-        // sort the list of objects
-        if (objectLinks == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observation/LwM2mObservationStore.java`
-#### Snippet
-```java
-                .getObservation(new ObservationIdentifier(token.getBytes()));
-        if (observation == null) {
-            return null;
+            return MIN_MEASURED_VALUE;
         } else {
-            return buildCoapObservation(observation);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observation/LwM2mObservationStore.java`
-#### Snippet
-```java
-        String serializedObservation = ObserveUtil.extractSerializedObservation(observation);
-        if (serializedObservation == null)
             return null;
-
-        return observationSerDes.deserialize(serializedObservation);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coap/CoapOscoreBootstrapServerEndpointFactory.java`
-#### Snippet
-```java
-                    return Identity.unsecure(peerAddress);
-                } else {
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpointsProvider.java`
-#### Snippet
-```java
-                return endpoint;
         }
-        return null;
     }
-
 ```
 
 ### ReturnNull
@@ -11986,109 +11168,13 @@ in `leshan-bsserver-demo/src/main/java/org/eclipse/leshan/server/bootstrap/demo/
 
 ### ReturnNull
 Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
 #### Snippet
 ```java
-                                    senderIdentity.getClass(), senderIdentity.toString()));
-                }
-                return null;
+                        random.nextInt(ObjectLink.MAXID - 1), random.nextInt(ObjectLink.MAXID - 1));
             }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
-#### Snippet
-```java
-        // we do no create coaps endpoint if server does have security store
-        if (server.getSecurityStore() == null) {
-            return null;
+            return null; // should not happened
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
-#### Snippet
-```java
-        } catch (IllegalStateException e) {
-            LOG.warn("Unable to create DTLS config for endpont {}.", endpointUri.toString(), e);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-core-demo/src/main/java/org/eclipse/leshan/server/core/demo/json/JacksonSecurityDeserializer.java`
-#### Snippet
-```java
-            return SecurityInfo.newOscoreInfo(endpoint, new OscoreSetting(sid, rid, msec, 10, -10, null));
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
-#### Snippet
-```java
-            String ep = j.hget(PSKID_SEC, identity);
-            if (ep == null) {
-                return null;
-            } else {
-                byte[] data = j.get((SEC_EP + ep).getBytes());
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
-#### Snippet
-```java
-                byte[] data = j.get((SEC_EP + ep).getBytes());
-                if (data == null) {
-                    return null;
-                } else {
-                    return deserialize(data);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
-#### Snippet
-```java
-            byte[] data = j.get((SEC_EP + endpoint).getBytes());
-            if (data == null) {
-                return null;
-            } else {
-                return deserialize(data);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
-#### Snippet
-```java
-    public SecurityInfo getByOscoreIdentity(OscoreIdentity pskIdentity) {
-        // TODO OSCORE to be implemented
-        return null;
-    }
 
 ```
 
@@ -12118,18 +11204,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/util/LinkFormatHe
 
 ### ReturnNull
 Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/object/LwM2mTestObject.java`
-#### Snippet
-```java
-                        random.nextInt(ObjectLink.MAXID - 1), random.nextInt(ObjectLink.MAXID - 1));
-            }
-            return null; // should not happened
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServerIdentity.java`
 #### Snippet
 ```java
@@ -12150,258 +11224,6 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/endpoint/DefaultE
             return null;
         else {
             // TODO support multi server
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-            byte[] ep = j.get(toRegIdKey(registrationId));
-            if (ep == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-                    return observation;
-                }
-                return null;
-
-            } finally {
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-        byte[] obs = j.get(toKey(OBS_TKN, observationId.getBytes()));
-        if (obs == null) {
-            return null;
-        } else {
-            return deserializeObs(obs);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-                return observation;
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-                }
-
-                return null;
-            } finally {
-                lock.release(j, lockKey, lockValue);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-        byte[] ep = j.get(toRegIdKey(registrationId));
-        if (ep == null) {
-            return null;
-        }
-        byte[] data = j.get(toEndpointKey(ep));
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-        byte[] data = j.get(toEndpointKey(ep));
-        if (data == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-            byte[] ep = j.get(toRegIdentityKey(identity));
-            if (ep == null) {
-                return null;
-            }
-            byte[] data = j.get(toEndpointKey(ep));
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-            byte[] data = j.get(toEndpointKey(ep));
-            if (data == null) {
-                return null;
-            }
-            return deserializeReg(data);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-            byte[] ep = j.get(toRegIdKey(update.getRegistrationId()));
-            if (ep == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-                byte[] data = j.get(toEndpointKey(ep));
-                if (data == null) {
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-        byte[] ep = j.get(toRegIdKey(registrationId));
-        if (ep == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-            byte[] data = j.get(toEndpointKey(ep));
-            if (data == null) {
-                return null;
-            }
-            Registration r = deserializeReg(data);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        } finally {
-            lock.release(j, lockKey, lockValue);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-            byte[] ep = j.get(toRegAddrKey(address));
-            if (ep == null) {
-                return null;
-            }
-            byte[] data = j.get(toEndpointKey(ep));
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-            byte[] data = j.get(toEndpointKey(ep));
-            if (data == null) {
-                return null;
-            }
-            return deserializeReg(data);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
-#### Snippet
-```java
-            byte[] data = j.get(toEndpointKey(endpoint));
-            if (data == null) {
-                return null;
-            }
-            return deserializeReg(data);
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/LwM2mObjectTree.java`
-#### Snippet
-```java
-                if (objectModel != null)
-                    return objectModel.resources.get(resourceId);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/LwM2mObjectTree.java`
-#### Snippet
-```java
-                if (objectEnabler != null)
-                    return objectEnabler.getObjectModel();
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
-#### Snippet
-```java
-            Object initialValue = initialValues.get(resourceModel.id);
-            if (initialValue == null)
-                return null;
-            return LwM2mSingleResource.newResource(resourceModel.id, initialValue, resourceModel.type);
-        } else {
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
-#### Snippet
-```java
-            default:
-                // this should not happened
-                return null;
-            }
-        }
 ```
 
 ### ReturnNull
@@ -12430,6 +11252,54 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleIn
 
 ### ReturnNull
 Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
+#### Snippet
+```java
+            Object initialValue = initialValues.get(resourceModel.id);
+            if (initialValue == null)
+                return null;
+            return LwM2mSingleResource.newResource(resourceModel.id, initialValue, resourceModel.type);
+        } else {
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/SimpleInstanceEnabler.java`
+#### Snippet
+```java
+            default:
+                // this should not happened
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/LwM2mObjectTree.java`
+#### Snippet
+```java
+                if (objectEnabler != null)
+                    return objectEnabler.getObjectModel();
+                return null;
+            }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/LwM2mObjectTree.java`
+#### Snippet
+```java
+                if (objectModel != null)
+                    return objectModel.resources.get(resourceId);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/DummyInstanceEnabler.java`
 #### Snippet
 ```java
@@ -12442,14 +11312,14 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/DummyIns
 
 ### ReturnNull
 Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+in `leshan-server-core-demo/src/main/java/org/eclipse/leshan/server/core/demo/json/JacksonSecurityDeserializer.java`
 #### Snippet
 ```java
-        ServersInfo info = getInfo(objectEnablers);
-        if (info == null)
-            return null;
-
-        return info.deviceManagements.get(shortID);
+            return SecurityInfo.newOscoreInfo(endpoint, new OscoreSetting(sid, rid, msec, 10, -10, null));
+        }
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -12469,47 +11339,59 @@ Return of `null`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
 #### Snippet
 ```java
+
+        if (securityEnabler == null || serverEnabler == null)
+            return null;
+
+        ServersInfo infos = new ServersInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
+        LwM2mResource resource = oscoreInstance.getResource(OSCORE_MASTER_SALT);
+        if (resource == null)
+            return null;
+
+        byte[] value = (byte[]) resource.getValue();
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
+        byte[] value = (byte[]) resource.getValue();
+        if (value.length == 0) {
+            return null;
+        } else {
+            return value;
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
+            return (Boolean) ((LwM2mResource) response.getContent()).getValue();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
             }
         }
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
-#### Snippet
-```java
-            return (String) ((LwM2mResource) response.getContent()).getValue();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
-#### Snippet
-```java
-            return BindingMode.parse((String) ((LwM2mResource) response.getContent()).getValue());
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
-#### Snippet
-```java
-            return (Long) ((LwM2mResource) response.getContent()).getValue();
-        } else {
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -12553,6 +11435,18 @@ Return of `null`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
 #### Snippet
 ```java
+            return (Long) ((LwM2mResource) response.getContent()).getValue();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
             return BindingMode.parse((String) ((LwM2mResource) response.getContent()).getValue());
         } else {
             return null;
@@ -12565,7 +11459,7 @@ Return of `null`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
 #### Snippet
 ```java
-            return (Boolean) ((LwM2mResource) response.getContent()).getValue();
+            return (String) ((LwM2mResource) response.getContent()).getValue();
         } else {
             return null;
         }
@@ -12577,35 +11471,95 @@ Return of `null`
 in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
 #### Snippet
 ```java
-
-        if (securityEnabler == null || serverEnabler == null)
-            return null;
-
-        ServersInfo infos = new ServersInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
-#### Snippet
-```java
-        LwM2mResource resource = oscoreInstance.getResource(OSCORE_MASTER_SALT);
-        if (resource == null)
-            return null;
-
-        byte[] value = (byte[]) resource.getValue();
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
-#### Snippet
-```java
-        byte[] value = (byte[]) resource.getValue();
-        if (value.length == 0) {
-            return null;
+            return BindingMode.parse((String) ((LwM2mResource) response.getContent()).getValue());
         } else {
-            return value;
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/servers/ServersInfoExtractor.java`
+#### Snippet
+```java
+        ServersInfo info = getInfo(objectEnablers);
+        if (info == null)
+            return null;
+
+        return info.deviceManagements.get(shortID);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ResourceModelSerDes.java`
+#### Snippet
+```java
+    public ResourceModel deserialize(JsonNode o) {
+        if (o == null)
+            return null;
+
+        if (!o.isObject())
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ResourceModelSerDes.java`
+#### Snippet
+```java
+
+        if (!o.isObject())
+            return null;
+
+        int id = o.get("id").asInt(-1);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ResourceModelSerDes.java`
+#### Snippet
+```java
+        int id = o.get("id").asInt(-1);
+        if (id < 0)
+            return null;
+
+        String name = o.get("name").asText();
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ObjectModelSerDes.java`
+#### Snippet
+```java
+    public ObjectModel deserialize(JsonNode o) throws JsonException {
+        if (o == null)
+            return null;
+
+        if (!o.isObject())
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ObjectModelSerDes.java`
+#### Snippet
+```java
+
+        if (!o.isObject())
+            return null;
+
+        int id = o.get("id").asInt(-1);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-demo/src/main/java/org/eclipse/leshan/server/demo/model/ObjectModelSerDes.java`
+#### Snippet
+```java
+        int id = o.get("id").asInt(-1);
+        if (id < 0)
+            return null;
+
+        String name = o.get("name").asText();
 ```
 
 ### ReturnNull
@@ -12622,62 +11576,62 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/bootstrap/BaseBoo
 
 ### ReturnNull
 Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/model/VersionedModelProvider.java`
 #### Snippet
 ```java
-    public String getRegistrationId(ServerIdentity server) {
-        if (server == null)
+                return repository.getObjectModel(objectId, version);
+            }
             return null;
-        for (Entry<String, ServerIdentity> entry : registeredServers.entrySet()) {
-            if (server.equals(entry.getValue())) {
+        }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/model/VersionedModelProvider.java`
 #### Snippet
 ```java
+                return objectModel.resources.get(resourceId);
+            else
+                return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/model/VersionedBootstrapModelProvider.java`
+#### Snippet
+```java
+                return objectModel.resources.get(resourceId);
+            else
+                return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/model/VersionedBootstrapModelProvider.java`
+#### Snippet
+```java
+                return repository.getObjectModel(objectId, version);
             }
+            return null;
         }
-        return null;
-    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/security/BootstrapSecurityStoreAdapter.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
+        SecurityInfo securityInfo = store.getByEndpoint(endpoint);
+        if (securityInfo == null)
+            return null;
+        return Arrays.asList(securityInfo).iterator();
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-            return endpointsManager.createEndpoint(serverInfo, isClientInitiatedOnly());
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -12764,6 +11718,1038 @@ in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultReg
     }
 ```
 
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+            return endpointsManager.createEndpoint(serverInfo, isClientInitiatedOnly());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+    public String getRegistrationId(ServerIdentity server) {
+        if (server == null)
+            return null;
+        for (Entry<String, ServerIdentity> entry : registeredServers.entrySet()) {
+            if (server.equals(entry.getValue())) {
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/engine/DefaultRegistrationEngine.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfigStoreTaskProvider.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfigStoreTaskProvider.java`
+#### Snippet
+```java
+        BootstrapConfig config = store.get(session.getEndpoint(), session.getIdentity(), session);
+        if (config == null)
+            return null;
+
+        if (previousResponse == null && shouldStartWithDiscover(config)) {
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfigStoreTaskProvider.java`
+#### Snippet
+```java
+                            "Bootstrap Discover return error {} : unable to continue bootstrap session with autoIdForSecurityObject mode. {}",
+                            response, session);
+                    return null;
+                }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/BootstrapConfigStoreTaskProvider.java`
+#### Snippet
+```java
+                            "Unable to find bootstrap server instance in Security Object (0) in response {}: unable to continue bootstrap session with autoIdForSecurityObject mode. {}",
+                            response, session);
+                    return null;
+                }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/InMemoryBootstrapConfigStore.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/LeshanBootstrapServer.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/bootstrap/ConfigurationChecker.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/LeshanServer.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/SyncRequestObserver.java`
+#### Snippet
+```java
+            return buildResponse(coapResponse);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/LwM2mCoapResource.java`
+#### Snippet
+```java
+        } catch (RuntimeException e) {
+            LOG.error("Unable to extract identity", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/LwM2mCoapResource.java`
+#### Snippet
+```java
+            return identityHandler.getIdentity(receivedMessage);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
+#### Snippet
+```java
+            lock.writeLock().unlock();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
+#### Snippet
+```java
+                return new Deregistration(registration, observationsRemoved);
+            }
+            return null;
+        } finally {
+            lock.writeLock().unlock();
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
+#### Snippet
+```java
+            Registration registration = getRegistration(update.getRegistrationId());
+            if (registration == null) {
+                return null;
+            } else {
+                Registration updatedRegistration = update.update(registration);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
+#### Snippet
+```java
+                return observation;
+            }
+            return null;
+        } finally {
+            lock.readLock().unlock();
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
+#### Snippet
+```java
+                return observation;
+            }
+            return null;
+        } finally {
+            lock.writeLock().unlock();
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMemoryRegistrationStore.java`
+#### Snippet
+```java
+                return observation;
+            }
+            return null;
+        } finally {
+            lock.readLock().unlock();
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/identity/DefaultCoapIdentityHandler.java`
+#### Snippet
+```java
+            return Identity.unsecure(peerAddress);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/oscore/cf/InMemoryOscoreContextDB.java`
+#### Snippet
+```java
+        } catch (OSException e) {
+            LOG.error("Unable to derive context from {}", oscoreParameters, e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPskStore.java`
+#### Snippet
+```java
+            boolean useExtendedMasterSecret) {
+        if (securityStore == null)
+            return null;
+
+        SecurityInfo info = securityStore.getByIdentity(identity.getPublicInfoAsString());
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPskStore.java`
+#### Snippet
+```java
+    public PskPublicInformation getIdentity(InetSocketAddress peerAddress, ServerNames virtualHost) {
+        if (registrationStore == null)
+            return null;
+
+        Registration registration = registrationStore.getRegistrationByAdress(peerAddress);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPskStore.java`
+#### Snippet
+```java
+                return new PskPublicInformation(securityInfo.getPskIdentity());
+            }
+            return null;
+        }
+        return null;
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mPskStore.java`
+#### Snippet
+```java
+            return null;
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mOscoreStore.java`
+#### Snippet
+```java
+        } catch (URISyntaxException | SecurityException | IllegalArgumentException e) {
+            LOG.error("Unable to extract InetScocketAddress from uri %s", uri, e);
+            return null;
+        }
+        return null;
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mOscoreStore.java`
+#### Snippet
+```java
+            return null;
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mOscoreStore.java`
+#### Snippet
+```java
+        SecurityInfo securityInfo = securityStore.getByOscoreIdentity(oscoreIdentity);
+        if (securityInfo == null || !securityInfo.useOSCORE())
+            return null;
+
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/LwM2mOscoreStore.java`
+#### Snippet
+```java
+        } catch (CoseException e) {
+            LOG.error("Unable to create OscoreParameters from OoscoreSetting %s", securityInfo.getOscoreSetting(), e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+            String serializedObservation) {
+        if (observation == null)
+            return null;
+
+        if (observation.getRequest().getCode() == CoAP.Code.GET) {
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-core-cf/src/main/java/org/eclipse/leshan/core/californium/ObserveUtil.java`
+#### Snippet
+```java
+            return lwm2mPaths;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coap/CoapOscoreServerEndpointFactory.java`
+#### Snippet
+```java
+                    return Identity.unsecure(peerAddress);
+                } else {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/CaliforniumServerEndpointsProvider.java`
+#### Snippet
+```java
+                return endpoint;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/LwM2mBootstrapOscoreStore.java`
+#### Snippet
+```java
+        } catch (URISyntaxException | SecurityException | IllegalArgumentException e) {
+            LOG.error("Unable to extract InetScocketAddress from uri %s", uri, e);
+            return null;
+        }
+        return null;
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/LwM2mBootstrapOscoreStore.java`
+#### Snippet
+```java
+            return null;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/LwM2mBootstrapOscoreStore.java`
+#### Snippet
+```java
+        SecurityInfo securityInfo = securityStore.getByOscoreIdentity(oscoreIdentity);
+        if (securityInfo == null || !securityInfo.useOSCORE())
+            return null;
+
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/LwM2mBootstrapOscoreStore.java`
+#### Snippet
+```java
+        } catch (CoseException e) {
+            LOG.error("Unable to create OscoreParameters from OoscoreSetting %s", securityInfo.getOscoreSetting(), e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
+#### Snippet
+```java
+                                    senderIdentity.getClass(), senderIdentity.toString()));
+                }
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
+#### Snippet
+```java
+        // we do no create coaps endpoint if server does have security store
+        if (server.getSecurityStore() == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/endpoint/coaps/CoapsServerEndpointFactory.java`
+#### Snippet
+```java
+        } catch (IllegalStateException e) {
+            LOG.warn("Unable to create DTLS config for endpont {}.", endpointUri.toString(), e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coap/CoapOscoreBootstrapServerEndpointFactory.java`
+#### Snippet
+```java
+                    return Identity.unsecure(peerAddress);
+                } else {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observation/LwM2mObservationStore.java`
+#### Snippet
+```java
+                .getObservation(new ObservationIdentifier(token.getBytes()));
+        if (observation == null) {
+            return null;
+        } else {
+            return buildCoapObservation(observation);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/observation/LwM2mObservationStore.java`
+#### Snippet
+```java
+        String serializedObservation = ObserveUtil.extractSerializedObservation(observation);
+        if (serializedObservation == null)
+            return null;
+
+        return observationSerDes.deserialize(serializedObservation);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/CaliforniumBootstrapServerEndpointsProvider.java`
+#### Snippet
+```java
+                return endpoint;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
+#### Snippet
+```java
+                                    senderIdentity.getClass(), senderIdentity.toString()));
+                }
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
+#### Snippet
+```java
+        // we do no create coaps endpoint if server does have security store
+        if (server.getSecurityStore() == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
+#### Snippet
+```java
+        } catch (IllegalStateException e) {
+            LOG.warn("Unable to create DTLS config for endpont {}.", endpointUri.toString(), e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/LwM2mClientCoapResource.java`
+#### Snippet
+```java
+        Identity foreignPeerIdentity = getForeignPeerIdentity(exchange, receivedMessage);
+        if (foreignPeerIdentity == null)
+            return null;
+        return serverIdentityExtractor.extractIdentity(exchange, foreignPeerIdentity);
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/LwM2mClientCoapResource.java`
+#### Snippet
+```java
+
+        exchange.respond(ResponseCode.INTERNAL_SERVER_ERROR, "unknown server");
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/Registration.java`
+#### Snippet
+```java
+        // sort the list of objects
+        if (objectLinks == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coap/CoapOscoreClientEndpointFactory.java`
+#### Snippet
+```java
+                    return Identity.unsecure(peerAddress);
+                } else {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+            boolean clientInitiatedOnly, List<Certificate> trustStore, ClientEndpointToolbox toolbox) {
+        // TODO TL : need to be implemented or removed ?
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+            return endpoint;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+                    if (endpoint.getProtocol().equals(Protocol.COAP) && !currentServer.getIdentity().getPeerAddress()
+                            .equals(foreignPeerIdentity.getPeerAddress())) {
+                        return null;
+                    }
+                    // For OSCORE, be sure OSCORE is used.
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+                                || !foreignPeerIdentity.getOscoreIdentity()
+                                        .equals(currentServer.getIdentity().getOscoreIdentity())) {
+                            return null;
+                        }
+                    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpointsProvider.java`
+#### Snippet
+```java
+                    return currentServer;
+                }
+                return null;
+            }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
+#### Snippet
+```java
+    public SecurityInfo getByOscoreIdentity(OscoreIdentity pskIdentity) {
+        // TODO OSCORE to be implemented
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
+#### Snippet
+```java
+            byte[] data = j.get((SEC_EP + endpoint).getBytes());
+            if (data == null) {
+                return null;
+            } else {
+                return deserialize(data);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
+#### Snippet
+```java
+            String ep = j.hget(PSKID_SEC, identity);
+            if (ep == null) {
+                return null;
+            } else {
+                byte[] data = j.get((SEC_EP + ep).getBytes());
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisSecurityStore.java`
+#### Snippet
+```java
+                byte[] data = j.get((SEC_EP + ep).getBytes());
+                if (data == null) {
+                    return null;
+                } else {
+                    return deserialize(data);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
+#### Snippet
+```java
+            return effectiveBuilder;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
+#### Snippet
+```java
+                                    senderIdentity.getClass(), senderIdentity.toString()));
+                }
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
+#### Snippet
+```java
+        // we can not create CoAPs endpoint if server is not secure data.
+        if (!serverInfo.isSecure()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/coaps/CoapsClientEndpointFactory.java`
+#### Snippet
+```java
+        } catch (IllegalStateException e) {
+            LOG.warn("Unable to create DTLS config to create endpont to connect to {}.", serverInfo.getFullUri(), e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+                return observation;
+            }
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+        byte[] ep = j.get(toRegIdKey(registrationId));
+        if (ep == null) {
+            return null;
+        }
+        byte[] data = j.get(toEndpointKey(ep));
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+        byte[] data = j.get(toEndpointKey(ep));
+        if (data == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+        byte[] ep = j.get(toRegIdKey(registrationId));
+        if (ep == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+            byte[] data = j.get(toEndpointKey(ep));
+            if (data == null) {
+                return null;
+            }
+            Registration r = deserializeReg(data);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        } finally {
+            lock.release(j, lockKey, lockValue);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+        byte[] obs = j.get(toKey(OBS_TKN, observationId.getBytes()));
+        if (obs == null) {
+            return null;
+        } else {
+            return deserializeObs(obs);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+            byte[] ep = j.get(toRegIdentityKey(identity));
+            if (ep == null) {
+                return null;
+            }
+            byte[] data = j.get(toEndpointKey(ep));
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+            byte[] data = j.get(toEndpointKey(ep));
+            if (data == null) {
+                return null;
+            }
+            return deserializeReg(data);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+            byte[] ep = j.get(toRegIdKey(update.getRegistrationId()));
+            if (ep == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+                byte[] data = j.get(toEndpointKey(ep));
+                if (data == null) {
+                    return null;
+                }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+                }
+
+                return null;
+            } finally {
+                lock.release(j, lockKey, lockValue);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+            byte[] ep = j.get(toRegAddrKey(address));
+            if (ep == null) {
+                return null;
+            }
+            byte[] data = j.get(toEndpointKey(ep));
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+            byte[] data = j.get(toEndpointKey(ep));
+            if (data == null) {
+                return null;
+            }
+            return deserializeReg(data);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+            byte[] data = j.get(toEndpointKey(endpoint));
+            if (data == null) {
+                return null;
+            }
+            return deserializeReg(data);
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+            byte[] ep = j.get(toRegIdKey(registrationId));
+            if (ep == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisRegistrationStore.java`
+#### Snippet
+```java
+                    return observation;
+                }
+                return null;
+
+            } finally {
+```
+
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `valueUnescaped` is redundant
@@ -12787,6 +12773,18 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/link/attributes/ResourceTy
             String relationType = parser.substring(start, end);
             return relationType;
         }
+```
+
+### UnnecessaryLocalVariable
+Local variable `factory` is redundant
+in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectsInitializer.java`
+#### Snippet
+```java
+
+    protected LwM2mInstanceEnablerFactory getClassFactory(final Class<? extends LwM2mInstanceEnabler> clazz) {
+        LwM2mInstanceEnablerFactory factory = new BaseInstanceEnablerFactory() {
+            @Override
+            public LwM2mInstanceEnabler create() {
 ```
 
 ### UnnecessaryLocalVariable
@@ -12850,6 +12848,18 @@ in `leshan-server-core/src/main/java/org/eclipse/leshan/server/registration/InMe
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `endpoint` is redundant
+in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
+#### Snippet
+```java
+
+        // create CoAP endpoint
+        CoapEndpoint endpoint = createEndpointBuilder(dtlsConfig, defaultConfiguration).build();
+
+        return endpoint;
+```
+
+### UnnecessaryLocalVariable
 Local variable `lwM2mResponse` is redundant
 in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoint/CaliforniumClientEndpoint.java`
 #### Snippet
@@ -12885,43 +12895,7 @@ in `leshan-client-cf/src/main/java/org/eclipse/leshan/client/californium/endpoin
         return endpoint;
 ```
 
-### UnnecessaryLocalVariable
-Local variable `endpoint` is redundant
-in `leshan-server-cf/src/main/java/org/eclipse/leshan/server/californium/bootstrap/endpoint/coaps/CoapsBootstrapServerEndpointFactory.java`
-#### Snippet
-```java
-
-        // create CoAP endpoint
-        CoapEndpoint endpoint = createEndpointBuilder(dtlsConfig, defaultConfiguration).build();
-
-        return endpoint;
-```
-
-### UnnecessaryLocalVariable
-Local variable `factory` is redundant
-in `leshan-client-core/src/main/java/org/eclipse/leshan/client/resource/ObjectsInitializer.java`
-#### Snippet
-```java
-
-    protected LwM2mInstanceEnablerFactory getClassFactory(final Class<? extends LwM2mInstanceEnabler> clazz) {
-        LwM2mInstanceEnablerFactory factory = new BaseInstanceEnablerFactory() {
-            @Override
-            public LwM2mInstanceEnabler create() {
-```
-
 ## RuleId[ruleID=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisLock.java`
-#### Snippet
-```java
-                throw new IllegalStateException("Could not acquire a lock from redis");
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-            }
-```
-
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/SingleInstanceJedisLock.java`
@@ -12930,6 +12904,18 @@ in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/SingleInst
                         String.format("Could not acquire a lock from redis after waiting for %dms", maxTime));
             try {
                 Thread.sleep(iterationTime);
+            } catch (InterruptedException e) {
+            }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `leshan-server-redis/src/main/java/org/eclipse/leshan/server/redis/RedisLock.java`
+#### Snippet
+```java
+                throw new IllegalStateException("Could not acquire a lock from redis");
+            try {
+                Thread.sleep(10);
             } catch (InterruptedException e) {
             }
 ```
@@ -13015,22 +13001,22 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
 #### Snippet
 ```java
      */
-    public static void isTrue(boolean expression, String message) {
+    public static void isTrue(boolean expression) {
         if (expression == false) {
-            throw new IllegalArgumentException(message);
+            throw new IllegalArgumentException("The validated expression is false");
         }
 ```
 
 ### PointlessBooleanExpression
-`clazz.isInstance(it.next()) == false` can be simplified to '!clazz.isInstance(it.next())'
+`expression == false` can be simplified to '!expression'
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
 #### Snippet
 ```java
-        int i = 0;
-        for (Iterator it = collection.iterator(); it.hasNext(); i++) {
-            if (clazz.isInstance(it.next()) == false) {
-                throw new IllegalArgumentException("The validated collection contains an element not of type "
-                        + clazz.getName() + " at index: " + i);
+     */
+    public static void isTrue(boolean expression, String message) {
+        if (expression == false) {
+            throw new IllegalArgumentException(message);
+        }
 ```
 
 ### PointlessBooleanExpression
@@ -13046,15 +13032,15 @@ in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
 ```
 
 ### PointlessBooleanExpression
-`expression == false` can be simplified to '!expression'
+`clazz.isInstance(it.next()) == false` can be simplified to '!clazz.isInstance(it.next())'
 in `leshan-core/src/main/java/org/eclipse/leshan/core/util/Validate.java`
 #### Snippet
 ```java
-     */
-    public static void isTrue(boolean expression) {
-        if (expression == false) {
-            throw new IllegalArgumentException("The validated expression is false");
-        }
+        int i = 0;
+        for (Iterator it = collection.iterator(); it.hasNext(); i++) {
+            if (clazz.isInstance(it.next()) == false) {
+                throw new IllegalArgumentException("The validated collection contains an element not of type "
+                        + clazz.getName() + " at index: " + i);
 ```
 
 ### PointlessBooleanExpression
