@@ -62,63 +62,15 @@ public class ProviderBootstrap {
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Constants.java`
-#### Snippet
-```java
-import java.util.Set;
-
-public class Constants {
-
-    public static final String REGISTRY_ADDRESS = "dubbo.registry.address";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Tool` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+Class `UrlUtils` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/UrlUtils.java`
 #### Snippet
 ```java
  *
  */
-public class Tool {
+public class UrlUtils {
 
-    public static String getInterface(String service) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OverrideUtils` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/OverrideUtils.java`
-#### Snippet
-```java
- *
- */
-public class OverrideUtils {
-    public static OverrideConfig weightDTOtoConfig(WeightDTO weightDTO) {
-        OverrideConfig overrideConfig = new OverrideConfig();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ServiceTestV3Util` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
-#### Snippet
-```java
-import java.util.regex.Pattern;
-
-public class ServiceTestV3Util {
-    private static Pattern COLLECTION_PATTERN = Pattern.compile("^java\\.util\\..*(Set|List|Queue|Collection|Deque)(<.*>)*$");
-    private static Pattern MAP_PATTERN = Pattern.compile("^java\\.util\\..*Map.*(<.*>)*$");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ServiceTestUtil` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestUtil.java`
-#### Snippet
-```java
-import java.util.regex.Pattern;
-
-public class ServiceTestUtil {
-    private static Pattern COLLECTION_PATTERN = Pattern.compile("^java\\.util\\..*(Set|List|Queue|Collection|Deque)(<.*>)*$");
-    private static Pattern MAP_PATTERN = Pattern.compile("^java\\.util\\..*Map.*(<.*>)*$");
+    public static String paramsMapToString(Map<String, String[]> params) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -134,42 +86,6 @@ public class ConsumerBootstrap {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LocalDateTimeUtil` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/utils/LocalDateTimeUtil.java`
-#### Snippet
-```java
- * Date time tool class of LocalDateTime.
- */
-public class LocalDateTimeUtil {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UrlUtils` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/UrlUtils.java`
-#### Snippet
-```java
- *
- */
-public class UrlUtils {
-
-    public static String paramsMapToString(Map<String, String[]> params) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `YamlParser` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/YamlParser.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class YamlParser {
-
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CoderUtil` has only 'static' members, and lacks a 'private' constructor
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
 #### Snippet
@@ -179,30 +95,6 @@ import java.security.NoSuchAlgorithmException;
 public class CoderUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(CoderUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ApiDocsDubboGenericUtil` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/utils/ApiDocsDubboGenericUtil.java`
-#### Snippet
-```java
- * Dubbo operation related tool class.
- */
-public class ApiDocsDubboGenericUtil {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DubboAdminApplication` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/DubboAdminApplication.java`
-#### Snippet
-```java
-@EnableDubbo(scanBasePackages = {"org.apache.dubbo.admin.provider"})
-@MapperScan(basePackages = {"org.apache.dubbo.admin.mapper"})
-public class DubboAdminApplication {
-
-	public static void main(String[] args) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -218,6 +110,90 @@ public class ProviderBootstrap {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `DubboAdminApplication` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/DubboAdminApplication.java`
+#### Snippet
+```java
+@EnableDubbo(scanBasePackages = {"org.apache.dubbo.admin.provider"})
+@MapperScan(basePackages = {"org.apache.dubbo.admin.mapper"})
+public class DubboAdminApplication {
+
+	public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `YamlParser` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/YamlParser.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class YamlParser {
+
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OverrideUtils` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/OverrideUtils.java`
+#### Snippet
+```java
+ *
+ */
+public class OverrideUtils {
+    public static OverrideConfig weightDTOtoConfig(WeightDTO weightDTO) {
+        OverrideConfig overrideConfig = new OverrideConfig();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Tool` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+#### Snippet
+```java
+ *
+ */
+public class Tool {
+
+    public static String getInterface(String service) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ServiceTestUtil` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestUtil.java`
+#### Snippet
+```java
+import java.util.regex.Pattern;
+
+public class ServiceTestUtil {
+    private static Pattern COLLECTION_PATTERN = Pattern.compile("^java\\.util\\..*(Set|List|Queue|Collection|Deque)(<.*>)*$");
+    private static Pattern MAP_PATTERN = Pattern.compile("^java\\.util\\..*Map.*(<.*>)*$");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LocalDateTimeUtil` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/utils/LocalDateTimeUtil.java`
+#### Snippet
+```java
+ * Date time tool class of LocalDateTime.
+ */
+public class LocalDateTimeUtil {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ApiDocsDubboGenericUtil` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/utils/ApiDocsDubboGenericUtil.java`
+#### Snippet
+```java
+ * Dubbo operation related tool class.
+ */
+public class ApiDocsDubboGenericUtil {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `SyncUtils` has only 'static' members, and lacks a 'private' constructor
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
 #### Snippet
@@ -227,6 +203,30 @@ import static org.apache.dubbo.admin.common.util.Constants.COLON;
 public class SyncUtils {
 
     public static final String SERVICE_FILTER_KEY = ".service";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ServiceTestV3Util` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
+#### Snippet
+```java
+import java.util.regex.Pattern;
+
+public class ServiceTestV3Util {
+    private static Pattern COLLECTION_PATTERN = Pattern.compile("^java\\.util\\..*(Set|List|Queue|Collection|Deque)(<.*>)*$");
+    private static Pattern MAP_PATTERN = Pattern.compile("^java\\.util\\..*Map.*(<.*>)*$");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Constants.java`
+#### Snippet
+```java
+import java.util.Set;
+
+public class Constants {
+
+    public static final String REGISTRY_ADDRESS = "dubbo.registry.address";
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -272,10 +272,10 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Overrid
 #### Snippet
 ```java
         //for 2.6
-        if (StringUtils.isNotEmpty(update.getService())) {
-            List<Override> oldOverrides = convertDTOtoOldOverride(old);
-            List<Override> updatedOverrides = convertDTOtoOldOverride(update);
-            for (Override o : oldOverrides) {
+        if (Constants.SERVICE.equals(overrideDTO.getScope())) {
+            List<Override> overrides = convertDTOtoOldOverride(old);
+            for (Override o : overrides) {
+                registry.unregister(o.toUrl().addParameter(Constants.COMPATIBLE_CONFIG, true));
 ```
 
 ### DataFlowIssue
@@ -284,10 +284,10 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Overrid
 #### Snippet
 ```java
         //for 2.6
-        if (Constants.SERVICE.equals(overrideDTO.getScope())) {
-            List<Override> overrides = convertDTOtoOldOverride(old);
-            for (Override o : overrides) {
-                registry.unregister(o.toUrl().addParameter(Constants.COMPATIBLE_CONFIG, true));
+        if (StringUtils.isNotEmpty(update.getService())) {
+            List<Override> oldOverrides = convertDTOtoOldOverride(old);
+            List<Override> updatedOverrides = convertDTOtoOldOverride(update);
+            for (Override o : oldOverrides) {
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -353,6 +353,19 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUti
             if (!s11.startsWith(s21) && !s21.startsWith(s11)) return false;
 ```
 
+## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpringBeanUtils.applicationContext` from instance context
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/utils/SpringBeanUtils.java`
+#### Snippet
+```java
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        SpringBeanUtils.applicationContext = applicationContext;
+    }
+}
+```
+
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (7 lines)
@@ -400,19 +413,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUti
         /*if (whenRule == null || whenRule.trim().length() == 0) {
             throw new ParseException("Illegal route rule without when express", 0);
     	}*/
-```
-
-## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpringBeanUtils.applicationContext` from instance context
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/utils/SpringBeanUtils.java`
-#### Snippet
-```java
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringBeanUtils.applicationContext = applicationContext;
-    }
-}
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -481,7 +481,7 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MetricsCo
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestUtil.java`
 #### Snippet
 ```java
                 return "";
@@ -493,7 +493,7 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceT
 
 ### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestUtil.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
 #### Snippet
 ```java
                 return "";
@@ -534,18 +534,6 @@ Method is specified to return list but the return type is set
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/ProviderService.java`
 #### Snippet
 ```java
-     * Get all instance registry provider's service name
-     *
-     * @return list of all provider's service name
-     */
-    Set<String> findInstanceApplications();
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is set
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/ProviderService.java`
-#### Snippet
-```java
      * Get all provider's service name
      *
      * @return list of all provider's service name
@@ -553,17 +541,77 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/ProviderServ
     Set<String> findServices();
 ```
 
+### MismatchedJavadocCode
+Method is specified to return list but the return type is set
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/ProviderService.java`
+#### Snippet
+```java
+     * Get all instance registry provider's service name
+     *
+     * @return list of all provider's service name
+     */
+    Set<String> findInstanceApplications();
+```
+
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`service.length() > 0` can be replaced with '!service.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+`input.length() == 0` can be replaced with 'input.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
 #### Snippet
 ```java
 
-    public static String getInterface(String service) {
-        if (service != null && service.length() > 0) {
-            int i = service.indexOf('/');
-            if (i >= 0) {
+    public static String MD5_32bit(String input) {
+        if (input == null || input.length() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`providers.size() > 0` can be replaced with '!providers.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceController.java`
+#### Snippet
+```java
+
+        String application = null;
+        if (providers != null && providers.size() > 0) {
+            application = providers.get(0).getApplication();
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`configs.size() == 0` can be replaced with 'configs.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/OverrideUtils.java`
+#### Snippet
+```java
+            }
+        }
+        if (configs.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`argp.size() > 0` can be replaced with '!argp.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/store/mesh/virtualservice/match/DubboMethodMatch.java`
+#### Snippet
+```java
+        List<StringMatch> argp = dubboMethodMatch.getArgp();
+        if (argp != null) {
+            if (((parameterTypeList == null || parameterTypeList.length == 0) && argp.size() > 0)
+                    || (argp.size() != parameterTypeList.length)) {
+                return false;
+```
+
+### SizeReplaceableByIsEmpty
+`args.size() > 0` can be replaced with '!args.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/store/mesh/virtualservice/match/DubboMethodMatch.java`
+#### Snippet
+```java
+        List<DubboMethodArg> args = dubboMethodMatch.getArgs();
+
+        if (args != null && args.size() > 0) {
+            if (parameters == null || parameters.length == 0) {
+                return false;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -591,27 +639,27 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.jav
 ```
 
 ### SizeReplaceableByIsEmpty
-`configs.size() == 0` can be replaced with 'configs.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/OverrideUtils.java`
+`service.length() > 0` can be replaced with '!service.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+#### Snippet
+```java
+
+    public static String getInterface(String service) {
+        if (service != null && service.length() > 0) {
+            int i = service.indexOf('/');
+            if (i >= 0) {
+```
+
+### SizeReplaceableByIsEmpty
+`categories.size() == 0` can be replaced with 'categories.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/RegistryServerSync.java`
 #### Snippet
 ```java
             }
         }
-        if (configs.size() == 0) {
-            return null;
+        if (categories.size() == 0) {
+            return;
         }
-```
-
-### SizeReplaceableByIsEmpty
-`td.getProperties().size() == 0` can be replaced with 'td.getProperties().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
-#### Snippet
-```java
-        } else {
-            TypeDefinition td = findTypeDefinition(sd, type);
-            if (td.getProperties() == null || td.getProperties().size() == 0) {
-                holder.put(key, generateType(sd, td));
-            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -624,6 +672,42 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceT
         if (td.getProperties() == null || td.getProperties().size() == 0 || isPrimitiveType(td)) {
             holder.put(key, generateType(sd, td));
         } else {
+```
+
+### SizeReplaceableByIsEmpty
+`application.length() == 0` can be replaced with 'application.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
+#### Snippet
+```java
+
+        ConcurrentMap<String, Map<String, URL>> providerUrls = getInterfaceRegistryCache().get(Constants.PROVIDERS_CATEGORY);
+        if (providerUrls == null || application == null || application.length() == 0) {
+            return ret;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`result.size() > 0` can be replaced with '!result.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
+#### Snippet
+```java
+        String version = "2.6";
+        Map<String, URL> result = findProviderUrlByAppandService(application, serviceName);
+        if (result != null && result.size() > 0) {
+            URL url = result.values().stream().findFirst().get();
+            if (url.getParameter(Constants.SPECIFICATION_VERSION_KEY) != null) {
+```
+
+### SizeReplaceableByIsEmpty
+`services.size() == 0` can be replaced with 'services.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
+#### Snippet
+```java
+        }
+        List<String> services = findServicesByApplication(application);
+        if (services == null || services.size() == 0) {
+            throw new ParamValidationException("there is no service for application: " + application);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -648,6 +732,198 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MetricsCo
             if (consumers.size() > 0) {
                 Consumer consumer = consumers.get(0);
                 String service = consumer.getService();
+```
+
+### SizeReplaceableByIsEmpty
+`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+
+    public boolean isMatch(Consumer consumer) {
+        return isEnabled() && getParams() != null && getParams().length() > 0
+                && consumer.getService().equals(getService())
+                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(consumer.getAddress()))
+```
+
+### SizeReplaceableByIsEmpty
+`getAddress().length() == 0` can be replaced with 'getAddress().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+        return isEnabled() && getParams() != null && getParams().length() > 0
+                && consumer.getService().equals(getService())
+                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(consumer.getAddress()))
+                && (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(consumer.getApplication()));
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`getApplication().length() == 0` can be replaced with 'getApplication().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+                && consumer.getService().equals(getService())
+                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(consumer.getAddress()))
+                && (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(consumer.getApplication()));
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+
+    public boolean isUniqueMatch(Provider provider) {
+        return isEnabled() && getParams() != null && getParams().length() > 0
+                && provider.getService().equals(getService())
+                && provider.getAddress().equals(getAddress());
+```
+
+### SizeReplaceableByIsEmpty
+`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+
+    public boolean isMatch(String service, String address, String application) {
+        return isEnabled() && getParams() != null && getParams().length() > 0
+                && service.equals(getService())
+                && (address == null || getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(address))
+```
+
+### SizeReplaceableByIsEmpty
+`getAddress().length() == 0` can be replaced with 'getAddress().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+        return isEnabled() && getParams() != null && getParams().length() > 0
+                && service.equals(getService())
+                && (address == null || getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(address))
+                && (application == null || getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(application));
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`getApplication().length() == 0` can be replaced with 'getApplication().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+                && service.equals(getService())
+                && (address == null || getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(address))
+                && (application == null || getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(application));
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`getAddress().length() == 0` can be replaced with 'getAddress().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+
+    public boolean isDefault() {
+        return (getAddress() == null || getAddress().length() == 0 || Constants.ANY_VALUE.equals(getAddress()) || Constants.ANYHOST_VALUE.equals(getAddress()))
+                && (getApplication() == null || getApplication().length() == 0 || Constants.ANY_VALUE.equals(getApplication()));
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`getApplication().length() == 0` can be replaced with 'getApplication().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+    public boolean isDefault() {
+        return (getAddress() == null || getAddress().length() == 0 || Constants.ANY_VALUE.equals(getAddress()) || Constants.ANYHOST_VALUE.equals(getAddress()))
+                && (getApplication() == null || getApplication().length() == 0 || Constants.ANY_VALUE.equals(getApplication()));
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+
+    public boolean isUniqueMatch(Consumer consumer) {
+        return isEnabled() && getParams() != null && getParams().length() > 0
+                && consumer.getService().equals(getService())
+                && consumer.getAddress().equals(getAddress());
+```
+
+### SizeReplaceableByIsEmpty
+`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+
+    public boolean isMatch(Provider provider) {
+        return isEnabled() && getParams() != null && getParams().length() > 0
+                && provider.getService().equals(getService())
+                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(provider.getAddress()))
+```
+
+### SizeReplaceableByIsEmpty
+`getAddress().length() == 0` can be replaced with 'getAddress().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+        return isEnabled() && getParams() != null && getParams().length() > 0
+                && provider.getService().equals(getService())
+                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(provider.getAddress()))
+                && (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(provider.getApplication()));
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`getApplication().length() == 0` can be replaced with 'getApplication().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+#### Snippet
+```java
+                && provider.getService().equals(getService())
+                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(provider.getAddress()))
+                && (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(provider.getApplication()));
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`separator.length() == 0` can be replaced with 'separator.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUtils.java`
+#### Snippet
+```java
+            String separator = matcher.group(1);
+            String content = matcher.group(2);
+            if (separator == null || separator.length() == 0
+                    || "&".equals(separator)) {
+                if (key != null)
+```
+
+### SizeReplaceableByIsEmpty
+`query.length() == 0` can be replaced with 'query.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUtils.java`
+#### Snippet
+```java
+     */
+    public static String replaceParameter(String query, String key, String value) {
+        if (query == null || query.length() == 0) {
+            return key + "=" + value;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`expression.length() == 0` can be replaced with 'expression.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUtils.java`
+#### Snippet
+```java
+    // FIXME Is it reasonable to throw an IllegalStateException??
+    public static String interpolate(String expression, Map<String, String> params) {
+        if (expression == null || expression.length() == 0) {
+            throw new IllegalArgumentException("glob pattern is empty!");
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -699,63 +975,27 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUti
 ```
 
 ### SizeReplaceableByIsEmpty
-`query.length() == 0` can be replaced with 'query.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUtils.java`
+`conditions.size() == 0` can be replaced with 'conditions.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
 #### Snippet
 ```java
-     */
-    public static String replaceParameter(String query, String key, String value) {
-        if (query == null || query.length() == 0) {
-            return key + "=" + value;
-        }
+            List<String> blackWhiteList = RouteUtils.filterBlackWhiteListFromConditions(ruleDTO.getConditions());
+            List<String> conditions = RouteUtils.removeBlackWhiteListRuleFromConditions(ruleDTO.getConditions());
+            if (conditions.size() == 0) {
+                dynamicConfiguration.deleteConfig(path);
+            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
-`expression.length() == 0` can be replaced with 'expression.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUtils.java`
+`blackWhiteList.size() > 0` can be replaced with '!blackWhiteList.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
 #### Snippet
 ```java
-    // FIXME Is it reasonable to throw an IllegalStateException??
-    public static String interpolate(String expression, Map<String, String> params) {
-        if (expression == null || expression.length() == 0) {
-            throw new IllegalArgumentException("glob pattern is empty!");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`separator.length() == 0` can be replaced with 'separator.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUtils.java`
-#### Snippet
-```java
-            String separator = matcher.group(1);
-            String content = matcher.group(2);
-            if (separator == null || separator.length() == 0
-                    || "&".equals(separator)) {
-                if (key != null)
-```
-
-### SizeReplaceableByIsEmpty
-`userInformation.length() > 0` can be replaced with '!userInformation.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/ZookeeperMetaDataCollector.java`
-#### Snippet
-```java
-                .retryPolicy(new ExponentialBackoffRetry(1000, 3));
-        String userInformation = url.getUserInformation();
-        if (userInformation != null && userInformation.length() > 0) {
-            builder = builder.authorization("digest", userInformation.getBytes());
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`input.length() == 0` can be replaced with 'input.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
-#### Snippet
-```java
-
-    public static String MD5_32bit(String input) {
-        if (input == null || input.length() == 0) {
-            return null;
-        }
+            }
+            //2.6
+            if (Constants.SERVICE.equals(ruleDTO.getScope()) && blackWhiteList.size() > 0) {
+                Route route = RouteUtils.convertBlackWhiteListtoRoute(blackWhiteList, Constants.SERVICE, id);
+                registry.unregister(route.toUrl());
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -783,63 +1023,27 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteSe
 ```
 
 ### SizeReplaceableByIsEmpty
-`conditions.size() == 0` can be replaced with 'conditions.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
+`userInformation.length() > 0` can be replaced with '!userInformation.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/ZookeeperMetaDataCollector.java`
 #### Snippet
 ```java
-            List<String> blackWhiteList = RouteUtils.filterBlackWhiteListFromConditions(ruleDTO.getConditions());
-            List<String> conditions = RouteUtils.removeBlackWhiteListRuleFromConditions(ruleDTO.getConditions());
-            if (conditions.size() == 0) {
-                dynamicConfiguration.deleteConfig(path);
-            } else {
+                .retryPolicy(new ExponentialBackoffRetry(1000, 3));
+        String userInformation = url.getUserInformation();
+        if (userInformation != null && userInformation.length() > 0) {
+            builder = builder.authorization("digest", userInformation.getBytes());
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
-`blackWhiteList.size() > 0` can be replaced with '!blackWhiteList.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
+`input.length() > 0` can be replaced with '!input.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/store/mesh/virtualservice/match/StringMatch.java`
 #### Snippet
 ```java
-            }
-            //2.6
-            if (Constants.SERVICE.equals(ruleDTO.getScope()) && blackWhiteList.size() > 0) {
-                Route route = RouteUtils.convertBlackWhiteListtoRoute(blackWhiteList, Constants.SERVICE, id);
-                registry.unregister(route.toUrl());
-```
-
-### SizeReplaceableByIsEmpty
-`argp.size() > 0` can be replaced with '!argp.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/store/mesh/virtualservice/match/DubboMethodMatch.java`
-#### Snippet
-```java
-        List<StringMatch> argp = dubboMethodMatch.getArgp();
-        if (argp != null) {
-            if (((parameterTypeList == null || parameterTypeList.length == 0) && argp.size() > 0)
-                    || (argp.size() != parameterTypeList.length)) {
-                return false;
-```
-
-### SizeReplaceableByIsEmpty
-`args.size() > 0` can be replaced with '!args.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/store/mesh/virtualservice/match/DubboMethodMatch.java`
-#### Snippet
-```java
-        List<DubboMethodArg> args = dubboMethodMatch.getArgs();
-
-        if (args != null && args.size() > 0) {
-            if (parameters == null || parameters.length == 0) {
-                return false;
-```
-
-### SizeReplaceableByIsEmpty
-`configs.size() == 0` can be replaced with 'configs.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
-#### Snippet
-```java
-                    }
-                }
-                if (configs.size() == 0) {
-                    dynamicConfiguration.deleteConfig(path);
-                } else {
+            return input == null || "".equals(input);
+        } else if (stringMatch.getNoempty() != null) {
+            return input != null && input.length() > 0;
+        } else {
+            return false;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -852,30 +1056,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Overrid
                 if (apps != null && apps.size() > 0) {
                     for (String app : apps) {
                         Override override = new Override();
-```
-
-### SizeReplaceableByIsEmpty
-`configs.size() > 0` can be replaced with '!configs.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
-#### Snippet
-```java
-            OverrideDTO overrideDTO = YamlParser.loadObject(config, OverrideDTO.class);
-            List<OverrideConfig> configs = overrideDTO.getConfigs();
-            if (configs != null && configs.size() > 0) {
-                for (OverrideConfig overrideConfig : configs) {
-                    if (Constants.BALANCING.equals(overrideConfig.getType())) {
-```
-
-### SizeReplaceableByIsEmpty
-`configs.size() > 0` can be replaced with '!configs.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
-#### Snippet
-```java
-            OverrideDTO overrideDTO = YamlParser.loadObject(config, OverrideDTO.class);
-            List<OverrideConfig> configs = overrideDTO.getConfigs();
-            if (configs != null && configs.size() > 0) {
-                for (OverrideConfig overrideConfig : configs) {
-                    if (Constants.WEIGHT.equals(overrideConfig.getType())) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -903,18 +1083,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Overrid
 ```
 
 ### SizeReplaceableByIsEmpty
-`application.length() == 0` can be replaced with 'application.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
-#### Snippet
-```java
-
-        ConcurrentMap<String, Map<String, URL>> providerUrls = getInterfaceRegistryCache().get(Constants.PROVIDERS_CATEGORY);
-        if (providerUrls == null || application == null || application.length() == 0) {
-            return ret;
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `newConfigs.size() == 0` can be replaced with 'newConfigs.isEmpty()'
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
 #### Snippet
@@ -927,219 +1095,75 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Overrid
 ```
 
 ### SizeReplaceableByIsEmpty
-`result.size() > 0` can be replaced with '!result.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
+`configs.size() == 0` can be replaced with 'configs.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
 #### Snippet
 ```java
-        String version = "2.6";
-        Map<String, URL> result = findProviderUrlByAppandService(application, serviceName);
-        if (result != null && result.size() > 0) {
-            URL url = result.values().stream().findFirst().get();
-            if (url.getParameter(Constants.SPECIFICATION_VERSION_KEY) != null) {
+                    }
+                }
+                if (configs.size() == 0) {
+                    dynamicConfiguration.deleteConfig(path);
+                } else {
 ```
 
 ### SizeReplaceableByIsEmpty
-`services.size() == 0` can be replaced with 'services.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
+`configs.size() > 0` can be replaced with '!configs.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
 #### Snippet
 ```java
-        }
-        List<String> services = findServicesByApplication(application);
-        if (services == null || services.size() == 0) {
-            throw new ParamValidationException("there is no service for application: " + application);
-        }
+            OverrideDTO overrideDTO = YamlParser.loadObject(config, OverrideDTO.class);
+            List<OverrideConfig> configs = overrideDTO.getConfigs();
+            if (configs != null && configs.size() > 0) {
+                for (OverrideConfig overrideConfig : configs) {
+                    if (Constants.BALANCING.equals(overrideConfig.getType())) {
 ```
 
 ### SizeReplaceableByIsEmpty
-`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+`configs.size() > 0` can be replaced with '!configs.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
 #### Snippet
 ```java
-
-    public boolean isMatch(Consumer consumer) {
-        return isEnabled() && getParams() != null && getParams().length() > 0
-                && consumer.getService().equals(getService())
-                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(consumer.getAddress()))
+            OverrideDTO overrideDTO = YamlParser.loadObject(config, OverrideDTO.class);
+            List<OverrideConfig> configs = overrideDTO.getConfigs();
+            if (configs != null && configs.size() > 0) {
+                for (OverrideConfig overrideConfig : configs) {
+                    if (Constants.WEIGHT.equals(overrideConfig.getType())) {
 ```
 
 ### SizeReplaceableByIsEmpty
-`getAddress().length() == 0` can be replaced with 'getAddress().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
+`td.getProperties().size() == 0` can be replaced with 'td.getProperties().isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
 #### Snippet
 ```java
-        return isEnabled() && getParams() != null && getParams().length() > 0
-                && consumer.getService().equals(getService())
-                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(consumer.getAddress()))
-                && (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(consumer.getApplication()));
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`getApplication().length() == 0` can be replaced with 'getApplication().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-                && consumer.getService().equals(getService())
-                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(consumer.getAddress()))
-                && (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(consumer.getApplication()));
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-
-    public boolean isMatch(String service, String address, String application) {
-        return isEnabled() && getParams() != null && getParams().length() > 0
-                && service.equals(getService())
-                && (address == null || getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(address))
-```
-
-### SizeReplaceableByIsEmpty
-`getAddress().length() == 0` can be replaced with 'getAddress().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-        return isEnabled() && getParams() != null && getParams().length() > 0
-                && service.equals(getService())
-                && (address == null || getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(address))
-                && (application == null || getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(application));
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`getApplication().length() == 0` can be replaced with 'getApplication().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-                && service.equals(getService())
-                && (address == null || getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(address))
-                && (application == null || getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(application));
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-
-    public boolean isMatch(Provider provider) {
-        return isEnabled() && getParams() != null && getParams().length() > 0
-                && provider.getService().equals(getService())
-                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(provider.getAddress()))
-```
-
-### SizeReplaceableByIsEmpty
-`getAddress().length() == 0` can be replaced with 'getAddress().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-        return isEnabled() && getParams() != null && getParams().length() > 0
-                && provider.getService().equals(getService())
-                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(provider.getAddress()))
-                && (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(provider.getApplication()));
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`getApplication().length() == 0` can be replaced with 'getApplication().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-                && provider.getService().equals(getService())
-                && (getAddress() == null || getAddress().length() == 0 || getAddress().equals(Constants.ANY_VALUE) || getAddress().equals(Constants.ANYHOST_VALUE) || getAddress().equals(provider.getAddress()))
-                && (getApplication() == null || getApplication().length() == 0 || getApplication().equals(Constants.ANY_VALUE) || getApplication().equals(provider.getApplication()));
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-
-    public boolean isUniqueMatch(Consumer consumer) {
-        return isEnabled() && getParams() != null && getParams().length() > 0
-                && consumer.getService().equals(getService())
-                && consumer.getAddress().equals(getAddress());
-```
-
-### SizeReplaceableByIsEmpty
-`getAddress().length() == 0` can be replaced with 'getAddress().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-
-    public boolean isDefault() {
-        return (getAddress() == null || getAddress().length() == 0 || Constants.ANY_VALUE.equals(getAddress()) || Constants.ANYHOST_VALUE.equals(getAddress()))
-                && (getApplication() == null || getApplication().length() == 0 || Constants.ANY_VALUE.equals(getApplication()));
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`getApplication().length() == 0` can be replaced with 'getApplication().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-    public boolean isDefault() {
-        return (getAddress() == null || getAddress().length() == 0 || Constants.ANY_VALUE.equals(getAddress()) || Constants.ANYHOST_VALUE.equals(getAddress()))
-                && (getApplication() == null || getApplication().length() == 0 || Constants.ANY_VALUE.equals(getApplication()));
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`getParams().length() > 0` can be replaced with '!getParams().isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Override.java`
-#### Snippet
-```java
-
-    public boolean isUniqueMatch(Provider provider) {
-        return isEnabled() && getParams() != null && getParams().length() > 0
-                && provider.getService().equals(getService())
-                && provider.getAddress().equals(getAddress());
-```
-
-### SizeReplaceableByIsEmpty
-`input.length() > 0` can be replaced with '!input.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/store/mesh/virtualservice/match/StringMatch.java`
-#### Snippet
-```java
-            return input == null || "".equals(input);
-        } else if (stringMatch.getNoempty() != null) {
-            return input != null && input.length() > 0;
         } else {
-            return false;
+            TypeDefinition td = findTypeDefinition(sd, type);
+            if (td.getProperties() == null || td.getProperties().size() == 0) {
+                holder.put(key, generateType(sd, td));
+            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
-`categories.size() == 0` can be replaced with 'categories.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/RegistryServerSync.java`
+`separator.length() == 0` can be replaced with 'separator.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
 #### Snippet
 ```java
-            }
-        }
-        if (categories.size() == 0) {
-            return;
-        }
+            String content = matcher.group(2);
+            // The expression starts
+            if (separator == null || separator.length() == 0) {
+                pair = new MatchPair();
+                condition.put(content, pair);
 ```
 
 ### SizeReplaceableByIsEmpty
-`providers.size() > 0` can be replaced with '!providers.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceController.java`
+`values.size() == 0` can be replaced with 'values.isEmpty()'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
 #### Snippet
 ```java
-
-        String application = null;
-        if (providers != null && providers.size() > 0) {
-            application = providers.get(0).getApplication();
-        }
+            // The Value part of KV has multiple values, separated by ','
+            else if (",".equals(separator)) { // separated by ','
+                if (values == null || values.size() == 0)
+                    throw new ParseException("Illegal route rule \""
+                            + rule + "\", The error char '" + separator
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1176,30 +1200,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUti
         if (thenRule == null || thenRule.trim().length() == 0) {
             throw new ParseException("Illegal route rule without then express", 0);
         }
-```
-
-### SizeReplaceableByIsEmpty
-`separator.length() == 0` can be replaced with 'separator.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
-#### Snippet
-```java
-            String content = matcher.group(2);
-            // The expression starts
-            if (separator == null || separator.length() == 0) {
-                pair = new MatchPair();
-                condition.put(content, pair);
-```
-
-### SizeReplaceableByIsEmpty
-`values.size() == 0` can be replaced with 'values.isEmpty()'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
-#### Snippet
-```java
-            // The Value part of KV has multiple values, separated by ','
-            else if (",".equals(separator)) { // separated by ','
-                if (values == null || values.size() == 0)
-                    throw new ParseException("Illegal route rule \""
-                            + rule + "\", The error char '" + separator
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -1242,30 +1242,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/interceptor/AuthInte
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends MethodDefinition`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ConvertUtil.java`
-#### Snippet
-```java
-    }
-
-    public static Map methodList2Map(List<MethodDefinition> methods) {
-        Map<String, MethodDefinition> res = new HashMap<>();
-        for (int i = 0; i < methods.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
-#### Snippet
-```java
-    }
-
-    private static void generateEnclosedType(Map<String, Object> holder, String key, ServiceDefinition sd, String type) {
-        if (isPrimitiveType(type)) {
-            holder.put(key, generateType(sd, type));
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestUtil.java`
 #### Snippet
@@ -1278,63 +1254,15 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceT
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CallDubboServiceRequestInterfaceParam`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ApiDocsController.java`
-#### Snippet
-```java
-    @ApiOperation(value = "request dubbo api", notes = "request dubbo api", httpMethod = "POST", produces = "application/json")
-    @PostMapping("/requestDubbo")
-    public String callDubboService(CallDubboServiceRequest dubboCfg, @RequestBody List<CallDubboServiceRequestInterfaceParam> methodparams){
-        String[] paramTypes = null;
-        Object[] paramValues = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceInstancesChangedListener.ProtocolServiceKeyWithUrls`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/mapping/AdminServiceInstancesChangedListener.java`
+Can generalize to `? extends MethodDefinition`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ConvertUtil.java`
 #### Snippet
 ```java
     }
 
-    private List<URL> extractUrls(List<ServiceInstancesChangedListener.ProtocolServiceKeyWithUrls> keyUrls) {
-        return keyUrls.stream()
-                .flatMap((protocolServiceKeyWithUrls) -> protocolServiceKeyWithUrls.getUrls().stream())
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MetricsCollectController.java`
-#### Snippet
-```java
-    }
-
-    protected void addMetricsConfigToMap(Map<String, String> configMap, String ip) {
-        List<Provider> providers = providerService.findByAddress(ip);
-        if (providers.size() > 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MetricsCollectController.java`
-#### Snippet
-```java
-    }
-
-    protected void addMetricsConfigToMap(Map<String, String> configMap, String ip) {
-        List<Provider> providers = providerService.findByAddress(ip);
-        if (providers.size() > 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends InstanceAddressURL`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/InstanceRegistryQueryHelper.java`
-#### Snippet
-```java
-    }
-
-    private List<Provider> urlsToProviderList(List<InstanceAddressURL> urls) {
-        List<Provider> providers = Lists.newArrayList();
-        urls.stream().distinct().forEach(url -> {
+    public static Map methodList2Map(List<MethodDefinition> methods) {
+        Map<String, MethodDefinition> res = new HashMap<>();
+        for (int i = 0; i < methods.size(); i++) {
 ```
 
 ### BoundedWildcard
@@ -1350,15 +1278,39 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Provide
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends URL`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
+Can generalize to `? super String`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MetricsCollectController.java`
 #### Snippet
 ```java
     }
 
-    public static Consumer url2Consumer(Pair<String, URL> pair) {
-        if (pair == null) {
-            return null;
+    protected void addMetricsConfigToMap(Map<String, String> configMap, String ip) {
+        List<Provider> providers = providerService.findByAddress(ip);
+        if (providers.size() > 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MetricsCollectController.java`
+#### Snippet
+```java
+    }
+
+    protected void addMetricsConfigToMap(Map<String, String> configMap, String ip) {
+        List<Provider> providers = providerService.findByAddress(ip);
+        if (providers.size() > 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServiceInstancesChangedListener.ProtocolServiceKeyWithUrls`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/mapping/AdminServiceInstancesChangedListener.java`
+#### Snippet
+```java
+    }
+
+    private List<URL> extractUrls(List<ServiceInstancesChangedListener.ProtocolServiceKeyWithUrls> keyUrls) {
+        return keyUrls.stream()
+                .flatMap((protocolServiceKeyWithUrls) -> protocolServiceKeyWithUrls.getUrls().stream())
 ```
 
 ### BoundedWildcard
@@ -1366,9 +1318,9 @@ Can generalize to `? extends URL`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
 #### Snippet
 ```java
-    public static final String ID_FILTER_KEY = ".id";
+    }
 
-    public static Provider url2Provider(Pair<String, URL> pair) {
+    public static Consumer url2Consumer(Pair<String, URL> pair) {
         if (pair == null) {
             return null;
 ```
@@ -1398,27 +1350,51 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtil
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MatchPair`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
+Can generalize to `? extends URL`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
 #### Snippet
 ```java
-     * @return RouteUtils after replacement
-     */
-    public static RouteUtils copyWithReplace(RouteUtils copy, Map<String, MatchPair> whenCondition, Map<String, MatchPair> thenCondition) {
-        if (null == copy) {
-            throw new NullPointerException("Argument copy is null!");
+    public static final String ID_FILTER_KEY = ".id";
+
+    public static Provider url2Provider(Pair<String, URL> pair) {
+        if (pair == null) {
+            return null;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MatchPair`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
+Can generalize to `? extends InstanceAddressURL`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/InstanceRegistryQueryHelper.java`
 #### Snippet
 ```java
-     * @return RouteUtils after replacement
-     */
-    public static RouteUtils copyWithReplace(RouteUtils copy, Map<String, MatchPair> whenCondition, Map<String, MatchPair> thenCondition) {
-        if (null == copy) {
-            throw new NullPointerException("Argument copy is null!");
+    }
+
+    private List<Provider> urlsToProviderList(List<InstanceAddressURL> urls) {
+        List<Provider> providers = Lists.newArrayList();
+        urls.stream().distinct().forEach(url -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
+#### Snippet
+```java
+    }
+
+    private static void generateEnclosedType(Map<String, Object> holder, String key, ServiceDefinition sd, String type) {
+        if (isPrimitiveType(type)) {
+            holder.put(key, generateType(sd, type));
+```
+
+### BoundedWildcard
+Can generalize to `? extends CallDubboServiceRequestInterfaceParam`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ApiDocsController.java`
+#### Snippet
+```java
+    @ApiOperation(value = "request dubbo api", notes = "request dubbo api", httpMethod = "POST", produces = "application/json")
+    @PostMapping("/requestDubbo")
+    public String callDubboService(CallDubboServiceRequest dubboCfg, @RequestBody List<CallDubboServiceRequestInterfaceParam> methodparams){
+        String[] paramTypes = null;
+        Object[] paramValues = null;
 ```
 
 ### BoundedWildcard
@@ -1433,29 +1409,41 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUti
             String key = entry.getKey();
 ```
 
+### BoundedWildcard
+Can generalize to `? extends MatchPair`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
+#### Snippet
+```java
+     * @return RouteUtils after replacement
+     */
+    public static RouteUtils copyWithReplace(RouteUtils copy, Map<String, MatchPair> whenCondition, Map<String, MatchPair> thenCondition) {
+        if (null == copy) {
+            throw new NullPointerException("Argument copy is null!");
+```
+
+### BoundedWildcard
+Can generalize to `? extends MatchPair`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
+#### Snippet
+```java
+     * @return RouteUtils after replacement
+     */
+    public static RouteUtils copyWithReplace(RouteUtils copy, Map<String, MatchPair> whenCondition, Map<String, MatchPair> thenCondition) {
+        if (null == copy) {
+            throw new NullPointerException("Argument copy is null!");
+```
+
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/RedisMetaDataCollector.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/mapping/impl/ZookeeperServiceMapping.java`
 #### Snippet
 ```java
-public class RedisMetaDataCollector implements MetaDataCollector {
+    private ZookeeperClient zkClient;
 
-    private final static Logger logger = LoggerFactory.getLogger(RedisMetaDataCollector.class);
-    private final static String REDIS_DATABASE_KEY = "database";
-    private URL url;
-```
+    private final static String MAPPING_PATH = Constants.PATH_SEPARATOR + Constants.DEFAULT_ROOT + Constants.PATH_SEPARATOR + Constants.DEFAULT_MAPPING_GROUP;
 
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/RedisMetaDataCollector.java`
-#### Snippet
-```java
-
-    private final static Logger logger = LoggerFactory.getLogger(RedisMetaDataCollector.class);
-    private final static String REDIS_DATABASE_KEY = "database";
-    private URL url;
-    private JedisPool pool;
+    private final Set<MappingListener> listeners = new ConcurrentHashSet<>();
 ```
 
 ### MissortedModifiers
@@ -1472,14 +1460,26 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/im
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/mapping/impl/ZookeeperServiceMapping.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/RedisMetaDataCollector.java`
 #### Snippet
 ```java
-    private ZookeeperClient zkClient;
 
-    private final static String MAPPING_PATH = Constants.PATH_SEPARATOR + Constants.DEFAULT_ROOT + Constants.PATH_SEPARATOR + Constants.DEFAULT_MAPPING_GROUP;
+    private final static Logger logger = LoggerFactory.getLogger(RedisMetaDataCollector.class);
+    private final static String REDIS_DATABASE_KEY = "database";
+    private URL url;
+    private JedisPool pool;
+```
 
-    private final Set<MappingListener> listeners = new ConcurrentHashSet<>();
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/RedisMetaDataCollector.java`
+#### Snippet
+```java
+public class RedisMetaDataCollector implements MetaDataCollector {
+
+    private final static Logger logger = LoggerFactory.getLogger(RedisMetaDataCollector.class);
+    private final static String REDIS_DATABASE_KEY = "database";
+    private URL url;
 ```
 
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
@@ -1572,13 +1572,13 @@ in `dubbo-admin-test/src/main/java/org/apache/dubbo/admin/ConsumerBootstrap.java
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `dubbo-admin-test/src/main/java/org/apache/dubbo/admin/impl/provider/AnnotatedGreetingService.java`
+in `dubbo-admin-test/src/main/java/org/apache/dubbo/admin/ProviderBootstrap.java`
 #### Snippet
 ```java
-public class AnnotatedGreetingService implements GreetingService {
-    public String sayHello(String name) {
-        System.out.println("greeting service received: " + name);
-        return "hello, " + name;
+        context.start();
+
+        System.out.println("dubbo service started");
+        new CountDownLatch(1).await();
     }
 ```
 
@@ -1632,13 +1632,13 @@ in `dubbo-admin-test/src/main/java/org/apache/dubbo/admin/ProviderBootstrap.java
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `dubbo-admin-test/src/main/java/org/apache/dubbo/admin/ProviderBootstrap.java`
+in `dubbo-admin-test/src/main/java/org/apache/dubbo/admin/impl/provider/AnnotatedGreetingService.java`
 #### Snippet
 ```java
-        context.start();
-
-        System.out.println("dubbo service started");
-        new CountDownLatch(1).await();
+public class AnnotatedGreetingService implements GreetingService {
+    public String sayHello(String name) {
+        System.out.println("greeting service received: " + name);
+        return "hello, " + name;
     }
 ```
 
@@ -1661,10 +1661,10 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ApiDocsCo
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/TagRoutesController.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/disable/{id}", method = RequestMethod.PUT)
-    public boolean disableRoute(@PathVariable String id, @PathVariable String env) {
+    @RequestMapping(value = "/enable/{id}", method = RequestMethod.PUT)
+    public boolean enableRoute(@PathVariable String id, @PathVariable String env) {
         id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        routeService.disableTagRoute(id);
+        routeService.enableTagRoute(id);
         return true;
 ```
 
@@ -1697,10 +1697,10 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/TagRoutes
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/TagRoutesController.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/enable/{id}", method = RequestMethod.PUT)
-    public boolean enableRoute(@PathVariable String id, @PathVariable String env) {
+    @RequestMapping(value = "/disable/{id}", method = RequestMethod.PUT)
+    public boolean disableRoute(@PathVariable String id, @PathVariable String env) {
         id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        routeService.enableTagRoute(id);
+        routeService.disableTagRoute(id);
         return true;
 ```
 
@@ -1718,38 +1718,50 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/TagRoutes
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceController.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean updateRule(@PathVariable String id, @RequestBody MeshRouteDTO meshRoute, @PathVariable String env) {
-        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        if (meshRouteService.findMeshRoute(id) == null) {
-            throw new ResourceNotFoundException("can not find mesh route, Id: " + id);
+    @RequestMapping(value = "/service/{service}", method = RequestMethod.GET)
+    public ServiceDetailDTO serviceDetail(@PathVariable String service, @PathVariable String env) {
+        service = service.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
+        String group = Tool.getGroup(service);
+        String version = Tool.getVersion(service);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
+in `dubbo-admin-test/src/main/java/org/apache/dubbo/admin/ProviderBootstrap.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public boolean deleteRoute(@PathVariable String id, @PathVariable String env) {
-        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        return meshRouteService.deleteMeshRule(id);
-    }
+
+            CuratorFramework client = CuratorFrameworkFactory
+                    .newClient(this.configCenterAddress.replace("zookeeper://", ""), 5000, 3000, retryPolicy);
+
+            client.start();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Route.java`
+#### Snippet
+```java
+    public void setRule(String rule) {
+        this.rule = rule.trim();
+        String[] rules = rule.split("=>");
+        if (rules.length != 2) {
+            if (rule.endsWith("=>")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public MeshRouteDTO detailRoute(@PathVariable String id, @PathVariable String env) {
-        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        MeshRouteDTO meshRoute = meshRouteService.findMeshRoute(id);
-        if (meshRoute == null) {
+            }
+            // replace dot symbol and asterisk symbol to java-based regex pattern
+            filter = filter.toLowerCase().replace(Constants.PUNCTUATION_POINT, Constants.PUNCTUATION_SEPARATOR_POINT);
+            // filter start with [* 、? 、+] will triggering PatternSyntaxException
+            if (filter.startsWith(Constants.ANY_VALUE)
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1825,18 +1837,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteSe
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Route.java`
-#### Snippet
-```java
-    public void setRule(String rule) {
-        this.rule = rule.trim();
-        String[] rules = rule.split("=>");
-        if (rules.length != 2) {
-            if (rule.endsWith("=>")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
 #### Snippet
@@ -1850,38 +1850,38 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Overrid
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
 #### Snippet
 ```java
-            }
-            // replace dot symbol and asterisk symbol to java-based regex pattern
-            filter = filter.toLowerCase().replace(Constants.PUNCTUATION_POINT, Constants.PUNCTUATION_SEPARATOR_POINT);
-            // filter start with [* 、? 、+] will triggering PatternSyntaxException
-            if (filter.startsWith(Constants.ANY_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public MeshRouteDTO detailRoute(@PathVariable String id, @PathVariable String env) {
+        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
+        MeshRouteDTO meshRoute = meshRouteService.findMeshRoute(id);
+        if (meshRoute == null) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceController.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/service/{service}", method = RequestMethod.GET)
-    public ServiceDetailDTO serviceDetail(@PathVariable String service, @PathVariable String env) {
-        service = service.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        String group = Tool.getGroup(service);
-        String version = Tool.getVersion(service);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public boolean updateRule(@PathVariable String id, @RequestBody MeshRouteDTO meshRoute, @PathVariable String env) {
+        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
+        if (meshRouteService.findMeshRoute(id) == null) {
+            throw new ResourceNotFoundException("can not find mesh route, Id: " + id);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-admin-test/src/main/java/org/apache/dubbo/admin/ProviderBootstrap.java`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
 #### Snippet
 ```java
-
-            CuratorFramework client = CuratorFrameworkFactory
-                    .newClient(this.configCenterAddress.replace("zookeeper://", ""), 5000, 3000, retryPolicy);
-
-            client.start();
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public boolean deleteRoute(@PathVariable String id, @PathVariable String env) {
+        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
+        return meshRouteService.deleteMeshRule(id);
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2040,18 +2040,6 @@ Call to `Hashtable.put()` on properties object
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/NacosMetaDataCollector.java`
 #### Snippet
 ```java
-        String namespace = url.getParameter(NAMESPACE);
-        if (StringUtils.isNotBlank(namespace)) {
-            properties.put(NAMESPACE, namespace);
-        }
-    }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/NacosMetaDataCollector.java`
-#### Snippet
-```java
                 url.getPort() // Port
                 ;
         properties.put(SERVER_ADDR, serverAddr);
@@ -2059,17 +2047,16 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/im
 
 ```
 
-## RuleId[ruleID=CaughtExceptionImmediatelyRethrown]
-### CaughtExceptionImmediatelyRethrown
-Caught exception `e` is immediately rethrown
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceTestController.java`
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/NacosMetaDataCollector.java`
 #### Snippet
 ```java
-        try {
-            return genericService.invoke(serviceTestDTO.getService(), serviceTestDTO.getMethod(), serviceTestDTO.getParameterTypes(), serviceTestDTO.getParams());
-        } catch (Exception e) {
-            throw e;
+        String namespace = url.getParameter(NAMESPACE);
+        if (StringUtils.isNotBlank(namespace)) {
+            properties.put(NAMESPACE, namespace);
         }
+    }
 ```
 
 ## RuleId[ruleID=RedundantFieldInitialization]
@@ -2109,40 +2096,29 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUti
         public MatchPair() {
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `service`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+## RuleId[ruleID=CaughtExceptionImmediatelyRethrown]
+### CaughtExceptionImmediatelyRethrown
+Caught exception `e` is immediately rethrown
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceTestController.java`
 #### Snippet
 ```java
-            int i = service.indexOf('/');
-            if (i >= 0) {
-                service = service.substring(i + 1);
-            }
-            i = service.lastIndexOf(':');
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `service`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
-#### Snippet
-```java
-            i = service.lastIndexOf(':');
-            if (i >= 0) {
-                service = service.substring(0, i);
-            }
+        try {
+            return genericService.invoke(serviceTestDTO.getService(), serviceTestDTO.getMethod(), serviceTestDTO.getParameterTypes(), serviceTestDTO.getParams());
+        } catch (Exception e) {
+            throw e;
         }
 ```
 
+## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `id`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/TagRoutesController.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/disable/{id}", method = RequestMethod.PUT)
-    public boolean disableRoute(@PathVariable String id, @PathVariable String env) {
+    @RequestMapping(value = "/enable/{id}", method = RequestMethod.PUT)
+    public boolean enableRoute(@PathVariable String id, @PathVariable String env) {
         id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        routeService.disableTagRoute(id);
+        routeService.enableTagRoute(id);
         return true;
 ```
 
@@ -2175,10 +2151,10 @@ Assignment to method parameter `id`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/TagRoutesController.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/enable/{id}", method = RequestMethod.PUT)
-    public boolean enableRoute(@PathVariable String id, @PathVariable String env) {
+    @RequestMapping(value = "/disable/{id}", method = RequestMethod.PUT)
+    public boolean disableRoute(@PathVariable String id, @PathVariable String env) {
         id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        routeService.enableTagRoute(id);
+        routeService.disableTagRoute(id);
         return true;
 ```
 
@@ -2195,6 +2171,42 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/TagRoutes
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `service`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceController.java`
+#### Snippet
+```java
+    @RequestMapping(value = "/service/{service}", method = RequestMethod.GET)
+    public ServiceDetailDTO serviceDetail(@PathVariable String service, @PathVariable String env) {
+        service = service.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
+        String group = Tool.getGroup(service);
+        String version = Tool.getVersion(service);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `service`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+#### Snippet
+```java
+            int i = service.indexOf('/');
+            if (i >= 0) {
+                service = service.substring(i + 1);
+            }
+            i = service.lastIndexOf(':');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `service`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+#### Snippet
+```java
+            i = service.lastIndexOf(':');
+            if (i >= 0) {
+                service = service.substring(0, i);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `str`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ConvertUtil.java`
 #### Snippet
@@ -2207,39 +2219,27 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ConvertU
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `id`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
+Assignment to method parameter `filter`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean updateRule(@PathVariable String id, @RequestBody MeshRouteDTO meshRoute, @PathVariable String env) {
-        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        if (meshRouteService.findMeshRoute(id) == null) {
-            throw new ResourceNotFoundException("can not find mesh route, Id: " + id);
+            }
+            // replace dot symbol and asterisk symbol to java-based regex pattern
+            filter = filter.toLowerCase().replace(Constants.PUNCTUATION_POINT, Constants.PUNCTUATION_SEPARATOR_POINT);
+            // filter start with [* 、? 、+] will triggering PatternSyntaxException
+            if (filter.startsWith(Constants.ANY_VALUE)
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `id`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
+Assignment to method parameter `filter`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public boolean deleteRoute(@PathVariable String id, @PathVariable String env) {
-        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        return meshRouteService.deleteMeshRule(id);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `id`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
-#### Snippet
-```java
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public MeshRouteDTO detailRoute(@PathVariable String id, @PathVariable String env) {
-        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        MeshRouteDTO meshRoute = meshRouteService.findMeshRoute(id);
-        if (meshRoute == null) {
+            if (filter.startsWith(Constants.ANY_VALUE)
+                    || filter.startsWith(Constants.INTERROGATION_POINT) || filter.startsWith(Constants.PLUS_SIGNS)) {
+                filter = Constants.PUNCTUATION_POINT + filter;
+            }
+            // search with no case insensitive
 ```
 
 ### AssignmentToMethodParameter
@@ -2252,6 +2252,18 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Entity.
             operator = operator.substring(0, 200);
         }
         this.operator = operator;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `keyPrefix`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUtils.java`
+#### Snippet
+```java
+            return new HashMap<String, String>();
+        if (keyPrefix == null)
+            keyPrefix = "";
+
+        Matcher matcher = QUERY_PATTERN.matcher(query);
 ```
 
 ### AssignmentToMethodParameter
@@ -2276,18 +2288,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUti
             uri += "?" + name + "=" + value;
         }
         return uri;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `keyPrefix`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUtils.java`
-#### Snippet
-```java
-            return new HashMap<String, String>();
-        if (keyPrefix == null)
-            keyPrefix = "";
-
-        Matcher matcher = QUERY_PATTERN.matcher(query);
 ```
 
 ### AssignmentToMethodParameter
@@ -2327,39 +2327,39 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Overrid
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `filter`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
+Assignment to method parameter `id`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
 #### Snippet
 ```java
-            }
-            // replace dot symbol and asterisk symbol to java-based regex pattern
-            filter = filter.toLowerCase().replace(Constants.PUNCTUATION_POINT, Constants.PUNCTUATION_SEPARATOR_POINT);
-            // filter start with [* 、? 、+] will triggering PatternSyntaxException
-            if (filter.startsWith(Constants.ANY_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public MeshRouteDTO detailRoute(@PathVariable String id, @PathVariable String env) {
+        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
+        MeshRouteDTO meshRoute = meshRouteService.findMeshRoute(id);
+        if (meshRoute == null) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `filter`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
+Assignment to method parameter `id`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
 #### Snippet
 ```java
-            if (filter.startsWith(Constants.ANY_VALUE)
-                    || filter.startsWith(Constants.INTERROGATION_POINT) || filter.startsWith(Constants.PLUS_SIGNS)) {
-                filter = Constants.PUNCTUATION_POINT + filter;
-            }
-            // search with no case insensitive
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public boolean updateRule(@PathVariable String id, @RequestBody MeshRouteDTO meshRoute, @PathVariable String env) {
+        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
+        if (meshRouteService.findMeshRoute(id) == null) {
+            throw new ResourceNotFoundException("can not find mesh route, Id: " + id);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `service`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceController.java`
+Assignment to method parameter `id`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MeshRouteController.java`
 #### Snippet
 ```java
-    @RequestMapping(value = "/service/{service}", method = RequestMethod.GET)
-    public ServiceDetailDTO serviceDetail(@PathVariable String service, @PathVariable String env) {
-        service = service.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
-        String group = Tool.getGroup(service);
-        String version = Tool.getVersion(service);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public boolean deleteRoute(@PathVariable String id, @PathVariable String env) {
+        id = id.replace(Constants.ANY_VALUE, Constants.PATH_SEPARATOR);
+        return meshRouteService.deleteMeshRule(id);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -2377,42 +2377,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUti
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/OverrideUtils.java`
-#### Snippet
-```java
-        }
-        if (configs.size() == 0) {
-            return null;
-        }
-        dynamicConfigDTO.setConfigs(configs);
-```
-
-### ReturnNull
-Return of `null`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/UserController.java`
 #### Snippet
 ```java
@@ -2425,359 +2389,11 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/UserContr
 
 ### ReturnNull
 Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/NacosMetaDataCollector.java`
-#### Snippet
-```java
-            logger.warn("Failed to get " + identifier + " from nacos, cause: " + e.getMessage(), e);
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
-#### Snippet
-```java
-            case "void":
-            case "java.lang.Void":
-                return null;
-            case "java.lang.String":
-                return "";
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestUtil.java`
-#### Snippet
-```java
-            case "void":
-            case "java.lang.Void":
-                return null;
-            case "java.lang.String":
-                return "";
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/ConsulMetaDataCollector.java`
-#### Snippet
-```java
-                    key.getUniqueKey(KeyTypeEnum.UNIQUE_KEY), e.getMessage()), e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ApiDocsController.java`
-#### Snippet
-```java
-        if(null != paramValue) {
-            if (paramValue instanceof String && StringUtils.isBlank((String) paramValue)) {
-                return null;
-            } else if (paramValue instanceof Map) {
-                Map<String, Object> tempMap = (Map<String, Object>) paramValue;
-```
-
-### ReturnNull
-Return of `null`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/RegistryCache.java`
 #### Snippet
 ```java
 
     default V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/ZookeeperMetaDataCollector.java`
-#### Snippet
-```java
-            String path = getNodePath(identifier);
-            if (client.checkExists().forPath(path) == null) {
-                return null;
-            }
-            return new String(client.getData().forPath(path));
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/ZookeeperMetaDataCollector.java`
-#### Snippet
-```java
-            logger.error(e.getMessage(), e);
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/YamlParser.java`
-#### Snippet
-```java
-        protected NodeTuple representJavaBeanProperty(Object javaBean, Property property, Object propertyValue, Tag customTag) {
-            if (propertyValue == null) {
-                return null;
-            } else {
-                return super.representJavaBeanProperty(javaBean, property, propertyValue, customTag);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
-#### Snippet
-```java
-    public static String MD5_32bit(byte[] input) {
-        if (input == null || input.length == 0) {
-            return null;
-        }
-        md.update(input);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
-#### Snippet
-```java
-    public static String MD5_32bit(String input) {
-        if (input == null || input.length() == 0) {
-            return null;
-        }
-        md.update(input.getBytes());
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
-#### Snippet
-```java
-        String hash = MD5_32bit(input);
-        if (hash == null) {
-            return null;
-        }
-        return hash.substring(8, 24);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
-#### Snippet
-```java
-            ConditionRouteDTO conditionRouteDTO = RouteUtils.createConditionRouteFromRule(routingRule);
-            if(null == conditionRouteDTO || CollectionUtils.isEmpty(conditionRouteDTO.getConditions())) {
-                return null;
-            }
-            String service = conditionRouteDTO.getService();
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
-#### Snippet
-```java
-            return conditionRouteDTO;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
-#### Snippet
-```java
-            return RouteUtils.convertTagroutetoDisplay(tagRoute);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/utils/ApiDocsDubboGenericUtil.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/MeshRouteServiceImpl.java`
-#### Snippet
-```java
-        String rule = dynamicConfiguration.getConfig(path);
-        if (rule == null) {
-            return null;
-        }
-        MeshRouteDTO meshRoute = new MeshRouteDTO();
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/InstanceRegistryQueryHelper.java`
-#### Snippet
-```java
-        ConcurrentMap<String, Map<String, List<InstanceAddressURL>>> appInterfaceMap = instanceRegistryCache.get(Constants.PROVIDERS_CATEGORY);
-        if (appInterfaceMap == null || appInterfaceMap.get(application) == null) {
-            return null;
-        }
-        Map<String, List<InstanceAddressURL>> urlsMap = appInterfaceMap.get(application);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/InstanceRegistryQueryHelper.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
-#### Snippet
-```java
-            return dynamicConfigDTO;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public String getPath(String group, String key) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public URL getUrl() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public String getConfig(String group, String key) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public String getPath(String key) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public String getConfig(String key) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/MultiDynamicConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public String getPath(String group, String key) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/MultiDynamicConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public String getPath(String key) {
         return null;
     }
 
@@ -2821,6 +2437,246 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/im
 
 ### ReturnNull
 Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
+#### Snippet
+```java
+        String hash = MD5_32bit(input);
+        if (hash == null) {
+            return null;
+        }
+        return hash.substring(8, 24);
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
+#### Snippet
+```java
+    public static String MD5_32bit(byte[] input) {
+        if (input == null || input.length == 0) {
+            return null;
+        }
+        md.update(input);
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
+#### Snippet
+```java
+    public static String MD5_32bit(String input) {
+        if (input == null || input.length() == 0) {
+            return null;
+        }
+        md.update(input.getBytes());
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/YamlParser.java`
+#### Snippet
+```java
+        protected NodeTuple representJavaBeanProperty(Object javaBean, Property property, Object propertyValue, Tag customTag) {
+            if (propertyValue == null) {
+                return null;
+            } else {
+                return super.representJavaBeanProperty(javaBean, property, propertyValue, customTag);
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/OverrideUtils.java`
+#### Snippet
+```java
+        }
+        if (configs.size() == 0) {
+            return null;
+        }
+        dynamicConfigDTO.setConfigs(configs);
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/Tool.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestUtil.java`
+#### Snippet
+```java
+            case "void":
+            case "java.lang.Void":
+                return null;
+            case "java.lang.String":
+                return "";
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/MultiDynamicConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String getPath(String key) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/MultiDynamicConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String getPath(String group, String key) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/utils/ApiDocsDubboGenericUtil.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String getConfig(String key) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public URL getUrl() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String getPath(String group, String key) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String getPath(String key) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/config/impl/NoOpConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String getConfig(String group, String key) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
+#### Snippet
+```java
+            ConditionRouteDTO conditionRouteDTO = RouteUtils.createConditionRouteFromRule(routingRule);
+            if(null == conditionRouteDTO || CollectionUtils.isEmpty(conditionRouteDTO.getConditions())) {
+                return null;
+            }
+            String service = conditionRouteDTO.getService();
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
+#### Snippet
+```java
+            return conditionRouteDTO;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
+#### Snippet
+```java
+            return RouteUtils.convertTagroutetoDisplay(tagRoute);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
 #### Snippet
 ```java
@@ -2841,30 +2697,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtil
             return null;
 
         Consumer c = new Consumer();
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
-#### Snippet
-```java
-    public static Provider url2Provider(Pair<String, URL> pair) {
-        if (pair == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
-#### Snippet
-```java
-
-        if (url == null)
-            return null;
-
-        Provider p = new Provider();
 ```
 
 ### ReturnNull
@@ -2893,6 +2725,174 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtil
 
 ### ReturnNull
 Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
+#### Snippet
+```java
+    public static Provider url2Provider(Pair<String, URL> pair) {
+        if (pair == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/SyncUtils.java`
+#### Snippet
+```java
+
+        if (url == null)
+            return null;
+
+        Provider p = new Provider();
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/ConsulMetaDataCollector.java`
+#### Snippet
+```java
+                    key.getUniqueKey(KeyTypeEnum.UNIQUE_KEY), e.getMessage()), e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/ZookeeperMetaDataCollector.java`
+#### Snippet
+```java
+            String path = getNodePath(identifier);
+            if (client.checkExists().forPath(path) == null) {
+                return null;
+            }
+            return new String(client.getData().forPath(path));
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/ZookeeperMetaDataCollector.java`
+#### Snippet
+```java
+            logger.error(e.getMessage(), e);
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/MeshRouteServiceImpl.java`
+#### Snippet
+```java
+        String rule = dynamicConfiguration.getConfig(path);
+        if (rule == null) {
+            return null;
+        }
+        MeshRouteDTO meshRoute = new MeshRouteDTO();
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/impl/NacosMetaDataCollector.java`
+#### Snippet
+```java
+            logger.warn("Failed to get " + identifier + " from nacos, cause: " + e.getMessage(), e);
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
+#### Snippet
+```java
+            return dynamicConfigDTO;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/InstanceRegistryQueryHelper.java`
+#### Snippet
+```java
+        ConcurrentMap<String, Map<String, List<InstanceAddressURL>>> appInterfaceMap = instanceRegistryCache.get(Constants.PROVIDERS_CATEGORY);
+        if (appInterfaceMap == null || appInterfaceMap.get(application) == null) {
+            return null;
+        }
+        Map<String, List<InstanceAddressURL>> urlsMap = appInterfaceMap.get(application);
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/InstanceRegistryQueryHelper.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
+#### Snippet
+```java
+            case "void":
+            case "java.lang.Void":
+                return null;
+            case "java.lang.String":
+                return "";
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ApiDocsController.java`
+#### Snippet
+```java
+        if(null != paramValue) {
+            if (paramValue instanceof String && StringUtils.isBlank((String) paramValue)) {
+                return null;
+            } else if (paramValue instanceof Map) {
+                Map<String, Object> tempMap = (Map<String, Object>) paramValue;
+```
+
+### ReturnNull
+Return of `null`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUtils.java`
 #### Snippet
 ```java
@@ -2916,18 +2916,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUti
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `res` is redundant
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MetricsCollectController.java`
-#### Snippet
-```java
-        MetrcisCollectServiceImpl metrcisCollectService = new MetrcisCollectServiceImpl();
-        metrcisCollectService.setUrl(protocol + "://" + ip + ":" + port +"?scope=remote&cache=true");
-        String res = metrcisCollectService.invoke(group).toString();
-        return res;
-    }
-```
-
 ### UnnecessaryLocalVariable
 Local variable `hash` is redundant
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/CoderUtil.java`
@@ -2964,6 +2952,18 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/ServiceCo
     }
 ```
 
+### UnnecessaryLocalVariable
+Local variable `res` is redundant
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/MetricsCollectController.java`
+#### Snippet
+```java
+        MetrcisCollectServiceImpl metrcisCollectService = new MetrcisCollectServiceImpl();
+        metrcisCollectService.setUrl(protocol + "://" + ip + ":" + port +"?scope=remote&cache=true");
+        String res = metrcisCollectService.invoke(group).toString();
+        return res;
+    }
+```
+
 ## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
@@ -2992,24 +2992,24 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/RouteUti
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
-#### Snippet
-```java
-        if (StringUtils.isEmpty(type)) {
-            // if type is null return empty collection
-            return new Object[]{};
-        }
-        return new Object[]{generateType(sd, type)};
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestUtil.java`
 #### Snippet
 ```java
         if (StringUtils.isEmpty(type)) {
             // if type is null return empty collection
             return new Object[] {};
+        }
+        return new Object[]{generateType(sd, type)};
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ServiceTestV3Util.java`
+#### Snippet
+```java
+        if (StringUtils.isEmpty(type)) {
+            // if type is null return empty collection
+            return new Object[]{};
         }
         return new Object[]{generateType(sd, type)};
 ```
@@ -3052,18 +3052,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/registry/metadata/im
 ```
 
 ### UnusedAssignment
-Variable `registry` initializer `null` is redundant
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/config/ConfigCenter.java`
-#### Snippet
-```java
-    @DependsOn("governanceConfiguration")
-    Registry getRegistry() {
-        Registry registry = null;
-        if (registryUrl == null) {
-            if (StringUtils.isBlank(registryAddress)) {
-```
-
-### UnusedAssignment
 Variable `overrideDTO` initializer `null` is redundant
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/OverrideServiceImpl.java`
 #### Snippet
@@ -3073,6 +3061,18 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Overrid
         OverrideDTO overrideDTO = null;
         if(config == null) {
             overrideDTO = new OverrideDTO();
+```
+
+### UnusedAssignment
+Variable `registry` initializer `null` is redundant
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/config/ConfigCenter.java`
+#### Snippet
+```java
+    @DependsOn("governanceConfiguration")
+    Registry getRegistry() {
+        Registry registry = null;
+        if (registryUrl == null) {
+            if (StringUtils.isBlank(registryAddress)) {
 ```
 
 ## RuleId[ruleID=UseBulkOperation]
@@ -3103,6 +3103,18 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/ParseUti
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
+Condition `paramsString != null` is always `true`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/UrlUtils.java`
+#### Snippet
+```java
+        StringBuilder paramsString = new StringBuilder();
+        for (Entry<String, String[]> param : params.entrySet()) {
+            if (paramsString != null) {
+                paramsString.append("&");
+            }
+```
+
+### ConstantValue
 Condition `iterator != null` is always `true`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/controller/UserController.java`
 #### Snippet
@@ -3127,39 +3139,15 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/interceptor/AuthInte
 ```
 
 ### ConstantValue
-Condition `paramsString != null` is always `true`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/common/util/UrlUtils.java`
+Value `matchRule` is always 'null'
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Route.java`
 #### Snippet
 ```java
-        StringBuilder paramsString = new StringBuilder();
-        for (Entry<String, String[]> param : params.entrySet()) {
-            if (paramsString != null) {
-                paramsString.append("&");
-            }
-```
-
-### ConstantValue
-Condition `null == conditionRouteDTO` is always `false`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
-#### Snippet
-```java
-            RoutingRule routingRule = YamlParser.loadObject(config, RoutingRule.class);
-            ConditionRouteDTO conditionRouteDTO = RouteUtils.createConditionRouteFromRule(routingRule);
-            if(null == conditionRouteDTO || CollectionUtils.isEmpty(conditionRouteDTO.getConditions())) {
-                return null;
-            }
-```
-
-### ConstantValue
-Condition `stringURLMap == null` is always `false`
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ConsumerServiceImpl.java`
-#### Snippet
-```java
-        filter.put(Constants.APPLICATION_KEY, application);
-        Map<String, URL> stringURLMap = SyncUtils.filterFromCategory(getInterfaceRegistryCache(), filter);
-        if (stringURLMap == null || stringURLMap.isEmpty()) {
-            throw new ParamValidationException("there is no consumer for application: " + application);
+            this.matchRule = matchRule.trim();
+        } else {
+            this.matchRule = matchRule;
         }
+    }
 ```
 
 ### ConstantValue
@@ -3175,18 +3163,6 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Route.j
 ```
 
 ### ConstantValue
-Value `matchRule` is always 'null'
-in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/model/domain/Route.java`
-#### Snippet
-```java
-            this.matchRule = matchRule.trim();
-        } else {
-            this.matchRule = matchRule;
-        }
-    }
-```
-
-### ConstantValue
 Condition `result != null` is always `true`
 in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ProviderServiceImpl.java`
 #### Snippet
@@ -3196,6 +3172,30 @@ in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/Provide
         if (result != null && result.size() > 0) {
             URL url = result.values().stream().findFirst().get();
             if (url.getParameter(Constants.SPECIFICATION_VERSION_KEY) != null) {
+```
+
+### ConstantValue
+Condition `stringURLMap == null` is always `false`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/ConsumerServiceImpl.java`
+#### Snippet
+```java
+        filter.put(Constants.APPLICATION_KEY, application);
+        Map<String, URL> stringURLMap = SyncUtils.filterFromCategory(getInterfaceRegistryCache(), filter);
+        if (stringURLMap == null || stringURLMap.isEmpty()) {
+            throw new ParamValidationException("there is no consumer for application: " + application);
+        }
+```
+
+### ConstantValue
+Condition `null == conditionRouteDTO` is always `false`
+in `dubbo-admin-server/src/main/java/org/apache/dubbo/admin/service/impl/RouteServiceImpl.java`
+#### Snippet
+```java
+            RoutingRule routingRule = YamlParser.loadObject(config, RoutingRule.class);
+            ConditionRouteDTO conditionRouteDTO = RouteUtils.createConditionRouteFromRule(routingRule);
+            if(null == conditionRouteDTO || CollectionUtils.isEmpty(conditionRouteDTO.getConditions())) {
+                return null;
+            }
 ```
 
 ### ConstantValue
