@@ -186,18 +186,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `prefix`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
-#### Snippet
-```java
-
-    private void printArtifact(String prefix, int i, Artifact artifact) throws MojoExecutionException {
-        prefix = prefix + i;
-        File artifactFile = artifact.getFile();
-        if (artifactFile.isDirectory()) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `javaVersion`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
 #### Snippet
@@ -207,6 +195,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
             javaVersion = javaVersion.substring(2);
         }
         int index = javaVersion.indexOf('.'); // for example 8.0_202
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `prefix`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+
+    private void printArtifact(String prefix, int i, Artifact artifact) throws MojoExecutionException {
+        prefix = prefix + i;
+        File artifactFile = artifact.getFile();
+        if (artifactFile.isDirectory()) {
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -263,11 +263,11 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
+        ZipEntry zipEntry = jar.getEntry(entryName);
+        if (zipEntry == null) {
+            return null;
         }
-
-        return null;
-    }
-
+        try (InputStream in = jar.getInputStream(zipEntry)) {
 ```
 
 ### ReturnNull
@@ -275,7 +275,7 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-            log.warn("unable to open jar file " + file, e);
+            log.warn("Unable to read " + entryName + " from " + jar, e);
         }
         return null;
     }
@@ -299,11 +299,11 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-        ZipEntry zipEntry = jar.getEntry(entryName);
-        if (zipEntry == null) {
-            return null;
+            log.warn("unable to open jar file " + file, e);
         }
-        try (InputStream in = jar.getInputStream(zipEntry)) {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -311,8 +311,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-            log.warn("Unable to read " + entryName + " from " + jar, e);
         }
+
         return null;
     }
 
