@@ -1,42 +1,32 @@
 # eclipse-collections-kata 
  
 # Bad smells
-I found 37 bad smells with 1 repairable:
+I found 38 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UNUSED_IMPORT | 23 | false |
 | FieldMayBeStatic | 8 | false |
 | ReturnNull | 2 | false |
 | Convert2MethodRef | 2 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-19-17-12-18.024.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
 Field `falseValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-    private final byte maxbyteValue = Byte.MAX_VALUE;
-```
-
-### FieldMayBeStatic
-Field `trueValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-class MinMaxPrimitivesPlain
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-```
-
-### FieldMayBeStatic
-Field `falseValue` may be 'static'
 in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
 #### Snippet
 ```java
@@ -57,6 +47,30 @@ class MinMaxPrimitivesBoxed
     private final Boolean trueValue = true;
     private final Boolean falseValue = false;
     private final Byte minbyteValue = Byte.MIN_VALUE;
+```
+
+### FieldMayBeStatic
+Field `falseValue` may be 'static'
+in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
+#### Snippet
+```java
+{
+    private final boolean trueValue = true;
+    private final boolean falseValue = false;
+    private final byte minbyteValue = Byte.MIN_VALUE;
+    private final byte maxbyteValue = Byte.MAX_VALUE;
+```
+
+### FieldMayBeStatic
+Field `trueValue` may be 'static'
+in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
+#### Snippet
+```java
+class MinMaxPrimitivesPlain
+{
+    private final boolean trueValue = true;
+    private final boolean falseValue = false;
+    private final byte minbyteValue = Byte.MIN_VALUE;
 ```
 
 ### FieldMayBeStatic
@@ -84,18 +98,6 @@ in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandf
 ```
 
 ### FieldMayBeStatic
-Field `trueValue` may be 'static'
-in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-class MinMaxPrimitivesPlain
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-```
-
-### FieldMayBeStatic
 Field `falseValue` may be 'static'
 in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
 #### Snippet
@@ -105,6 +107,18 @@ in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/p
     private final boolean falseValue = false;
     private final byte minbyteValue = Byte.MIN_VALUE;
     private final byte maxbyteValue = Byte.MAX_VALUE;
+```
+
+### FieldMayBeStatic
+Field `trueValue` may be 'static'
+in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
+#### Snippet
+```java
+class MinMaxPrimitivesPlain
+{
+    private final boolean trueValue = true;
+    private final boolean falseValue = false;
+    private final byte minbyteValue = Byte.MIN_VALUE;
 ```
 
 ## RuleId[ruleID=ReturnNull]
