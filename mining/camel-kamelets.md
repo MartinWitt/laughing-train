@@ -1,15 +1,15 @@
 # camel-kamelets 
  
 # Bad smells
-I found 50 bad smells with 8 repairable:
+I found 52 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 8 | false |
+| UnnecessaryLocalVariable | 6 | true |
 | RedundantFieldInitialization | 5 | false |
-| UnnecessaryLocalVariable | 5 | true |
 | RegExpDuplicateCharacterInClass | 4 | false |
+| SimplifyStreamApiCallChains | 4 | false |
 | SystemOutErr | 3 | false |
-| SimplifyStreamApiCallChains | 3 | false |
 | IfStatementWithIdenticalBranches | 2 | false |
 | UnnecessaryFullyQualifiedName | 2 | false |
 | DataFlowIssue | 2 | false |
@@ -247,18 +247,6 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
 #### Snippet
 ```java
         List<Kamelet> collect = kameletModels.entrySet().stream()
-                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
-        return collect;
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
-#### Snippet
-```java
-        List<Kamelet> collect = kameletModels.entrySet().stream()
                 .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_PROVIDER).equalsIgnoreCase(provider))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
@@ -271,7 +259,31 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
 #### Snippet
 ```java
         List<Kamelet> collect = kameletModels.entrySet().stream()
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_NAMESPACE).contains(namespace))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+        return collect;
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+        List<Kamelet> collect = kameletModels.entrySet().stream()
                 .filter(x -> x.getValue().getMetadata().getLabels().get(KameletLabelNames.KAMELET_LABEL_TYPE).contains(type))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+        return collect;
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+        List<Kamelet> collect = kameletModels.entrySet().stream()
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
         return collect;
@@ -320,11 +332,11 @@ Field initialization to `null` is redundant
 in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/mongodb/SslAwareMongoClient.java`
 #### Snippet
 ```java
+        }
     });
     private String hosts = null;
     private String username = null;
     private String password = null;
-    private boolean ssl = true;
 ```
 
 ### RedundantFieldInitialization
@@ -332,11 +344,11 @@ Field initialization to `null` is redundant
 in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/mongodb/SslAwareMongoClient.java`
 #### Snippet
 ```java
-        }
     });
     private String hosts = null;
     private String username = null;
     private String password = null;
+    private boolean ssl = true;
 ```
 
 ### RedundantFieldInitialization
@@ -380,7 +392,7 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/t
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-09-20-04-42.227.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-19-11-28-32.303.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -391,6 +403,66 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-09-20-04-42.227.
 ```
 
 ## RuleId[ruleID=ReturnNull]
+### ReturnNull
+Return of `null`
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+            return kamelet.getSpec().getTemplate();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+            return kamelet.getSpec().getDependencies();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+            return kamelet.getSpec().getDefinition();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+            return kamelet.getSpec().getDefinition().getRequired();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+            if (c.name.equals(prefix)) return c.scheme;
+        }
+        return null;
+    }
+
+```
+
 ### ReturnNull
 Return of `null`
 in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/transform/MaskField.java`
@@ -427,66 +499,6 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/m
 
 ```
 
-### ReturnNull
-Return of `null`
-in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
-#### Snippet
-```java
-            if (c.name.equals(prefix)) return c.scheme;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
-#### Snippet
-```java
-            return kamelet.getSpec().getDependencies();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
-#### Snippet
-```java
-            return kamelet.getSpec().getDefinition().getRequired();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
-#### Snippet
-```java
-            return kamelet.getSpec().getDefinition();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
-#### Snippet
-```java
-            return kamelet.getSpec().getTemplate();
-        } else {
-            return null;
-        }
-    }
-```
-
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `line.length() == 0` can be replaced with 'line.isEmpty()'
@@ -502,38 +514,14 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/f
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `schema` is redundant
-in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/serialization/InflightProtobufSchemaResolver.java`
-#### Snippet
-```java
-        String schemaStr = (String) exchange.getProperty("schema");
-        try {
-            ProtobufSchema schema = ProtobufSchemaLoader.std.parse(schemaStr);
-            return schema;
-        } catch(IOException e) {
-```
-
-### UnnecessaryLocalVariable
-Local variable `schema` is redundant
-in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/serialization/InflightAvroSchemaResolver.java`
-#### Snippet
-```java
-        Boolean validate = Boolean.valueOf((String) exchange.getProperty("validate"));
-        Schema raw = new Schema.Parser().setValidate(validate).parse(schemaJson);
-        AvroSchema schema = new AvroSchema(raw);
-        return schema;
-    }
-```
-
-### UnnecessaryLocalVariable
 Local variable `collect` is redundant
 in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
 #### Snippet
 ```java
 
-    public List<Kamelet> getKameletsByGroups(String group) {
+    public List<Kamelet> getKameletsByNamespace(String namespace) {
         List<Kamelet> collect = kameletModels.entrySet().stream()
-                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_NAMESPACE).contains(namespace))
                 .map(Map.Entry::getValue)
 ```
 
@@ -559,6 +547,42 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
         List<Kamelet> collect = kameletModels.entrySet().stream()
                 .filter(x -> x.getValue().getMetadata().getLabels().get(KameletLabelNames.KAMELET_LABEL_TYPE).contains(type))
                 .map(Map.Entry::getValue)
+```
+
+### UnnecessaryLocalVariable
+Local variable `collect` is redundant
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+
+    public List<Kamelet> getKameletsByGroups(String group) {
+        List<Kamelet> collect = kameletModels.entrySet().stream()
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
+                .map(Map.Entry::getValue)
+```
+
+### UnnecessaryLocalVariable
+Local variable `schema` is redundant
+in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/serialization/InflightProtobufSchemaResolver.java`
+#### Snippet
+```java
+        String schemaStr = (String) exchange.getProperty("schema");
+        try {
+            ProtobufSchema schema = ProtobufSchemaLoader.std.parse(schemaStr);
+            return schema;
+        } catch(IOException e) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `schema` is redundant
+in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/serialization/InflightAvroSchemaResolver.java`
+#### Snippet
+```java
+        Boolean validate = Boolean.valueOf((String) exchange.getProperty("validate"));
+        Schema raw = new Schema.Parser().setValidate(validate).parse(schemaJson);
+        AvroSchema schema = new AvroSchema(raw);
+        return schema;
+    }
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
