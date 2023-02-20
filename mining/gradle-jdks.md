@@ -1,16 +1,29 @@
 # gradle-jdks 
  
 # Bad smells
-I found 26 bad smells with 6 repairable:
+I found 31 bad smells with 7 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnstableApiUsage | 12 | false |
+| AbstractClassNeverImplemented | 5 | false |
 | CodeBlock2Expr | 5 | true |
-| AbstractClassNeverImplemented | 4 | false |
-| AbstractMethodCallInConstructor | 2 | false |
+| AbstractMethodCallInConstructor | 3 | false |
 | BoundedWildcard | 2 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
+| OptionalContainsCollection | 2 | false |
+| NonProtectedConstructorInAbstractClass | 2 | true |
 ## RuleId[ruleID=AbstractMethodCallInConstructor]
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getLogLevel()` during object construction
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
+#### Snippet
+```java
+
+    public PalantirCaExtension() {
+        getLogLevel().set(LogLevel.INFO);
+    }
+}
+```
+
 ### AbstractMethodCallInConstructor
 Call to 'abstract' method `getObjectFactory()` during object construction
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
@@ -33,6 +46,67 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
                 DirectoryProperty.class, getObjectFactory().directoryProperty());
         this.getCaCerts().finalizeValueOnRead();
         this.getJdkStorageLocation().finalizeValueOnRead();
+```
+
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `PalantirCaExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
+#### Snippet
+```java
+import org.gradle.api.provider.Property;
+
+public abstract class PalantirCaExtension {
+    public abstract Property<LogLevel> getLogLevel();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JdksExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
+#### Snippet
+```java
+import org.gradle.jvm.toolchain.JavaLanguageVersion;
+
+public abstract class JdksExtension {
+    private final LazilyConfiguredMapping<JdkDistributionName, JdkDistributionExtension, Void> jdkDistributions;
+    private final LazilyConfiguredMapping<JavaLanguageVersion, JdkExtension, Project> jdks;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
+#### Snippet
+```java
+
+@Value.Immutable
+abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
+    protected abstract Provider<Directory> installationPathProvider();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JdkDistributionExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDistributionExtension.java`
+#### Snippet
+```java
+import org.gradle.api.provider.Property;
+
+public abstract class JdkDistributionExtension {
+    public abstract Property<String> getBaseUrl();
+}
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JdkExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkExtension.java`
+#### Snippet
+```java
+import org.gradle.api.provider.Property;
+
+public abstract class JdkExtension {
+    // Not called `version` to avoid being interfered with by `Project#setVersion`!
+    public abstract Property<String> getJdkVersion();
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -60,56 +134,44 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
         this.jdkDistributions = jdkDistributions;
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `JdkExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkExtension.java`
+## RuleId[ruleID=OptionalContainsCollection]
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
 #### Snippet
 ```java
-import org.gradle.api.provider.Property;
+    }
 
-public abstract class JdkExtension {
-    // Not called `version` to avoid being interfered with by `Project#setVersion`!
-    public abstract Property<String> getJdkVersion();
+    private Optional<byte[]> linuxSystemCertificates() {
+        List<Path> possibleCaCertificatePaths = List.of(
+                // Ubuntu/debian
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `JdkDistributionExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDistributionExtension.java`
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
 #### Snippet
 ```java
-import org.gradle.api.provider.Property;
+    }
 
-public abstract class JdkDistributionExtension {
-    public abstract Property<String> getBaseUrl();
-}
-```
+    private Optional<byte[]> systemCertificates() {
+        Os currentOs = Os.current();
 
-### AbstractClassNeverImplemented
-Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
-#### Snippet
-```java
-
-@Value.Immutable
-abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
-    protected abstract Provider<Directory> installationPathProvider();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JdksExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
-#### Snippet
-```java
-import org.gradle.jvm.toolchain.JavaLanguageVersion;
-
-public abstract class JdksExtension {
-    private final LazilyConfiguredMapping<JdkDistributionName, JdkDistributionExtension, Void> jdkDistributions;
-    private final LazilyConfiguredMapping<JavaLanguageVersion, JdkExtension, Project> jdks;
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `PalantirCaExtension()` of an abstract class should not be declared 'public'
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
+#### Snippet
+```java
+    public abstract Property<LogLevel> getLogLevel();
+
+    public PalantirCaExtension() {
+        getLogLevel().set(LogLevel.INFO);
+    }
+```
+
 ### NonProtectedConstructorInAbstractClass
 Constructor `JdksExtension()` of an abstract class should not be declared 'public'
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
@@ -137,6 +199,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
+#### Snippet
+```java
+        StringBuilder stringBuilder = new StringBuilder();
+
+        caCerts().forEach((alias, caCert) -> {
+            stringBuilder.append(alias).append(": ").append(caCert).append('\n');
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
 #### Snippet
 ```java
@@ -157,18 +231,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
             jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
                 jdkDistributionExtension
                         .getBaseUrl()
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
-#### Snippet
-```java
-        StringBuilder stringBuilder = new StringBuilder();
-
-        caCerts().forEach((alias, caCert) -> {
-            stringBuilder.append(alias).append(": ").append(caCert).append('\n');
-        });
 ```
 
 ### CodeBlock2Expr
