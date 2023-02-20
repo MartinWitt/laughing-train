@@ -20,15 +20,27 @@ I found 37 bad smells with 1 repairable:
 | NonFinalFieldOfException | 1 | false |
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'sslConfig'
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
+#### Snippet
+```java
+    Optional<ProxyConfiguration> proxyConfiguration();
+
+    static PartialServiceConfiguration of(List<String> uris, Optional<SslConfiguration> sslConfig) {
+        return PartialServiceConfiguration.builder()
+                .uris(uris)
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'retryAfter'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        private final Optional<Duration> retryAfter;
+        }
 
-        private Throttle(Optional<Duration> retryAfter) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
-            this.retryAfter = retryAfter;
+        private Throttle(Optional<Duration> retryAfter, Throwable cause) {
+            super(
+                    "Suggesting request throttling with optional retryAfter duration: " + retryAfter,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -60,11 +72,11 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        }
+        private final Optional<Duration> retryAfter;
 
-        private Throttle(Optional<Duration> retryAfter, Throwable cause) {
-            super(
-                    "Suggesting request throttling with optional retryAfter duration: " + retryAfter,
+        private Throttle(Optional<Duration> retryAfter) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
+            this.retryAfter = retryAfter;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -103,18 +115,6 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Se
             return first;
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'sslConfig'
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
-#### Snippet
-```java
-    Optional<ProxyConfiguration> proxyConfiguration();
-
-    static PartialServiceConfiguration of(List<String> uris, Optional<SslConfiguration> sslConfig) {
-        return PartialServiceConfiguration.builder()
-                .uris(uris)
-```
-
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -139,19 +139,6 @@ in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/Assertions.ja
 public class Assertions extends org.assertj.core.api.Assertions {
 
     Assertions() {}
-```
-
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
-#### Snippet
-```java
-    private static Map<String, String> parseComments(String commentsString) {
-        Map<String, String> comments = new HashMap<>();
-        for (String comment : commentsString.split("[,;]")) {
-            String[] fields = comment.split(":");
-            if (fields.length == 2) {
 ```
 
 ## RuleId[ruleID=SimplifyOptionalCallChains]
@@ -191,6 +178,19 @@ in `ssl-config/src/main/java/com/palantir/conjure/java/api/config/ssl/SslConfigu
         }
 ```
 
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
+#### Snippet
+```java
+    private static Map<String, String> parseComments(String commentsString) {
+        Map<String, String> comments = new HashMap<>();
+        for (String comment : commentsString.split("[,;]")) {
+            String[] fields = comment.split(":");
+            if (fields.length == 2) {
+```
+
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.palantir.logsafe` is unnecessary and can be removed
@@ -218,18 +218,6 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Se
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getMessage' is still used
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
-#### Snippet
-```java
-    @Value.Auxiliary
-    @SuppressWarnings("checkstyle:designforextension")
-    abstract Optional<String> getMessage();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getExceptionClass' is still used
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
 #### Snippet
@@ -237,6 +225,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
     @Value.Auxiliary
     @SuppressWarnings("checkstyle:designforextension")
     abstract Optional<String> getExceptionClass();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getMessage' is still used
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
+#### Snippet
+```java
+    @Value.Auxiliary
+    @SuppressWarnings("checkstyle:designforextension")
+    abstract Optional<String> getMessage();
 
     /**
 ```
@@ -280,6 +280,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
+Exception class name `Throttle` does not end with 'Exception'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
+
+    /** See {@link #throttle}. */
+    public static final class Throttle extends QosException implements SafeLoggable {
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
+
+```
+
+### ExceptionNameDoesntEndWithException
 Exception class name `RetryOther` does not end with 'Exception'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
@@ -300,18 +312,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
     /** See {@link #unavailable}. */
     public static final class Unavailable extends QosException implements SafeLoggable {
         private static final QosReason DEFAULT_REASON = QosReason.of("qos-unavailable");
-
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Throttle` does not end with 'Exception'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-
-    /** See {@link #throttle}. */
-    public static final class Throttle extends QosException implements SafeLoggable {
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
 
 ```
 
@@ -344,18 +344,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/RemoteException.ja
 ## RuleId[ruleID=Java9CollectionFactory]
 ### Java9CollectionFactory
 Can be replaced with 'List.of()' call
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/UnknownRemoteException.java`
-#### Snippet
-```java
-        args.add(SafeArg.of("status", getStatus()));
-        args.add(UnsafeArg.of("body", getBody()));
-        return Collections.unmodifiableList(args);
-    }
-}
-```
-
-### Java9CollectionFactory
-Can be replaced with 'List.of()' call
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/RemoteException.java`
 #### Snippet
 ```java
@@ -366,17 +354,29 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/RemoteException.ja
                 SafeArg.of(ERROR_NAME, error.errorName()),
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/ServiceException.java`
+### Java9CollectionFactory
+Can be replaced with 'List.of()' call
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/UnknownRemoteException.java`
 #### Snippet
 ```java
-            @Nullable Throwable cause,
-            // Guard against cause cycles, see Throwable.printStackTrace(PrintStreamOrWriter)
-            Set<Throwable> dejaVu) {
-        if (cause == null || !dejaVu.add(cause)) {
-            return UUID.randomUUID().toString();
+        args.add(SafeArg.of("status", getStatus()));
+        args.add(UnsafeArg.of("body", getBody()));
+        return Collections.unmodifiableList(args);
+    }
+}
+```
+
+## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super String`
+in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExceptionAssert.java`
+#### Snippet
+```java
+        }
+
+        private static void assertPut(Map<String, Object> map, String key, Object value, String name) {
+            Object previous = map.put(key, value);
+            if (previous != null) {
 ```
 
 ### BoundedWildcard
@@ -392,15 +392,15 @@ in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExcept
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExceptionAssert.java`
+Can generalize to `? super Throwable`
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/ServiceException.java`
 #### Snippet
 ```java
-        }
-
-        private static void assertPut(Map<String, Object> map, String key, Object value, String name) {
-            Object previous = map.put(key, value);
-            if (previous != null) {
+            @Nullable Throwable cause,
+            // Guard against cause cycles, see Throwable.printStackTrace(PrintStreamOrWriter)
+            Set<Throwable> dejaVu) {
+        if (cause == null || !dejaVu.add(cause)) {
+            return UUID.randomUUID().toString();
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -417,39 +417,15 @@ public abstract class ServicesConfigBlock {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SerializableError` has no concrete subclass
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
+Abstract class `ProxyConfiguration` has no concrete subclass
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ProxyConfiguration.java`
 #### Snippet
 ```java
-@Value.Style(overshadowImplementation = false)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class SerializableError implements Serializable {
-
-    /**
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ErrorType` has no concrete subclass
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/ErrorType.java`
-#### Snippet
-```java
-@Value.Immutable
+@JsonDeserialize(builder = ProxyConfiguration.Builder.class)
 @ImmutablesStyle
-public abstract class ErrorType {
+public abstract class ProxyConfiguration {
 
-    private static final String UPPER_CAMEL_CASE = "(([A-Z][a-z0-9]+)+)";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BasicCredentials` has no concrete subclass
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/BasicCredentials.java`
-#### Snippet
-```java
-@JsonDeserialize(as = ImmutableBasicCredentials.class)
-@ImmutablesStyle
-public abstract class BasicCredentials {
-
-    @Value.Parameter
+    public static final ProxyConfiguration DIRECT =
 ```
 
 ### AbstractClassNeverImplemented
@@ -465,14 +441,38 @@ public abstract class SslConfiguration {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ProxyConfiguration` has no concrete subclass
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ProxyConfiguration.java`
+Abstract class `ErrorType` has no concrete subclass
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/ErrorType.java`
 #### Snippet
 ```java
-@JsonDeserialize(builder = ProxyConfiguration.Builder.class)
+@Value.Immutable
 @ImmutablesStyle
-public abstract class ProxyConfiguration {
+public abstract class ErrorType {
 
-    public static final ProxyConfiguration DIRECT =
+    private static final String UPPER_CAMEL_CASE = "(([A-Z][a-z0-9]+)+)";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SerializableError` has no concrete subclass
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
+#### Snippet
+```java
+@Value.Style(overshadowImplementation = false)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class SerializableError implements Serializable {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BasicCredentials` has no concrete subclass
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/BasicCredentials.java`
+#### Snippet
+```java
+@JsonDeserialize(as = ImmutableBasicCredentials.class)
+@ImmutablesStyle
+public abstract class BasicCredentials {
+
+    @Value.Parameter
 ```
 
