@@ -41,7 +41,7 @@ in `samples/azure-container-app-dapr/src/main/java/com/azure/spring/cloud/stream
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-18-07-40-40.514.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-20-15-58-48.297.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -129,18 +129,6 @@ in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DaprStubCustomizer`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
-#### Snippet
-```java
-	public DaprGrpc.DaprStub daprStub(ManagedChannel channel,
-			DaprBinderConfigurationProperties daprBinderProperties,
-			ObjectProvider<DaprStubCustomizer> daprStubCustomizers) {
-		DaprGrpc.DaprStub daprStub = DaprGrpc.newStub(channel);
-		DaprBinderConfigurationProperties.DaprStub daprStubProperties = daprBinderProperties.getDaprStub();
-```
-
-### BoundedWildcard
 Can generalize to `? extends ManagedChannelBuilderCustomizer`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
 #### Snippet
@@ -150,6 +138,18 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 			ObjectProvider<ManagedChannelBuilderCustomizer> managedChannelBuilderCustomizers) {
 		ManagedChannelBuilder builder = ManagedChannelBuilder.forAddress(daprBinderProperties.getDaprIp(), daprBinderProperties.getDaprPort());
 		DaprBinderConfigurationProperties.ManagedChannel managedChannelProperties = daprBinderProperties.getManagedChannel();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DaprStubCustomizer`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
+#### Snippet
+```java
+	public DaprGrpc.DaprStub daprStub(ManagedChannel channel,
+			DaprBinderConfigurationProperties daprBinderProperties,
+			ObjectProvider<DaprStubCustomizer> daprStubCustomizers) {
+		DaprGrpc.DaprStub daprStub = DaprGrpc.newStub(channel);
+		DaprBinderConfigurationProperties.DaprStub daprStubProperties = daprBinderProperties.getDaprStub();
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
