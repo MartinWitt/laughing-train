@@ -48,6 +48,18 @@ in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnecto
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
+Condition `didUrl == null` is always `true`
+in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnector/iam/did/credentials/DemoCredentialsVerifierExtension.java`
+#### Snippet
+```java
+
+        var didUrl = context.getSetting(DID_URL_SETTING, null);
+        if (didUrl == null) {
+            throw new EdcException(format("The DID Url setting '(%s)' was null!", DID_URL_SETTING));
+        }
+```
+
+### ConstantValue
 Value `monitor` is always 'null'
 in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiExtension.java`
 #### Snippet
@@ -60,15 +72,15 @@ in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnecto
 ```
 
 ### ConstantValue
-Condition `didUrl == null` is always `true`
-in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnector/iam/did/credentials/DemoCredentialsVerifierExtension.java`
+Value `commit` is always 'null'
+in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/IdentityHubDataseedingExtension.java`
 #### Snippet
 ```java
+                Map.of("region", "eu", "created", Instant.now().toEpochMilli());
+        var commit = Commit.Builder.newInstance().type("RegistrationCredentials").context("ION Demo").iss(context.getConnectorId()).sub("test").objectId(objectId).payload(payload).build();
+        hubStore.write(commit);
 
-        var didUrl = context.getSetting(DID_URL_SETTING, null);
-        if (didUrl == null) {
-            throw new EdcException(format("The DID Url setting '(%s)' was null!", DID_URL_SETTING));
-        }
+
 ```
 
 ### ConstantValue
@@ -84,14 +96,14 @@ in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnecto
 ```
 
 ### ConstantValue
-Value `commit` is always 'null'
-in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/IdentityHubDataseedingExtension.java`
+Value `cdef` is always 'null'
+in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
 #### Snippet
 ```java
-                Map.of("region", "eu", "created", Instant.now().toEpochMilli());
-        var commit = Commit.Builder.newInstance().type("RegistrationCredentials").context("ION Demo").iss(context.getConnectorId()).sub("test").objectId(objectId).payload(payload).build();
-        hubStore.write(commit);
-
+                .selectorExpression(AssetSelectorExpression.Builder.newInstance().whenEquals(Asset.PROPERTY_ID, asset.getId()).build())
+                .build();
+        contractDefinitionStore.save(cdef);
+    }
 
 ```
 
@@ -116,18 +128,6 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
         // populate node directory
         var nodes = readNodesFromJson(nodesFile);
         nodes.forEach(nodeDirectory::insert);
-
-```
-
-### ConstantValue
-Value `cdef` is always 'null'
-in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
-#### Snippet
-```java
-                .selectorExpression(AssetSelectorExpression.Builder.newInstance().whenEquals(Asset.PROPERTY_ID, asset.getId()).build())
-                .build();
-        contractDefinitionStore.save(cdef);
-    }
 
 ```
 
