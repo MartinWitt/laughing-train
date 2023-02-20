@@ -1,7 +1,7 @@
 # teamcity-rest-codegen 
  
 # Bad smells
-I found 86 bad smells with 4 repairable:
+I found 85 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | AssignmentToMethodParameter | 28 | false |
@@ -13,7 +13,6 @@ I found 86 bad smells with 4 repairable:
 | RedundantImplements | 2 | false |
 | ReturnNull | 2 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | CodeBlock2Expr | 1 | true |
 | MethodOverridesStaticMethod | 1 | false |
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -369,18 +368,6 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `CodegenConfig`
-in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
-#### Snippet
-```java
-import java.io.File;
-
-public class TeamCityPythonCodegen extends PythonClientCodegen implements CodegenConfig {
-    protected String basePackage;
-
-```
-
-### RedundantImplements
-Redundant interface declaration `CodegenConfig`
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
@@ -388,6 +375,18 @@ import java.util.stream.Stream;
 
 public class TeamCityKotlinCodegen extends KotlinClientCodegen implements CodegenConfig {
     String X_SUBPACKAGE = "x-subpackage";
+
+```
+
+### RedundantImplements
+Redundant interface declaration `CodegenConfig`
+in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
+#### Snippet
+```java
+import java.io.File;
+
+public class TeamCityPythonCodegen extends PythonClientCodegen implements CodegenConfig {
+    protected String basePackage;
 
 ```
 
@@ -414,19 +413,6 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
         return null;
     }
 
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-05-03-58.402.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -467,42 +453,6 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
-#### Snippet
-```java
-            this.setProjectName((String)this.additionalProperties.get("projectName"));
-        } else {
-            this.setProjectName(this.packageName.replaceAll("_", "-"));
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
-
-        final String infrastructureFolder = (sourceFolder + File.separator + packageName + File.separator + "infrastructure").replace(".", "/");
-        final String baseFolder = (sourceFolder + File.separator + packageName + File.separator + "base").replace(".", "/");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        final String infrastructureFolder = (sourceFolder + File.separator + packageName + File.separator + "infrastructure").replace(".", "/");
-        final String baseFolder = (sourceFolder + File.separator + packageName + File.separator + "base").replace(".", "/");
-
-        supportingFiles.add(new SupportingFile("infrastructure/ApiClient.kt.mustache", infrastructureFolder, "ApiClient.kt"));
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
@@ -661,14 +611,38 @@ in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
-                //patch LocatorEntity description with a link to <model>.md
-                if (m.vendorExtensions.get("x-is-locator") != null) {
-                    newDescription = newDescription.replace(
-                            "Represents a locator string",
-                            "Represents a [locator string](teamcity-rest-api-documentation.md#Locator)"
+        supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
+
+        final String infrastructureFolder = (sourceFolder + File.separator + packageName + File.separator + "infrastructure").replace(".", "/");
+        final String baseFolder = (sourceFolder + File.separator + packageName + File.separator + "base").replace(".", "/");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        final String infrastructureFolder = (sourceFolder + File.separator + packageName + File.separator + "infrastructure").replace(".", "/");
+        final String baseFolder = (sourceFolder + File.separator + packageName + File.separator + "base").replace(".", "/");
+
+        supportingFiles.add(new SupportingFile("infrastructure/ApiClient.kt.mustache", infrastructureFolder, "ApiClient.kt"));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
+#### Snippet
+```java
+            this.setProjectName((String)this.additionalProperties.get("projectName"));
+        } else {
+            this.setProjectName(this.packageName.replaceAll("_", "-"));
+        }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -753,6 +727,18 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
         name = name.replaceAll(" ", "_");
 
         return name;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+                //patch LocatorEntity description with a link to <model>.md
+                if (m.vendorExtensions.get("x-is-locator") != null) {
+                    newDescription = newDescription.replace(
+                            "Represents a locator string",
+                            "Represents a [locator string](teamcity-rest-api-documentation.md#Locator)"
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -951,18 +937,6 @@ import io.swagger.codegen.CodegenConstants;
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
-#### Snippet
-```java
-        super();
-
-        embeddedTemplateDir = templateDir = "teamcity_python";
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
@@ -971,6 +945,18 @@ in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
         embeddedTemplateDir = templateDir = "teamcity_kotlin";
         artifactId = "teamcity-kotlin-rest-client";
         packageName = "org.jetbrains.teamcity.rest";
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
+#### Snippet
+```java
+        super();
+
+        embeddedTemplateDir = templateDir = "teamcity_python";
+    }
+
 ```
 
 ### NestedAssignment
@@ -996,19 +982,6 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityXMLExampleGenerator.java`
                     model.getProperties().forEach((propertyName, property) -> {
                         serializePropertyToXml(doc, propertyName, property, depth + 1, targetElement);
                     });
-```
-
-## RuleId[ruleID=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `main()` tries to override a static method of a superclass
-in `src/main/java/com/jetbrains/codegen/TeamCityCodegen.java`
-#### Snippet
-```java
-
-public class TeamCityCodegen extends SwaggerCodegen {
-    public static void main(String[] args) {
-        String version = Version.readVersionFromResources();
-        @SuppressWarnings("unchecked")
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -1058,5 +1031,18 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
         name = name.replaceAll("\\]", "");
 
         // input(a)(b) => input_a_b
+```
+
+## RuleId[ruleID=MethodOverridesStaticMethod]
+### MethodOverridesStaticMethod
+Method `main()` tries to override a static method of a superclass
+in `src/main/java/com/jetbrains/codegen/TeamCityCodegen.java`
+#### Snippet
+```java
+
+public class TeamCityCodegen extends SwaggerCodegen {
+    public static void main(String[] args) {
+        String version = Version.readVersionFromResources();
+        @SuppressWarnings("unchecked")
 ```
 
