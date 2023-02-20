@@ -233,18 +233,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 #### Snippet
 ```java
 
-    public StatEntry getMethodStats() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
-#### Snippet
-```java
-
     public StatEntry getBlockStats() {
       return null;
     }
@@ -257,10 +245,22 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 #### Snippet
 ```java
 
-    public StatEntry getStatementStats() {
+    public StatEntry getMethodStats() {
       return null;
     }
-  };
+
+```
+
+### ReturnNull
+Return of `null`
+in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
+#### Snippet
+```java
+  private static final CoverageStatistics NULL_STATS = new CoverageStatistics() {
+    public StatEntry getClassStats() {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -280,11 +280,11 @@ Return of `null`
 in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
 #### Snippet
 ```java
-  private static final CoverageStatistics NULL_STATS = new CoverageStatistics() {
-    public StatEntry getClassStats() {
+
+    public StatEntry getStatementStats() {
       return null;
     }
-
+  };
 ```
 
 ### ReturnNull
@@ -419,6 +419,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl
 ```java
   }
 
+  private MapToSet<String, ClassInfo> groupByNamespace(final Collection<ClassInfo> coverageData) {
+    MapToSet<String, ClassInfo> set = new MapToSet<String, ClassInfo>();
+    for (ClassInfo cd: coverageData) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassInfo`
+in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
+#### Snippet
+```java
+  }
+
   private MapToSet<ModuleInfo, ClassInfo> groupByModules(final Collection<ClassInfo> coverageData) {
     MapToSet<ModuleInfo, ClassInfo> set = new MapToSet<ModuleInfo, ClassInfo>();
     for (ClassInfo info : coverageData) {
@@ -437,15 +449,15 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassInfo`
-in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
+Can generalize to `? super ClassDataBean`
+in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 #### Snippet
 ```java
   }
 
-  private MapToSet<String, ClassInfo> groupByNamespace(final Collection<ClassInfo> coverageData) {
-    MapToSet<String, ClassInfo> set = new MapToSet<String, ClassInfo>();
-    for (ClassInfo cd: coverageData) {
+  private void collectInnerClasses(final ClassInfo classInfo, final List<ClassDataBean> result) {
+    final Collection<ClassInfo> innerClasses = classInfo.getInnerClasses();
+    if (innerClasses != null) {
 ```
 
 ### BoundedWildcard
@@ -458,18 +470,6 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java
                                @NotNull final Collection<ClassData> innerClasses) {
     super(className);
     myProjectData = projectData;
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassDataBean`
-in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
-#### Snippet
-```java
-  }
-
-  private void collectInnerClasses(final ClassInfo classInfo, final List<ClassDataBean> result) {
-    final Collection<ClassInfo> innerClasses = classInfo.getInnerClasses();
-    if (innerClasses != null) {
 ```
 
 ### BoundedWildcard
@@ -504,9 +504,9 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 ```java
   }
 
-  public final static class FileDataBean {
-    private final String myCaption;
-    private final Collection<LineDataBean> myLines;
+  public final static class LineDataBean {
+    private int myLineNum;
+    private CharSequence mySourceCode;
 ```
 
 ### MissortedModifiers
@@ -516,9 +516,9 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 ```java
   }
 
-  public final static class LineDataBean {
-    private int myLineNum;
-    private CharSequence mySourceCode;
+  public final static class FileDataBean {
+    private final String myCaption;
+    private final Collection<LineDataBean> myLines;
 ```
 
 ## RuleId[ruleID=ConstantValue]
