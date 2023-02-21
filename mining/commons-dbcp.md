@@ -67,66 +67,6 @@ in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java
 ## RuleId[ruleID=MagicConstant]
 ### MagicConstant
 Should be one of: Connection.TRANSACTION_NONE, Connection.TRANSACTION_READ_UNCOMMITTED, ...
-in `src/main/java/org/apache/commons/dbcp2/datasources/SharedPoolDataSource.java`
-#### Snippet
-```java
-        final int defaultTransactionIsolation = getDefaultTransactionIsolation();
-        if (defaultTransactionIsolation != UNKNOWN_TRANSACTIONISOLATION) {
-            connection.setTransactionIsolation(defaultTransactionIsolation);
-        }
-
-```
-
-### MagicConstant
-Should be one of: ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE
-in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return 0;
-        }
-    }
-```
-
-### MagicConstant
-Should be one of: ResultSet.FETCH_FORWARD, ResultSet.FETCH_REVERSE, ResultSet.FETCH_UNKNOWN
-in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return 0;
-        }
-    }
-```
-
-### MagicConstant
-Should be one of: ResultSet.TYPE_FORWARD_ONLY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.TYPE_SCROLL_SENSITIVE
-in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return 0;
-        }
-    }
-```
-
-### MagicConstant
-Should be one of: DatabaseMetaData.sqlStateXOpen, DatabaseMetaData.sqlStateSQL, DatabaseMetaData.sqlStateSQL99
-in `src/main/java/org/apache/commons/dbcp2/DelegatingDatabaseMetaData.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return 0;
-        }
-    }
-```
-
-### MagicConstant
-Should be one of: Connection.TRANSACTION_NONE, Connection.TRANSACTION_READ_UNCOMMITTED, ...
 in `src/main/java/org/apache/commons/dbcp2/PoolableConnectionFactory.java`
 #### Snippet
 ```java
@@ -162,8 +102,32 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
 ```
 
 ### MagicConstant
+Should be one of: Connection.TRANSACTION_NONE, Connection.TRANSACTION_READ_UNCOMMITTED, ...
+in `src/main/java/org/apache/commons/dbcp2/datasources/SharedPoolDataSource.java`
+#### Snippet
+```java
+        final int defaultTransactionIsolation = getDefaultTransactionIsolation();
+        if (defaultTransactionIsolation != UNKNOWN_TRANSACTIONISOLATION) {
+            connection.setTransactionIsolation(defaultTransactionIsolation);
+        }
+
+```
+
+### MagicConstant
+Should be one of: ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE
+in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return 0;
+        }
+    }
+```
+
+### MagicConstant
 Should be one of: ResultSet.TYPE_FORWARD_ONLY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.TYPE_SCROLL_SENSITIVE
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
 #### Snippet
 ```java
         } catch (final SQLException e) {
@@ -175,7 +139,7 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
 
 ### MagicConstant
 Should be one of: ResultSet.FETCH_FORWARD, ResultSet.FETCH_REVERSE, ResultSet.FETCH_UNKNOWN
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
 #### Snippet
 ```java
         } catch (final SQLException e) {
@@ -186,7 +150,7 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
 ```
 
 ### MagicConstant
-Should be one of: ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE
+Should be one of: ResultSet.FETCH_FORWARD, ResultSet.FETCH_REVERSE, ResultSet.FETCH_UNKNOWN
 in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
 #### Snippet
 ```java
@@ -210,6 +174,42 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
 ```
 
 ### MagicConstant
+Should be one of: ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return 0;
+        }
+    }
+```
+
+### MagicConstant
+Should be one of: ResultSet.TYPE_FORWARD_ONLY, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.TYPE_SCROLL_SENSITIVE
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return 0;
+        }
+    }
+```
+
+### MagicConstant
+Should be one of: DatabaseMetaData.sqlStateXOpen, DatabaseMetaData.sqlStateSQL, DatabaseMetaData.sqlStateSQL99
+in `src/main/java/org/apache/commons/dbcp2/DelegatingDatabaseMetaData.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return 0;
+        }
+    }
+```
+
+### MagicConstant
 Should be one of: Connection.TRANSACTION_NONE, Connection.TRANSACTION_READ_UNCOMMITTED, ...
 in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
 #### Snippet
@@ -222,6 +222,18 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `ConnectionFactoryFactory` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/dbcp2/ConnectionFactoryFactory.java`
+#### Snippet
+```java
+ * @since 2.7.0
+ */
+final class ConnectionFactoryFactory {
+
+    /**
+```
+
 ### UtilityClassWithoutPrivateConstructor
 Class `DriverFactory` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/dbcp2/DriverFactory.java`
@@ -244,18 +256,6 @@ in `src/main/java/org/apache/commons/dbcp2/Constants.java`
 public class Constants {
 
     public static final String JMX_CONNECTION_POOL_BASE_EXT = ",connectionpool=";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConnectionFactoryFactory` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/dbcp2/ConnectionFactoryFactory.java`
-#### Snippet
-```java
- * @since 2.7.0
- */
-final class ConnectionFactoryFactory {
-
-    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -285,15 +285,15 @@ in `src/main/java/org/apache/commons/dbcp2/AbandonedTrace.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+Method invocation `prepareStatement` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/dbcp2/PoolableConnection.java`
 #### Snippet
 ```java
-                    System.err.println("WARNING: defaultTransactionIsolation not set");
-                    System.err.println("using default value of database driver");
-                    level = PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION;
-                }
-            }
+            // Has to be the innermost delegate else the prepared statement will
+            // be closed when the pooled connection is passivated.
+            validationPreparedStatement = getInnermostDelegateInternal().prepareStatement(sql);
+        }
+
 ```
 
 ### DataFlowIssue
@@ -309,18 +309,6 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.jav
 ```
 
 ### DataFlowIssue
-Method invocation `prepareStatement` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/dbcp2/PoolableConnection.java`
-#### Snippet
-```java
-            // Has to be the innermost delegate else the prepared statement will
-            // be closed when the pooled connection is passivated.
-            validationPreparedStatement = getInnermostDelegateInternal().prepareStatement(sql);
-        }
-
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactory.java`
 #### Snippet
@@ -330,6 +318,18 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactor
                 valid = false;
             } finally {
                 Utils.closeQuietly((AutoCloseable) conn);
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+                    System.err.println("WARNING: defaultTransactionIsolation not set");
+                    System.err.println("using default value of database driver");
+                    level = PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION;
+                }
+            }
 ```
 
 ### DataFlowIssue
@@ -346,15 +346,15 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
 
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (9 lines)
-in `src/main/java/org/apache/commons/dbcp2/datasources/PooledConnectionManager.java`
+Commented out code (14 lines)
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
 ```java
-    void invalidate(PooledConnection pc) throws SQLException;
-
-//    /**
-//     * Sets the database password used when creating connections.
-//     *
+     */
+    public void setDisconnectionSqlCodes(final Collection<String> disconnectionSqlCodes) {
+//        if (disconnectionSqlCodes != null && !disconnectionSqlCodes.isEmpty()) {
+//            HashSet<String> newVal = null;
+//            for (final String s : disconnectionSqlCodes) {
 ```
 
 ### CommentedOutCode
@@ -370,88 +370,28 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 ```
 
 ### CommentedOutCode
-Commented out code (14 lines)
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+Commented out code (9 lines)
+in `src/main/java/org/apache/commons/dbcp2/datasources/PooledConnectionManager.java`
 #### Snippet
 ```java
-     */
-    public void setDisconnectionSqlCodes(final Collection<String> disconnectionSqlCodes) {
-//        if (disconnectionSqlCodes != null && !disconnectionSqlCodes.isEmpty()) {
-//            HashSet<String> newVal = null;
-//            for (final String s : disconnectionSqlCodes) {
+    void invalidate(PooledConnection pc) throws SQLException;
+
+//    /**
+//     * Sets the database password used when creating connections.
+//     *
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'PStmtKeyCPDS' is still used
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PStmtKeyCPDS.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class PStmtKeyCPDS extends PStmtKey {
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setUnicodeStream' is still used
-in `src/main/java/org/apache/commons/dbcp2/DelegatingPreparedStatement.java`
-#### Snippet
-```java
-    @Deprecated
-    @Override
-    public void setUnicodeStream(final int parameterIndex, final InputStream x, final int length) throws SQLException {
-        checkOpen();
-        try {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+Deprecated member 'DISCONNECTION_SQL_CODES' is still used
+in `src/main/java/org/apache/commons/dbcp2/Utils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
-        assertInitializationAllowed();
-        this.durationBetweenEvictionRuns = Duration.ofMillis(timeBetweenEvictionRunsMillis);
-```
+    public static final Set<String> DISCONNECTION_SQL_CODES;
 
-### DeprecatedIsStillUsed
-Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getTimeBetweenEvictionRunsMillis() {
-        return durationBetweenEvictionRuns.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void setMinEvictableIdleTimeMillis(final int minEvictableIdleTimeMillis) {
-        assertInitializationAllowed();
-        this.minEvictableIdleDuration = Duration.ofMillis(minEvictableIdleTimeMillis);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public int getMinEvictableIdleTimeMillis() {
-        return (int) minEvictableIdleDuration.toMillis();
-    }
+    static final ResultSet[] EMPTY_RESULT_SET_ARRAY = {};
 ```
 
 ### DeprecatedIsStillUsed
@@ -464,18 +404,6 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.jav
     public CPDSConnectionFactory(final ConnectionPoolDataSource cpds, final String validationQuery, final int validationQueryTimeoutSeconds,
             final boolean rollbackAfterValidation, final String userName, final String userPassword) {
         this(cpds, validationQuery, validationQueryTimeoutSeconds, rollbackAfterValidation, userName, Utils.toCharArray(userPassword));
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DISCONNECTION_SQL_CODES' is still used
-in `src/main/java/org/apache/commons/dbcp2/Utils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final Set<String> DISCONNECTION_SQL_CODES;
-
-    static final ResultSet[] EMPTY_RESULT_SET_ARRAY = {};
 ```
 
 ### DeprecatedIsStillUsed
@@ -503,50 +431,38 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getLastUsed' is still used
-in `src/main/java/org/apache/commons/dbcp2/AbandonedTrace.java`
+Deprecated member 'PStmtKeyCPDS' is still used
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PStmtKeyCPDS.java`
 #### Snippet
 ```java
-    @Override
-    @Deprecated
-    public long getLastUsed() {
-        return lastUsedInstant.toEpochMilli();
-    }
+ */
+@Deprecated
+public class PStmtKeyCPDS extends PStmtKey {
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getMaxConnLifetimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-    @Override
-    @Deprecated
-    public long getMaxConnLifetimeMillis() {
-        return maxConnDuration.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setMaxConnLifetimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void setMaxConnLifetimeMillis(final long maxConnLifetimeMillis) {
-        this.maxConnDuration = Duration.ofMillis(maxConnLifetimeMillis);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getMinEvictableIdleTimeMillis' is still used
+Deprecated member 'getValidationQueryTimeout' is still used
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
 ```java
     @Deprecated
     @Override
-    public synchronized long getMinEvictableIdleTimeMillis() {
-        return this.minEvictableIdleDuration.toMillis();
+    public int getValidationQueryTimeout() {
+        return (int) validationQueryTimeoutDuration.getSeconds();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getSoftMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+    @Deprecated
+    @Override
+    public synchronized long getSoftMinEvictableIdleTimeMillis() {
+        return softMinEvictableIdleDuration.toMillis();
     }
 ```
 
@@ -563,30 +479,6 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public synchronized void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
-        setDurationBetweenEvictionRuns(Duration.ofMillis(timeBetweenEvictionRunsMillis));
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-    @Deprecated
-    @Override
-    public synchronized long getTimeBetweenEvictionRunsMillis() {
-        return this.durationBetweenEvictionRuns.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'setMaxWaitMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
@@ -599,38 +491,14 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getValidationQueryTimeout' is still used
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-    @Deprecated
-    @Override
-    public int getValidationQueryTimeout() {
-        return (int) validationQueryTimeoutDuration.getSeconds();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setRemoveAbandonedTimeout' is still used
+Deprecated member 'setMaxConnLifetimeMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setRemoveAbandonedTimeout(final int removeAbandonedTimeout) {
-        setAbandoned(AbandonedConfig::setRemoveAbandonedTimeout, Duration.ofSeconds(removeAbandonedTimeout));
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getRemoveAbandonedTimeout' is still used
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-    @Deprecated
-    @Override
-    public int getRemoveAbandonedTimeout() {
-        return (int) getRemoveAbandonedTimeoutDuration().getSeconds();
+    public void setMaxConnLifetimeMillis(final long maxConnLifetimeMillis) {
+        this.maxConnDuration = Duration.ofMillis(maxConnLifetimeMillis);
     }
 ```
 
@@ -647,14 +515,26 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setValidationQueryTimeout' is still used
+Deprecated member 'getMinEvictableIdleTimeMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
 ```java
-     */
     @Deprecated
-    public void setValidationQueryTimeout(final int validationQueryTimeoutSeconds) {
-        this.validationQueryTimeoutDuration = Duration.ofSeconds(validationQueryTimeoutSeconds);
+    @Override
+    public synchronized long getMinEvictableIdleTimeMillis() {
+        return this.minEvictableIdleDuration.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getMaxConnLifetimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+    @Override
+    @Deprecated
+    public long getMaxConnLifetimeMillis() {
+        return maxConnDuration.toMillis();
     }
 ```
 
@@ -671,6 +551,30 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public synchronized void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
+        setDurationBetweenEvictionRuns(Duration.ofMillis(timeBetweenEvictionRunsMillis));
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setRemoveAbandonedTimeout' is still used
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setRemoveAbandonedTimeout(final int removeAbandonedTimeout) {
+        setAbandoned(AbandonedConfig::setRemoveAbandonedTimeout, Duration.ofSeconds(removeAbandonedTimeout));
+    }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getDefaultQueryTimeout' is still used
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
@@ -679,6 +583,18 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
     @Deprecated
     public Integer getDefaultQueryTimeout() {
         return defaultQueryTimeoutDuration == null ? null : (int) defaultQueryTimeoutDuration.getSeconds();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getRemoveAbandonedTimeout' is still used
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+    @Deprecated
+    @Override
+    public int getRemoveAbandonedTimeout() {
+        return (int) getRemoveAbandonedTimeoutDuration().getSeconds();
     }
 ```
 
@@ -695,14 +611,218 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getSoftMinEvictableIdleTimeMillis' is still used
+Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
 ```java
     @Deprecated
     @Override
-    public synchronized long getSoftMinEvictableIdleTimeMillis() {
-        return softMinEvictableIdleDuration.toMillis();
+    public synchronized long getTimeBetweenEvictionRunsMillis() {
+        return this.durationBetweenEvictionRuns.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setValidationQueryTimeout' is still used
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setValidationQueryTimeout(final int validationQueryTimeoutSeconds) {
+        this.validationQueryTimeoutDuration = Duration.ofSeconds(validationQueryTimeoutSeconds);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getBigDecimal' is still used
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+    @Deprecated
+    @Override
+    public BigDecimal getBigDecimal(final int columnIndex, final int scale) throws SQLException {
+        try {
+            return resultSet.getBigDecimal(columnIndex);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getBigDecimal' is still used
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+    @Deprecated
+    @Override
+    public BigDecimal getBigDecimal(final String columnName, final int scale) throws SQLException {
+        try {
+            return resultSet.getBigDecimal(columnName);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getUnicodeStream' is still used
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+    @Deprecated
+    @Override
+    public InputStream getUnicodeStream(final int columnIndex) throws SQLException {
+        try {
+            return resultSet.getUnicodeStream(columnIndex);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getUnicodeStream' is still used
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+    @Deprecated
+    @Override
+    public InputStream getUnicodeStream(final String columnName) throws SQLException {
+        try {
+            return resultSet.getUnicodeStream(columnName);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
+        assertInitializationAllowed();
+        this.durationBetweenEvictionRuns = Duration.ofMillis(timeBetweenEvictionRunsMillis);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public int getMinEvictableIdleTimeMillis() {
+        return (int) minEvictableIdleDuration.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setMinEvictableIdleTimeMillis(final int minEvictableIdleTimeMillis) {
+        assertInitializationAllowed();
+        this.minEvictableIdleDuration = Duration.ofMillis(minEvictableIdleTimeMillis);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public long getTimeBetweenEvictionRunsMillis() {
+        return durationBetweenEvictionRuns.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getLastUsed' is still used
+in `src/main/java/org/apache/commons/dbcp2/AbandonedTrace.java`
+#### Snippet
+```java
+    @Override
+    @Deprecated
+    public long getLastUsed() {
+        return lastUsedInstant.toEpochMilli();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setMaxConnLifetimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setMaxConnLifetimeMillis(final long maxConnLifetimeMillis) {
+        setMaxConnLifetime(Duration.ofMillis(maxConnLifetimeMillis));
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getDefaultSoftMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public long getDefaultSoftMinEvictableIdleTimeMillis() {
+        return this.defaultSoftMinEvictableIdleDuration.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setDefaultMaxWaitMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setDefaultMaxWaitMillis(final long maxWaitMillis) {
+        setDefaultMaxWait(Duration.ofMillis(maxWaitMillis));
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getDefaultMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public long getDefaultMinEvictableIdleTimeMillis() {
+        return this.defaultMinEvictableIdleDuration.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setDefaultTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setDefaultTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
+        assertInitializationAllowed();
+        this.defaultDurationBetweenEvictionRuns = Duration.ofMillis(timeBetweenEvictionRunsMillis);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setValidationQueryTimeout' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setValidationQueryTimeout(final int validationQueryTimeoutSeconds) {
+        this.validationQueryTimeoutDuration = Duration.ofSeconds(validationQueryTimeoutSeconds);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getDefaultTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public long getDefaultTimeBetweenEvictionRunsMillis() {
+        return this.defaultDurationBetweenEvictionRuns.toMillis();
     }
 ```
 
@@ -731,54 +851,6 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setValidationQueryTimeout' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void setValidationQueryTimeout(final int validationQueryTimeoutSeconds) {
-        this.validationQueryTimeoutDuration = Duration.ofSeconds(validationQueryTimeoutSeconds);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getDefaultMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getDefaultMinEvictableIdleTimeMillis() {
-        return this.defaultMinEvictableIdleDuration.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setDefaultMaxWaitMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void setDefaultMaxWaitMillis(final long maxWaitMillis) {
-        setDefaultMaxWait(Duration.ofMillis(maxWaitMillis));
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getMaxConnLifetimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getMaxConnLifetimeMillis() {
-        return maxConnDuration.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'setDefaultMinEvictableIdleTimeMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
 #### Snippet
@@ -788,54 +860,6 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
     public void setDefaultMinEvictableIdleTimeMillis(final long minEvictableIdleTimeMillis) {
         assertInitializationAllowed();
         this.defaultMinEvictableIdleDuration = Duration.ofMillis(minEvictableIdleTimeMillis);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getDefaultTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getDefaultTimeBetweenEvictionRunsMillis() {
-        return this.defaultDurationBetweenEvictionRuns.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getDefaultSoftMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getDefaultSoftMinEvictableIdleTimeMillis() {
-        return this.defaultSoftMinEvictableIdleDuration.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setMaxConnLifetimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void setMaxConnLifetimeMillis(final long maxConnLifetimeMillis) {
-        setMaxConnLifetime(Duration.ofMillis(maxConnLifetimeMillis));
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setDefaultTimeBetweenEvictionRunsMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void setDefaultTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
-        assertInitializationAllowed();
-        this.defaultDurationBetweenEvictionRuns = Duration.ofMillis(timeBetweenEvictionRunsMillis);
 ```
 
 ### DeprecatedIsStillUsed
@@ -851,62 +875,50 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getUnicodeStream' is still used
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+Deprecated member 'getMaxConnLifetimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public long getMaxConnLifetimeMillis() {
+        return maxConnDuration.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setUnicodeStream' is still used
+in `src/main/java/org/apache/commons/dbcp2/DelegatingPreparedStatement.java`
 #### Snippet
 ```java
     @Deprecated
     @Override
-    public InputStream getUnicodeStream(final String columnName) throws SQLException {
+    public void setUnicodeStream(final int parameterIndex, final InputStream x, final int length) throws SQLException {
+        checkOpen();
         try {
-            return resultSet.getUnicodeStream(columnName);
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getBigDecimal' is still used
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-    @Deprecated
-    @Override
-    public BigDecimal getBigDecimal(final String columnName, final int scale) throws SQLException {
-        try {
-            return resultSet.getBigDecimal(columnName);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getUnicodeStream' is still used
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-    @Deprecated
-    @Override
-    public InputStream getUnicodeStream(final int columnIndex) throws SQLException {
-        try {
-            return resultSet.getUnicodeStream(columnIndex);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getBigDecimal' is still used
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-    @Deprecated
-    @Override
-    public BigDecimal getBigDecimal(final int columnIndex, final int scale) throws SQLException {
-        try {
-            return resultSet.getBigDecimal(columnIndex);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setPerUserSoftMinEvictableIdleTimeMillis' is still used
+Deprecated member 'setPerUserMaxWaitMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setPerUserSoftMinEvictableIdleTimeMillis(final String userName, final Long value) {
-        setPerUserSoftMinEvictableIdle(userName, toDurationOrNull(value));
+    public void setPerUserMaxWaitMillis(final String userName, final Long value) {
+        setPerUserMaxWait(userName, toDurationOrNull(value));
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getPerUserMaxWaitMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public long getPerUserMaxWaitMillis(final String userName) {
+        return getPerUserMaxWaitDuration(userName).toMillis();
     }
 ```
 
@@ -923,6 +935,18 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'getPerUserSoftMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public long getPerUserSoftMinEvictableIdleTimeMillis(final String userName) {
+        return getPerUserSoftMinEvictableIdleDuration(userName).toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getPerUserTimeBetweenEvictionRunsMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
 #### Snippet
@@ -935,14 +959,14 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setPerUserTimeBetweenEvictionRunsMillis' is still used
+Deprecated member 'setPerUserSoftMinEvictableIdleTimeMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setPerUserTimeBetweenEvictionRunsMillis(final String userName, final Long value) {
-        setPerUserDurationBetweenEvictionRuns(userName, toDurationOrNull(value));
+    public void setPerUserSoftMinEvictableIdleTimeMillis(final String userName, final Long value) {
+        setPerUserSoftMinEvictableIdle(userName, toDurationOrNull(value));
     }
 ```
 
@@ -959,38 +983,14 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setPerUserMaxWaitMillis' is still used
+Deprecated member 'setPerUserTimeBetweenEvictionRunsMillis' is still used
 in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setPerUserMaxWaitMillis(final String userName, final Long value) {
-        setPerUserMaxWait(userName, toDurationOrNull(value));
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getPerUserSoftMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getPerUserSoftMinEvictableIdleTimeMillis(final String userName) {
-        return getPerUserSoftMinEvictableIdleDuration(userName).toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getPerUserMaxWaitMillis' is still used
-in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getPerUserMaxWaitMillis(final String userName) {
-        return getPerUserMaxWaitDuration(userName).toMillis();
+    public void setPerUserTimeBetweenEvictionRunsMillis(final String userName, final Long value) {
+        setPerUserDurationBetweenEvictionRuns(userName, toDurationOrNull(value));
     }
 ```
 
@@ -1023,6 +1023,30 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+    }
+
+    protected void handleException(final SQLException e) throws SQLException {
+        if (statement instanceof DelegatingStatement) {
+            ((DelegatingStatement) statement).handleException(e);
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+     * @return a key to uniquely identify a prepared statement.
+     */
+    protected PStmtKey createKey(final String sql, final StatementType statementType) {
+        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), statementType);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
 in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
 #### Snippet
 ```java
@@ -1040,8 +1064,44 @@ in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java
 ```java
      * @return a key to uniquely identify a prepared statement.
      */
-    protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency, final int resultSetHoldability) {
-        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency, resultSetHoldability);
+    protected PStmtKey createKey(final String sql, final int[] columnIndexes) {
+        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), columnIndexes);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+     * @since 2.4.0
+     */
+    protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency, final StatementType statementType) {
+        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency, statementType);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+     * @since 2.4.0
+     */
+    protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency, final int resultSetHoldability,
+        final StatementType statementType) {
+        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency, resultSetHoldability, statementType);
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+     * @return a key to uniquely identify a prepared statement.
+     */
+    protected PStmtKey createKey(final String sql, final int autoGeneratedKeys) {
+        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), autoGeneratedKeys);
     }
 ```
 
@@ -1052,8 +1112,8 @@ in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java
 ```java
      * @return a key to uniquely identify a prepared statement.
      */
-    protected PStmtKey createKey(final String sql, final StatementType statementType) {
-        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), statementType);
+    protected PStmtKey createKey(final String sql, final String[] columnNames) {
+        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), columnNames);
     }
 ```
 
@@ -1076,118 +1136,22 @@ in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java
 ```java
      * @return a key to uniquely identify a prepared statement.
      */
-    protected PStmtKey createKey(final String sql, final int[] columnIndexes) {
-        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), columnIndexes);
+    protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency, final int resultSetHoldability) {
+        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency, resultSetHoldability);
     }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-     * @return a key to uniquely identify a prepared statement.
-     */
-    protected PStmtKey createKey(final String sql, final int autoGeneratedKeys) {
-        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), autoGeneratedKeys);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-     * @since 2.4.0
-     */
-    protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency, final StatementType statementType) {
-        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency, statementType);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-     * @return a key to uniquely identify a prepared statement.
-     */
-    protected PStmtKey createKey(final String sql, final String[] columnNames) {
-        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), columnNames);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-     * @since 2.4.0
-     */
-    protected PStmtKey createKey(final String sql, final int resultSetType, final int resultSetConcurrency, final int resultSetHoldability,
-        final StatementType statementType) {
-        return new PStmtKey(sql, getCatalogOrNull(), getSchemaOrNull(), resultSetType, resultSetConcurrency, resultSetHoldability, statementType);
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-    }
-
-    protected void handleException(final SQLException e) throws SQLException {
-        if (statement instanceof DelegatingStatement) {
-            ((DelegatingStatement) statement).handleException(e);
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `src/main/java/org/apache/commons/dbcp2/datasources/PoolKey.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder(50);
-        sb.append("PoolKey(");
-        sb.append(dataSourceName);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder base` can be replaced with 'String'
-in `src/main/java/org/apache/commons/dbcp2/managed/PoolableManagedConnectionFactory.java`
-#### Snippet
-```java
-            final long connIndex = getConnectionIndex().getAndIncrement();
-            if (dataSourceJmxName != null) {
-                final StringBuilder base = new StringBuilder(dataSourceJmxName.toString());
-                base.append(Constants.JMX_CONNECTION_BASE_EXT);
-                base.append(connIndex);
-```
-
-### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
 #### Snippet
 ```java
     @Override
     public synchronized String toString() {
         final StringBuilder builder = new StringBuilder(super.toString());
-        builder.append("[description=");
-        builder.append(description);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder buf` can be replaced with 'String'
-in `src/main/java/org/apache/commons/dbcp2/PStmtKey.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder buf = new StringBuilder();
-        buf.append("PStmtKey: sql=");
-        buf.append(sql);
+        builder.append("[cpds=");
+        builder.append(cpds);
 ```
 
 ### StringBufferReplaceableByString
@@ -1203,18 +1167,6 @@ in `src/main/java/org/apache/commons/dbcp2/PoolableConnectionFactory.java`
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-    @Override
-    public synchronized String toString() {
-        final StringBuilder builder = new StringBuilder(super.toString());
-        builder.append("[connection=");
-        builder.append(connection);
-```
-
-### StringBufferReplaceableByString
 `StringBuilder stringBuilder` can be replaced with 'String'
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
 #### Snippet
@@ -1227,18 +1179,6 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
-#### Snippet
-```java
-    @Override
-    public synchronized String toString() {
-        final StringBuilder builder = new StringBuilder(super.toString());
-        builder.append("[cpds=");
-        builder.append(cpds);
-```
-
-### StringBufferReplaceableByString
 `StringBuilder base` can be replaced with 'String'
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
@@ -1248,6 +1188,66 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
         final StringBuilder base = new StringBuilder(registeredJmxObjectName.toString());
         base.append(Constants.JMX_CONNECTION_POOL_BASE_EXT);
         config.setJmxNameBase(base.toString());
+```
+
+### StringBufferReplaceableByString
+`StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+    @Override
+    public synchronized String toString() {
+        final StringBuilder builder = new StringBuilder(super.toString());
+        builder.append("[description=");
+        builder.append(description);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder base` can be replaced with 'String'
+in `src/main/java/org/apache/commons/dbcp2/managed/PoolableManagedConnectionFactory.java`
+#### Snippet
+```java
+            final long connIndex = getConnectionIndex().getAndIncrement();
+            if (dataSourceJmxName != null) {
+                final StringBuilder base = new StringBuilder(dataSourceJmxName.toString());
+                base.append(Constants.JMX_CONNECTION_BASE_EXT);
+                base.append(connIndex);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder buf` can be replaced with 'String'
+in `src/main/java/org/apache/commons/dbcp2/PStmtKey.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder buf = new StringBuilder();
+        buf.append("PStmtKey: sql=");
+        buf.append(sql);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+    @Override
+    public synchronized String toString() {
+        final StringBuilder builder = new StringBuilder(super.toString());
+        builder.append("[connection=");
+        builder.append(connection);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `src/main/java/org/apache/commons/dbcp2/datasources/PoolKey.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(50);
+        sb.append("PoolKey(");
+        sb.append(dataSourceName);
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -1263,32 +1263,7 @@ in `src/main/java/org/apache/commons/dbcp2/PoolableConnection.java`
     }
 ```
 
-## RuleId[ruleID=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSourceFactory.java`
-#### Snippet
-```java
-     *            If an I/O error occurs during the deserialization of a configuration parameter.
-     */
-    protected static final Object deserialize(final byte[] data) throws IOException, ClassNotFoundException {
-        ObjectInputStream in = null;
-        try {
-```
-
 ## RuleId[ruleID=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
-#### Snippet
-```java
-    protected void checkOpen() throws SQLException {
-        if (isClosed()) {
-            throw new SQLException(this.getClass().getName() + " with address: \"" + this.toString() + "\" is closed.");
-        }
-    }
-```
-
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/dbcp2/PoolableConnectionFactory.java`
@@ -1311,6 +1286,31 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
         final String nameString = name != null ? "Name = " + name.toString() + " " : "";
         if (NUPROP_WARNTEXT != null && !NUPROP_WARNTEXT.isEmpty()) {
             NUPROP_WARNTEXT.forEach((propertyName, value) -> {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
+#### Snippet
+```java
+    protected void checkOpen() throws SQLException {
+        if (isClosed()) {
+            throw new SQLException(this.getClass().getName() + " with address: \"" + this.toString() + "\" is closed.");
+        }
+    }
+```
+
+## RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSourceFactory.java`
+#### Snippet
+```java
+     *            If an I/O error occurs during the deserialization of a configuration parameter.
+     */
+    protected static final Object deserialize(final byte[] data) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = null;
+        try {
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -1339,75 +1339,15 @@ in `src/main/java/org/apache/commons/dbcp2/PoolableCallableStatement.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Duration`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+Can generalize to `? super Exception`
+in `src/main/java/org/apache/commons/dbcp2/Utils.java`
 #### Snippet
 ```java
-    }
-
-    private static void acceptDurationOfMillis(final Properties properties, final String name, final Consumer<Duration> consumer) {
-        accept(properties, name, s -> Duration.ofMillis(Long.parseLong(s)), consumer);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-    }
-
-    private static void acceptBoolean(final Properties properties, final String name, final Consumer<Boolean> consumer) {
-        accept(properties, name, Boolean::parseBoolean, consumer);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-     *            container for info messages
+     * @since 2.10.0
      */
-    private void validatePropertyNames(final Reference ref, final Name name, final List<String> warnMessages,
-        final List<String> infoMessages) {
-        final String nameString = name != null ? "Name = " + name.toString() + " " : "";
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-     */
-    private void validatePropertyNames(final Reference ref, final Name name, final List<String> warnMessages,
-        final List<String> infoMessages) {
-        final String nameString = name != null ? "Name = " + name.toString() + " " : "";
-        if (NUPROP_WARNTEXT != null && !NUPROP_WARNTEXT.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-    }
-
-    private static void acceptInt(final Properties properties, final String name, final Consumer<Integer> consumer) {
-        accept(properties, name, Integer::parseInt, consumer);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Duration`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-    }
-
-    private static void acceptDurationOfSeconds(final Properties properties, final String name, final Consumer<Duration> consumer) {
-        accept(properties, name, s -> Duration.ofSeconds(Long.parseLong(s)), consumer);
-    }
+    public static void close(AutoCloseable autoCloseable, final Consumer<Exception> exceptionHandler) {
+        if (autoCloseable != null) {
+            try {
 ```
 
 ### BoundedWildcard
@@ -1447,15 +1387,75 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Exception`
-in `src/main/java/org/apache/commons/dbcp2/Utils.java`
+Can generalize to `? super Duration`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
 #### Snippet
 ```java
-     * @since 2.10.0
+    }
+
+    private static void acceptDurationOfSeconds(final Properties properties, final String name, final Consumer<Duration> consumer) {
+        accept(properties, name, s -> Duration.ofSeconds(Long.parseLong(s)), consumer);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Duration`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+    }
+
+    private static void acceptDurationOfMillis(final Properties properties, final String name, final Consumer<Duration> consumer) {
+        accept(properties, name, s -> Duration.ofMillis(Long.parseLong(s)), consumer);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+    }
+
+    private static void acceptInt(final Properties properties, final String name, final Consumer<Integer> consumer) {
+        accept(properties, name, Integer::parseInt, consumer);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+     *            container for info messages
      */
-    public static void close(AutoCloseable autoCloseable, final Consumer<Exception> exceptionHandler) {
-        if (autoCloseable != null) {
-            try {
+    private void validatePropertyNames(final Reference ref, final Name name, final List<String> warnMessages,
+        final List<String> infoMessages) {
+        final String nameString = name != null ? "Name = " + name.toString() + " " : "";
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+     */
+    private void validatePropertyNames(final Reference ref, final Name name, final List<String> warnMessages,
+        final List<String> infoMessages) {
+        final String nameString = name != null ? "Name = " + name.toString() + " " : "";
+        if (NUPROP_WARNTEXT != null && !NUPROP_WARNTEXT.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+    }
+
+    private static void acceptBoolean(final Properties properties, final String name, final Consumer<Boolean> consumer) {
+        accept(properties, name, Boolean::parseBoolean, consumer);
+    }
 ```
 
 ### BoundedWildcard
@@ -2031,42 +2031,6 @@ in `src/main/java/org/apache/commons/dbcp2/managed/DataSourceXAConnectionFactory
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-                    level = Integer.parseInt(value);
-                } catch (final NumberFormatException e) {
-                    System.err.println("Could not parse defaultTransactionIsolation: " + value);
-                    System.err.println("WARNING: defaultTransactionIsolation not set");
-                    System.err.println("using default value of database driver");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-                } catch (final NumberFormatException e) {
-                    System.err.println("Could not parse defaultTransactionIsolation: " + value);
-                    System.err.println("WARNING: defaultTransactionIsolation not set");
-                    System.err.println("using default value of database driver");
-                    level = PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-                    System.err.println("Could not parse defaultTransactionIsolation: " + value);
-                    System.err.println("WARNING: defaultTransactionIsolation not set");
-                    System.err.println("using default value of database driver");
-                    level = PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION;
-                }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
 #### Snippet
 ```java
@@ -2162,6 +2126,42 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactor
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+                    level = Integer.parseInt(value);
+                } catch (final NumberFormatException e) {
+                    System.err.println("Could not parse defaultTransactionIsolation: " + value);
+                    System.err.println("WARNING: defaultTransactionIsolation not set");
+                    System.err.println("using default value of database driver");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+                } catch (final NumberFormatException e) {
+                    System.err.println("Could not parse defaultTransactionIsolation: " + value);
+                    System.err.println("WARNING: defaultTransactionIsolation not set");
+                    System.err.println("using default value of database driver");
+                    level = PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+                    System.err.println("Could not parse defaultTransactionIsolation: " + value);
+                    System.err.println("WARNING: defaultTransactionIsolation not set");
+                    System.err.println("using default value of database driver");
+                    level = PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION;
+                }
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
@@ -2214,18 +2214,6 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-    public Connection getInnermostDelegate() {
-        if (isAccessToUnderlyingConnectionAllowed()) {
-            return super.getInnermostDelegateInternal();
-        }
-        return null;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/commons/dbcp2/managed/ManagedConnection.java`
 #### Snippet
 ```java
@@ -2260,223 +2248,19 @@ in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
         }
 ```
 
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+    public Connection getInnermostDelegate() {
+        if (isAccessToUnderlyingConnectionAllowed()) {
+            return super.getInnermostDelegateInternal();
+        }
+        return null;
+```
+
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-    /**
-     * If pooling of {@code CallableStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
-     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
-     *
-     * @param sql
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-    /**
-     * If pooling of {@code PreparedStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
-     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
-     *
-     * @throws SQLException
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-    /**
-     * If pooling of {@code CallableStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
-     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
-     *
-     * @param sql
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-    /**
-     * If pooling of {@code CallableStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
-     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
-     *
-     * @param sql
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-    /**
-     * If pooling of {@code PreparedStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
-     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
-     *
-     * @param sql
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/dbcp2/DelegatingPreparedStatement.java`
-#### Snippet
-```java
-
-    @Override
-    public void setURL(final int parameterIndex, final java.net.URL x) throws SQLException {
-        checkOpen();
-        try {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/dbcp2/DelegatingPreparedStatement.java`
-#### Snippet
-```java
-
-    @Override
-    public java.sql.ParameterMetaData getParameterMetaData() throws SQLException {
-        checkOpen();
-        try {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-/**
- * <p>
- * An adapter for JDBC drivers that do not include an implementation of {@link javax.sql.ConnectionPoolDataSource}, but
- * still include a {@link java.sql.DriverManager} implementation. {@code ConnectionPoolDataSource}s are not used
- * within general applications. They are used by {@code DataSource} implementations that pool
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
- * <p>
- * An adapter for JDBC drivers that do not include an implementation of {@link javax.sql.ConnectionPoolDataSource}, but
- * still include a {@link java.sql.DriverManager} implementation. {@code ConnectionPoolDataSource}s are not used
- * within general applications. They are used by {@code DataSource} implementations that pool
- * {@code Connection}s, such as {@link org.apache.commons.dbcp2.datasources.SharedPoolDataSource}. A J2EE container
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/ConnectionFactory.java`
-#### Snippet
-```java
-
-/**
- * Abstract factory interface for creating {@link java.sql.Connection}s.
- *
- * @since 2.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/ConnectionFactory.java`
-#### Snippet
-```java
-public interface ConnectionFactory {
-    /**
-     * Create a new {@link java.sql.Connection} in an implementation specific fashion.
-     *
-     * @return a new {@link java.sql.Connection}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/ConnectionFactory.java`
-#### Snippet
-```java
-     * Create a new {@link java.sql.Connection} in an implementation specific fashion.
-     *
-     * @return a new {@link java.sql.Connection}
-     * @throws SQLException
-     *             if a database error occurs creating the connection
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbcp2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
-#### Snippet
-```java
-
-        /**
-         * @see org.apache.commons.dbcp2.DelegatingConnection#getDelegate()
-         */
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbcp2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
-#### Snippet
-```java
-
-        /**
-         * @see org.apache.commons.dbcp2.DelegatingConnection#getInnermostDelegate()
-         */
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbcp2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
-#### Snippet
-```java
-
-        /**
-         * @see org.apache.commons.dbcp2.DelegatingConnection#getInnermostDelegate()
-         */
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbcp2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
-#### Snippet
-```java
-
-        /**
-         * @see org.apache.commons.dbcp2.DelegatingConnection#getDelegate()
-         */
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
-#### Snippet
-```java
-
-    /**
-     * Returns a {@link java.sql.Connection} from my pool, according to the contract specified by
-     * {@link ObjectPool#borrowObject}.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactory.java`
-#### Snippet
-```java
-     * @throws SQLException
-     *             if the connection could not be created.
-     * @see org.apache.commons.pool2.KeyedPooledObjectFactory#makeObject(Object)
-     */
-    @Override
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.sql` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbcp2/managed/XAConnectionFactory.java`
@@ -2514,6 +2298,222 @@ in `src/main/java/org/apache/commons/dbcp2/managed/XAConnectionFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbcp2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
+#### Snippet
+```java
+
+        /**
+         * @see org.apache.commons.dbcp2.DelegatingConnection#getDelegate()
+         */
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbcp2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
+#### Snippet
+```java
+
+        /**
+         * @see org.apache.commons.dbcp2.DelegatingConnection#getInnermostDelegate()
+         */
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/ConnectionFactory.java`
+#### Snippet
+```java
+public interface ConnectionFactory {
+    /**
+     * Create a new {@link java.sql.Connection} in an implementation specific fashion.
+     *
+     * @return a new {@link java.sql.Connection}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/ConnectionFactory.java`
+#### Snippet
+```java
+     * Create a new {@link java.sql.Connection} in an implementation specific fashion.
+     *
+     * @return a new {@link java.sql.Connection}
+     * @throws SQLException
+     *             if a database error occurs creating the connection
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/ConnectionFactory.java`
+#### Snippet
+```java
+
+/**
+ * Abstract factory interface for creating {@link java.sql.Connection}s.
+ *
+ * @since 2.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactory.java`
+#### Snippet
+```java
+     * @throws SQLException
+     *             if the connection could not be created.
+     * @see org.apache.commons.pool2.KeyedPooledObjectFactory#makeObject(Object)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
+#### Snippet
+```java
+
+    /**
+     * Returns a {@link java.sql.Connection} from my pool, according to the contract specified by
+     * {@link ObjectPool#borrowObject}.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbcp2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
+#### Snippet
+```java
+
+        /**
+         * @see org.apache.commons.dbcp2.DelegatingConnection#getInnermostDelegate()
+         */
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbcp2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
+#### Snippet
+```java
+
+        /**
+         * @see org.apache.commons.dbcp2.DelegatingConnection#getDelegate()
+         */
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+
+    @Override
+    public java.net.URL getURL(final int columnIndex) throws SQLException {
+        try {
+            return resultSet.getURL(columnIndex);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+
+    @Override
+    public java.net.URL getURL(final String columnName) throws SQLException {
+        try {
+            return resultSet.getURL(columnName);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+/**
+ * <p>
+ * An adapter for JDBC drivers that do not include an implementation of {@link javax.sql.ConnectionPoolDataSource}, but
+ * still include a {@link java.sql.DriverManager} implementation. {@code ConnectionPoolDataSource}s are not used
+ * within general applications. They are used by {@code DataSource} implementations that pool
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+ * <p>
+ * An adapter for JDBC drivers that do not include an implementation of {@link javax.sql.ConnectionPoolDataSource}, but
+ * still include a {@link java.sql.DriverManager} implementation. {@code ConnectionPoolDataSource}s are not used
+ * within general applications. They are used by {@code DataSource} implementations that pool
+ * {@code Connection}s, such as {@link org.apache.commons.dbcp2.datasources.SharedPoolDataSource}. A J2EE container
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+    /**
+     * If pooling of {@code CallableStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
+     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
+     *
+     * @param sql
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+    /**
+     * If pooling of {@code PreparedStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
+     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
+     *
+     * @throws SQLException
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+    /**
+     * If pooling of {@code PreparedStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
+     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
+     *
+     * @param sql
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+    /**
+     * If pooling of {@code CallableStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
+     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
+     *
+     * @param sql
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+    /**
+     * If pooling of {@code CallableStatement}s is turned on in the {@link DriverAdapterCPDS}, a pooled object may
+     * be returned, otherwise delegate to the wrapped JDBC 1.x {@link java.sql.Connection}.
+     *
+     * @param sql
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
 #### Snippet
@@ -2521,7 +2521,7 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 
     /**
      * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     * GenericObjectPool#getTestOnCreate()} for each per user pool.
+     * GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
      *
 ```
 
@@ -2531,46 +2531,10 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 #### Snippet
 ```java
      *
-     * @param testOnCreate
+     * @param defaultSoftMinEvictableIdleDuration
      *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *            GenericObjectPool#getTestOnCreate()} for each per user pool.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.naming` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-                throw new SQLException(
-                        "Given password did not match password used" + " to create the PooledConnection.", ex);
-            } catch (final javax.naming.NamingException ne) {
-                throw new SQLException("NamingException encountered connecting to database", ne);
-            }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-
-    /**
-     * Gets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     * GenericObjectPool#getTestWhileIdle()} for each per user pool.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     * GenericObjectPool#getTestWhileIdle()} for each per user pool.
-     *
-     * @return The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *         GenericObjectPool#getTestWhileIdle()} for each per user pool.
-     */
+     *            GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
+     * @since 2.10.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2604,67 +2568,7 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 ```java
 
     /**
-     * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     * GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     *
-     * @param defaultSoftMinEvictableIdleDuration
-     *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *            GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
-     * @since 2.10.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.naming` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-
-    protected ConnectionPoolDataSource testCPDS(final String userName, final String userPassword)
-            throws javax.naming.NamingException, SQLException {
-        // The source of physical db connections
-        ConnectionPoolDataSource cpds = this.dataSource;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-
-    /**
-     * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     * GenericObjectPool#getTestOnReturn()} for each per user pool.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     *
-     * @param testOnReturn
-     *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *            GenericObjectPool#getTestOnReturn()} for each per user pool.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-
-    /**
-     * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     * Gets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
      * GenericObjectPool#getTestWhileIdle()} for each per user pool.
      *
 ```
@@ -2674,58 +2578,10 @@ Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
 #### Snippet
 ```java
-     *
-     * @param testWhileIdle
-     *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *            GenericObjectPool#getTestWhileIdle()} for each per user pool.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-
-    /**
-     * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     * GenericObjectPool#getTestOnBorrow()} for each per user pool.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     *
-     * @param testOnBorrow
-     *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *            GenericObjectPool#getTestOnBorrow()} for each per user pool.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-
-    /**
-     * Gets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     * GenericObjectPool#getTestOnBorrow()} for each per user pool.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
-#### Snippet
-```java
-     * GenericObjectPool#getTestOnBorrow()} for each per user pool.
+     * GenericObjectPool#getTestWhileIdle()} for each per user pool.
      *
      * @return The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *         GenericObjectPool#getTestOnBorrow()} for each per user pool.
+     *         GenericObjectPool#getTestWhileIdle()} for each per user pool.
      */
 ```
 
@@ -2761,7 +2617,7 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 
     /**
      * Gets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     * GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
+     * GenericObjectPool#getTestOnCreate()} for each per user pool.
      *
 ```
 
@@ -2770,11 +2626,11 @@ Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
 #### Snippet
 ```java
-     * GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
+     * GenericObjectPool#getTestOnCreate()} for each per user pool.
      *
      * @return The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *         GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
-     * @deprecated Use {@link #getDefaultSoftMinEvictableIdleDuration()}.
+     *         GenericObjectPool#getTestOnCreate()} for each per user pool.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2802,6 +2658,18 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.naming` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+                throw new SQLException(
+                        "Given password did not match password used" + " to create the PooledConnection.", ex);
+            } catch (final javax.naming.NamingException ne) {
+                throw new SQLException("NamingException encountered connecting to database", ne);
+            }
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
 #### Snippet
@@ -2809,6 +2677,78 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 
     /**
      * Gets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     * GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     * GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
+     *
+     * @return The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     *         GenericObjectPool#getSoftMinEvictableIdleTimeMillis()} for each per user pool.
+     * @deprecated Use {@link #getDefaultSoftMinEvictableIdleDuration()}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+
+    /**
+     * Gets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     * GenericObjectPool#getTestOnBorrow()} for each per user pool.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     * GenericObjectPool#getTestOnBorrow()} for each per user pool.
+     *
+     * @return The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     *         GenericObjectPool#getTestOnBorrow()} for each per user pool.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+
+    /**
+     * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     * GenericObjectPool#getTestOnBorrow()} for each per user pool.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     *
+     * @param testOnBorrow
+     *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     *            GenericObjectPool#getTestOnBorrow()} for each per user pool.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+
+    /**
+     * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
      * GenericObjectPool#getTestOnCreate()} for each per user pool.
      *
 ```
@@ -2818,47 +2758,95 @@ Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
 #### Snippet
 ```java
-     * GenericObjectPool#getTestOnCreate()} for each per user pool.
      *
-     * @return The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
-     *         GenericObjectPool#getTestOnCreate()} for each per user pool.
+     * @param testOnCreate
+     *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     *            GenericObjectPool#getTestOnCreate()} for each per user pool.
      */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
 #### Snippet
 ```java
 
-    @Override
-    public java.net.URL getURL(final String columnName) throws SQLException {
-        try {
-            return resultSet.getURL(columnName);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-
-    @Override
-    public java.net.URL getURL(final int columnIndex) throws SQLException {
-        try {
-            return resultSet.getURL(columnIndex);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.pool2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
-#### Snippet
-```java
-     * Clears pool(s) maintained by this data source.
+    /**
+     * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     * GenericObjectPool#getTestOnReturn()} for each per user pool.
      *
-     * @see org.apache.commons.pool2.ObjectPool#clear()
-     * @since 2.3.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     *
+     * @param testOnReturn
+     *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     *            GenericObjectPool#getTestOnReturn()} for each per user pool.
      */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.naming` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+
+    protected ConnectionPoolDataSource testCPDS(final String userName, final String userPassword)
+            throws javax.naming.NamingException, SQLException {
+        // The source of physical db connections
+        ConnectionPoolDataSource cpds = this.dataSource;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+
+    /**
+     * Sets the default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     * GenericObjectPool#getTestWhileIdle()} for each per user pool.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2.impl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.java`
+#### Snippet
+```java
+     *
+     * @param testWhileIdle
+     *            The default value for {@link org.apache.commons.pool2.impl.GenericObjectPool
+     *            GenericObjectPool#getTestWhileIdle()} for each per user pool.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/dbcp2/DelegatingPreparedStatement.java`
+#### Snippet
+```java
+
+    @Override
+    public java.sql.ParameterMetaData getParameterMetaData() throws SQLException {
+        checkOpen();
+        try {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/dbcp2/DelegatingPreparedStatement.java`
+#### Snippet
+```java
+
+    @Override
+    public void setURL(final int parameterIndex, final java.net.URL x) throws SQLException {
+        checkOpen();
+        try {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2871,6 +2859,18 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
      * @see org.apache.commons.pool2.ObjectPool#close()
      */
     @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.pool2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
+#### Snippet
+```java
+     * Clears pool(s) maintained by this data source.
+     *
+     * @see org.apache.commons.pool2.ObjectPool#clear()
+     * @since 2.3.0
+     */
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -2950,6 +2950,78 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/InstanceKeyDataSource.jav
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `pool` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
+#### Snippet
+```java
+    private final Duration validationQueryTimeoutDuration;
+    private final boolean rollbackAfterValidation;
+    private ObjectPool<PooledConnectionAndInfo> pool;
+    private UserPassKey userPassKey;
+    private Duration maxConnDuration = Duration.ofMillis(-1);
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxConnDuration` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
+#### Snippet
+```java
+    private ObjectPool<PooledConnectionAndInfo> pool;
+    private UserPassKey userPassKey;
+    private Duration maxConnDuration = Duration.ofMillis(-1);
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `userPassKey` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
+#### Snippet
+```java
+    private final boolean rollbackAfterValidation;
+    private ObjectPool<PooledConnectionAndInfo> pool;
+    private UserPassKey userPassKey;
+    private Duration maxConnDuration = Duration.ofMillis(-1);
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `xaDataSource` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/managed/BasicManagedDataSource.java`
+#### Snippet
+```java
+
+    /** XA data source class name */
+    private String xaDataSource;
+
+    /** XA data source instance */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `xaDataSourceInstance` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/managed/BasicManagedDataSource.java`
+#### Snippet
+```java
+
+    /** XA data source instance */
+    private XADataSource xaDataSourceInstance;
+
+    /** Transaction Synchronization Registry */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `transactionRegistry` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/managed/BasicManagedDataSource.java`
+#### Snippet
+```java
+
+    /** Transaction Registry */
+    private TransactionRegistry transactionRegistry;
+
+    /** Transaction Manager */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `pool` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/dbcp2/datasources/SharedPoolDataSource.java`
 #### Snippet
 ```java
@@ -2973,289 +3045,25 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/SharedPoolDataSource.java
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `transactionRegistry` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/managed/BasicManagedDataSource.java`
-#### Snippet
-```java
-
-    /** Transaction Registry */
-    private TransactionRegistry transactionRegistry;
-
-    /** Transaction Manager */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `xaDataSourceInstance` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/managed/BasicManagedDataSource.java`
-#### Snippet
-```java
-
-    /** XA data source instance */
-    private XADataSource xaDataSourceInstance;
-
-    /** Transaction Synchronization Registry */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `xaDataSource` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/managed/BasicManagedDataSource.java`
-#### Snippet
-```java
-
-    /** XA data source class name */
-    private String xaDataSource;
-
-    /** XA data source instance */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `statement` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
-#### Snippet
-```java
-
-    /** My delegate. */
-    private Statement statement;
-
-    /** The connection that created me. **/
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxPreparedStatements` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
-
-    private int maxPreparedStatements = -1;
-
-    /** Whether or not getConnection has been called */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `connectionString` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-
-    /** Connection string */
-    private String connectionString;
-
-    /** User name */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `numTestsPerEvictionRun` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-    private int maxIdle = 10;
-    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
-    private int numTestsPerEvictionRun = -1;
-    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxIdle` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-    // PreparedStatement pool properties
-    private boolean poolPreparedStatements;
-    private int maxIdle = 10;
-    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
-    private int numTestsPerEvictionRun = -1;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `description` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-
-    /** Description */
-    private String description;
-
-    /** Connection string */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `minEvictableIdleDuration` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
-    private int numTestsPerEvictionRun = -1;
-    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
-
-    private int maxPreparedStatements = -1;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `loginTimeout` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-
-    /** Login TimeOut in seconds */
-    private int loginTimeout;
-
-    /** Log stream. NOT USED */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `connectionProperties` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-
-    /** Connection properties passed to JDBC Driver */
-    private Properties connectionProperties;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `driver` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-
-    /** Driver class name */
-    private String driver;
-
-    /** Login TimeOut in seconds */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `poolPreparedStatements` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-
-    // PreparedStatement pool properties
-    private boolean poolPreparedStatements;
-    private int maxIdle = 10;
-    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `durationBetweenEvictionRuns` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
-#### Snippet
-```java
-    private boolean poolPreparedStatements;
-    private int maxIdle = 10;
-    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
-    private int numTestsPerEvictionRun = -1;
-    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `connection` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-     * The JDBC database connection that represents the physical db connection.
-     */
-    private Connection connection;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `pStmtPool` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-
-    /** My pool of {@link PreparedStatement}s. */
-    private KeyedObjectPool<PStmtKey, DelegatingPreparedStatement> pStmtPool;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `logicalConnection` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-     * The JDBC database logical connection.
-     */
-    private Connection logicalConnection;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `closed` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-     * Flag set to true, once {@link #close()} is called.
-     */
-    private boolean closed;
-
-    /** My pool of {@link PreparedStatement}s. */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `pStmtPool` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/PoolingConnection.java`
-#### Snippet
-```java
-
-    /** Pool of {@link PreparedStatement}s. and {@link CallableStatement}s */
-    private KeyedObjectPool<PStmtKey, DelegatingPreparedStatement> pStmtPool;
-
-    private boolean clearStatementPoolOnReturn;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `userPassKey` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
-#### Snippet
-```java
-    private final boolean rollbackAfterValidation;
-    private ObjectPool<PooledConnectionAndInfo> pool;
-    private UserPassKey userPassKey;
-    private Duration maxConnDuration = Duration.ofMillis(-1);
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxConnDuration` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
-#### Snippet
-```java
-    private ObjectPool<PooledConnectionAndInfo> pool;
-    private UserPassKey userPassKey;
-    private Duration maxConnDuration = Duration.ofMillis(-1);
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `pool` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
-#### Snippet
-```java
-    private final Duration validationQueryTimeoutDuration;
-    private final boolean rollbackAfterValidation;
-    private ObjectPool<PooledConnectionAndInfo> pool;
-    private UserPassKey userPassKey;
-    private Duration maxConnDuration = Duration.ofMillis(-1);
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxIdle` is accessed in both synchronized and unsynchronized contexts
+Field `lifo` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
 ```java
-     * starting point.
+     * instance pool in the order that they are returned to the pool.
      */
-    private int maxIdle = GenericObjectPoolConfig.DEFAULT_MAX_IDLE;
+    private boolean lifo = BaseObjectPoolConfig.DEFAULT_LIFO;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxOpenPreparedStatements` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * </p>
+     */
+    private int maxOpenPreparedStatements = GenericKeyedObjectPoolConfig.DEFAULT_MAX_TOTAL;
 
     /**
 ```
@@ -3268,18 +3076,6 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
      * {@link #durationBetweenEvictionRuns} has a positive value.
      */
     private int minIdle = GenericObjectPoolConfig.DEFAULT_MIN_IDLE;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `testOnReturn` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * The indication of whether objects will be validated before being returned to the pool.
-     */
-    private boolean testOnReturn;
 
     /**
 ```
@@ -3309,18 +3105,6 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxWaitDuration` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * connection to be returned before throwing an exception, or <= 0 to wait indefinitely.
-     */
-    private Duration maxWaitDuration = BaseObjectPoolConfig.DEFAULT_MAX_WAIT;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `durationBetweenEvictionRuns` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 #### Snippet
@@ -3328,114 +3112,6 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
      * object evictor thread will be run.
      */
     private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxOpenPreparedStatements` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * </p>
-     */
-    private int maxOpenPreparedStatements = GenericKeyedObjectPoolConfig.DEFAULT_MAX_TOTAL;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `testWhileIdle` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * validate, it will be dropped from the pool.
-     */
-    private boolean testWhileIdle;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `poolPreparedStatements` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * and CallableStatements are pooled.
-     */
-    private boolean poolPreparedStatements;
-
-    private boolean clearStatementPoolOnReturn;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `lifo` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * instance pool in the order that they are returned to the pool.
-     */
-    private boolean lifo = BaseObjectPoolConfig.DEFAULT_LIFO;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `minEvictableIdleDuration` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * object evictor (if any).
-     */
-    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `testOnBorrow` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * validate, it will be dropped from the pool, and we will attempt to borrow another.
-     */
-    private boolean testOnBorrow = true;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `registeredJmxObjectName` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * Actual name under which this component has been registered.
-     */
-    private ObjectNameWrapper registeredJmxObjectName;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `evictionPolicyClassName` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-    private Duration softMinEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_SOFT_MIN_EVICTABLE_IDLE_DURATION;
-
-    private String evictionPolicyClassName = BaseObjectPoolConfig.DEFAULT_EVICTION_POLICY_CLASS_NAME;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxTotal` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-     * no limit.
-     */
-    private int maxTotal = GenericObjectPoolConfig.DEFAULT_MAX_TOTAL;
 
     /**
 ```
@@ -3453,15 +3129,135 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `connection` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+Field `testOnBorrow` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * validate, it will be dropped from the pool, and we will attempt to borrow another.
+     */
+    private boolean testOnBorrow = true;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `evictionPolicyClassName` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+    private Duration softMinEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_SOFT_MIN_EVICTABLE_IDLE_DURATION;
+
+    private String evictionPolicyClassName = BaseObjectPoolConfig.DEFAULT_EVICTION_POLICY_CLASS_NAME;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `testOnReturn` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * The indication of whether objects will be validated before being returned to the pool.
+     */
+    private boolean testOnReturn;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxTotal` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * no limit.
+     */
+    private int maxTotal = GenericObjectPoolConfig.DEFAULT_MAX_TOTAL;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `poolPreparedStatements` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * and CallableStatements are pooled.
+     */
+    private boolean poolPreparedStatements;
+
+    private boolean clearStatementPoolOnReturn;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxIdle` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * starting point.
+     */
+    private int maxIdle = GenericObjectPoolConfig.DEFAULT_MAX_IDLE;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `registeredJmxObjectName` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * Actual name under which this component has been registered.
+     */
+    private ObjectNameWrapper registeredJmxObjectName;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `minEvictableIdleDuration` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * object evictor (if any).
+     */
+    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `testWhileIdle` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * validate, it will be dropped from the pool.
+     */
+    private boolean testWhileIdle;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxWaitDuration` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+     * connection to be returned before throwing an exception, or <= 0 to wait indefinitely.
+     */
+    private Duration maxWaitDuration = BaseObjectPoolConfig.DEFAULT_MAX_WAIT;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `statement` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
 #### Snippet
 ```java
 
-    /** The Connection that created me, if any. **/
-    private Connection connection;
+    /** My delegate. */
+    private Statement statement;
 
-    /**
+    /** The connection that created me. **/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3474,6 +3270,210 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
     private Statement statement;
 
     /** The Connection that created me, if any. **/
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `connection` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+
+    /** The Connection that created me, if any. **/
+    private Connection connection;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `minEvictableIdleDuration` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
+    private int numTestsPerEvictionRun = -1;
+    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
+
+    private int maxPreparedStatements = -1;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `loginTimeout` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+
+    /** Login TimeOut in seconds */
+    private int loginTimeout;
+
+    /** Log stream. NOT USED */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `driver` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+
+    /** Driver class name */
+    private String driver;
+
+    /** Login TimeOut in seconds */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `poolPreparedStatements` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+
+    // PreparedStatement pool properties
+    private boolean poolPreparedStatements;
+    private int maxIdle = 10;
+    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `connectionProperties` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+
+    /** Connection properties passed to JDBC Driver */
+    private Properties connectionProperties;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `durationBetweenEvictionRuns` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+    private boolean poolPreparedStatements;
+    private int maxIdle = 10;
+    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
+    private int numTestsPerEvictionRun = -1;
+    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxPreparedStatements` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
+
+    private int maxPreparedStatements = -1;
+
+    /** Whether or not getConnection has been called */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `connectionString` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+
+    /** Connection string */
+    private String connectionString;
+
+    /** User name */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxIdle` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+    // PreparedStatement pool properties
+    private boolean poolPreparedStatements;
+    private int maxIdle = 10;
+    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
+    private int numTestsPerEvictionRun = -1;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `description` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+
+    /** Description */
+    private String description;
+
+    /** Connection string */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `numTestsPerEvictionRun` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
+#### Snippet
+```java
+    private int maxIdle = 10;
+    private Duration durationBetweenEvictionRuns = BaseObjectPoolConfig.DEFAULT_TIME_BETWEEN_EVICTION_RUNS;
+    private int numTestsPerEvictionRun = -1;
+    private Duration minEvictableIdleDuration = BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `logicalConnection` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+     * The JDBC database logical connection.
+     */
+    private Connection logicalConnection;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `pStmtPool` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+
+    /** My pool of {@link PreparedStatement}s. */
+    private KeyedObjectPool<PStmtKey, DelegatingPreparedStatement> pStmtPool;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `closed` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+     * Flag set to true, once {@link #close()} is called.
+     */
+    private boolean closed;
+
+    /** My pool of {@link PreparedStatement}s. */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `connection` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+     * The JDBC database connection that represents the physical db connection.
+     */
+    private Connection connection;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `pStmtPool` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/dbcp2/PoolingConnection.java`
+#### Snippet
+```java
+
+    /** Pool of {@link PreparedStatement}s. and {@link CallableStatement}s */
+    private KeyedObjectPool<PStmtKey, DelegatingPreparedStatement> pStmtPool;
+
+    private boolean clearStatementPoolOnReturn;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3566,7 +3566,7 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-20-20-34-55.309.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-21-07-02-43.704.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3576,284 +3576,7 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-20-20-34-55.309.
           </tbody>
 ```
 
-## RuleId[ruleID=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `SQLExceptionList` does not end with 'Exception'
-in `src/main/java/org/apache/commons/dbcp2/SQLExceptionList.java`
-#### Snippet
-```java
- * @since 2.7.0
- */
-public class SQLExceptionList extends SQLException {
-
-    private static final long serialVersionUID = 1L;
-```
-
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e); // Does not return
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-            return getDelegateInternal();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-            return super.getInnermostDelegateInternal();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e); // Does not return
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e); // Does not return
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e); // Does not return
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DataSourceMXBean.java`
-#### Snippet
-```java
-     */
-    default String getDefaultSchema() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
-#### Snippet
-```java
-            s = ((DelegatingStatement) s).getDelegate();
-            if (this == s) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingDatabaseMetaData.java`
-#### Snippet
-```java
-            m = ((DelegatingDatabaseMetaData) m).getDelegate();
-            if (this == m) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PStmtKey.java`
-#### Snippet
-```java
-
-    private int[] clone(final int[] array) {
-        return array == null ? null : array.clone();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PStmtKey.java`
-#### Snippet
-```java
-
-    private String[] clone(final String[] array) {
-        return array == null ? null : array.clone();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/ObjectNameWrapper.java`
-#### Snippet
-```java
-            // ignore - JMX not available
-            log.debug("Failed to get platform MBeanServer", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/ObjectNameWrapper.java`
-#### Snippet
-```java
-
-    public static ObjectName unwrap(final ObjectNameWrapper wrapper) {
-        return wrapper == null ? null : wrapper.unwrap();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PoolableConnectionFactory.java`
-#### Snippet
-```java
-    @Deprecated
-    public Integer getDefaultQueryTimeoutSeconds() {
-        return defaultQueryTimeoutDuration == null ? null : (int) defaultQueryTimeoutDuration.getSeconds();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/managed/ManagedConnection.java`
-#### Snippet
-```java
-            return getDelegateInternal();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/managed/ManagedConnection.java`
-#### Snippet
-```java
-            return super.getInnermostDelegateInternal();
-        }
-        return null;
-    }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/commons/dbcp2/managed/TransactionRegistry.java`
@@ -3868,102 +3591,6 @@ in `src/main/java/org/apache/commons/dbcp2/managed/TransactionRegistry.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-    private String getSchemaOrNull() {
-        try {
-            return connection == null ? null : Jdbc41Bridge.getSchema(connection);
-        } catch (final SQLException e) {
-            return null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-            return connection == null ? null : Jdbc41Bridge.getSchema(connection);
-        } catch (final SQLException e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-    private String getCatalogOrNull() {
-        try {
-            return connection == null ? null : connection.getCatalog();
-        } catch (final SQLException e) {
-            return null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
-#### Snippet
-```java
-            return connection == null ? null : connection.getCatalog();
-        } catch (final SQLException e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-        // that specify a class name of "javax.sql.DataSource"
-        if (obj == null || !(obj instanceof Reference)) {
-            return null;
-        }
-        final Reference ref = (Reference) obj;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-        final Reference ref = (Reference) obj;
-        if (!"javax.sql.DataSource".equals(ref.getClassName())) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PoolingConnection.java`
-#### Snippet
-```java
-            return getSchema();
-        } catch (final SQLException ignored) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PoolingConnection.java`
-#### Snippet
-```java
-            return getCatalog();
-        } catch (final SQLException ignored) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
 #### Snippet
 ```java
@@ -3972,6 +3599,18 @@ in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
+#### Snippet
+```java
+                return super.getInnermostDelegate();
+            }
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -4000,11 +3639,47 @@ in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PoolingDriver.java`
+in `src/main/java/org/apache/commons/dbcp2/managed/ManagedConnection.java`
 #### Snippet
 ```java
-                return super.getInnermostDelegate();
-            }
+            return super.getInnermostDelegateInternal();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/managed/ManagedConnection.java`
+#### Snippet
+```java
+            return getDelegateInternal();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/ObjectNameWrapper.java`
+#### Snippet
+```java
+
+    public static ObjectName unwrap(final ObjectNameWrapper wrapper) {
+        return wrapper == null ? null : wrapper.unwrap();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/ObjectNameWrapper.java`
+#### Snippet
+```java
+            // ignore - JMX not available
+            log.debug("Failed to get platform MBeanServer", e);
             return null;
         }
     }
@@ -4048,6 +3723,90 @@ in `src/main/java/org/apache/commons/dbcp2/Utils.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PoolableConnectionFactory.java`
+#### Snippet
+```java
+    @Deprecated
+    public Integer getDefaultQueryTimeoutSeconds() {
+        return defaultQueryTimeoutDuration == null ? null : (int) defaultQueryTimeoutDuration.getSeconds();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+        // that specify a class name of "javax.sql.DataSource"
+        if (obj == null || !(obj instanceof Reference)) {
+            return null;
+        }
+        final Reference ref = (Reference) obj;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+        final Reference ref = (Reference) obj;
+        if (!"javax.sql.DataSource".equals(ref.getClassName())) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
+#### Snippet
+```java
+            final C conn = pool.borrowObject();
+            if (conn == null) {
+                return null;
+            }
+            return new PoolGuardConnectionWrapper<>(conn);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
+#### Snippet
+```java
+        @Override
+        public Connection getInnermostDelegate() {
+            return isAccessToUnderlyingConnectionAllowed() ? super.getInnermostDelegate() : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
+#### Snippet
+```java
+        @Override
+        public D getDelegate() {
+            return isAccessToUnderlyingConnectionAllowed() ? super.getDelegate() : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
 #### Snippet
 ```java
@@ -4080,6 +3839,474 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
+#### Snippet
+```java
+            conn = ((DelegatingConnection<?>) conn).getDelegateInternal();
+            if (this == conn) {
+                return null;
+            }
+        }
 ```
 
 ### ReturnNull
@@ -4267,18 +4494,6 @@ Return of `null`
 in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
 #### Snippet
 ```java
-            conn = ((DelegatingConnection<?>) conn).getDelegateInternal();
-            if (this == conn) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
         } catch (final SQLException e) {
             handleException(e);
             return null;
@@ -4313,534 +4528,6 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingConnection.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/Jdbc41Bridge.java`
-#### Snippet
-```java
-        } catch (final AbstractMethodError e) {
-            // do nothing
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/Jdbc41Bridge.java`
-#### Snippet
-```java
-        } catch (final AbstractMethodError e) {
-            // do nothing
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
-#### Snippet
-```java
-        @Override
-        public Connection getInnermostDelegate() {
-            return isAccessToUnderlyingConnectionAllowed() ? super.getInnermostDelegate() : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
-#### Snippet
-```java
-        @Override
-        public D getDelegate() {
-            return isAccessToUnderlyingConnectionAllowed() ? super.getDelegate() : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/PoolingDataSource.java`
-#### Snippet
-```java
-            final C conn = pool.borrowObject();
-            if (conn == null) {
-                return null;
-            }
-            return new PoolGuardConnectionWrapper<>(conn);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingCallableStatement.java`
 #### Snippet
 ```java
         } catch (final SQLException e) {
@@ -5052,6 +4739,102 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
         return defaultQueryTimeoutDuration == null ? null : (int) defaultQueryTimeoutDuration.getSeconds();
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
+#### Snippet
+```java
+            s = ((DelegatingStatement) s).getDelegate();
+            if (this == s) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingStatement.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DataSourceMXBean.java`
+#### Snippet
+```java
+     */
+    default String getDefaultSchema() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -5407,198 +5190,6 @@ Return of `null`
 in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
 #### Snippet
 ```java
-            r = ((DelegatingResultSet) r).getDelegate();
-            if (this == r) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
-        } catch (final SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
-#### Snippet
-```java
         } catch (final SQLException e) {
             handleException(e);
             return null;
@@ -5776,14 +5367,398 @@ in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+            r = ((DelegatingResultSet) r).getDelegate();
+            if (this == r) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingResultSet.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PStmtKey.java`
 #### Snippet
 ```java
 
-    private Duration toDurationOrNull(final Long millis) {
-        return millis == null ? null : Duration.ofMillis(millis);
+    private String[] clone(final String[] array) {
+        return array == null ? null : array.clone();
     }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PStmtKey.java`
+#### Snippet
+```java
+
+    private int[] clone(final int[] array) {
+        return array == null ? null : array.clone();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+    private String getCatalogOrNull() {
+        try {
+            return connection == null ? null : connection.getCatalog();
+        } catch (final SQLException e) {
+            return null;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+            return connection == null ? null : connection.getCatalog();
+        } catch (final SQLException e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+    private String getSchemaOrNull() {
+        try {
+            return connection == null ? null : Jdbc41Bridge.getSchema(connection);
+        } catch (final SQLException e) {
+            return null;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/PooledConnectionImpl.java`
+#### Snippet
+```java
+            return connection == null ? null : Jdbc41Bridge.getSchema(connection);
+        } catch (final SQLException e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e); // Does not return
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+            return getDelegateInternal();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+            return super.getInnermostDelegateInternal();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e); // Does not return
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e); // Does not return
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e); // Does not return
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/ConnectionImpl.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            handleException(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/Jdbc41Bridge.java`
+#### Snippet
+```java
+        } catch (final AbstractMethodError e) {
+            // do nothing
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/Jdbc41Bridge.java`
+#### Snippet
+```java
+        } catch (final AbstractMethodError e) {
+            // do nothing
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/DelegatingDatabaseMetaData.java`
+#### Snippet
+```java
+            m = ((DelegatingDatabaseMetaData) m).getDelegate();
+            if (this == m) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PoolingConnection.java`
+#### Snippet
+```java
+            return getSchema();
+        } catch (final SQLException ignored) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/PoolingConnection.java`
+#### Snippet
+```java
+            return getCatalog();
+        } catch (final SQLException ignored) {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -5796,6 +5771,31 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
         return mgr == null ? null : mgr.getPool();
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.java`
+#### Snippet
+```java
+
+    private Duration toDurationOrNull(final Long millis) {
+        return millis == null ? null : Duration.ofMillis(millis);
+    }
+}
+```
+
+## RuleId[ruleID=ExceptionNameDoesntEndWithException]
+### ExceptionNameDoesntEndWithException
+Exception class name `SQLExceptionList` does not end with 'Exception'
+in `src/main/java/org/apache/commons/dbcp2/SQLExceptionList.java`
+#### Snippet
+```java
+ * @since 2.7.0
+ */
+public class SQLExceptionList extends SQLException {
+
+    private static final long serialVersionUID = 1L;
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -5812,18 +5812,6 @@ in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/dbcp2/datasources/SharedPoolDataSource.java`
-#### Snippet
-```java
-            throws SQLException {
-
-        synchronized (this) {
-            if (pool == null) {
-                try {
-```
-
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/dbcp2/managed/TransactionRegistry.java`
@@ -5846,6 +5834,18 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.jav
         synchronized (this) {
             if (userName == null || !userName.equals(this.userPassKey.getUserName())) {
                 return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/commons/dbcp2/datasources/SharedPoolDataSource.java`
+#### Snippet
+```java
+            throws SQLException {
+
+        synchronized (this) {
+            if (pool == null) {
+                try {
 ```
 
 ### SynchronizeOnThis
@@ -5899,6 +5899,42 @@ in `src/main/java/org/apache/commons/dbcp2/AbandonedTrace.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
+Variable `transaction` initializer `null` is redundant
+in `src/main/java/org/apache/commons/dbcp2/managed/TransactionRegistry.java`
+#### Snippet
+```java
+     */
+    public TransactionContext getActiveTransactionContext() throws SQLException {
+        Transaction transaction = null;
+        try {
+            transaction = transactionManager.getTransaction();
+```
+
+### UnusedAssignment
+Variable `pc` initializer `null` is redundant
+in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
+#### Snippet
+```java
+    public synchronized PooledObject<PooledConnectionAndInfo> makeObject() {
+        try {
+            PooledConnection pc = null;
+            if (userPassKey.getUserName() == null) {
+                pc = cpds.getPooledConnection();
+```
+
+### UnusedAssignment
+Variable `valid` initializer `false` is redundant
+in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
+#### Snippet
+```java
+            return false;
+        }
+        boolean valid = false;
+        final PooledConnection pconn = p.getObject().getPooledConnection();
+        Connection conn = null;
+```
+
+### UnusedAssignment
 Variable `xaDataSourceClass` initializer `null` is redundant
 in `src/main/java/org/apache/commons/dbcp2/managed/BasicManagedDataSource.java`
 #### Snippet
@@ -5924,6 +5960,66 @@ in `src/main/java/org/apache/commons/dbcp2/managed/BasicManagedDataSource.java`
 
 ### UnusedAssignment
 Variable `pooledConnection` initializer `null` is redundant
+in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactory.java`
+#### Snippet
+```java
+    @Override
+    public synchronized PooledObject<PooledConnectionAndInfo> makeObject(final UserPassKey userPassKey) throws SQLException {
+        PooledConnection pooledConnection = null;
+        final String userName = userPassKey.getUserName();
+        final String password = userPassKey.getPassword();
+```
+
+### UnusedAssignment
+Variable `valid` initializer `false` is redundant
+in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactory.java`
+#### Snippet
+```java
+            return false;
+        }
+        boolean valid = false;
+        final PooledConnection pooledConn = pooledObject.getObject().getPooledConnection();
+        Connection conn = null;
+```
+
+### UnusedAssignment
+Variable `level` initializer `PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION` is redundant
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+        getOptional(properties, PROP_DEFAULT_TRANSACTION_ISOLATION).ifPresent(value -> {
+            value = value.toUpperCase(Locale.ROOT);
+            int level = PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION;
+            if ("NONE".equals(value)) {
+                level = Connection.TRANSACTION_NONE;
+```
+
+### UnusedAssignment
+Variable `conn` initializer `null` is redundant
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+    @SuppressWarnings("resource")
+    protected static void validateConnectionFactory(final PoolableConnectionFactory connectionFactory) throws SQLException {
+        PoolableConnection conn = null;
+        PooledObject<PoolableConnection> p = null;
+        try {
+```
+
+### UnusedAssignment
+Variable `connectionFactory` initializer `null` is redundant
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
+#### Snippet
+```java
+    protected PoolableConnectionFactory createPoolableConnectionFactory(final ConnectionFactory driverConnectionFactory)
+            throws SQLException {
+        PoolableConnectionFactory connectionFactory = null;
+        try {
+            if (registerConnectionMBean) {
+```
+
+### UnusedAssignment
+Variable `pooledConnection` initializer `null` is redundant
 in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
 #### Snippet
 ```java
@@ -5944,102 +6040,6 @@ in `src/main/java/org/apache/commons/dbcp2/cpdsadapter/DriverAdapterCPDS.java`
         KeyedObjectPool<PStmtKey, DelegatingPreparedStatement> stmtPool = null;
         if (isPoolPreparedStatements()) {
             final GenericKeyedObjectPoolConfig<DelegatingPreparedStatement> config = new GenericKeyedObjectPoolConfig<>();
-```
-
-### UnusedAssignment
-Variable `transaction` initializer `null` is redundant
-in `src/main/java/org/apache/commons/dbcp2/managed/TransactionRegistry.java`
-#### Snippet
-```java
-     */
-    public TransactionContext getActiveTransactionContext() throws SQLException {
-        Transaction transaction = null;
-        try {
-            transaction = transactionManager.getTransaction();
-```
-
-### UnusedAssignment
-Variable `level` initializer `PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION` is redundant
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-        getOptional(properties, PROP_DEFAULT_TRANSACTION_ISOLATION).ifPresent(value -> {
-            value = value.toUpperCase(Locale.ROOT);
-            int level = PoolableConnectionFactory.UNKNOWN_TRANSACTION_ISOLATION;
-            if ("NONE".equals(value)) {
-                level = Connection.TRANSACTION_NONE;
-```
-
-### UnusedAssignment
-Variable `valid` initializer `false` is redundant
-in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
-#### Snippet
-```java
-            return false;
-        }
-        boolean valid = false;
-        final PooledConnection pconn = p.getObject().getPooledConnection();
-        Connection conn = null;
-```
-
-### UnusedAssignment
-Variable `pc` initializer `null` is redundant
-in `src/main/java/org/apache/commons/dbcp2/datasources/CPDSConnectionFactory.java`
-#### Snippet
-```java
-    public synchronized PooledObject<PooledConnectionAndInfo> makeObject() {
-        try {
-            PooledConnection pc = null;
-            if (userPassKey.getUserName() == null) {
-                pc = cpds.getPooledConnection();
-```
-
-### UnusedAssignment
-Variable `valid` initializer `false` is redundant
-in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactory.java`
-#### Snippet
-```java
-            return false;
-        }
-        boolean valid = false;
-        final PooledConnection pooledConn = pooledObject.getObject().getPooledConnection();
-        Connection conn = null;
-```
-
-### UnusedAssignment
-Variable `pooledConnection` initializer `null` is redundant
-in `src/main/java/org/apache/commons/dbcp2/datasources/KeyedCPDSConnectionFactory.java`
-#### Snippet
-```java
-    @Override
-    public synchronized PooledObject<PooledConnectionAndInfo> makeObject(final UserPassKey userPassKey) throws SQLException {
-        PooledConnection pooledConnection = null;
-        final String userName = userPassKey.getUserName();
-        final String password = userPassKey.getPassword();
-```
-
-### UnusedAssignment
-Variable `connectionFactory` initializer `null` is redundant
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-    protected PoolableConnectionFactory createPoolableConnectionFactory(final ConnectionFactory driverConnectionFactory)
-            throws SQLException {
-        PoolableConnectionFactory connectionFactory = null;
-        try {
-            if (registerConnectionMBean) {
-```
-
-### UnusedAssignment
-Variable `conn` initializer `null` is redundant
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSource.java`
-#### Snippet
-```java
-    @SuppressWarnings("resource")
-    protected static void validateConnectionFactory(final PoolableConnectionFactory connectionFactory) throws SQLException {
-        PoolableConnection conn = null;
-        PooledObject<PoolableConnection> p = null;
-        try {
 ```
 
 ### UnusedAssignment
@@ -6068,18 +6068,6 @@ in `src/main/java/org/apache/commons/dbcp2/datasources/PerUserPoolDataSource.jav
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
-Condition `NUPROP_WARNTEXT != null` is always `true`
-in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
-#### Snippet
-```java
-        final List<String> infoMessages) {
-        final String nameString = name != null ? "Name = " + name.toString() + " " : "";
-        if (NUPROP_WARNTEXT != null && !NUPROP_WARNTEXT.isEmpty()) {
-            NUPROP_WARNTEXT.forEach((propertyName, value) -> {
-                final RefAddr ra = ref.get(propertyName);
-```
-
-### ConstantValue
 Value `properties` is always 'null'
 in `src/main/java/org/apache/commons/dbcp2/Utils.java`
 #### Snippet
@@ -6089,6 +6077,18 @@ in `src/main/java/org/apache/commons/dbcp2/Utils.java`
         return properties;
     }
 
+```
+
+### ConstantValue
+Condition `NUPROP_WARNTEXT != null` is always `true`
+in `src/main/java/org/apache/commons/dbcp2/BasicDataSourceFactory.java`
+#### Snippet
+```java
+        final List<String> infoMessages) {
+        final String nameString = name != null ? "Name = " + name.toString() + " " : "";
+        if (NUPROP_WARNTEXT != null && !NUPROP_WARNTEXT.isEmpty()) {
+            NUPROP_WARNTEXT.forEach((propertyName, value) -> {
+                final RefAddr ra = ref.get(propertyName);
 ```
 
 ### ConstantValue
