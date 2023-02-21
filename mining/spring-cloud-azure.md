@@ -29,18 +29,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
-				e.printStackTrace();
-			}
-			System.out.println("Successfully stored the output Markdown file!");
-		}
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
-#### Snippet
-```java
 		File parent = new File(outputFile).getParentFile();
 		if (!parent.exists()) {
 			System.out.println(
@@ -94,6 +82,18 @@ in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spri
 					System.out.println("Will not update the table, since no configuration properties were found!");
 					return;
 				}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
+#### Snippet
+```java
+				e.printStackTrace();
+			}
+			System.out.println("Successfully stored the output Markdown file!");
+		}
+
 ```
 
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
@@ -153,11 +153,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			System.out.println("Successfully stored the output Markdown file!");
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+				return false;
 ```
 
 ### ThrowablePrintStackTrace
@@ -165,10 +165,10 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-				return false;
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Successfully stored the output Markdown file!");
 ```
 
