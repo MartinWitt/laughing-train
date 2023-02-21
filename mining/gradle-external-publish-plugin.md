@@ -62,18 +62,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `CheckVersionTask` has no concrete subclass
-in `src/main/java/com/palantir/gradle/externalpublish/CheckVersionTask.java`
-#### Snippet
-```java
-import org.gradle.api.tasks.TaskAction;
-
-public abstract class CheckVersionTask extends DefaultTask {
-    @TaskAction
-    public final void checkVersion() {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `CheckSigningKeyTask` has no concrete subclass
 in `src/main/java/com/palantir/gradle/externalpublish/CheckSigningKeyTask.java`
 #### Snippet
@@ -83,6 +71,18 @@ import org.gradle.api.tasks.TaskAction;
 public abstract class CheckSigningKeyTask extends DefaultTask {
     @TaskAction
     public final void checkSigningKey() {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CheckVersionTask` has no concrete subclass
+in `src/main/java/com/palantir/gradle/externalpublish/CheckVersionTask.java`
+#### Snippet
+```java
+import org.gradle.api.tasks.TaskAction;
+
+public abstract class CheckVersionTask extends DefaultTask {
+    @TaskAction
+    public final void checkVersion() {
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
@@ -100,14 +100,14 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.j
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
 #### Snippet
 ```java
-            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
-            // the value from the task provider, which will fail if the task has not yet been created.
-            project.afterEvaluate(_ignored -> {
-                publication.artifact(project.getTasks().named("distTar"));
-            });
+        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
+
+        publishPluginsTask.configure(publishPlugins -> {
+            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
+        });
 ```
 
 ### CodeBlock2Expr
@@ -124,18 +124,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
-#### Snippet
-```java
-        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
-
-        publishPluginsTask.configure(publishPlugins -> {
-            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
 #### Snippet
 ```java
@@ -148,38 +136,26 @@ in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvo
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
 #### Snippet
 ```java
-            publicationConfiguration.execute(mavenPublication);
-            mavenPublication.pom(pom -> {
-                pom.licenses(licenses -> {
-                    licenses.license(license -> {
-                        license.getName().set("The Apache License, Version 2.0");
+            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
+            // the value from the task provider, which will fail if the task has not yet been created.
+            project.afterEvaluate(_ignored -> {
+                publication.artifact(project.getTasks().named("distTar"));
+            });
 ```
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
 #### Snippet
 ```java
-                    });
-                });
-                pom.developers(developers -> {
-                    developers.developer(developer -> {
-                        developer.getId().set("palantir");
-```
+                .configure(distTar -> distTar.setCompression(Compression.GZIP));
 
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
-
-    private void disableOtherPublicationsFromPublishingToSonatype() {
-        project.getTasks().withType(PublishToMavenRepository.class).configureEach(publishTask -> {
-            publishTask.onlyIf(_ignored -> {
-                if (publishTask.getRepository().getName().equals("sonatype")) {
+        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
+            createStartScripts.doLast(new FixWindowsStartScripts());
+        });
 ```
 
 ### CodeBlock2Expr
@@ -208,13 +184,37 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
 #### Snippet
 ```java
-                .configure(distTar -> distTar.setCompression(Compression.GZIP));
 
-        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
-            createStartScripts.doLast(new FixWindowsStartScripts());
-        });
+    private void disableOtherPublicationsFromPublishingToSonatype() {
+        project.getTasks().withType(PublishToMavenRepository.class).configureEach(publishTask -> {
+            publishTask.onlyIf(_ignored -> {
+                if (publishTask.getRepository().getName().equals("sonatype")) {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+            publicationConfiguration.execute(mavenPublication);
+            mavenPublication.pom(pom -> {
+                pom.licenses(licenses -> {
+                    licenses.license(license -> {
+                        license.getName().set("The Apache License, Version 2.0");
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+                    });
+                });
+                pom.developers(developers -> {
+                    developers.developer(developer -> {
+                        developer.getId().set("palantir");
 ```
 
