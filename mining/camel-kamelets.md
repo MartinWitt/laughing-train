@@ -1,7 +1,7 @@
 # camel-kamelets 
  
 # Bad smells
-I found 52 bad smells with 9 repairable:
+I found 51 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 8 | false |
@@ -11,23 +11,35 @@ I found 52 bad smells with 9 repairable:
 | SimplifyStreamApiCallChains | 4 | false |
 | SystemOutErr | 3 | false |
 | IfStatementWithIdenticalBranches | 2 | false |
-| UnnecessaryFullyQualifiedName | 2 | false |
 | DataFlowIssue | 2 | false |
+| UnnecessaryFullyQualifiedName | 2 | false |
 | UNUSED_IMPORT | 2 | false |
 | WrapperTypeMayBePrimitive | 1 | false |
 | UnnecessaryModifier | 1 | true |
 | GroovyUnusedAssignment | 1 | false |
 | AssignmentToMethodParameter | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | BoundedWildcard | 1 | false |
 | UnusedAssignment | 1 | false |
 | StringEqualsEmptyString | 1 | false |
-| StringConcatenationInsideStringBufferAppend | 1 | false |
 | UnnecessaryBoxing | 1 | false |
+| StringConcatenationInsideStringBufferAppend | 1 | false |
+## RuleId[ruleID=WrapperTypeMayBePrimitive]
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/serialization/InflightAvroSchemaResolver.java`
+#### Snippet
+```java
+    public FormatSchema resolve(Exchange exchange) {
+        String schemaJson = (String) exchange.getProperty("schema");
+        Boolean validate = Boolean.valueOf((String) exchange.getProperty("validate"));
+        Schema raw = new Schema.Parser().setValidate(validate).parse(schemaJson);
+        AvroSchema schema = new AvroSchema(raw);
+```
+
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
@@ -63,19 +75,6 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
             System.out.println(builder.toString());
             builder.append(System.lineSeparator());
         }
-```
-
-## RuleId[ruleID=WrapperTypeMayBePrimitive]
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/serialization/InflightAvroSchemaResolver.java`
-#### Snippet
-```java
-    public FormatSchema resolve(Exchange exchange) {
-        String schemaJson = (String) exchange.getProperty("schema");
-        Boolean validate = Boolean.valueOf((String) exchange.getProperty("validate"));
-        Schema raw = new Schema.Parser().setValidate(validate).parse(schemaJson);
-        AvroSchema schema = new AvroSchema(raw);
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
@@ -165,31 +164,6 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/t
                 updatedTopic = TIMESTAMP.matcher(replace1).replaceAll(Matcher.quoteReplacement(formattedTimestamp));
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.kamelets.utils.format.spi.annotations` is unnecessary and can be removed
-in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/format/DefaultDataTypeRegistry.java`
-#### Snippet
-```java
-/**
- * Default data type registry able to resolve data types converters in the project. Data types may be defined at the component level
- * via {@link org.apache.camel.kamelets.utils.format.spi.annotations.DataType} annotations. Also, users can add data types directly
- * to the Camel context or manually to the registry.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/mongodb/SslAwareMongoClient.java`
-#### Snippet
-```java
-                            }
-                            try {
-                                sc.init(null, trustAllCerts, new java.security.SecureRandom());
-                            } catch (KeyManagementException e) {
-                                throw new RuntimeException("Error instantiating trust all SSL context.", e);
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Casting `rawTimestamp` to `Long` will produce `ClassCastException` for any non-null value
@@ -213,6 +187,31 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/t
             timestamp = Long.valueOf((String) rawTimestamp);
         }
         if (ObjectHelper.isNotEmpty(timestamp)) {
+```
+
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.camel.kamelets.utils.format.spi.annotations` is unnecessary and can be removed
+in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/format/DefaultDataTypeRegistry.java`
+#### Snippet
+```java
+/**
+ * Default data type registry able to resolve data types converters in the project. Data types may be defined at the component level
+ * via {@link org.apache.camel.kamelets.utils.format.spi.annotations.DataType} annotations. Also, users can add data types directly
+ * to the Camel context or manually to the registry.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/mongodb/SslAwareMongoClient.java`
+#### Snippet
+```java
+                            }
+                            try {
+                                sc.init(null, trustAllCerts, new java.security.SecureRandom());
+                            } catch (KeyManagementException e) {
+                                throw new RuntimeException("Error instantiating trust all SSL context.", e);
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -247,10 +246,10 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
 #### Snippet
 ```java
         List<Kamelet> collect = kameletModels.entrySet().stream()
-                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_PROVIDER).equalsIgnoreCase(provider))
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
-        if (!collect.isEmpty()) {
+        return collect;
 ```
 
 ### SimplifyStreamApiCallChains
@@ -283,10 +282,10 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
 #### Snippet
 ```java
         List<Kamelet> collect = kameletModels.entrySet().stream()
-                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_PROVIDER).equalsIgnoreCase(provider))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
-        return collect;
+        if (!collect.isEmpty()) {
 ```
 
 ## RuleId[ruleID=GroovyUnusedAssignment]
@@ -332,6 +331,18 @@ Field initialization to `null` is redundant
 in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/mongodb/SslAwareMongoClient.java`
 #### Snippet
 ```java
+    private String hosts = null;
+    private String username = null;
+    private String password = null;
+    private boolean ssl = true;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/mongodb/SslAwareMongoClient.java`
+#### Snippet
+```java
         }
     });
     private String hosts = null;
@@ -349,18 +360,6 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/m
     private String username = null;
     private String password = null;
     private boolean ssl = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/mongodb/SslAwareMongoClient.java`
-#### Snippet
-```java
-    private String hosts = null;
-    private String username = null;
-    private String password = null;
-    private boolean ssl = true;
-
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -389,30 +388,17 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/t
             default:
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-19-11-28-32.303.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
 #### Snippet
 ```java
-            return kamelet.getSpec().getTemplate();
-        } else {
-            return null;
+            if (c.name.equals(prefix)) return c.scheme;
         }
+        return null;
     }
+
 ```
 
 ### ReturnNull
@@ -420,7 +406,7 @@ Return of `null`
 in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
 #### Snippet
 ```java
-            return kamelet.getSpec().getDependencies();
+            return kamelet.getSpec().getTemplate();
         } else {
             return null;
         }
@@ -444,7 +430,7 @@ Return of `null`
 in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
 #### Snippet
 ```java
-            return kamelet.getSpec().getDefinition().getRequired();
+            return kamelet.getSpec().getDependencies();
         } else {
             return null;
         }
@@ -456,11 +442,11 @@ Return of `null`
 in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
 #### Snippet
 ```java
-            if (c.name.equals(prefix)) return c.scheme;
+            return kamelet.getSpec().getDefinition().getRequired();
+        } else {
+            return null;
         }
-        return null;
     }
-
 ```
 
 ### ReturnNull
@@ -519,9 +505,9 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
 #### Snippet
 ```java
 
-    public List<Kamelet> getKameletsByNamespace(String namespace) {
+    public List<Kamelet> getKameletsByGroups(String group) {
         List<Kamelet> collect = kameletModels.entrySet().stream()
-                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_NAMESPACE).contains(namespace))
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
                 .map(Map.Entry::getValue)
 ```
 
@@ -531,9 +517,9 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
 #### Snippet
 ```java
 
-    public List<Kamelet> getKameletsByName(String name) {
+    public List<Kamelet> getKameletsByNamespace(String namespace) {
         List<Kamelet> collect = kameletModels.entrySet().stream()
-                .filter(x -> x.getKey().contains(name))
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_NAMESPACE).contains(namespace))
                 .map(Map.Entry::getValue)
 ```
 
@@ -555,9 +541,9 @@ in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catal
 #### Snippet
 ```java
 
-    public List<Kamelet> getKameletsByGroups(String group) {
+    public List<Kamelet> getKameletsByName(String name) {
         List<Kamelet> collect = kameletModels.entrySet().stream()
-                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
+                .filter(x -> x.getKey().contains(name))
                 .map(Map.Entry::getValue)
 ```
 
@@ -650,19 +636,6 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/m
             }
 ```
 
-## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
-#### Snippet
-```java
-            StringBuilder builder = new StringBuilder();
-            for (String dep : entry.getValue().getSpec().getDependencies()) {
-                builder.append(dep + System.lineSeparator());
-            }
-            System.out.println(entry.getKey());
-```
-
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### UnnecessaryBoxing
 Redundant boxing, `Long.parseLong()` call can be used instead
@@ -674,5 +647,18 @@ in `library/camel-kamelets-utils/src/main/java/org/apache/camel/kamelets/utils/t
             timestamp = Long.valueOf((String) rawTimestamp);
         }
         if (ObjectHelper.isNotEmpty(timestamp)) {
+```
+
+## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `library/camel-kamelets-catalog/src/main/java/org/apache/camel/kamelets/catalog/KameletsCatalog.java`
+#### Snippet
+```java
+            StringBuilder builder = new StringBuilder();
+            for (String dep : entry.getValue().getSpec().getDependencies()) {
+                builder.append(dep + System.lineSeparator());
+            }
+            System.out.println(entry.getKey());
 ```
 
