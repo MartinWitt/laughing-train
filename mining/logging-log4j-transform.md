@@ -6,8 +6,8 @@ I found 9 bad smells with 1 repairable:
 | --- | --- | --- |
 | RedundantFieldInitialization | 2 | false |
 | BoundedWildcard | 2 | false |
-| UnnecessaryModifier | 1 | true |
 | NonSerializableFieldInSerializableClass | 1 | false |
+| UnnecessaryModifier | 1 | true |
 | ReturnNull | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
@@ -36,19 +36,6 @@ in `log4j-transform-maven-shade-plugin-extensions/src/main/java/org/apache/loggi
 
 ```
 
-## RuleId[ruleID=UnnecessaryModifier]
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
-#### Snippet
-```java
-    private final Type[] argumentTypes;
-
-    private SupplierLambdaType(final Type... argumentTypes) {
-        this.argumentTypes = argumentTypes;
-    }
-```
-
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'argumentTypes' in a Serializable class
@@ -60,6 +47,19 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaTyp
     private final Type[] argumentTypes;
 
     private SupplierLambdaType(final Type... argumentTypes) {
+```
+
+## RuleId[ruleID=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
+#### Snippet
+```java
+    private final Type[] argumentTypes;
+
+    private SupplierLambdaType(final Type... argumentTypes) {
+        this.argumentTypes = argumentTypes;
+    }
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -78,7 +78,7 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationClassVisi
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-21-06-48-16.618.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-21-17-42-43.203.html`
 #### Snippet
 ```java
               <td>0</td>
