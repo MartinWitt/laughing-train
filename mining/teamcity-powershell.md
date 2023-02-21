@@ -26,18 +26,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
-#### Snippet
-```java
- * @author Oleg Rybak (oleg.rybak@jetbrains.com)
- */
-class LegacyKeys {
-
-  private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Loggers` has only 'static' members, and lacks a 'private' constructor
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Loggers.java`
 #### Snippet
@@ -50,6 +38,18 @@ public class Loggers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
+#### Snippet
+```java
+ * @author Oleg Rybak (oleg.rybak@jetbrains.com)
+ */
+class LegacyKeys {
+
+  private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `PowerShellConstants` has only 'static' members, and lacks a 'private' constructor
 in `powershell-common/src/main/java/jetbrains/buildServer/powershell/common/PowerShellConstants.java`
 #### Snippet
@@ -59,19 +59,6 @@ in `powershell-common/src/main/java/jetbrains/buildServer/powershell/common/Powe
 public class PowerShellConstants {
 
   public static final String PLUGIN_NAME = "powershell-runner";
-```
-
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
-#### Snippet
-```java
-      if (info.getBitness() == PowerShellBitness.x64) {
-        if (mySystemBitness.is32bit()) {
-          return info.getExecutablePath().replace(SYSTEM32, NATIVE);
-        }
-      }
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
@@ -88,18 +75,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-common/src/main/java/jetbrains/buildServer/powershell/common/PowerShellExecutionMode.java`
-#### Snippet
-```java
-  @Nullable
-  public static PowerShellExecutionMode fromString(@Nullable String sMode) {
-    if (StringUtil.isEmptyOrSpaces(sMode)) return STDIN;
-
-    for (PowerShellExecutionMode mode : values()) {
-```
-
-### StaticCallOnSubclass
 Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
 #### Snippet
@@ -109,6 +84,18 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
         LOG.debug(StringUtil.join(propertyPaths, "\n"));
       }
     }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-common/src/main/java/jetbrains/buildServer/powershell/common/PowerShellExecutionMode.java`
+#### Snippet
+```java
+  @Nullable
+  public static PowerShellExecutionMode fromString(@Nullable String sMode) {
+    if (StringUtil.isEmptyOrSpaces(sMode)) return STDIN;
+
+    for (PowerShellExecutionMode mode : values()) {
 ```
 
 ### StaticCallOnSubclass
@@ -229,6 +216,19 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
           LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
         }
         if (outputLines.size() == 3) {
+```
+
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
+#### Snippet
+```java
+      if (info.getBitness() == PowerShellBitness.x64) {
+        if (mySystemBitness.is32bit()) {
+          return info.getExecutablePath().replace(SYSTEM32, NATIVE);
+        }
+      }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
