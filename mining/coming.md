@@ -149,27 +149,6 @@ in `src/main/java/fr/inria/coming/repairability/JSONRepairabilityOutput.java`
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (option.dataOption) { case CARDUMEN: return DataLoader.loadCardum...` statement on enum type 'fr.inria.prophet4j.utility.Option.DataOption' misses case 'CLOSURE'
-in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
-#### Snippet
-```java
-
-    private Map<String, Map<File, List<File>>> loadDataWithPatches(String dataPath) {
-        switch (option.dataOption) {
-            case CARDUMEN:
-                return DataLoader.loadCardumenWithPatches(dataPath, Support.PROPHET4J_DIR + "cardumen_dissection/");
-            case SANER:
-                break;
-            case BEARS:
-            case BUG_DOT_JAR_MINUS_MATH:
-            case QUIX_BUGS:
-                return DataLoader.loadODSWithPatches(dataPath);
-        }
-        return new HashMap<>();
-    }
-```
-
-### EnumSwitchStatementWhichMissesCases
 `switch (option.patchOption) { case CARDUMEN: break; case SPR...` statement on enum type 'fr.inria.prophet4j.utility.Option.PatchOption' misses cases: 'BEARS', 'BUG_DOT_JAR_MINUS_MATH', and 'QUIX_BUGS'
 in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
 #### Snippet
@@ -218,118 +197,24 @@ in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (assignment.getKind()) { case PLUS: putValueFeatu...` statement on enum type 'spoon.reflect.code.BinaryOperatorKind' misses cases: 'OR', 'AND', 'BITOR', 'BITXOR', 'BITAND', ...
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+`switch (option.dataOption) { case CARDUMEN: return DataLoader.loadCardum...` statement on enum type 'fr.inria.prophet4j.utility.Option.DataOption' misses case 'CLOSURE'
+in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
 #### Snippet
 ```java
-                CtExpression LHS = assignment.getAssigned();
-                CtExpression RHS = assignment.getAssignment();
-                switch (assignment.getKind()) {
-                    case PLUS:
-                        putValueFeature(LHS, AtomicFeature.OP_ADD_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_ADD_AF);
-                        break;
-                    case MINUS:
-                        putValueFeature(LHS, AtomicFeature.OP_SUB_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_SUB_AF);
-                        break;
-                    case MUL:
-                        putValueFeature(LHS, AtomicFeature.OP_MUL_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_MUL_AF);
-                        break;
-                    case DIV:
-                        putValueFeature(LHS, AtomicFeature.OP_DIV_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_DIV_AF);
-                        break;
-                    case MOD:
-                        putValueFeature(LHS, AtomicFeature.OP_MOD_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_MOD_AF);
-                        break;
-                }
-                putValueFeature(LHS, AtomicFeature.CHANGED_AF);
-            }
-```
 
-### EnumSwitchStatementWhichMissesCases
-`switch (operator.getKind()) { case PLUS: putValueFeature...` statement on enum type 'spoon.reflect.code.BinaryOperatorKind' misses cases: 'OR', 'AND', 'BITOR', 'BITXOR', 'BITAND', ...
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
-#### Snippet
-```java
-switch (operator.getKind()) {
-                    case PLUS:
-                        putValueFeature(LHS, AtomicFeature.OP_ADD_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_ADD_AF);
-                        break;
-                    case MINUS:
-                        putValueFeature(LHS, AtomicFeature.OP_SUB_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_SUB_AF);
-                        break;
-                    case MUL:
-                        putValueFeature(LHS, AtomicFeature.OP_MUL_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_MUL_AF);
-                        break;
-                    case DIV:
-                        putValueFeature(LHS, AtomicFeature.OP_DIV_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_DIV_AF);
-                        break;
-                    case MOD:
-                        putValueFeature(LHS, AtomicFeature.OP_MOD_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_MOD_AF);
-                        break;
-                    case LE:
-                        putValueFeature(LHS, AtomicFeature.OP_LE_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_LE_AF);
-                        break;
-                    case LT:
-                        putValueFeature(LHS, AtomicFeature.OP_LT_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_LT_AF);
-                        break;
-                    case GE:
-                        putValueFeature(LHS, AtomicFeature.OP_GE_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_GE_AF);
-                        break;
-                    case GT:
-                        putValueFeature(LHS, AtomicFeature.OP_GT_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_GT_AF);
-                        break;
-                    case EQ:
-                        putValueFeature(LHS, AtomicFeature.OP_EQ_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_EQ_AF);
-                        break;
-                    case NE:
-                        putValueFeature(LHS, AtomicFeature.OP_NE_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_NE_AF);
-                        break;
-                }
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (operator.getKind()) { case POS: putValueFeature(...` statement on enum type 'spoon.reflect.code.UnaryOperatorKind' misses cases: 'NOT', and 'COMPL'
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
-#### Snippet
-```java
-                super.visitCtUnaryOperator(operator);
-                CtExpression operand = operator.getOperand();
-                switch (operator.getKind()) {
-                    case POS:
-                        putValueFeature(operand, AtomicFeature.OP_ADD_AF);
-                        break;
-                    case NEG:
-                        putValueFeature(operand, AtomicFeature.OP_SUB_AF);
-                        break;
-                    case PREINC:
-                    case POSTINC:
-                        putValueFeature(operand, AtomicFeature.UOP_INC_AF);
-                        putValueFeature(operand, AtomicFeature.CHANGED_AF);
-                        break;
-                    case PREDEC:
-                    case POSTDEC:
-                        putValueFeature(operand, AtomicFeature.UOP_DEC_AF);
-                        putValueFeature(operand, AtomicFeature.CHANGED_AF);
-                        break;
-                }
-            }
-        };
+    private Map<String, Map<File, List<File>>> loadDataWithPatches(String dataPath) {
+        switch (option.dataOption) {
+            case CARDUMEN:
+                return DataLoader.loadCardumenWithPatches(dataPath, Support.PROPHET4J_DIR + "cardumen_dissection/");
+            case SANER:
+                break;
+            case BEARS:
+            case BUG_DOT_JAR_MINUS_MATH:
+            case QUIX_BUGS:
+                return DataLoader.loadODSWithPatches(dataPath);
+        }
+        return new HashMap<>();
+    }
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -421,6 +306,121 @@ switch (diffEntry.type) {
                 repair.isReplace = true;
                 break;
         }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (operator.getKind()) { case POS: putValueFeature(...` statement on enum type 'spoon.reflect.code.UnaryOperatorKind' misses cases: 'NOT', and 'COMPL'
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+                super.visitCtUnaryOperator(operator);
+                CtExpression operand = operator.getOperand();
+                switch (operator.getKind()) {
+                    case POS:
+                        putValueFeature(operand, AtomicFeature.OP_ADD_AF);
+                        break;
+                    case NEG:
+                        putValueFeature(operand, AtomicFeature.OP_SUB_AF);
+                        break;
+                    case PREINC:
+                    case POSTINC:
+                        putValueFeature(operand, AtomicFeature.UOP_INC_AF);
+                        putValueFeature(operand, AtomicFeature.CHANGED_AF);
+                        break;
+                    case PREDEC:
+                    case POSTDEC:
+                        putValueFeature(operand, AtomicFeature.UOP_DEC_AF);
+                        putValueFeature(operand, AtomicFeature.CHANGED_AF);
+                        break;
+                }
+            }
+        };
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (operator.getKind()) { case PLUS: putValueFeature...` statement on enum type 'spoon.reflect.code.BinaryOperatorKind' misses cases: 'OR', 'AND', 'BITOR', 'BITXOR', 'BITAND', ...
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+switch (operator.getKind()) {
+                    case PLUS:
+                        putValueFeature(LHS, AtomicFeature.OP_ADD_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_ADD_AF);
+                        break;
+                    case MINUS:
+                        putValueFeature(LHS, AtomicFeature.OP_SUB_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_SUB_AF);
+                        break;
+                    case MUL:
+                        putValueFeature(LHS, AtomicFeature.OP_MUL_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_MUL_AF);
+                        break;
+                    case DIV:
+                        putValueFeature(LHS, AtomicFeature.OP_DIV_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_DIV_AF);
+                        break;
+                    case MOD:
+                        putValueFeature(LHS, AtomicFeature.OP_MOD_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_MOD_AF);
+                        break;
+                    case LE:
+                        putValueFeature(LHS, AtomicFeature.OP_LE_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_LE_AF);
+                        break;
+                    case LT:
+                        putValueFeature(LHS, AtomicFeature.OP_LT_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_LT_AF);
+                        break;
+                    case GE:
+                        putValueFeature(LHS, AtomicFeature.OP_GE_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_GE_AF);
+                        break;
+                    case GT:
+                        putValueFeature(LHS, AtomicFeature.OP_GT_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_GT_AF);
+                        break;
+                    case EQ:
+                        putValueFeature(LHS, AtomicFeature.OP_EQ_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_EQ_AF);
+                        break;
+                    case NE:
+                        putValueFeature(LHS, AtomicFeature.OP_NE_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_NE_AF);
+                        break;
+                }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (assignment.getKind()) { case PLUS: putValueFeatu...` statement on enum type 'spoon.reflect.code.BinaryOperatorKind' misses cases: 'OR', 'AND', 'BITOR', 'BITXOR', 'BITAND', ...
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+                CtExpression LHS = assignment.getAssigned();
+                CtExpression RHS = assignment.getAssignment();
+                switch (assignment.getKind()) {
+                    case PLUS:
+                        putValueFeature(LHS, AtomicFeature.OP_ADD_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_ADD_AF);
+                        break;
+                    case MINUS:
+                        putValueFeature(LHS, AtomicFeature.OP_SUB_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_SUB_AF);
+                        break;
+                    case MUL:
+                        putValueFeature(LHS, AtomicFeature.OP_MUL_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_MUL_AF);
+                        break;
+                    case DIV:
+                        putValueFeature(LHS, AtomicFeature.OP_DIV_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_DIV_AF);
+                        break;
+                    case MOD:
+                        putValueFeature(LHS, AtomicFeature.OP_MOD_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_MOD_AF);
+                        break;
+                }
+                putValueFeature(LHS, AtomicFeature.CHANGED_AF);
+            }
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -773,49 +773,6 @@ switch (diffEntry.type) {
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (crossType) { case RF_CT: assert features.size() == 1; ...` statement on enum type 'fr.inria.prophet4j.feature.original.OriginalFeature.CrossType' misses cases: 'SRC', 'FORMER', and 'LATER'
-in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureCross.java`
-#### Snippet
-```java
-switch (crossType) {
-            case RF_CT:
-                assert features.size() == 1;
-                assert features.get(0) instanceof RepairFeature;
-                ordinal0 = ((RepairFeature) features.get(0)).ordinal();
-                this.id = FEATURE_BASE_0 + ordinal0;
-                break;
-            case POS_AF_RF_CT:
-                assert features.size() == 3;
-                assert features.get(0) instanceof Position;
-                assert features.get(1) instanceof AtomicFeature;
-                assert features.get(2) instanceof RepairFeature;
-                ordinal0 = ((Position) features.get(0)).ordinal();
-                ordinal1 = ((AtomicFeature) features.get(1)).ordinal();
-                ordinal2 = ((RepairFeature) features.get(2)).ordinal();
-                this.id = FEATURE_BASE_1 + ordinal0 * AF_SIZE * RF_SIZE + ordinal1 * RF_SIZE + ordinal2;
-                break;
-            case POS_AF_AF_CT:
-                assert features.size() == 3;
-                assert features.get(0) instanceof Position;
-                assert features.get(1) instanceof AtomicFeature;
-                assert features.get(2) instanceof AtomicFeature;
-                ordinal0 = ((Position) features.get(0)).ordinal();
-                ordinal1 = ((AtomicFeature) features.get(1)).ordinal();
-                ordinal2 = ((AtomicFeature) features.get(2)).ordinal();
-                this.id = FEATURE_BASE_2 + ordinal0 * AF_SIZE * AF_SIZE + ordinal1 * AF_SIZE + ordinal2;
-                break;
-            case AF_VF_CT:
-                assert features.size() == 2;
-                assert features.get(0) instanceof AtomicFeature;
-                assert features.get(1) instanceof ValueFeature;
-                ordinal0 = ((AtomicFeature) features.get(0)).ordinal();
-                ordinal1 = ((ValueFeature) features.get(1)).ordinal();
-                this.id = FEATURE_BASE_3 + ordinal0 * VF_SIZE + ordinal1;
-                break;
-        }
-```
-
-### EnumSwitchStatementWhichMissesCases
 `switch (repair.kind) { case IfExitKind: // RepairFeature.INSERT_CONTROL_...` statement on enum type 'fr.inria.prophet4j.utility.Structure.RepairKind' misses cases: 'RemovePartialIFKind', 'RemoveSTMTKind', ...
 in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
 #### Snippet
@@ -853,51 +810,21 @@ in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.j
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (assignment.getKind()) { case PLUS: putValueFeatu...` statement on enum type 'spoon.reflect.code.BinaryOperatorKind' misses cases: 'OR', 'AND', 'BITOR', 'BITXOR', 'BITAND', ...
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
-#### Snippet
-```java
-                CtExpression LHS = assignment.getAssigned();
-                CtExpression RHS = assignment.getAssignment();
-                switch (assignment.getKind()) {
-                    case PLUS:
-                        putValueFeature(LHS, AtomicFeature.OP_ADD_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_ADD_AF);
-                        break;
-                    case MINUS:
-                        putValueFeature(LHS, AtomicFeature.OP_SUB_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_SUB_AF);
-                        break;
-                    case MUL:
-                        putValueFeature(LHS, AtomicFeature.OP_MUL_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_MUL_AF);
-                        break;
-                    case DIV:
-                        putValueFeature(LHS, AtomicFeature.OP_DIV_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_DIV_AF);
-                        break;
-                    case MOD:
-                        putValueFeature(LHS, AtomicFeature.OP_MOD_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_MOD_AF);
-                        break;
-                }
-                putValueFeature(LHS, AtomicFeature.CHANGED_AF);
-            }
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (operator.getKind()) { case POS: putValueFeature(...` statement on enum type 'spoon.reflect.code.UnaryOperatorKind' misses cases: 'NOT', and 'COMPL'
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+`switch (operator.getKind()) { case NOT: putValueFeature(...` statement on enum type 'spoon.reflect.code.UnaryOperatorKind' misses case 'COMPL'
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
 #### Snippet
 ```java
                 super.visitCtUnaryOperator(operator);
                 CtExpression operand = operator.getOperand();
                 switch (operator.getKind()) {
+                    case NOT:
+                        putValueFeature(operand, AtomicFeature.UOP_NOT_AF);
+                        break;
                     case POS:
-                        putValueFeature(operand, AtomicFeature.OP_ADD_AF);
+                        putValueFeature(operand, AtomicFeature.UOP_POS_AF);
                         break;
                     case NEG:
-                        putValueFeature(operand, AtomicFeature.OP_SUB_AF);
+                        putValueFeature(operand, AtomicFeature.UOP_NEG_AF);
                         break;
                     case PREINC:
                     case POSTINC:
@@ -911,60 +838,7 @@ in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisito
                         break;
                 }
             }
-        };
-```
 
-### EnumSwitchStatementWhichMissesCases
-`switch (operator.getKind()) { case PLUS: putValueFeature...` statement on enum type 'spoon.reflect.code.BinaryOperatorKind' misses cases: 'OR', 'AND', 'BITOR', 'BITXOR', 'BITAND', ...
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
-#### Snippet
-```java
-switch (operator.getKind()) {
-                    case PLUS:
-                        putValueFeature(LHS, AtomicFeature.OP_ADD_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_ADD_AF);
-                        break;
-                    case MINUS:
-                        putValueFeature(LHS, AtomicFeature.OP_SUB_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_SUB_AF);
-                        break;
-                    case MUL:
-                        putValueFeature(LHS, AtomicFeature.OP_MUL_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_MUL_AF);
-                        break;
-                    case DIV:
-                        putValueFeature(LHS, AtomicFeature.OP_DIV_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_DIV_AF);
-                        break;
-                    case MOD:
-                        putValueFeature(LHS, AtomicFeature.OP_MOD_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_MOD_AF);
-                        break;
-                    case LE:
-                        putValueFeature(LHS, AtomicFeature.OP_LE_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_LE_AF);
-                        break;
-                    case LT:
-                        putValueFeature(LHS, AtomicFeature.OP_LT_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_LT_AF);
-                        break;
-                    case GE:
-                        putValueFeature(LHS, AtomicFeature.OP_GE_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_GE_AF);
-                        break;
-                    case GT:
-                        putValueFeature(LHS, AtomicFeature.OP_GT_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_GT_AF);
-                        break;
-                    case EQ:
-                        putValueFeature(LHS, AtomicFeature.OP_EQ_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_EQ_AF);
-                        break;
-                    case NE:
-                        putValueFeature(LHS, AtomicFeature.OP_NE_AF);
-                        putValueFeature(RHS, AtomicFeature.OP_NE_AF);
-                        break;
-                }
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -1066,35 +940,46 @@ switch (operator.getKind()) {
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (operator.getKind()) { case NOT: putValueFeature(...` statement on enum type 'spoon.reflect.code.UnaryOperatorKind' misses case 'COMPL'
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+`switch (crossType) { case RF_CT: assert features.size() == 1; ...` statement on enum type 'fr.inria.prophet4j.feature.original.OriginalFeature.CrossType' misses cases: 'SRC', 'FORMER', and 'LATER'
+in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureCross.java`
 #### Snippet
 ```java
-                super.visitCtUnaryOperator(operator);
-                CtExpression operand = operator.getOperand();
-                switch (operator.getKind()) {
-                    case NOT:
-                        putValueFeature(operand, AtomicFeature.UOP_NOT_AF);
-                        break;
-                    case POS:
-                        putValueFeature(operand, AtomicFeature.UOP_POS_AF);
-                        break;
-                    case NEG:
-                        putValueFeature(operand, AtomicFeature.UOP_NEG_AF);
-                        break;
-                    case PREINC:
-                    case POSTINC:
-                        putValueFeature(operand, AtomicFeature.UOP_INC_AF);
-                        putValueFeature(operand, AtomicFeature.CHANGED_AF);
-                        break;
-                    case PREDEC:
-                    case POSTDEC:
-                        putValueFeature(operand, AtomicFeature.UOP_DEC_AF);
-                        putValueFeature(operand, AtomicFeature.CHANGED_AF);
-                        break;
-                }
-            }
-
+switch (crossType) {
+            case RF_CT:
+                assert features.size() == 1;
+                assert features.get(0) instanceof RepairFeature;
+                ordinal0 = ((RepairFeature) features.get(0)).ordinal();
+                this.id = FEATURE_BASE_0 + ordinal0;
+                break;
+            case POS_AF_RF_CT:
+                assert features.size() == 3;
+                assert features.get(0) instanceof Position;
+                assert features.get(1) instanceof AtomicFeature;
+                assert features.get(2) instanceof RepairFeature;
+                ordinal0 = ((Position) features.get(0)).ordinal();
+                ordinal1 = ((AtomicFeature) features.get(1)).ordinal();
+                ordinal2 = ((RepairFeature) features.get(2)).ordinal();
+                this.id = FEATURE_BASE_1 + ordinal0 * AF_SIZE * RF_SIZE + ordinal1 * RF_SIZE + ordinal2;
+                break;
+            case POS_AF_AF_CT:
+                assert features.size() == 3;
+                assert features.get(0) instanceof Position;
+                assert features.get(1) instanceof AtomicFeature;
+                assert features.get(2) instanceof AtomicFeature;
+                ordinal0 = ((Position) features.get(0)).ordinal();
+                ordinal1 = ((AtomicFeature) features.get(1)).ordinal();
+                ordinal2 = ((AtomicFeature) features.get(2)).ordinal();
+                this.id = FEATURE_BASE_2 + ordinal0 * AF_SIZE * AF_SIZE + ordinal1 * AF_SIZE + ordinal2;
+                break;
+            case AF_VF_CT:
+                assert features.size() == 2;
+                assert features.get(0) instanceof AtomicFeature;
+                assert features.get(1) instanceof ValueFeature;
+                ordinal0 = ((AtomicFeature) features.get(0)).ordinal();
+                ordinal1 = ((ValueFeature) features.get(1)).ordinal();
+                this.id = FEATURE_BASE_3 + ordinal0 * VF_SIZE + ordinal1;
+                break;
+        }
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -1132,6 +1017,121 @@ in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.j
         }
         return repairFeatures;
     }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (assignment.getKind()) { case PLUS: putValueFeatu...` statement on enum type 'spoon.reflect.code.BinaryOperatorKind' misses cases: 'OR', 'AND', 'BITOR', 'BITXOR', 'BITAND', ...
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+                CtExpression LHS = assignment.getAssigned();
+                CtExpression RHS = assignment.getAssignment();
+                switch (assignment.getKind()) {
+                    case PLUS:
+                        putValueFeature(LHS, AtomicFeature.OP_ADD_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_ADD_AF);
+                        break;
+                    case MINUS:
+                        putValueFeature(LHS, AtomicFeature.OP_SUB_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_SUB_AF);
+                        break;
+                    case MUL:
+                        putValueFeature(LHS, AtomicFeature.OP_MUL_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_MUL_AF);
+                        break;
+                    case DIV:
+                        putValueFeature(LHS, AtomicFeature.OP_DIV_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_DIV_AF);
+                        break;
+                    case MOD:
+                        putValueFeature(LHS, AtomicFeature.OP_MOD_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_MOD_AF);
+                        break;
+                }
+                putValueFeature(LHS, AtomicFeature.CHANGED_AF);
+            }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (operator.getKind()) { case PLUS: putValueFeature...` statement on enum type 'spoon.reflect.code.BinaryOperatorKind' misses cases: 'OR', 'AND', 'BITOR', 'BITXOR', 'BITAND', ...
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+switch (operator.getKind()) {
+                    case PLUS:
+                        putValueFeature(LHS, AtomicFeature.OP_ADD_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_ADD_AF);
+                        break;
+                    case MINUS:
+                        putValueFeature(LHS, AtomicFeature.OP_SUB_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_SUB_AF);
+                        break;
+                    case MUL:
+                        putValueFeature(LHS, AtomicFeature.OP_MUL_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_MUL_AF);
+                        break;
+                    case DIV:
+                        putValueFeature(LHS, AtomicFeature.OP_DIV_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_DIV_AF);
+                        break;
+                    case MOD:
+                        putValueFeature(LHS, AtomicFeature.OP_MOD_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_MOD_AF);
+                        break;
+                    case LE:
+                        putValueFeature(LHS, AtomicFeature.OP_LE_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_LE_AF);
+                        break;
+                    case LT:
+                        putValueFeature(LHS, AtomicFeature.OP_LT_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_LT_AF);
+                        break;
+                    case GE:
+                        putValueFeature(LHS, AtomicFeature.OP_GE_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_GE_AF);
+                        break;
+                    case GT:
+                        putValueFeature(LHS, AtomicFeature.OP_GT_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_GT_AF);
+                        break;
+                    case EQ:
+                        putValueFeature(LHS, AtomicFeature.OP_EQ_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_EQ_AF);
+                        break;
+                    case NE:
+                        putValueFeature(LHS, AtomicFeature.OP_NE_AF);
+                        putValueFeature(RHS, AtomicFeature.OP_NE_AF);
+                        break;
+                }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (operator.getKind()) { case POS: putValueFeature(...` statement on enum type 'spoon.reflect.code.UnaryOperatorKind' misses cases: 'NOT', and 'COMPL'
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+                super.visitCtUnaryOperator(operator);
+                CtExpression operand = operator.getOperand();
+                switch (operator.getKind()) {
+                    case POS:
+                        putValueFeature(operand, AtomicFeature.OP_ADD_AF);
+                        break;
+                    case NEG:
+                        putValueFeature(operand, AtomicFeature.OP_SUB_AF);
+                        break;
+                    case PREINC:
+                    case POSTINC:
+                        putValueFeature(operand, AtomicFeature.UOP_INC_AF);
+                        putValueFeature(operand, AtomicFeature.CHANGED_AF);
+                        break;
+                    case PREDEC:
+                    case POSTDEC:
+                        putValueFeature(operand, AtomicFeature.UOP_DEC_AF);
+                        putValueFeature(operand, AtomicFeature.CHANGED_AF);
+                        break;
+                }
+            }
+        };
 ```
 
 ## RuleId[ruleID=StringEquality]
@@ -1238,6 +1238,18 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/coming/core/engine/Analyzer.java`
 #### Snippet
 ```java
+	 * @return
+	 */
+	public default String key() {
+		return this.getClass().getSimpleName();
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/engine/Analyzer.java`
+#### Snippet
+```java
 	 * @return result of the analysis
 	 */
 	public AnalysisResult analyze(T input, RevisionResult previousResults);
@@ -1247,14 +1259,14 @@ in `src/main/java/fr/inria/coming/core/engine/Analyzer.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/engine/Analyzer.java`
+in `src/main/java/fr/inria/coming/core/entities/interfaces/IOutput.java`
 #### Snippet
 ```java
-	 * @return
+	 * @param finalResult
 	 */
-	public default String key() {
-		return this.getClass().getSimpleName();
-	}
+	public void generateFinalOutput(FinalResult finalResult);
+
+	/**
 ```
 
 ### UnnecessaryModifier
@@ -1271,14 +1283,62 @@ in `src/main/java/fr/inria/coming/core/entities/interfaces/IOutput.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/IOutput.java`
+in `src/main/java/fr/inria/coming/core/entities/interfaces/RevisionOrder.java`
 #### Snippet
 ```java
-	 * @param finalResult
-	 */
-	public void generateFinalOutput(FinalResult finalResult);
+public interface RevisionOrder<T> extends ComingExtensionPoint {
 
-	/**
+	public Iterator<T> orderOfNavigation(RevisionDataset<T> data);
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/entities/interfaces/IRevisionPair.java`
+#### Snippet
+```java
+	public void setNextName(String name);
+
+	public void setPreviousName(String previousName);
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/entities/interfaces/IRevisionPair.java`
+#### Snippet
+```java
+	public String getPreviousName();
+
+	public void setPreviousVersion(T previousContent);
+
+	public void setNextVersion(T content);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/entities/interfaces/IRevisionPair.java`
+#### Snippet
+```java
+	public String getNextName();
+
+	public String getPreviousName();
+
+	public void setPreviousVersion(T previousContent);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/entities/interfaces/IRevisionPair.java`
+#### Snippet
+```java
+	public void setNextVersion(T content);
+
+	public void setNextName(String name);
+
+	public void setPreviousName(String previousName);
 ```
 
 ### UnnecessaryModifier
@@ -1331,66 +1391,6 @@ public interface IRevisionPair<T> {
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/IRevisionPair.java`
-#### Snippet
-```java
-	public void setNextVersion(T content);
-
-	public void setNextName(String name);
-
-	public void setPreviousName(String previousName);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/IRevisionPair.java`
-#### Snippet
-```java
-	public String getPreviousName();
-
-	public void setPreviousVersion(T previousContent);
-
-	public void setNextVersion(T content);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/IRevisionPair.java`
-#### Snippet
-```java
-	public String getNextName();
-
-	public String getPreviousName();
-
-	public void setPreviousVersion(T previousContent);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/IRevisionPair.java`
-#### Snippet
-```java
-	public void setNextName(String name);
-
-	public void setPreviousName(String previousName);
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/RevisionOrder.java`
-#### Snippet
-```java
-public interface RevisionOrder<T> extends ComingExtensionPoint {
-
-	public Iterator<T> orderOfNavigation(RevisionDataset<T> data);
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/coming/core/entities/interfaces/RepositoryP.java`
 #### Snippet
 ```java
@@ -1430,6 +1430,18 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
 #### Snippet
 ```java
+	public List<FileCommit> getJavaFileCommits();
+
+	public List<FileCommit> getFileCommits(String extension);
+
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
+#### Snippet
+```java
 	 * @return list of pFileCommit
 	 */
 	public List<FileCommit> getFileCommits();
@@ -1454,35 +1466,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
 #### Snippet
 ```java
-	public int getRevCommitTime();
-
-	public String getRevDate();
-
-	public List<String> getParents();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
-#### Snippet
-```java
 	public boolean containsJavaFile();
 
 	public String getShortMessage();
 
 	public String getFullMessage();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
-#### Snippet
-```java
-	public String getShortMessage();
-
-	public String getFullMessage();
-
-	public int getRevCommitTime();
 ```
 
 ### UnnecessaryModifier
@@ -1502,11 +1490,47 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
 #### Snippet
 ```java
+	public int getRevCommitTime();
+
+	public String getRevDate();
+
+	public List<String> getParents();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
+#### Snippet
+```java
+	public String getFullMessage();
+
+	public int getRevCommitTime();
+
+	public String getRevDate();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
+#### Snippet
+```java
 	public List<String> getParents();
 
 	public List<String> getBranches();
 
 	public PersonIdent getAuthorInfo();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
+#### Snippet
+```java
+	public String getShortMessage();
+
+	public String getFullMessage();
+
+	public int getRevCommitTime();
 ```
 
 ### UnnecessaryModifier
@@ -1531,30 +1555,6 @@ in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
 	public boolean containsJavaFile();
 
 	public String getShortMessage();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
-#### Snippet
-```java
-	public List<FileCommit> getJavaFileCommits();
-
-	public List<FileCommit> getFileCommits(String extension);
-
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/core/entities/interfaces/Commit.java`
-#### Snippet
-```java
-	public String getFullMessage();
-
-	public int getRevCommitTime();
-
-	public String getRevDate();
 ```
 
 ### UnnecessaryModifier
@@ -1586,6 +1586,18 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/coming/changeminer/entity/IRevision.java`
 #### Snippet
 ```java
+	public String getName();
+	
+	public String getFolder();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/coming/changeminer/entity/IRevision.java`
+#### Snippet
+```java
 public interface IRevision {
 
 	public List<IRevisionPair> getChildren();
@@ -1603,18 +1615,6 @@ in `src/main/java/fr/inria/coming/changeminer/entity/IRevision.java`
 	public String getName();
 	
 	public String getFolder();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/coming/changeminer/entity/IRevision.java`
-#### Snippet
-```java
-	public String getName();
-	
-	public String getFolder();
-}
-
 ```
 
 ## RuleId[ruleID=ClassGetClass]
@@ -1731,18 +1731,6 @@ in `src/main/java/fr/inria/coming/main/ComingMain.java`
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
 C-style array declaration of local variable `diffarray`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			}
-
-			int diffarray[]=new int[3];
-			diffarray[0]=numberdiffargument;
-			diffarray[1]=numberdiffvarreplacebyvar;
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `diffarray`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
@@ -1753,31 +1741,19 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
  		diffarray[1]=numberdiffmethodreplacebyvar;
 ```
 
+### CStyleArrayDeclaration
+C-style array declaration of local variable `diffarray`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			}
+
+			int diffarray[]=new int[3];
+			diffarray[0]=numberdiffargument;
+			diffarray[1]=numberdiffvarreplacebyvar;
+```
+
 ## RuleId[ruleID=CommentedOutCode]
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/FragmentableComparator.java`
-#### Snippet
-```java
-	    for (RangeDifference diff : results) {
-	      if (diff.kind() != RangeDifference.NOCHANGE) {
-//	        System.err.println("####change " + diff.toString());
-
-//	        for (int i = diff.leftStart(); i < diff.leftEnd(); i++) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/coming/core/filter/files/CommitSizeFilter.java`
-#### Snippet
-```java
-
-			if (countJava > ComingProperties.getPropertyInteger("max_files_per_commit")) {
-				// System.out.println("Commit not accepted, many files in the commit");
-				// log.info("-----");
-				return false;
-```
-
 ### CommentedOutCode
 Commented out code (9 lines)
 in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/Main.java`
@@ -1803,6 +1779,42 @@ in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/Main.java`
 ```
 
 ### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/FragmentableComparator.java`
+#### Snippet
+```java
+	    for (RangeDifference diff : results) {
+	      if (diff.kind() != RangeDifference.NOCHANGE) {
+//	        System.err.println("####change " + diff.toString());
+
+//	        for (int i = diff.leftStart(); i < diff.leftEnd(); i++) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/coming/core/filter/files/CommitSizeFilter.java`
+#### Snippet
+```java
+
+			if (countJava > ComingProperties.getPropertyInteger("max_files_per_commit")) {
+				// System.out.println("Commit not accepted, many files in the commit");
+				// log.info("-----");
+				return false;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/coming/core/entities/output/FeaturesOutput.java`
+#### Snippet
+```java
+
+		log.debug("JSON output");
+		// JsonObject root = new JsonObject();
+		// JsonArray instances = new JsonArray();
+		for (Object commit : finalResult.getAllResults().keySet()) {
+```
+
+### CommentedOutCode
 Commented out code (2 lines)
 in `src/main/java/fr/inria/coming/core/engine/git/RepositoryPGit.java`
 #### Snippet
@@ -1824,18 +1836,6 @@ in `src/main/java/fr/inria/coming/core/engine/git/RepositoryPGit.java`
 				// System.out.println("Tag: " + ref + " " + ref.getName() + " "
 				// + ref.getObjectId().getName());
 			}
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/coming/core/entities/output/FeaturesOutput.java`
-#### Snippet
-```java
-
-		log.debug("JSON output");
-		// JsonObject root = new JsonObject();
-		// JsonArray instances = new JsonArray();
-		for (Object commit : finalResult.getAllResults().keySet()) {
 ```
 
 ### CommentedOutCode
@@ -1987,11 +1987,11 @@ Commented out code (2 lines)
 in `src/main/java/fr/inria/prophet4j/Demo.java`
 #### Snippet
 ```java
-            Option option = new Option();
-            runDemo(option);
-//            runODS1(option);
-//            runODS2(option);
-        } catch (Exception e) {
+        option.featureOption = FeatureOption.ORIGINAL;
+        run(option);
+//        option.featureOption = FeatureOption.EXTENDED;
+//        run(option);
+    }
 ```
 
 ### CommentedOutCode
@@ -1999,11 +1999,11 @@ Commented out code (2 lines)
 in `src/main/java/fr/inria/prophet4j/Demo.java`
 #### Snippet
 ```java
-        option.featureOption = FeatureOption.ORIGINAL;
-        run(option);
-//        option.featureOption = FeatureOption.EXTENDED;
-//        run(option);
-    }
+            Option option = new Option();
+            runDemo(option);
+//            runODS1(option);
+//            runODS2(option);
+        } catch (Exception e) {
 ```
 
 ### CommentedOutCode
@@ -2028,66 +2028,6 @@ in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
 //                runDiff(repository, lastCommit.getName(), commit.getName(), "README.md");
 //                listDiff(repository, git, lastCommit.getName(), commit.getName());
                 CommitDiffer commitDiffer = filterDiff(repository, git, lastCommit.getName(), commit.getName(), option);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeature.java`
-#### Snippet
-```java
-    // dstAF * dstVF
-    int FEATURE_SIZE = FEATURE_BASE_7 + AF_SIZE * VF_SIZE;
-//    int FEATURE_BASE_0 = 0;
-//    int FEATURE_BASE_1 = FEATURE_BASE_0 + POS_SIZE * AF_SIZE; // for src
-//    int FEATURE_BASE_2 = FEATURE_BASE_1 + POS_SIZE * AF_SIZE; // for dst
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
-#### Snippet
-```java
-            public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
-                super.visitCtFieldReference(reference);
-//                if (reference instanceof CtArrayAccess)
-//                    putValueFeature(reference, AtomicFeature.DEREF_AF);
-                putValueFeature(reference, AtomicFeature.MEMBER_ACCESS_AF);
-```
-
-### CommentedOutCode
-Commented out code (28 lines)
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
-#### Snippet
-```java
-    private Map<String, Set<AtomicFeature>> getFeatureResult() {
-        // meaningless todo check
-//        if (res.map.containsKey("@")) {
-//            Set<AtomicFeature> tmp = res.map.get("@");
-//            if (tmp.contains(AtomicFeature.STMT_LOOP_AF)) {
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
-#### Snippet
-```java
-//            }
-            // CtInvocation or CtExecutable todo check
-//            if (v.getElements(new TypeFilter<>(CtInvocation.class)).size() > 0 && !isAbstractStub(v)) {
-//                return;
-//            }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
-#### Snippet
-```java
-            public <T> void visitCtField(CtField<T> f) {
-                super.visitCtField(f);
-//                if (f instanceof CtArrayAccess)
-//                    putValueFeature(f, AtomicFeature.DEREF_AF);
-                putValueFeature(f, AtomicFeature.MEMBER_ACCESS_AF);
 ```
 
 ### CommentedOutCode
@@ -2151,6 +2091,66 @@ in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4RORepairAnalyzer.java`
 ```
 
 ### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeature.java`
+#### Snippet
+```java
+    // dstAF * dstVF
+    int FEATURE_SIZE = FEATURE_BASE_7 + AF_SIZE * VF_SIZE;
+//    int FEATURE_BASE_0 = 0;
+//    int FEATURE_BASE_1 = FEATURE_BASE_0 + POS_SIZE * AF_SIZE; // for src
+//    int FEATURE_BASE_2 = FEATURE_BASE_1 + POS_SIZE * AF_SIZE; // for dst
+```
+
+### CommentedOutCode
+Commented out code (28 lines)
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+    private Map<String, Set<AtomicFeature>> getFeatureResult() {
+        // meaningless todo check
+//        if (res.map.containsKey("@")) {
+//            Set<AtomicFeature> tmp = res.map.get("@");
+//            if (tmp.contains(AtomicFeature.STMT_LOOP_AF)) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+            public <T> void visitCtField(CtField<T> f) {
+                super.visitCtField(f);
+//                if (f instanceof CtArrayAccess)
+//                    putValueFeature(f, AtomicFeature.DEREF_AF);
+                putValueFeature(f, AtomicFeature.MEMBER_ACCESS_AF);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+            public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
+                super.visitCtFieldReference(reference);
+//                if (reference instanceof CtArrayAccess)
+//                    putValueFeature(reference, AtomicFeature.DEREF_AF);
+                putValueFeature(reference, AtomicFeature.MEMBER_ACCESS_AF);
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+//            }
+            // CtInvocation or CtExecutable todo check
+//            if (v.getElements(new TypeFilter<>(CtInvocation.class)).size() > 0 && !isAbstractStub(v)) {
+//                return;
+//            }
+```
+
+### CommentedOutCode
 Commented out code (11 lines)
 in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
 #### Snippet
@@ -2160,18 +2160,6 @@ in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
 //        if (E instanceof CtVariable) {
 //            if (E instanceof CtLocalVariable)
 //                valueFeatures.add(SchemaFeature.LOCAL_VARIABLE_VF);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeature.java`
-#### Snippet
-```java
-    int FEATURE_BASE_3 = FEATURE_BASE_2 + POS_SIZE * AF_SIZE * AF_SIZE;
-    int FEATURE_SIZE = FEATURE_BASE_3 + AF_SIZE * VF_SIZE;
-//    int FEATURE_BASE_0 = 0;
-//    int FEATURE_BASE_1 = FEATURE_BASE_0 + POS_SIZE * AF_SIZE; // for src
-//    int FEATURE_BASE_2 = FEATURE_BASE_1 + POS_SIZE * AF_SIZE; // for dst
 ```
 
 ### CommentedOutCode
@@ -2187,27 +2175,27 @@ in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedRepairAnalyze
 ```
 
 ### CommentedOutCode
-Commented out code (24 lines)
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureCross.java`
+Commented out code (4 lines)
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeature.java`
 #### Snippet
 ```java
-                this.id = FEATURE_BASE_7 + ordinal0 * VF_SIZE + ordinal1;
-                break;
-//            case POS_AF_CT4SRC:
-//                assert features.size() == 2;
-//                assert features.get(0) instanceof Position;
+    int FEATURE_BASE_3 = FEATURE_BASE_2 + POS_SIZE * AF_SIZE * AF_SIZE;
+    int FEATURE_SIZE = FEATURE_BASE_3 + AF_SIZE * VF_SIZE;
+//    int FEATURE_BASE_0 = 0;
+//    int FEATURE_BASE_1 = FEATURE_BASE_0 + POS_SIZE * AF_SIZE; // for src
+//    int FEATURE_BASE_2 = FEATURE_BASE_1 + POS_SIZE * AF_SIZE; // for dst
 ```
 
 ### CommentedOutCode
-Commented out code (19 lines)
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureCross.java`
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedRepairGenerator.java`
 #### Snippet
 ```java
-            this.features.add(RepairFeature.values()[ordinal0]);
-        }
-//        if (id >= FEATURE_BASE_2) {
-//            int tmp = id - FEATURE_BASE_2;
-//            int ordinal0 = tmp / SF_SIZE;
+        if (curFD != null) {
+            CtStatement lastStatement = curFD.getBody().getLastStatement();
+//            CtReturn ctReturn = curFD.getBody().getLastStatement();
+//            Type returnType = ctReturn.getClass().getGenericSuperclass();
+            List<CtReturn> ctReturns = lastStatement.getElements(new TypeFilter<>(CtReturn.class));
 ```
 
 ### CommentedOutCode
@@ -2247,39 +2235,27 @@ in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedRepairGenerator.ja
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedRepairGenerator.java`
+Commented out code (24 lines)
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureCross.java`
 #### Snippet
 ```java
-        if (curFD != null) {
-            CtStatement lastStatement = curFD.getBody().getLastStatement();
-//            CtReturn ctReturn = curFD.getBody().getLastStatement();
-//            Type returnType = ctReturn.getClass().getGenericSuperclass();
-            List<CtReturn> ctReturns = lastStatement.getElements(new TypeFilter<>(CtReturn.class));
+                this.id = FEATURE_BASE_7 + ordinal0 * VF_SIZE + ordinal1;
+                break;
+//            case POS_AF_CT4SRC:
+//                assert features.size() == 2;
+//                assert features.get(0) instanceof Position;
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
+Commented out code (19 lines)
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureCross.java`
 #### Snippet
 ```java
-            public <T> void visitCtField(CtField<T> f) {
-                super.visitCtField(f);
-//                if (f instanceof CtArrayAccess)
-//                    putValueFeature(f, AtomicFeature.DEREF_AF);
-                putValueFeature(f, AtomicFeature.MEMBER_ACCESS_AF);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
-#### Snippet
-```java
-            public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
-                super.visitCtFieldReference(reference);
-//                if (reference instanceof CtArrayAccess)
-//                    putValueFeature(reference, AtomicFeature.DEREF_AF);
-                putValueFeature(reference, AtomicFeature.MEMBER_ACCESS_AF);
+            this.features.add(RepairFeature.values()[ordinal0]);
+        }
+//        if (id >= FEATURE_BASE_2) {
+//            int tmp = id - FEATURE_BASE_2;
+//            int ordinal0 = tmp / SF_SIZE;
 ```
 
 ### CommentedOutCode
@@ -2295,6 +2271,18 @@ in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisito
 ```
 
 ### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
+#### Snippet
+```java
+            public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
+                super.visitCtFieldReference(reference);
+//                if (reference instanceof CtArrayAccess)
+//                    putValueFeature(reference, AtomicFeature.DEREF_AF);
+                putValueFeature(reference, AtomicFeature.MEMBER_ACCESS_AF);
+```
+
+### CommentedOutCode
 Commented out code (3 lines)
 in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
 #### Snippet
@@ -2304,6 +2292,30 @@ in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisito
 //            if (v.getElements(new TypeFilter<>(CtInvocation.class)).size() > 0 && !isAbstractStub(v)) {
 //                return;
 //            }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
+#### Snippet
+```java
+            public <T> void visitCtField(CtField<T> f) {
+                super.visitCtField(f);
+//                if (f instanceof CtArrayAccess)
+//                    putValueFeature(f, AtomicFeature.DEREF_AF);
+                putValueFeature(f, AtomicFeature.MEMBER_ACCESS_AF);
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedRepairAnalyzer.java`
+#### Snippet
+```java
+        public void TraverseStmt(CtElement element) {
+            // PR spoon to support getting belonged CtEnum with one CtEnumValue
+//            List<CtEnumValue> enumValues = element.getElements(new TypeFilter<>(CtEnumValue.class));
+//            for (CtEnumValue enumValue : enumValues) {
+//                List<CtElement> exprs = L->getCandidateEnumConstant(enumValue);
 ```
 
 ### CommentedOutCode
@@ -2331,15 +2343,15 @@ in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureCross.java`
 ```
 
 ### CommentedOutCode
-Commented out code (8 lines)
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedRepairAnalyzer.java`
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedRepairGenerator.java`
 #### Snippet
 ```java
-        public void TraverseStmt(CtElement element) {
-            // PR spoon to support getting belonged CtEnum with one CtEnumValue
-//            List<CtEnumValue> enumValues = element.getElements(new TypeFilter<>(CtEnumValue.class));
-//            for (CtEnumValue enumValue : enumValues) {
-//                List<CtElement> exprs = L->getCandidateEnumConstant(enumValue);
+        if (curFD != null) {
+            CtStatement lastStatement = curFD.getBody().getLastStatement();
+//            CtReturn ctReturn = curFD.getBody().getLastStatement();
+//            Type returnType = ctReturn.getClass().getGenericSuperclass();
+            List<CtReturn> ctReturns = lastStatement.getElements(new TypeFilter<>(CtReturn.class));
 ```
 
 ### CommentedOutCode
@@ -2379,27 +2391,63 @@ in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedRepairGenerator.ja
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedRepairGenerator.java`
+Commented out code (11 lines)
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
 #### Snippet
 ```java
-        if (curFD != null) {
-            CtStatement lastStatement = curFD.getBody().getLastStatement();
-//            CtReturn ctReturn = curFD.getBody().getLastStatement();
-//            Type returnType = ctReturn.getClass().getGenericSuperclass();
-            List<CtReturn> ctReturns = lastStatement.getElements(new TypeFilter<>(CtReturn.class));
+            valueFeatures.add(ValueFeature.LOCAL_VARIABLE_VF);
+        }
+//        if (E instanceof CtVariable) {
+//            if (E instanceof CtLocalVariable)
+//                valueFeatures.add(SchemaFeature.LOCAL_VARIABLE_VF);
 ```
 
 ### CommentedOutCode
-Commented out code (8 lines)
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalRepairAnalyzer.java`
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
 #### Snippet
 ```java
-        public void TraverseStmt(CtElement element) {
-            // PR spoon to support getting belonged CtEnum with one CtEnumValue
-//            List<CtEnumValue> enumValues = element.getElements(new TypeFilter<>(CtEnumValue.class));
-//            for (CtEnumValue enumValue : enumValues) {
-//                List<CtElement> exprs = L->getCandidateEnumConstant(enumValue);
+            public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
+                super.visitCtFieldReference(reference);
+//                if (reference instanceof CtArrayAccess)
+//                    putValueFeature(reference, AtomicFeature.DEREF_AF);
+                putValueFeature(reference, AtomicFeature.MEMBER_ACCESS_AF);
+```
+
+### CommentedOutCode
+Commented out code (28 lines)
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+#### Snippet
+```java
+    private Map<String, Set<AtomicFeature>> getFeatureResult() {
+        // meaningless todo check
+//        if (res.map.containsKey("@")) {
+//            Set<AtomicFeature> tmp = res.map.get("@");
+//            if (tmp.contains(AtomicFeature.STMT_LOOP_AF)) {
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+#### Snippet
+```java
+//            }
+            // CtInvocation or CtExecutable todo check
+//            if (v.getElements(new TypeFilter<>(CtInvocation.class)).size() > 0 && !isAbstractStub(v)) {
+//                return;
+//            }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+#### Snippet
+```java
+            public <T> void visitCtField(CtField<T> f) {
+                super.visitCtField(f);
+//                if (f instanceof CtArrayAccess)
+//                    putValueFeature(f, AtomicFeature.DEREF_AF);
+                putValueFeature(f, AtomicFeature.MEMBER_ACCESS_AF);
 ```
 
 ### CommentedOutCode
@@ -2452,114 +2500,6 @@ in `src/main/java/fr/inria/prophet4j/feature/original/OriginalRepairGenerator.ja
 
 ### CommentedOutCode
 Commented out code (11 lines)
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-            valueFeatures.add(ValueFeature.LOCAL_VARIABLE_VF);
-        }
-//        if (E instanceof CtVariable) {
-//            if (E instanceof CtLocalVariable)
-//                valueFeatures.add(SchemaFeature.LOCAL_VARIABLE_VF);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
-#### Snippet
-```java
-            public <T> void visitCtField(CtField<T> f) {
-                super.visitCtField(f);
-//                if (f instanceof CtArrayAccess)
-//                    putValueFeature(f, AtomicFeature.DEREF_AF);
-                putValueFeature(f, AtomicFeature.MEMBER_ACCESS_AF);
-```
-
-### CommentedOutCode
-Commented out code (28 lines)
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
-#### Snippet
-```java
-    private Map<String, Set<AtomicFeature>> getFeatureResult() {
-        // meaningless todo check
-//        if (res.map.containsKey("@")) {
-//            Set<AtomicFeature> tmp = res.map.get("@");
-//            if (tmp.contains(AtomicFeature.STMT_LOOP_AF)) {
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
-#### Snippet
-```java
-//            }
-            // CtInvocation or CtExecutable todo check
-//            if (v.getElements(new TypeFilter<>(CtInvocation.class)).size() > 0 && !isAbstractStub(v)) {
-//                return;
-//            }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
-#### Snippet
-```java
-            public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
-                super.visitCtFieldReference(reference);
-//                if (reference instanceof CtArrayAccess)
-//                    putValueFeature(reference, AtomicFeature.DEREF_AF);
-                putValueFeature(reference, AtomicFeature.MEMBER_ACCESS_AF);
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
-#### Snippet
-```java
-//            }
-            // CtInvocation or CtExecutable todo check
-//            if (v.getElements(new TypeFilter<>(CtInvocation.class)).size() > 0 && !isAbstractStub(v)) {
-//                return;
-//            }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
-#### Snippet
-```java
-            public <T> void visitCtField(CtField<T> f) {
-                super.visitCtField(f);
-//                if (f instanceof CtArrayAccess)
-//                    putValueFeature(f, AtomicFeature.DEREF_AF);
-                putValueFeature(f, AtomicFeature.MEMBER_ACCESS_AF);
-```
-
-### CommentedOutCode
-Commented out code (28 lines)
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
-#### Snippet
-```java
-    private Map<String, Set<AtomicFeature>> getFeatureResult() {
-        // meaningless todo check
-//        if (res.map.containsKey("@")) {
-//            Set<AtomicFeature> tmp = res.map.get("@");
-//            if (tmp.contains(AtomicFeature.STMT_LOOP_AF)) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
-#### Snippet
-```java
-            public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
-                super.visitCtFieldReference(reference);
-//                if (reference instanceof CtArrayAccess)
-//                    putValueFeature(reference, AtomicFeature.DEREF_AF);
-                putValueFeature(reference, AtomicFeature.MEMBER_ACCESS_AF);
-```
-
-### CommentedOutCode
-Commented out code (11 lines)
 in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
 #### Snippet
 ```java
@@ -2568,6 +2508,66 @@ in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.j
 //        if (E instanceof CtVariable) {
 //            if (E instanceof CtLocalVariable)
 //                valueFeatures.add(SchemaFeature.LOCAL_VARIABLE_VF);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+            public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
+                super.visitCtFieldReference(reference);
+//                if (reference instanceof CtArrayAccess)
+//                    putValueFeature(reference, AtomicFeature.DEREF_AF);
+                putValueFeature(reference, AtomicFeature.MEMBER_ACCESS_AF);
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+//            }
+            // CtInvocation or CtExecutable todo check
+//            if (v.getElements(new TypeFilter<>(CtInvocation.class)).size() > 0 && !isAbstractStub(v)) {
+//                return;
+//            }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+            public <T> void visitCtField(CtField<T> f) {
+                super.visitCtField(f);
+//                if (f instanceof CtArrayAccess)
+//                    putValueFeature(f, AtomicFeature.DEREF_AF);
+                putValueFeature(f, AtomicFeature.MEMBER_ACCESS_AF);
+```
+
+### CommentedOutCode
+Commented out code (28 lines)
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+    private Map<String, Set<AtomicFeature>> getFeatureResult() {
+        // meaningless todo check
+//        if (res.map.containsKey("@")) {
+//            Set<AtomicFeature> tmp = res.map.get("@");
+//            if (tmp.contains(AtomicFeature.STMT_LOOP_AF)) {
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalRepairAnalyzer.java`
+#### Snippet
+```java
+        public void TraverseStmt(CtElement element) {
+            // PR spoon to support getting belonged CtEnum with one CtEnumValue
+//            List<CtEnumValue> enumValues = element.getElements(new TypeFilter<>(CtEnumValue.class));
+//            for (CtEnumValue enumValue : enumValues) {
+//                List<CtElement> exprs = L->getCandidateEnumConstant(enumValue);
 ```
 
 ### CommentedOutCode
@@ -2631,30 +2631,6 @@ in `src/main/java/fr/inria/prophet4j/learner/FeatureLearner.java`
 ```
 
 ### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
-#### Snippet
-```java
-                patchedFile = childFiles.get(0);
-                // sometimes filename might get changed
-//                for (File tmpFile : Lists.newArrayList(Files.fileTraverser().depthFirstPreOrder(scopeFile))) {
-//                    if (tmpFile.getName().equals(buggyFileName)) {
-//                        patchedFile = tmpFile;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
-#### Snippet
-```java
-
-    public void run() {
-//        run(RankingOption.D_CORRECT, RankingOption.D_INCORRECT);
-//        run(RankingOption.D_HUMAN, RankingOption.D_CORRECT);
-        run(RankingOption.D_HUMAN, RankingOption.D_INCORRECT);
-```
-
-### CommentedOutCode
 Commented out code (2 lines)
 in `src/main/java/fr/inria/prophet4j/utility/CodeDiffer.java`
 #### Snippet
@@ -2690,6 +2666,30 @@ in `src/main/java/fr/inria/prophet4j/utility/CodeDiffer.java`
 //                            for (CtElement atom : repair.getCandidateAtoms()) {
 ```
 
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+#### Snippet
+```java
+
+    public void run() {
+//        run(RankingOption.D_CORRECT, RankingOption.D_INCORRECT);
+//        run(RankingOption.D_HUMAN, RankingOption.D_CORRECT);
+        run(RankingOption.D_HUMAN, RankingOption.D_INCORRECT);
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+#### Snippet
+```java
+                patchedFile = childFiles.get(0);
+                // sometimes filename might get changed
+//                for (File tmpFile : Lists.newArrayList(Files.fileTraverser().depthFirstPreOrder(scopeFile))) {
+//                    if (tmpFile.getName().equals(buggyFileName)) {
+//                        patchedFile = tmpFile;
+```
+
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\}` in RegExp
@@ -2705,18 +2705,6 @@ in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/LineComparator
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
-Iteration over `this.diffOfFiles.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/fr/inria/coming/core/entities/DiffResult.java`
-#### Snippet
-```java
-	public String toString() {
-		String r = "";
-		for (String file : this.diffOfFiles.keySet()) {
-			r += "\n" + ("-" + file);
-
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `sorted.keySet()` may be replaced with 'entrySet()' iteration
 in `src/main/java/fr/inria/coming/core/entities/output/JSonChangeFrequencyOutput.java`
 #### Snippet
@@ -2726,6 +2714,18 @@ in `src/main/java/fr/inria/coming/core/entities/output/JSonChangeFrequencyOutput
 		for (Object key : sorted.keySet()) {
 			Object v = sorted.get(key);
 			JsonObject singlediff = new JsonObject();
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `this.diffOfFiles.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/fr/inria/coming/core/entities/DiffResult.java`
+#### Snippet
+```java
+	public String toString() {
+		String r = "";
+		for (String file : this.diffOfFiles.keySet()) {
+			r += "\n" + ("-" + file);
+
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -3005,6 +3005,30 @@ in `src/main/java/fr/inria/prophet4j/learner/Tool.java`
 ```
 
 ### KeySetIterationMayUseEntrySet
+Iteration over `dstMap.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureExtractor.java`
+#### Snippet
+```java
+
+        // VarCrossFeatureNum   = 3 * AtomFeatureNum * AtomFeatureNum   = 2700
+        for (String key : dstMap.keySet()) {
+            if (valueExprInfo.containsKey(key)) {
+                CtElement E = valueExprInfo.get(key);
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `dstMap.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureExtractor.java`
+#### Snippet
+```java
+
+        // ValueCrossFeatureNum = AtomFeatureNum * ValueFeatureNum      = 360
+        for (String key : dstMap.keySet()) {
+            Set<AtomicFeature> atomicFeatures = dstMap.get(key);
+            Set<ValueFeature> valueFeatures = getValueFeature(key, repair, valueExprInfo);
+```
+
+### KeySetIterationMayUseEntrySet
 Iteration over `srcMapC.keySet()` may be replaced with 'entrySet()' iteration
 in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureExtractor.java`
 #### Snippet
@@ -3038,30 +3062,6 @@ in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureExtractor.j
 		for (String key : srcMapL.keySet()) {
 			Set<AtomicFeature> atomicFeatures = srcMapL.get(key);
 			for (AtomicFeature af : atomicFeatures) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `dstMap.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureExtractor.java`
-#### Snippet
-```java
-
-        // VarCrossFeatureNum   = 3 * AtomFeatureNum * AtomFeatureNum   = 2700
-        for (String key : dstMap.keySet()) {
-            if (valueExprInfo.containsKey(key)) {
-                CtElement E = valueExprInfo.get(key);
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `dstMap.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureExtractor.java`
-#### Snippet
-```java
-
-        // ValueCrossFeatureNum = AtomFeatureNum * ValueFeatureNum      = 360
-        for (String key : dstMap.keySet()) {
-            Set<AtomicFeature> atomicFeatures = dstMap.get(key);
-            Set<ValueFeature> valueFeatures = getValueFeature(key, repair, valueExprInfo);
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -3150,6 +3150,18 @@ in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`allConstant.size() > 0` can be replaced with '!allConstant.isEmpty()'
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstantAnalyzer.java`
+#### Snippet
+```java
+								.map(CtVariable.class::cast).collect(Collectors.toList());
+
+			if (allConstant.size() > 0) {
+
+				for (CtLiteral literalFormFaulty : allConstant) {
+```
+
+### SizeReplaceableByIsEmpty
 `logicalOperatorLeft.size() == 0` can be replaced with 'logicalOperatorLeft.isEmpty()'
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
 #### Snippet
@@ -3174,15 +3186,15 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyze
 ```
 
 ### SizeReplaceableByIsEmpty
-`allConstant.size() > 0` can be replaced with '!allConstant.isEmpty()'
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstantAnalyzer.java`
+`varsConf.size() > 0` can be replaced with '!varsConf.isEmpty()'
+in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
 #### Snippet
 ```java
-								.map(CtVariable.class::cast).collect(Collectors.toList());
-
-			if (allConstant.size() > 0) {
-
-				for (CtLiteral literalFormFaulty : allConstant) {
+				}
+			}
+			if (varsConf.size() > 0) {
+				mappingConflicts.put(inductionVar, varsConf);
+			}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3207,18 +3219,6 @@ in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
 		if (varStaticAccessCollected.size() > 0 && !removedStaticAccess)
 			throw new IllegalAccessError("Var static access not removed");
 
-```
-
-### SizeReplaceableByIsEmpty
-`varsConf.size() > 0` can be replaced with '!varsConf.isEmpty()'
-in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
-#### Snippet
-```java
-				}
-			}
-			if (varsConf.size() > 0) {
-				mappingConflicts.put(inductionVar, varsConf);
-			}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3306,6 +3306,18 @@ in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`paths.size() > 0` can be replaced with '!paths.isEmpty()'
+in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
+#### Snippet
+```java
+
+        ArrayList<String> getPaths(String commitName) {
+            return paths.size() > 0 ? paths.get(commitName) : new ArrayList<>();
+        }
+    }
+```
+
+### SizeReplaceableByIsEmpty
 `diffList.size() == 0` can be replaced with 'diffList.isEmpty()'
 in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
 #### Snippet
@@ -3339,18 +3351,6 @@ in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
                 if (featureMatrices.get(0).getFeatureVectors().size() == 0) {
                     // diff.commonAncestor() returns null value
                     progressNow += 1;
-```
-
-### SizeReplaceableByIsEmpty
-`paths.size() > 0` can be replaced with '!paths.isEmpty()'
-in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
-#### Snippet
-```java
-
-        ArrayList<String> getPaths(String commitName) {
-            return paths.size() > 0 ? paths.get(commitName) : new ArrayList<>();
-        }
-    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3474,6 +3474,126 @@ in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedRepairGenerator.ja
 ```
 
 ### SizeReplaceableByIsEmpty
+`ctReturns.size() > 0` can be replaced with '!ctReturns.isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedRepairGenerator.java`
+#### Snippet
+```java
+//            Type returnType = ctReturn.getClass().getGenericSuperclass();
+            List<CtReturn> ctReturns = lastStatement.getElements(new TypeFilter<>(CtReturn.class));
+            if (ctReturns.size() > 0) {
+                returnType = ctReturns.get(0).getClass().getGenericSuperclass();
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`oldStr.length() > 0` can be replaced with '!oldStr.isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
+#### Snippet
+```java
+                valueFeatures.add(ValueFeature.MODIFIED_VF);
+            // I can not figure out the meaning of MODIFIED_SIMILAR_VF
+            if (oldStr.length() > 0 && newStr.length() > 0) {
+                double ratio = ((double)oldStr.length()) / newStr.length();
+                if (ratio > 0.5 && ratio < 2 && oldStr.length() > 3 && newStr.length() > 3)
+```
+
+### SizeReplaceableByIsEmpty
+`newStr.length() > 0` can be replaced with '!newStr.isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
+#### Snippet
+```java
+                valueFeatures.add(ValueFeature.MODIFIED_VF);
+            // I can not figure out the meaning of MODIFIED_SIMILAR_VF
+            if (oldStr.length() > 0 && newStr.length() > 0) {
+                double ratio = ((double)oldStr.length()) / newStr.length();
+                if (ratio > 0.5 && ratio < 2 && oldStr.length() > 3 && newStr.length() > 3)
+```
+
+### SizeReplaceableByIsEmpty
+`((CtExecutableReference) E).getParameters().size() > 0` can be replaced with '!((CtExecutableReference) E).getParameters().isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
+#### Snippet
+```java
+        } else if (E instanceof CtExecutableReference){
+            // just make CALLEE_AF be meaningful
+            if (((CtExecutableReference) E).getParameters().size() > 0){
+                valueFeatures.add(ValueFeature.LOCAL_VARIABLE_VF);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`E.getElements(new TypeFilter<>(CtField.class)).size() > 0` can be replaced with '!E.getElements(new TypeFilter\<\>(CtField.class)).isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
+#### Snippet
+```java
+        if (valueStr.contains("equals"))
+            valueFeatures.add(ValueFeature.LI_EQUALS_VF);
+        if (E.getElements(new TypeFilter<>(CtField.class)).size() > 0)
+            valueFeatures.add(ValueFeature.MEMBER_VF);
+        if (E instanceof CtLiteral) {
+```
+
+### SizeReplaceableByIsEmpty
+`ctReturns.size() > 0` can be replaced with '!ctReturns.isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/original/OriginalRepairGenerator.java`
+#### Snippet
+```java
+//            Type returnType = ctReturn.getClass().getGenericSuperclass();
+            List<CtReturn> ctReturns = lastStatement.getElements(new TypeFilter<>(CtReturn.class));
+            if (ctReturns.size() > 0) {
+                returnType = ctReturns.get(0).getClass().getGenericSuperclass();
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`oldStr.length() > 0` can be replaced with '!oldStr.isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
+#### Snippet
+```java
+                valueFeatures.add(ValueFeature.MODIFIED_VF);
+            // I can not figure out the meaning of MODIFIED_SIMILAR_VF
+            if (oldStr.length() > 0 && newStr.length() > 0) {
+                double ratio = ((double)oldStr.length()) / newStr.length();
+                if (ratio > 0.5 && ratio < 2 && oldStr.length() > 3 && newStr.length() > 3)
+```
+
+### SizeReplaceableByIsEmpty
+`newStr.length() > 0` can be replaced with '!newStr.isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
+#### Snippet
+```java
+                valueFeatures.add(ValueFeature.MODIFIED_VF);
+            // I can not figure out the meaning of MODIFIED_SIMILAR_VF
+            if (oldStr.length() > 0 && newStr.length() > 0) {
+                double ratio = ((double)oldStr.length()) / newStr.length();
+                if (ratio > 0.5 && ratio < 2 && oldStr.length() > 3 && newStr.length() > 3)
+```
+
+### SizeReplaceableByIsEmpty
+`((CtExecutableReference) E).getParameters().size() > 0` can be replaced with '!((CtExecutableReference) E).getParameters().isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
+#### Snippet
+```java
+        } else if (E instanceof CtExecutableReference){
+            // just make CALLEE_AF be meaningful
+            if (((CtExecutableReference) E).getParameters().size() > 0){
+                valueFeatures.add(ValueFeature.LOCAL_VARIABLE_VF);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`E.getElements(new TypeFilter<>(CtField.class)).size() > 0` can be replaced with '!E.getElements(new TypeFilter\<\>(CtField.class)).isEmpty()'
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
+#### Snippet
+```java
+        if (valueStr.contains("equals"))
+            valueFeatures.add(ValueFeature.LI_EQUALS_VF);
+        if (E.getElements(new TypeFilter<>(CtField.class)).size() > 0)
+            valueFeatures.add(ValueFeature.MEMBER_VF);
+        if (E instanceof CtLiteral) {
+```
+
+### SizeReplaceableByIsEmpty
 `trystatements.size() > 0` can be replaced with '!trystatements.isEmpty()'
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
@@ -3483,30 +3603,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 			if (trystatements.size() > 0)
 				return true;
 		}
-```
-
-### SizeReplaceableByIsEmpty
-`binOp.size() > 0` can be replaced with '!binOp.isEmpty()'
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-		if (condition != null) {
-			List<CtBinaryOperator> binOp = condition.getElements(new TypeFilter<>(CtBinaryOperator.class));
-			if (binOp != null && binOp.size() > 0) {
-
-				for (CtBinaryOperator ctBinaryOperator : binOp) {
-```
-
-### SizeReplaceableByIsEmpty
-`binOp.size() > 0` can be replaced with '!binOp.isEmpty()'
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-		if (condition != null) {
-			List<CtBinaryOperator> binOp = condition.getElements(new TypeFilter<>(CtBinaryOperator.class));
-			if (binOp != null && binOp.size() > 0) {
-
-				for (CtBinaryOperator ctBinaryOperator : binOp) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3534,123 +3630,27 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 ```
 
 ### SizeReplaceableByIsEmpty
-`ctReturns.size() > 0` can be replaced with '!ctReturns.isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedRepairGenerator.java`
+`binOp.size() > 0` can be replaced with '!binOp.isEmpty()'
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-//            Type returnType = ctReturn.getClass().getGenericSuperclass();
-            List<CtReturn> ctReturns = lastStatement.getElements(new TypeFilter<>(CtReturn.class));
-            if (ctReturns.size() > 0) {
-                returnType = ctReturns.get(0).getClass().getGenericSuperclass();
-            }
+		if (condition != null) {
+			List<CtBinaryOperator> binOp = condition.getElements(new TypeFilter<>(CtBinaryOperator.class));
+			if (binOp != null && binOp.size() > 0) {
+
+				for (CtBinaryOperator ctBinaryOperator : binOp) {
 ```
 
 ### SizeReplaceableByIsEmpty
-`ctReturns.size() > 0` can be replaced with '!ctReturns.isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/original/OriginalRepairGenerator.java`
+`binOp.size() > 0` can be replaced with '!binOp.isEmpty()'
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-//            Type returnType = ctReturn.getClass().getGenericSuperclass();
-            List<CtReturn> ctReturns = lastStatement.getElements(new TypeFilter<>(CtReturn.class));
-            if (ctReturns.size() > 0) {
-                returnType = ctReturns.get(0).getClass().getGenericSuperclass();
-            }
-```
+		if (condition != null) {
+			List<CtBinaryOperator> binOp = condition.getElements(new TypeFilter<>(CtBinaryOperator.class));
+			if (binOp != null && binOp.size() > 0) {
 
-### SizeReplaceableByIsEmpty
-`oldStr.length() > 0` can be replaced with '!oldStr.isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-                valueFeatures.add(ValueFeature.MODIFIED_VF);
-            // I can not figure out the meaning of MODIFIED_SIMILAR_VF
-            if (oldStr.length() > 0 && newStr.length() > 0) {
-                double ratio = ((double)oldStr.length()) / newStr.length();
-                if (ratio > 0.5 && ratio < 2 && oldStr.length() > 3 && newStr.length() > 3)
-```
-
-### SizeReplaceableByIsEmpty
-`newStr.length() > 0` can be replaced with '!newStr.isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-                valueFeatures.add(ValueFeature.MODIFIED_VF);
-            // I can not figure out the meaning of MODIFIED_SIMILAR_VF
-            if (oldStr.length() > 0 && newStr.length() > 0) {
-                double ratio = ((double)oldStr.length()) / newStr.length();
-                if (ratio > 0.5 && ratio < 2 && oldStr.length() > 3 && newStr.length() > 3)
-```
-
-### SizeReplaceableByIsEmpty
-`((CtExecutableReference) E).getParameters().size() > 0` can be replaced with '!((CtExecutableReference) E).getParameters().isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-        } else if (E instanceof CtExecutableReference){
-            // just make CALLEE_AF be meaningful
-            if (((CtExecutableReference) E).getParameters().size() > 0){
-                valueFeatures.add(ValueFeature.LOCAL_VARIABLE_VF);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`E.getElements(new TypeFilter<>(CtField.class)).size() > 0` can be replaced with '!E.getElements(new TypeFilter\<\>(CtField.class)).isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-        if (valueStr.contains("equals"))
-            valueFeatures.add(ValueFeature.LI_EQUALS_VF);
-        if (E.getElements(new TypeFilter<>(CtField.class)).size() > 0)
-            valueFeatures.add(ValueFeature.MEMBER_VF);
-        if (E instanceof CtLiteral) {
-```
-
-### SizeReplaceableByIsEmpty
-`oldStr.length() > 0` can be replaced with '!oldStr.isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
-#### Snippet
-```java
-                valueFeatures.add(ValueFeature.MODIFIED_VF);
-            // I can not figure out the meaning of MODIFIED_SIMILAR_VF
-            if (oldStr.length() > 0 && newStr.length() > 0) {
-                double ratio = ((double)oldStr.length()) / newStr.length();
-                if (ratio > 0.5 && ratio < 2 && oldStr.length() > 3 && newStr.length() > 3)
-```
-
-### SizeReplaceableByIsEmpty
-`newStr.length() > 0` can be replaced with '!newStr.isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
-#### Snippet
-```java
-                valueFeatures.add(ValueFeature.MODIFIED_VF);
-            // I can not figure out the meaning of MODIFIED_SIMILAR_VF
-            if (oldStr.length() > 0 && newStr.length() > 0) {
-                double ratio = ((double)oldStr.length()) / newStr.length();
-                if (ratio > 0.5 && ratio < 2 && oldStr.length() > 3 && newStr.length() > 3)
-```
-
-### SizeReplaceableByIsEmpty
-`((CtExecutableReference) E).getParameters().size() > 0` can be replaced with '!((CtExecutableReference) E).getParameters().isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
-#### Snippet
-```java
-        } else if (E instanceof CtExecutableReference){
-            // just make CALLEE_AF be meaningful
-            if (((CtExecutableReference) E).getParameters().size() > 0){
-                valueFeatures.add(ValueFeature.LOCAL_VARIABLE_VF);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`E.getElements(new TypeFilter<>(CtField.class)).size() > 0` can be replaced with '!E.getElements(new TypeFilter\<\>(CtField.class)).isEmpty()'
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
-#### Snippet
-```java
-        if (valueStr.contains("equals"))
-            valueFeatures.add(ValueFeature.LI_EQUALS_VF);
-        if (E.getElements(new TypeFilter<>(CtField.class)).size() > 0)
-            valueFeatures.add(ValueFeature.MEMBER_VF);
-        if (E instanceof CtLiteral) {
+				for (CtBinaryOperator ctBinaryOperator : binOp) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3790,15 +3790,27 @@ in `src/main/java/fr/inria/coming/core/engine/git/CommitGit.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
+Can generalize to `? extends PatternAction`
+in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
 #### Snippet
 ```java
-	}
-		
-	public JsonObject extractFeatures(Map<String, File> filePaths) {
-		File src = filePaths.get("src");
-		File target = filePaths.get("target");
+
+    public List<ChangePatternInstance> allCombinations(ChangePatternSpecification changePatternSpecification,
+                                                       MapList<PatternAction, MatchingAction> matching) {
+
+        List<ChangePatternInstance> instancesAllCombinations = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends PatternAction`
+in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
+#### Snippet
+```java
+     */
+    private List<ChangePatternInstance> singleInstance(ChangePatternSpecification changePatternSpecification,
+                                                       MapList<PatternAction, MatchingAction> matching) {
+        List<ChangePatternInstance> instancesAllCombinations = new ArrayList<>();
+
 ```
 
 ### BoundedWildcard
@@ -3826,27 +3838,15 @@ in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PatternAction`
-in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
+Can generalize to `? extends File`
+in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 #### Snippet
 ```java
-
-    public List<ChangePatternInstance> allCombinations(ChangePatternSpecification changePatternSpecification,
-                                                       MapList<PatternAction, MatchingAction> matching) {
-
-        List<ChangePatternInstance> instancesAllCombinations = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends PatternAction`
-in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
-#### Snippet
-```java
-     */
-    private List<ChangePatternInstance> singleInstance(ChangePatternSpecification changePatternSpecification,
-                                                       MapList<PatternAction, MatchingAction> matching) {
-        List<ChangePatternInstance> instancesAllCombinations = new ArrayList<>();
-
+	}
+		
+	public JsonObject extractFeatures(Map<String, File> filePaths) {
+		File src = filePaths.get("src");
+		File target = filePaths.get("target");
 ```
 
 ### BoundedWildcard
@@ -3910,27 +3910,15 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/TypeaccessAnalyzer.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
+Can generalize to `? extends ChangePatternInstance`
+in `src/main/java/fr/inria/coming/repairability/RepairabilityAnalyzer.java`
 #### Snippet
 ```java
-	}
+    }
 
-	public static List<CtVariableAccess> checkMapping(Map<CtVariableAccess, List<CtVariable>> matched) {
-		List<CtVariableAccess> notMapped = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
-#### Snippet
-```java
-	}
-
-	public static List<CtVariableAccess> checkMapping(Map<CtVariableAccess, List<CtVariable>> matched) {
-		List<CtVariableAccess> notMapped = new ArrayList<>();
-
+    private List<ChangePatternInstance> filterResult(List<ChangePatternInstance> patternInstanceList, Diff diff) {
+        List<ChangePatternInstance> res = new ArrayList<>();
+        Map<String, List> toolToInstances = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -3955,6 +3943,30 @@ in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
 			List<CtVariableAccess> varInductionCollected) {
 
 		Map<CtVariableAccess, List<CtVariable>> mappingConflicts = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
+#### Snippet
+```java
+	 */
+	public static Map<CtVariableAccess, List<CtVariable>> matchVars(List<CtVariable> varContext,
+			List<CtVariableAccess> varacc, boolean mapName) {
+
+		Map<CtVariableAccess, List<CtVariable>> mapping = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
+#### Snippet
+```java
+
+	public static List<CtVariableAccess> collectStaticVariableAccess(CtElement rootElement,
+			List<CtVariableAccess> varAccessCollected) {
+		List<CtVariableAccess> statics = new ArrayList<>();
+
 ```
 
 ### BoundedWildcard
@@ -3987,42 +3999,6 @@ in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
 #### Snippet
 ```java
 	 */
-	public static List<CtVariableAccess> collectInductionVariableAccess(CtElement ingredientRootElement,
-			List<CtVariableAccess> varAccessCollected) {
-
-		List<CtVariableAccess> induction = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
-#### Snippet
-```java
-	 */
-	public static Map<CtVariableAccess, List<CtVariable>> matchVars(List<CtVariable> varContext,
-			List<CtVariableAccess> varacc, boolean mapName) {
-
-		Map<CtVariableAccess, List<CtVariable>> mapping = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
-#### Snippet
-```java
-
-	public static List<CtVariableAccess> collectStaticVariableAccess(CtElement rootElement,
-			List<CtVariableAccess> varAccessCollected) {
-		List<CtVariableAccess> statics = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
-#### Snippet
-```java
-	 */
 	public static List<CtVariableAccess> retriveVariablesOutOfContext(List<CtVariable> varContext,
 			List<CtVariableAccess> variablesToChech) {
 		List<CtVariableAccess> variablesOutOfScope = new ArrayList<>();
@@ -4030,15 +4006,39 @@ in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ChangePatternInstance`
-in `src/main/java/fr/inria/coming/repairability/RepairabilityAnalyzer.java`
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
 #### Snippet
 ```java
-    }
+	}
 
-    private List<ChangePatternInstance> filterResult(List<ChangePatternInstance> patternInstanceList, Diff diff) {
-        List<ChangePatternInstance> res = new ArrayList<>();
-        Map<String, List> toolToInstances = new HashMap<>();
+	public static List<CtVariableAccess> checkMapping(Map<CtVariableAccess, List<CtVariable>> matched) {
+		List<CtVariableAccess> notMapped = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
+#### Snippet
+```java
+	}
+
+	public static List<CtVariableAccess> checkMapping(Map<CtVariableAccess, List<CtVariable>> matched) {
+		List<CtVariableAccess> notMapped = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
+#### Snippet
+```java
+	 */
+	public static List<CtVariableAccess> collectInductionVariableAccess(CtElement ingredientRootElement,
+			List<CtVariableAccess> varAccessCollected) {
+
+		List<CtVariableAccess> induction = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -4051,6 +4051,42 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ExpressionAnalyzer.ja
 	private void analyzeExpressionFeatures(List<CtExpression> expressionsToStudy, CtElement originalElement, Cntx<Object> context,
 			CtClass parentClass, List<CtStatement> allstatementsinclass, List<CtVariable> varsInScope, 
 			List allMethodsFromClass, List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtConstructorCall`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+	private void analyzeWhetherConstructorreturnprimitive (List<CtConstructorCall> constructorsaffected, Cntx<Object> context) {
+		
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtConstructorCall`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+	private void analyzeVarConstructorArgumentPrimitive (List<CtConstructorCall> constructorsaffected, Cntx<Object> context) {
+		
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtConstructorCall`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+   
+   private void analyzeCon2_ConstructorSimilar(CtElement element, Cntx<Object> context, CtClass parentClass,
+			 List<CtConstructorCall> constructorcalls) {
+		
+		try {
 ```
 
 ### BoundedWildcard
@@ -4106,11 +4142,35 @@ Can generalize to `? extends CtConstructorCall`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
+	}
+	
+	private void analyzeWhetherConstructorOftheclass (List<CtConstructorCall> constructorsaffected, Cntx<Object> context,
+			CtClass parentclss) {
+		
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtConstructorCall`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
 	
 	private void analyzeCon1_ConstructorOverload(CtElement element, Cntx<Object> context, CtClass parentClass,
 			 List<CtConstructorCall> constructorcalls) {
 		
 		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
+#### Snippet
+```java
+	}
+
+	private void analyzeFeature_ExtendFromVar(Cntx<Object> context, List<CtVariableAccess> varsAffected) {
+
+		boolean S1_LOCAL_VAR_NOT_USED = false;
 ```
 
 ### BoundedWildcard
@@ -4123,18 +4183,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyze
 			List<CtInvocation> invocationstostudy) {
 
 		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	private void analyzeVarConstructorArgumentPrimitive (List<CtConstructorCall> constructorsaffected, Cntx<Object> context) {
-		
-		 try {
 ```
 
 ### BoundedWildcard
@@ -4162,30 +4210,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyze
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
-#### Snippet
-```java
-	}
-
-	private void analyzeFeature_ExtendFromVar(Cntx<Object> context, List<CtVariableAccess> varsAffected) {
-
-		boolean S1_LOCAL_VAR_NOT_USED = false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
-#### Snippet
-```java
-   
-   private void analyzeCon2_ConstructorSimilar(CtElement element, Cntx<Object> context, CtClass parentClass,
-			 List<CtConstructorCall> constructorcalls) {
-		
-		try {
-```
-
-### BoundedWildcard
 Can generalize to `? extends CtInvocation`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
 #### Snippet
@@ -4210,27 +4234,51 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyze
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+Can generalize to `? extends ChangePatternInstance`
+in `src/main/java/fr/inria/coming/repairability/repairtools/JGenProg.java`
 #### Snippet
 ```java
-	}
-	
-	private void analyzeWhetherConstructorOftheclass (List<CtConstructorCall> constructorsaffected, Cntx<Object> context,
-			CtClass parentclss) {
-		
+
+    @Override
+    public List<ChangePatternInstance> filterSelectedInstances(List<ChangePatternInstance> lst, Diff diff) {
+        Map<ChangePatternInstance, Set> instanceToCoveredNodes = new HashMap<>();
+        List<ChangePatternInstance> ret = new ArrayList<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+Can generalize to `? super ChangePatternInstance`
+in `src/main/java/fr/inria/coming/repairability/repairtools/JGenProg.java`
 #### Snippet
 ```java
-	}
-	
-	private void analyzeWhetherConstructorreturnprimitive (List<CtConstructorCall> constructorsaffected, Cntx<Object> context) {
-		
-		 try {
+    private void updateSelectedInstances
+            (
+                    Map<ChangePatternInstance, Set> instanceToCoveredNodes,
+                    List<ChangePatternInstance> ret,
+                    ChangePatternInstance instance,
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/coming/repairability/repairtools/JGenProg.java`
+#### Snippet
+```java
+                    List<ChangePatternInstance> ret,
+                    ChangePatternInstance instance,
+                    Collection<CtElement> changedNodes,
+                    Diff diff
+            ) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/coming/repairability/repairtools/AbstractRepairTool.java`
+#### Snippet
+```java
+    protected boolean coveredByInstanceNodes
+            (
+                    Set<CtElement> instanceCoveredNodes,
+                    CtElement node
+            ) {
 ```
 
 ### BoundedWildcard
@@ -4271,18 +4319,6 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Cardumen.java`
 
 ### BoundedWildcard
 Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/coming/repairability/repairtools/AbstractRepairTool.java`
-#### Snippet
-```java
-    protected boolean coveredByInstanceNodes
-            (
-                    Set<CtElement> instanceCoveredNodes,
-                    CtElement node
-            ) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
 in `src/main/java/fr/inria/coming/repairability/repairtools/NPEfix.java`
 #### Snippet
 ```java
@@ -4294,6 +4330,18 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/NPEfix.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ChangePatternInstance`
+in `src/main/java/fr/inria/coming/repairability/repairtools/Arja.java`
+#### Snippet
+```java
+
+	@Override
+	public List<ChangePatternInstance> filterSelectedInstances(List<ChangePatternInstance> lst, Diff diff) {
+		Map<ChangePatternInstance, Set> instanceToCoveredNodes = new HashMap<>();
+		List<ChangePatternInstance> ret = new ArrayList<>();
+```
+
+### BoundedWildcard
 Can generalize to `? super ChangePatternInstance`
 in `src/main/java/fr/inria/coming/repairability/repairtools/Arja.java`
 #### Snippet
@@ -4315,54 +4363,6 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Arja.java`
 			List<ChangePatternInstance> ret, ChangePatternInstance instance, Collection<CtElement> changedNodes,
 			Diff diff) {
 		boolean addedBefore = false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ChangePatternInstance`
-in `src/main/java/fr/inria/coming/repairability/repairtools/Arja.java`
-#### Snippet
-```java
-
-	@Override
-	public List<ChangePatternInstance> filterSelectedInstances(List<ChangePatternInstance> lst, Diff diff) {
-		Map<ChangePatternInstance, Set> instanceToCoveredNodes = new HashMap<>();
-		List<ChangePatternInstance> ret = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super ChangePatternInstance`
-in `src/main/java/fr/inria/coming/repairability/repairtools/JGenProg.java`
-#### Snippet
-```java
-    private void updateSelectedInstances
-            (
-                    Map<ChangePatternInstance, Set> instanceToCoveredNodes,
-                    List<ChangePatternInstance> ret,
-                    ChangePatternInstance instance,
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/coming/repairability/repairtools/JGenProg.java`
-#### Snippet
-```java
-                    List<ChangePatternInstance> ret,
-                    ChangePatternInstance instance,
-                    Collection<CtElement> changedNodes,
-                    Diff diff
-            ) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ChangePatternInstance`
-in `src/main/java/fr/inria/coming/repairability/repairtools/JGenProg.java`
-#### Snippet
-```java
-
-    @Override
-    public List<ChangePatternInstance> filterSelectedInstances(List<ChangePatternInstance> lst, Diff diff) {
-        Map<ChangePatternInstance, Set> instanceToCoveredNodes = new HashMap<>();
-        List<ChangePatternInstance> ret = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -4392,30 +4392,6 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Nopol.java`
 ### BoundedWildcard
 Can generalize to `? extends CtElement`
 in `src/main/java/fr/inria/coming/repairability/repairtools/Nopol.java`
-#### Snippet
-```java
-
-	private void updateSelectedInstances(Map<ChangePatternInstance, Set> instanceToCoveredNodes,
-			List<ChangePatternInstance> ret, ChangePatternInstance instance, Collection<CtElement> changedNodes,
-			Diff diff) {
-		boolean addedBefore = false;
-```
-
-### BoundedWildcard
-Can generalize to `? super ChangePatternInstance`
-in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
-#### Snippet
-```java
-	}
-
-	private void updateSelectedInstances(Map<ChangePatternInstance, Set> instanceToCoveredNodes,
-			List<ChangePatternInstance> ret, ChangePatternInstance instance, Collection<CtElement> changedNodes,
-			Diff diff) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 #### Snippet
 ```java
 
@@ -4438,63 +4414,303 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+Can generalize to `? super ChangePatternInstance`
+in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 #### Snippet
 ```java
-		}
-		
-		private int[] argumentDiff(List<CtElement> argumentsoriginal, List<CtElement> argumentsother, CtVariableAccess varaccess) {
-			
-			int numberdiffargument =0;
+	}
+
+	private void updateSelectedInstances(Map<ChangePatternInstance, Set> instanceToCoveredNodes,
+			List<ChangePatternInstance> ret, ChangePatternInstance instance, Collection<CtElement> changedNodes,
+			Diff diff) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 #### Snippet
 ```java
-		}
-		
-		private int[] argumentDiff(List<CtElement> argumentsoriginal, List<CtElement> argumentsother, CtVariableAccess varaccess) {
-			
-			int numberdiffargument =0;
-```
 
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-		}
-		
-		private void analyzeV1213_ReplaceVarGetAnotherInvocation (List<CtVariableAccess> varsAffected, Cntx<Object> context,
-				List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
-			
+	private void updateSelectedInstances(Map<ChangePatternInstance, Set> instanceToCoveredNodes,
+			List<ChangePatternInstance> ret, ChangePatternInstance instance, Collection<CtElement> changedNodes,
+			Diff diff) {
+		boolean addedBefore = false;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
+	}
+	
+	private void analyzeWhetherMethodSatrtsWithGetM11 (List<CtInvocation> invocationsaffected, Cntx<Object> context) {
 		
-		private void analyzeV1213_ReplaceVarGetAnotherInvocation (List<CtVariableAccess> varsAffected, Cntx<Object> context,
-				List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
-			
-			try {
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+	private void analyzeWhetherMethodWraptedM10 (List<CtInvocation> invocationsaffected, Cntx<Object> context,
+			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+		
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	
+	private void analyzeWhetherMethodWraptedM10 (List<CtInvocation> invocationsaffected, Cntx<Object> context,
+			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+		
+		 try {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
+	
+	private void analyzeWhetherMethodWraptedM10 (List<CtInvocation> invocationsaffected, Cntx<Object> context,
+			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
 		
-		private void analyzeV1213_ReplaceVarGetAnotherInvocation (List<CtVariableAccess> varsAffected, Cntx<Object> context,
-				List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
-			
-			try {
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+    
+    private void analyzeM67_ReplaceVarGetAnotherInvocation (List<CtInvocation> invocationsaffected, Cntx<Object> context,
+			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+		
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+    
+    private void analyzeM67_ReplaceVarGetAnotherInvocation (List<CtInvocation> invocationsaffected, Cntx<Object> context,
+			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+		
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtConstructorCall`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+    
+    private void analyzeM67_ReplaceVarGetAnotherInvocation (List<CtInvocation> invocationsaffected, Cntx<Object> context,
+			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+		
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtTypeReference`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+   private boolean whetherhasprimitive(List<CtTypeReference> inferredtypes) {
+		
+		for (int index=0; index<inferredtypes.size(); index++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	
+	private void analyzeMethodFeature_Extend (CtElement originalElement, Cntx<Object> context,
+			CtClass parentClass, List<CtInvocation> invocationsFromClass, List<CtInvocation> invocations) {
+		
+		List<CtConstructorCall> emptyconstructorcallfromclass = new ArrayList<CtConstructorCall>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+	private void analyzeFeature_ExtendFromVar (Cntx<Object> context, List<CtInvocation> invocations) {
+		
+        for(CtInvocation invocationAffected : invocations) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+	private void analyzeVarMethodNameSimilarM12 (List<CtInvocation> invocationsaffected, List<CtVariable> scopevars, Cntx<Object> context) {
+		
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariable`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+	private void analyzeVarMethodNameSimilarM12 (List<CtInvocation> invocationsaffected, List<CtVariable> scopevars, Cntx<Object> context) {
+		
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	
+	private void analyzeM1_eM2_M3_M4_M8_M9SimilarMethod(CtElement element, Cntx<Object> context, CtClass parentClass,
+			List allMethodsFromClass, List<CtInvocation> invocations) {
+		try {
+			// m1: For each method invocation, whether the method has overloaded method
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+    
+    private void analyzeM5(CtElement element, Cntx<Object> context, List<CtInvocation> invocations,
+			List<CtVariable> varsInScope) {
+		
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariable`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+    
+    private void analyzeM5(CtElement element, Cntx<Object> context, List<CtInvocation> invocations,
+			List<CtVariable> varsInScope) {
+		
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+    
+    private int[] argumentDiffMethod(List<CtElement> argumentsoriginal, List<CtElement> argumentsother, 
+ 		   CtInvocation invocationaccess) {
+ 		
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+    
+    private int[] argumentDiffMethod(List<CtElement> argumentsoriginal, List<CtElement> argumentsother, 
+ 		   CtInvocation invocationaccess) {
+ 		
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+	private void analyzeVarMethodArgumentPrimitiveM13 (List<CtInvocation> invocationsaffected, Cntx<Object> context) {
+		
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
+
+    public S4ROFeatureVisitor(Map<String, CtElement> valueExprInfo) {
+        this.valueExprInfo = valueExprInfo;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
+#### Snippet
+```java
+    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
+
+    public S4ROFeatureVisitor(Map<String, CtElement> valueExprInfo) {
+        this.valueExprInfo = valueExprInfo;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
+        final int LOOKUP_DIS = 3;
+        CtElement srcElem = repair.srcElem;
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
+        final int LOOKUP_DIS = 3;
+        CtElement srcElem = repair.srcElem;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private EnumSet<ValueFeature> getValueFeature(final String valueStr, final Repair repair, Map<String, CtElement> valueExprInfo) {
+        EnumSet<ValueFeature> valueFeatures = EnumSet.noneOf(ValueFeature.class);
+        if (repair.oldRExpr != null && repair.newRExpr != null) {
 ```
 
 ### BoundedWildcard
@@ -4519,66 +4735,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java
 	private void analyzeV2_AffectedDistanceVarName(List<CtVariableAccess> varsAffected, List<CtVariable> varsInScope,
 			CtElement element, Cntx<Object> context) {
 		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	private void analyzeV19_VarWithSpecialName (List<CtVariableAccess> varsAffected, Cntx<Object> context) {
-		
-		 try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	public CtInvocation checkInvocationWithReturnCompatibleType(List<CtInvocation> invocationsFromClass,
-			CtTypeReference type, CtClass parentclass) {
-		
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-	
-	private void analyzeV9_VarSimilarLiteral(CtElement element, Cntx<Object> context, CtClass parentClass,
-			List<CtVariableAccess> varsAffected) {
-		
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-	 * @param context
-	 */
-	private void analyzeV4(List<CtVariableAccess> varsAffected, CtElement element, Cntx<Object> context) {
-		
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-		}
-		
-		private void analyzeV17_IsEnum (List<CtVariableAccess> varsAffected, Cntx<Object> context, CtClass parentClass) {
-			try {
-				
 ```
 
 ### BoundedWildcard
@@ -4634,11 +4790,35 @@ Can generalize to `? extends CtVariableAccess`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
-	 */
-	@SuppressWarnings("rawtypes")
-	private void analyzeV5_AffectedVariablesInTransformation(List<CtVariableAccess> varsAffected, CtElement element,
-			Cntx<Object> context) {
-		try {
+		}
+		
+		private void analyzeV1213_ReplaceVarGetAnotherInvocation (List<CtVariableAccess> varsAffected, Cntx<Object> context,
+				List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+			
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+		
+		private void analyzeV1213_ReplaceVarGetAnotherInvocation (List<CtVariableAccess> varsAffected, Cntx<Object> context,
+				List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+			
+			try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtConstructorCall`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+		
+		private void analyzeV1213_ReplaceVarGetAnotherInvocation (List<CtVariableAccess> varsAffected, Cntx<Object> context,
+				List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+			
+			try {
 ```
 
 ### BoundedWildcard
@@ -4648,9 +4828,33 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java
 ```java
 		}
 		
-		private void analyzV11_ConditionWithCompatibleTypes (List<CtVariableAccess> varsAffected, List<CtVariable> varsInScope,
-				CtElement element, Cntx<Object> context) {
+		private void analyzeV17_IsEnum (List<CtVariableAccess> varsAffected, Cntx<Object> context, CtClass parentClass) {
+			try {
+				
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+		}
+		
+		private int[] argumentDiff(List<CtElement> argumentsoriginal, List<CtElement> argumentsother, CtVariableAccess varaccess) {
 			
+			int numberdiffargument =0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+		}
+		
+		private int[] argumentDiff(List<CtElement> argumentsoriginal, List<CtElement> argumentsother, CtVariableAccess varaccess) {
+			
+			int numberdiffargument =0;
 ```
 
 ### BoundedWildcard
@@ -4658,9 +4862,21 @@ Can generalize to `? extends CtVariableAccess`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void analyzeV8_TypesVarsAffected(List<CtVariableAccess> varsAffected, CtElement element,
+	 * @param context
+	 */
+	private void analyzeV4(List<CtVariableAccess> varsAffected, CtElement element, Cntx<Object> context) {
+		
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+	 * @param context
+	 */
+	private void analyzeV3_AffectedHasConstant(List<CtVariableAccess> varsAffected, CtElement element,
 			Cntx<Object> context) {
 		try {
 ```
@@ -4682,6 +4898,54 @@ Can generalize to `? extends CtVariableAccess`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
+	}
+	
+	private void analyzeFeature_Extend(List<CtVariableAccess> varsAffected, CtElement originalElement, Cntx<Object> context,
+			CtClass parentClass, List<CtStatement> allstatementsinclass ) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+		}
+		
+		private void analyzV11_ConditionWithCompatibleTypes (List<CtVariableAccess> varsAffected, List<CtVariable> varsInScope,
+				CtElement element, Cntx<Object> context) {
+			
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+	}
+	
+	private void analyzeV19_VarWithSpecialName (List<CtVariableAccess> varsAffected, Cntx<Object> context) {
+		
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+	 */
+	@SuppressWarnings("rawtypes")
+	private void analyzeV5_AffectedVariablesInTransformation(List<CtVariableAccess> varsAffected, CtElement element,
+			Cntx<Object> context) {
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
 		}
 	  
 		private void analyzV10_AffectedWithCompatibleTypes(List<CtVariableAccess> varsAffected, List<CtVariable> varsInScope,
@@ -4699,6 +4963,30 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java
 		private void analyzV10_AffectedWithCompatibleTypes(List<CtVariableAccess> varsAffected, List<CtVariable> varsInScope,
 				CtElement element, Cntx<Object> context) {
 			try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void analyzeV8_TypesVarsAffected(List<CtVariableAccess> varsAffected, CtElement element,
+			Cntx<Object> context) {
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+	
+	private void analyzeV9_VarSimilarLiteral(CtElement element, Cntx<Object> context, CtClass parentClass,
+			List<CtVariableAccess> varsAffected) {
+		
+		try {
 ```
 
 ### BoundedWildcard
@@ -4714,303 +5002,27 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-	 * @param context
-	 */
-	private void analyzeV3_AffectedHasConstant(List<CtVariableAccess> varsAffected, CtElement element,
-			Cntx<Object> context) {
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
+Can generalize to `? extends CtInvocation`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 	}
 	
-	private void analyzeFeature_Extend(List<CtVariableAccess> varsAffected, CtElement originalElement, Cntx<Object> context,
-			CtClass parentClass, List<CtStatement> allstatementsinclass ) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
-#### Snippet
-```java
-    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
-
-    public S4ROFeatureVisitor(Map<String, CtElement> valueExprInfo) {
-        this.valueExprInfo = valueExprInfo;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/util/S4ROFeatureVisitor.java`
-#### Snippet
-```java
-    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
-
-    public S4ROFeatureVisitor(Map<String, CtElement> valueExprInfo) {
-        this.valueExprInfo = valueExprInfo;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
-        final int LOOKUP_DIS = 3;
-        CtElement srcElem = repair.srcElem;
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
-        final int LOOKUP_DIS = 3;
-        CtElement srcElem = repair.srcElem;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private EnumSet<ValueFeature> getValueFeature(final String valueStr, final Repair repair, Map<String, CtElement> valueExprInfo) {
-        EnumSet<ValueFeature> valueFeatures = EnumSet.noneOf(ValueFeature.class);
-        if (repair.oldRExpr != null && repair.newRExpr != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	private void analyzeWhetherMethodWraptedM10 (List<CtInvocation> invocationsaffected, Cntx<Object> context,
-			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
+	public CtInvocation checkInvocationWithReturnCompatibleType(List<CtInvocation> invocationsFromClass,
+			CtTypeReference type, CtClass parentclass) {
 		
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	
-	private void analyzeWhetherMethodWraptedM10 (List<CtInvocation> invocationsaffected, Cntx<Object> context,
-			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
-		
-		 try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	
-	private void analyzeWhetherMethodWraptedM10 (List<CtInvocation> invocationsaffected, Cntx<Object> context,
-			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
-		
-		 try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	private void analyzeVarMethodArgumentPrimitiveM13 (List<CtInvocation> invocationsaffected, Cntx<Object> context) {
-		
-		 try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	private void analyzeVarMethodNameSimilarM12 (List<CtInvocation> invocationsaffected, List<CtVariable> scopevars, Cntx<Object> context) {
-		
-		 try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariable`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	private void analyzeVarMethodNameSimilarM12 (List<CtInvocation> invocationsaffected, List<CtVariable> scopevars, Cntx<Object> context) {
-		
-		 try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	private void analyzeWhetherMethodSatrtsWithGetM11 (List<CtInvocation> invocationsaffected, Cntx<Object> context) {
-		
-		 try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-    
-    private void analyzeM67_ReplaceVarGetAnotherInvocation (List<CtInvocation> invocationsaffected, Cntx<Object> context,
-			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
-		
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-    
-    private void analyzeM67_ReplaceVarGetAnotherInvocation (List<CtInvocation> invocationsaffected, Cntx<Object> context,
-			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
-		
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-    
-    private void analyzeM67_ReplaceVarGetAnotherInvocation (List<CtInvocation> invocationsaffected, Cntx<Object> context,
-			List<CtInvocation> invocationsFromClass, List<CtConstructorCall> constructorcallsFromClass) {
-		
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	
-	private void analyzeM1_eM2_M3_M4_M8_M9SimilarMethod(CtElement element, Cntx<Object> context, CtClass parentClass,
-			List allMethodsFromClass, List<CtInvocation> invocations) {
-		try {
-			// m1: For each method invocation, whether the method has overloaded method
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-    
-    private void analyzeM5(CtElement element, Cntx<Object> context, List<CtInvocation> invocations,
-			List<CtVariable> varsInScope) {
-		
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariable`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-    
-    private void analyzeM5(CtElement element, Cntx<Object> context, List<CtInvocation> invocations,
-			List<CtVariable> varsInScope) {
-		
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	
-	private void analyzeMethodFeature_Extend (CtElement originalElement, Cntx<Object> context,
-			CtClass parentClass, List<CtInvocation> invocationsFromClass, List<CtInvocation> invocations) {
-		
-		List<CtConstructorCall> emptyconstructorcallfromclass = new ArrayList<CtConstructorCall>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-	
-	private void analyzeFeature_ExtendFromVar (Cntx<Object> context, List<CtInvocation> invocations) {
-		
-        for(CtInvocation invocationAffected : invocations) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends CtTypeReference`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 	}
 	
-   private boolean whetherhasprimitive(List<CtTypeReference> inferredtypes) {
+	public static boolean whetherpotentionalboolean(List<CtTypeReference> potentionaltypes) {
 		
-		for (int index=0; index<inferredtypes.size(); index++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-    
-    private int[] argumentDiffMethod(List<CtElement> argumentsoriginal, List<CtElement> argumentsother, 
- 		   CtInvocation invocationaccess) {
- 		
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-	}
-    
-    private int[] argumentDiffMethod(List<CtElement> argumentsoriginal, List<CtElement> argumentsother, 
- 		   CtInvocation invocationaccess) {
- 		
+		for(int i=0; i<potentionaltypes.size(); i++) {
 ```
 
 ### BoundedWildcard
@@ -5030,11 +5042,11 @@ Can generalize to `? extends CtExpression`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-	 * @param parentclass
-	 */
-	private void analyzeLE2_AffectedVariablesInMethod(List<CtExpression> logicalExperssions,
-			Cntx<Object> context, List allMethods, List<CtInvocation> invocationsFromClass, CtClass parentclass) {
+		}
 		
+		private void analyzeExpressions(List<CtExpression> atomicexperssions, Cntx<Object> context, int logicalindex,CtExpression logicalexpression) {
+			
+			List<CtInvocation> invocationtypes = new ArrayList();
 ```
 
 ### BoundedWildcard
@@ -5042,23 +5054,47 @@ Can generalize to `? extends CtExpression`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-	 */
+	}
 	
-	private void analyzeLE7_VarDirectlyUsed(List<CtExpression> logicalExperssions, 
-			Cntx<Object> context, List<CtInvocation> invocationssInStatement) {
+    private void analyzeLE9_BothNULLAndNormal(List<CtExpression> logicalExperssions, Cntx<Object> context) {
+		
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtExpression`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+#### Snippet
+```java
+	 * @param context
+	 */
+	private void analyzeLE4_BooleanVarNotUsed(List<CtExpression> logicalExperssions, 
+			List<CtVariable> varsInScope, Cntx<Object> context) {
 		
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtInvocation`
+Can generalize to `? extends CtVariable`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-	
-	private void analyzeLE7_VarDirectlyUsed(List<CtExpression> logicalExperssions, 
-			Cntx<Object> context, List<CtInvocation> invocationssInStatement) {
+	 */
+	private void analyzeLE4_BooleanVarNotUsed(List<CtExpression> logicalExperssions, 
+			List<CtVariable> varsInScope, Cntx<Object> context) {
 		
-         try {
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtExpression`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+#### Snippet
+```java
+	 * @param parentclass
+	 */
+	private void analyzeLE2_AffectedVariablesInMethod(List<CtExpression> logicalExperssions,
+			Cntx<Object> context, List allMethods, List<CtInvocation> invocationsFromClass, CtClass parentclass) {
+		
 ```
 
 ### BoundedWildcard
@@ -5102,71 +5138,23 @@ Can generalize to `? extends CtExpression`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-	 * @param context
 	 */
-	private void analyzeLE4_BooleanVarNotUsed(List<CtExpression> logicalExperssions, 
-			List<CtVariable> varsInScope, Cntx<Object> context) {
-		
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariable`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
-	 */
-	private void analyzeLE4_BooleanVarNotUsed(List<CtExpression> logicalExperssions, 
-			List<CtVariable> varsInScope, Cntx<Object> context) {
-		
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtExpression`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
-		}
-		
-		private void analyzeExpressions(List<CtExpression> atomicexperssions, Cntx<Object> context, int logicalindex,CtExpression logicalexpression) {
-			
-			List<CtInvocation> invocationtypes = new ArrayList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtExpression`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
-	}
 	
-    private void analyzeLE9_BothNULLAndNormal(List<CtExpression> logicalExperssions, Cntx<Object> context) {
-		
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtExpression`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
-	 * @param context
-	 */
-	private void analyzeLE3_PrimitiveWithCompatibleNotUsed( List<CtExpression> logicalExperssions, 
-			List<CtVariable> varsInScope, Cntx<Object> context) {
+	private void analyzeLE7_VarDirectlyUsed(List<CtExpression> logicalExperssions, 
+			Cntx<Object> context, List<CtInvocation> invocationssInStatement) {
 		
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtVariable`
+Can generalize to `? extends CtInvocation`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-	 */
-	private void analyzeLE3_PrimitiveWithCompatibleNotUsed( List<CtExpression> logicalExperssions, 
-			List<CtVariable> varsInScope, Cntx<Object> context) {
+	
+	private void analyzeLE7_VarDirectlyUsed(List<CtExpression> logicalExperssions, 
+			Cntx<Object> context, List<CtInvocation> invocationssInStatement) {
 		
-		 try {
+         try {
 ```
 
 ### BoundedWildcard
@@ -5206,15 +5194,183 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnal
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtTypeReference`
+Can generalize to `? extends CtExpression`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-	}
-	
-	public static boolean whetherpotentionalboolean(List<CtTypeReference> potentionaltypes) {
+	 * @param context
+	 */
+	private void analyzeLE3_PrimitiveWithCompatibleNotUsed( List<CtExpression> logicalExperssions, 
+			List<CtVariable> varsInScope, Cntx<Object> context) {
 		
-		for(int i=0; i<potentionaltypes.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariable`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+#### Snippet
+```java
+	 */
+	private void analyzeLE3_PrimitiveWithCompatibleNotUsed( List<CtExpression> logicalExperssions, 
+			List<CtVariable> varsInScope, Cntx<Object> context) {
+		
+		 try {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
+#### Snippet
+```java
+    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
+
+    public EnhancedFeatureVisitor(Map<String, CtElement> valueExprInfo) {
+        this.valueExprInfo = valueExprInfo;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
+#### Snippet
+```java
+    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
+
+    public EnhancedFeatureVisitor(Map<String, CtElement> valueExprInfo) {
+        this.valueExprInfo = valueExprInfo;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
+        final int LOOKUP_DIS = 3;
+        CtElement srcElem = repair.srcElem;
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
+        final int LOOKUP_DIS = 3;
+        CtElement srcElem = repair.srcElem;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private EnumSet<ValueFeature> getValueFeature(final String valueStr, final Repair repair, Map<String, CtElement> valueExprInfo) {
+        EnumSet<ValueFeature> valueFeatures = EnumSet.noneOf(ValueFeature.class);
+        if (repair.oldRExpr != null && repair.newRExpr != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+#### Snippet
+```java
+    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
+
+    public ExtendedFeatureVisitor(Map<String, CtElement> valueExprInfo) {
+        this.valueExprInfo = valueExprInfo;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+#### Snippet
+```java
+    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
+
+    public ExtendedFeatureVisitor(Map<String, CtElement> valueExprInfo) {
+        this.valueExprInfo = valueExprInfo;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
+        final int LOOKUP_DIS = 3;
+        CtElement srcElem = repair.srcElem;
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
+        final int LOOKUP_DIS = 3;
+        CtElement srcElem = repair.srcElem;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
+#### Snippet
+```java
+    }
+
+    private EnumSet<ValueFeature> getValueFeature(final String valueStr, final Repair repair, Map<String, CtElement> valueExprInfo) {
+        EnumSet<ValueFeature> valueFeatures = EnumSet.noneOf(ValueFeature.class);
+        if (repair.oldRExpr != null && repair.newRExpr != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
+
+    public OriginalFeatureVisitor(Map<String, CtElement> valueExprInfo) {
+        this.valueExprInfo = valueExprInfo;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super CtElement`
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+#### Snippet
+```java
+    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
+
+    public OriginalFeatureVisitor(Map<String, CtElement> valueExprInfo) {
+        this.valueExprInfo = valueExprInfo;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtVariableAccess`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+	 */
+	@SuppressWarnings("rawtypes")
+	public boolean analyze_AffectedAssigned(List<CtVariableAccess> varsAffected, CtElement element) {
+		try {
+			CtMethod methodParent = element.getParent(CtMethod.class);
 ```
 
 ### BoundedWildcard
@@ -5230,14 +5386,74 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
+Can generalize to `? extends CtTypeReference`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 	}
 
-	public boolean analyze_AffectedFieldAssigned(List<CtVariableAccess> varsAffected, CtElement element,
-			CtClass parentClass) {
+	public boolean whetherhasobjective(List<CtTypeReference> inferredtypes) {
+
+		for (int index = 0; index < inferredtypes.size(); index++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+	public boolean[] analyze_SamerMethodWithGuardOrTrywrap(CtElement element, CtClass parentClass,
+			List<CtInvocation> allinvocationsFromClass, List<CtInvocation> invocationstostudy,
+			List<CtConstructorCall> allconstructorcallsFromClass, List<CtConstructorCall> constructorcallstostudy) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+	public boolean[] analyze_SamerMethodWithGuardOrTrywrap(CtElement element, CtClass parentClass,
+			List<CtInvocation> allinvocationsFromClass, List<CtInvocation> invocationstostudy,
+			List<CtConstructorCall> allconstructorcallsFromClass, List<CtConstructorCall> constructorcallstostudy) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtConstructorCall`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+	public boolean[] analyze_SamerMethodWithGuardOrTrywrap(CtElement element, CtClass parentClass,
+			List<CtInvocation> allinvocationsFromClass, List<CtInvocation> invocationstostudy,
+			List<CtConstructorCall> allconstructorcallsFromClass, List<CtConstructorCall> constructorcallstostudy) {
+
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtConstructorCall`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+	public boolean[] analyze_SamerMethodWithGuardOrTrywrap(CtElement element, CtClass parentClass,
+			List<CtInvocation> allinvocationsFromClass, List<CtInvocation> invocationstostudy,
+			List<CtConstructorCall> allconstructorcallsFromClass, List<CtConstructorCall> constructorcallstostudy) {
+
+		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtInvocation`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+	}
+
+	public CtInvocation checkInvocationWithParemetrCompatibleType(List<CtInvocation> invocationsFromClass,
+			CtTypeReference type) {
 
 ```
 
@@ -5246,23 +5462,11 @@ Can generalize to `? extends CtVariableAccess`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-	}
-
-	public boolean[] analyze_SametypewithGuard(List<CtVariableAccess> varsAffected, CtElement element,
-			CtClass parentClass, List<CtStatement> statements) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtStatement`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-	public boolean[] analyze_SametypewithGuard(List<CtVariableAccess> varsAffected, CtElement element,
-			CtClass parentClass, List<CtStatement> statements) {
-
-		boolean hasPrimitiveSimilarTypeWithNormalGuard = false;
+	 */
+	@SuppressWarnings("rawtypes")
+	public boolean analyze_AffectedFielfs(List<CtVariableAccess> varsAffected, CtElement element, CtClass parentClass) {
+		try {
+			CtMethod methodParent = element.getParent(CtMethod.class);
 ```
 
 ### BoundedWildcard
@@ -5287,42 +5491,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 			List<CtStatement> statements) {
 
 		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-	}
-
-	public CtInvocation checkInvocationWithParemetrCompatibleType(List<CtInvocation> invocationsFromClass,
-			CtTypeReference type) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtVariableAccess`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-	 */
-	@SuppressWarnings("rawtypes")
-	public boolean analyze_AffectedAssigned(List<CtVariableAccess> varsAffected, CtElement element) {
-		try {
-			CtMethod methodParent = element.getParent(CtMethod.class);
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtTypeReference`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-	}
-
-	public boolean whetherhasobjective(List<CtTypeReference> inferredtypes) {
-
-		for (int index = 0; index < inferredtypes.size(); index++) {
 ```
 
 ### BoundedWildcard
@@ -5362,51 +5530,15 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtInvocation`
+Can generalize to `? extends CtVariableAccess`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
+	}
 
-	public boolean[] analyze_SamerMethodWithGuardOrTrywrap(CtElement element, CtClass parentClass,
-			List<CtInvocation> allinvocationsFromClass, List<CtInvocation> invocationstostudy,
-			List<CtConstructorCall> allconstructorcallsFromClass, List<CtConstructorCall> constructorcallstostudy) {
+	public boolean analyze_AffectedFieldAssigned(List<CtVariableAccess> varsAffected, CtElement element,
+			CtClass parentClass) {
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtInvocation`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-	public boolean[] analyze_SamerMethodWithGuardOrTrywrap(CtElement element, CtClass parentClass,
-			List<CtInvocation> allinvocationsFromClass, List<CtInvocation> invocationstostudy,
-			List<CtConstructorCall> allconstructorcallsFromClass, List<CtConstructorCall> constructorcallstostudy) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-	public boolean[] analyze_SamerMethodWithGuardOrTrywrap(CtElement element, CtClass parentClass,
-			List<CtInvocation> allinvocationsFromClass, List<CtInvocation> invocationstostudy,
-			List<CtConstructorCall> allconstructorcallsFromClass, List<CtConstructorCall> constructorcallstostudy) {
-
-		try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtConstructorCall`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-	public boolean[] analyze_SamerMethodWithGuardOrTrywrap(CtElement element, CtClass parentClass,
-			List<CtInvocation> allinvocationsFromClass, List<CtInvocation> invocationstostudy,
-			List<CtConstructorCall> allconstructorcallsFromClass, List<CtConstructorCall> constructorcallstostudy) {
-
-		try {
 ```
 
 ### BoundedWildcard
@@ -5414,155 +5546,23 @@ Can generalize to `? extends CtVariableAccess`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-	 */
-	@SuppressWarnings("rawtypes")
-	public boolean analyze_AffectedFielfs(List<CtVariableAccess> varsAffected, CtElement element, CtClass parentClass) {
-		try {
-			CtMethod methodParent = element.getParent(CtMethod.class);
+	}
+
+	public boolean[] analyze_SametypewithGuard(List<CtVariableAccess> varsAffected, CtElement element,
+			CtClass parentClass, List<CtStatement> statements) {
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
+Can generalize to `? extends CtStatement`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
 
-    public EnhancedFeatureVisitor(Map<String, CtElement> valueExprInfo) {
-        this.valueExprInfo = valueExprInfo;
-    }
-```
+	public boolean[] analyze_SametypewithGuard(List<CtVariableAccess> varsAffected, CtElement element,
+			CtClass parentClass, List<CtStatement> statements) {
 
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisitor.java`
-#### Snippet
-```java
-    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
-
-    public EnhancedFeatureVisitor(Map<String, CtElement> valueExprInfo) {
-        this.valueExprInfo = valueExprInfo;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private EnumSet<ValueFeature> getValueFeature(final String valueStr, final Repair repair, Map<String, CtElement> valueExprInfo) {
-        EnumSet<ValueFeature> valueFeatures = EnumSet.noneOf(ValueFeature.class);
-        if (repair.oldRExpr != null && repair.newRExpr != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
-        final int LOOKUP_DIS = 3;
-        CtElement srcElem = repair.srcElem;
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
-        final int LOOKUP_DIS = 3;
-        CtElement srcElem = repair.srcElem;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
-#### Snippet
-```java
-    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
-
-    public OriginalFeatureVisitor(Map<String, CtElement> valueExprInfo) {
-        this.valueExprInfo = valueExprInfo;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
-#### Snippet
-```java
-    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
-
-    public OriginalFeatureVisitor(Map<String, CtElement> valueExprInfo) {
-        this.valueExprInfo = valueExprInfo;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
-#### Snippet
-```java
-    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
-
-    public ExtendedFeatureVisitor(Map<String, CtElement> valueExprInfo) {
-        this.valueExprInfo = valueExprInfo;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
-#### Snippet
-```java
-    Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
-
-    public ExtendedFeatureVisitor(Map<String, CtElement> valueExprInfo) {
-        this.valueExprInfo = valueExprInfo;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private EnumSet<ValueFeature> getValueFeature(final String valueStr, final Repair repair, Map<String, CtElement> valueExprInfo) {
-        EnumSet<ValueFeature> valueFeatures = EnumSet.noneOf(ValueFeature.class);
-        if (repair.oldRExpr != null && repair.newRExpr != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
-        final int LOOKUP_DIS = 3;
-        CtElement srcElem = repair.srcElem;
-```
-
-### BoundedWildcard
-Can generalize to `? super CtElement`
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
-#### Snippet
-```java
-    }
-
-    private void getNearbyStmts(Repair repair, List<CtElement> stmtsF, List<CtElement> stmtsL) {
-        final int LOOKUP_DIS = 3;
-        CtElement srcElem = repair.srcElem;
+		boolean hasPrimitiveSimilarTypeWithNormalGuard = false;
 ```
 
 ### BoundedWildcard
@@ -5626,15 +5626,15 @@ in `src/main/java/fr/inria/prophet4j/learner/FeatureLearner.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+Can generalize to `? extends File`
+in `src/main/java/fr/inria/prophet4j/utility/CodeDiffer.java`
 #### Snippet
 ```java
-    }
-
-    private Map<String, List<Double>> scoreFiles(RankingOption rankingOption, Map<String, Map<File, File>> files) {
-        String tmpPath = Support.getFilePath4Ranking(this.option, rankingOption, false);
-        String rankingPath = Support.getFilePath4Ranking(this.option, rankingOption, true);
+    // for DataLoader, we do not need to obtainRepairCandidates as they are given
+    // byGenerator = false as long as this func gets called
+    public List<FeatureMatrix> runByPatches(File oldFile, List<File> newFiles) {
+        List<FeatureMatrix> featureMatrices = new ArrayList<>();
+        for (File newFile : newFiles) {
 ```
 
 ### BoundedWildcard
@@ -5650,15 +5650,15 @@ in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `src/main/java/fr/inria/prophet4j/utility/CodeDiffer.java`
+Can generalize to `? extends Map`
+in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
 #### Snippet
 ```java
-    // for DataLoader, we do not need to obtainRepairCandidates as they are given
-    // byGenerator = false as long as this func gets called
-    public List<FeatureMatrix> runByPatches(File oldFile, List<File> newFiles) {
-        List<FeatureMatrix> featureMatrices = new ArrayList<>();
-        for (File newFile : newFiles) {
+    }
+
+    private Map<String, List<Double>> scoreFiles(RankingOption rankingOption, Map<String, Map<File, File>> files) {
+        String tmpPath = Support.getFilePath4Ranking(this.option, rankingOption, false);
+        String rankingPath = Support.getFilePath4Ranking(this.option, rankingOption, true);
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -5703,11 +5703,11 @@ Missorted modifiers `final static`
 in `src/main/java/fr/inria/coming/changeminer/analyzer/patternspecification/PatternEntity.java`
 #### Snippet
 ```java
-	protected ParentPatternEntity parent = null;
+public class PatternEntity {
 
-	public final static PatternEntity ANY_ENTITY = new PatternEntity("*");
-
-	public PatternEntity(String entityType) {
+	public final static String ANY = "*";
+	protected int id;
+	protected String entityType = ANY;
 ```
 
 ### MissortedModifiers
@@ -5715,11 +5715,11 @@ Missorted modifiers `final static`
 in `src/main/java/fr/inria/coming/changeminer/analyzer/patternspecification/PatternEntity.java`
 #### Snippet
 ```java
-public class PatternEntity {
+	protected ParentPatternEntity parent = null;
 
-	public final static String ANY = "*";
-	protected int id;
-	protected String entityType = ANY;
+	public final static PatternEntity ANY_ENTITY = new PatternEntity("*");
+
+	public PatternEntity(String entityType) {
 ```
 
 ### MissortedModifiers
@@ -5848,18 +5848,6 @@ in `src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
-in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
-#### Snippet
-```java
-
-				changesArray.add(new Gson().fromJson(analyze.toJson().toString(), JsonObject.class));
-				tempFile.delete();
-				
-				//add more features
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
 in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 #### Snippet
 ```java
@@ -5880,6 +5868,18 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 			tempFile.delete();
 
 			// To use XGBoost4J, we convert csv format features obtain above to libsvm
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
+#### Snippet
+```java
+
+				changesArray.add(new Gson().fromJson(analyze.toJson().toString(), JsonObject.class));
+				tempFile.delete();
+				
+				//add more features
 ```
 
 ### IgnoreResultOfCall
@@ -5981,18 +5981,6 @@ in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
 ```
 
 ### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-						CtMethod methodParentAssign = assignment.getParent(CtMethod.class);
-
-						if (methodParentAssign != null && methodParentAssign.equals(methodParent)) {
-
-							if (!isElementBeforeVariable(variableAffected, assignment))
-```
-
-### IfStatementWithIdenticalBranches
 Common part can be extracted from 'if'
 in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
 #### Snippet
@@ -6014,6 +6002,18 @@ in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.j
         if (!repair.isReplace) {
             ret.add(srcElem);
             return ret;
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+						CtMethod methodParentAssign = assignment.getParent(CtMethod.class);
+
+						if (methodParentAssign != null && methodParentAssign.equals(methodParent)) {
+
+							if (!isElementBeforeVariable(variableAffected, assignment))
 ```
 
 ### IfStatementWithIdenticalBranches
@@ -6679,18 +6679,6 @@ in `src/main/java/fr/inria/coming/core/engine/git/RepositoryPGit.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`accumul = (accumul + probability_k)` could be simplified to 'accumul += probability_k'
-in `src/main/java/fr/inria/coming/utils/MapList.java`
-#### Snippet
-```java
-			int v = this.get(k).size();
-			double probability_k = (double) v / (double) sum;
-			accumul = (accumul + probability_k);
-			probO.getProbAccumulative().put(k, accumul);
-			probO.getProbDist().put(k, probability_k);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `i = i + 2` could be simplified to 'i += 2'
 in `src/main/java/fr/inria/coming/main/ComingMain.java`
 #### Snippet
@@ -6700,6 +6688,18 @@ in `src/main/java/fr/inria/coming/main/ComingMain.java`
 			for (int i = 0; i < pars.length; i = i + 2) {
 				String key = pars[i];
 				String value = pars[i + 1];
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`accumul = (accumul + probability_k)` could be simplified to 'accumul += probability_k'
+in `src/main/java/fr/inria/coming/utils/MapList.java`
+#### Snippet
+```java
+			int v = this.get(k).size();
+			double probability_k = (double) v / (double) sum;
+			accumul = (accumul + probability_k);
+			probO.getProbAccumulative().put(k, accumul);
+			probO.getProbDist().put(k, probability_k);
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -6779,54 +6779,6 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/SpreadPa
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/fr/inria/coming/core/engine/git/GITRepositoryInspector.java`
-#### Snippet
-```java
-	protected Logger log = Logger.getLogger(GITRepositoryInspector.class.getName());
-
-	RevisionDataset<Commit> history = null;
-
-	public GITRepositoryInspector() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/fr/inria/coming/core/engine/files/FileNavigationExperiment.java`
-#### Snippet
-```java
-public class FileNavigationExperiment extends RevisionNavigationExperiment<IRevision> {
-
-	public File flocation = null;
-
-	public FileNavigationExperiment() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/fr/inria/coming/core/engine/files/FileDatasets.java`
-#### Snippet
-```java
-	 * The folder where all the diff are located
-	 */
-	protected File rootDirectory = null;
-
-	public FileDatasets(File rootDirectory) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
-#### Snippet
-```java
-public class FileDynamicIterator implements Iterator<IRevision>, RevisionOrder<IRevision> {
-
-	private int currentFile = 0;
-
-	/**
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
 #### Snippet
@@ -6851,15 +6803,51 @@ in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
 #### Snippet
 ```java
-	Logger log = Logger.getLogger(FileDiff.class.getName());
+public class FileDynamicIterator implements Iterator<IRevision>, RevisionOrder<IRevision> {
 
-	protected File diffFolder = null;
+	private int currentFile = 0;
 
-	public FileDiff(File diffFolder) {
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/fr/inria/coming/core/engine/files/FileDatasets.java`
+#### Snippet
+```java
+	 * The folder where all the diff are located
+	 */
+	protected File rootDirectory = null;
+
+	public FileDatasets(File rootDirectory) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/fr/inria/coming/core/engine/files/FileNavigationExperiment.java`
+#### Snippet
+```java
+public class FileNavigationExperiment extends RevisionNavigationExperiment<IRevision> {
+
+	public File flocation = null;
+
+	public FileNavigationExperiment() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/fr/inria/coming/core/engine/git/GITRepositoryInspector.java`
+#### Snippet
+```java
+	protected Logger log = Logger.getLogger(GITRepositoryInspector.class.getName());
+
+	RevisionDataset<Commit> history = null;
+
+	public GITRepositoryInspector() {
 ```
 
 ### RedundantFieldInitialization
@@ -6900,14 +6888,14 @@ in `src/main/java/fr/inria/coming/core/engine/RevisionNavigationExperiment.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/fr/inria/coming/core/entities/RevisionResult.java`
+in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
 #### Snippet
 ```java
-public class RevisionResult extends HashMap<String, AnalysisResult> {
+	Logger log = Logger.getLogger(FileDiff.class.getName());
 
-	IRevision relatedRevision = null;
+	protected File diffFolder = null;
 
-	public RevisionResult(IRevision oneRevision) {
+	public FileDiff(File diffFolder) {
 ```
 
 ### RedundantFieldInitialization
@@ -6920,6 +6908,18 @@ public class RevisionDataset<Data> {
 	Collection<Data> data = null;
 
 	public RevisionDataset() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/fr/inria/coming/core/entities/RevisionResult.java`
+#### Snippet
+```java
+public class RevisionResult extends HashMap<String, AnalysisResult> {
+
+	IRevision relatedRevision = null;
+
+	public RevisionResult(IRevision oneRevision) {
 ```
 
 ### RedundantFieldInitialization
@@ -6959,27 +6959,15 @@ in `src/main/java/fr/inria/coming/main/ComingMain.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
-#### Snippet
-```java
-	protected GranuralityType granularity;
-
-	protected boolean includeComments = false;
-
-	/**
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
+in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternInstancesFromRevision.java`
 #### Snippet
 ```java
-	Logger log = Logger.getLogger(FineGrainDifftAnalyzer.class.getName());
+	 */
+	protected List<PatternInstancesFromDiff> infoPerDiff = null;
+	List<DiffRow> row_list = null;
 
-	protected AstComparator cdiff = null;
-
-	protected GranuralityType granularity;
+	public PatternInstancesFromRevision(IRevision analyzed) {
 ```
 
 ### RedundantFieldInitialization
@@ -6996,14 +6984,26 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternI
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternInstancesFromRevision.java`
+in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
 #### Snippet
 ```java
-	 */
-	protected List<PatternInstancesFromDiff> infoPerDiff = null;
-	List<DiffRow> row_list = null;
+	Logger log = Logger.getLogger(FineGrainDifftAnalyzer.class.getName());
 
-	public PatternInstancesFromRevision(IRevision analyzed) {
+	protected AstComparator cdiff = null;
+
+	protected GranuralityType granularity;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
+#### Snippet
+```java
+	protected GranuralityType granularity;
+
+	protected boolean includeComments = false;
+
+	/**
 ```
 
 ### RedundantFieldInitialization
@@ -7011,11 +7011,11 @@ Field initialization to `null` is redundant
 in `src/main/java/fr/inria/coming/changeminer/analyzer/patternspecification/PatternEntity.java`
 #### Snippet
 ```java
+	protected String entityType = ANY;
+	protected String newValue = null;
+	protected String oldValue = null;
 	protected String roleInParent = ANY;
 
-	protected ParentPatternEntity parent = null;
-
-	public final static PatternEntity ANY_ENTITY = new PatternEntity("*");
 ```
 
 ### RedundantFieldInitialization
@@ -7035,11 +7035,11 @@ Field initialization to `null` is redundant
 in `src/main/java/fr/inria/coming/changeminer/analyzer/patternspecification/PatternEntity.java`
 #### Snippet
 ```java
-	protected String entityType = ANY;
-	protected String newValue = null;
-	protected String oldValue = null;
 	protected String roleInParent = ANY;
 
+	protected ParentPatternEntity parent = null;
+
+	public final static PatternEntity ANY_ENTITY = new PatternEntity("*");
 ```
 
 ### RedundantFieldInitialization
@@ -7083,18 +7083,6 @@ Field initialization to `null` is redundant
 in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternInstancesFromDiff.java`
 #### Snippet
 ```java
-	protected List<ChangePatternInstance> instances = null;
-	protected Diff diff = null;
-	protected String location = null;
-
-    Logger log = Logger.getLogger(this.getClass().getName());
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternInstancesFromDiff.java`
-#### Snippet
-```java
 public class PatternInstancesFromDiff extends AnalysisResult<IRevision> {
 
 	protected List<ChangePatternInstance> instances = null;
@@ -7103,6 +7091,114 @@ public class PatternInstancesFromDiff extends AnalysisResult<IRevision> {
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternInstancesFromDiff.java`
+#### Snippet
+```java
+	protected List<ChangePatternInstance> instances = null;
+	protected Diff diff = null;
+	protected String location = null;
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int	patchedFileNo=0;
+	 static int	rmLineNo=0;
+	 static int	addLineNo=0;
+	 static int	 addThis=0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int UpdateLiteral = 0 ;
+	 static int removeNullinCond = 0 ; //remove null in if
+	 static int	patchedFileNo=0;
+	 static int	rmLineNo=0;
+	 static int	addLineNo=0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int ifTrue = 0;  //if true to replace if condition
+	 static int condLogicReduce = 0;  //if false to replace if condition
+	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
+	 static int insertNewConstLiteral = 0; // const, false, true
+	 static int UpdateLiteral = 0 ;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int insertNewConstLiteral = 0; // const, false, true
+	 static int UpdateLiteral = 0 ;
+	 static int removeNullinCond = 0 ; //remove null in if
+	 static int	patchedFileNo=0;
+	 static int	rmLineNo=0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int condLogicReduce = 0;  //if false to replace if condition
+	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
+	 static int insertNewConstLiteral = 0; // const, false, true
+	 static int UpdateLiteral = 0 ;
+	 static int removeNullinCond = 0 ; //remove null in if
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
+	 static int insertNewConstLiteral = 0; // const, false, true
+	 static int UpdateLiteral = 0 ;
+	 static int removeNullinCond = 0 ; //remove null in if
+	 static int	patchedFileNo=0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int removeNullinCond = 0 ; //remove null in if
+	 static int	patchedFileNo=0;
+	 static int	rmLineNo=0;
+	 static int	addLineNo=0;
+	 static int	 addThis=0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+
+	 static int ifTrue = 0;  //if true to replace if condition
+	 static int condLogicReduce = 0;  //if false to replace if condition
+	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
+	 static int insertNewConstLiteral = 0; // const, false, true
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
 #### Snippet
@@ -7112,6 +7208,42 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java
 	 static int ifTrue = 0;  //if true to replace if condition
 	 static int condLogicReduce = 0;  //if false to replace if condition
 	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+
+public class RepairPatternFeatureAnalyzer {
+	 static int dupArgsInvocation = 0; //duplicate variables in method invocation
+	 static int updIfFalse = 0;  //if false to replace if condition
+	 static int insertIfFalse = 0;  //
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int	rmLineNo=0;
+	 static int	addLineNo=0;
+	 static int	 addThis=0;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+	 static int dupArgsInvocation = 0; //duplicate variables in method invocation
+	 static int updIfFalse = 0;  //if false to replace if condition
+	 static int insertIfFalse = 0;  //
+
+	 static int ifTrue = 0;  //if true to replace if condition
 ```
 
 ### RedundantFieldInitialization
@@ -7124,138 +7256,6 @@ public class RepairPatternFeatureAnalyzer {
 	 static int updIfFalse = 0;  //if false to replace if condition
 	 static int insertIfFalse = 0;  //
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-
-public class RepairPatternFeatureAnalyzer {
-	 static int dupArgsInvocation = 0; //duplicate variables in method invocation
-	 static int updIfFalse = 0;  //if false to replace if condition
-	 static int insertIfFalse = 0;  //
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int	patchedFileNo=0;
-	 static int	rmLineNo=0;
-	 static int	addLineNo=0;
-	 static int	 addThis=0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int dupArgsInvocation = 0; //duplicate variables in method invocation
-	 static int updIfFalse = 0;  //if false to replace if condition
-	 static int insertIfFalse = 0;  //
-
-	 static int ifTrue = 0;  //if true to replace if condition
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-
-	 static int ifTrue = 0;  //if true to replace if condition
-	 static int condLogicReduce = 0;  //if false to replace if condition
-	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
-	 static int insertNewConstLiteral = 0; // const, false, true
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int	rmLineNo=0;
-	 static int	addLineNo=0;
-	 static int	 addThis=0;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int insertNewConstLiteral = 0; // const, false, true
-	 static int UpdateLiteral = 0 ;
-	 static int removeNullinCond = 0 ; //remove null in if
-	 static int	patchedFileNo=0;
-	 static int	rmLineNo=0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int condLogicReduce = 0;  //if false to replace if condition
-	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
-	 static int insertNewConstLiteral = 0; // const, false, true
-	 static int UpdateLiteral = 0 ;
-	 static int removeNullinCond = 0 ; //remove null in if
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int UpdateLiteral = 0 ;
-	 static int removeNullinCond = 0 ; //remove null in if
-	 static int	patchedFileNo=0;
-	 static int	rmLineNo=0;
-	 static int	addLineNo=0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int ifTrue = 0;  //if true to replace if condition
-	 static int condLogicReduce = 0;  //if false to replace if condition
-	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
-	 static int insertNewConstLiteral = 0; // const, false, true
-	 static int UpdateLiteral = 0 ;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int removeNullinCond = 0 ; //remove null in if
-	 static int	patchedFileNo=0;
-	 static int	rmLineNo=0;
-	 static int	addLineNo=0;
-	 static int	 addThis=0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-	 static int insertBooleanLiteral = 0; //a varaible is replaced by true or false
-	 static int insertNewConstLiteral = 0; // const, false, true
-	 static int UpdateLiteral = 0 ;
-	 static int removeNullinCond = 0 ; //remove null in if
-	 static int	patchedFileNo=0;
 ```
 
 ### RedundantFieldInitialization
@@ -7275,9 +7275,9 @@ Field initialization to `false` is redundant
 in `src/main/java/fr/inria/prophet4j/CLI.java`
 #### Snippet
 ```java
-            description = "display usage info"
+            description = "display version info"
     )
-    private boolean displayUsageInfo = false;
+    private boolean displayVersionInfo = false;
 
     @CommandLine.Option(
 ```
@@ -7287,9 +7287,9 @@ Field initialization to `false` is redundant
 in `src/main/java/fr/inria/prophet4j/CLI.java`
 #### Snippet
 ```java
-            description = "display version info"
+            description = "display usage info"
     )
-    private boolean displayVersionInfo = false;
+    private boolean displayUsageInfo = false;
 
     @CommandLine.Option(
 ```
@@ -7332,11 +7332,11 @@ public class EnhancedFeatureVisitor {
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
 #### Snippet
 ```java
 // based on FeatureExtract.cpp
-public class OriginalFeatureVisitor {
+public class ExtendedFeatureVisitor {
     boolean isReplace = false;
     Map<String, CtElement> valueExprInfo;
     Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
@@ -7344,11 +7344,11 @@ public class OriginalFeatureVisitor {
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
 #### Snippet
 ```java
 // based on FeatureExtract.cpp
-public class ExtendedFeatureVisitor {
+public class OriginalFeatureVisitor {
     boolean isReplace = false;
     Map<String, CtElement> valueExprInfo;
     Map<String, Set<AtomicFeature>> resMap = new HashMap<>();
@@ -7381,7 +7381,7 @@ in `src/main/java/fr/inria/prophet4j/utility/Structure.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-19-06-45-24.489.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-21-18-59-18.128.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -7521,18 +7521,6 @@ Double brace initialization
 in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 #### Snippet
 ```java
-		String trainingFile = ComingProperties.getProperty("ODSTrainingFile");
-		DMatrix trainMat = new DMatrix(trainingFile);
-		Map<String, Object> params = new HashMap<String, Object>() {
-			{
-				put("eta", ComingProperties.getProperty("xgboost-training-eta"));
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
-#### Snippet
-```java
 		};
 
 		Map<String, DMatrix> watches = new HashMap<String, DMatrix>() {
@@ -7540,31 +7528,19 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 				put("train", trainMat);
 ```
 
+### DoubleBraceInitialization
+Double brace initialization
+in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
+#### Snippet
+```java
+		String trainingFile = ComingProperties.getProperty("ODSTrainingFile");
+		DMatrix trainMat = new DMatrix(trainingFile);
+		Map<String, Object> params = new HashMap<String, Object>() {
+			{
+				put("eta", ComingProperties.getProperty("xgboost-training-eta"));
+```
+
 ## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `flocation` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/core/engine/files/FileNavigationExperiment.java`
-#### Snippet
-```java
-public class FileNavigationExperiment extends RevisionNavigationExperiment<IRevision> {
-
-	public File flocation = null;
-
-	public FileNavigationExperiment() {
-```
-
-### UnusedAssignment
-Variable `rootDirectory` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/core/engine/files/FileDatasets.java`
-#### Snippet
-```java
-	 * The folder where all the diff are located
-	 */
-	protected File rootDirectory = null;
-
-	public FileDatasets(File rootDirectory) {
-```
-
 ### UnusedAssignment
 Variable `totalNumberFiles` initializer `0` is redundant
 in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
@@ -7590,6 +7566,30 @@ in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
 ```
 
 ### UnusedAssignment
+Variable `rootDirectory` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/core/engine/files/FileDatasets.java`
+#### Snippet
+```java
+	 * The folder where all the diff are located
+	 */
+	protected File rootDirectory = null;
+
+	public FileDatasets(File rootDirectory) {
+```
+
+### UnusedAssignment
+Variable `flocation` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/core/engine/files/FileNavigationExperiment.java`
+#### Snippet
+```java
+public class FileNavigationExperiment extends RevisionNavigationExperiment<IRevision> {
+
+	public File flocation = null;
+
+	public FileNavigationExperiment() {
+```
+
+### UnusedAssignment
 Variable `diffFolder` initializer `null` is redundant
 in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
 #### Snippet
@@ -7599,18 +7599,6 @@ in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
 	protected File diffFolder = null;
 
 	public FileDiff(File diffFolder) {
-```
-
-### UnusedAssignment
-Variable `relatedRevision` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/core/entities/RevisionResult.java`
-#### Snippet
-```java
-public class RevisionResult extends HashMap<String, AnalysisResult> {
-
-	IRevision relatedRevision = null;
-
-	public RevisionResult(IRevision oneRevision) {
 ```
 
 ### UnusedAssignment
@@ -7638,15 +7626,15 @@ public class HunkPair {
 ```
 
 ### UnusedAssignment
-Variable `diffOfFiles` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/core/entities/DiffResult.java`
+Variable `relatedRevision` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/core/entities/RevisionResult.java`
 #### Snippet
 ```java
-	 * Filename
-	 */
-	Map<String, R> diffOfFiles = null;
+public class RevisionResult extends HashMap<String, AnalysisResult> {
 
-	public DiffResult(T analyzed, Map<String, R> diffOfFiles) {
+	IRevision relatedRevision = null;
+
+	public RevisionResult(IRevision oneRevision) {
 ```
 
 ### UnusedAssignment
@@ -7674,6 +7662,18 @@ in `src/main/java/fr/inria/coming/core/extensionpoints/PlugInLoader.java`
 ```
 
 ### UnusedAssignment
+Variable `diffOfFiles` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/core/entities/DiffResult.java`
+#### Snippet
+```java
+	 * Filename
+	 */
+	Map<String, R> diffOfFiles = null;
+
+	public DiffResult(T analyzed, Map<String, R> diffOfFiles) {
+```
+
+### UnusedAssignment
 Variable `par` initializer `null` is redundant
 in `src/main/java/fr/inria/coming/utils/ASTInfoResolver.java`
 #### Snippet
@@ -7683,6 +7683,18 @@ in `src/main/java/fr/inria/coming/utils/ASTInfoResolver.java`
 		CtElement par = null;
 		try {
 			par = element.getParent();
+```
+
+### UnusedAssignment
+Variable `cmd` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+	public boolean createEngine(String[] args) {
+		ComingProperties.reset();
+		CommandLine cmd = null;
+		this.navigatorEngine = null;
+		try {
 ```
 
 ### UnusedAssignment
@@ -7710,15 +7722,15 @@ in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
 ```
 
 ### UnusedAssignment
-Variable `cmd` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
+Variable `cdiff` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
 #### Snippet
 ```java
-	public boolean createEngine(String[] args) {
-		ComingProperties.reset();
-		CommandLine cmd = null;
-		this.navigatorEngine = null;
-		try {
+	Logger log = Logger.getLogger(FineGrainDifftAnalyzer.class.getName());
+
+	protected AstComparator cdiff = null;
+
+	protected GranuralityType granularity;
 ```
 
 ### UnusedAssignment
@@ -7731,18 +7743,6 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainD
 	protected boolean includeComments = false;
 
 	/**
-```
-
-### UnusedAssignment
-Variable `cdiff` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
-#### Snippet
-```java
-	Logger log = Logger.getLogger(FineGrainDifftAnalyzer.class.getName());
-
-	protected AstComparator cdiff = null;
-
-	protected GranuralityType granularity;
 ```
 
 ### UnusedAssignment
@@ -7794,18 +7794,6 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternI
 ```
 
 ### UnusedAssignment
-The value changed at `i_hunk++` is never used
-in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
-#### Snippet
-```java
-
-			File postVersion = new File(pathname + "_t.java");
-			i_hunk++;
-
-			JsonObject file = new JsonObject();
-```
-
-### UnusedAssignment
 Variable `in` initializer `null` is redundant
 in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 #### Snippet
@@ -7830,18 +7818,6 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 ```
 
 ### UnusedAssignment
-Variable `logicalExpressions` initializer `new ArrayList()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
-#### Snippet
-```java
-	public List<CtTypeAccess> typeaccess;
-
-	public List<CtExpression> logicalExpressions = new ArrayList();
-
-	public List<CtExpression> desirableExpressions = new ArrayList();
-```
-
-### UnusedAssignment
 Variable `desirableExpressions` initializer `new ArrayList()` is redundant
 in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
 #### Snippet
@@ -7851,6 +7827,30 @@ in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
 	public List<CtExpression> desirableExpressions = new ArrayList();
 
 	public List<CtBinaryOperator> binoperators = new ArrayList();
+```
+
+### UnusedAssignment
+Variable `key` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
+#### Snippet
+```java
+
+	private Object determineKey(CtElement element) {
+		String key = null;
+		if (element.getPosition() != null && element.getPosition().getFile() != null) {
+			key = element.getPosition().getFile().getName().toString();
+```
+
+### UnusedAssignment
+Variable `logicalExpressions` initializer `new ArrayList()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
+#### Snippet
+```java
+	public List<CtTypeAccess> typeaccess;
+
+	public List<CtExpression> logicalExpressions = new ArrayList();
+
+	public List<CtExpression> desirableExpressions = new ArrayList();
 ```
 
 ### UnusedAssignment
@@ -7866,15 +7866,39 @@ in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
 ```
 
 ### UnusedAssignment
-Variable `key` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
+The value changed at `i_hunk++` is never used
+in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
 #### Snippet
 ```java
 
-	private Object determineKey(CtElement element) {
-		String key = null;
-		if (element.getPosition() != null && element.getPosition().getFile() != null) {
-			key = element.getPosition().getFile().getName().toString();
+			File postVersion = new File(pathname + "_t.java");
+			i_hunk++;
+
+			JsonObject file = new JsonObject();
+```
+
+### UnusedAssignment
+Variable `currentNodeFromAction` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
+#### Snippet
+```java
+        PatternEntity parentEntity = affectedEntity;
+        // Let's get the parent of the affected
+        CtElement currentNodeFromAction = null;
+        boolean matchnewvalue = false;
+
+```
+
+### UnusedAssignment
+Variable `matchnewvalue` initializer `false` is redundant
+in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
+#### Snippet
+```java
+        // Let's get the parent of the affected
+        CtElement currentNodeFromAction = null;
+        boolean matchnewvalue = false;
+
+        // Search the node to select according to the type of operation and the pattern
 ```
 
 ### UnusedAssignment
@@ -7914,6 +7938,18 @@ in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 ```
 
 ### UnusedAssignment
+Variable `filePaths` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
+#### Snippet
+```java
+	public AnalysisResult analyze(IRevision revision, String targetFile) {
+		String path = revision.getFolder();
+		Map<String, File> filePaths = null;
+		if(path!=null) {
+			filePaths = processFilesPair(new File(path),targetFile);
+```
+
+### UnusedAssignment
 Variable `jsonfile` initializer `null` is redundant
 in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 #### Snippet
@@ -7935,42 +7971,6 @@ in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 			jsonfile = genVectorsCSV(option,target,featureMatrix);
 			return null;
 		} else {
-```
-
-### UnusedAssignment
-Variable `filePaths` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
-#### Snippet
-```java
-	public AnalysisResult analyze(IRevision revision, String targetFile) {
-		String path = revision.getFolder();
-		Map<String, File> filePaths = null;
-		if(path!=null) {
-			filePaths = processFilesPair(new File(path),targetFile);
-```
-
-### UnusedAssignment
-Variable `currentNodeFromAction` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
-#### Snippet
-```java
-        PatternEntity parentEntity = affectedEntity;
-        // Let's get the parent of the affected
-        CtElement currentNodeFromAction = null;
-        boolean matchnewvalue = false;
-
-```
-
-### UnusedAssignment
-Variable `matchnewvalue` initializer `false` is redundant
-in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
-#### Snippet
-```java
-        // Let's get the parent of the affected
-        CtElement currentNodeFromAction = null;
-        boolean matchnewvalue = false;
-
-        // Search the node to select according to the type of operation and the pattern
 ```
 
 ### UnusedAssignment
@@ -8178,18 +8178,6 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 ```
 
 ### UnusedAssignment
-Variable `isObject` initializer `false` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-				CtVariable ctVariable = aVariableAccess.getVariable().getDeclaration();
-				boolean isPrimitive = false; 
-				boolean isObject = false;
-				
-				if (ctVariable != null && ctVariable.getReference() != null
-```
-
-### UnusedAssignment
 Variable `m9methodobjective` initializer `false` is redundant
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
@@ -8202,15 +8190,15 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 ```
 
 ### UnusedAssignment
-Variable `condition` initializer `null` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+Variable `isObject` initializer `false` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
-
-		// Two cases: if and conditional
-		CtExpression condition = null;
-		CtConditional parentConditional = element.getParent(CtConditional.class);
-
+				CtVariable ctVariable = aVariableAccess.getVariable().getDeclaration();
+				boolean isPrimitive = false; 
+				boolean isObject = false;
+				
+				if (ctVariable != null && ctVariable.getReference() != null
 ```
 
 ### UnusedAssignment
@@ -8238,15 +8226,15 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 ```
 
 ### UnusedAssignment
-Variable `patchedFile` initializer `null` is redundant
-in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+Variable `condition` initializer `null` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-            String pathName = info[1] + info[2];
-            File buggyFile = null;
-            File patchedFile = null;
-            for (File dataFile : file.listFiles((dir, name) -> !name.startsWith("."))) {
-                if (dataFile.getName().equals("buggy")) {
+
+		// Two cases: if and conditional
+		CtExpression condition = null;
+		CtConditional parentConditional = element.getParent(CtConditional.class);
+
 ```
 
 ### UnusedAssignment
@@ -8261,7 +8249,43 @@ in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
                 medianNumerator = (numerators.get(size / 2 - 1) + numerators.get(size / 2)) / 2;
 ```
 
+### UnusedAssignment
+Variable `patchedFile` initializer `null` is redundant
+in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+#### Snippet
+```java
+            String pathName = info[1] + info[2];
+            File buggyFile = null;
+            File patchedFile = null;
+            for (File dataFile : file.listFiles((dir, name) -> !name.startsWith("."))) {
+                if (dataFile.getName().equals("buggy")) {
+```
+
 ## RuleId[ruleID=IndexOfReplaceableByContains]
+### IndexOfReplaceableByContains
+`conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1` can be replaced with 'conAffected.getType().getQualifiedName().toString().toLowerCase().contains("string")'
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+```
+
+### IndexOfReplaceableByContains
+`certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1` can be replaced with 'certainexpression.getType().getQualifiedName().toString().toLowerCase().contains("string")'
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+```
+
 ### IndexOfReplaceableByContains
 `superType.getQualifiedName().toLowerCase().indexOf("exception") != -1` can be replaced with 'superType.getQualifiedName().toLowerCase().contains("exception")'
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
@@ -8659,27 +8683,27 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyze
 ```
 
 ### IndexOfReplaceableByContains
-`certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1` can be replaced with 'certainexpression.getType().getQualifiedName().toString().toLowerCase().contains("string")'
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+`invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1` can be replaced with 'invocation.getType().getQualifiedName().toString().toLowerCase().contains("string")'
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
 ```
 
 ### IndexOfReplaceableByContains
-`conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1` can be replaced with 'conAffected.getType().getQualifiedName().toString().toLowerCase().contains("string")'
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+`certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1` can be replaced with 'certainexpression.getType().getQualifiedName().toString().toLowerCase().contains("string")'
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
 ```
 
 ### IndexOfReplaceableByContains
@@ -8704,30 +8728,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java
 					ctVariable.getReference().getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
 					ctVariable.getReference().getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
 					ctVariable.getReference().getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-```
-
-### IndexOfReplaceableByContains
-`certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1` can be replaced with 'certainexpression.getType().getQualifiedName().toString().toLowerCase().contains("string")'
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-```
-
-### IndexOfReplaceableByContains
-`invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1` can be replaced with 'invocation.getType().getQualifiedName().toString().toLowerCase().contains("string")'
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
 ```
 
 ### IndexOfReplaceableByContains
@@ -8768,6 +8768,42 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/Detector
 ```
 
 ## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `at != null` is always `true`
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+			ActionType at = ActionType.valueOf(actionProperty);
+
+			if (at != null && (entityTypeProperty != null || entityValueProperty != null)) {
+				ChangePatternSpecification cpattern = new ChangePatternSpecification();
+				PatternEntity affectedEntity = new PatternEntity(entityTypeProperty, entityValueProperty);
+```
+
+### ConstantValue
+Condition `newFilters != null` is always `true`
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+	private void loadFilters() {
+		List<IFilter> newFilters = createFilters();
+		if (newFilters != null && !newFilters.isEmpty()) {
+			if (navigatorEngine.getFilters() == null)
+				navigatorEngine.setFilters(newFilters);
+```
+
+### ConstantValue
+Value `rows` is always 'null'
+in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/HunkDifftAnalyzer.java`
+#### Snippet
+```java
+		List<DiffRow> rows = null;
+
+		return (new DiffResult<IRevision, HunkDiff>(revision, diffOfFiles,rows));
+	}
+
+```
+
 ### ConstantValue
 Condition `nameFromSpecification != null` is always `true`
 in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
@@ -8841,42 +8877,6 @@ in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
 ```
 
 ### ConstantValue
-Value `rows` is always 'null'
-in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/HunkDifftAnalyzer.java`
-#### Snippet
-```java
-		List<DiffRow> rows = null;
-
-		return (new DiffResult<IRevision, HunkDiff>(revision, diffOfFiles,rows));
-	}
-
-```
-
-### ConstantValue
-Condition `newFilters != null` is always `true`
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-	private void loadFilters() {
-		List<IFilter> newFilters = createFilters();
-		if (newFilters != null && !newFilters.isEmpty()) {
-			if (navigatorEngine.getFilters() == null)
-				navigatorEngine.setFilters(newFilters);
-```
-
-### ConstantValue
-Condition `at != null` is always `true`
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-			ActionType at = ActionType.valueOf(actionProperty);
-
-			if (at != null && (entityTypeProperty != null || entityValueProperty != null)) {
-				ChangePatternSpecification cpattern = new ChangePatternSpecification();
-				PatternEntity affectedEntity = new PatternEntity(entityTypeProperty, entityValueProperty);
-```
-
-### ConstantValue
 Condition `!(e instanceof RuntimeException)` is always `false`
 in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternInstancesFromDiff.java`
 #### Snippet
@@ -8913,18 +8913,6 @@ in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
 ```
 
 ### ConstantValue
-Condition `resultFromDiffAnalysis == null` is always `false`
-in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
-#### Snippet
-```java
-		}
-
-		if (resultFromDiffAnalysis == null) {
-			System.err.println("Error Diff must be executed before");
-			throw new IllegalArgumentException("Error: missing diff");
-```
-
-### ConstantValue
 Condition `typeOfNode != null` is always `true` when reached
 in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
 #### Snippet
@@ -8946,6 +8934,18 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/Detector
                             ("*".equals(parentEntity.getRoleInParent()) || (roleInParent != null
                                     && roleInParent.equals(parentEntity.getRoleInParent().toLowerCase())))) {
                 MatchingEntity match = new MatchingEntity(currentNodeFromAction, parentEntity);
+```
+
+### ConstantValue
+Condition `resultFromDiffAnalysis == null` is always `false`
+in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
+#### Snippet
+```java
+		}
+
+		if (resultFromDiffAnalysis == null) {
+			System.err.println("Error Diff must be executed before");
+			throw new IllegalArgumentException("Error: missing diff");
 ```
 
 ### ConstantValue
@@ -9145,18 +9145,6 @@ in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `FileUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/coming/core/engine/files/FileUtil.java`
-#### Snippet
-```java
- *
- */
-public class FileUtil {
-
-	public static String extractFileName(String completeFileName) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/Main.java`
 #### Snippet
@@ -9169,15 +9157,15 @@ public class Main {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ComingProperties` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/coming/main/ComingProperties.java`
+Class `FileUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/coming/core/engine/files/FileUtil.java`
 #### Snippet
 ```java
  *
  */
-public class ComingProperties {
+public class FileUtil {
 
-	public static Properties properties;
+	public static String extractFileName(String completeFileName) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9193,15 +9181,15 @@ public class PlugInLoader {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StringDistance` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/coming/utils/StringDistance.java`
+Class `ComingProperties` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/coming/main/ComingProperties.java`
 #### Snippet
 ```java
  *
  */
-public class StringDistance {
-	public static int calculate(String x, String y) {
-		int[][] dp = new int[x.length() + 1][y.length() + 1];
+public class ComingProperties {
+
+	public static Properties properties;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9217,15 +9205,15 @@ public class ASTInfoResolver {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ConsoleOutput` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/coming/changeminer/util/ConsoleOutput.java`
+Class `StringDistance` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/coming/utils/StringDistance.java`
 #### Snippet
 ```java
  *
  */
-public class ConsoleOutput {
-
-	public static Logger log = Logger.getLogger(ConsoleOutput.class.getName());
+public class StringDistance {
+	public static int calculate(String x, String y) {
+		int[][] dp = new int[x.length() + 1][y.length() + 1];
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9238,6 +9226,18 @@ in `src/main/java/fr/inria/coming/utils/OperationClassifier.java`
 public class OperationClassifier {
 
 	public static MapList<Operation, Operation> getOperationHierarchy(Diff iDiff) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ConsoleOutput` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/coming/changeminer/util/ConsoleOutput.java`
+#### Snippet
+```java
+ *
+ */
+public class ConsoleOutput {
+
+	public static Logger log = Logger.getLogger(ConsoleOutput.class.getName());
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9339,14 +9339,14 @@ in `src/main/java/fr/inria/prophet4j/feature/original/OriginalFeatureCross.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Dereference of `rootDirectory.listFiles()` may produce `NullPointerException`
-in `src/main/java/fr/inria/coming/core/engine/files/FileDatasets.java`
+Array access `rootDirectory.listFiles()[currentFile]` may produce `NullPointerException`
+in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
 #### Snippet
 ```java
-	public int size() {
 
-		return this.rootDirectory != null ? rootDirectory.listFiles().length : 0;
-	}
+		if (currentFile < totalNumberFiles) {
+			File diffName = rootDirectory.listFiles()[currentFile];
+			currentFile++;
 
 ```
 
@@ -9363,14 +9363,14 @@ in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
 ```
 
 ### DataFlowIssue
-Array access `rootDirectory.listFiles()[currentFile]` may produce `NullPointerException`
-in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
+Dereference of `rootDirectory.listFiles()` may produce `NullPointerException`
+in `src/main/java/fr/inria/coming/core/engine/files/FileDatasets.java`
 #### Snippet
 ```java
+	public int size() {
 
-		if (currentFile < totalNumberFiles) {
-			File diffName = rootDirectory.listFiles()[currentFile];
-			currentFile++;
+		return this.rootDirectory != null ? rootDirectory.listFiles().length : 0;
+	}
 
 ```
 
@@ -9435,6 +9435,18 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainD
 ```
 
 ### DataFlowIssue
+Dereference of `pairFolder.listFiles()` may produce `NullPointerException`
+in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
+#### Snippet
+```java
+		Map<String, File> pathmap = new HashMap<String, File>();
+
+		for (File fileModif : pairFolder.listFiles()) {
+			if (!fileModif.getName().contains(".DS")) {
+				String pathname = fileModif.getAbsolutePath() + File.separator + pairFolder.getName() + "_"
+```
+
+### DataFlowIssue
 Method invocation `getParent` may produce `NullPointerException`
 in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
 #### Snippet
@@ -9444,18 +9456,6 @@ in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
 			CtStatement parentLine = affectedCtElement.getParent(FILTER);
 			if (parentLine != null)
 				return parentLine;
-```
-
-### DataFlowIssue
-Dereference of `pairFolder.listFiles()` may produce `NullPointerException`
-in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
-#### Snippet
-```java
-
-		JsonArray filesArray = new JsonArray();
-		for (File fileModif : pairFolder.listFiles()) {
-			int i_hunk = 0;
-
 ```
 
 ### DataFlowIssue
@@ -9472,26 +9472,14 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java
 
 ### DataFlowIssue
 Dereference of `pairFolder.listFiles()` may produce `NullPointerException`
-in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
+in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
 #### Snippet
 ```java
-		Map<String, File> pathmap = new HashMap<String, File>();
 
+		JsonArray filesArray = new JsonArray();
 		for (File fileModif : pairFolder.listFiles()) {
-			if (!fileModif.getName().contains(".DS")) {
-				String pathname = fileModif.getAbsolutePath() + File.separator + pairFolder.getName() + "_"
-```
+			int i_hunk = 0;
 
-### DataFlowIssue
-Dereference of `pairFolder.listFiles()` may produce `NullPointerException`
-in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
-#### Snippet
-```java
-		Map<String, File> pathmap = new HashMap();
-
-		for (File fileModif : pairFolder.listFiles()) {
-
-			if (".DS_Store".equals(fileModif.getName()))
 ```
 
 ### DataFlowIssue
@@ -9504,6 +9492,18 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/Detector
             matchnewvalue = false;
         } else {
             matchnewvalue = true;
+```
+
+### DataFlowIssue
+Dereference of `pairFolder.listFiles()` may produce `NullPointerException`
+in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
+#### Snippet
+```java
+		Map<String, File> pathmap = new HashMap();
+
+		for (File fileModif : pairFolder.listFiles()) {
+
+			if (".DS_Store".equals(fileModif.getName()))
 ```
 
 ### DataFlowIssue
@@ -9567,6 +9567,18 @@ in `src/main/java/fr/inria/coming/repairability/models/ASTData.java`
 ```
 
 ### DataFlowIssue
+Argument `newElement` might be null
+in `src/main/java/fr/inria/coming/repairability/repairtools/JGenProg.java`
+#### Snippet
+```java
+        }
+
+        return doesElementOccursInSrcNode(srcNode, newElement);
+    }
+
+```
+
+### DataFlowIssue
 Method invocation `available` may produce `NullPointerException`
 in `src/main/java/fr/inria/coming/repairability/repairtools/AbstractRepairTool.java`
 #### Snippet
@@ -9612,18 +9624,6 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/NPEfix.java`
 			List<CtElement> thenElems = thenOp.getSrcNode().getElements(null);
 
 			CtStatement thenStatement = null;
-```
-
-### DataFlowIssue
-Argument `newElement` might be null
-in `src/main/java/fr/inria/coming/repairability/repairtools/JGenProg.java`
-#### Snippet
-```java
-        }
-
-        return doesElementOccursInSrcNode(srcNode, newElement);
-    }
-
 ```
 
 ### DataFlowIssue
@@ -9684,282 +9684,6 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Nopol.java`
 			CtIf insertedIf = (CtIf) insertOp.getSrcNode();
 			
 			if (insertedIf.getElseStatement() != null)
-```
-
-### DataFlowIssue
-Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-        Map<String, Map<File, List<File>>> catalogs = new HashMap<>();
-        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
-        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                String pathName = typeFile.getName() + "/" + numFile.getName();
-```
-
-### DataFlowIssue
-Dereference of `typeFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
-        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                String pathName = typeFile.getName() + "/" + numFile.getName();
-                if (!catalogs.containsKey(pathName)) {
-```
-
-### DataFlowIssue
-Dereference of `numFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                List<File> buggyFiles = new ArrayList<>();
-                List<File> patchedFiles = new ArrayList<>();
-                for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                    if (dataFile.getName().equals("buggy")) {
-                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-```
-
-### DataFlowIssue
-Argument `dataFile.listFiles((dir, name) -> !name.startsWith("."))` might be null
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                    if (dataFile.getName().equals("buggy")) {
-                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-                    } else if (dataFile.getName().equals("patched")) {
-                        patchedFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-```
-
-### DataFlowIssue
-Argument `dataFile.listFiles((dir, name) -> !name.startsWith("."))` might be null
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-                    } else if (dataFile.getName().equals("patched")) {
-                        patchedFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-                    }
-                }
-```
-
-### DataFlowIssue
-Argument `patchedFile.listFiles(javaFilter)` might be null
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                }
-                for (File patchedFile : patchedFiles) {
-                    values.addAll(Arrays.asList(patchedFile.listFiles(javaFilter)));
-                }
-                for (File key : keys) {
-```
-
-### DataFlowIssue
-Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-        Map<String, Map<File, File>> catalogs = new HashMap<>();
-        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
-        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                String pathName = typeFile.getName() + "/" + numFile.getName();
-```
-
-### DataFlowIssue
-Dereference of `typeFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
-        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                String pathName = typeFile.getName() + "/" + numFile.getName();
-                if (!catalogs.containsKey(pathName)) {
-```
-
-### DataFlowIssue
-Dereference of `numFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                List<File> buggyFiles = new ArrayList<>();
-                List<File> patchedFiles = new ArrayList<>();
-                for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                    if (dataFile.getName().equals("buggy")) {
-                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-```
-
-### DataFlowIssue
-Argument `dataFile.listFiles((dir, name) -> !name.startsWith("."))` might be null
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                    if (dataFile.getName().equals("buggy")) {
-                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-                    } else if (dataFile.getName().equals("patched")) {
-                        patchedFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-```
-
-### DataFlowIssue
-Argument `dataFile.listFiles((dir, name) -> !name.startsWith("."))` might be null
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-                    } else if (dataFile.getName().equals("patched")) {
-                        patchedFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
-                    }
-                }
-```
-
-### DataFlowIssue
-Argument `patchedFile.listFiles(javaFilter)` might be null
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                }
-                for (File patchedFile : patchedFiles) {
-                    values.addAll(Arrays.asList(patchedFile.listFiles(javaFilter)));
-                }
-                for (File key : keys) {
-```
-
-### DataFlowIssue
-Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-        Map<String, Map<File, File>> catalogs = new HashMap<>();
-        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
-        for (File eachFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            File humanFile = null;
-            try {
-```
-
-### DataFlowIssue
-Dereference of `humanFiles` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-            try {
-                File[] humanFiles = new File(eachFile.getPath() + "/human").listFiles(javaFilter);
-                if (humanFiles.length == 1) {
-                    humanFile = humanFiles[0];
-                } else {
-```
-
-### DataFlowIssue
-Dereference of `eachFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-            String humanFileName = humanFile.getName();
-            FilenameFilter nameFilter = (dir, name) -> name.equals(humanFileName);
-            label: for (File typeFile : eachFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                if (typeFile.getName().equals("human")) {
-                    continue;
-```
-
-### DataFlowIssue
-Dereference of `typeFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                    continue;
-                }
-                for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                    if (buggyFile == null) {
-                        File[] keyFiles = new File(numFile.getPath() + "/buggy").listFiles(nameFilter);
-```
-
-### DataFlowIssue
-Dereference of `keyFiles` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                    if (buggyFile == null) {
-                        File[] keyFiles = new File(numFile.getPath() + "/buggy").listFiles(nameFilter);
-                        if (keyFiles.length == 1) {
-                            buggyFile = keyFiles[0];
-                            break label;
-```
-
-### DataFlowIssue
-Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-        Map<String, Map<File, File>> catalogs = new HashMap<>();
-        System.out.println(dataPath);
-        for (File file : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            // patchInfo
-            String pathName = file.getName();
-```
-
-### DataFlowIssue
-Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-    static Map<String, Map<File, File>> loadSANERWithoutPatches(String dataPath) throws NullPointerException {
-        Map<String, Map<File, File>> catalogs = new HashMap<>();
-        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            File[] targetDirs = typeFile.listFiles((dir, name) -> name.equals("modifiedFiles"));
-            if (targetDirs != null && targetDirs.length > 0) {
-```
-
-### DataFlowIssue
-Dereference of `targetDirs[0].listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-            File[] targetDirs = typeFile.listFiles((dir, name) -> name.equals("modifiedFiles"));
-            if (targetDirs != null && targetDirs.length > 0) {
-                for (File numFile : targetDirs[0].listFiles((dir, name) -> !name.startsWith("."))) {
-                    String pathName = typeFile.getName() + numFile.getName();
-                    if (!catalogs.containsKey(pathName)) {
-```
-
-### DataFlowIssue
-Dereference of `numFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                    List<File> oldFiles = new ArrayList<>();
-                    List<File> fixFiles = new ArrayList<>();
-                    for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                        if (dataFile.getName().equals("old")) {
-                            oldFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
-```
-
-### DataFlowIssue
-Argument `dataFile.listFiles((dir, name) -> name.endsWith(".java"))` might be null
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                    for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
-                        if (dataFile.getName().equals("old")) {
-                            oldFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
-                        } else if (dataFile.getName().equals("fix")) {
-                            fixFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
-```
-
-### DataFlowIssue
-Argument `dataFile.listFiles((dir, name) -> name.endsWith(".java"))` might be null
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
-#### Snippet
-```java
-                            oldFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
-                        } else if (dataFile.getName().equals("fix")) {
-                            fixFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
-                        }
-                    }
 ```
 
 ### DataFlowIssue
@@ -10035,6 +9759,282 @@ in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
 ```
 
 ### DataFlowIssue
+Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+        Map<String, Map<File, List<File>>> catalogs = new HashMap<>();
+        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
+        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                String pathName = typeFile.getName() + "/" + numFile.getName();
+```
+
+### DataFlowIssue
+Dereference of `typeFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
+        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                String pathName = typeFile.getName() + "/" + numFile.getName();
+                if (!catalogs.containsKey(pathName)) {
+```
+
+### DataFlowIssue
+Dereference of `numFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                List<File> buggyFiles = new ArrayList<>();
+                List<File> patchedFiles = new ArrayList<>();
+                for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                    if (dataFile.getName().equals("buggy")) {
+                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+```
+
+### DataFlowIssue
+Argument `dataFile.listFiles((dir, name) -> !name.startsWith("."))` might be null
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                    if (dataFile.getName().equals("buggy")) {
+                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+                    } else if (dataFile.getName().equals("patched")) {
+                        patchedFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+```
+
+### DataFlowIssue
+Argument `dataFile.listFiles((dir, name) -> !name.startsWith("."))` might be null
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+                    } else if (dataFile.getName().equals("patched")) {
+                        patchedFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+                    }
+                }
+```
+
+### DataFlowIssue
+Argument `patchedFile.listFiles(javaFilter)` might be null
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                }
+                for (File patchedFile : patchedFiles) {
+                    values.addAll(Arrays.asList(patchedFile.listFiles(javaFilter)));
+                }
+                for (File key : keys) {
+```
+
+### DataFlowIssue
+Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+    static Map<String, Map<File, File>> loadSANERWithoutPatches(String dataPath) throws NullPointerException {
+        Map<String, Map<File, File>> catalogs = new HashMap<>();
+        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            File[] targetDirs = typeFile.listFiles((dir, name) -> name.equals("modifiedFiles"));
+            if (targetDirs != null && targetDirs.length > 0) {
+```
+
+### DataFlowIssue
+Dereference of `targetDirs[0].listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+            File[] targetDirs = typeFile.listFiles((dir, name) -> name.equals("modifiedFiles"));
+            if (targetDirs != null && targetDirs.length > 0) {
+                for (File numFile : targetDirs[0].listFiles((dir, name) -> !name.startsWith("."))) {
+                    String pathName = typeFile.getName() + numFile.getName();
+                    if (!catalogs.containsKey(pathName)) {
+```
+
+### DataFlowIssue
+Dereference of `numFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                    List<File> oldFiles = new ArrayList<>();
+                    List<File> fixFiles = new ArrayList<>();
+                    for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                        if (dataFile.getName().equals("old")) {
+                            oldFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
+```
+
+### DataFlowIssue
+Argument `dataFile.listFiles((dir, name) -> name.endsWith(".java"))` might be null
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                    for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                        if (dataFile.getName().equals("old")) {
+                            oldFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
+                        } else if (dataFile.getName().equals("fix")) {
+                            fixFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
+```
+
+### DataFlowIssue
+Argument `dataFile.listFiles((dir, name) -> name.endsWith(".java"))` might be null
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                            oldFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
+                        } else if (dataFile.getName().equals("fix")) {
+                            fixFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java"))));
+                        }
+                    }
+```
+
+### DataFlowIssue
+Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+        Map<String, Map<File, File>> catalogs = new HashMap<>();
+        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
+        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                String pathName = typeFile.getName() + "/" + numFile.getName();
+```
+
+### DataFlowIssue
+Dereference of `typeFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
+        for (File typeFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                String pathName = typeFile.getName() + "/" + numFile.getName();
+                if (!catalogs.containsKey(pathName)) {
+```
+
+### DataFlowIssue
+Dereference of `numFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                List<File> buggyFiles = new ArrayList<>();
+                List<File> patchedFiles = new ArrayList<>();
+                for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                    if (dataFile.getName().equals("buggy")) {
+                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+```
+
+### DataFlowIssue
+Argument `dataFile.listFiles((dir, name) -> !name.startsWith("."))` might be null
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                for (File dataFile : numFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                    if (dataFile.getName().equals("buggy")) {
+                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+                    } else if (dataFile.getName().equals("patched")) {
+                        patchedFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+```
+
+### DataFlowIssue
+Argument `dataFile.listFiles((dir, name) -> !name.startsWith("."))` might be null
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                        buggyFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+                    } else if (dataFile.getName().equals("patched")) {
+                        patchedFiles.addAll(Arrays.asList(dataFile.listFiles((dir, name) -> !name.startsWith("."))));
+                    }
+                }
+```
+
+### DataFlowIssue
+Argument `patchedFile.listFiles(javaFilter)` might be null
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                }
+                for (File patchedFile : patchedFiles) {
+                    values.addAll(Arrays.asList(patchedFile.listFiles(javaFilter)));
+                }
+                for (File key : keys) {
+```
+
+### DataFlowIssue
+Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+        Map<String, Map<File, File>> catalogs = new HashMap<>();
+        System.out.println(dataPath);
+        for (File file : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            // patchInfo
+            String pathName = file.getName();
+```
+
+### DataFlowIssue
+Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+        Map<String, Map<File, File>> catalogs = new HashMap<>();
+        FilenameFilter javaFilter = (dir, name) -> name.endsWith(".java");
+        for (File eachFile : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            File humanFile = null;
+            try {
+```
+
+### DataFlowIssue
+Dereference of `humanFiles` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+            try {
+                File[] humanFiles = new File(eachFile.getPath() + "/human").listFiles(javaFilter);
+                if (humanFiles.length == 1) {
+                    humanFile = humanFiles[0];
+                } else {
+```
+
+### DataFlowIssue
+Dereference of `eachFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+            String humanFileName = humanFile.getName();
+            FilenameFilter nameFilter = (dir, name) -> name.equals(humanFileName);
+            label: for (File typeFile : eachFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                if (typeFile.getName().equals("human")) {
+                    continue;
+```
+
+### DataFlowIssue
+Dereference of `typeFile.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                    continue;
+                }
+                for (File numFile : typeFile.listFiles((dir, name) -> !name.startsWith("."))) {
+                    if (buggyFile == null) {
+                        File[] keyFiles = new File(numFile.getPath() + "/buggy").listFiles(nameFilter);
+```
+
+### DataFlowIssue
+Dereference of `keyFiles` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+#### Snippet
+```java
+                    if (buggyFile == null) {
+                        File[] keyFiles = new File(numFile.getPath() + "/buggy").listFiles(nameFilter);
+                        if (keyFiles.length == 1) {
+                            buggyFile = keyFiles[0];
+                            break label;
+```
+
+### DataFlowIssue
 Method invocation `getReturnedExpression` may produce `NullPointerException`
 in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 #### Snippet
@@ -10044,18 +10044,6 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 			dstMappedExpression = ((CtReturn) dstMappedElement).getReturnedExpression();
 		} else if (entityType.equals(CtEntityType.ABSTRACT_INVOCATION)) {
 			dstMappedExpression = dstMappedElement;
-```
-
-### DataFlowIssue
-Method invocation `getMetadata` may produce `NullPointerException`
-in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
-#### Snippet
-```java
-			res.add(dstParentNode);
-
-			ITree dstParentTree = (ITree) dstParentNode.getMetadata("gtnode");
-
-			MappingStore mapping = diff.getMappingsComp();
 ```
 
 ### DataFlowIssue
@@ -10083,15 +10071,15 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+Method invocation `getMetadata` may produce `NullPointerException`
+in `src/main/java/fr/inria/coming/repairability/repairtools/Elixir.java`
 #### Snippet
 ```java
-				
-				if(isPrimitive)
-					isObject=false;
-				else isObject=true;
-				
+			res.add(dstParentNode);
+
+			ITree dstParentTree = (ITree) dstParentNode.getMetadata("gtnode");
+
+			MappingStore mapping = diff.getMappingsComp();
 ```
 
 ### DataFlowIssue
@@ -10108,26 +10096,14 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
-
-		boolean[] expressionfeaturesdefault = new boolean[2];
-		expressionfeaturesdefault[0] = false;
-		expressionfeaturesdefault[1] = false;
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-		boolean[] expressionfeaturesdefault = new boolean[2];
-		expressionfeaturesdefault[0] = false;
-		expressionfeaturesdefault[1] = false;
-
-		return expressionfeaturesdefault;
+				
+				if(isPrimitive)
+					isObject=false;
+				else isObject=true;
+				
 ```
 
 ### DataFlowIssue
@@ -10167,6 +10143,30 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		boolean[] expressionfeaturesdefault = new boolean[2];
+		expressionfeaturesdefault[0] = false;
+		expressionfeaturesdefault[1] = false;
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+		boolean[] expressionfeaturesdefault = new boolean[2];
+		expressionfeaturesdefault[0] = false;
+		expressionfeaturesdefault[1] = false;
+
+		return expressionfeaturesdefault;
+```
+
+### DataFlowIssue
 Method invocation `getPath` may produce `NullPointerException`
 in `src/main/java/fr/inria/prophet4j/utility/Support.java`
 #### Snippet
@@ -10176,6 +10176,54 @@ public class Support {
     public static final String PROPHET4J_DIR = Support.class.getClassLoader().getResource("").getPath() + "prophet4j/";
 
     public enum DirType {
+```
+
+### DataFlowIssue
+Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+#### Snippet
+```java
+    public Map<String, Map<File, File>> loadDFiles(String dataPath) throws NullPointerException {
+        Map<String, Map<File, File>> catalogs = new HashMap<>();
+        for (File file : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            String[] info = file.getName().split("-");
+            // typeInfo + numInfo
+```
+
+### DataFlowIssue
+Dereference of `file.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
+in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+#### Snippet
+```java
+            File buggyFile = null;
+            File patchedFile = null;
+            for (File dataFile : file.listFiles((dir, name) -> !name.startsWith("."))) {
+                if (dataFile.getName().equals("buggy")) {
+                    List<File> childFiles = Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java")));
+```
+
+### DataFlowIssue
+Argument `dataFile.listFiles((dir, name) -> name.endsWith(".java"))` might be null
+in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+#### Snippet
+```java
+            for (File dataFile : file.listFiles((dir, name) -> !name.startsWith("."))) {
+                if (dataFile.getName().equals("buggy")) {
+                    List<File> childFiles = Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java")));
+                    assert childFiles.size() == 1;
+                    buggyFile = childFiles.get(0);
+```
+
+### DataFlowIssue
+Argument `dataFile.listFiles((dir, name) -> name.endsWith(".java"))` might be null
+in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
+#### Snippet
+```java
+                    buggyFile = childFiles.get(0);
+                } else if (dataFile.getName().equals("patched")) {
+                    List<File> childFiles = Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java")));
+                    assert childFiles.size() == 1;
+                    patchedFile = childFiles.get(0);
 ```
 
 ### DataFlowIssue
@@ -10236,54 +10284,6 @@ in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
         for (File file : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
             // patchInfo
             String pathName = file.getName();
-```
-
-### DataFlowIssue
-Dereference of `new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
-#### Snippet
-```java
-    public Map<String, Map<File, File>> loadDFiles(String dataPath) throws NullPointerException {
-        Map<String, Map<File, File>> catalogs = new HashMap<>();
-        for (File file : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            String[] info = file.getName().split("-");
-            // typeInfo + numInfo
-```
-
-### DataFlowIssue
-Dereference of `file.listFiles((dir, name) -> !name.startsWith("."))` may produce `NullPointerException`
-in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
-#### Snippet
-```java
-            File buggyFile = null;
-            File patchedFile = null;
-            for (File dataFile : file.listFiles((dir, name) -> !name.startsWith("."))) {
-                if (dataFile.getName().equals("buggy")) {
-                    List<File> childFiles = Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java")));
-```
-
-### DataFlowIssue
-Argument `dataFile.listFiles((dir, name) -> name.endsWith(".java"))` might be null
-in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
-#### Snippet
-```java
-            for (File dataFile : file.listFiles((dir, name) -> !name.startsWith("."))) {
-                if (dataFile.getName().equals("buggy")) {
-                    List<File> childFiles = Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java")));
-                    assert childFiles.size() == 1;
-                    buggyFile = childFiles.get(0);
-```
-
-### DataFlowIssue
-Argument `dataFile.listFiles((dir, name) -> name.endsWith(".java"))` might be null
-in `src/main/java/fr/inria/prophet4j/learner/RepairEvaluator.java`
-#### Snippet
-```java
-                    buggyFile = childFiles.get(0);
-                } else if (dataFile.getName().equals("patched")) {
-                    List<File> childFiles = Arrays.asList(dataFile.listFiles((dir, name) -> name.endsWith(".java")));
-                    assert childFiles.size() == 1;
-                    patchedFile = childFiles.get(0);
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -10494,6 +10494,306 @@ in `src/main/java/fr/inria/coming/repairability/models/ASTData.java`
 			return method.getDeclaringType().getQualifiedName().toString() + NAME_SEPARATOR + method.getSignature();
 		}
 
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+				
+				if (conAffected.getType()!=null && (conAffected.getType().isPrimitive() || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+				if (conAffected.getType()!=null && (conAffected.getType().isPrimitive() || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
+					con4returnprimitive = true;
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+#### Snippet
+```java
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
+					con4returnprimitive = true;
+				}
 ```
 
 ### StringOperationCanBeSimplified
@@ -10797,303 +11097,615 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.j
 ```
 
 ### StringOperationCanBeSimplified
+`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+					varname=varname.replaceAll("[^a-zA-Z0-9]", "");
+					if(varname.length()>3) {
+						if(methodname.toLowerCase().endsWith(varname.toLowerCase()) || methodname.toLowerCase().equals("length") ||
+								methodname.toLowerCase().contains("version") || methodname.toLowerCase().contains("clone")) {
+							M12hasvarsimiplarinname = true;
+```
+
+### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 				
-				if (conAffected.getType()!=null && (conAffected.getType().isPrimitive() || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+				if ((invocation.getType()!=null && (invocation.getType().isPrimitive() || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-				if (conAffected.getType()!=null && (conAffected.getType().isPrimitive() || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+				if ((invocation.getType()!=null && (invocation.getType().isPrimitive() || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.nio.")||
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.nio.")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.io."))) || 
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
-					con4returnprimitive = true;
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.nio.")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.io."))) || 
+						whetherhasprimitive(inferPotentionalTypes(invocation, parentClass))) {
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
-						conAffected.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
-					con4returnprimitive = true;
-				}
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.nio.")||
+						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.io."))) || 
+						whetherhasprimitive(inferPotentionalTypes(invocation, parentClass))) {
+					
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+					
+					if (certainexpression.getType()!=null && (certainexpression.getType().isPrimitive() || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+					if (certainexpression.getType()!=null && (certainexpression.getType().isPrimitive() || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
+						
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
+							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
+						
+						M13ArgumentHasPrimitive = true;
 ```
 
 ### StringOperationCanBeSimplified
@@ -11420,618 +12032,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java
 					} 
 ```
 
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-					
-					if (certainexpression.getType()!=null && (certainexpression.getType().isPrimitive() || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-					if (certainexpression.getType()!=null && (certainexpression.getType().isPrimitive() || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1 ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
-						
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.util.") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.nio.") ||
-							certainexpression.getType().getQualifiedName().toString().toLowerCase().startsWith("java.io."))) {
-						
-						M13ArgumentHasPrimitive = true;
-```
-
-### StringOperationCanBeSimplified
-`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-					varname=varname.replaceAll("[^a-zA-Z0-9]", "");
-					if(varname.length()>3) {
-						if(methodname.toLowerCase().endsWith(varname.toLowerCase()) || methodname.toLowerCase().equals("length") ||
-								methodname.toLowerCase().contains("version") || methodname.toLowerCase().contains("clone")) {
-							M12hasvarsimiplarinname = true;
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-				
-				if ((invocation.getType()!=null && (invocation.getType().isPrimitive() || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-				if ((invocation.getType()!=null && (invocation.getType().isPrimitive() || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("list") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().indexOf("string")!=-1||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("string[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("long[]") || 
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("boolean[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("double[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("byte[]")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("short[]")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("float[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("chart[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.nio.")||
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("character[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.nio.")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.io."))) || 
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("integer[]") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.nio.")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.io."))) || 
-						whetherhasprimitive(inferPotentionalTypes(invocation, parentClass))) {
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.util.") ||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.nio.")||
-						invocation.getType().getQualifiedName().toString().toLowerCase().endsWith("java.io."))) || 
-						whetherhasprimitive(inferPotentionalTypes(invocation, parentClass))) {
-					
-```
-
 ## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
@@ -12111,11 +12111,23 @@ Unnecessary `Integer.toString()` call
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
 #### Snippet
 ```java
-				whethercontainnull = true;
+	        }
 			
-			writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O3_CONTAIN_NULL, 
-					whethercontainnull, "FEATURES_BINARYOPERATOR");
-			
+	        writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O4_COMPARE_IN_CONDITION, 
+					whethercompareincondition, "FEATURES_BINARYOPERATOR");
+		}	
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
+#### Snippet
+```java
+		}
+		
+		writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O2_LOGICAL_CONTAIN_NOT, 
+				whethercontainnotoperator, "FEATURES_BINARYOPERATOR");
+		
 ```
 
 ### UnnecessaryCallToStringValueOf
@@ -12128,6 +12140,18 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyze
 			writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O3_CONTAIN_01, 
 					whethercontain01, "FEATURES_BINARYOPERATOR");
 		}
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
+#### Snippet
+```java
+		}
+		
+		writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O5_IS_MATH_ROOT, 
+				whethermathroot, "FEATURES_BINARYOPERATOR");	
+	}
 ```
 
 ### UnnecessaryCallToStringValueOf
@@ -12159,35 +12183,11 @@ Unnecessary `Integer.toString()` call
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
 #### Snippet
 ```java
-	        }
+				whethercontainnull = true;
 			
-	        writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O4_COMPARE_IN_CONDITION, 
-					whethercompareincondition, "FEATURES_BINARYOPERATOR");
-		}	
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
-#### Snippet
-```java
-		}
-		
-		writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O2_LOGICAL_CONTAIN_NOT, 
-				whethercontainnotoperator, "FEATURES_BINARYOPERATOR");
-		
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
-#### Snippet
-```java
-		}
-		
-		writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O5_IS_MATH_ROOT, 
-				whethermathroot, "FEATURES_BINARYOPERATOR");	
-	}
+			writeGroupedInfo(context, Integer.toString(operatorindex)+"_"+operatorunderstudy, CodeFeatures.O3_CONTAIN_NULL, 
+					whethercontainnull, "FEATURES_BINARYOPERATOR");
+			
 ```
 
 ### UnnecessaryCallToStringValueOf
@@ -12375,66 +12375,6 @@ Unnecessary `Integer.toString()` call
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-				}
-
-				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
-						CodeFeatures.LE2_IS_BOOLEAN_METHOD_PARAM_TYPE_VAR,
-						hasAnyLES2paramCompatibleWithBooleanReturn, "FEATURES_LOGICAL_EXPRESSION");
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
-				}
-				
-				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
-						CodeFeatures.LE7_SIMPLE_VAR_OR_METHOD_IN_LOGIC,
-						(containsAnd || containsOr) && (hasVarDirectlyUsed || hasMethodDirectlyUsed), "FEATURES_LOGICAL_EXPRESSION");
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
-				}
-				
-				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
-						CodeFeatures.LE1_EXISTS_RELATED_BOOLEAN_EXPRESSION,
-						(similarUsedBefore) > 0, "FEATURES_LOGICAL_EXPRESSION");
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
-						(similarUsedBefore) > 0, "FEATURES_LOGICAL_EXPRESSION");
-				
-				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
-						CodeFeatures.LE8_SCOPE_VAR_USED_OTHER_BOOLEXPER,
-						(otherVarUsedinBool) > 0, "FEATURES_LOGICAL_EXPRESSION");
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
-				}
-				
-				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression,  
-						CodeFeatures.LE4_EXISTS_LOCAL_UNUSED_VARIABLES,
-						hasBooleanVarNotPresent, "FEATURES_LOGICAL_EXPRESSION");
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
-#### Snippet
-```java
 			}
 			
 			writeGroupedInfo(context, "logical_expression_"+Integer.toString(logicalindex)+"_"+logicalexpression,  
@@ -12557,9 +12497,57 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnal
 ```java
 				}
 				
+				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression,  
+						CodeFeatures.LE4_EXISTS_LOCAL_UNUSED_VARIABLES,
+						hasBooleanVarNotPresent, "FEATURES_LOGICAL_EXPRESSION");
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+#### Snippet
+```java
+				}
+
 				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
-						CodeFeatures.LE3_IS_COMPATIBLE_VAR_NOT_INCLUDED,
-						hasCompatibleVarNoPresent, "FEATURES_LOGICAL_EXPRESSION");
+						CodeFeatures.LE2_IS_BOOLEAN_METHOD_PARAM_TYPE_VAR,
+						hasAnyLES2paramCompatibleWithBooleanReturn, "FEATURES_LOGICAL_EXPRESSION");
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+#### Snippet
+```java
+				}
+				
+				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
+						CodeFeatures.LE1_EXISTS_RELATED_BOOLEAN_EXPRESSION,
+						(similarUsedBefore) > 0, "FEATURES_LOGICAL_EXPRESSION");
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+#### Snippet
+```java
+						(similarUsedBefore) > 0, "FEATURES_LOGICAL_EXPRESSION");
+				
+				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
+						CodeFeatures.LE8_SCOPE_VAR_USED_OTHER_BOOLEXPER,
+						(otherVarUsedinBool) > 0, "FEATURES_LOGICAL_EXPRESSION");
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+#### Snippet
+```java
+				}
+				
+				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
+						CodeFeatures.LE7_SIMPLE_VAR_OR_METHOD_IN_LOGIC,
+						(containsAnd || containsOr) && (hasVarDirectlyUsed || hasMethodDirectlyUsed), "FEATURES_LOGICAL_EXPRESSION");
 ```
 
 ### UnnecessaryCallToStringValueOf
@@ -12584,6 +12572,18 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnal
 				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression,  
 						CodeFeatures.LE5_COMPLEX_REFERENCE,
 						whethercomplexreference, "FEATURES_LOGICAL_EXPRESSION");
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+#### Snippet
+```java
+				}
+				
+				writeGroupedInfo(context, "logical_expression_"+Integer.toString(indexlogical)+"_"+logicalexpression, 
+						CodeFeatures.LE3_IS_COMPATIBLE_VAR_NOT_INCLUDED,
+						hasCompatibleVarNoPresent, "FEATURES_LOGICAL_EXPRESSION");
 ```
 
 ## RuleId[ruleID=ComparatorCombinators]
@@ -12811,7 +12811,7 @@ in `src/main/java/fr/inria/prophet4j/feature/enhanced/util/EnhancedFeatureVisito
 
 ### SetReplaceableByEnumSet
 `HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
 #### Snippet
 ```java
         if (v == null) {
@@ -12823,7 +12823,7 @@ in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisito
 
 ### SetReplaceableByEnumSet
 `HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
+in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
 #### Snippet
 ```java
 //            }
@@ -12835,7 +12835,7 @@ in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisito
 
 ### SetReplaceableByEnumSet
 `HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
 #### Snippet
 ```java
         if (v == null) {
@@ -12847,7 +12847,7 @@ in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisito
 
 ### SetReplaceableByEnumSet
 `HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/fr/inria/prophet4j/feature/extended/util/ExtendedFeatureVisitor.java`
+in `src/main/java/fr/inria/prophet4j/feature/original/util/OriginalFeatureVisitor.java`
 #### Snippet
 ```java
 //            }
@@ -13017,6 +13017,18 @@ in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
 
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+		String outputs = ComingProperties.getProperty("outputprocessor");
+		if (outputs == null) {
+			if (Boolean.valueOf(System.getProperty("executed_by_travis"))) {
+				navigatorEngine.getOutputProcessors().add(0, new NullOutput());
+				System.out.println("****EXECUTED_BY_TRAVIS****");
+```
+
+### UnnecessaryBoxing
 Redundant boxing, `Integer.parseInt()` call can be used instead
 in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
 #### Snippet
@@ -13041,18 +13053,6 @@ in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
 ```
 
 ### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-		String outputs = ComingProperties.getProperty("outputprocessor");
-		if (outputs == null) {
-			if (Boolean.valueOf(System.getProperty("executed_by_travis"))) {
-				navigatorEngine.getOutputProcessors().add(0, new NullOutput());
-				System.out.println("****EXECUTED_BY_TRAVIS****");
-```
-
-### UnnecessaryBoxing
 Unnecessary boxing
 in `src/main/java/fr/inria/coming/utils/MapCounter.java`
 #### Snippet
@@ -13073,6 +13073,30 @@ in `src/main/java/fr/inria/coming/codefeatures/Cntx.java`
 		I res = information.getOrDefault(key, (I)Boolean.FALSE);
 		return Boolean.valueOf(res.toString());
 	}
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
+#### Snippet
+```java
+					if (particularVar != null) {
+
+						if (Boolean.valueOf(particularVar.getInformation().get("V1_LOCAL_VAR_NOT_USED").toString()))
+							S1_LOCAL_VAR_NOT_USED = true;
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
+#### Snippet
+```java
+							S1_LOCAL_VAR_NOT_USED = true;
+
+						if (Boolean.valueOf(particularVar.getInformation().get("V1_LOCAL_VAR_NOT_ASSIGNED").toString()))
+							S1_LOCAL_VAR_NOT_ASSIGNED = true;
 
 ```
 
@@ -13150,30 +13174,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyze
 
 ### UnnecessaryBoxing
 Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
-#### Snippet
-```java
-					if (particularVar != null) {
-
-						if (Boolean.valueOf(particularVar.getInformation().get("V1_LOCAL_VAR_NOT_USED").toString()))
-							S1_LOCAL_VAR_NOT_USED = true;
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
-#### Snippet
-```java
-							S1_LOCAL_VAR_NOT_USED = true;
-
-						if (Boolean.valueOf(particularVar.getInformation().get("V1_LOCAL_VAR_NOT_ASSIGNED").toString()))
-							S1_LOCAL_VAR_NOT_ASSIGNED = true;
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
@@ -13247,18 +13247,6 @@ in `src/main/java/fr/inria/coming/core/entities/output/StdOutput.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/core/engine/git/RepositoryPGit.java`
-#### Snippet
-```java
-		for (DiffEntry de : lde) {
-			if (de.getScore() >= rd.getRenameScore()) {
-				System.out.println("file: " + de.getOldPath() + " copied/moved to: " + de.getNewPath() + " ");
-			}
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/core/entities/output/JSonChangeFrequencyOutput.java`
 #### Snippet
 ```java
@@ -13294,122 +13282,14 @@ in `src/main/java/fr/inria/coming/main/ComingProperties.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
-#### Snippet
-```java
-			return pattern;
-		} catch (Exception e) {
-			System.err.println("Problems parsing file " + fXmlFile);
-			e.printStackTrace();
-			return null;
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
+in `src/main/java/fr/inria/coming/core/engine/git/RepositoryPGit.java`
 #### Snippet
 ```java
-
-		if (cmd.hasOption("showactions")) {
-			System.out.println("---");
-			System.out.println("Actions available: ");
-			for (ActionType a : ActionType.values()) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-		if (cmd.hasOption("showactions")) {
-			System.out.println("---");
-			System.out.println("Actions available: ");
-			for (ActionType a : ActionType.values()) {
-				System.out.println(a);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-			System.out.println("Actions available: ");
-			for (ActionType a : ActionType.values()) {
-				System.out.println(a);
+		for (DiffEntry de : lde) {
+			if (de.getScore() >= rd.getRenameScore()) {
+				System.out.println("file: " + de.getOldPath() + " copied/moved to: " + de.getNewPath() + " ");
 			}
-			System.out.println("---");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-				System.out.println(a);
-			}
-			System.out.println("---");
-			return false;
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-
-		if (cmd.hasOption("showentities")) {
-			System.out.println("---");
-			System.out.println("Entities Type Available:");
-			System.out.println("---");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-		if (cmd.hasOption("showentities")) {
-			System.out.println("---");
-			System.out.println("Entities Type Available:");
-			System.out.println("---");
-			for (EntityTypeSpoon et : EntityTypeSpoon.values()) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-			System.out.println("---");
-			System.out.println("Entities Type Available:");
-			System.out.println("---");
-			for (EntityTypeSpoon et : EntityTypeSpoon.values()) {
-				System.out.println(et);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-			System.out.println("---");
-			for (EntityTypeSpoon et : EntityTypeSpoon.values()) {
-				System.out.println(et);
-			}
-			System.out.println("---");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
-#### Snippet
-```java
-				System.out.println(et);
-			}
-			System.out.println("---");
-			return false;
 		}
 ```
 
@@ -13451,6 +13331,126 @@ in `src/main/java/fr/inria/coming/main/ComingMain.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+
+		if (cmd.hasOption("showactions")) {
+			System.out.println("---");
+			System.out.println("Actions available: ");
+			for (ActionType a : ActionType.values()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+		if (cmd.hasOption("showactions")) {
+			System.out.println("---");
+			System.out.println("Actions available: ");
+			for (ActionType a : ActionType.values()) {
+				System.out.println(a);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+			System.out.println("Actions available: ");
+			for (ActionType a : ActionType.values()) {
+				System.out.println(a);
+			}
+			System.out.println("---");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+				System.out.println(a);
+			}
+			System.out.println("---");
+			return false;
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+
+		if (cmd.hasOption("showentities")) {
+			System.out.println("---");
+			System.out.println("Entities Type Available:");
+			System.out.println("---");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+		if (cmd.hasOption("showentities")) {
+			System.out.println("---");
+			System.out.println("Entities Type Available:");
+			System.out.println("---");
+			for (EntityTypeSpoon et : EntityTypeSpoon.values()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+			System.out.println("---");
+			System.out.println("Entities Type Available:");
+			System.out.println("---");
+			for (EntityTypeSpoon et : EntityTypeSpoon.values()) {
+				System.out.println(et);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+			System.out.println("---");
+			for (EntityTypeSpoon et : EntityTypeSpoon.values()) {
+				System.out.println(et);
+			}
+			System.out.println("---");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+				System.out.println(et);
+			}
+			System.out.println("---");
+			return false;
+		}
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
+#### Snippet
+```java
+			return pattern;
+		} catch (Exception e) {
+			System.err.println("Problems parsing file " + fXmlFile);
+			e.printStackTrace();
+			return null;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/utils/MapCounter.java`
 #### Snippet
 ```java
@@ -13486,18 +13486,6 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/SpreadPa
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
-#### Snippet
-```java
-
-		if (resultFromDiffAnalysis == null) {
-			System.err.println("Error Diff must be executed before");
-			throw new IllegalArgumentException("Error: missing diff");
-		}
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 #### Snippet
@@ -13511,7 +13499,7 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
 #### Snippet
 ```java
 
@@ -13535,6 +13523,18 @@ in `src/main/java/fr/inria/coming/codefeatures/Cntx.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
+#### Snippet
+```java
+
+		if (resultFromDiffAnalysis == null) {
+			System.err.println("Error Diff must be executed before");
+			throw new IllegalArgumentException("Error: missing diff");
+		}
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
 #### Snippet
 ```java
@@ -13550,9 +13550,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/prophet4j/Demo.java`
 #### Snippet
 ```java
-        FeatureLearner featureLearner = new FeatureLearner(option);
-        featureLearner.run(filePaths);
-        System.out.println("1/1 LEARNED");
+            sample.saveAsJson(option.featureOption);
+        }
+        System.out.println("1/1 EXTRACTED");
     }
 
 ```
@@ -13574,9 +13574,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/prophet4j/Demo.java`
 #### Snippet
 ```java
-            sample.saveAsJson(option.featureOption);
-        }
-        System.out.println("1/1 EXTRACTED");
+        FeatureLearner featureLearner = new FeatureLearner(option);
+        featureLearner.run(filePaths);
+        System.out.println("1/1 LEARNED");
     }
 
 ```
@@ -13727,14 +13727,86 @@ in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
+in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
 #### Snippet
 ```java
-    static Map<String, Map<File, File>> loadCLOSUREWithoutPatches(String dataPath) throws NullPointerException {
-        Map<String, Map<File, File>> catalogs = new HashMap<>();
-        System.out.println(dataPath);
-        for (File file : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
-            // patchInfo
+        // and using commit's tree find the path
+        RevTree tree = commit.getTree();
+        System.out.println("Having tree: " + tree);
+
+        // now try to find a specific file
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
+#### Snippet
+```java
+
+        CommitDiffer commitDiffer = new CommitDiffer();
+        System.out.println("Found: " + diffs.size() + " differences");
+        for (DiffEntry diff : diffs) {
+            if (diff.getChangeType().equals(DiffEntry.ChangeType.MODIFY)) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
+#### Snippet
+```java
+                        commitDiffer.addDiffer(oldCommitName, newCommitName, oldPath, newPath, option);
+                    } else {
+                        System.out.println("oldPath is different from newPath");
+                    }
+                }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
+#### Snippet
+```java
+                .call();
+
+        System.out.println("Found: " + diffs.size() + " differences");
+        for (DiffEntry diff : diffs) {
+            System.out.println("Diff: " + diff.getChangeType() + ": " +
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
+#### Snippet
+```java
+        System.out.println("Found: " + diffs.size() + " differences");
+        for (DiffEntry diff : diffs) {
+            System.out.println("Diff: " + diff.getChangeType() + ": " +
+                    (diff.getOldPath().equals(diff.getNewPath()) ? diff.getNewPath() : diff.getOldPath() + " -> " + diff.getNewPath()));
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
+#### Snippet
+```java
+
+        // Display the diff
+        System.out.println("Showing diff of " + path);
+        DiffFormatter formatter = new DiffFormatter(System.out);
+        formatter.setRepository(repo);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
+#### Snippet
+```java
+        // Display the diff
+        System.out.println("Showing diff of " + path);
+        DiffFormatter formatter = new DiffFormatter(System.out);
+        formatter.setRepository(repo);
+        //noinspection ConstantConditions
 ```
 
 ### SystemOutErr
@@ -13823,86 +13895,14 @@ in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
+in `src/main/java/fr/inria/prophet4j/dataset/DataLoader.java`
 #### Snippet
 ```java
-        // and using commit's tree find the path
-        RevTree tree = commit.getTree();
-        System.out.println("Having tree: " + tree);
-
-        // now try to find a specific file
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
-#### Snippet
-```java
-
-        CommitDiffer commitDiffer = new CommitDiffer();
-        System.out.println("Found: " + diffs.size() + " differences");
-        for (DiffEntry diff : diffs) {
-            if (diff.getChangeType().equals(DiffEntry.ChangeType.MODIFY)) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
-#### Snippet
-```java
-                        commitDiffer.addDiffer(oldCommitName, newCommitName, oldPath, newPath, option);
-                    } else {
-                        System.out.println("oldPath is different from newPath");
-                    }
-                }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
-#### Snippet
-```java
-                .call();
-
-        System.out.println("Found: " + diffs.size() + " differences");
-        for (DiffEntry diff : diffs) {
-            System.out.println("Diff: " + diff.getChangeType() + ": " +
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
-#### Snippet
-```java
-        System.out.println("Found: " + diffs.size() + " differences");
-        for (DiffEntry diff : diffs) {
-            System.out.println("Diff: " + diff.getChangeType() + ": " +
-                    (diff.getOldPath().equals(diff.getNewPath()) ? diff.getNewPath() : diff.getOldPath() + " -> " + diff.getNewPath()));
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
-#### Snippet
-```java
-
-        // Display the diff
-        System.out.println("Showing diff of " + path);
-        DiffFormatter formatter = new DiffFormatter(System.out);
-        formatter.setRepository(repo);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/dataset/PGA.java`
-#### Snippet
-```java
-        // Display the diff
-        System.out.println("Showing diff of " + path);
-        DiffFormatter formatter = new DiffFormatter(System.out);
-        formatter.setRepository(repo);
-        //noinspection ConstantConditions
+    static Map<String, Map<File, File>> loadCLOSUREWithoutPatches(String dataPath) throws NullPointerException {
+        Map<String, Map<File, File>> catalogs = new HashMap<>();
+        System.out.println(dataPath);
+        for (File file : new File(dataPath).listFiles((dir, name) -> !name.startsWith("."))) {
+            // patchInfo
 ```
 
 ### SystemOutErr
@@ -14064,30 +14064,6 @@ in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/LineComparator
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
-#### Snippet
-```java
-	private String getNameFromFile(File fileModif) {
-		String result = getName(fileModif);
-		return result.replace("_s", "").replace("_t", "");
-	}
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
-#### Snippet
-```java
-	private String getNameFromFile(File fileModif) {
-		String result = getName(fileModif);
-		return result.replace("_s", "").replace("_t", "");
-	}
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/SLineComparator.java`
 #### Snippet
@@ -14096,6 +14072,30 @@ in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/SLineComparato
     public SLineComparator(String data)  {
         fLines = data.split("\\r?\\n");
     }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
+#### Snippet
+```java
+	private String getNameFromFile(File fileModif) {
+		String result = getName(fileModif);
+		return result.replace("_s", "").replace("_t", "");
+	}
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
+#### Snippet
+```java
+	private String getNameFromFile(File fileModif) {
+		String result = getName(fileModif);
+		return result.replace("_s", "").replace("_t", "");
+	}
 
 ```
 
@@ -14136,6 +14136,18 @@ in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
+#### Snippet
+```java
+				}
+			}
+			features = features.replace("\"", "");
+
+			// Extract repair pattern features (ADD)
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
 #### Snippet
@@ -14155,6 +14167,30 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java
 			if (opt.toString().contains("Delete BinaryOperator") ) {
 				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
 				String deletedItem = opt.toString().split("\n\t")[1];
+				String sourceline = getSpecificLine(source.getPath(), Integer.parseInt(specificNo) - 1);		
+				String targetline = getSpecificLine(target.getPath(), Integer.parseInt(specificNo) - 1);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+		for (Operation opt : operations) {
+			if (opt.toString().contains("Delete BinaryOperator") ) {
+				String deleted = opt.toString().split(":")[1].split("\n\t")[1];
+				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
+				String sourceline = getSpecificLine(source.getPath(), Integer.parseInt(specificNo) - 1);		
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+			if (opt.toString().contains("Delete BinaryOperator") ) {
+				String deleted = opt.toString().split(":")[1].split("\n\t")[1];
+				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
 				String sourceline = getSpecificLine(source.getPath(), Integer.parseInt(specificNo) - 1);		
 				String targetline = getSpecificLine(target.getPath(), Integer.parseInt(specificNo) - 1);
 ```
@@ -14179,92 +14215,8 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java
 				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
 				String targetline = getSpecificLine(target.getPath(), Integer.parseInt(specificNo) - 1);
 				targetline = targetline.replace(" ", "");
-				if (opt.toString().contains("Insert If")) {
-					if ((targetline).contains("if(false)")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-		for (Operation opt : operations) {
-			if (opt.toString().contains("Insert Literal") ) {
-				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
-				String newLiteral = opt.toString().split(":")[1].split("\n\t")[1];
-				if (!newLiteral.contains("true") && !newLiteral.contains("false")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-			if (opt.toString().contains("Insert Literal") ) {
-				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
-				String newLiteral = opt.toString().split(":")[1].split("\n\t")[1];
-				if (!newLiteral.contains("true") && !newLiteral.contains("false")) {
-					newLiteral = newLiteral.trim().replace("\n", "");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-				String newLiteral = opt.toString().split(":")[1].split("\n\t")[1];
-				if (!newLiteral.contains("true") && !newLiteral.contains("false")) {
-					newLiteral = newLiteral.trim().replace("\n", "");
-					
-					try {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-				} else {
-					String targetline = getSpecificLine(target.getPath(), Integer.parseInt(specificNo) - 1);
-					targetline=targetline.replace(" ", "");
-					if (targetline.contains("==true") && targetline.contains("==false")) {
-						insertBooleanLiteral = 1;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-		for (Operation opt : operations) {
-			if (opt.toString().contains("Delete BinaryOperator") ) {
-				String deleted = opt.toString().split(":")[1].split("\n\t")[1];
-				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
-				String sourceline = getSpecificLine(source.getPath(), Integer.parseInt(specificNo) - 1);		
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-			if (opt.toString().contains("Delete BinaryOperator") ) {
-				String deleted = opt.toString().split(":")[1].split("\n\t")[1];
-				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
-				String sourceline = getSpecificLine(source.getPath(), Integer.parseInt(specificNo) - 1);		
-				String targetline = getSpecificLine(target.getPath(), Integer.parseInt(specificNo) - 1);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
-#### Snippet
-```java
-		for (Operation opt : operations) {
-			if (opt.toString().contains("Insert") ) {
-				String newvar = opt.toString().split(":")[1].split("\n\t")[1];
-				if(newvar.contains("this")) {
-					addThis = 1;
+				if ((targetline).contains("if(true)")) {
+					ifTrue = 1;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -14345,6 +14297,54 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java
 #### Snippet
 ```java
 		for (Operation opt : operations) {
+			if (opt.toString().contains("Insert Literal") ) {
+				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
+				String newLiteral = opt.toString().split(":")[1].split("\n\t")[1];
+				if (!newLiteral.contains("true") && !newLiteral.contains("false")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+			if (opt.toString().contains("Insert Literal") ) {
+				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
+				String newLiteral = opt.toString().split(":")[1].split("\n\t")[1];
+				if (!newLiteral.contains("true") && !newLiteral.contains("false")) {
+					newLiteral = newLiteral.trim().replace("\n", "");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+				String newLiteral = opt.toString().split(":")[1].split("\n\t")[1];
+				if (!newLiteral.contains("true") && !newLiteral.contains("false")) {
+					newLiteral = newLiteral.trim().replace("\n", "");
+					
+					try {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+				} else {
+					String targetline = getSpecificLine(target.getPath(), Integer.parseInt(specificNo) - 1);
+					targetline=targetline.replace(" ", "");
+					if (targetline.contains("==true") && targetline.contains("==false")) {
+						insertBooleanLiteral = 1;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+		for (Operation opt : operations) {
 			if (opt.getAction().getName().contains("INS")) {
 				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
 				String targetline = getSpecificLine(target.getPath(), Integer.parseInt(specificNo) - 1);
@@ -14359,20 +14359,20 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java
 				String specificNo = opt.toString().split(":")[1].split("\n\t")[0];
 				String targetline = getSpecificLine(target.getPath(), Integer.parseInt(specificNo) - 1);
 				targetline = targetline.replace(" ", "");
-				if ((targetline).contains("if(true)")) {
-					ifTrue = 1;
+				if (opt.toString().contains("Insert If")) {
+					if ((targetline).contains("if(false)")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
 #### Snippet
 ```java
-				}
-			}
-			features = features.replace("\"", "");
-
-			// Extract repair pattern features (ADD)
+		for (Operation opt : operations) {
+			if (opt.toString().contains("Insert") ) {
+				String newvar = opt.toString().split(":")[1].split("\n\t")[1];
+				if(newvar.contains("this")) {
+					addThis = 1;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -14464,30 +14464,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyze
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
 #### Snippet
 ```java
-	public void analyzeS3_TypeOfFaulty(CtElement element, Cntx<Object> context) {
-		try {
-			String type = element.getClass().getSimpleName().replaceAll("Ct", "").replaceAll("Impl", "");
-			context.put(CodeFeatures.S3_TYPE_OF_FAULTY_STATEMENT, type);
-		} catch (Throwable e) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
-#### Snippet
-```java
-	public void analyzeS3_TypeOfFaulty(CtElement element, Cntx<Object> context) {
-		try {
-			String type = element.getClass().getSimpleName().replaceAll("Ct", "").replaceAll("Impl", "");
-			context.put(CodeFeatures.S3_TYPE_OF_FAULTY_STATEMENT, type);
-		} catch (Throwable e) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
-#### Snippet
-```java
 			for (int indexbefore = 0; indexbefore < stmtsBefore.size(); indexbefore++) {
 				CtElement beforeelement = stmtsBefore.get(indexbefore);
 				String type = beforeelement.getClass().getSimpleName().replaceAll("Ct", "").replaceAll("Impl", "");
@@ -14532,39 +14508,51 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyze
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
 #### Snippet
 ```java
-                for (File oldFile : catalog.keySet()) {
-                    try {
-                        String tmpFileName = oldFile.getName().replace(".java", ".bin");
-                        String vectorPath = pathName + "/" + tmpFileName;
-                        System.out.println(vectorPath);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
-#### Snippet
-```java
-                for (File oldFile : catalog.keySet()) {
-                    try {
-                        String tmpFileName = oldFile.getName().replace(".java", ".bin");
-                        String vectorPath = pathName + "/" + tmpFileName;
-                        System.out.println(vectorPath);
+	public void analyzeS3_TypeOfFaulty(CtElement element, Cntx<Object> context) {
+		try {
+			String type = element.getClass().getSimpleName().replaceAll("Ct", "").replaceAll("Impl", "");
+			context.put(CodeFeatures.S3_TYPE_OF_FAULTY_STATEMENT, type);
+		} catch (Throwable e) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
 #### Snippet
 ```java
-				boolean V18HasMethodSimilarInName = false;
-				String varname= aVarAffected.getVariable().getSimpleName();
-				varname=varname.replaceAll("[^a-zA-Z0-9]", "");
+	public void analyzeS3_TypeOfFaulty(CtElement element, Cntx<Object> context) {
+		try {
+			String type = element.getClass().getSimpleName().replaceAll("Ct", "").replaceAll("Impl", "");
+			context.put(CodeFeatures.S3_TYPE_OF_FAULTY_STATEMENT, type);
+		} catch (Throwable e) {
+```
 
-				for (CtInvocation invInClass : invocationsFromClass) {
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
+#### Snippet
+```java
+                for (File oldFile : catalog.keySet()) {
+                    try {
+                        String tmpFileName = oldFile.getName().replace(".java", ".bin");
+                        String vectorPath = pathName + "/" + tmpFileName;
+                        System.out.println(vectorPath);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
+#### Snippet
+```java
+                for (File oldFile : catalog.keySet()) {
+                    try {
+                        String tmpFileName = oldFile.getName().replace(".java", ".bin");
+                        String vectorPath = pathName + "/" + tmpFileName;
+                        System.out.println(vectorPath);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -14577,6 +14565,18 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 					varname=varname.replaceAll("[^a-zA-Z0-9]", "");
 					if(varname.length()>3) {
 						if(methodname.toLowerCase().endsWith(varname.toLowerCase()) || methodname.toLowerCase().equals("length") ||
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+				boolean V18HasMethodSimilarInName = false;
+				String varname= aVarAffected.getVariable().getSimpleName();
+				varname=varname.replaceAll("[^a-zA-Z0-9]", "");
+
+				for (CtInvocation invInClass : invocationsFromClass) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -14640,6 +14640,19 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/Detector
             if (paction.getAction().isUnchanged()) {
 ```
 
+## RuleId[ruleID=RegExpSingleCharAlternation]
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/LineComparator.java`
+#### Snippet
+```java
+  @Override
+  public Fragmentable createFragmentable(String data)  {
+		String dataParsed = data.replaceAll(" |\\t|\\{|\\}", "");
+
+		return new SLineComparator(dataParsed);
+```
+
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -14691,6 +14704,42 @@ in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/core/entities/output/JSonChangeFrequencyOutput.java`
+#### Snippet
+```java
+			fw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/core/entities/DiffResult.java`
+#### Snippet
+```java
+//				System.err.println("Error when printing diff result: " + e.getMessage());
+				log.error("Error when printing diff result: " + e.getMessage());
+				e.printStackTrace();
+			}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
+#### Snippet
+```java
+			fw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/core/engine/git/CommitGit.java`
 #### Snippet
 ```java
@@ -14710,18 +14759,6 @@ in `src/main/java/fr/inria/coming/core/engine/git/CommitGit.java`
 
 					e1.printStackTrace();
 				}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/core/engine/git/RepositoryPGit.java`
-#### Snippet
-```java
-		} catch (GitAPIException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 ```
 
@@ -14787,62 +14824,14 @@ in `src/main/java/fr/inria/coming/core/engine/git/RepositoryPGit.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/core/entities/DiffResult.java`
+in `src/main/java/fr/inria/coming/core/engine/git/RepositoryPGit.java`
 #### Snippet
 ```java
-//				System.err.println("Error when printing diff result: " + e.getMessage());
-				log.error("Error when printing diff result: " + e.getMessage());
-				e.printStackTrace();
-			}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/core/entities/output/JSonChangeFrequencyOutput.java`
-#### Snippet
-```java
-			fw.close();
-		} catch (Exception e) {
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
-#### Snippet
-```java
-			fw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/changeminer/entity/FinalResult.java`
-#### Snippet
-```java
-				} catch (Exception e) {
-					r += "\n -Error on toString-";
-					e.printStackTrace();
-				}
-			}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
-#### Snippet
-```java
-		} catch (Exception e) {
-			System.err.println("Problems parsing file " + fXmlFile);
-			e.printStackTrace();
-			return null;
-		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -14874,6 +14863,30 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/main/ComingMain.java`
 #### Snippet
 ```java
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/main/ComingMain.java`
+#### Snippet
+```java
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -14883,26 +14896,26 @@ in `src/main/java/fr/inria/coming/main/ComingMain.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
+in `src/main/java/fr/inria/coming/changeminer/entity/FinalResult.java`
 #### Snippet
 ```java
+				} catch (Exception e) {
+					r += "\n -Error on toString-";
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/main/ComingMain.java`
+in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
 #### Snippet
 ```java
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
+		} catch (Exception e) {
+			System.err.println("Problems parsing file " + fXmlFile);
+			e.printStackTrace();
+			return null;
+		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -14943,6 +14956,18 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/PatternI
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
+#### Snippet
+```java
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return allMethods;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
 #### Snippet
 ```java
@@ -14951,6 +14976,18 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java
 			e.printStackTrace();
 			return targetline;
 		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+#### Snippet
+```java
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -14979,37 +15016,13 @@ in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/RepairPatternFeatureAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/Cntx.java`
 #### Snippet
 ```java
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
-#### Snippet
-```java
+				System.out.println("Error property: " + generalStat);
+				log.error(e);
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return allMethods;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
-#### Snippet
-```java
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 ```
 
@@ -15027,13 +15040,13 @@ in `src/main/java/fr/inria/coming/codefeatures/Cntx.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/Cntx.java`
+in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 #### Snippet
 ```java
-				System.out.println("Error property: " + generalStat);
-				log.error(e);
-				e.printStackTrace();
-			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 ```
 
@@ -15126,31 +15139,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
-			} 		
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
-#### Snippet
-```java
 			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
-#### Snippet
-```java
-			context.put(CodeFeatures.S15_HAS_OBJECTIVE_METHOD_CALL, S15anyReturnObjective);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -15195,38 +15184,14 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.j
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
-			}
+			} 		
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
-#### Snippet
-```java
-				}
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
-#### Snippet
-```java
-				}
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -15246,7 +15211,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
 #### Snippet
 ```java
-			}
+			context.put(CodeFeatures.S14_TYPE_OF_FAULTY_STATEMENT_PARENT, type);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -15258,7 +15223,31 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
 #### Snippet
 ```java
-			context.put(CodeFeatures.S14_TYPE_OF_FAULTY_STATEMENT_PARENT, type);
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
+#### Snippet
+```java
+			context.put(CodeFeatures.S15_HAS_OBJECTIVE_METHOD_CALL, S15anyReturnObjective);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
+#### Snippet
+```java
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -15294,7 +15283,31 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
 #### Snippet
 ```java
+				}
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+```
 
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
+#### Snippet
+```java
+				}
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/WholeStatementAnalyzer.java`
+#### Snippet
+```java
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -15363,186 +15376,6 @@ in `src/main/java/fr/inria/prophet4j/dataset/DataManager.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-				}
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-				}
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-				}
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-				}
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-				}
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
-#### Snippet
-```java
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
@@ -15571,42 +15404,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-			}
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
-#### Snippet
-```java
-
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -15627,7 +15424,19 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 
@@ -15635,6 +15444,198 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnal
 			e.printStackTrace();
 		}
 	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+#### Snippet
+```java
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+				}
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+				}
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+				}
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+				}
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+#### Snippet
+```java
+				}
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -15666,7 +15667,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-			}
+
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -15735,86 +15736,14 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnal
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
-
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-
+	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -15839,6 +15768,90 @@ in `src/main/java/fr/inria/prophet4j/learner/Tool.java`
             e.printStackTrace();
         }
     }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -15870,20 +15883,8 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/prophet4j/utility/Structure.java`
 #### Snippet
 ```java
-                FileUtils.writeStringToFile(vectorFile, stringJoiner.toString(), Charset.defaultCharset(), false);
+                parameterArray = Arrays.stream(substrings).mapToDouble(Double::valueOf).toArray();
             } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/prophet4j/utility/Structure.java`
-#### Snippet
-```java
-                fis.close();
-            } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
             }
         }
@@ -15918,8 +15919,20 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/prophet4j/utility/Structure.java`
 #### Snippet
 ```java
-                parameterArray = Arrays.stream(substrings).mapToDouble(Double::valueOf).toArray();
+                FileUtils.writeStringToFile(vectorFile, stringJoiner.toString(), Charset.defaultCharset(), false);
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/prophet4j/utility/Structure.java`
+#### Snippet
+```java
+                fis.close();
+            } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
             }
         }
@@ -15985,19 +15998,6 @@ in `src/main/java/fr/inria/prophet4j/utility/CodeDiffer.java`
         }
 ```
 
-## RuleId[ruleID=RegExpSingleCharAlternation]
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/LineComparator.java`
-#### Snippet
-```java
-  @Override
-  public Fragmentable createFragmentable(String data)  {
-		String dataParsed = data.replaceAll(" |\\t|\\{|\\}", "");
-
-		return new SLineComparator(dataParsed);
-```
-
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractChainedFilter()` of an abstract class should not be declared 'public'
@@ -16028,11 +16028,11 @@ Constructor `RevisionNavigationExperiment()` of an abstract class should not be 
 in `src/main/java/fr/inria/coming/core/engine/RevisionNavigationExperiment.java`
 #### Snippet
 ```java
-    }
+    protected FinalResult<R> allResults = null;
 
-    public RevisionNavigationExperiment(RevisionOrder<R> navigationStrategy) {
-        super();
-        this.navigationStrategy = navigationStrategy;
+    public RevisionNavigationExperiment() {
+        allResults = new FinalResult<>();
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -16040,11 +16040,11 @@ Constructor `RevisionNavigationExperiment()` of an abstract class should not be 
 in `src/main/java/fr/inria/coming/core/engine/RevisionNavigationExperiment.java`
 #### Snippet
 ```java
-    protected FinalResult<R> allResults = null;
-
-    public RevisionNavigationExperiment() {
-        allResults = new FinalResult<>();
     }
+
+    public RevisionNavigationExperiment(RevisionOrder<R> navigationStrategy) {
+        super();
+        this.navigationStrategy = navigationStrategy;
 ```
 
 ## RuleId[ruleID=Anonymous2MethodRef]
@@ -16238,18 +16238,6 @@ Return of `null`
 in `src/main/java/fr/inria/coming/core/engine/filespair/FilePairsDiff.java`
 #### Snippet
 ```java
-	@Override
-	public String getName() {
-		return this.left != null && this.right != null ? left.getName() + "->" + right.getName() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/fr/inria/coming/core/engine/filespair/FilePairsDiff.java`
-#### Snippet
-```java
 		if (left == null || right == null) {
 			log.info("files is null");
 			return null;
@@ -16259,13 +16247,25 @@ in `src/main/java/fr/inria/coming/core/engine/filespair/FilePairsDiff.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
+in `src/main/java/fr/inria/coming/core/engine/filespair/FilePairsDiff.java`
 #### Snippet
 ```java
+	@Override
 	public String getName() {
-
-		return this.diffFolder != null ? this.diffFolder.getName() : null;
+		return this.left != null && this.right != null ? left.getName() + "->" + right.getName() : null;
 	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/fr/inria/coming/core/engine/RevisionNavigationExperiment.java`
+#### Snippet
+```java
+            return this.allResults;
+        } else
+            return null;
+    }
 
 ```
 
@@ -16283,13 +16283,13 @@ in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/coming/core/engine/RevisionNavigationExperiment.java`
+in `src/main/java/fr/inria/coming/core/engine/files/FileDiff.java`
 #### Snippet
 ```java
-            return this.allResults;
-        } else
-            return null;
-    }
+	public String getName() {
+
+		return this.diffFolder != null ? this.diffFolder.getName() : null;
+	}
 
 ```
 
@@ -16307,14 +16307,14 @@ in `src/main/java/fr/inria/coming/core/entities/RevisionDataset.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/coming/core/engine/git/CommitGit.java`
+in `src/main/java/fr/inria/coming/core/extensionpoints/PlugInLoader.java`
 #### Snippet
 ```java
-	public String getFolder() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		String property = ComingProperties.getProperty(ep.identifier);
+		if (property == null || property.trim().isEmpty())
+			return null;
 
+		return loadPlugin(property, ep._class, typesConst, args);
 ```
 
 ### ReturnNull
@@ -16331,14 +16331,14 @@ in `src/main/java/fr/inria/coming/core/entities/output/FeaturesOutput.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/coming/core/extensionpoints/PlugInLoader.java`
+in `src/main/java/fr/inria/coming/utils/ASTInfoResolver.java`
 #### Snippet
 ```java
-		String property = ComingProperties.getProperty(ep.identifier);
-		if (property == null || property.trim().isEmpty())
-			return null;
+			}
+		}
+		return null;
+	}
 
-		return loadPlugin(property, ep._class, typesConst, args);
 ```
 
 ### ReturnNull
@@ -16355,25 +16355,13 @@ in `src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/coming/utils/ASTInfoResolver.java`
+in `src/main/java/fr/inria/coming/core/engine/git/CommitGit.java`
 #### Snippet
 ```java
-			}
-		}
+	public String getFolder() {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
-#### Snippet
-```java
-			System.err.println("Problems parsing file " + fXmlFile);
-			e.printStackTrace();
-			return null;
-		}
 
 ```
 
@@ -16439,6 +16427,18 @@ in `src/main/java/fr/inria/coming/main/ComingMain.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/fr/inria/coming/changeminer/util/PatternXMLParser.java`
+#### Snippet
+```java
+			System.err.println("Problems parsing file " + fXmlFile);
+			e.printStackTrace();
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
 #### Snippet
 ```java
@@ -16466,7 +16466,7 @@ Return of `null`
 in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/MegaDiff.java`
 #### Snippet
 ```java
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+	public CtElement changedNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -16490,7 +16490,7 @@ Return of `null`
 in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/MegaDiff.java`
 #### Snippet
 ```java
-	public CtElement changedNode() {
+	public CtElement changedNode(Class<? extends Operation> operationWanted) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -16502,11 +16502,23 @@ Return of `null`
 in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/MegaDiff.java`
 #### Snippet
 ```java
-	public CtElement changedNode(Class<? extends Operation> operationWanted) {
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
+#### Snippet
+```java
+        }
+        // Not all matched
+        return null;
+
+    }
 ```
 
 ### ReturnNull
@@ -16526,11 +16538,11 @@ Return of `null`
 in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 #### Snippet
 ```java
-		if(cross) {
-			jsonfile = genVectorsCSV(option,target,featureMatrix);
-			return null;
-		} else {
-			jsonfile = getSimleP4JJSON(option,target,featureMatrix,true);
+                
+                if(valueList==null) {
+                	return null;
+                }
+                
 ```
 
 ### ReturnNull
@@ -16562,23 +16574,11 @@ Return of `null`
 in `src/main/java/fr/inria/coming/codefeatures/P4JFeatureAnalyzer.java`
 #### Snippet
 ```java
-                
-                if(valueList==null) {
-                	return null;
-                }
-                
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
-#### Snippet
-```java
-        }
-        // Not all matched
-        return null;
-
-    }
+		if(cross) {
+			jsonfile = genVectorsCSV(option,target,featureMatrix);
+			return null;
+		} else {
+			jsonfile = getSimleP4JJSON(option,target,featureMatrix,true);
 ```
 
 ### ReturnNull
@@ -16590,18 +16590,6 @@ in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
 			logger.debug("Name Conflict " + varAccessCollected);
 			return null;
 		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/fr/inria/coming/repairability/models/ASTData.java`
-#### Snippet
-```java
-		}
-
-		return null;
-	}
 
 ```
 
@@ -16631,6 +16619,18 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ExpressionAnalyzer.ja
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/fr/inria/coming/repairability/models/ASTData.java`
+#### Snippet
+```java
+		}
+
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/fr/inria/coming/repairability/repairtools/NPEfix.java`
 #### Snippet
 ```java
@@ -16646,11 +16646,11 @@ Return of `null`
 in `src/main/java/fr/inria/coming/repairability/repairtools/Nopol.java`
 #### Snippet
 ```java
-		String patternType = instance.getPattern().getName().split(File.pathSeparator)[1];
-		if(!patternType.startsWith(IF_INS_SHALLOW_PATTERN) && !patternType.startsWith(IF_INS_DEEP_PATTERN)) {
-			return null;
 		}
-		
+
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -16658,11 +16658,11 @@ Return of `null`
 in `src/main/java/fr/inria/coming/repairability/repairtools/Nopol.java`
 #### Snippet
 ```java
+		String patternType = instance.getPattern().getName().split(File.pathSeparator)[1];
+		if(!patternType.startsWith(IF_INS_SHALLOW_PATTERN) && !patternType.startsWith(IF_INS_DEEP_PATTERN)) {
+			return null;
 		}
-
-		return null;
-	}
-
+		
 ```
 
 ### ReturnNull
@@ -16703,14 +16703,14 @@ in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureCross.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
 #### Snippet
 ```java
-			}
-		}
+	public FeatureVector extractSimpleP4JFeature(Repair repair, CtElement atom) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-	
+}
 ```
 
 ### ReturnNull
@@ -16727,26 +16727,14 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/prophet4j/feature/S4RO/S4ROFeatureExtractor.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
-	public FeatureVector extractSimpleP4JFeature(Repair repair, CtElement atom) {
-		// TODO Auto-generated method stub
+			}
+		}
 		return null;
 	}
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureCross.java`
-#### Snippet
-```java
-	public List<Feature> getSimpleP4JFeatures() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
+	
 ```
 
 ### ReturnNull
@@ -16775,14 +16763,50 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnal
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureCross.java`
 #### Snippet
 ```java
-			if (faultyMethodParent == null)
-				// the element is not in a method.
-				return null;
+	public List<Feature> getSimpleP4JFeatures() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+```
 
-			// For each variable affected
+### ReturnNull
+Return of `null`
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureCross.java`
+#### Snippet
+```java
+	public List<Feature> getSimpleP4JFeatures() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
+#### Snippet
+```java
+	public FeatureVector extractSimpleP4JFeature(Repair repair, CtElement atom) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
+#### Snippet
+```java
+	public FeatureVector extractSimpleP4JFeature(Repair repair, CtElement atom) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
 ```
 
 ### ReturnNull
@@ -16790,11 +16814,11 @@ Return of `null`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-			if (methodParent == null)
-				// the element is not in a method.
-				return null;
+		}
 
-			statements = methodParent.getElements(new LineFilter());
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -16838,11 +16862,11 @@ Return of `null`
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-		}
+			if (methodParent == null)
+				// the element is not in a method.
+				return null;
 
-		return null;
-	}
-
+			statements = methodParent.getElements(new LineFilter());
 ```
 
 ### ReturnNull
@@ -16859,53 +16883,17 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureCross.java`
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
-	public List<Feature> getSimpleP4JFeatures() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
-```
+			if (faultyMethodParent == null)
+				// the element is not in a method.
+				return null;
 
-### ReturnNull
-Return of `null`
-in `src/main/java/fr/inria/prophet4j/feature/enhanced/EnhancedFeatureExtractor.java`
-#### Snippet
-```java
-	public FeatureVector extractSimpleP4JFeature(Repair repair, CtElement atom) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/fr/inria/prophet4j/feature/extended/ExtendedFeatureExtractor.java`
-#### Snippet
-```java
-	public FeatureVector extractSimpleP4JFeature(Repair repair, CtElement atom) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
+			// For each variable affected
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `dataset` is redundant
-in `src/main/java/fr/inria/coming/core/engine/files/FileNavigationExperiment.java`
-#### Snippet
-```java
-	public RevisionDataset<IRevision> loadDataset() {
-
-		RevisionDataset dataset = new FileDatasets(flocation);
-
-		return dataset;
-```
-
 ### UnnecessaryLocalVariable
 Local variable `fileDiff` is redundant
 in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
@@ -16919,15 +16907,15 @@ in `src/main/java/fr/inria/coming/core/engine/files/FileDynamicIterator.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `iterator` is redundant
-in `src/main/java/fr/inria/coming/core/engine/RevisionNavigationExperiment.java`
+Local variable `dataset` is redundant
+in `src/main/java/fr/inria/coming/core/engine/files/FileNavigationExperiment.java`
 #### Snippet
 ```java
+	public RevisionDataset<IRevision> loadDataset() {
 
-        Long startTime = System.currentTimeMillis();
-        for (Iterator<R> iterator = it; iterator.hasNext(); ) {
+		RevisionDataset dataset = new FileDatasets(flocation);
 
-            R oneRevision = iterator.next();
+		return dataset;
 ```
 
 ### UnnecessaryLocalVariable
@@ -16943,15 +16931,15 @@ in `src/main/java/fr/inria/coming/core/filter/diff/syntcomparison/FragmentableCo
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `li` is redundant
-in `src/main/java/fr/inria/coming/core/engine/git/CommitGit.java`
+Local variable `iterator` is redundant
+in `src/main/java/fr/inria/coming/core/engine/RevisionNavigationExperiment.java`
 #### Snippet
 ```java
-	public List<IRevisionPair> getChildren() {
-		if (extensionToConsider == null || extensionToConsider.length == 0) {
-			List<IRevisionPair> li = new ArrayList<>(this.getFileCommits());
-			return li;
-		} else {
+
+        Long startTime = System.currentTimeMillis();
+        for (Iterator<R> iterator = it; iterator.hasNext(); ) {
+
+            R oneRevision = iterator.next();
 ```
 
 ### UnnecessaryLocalVariable
@@ -16964,6 +16952,18 @@ in `src/main/java/fr/inria/coming/core/entities/output/FeaturesOutput.java`
 	        Comparator<String> c = new Comparator<String>()
 	        {
 	            public int compare(String o1, String o2)
+```
+
+### UnnecessaryLocalVariable
+Local variable `li` is redundant
+in `src/main/java/fr/inria/coming/core/engine/git/CommitGit.java`
+#### Snippet
+```java
+	public List<IRevisionPair> getChildren() {
+		if (extensionToConsider == null || extensionToConsider.length == 0) {
+			List<IRevisionPair> li = new ArrayList<>(this.getFileCommits());
+			return li;
+		} else {
 ```
 
 ### UnnecessaryLocalVariable
@@ -16988,6 +16988,18 @@ in `src/main/java/fr/inria/coming/utils/Probability.java`
 		Map<K, Double> probMap = prob.entrySet().stream().sorted(Map.Entry.<K, Double>comparingByValue().reversed())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
 						LinkedHashMap::new));
+```
+
+### UnnecessaryLocalVariable
+Local variable `d` is redundant
+in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
+#### Snippet
+```java
+	public Diff getDiff(File left, File right) throws Exception {
+		AstComparator localdiff = new AstComparator(ComingProperties.getPropertyBoolean("processcomments"));
+		Diff d = localdiff.compare(left, right);
+		return d;
+	}
 ```
 
 ### UnnecessaryLocalVariable
@@ -17021,18 +17033,6 @@ in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainD
 ```java
 	public Diff getDiff(File left, File right, boolean includeComment) throws Exception {
 		AstComparator localdiff = new AstComparator(includeComment);
-		Diff d = localdiff.compare(left, right);
-		return d;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `d` is redundant
-in `src/main/java/fr/inria/coming/changeminer/analyzer/commitAnalyzer/FineGrainDifftAnalyzer.java`
-#### Snippet
-```java
-	public Diff getDiff(File left, File right) throws Exception {
-		AstComparator localdiff = new AstComparator(ComingProperties.getPropertyBoolean("processcomments"));
 		Diff d = localdiff.compare(left, right);
 		return d;
 	}
@@ -17159,18 +17159,6 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyze
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `matched` is redundant
-in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
-#### Snippet
-```java
-
-		// Now, we match the remain var access.
-		Map<CtVariableAccess, List<CtVariable>> matched = matchVars(varContext, varAccessCollected, matchName);
-		return matched;
-	}
-```
-
-### UnnecessaryLocalVariable
 Local variable `finalResult` is redundant
 in `src/main/java/fr/inria/coming/repairability/RepairabilityAnalyzer.java`
 #### Snippet
@@ -17183,6 +17171,18 @@ in `src/main/java/fr/inria/coming/repairability/RepairabilityAnalyzer.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `matched` is redundant
+in `src/main/java/fr/inria/coming/utils/VariableResolver.java`
+#### Snippet
+```java
+
+		// Now, we match the remain var access.
+		Map<CtVariableAccess, List<CtVariable>> matched = matchVars(varContext, varAccessCollected, matchName);
+		return matched;
+	}
+```
+
+### UnnecessaryLocalVariable
 Local variable `anotherConstructor` is redundant
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
@@ -17190,8 +17190,8 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.j
 				for (CtConstructor certainconstructorinclass : allconstructorsinclass) {
 
 						CtConstructor anotherConstructor = (CtConstructor) certainconstructorinclass;
-						// Ignoring if it's the same
 						if (anotherConstructor == null || anotherConstructor.getSignature().
+								equals(constructorcall.getExecutable().getSignature()))
 ```
 
 ### UnnecessaryLocalVariable
@@ -17214,8 +17214,8 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.j
 				for (CtConstructor certainconstructorinclass : allconstructorsinclass) {
 
 						CtConstructor anotherConstructor = (CtConstructor) certainconstructorinclass;
+						// Ignoring if it's the same
 						if (anotherConstructor == null || anotherConstructor.getSignature().
-								equals(constructorcall.getExecutable().getSignature()))
 ```
 
 ### UnnecessaryLocalVariable
@@ -17255,18 +17255,6 @@ in `src/main/java/fr/inria/coming/repairability/repairtools/Nopol.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `constructorname` is redundant
-in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
-#### Snippet
-```java
-
-		String[] namespace = call.getType().getQualifiedName().split("\\(")[0].split("\\.");
-		String constructorname = namespace[namespace.length - 1];
-		return constructorname;
-	}
-```
-
-### UnnecessaryLocalVariable
 Local variable `cond` is redundant
 in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
@@ -17288,6 +17276,18 @@ in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.
 					boolean isConditionAGuard = checkNullCheckGuardCondition(condition);
 					return isConditionAGuard;
 				}
+```
+
+### UnnecessaryLocalVariable
+Local variable `constructorname` is redundant
+in `src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+#### Snippet
+```java
+
+		String[] namespace = call.getType().getQualifiedName().split("\\(")[0].split("\\.");
+		String constructorname = namespace[namespace.length - 1];
+		return constructorname;
+	}
 ```
 
 ### UnnecessaryLocalVariable
