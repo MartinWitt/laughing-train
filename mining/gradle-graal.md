@@ -54,30 +54,6 @@ in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
-#### Snippet
-```java
-        String searchedVsVarsPath = Integer.parseInt(javaVersion.get()) >= 11
-                ? DEFAULT_WINDOWS_VS_VARS_PATH
-                        .replaceAll("\\{version}", searchedVsVersion)
-                        .replaceAll("\\{edition}", searchedVsEdition)
-                : WINDOWS_7_ENV_PATH;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
-#### Snippet
-```java
-                ? DEFAULT_WINDOWS_VS_VARS_PATH
-                        .replaceAll("\\{version}", searchedVsVersion)
-                        .replaceAll("\\{edition}", searchedVsEdition)
-                : WINDOWS_7_ENV_PATH;
-        if (WINDOWS_7_ENV_PATH.equals(searchedVsVarsPath)) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/palantir/gradle/graal/DownloadGraalTask.java`
 #### Snippet
 ```java
@@ -134,6 +110,30 @@ in `src/main/java/com/palantir/gradle/graal/DownloadGraalTask.java`
                 .replaceAll("\\[arch\\]", getArchitecture())
                 .replaceAll("\\[ext\\]", getArchiveExtension())
                 .replaceAll("--", "-"); // for GraalVM < 19.3 there's only a Java8 package
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
+#### Snippet
+```java
+        String searchedVsVarsPath = Integer.parseInt(javaVersion.get()) >= 11
+                ? DEFAULT_WINDOWS_VS_VARS_PATH
+                        .replaceAll("\\{version}", searchedVsVersion)
+                        .replaceAll("\\{edition}", searchedVsEdition)
+                : WINDOWS_7_ENV_PATH;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
+#### Snippet
+```java
+                ? DEFAULT_WINDOWS_VS_VARS_PATH
+                        .replaceAll("\\{version}", searchedVsVersion)
+                        .replaceAll("\\{edition}", searchedVsEdition)
+                : WINDOWS_7_ENV_PATH;
+        if (WINDOWS_7_ENV_PATH.equals(searchedVsVarsPath)) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -225,18 +225,6 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
-#### Snippet
-```java
-     * @throws IOException If any problem while creating output directory
-     */
-    protected final void configureArgs(List<String> args) throws IOException {
-        args.add("-cp");
-        args.add(generateClasspathArgument());
-```
-
-### BoundedWildcard
 Can generalize to `? extends Configuration`
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 #### Snippet
@@ -246,6 +234,18 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
     public final void setClasspath(Provider<Configuration> provider) {
         classpath.set(provider);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
+#### Snippet
+```java
+     * @throws IOException If any problem while creating output directory
+     */
+    protected final void configureArgs(List<String> args) throws IOException {
+        args.add("-cp");
+        args.add(generateClasspathArgument());
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
