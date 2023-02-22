@@ -1,15 +1,15 @@
 # maven-surefire 
  
 # Bad smells
-I found 492 bad smells with 25 repairable:
+I found 494 bad smells with 25 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 106 | false |
 | BoundedWildcard | 62 | false |
 | UnnecessaryFullyQualifiedName | 45 | false |
 | AssignmentToMethodParameter | 25 | false |
-| DeprecatedIsStillUsed | 21 | false |
-| RedundantSuppression | 17 | false |
+| DeprecatedIsStillUsed | 22 | false |
+| RedundantSuppression | 18 | false |
 | NonShortCircuitBoolean | 16 | false |
 | Convert2Lambda | 15 | false |
 | DynamicRegexReplaceableByCompiledPattern | 13 | false |
@@ -57,29 +57,17 @@ I found 492 bad smells with 25 repairable:
 | OptionalContainsCollection | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
 | RedundantCollectionOperation | 1 | false |
-| MismatchedJavadocCode | 1 | false |
 | CollectionContainsUrl | 1 | false |
-| ProtectedMemberInFinalClass | 1 | true |
+| MismatchedJavadocCode | 1 | false |
 | ThreadRun | 1 | false |
-| MissingDeprecatedAnnotation | 1 | false |
+| ProtectedMemberInFinalClass | 1 | true |
 | ConditionCoveredByFurtherCondition | 1 | false |
+| MissingDeprecatedAnnotation | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
 | JavaReflectionInvocation | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | WaitNotInLoop | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Class\[cats.size()\]'
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/GroupMatcherCategoryFilter.java`
-#### Snippet
-```java
-
-            cats.remove( null );
-            boolean result = matcher.enabled( cats.toArray( new Class<?>[cats.size()] ) );
-
-            if ( !result )
-```
-
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Filter\[ filters.size() \]'
 in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/JUnitPlatformProvider.java`
@@ -88,6 +76,18 @@ in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/su
             .ifPresent( filters::add );
 
         return filters.toArray( new Filter<?>[ filters.size() ] );
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Class\[result.size()\]'
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TestsToRun.java`
+#### Snippet
+```java
+            result.add( clazz );
+        }
+        return result.toArray( new Class<?>[result.size()] );
     }
 
 ```
@@ -105,15 +105,15 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/RunOrder.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Class\[result.size()\]'
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TestsToRun.java`
+Call to `toArray()` with pre-sized array argument 'new Class\[cats.size()\]'
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/GroupMatcherCategoryFilter.java`
 #### Snippet
 ```java
-            result.add( clazz );
-        }
-        return result.toArray( new Class<?>[result.size()] );
-    }
 
+            cats.remove( null );
+            boolean result = matcher.enabled( cats.toArray( new Class<?>[cats.size()] ) );
+
+            if ( !result )
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -183,102 +183,6 @@ in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/su
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isFailure | isError`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetStats.java`
-#### Snippet
-```java
-        final boolean isFailure = failures > 0;
-        final boolean isError = errors > 0;
-        final boolean isFailureOrError = isFailure | isError;
-        final boolean isSkipped = skipped > 0;
-        final  MessageBuilder builder = buffer();
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `printedFailures | printedErrors | printedFlakes`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/DefaultReporterFactory.java`
-#### Snippet
-```java
-        if ( reportConfiguration.isPrintSummary() )
-        {
-            if ( printedFailures | printedErrors | printedFlakes )
-            {
-                log( "" );
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `createOutErrElementsInside & stackTrace != null`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/StatelessXmlReporter.java`
-#### Snippet
-```java
-        }
-
-        boolean hasNestedElements = createOutErrElementsInside & stackTrace != null;
-
-        if ( stackTrace != null )
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `dumpError &= !classpathElementUri.absolute`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/JarManifestForkConfiguration.java`
-#### Snippet
-```java
-                        toClasspathElementUri( parent, classPathElement, dumpLogDirectory, dumpError );
-                // too many errors in dump file with the same root cause may slow down the Boot Manifest-JAR startup
-                dumpError &= !classpathElementUri.absolute;
-                cp.append( classpathElementUri.uri );
-                if ( isDirectory( classPathElement ) && !classpathElementUri.uri.endsWith( "/" ) )
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isError |= stream.ioException() != null`
-in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/LineConsumerThread.java`
-#### Snippet
-```java
-                {
-                    String line = stream.nextLine();
-                    isError |= stream.ioException() != null;
-                    if ( !isError && !disabled )
-                    {
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isDefaultEncoding &= DEFAULT_STREAM_ENCODING_BYTES[i] == array[offset + i]`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStreamDecoder.java`
-#### Snippet
-```java
-            for ( int i = 0; i < length; i++ )
-            {
-                isDefaultEncoding &= DEFAULT_STREAM_ENCODING_BYTES[i] == array[offset + i];
-            }
-        }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `patterns.hasExcludedMethodPatterns |= test.hasTestMethodPattern()`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/TestListResolver.java`
-#### Snippet
-```java
-        {
-            excludedFilters.add( test );
-            patterns.hasExcludedMethodPatterns |= test.hasTestMethodPattern();
-        }
-        else
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `patterns.hasIncludedMethodPatterns |= test.hasTestMethodPattern()`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/TestListResolver.java`
-#### Snippet
-```java
-        {
-            includedFilters.add( test );
-            patterns.hasIncludedMethodPatterns |= test.hasTestMethodPattern();
-        }
-    }
-```
-
-### NonShortCircuitBoolean
 Non-short-circuit boolean expression `hasFailure | hasError`
 in `surefire-logger-api/src/main/java/org/apache/maven/plugin/surefire/log/api/Level.java`
 #### Snippet
@@ -339,6 +243,18 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `isError |= stream.ioException() != null`
+in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/LineConsumerThread.java`
+#### Snippet
+```java
+                {
+                    String line = stream.nextLine();
+                    isError |= stream.ioException() != null;
+                    if ( !isError && !disabled )
+                    {
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `splitPool &= concurrency.capacity <= 0`
 in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
 #### Snippet
@@ -374,6 +290,90 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
                     : new InvokerStrategy( ParallelComputerBuilder.this.logger );
 ```
 
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `isFailure | isError`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetStats.java`
+#### Snippet
+```java
+        final boolean isFailure = failures > 0;
+        final boolean isError = errors > 0;
+        final boolean isFailureOrError = isFailure | isError;
+        final boolean isSkipped = skipped > 0;
+        final  MessageBuilder builder = buffer();
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `printedFailures | printedErrors | printedFlakes`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/DefaultReporterFactory.java`
+#### Snippet
+```java
+        if ( reportConfiguration.isPrintSummary() )
+        {
+            if ( printedFailures | printedErrors | printedFlakes )
+            {
+                log( "" );
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `createOutErrElementsInside & stackTrace != null`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/StatelessXmlReporter.java`
+#### Snippet
+```java
+        }
+
+        boolean hasNestedElements = createOutErrElementsInside & stackTrace != null;
+
+        if ( stackTrace != null )
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `dumpError &= !classpathElementUri.absolute`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/JarManifestForkConfiguration.java`
+#### Snippet
+```java
+                        toClasspathElementUri( parent, classPathElement, dumpLogDirectory, dumpError );
+                // too many errors in dump file with the same root cause may slow down the Boot Manifest-JAR startup
+                dumpError &= !classpathElementUri.absolute;
+                cp.append( classpathElementUri.uri );
+                if ( isDirectory( classPathElement ) && !classpathElementUri.uri.endsWith( "/" ) )
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `isDefaultEncoding &= DEFAULT_STREAM_ENCODING_BYTES[i] == array[offset + i]`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStreamDecoder.java`
+#### Snippet
+```java
+            for ( int i = 0; i < length; i++ )
+            {
+                isDefaultEncoding &= DEFAULT_STREAM_ENCODING_BYTES[i] == array[offset + i];
+            }
+        }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `patterns.hasExcludedMethodPatterns |= test.hasTestMethodPattern()`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/TestListResolver.java`
+#### Snippet
+```java
+        {
+            excludedFilters.add( test );
+            patterns.hasExcludedMethodPatterns |= test.hasTestMethodPattern();
+        }
+        else
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `patterns.hasIncludedMethodPatterns |= test.hasTestMethodPattern()`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/TestListResolver.java`
+#### Snippet
+```java
+        {
+            includedFilters.add( test );
+            patterns.hasIncludedMethodPatterns |= test.hasTestMethodPattern();
+        }
+    }
+```
+
 ## RuleId[ruleID=SuspiciousInvocationHandlerImplementation]
 ### SuspiciousInvocationHandlerImplementation
 Null might be returned when proxying method 'equals()': this may cause NullPointerException
@@ -389,6 +389,174 @@ in `surefire-providers/surefire-junit3/src/main/java/org/apache/maven/surefire/j
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? super String`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreRunListener.java`
+#### Snippet
+```java
+     * @param classMethodCounts A map of methods
+     */
+    JUnitCoreRunListener( ConcurrentRunListener reporter, Map<String, TestSet> classMethodCounts )
+    {
+        super( reporter );
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `surefire-report-parser/src/main/java/org/apache/maven/plugins/surefire/report/SurefireReportParser.java`
+#### Snippet
+```java
+    private final List<File> reportsDirectories;
+
+    public SurefireReportParser( List<File> reportsDirectories, Locale locale, ConsoleLogger consoleLogger )
+    {
+        this.reportsDirectories = reportsDirectories;
+```
+
+### BoundedWildcard
+Can generalize to `? super TestOutputReportEntry`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/LogicalStream.java`
+#### Snippet
+```java
+    }
+
+    void writeDetails( TestOutputReceiver<TestOutputReportEntry> outputReceiver )
+    {
+        for ( TestOutputReportEntry entry = output.poll(); entry != null; entry = output.poll() )
+```
+
+### BoundedWildcard
+Can generalize to `? extends TestSet`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConcurrentRunListener.java`
+#### Snippet
+```java
+
+    ConcurrentRunListener( final ReporterFactory reporterFactory, boolean reportImmediately,
+                           Map<String, TestSet> classMethodCounts )
+    {
+        this.reportImmediately = reportImmediately;
+```
+
+### BoundedWildcard
+Can generalize to `? super TestOutputReportEntry`
+in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/RunListenerAdapter.java`
+#### Snippet
+```java
+    private volatile RunMode runMode;
+
+    RunListenerAdapter( TestReportListener<TestOutputReportEntry> runListener )
+    {
+        this.runListener = runListener;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Description`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/SingleThreadScheduler.java`
+#### Snippet
+```java
+    }
+
+    private Collection<Description> copyExisting( Collection<Description> descriptions )
+    {
+        Collection<Description> activeChildren = new ConcurrentLinkedQueue<>( descriptions );
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+#### Snippet
+```java
+    }
+
+    private static void printShutdownHook( Collection<String> executedTests, Collection<String> incompleteTests,
+                                           Future<ShutdownResult> testsBeforeShutdown )
+        throws ExecutionException, InterruptedException
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+#### Snippet
+```java
+    }
+
+    private static void printShutdownHook( Collection<String> executedTests, Collection<String> incompleteTests,
+                                           Future<ShutdownResult> testsBeforeShutdown )
+        throws ExecutionException, InterruptedException
+```
+
+### BoundedWildcard
+Can generalize to `? extends RunListener`
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/Notifier.java`
+#### Snippet
+```java
+    }
+
+    public final Notifier addListeners( Collection<RunListener> given )
+    {
+        for ( RunListener listener : given )
+```
+
+### BoundedWildcard
+Can generalize to `? extends Description`
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/MatchDescriptions.java`
+#### Snippet
+```java
+    private final List<Filter> filters = new ArrayList<>();
+
+    public MatchDescriptions( Iterable<Description> descriptions )
+    {
+        for ( Description description : descriptions )
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/LineConsumerThread.java`
+#### Snippet
+```java
+
+    public LineConsumerThread( @Nonnull String threadName,
+                               @Nonnull ReadableByteChannel channel, @Nonnull EventHandler<String> eventHandler,
+                               @Nonnull CountdownCloseable countdownCloseable, @Nonnull Charset encoding )
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Failure`
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4ProviderUtil.java`
+#### Snippet
+```java
+     * @return the list of descriptions
+     */
+    public static Set<Description> generateFailingTestDescriptions( List<Failure> allFailures )
+    {
+        Set<Description> failingTestDescriptions = new HashSet<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends GroupMatcher`
+in `surefire-grouper/src/main/java/org/apache/maven/surefire/group/match/AndGroupMatcher.java`
+#### Snippet
+```java
+    }
+
+    public AndGroupMatcher( Collection<GroupMatcher> matchers )
+    {
+        for ( GroupMatcher matcher : matchers )
+```
+
+### BoundedWildcard
+Can generalize to `? extends GroupMatcher`
+in `surefire-grouper/src/main/java/org/apache/maven/surefire/group/match/OrGroupMatcher.java`
+#### Snippet
+```java
+    }
+
+    public OrGroupMatcher( Collection<GroupMatcher> matchers )
+    {
+        for ( GroupMatcher matcher : matchers )
+```
+
+### BoundedWildcard
 Can generalize to `? super TestOutputReportEntry`
 in `surefire-providers/surefire-junit3/src/main/java/org/apache/maven/surefire/junit/JUnit3Reporter.java`
 #### Snippet
@@ -401,63 +569,15 @@ in `surefire-providers/surefire-junit3/src/main/java/org/apache/maven/surefire/j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/Classpath.java`
+Can generalize to `? extends Runner`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
 #### Snippet
 ```java
     }
 
-    private void addTo( @Nonnull Collection<String> c )
+    private static List<Runner> removeNullRunners( Collection<Runner> runners )
     {
-        c.addAll( unmodifiableElements );
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/GroupMatcherCategoryFilter.java`
-#### Snippet
-```java
-    }
-
-    private static void findSuperclassCategories( Set<Class<?>> cats, Class<?> clazz )
-    {
-        if ( IS_CATEGORY_INHERITED && hasSuperclass( clazz ) )
-```
-
-### BoundedWildcard
-Can generalize to `? extends Filter`
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/CombinedCategoryFilter.java`
-#### Snippet
-```java
-    }
-
-    private boolean allFiltersMatchDescription( Collection<Filter> filters, Description description )
-    {
-        for ( Filter f : filters )
-```
-
-### BoundedWildcard
-Can generalize to `? extends Filter`
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/CombinedCategoryFilter.java`
-#### Snippet
-```java
-    }
-
-    private String joinFilters( Collection<Filter> filters, String sep )
-    {
-        boolean isFirst = true;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Filter`
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/CombinedCategoryFilter.java`
-#### Snippet
-```java
-    }
-
-    private boolean anyFilterMatchesDescription( Collection<Filter> filters, Description description )
-    {
-        for ( Filter f : filters )
+        final List<Runner> onlyRunners = new ArrayList<>( runners );
 ```
 
 ### BoundedWildcard
@@ -473,15 +593,15 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/Classpa
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `surefire-report-parser/src/main/java/org/apache/maven/plugins/surefire/report/SurefireReportParser.java`
+Can generalize to `? extends Artifact`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/util/DependencyScanner.java`
 #### Snippet
 ```java
-    private final List<File> reportsDirectories;
-
-    public SurefireReportParser( List<File> reportsDirectories, Locale locale, ConsoleLogger consoleLogger )
+     * empty if none match
+     */
+    public static List<Artifact> filter( List<Artifact> artifacts, List<String> artifactPatterns )
     {
-        this.reportsDirectories = reportsDirectories;
+        if ( artifactPatterns == null || artifacts == null || artifacts.isEmpty() )
 ```
 
 ### BoundedWildcard
@@ -521,18 +641,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/util/De
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/util/DependencyScanner.java`
-#### Snippet
-```java
-     * empty if none match
-     */
-    public static List<Artifact> filter( List<Artifact> artifacts, List<String> artifactPatterns )
-    {
-        if ( artifactPatterns == null || artifacts == null || artifacts.isEmpty() )
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/util/FileScanner.java`
 #### Snippet
@@ -569,75 +677,15 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/Surefir
 ```
 
 ### BoundedWildcard
-Can generalize to `? super WrappedReportEntry`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
+Can generalize to `? super Event`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/extensions/EventConsumerThread.java`
 #### Snippet
 ```java
-
-    @SuppressWarnings( "checkstyle:parameternumber" )
-    public TestSetRunListener( StatelessTestsetInfoConsoleReportEventListener<WrappedReportEntry, TestSetStats>
-                                           consoleReporter,
-                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
-```
-
-### BoundedWildcard
-Can generalize to `? super TestSetStats`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
-#### Snippet
-```java
-
-    @SuppressWarnings( "checkstyle:parameternumber" )
-    public TestSetRunListener( StatelessTestsetInfoConsoleReportEventListener<WrappedReportEntry, TestSetStats>
-                                           consoleReporter,
-                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
-```
-
-### BoundedWildcard
-Can generalize to `? super WrappedReportEntry`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
-#### Snippet
-```java
-    public TestSetRunListener( StatelessTestsetInfoConsoleReportEventListener<WrappedReportEntry, TestSetStats>
-                                           consoleReporter,
-                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
-                                       fileReporter,
-                               StatelessReportEventListener<WrappedReportEntry, TestSetStats> simpleXMLReporter,
-```
-
-### BoundedWildcard
-Can generalize to `? super TestSetStats`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
-#### Snippet
-```java
-    public TestSetRunListener( StatelessTestsetInfoConsoleReportEventListener<WrappedReportEntry, TestSetStats>
-                                           consoleReporter,
-                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
-                                       fileReporter,
-                               StatelessReportEventListener<WrappedReportEntry, TestSetStats> simpleXMLReporter,
-```
-
-### BoundedWildcard
-Can generalize to `? super WrappedReportEntry`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
-#### Snippet
-```java
-                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
-                                       fileReporter,
-                               StatelessReportEventListener<WrappedReportEntry, TestSetStats> simpleXMLReporter,
-                               ConsoleOutputReportEventListener testOutputReceiver,
-                               StatisticsReporter statisticsReporter, boolean trimStackTrace,
-```
-
-### BoundedWildcard
-Can generalize to `? super TestSetStats`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
-#### Snippet
-```java
-                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
-                                       fileReporter,
-                               StatelessReportEventListener<WrappedReportEntry, TestSetStats> simpleXMLReporter,
-                               ConsoleOutputReportEventListener testOutputReceiver,
-                               StatisticsReporter statisticsReporter, boolean trimStackTrace,
+    public EventConsumerThread( @Nonnull String threadName,
+                                @Nonnull ReadableByteChannel channel,
+                                @Nonnull EventHandler<Event> eventHandler,
+                                @Nonnull CountdownCloseable countdownCloseable,
+                                @Nonnull ForkNodeArguments arguments )
 ```
 
 ### BoundedWildcard
@@ -653,15 +701,75 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Event`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/extensions/EventConsumerThread.java`
+Can generalize to `? super WrappedReportEntry`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
 #### Snippet
 ```java
-    public EventConsumerThread( @Nonnull String threadName,
-                                @Nonnull ReadableByteChannel channel,
-                                @Nonnull EventHandler<Event> eventHandler,
-                                @Nonnull CountdownCloseable countdownCloseable,
-                                @Nonnull ForkNodeArguments arguments )
+
+    @SuppressWarnings( "checkstyle:parameternumber" )
+    public TestSetRunListener( StatelessTestsetInfoConsoleReportEventListener<WrappedReportEntry, TestSetStats>
+                                           consoleReporter,
+                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
+```
+
+### BoundedWildcard
+Can generalize to `? super TestSetStats`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
+#### Snippet
+```java
+
+    @SuppressWarnings( "checkstyle:parameternumber" )
+    public TestSetRunListener( StatelessTestsetInfoConsoleReportEventListener<WrappedReportEntry, TestSetStats>
+                                           consoleReporter,
+                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
+```
+
+### BoundedWildcard
+Can generalize to `? super WrappedReportEntry`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
+#### Snippet
+```java
+    public TestSetRunListener( StatelessTestsetInfoConsoleReportEventListener<WrappedReportEntry, TestSetStats>
+                                           consoleReporter,
+                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
+                                       fileReporter,
+                               StatelessReportEventListener<WrappedReportEntry, TestSetStats> simpleXMLReporter,
+```
+
+### BoundedWildcard
+Can generalize to `? super TestSetStats`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
+#### Snippet
+```java
+    public TestSetRunListener( StatelessTestsetInfoConsoleReportEventListener<WrappedReportEntry, TestSetStats>
+                                           consoleReporter,
+                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
+                                       fileReporter,
+                               StatelessReportEventListener<WrappedReportEntry, TestSetStats> simpleXMLReporter,
+```
+
+### BoundedWildcard
+Can generalize to `? super WrappedReportEntry`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
+#### Snippet
+```java
+                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
+                                       fileReporter,
+                               StatelessReportEventListener<WrappedReportEntry, TestSetStats> simpleXMLReporter,
+                               ConsoleOutputReportEventListener testOutputReceiver,
+                               StatisticsReporter statisticsReporter, boolean trimStackTrace,
+```
+
+### BoundedWildcard
+Can generalize to `? super TestSetStats`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
+#### Snippet
+```java
+                               StatelessTestsetInfoFileReportEventListener<WrappedReportEntry, TestSetStats>
+                                       fileReporter,
+                               StatelessReportEventListener<WrappedReportEntry, TestSetStats> simpleXMLReporter,
+                               ConsoleOutputReportEventListener testOutputReceiver,
+                               StatisticsReporter statisticsReporter, boolean trimStackTrace,
 ```
 
 ### BoundedWildcard
@@ -713,27 +821,27 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RunListener`
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/Notifier.java`
+Can generalize to `? super String`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/DefaultScanResult.java`
 #### Snippet
 ```java
-    }
 
-    public final Notifier addListeners( Collection<RunListener> given )
+    @Override
+    public void writeTo( Map<String, String> properties )
     {
-        for ( RunListener listener : given )
+        for ( int i = 0, size = classes.size(); i < size; i++ )
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Description`
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/MatchDescriptions.java`
+Can generalize to `? super String`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/DefaultScanResult.java`
 #### Snippet
 ```java
-    private final List<Filter> filters = new ArrayList<>();
 
-    public MatchDescriptions( Iterable<Description> descriptions )
+    @Override
+    public void writeTo( Map<String, String> properties )
     {
-        for ( Description description : descriptions )
+        for ( int i = 0, size = classes.size(); i < size; i++ )
 ```
 
 ### BoundedWildcard
@@ -749,66 +857,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Failure`
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4ProviderUtil.java`
-#### Snippet
-```java
-     * @return the list of descriptions
-     */
-    public static Set<Description> generateFailingTestDescriptions( List<Failure> allFailures )
-    {
-        Set<Description> failingTestDescriptions = new HashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/LineConsumerThread.java`
-#### Snippet
-```java
-
-    public LineConsumerThread( @Nonnull String threadName,
-                               @Nonnull ReadableByteChannel channel, @Nonnull EventHandler<String> eventHandler,
-                               @Nonnull CountdownCloseable countdownCloseable, @Nonnull Charset encoding )
-    {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/DefaultScanResult.java`
-#### Snippet
-```java
-
-    @Override
-    public void writeTo( Map<String, String> properties )
-    {
-        for ( int i = 0, size = classes.size(); i < size; i++ )
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/DefaultScanResult.java`
-#### Snippet
-```java
-
-    @Override
-    public void writeTo( Map<String, String> properties )
-    {
-        for ( int i = 0, size = classes.size(); i < size; i++ )
-```
-
-### BoundedWildcard
-Can generalize to `? super TestOutputReportEntry`
-in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/RunListenerAdapter.java`
-#### Snippet
-```java
-    private volatile RunMode runMode;
-
-    RunListenerAdapter( TestReportListener<TestOutputReportEntry> runListener )
-    {
-        this.runListener = runListener;
-```
-
-### BoundedWildcard
 Can generalize to `? super OutputReportEntry`
 in `surefire-api/src/main/java/org/apache/maven/surefire/api/report/ConsoleOutputCapture.java`
 #### Snippet
@@ -821,27 +869,15 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/report/ConsoleOutpu
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGXmlTestSuite.java`
+Can generalize to `? super String`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/Classpath.java`
 #### Snippet
 ```java
-     * xml file(s). The XML files are suite definitions files according to TestNG DTD.
-     */
-    TestNGXmlTestSuite( List<File> suiteFiles, String testSourceDirectory, Map<String, String> confOptions,
-                        File reportsDirectory, int skipAfterFailureCount )
-    {
-```
+    }
 
-### BoundedWildcard
-Can generalize to `? super TestOutputReportEntry`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGReporter.java`
-#### Snippet
-```java
-     * @param reportManager Instance to report suite status to
-     */
-    public TestNGReporter( TestReportListener<TestOutputReportEntry> reportManager )
+    private void addTo( @Nonnull Collection<String> c )
     {
-        this.reporter = reportManager;
+        c.addAll( unmodifiableElements );
 ```
 
 ### BoundedWildcard
@@ -905,75 +941,75 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/TestListRes
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/AbstractDirectConfigurator.java`
+Can generalize to `? extends Filter`
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/CombinedCategoryFilter.java`
 #### Snippet
 ```java
     }
 
-    private void addPropIfNotNull( Map<String, String> options, Map<String, String> result, String prop )
+    private String joinFilters( Collection<Filter> filters, String sep )
     {
-        if ( options.containsKey( prop ) )
+        boolean isFirst = true;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/AbstractDirectConfigurator.java`
+Can generalize to `? extends Filter`
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/CombinedCategoryFilter.java`
 #### Snippet
 ```java
     }
 
-    private void addPropIfNotNull( Map<String, String> options, Map<String, String> result, String prop )
+    private boolean allFiltersMatchDescription( Collection<Filter> filters, Description description )
     {
-        if ( options.containsKey( prop ) )
+        for ( Filter f : filters )
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreRunListener.java`
+Can generalize to `? extends Filter`
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/CombinedCategoryFilter.java`
 #### Snippet
 ```java
-     * @param classMethodCounts A map of methods
+    }
+
+    private boolean anyFilterMatchesDescription( Collection<Filter> filters, Description description )
+    {
+        for ( Filter f : filters )
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/GroupMatcherCategoryFilter.java`
+#### Snippet
+```java
+    }
+
+    private static void findSuperclassCategories( Set<Class<?>> cats, Class<?> clazz )
+    {
+        if ( IS_CATEGORY_INHERITED && hasSuperclass( clazz ) )
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGXmlTestSuite.java`
+#### Snippet
+```java
+     * xml file(s). The XML files are suite definitions files according to TestNG DTD.
      */
-    JUnitCoreRunListener( ConcurrentRunListener reporter, Map<String, TestSet> classMethodCounts )
+    TestNGXmlTestSuite( List<File> suiteFiles, String testSourceDirectory, Map<String, String> confOptions,
+                        File reportsDirectory, int skipAfterFailureCount )
     {
-        super( reporter );
 ```
 
 ### BoundedWildcard
 Can generalize to `? super TestOutputReportEntry`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/LogicalStream.java`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGReporter.java`
 #### Snippet
 ```java
-    }
-
-    void writeDetails( TestOutputReceiver<TestOutputReportEntry> outputReceiver )
+     * @param reportManager Instance to report suite status to
+     */
+    public TestNGReporter( TestReportListener<TestOutputReportEntry> reportManager )
     {
-        for ( TestOutputReportEntry entry = output.poll(); entry != null; entry = output.poll() )
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
-#### Snippet
-```java
-    }
-
-    private static void printShutdownHook( Collection<String> executedTests, Collection<String> incompleteTests,
-                                           Future<ShutdownResult> testsBeforeShutdown )
-        throws ExecutionException, InterruptedException
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
-#### Snippet
-```java
-    }
-
-    private static void printShutdownHook( Collection<String> executedTests, Collection<String> incompleteTests,
-                                           Future<ShutdownResult> testsBeforeShutdown )
-        throws ExecutionException, InterruptedException
+        this.reporter = reportManager;
 ```
 
 ### BoundedWildcard
@@ -998,6 +1034,42 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/Abstrac
                                      Map<String, Artifact> providerArtifacts ) throws MojoExecutionException
         {
             for ( Artifact dep : resolve( engineGroupId, engineArtifactId, engineVersion, null, "jar" ) )
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
+#### Snippet
+```java
+        }
+
+        private void alignProviderVersions( Map<String, Artifact> providerArtifacts ) throws MojoExecutionException
+        {
+            String version = junitPlatformArtifact.getBaseVersion();
+```
+
+### BoundedWildcard
+Can generalize to `? super Artifact`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
+#### Snippet
+```java
+        }
+
+        private void alignProviderVersions( Map<String, Artifact> providerArtifacts ) throws MojoExecutionException
+        {
+            String version = junitPlatformArtifact.getBaseVersion();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
+#### Snippet
+```java
+    }
+
+    private static Classpath createInProcClasspath( Classpath providerClasspath, Set<Artifact> newArtifacts )
+    {
+        Classpath inprocClasspath = providerClasspath.clone();
 ```
 
 ### BoundedWildcard
@@ -1017,42 +1089,6 @@ Can generalize to `? extends Artifact`
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
 #### Snippet
 ```java
-     * @return The filtered result
-     */
-    private static Set<Artifact> filterArtifacts( Set<Artifact> artifacts, ArtifactFilter filter )
-    {
-        Set<Artifact> filteredArtifacts = new LinkedHashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
-#### Snippet
-```java
-        }
-
-        private void alignProviderVersions( Map<String, Artifact> providerArtifacts ) throws MojoExecutionException
-        {
-            String version = junitPlatformArtifact.getBaseVersion();
-```
-
-### BoundedWildcard
-Can generalize to `? super Artifact`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
-#### Snippet
-```java
-        }
-
-        private void alignProviderVersions( Map<String, Artifact> providerArtifacts ) throws MojoExecutionException
-        {
-            String version = junitPlatformArtifact.getBaseVersion();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
-#### Snippet
-```java
         }
 
         private Classpath setCachedClasspath( @Nonnull String key, @Nonnull Set<Artifact> artifacts )
@@ -1065,216 +1101,35 @@ Can generalize to `? extends Artifact`
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
 #### Snippet
 ```java
-    }
-
-    private static Classpath createInProcClasspath( Classpath providerClasspath, Set<Artifact> newArtifacts )
+     * @return The filtered result
+     */
+    private static Set<Artifact> filterArtifacts( Set<Artifact> artifacts, ArtifactFilter filter )
     {
-        Classpath inprocClasspath = providerClasspath.clone();
+        Set<Artifact> filteredArtifacts = new LinkedHashSet<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Description`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/SingleThreadScheduler.java`
-#### Snippet
-```java
-    }
-
-    private Collection<Description> copyExisting( Collection<Description> descriptions )
-    {
-        Collection<Description> activeChildren = new ConcurrentLinkedQueue<>( descriptions );
-```
-
-### BoundedWildcard
-Can generalize to `? extends GroupMatcher`
-in `surefire-grouper/src/main/java/org/apache/maven/surefire/group/match/AndGroupMatcher.java`
+Can generalize to `? super String`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/AbstractDirectConfigurator.java`
 #### Snippet
 ```java
     }
 
-    public AndGroupMatcher( Collection<GroupMatcher> matchers )
+    private void addPropIfNotNull( Map<String, String> options, Map<String, String> result, String prop )
     {
-        for ( GroupMatcher matcher : matchers )
+        if ( options.containsKey( prop ) )
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GroupMatcher`
-in `surefire-grouper/src/main/java/org/apache/maven/surefire/group/match/OrGroupMatcher.java`
+Can generalize to `? super String`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/AbstractDirectConfigurator.java`
 #### Snippet
 ```java
     }
 
-    public OrGroupMatcher( Collection<GroupMatcher> matchers )
+    private void addPropIfNotNull( Map<String, String> options, Map<String, String> result, String prop )
     {
-        for ( GroupMatcher matcher : matchers )
-```
-
-### BoundedWildcard
-Can generalize to `? extends Runner`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
-#### Snippet
-```java
-    }
-
-    private static List<Runner> removeNullRunners( Collection<Runner> runners )
-    {
-        final List<Runner> onlyRunners = new ArrayList<>( runners );
-```
-
-### BoundedWildcard
-Can generalize to `? extends TestSet`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConcurrentRunListener.java`
-#### Snippet
-```java
-
-    ConcurrentRunListener( final ReporterFactory reporterFactory, boolean reportImmediately,
-                           Map<String, TestSet> classMethodCounts )
-    {
-        this.reportImmediately = reportImmediately;
-```
-
-## RuleId[ruleID=NullableProblems]
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    @Nonnull private final Platform pluginPlatform;
-    @Nonnull private final ConsoleLogger log;
-    @Nonnull private final ForkNodeFactory forkNodeFactory;
-
-    @SuppressWarnings( "checkstyle:parameternumber" )
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-{
-    @Nonnull private final Classpath booterClasspath;
-    @Nonnull private final File tempDirectory;
-    @Nullable
-    private final String debugLine;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    @Nullable private final String argLine;
-    @Nonnull private final Map<String, String> environmentVariables;
-    @Nonnull private final String[] excludedEnvironmentVariables;
-    private final boolean debug;
-    private final int forkCount;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    private final String debugLine;
-    @Nonnull private final File workingDirectory;
-    @Nonnull private final Properties modelProperties;
-    @Nullable private final String argLine;
-    @Nonnull private final Map<String, String> environmentVariables;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    private final boolean reuseForks;
-    @Nonnull private final Platform pluginPlatform;
-    @Nonnull private final ConsoleLogger log;
-    @Nonnull private final ForkNodeFactory forkNodeFactory;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    @Nonnull private final File workingDirectory;
-    @Nonnull private final Properties modelProperties;
-    @Nullable private final String argLine;
-    @Nonnull private final Map<String, String> environmentVariables;
-    @Nonnull private final String[] excludedEnvironmentVariables;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    @Nullable
-    private final String debugLine;
-    @Nonnull private final File workingDirectory;
-    @Nonnull private final Properties modelProperties;
-    @Nullable private final String argLine;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    @Nonnull private final Classpath booterClasspath;
-    @Nonnull private final File tempDirectory;
-    @Nullable
-    private final String debugLine;
-    @Nonnull private final File workingDirectory;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    private final int forkCount;
-    private final boolean reuseForks;
-    @Nonnull private final Platform pluginPlatform;
-    @Nonnull private final ConsoleLogger log;
-    @Nonnull private final ForkNodeFactory forkNodeFactory;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-        extends ForkConfiguration
-{
-    @Nonnull private final Classpath booterClasspath;
-    @Nonnull private final File tempDirectory;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    @Nonnull private final Properties modelProperties;
-    @Nullable private final String argLine;
-    @Nonnull private final Map<String, String> environmentVariables;
-    @Nonnull private final String[] excludedEnvironmentVariables;
-    private final boolean debug;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/ForkChannel.java`
-#### Snippet
-```java
-public abstract class ForkChannel implements Closeable
-{
-    @Nonnull
-    private final ForkNodeArguments arguments;
-
+        if ( options.containsKey( prop ) )
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -1303,6 +1158,18 @@ in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ProcessInfo.j
 ```
 
 ### MissortedModifiers
+Missorted modifiers `protected @Nonnull`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStreamDecoder.java`
+#### Snippet
+```java
+    }
+
+    protected @Nonnull StreamReadStatus read( @Nonnull Memento memento, int recommendedCount ) throws IOException
+    {
+        ByteBuffer buffer = memento.getByteBuffer();
+```
+
+### MissortedModifiers
 Missorted modifiers `abstract @Nonnull`
 in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PpidChecker.java`
 #### Snippet
@@ -1314,16 +1181,149 @@ in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PpidChecker.j
         ProcessInfo execute( String... command )
 ```
 
-### MissortedModifiers
-Missorted modifiers `protected @Nonnull`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStreamDecoder.java`
+## RuleId[ruleID=NullableProblems]
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/ForkChannel.java`
 #### Snippet
 ```java
-    }
+public abstract class ForkChannel implements Closeable
+{
+    @Nonnull
+    private final ForkNodeArguments arguments;
 
-    protected @Nonnull StreamReadStatus read( @Nonnull Memento memento, int recommendedCount ) throws IOException
-    {
-        ByteBuffer buffer = memento.getByteBuffer();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    @Nullable private final String argLine;
+    @Nonnull private final Map<String, String> environmentVariables;
+    @Nonnull private final String[] excludedEnvironmentVariables;
+    private final boolean debug;
+    private final int forkCount;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    @Nonnull private final Properties modelProperties;
+    @Nullable private final String argLine;
+    @Nonnull private final Map<String, String> environmentVariables;
+    @Nonnull private final String[] excludedEnvironmentVariables;
+    private final boolean debug;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    @Nullable
+    private final String debugLine;
+    @Nonnull private final File workingDirectory;
+    @Nonnull private final Properties modelProperties;
+    @Nullable private final String argLine;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    @Nonnull private final Platform pluginPlatform;
+    @Nonnull private final ConsoleLogger log;
+    @Nonnull private final ForkNodeFactory forkNodeFactory;
+
+    @SuppressWarnings( "checkstyle:parameternumber" )
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    private final int forkCount;
+    private final boolean reuseForks;
+    @Nonnull private final Platform pluginPlatform;
+    @Nonnull private final ConsoleLogger log;
+    @Nonnull private final ForkNodeFactory forkNodeFactory;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    @Nonnull private final File workingDirectory;
+    @Nonnull private final Properties modelProperties;
+    @Nullable private final String argLine;
+    @Nonnull private final Map<String, String> environmentVariables;
+    @Nonnull private final String[] excludedEnvironmentVariables;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+        extends ForkConfiguration
+{
+    @Nonnull private final Classpath booterClasspath;
+    @Nonnull private final File tempDirectory;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    private final String debugLine;
+    @Nonnull private final File workingDirectory;
+    @Nonnull private final Properties modelProperties;
+    @Nullable private final String argLine;
+    @Nonnull private final Map<String, String> environmentVariables;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    private final boolean reuseForks;
+    @Nonnull private final Platform pluginPlatform;
+    @Nonnull private final ConsoleLogger log;
+    @Nonnull private final ForkNodeFactory forkNodeFactory;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+    @Nonnull private final Classpath booterClasspath;
+    @Nonnull private final File tempDirectory;
+    @Nullable
+    private final String debugLine;
+    @Nonnull private final File workingDirectory;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+{
+    @Nonnull private final Classpath booterClasspath;
+    @Nonnull private final File tempDirectory;
+    @Nullable
+    private final String debugLine;
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -1337,6 +1337,18 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
         reportsDirectory.mkdirs();
         return new File( reportsDirectory, format( EVENTS_BINARY_DUMP_FILENAME_FORMATTER, jvmRun ) );
     }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TempFileManager.java`
+#### Snippet
+```java
+            try
+            {
+                tempFile.createNewFile();
+            }
+            catch ( IOException ex )
 ```
 
 ### IgnoreResultOfCall
@@ -1364,18 +1376,6 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TempFileManage
 ```
 
 ### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TempFileManager.java`
-#### Snippet
-```java
-            try
-            {
-                tempFile.createNewFile();
-            }
-            catch ( IOException ex )
-```
-
-### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/internal/DumpFileUtils.java`
 #### Snippet
@@ -1387,20 +1387,19 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/internal/DumpF
     }
 ```
 
-## RuleId[ruleID=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `JUnitCore` is the same as one of its superclass' names
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreWrapper.java`
+## RuleId[ruleID=DefaultAnnotationParam]
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
 #### Snippet
 ```java
-    }
-
-    private final class JUnitCore
-        extends org.apache.maven.surefire.junitcore.JUnitCore
-    {
+ */
+@SuppressWarnings( "unused" )
+@Mojo( name = "verify", defaultPhase = LifecyclePhase.VERIFY, requiresProject = true, threadSafe = true )
+public class VerifyMojo
+        extends AbstractMojo
 ```
 
-## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire/report/FailsafeReportMojo.java`
@@ -1451,14 +1450,14 @@ in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
 #### Snippet
 ```java
-     * @since 2.6
-     */
-    @Parameter( defaultValue = "" )
-    private String classpathDependencyScopeExclude;
-
+ * @author Stephen Connolly
+ */
+@Mojo( name = "integration-test", requiresProject = true, requiresDependencyResolution = ResolutionScope.TEST,
+             defaultPhase = LifecyclePhase.INTEGRATION_TEST, threadSafe = true )
+public class IntegrationTestMojo
 ```
 
 ### DefaultAnnotationParam
@@ -1475,29 +1474,42 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/Abstrac
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
 #### Snippet
 ```java
- */
-@SuppressWarnings( "unused" )
-@Mojo( name = "verify", defaultPhase = LifecyclePhase.VERIFY, requiresProject = true, threadSafe = true )
-public class VerifyMojo
-        extends AbstractMojo
+     * @since 2.6
+     */
+    @Parameter( defaultValue = "" )
+    private String classpathDependencyScopeExclude;
+
 ```
 
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
+## RuleId[ruleID=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
+Class name `JUnitCore` is the same as one of its superclass' names
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreWrapper.java`
 #### Snippet
 ```java
- * @author Stephen Connolly
- */
-@Mojo( name = "integration-test", requiresProject = true, requiresDependencyResolution = ResolutionScope.TEST,
-             defaultPhase = LifecyclePhase.INTEGRATION_TEST, threadSafe = true )
-public class IntegrationTestMojo
+    }
+
+    private final class JUnitCore
+        extends org.apache.maven.surefire.junitcore.JUnitCore
+    {
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `createStackTraceWriter()` is identical to its super method
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreRunListener.java`
+#### Snippet
+```java
+
+    @Override
+    protected StackTraceWriter createStackTraceWriter( Failure failure )
+    {
+        return new JUnit4StackTraceWriter( failure );
+```
+
 ### RedundantMethodOverride
 Method `reset()` is identical to its super method
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/NullConsoleReporter.java`
@@ -1520,18 +1532,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
     protected String extendJvmArgLine( @Nonnull String jvmArgLine )
     {
         return jvmArgLine;
-```
-
-### RedundantMethodOverride
-Method `createStackTraceWriter()` is identical to its super method
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreRunListener.java`
-#### Snippet
-```java
-
-    @Override
-    protected StackTraceWriter createStackTraceWriter( Failure failure )
-    {
-        return new JUnit4StackTraceWriter( failure );
 ```
 
 ## RuleId[ruleID=UnnecessarySuperQualifier]
@@ -1563,14 +1563,14 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/extensi
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/Utf8RecodingDeferredFileOutputStream.java`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreWrapper.java`
 #### Snippet
 ```java
-            {
-                byte[] buffer = new byte[CACHE_SIZE];
-                for ( int readCount; ( readCount = storage.read( buffer ) ) != -1; )
-                {
-                    out.write( buffer, 0, readCount );
+                    String reason = e.getClass().getName();
+                    Ignore reasonForSkippedTest = createIgnored( reason );
+                    for ( String clazz; ( clazz = stoppedTests.poll() ) != null; )
+                    {
+                        Description skippedTest = createDescription( clazz, reasonForSkippedTest );
 ```
 
 ### NestedAssignment
@@ -1583,6 +1583,18 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/
         if ( largeCache == null || ( buffer = largeCache.get() ) == null || buffer.length < minLength )
         {
             buffer = new byte[minLength];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/Utf8RecodingDeferredFileOutputStream.java`
+#### Snippet
+```java
+            {
+                byte[] buffer = new byte[CACHE_SIZE];
+                for ( int readCount; ( readCount = storage.read( buffer ) ) != -1; )
+                {
+                    out.write( buffer, 0, readCount );
 ```
 
 ### NestedAssignment
@@ -1633,18 +1645,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
                 try
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreWrapper.java`
-#### Snippet
-```java
-                    String reason = e.getClass().getName();
-                    Ignore reasonForSkippedTest = createIgnored( reason );
-                    for ( String clazz; ( clazz = stoppedTests.poll() ) != null; )
-                    {
-                        Description skippedTest = createDescription( clazz, reasonForSkippedTest );
-```
-
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `reactorProjects` are queried, but never updated
@@ -1660,15 +1660,15 @@ in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `testStdOut` is accessed in both synchronized and unsynchronized contexts
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
+Field `logger` is accessed in both synchronized and unsynchronized contexts
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
 #### Snippet
 ```java
-    private final Object lock;
 
-    private Utf8RecodingDeferredFileOutputStream testStdOut = initDeferred( "stdout" );
+    @Component
+    private Logger logger;
 
-    private Utf8RecodingDeferredFileOutputStream testStdErr = initDeferred( "stderr" );
+    private Collection<CommandLineOption> cli;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1681,6 +1681,18 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/
     private Utf8RecodingDeferredFileOutputStream testStdErr = initDeferred( "stderr" );
 
     @SuppressWarnings( "checkstyle:parameternumber" )
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `testStdOut` is accessed in both synchronized and unsynchronized contexts
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/TestSetRunListener.java`
+#### Snippet
+```java
+    private final Object lock;
+
+    private Utf8RecodingDeferredFileOutputStream testStdOut = initDeferred( "stdout" );
+
+    private Utf8RecodingDeferredFileOutputStream testStdErr = initDeferred( "stderr" );
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1705,18 +1717,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/Abstrac
     private Logger logger;
 
     /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `logger` is accessed in both synchronized and unsynchronized contexts
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
-#### Snippet
-```java
-
-    @Component
-    private Logger logger;
-
-    private Collection<CommandLineOption> cli;
 ```
 
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -1867,30 +1867,6 @@ in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/t
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `surefire-providers/surefire-testng-utils/src/main/java/org/apache/maven/surefire/testng/utils/MethodSelector.java`
-#### Snippet
-```java
-        implements IMethodSelector
-{
-    private static volatile TestListResolver testListResolver = null;
-
-    @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/runorder/Priority.java`
-#### Snippet
-```java
-    int priority;
-
-    int totalRuntime = 0;
-
-    int minSuccessRate = Integer.MAX_VALUE;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
 #### Snippet
@@ -1926,19 +1902,31 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
     private volatile Controller masterController;
 ```
 
-## RuleId[ruleID=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `Closeable`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/lazytestprovider/AbstractCommandReader.java`
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `surefire-providers/surefire-testng-utils/src/main/java/org/apache/maven/surefire/testng/utils/MethodSelector.java`
 #### Snippet
 ```java
- */
-public abstract class AbstractCommandReader
-        implements CommandReader, NotifiableTestStream, Closeable
+        implements IMethodSelector
 {
-}
+    private static volatile TestListResolver testListResolver = null;
+
+    @Override
 ```
 
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/runorder/Priority.java`
+#### Snippet
+```java
+    int priority;
+
+    int totalRuntime = 0;
+
+    int minSuccessRate = Integer.MAX_VALUE;
+```
+
+## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `Annotation`
 in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4Reflector.java`
@@ -1951,10 +1939,22 @@ in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/com
         private final String value;
 ```
 
+### RedundantImplements
+Redundant interface declaration `Closeable`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/lazytestprovider/AbstractCommandReader.java`
+#### Snippet
+```java
+ */
+public abstract class AbstractCommandReader
+        implements CommandReader, NotifiableTestStream, Closeable
+{
+}
+```
+
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-17-01-16-53.313.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-22-07-44-37.819.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1967,62 +1967,14 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-17-01-16-53.313.
 ## RuleId[ruleID=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/CommandReader.java`
+in `surefire-providers/surefire-junit4/src/main/java/org/apache/maven/surefire/junit4/JUnit4Provider.java`
 #### Snippet
 ```java
-                // If #stop() method is called, reader thread is interrupted
-                // and exception is InterruptedIOException or its cause is InterruptedException.
-                if ( !( e instanceof InterruptedIOException || e.getCause() instanceof InterruptedException ) )
-                {
-                    String msg = "[SUREFIRE] std/in stream corrupted";
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `t`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
-#### Snippet
-```java
+        catch ( Throwable e )
         {
-            Throwable e =
-                t instanceof InvocationTargetException ? ( (InvocationTargetException) t ).getTargetException() : t;
-            DumpErrorSingleton.getSingleton().dumpException( e );
-            logger.error( e.getLocalizedMessage(), e );
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PpidChecker.java`
-#### Snippet
-```java
-            catch ( Exception e )
+            if ( isFailFast() && e instanceof StoppedByUserException )
             {
-                if ( !( e instanceof InterruptedException || e instanceof InterruptedIOException
-                    || e.getCause() instanceof InterruptedException ) )
-                {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PpidChecker.java`
-#### Snippet
-```java
-            catch ( Exception e )
-            {
-                if ( !( e instanceof InterruptedException || e instanceof InterruptedIOException
-                    || e.getCause() instanceof InterruptedException ) )
-                {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/extensions/EventConsumerThread.java`
-#### Snippet
-```java
-        catch ( IOException e )
-        {
-            if ( e instanceof InterruptedIOException || e.getCause() instanceof InterruptedException )
-            {
-                Thread.currentThread().interrupt();
+                String reason = e.getClass().getName();
 ```
 
 ### InstanceofCatchParameter
@@ -2039,81 +1991,92 @@ in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/u
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `surefire-providers/surefire-junit4/src/main/java/org/apache/maven/surefire/junit4/JUnit4Provider.java`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/extensions/EventConsumerThread.java`
 #### Snippet
 ```java
-        catch ( Throwable e )
+        catch ( IOException e )
         {
-            if ( isFailFast() && e instanceof StoppedByUserException )
+            if ( e instanceof InterruptedIOException || e.getCause() instanceof InterruptedException )
             {
-                String reason = e.getClass().getName();
+                Thread.currentThread().interrupt();
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/output/ForkClient.java`
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/CommandReader.java`
 #### Snippet
 ```java
-        if ( testSetReporter == null )
-        {
-            synchronized ( this )
-            {
-                if ( testSetReporter == null )
+                // If #stop() method is called, reader thread is interrupted
+                // and exception is InterruptedIOException or its cause is InterruptedException.
+                if ( !( e instanceof InterruptedIOException || e.getCause() instanceof InterruptedException ) )
+                {
+                    String msg = "[SUREFIRE] std/in stream corrupted";
 ```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/CountdownCloseable.java`
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PpidChecker.java`
 #### Snippet
 ```java
-        if ( countdown > 0 )
-        {
-            wait();
-        }
-    }
+            catch ( Exception e )
+            {
+                if ( !( e instanceof InterruptedException || e instanceof InterruptedIOException
+                    || e.getCause() instanceof InterruptedException ) )
+                {
 ```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/CountdownCloseable.java`
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PpidChecker.java`
 #### Snippet
 ```java
-            finally
+            catch ( Exception e )
             {
-                notifyAll();
-            }
-        }
+                if ( !( e instanceof InterruptedException || e instanceof InterruptedIOException
+                    || e.getCause() instanceof InterruptedException ) )
+                {
 ```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `t`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
 #### Snippet
 ```java
-        if ( consoleLogger == null )
         {
-            synchronized ( this )
-            {
-                if ( consoleLogger == null )
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
-#### Snippet
-```java
-        if ( consoleLogger == null )
-        {
-            synchronized ( this )
-            {
-                if ( consoleLogger == null )
+            Throwable e =
+                t instanceof InvocationTargetException ? ( (InvocationTargetException) t ).getTargetException() : t;
+            DumpErrorSingleton.getSingleton().dumpException( e );
+            logger.error( e.getLocalizedMessage(), e );
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4Reflector.java`
+#### Snippet
+```java
+            Method method = getMethod( Description.class, "createSuiteDescription", PARAMS_WITH_ANNOTATIONS );
+            // may throw exception probably with broken JUnit 4.x
+            return invokeMethodWithArray( null, method, description, new Annotation[0] );
+        }
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `maven-surefire-plugin/src/main/java/org/apache/maven/plugin/surefire/SurefirePlugin.java`
+#### Snippet
+```java
+    protected final String[] getExcludedEnvironmentVariables()
+    {
+        return excludedEnvironmentVariables == null ? new String[0] : excludedEnvironmentVariables;
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
 #### Snippet
 ```java
     protected final String[] getExcludedEnvironmentVariables()
@@ -2133,18 +2096,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
         this( new String[0] );
     }
 
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4Reflector.java`
-#### Snippet
-```java
-            Method method = getMethod( Description.class, "createSuiteDescription", PARAMS_WITH_ANNOTATIONS );
-            // may throw exception probably with broken JUnit 4.x
-            return invokeMethodWithArray( null, method, description, new Annotation[0] );
-        }
-    }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -2171,16 +2122,65 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStre
         result.put( (byte) ':' );
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
+## RuleId[ruleID=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/CountdownCloseable.java`
 #### Snippet
 ```java
-    protected final String[] getExcludedEnvironmentVariables()
-    {
-        return excludedEnvironmentVariables == null ? new String[0] : excludedEnvironmentVariables;
-    }
+            finally
+            {
+                notifyAll();
+            }
+        }
+```
 
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/CountdownCloseable.java`
+#### Snippet
+```java
+        if ( countdown > 0 )
+        {
+            wait();
+        }
+    }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
+#### Snippet
+```java
+        if ( consoleLogger == null )
+        {
+            synchronized ( this )
+            {
+                if ( consoleLogger == null )
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/output/ForkClient.java`
+#### Snippet
+```java
+        if ( testSetReporter == null )
+        {
+            synchronized ( this )
+            {
+                if ( testSetReporter == null )
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
+#### Snippet
+```java
+        if ( consoleLogger == null )
+        {
+            synchronized ( this )
+            {
+                if ( consoleLogger == null )
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -2209,18 +2209,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/Abstrac
 ```
 
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `testClasses.add( test )` is always `true`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/CommandReader.java`
-#### Snippet
-```java
-    private boolean insertToQueue( String test )
-    {
-        return isNotBlank( test ) && !isQueueFull() && testClasses.add( test );
-    }
-
-```
-
 ### ConstantValue
 Condition `i < subDirectories.length` is always `true` when reached
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/util/FileScanner.java`
@@ -2267,6 +2255,18 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/ResolvedTes
             if ( path != null && !path.startsWith( WILDCARD_PATH_PREFIX ) )
             {
                 path = WILDCARD_PATH_PREFIX + path;
+```
+
+### ConstantValue
+Condition `testClasses.add( test )` is always `true`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/CommandReader.java`
+#### Snippet
+```java
+    private boolean insertToQueue( String test )
+    {
+        return isNotBlank( test ) && !isQueueFull() && testClasses.add( test );
+    }
+
 ```
 
 ### ConstantValue
@@ -2332,27 +2332,15 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/runorder/RunEntrySt
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `SystemPropertyManager` has only 'static' members, and lacks a 'private' constructor
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemPropertyManager.java`
+Class `SchedulingStrategies` has only 'static' members, and lacks a 'private' constructor
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/SchedulingStrategies.java`
 #### Snippet
 ```java
- * @author Kristian Rosenvold
+ * @since 2.16
  */
-public class SystemPropertyManager
+public class SchedulingStrategies
 {
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClasspathCache` has only 'static' members, and lacks a 'private' constructor
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/ClasspathCache.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class ClasspathCache
-{
-    private static final ConcurrentHashMap<String, Classpath> CLASSPATHS =
+    private static final ThreadFactory DAEMON_THREAD_FACTORY = DaemonThreadFactory.newDaemonThreadFactory();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -2368,6 +2356,18 @@ public class JUnit4RunListenerFactory
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ClasspathCache` has only 'static' members, and lacks a 'private' constructor
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/ClasspathCache.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class ClasspathCache
+{
+    private static final ConcurrentHashMap<String, Classpath> CLASSPATHS =
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `SureFireFileManager` has only 'static' members, and lacks a 'private' constructor
 in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/SureFireFileManager.java`
 #### Snippet
@@ -2377,18 +2377,6 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/SureFireFileMa
 public final class SureFireFileManager
 {
 
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/booter/Constants.java`
-#### Snippet
-```java
- *
- */
-public final class Constants
-{
-    private static final String MAGIC_NUMBER_FOR_EVENTS = "maven-surefire-event";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -2404,6 +2392,18 @@ public class ProviderParameterNames
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/booter/Constants.java`
+#### Snippet
+```java
+ *
+ */
+public final class Constants
+{
+    private static final String MAGIC_NUMBER_FOR_EVENTS = "maven-surefire-event";
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ConsoleOutputCapture` has only 'static' members, and lacks a 'private' constructor
 in `surefire-api/src/main/java/org/apache/maven/surefire/api/report/ConsoleOutputCapture.java`
 #### Snippet
@@ -2416,28 +2416,15 @@ public final class ConsoleOutputCapture
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SchedulingStrategies` has only 'static' members, and lacks a 'private' constructor
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/SchedulingStrategies.java`
+Class `SystemPropertyManager` has only 'static' members, and lacks a 'private' constructor
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemPropertyManager.java`
 #### Snippet
 ```java
- * @since 2.16
+ * @author Kristian Rosenvold
  */
-public class SchedulingStrategies
+public class SystemPropertyManager
 {
-    private static final ThreadFactory DAEMON_THREAD_FACTORY = DaemonThreadFactory.newDaemonThreadFactory();
-```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/LineConsumerThread.java`
-#### Snippet
-```java
-    {
-        try ( Scanner stream = new Scanner( channel, encoding.name() );
-              CountdownCloseable c = countdownCloseable; )
-        {
-            boolean isError = false;
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -2463,6 +2450,18 @@ in `surefire-providers/common-junit3/src/main/java/org/apache/maven/surefire/com
             testInterfaceRunMethod = getMethod( testInterface, RUN_METHOD, testResultClass );
         }
         else
+```
+
+### DataFlowIssue
+Casting `obj` to `AndGroupMatcher` will produce `ClassCastException` for any non-null value
+in `surefire-grouper/src/main/java/org/apache/maven/surefire/group/match/OrGroupMatcher.java`
+#### Snippet
+```java
+            return false;
+        }
+        AndGroupMatcher other = (AndGroupMatcher) obj;
+        return getMatchers().equals( other.getMatchers() );
+    }
 ```
 
 ### DataFlowIssue
@@ -2501,16 +2500,17 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/runorder/RunEntrySt
                             previous.getClassMethod().getClazz(),
 ```
 
-### DataFlowIssue
-Casting `obj` to `AndGroupMatcher` will produce `ClassCastException` for any non-null value
-in `surefire-grouper/src/main/java/org/apache/maven/surefire/group/match/OrGroupMatcher.java`
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/util/LineConsumerThread.java`
 #### Snippet
 ```java
-            return false;
-        }
-        AndGroupMatcher other = (AndGroupMatcher) obj;
-        return getMatchers().equals( other.getMatchers() );
-    }
+    {
+        try ( Scanner stream = new Scanner( channel, encoding.name() );
+              CountdownCloseable c = countdownCloseable; )
+        {
+            boolean isError = false;
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -2553,32 +2553,128 @@ in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/su
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'addURL' is still used
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/IsolatedClassLoader.java`
+Deprecated member 'TestMethod' is still used
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/TestMethod.java`
 #### Snippet
 ```java
-    @Override
-    @Deprecated
-    public void addURL( URL url )
-    {
-        // avoid duplicates
+ */
+@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
+class TestMethod
+    implements TestOutputReceiver<TestOutputReportEntry>
+{
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'isChildDelegation' is still used
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/AbstractPathConfiguration.java`
+Deprecated member 'MethodsParallelRunListener' is still used
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/MethodsParallelRunListener.java`
 #### Snippet
 ```java
+ */
+@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
+final class MethodsParallelRunListener
+    extends ConcurrentRunListener
+{
+```
 
-    @Deprecated
-    public boolean isChildDelegation()
-    {
-        return childDelegation;
+### DeprecatedIsStillUsed
+Deprecated member 'NonConcurrentRunListener' is still used
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/NonConcurrentRunListener.java`
+#### Snippet
+```java
+ */
+@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
+class NonConcurrentRunListener
+    extends JUnit4RunListener
+{
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ClassesParallelRunListener' is still used
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ClassesParallelRunListener.java`
+#### Snippet
+```java
+ */
+@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
+final class ClassesParallelRunListener
+    extends ConcurrentRunListener
+{
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ConfigurableParallelComputer' is still used
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConfigurableParallelComputer.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class ConfigurableParallelComputer
+    extends Computer
+{
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ConcurrentRunListener' is still used
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConcurrentRunListener.java`
+#### Snippet
+```java
+ */
+@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
+abstract class ConcurrentRunListener
+    implements TestReportListener<TestOutputReportEntry>
+{
 ```
 
 ### DeprecatedIsStillUsed
 Deprecated member 'isSkipExec' is still used
 in `maven-surefire-plugin/src/main/java/org/apache/maven/plugin/surefire/SurefirePlugin.java`
+#### Snippet
+```java
+    @Override
+    @Deprecated
+    public boolean isSkipExec()
+    {
+        return skipExec;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isSkipExec' is still used
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
+#### Snippet
+```java
+    @Override
+    @Deprecated
+    public boolean isSkipExec()
+    {
+        return skipExec;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'reportsDirectory' is still used
+in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire/report/AbstractSurefireReportMojo.java`
+#### Snippet
+```java
+    @Deprecated
+    @Parameter
+    private File reportsDirectory;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'failIfNoSpecifiedTestsDeprecated' is still used
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
+#### Snippet
+```java
+    @Deprecated
+    @Parameter( property = "it.failIfNoSpecifiedTests", defaultValue = "true" )
+    private boolean failIfNoSpecifiedTestsDeprecated;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isSkipExec' is still used
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
 #### Snippet
 ```java
     @Override
@@ -2625,147 +2721,27 @@ public final class ResolvedTest
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'reportsDirectory' is still used
-in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire/report/AbstractSurefireReportMojo.java`
-#### Snippet
-```java
-    @Deprecated
-    @Parameter
-    private File reportsDirectory;
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'TestMethod' is still used
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/TestMethod.java`
-#### Snippet
-```java
- */
-@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
-class TestMethod
-    implements TestOutputReceiver<TestOutputReportEntry>
-{
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ClassesParallelRunListener' is still used
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ClassesParallelRunListener.java`
-#### Snippet
-```java
- */
-@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
-final class ClassesParallelRunListener
-    extends ConcurrentRunListener
-{
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'MethodsParallelRunListener' is still used
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/MethodsParallelRunListener.java`
-#### Snippet
-```java
- */
-@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
-final class MethodsParallelRunListener
-    extends ConcurrentRunListener
-{
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'NonConcurrentRunListener' is still used
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/NonConcurrentRunListener.java`
-#### Snippet
-```java
- */
-@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
-class NonConcurrentRunListener
-    extends JUnit4RunListener
-{
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'disableXmlReport' is still used
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
-#### Snippet
-```java
-    @Deprecated // todo make readonly to handle system property
-    @Parameter( property = "disableXmlReport", defaultValue = "false" )
-    private boolean disableXmlReport;
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'systemProperties' is still used
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
-#### Snippet
-```java
-    @Deprecated
-    @Parameter
-    private Properties systemProperties;
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isSkipExec' is still used
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
+Deprecated member 'addURL' is still used
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/IsolatedClassLoader.java`
 #### Snippet
 ```java
     @Override
     @Deprecated
-    public boolean isSkipExec()
+    public void addURL( URL url )
     {
-        return skipExec;
+        // avoid duplicates
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'isSkipExec' is still used
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
+Deprecated member 'isChildDelegation' is still used
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/AbstractPathConfiguration.java`
 #### Snippet
 ```java
-    @Override
+
     @Deprecated
-    public boolean isSkipExec()
+    public boolean isChildDelegation()
     {
-        return skipExec;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ConfigurableParallelComputer' is still used
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConfigurableParallelComputer.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class ConfigurableParallelComputer
-    extends Computer
-{
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'excludes' is still used
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/DirectoryScannerParameters.java`
-#### Snippet
-```java
-
-    @Deprecated
-    private final List<String> excludes;
-
-    @Deprecated
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ConcurrentRunListener' is still used
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConcurrentRunListener.java`
-#### Snippet
-```java
- */
-@Deprecated // remove this class after StatelessXmlReporter is capable of parallel test sets processing
-abstract class ConcurrentRunListener
-    implements TestReportListener<TestOutputReportEntry>
-{
+        return childDelegation;
 ```
 
 ### DeprecatedIsStillUsed
@@ -2804,6 +2780,42 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/DirectorySc
     @Deprecated
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'excludes' is still used
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/DirectoryScannerParameters.java`
+#### Snippet
+```java
+
+    @Deprecated
+    private final List<String> excludes;
+
+    @Deprecated
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'systemProperties' is still used
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
+#### Snippet
+```java
+    @Deprecated
+    @Parameter
+    private Properties systemProperties;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'disableXmlReport' is still used
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/AbstractSurefireMojo.java`
+#### Snippet
+```java
+    @Deprecated // todo make readonly to handle system property
+    @Parameter( property = "disableXmlReport", defaultValue = "false" )
+    private boolean disableXmlReport;
+
+    /**
+```
+
 ## RuleId[ruleID=UnnecessaryCallToStringValueOf]
 ### UnnecessaryCallToStringValueOf
 Unnecessary `String.valueOf()` call
@@ -2815,19 +2827,6 @@ in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/util/Fa
                 String.valueOf( fromRunResult.isTimeout() ),
                 fromRunResult.getCompletedCount(),
                 fromRunResult.getErrors(),
-```
-
-## RuleId[ruleID=RedundantCollectionOperation]
-### RedundantCollectionOperation
-Unnecessary 'contains()' check
-in `maven-surefire-common/src/main/java/org/apache/maven/surefire/providerapi/ServiceLoader.java`
-#### Snippet
-```java
-                        }
-                    }
-                    if ( !names.contains( line ) )
-                    {
-                        names.add( line );
 ```
 
 ## RuleId[ruleID=AbstractMethodCallInConstructor]
@@ -2855,17 +2854,17 @@ in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/AbstractPathC
             throw new IllegalStateException( "modular path and class path should be exclusive" );
 ```
 
-## RuleId[ruleID=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return list but the return type is set
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4ProviderUtil.java`
+## RuleId[ruleID=RedundantCollectionOperation]
+### RedundantCollectionOperation
+Unnecessary 'contains()' check
+in `maven-surefire-common/src/main/java/org/apache/maven/surefire/providerapi/ServiceLoader.java`
 #### Snippet
 ```java
-     *
-     * @param allFailures the list of failures for a given test class
-     * @return the list of descriptions
-     */
-    public static Set<Description> generateFailingTestDescriptions( List<Failure> allFailures )
+                        }
+                    }
+                    if ( !names.contains( line ) )
+                    {
+                        names.add( line );
 ```
 
 ## RuleId[ruleID=CollectionContainsUrl]
@@ -2881,17 +2880,17 @@ in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/IsolatedClass
     private final String roleName;
 ```
 
-## RuleId[ruleID=ProtectedMemberInFinalClass]
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/InvokerStrategy.java`
+## RuleId[ruleID=MismatchedJavadocCode]
+### MismatchedJavadocCode
+Method is specified to return list but the return type is set
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4ProviderUtil.java`
 #### Snippet
 ```java
-    private final Queue<Thread> activeThreads = new ConcurrentLinkedQueue<>();
-
-    protected InvokerStrategy( ConsoleLogger logger )
-    {
-        super( logger );
+     *
+     * @param allFailures the list of failures for a given test class
+     * @return the list of descriptions
+     */
+    public static Set<Description> generateFailingTestDescriptions( List<Failure> allFailures )
 ```
 
 ## RuleId[ruleID=ThreadRun]
@@ -2905,6 +2904,19 @@ in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/u
             shutdownHook.run();
             removeShutdownHook( shutdownHook );
             shutdownHook = null;
+```
+
+## RuleId[ruleID=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/InvokerStrategy.java`
+#### Snippet
+```java
+    private final Queue<Thread> activeThreads = new ConcurrentLinkedQueue<>();
+
+    protected InvokerStrategy( ConsoleLogger logger )
+    {
+        super( logger );
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -2925,9 +2937,9 @@ Unnecessary `toString()` call
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
 #### Snippet
 ```java
-                else
-                {
-                    throw new SurefireBooterForkException( "No results for " + result.toString() );
+                    throw new SurefireBooterForkException(
+                        "The forked VM terminated without properly saying goodbye. VM crash or System.exit called?"
+                            + "\nCommand was " + cli.toString() + detail + errorCode + testsInProgress, cause );
                 }
             }
 ```
@@ -2937,9 +2949,9 @@ Unnecessary `toString()` call
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
 #### Snippet
 ```java
-                    throw new SurefireBooterForkException(
-                        "The forked VM terminated without properly saying goodbye. VM crash or System.exit called?"
-                            + "\nCommand was " + cli.toString() + detail + errorCode + testsInProgress, cause );
+                else
+                {
+                    throw new SurefireBooterForkException( "No results for " + result.toString() );
                 }
             }
 ```
@@ -2955,6 +2967,18 @@ in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/Integra
     protected boolean isSkipExecution()
     {
         return isSkip() || isSkipTests() || isSkipITs() || isSkipExec();
+```
+
+### RedundantSuppression
+Redundant suppression
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings( "deprecation" )
+    public boolean getFailIfNoSpecifiedTests()
+    {
+        if ( !failIfNoSpecifiedTestsDeprecated )
 ```
 
 ### RedundantSuppression
@@ -3151,6 +3175,18 @@ in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/t
 
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### UnnecessaryBoxing
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreParameters.java`
+#### Snippet
+```java
+    private static int property( Map<String, String> properties, String key, int fallback )
+    {
+        return properties.containsKey( key ) ? Integer.valueOf( properties.get( key ) ) : fallback;
+    }
+
+```
+
+### UnnecessaryBoxing
 Redundant boxing, `Boolean.parseBoolean()` call can be used instead
 in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreParameters.java`
 #### Snippet
@@ -3174,53 +3210,17 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
 }
 ```
 
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreParameters.java`
-#### Snippet
-```java
-    private static int property( Map<String, String> properties, String key, int fallback )
-    {
-        return properties.containsKey( key ) ? Integer.valueOf( properties.get( key ) ) : fallback;
-    }
-
-```
-
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ProviderFactory.java`
+in `surefire-grouper/src/main/java/org/apache/maven/surefire/group/match/SingleGroupMatcher.java`
 #### Snippet
 ```java
-        throws TestSetFailedException, InvocationTargetException
-    {
-        final PrintStream orgSystemOut = System.out;
-        final PrintStream orgSystemErr = System.err;
-        // Note that System.out/System.err are also read in the "ReporterConfiguration" instantiation
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ProviderFactory.java`
-#### Snippet
-```java
-    {
-        final PrintStream orgSystemOut = System.out;
-        final PrintStream orgSystemErr = System.err;
-        // Note that System.out/System.err are also read in the "ReporterConfiguration" instantiation
-        // in createProvider below. These are the same values as here.
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/LegacyMasterProcessChannelProcessorFactory.java`
-#### Snippet
-```java
-    public MasterProcessChannelEncoder createEncoder( @Nonnull ForkNodeArguments forkingArguments )
-    {
-        WritableBufferedByteChannel channel = newBufferedChannel( System.out );
-        schedulePeriodicFlusher( FLUSH_PERIOD_MILLIS, channel );
-        return new EventChannelEncoder( channel );
+            // class is not available at runtime, for instance this would happen in reactor projects
+            // in which not all modules have the required class on the classpath/module path
+            System.out.println( "[WARNING] Couldn't load group class '" + enabled + "' in Surefire|Failsafe plugin. "
+                    + "The group class is ignored!" );
+        }
 ```
 
 ### SystemOutErr
@@ -3273,6 +3273,30 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ProviderFactory.java`
+#### Snippet
+```java
+        throws TestSetFailedException, InvocationTargetException
+    {
+        final PrintStream orgSystemOut = System.out;
+        final PrintStream orgSystemErr = System.err;
+        // Note that System.out/System.err are also read in the "ReporterConfiguration" instantiation
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ProviderFactory.java`
+#### Snippet
+```java
+    {
+        final PrintStream orgSystemOut = System.out;
+        final PrintStream orgSystemErr = System.err;
+        // Note that System.out/System.err are also read in the "ReporterConfiguration" instantiation
+        // in createProvider below. These are the same values as here.
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStreamDecoder.java`
 #### Snippet
 ```java
@@ -3285,14 +3309,14 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStre
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/AbstractDirectConfigurator.java`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/LegacyMasterProcessChannelProcessorFactory.java`
 #### Snippet
 ```java
-        throws TestSetFailedException
+    public MasterProcessChannelEncoder createEncoder( @Nonnull ForkNodeArguments forkingArguments )
     {
-        System.out.println( "\n\n\n\nCONFIGURING TESTNG\n\n\n\n" );
-        // kind of ugly, but listeners are configured differently
-        final String listeners = options.remove( "listener" );
+        WritableBufferedByteChannel channel = newBufferedChannel( System.out );
+        schedulePeriodicFlusher( FLUSH_PERIOD_MILLIS, channel );
+        return new EventChannelEncoder( channel );
 ```
 
 ### SystemOutErr
@@ -3309,27 +3333,14 @@ in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/t
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `surefire-grouper/src/main/java/org/apache/maven/surefire/group/match/SingleGroupMatcher.java`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/AbstractDirectConfigurator.java`
 #### Snippet
 ```java
-            // class is not available at runtime, for instance this would happen in reactor projects
-            // in which not all modules have the required class on the classpath/module path
-            System.out.println( "[WARNING] Couldn't load group class '" + enabled + "' in Surefire|Failsafe plugin. "
-                    + "The group class is ignored!" );
-        }
-```
-
-## RuleId[ruleID=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter( property = "encoding", defaultValue = "${project.reporting.outputEncoding}" )
-    private String encoding;
-
-    /**
+        throws TestSetFailedException
+    {
+        System.out.println( "\n\n\n\nCONFIGURING TESTNG\n\n\n\n" );
+        // kind of ugly, but listeners are configured differently
+        final String listeners = options.remove( "listener" );
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -3345,17 +3356,42 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
 
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
+## RuleId[ruleID=MissingDeprecatedAnnotation]
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
 #### Snippet
 ```java
-        {
-            properties.load( is );
-            String javaVersion = properties.getProperty( "JAVA_VERSION" ).replace( "\"", "" );
-            StringTokenizer versions = new StringTokenizer( javaVersion, "._" );
+     */
+    @Parameter( property = "encoding", defaultValue = "${project.reporting.outputEncoding}" )
+    private String encoding;
 
+    /**
+```
+
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/JUnitPlatformProvider.java`
+#### Snippet
+```java
+        String property = parameters.getProviderProperties().get( key );
+        return isBlank( property ) ? empty()
+                        : of( stream( property.split( "[,]+" ) )
+                                              .filter( StringUtils::isNotBlank )
+                                              .map( String::trim )
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/RunListenerAdapter.java`
+#### Snippet
+```java
+                    .filter( identifier -> !identifier.getSource().isPresent() )
+                    .map( TestIdentifier::getLegacyReportingName )
+                    .anyMatch( legacyReportingName -> legacyReportingName.matches( "^\\[.+]$" ) );
+
+            boolean parameterized = isNotBlank( methodSource.getMethodParameterTypes() ) || hasParameterizedParent;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3396,18 +3432,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/util/Sc
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-    private static String stripWhitespace( @Nonnull String argLine )
-    {
-        return argLine.replaceAll( "\\s", " " );
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/JarManifestForkConfiguration.java`
 #### Snippet
 ```java
@@ -3431,15 +3455,15 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/JUnitPlatformProvider.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
 #### Snippet
 ```java
-        String property = parameters.getProviderProperties().get( key );
-        return isBlank( property ) ? empty()
-                        : of( stream( property.split( "[,]+" ) )
-                                              .filter( StringUtils::isNotBlank )
-                                              .map( String::trim )
+    private static String stripWhitespace( @Nonnull String argLine )
+    {
+        return argLine.replaceAll( "\\s", " " );
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3455,15 +3479,27 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/SureFireFileMa
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/RunListenerAdapter.java`
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/TestListResolver.java`
 #### Snippet
 ```java
-                    .filter( identifier -> !identifier.getSource().isPresent() )
-                    .map( TestIdentifier::getLegacyReportingName )
-                    .anyMatch( legacyReportingName -> legacyReportingName.matches( "^\\[.+]$" ) );
+                        throw new IllegalArgumentException( "Exclamation mark not expected in 'exclusion': " + exc );
+                    }
+                    exc = exc.replace( ",", ",!" );
+                    if ( !exc.startsWith( "!" ) )
+                    {
+```
 
-            boolean parameterized = isNotBlank( methodSource.getMethodParameterTypes() ) || hasParameterizedParent;
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
+#### Snippet
+```java
+        {
+            properties.load( is );
+            String javaVersion = properties.getProperty( "JAVA_VERSION" ).replace( "\"", "" );
+            StringTokenizer versions = new StringTokenizer( javaVersion, "._" );
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3476,18 +3512,6 @@ in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/t
         String[] classNames = listenerClasses.split( "\\s*,\\s*(\\r?\\n)?\\s*" );
         for ( int i = 0; i < classNames.length; i++ )
         {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/TestListResolver.java`
-#### Snippet
-```java
-                        throw new IllegalArgumentException( "Exclamation mark not expected in 'exclusion': " + exc );
-                    }
-                    exc = exc.replace( ",", ",!" );
-                    if ( !exc.startsWith( "!" ) )
-                    {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3504,327 +3528,15 @@ in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/t
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `junit.framework` is unnecessary, and can be replaced with an import
-in `surefire-providers/common-junit3/src/main/java/org/apache/maven/surefire/common/junit3/JUnit3TestChecker.java`
-#### Snippet
-```java
-            if ( isPublic( modifiers ) && isStatic( modifiers ) )
-            {
-                return junit.framework.Test.class.isAssignableFrom( suite.getReturnType() );
-            }
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemPropertyManager.java`
-#### Snippet
-```java
-     * @param inStream The stream to read from, will be closed
-     * @return The properties
-     * @throws java.io.IOException If something bad happens
-     */
-    public static PropertiesWrapper loadProperties( InputStream inStream )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner` is unnecessary, and can be replaced with an import
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/JUnit48TestChecker.java`
-#### Snippet
-```java
-    private boolean isRunWithEnclosedRunner( Class testClass )
-    {
-        @SuppressWarnings( "unchecked" ) org.junit.runner.RunWith runWithAnnotation =
-            (org.junit.runner.RunWith) testClass.getAnnotation( org.junit.runner.RunWith.class );
-        return ( runWithAnnotation != null && Enclosed.class.equals( runWithAnnotation.value() ) );
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner` is unnecessary, and can be replaced with an import
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/JUnit48TestChecker.java`
-#### Snippet
-```java
-    {
-        @SuppressWarnings( "unchecked" ) org.junit.runner.RunWith runWithAnnotation =
-            (org.junit.runner.RunWith) testClass.getAnnotation( org.junit.runner.RunWith.class );
-        return ( runWithAnnotation != null && Enclosed.class.equals( runWithAnnotation.value() ) );
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner` is unnecessary, and can be replaced with an import
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/JUnit48TestChecker.java`
-#### Snippet
-```java
-    {
-        @SuppressWarnings( "unchecked" ) org.junit.runner.RunWith runWithAnnotation =
-            (org.junit.runner.RunWith) testClass.getAnnotation( org.junit.runner.RunWith.class );
-        return ( runWithAnnotation != null && Enclosed.class.equals( runWithAnnotation.value() ) );
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/ConsoleOutputFileReporter.java`
-#### Snippet
-```java
-
-/**
- * Surefire output consumer proxy that writes test output to a {@link java.io.File} for each test suite.
- *
- * @author Kristian Rosenvold
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.surefire.booter` is unnecessary and can be removed
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
-#### Snippet
-```java
-     * @param dumpLogDirectory     directory for dump log file
-     * @return CommandLine able to flush entire command going to be sent to forked JVM
-     * @throws org.apache.maven.surefire.booter.SurefireBooterForkException when unable to perform the fork
-     */
-    @Nonnull
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.surefire.booter` is unnecessary and can be removed
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkConfiguration.java`
-#### Snippet
-```java
-     * @param dumpLogDirectory     directory for dump log file
-     * @return CommandLine able to flush entire command going to be sent to forked JVM
-     * @throws org.apache.maven.surefire.booter.SurefireBooterForkException
-     *          when unable to perform the fork
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.surefire.booterclient.lazytestprovider` is unnecessary and can be removed
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/lazytestprovider/NotifiableTestStream.java`
-#### Snippet
-```java
- * Implemented by {@link TestProvidingInputStream} and {@link TestLessInputStream} where the method
- * {@link TestLessInputStream#provideNewTest()} purposefully does nothing. Some methods in
- * {@link org.apache.maven.plugin.surefire.booterclient.lazytestprovider.TestLessInputStream.TestLessInputStreamBuilder}
- * throw {@link UnsupportedOperationException}.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/output/ThreadedStreamConsumer.java`
-#### Snippet
-```java
-         * <br>
-         * If {@link org.apache.maven.plugin.surefire.report.ConsoleOutputFileReporter#writeTestOutput} throws
-         * {@link java.io.IOException} and then {@code target.consumeLine()} throws any RuntimeException, this method
-         * MUST NOT skip reading the events from the forked JVM; otherwise we could simply lost events
-         * e.g. acquire-next-test which means that {@link ForkClient} could hang on waiting for old test to complete
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner.notification` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/Notifier.java`
-#### Snippet
-```java
-
-    /**
-     * Fire stop even to plugin process and/or call {@link org.junit.runner.notification.RunNotifier#pleaseStop()}.
-     */
-    private void fireStopEvent()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner` is unnecessary, and can be replaced with an import
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4TestChecker.java`
-#### Snippet
-```java
-    {
-        jUnit3TestChecker = new JUnit3TestChecker( testClassLoader );
-        runWith = tryLoadClass( testClassLoader, org.junit.runner.RunWith.class.getName() );
-        nonAbstractClassFilter = new NonAbstractClassFilter();
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit` is unnecessary, and can be replaced with an import
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4TestChecker.java`
-#### Snippet
-```java
-            for ( Annotation lAnnotation : lMethod.getAnnotations() )
-            {
-                if ( org.junit.Test.class.isAssignableFrom( lAnnotation.annotationType() ) )
-                {
-                    return true;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner.notification` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4StackTraceWriter.java`
-#### Snippet
-```java
-
-/**
- * Writes out a specific {@link org.junit.runner.notification.Failure} for
- * surefire as a stacktrace.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner.notification` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
-#### Snippet
-```java
-     * Called after a specific test has finished.
-     *
-     * @see org.junit.runner.notification.RunListener#testFinished(org.junit.runner.Description)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.runner` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreRunListener.java`
 #### Snippet
 ```java
-     * Called after a specific test has finished.
+     * Called right before any tests from a specific class are run.
      *
-     * @see org.junit.runner.notification.RunListener#testFinished(org.junit.runner.Description)
+     * @see org.junit.runner.notification.RunListener#testRunStarted(org.junit.runner.Description)
      */
     @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner.notification` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
-#### Snippet
-```java
-     * Called when a specific test has failed.
-     *
-     * @see org.junit.runner.notification.RunListener#testFailure(org.junit.runner.notification.Failure)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner.notification` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
-#### Snippet
-```java
-     * Called when a specific test has failed.
-     *
-     * @see org.junit.runner.notification.RunListener#testFailure(org.junit.runner.notification.Failure)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner.notification` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
-#### Snippet
-```java
-     * Called when a specific test has been skipped (for whatever reason).
-     *
-     * @see org.junit.runner.notification.RunListener#testIgnored(org.junit.runner.Description)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
-#### Snippet
-```java
-     * Called when a specific test has been skipped (for whatever reason).
-     *
-     * @see org.junit.runner.notification.RunListener#testIgnored(org.junit.runner.Description)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner.notification` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
-#### Snippet
-```java
-     * Called when a specific test has started.
-     *
-     * @see org.junit.runner.notification.RunListener#testStarted(org.junit.runner.Description)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
-#### Snippet
-```java
-     * Called when a specific test has started.
-     *
-     * @see org.junit.runner.notification.RunListener#testStarted(org.junit.runner.Description)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner.notification` is unnecessary and can be removed
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
-#### Snippet
-```java
-     * {@link org.apache.maven.surefire.api.report.RunListener#testSucceeded} event is not fired.
-     * This is necessary because JUnit4 always fires a
-     * {@link org.junit.runner.notification.RunListener#testRunFinished(Result)}
-     * event-- even if there was a failure.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/CloseableIterator.java`
-#### Snippet
-```java
- * If the iterator has been closed before calling {@link #hasNext()} then the method returns {@code false}.
- * If the iterator was closed after {@link #hasNext() hasNext returns true} but before {@link #next()}, the
- * method {@link #next()} throws {@link java.util.NoSuchElementException}.
- * The method {@link #remove()} throws {@link IllegalStateException} if the iterator has been closed.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TempFileManager.java`
-#### Snippet
-```java
-     * with user-defined prefix and suffix (both may be null or empty and won't be trimmed).
-     * <p>
-     * This method behaves similarly to {@link java.io.File#createTempFile(String, String)} and
-     * may be used as a drop-in replacement.<br>
-     * This method is {@code synchronized} to help ensure uniqueness of temporary files.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.testng` is unnecessary and can be removed
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/TestNGMapConfigurator.java`
-#### Snippet
-```java
-
-/**
- * TestNG configurator for 5.3+ versions. TestNG exposes a {@link org.testng.TestNG#configure(java.util.Map)} method.
- * All supported TestNG options are passed in String format, except
- * {@link org.testng.TestNGCommandLineArgs#LISTENER_COMMAND_OPT} which is {@link java.util.List List&gt;Class&lt;},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/TestNGMapConfigurator.java`
-#### Snippet
-```java
-
-/**
- * TestNG configurator for 5.3+ versions. TestNG exposes a {@link org.testng.TestNG#configure(java.util.Map)} method.
- * All supported TestNG options are passed in String format, except
- * {@link org.testng.TestNGCommandLineArgs#LISTENER_COMMAND_OPT} which is {@link java.util.List List&gt;Class&lt;},
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3840,18 +3552,6 @@ final class JUnitCoreRunListener
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner` is unnecessary and can be removed
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreRunListener.java`
-#### Snippet
-```java
-     * Called right before any tests from a specific class are run.
-     *
-     * @see org.junit.runner.notification.RunListener#testRunStarted(org.junit.runner.Description)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.runners` is unnecessary and can be removed
 in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/WrappedRunners.java`
 #### Snippet
@@ -3861,6 +3561,42 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
  * {@link org.junit.runners.ParentRunner#getChildren()}.
  * Due to performance reasons, the children have to be observed just once.
  *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConfigurableParallelComputer.java`
+#### Snippet
+```java
+
+    @Override
+    public Runner getSuite( RunnerBuilder builder, java.lang.Class<?>[] classes )
+        throws InitializationError
+    {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.concurrent` is unnecessary, and can be replaced with an import
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConfigurableParallelComputer.java`
+#### Snippet
+```java
+        try
+        {
+            if ( !fService.awaitTermination( 10, java.util.concurrent.TimeUnit.SECONDS ) )
+            {
+                throw new RuntimeException( "Executor did not shut down within timeout" );
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.surefire.junitcore` is unnecessary and can be removed
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConcurrentRunListener.java`
+#### Snippet
+```java
+ * parallel=both; same as parallel=methods
+ *
+ * @see org.apache.maven.surefire.junitcore.JUnitCoreRunListener for details about regular junit run listening
+ * @author Kristian Rosenvold
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3897,6 +3633,18 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
          * @see org.apache.maven.surefire.junitcore.pc.Destroyable#destroy()
          */
         boolean destroy()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner` is unnecessary and can be removed
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
+#### Snippet
+```java
+     * against other groups of schedulers. The schedulers share one pool.
+     * <br>
+     * Unlike in {@link #Scheduler(ConsoleLogger, org.junit.runner.Description, SchedulingStrategy, int)} which was
+     * limiting the <code>concurrency</code> of children of a runner where this scheduler was set, {@code this}
+     * <code>balancer</code> is limiting the concurrency of all children in runners having schedulers created by this
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3948,42 +3696,6 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runners.model` is unnecessary and can be removed
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
-#### Snippet
-```java
- * <br>
- * The scheduler objects should be first created (and wired) and set in runners
- * {@link org.junit.runners.ParentRunner#setScheduler(org.junit.runners.model.RunnerScheduler)}.
- * <br>
- * A new instance of scheduling strategy should be passed to the constructor of this scheduler.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.runner` is unnecessary and can be removed
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
-#### Snippet
-```java
-     * against other groups of schedulers. The schedulers share one pool.
-     * <br>
-     * Unlike in {@link #Scheduler(ConsoleLogger, org.junit.runner.Description, SchedulingStrategy, int)} which was
-     * limiting the <code>concurrency</code> of children of a runner where this scheduler was set, {@code this}
-     * <code>balancer</code> is limiting the concurrency of all children in runners having schedulers created by this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.surefire.junitcore.pc` is unnecessary and can be removed
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
-#### Snippet
-```java
-    /**
-     * Should be used with individual pools on suites, classes and methods, see
-     * {@link org.apache.maven.surefire.junitcore.pc.ParallelComputerBuilder#useSeparatePools()}.
-     * <br>
-     * Cached thread pool is infinite and can be always shared.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.runner` is unnecessary and can be removed
 in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
 #### Snippet
@@ -4008,39 +3720,351 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary, and can be replaced with an import
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConfigurableParallelComputer.java`
+Qualifier `org.junit.runners.model` is unnecessary and can be removed
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
 #### Snippet
 ```java
-        try
-        {
-            if ( !fService.awaitTermination( 10, java.util.concurrent.TimeUnit.SECONDS ) )
-            {
-                throw new RuntimeException( "Executor did not shut down within timeout" );
+ * <br>
+ * The scheduler objects should be first created (and wired) and set in runners
+ * {@link org.junit.runners.ParentRunner#setScheduler(org.junit.runners.model.RunnerScheduler)}.
+ * <br>
+ * A new instance of scheduling strategy should be passed to the constructor of this scheduler.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConfigurableParallelComputer.java`
+Qualifier `org.apache.maven.surefire.junitcore.pc` is unnecessary and can be removed
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
 #### Snippet
 ```java
+    /**
+     * Should be used with individual pools on suites, classes and methods, see
+     * {@link org.apache.maven.surefire.junitcore.pc.ParallelComputerBuilder#useSeparatePools()}.
+     * <br>
+     * Cached thread pool is infinite and can be always shared.
+```
 
-    @Override
-    public Runner getSuite( RunnerBuilder builder, java.lang.Class<?>[] classes )
-        throws InitializationError
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner` is unnecessary, and can be replaced with an import
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4TestChecker.java`
+#### Snippet
+```java
     {
+        jUnit3TestChecker = new JUnit3TestChecker( testClassLoader );
+        runWith = tryLoadClass( testClassLoader, org.junit.runner.RunWith.class.getName() );
+        nonAbstractClassFilter = new NonAbstractClassFilter();
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.surefire.junitcore` is unnecessary and can be removed
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConcurrentRunListener.java`
+Qualifier `org.junit` is unnecessary, and can be replaced with an import
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4TestChecker.java`
 #### Snippet
 ```java
- * parallel=both; same as parallel=methods
+            for ( Annotation lAnnotation : lMethod.getAnnotations() )
+            {
+                if ( org.junit.Test.class.isAssignableFrom( lAnnotation.annotationType() ) )
+                {
+                    return true;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner.notification` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/Notifier.java`
+#### Snippet
+```java
+
+    /**
+     * Fire stop even to plugin process and/or call {@link org.junit.runner.notification.RunNotifier#pleaseStop()}.
+     */
+    private void fireStopEvent()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner.notification` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4StackTraceWriter.java`
+#### Snippet
+```java
+
+/**
+ * Writes out a specific {@link org.junit.runner.notification.Failure} for
+ * surefire as a stacktrace.
  *
- * @see org.apache.maven.surefire.junitcore.JUnitCoreRunListener for details about regular junit run listening
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `junit.framework` is unnecessary, and can be replaced with an import
+in `surefire-providers/common-junit3/src/main/java/org/apache/maven/surefire/common/junit3/JUnit3TestChecker.java`
+#### Snippet
+```java
+            if ( isPublic( modifiers ) && isStatic( modifiers ) )
+            {
+                return junit.framework.Test.class.isAssignableFrom( suite.getReturnType() );
+            }
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner.notification` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * Called when a specific test has failed.
+     *
+     * @see org.junit.runner.notification.RunListener#testFailure(org.junit.runner.notification.Failure)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner.notification` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * Called when a specific test has failed.
+     *
+     * @see org.junit.runner.notification.RunListener#testFailure(org.junit.runner.notification.Failure)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner.notification` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * {@link org.apache.maven.surefire.api.report.RunListener#testSucceeded} event is not fired.
+     * This is necessary because JUnit4 always fires a
+     * {@link org.junit.runner.notification.RunListener#testRunFinished(Result)}
+     * event-- even if there was a failure.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner.notification` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * Called after a specific test has finished.
+     *
+     * @see org.junit.runner.notification.RunListener#testFinished(org.junit.runner.Description)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * Called after a specific test has finished.
+     *
+     * @see org.junit.runner.notification.RunListener#testFinished(org.junit.runner.Description)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner.notification` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * Called when a specific test has been skipped (for whatever reason).
+     *
+     * @see org.junit.runner.notification.RunListener#testIgnored(org.junit.runner.Description)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * Called when a specific test has been skipped (for whatever reason).
+     *
+     * @see org.junit.runner.notification.RunListener#testIgnored(org.junit.runner.Description)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner.notification` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * Called when a specific test has started.
+     *
+     * @see org.junit.runner.notification.RunListener#testStarted(org.junit.runner.Description)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner` is unnecessary and can be removed
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4RunListener.java`
+#### Snippet
+```java
+     * Called when a specific test has started.
+     *
+     * @see org.junit.runner.notification.RunListener#testStarted(org.junit.runner.Description)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/ConsoleOutputFileReporter.java`
+#### Snippet
+```java
+
+/**
+ * Surefire output consumer proxy that writes test output to a {@link java.io.File} for each test suite.
+ *
  * @author Kristian Rosenvold
- */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.surefire.booter` is unnecessary and can be removed
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkConfiguration.java`
+#### Snippet
+```java
+     * @param dumpLogDirectory     directory for dump log file
+     * @return CommandLine able to flush entire command going to be sent to forked JVM
+     * @throws org.apache.maven.surefire.booter.SurefireBooterForkException
+     *          when unable to perform the fork
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.surefire.booter` is unnecessary and can be removed
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/DefaultForkConfiguration.java`
+#### Snippet
+```java
+     * @param dumpLogDirectory     directory for dump log file
+     * @return CommandLine able to flush entire command going to be sent to forked JVM
+     * @throws org.apache.maven.surefire.booter.SurefireBooterForkException when unable to perform the fork
+     */
+    @Nonnull
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.surefire.booterclient.lazytestprovider` is unnecessary and can be removed
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/lazytestprovider/NotifiableTestStream.java`
+#### Snippet
+```java
+ * Implemented by {@link TestProvidingInputStream} and {@link TestLessInputStream} where the method
+ * {@link TestLessInputStream#provideNewTest()} purposefully does nothing. Some methods in
+ * {@link org.apache.maven.plugin.surefire.booterclient.lazytestprovider.TestLessInputStream.TestLessInputStreamBuilder}
+ * throw {@link UnsupportedOperationException}.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/output/ThreadedStreamConsumer.java`
+#### Snippet
+```java
+         * <br>
+         * If {@link org.apache.maven.plugin.surefire.report.ConsoleOutputFileReporter#writeTestOutput} throws
+         * {@link java.io.IOException} and then {@code target.consumeLine()} throws any RuntimeException, this method
+         * MUST NOT skip reading the events from the forked JVM; otherwise we could simply lost events
+         * e.g. acquire-next-test which means that {@link ForkClient} could hang on waiting for old test to complete
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/CloseableIterator.java`
+#### Snippet
+```java
+ * If the iterator has been closed before calling {@link #hasNext()} then the method returns {@code false}.
+ * If the iterator was closed after {@link #hasNext() hasNext returns true} but before {@link #next()}, the
+ * method {@link #next()} throws {@link java.util.NoSuchElementException}.
+ * The method {@link #remove()} throws {@link IllegalStateException} if the iterator has been closed.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TempFileManager.java`
+#### Snippet
+```java
+     * with user-defined prefix and suffix (both may be null or empty and won't be trimmed).
+     * <p>
+     * This method behaves similarly to {@link java.io.File#createTempFile(String, String)} and
+     * may be used as a drop-in replacement.<br>
+     * This method is {@code synchronized} to help ensure uniqueness of temporary files.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemPropertyManager.java`
+#### Snippet
+```java
+     * @param inStream The stream to read from, will be closed
+     * @return The properties
+     * @throws java.io.IOException If something bad happens
+     */
+    public static PropertiesWrapper loadProperties( InputStream inStream )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner` is unnecessary, and can be replaced with an import
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/JUnit48TestChecker.java`
+#### Snippet
+```java
+    private boolean isRunWithEnclosedRunner( Class testClass )
+    {
+        @SuppressWarnings( "unchecked" ) org.junit.runner.RunWith runWithAnnotation =
+            (org.junit.runner.RunWith) testClass.getAnnotation( org.junit.runner.RunWith.class );
+        return ( runWithAnnotation != null && Enclosed.class.equals( runWithAnnotation.value() ) );
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner` is unnecessary, and can be replaced with an import
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/JUnit48TestChecker.java`
+#### Snippet
+```java
+    {
+        @SuppressWarnings( "unchecked" ) org.junit.runner.RunWith runWithAnnotation =
+            (org.junit.runner.RunWith) testClass.getAnnotation( org.junit.runner.RunWith.class );
+        return ( runWithAnnotation != null && Enclosed.class.equals( runWithAnnotation.value() ) );
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.runner` is unnecessary, and can be replaced with an import
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/JUnit48TestChecker.java`
+#### Snippet
+```java
+    {
+        @SuppressWarnings( "unchecked" ) org.junit.runner.RunWith runWithAnnotation =
+            (org.junit.runner.RunWith) testClass.getAnnotation( org.junit.runner.RunWith.class );
+        return ( runWithAnnotation != null && Enclosed.class.equals( runWithAnnotation.value() ) );
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.testng` is unnecessary and can be removed
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/TestNGMapConfigurator.java`
+#### Snippet
+```java
+
+/**
+ * TestNG configurator for 5.3+ versions. TestNG exposes a {@link org.testng.TestNG#configure(java.util.Map)} method.
+ * All supported TestNG options are passed in String format, except
+ * {@link org.testng.TestNGCommandLineArgs#LISTENER_COMMAND_OPT} which is {@link java.util.List List&gt;Class&lt;},
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/TestNGMapConfigurator.java`
+#### Snippet
+```java
+
+/**
+ * TestNG configurator for 5.3+ versions. TestNG exposes a {@link org.testng.TestNG#configure(java.util.Map)} method.
+ * All supported TestNG options are passed in String format, except
+ * {@link org.testng.TestNGCommandLineArgs#LISTENER_COMMAND_OPT} which is {@link java.util.List List&gt;Class&lt;},
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -4057,18 +4081,6 @@ in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractMasterProcessChannelProcessorFactory()` of an abstract class should not be declared 'public'
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/AbstractMasterProcessChannelProcessorFactory.java`
-#### Snippet
-```java
-    private final ScheduledExecutorService flusher;
-
-    public AbstractMasterProcessChannelProcessorFactory()
-    {
-        flusher = newScheduledThreadPool( 1, newDaemonThreadFactory( STREAM_FLUSHER ) );
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `StatelessTestsetInfoConsoleReportEventListener()` of an abstract class should not be declared 'public'
 in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/StatelessTestsetInfoConsoleReportEventListener.java`
@@ -4103,6 +4115,18 @@ in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/u
     public CountDownLauncher( int count )
     {
         if ( count <= 0 )
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ParallelComputer()` of an abstract class should not be declared 'public'
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+#### Snippet
+```java
+    private ScheduledExecutorService shutdownScheduler;
+
+    public ParallelComputer( double timeoutInSeconds, double timeoutForcedInSeconds )
+    {
+        this.timeoutNanos = secondsToNanos( timeoutInSeconds );
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -4142,15 +4166,15 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStre
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `ParallelComputer()` of an abstract class should not be declared 'public'
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+Constructor `AbstractMasterProcessChannelProcessorFactory()` of an abstract class should not be declared 'public'
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/AbstractMasterProcessChannelProcessorFactory.java`
 #### Snippet
 ```java
-    private ScheduledExecutorService shutdownScheduler;
+    private final ScheduledExecutorService flusher;
 
-    public ParallelComputer( double timeoutInSeconds, double timeoutForcedInSeconds )
+    public AbstractMasterProcessChannelProcessorFactory()
     {
-        this.timeoutNanos = secondsToNanos( timeoutInSeconds );
+        flusher = newScheduledThreadPool( 1, newDaemonThreadFactory( STREAM_FLUSHER ) );
 ```
 
 ## RuleId[ruleID=Anonymous2MethodRef]
@@ -4182,6 +4206,18 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
 
 ## RuleId[ruleID=Java8MapApi]
 ### Java8MapApi
+Can be replaced with single 'Map.getOrDefault' method call
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreParameters.java`
+#### Snippet
+```java
+    private static String property( Map<String, String> properties, String key, String fallback )
+    {
+        return properties.containsKey( key ) ? properties.get( key ) : fallback;
+    }
+
+```
+
+### Java8MapApi
 Can be replaced with single 'Map.computeIfAbsent' method call
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/StatelessXmlReporter.java`
 #### Snippet
@@ -4205,18 +4241,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/
                 methodRuns = new ArrayList<>();
 ```
 
-### Java8MapApi
-Can be replaced with single 'Map.getOrDefault' method call
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/JUnitCoreParameters.java`
-#### Snippet
-```java
-    private static String property( Map<String, String> properties, String key, String fallback )
-    {
-        return properties.containsKey( key ) ? properties.get( key ) : fallback;
-    }
-
-```
-
 ## RuleId[ruleID=JavaReflectionInvocation]
 ### JavaReflectionInvocation
 Argument is not assignable to 'java.lang.String'
@@ -4232,68 +4256,42 @@ in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/t
 
 ## RuleId[ruleID=Convert2Lambda]
 ### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/AbstractMasterProcessChannelProcessorFactory.java`
+Anonymous new Callable() can be replaced with lambda
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
 #### Snippet
 ```java
+    private Callable<ShutdownResult> createShutdownTask()
     {
-        final AtomicLong bufferOverflows = new AtomicLong();
-        flusher.scheduleWithFixedDelay( new Runnable()
+        return new Callable<ShutdownResult>()
         {
             @Override
-            public void run()
+            public ShutdownResult call()
+```
+
+### Convert2Lambda
+Anonymous new Callable() can be replaced with lambda
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+#### Snippet
+```java
+    private Callable<ShutdownResult> createForcedShutdownTask()
+    {
+        return new Callable<ShutdownResult>()
+        {
+            @Override
+            public ShutdownResult call()
 ```
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
 #### Snippet
 ```java
-    private Runnable createPingJob( final AtomicBoolean pingDone, final PpidChecker pluginProcessChecker  )
+    private Runnable wrapTask( final Runnable task )
     {
         return new Runnable()
         {
             @Override
             public void run()
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
-#### Snippet
-```java
-    private void flushEventChannelOnExit()
-    {
-        Runnable target = new Runnable()
-        {
-            @Override
-            public void run()
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
-#### Snippet
-```java
-    private Runnable processCheckerJob( final PingScheduler pingMechanism )
-    {
-        return new Runnable()
-        {
-            @Override
-            public void run()
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
-#### Snippet
-```java
-    {
-        getJvmTerminator()
-                .schedule( new Runnable()
-                {
-                    @Override
-                    public void run()
 ```
 
 ### Convert2Lambda
@@ -4314,48 +4312,9 @@ Anonymous new Runnable() can be replaced with lambda
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
 #### Snippet
 ```java
-                                                    final Shutdown shutdownType )
-    {
-        return SHUTDOWN_HOOK_THREAD_FACTORY.newThread( new Runnable()
-        {
-            @Override
-            public void run()
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
-#### Snippet
-```java
-    private ScheduledFuture<?> triggerTimeoutCheck()
-    {
-        return timeoutCheckScheduler.scheduleWithFixedDelay( new Runnable()
-        {
-            @Override
-            public void run()
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
-#### Snippet
-```java
     private ScheduledFuture<?> triggerPingTimerForShutdown( final Iterable<TestProvidingInputStream> streams )
     {
         return pingThreadScheduler.scheduleWithFixedDelay( new Runnable()
-        {
-            @Override
-            public void run()
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
-#### Snippet
-```java
-                                                             final Shutdown shutdownType )
-    {
-        return SHUTDOWN_HOOK_THREAD_FACTORY.newThread( new Runnable()
         {
             @Override
             public void run()
@@ -4388,37 +4347,63 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
 ```
 
 ### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+Anonymous new Runnable() can be replaced with lambda
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
 #### Snippet
 ```java
-    private Callable<ShutdownResult> createForcedShutdownTask()
+                                                             final Shutdown shutdownType )
     {
-        return new Callable<ShutdownResult>()
+        return SHUTDOWN_HOOK_THREAD_FACTORY.newThread( new Runnable()
         {
             @Override
-            public ShutdownResult call()
-```
-
-### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
-#### Snippet
-```java
-    private Callable<ShutdownResult> createShutdownTask()
-    {
-        return new Callable<ShutdownResult>()
-        {
-            @Override
-            public ShutdownResult call()
+            public void run()
 ```
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/Scheduler.java`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
 #### Snippet
 ```java
-    private Runnable wrapTask( final Runnable task )
+    private ScheduledFuture<?> triggerTimeoutCheck()
+    {
+        return timeoutCheckScheduler.scheduleWithFixedDelay( new Runnable()
+        {
+            @Override
+            public void run()
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
+#### Snippet
+```java
+                                                    final Shutdown shutdownType )
+    {
+        return SHUTDOWN_HOOK_THREAD_FACTORY.newThread( new Runnable()
+        {
+            @Override
+            public void run()
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/AbstractMasterProcessChannelProcessorFactory.java`
+#### Snippet
+```java
+    {
+        final AtomicLong bufferOverflows = new AtomicLong();
+        flusher.scheduleWithFixedDelay( new Runnable()
+        {
+            @Override
+            public void run()
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
+#### Snippet
+```java
+    private Runnable processCheckerJob( final PingScheduler pingMechanism )
     {
         return new Runnable()
         {
@@ -4426,7 +4411,70 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
             public void run()
 ```
 
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
+#### Snippet
+```java
+    private Runnable createPingJob( final AtomicBoolean pingDone, final PpidChecker pluginProcessChecker  )
+    {
+        return new Runnable()
+        {
+            @Override
+            public void run()
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
+#### Snippet
+```java
+    {
+        getJvmTerminator()
+                .schedule( new Runnable()
+                {
+                    @Override
+                    public void run()
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
+#### Snippet
+```java
+    private void flushEventChannelOnExit()
+    {
+        Runnable target = new Runnable()
+        {
+            @Override
+            public void run()
+```
+
 ## RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `testClass`
+in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/SmartStackTraceParser.java`
+#### Snippet
+```java
+        while ( !testClass.getName().equals( lookFor ) && testClass.getSuperclass() != null )
+        {
+            testClass = testClass.getSuperclass();
+        }
+        return testClass.getName().equals( lookFor );
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `cause`
+in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/SmartStackTraceParser.java`
+#### Snippet
+```java
+            resp.append( "Caused by: " );
+            resp.append( toString( cause, asList( cause.getStackTrace() ), filter ) );
+            cause = cause.getCause();
+        }
+        return resp.toString();
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `from`
 in `surefire-report-parser/src/main/java/org/apache/maven/plugins/surefire/report/TestSuiteXmlParser.java`
@@ -4437,6 +4485,30 @@ in `surefire-report-parser/src/main/java/org/apache/maven/plugins/surefire/repor
                 char c = s[from++];
                 if ( c != ' ' && c != '\t' && c != '\n' && c != '\r' && c != '\f' )
                 {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `description`
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4ProviderUtil.java`
+#### Snippet
+```java
+            if ( it.hasNext() )
+            {
+                description = it.next();
+                clazz = extractClassName( description.getDisplayName() );
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `mergedSummary`
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/util/FailsafeSummaryXmlUtils.java`
+#### Snippet
+```java
+        {
+            RunResult runResult = toRunResult( mergedSummaryFile );
+            mergedSummary = mergedSummary.aggregate( runResult );
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -4473,18 +4545,6 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/report/
             output = "null";
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `description`
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4ProviderUtil.java`
-#### Snippet
-```java
-            if ( it.hasNext() )
-            {
-                description = it.next();
-                clazz = extractClassName( description.getDisplayName() );
-            }
 ```
 
 ### AssignmentToMethodParameter
@@ -4608,6 +4668,18 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/ResolvedTes
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `className`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/ResolvedTest.java`
+#### Snippet
+```java
+            if ( className.endsWith( JAVA_FILE_EXTENSION ) )
+            {
+                className = className.substring( 0, className.length() - JAVA_FILE_EXTENSION.length() )
+                                    + CLASS_FILE_EXTENSION;
+            }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `testClassFile`
 in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/ResolvedTest.java`
 #### Snippet
@@ -4641,18 +4713,6 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/ResolvedTes
         methodName = tryBlank( methodName );
 
         return isEmpty() || alwaysInclusiveQuietly( testClassFile ) || match( testClassFile, methodName );
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `className`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/ResolvedTest.java`
-#### Snippet
-```java
-            if ( className.endsWith( JAVA_FILE_EXTENSION ) )
-            {
-                className = className.substring( 0, className.length() - JAVA_FILE_EXTENSION.length() )
-                                    + CLASS_FILE_EXTENSION;
-            }
 ```
 
 ### AssignmentToMethodParameter
@@ -4691,43 +4751,151 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/testset/TestListRes
         int to = regex.length() - PATTERN_HANDLER_SUFFIX.length();
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `cause`
-in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/SmartStackTraceParser.java`
-#### Snippet
-```java
-            resp.append( "Caused by: " );
-            resp.append( toString( cause, asList( cause.getStackTrace() ), filter ) );
-            cause = cause.getCause();
-        }
-        return resp.toString();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `testClass`
-in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/SmartStackTraceParser.java`
-#### Snippet
-```java
-        while ( !testClass.getName().equals( lookFor ) && testClass.getSuperclass() != null )
-        {
-            testClass = testClass.getSuperclass();
-        }
-        return testClass.getName().equals( lookFor );
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `mergedSummary`
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/util/FailsafeSummaryXmlUtils.java`
-#### Snippet
-```java
-        {
-            RunResult runResult = toRunResult( mergedSummaryFile );
-            mergedSummary = mergedSummary.aggregate( runResult );
-        }
-
-```
-
 ## RuleId[ruleID=ReturnNull]
+### ReturnNull
+Return of `null`
+in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/PojoStackTraceWriter.java`
+#### Snippet
+```java
+    public SafeThrowable getThrowable()
+    {
+        return t == null ? null : new SafeThrowable( t );
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit4/src/main/java/org/apache/maven/surefire/junit4/JUnit4Provider.java`
+#### Snippet
+```java
+    {
+        TestListResolver methodFilter = optionallyWildcardFilter( testResolver );
+        return methodFilter.isEmpty() || methodFilter.isWildcard() ? null : new TestResolverFilter( methodFilter );
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/SmartStackTraceParser.java`
+#### Snippet
+```java
+        {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            return classLoader == null ? null : classLoader.loadClass( name );
+        }
+        catch ( ClassNotFoundException e )
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/SmartStackTraceParser.java`
+#### Snippet
+```java
+        catch ( ClassNotFoundException e )
+        {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConcurrentRunListener.java`
+#### Snippet
+```java
+                logger.error( writer.writeTraceToString() );
+            }
+            return null;
+        }
+        else
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/RunListenerAdapter.java`
+#### Snippet
+```java
+        Long startTime = testStartTime.remove( testIdentifier );
+        long endTime = System.currentTimeMillis();
+        return startTime == null ? null : (int) ( endTime - startTime );
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/RunListenerAdapter.java`
+#### Snippet
+```java
+        {
+            SafeThrowable t = throwable == null ? null : new SafeThrowable( throwable );
+            return t == null ? null : t.getMessage();
+        }
+        catch ( Throwable t )
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+#### Snippet
+```java
+            {
+                boolean stampedStatusWithTimeout = ParallelComputer.this.forcedShutdownStatus.tryTimeout();
+                return stampedStatusWithTimeout ? ParallelComputer.this.describeStopped( true ) : null;
+            }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+#### Snippet
+```java
+            {
+                boolean stampedStatusWithTimeout = ParallelComputer.this.shutdownStatus.tryTimeout();
+                return stampedStatusWithTimeout ? ParallelComputer.this.describeStopped( false ) : null;
+            }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/Notifier.java`
+#### Snippet
+```java
+    public final Queue<String> getRemainingTestClasses()
+    {
+        return failFast ? testClassNames : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4Reflector.java`
+#### Snippet
+```java
+    {
+        final Ignore ignore = getAnnotatedIgnore( description );
+        return ignore != null ? ignore.value() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4Reflector.java`
+#### Snippet
+```java
+    {
+        Method getAnnotation = tryGetMethod( d.getClass(), "getAnnotation", PARAMS );
+        return getAnnotation == null ? null : (Ignore) invokeMethodWithArray( d, getAnnotation, IGNORE_PARAMS );
+    }
+
+```
+
 ### ReturnNull
 Return of `null`
 in `surefire-providers/common-junit3/src/main/java/org/apache/maven/surefire/common/junit3/JUnit3Reflector.java`
@@ -4738,6 +4906,66 @@ in `surefire-providers/common-junit3/src/main/java/org/apache/maven/surefire/com
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
+#### Snippet
+```java
+                summary.getFailure().substring( firstForkExceptionFailureMessage.length() ) );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
+#### Snippet
+```java
+    protected String[] getDefaultIncludes()
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
+#### Snippet
+```java
+        {
+            Class c = Class.forName( "net.jcip.annotations.NotThreadSafe" );
+            return c.isAnnotation() ? (Class<? extends Annotation>) c : null;
+        }
+        catch ( ClassNotFoundException e )
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
+#### Snippet
+```java
+        catch ( ClassNotFoundException e )
+        {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
+#### Snippet
+```java
+    {
+        final List<Runner> onlyRunners = removeNullRunners( runners );
+        return onlyRunners.isEmpty() ? null : new Suite( null, onlyRunners )
+        {
+        };
 ```
 
 ### ReturnNull
@@ -4754,410 +4982,14 @@ in `surefire-providers/surefire-junit3/src/main/java/org/apache/maven/surefire/j
 
 ### ReturnNull
 Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PropertiesWrapper.java`
+in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire/report/AbstractSurefireReportMojo.java`
 #### Snippet
 ```java
-    {
-        String number = getProperty( propertyName );
-        return number == null ? null : Long.parseLong( number );
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PropertiesWrapper.java`
-#### Snippet
-```java
-        if ( property == null )
-        {
-            return null;
-        }
-        TypeEncodedValue typeEncodedValue = new TypeEncodedValue( File.class.getName(), property );
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PropertiesWrapper.java`
-#### Snippet
-```java
-        else
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ProcessCheckerType.java`
-#### Snippet
-```java
-        if ( isBlank( type ) )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedNodeArg.java`
-#### Snippet
-```java
-    public File getCommandStreamBinaryFile()
-    {
-        return isDebug ? DumpErrorSingleton.getSingleton().getCommandStreamBinaryFile() : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/TypeEncodedValue.java`
-#### Snippet
-```java
-        if ( type.trim().isEmpty() )
-        {
-            return null;
-        }
-        else if ( type.equals( String.class.getName() ) )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
-#### Snippet
-```java
-        if ( resolver == null )
-        {
-            return null;
-        }
-        else
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
-#### Snippet
-```java
-        if ( suiteDefinition == null )
-        {
-            return null;
-        }
-        else
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
-#### Snippet
-```java
-        if ( runOrderParameters == null )
-        {
-            return null;
-        }
-        //Can't use the constructor with the RunOrder parameter. Using it causes some integration tests to fail.
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
-#### Snippet
-```java
-        if ( directoryScannerParameters == null )
-        {
-            return null;
-        }
-        //Can't use the constructor with the RunOrder parameter. Using it causes some integration tests to fail.
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
-#### Snippet
-```java
-        if ( testArtifactInfo == null )
-        {
-            return null;
-        }
-        Class<?>[] arguments = { String.class, String.class };
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-            {
-                File jdk = parent.getParentFile();
-                return new File( jdk, "bin" ).isDirectory() ? jdk : null;
-            }
-            return parent;
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-            return parent;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-            return reflectClassLoader( ClassLoader.class, "getPlatformClassLoader" );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-            catch ( NumberFormatException e )
+            if ( !project.isExecutionRoot() )
             {
                 return null;
             }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-        catch ( RuntimeException e )
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-        if ( !release.isFile() )
-        {
-            return null;
-        }
-        Properties properties = new Properties();
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-            else
-            {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
-#### Snippet
-```java
-        catch ( IOException e )
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/StartupConfiguration.java`
-#### Snippet
-```java
-        if ( str == null )
-        {
-            return null;
-        }
-        int end = str.length();
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/AbstractMasterProcessChannelProcessorFactory.java`
-#### Snippet
-```java
-                                  // All business data is already safely flushed by test events, then by sending BYE
-                                  // event at the exit time and finally by flushEventChannelOnExit() in ForkedBooter.
-                                  return null;
-                              }
-                          }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
-#### Snippet
-```java
-                                                   {
-                                                       pingScheduler.shutdown();
-                                                       return null;
-                                                   }
-                                               }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
-#### Snippet
-```java
-    {
-        File surefirePropertiesFile = new File( tmpDir, propFileName );
-        return surefirePropertiesFile.exists() ? new FileInputStream( surefirePropertiesFile ) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
-#### Snippet
-```java
-            return new LazyTestsToRun( eventChannel, commandReader );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/RequestedTest.java`
-#### Snippet
-```java
-    private String classFile( Class<?> realTestClass )
-    {
-        return realTestClass == null ? null : realTestClass.getName().replace( '.', '/' ) + CLASS_FILE_EXTENSION;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/SurefireMasterProcessChannelProcessorFactory.java`
-#### Snippet
-```java
-        if ( query == null )
-        {
-            return null;
-        }
-        for ( StringTokenizer tokenizer = new StringTokenizer( query, "&" ); tokenizer.hasMoreTokens(); )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/SurefireMasterProcessChannelProcessorFactory.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
-#### Snippet
-```java
-        if ( sink == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
-#### Snippet
-```java
-            {
-                os.close();
-                return null;
-            } ) ) );
-            return os;
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
-#### Snippet
-```java
-        catch ( FileNotFoundException e )
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
-#### Snippet
-```java
-                memento.getLine().write( memento.getByteBuffer(), e.readFrom(), length );
-            }
-            return null;
-        }
-        catch ( RuntimeException e )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
-#### Snippet
-```java
-        {
-            getArguments().dumpStreamException( e );
-            return null;
-        }
-        catch ( IOException e )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/EventChannelEncoder.java`
-#### Snippet
-```java
-        if ( stw == null )
-        {
-            return null;
-        }
-
+            if ( this.reportsDirectories == null )
 ```
 
 ### ReturnNull
@@ -5165,9 +4997,9 @@ Return of `null`
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/StartupReportConfiguration.java`
 #### Snippet
 ```java
-                        trimStackTrace, rerunFailingTestsCount, xsdSchemaLocation, testClassMethodRunHistory );
-
-        return xmlReporter.isDisable() ? null : xmlReporter.createListener( xmlReporterConfig );
+        return !testsetReporter.isDisable() && isUseFile() && isBriefOrPlainFormat()
+            ? testsetReporter.createListener( resolveReportsDirectory( forkNumber ), reportNameSuffix, encoding )
+            : null;
     }
 
 ```
@@ -5201,11 +5033,23 @@ Return of `null`
 in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/StartupReportConfiguration.java`
 #### Snippet
 ```java
-        return !testsetReporter.isDisable() && isUseFile() && isBriefOrPlainFormat()
-            ? testsetReporter.createListener( resolveReportsDirectory( forkNumber ), reportNameSuffix, encoding )
-            : null;
+                        trimStackTrace, rerunFailingTestsCount, xsdSchemaLocation, testClassMethodRunHistory );
+
+        return xmlReporter.isDisable() ? null : xmlReporter.createListener( xmlReporterConfig );
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
+#### Snippet
+```java
+        try
+        {
+            return f == null ? null : f.getAbsoluteFile().getCanonicalFile();
+        }
+        catch ( IOException e )
 ```
 
 ### ReturnNull
@@ -5306,14 +5150,98 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterc
 
 ### ReturnNull
 Return of `null`
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/Notifier.java`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TestsToRun.java`
 #### Snippet
 ```java
-    public final Queue<String> getRemainingTestClasses()
-    {
-        return failFast ? testClassNames : null;
+            }
+        }
+        return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/RunOrder.java`
+#### Snippet
+```java
+        if ( name == null )
+        {
+            return null;
+        }
+        else
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/SureFireFileManager.java`
+#### Snippet
+```java
+                        .findFirst()
+                        .map( u -> u.replaceAll( "[^A-Za-z0-9\\-_]", "" ) )
+                        .map( u -> u.isEmpty() ? null : u )
+                        .orElse( Long.toString( System.currentTimeMillis() ) );
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/DefaultRunOrderCalculator.java`
+#### Snippet
+```java
+        else
+        {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/ReflectionUtils.java`
+#### Snippet
+```java
+        catch ( NoSuchMethodException e )
+        {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/ReflectionUtils.java`
+#### Snippet
+```java
+        {
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/ReflectionUtils.java`
+#### Snippet
+```java
+        catch ( NoSuchMethodException e )
+        {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/lazytestprovider/TestLessInputStream.java`
+#### Snippet
+```java
+                    node = next;
+                }
+                return next == null ? null : next.command;
+            }
+        }
 ```
 
 ### ReturnNull
@@ -5357,18 +5285,6 @@ Return of `null`
 in `maven-surefire-common/src/main/java/org/apache/maven/surefire/stream/EventDecoder.java`
 #### Snippet
 ```java
-    {
-        boolean exists = traceMessage != null || stackTrace != null || smartTrimmedStackTrace != null;
-        return exists ? new DeserializedStacktraceWriter( traceMessage, smartTrimmedStackTrace, stackTrace ) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-surefire-common/src/main/java/org/apache/maven/surefire/stream/EventDecoder.java`
-#### Snippet
-```java
                 memento.getLine().write( memento.getByteBuffer(), e.readFrom(), length );
             }
             return null;
@@ -5390,170 +5306,14 @@ in `maven-surefire-common/src/main/java/org/apache/maven/surefire/stream/EventDe
 
 ### ReturnNull
 Return of `null`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/lazytestprovider/TestLessInputStream.java`
-#### Snippet
-```java
-                    node = next;
-                }
-                return next == null ? null : next.command;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4Reflector.java`
+in `maven-surefire-common/src/main/java/org/apache/maven/surefire/stream/EventDecoder.java`
 #### Snippet
 ```java
     {
-        final Ignore ignore = getAnnotatedIgnore( description );
-        return ignore != null ? ignore.value() : null;
+        boolean exists = traceMessage != null || stackTrace != null || smartTrimmedStackTrace != null;
+        return exists ? new DeserializedStacktraceWriter( traceMessage, smartTrimmedStackTrace, stackTrace ) : null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/common-junit4/src/main/java/org/apache/maven/surefire/common/junit4/JUnit4Reflector.java`
-#### Snippet
-```java
-    {
-        Method getAnnotation = tryGetMethod( d.getClass(), "getAnnotation", PARAMS );
-        return getAnnotation == null ? null : (Ignore) invokeMethodWithArray( d, getAnnotation, IGNORE_PARAMS );
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
-#### Snippet
-```java
-        public File getCommandStreamBinaryFile()
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
-#### Snippet
-```java
-        {
-            return debug ? InPluginProcessDumpSingleton.getSingleton()
-                .getEventStreamBinaryFile( dumpLogDir, forkChannelId ) : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/SureFireFileManager.java`
-#### Snippet
-```java
-                        .findFirst()
-                        .map( u -> u.replaceAll( "[^A-Za-z0-9\\-_]", "" ) )
-                        .map( u -> u.isEmpty() ? null : u )
-                        .orElse( Long.toString( System.currentTimeMillis() ) );
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/RunOrder.java`
-#### Snippet
-```java
-        if ( name == null )
-        {
-            return null;
-        }
-        else
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/TestsToRun.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/ReflectionUtils.java`
-#### Snippet
-```java
-        catch ( NoSuchMethodException e )
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/ReflectionUtils.java`
-#### Snippet
-```java
-        catch ( NoSuchMethodException e )
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/ReflectionUtils.java`
-#### Snippet
-```java
-        {
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/util/DefaultRunOrderCalculator.java`
-#### Snippet
-```java
-        else
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/RunListenerAdapter.java`
-#### Snippet
-```java
-        Long startTime = testStartTime.remove( testIdentifier );
-        long endTime = System.currentTimeMillis();
-        return startTime == null ? null : (int) ( endTime - startTime );
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-junit-platform/src/main/java/org/apache/maven/surefire/junitplatform/RunListenerAdapter.java`
-#### Snippet
-```java
-        {
-            SafeThrowable t = throwable == null ? null : new SafeThrowable( throwable );
-            return t == null ? null : t.getMessage();
-        }
-        catch ( Throwable t )
 ```
 
 ### ReturnNull
@@ -5590,6 +5350,30 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/booter/BaseProvider
                 ? null : new DefaultDirectoryScanner( directoryScannerParameters.getTestClassesDirectory(),
                                             directoryScannerParameters.getIncludes(),
                                             directoryScannerParameters.getExcludes(),
+```
+
+### ReturnNull
+Return of `null`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
+#### Snippet
+```java
+        {
+            return debug ? InPluginProcessDumpSingleton.getSingleton()
+                .getEventStreamBinaryFile( dumpLogDir, forkChannelId ) : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/booterclient/ForkStarter.java`
+#### Snippet
+```java
+        public File getCommandStreamBinaryFile()
+        {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -5654,6 +5438,42 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/report/CategorizedR
 
 ### ReturnNull
 Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PropertiesWrapper.java`
+#### Snippet
+```java
+    {
+        String number = getProperty( propertyName );
+        return number == null ? null : Long.parseLong( number );
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PropertiesWrapper.java`
+#### Snippet
+```java
+        if ( property == null )
+        {
+            return null;
+        }
+        TypeEncodedValue typeEncodedValue = new TypeEncodedValue( File.class.getName(), property );
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/PropertiesWrapper.java`
+#### Snippet
+```java
+        else
+        {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStreamDecoder.java`
 #### Snippet
 ```java
@@ -5674,6 +5494,90 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/stream/AbstractStre
             return null;
         }
         return readInt( memento );
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
+#### Snippet
+```java
+        if ( resolver == null )
+        {
+            return null;
+        }
+        else
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
+#### Snippet
+```java
+        if ( runOrderParameters == null )
+        {
+            return null;
+        }
+        //Can't use the constructor with the RunOrder parameter. Using it causes some integration tests to fail.
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
+#### Snippet
+```java
+        if ( directoryScannerParameters == null )
+        {
+            return null;
+        }
+        //Can't use the constructor with the RunOrder parameter. Using it causes some integration tests to fail.
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
+#### Snippet
+```java
+        if ( testArtifactInfo == null )
+        {
+            return null;
+        }
+        Class<?>[] arguments = { String.class, String.class };
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SurefireReflector.java`
+#### Snippet
+```java
+        if ( suiteDefinition == null )
+        {
+            return null;
+        }
+        else
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ProcessCheckerType.java`
+#### Snippet
+```java
+        if ( isBlank( type ) )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/TypeEncodedValue.java`
+#### Snippet
+```java
+        if ( type.trim().isEmpty() )
+        {
+            return null;
+        }
+        else if ( type.equals( String.class.getName() ) )
 ```
 
 ### ReturnNull
@@ -5726,94 +5630,34 @@ in `surefire-api/src/main/java/org/apache/maven/surefire/api/report/SimpleReport
 
 ### ReturnNull
 Return of `null`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGDirectoryTestSuite.java`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
 #### Snippet
 ```java
-        catch ( ClassNotFoundException e )
+        if ( !release.isFile() )
         {
             return null;
         }
-    }
+        Properties properties = new Properties();
 ```
 
 ### ReturnNull
 Return of `null`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGDirectoryTestSuite.java`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
 #### Snippet
 ```java
-        catch ( ClassNotFoundException e )
-        {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire/report/AbstractSurefireReportMojo.java`
-#### Snippet
-```java
-            if ( !project.isExecutionRoot() )
+            else
             {
                 return null;
             }
-            if ( this.reportsDirectories == null )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/TestNGMapConfigurator.java`
-#### Snippet
-```java
-        if ( val == null )
-        {
-            return null;
-        }
-        else if ( type.isAssignableFrom( val.getClass() ) )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/AbstractDirectConfigurator.java`
-#### Snippet
-```java
-            if ( value == null )
-            {
-                return null;
-            }
-            if ( paramClass.isAssignableFrom( value.getClass() ) )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGExecutor.java`
-#### Snippet
-```java
-        if ( clazz == null )
-        {
-            return null;
-        }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGExecutor.java`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
 #### Snippet
 ```java
-        if ( groups == null && excludedGroups == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGExecutor.java`
-#### Snippet
-```java
-        else
+        catch ( IOException e )
         {
             return null;
         }
@@ -5822,26 +5666,254 @@ in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/t
 
 ### ReturnNull
 Return of `null`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
 #### Snippet
 ```java
-            {
-                boolean stampedStatusWithTimeout = ParallelComputer.this.forcedShutdownStatus.tryTimeout();
-                return stampedStatusWithTimeout ? ParallelComputer.this.describeStopped( true ) : null;
-            }
-        };
+        catch ( RuntimeException e )
+        {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputer.java`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
+#### Snippet
+```java
+            catch ( NumberFormatException e )
+            {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
 #### Snippet
 ```java
             {
-                boolean stampedStatusWithTimeout = ParallelComputer.this.shutdownStatus.tryTimeout();
-                return stampedStatusWithTimeout ? ParallelComputer.this.describeStopped( false ) : null;
+                File jdk = parent.getParentFile();
+                return new File( jdk, "bin" ).isDirectory() ? jdk : null;
             }
-        };
+            return parent;
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
+#### Snippet
+```java
+            return parent;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/SystemUtils.java`
+#### Snippet
+```java
+            return reflectClassLoader( ClassLoader.class, "getPlatformClassLoader" );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedNodeArg.java`
+#### Snippet
+```java
+    public File getCommandStreamBinaryFile()
+    {
+        return isDebug ? DumpErrorSingleton.getSingleton().getCommandStreamBinaryFile() : null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/AbstractMasterProcessChannelProcessorFactory.java`
+#### Snippet
+```java
+                                  // All business data is already safely flushed by test events, then by sending BYE
+                                  // event at the exit time and finally by flushEventChannelOnExit() in ForkedBooter.
+                                  return null;
+                              }
+                          }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/StartupConfiguration.java`
+#### Snippet
+```java
+        if ( str == null )
+        {
+            return null;
+        }
+        int end = str.length();
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
+#### Snippet
+```java
+    {
+        File surefirePropertiesFile = new File( tmpDir, propFileName );
+        return surefirePropertiesFile.exists() ? new FileInputStream( surefirePropertiesFile ) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
+#### Snippet
+```java
+                                                   {
+                                                       pingScheduler.shutdown();
+                                                       return null;
+                                                   }
+                                               }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/ForkedBooter.java`
+#### Snippet
+```java
+            return new LazyTestsToRun( eventChannel, commandReader );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/SurefireMasterProcessChannelProcessorFactory.java`
+#### Snippet
+```java
+        if ( query == null )
+        {
+            return null;
+        }
+        for ( StringTokenizer tokenizer = new StringTokenizer( query, "&" ); tokenizer.hasMoreTokens(); )
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/SurefireMasterProcessChannelProcessorFactory.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/RequestedTest.java`
+#### Snippet
+```java
+    private String classFile( Class<?> realTestClass )
+    {
+        return realTestClass == null ? null : realTestClass.getName().replace( '.', '/' ) + CLASS_FILE_EXTENSION;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
+#### Snippet
+```java
+        if ( sink == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
+#### Snippet
+```java
+            {
+                os.close();
+                return null;
+            } ) ) );
+            return os;
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
+#### Snippet
+```java
+        catch ( FileNotFoundException e )
+        {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
+#### Snippet
+```java
+                memento.getLine().write( memento.getByteBuffer(), e.readFrom(), length );
+            }
+            return null;
+        }
+        catch ( RuntimeException e )
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/stream/CommandDecoder.java`
+#### Snippet
+```java
+        {
+            getArguments().dumpStreamException( e );
+            return null;
+        }
+        catch ( IOException e )
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-booter/src/main/java/org/apache/maven/surefire/booter/spi/EventChannelEncoder.java`
+#### Snippet
+```java
+        if ( stw == null )
+        {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -5870,43 +5942,7 @@ in `maven-surefire-common/src/main/java/org/apache/maven/plugin/surefire/Abstrac
 
 ### ReturnNull
 Return of `null`
-in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/PojoStackTraceWriter.java`
-#### Snippet
-```java
-    public SafeThrowable getThrowable()
-    {
-        return t == null ? null : new SafeThrowable( t );
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
-#### Snippet
-```java
-    {
-        final List<Runner> onlyRunners = removeNullRunners( runners );
-        return onlyRunners.isEmpty() ? null : new Suite( null, onlyRunners )
-        {
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
-#### Snippet
-```java
-        {
-            Class c = Class.forName( "net.jcip.annotations.NotThreadSafe" );
-            return c.isAnnotation() ? (Class<? extends Annotation>) c : null;
-        }
-        catch ( ClassNotFoundException e )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/pc/ParallelComputerBuilder.java`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGDirectoryTestSuite.java`
 #### Snippet
 ```java
         catch ( ClassNotFoundException e )
@@ -5918,19 +5954,7 @@ in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/
 
 ### ReturnNull
 Return of `null`
-in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/SmartStackTraceParser.java`
-#### Snippet
-```java
-        {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            return classLoader == null ? null : classLoader.loadClass( name );
-        }
-        catch ( ClassNotFoundException e )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/report/SmartStackTraceParser.java`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGDirectoryTestSuite.java`
 #### Snippet
 ```java
         catch ( ClassNotFoundException e )
@@ -5942,62 +5966,62 @@ in `surefire-providers/common-java5/src/main/java/org/apache/maven/surefire/repo
 
 ### ReturnNull
 Return of `null`
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/TestNGMapConfigurator.java`
 #### Snippet
 ```java
-                summary.getFailure().substring( firstForkExceptionFailureMessage.length() ) );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/VerifyMojo.java`
-#### Snippet
-```java
-    protected String[] getDefaultIncludes()
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-junit4/src/main/java/org/apache/maven/surefire/junit4/JUnit4Provider.java`
-#### Snippet
-```java
-    {
-        TestListResolver methodFilter = optionallyWildcardFilter( testResolver );
-        return methodFilter.isEmpty() || methodFilter.isWildcard() ? null : new TestResolverFilter( methodFilter );
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-failsafe-plugin/src/main/java/org/apache/maven/plugin/failsafe/IntegrationTestMojo.java`
-#### Snippet
-```java
-        try
+        if ( val == null )
         {
-            return f == null ? null : f.getAbsoluteFile().getCanonicalFile();
-        }
-        catch ( IOException e )
-```
-
-### ReturnNull
-Return of `null`
-in `surefire-providers/surefire-junit47/src/main/java/org/apache/maven/surefire/junitcore/ConcurrentRunListener.java`
-#### Snippet
-```java
-                logger.error( writer.writeTraceToString() );
-            }
             return null;
         }
+        else if ( type.isAssignableFrom( val.getClass() ) )
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGExecutor.java`
+#### Snippet
+```java
+        if ( groups == null && excludedGroups == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGExecutor.java`
+#### Snippet
+```java
+        if ( clazz == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/TestNGExecutor.java`
+#### Snippet
+```java
         else
+        {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `surefire-providers/surefire-testng/src/main/java/org/apache/maven/surefire/testng/conf/AbstractDirectConfigurator.java`
+#### Snippet
+```java
+            if ( value == null )
+            {
+                return null;
+            }
+            if ( paramClass.isAssignableFrom( value.getClass() ) )
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -6028,18 +6052,6 @@ in `surefire-extensions-api/src/main/java/org/apache/maven/surefire/extensions/u
 
 ## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
 ### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'prioritizedTest1' to 'PrioritizedTest'
-in `surefire-api/src/main/java/org/apache/maven/surefire/api/runorder/RunEntryStatisticsMap.java`
-#### Snippet
-```java
-        for ( Object prioritizedTest1 : prioritizedTests )
-        {
-            threadedExecutionScheduler.addTest( (PrioritizedTest) prioritizedTest1 );
-        }
-
-```
-
-### CastCanBeRemovedNarrowingVariableType
 Cast may be removed by changing the type of 'o' to 'ReportPlugin'
 in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire/report/AbstractSurefireReportMojo.java`
 #### Snippet
@@ -6049,5 +6061,17 @@ in `maven-surefire-report-plugin/src/main/java/org/apache/maven/plugins/surefire
                     ReportPlugin report = (ReportPlugin) o;
 
                     String artifactId = report.getArtifactId();
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'prioritizedTest1' to 'PrioritizedTest'
+in `surefire-api/src/main/java/org/apache/maven/surefire/api/runorder/RunEntryStatisticsMap.java`
+#### Snippet
+```java
+        for ( Object prioritizedTest1 : prioritizedTests )
+        {
+            threadedExecutionScheduler.addTest( (PrioritizedTest) prioritizedTest1 );
+        }
+
 ```
 
