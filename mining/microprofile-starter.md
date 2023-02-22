@@ -28,8 +28,8 @@ I found 109 bad smells with 2 repairable:
 | SystemOutErr | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | SlowListContainsAll | 1 | false |
-| RegExpSingleCharAlternation | 1 | false |
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
+| RegExpSingleCharAlternation | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | RedundantStringFormatCall | 1 | false |
 | ConstantValue | 1 | false |
@@ -173,54 +173,6 @@ public class PackageNameValidator {
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
-#### Snippet
-```java
-                break;
-            case MP21:
-                break;
-            case MP20:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
-#### Snippet
-```java
-                break;
-            case MP20:
-                break;
-            case MP14:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
-#### Snippet
-```java
-                break;
-            case MP14:
-                break;
-            case MP13:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
-#### Snippet
-```java
-                break;
-            case MP13:
-                break;
-            case MP12:
-                helidonVersion = "1.0.1";
-```
-
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
@@ -403,6 +355,54 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
+#### Snippet
+```java
+                break;
+            case MP21:
+                break;
+            case MP20:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
+#### Snippet
+```java
+                break;
+            case MP20:
+                break;
+            case MP14:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
+#### Snippet
+```java
+                break;
+            case MP14:
+                break;
+            case MP13:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
+#### Snippet
+```java
+                break;
+            case MP13:
+                break;
+            case MP12:
+                helidonVersion = "1.0.1";
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
 in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
 #### Snippet
 ```java
@@ -523,15 +523,15 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'modelManager' in a Serializable class
+Non-serializable field 'errorLogger' in a Serializable class
 in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 #### Snippet
 ```java
 
     @Inject
-    private ModelManager modelManager;
+    private ErrorLogger errorLogger;
 
-    @Inject
+    @Resource
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -542,6 +542,18 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 
     @Inject
     private JDKSelector jdkSelector;
+
+    @Inject
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'modelManager' in a Serializable class
+in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+#### Snippet
+```java
+
+    @Inject
+    private ModelManager modelManager;
 
     @Inject
 ```
@@ -559,30 +571,6 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'engineData' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
-#### Snippet
-```java
-    private ManagedExecutorService managedExecutorService;
-
-    private EngineData engineData;
-
-    private MicroProfileVersion microProfileVersion;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'errorLogger' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
-#### Snippet
-```java
-
-    @Inject
-    private ErrorLogger errorLogger;
-
-    @Resource
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'creator' in a Serializable class
 in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 #### Snippet
@@ -592,6 +580,18 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
     private Creator creator;
 
     @Inject
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'engineData' in a Serializable class
+in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+#### Snippet
+```java
+    private ManagedExecutorService managedExecutorService;
+
+    private EngineData engineData;
+
+    private MicroProfileVersion microProfileVersion;
 ```
 
 ## RuleId[ruleID=OctalLiteral]
@@ -660,6 +660,18 @@ in `src/main/java/org/eclipse/microprofile/starter/core/validation/ModelValidati
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Plugin`
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
+#### Snippet
+```java
+    }
+
+    private Plugin findMavenPlugin(List<Plugin> plugins) {
+        Plugin result = null;
+        for (Plugin plugin : plugins) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends JessieAddon`
 in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 #### Snippet
@@ -672,15 +684,15 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? extends OptionValue`
 in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 #### Snippet
 ```java
     }
 
-    private void addDefaultOption(Map<String, OptionValue> options, String key, String value) {
-        OptionValue optionValue;
-        if (!options.containsKey(key)) {
+    private boolean isAddonDisabled(String addonName, Map<String, OptionValue> options) {
+        boolean result = false;
+        String optionName = addonName + ".disable";
 ```
 
 ### BoundedWildcard
@@ -708,27 +720,15 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends OptionValue`
+Can generalize to `? super String`
 in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 #### Snippet
 ```java
     }
 
-    private boolean isAddonDisabled(String addonName, Map<String, OptionValue> options) {
-        boolean result = false;
-        String optionName = addonName + ".disable";
-```
-
-### BoundedWildcard
-Can generalize to `? extends Plugin`
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-    }
-
-    private Plugin findMavenPlugin(List<Plugin> plugins) {
-        Plugin result = null;
-        for (Plugin plugin : plugins) {
+    private void addDefaultOption(Map<String, OptionValue> options, String key, String value) {
+        OptionValue optionValue;
+        if (!options.containsKey(key)) {
 ```
 
 ### BoundedWildcard
@@ -929,19 +929,6 @@ in `src/main/java/org/eclipse/microprofile/starter/rest/APIService.java`
                     .type("application/json")
 ```
 
-## RuleId[ruleID=RegExpSingleCharAlternation]
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
-#### Snippet
-```java
-
-    private static class FileIdentification {
-        private static final Pattern FILE_PATH_PATTERN_SPLIT = Pattern.compile("\\\\|/");
-        private Set<String> alternatives;
-        private String name;
-```
-
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `resourceDirectory = resourceDirectory + "/resources/security"` could be simplified to 'resourceDirectory += "/resources/security"'
@@ -953,6 +940,19 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
                 resourceDirectory = resourceDirectory + "/resources/security";
                 directoryCreator.createDirectory(resourceDirectory);
     
+```
+
+## RuleId[ruleID=RegExpSingleCharAlternation]
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
+#### Snippet
+```java
+
+    private static class FileIdentification {
+        private static final Pattern FILE_PATH_PATTERN_SPLIT = Pattern.compile("\\\\|/");
+        private Set<String> alternatives;
+        private String name;
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1132,11 +1132,23 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
-public class Project {
     private String groupId = null;
     private String artifactId = null;
     private MicroProfileVersion mpVersion = null;
     private JavaSEVersion javaSEVersion = null;
+    private SupportedServer supportedServer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
+#### Snippet
+```java
+    private JavaSEVersion javaSEVersion = null;
+    private SupportedServer supportedServer = null;
+    private List<String> selectedSpecs = null;
+    private List<MicroprofileSpec> selectedSpecEnums;
+    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1168,11 +1180,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
-    private MicroProfileVersion mpVersion = null;
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
     private List<String> selectedSpecs = null;
     private List<MicroprofileSpec> selectedSpecEnums;
+    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
+    private BuildTool buildTool = BuildTool.MAVEN;
+    private boolean selectAllSpecs = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1180,11 +1192,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
-    private List<String> selectedSpecs = null;
-    private List<MicroprofileSpec> selectedSpecEnums;
-    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
-    private BuildTool buildTool = BuildTool.MAVEN;
-    private boolean selectAllSpecs = false;
+public class Project {
+    private String groupId = null;
+    private String artifactId = null;
+    private MicroProfileVersion mpVersion = null;
+    private JavaSEVersion javaSEVersion = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1204,23 +1216,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
+    private MicroProfileVersion mpVersion = null;
     private JavaSEVersion javaSEVersion = null;
     private SupportedServer supportedServer = null;
     private List<String> selectedSpecs = null;
     private List<MicroprofileSpec> selectedSpecEnums;
-    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private String groupId = null;
-    private String artifactId = null;
-    private MicroProfileVersion mpVersion = null;
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1238,7 +1238,7 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-16-03-26-46.924.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-22-17-53-14.430.html`
 #### Snippet
 ```java
               <td>0</td>
