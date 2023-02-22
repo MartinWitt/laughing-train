@@ -46,18 +46,6 @@ public class CheckBuildPlanMojo extends AbstractMojo {
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
-#### Snippet
-```java
- * A helper to get JDK version from a JDK toolchain.
- */
-class JdkToolchainUtil {
-    static String getJavaVersion(Toolchain toolchain) {
-        String version = "unknown";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 #### Snippet
@@ -67,6 +55,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 class PluginUtil {
     static boolean isSkip(MavenProject project) {
         return isSkip(project, "install") || isSkip(project, "deploy");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
+#### Snippet
+```java
+ * A helper to get JDK version from a JDK toolchain.
+ */
+class JdkToolchainUtil {
+    static String getJavaVersion(Toolchain toolchain) {
+        String version = "unknown";
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -251,18 +251,6 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
         ZipEntry zipEntry = jar.getEntry(entryName);
         if (zipEntry == null) {
             return null;
@@ -287,6 +275,18 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
         @Override
         public WorkspaceReader getWorkspaceReader() {
             return null;
@@ -299,8 +299,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-            log.warn("unable to open jar file " + file, e);
         }
+
         return null;
     }
 
@@ -311,8 +311,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
+            log.warn("unable to open jar file " + file, e);
         }
-
         return null;
     }
 
