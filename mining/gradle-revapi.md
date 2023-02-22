@@ -182,18 +182,6 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
-#### Snippet
-```java
-        private transient T savedValue;
-
-        MemoizingSupplier(Supplier<T> delegate) {
-            this.delegate = delegate;
-        }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Throwable`
 in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
 #### Snippet
@@ -203,6 +191,18 @@ in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
         CouldNotResolveOldApiException(Version version, List<Throwable> resolutionFailures) {
             this.version = version;
             this.resolutionFailures = resolutionFailures;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
+#### Snippet
+```java
+        private transient T savedValue;
+
+        MemoizingSupplier(Supplier<T> delegate) {
+            this.delegate = delegate;
+        }
 ```
 
 ### BoundedWildcard
@@ -243,18 +243,6 @@ public abstract class AnalysisResults {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `RevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
-#### Snippet
-```java
-@Value.Immutable
-@ImmutableStyle
-abstract class RevapiConfig {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
 #### Snippet
@@ -264,6 +252,18 @@ in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.jav
 abstract class PerProjectAcceptedBreaks {
     @JsonValue
     @Value.NaturalOrder
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RevapiConfig` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
+#### Snippet
+```java
+@Value.Immutable
+@ImmutableStyle
+abstract class RevapiConfig {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
+
 ```
 
 ### AbstractClassNeverImplemented
