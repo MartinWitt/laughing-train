@@ -48,31 +48,32 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
         this.getJdkStorageLocation().finalizeValueOnRead();
 ```
 
+## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends T`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/SynchronizedInterface.java`
+#### Snippet
+```java
+
+final class SynchronizedInterface {
+    public static <T> T synchronizeAllInterfaceMethods(Class<T> returnInterface, T original) {
+        Object sync = new Object();
+        return returnInterface.cast(Proxy.newProxyInstance(
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directory`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+    private final JdkDownloaders jdkDownloaders;
+
+    JdkManager(Provider<Directory> storageLocation, JdkDistributions jdkDistributions, JdkDownloaders jdkDownloaders) {
+        this.storageLocation = storageLocation;
+        this.jdkDistributions = jdkDistributions;
+```
+
 ## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `PalantirCaExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
-#### Snippet
-```java
-import org.gradle.api.provider.Property;
-
-public abstract class PalantirCaExtension {
-    public abstract Property<LogLevel> getLogLevel();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JdksExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
-#### Snippet
-```java
-import org.gradle.jvm.toolchain.JavaLanguageVersion;
-
-public abstract class JdksExtension {
-    private final LazilyConfiguredMapping<JdkDistributionName, JdkDistributionExtension, Void> jdkDistributions;
-    private final LazilyConfiguredMapping<JavaLanguageVersion, JdkExtension, Project> jdks;
-```
-
 ### AbstractClassNeverImplemented
 Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
@@ -82,6 +83,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallatio
 @Value.Immutable
 abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
     protected abstract Provider<Directory> installationPathProvider();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `PalantirCaExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
+#### Snippet
+```java
+import org.gradle.api.provider.Property;
+
+public abstract class PalantirCaExtension {
+    public abstract Property<LogLevel> getLogLevel();
 
 ```
 
@@ -109,29 +122,16 @@ public abstract class JdkExtension {
     public abstract Property<String> getJdkVersion();
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends T`
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/SynchronizedInterface.java`
+### AbstractClassNeverImplemented
+Abstract class `JdksExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 #### Snippet
 ```java
+import org.gradle.jvm.toolchain.JavaLanguageVersion;
 
-final class SynchronizedInterface {
-    public static <T> T synchronizeAllInterfaceMethods(Class<T> returnInterface, T original) {
-        Object sync = new Object();
-        return returnInterface.cast(Proxy.newProxyInstance(
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-    private final JdkDownloaders jdkDownloaders;
-
-    JdkManager(Provider<Directory> storageLocation, JdkDistributions jdkDistributions, JdkDownloaders jdkDownloaders) {
-        this.storageLocation = storageLocation;
-        this.jdkDistributions = jdkDistributions;
+public abstract class JdksExtension {
+    private final LazilyConfiguredMapping<JdkDistributionName, JdkDistributionExtension, Void> jdkDistributions;
+    private final LazilyConfiguredMapping<JavaLanguageVersion, JdkExtension, Project> jdks;
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
@@ -199,18 +199,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
-#### Snippet
-```java
-        StringBuilder stringBuilder = new StringBuilder();
-
-        caCerts().forEach((alias, caCert) -> {
-            stringBuilder.append(alias).append(": ").append(caCert).append('\n');
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
 #### Snippet
 ```java
@@ -231,6 +219,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
             jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
                 jdkDistributionExtension
                         .getBaseUrl()
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
+#### Snippet
+```java
+        StringBuilder stringBuilder = new StringBuilder();
+
+        caCerts().forEach((alias, caCert) -> {
+            stringBuilder.append(alias).append(": ").append(caCert).append('\n');
+        });
 ```
 
 ### CodeBlock2Expr
@@ -343,18 +343,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 ```
 
 ### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-        @Override
-        public void close() throws IOException {
-            closer.close();
-        }
-    }
-```
-
-### UnstableApiUsage
 'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 #### Snippet
@@ -388,5 +376,17 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
         private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
         private final Closer closer;
 
+```
+
+### UnstableApiUsage
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+        @Override
+        public void close() throws IOException {
+            closer.close();
+        }
+    }
 ```
 
