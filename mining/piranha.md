@@ -8,7 +8,7 @@ I found 6 bad smells with 0 repairable:
 ## RuleId[ruleID=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
-in `legacy/java/sample/build.gradle`
+in `legacy/java/piranha/build.gradle`
 #### Snippet
 ```java
 }
@@ -20,14 +20,14 @@ targetCompatibility = "1.8"
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `legacy/java/sample/build.gradle`
+in `legacy/java/piranha/build.gradle`
 #### Snippet
 ```java
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
-
+dependencies {
 ```
 
 ### GroovyUnusedAssignment
@@ -56,7 +56,7 @@ def isReleaseBuild() {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `legacy/java/piranha/build.gradle`
+in `legacy/java/sample/build.gradle`
 #### Snippet
 ```java
 }
@@ -68,13 +68,13 @@ targetCompatibility = "1.8"
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `legacy/java/piranha/build.gradle`
+in `legacy/java/sample/build.gradle`
 #### Snippet
 ```java
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
-dependencies {
+
 ```
 
