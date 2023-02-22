@@ -1,7 +1,7 @@
 # karaf-decanter 
  
 # Bad smells
-I found 282 bad smells with 25 repairable:
+I found 283 bad smells with 25 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | MissortedModifiers | 58 | false |
@@ -25,8 +25,8 @@ I found 282 bad smells with 25 repairable:
 | ConstantValue | 4 | false |
 | RedundantClassCall | 3 | false |
 | IgnoreResultOfCall | 3 | false |
-| ThrowablePrintStackTrace | 3 | false |
 | ReplaceAssignmentWithOperatorAssignment | 3 | false |
+| ThrowablePrintStackTrace | 3 | false |
 | Convert2Lambda | 3 | false |
 | CastConflictsWithInstanceof | 3 | false |
 | IOResource | 2 | false |
@@ -44,6 +44,7 @@ I found 282 bad smells with 25 repairable:
 | UnnecessaryBoxing | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | EmptyMethod | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | DoubleBraceInitialization | 1 | false |
 | UnusedAssignment | 1 | false |
 ## RuleId[ruleID=IOResource]
@@ -102,9 +103,9 @@ Modifier `public` is redundant for interface members
 in `api/src/main/java/org/apache/karaf/decanter/api/Scheduler.java`
 #### Snippet
 ```java
-     * @throws Exception
+     * @throws Exception in case of startup failure.
      */
-    public boolean isStarted() throws Exception;
+    public void start() throws Exception;
 
     /**
 ```
@@ -114,9 +115,9 @@ Modifier `public` is redundant for interface members
 in `api/src/main/java/org/apache/karaf/decanter/api/Scheduler.java`
 #### Snippet
 ```java
-     * @throws Exception in case of startup failure.
+     * @throws Exception
      */
-    public void start() throws Exception;
+    public boolean isStarted() throws Exception;
 
     /**
 ```
@@ -184,30 +185,6 @@ in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPo
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `PeriodParser` has only 'static' members, and lacks a 'private' constructor
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/PeriodParser.java`
-#### Snippet
-```java
-import java.util.regex.Pattern;
-
-public class PeriodParser {
-
-    public static long parse(String period) throws IllegalArgumentException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Loader` has only 'static' members, and lacks a 'private' constructor
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class Loader {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(Loader.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PropertiesPreparator` has only 'static' members, and lacks a 'private' constructor
 in `collector/utils/src/main/java/org/apache/karaf/decanter/collector/utils/PropertiesPreparator.java`
 #### Snippet
@@ -231,32 +208,31 @@ public class EventFilter {
     public static final String PROPERTY_NAME_EXCLUDE_CONFIG = "event.property.name.exclude";
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+### UtilityClassWithoutPrivateConstructor
+Class `Loader` has only 'static' members, and lacks a 'private' constructor
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
 #### Snippet
 ```java
-    private enum Protocol {
-        TCP,
-        UDP;
-    }
+import java.util.List;
 
+public class Loader {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(Loader.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PeriodParser` has only 'static' members, and lacks a 'private' constructor
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/PeriodParser.java`
+#### Snippet
+```java
+import java.util.regex.Pattern;
+
+public class PeriodParser {
+
+    public static long parse(String period) throws IllegalArgumentException {
 ```
 
 ## RuleId[ruleID=RedundantClassCall]
-### RedundantClassCall
-Redundant call to `cast()`
-in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
-#### Snippet
-```java
-                results.stream().forEach(objectFuture -> {
-                    try {
-                        Event event = Event.class.cast(objectFuture.get());
-                        if (Optional.ofNullable(event).isPresent()) {
-                            dispatcher.postEvent(event);
-```
-
 ### RedundantClassCall
 Redundant call to `cast()`
 in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
@@ -281,53 +257,42 @@ in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/Sy
             throw new IllegalArgumentException("invalid parameter 'thread.number' is not a number");
 ```
 
+### RedundantClassCall
+Redundant call to `cast()`
+in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
+#### Snippet
+```java
+                results.stream().forEach(objectFuture -> {
+                    try {
+                        Event event = Event.class.cast(objectFuture.get());
+                        if (Optional.ofNullable(event).isPresent()) {
+                            dispatcher.postEvent(event);
+```
+
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+#### Snippet
+```java
+    private enum Protocol {
+        TCP,
+        UDP;
+    }
+
+```
+
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Casting `value` to `Integer` will produce `ClassCastException` for any non-null value
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
+Method invocation `close` may produce `NullPointerException`
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
 #### Snippet
 ```java
-            } else if (value instanceof Float) {
-                document.add(new FloatPoint(key, ((Float) value)));
-                document.add(new StoredField(key, ((Integer) value)));
-                points.put(key, new PointsConfig(NumberFormat.getInstance(), Float.class));
-            } else if (value instanceof Double) {
-```
 
-### DataFlowIssue
-Casting `value` to `Integer` will produce `ClassCastException` for any non-null value
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
-#### Snippet
-```java
-            } else if (value instanceof Float) {
-                document.add(new FloatPoint(property, ((Float) value)));
-                document.add(new StoredField(property, ((Integer) value)));
-                points.put(property, new PointsConfig(NumberFormat.getInstance(), Float.class));
-            } else if (value instanceof Double) {
-```
-
-### DataFlowIssue
-Method invocation `getResponseCode` may produce `NullPointerException`
-in `collector/rest/src/main/java/org/apache/karaf/decanter/collector/rest/RestCollector.java`
-#### Snippet
-```java
-                    } else {
-                        try {
-                            data.put("http.response.code", connection.getResponseCode());
-                        } catch (Exception ie) {
-                            // no-op
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
-#### Snippet
-```java
-        for(Row row : all) {
-            String table = row.getString("table_name");
-            if (table.equalsIgnoreCase(tableName)) {
-                found = true;
-                break;
+        try {
+            connector.close();
+        } catch (Exception e) {
+            LOGGER.trace("Can't close JMX connector", e);
 ```
 
 ### DataFlowIssue
@@ -340,6 +305,18 @@ in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/Came
             CamelEvent.CamelContextStartupFailureEvent context = (CamelEvent.CamelContextStartupFailureEvent) event;
             data.put("cause", context.getCause().toString());
         }
+```
+
+### DataFlowIssue
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
+#### Snippet
+```java
+        for(Row row : all) {
+            String table = row.getString("table_name");
+            if (table.equalsIgnoreCase(tableName)) {
+                found = true;
+                break;
 ```
 
 ### DataFlowIssue
@@ -367,15 +344,39 @@ in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/Json
 ```
 
 ### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
+Casting `value` to `Integer` will produce `ClassCastException` for any non-null value
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
 #### Snippet
 ```java
+            } else if (value instanceof Float) {
+                document.add(new FloatPoint(property, ((Float) value)));
+                document.add(new StoredField(property, ((Integer) value)));
+                points.put(property, new PointsConfig(NumberFormat.getInstance(), Float.class));
+            } else if (value instanceof Double) {
+```
 
-        try {
-            connector.close();
-        } catch (Exception e) {
-            LOGGER.trace("Can't close JMX connector", e);
+### DataFlowIssue
+Casting `value` to `Integer` will produce `ClassCastException` for any non-null value
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
+#### Snippet
+```java
+            } else if (value instanceof Float) {
+                document.add(new FloatPoint(key, ((Float) value)));
+                document.add(new StoredField(key, ((Integer) value)));
+                points.put(key, new PointsConfig(NumberFormat.getInstance(), Float.class));
+            } else if (value instanceof Double) {
+```
+
+### DataFlowIssue
+Method invocation `getResponseCode` may produce `NullPointerException`
+in `collector/rest/src/main/java/org/apache/karaf/decanter/collector/rest/RestCollector.java`
+#### Snippet
+```java
+                    } else {
+                        try {
+                            data.put("http.response.code", connection.getResponseCode());
+                        } catch (Exception ie) {
+                            // no-op
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -397,11 +398,11 @@ in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/Sy
 in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonUnmarshaller.java`
 #### Snippet
 ```java
-        List<Object> list = new ArrayList<>();
-        Iterator<JsonValue> jsonValues = value.iterator();
-        while (jsonValues.hasNext()) {
-            JsonValue jsonValue = jsonValues.next();
-            list.add(unmarshalAttribute(jsonValue));
+        Map<String, Object> map = new HashMap<>();
+        Iterator<Map.Entry<String, JsonValue>> entrySet = value.entrySet().iterator();
+        while (entrySet.hasNext()) {
+            Map.Entry<String, JsonValue> entry = entrySet.next();
+            map.put(entry.getKey(), unmarshalAttribute(entry.getValue()));
 ```
 
 ### WhileCanBeForeach
@@ -409,11 +410,11 @@ in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/Json
 in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonUnmarshaller.java`
 #### Snippet
 ```java
-        Map<String, Object> map = new HashMap<>();
-        Iterator<Map.Entry<String, JsonValue>> entrySet = value.entrySet().iterator();
-        while (entrySet.hasNext()) {
-            Map.Entry<String, JsonValue> entry = entrySet.next();
-            map.put(entry.getKey(), unmarshalAttribute(entry.getValue()));
+        List<Object> list = new ArrayList<>();
+        Iterator<JsonValue> jsonValues = value.iterator();
+        while (jsonValues.hasNext()) {
+            JsonValue jsonValue = jsonValues.next();
+            list.add(unmarshalAttribute(jsonValue));
 ```
 
 ## RuleId[ruleID=ObsoleteCollection]
@@ -430,6 +431,42 @@ in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxColle
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
+Iteration over `operations.keySet()` may be replaced with 'entrySet()' iteration
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
+#### Snippet
+```java
+            }
+
+            for (String operation : operations.keySet()) {
+                String raw = operations.get(operation);
+                String[] split = raw.split("\\|");
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `jsonO.keySet()` may be replaced with 'entrySet()' iteration
+in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonUnmarshaller.java`
+#### Snippet
+```java
+        JsonObject jsonO = reader.readObject();
+        HashMap<String, Object> map = new HashMap<>();
+        for (String key : jsonO.keySet()) {
+            map.put(key, unmarshalAttribute(jsonO.get(key)));
+        }
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `accumulation.keySet()` may be replaced with 'values()' iteration
+in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/GroupByProcessor.java`
+#### Snippet
+```java
+        public void run() {
+            if (accumulation.size() > 0) {
+                for (Integer hash : accumulation.keySet()) {
+                    Map merge = new HashMap();
+                    merge.put("processor", "groupBy");
+```
+
 ### KeySetIterationMayUseEntrySet
 Iteration over `pointsStore.keySet()` may be replaced with 'entrySet()' iteration
 in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
@@ -455,30 +492,6 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/st
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `jsonO.keySet()` may be replaced with 'entrySet()' iteration
-in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonUnmarshaller.java`
-#### Snippet
-```java
-        JsonObject jsonO = reader.readObject();
-        HashMap<String, Object> map = new HashMap<>();
-        for (String key : jsonO.keySet()) {
-            map.put(key, unmarshalAttribute(jsonO.get(key)));
-        }
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `operations.keySet()` may be replaced with 'entrySet()' iteration
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
-#### Snippet
-```java
-            }
-
-            for (String operation : operations.keySet()) {
-                String raw = operations.get(operation);
-                String[] split = raw.split("\\|");
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `metrics.keySet()` may be replaced with 'values()' iteration
 in `collector/dropwizard/src/main/java/org/apache/karaf/decanter/collector/dropwizard/DecanterReporterCollector.java`
 #### Snippet
@@ -488,18 +501,6 @@ in `collector/dropwizard/src/main/java/org/apache/karaf/decanter/collector/dropw
         for (String metricName : metrics.keySet()) {
             Metric metric = metrics.get(metricName);
             Map<String, Object> data = new HashMap<>();
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `accumulation.keySet()` may be replaced with 'values()' iteration
-in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/GroupByProcessor.java`
-#### Snippet
-```java
-        public void run() {
-            if (accumulation.size() > 0) {
-                for (Integer hash : accumulation.keySet()) {
-                    Map merge = new HashMap();
-                    merge.put("processor", "groupBy");
 ```
 
 ## RuleId[ruleID=RedundantCollectionOperation]
@@ -517,30 +518,6 @@ in `collector/utils/src/main/java/org/apache/karaf/decanter/collector/utils/Prop
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`rules.size() == 0` can be replaced with 'rules.isEmpty()'
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
-#### Snippet
-```java
-
-    static public Long oldestPeriod(List<Rule> rules) {
-        if (rules == null || rules.size() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`mergedData.size() > 0` can be replaced with '!mergedData.isEmpty()'
-in `processor/aggregate/src/main/java/org/apache/karaf/decanter/processor/aggregate/AggregateProcessor.java`
-#### Snippet
-```java
-        public void run() {
-            // create event and send
-            if (mergedData.size() > 0) {
-                mergedData.put("processor", "aggregate");
-                String[] topics = targetTopics.split(",");
-```
-
-### SizeReplaceableByIsEmpty
 `objectNames.size() > 0` can be replaced with '!objectNames.isEmpty()'
 in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
 #### Snippet
@@ -550,6 +527,18 @@ in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxColle
             if (objectNames.size() > 0) {
                 for (String objectName : this.objectNames) {
                     LOGGER.debug("Query {}", objectName);
+```
+
+### SizeReplaceableByIsEmpty
+`rules.size() == 0` can be replaced with 'rules.isEmpty()'
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
+#### Snippet
+```java
+
+    static public Long oldestPeriod(List<Rule> rules) {
+        if (rules == null || rules.size() == 0) {
+            return null;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -564,7 +553,31 @@ in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/
                     Map merge = new HashMap();
 ```
 
+### SizeReplaceableByIsEmpty
+`mergedData.size() > 0` can be replaced with '!mergedData.isEmpty()'
+in `processor/aggregate/src/main/java/org/apache/karaf/decanter/processor/aggregate/AggregateProcessor.java`
+#### Snippet
+```java
+        public void run() {
+            // create event and send
+            if (mergedData.size() > 0) {
+                mergedData.put("processor", "aggregate");
+                String[] topics = targetTopics.split(",");
+```
+
 ## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
+#### Snippet
+```java
+                LOGGER.error("SecurityException: ", se);
+            } catch (Exception e) {
+                LOGGER.debug("Could not read attribute {} {}", name.toString(), attribute.getName());
+            }
+
+```
+
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `marshaller/csv/src/main/java/org/apache/karaf/decanter/marshaller/csv/CsvMarshaller.java`
@@ -591,14 +604,14 @@ in `marshaller/raw/src/main/java/org/apache/karaf/decanter/marshaller/raw/RawMar
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
+in `collector/druid/src/main/java/org/apache/karaf/decanter/collector/druid/DruidCollector.java`
 #### Snippet
 ```java
-                LOGGER.error("SecurityException: ", se);
-            } catch (Exception e) {
-                LOGGER.debug("Could not read attribute {} {}", name.toString(), attribute.getName());
             }
-
+        }
+        String jsonResult = "{ \"result\": " + result.toString() + "}";
+        return unmarshaller.unmarshal(new ByteArrayInputStream(jsonResult.getBytes()));
+    }
 ```
 
 ### UnnecessaryToStringCall
@@ -613,19 +626,43 @@ in `appender/s3/src/main/java/org/apache/karaf/decanter/appender/s3/S3Appender.j
     }
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `collector/druid/src/main/java/org/apache/karaf/decanter/collector/druid/DruidCollector.java`
+## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super String`
+in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/DefaultExchangeExtender.java`
 #### Snippet
 ```java
-            }
-        }
-        String jsonResult = "{ \"result\": " + result.toString() + "}";
-        return unmarshaller.unmarshal(new ByteArrayInputStream(jsonResult.getBytes()));
     }
+
+    private static void setHistory(Map<String, Object> data, Exchange exchange) {
+        List<MessageHistory> messageHistory = exchange.getProperty(Exchange.MESSAGE_HISTORY, List.class);
+        if (messageHistory != null && !messageHistory.isEmpty()) {
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super String`
+in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
+#### Snippet
+```java
+    }
+
+    private void putLocation(Map<String, Object> data, LocationInfo loc) {
+        data.put("loc.class", loc.getClassName());
+        data.put("loc.file", loc.getFileName());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `collector/utils/src/main/java/org/apache/karaf/decanter/collector/utils/PropertiesPreparator.java`
+#### Snippet
+```java
+     * @param properties Custom properties included in the data.
+     */
+    public static void prepare(Map<String, Object> data, Dictionary<String, Object> properties) throws Exception {
+        // add the karaf instance name if it doesn't exist in the data
+        String karafName = (String) data.get("karafName");
+```
+
 ### BoundedWildcard
 Can generalize to `? extends Rule`
 in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
@@ -664,30 +701,6 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/st
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `collector/utils/src/main/java/org/apache/karaf/decanter/collector/utils/PropertiesPreparator.java`
-#### Snippet
-```java
-     * @param properties Custom properties included in the data.
-     */
-    public static void prepare(Map<String, Object> data, Dictionary<String, Object> properties) throws Exception {
-        // add the karaf instance name if it doesn't exist in the data
-        String karafName = (String) data.get("karafName");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/DefaultExchangeExtender.java`
-#### Snippet
-```java
-    }
-
-    private static void setHistory(Map<String, Object> data, Exchange exchange) {
-        List<MessageHistory> messageHistory = exchange.getProperty(Exchange.MESSAGE_HISTORY, List.class);
-        if (messageHistory != null && !messageHistory.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `collector/dropwizard/src/main/java/org/apache/karaf/decanter/collector/dropwizard/DecanterReporterCollector.java`
 #### Snippet
 ```java
@@ -698,221 +711,17 @@ in `collector/dropwizard/src/main/java/org/apache/karaf/decanter/collector/dropw
         data.put("95th Percentile", snapshot.get95thPercentile());
 ```
 
-### BoundedWildcard
-Can generalize to `? super String`
-in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
-#### Snippet
-```java
-    }
-
-    private void putLocation(Map<String, Object> data, LocationInfo loc) {
-        data.put("loc.class", loc.getClassName());
-        data.put("loc.file", loc.getFileName());
-```
-
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `collector/redis/src/main/java/org/apache/karaf/decanter/collector/redis/RedisCollector.java`
+in `appender/mongodb/src/main/java/org/apache/karaf/decanter/appender/mongodb/MongoDbAppender.java`
 #### Snippet
 ```java
-public class RedisCollector implements Runnable {
+    public Marshaller marshaller;
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(RedisCollector.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(MongoDbAppender.class);
 
-    @Reference
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/rest-servlet/src/main/java/org/apache/karaf/decanter/collector/rest/servlet/RestServletCollector.java`
-#### Snippet
-```java
-    public Unmarshaller unmarshaller;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(RestServletCollector.class);
-
-    private String topic;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `parser/split/src/main/java/org/apache/karaf/decanter/parser/split/SplitParser.java`
-#### Snippet
-```java
-public class SplitParser implements Parser {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(SplitParser.class);
-
-    private String separator;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/camel/src/main/java/org/apache/karaf/decanter/appender/camel/CamelAppender.java`
-#### Snippet
-```java
-    private Dictionary<String, Object> config;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(CamelAppender.class);
-
-    @Activate
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
-#### Snippet
-```java
-    private final static String createTableQueryTemplate =
-            "CREATE TABLE TABLENAME(timestamp BIGINT, content text)";
-    private final static String convertHyperTableQueryTemplate =
-            "SELECT * FROM create_hypertable('TABLENAME', 'timestamp', chunk_time_interval=>_timescaledb_internal.interval_to_usec('1 day'), migrate_data => true);";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
-#### Snippet
-```java
-    private final static Logger LOGGER = LoggerFactory.getLogger(TimescaleDbAppender.class);
-
-    private final static String createExtensionTemplate =
-            "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE";
-    private final static String createTableQueryTemplate =
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
-#### Snippet
-```java
-    private final static String createExtensionTemplate =
-            "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE";
-    private final static String createTableQueryTemplate =
-            "CREATE TABLE TABLENAME(timestamp BIGINT, content text)";
-    private final static String convertHyperTableQueryTemplate =
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
-#### Snippet
-```java
-            "SELECT * FROM create_hypertable('TABLENAME', 'timestamp', chunk_time_interval=>_timescaledb_internal.interval_to_usec('1 day'), migrate_data => true);";
-
-    private final static String insertQueryTemplate =
-            "INSERT INTO TABLENAME(timestamp, content) VALUES(?,?)";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
-#### Snippet
-```java
-    public DataSource dataSource;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(TimescaleDbAppender.class);
-
-    private final static String createExtensionTemplate =
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
-#### Snippet
-```java
-public class LokiAppender implements EventHandler {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(LokiAppender.class);
-
-    @Reference(cardinality = ReferenceCardinality.OPTIONAL)
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-public class EmailAlerter implements EventHandler {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(EmailAlerter.class);
-
-    private String from = null;
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
-#### Snippet
-```java
-    }
-
-    static public Long oldestPeriod(List<Rule> rules) {
-        if (rules == null || rules.size() == 0) {
-            return null;
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
-#### Snippet
-```java
-    private final static Logger LOGGER = LoggerFactory.getLogger(Loader.class);
-
-    static public List<Rule> load(Dictionary<String, Object> configuration) {
-        List<Rule> rules = new ArrayList<>();
-        if (configuration == null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
-#### Snippet
-```java
-public class Loader {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(Loader.class);
-
-    static public List<Rule> load(Dictionary<String, Object> configuration) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/event/Handler.java`
-#### Snippet
-```java
-    public Store store;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
-
-    private List<Rule> rules;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/jdbc/src/main/java/org/apache/karaf/decanter/collector/jdbc/JdbcCollector.java`
-#### Snippet
-```java
-    public DataSource dataSource;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(JdbcCollector.class);
-
-    private String query;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `marshaller/csv/src/main/java/org/apache/karaf/decanter/marshaller/csv/CsvMarshaller.java`
-#### Snippet
-```java
-public class CsvMarshaller implements Marshaller {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(CsvMarshaller.class);
-
-    private String separator = ",";
+    private MongoClient mongoClient;
 ```
 
 ### MissortedModifiers
@@ -929,14 +738,98 @@ in `collector/mqtt/src/main/java/org/apache/karaf/decanter/collector/mqtt/MqttCo
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `appender/hdfs/src/main/java/org/apache/karaf/decanter/appender/hdfs/HdfsAppender.java`
+in `collector/jms/src/main/java/org/apache/karaf/decanter/collector/jms/JmsCollector.java`
 #### Snippet
 ```java
-public class HdfsAppender implements EventHandler {
+    public EventAdmin dispatcher;
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(HdfsAppender.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(JmsCollector.class);
+
+    private Dictionary<String, Object> properties;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
+#### Snippet
+```java
+    public EventAdmin dispatcher;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(JmxCollector.class);
+
+    private String type;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
+#### Snippet
+```java
+class BeanHarvester {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(BeanHarvester.class);
+
+    private MBeanServerConnection connection;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/camel/src/main/java/org/apache/karaf/decanter/appender/camel/CamelAppender.java`
+#### Snippet
+```java
+    private Dictionary<String, Object> config;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(CamelAppender.class);
+
+    @Activate
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/prometheus/src/main/java/org/apache/karaf/decanter/collector/prometheus/PrometheusCollector.java`
+#### Snippet
+```java
+public class PrometheusCollector implements Runnable {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(PrometheusCollector.class);
+
+    @Reference
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/jms/src/main/java/org/apache/karaf/decanter/appender/jms/JmsAppender.java`
+#### Snippet
+```java
+    public Marshaller marshaller;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(JmsAppender.class);
 
     private Dictionary<String, Object> config;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/redis/src/main/java/org/apache/karaf/decanter/collector/redis/RedisCollector.java`
+#### Snippet
+```java
+public class RedisCollector implements Runnable {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(RedisCollector.class);
+
+    @Reference
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `marshaller/csv/src/main/java/org/apache/karaf/decanter/marshaller/csv/CsvMarshaller.java`
+#### Snippet
+```java
+public class CsvMarshaller implements Marshaller {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(CsvMarshaller.class);
+
+    private String separator = ",";
 ```
 
 ### MissortedModifiers
@@ -953,122 +846,74 @@ public class RawUnmarshaller implements Unmarshaller {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
+in `collector/soap/src/main/java/org/apache/karaf/decanter/collector/soap/SoapCollector.java`
 #### Snippet
 ```java
-    private final static String createTableQueryMySQLTemplate =
-            "CREATE TABLE TABLENAME(timestamp BIGINT, content CLOB)";
-    private final static String createTableQueryDerbyTemplate =
-            "CREATE TABLE TABLENAME(timestamp BIGINT, content CLOB)";
+    public EventAdmin dispatcher;
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(SoapCollector.class);
+
+    private URL url;
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
-#### Snippet
-```java
-    private final static String createTableQueryGenericTemplate =
-            "CREATE TABLE TABLENAME(timestamp BIGINT, content VARCHAR(8192))";
-    private final static String createTableQueryMySQLTemplate =
-            "CREATE TABLE TABLENAME(timestamp BIGINT, content CLOB)";
-    private final static String createTableQueryDerbyTemplate =
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
-#### Snippet
-```java
-            "CREATE TABLE TABLENAME(timestamp BIGINT, content CLOB)";
-
-    private final static String insertQueryTemplate =
-            "INSERT INTO TABLENAME(timestamp, content) VALUES(?,?)";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
-#### Snippet
-```java
-    public DataSource dataSource;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(JdbcAppender.class);
-
-    private final static String createTableQueryGenericTemplate =
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
-#### Snippet
-```java
-    private final static Logger LOGGER = LoggerFactory.getLogger(JdbcAppender.class);
-
-    private final static String createTableQueryGenericTemplate =
-            "CREATE TABLE TABLENAME(timestamp BIGINT, content VARCHAR(8192))";
-    private final static String createTableQueryMySQLTemplate =
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/log/src/main/java/org/apache/karaf/decanter/collector/log/LogCollector.java`
-#### Snippet
-```java
-    private static final String MDC_IN_LOG_COLLECTOR = "inLogCollector";
-    private final static Logger LOGGER = LoggerFactory.getLogger(LogCollector.class);
-    private final static Pattern PATTERN = Pattern.compile("[^A-Za-z0-9]");
-
-    private Dictionary<String, Object> properties;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/log/src/main/java/org/apache/karaf/decanter/collector/log/LogCollector.java`
-#### Snippet
-```java
-
-    private static final String MDC_IN_LOG_COLLECTOR = "inLogCollector";
-    private final static Logger LOGGER = LoggerFactory.getLogger(LogCollector.class);
-    private final static Pattern PATTERN = Pattern.compile("[^A-Za-z0-9]");
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `alerting/alerter/log/src/main/java/org/apache/karaf/decanter/alerting/log/Logger.java`
-#### Snippet
-```java
-public class Logger implements EventHandler {
-
-    private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Logger.class);
-
-    @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
-#### Snippet
-```java
-public class LuceneStoreImpl implements Store {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(LuceneStoreImpl.class);
-
-    private Directory directory;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/jms/src/main/java/org/apache/karaf/decanter/appender/jms/JmsAppender.java`
+in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/KafkaAppender.java`
 #### Snippet
 ```java
     public Marshaller marshaller;
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(JmsAppender.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(KafkaAppender.class);
 
     private Dictionary<String, Object> config;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
+#### Snippet
+```java
+    public Marshaller marshaller;
+
+    private final static String createTableTemplate = "CREATE TABLE IF NOT EXISTS %s (timeStamp timestamp PRIMARY KEY, content Text);";
+
+    private CqlSession session;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
+#### Snippet
+```java
+    public static final String CASSANDRA_PORT_DEFAULT = "9042";
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(CassandraAppender.class);
+
+    private Dictionary<String, Object> config;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/rest-servlet/src/main/java/org/apache/karaf/decanter/collector/rest/servlet/RestServletCollector.java`
+#### Snippet
+```java
+    public Unmarshaller unmarshaller;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(RestServletCollector.class);
+
+    private String topic;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/file/src/main/java/org/apache/karaf/decanter/collector/file/DecanterTailerListener.java`
+#### Snippet
+```java
+    public Parser parser;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(DecanterTailerListener.class);
+
+    private String type;
 ```
 
 ### MissortedModifiers
@@ -1109,110 +954,26 @@ in `collector/utils/src/main/java/org/apache/karaf/decanter/collector/utils/Prop
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `collector/rest/src/main/java/org/apache/karaf/decanter/collector/rest/RestCollector.java`
+in `collector/elasticsearch/src/main/java/org/apache/karaf/decanter/collector/elasticsearch/ElasticsearchCollector.java`
 #### Snippet
 ```java
-    public Unmarshaller unmarshaller;
+public class ElasticsearchCollector implements Runnable {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(RestCollector.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ElasticsearchCollector.class);
 
-    private URL url;
+    @Reference
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
+in `appender/rest/src/main/java/org/apache/karaf/decanter/appender/rest/RestAppender.java`
 #### Snippet
 ```java
     public Marshaller marshaller;
 
-    private final static String createTableTemplate = "CREATE TABLE IF NOT EXISTS %s (timeStamp timestamp PRIMARY KEY, content Text);";
+    private final static Logger LOGGER = LoggerFactory.getLogger(RestAppender.class);
 
-    private CqlSession session;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
-#### Snippet
-```java
-    public static final String CASSANDRA_PORT_DEFAULT = "9042";
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(CassandraAppender.class);
-
-    private Dictionary<String, Object> config;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
-#### Snippet
-```java
-class BeanHarvester {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(BeanHarvester.class);
-
-    private MBeanServerConnection connection;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/mongodb/src/main/java/org/apache/karaf/decanter/appender/mongodb/MongoDbAppender.java`
-#### Snippet
-```java
-    public Marshaller marshaller;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(MongoDbAppender.class);
-
-    private MongoClient mongoClient;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
-#### Snippet
-```java
-    public EventAdmin dispatcher;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(JmxCollector.class);
-
-    private String type;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/file/src/main/java/org/apache/karaf/decanter/collector/file/DecanterTailerListener.java`
-#### Snippet
-```java
-    public Parser parser;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(DecanterTailerListener.class);
-
-    private String type;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `appender/s3/src/main/java/org/apache/karaf/decanter/appender/s3/S3Appender.java`
-#### Snippet
-```java
-public class S3Appender implements EventHandler {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(S3Appender.class);
-
-    private Regions regions;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
-#### Snippet
-```java
-    public EventAdmin dispatcher;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(SystemCollector.class);
-
-    private Dictionary<String, Object> properties;
+    private URI uri;
 ```
 
 ### MissortedModifiers
@@ -1229,50 +990,74 @@ in `collector/druid/src/main/java/org/apache/karaf/decanter/collector/druid/Drui
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/KafkaAppender.java`
+in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
 #### Snippet
 ```java
-    public Marshaller marshaller;
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(KafkaAppender.class);
-
-    private Dictionary<String, Object> config;
+    private final static String createTableQueryGenericTemplate =
+            "CREATE TABLE TABLENAME(timestamp BIGINT, content VARCHAR(8192))";
+    private final static String createTableQueryMySQLTemplate =
+            "CREATE TABLE TABLENAME(timestamp BIGINT, content CLOB)";
+    private final static String createTableQueryDerbyTemplate =
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `collector/soap/src/main/java/org/apache/karaf/decanter/collector/soap/SoapCollector.java`
+in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
 #### Snippet
 ```java
-    public EventAdmin dispatcher;
+    public DataSource dataSource;
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(SoapCollector.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(JdbcAppender.class);
 
-    private URL url;
+    private final static String createTableQueryGenericTemplate =
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `appender/mqtt/src/main/java/org/apache/karaf/decanter/appender/mqtt/MqttAppender.java`
+in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
 #### Snippet
 ```java
-    public Marshaller marshaller;
+            "CREATE TABLE TABLENAME(timestamp BIGINT, content CLOB)";
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(MqttAppender.class);
+    private final static String insertQueryTemplate =
+            "INSERT INTO TABLENAME(timestamp, content) VALUES(?,?)";
 
-    private MqttClient client;
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `collector/elasticsearch/src/main/java/org/apache/karaf/decanter/collector/elasticsearch/ElasticsearchCollector.java`
+in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
 #### Snippet
 ```java
-public class ElasticsearchCollector implements Runnable {
+    private final static String createTableQueryMySQLTemplate =
+            "CREATE TABLE TABLENAME(timestamp BIGINT, content CLOB)";
+    private final static String createTableQueryDerbyTemplate =
+            "CREATE TABLE TABLENAME(timestamp BIGINT, content CLOB)";
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(ElasticsearchCollector.class);
+```
 
-    @Reference
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
+#### Snippet
+```java
+    private final static Logger LOGGER = LoggerFactory.getLogger(JdbcAppender.class);
+
+    private final static String createTableQueryGenericTemplate =
+            "CREATE TABLE TABLENAME(timestamp BIGINT, content VARCHAR(8192))";
+    private final static String createTableQueryMySQLTemplate =
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+public class EmailAlerter implements EventHandler {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(EmailAlerter.class);
+
+    private String from = null;
 ```
 
 ### MissortedModifiers
@@ -1288,51 +1073,75 @@ in `appender/socket/src/main/java/org/apache/karaf/decanter/appender/socket/Sock
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `parser/regex/src/main/java/org/apache/karaf/decanter/parser/regex/RegexParser.java`
+Missorted modifiers `static public`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
 #### Snippet
 ```java
-public class RegexParser implements Parser {
+    private final static Logger LOGGER = LoggerFactory.getLogger(Loader.class);
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(RegexParser.class);
+    static public List<Rule> load(Dictionary<String, Object> configuration) {
+        List<Rule> rules = new ArrayList<>();
+        if (configuration == null) {
+```
 
-    private Pattern pattern;
+### MissortedModifiers
+Missorted modifiers `static public`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
+#### Snippet
+```java
+    }
+
+    static public Long oldestPeriod(List<Rule> rules) {
+        if (rules == null || rules.size() == 0) {
+            return null;
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
 #### Snippet
 ```java
-    public Unmarshaller unmarshaller;
+public class Loader {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OpenstackCollector.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(Loader.class);
 
-    private Dictionary<String, Object> config;
+    static public List<Rule> load(Dictionary<String, Object> configuration) {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `collector/jms/src/main/java/org/apache/karaf/decanter/collector/jms/JmsCollector.java`
+in `collector/configadmin/src/main/java/org/apache/karaf/decanter/collector/configadmin/ConfigAdminCollector.java`
 #### Snippet
 ```java
-    public EventAdmin dispatcher;
+public class ConfigAdminCollector implements ConfigurationListener {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(JmsCollector.class);
-
-    private Dictionary<String, Object> properties;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `collector/prometheus/src/main/java/org/apache/karaf/decanter/collector/prometheus/PrometheusCollector.java`
-#### Snippet
-```java
-public class PrometheusCollector implements Runnable {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(PrometheusCollector.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ConfigAdminCollector.class);
 
     @Reference
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/event/Handler.java`
+#### Snippet
+```java
+    public Store store;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
+
+    private List<Rule> rules;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/elasticsearch/src/main/java/org/apache/karaf/decanter/appender/elasticsearch/ElasticsearchAppender.java`
+#### Snippet
+```java
+    private final SimpleDateFormat indexDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ElasticsearchAppender.class);
+
+    @SuppressWarnings("unchecked")
 ```
 
 ### MissortedModifiers
@@ -1361,38 +1170,230 @@ public class SnmpPoller implements ResponseListener, Runnable {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `collector/configadmin/src/main/java/org/apache/karaf/decanter/collector/configadmin/ConfigAdminCollector.java`
+in `collector/log/src/main/java/org/apache/karaf/decanter/collector/log/LogCollector.java`
 #### Snippet
 ```java
-public class ConfigAdminCollector implements ConfigurationListener {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(ConfigAdminCollector.class);
+    private static final String MDC_IN_LOG_COLLECTOR = "inLogCollector";
+    private final static Logger LOGGER = LoggerFactory.getLogger(LogCollector.class);
+    private final static Pattern PATTERN = Pattern.compile("[^A-Za-z0-9]");
 
-    @Reference
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `appender/elasticsearch/src/main/java/org/apache/karaf/decanter/appender/elasticsearch/ElasticsearchAppender.java`
+in `collector/log/src/main/java/org/apache/karaf/decanter/collector/log/LogCollector.java`
 #### Snippet
 ```java
-    private final SimpleDateFormat indexDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+    private static final String MDC_IN_LOG_COLLECTOR = "inLogCollector";
+    private final static Logger LOGGER = LoggerFactory.getLogger(LogCollector.class);
+    private final static Pattern PATTERN = Pattern.compile("[^A-Za-z0-9]");
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(ElasticsearchAppender.class);
-
-    @SuppressWarnings("unchecked")
+    private Dictionary<String, Object> properties;
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `appender/rest/src/main/java/org/apache/karaf/decanter/appender/rest/RestAppender.java`
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+    public Unmarshaller unmarshaller;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(OpenstackCollector.class);
+
+    private Dictionary<String, Object> config;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `parser/regex/src/main/java/org/apache/karaf/decanter/parser/regex/RegexParser.java`
+#### Snippet
+```java
+public class RegexParser implements Parser {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(RegexParser.class);
+
+    private Pattern pattern;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
+#### Snippet
+```java
+    public EventAdmin dispatcher;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(SystemCollector.class);
+
+    private Dictionary<String, Object> properties;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/jdbc/src/main/java/org/apache/karaf/decanter/collector/jdbc/JdbcCollector.java`
+#### Snippet
+```java
+    public DataSource dataSource;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(JdbcCollector.class);
+
+    private String query;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
+#### Snippet
+```java
+public class LuceneStoreImpl implements Store {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(LuceneStoreImpl.class);
+
+    private Directory directory;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/hdfs/src/main/java/org/apache/karaf/decanter/appender/hdfs/HdfsAppender.java`
+#### Snippet
+```java
+public class HdfsAppender implements EventHandler {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(HdfsAppender.class);
+
+    private Dictionary<String, Object> config;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/s3/src/main/java/org/apache/karaf/decanter/appender/s3/S3Appender.java`
+#### Snippet
+```java
+public class S3Appender implements EventHandler {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(S3Appender.class);
+
+    private Regions regions;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `alerting/alerter/log/src/main/java/org/apache/karaf/decanter/alerting/log/Logger.java`
+#### Snippet
+```java
+public class Logger implements EventHandler {
+
+    private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Logger.class);
+
+    @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `collector/rest/src/main/java/org/apache/karaf/decanter/collector/rest/RestCollector.java`
+#### Snippet
+```java
+    public Unmarshaller unmarshaller;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(RestCollector.class);
+
+    private URL url;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `parser/split/src/main/java/org/apache/karaf/decanter/parser/split/SplitParser.java`
+#### Snippet
+```java
+public class SplitParser implements Parser {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(SplitParser.class);
+
+    private String separator;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
+#### Snippet
+```java
+public class LokiAppender implements EventHandler {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(LokiAppender.class);
+
+    @Reference(cardinality = ReferenceCardinality.OPTIONAL)
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/mqtt/src/main/java/org/apache/karaf/decanter/appender/mqtt/MqttAppender.java`
 #### Snippet
 ```java
     public Marshaller marshaller;
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(RestAppender.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(MqttAppender.class);
 
-    private URI uri;
+    private MqttClient client;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
+#### Snippet
+```java
+    private final static Logger LOGGER = LoggerFactory.getLogger(TimescaleDbAppender.class);
+
+    private final static String createExtensionTemplate =
+            "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE";
+    private final static String createTableQueryTemplate =
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
+#### Snippet
+```java
+    private final static String createExtensionTemplate =
+            "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE";
+    private final static String createTableQueryTemplate =
+            "CREATE TABLE TABLENAME(timestamp BIGINT, content text)";
+    private final static String convertHyperTableQueryTemplate =
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
+#### Snippet
+```java
+    public DataSource dataSource;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(TimescaleDbAppender.class);
+
+    private final static String createExtensionTemplate =
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
+#### Snippet
+```java
+            "SELECT * FROM create_hypertable('TABLENAME', 'timestamp', chunk_time_interval=>_timescaledb_internal.interval_to_usec('1 day'), migrate_data => true);";
+
+    private final static String insertQueryTemplate =
+            "INSERT INTO TABLENAME(timestamp, content) VALUES(?,?)";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
+#### Snippet
+```java
+    private final static String createTableQueryTemplate =
+            "CREATE TABLE TABLENAME(timestamp BIGINT, content text)";
+    private final static String convertHyperTableQueryTemplate =
+            "SELECT * FROM create_hypertable('TABLENAME', 'timestamp', chunk_time_interval=>_timescaledb_internal.interval_to_usec('1 day'), migrate_data => true);";
+
 ```
 
 ### MissortedModifiers
@@ -1600,6 +1601,19 @@ in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/Sy
         this.topic = context.getProperties().get(EventConstants.EVENT_TOPIC) != null ? String.class.cast(context.getProperties().get(EventConstants.EVENT_TOPIC)) : "decanter/collect/system/";
 ```
 
+## RuleId[ruleID=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonMarshaller.java`
+#### Snippet
+```java
+    public void activate(Dictionary<String, Object> config) {
+        replaceDotsByUnderscores = (config.get("replaceDotsByUnderscores") != null) ? 
+            Boolean.valueOf((String) config.get("replaceDotsByUnderscores")) : true;
+    }
+
+```
+
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -1635,44 +1649,6 @@ in `appender/rest/src/main/java/org/apache/karaf/decanter/appender/rest/RestAppe
                 is.read();
                 is.close();
             } catch (Exception e) {
-```
-
-## RuleId[ruleID=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonMarshaller.java`
-#### Snippet
-```java
-    public void activate(Dictionary<String, Object> config) {
-        replaceDotsByUnderscores = (config.get("replaceDotsByUnderscores") != null) ? 
-            Boolean.valueOf((String) config.get("replaceDotsByUnderscores")) : true;
-    }
-
-```
-
-## RuleId[ruleID=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/ListAlerts.java`
-#### Snippet
-```java
-        List<Alert> alerts = store.list();
-        for (Alert alert : alerts) {
-            System.out.println("=========================================");
-            for (String key : alert.get().keySet()) {
-                System.out.println("| " + key + " = " + alert.get(key));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/ListAlerts.java`
-#### Snippet
-```java
-            System.out.println("=========================================");
-            for (String key : alert.get().keySet()) {
-                System.out.println("| " + key + " = " + alert.get(key));
-            }
-        }
 ```
 
 ## RuleId[ruleID=CharsetObjectCanBeUsed]
@@ -1724,53 +1700,29 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/st
                     document.add(new StringField(property, stringValue, Field.Store.YES));
 ```
 
-## RuleId[ruleID=WhileLoopSpinsOnField]
-### WhileLoopSpinsOnField
-`while` loop spins on field
-in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
+## RuleId[ruleID=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/ListAlerts.java`
 #### Snippet
 ```java
-    @Override
-    public void run() {
-        while (consuming) {
-            try {
-                consume();
+        List<Alert> alerts = store.list();
+        for (Alert alert : alerts) {
+            System.out.println("=========================================");
+            for (String key : alert.get().keySet()) {
+                System.out.println("| " + key + " = " + alert.get(key));
 ```
 
-### WhileLoopSpinsOnField
-`while` loop spins on field
-in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/ListAlerts.java`
 #### Snippet
 ```java
-    @Override
-    public void run() {
-        while (open) {
-            try {
-                Socket socket = serverSocket.accept();
-```
-
-### WhileLoopSpinsOnField
-`while` loop spins on field
-in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
-#### Snippet
-```java
-            try (ObjectInputStream ois = new LoggingEventObjectInputStream(new BufferedInputStream(clientSocket
-                .getInputStream()))) {
-                while (open) {
-                    try {
-                        Object event = ois.readObject();
-```
-
-### WhileLoopSpinsOnField
-`while` loop spins on field
-in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
-#### Snippet
-```java
-    @Override
-    public void run() {
-        while (open) {
-            try {
-                switch (protocol) {
+            System.out.println("=========================================");
+            for (String key : alert.get().keySet()) {
+                System.out.println("| " + key + " = " + alert.get(key));
+            }
+        }
 ```
 
 ## RuleId[ruleID=DefaultAnnotationParam]
@@ -1796,6 +1748,55 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/co
     @Argument(index = 0, name = "uuid", description = "The alert UUID", required = true, multiValued = false)
     @Completion(AlertUUIDCompleter.class)
     private String uuid;
+```
+
+## RuleId[ruleID=WhileLoopSpinsOnField]
+### WhileLoopSpinsOnField
+`while` loop spins on field
+in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
+#### Snippet
+```java
+            try (ObjectInputStream ois = new LoggingEventObjectInputStream(new BufferedInputStream(clientSocket
+                .getInputStream()))) {
+                while (open) {
+                    try {
+                        Object event = ois.readObject();
+```
+
+### WhileLoopSpinsOnField
+`while` loop spins on field
+in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
+#### Snippet
+```java
+    @Override
+    public void run() {
+        while (open) {
+            try {
+                Socket socket = serverSocket.accept();
+```
+
+### WhileLoopSpinsOnField
+`while` loop spins on field
+in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+#### Snippet
+```java
+    @Override
+    public void run() {
+        while (open) {
+            try {
+                switch (protocol) {
+```
+
+### WhileLoopSpinsOnField
+`while` loop spins on field
+in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
+#### Snippet
+```java
+    @Override
+    public void run() {
+        while (consuming) {
+            try {
+                consume();
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -1849,6 +1850,114 @@ in `appender/prometheus/src/main/java/org/apache/karaf/decanter/appender/prometh
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
+#### Snippet
+```java
+
+    private String getTopic(ObjectName name) {
+        return name.getDomain().replace(".", "/").replace(" ", "_");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
+#### Snippet
+```java
+
+    private String getTopic(ObjectName name) {
+        return name.getDomain().replace(".", "/").replace(" ", "_");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `collector/prometheus/src/main/java/org/apache/karaf/decanter/collector/prometheus/PrometheusCollector.java`
+#### Snippet
+```java
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.matches("# TYPE .* gauge")) {
+                        line = reader.readLine();
+                        if (line == null) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
+#### Snippet
+```java
+            outSt = outSt.substring(0, outSt.length() - 1);
+        }
+        return topic + outSt.replace(".", "/");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
+#### Snippet
+```java
+            createTemplate = createTableQueryGenericTemplate;
+        }
+        String createTableQuery = createTemplate.replaceAll("TABLENAME", getValue(config, TABLE_NAME_PROPERTY, TABLE_NAME_DEFAULT));
+        try (Statement createStatement = connection.createStatement()) {
+            createStatement.executeUpdate(createTableQuery);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
+#### Snippet
+```java
+            try (Connection connection = dataSource.getConnection()) {
+                String jsonSt = marshaller.marshal(event);
+                String insertQuery = insertQueryTemplate.replaceAll("TABLENAME", getValue(config, TABLE_NAME_PROPERTY, TABLE_NAME_DEFAULT));
+                Long timestamp = (Long) event.getProperty(EventConstants.TIMESTAMP);
+                if (timestamp == null) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
+#### Snippet
+```java
+                rule.setName(key.substring("rule.".length()));
+                String ruleDefinition = (String) configuration.get(key);
+                ruleDefinition = ruleDefinition.replaceAll("'", "\"");
+                if (ruleDefinition != null && !ruleDefinition.isEmpty()) {
+                    JsonReader jsonReader = Json.createReader(new StringReader(ruleDefinition));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        if (computeUsageFlatten) {
+            String extract = response.substring(response.indexOf("[") +1, response.indexOf("]"));
+            String[] split = extract.split("}, \\{");
+            for (int i = 0; i < split.length; i++) {
+                Map<String, Object> data = new HashMap<>();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
+#### Snippet
+```java
+                            }
+                            streamHandler.stop();
+                            event = new Event(topic + key.replace(".", "_"), data);
+                        } catch (Exception e) {
+                            LOGGER.warn("Command {} execution failed", key, e);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
 #### Snippet
@@ -1882,114 +1991,6 @@ in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timesc
                 String insertQuery = insertQueryTemplate.replaceAll("TABLENAME", tableName);
                 Long timestamp = (Long) event.getProperty(EventConstants.TIMESTAMP);
                 if (timestamp == null) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
-#### Snippet
-```java
-                rule.setName(key.substring("rule.".length()));
-                String ruleDefinition = (String) configuration.get(key);
-                ruleDefinition = ruleDefinition.replaceAll("'", "\"");
-                if (ruleDefinition != null && !ruleDefinition.isEmpty()) {
-                    JsonReader jsonReader = Json.createReader(new StringReader(ruleDefinition));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
-#### Snippet
-```java
-            createTemplate = createTableQueryGenericTemplate;
-        }
-        String createTableQuery = createTemplate.replaceAll("TABLENAME", getValue(config, TABLE_NAME_PROPERTY, TABLE_NAME_DEFAULT));
-        try (Statement createStatement = connection.createStatement()) {
-            createStatement.executeUpdate(createTableQuery);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `appender/jdbc/src/main/java/org/apache/karaf/decanter/appender/jdbc/JdbcAppender.java`
-#### Snippet
-```java
-            try (Connection connection = dataSource.getConnection()) {
-                String jsonSt = marshaller.marshal(event);
-                String insertQuery = insertQueryTemplate.replaceAll("TABLENAME", getValue(config, TABLE_NAME_PROPERTY, TABLE_NAME_DEFAULT));
-                Long timestamp = (Long) event.getProperty(EventConstants.TIMESTAMP);
-                if (timestamp == null) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
-#### Snippet
-```java
-
-    private String getTopic(ObjectName name) {
-        return name.getDomain().replace(".", "/").replace(" ", "_");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
-#### Snippet
-```java
-
-    private String getTopic(ObjectName name) {
-        return name.getDomain().replace(".", "/").replace(" ", "_");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
-#### Snippet
-```java
-                            }
-                            streamHandler.stop();
-                            event = new Event(topic + key.replace(".", "_"), data);
-                        } catch (Exception e) {
-                            LOGGER.warn("Command {} execution failed", key, e);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
-#### Snippet
-```java
-            outSt = outSt.substring(0, outSt.length() - 1);
-        }
-        return topic + outSt.replace(".", "/");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        if (computeUsageFlatten) {
-            String extract = response.substring(response.indexOf("[") +1, response.indexOf("]"));
-            String[] split = extract.split("}, \\{");
-            for (int i = 0; i < split.length; i++) {
-                Map<String, Object> data = new HashMap<>();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `collector/prometheus/src/main/java/org/apache/karaf/decanter/collector/prometheus/PrometheusCollector.java`
-#### Snippet
-```java
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (line.matches("# TYPE .* gauge")) {
-                        line = reader.readLine();
-                        if (line == null) {
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -2161,56 +2162,7 @@ import java.util.regex.Pattern;
 @Component(
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `appender/mqtt/src/main/java/org/apache/karaf/decanter/appender/mqtt/MqttAppender.java`
-#### Snippet
-```java
-                    client.connect();
-                } catch (MqttException e1) {
-                    e1.printStackTrace();
-                }
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
-#### Snippet
-```java
-                clientSocket.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `collector/prometheus/src/main/java/org/apache/karaf/decanter/collector/prometheus/PrometheusCollector.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOGGER.warn("Can't get Prometheus metrics", e);
-            e.printStackTrace();
-        }
-    }
-```
-
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`this.topic = this.topic + "/"` could be simplified to 'this.topic += "/"'
-in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
-#### Snippet
-```java
-        this.topic = context.getProperties().get(EventConstants.EVENT_TOPIC) != null ? String.class.cast(context.getProperties().get(EventConstants.EVENT_TOPIC)) : "decanter/collect/system/";
-        if (!this.topic.endsWith("/")) {
-            this.topic = this.topic + "/";
-        }
-        try {
-```
-
 ### ReplaceAssignmentWithOperatorAssignment
 `hash = hash + event.getProperty(group).hashCode()` could be simplified to 'hash += event.getProperty(group).hashCode()'
 in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/GroupByProcessor.java`
@@ -2235,17 +2187,29 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
                 data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(use.getBytes())));
 ```
 
+### ReplaceAssignmentWithOperatorAssignment
+`this.topic = this.topic + "/"` could be simplified to 'this.topic += "/"'
+in `collector/system/src/main/java/org/apache/karaf/decanter/collector/system/SystemCollector.java`
+#### Snippet
+```java
+        this.topic = context.getProperties().get(EventConstants.EVENT_TOPIC) != null ? String.class.cast(context.getProperties().get(EventConstants.EVENT_TOPIC)) : "decanter/collect/system/";
+        if (!this.topic.endsWith("/")) {
+            this.topic = this.topic + "/";
+        }
+        try {
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `collector/rest-servlet/src/main/java/org/apache/karaf/decanter/collector/rest/servlet/RestServletCollector.java`
+in `collector/prometheus/src/main/java/org/apache/karaf/decanter/collector/prometheus/PrometheusCollector.java`
 #### Snippet
 ```java
-                 BufferedReader reader = new BufferedReader(new InputStreamReader(boundedInputStream))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    builder.append(line);
-                }
+                    if (line.matches("# TYPE .* gauge")) {
+                        line = reader.readLine();
 ```
 
 ### NestedAssignment
@@ -2257,18 +2221,6 @@ in `marshaller/raw/src/main/java/org/apache/karaf/decanter/marshaller/raw/RawUnm
             String line;
             while ((line = reader.readLine()) != null) {
                 builder.append(line).append("\n");
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `collector/druid/src/main/java/org/apache/karaf/decanter/collector/druid/DruidCollector.java`
-#### Snippet
-```java
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
             }
 ```
 
@@ -2286,6 +2238,18 @@ in `collector/soap/src/main/java/org/apache/karaf/decanter/collector/soap/SoapCo
 
 ### NestedAssignment
 Result of assignment expression used
+in `collector/rest-servlet/src/main/java/org/apache/karaf/decanter/collector/rest/servlet/RestServletCollector.java`
+#### Snippet
+```java
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(boundedInputStream))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
 #### Snippet
 ```java
@@ -2294,6 +2258,18 @@ in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/So
                     while ((line = reader.readLine()) != null) {
                         Map<String, Object> data = new HashMap<>();
                         data.put("type", "socket");
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `collector/druid/src/main/java/org/apache/karaf/decanter/collector/druid/DruidCollector.java`
+#### Snippet
+```java
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
 ```
 
 ### NestedAssignment
@@ -2308,16 +2284,41 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
             }
 ```
 
-### NestedAssignment
-Result of assignment expression used
+## RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `collector/prometheus/src/main/java/org/apache/karaf/decanter/collector/prometheus/PrometheusCollector.java`
 #### Snippet
 ```java
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (line.matches("# TYPE .* gauge")) {
-                        line = reader.readLine();
+        } catch (Exception e) {
+            LOGGER.warn("Can't get Prometheus metrics", e);
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+#### Snippet
+```java
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `appender/mqtt/src/main/java/org/apache/karaf/decanter/appender/mqtt/MqttAppender.java`
+#### Snippet
+```java
+                    client.connect();
+                } catch (MqttException e1) {
+                    e1.printStackTrace();
+                }
+            }
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -2334,6 +2335,18 @@ in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/Bo
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
+### Convert2Lambda
+Anonymous new Processor() can be replaced with lambda
+in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/DecanterInterceptStrategy.java`
+#### Snippet
+```java
+    @Override
+    public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition, Processor target, Processor nextTarget) throws Exception {
+        Processor answer = new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+```
+
 ### Convert2Lambda
 Anonymous new Gauge() can be replaced with lambda
 in `appender/dropwizard/src/main/java/org/apache/karaf/decanter/appender/dropwizard/DropwizardMetricsAppender.java`
@@ -2358,19 +2371,139 @@ in `processor/camel/src/main/java/org/apache/karaf/decanter/processor/camel/Came
                             public void process(Exchange exchange) throws Exception {
 ```
 
-### Convert2Lambda
-Anonymous new Processor() can be replaced with lambda
-in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/DecanterInterceptStrategy.java`
+## RuleId[ruleID=UseOfPropertiesAsHashtable]
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/ConfigMapper.java`
 #### Snippet
 ```java
-    @Override
-    public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition, Processor target, Processor nextTarget) throws Exception {
-        Processor answer = new Processor() {
-            @Override
-            public void process(Exchange exchange) throws Exception {
+        String usedValue = (value != null) ? value : defaultValue;
+        if (usedValue != null) {
+            config.put(key, usedValue);
+        }
+    }
 ```
 
-## RuleId[ruleID=UseOfPropertiesAsHashtable]
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+            message.setContent(formatter.formatBody(bodyTemplate, event), contentType);
+            // send email
+            if (properties.get("mail.smtp.user") != null) {
+                Transport.send(message, (String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            } else {
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+            // send email
+            if (properties.get("mail.smtp.user") != null) {
+                Transport.send(message, (String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            } else {
+                Transport.send(message);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+            // send email
+            if (properties.get("mail.smtp.user") != null) {
+                Transport.send(message, (String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            } else {
+                Transport.send(message);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+
+        properties = new Properties();
+        properties.put("mail.smtp.host", config.get("host"));
+        properties.put("mail.smtp.port", config.get("port"));
+        properties.put("mail.smtp.auth", config.get("auth"));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+        properties = new Properties();
+        properties.put("mail.smtp.host", config.get("host"));
+        properties.put("mail.smtp.port", config.get("port"));
+        properties.put("mail.smtp.auth", config.get("auth"));
+        properties.put("mail.smtp.starttls.enable", config.get("starttls"));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+        properties.put("mail.smtp.host", config.get("host"));
+        properties.put("mail.smtp.port", config.get("port"));
+        properties.put("mail.smtp.auth", config.get("auth"));
+        properties.put("mail.smtp.starttls.enable", config.get("starttls"));
+        properties.put("mail.smtp.ssl.enable", config.get("ssl"));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+        properties.put("mail.smtp.port", config.get("port"));
+        properties.put("mail.smtp.auth", config.get("auth"));
+        properties.put("mail.smtp.starttls.enable", config.get("starttls"));
+        properties.put("mail.smtp.ssl.enable", config.get("ssl"));
+        String username = (String) config.get("username");
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+        properties.put("mail.smtp.auth", config.get("auth"));
+        properties.put("mail.smtp.starttls.enable", config.get("starttls"));
+        properties.put("mail.smtp.ssl.enable", config.get("ssl"));
+        String username = (String) config.get("username");
+        String password = (String) config.get("password");
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+        String password = (String) config.get("password");
+        if (username != null) {
+            properties.put("mail.smtp.user", username);
+        }
+        if (password != null) {
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+        }
+        if (password != null) {
+            properties.put("mail.smtp.password", password);
+        }
+
+```
+
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
@@ -2589,126 +2722,6 @@ in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/Kafk
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-            message.setContent(formatter.formatBody(bodyTemplate, event), contentType);
-            // send email
-            if (properties.get("mail.smtp.user") != null) {
-                Transport.send(message, (String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
-            } else {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-            // send email
-            if (properties.get("mail.smtp.user") != null) {
-                Transport.send(message, (String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
-            } else {
-                Transport.send(message);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-            // send email
-            if (properties.get("mail.smtp.user") != null) {
-                Transport.send(message, (String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
-            } else {
-                Transport.send(message);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-
-        properties = new Properties();
-        properties.put("mail.smtp.host", config.get("host"));
-        properties.put("mail.smtp.port", config.get("port"));
-        properties.put("mail.smtp.auth", config.get("auth"));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-        properties = new Properties();
-        properties.put("mail.smtp.host", config.get("host"));
-        properties.put("mail.smtp.port", config.get("port"));
-        properties.put("mail.smtp.auth", config.get("auth"));
-        properties.put("mail.smtp.starttls.enable", config.get("starttls"));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-        properties.put("mail.smtp.host", config.get("host"));
-        properties.put("mail.smtp.port", config.get("port"));
-        properties.put("mail.smtp.auth", config.get("auth"));
-        properties.put("mail.smtp.starttls.enable", config.get("starttls"));
-        properties.put("mail.smtp.ssl.enable", config.get("ssl"));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-        properties.put("mail.smtp.port", config.get("port"));
-        properties.put("mail.smtp.auth", config.get("auth"));
-        properties.put("mail.smtp.starttls.enable", config.get("starttls"));
-        properties.put("mail.smtp.ssl.enable", config.get("ssl"));
-        String username = (String) config.get("username");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-        properties.put("mail.smtp.auth", config.get("auth"));
-        properties.put("mail.smtp.starttls.enable", config.get("starttls"));
-        properties.put("mail.smtp.ssl.enable", config.get("ssl"));
-        String username = (String) config.get("username");
-        String password = (String) config.get("password");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-        String password = (String) config.get("password");
-        if (username != null) {
-            properties.put("mail.smtp.user", username);
-        }
-        if (password != null) {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-        }
-        if (password != null) {
-            properties.put("mail.smtp.password", password);
-        }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
 in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
 #### Snippet
 ```java
@@ -2767,18 +2780,6 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/st
         }
 ```
 
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/ConfigMapper.java`
-#### Snippet
-```java
-        String usedValue = (value != null) ? value : defaultValue;
-        if (usedValue != null) {
-            config.put(key, usedValue);
-        }
-    }
-```
-
 ## RuleId[ruleID=EmptyMethod]
 ### EmptyMethod
 The method is empty
@@ -2806,111 +2807,15 @@ in `appender/prometheus/src/main/java/org/apache/karaf/decanter/appender/prometh
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/split/src/main/java/org/apache/karaf/decanter/parser/split/SplitParser.java`
-#### Snippet
-```java
-
-    private String separator;
-    private String keys = null;
-    private Boolean useDefaultKey;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
+in `collector/mqtt/src/main/java/org/apache/karaf/decanter/collector/mqtt/MqttCollector.java`
 #### Snippet
 ```java
-    private String topic;
-    private String eventAdminTopic;
+    private MqttClient client;
+    private String dispatcherTopic;
     private boolean consuming = false;
-    private String messageType;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
-#### Snippet
-```java
-
-    private String url;
-    private String tenant = null;
-    private String username = null;
-    private String password = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
-#### Snippet
-```java
-    private String url;
-    private String tenant = null;
-    private String username = null;
-    private String password = null;
-    private Dictionary<String, Object> config;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
-#### Snippet
-```java
-    private String tenant = null;
-    private String username = null;
-    private String password = null;
-    private Dictionary<String, Object> config;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-    private String to = null;
-    private String cc = null;
-    private String bcc = null;
-    private String subjectTemplate = null;
-    private String bodyTemplate = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-    private final static Logger LOGGER = LoggerFactory.getLogger(EmailAlerter.class);
-
-    private String from = null;
-    private String to = null;
-    private String cc = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-    private String cc = null;
-    private String bcc = null;
-    private String subjectTemplate = null;
-    private String bodyTemplate = null;
-    private String bodyType = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
-#### Snippet
-```java
-
-    private String from = null;
-    private String to = null;
-    private String cc = null;
-    private String bcc = null;
+    @Activate
 ```
 
 ### RedundantFieldInitialization
@@ -2942,6 +2847,18 @@ Field initialization to `null` is redundant
 in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
 #### Snippet
 ```java
+    private String cc = null;
+    private String bcc = null;
+    private String subjectTemplate = null;
+    private String bodyTemplate = null;
+    private String bodyType = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
     private String from = null;
     private String to = null;
     private String cc = null;
@@ -2950,27 +2867,51 @@ in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/emai
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `collector/mqtt/src/main/java/org/apache/karaf/decanter/collector/mqtt/MqttCollector.java`
+Field initialization to `null` is redundant
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
 #### Snippet
 ```java
-    private MqttClient client;
-    private String dispatcherTopic;
-    private boolean consuming = false;
-
-    @Activate
+    private String to = null;
+    private String cc = null;
+    private String bcc = null;
+    private String subjectTemplate = null;
+    private String bodyTemplate = null;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `collector/rest/src/main/java/org/apache/karaf/decanter/collector/rest/RestCollector.java`
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
 #### Snippet
 ```java
-    private String password;
-    private boolean exceptionAsHttpResponse;
-    private Integer exceptionHttpResponseCode = null;
-    private Dictionary<String, Object> config;
 
+    private String from = null;
+    private String to = null;
+    private String cc = null;
+    private String bcc = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `alerting/alerter/email/src/main/java/org/apache/karaf/decanter/alerting/email/EmailAlerter.java`
+#### Snippet
+```java
+    private final static Logger LOGGER = LoggerFactory.getLogger(EmailAlerter.class);
+
+    private String from = null;
+    private String to = null;
+    private String cc = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `processor/aggregate/src/main/java/org/apache/karaf/decanter/processor/aggregate/AggregateProcessor.java`
+#### Snippet
+```java
+
+    private String targetTopics;
+    private boolean overwrite = false;
+
+    private int index = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -2987,38 +2928,14 @@ in `processor/aggregate/src/main/java/org/apache/karaf/decanter/processor/aggreg
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `processor/aggregate/src/main/java/org/apache/karaf/decanter/processor/aggregate/AggregateProcessor.java`
+in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
 #### Snippet
 ```java
+    private String topic;
+    private String eventAdminTopic;
+    private boolean consuming = false;
+    private String messageType;
 
-    private String targetTopics;
-    private boolean overwrite = false;
-
-    private int index = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `collector/jetty/src/main/java/org/apache/karaf/decanter/collector/jetty/DecanterCollectorJettyHandler.java`
-#### Snippet
-```java
-    private Server server;
-
-    private boolean started = false;
-    private Dictionary<String, Object> properties;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/regex/src/main/java/org/apache/karaf/decanter/parser/regex/RegexParser.java`
-#### Snippet
-```java
-
-    private Pattern pattern;
-    private String keys = null;
-
-    @Activate
 ```
 
 ### RedundantFieldInitialization
@@ -3026,11 +2943,11 @@ Field initialization to `null` is redundant
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
+    private boolean computeUsageFlatten = true;
+    private boolean blockStorageEnabled = true;
     private String blockStorage = null;
     private boolean imageEnabled = true;
     private String image = null;
-    private boolean metricEnabled = true;
-    private String metric = null;
 ```
 
 ### RedundantFieldInitialization
@@ -3062,11 +2979,95 @@ Field initialization to `null` is redundant
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-    private boolean computeUsageFlatten = true;
-    private boolean blockStorageEnabled = true;
     private String blockStorage = null;
     private boolean imageEnabled = true;
     private String image = null;
+    private boolean metricEnabled = true;
+    private String metric = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/regex/src/main/java/org/apache/karaf/decanter/parser/regex/RegexParser.java`
+#### Snippet
+```java
+
+    private Pattern pattern;
+    private String keys = null;
+
+    @Activate
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `collector/jetty/src/main/java/org/apache/karaf/decanter/collector/jetty/DecanterCollectorJettyHandler.java`
+#### Snippet
+```java
+    private Server server;
+
+    private boolean started = false;
+    private Dictionary<String, Object> properties;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `collector/rest/src/main/java/org/apache/karaf/decanter/collector/rest/RestCollector.java`
+#### Snippet
+```java
+    private String password;
+    private boolean exceptionAsHttpResponse;
+    private Integer exceptionHttpResponseCode = null;
+    private Dictionary<String, Object> config;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/split/src/main/java/org/apache/karaf/decanter/parser/split/SplitParser.java`
+#### Snippet
+```java
+
+    private String separator;
+    private String keys = null;
+    private Boolean useDefaultKey;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
+#### Snippet
+```java
+    private String tenant = null;
+    private String username = null;
+    private String password = null;
+    private Dictionary<String, Object> config;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
+#### Snippet
+```java
+
+    private String url;
+    private String tenant = null;
+    private String username = null;
+    private String password = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
+#### Snippet
+```java
+    private String url;
+    private String tenant = null;
+    private String username = null;
+    private String password = null;
+    private Dictionary<String, Object> config;
 ```
 
 ### RedundantFieldInitialization
@@ -3106,89 +3107,30 @@ in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/Json
             json.add(key, (BigDecimal)value);
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-22-22-19-06.196.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
 #### Snippet
 ```java
 
-    private Object toString(Object value) {
-        return value == null ? null : value.toString();
+    private ObjectName getObjectName(String objectName) throws MalformedObjectNameException {
+        return objectName == null ? null : new ObjectName(objectName);
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
-#### Snippet
-```java
-    static public Long oldestPeriod(List<Rule> rules) {
-        if (rules == null || rules.size() == 0) {
-            return null;
-        }
-        long oldest = Long.MAX_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/CleanupAlerts.java`
-#### Snippet
-```java
-    public Object execute() throws Exception {
-        store.cleanup();
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/RemoveAlert.java`
-#### Snippet
-```java
-    public Object execute() throws Exception {
-        store.delete("alertUUID:" + uuid);
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/ListAlerts.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `appender/log/src/main/java/org/apache/karaf/decanter/appender/log/LogAppender.java`
-#### Snippet
-```java
-
-    private Object toString(Object value) {
-        return value == null ? null : value.toString();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonUnmarshaller.java`
-#### Snippet
-```java
-            return build((JsonArray)value);
-        } else {
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -3196,11 +3138,11 @@ Return of `null`
 in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/DefaultExchangeExtender.java`
 #### Snippet
 ```java
-            cause = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
-        }
-        return (cause != null) ? cause.toString() : null;
-    }
-
+    private static String getBodyTypeName(Message message) {
+        if (message == null) {
+            return null;
+        } else {
+            String answer = ObjectHelper.classCanonicalName(message.getBody());
 ```
 
 ### ReturnNull
@@ -3232,23 +3174,23 @@ Return of `null`
 in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/DefaultExchangeExtender.java`
 #### Snippet
 ```java
-    private static String getBodyTypeName(Message message) {
-        if (message == null) {
-            return null;
-        } else {
-            String answer = ObjectHelper.classCanonicalName(message.getBody());
+            cause = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
+        }
+        return (cause != null) ? cause.toString() : null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
+in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonUnmarshaller.java`
 #### Snippet
 ```java
-
-    private ObjectName getObjectName(String objectName) throws MalformedObjectNameException {
-        return objectName == null ? null : new ObjectName(objectName);
+            return build((JsonArray)value);
+        } else {
+            return null;
+        }
     }
-
 ```
 
 ### ReturnNull
@@ -3261,6 +3203,54 @@ in `collector/elasticsearch/src/main/java/org/apache/karaf/decanter/collector/el
                         return null;
                     });
         } catch (Exception e) {
+```
+
+### ReturnNull
+Return of `null`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
+#### Snippet
+```java
+    static public Long oldestPeriod(List<Rule> rules) {
+        if (rules == null || rules.size() == 0) {
+            return null;
+        }
+        long oldest = Long.MAX_VALUE;
+```
+
+### ReturnNull
+Return of `null`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/ListAlerts.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/CleanupAlerts.java`
+#### Snippet
+```java
+    public Object execute() throws Exception {
+        store.cleanup();
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/command/RemoveAlert.java`
+#### Snippet
+```java
+    public Object execute() throws Exception {
+        store.delete("alertUUID:" + uuid);
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -3280,6 +3270,18 @@ Return of `null`
 in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPoller.java`
 #### Snippet
 ```java
+    private OID convertAuthenticationProtocol(String authenticationProtocol) {
+        if (authenticationProtocol == null) {
+            return null;
+        }
+        if (authenticationProtocol.equals("MD5")) {
+```
+
+### ReturnNull
+Return of `null`
+in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPoller.java`
+#### Snippet
+```java
     private OID convertPrivacyProtocol(String privacyProtocol) {
         if (privacyProtocol == null) {
             return null;
@@ -3289,17 +3291,65 @@ in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPo
 
 ### ReturnNull
 Return of `null`
-in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPoller.java`
+in `appender/log/src/main/java/org/apache/karaf/decanter/appender/log/LogAppender.java`
 #### Snippet
 ```java
-    private OID convertAuthenticationProtocol(String authenticationProtocol) {
-        if (authenticationProtocol == null) {
-            return null;
-        }
-        if (authenticationProtocol.equals("MD5")) {
+
+    private Object toString(Object value) {
+        return value == null ? null : value.toString();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `appender/loki/src/main/java/org/apache/karaf/decanter/appender/loki/LokiAppender.java`
+#### Snippet
+```java
+
+    private Object toString(Object value) {
+        return value == null ? null : value.toString();
+    }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `answer` is redundant
+in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/DecanterInterceptStrategy.java`
+#### Snippet
+```java
+    @Override
+    public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition, Processor target, Processor nextTarget) throws Exception {
+        Processor answer = new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+```
+
+### UnnecessaryLocalVariable
+Local variable `event` is redundant
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/event/Handler.java`
+#### Snippet
+```java
+        data.put("alertPattern", rule.getCondition());
+        data.put("alertBackToNormal", recover);
+        Event event = new Event("decanter/alert/" + rule.getLevel(), data);
+        return event;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `date` is redundant
+in `appender/elasticsearch/src/main/java/org/apache/karaf/decanter/appender/elasticsearch/ElasticsearchAppender.java`
+#### Snippet
+```java
+    private Date getDate(Event event) {
+        Long ts = (Long)event.getProperty("timestamp");
+        Date date = ts != null ? new Date(ts) : new Date();
+        return date;
+    }
+```
+
 ### UnnecessaryLocalVariable
 Local variable `createTemplate` is redundant
 in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timescaledb/TimescaleDbAppender.java`
@@ -3324,42 +3374,6 @@ in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timesc
 
 ```
 
-### UnnecessaryLocalVariable
-Local variable `event` is redundant
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/event/Handler.java`
-#### Snippet
-```java
-        data.put("alertPattern", rule.getCondition());
-        data.put("alertBackToNormal", recover);
-        Event event = new Event("decanter/alert/" + rule.getLevel(), data);
-        return event;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `answer` is redundant
-in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/DecanterInterceptStrategy.java`
-#### Snippet
-```java
-    @Override
-    public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition, Processor target, Processor nextTarget) throws Exception {
-        Processor answer = new Processor() {
-            @Override
-            public void process(Exchange exchange) throws Exception {
-```
-
-### UnnecessaryLocalVariable
-Local variable `date` is redundant
-in `appender/elasticsearch/src/main/java/org/apache/karaf/decanter/appender/elasticsearch/ElasticsearchAppender.java`
-#### Snippet
-```java
-    private Date getDate(Event event) {
-        Long ts = (Long)event.getProperty("timestamp");
-        Date date = ts != null ? new Date(ts) : new Date();
-        return date;
-    }
-```
-
 ## RuleId[ruleID=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
@@ -3375,15 +3389,15 @@ in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/Defa
 
 ## RuleId[ruleID=CastConflictsWithInstanceof]
 ### CastConflictsWithInstanceof
-Cast to 'Integer' type conflicts with preceding 'instanceof Float' check
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
+Cast to 'CamelEvent.CamelContextStartupFailureEvent' type conflicts with preceding 'instanceof CamelEvent.CamelContextStopFailureEvent' check
+in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/CamelEventMapper.java`
 #### Snippet
 ```java
-            } else if (value instanceof Float) {
-                document.add(new FloatPoint(key, ((Float) value)));
-                document.add(new StoredField(key, ((Integer) value)));
-                points.put(key, new PointsConfig(NumberFormat.getInstance(), Float.class));
-            } else if (value instanceof Double) {
+        }
+        if (event instanceof CamelEvent.CamelContextStopFailureEvent) {
+            CamelEvent.CamelContextStartupFailureEvent context = (CamelEvent.CamelContextStartupFailureEvent) event;
+            data.put("cause", context.getCause().toString());
+        }
 ```
 
 ### CastConflictsWithInstanceof
@@ -3399,15 +3413,15 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/st
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'CamelEvent.CamelContextStartupFailureEvent' type conflicts with preceding 'instanceof CamelEvent.CamelContextStopFailureEvent' check
-in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/CamelEventMapper.java`
+Cast to 'Integer' type conflicts with preceding 'instanceof Float' check
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
 #### Snippet
 ```java
-        }
-        if (event instanceof CamelEvent.CamelContextStopFailureEvent) {
-            CamelEvent.CamelContextStartupFailureEvent context = (CamelEvent.CamelContextStartupFailureEvent) event;
-            data.put("cause", context.getCause().toString());
-        }
+            } else if (value instanceof Float) {
+                document.add(new FloatPoint(key, ((Float) value)));
+                document.add(new StoredField(key, ((Integer) value)));
+                points.put(key, new PointsConfig(NumberFormat.getInstance(), Float.class));
+            } else if (value instanceof Double) {
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -3437,18 +3451,6 @@ in `appender/prometheus/src/main/java/org/apache/karaf/decanter/appender/prometh
 ```
 
 ### ConstantValue
-Condition `ruleDefinition != null` is always `true`
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
-#### Snippet
-```java
-                String ruleDefinition = (String) configuration.get(key);
-                ruleDefinition = ruleDefinition.replaceAll("'", "\"");
-                if (ruleDefinition != null && !ruleDefinition.isEmpty()) {
-                    JsonReader jsonReader = Json.createReader(new StringReader(ruleDefinition));
-                    JsonObject jsonObject = jsonReader.readObject();
-```
-
-### ConstantValue
 Condition `attributeObject instanceof String[]` is always `false`
 in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
 #### Snippet
@@ -3470,5 +3472,17 @@ in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/So
         if (this.protocol == null) {
             this.protocol = Protocol.TCP;
         }
+```
+
+### ConstantValue
+Condition `ruleDefinition != null` is always `true`
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/model/Loader.java`
+#### Snippet
+```java
+                String ruleDefinition = (String) configuration.get(key);
+                ruleDefinition = ruleDefinition.replaceAll("'", "\"");
+                if (ruleDefinition != null && !ruleDefinition.isEmpty()) {
+                    JsonReader jsonReader = Json.createReader(new StringReader(ruleDefinition));
+                    JsonObject jsonObject = jsonReader.readObject();
 ```
 
