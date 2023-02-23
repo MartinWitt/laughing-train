@@ -55,15 +55,15 @@ public class TermsOfServiceLogger {
 
 ## RuleId[ruleID=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
 ```java
-        @Override
-        public String getNewVersionNote() {
-            return StringUtil.notNullize(params.get("new-version-note"),
-                    "We've updated the " + getShortName() + " agreement. " +
-                    "Review the terms and click \"I agree\" when you're ready to continue using TeamCity.");
+        String msg = "Configuration was loaded from " + myConfig.getMainConfig() + ", ";
+        if (!myAgreements.isEmpty()) {
+            msg += myAgreements.size() + " " + StringUtil.pluralize("agreement", myAgreements.size())+ " loaded";
+        } else {
+            msg += "no agreements were loaded";
 ```
 
 ### StaticCallOnSubclass
@@ -72,22 +72,34 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 #### Snippet
 ```java
         @Override
-        public String getNewUserNote() {
-            return StringUtil.notNullize(params.get("new-user-note"),
-                    "You have to accept the " + getShortName() + " agreement before you can continue to use TeamCity. " +
-                    "Review the terms and click \"I agree\" when you're ready to proceed.");
-```
-
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getFullName() {
-            return StringUtil.notNullize(params.get("full-name"), "Terms of Service");
+        public String getShortName() {
+            return StringUtil.notNullize(params.get("short-name"), "Terms of Service");
         }
 
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+            String url = ((Element) agreementEl).getAttributeValue("url");
+
+            if (StringUtil.isEmptyOrSpaces(text)) {
+                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement text, the agreement is ignored.");
+                continue;
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+            }
+
+            if (StringUtil.isEmptyOrSpaces(url)) {
+                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement url, the agreement is ignored.");
+                continue;
 ```
 
 ### StaticCallOnSubclass
@@ -124,30 +136,6 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
                     int cookieDurationMinutes = StringUtil.parseInt(params.getOrDefault("accepted-cookie-max-age-days", "30"), 30);
                     myGuestNotice = new GuestNoticeSettings(title, note, guestNoticeContent, cookieName, cookieDurationMinutes);
                 } catch (IOException e) {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-            String url = ((Element) agreementEl).getAttributeValue("url");
-
-            if (StringUtil.isEmptyOrSpaces(text)) {
-                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement text, the agreement is ignored.");
-                continue;
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-            }
-
-            if (StringUtil.isEmptyOrSpaces(url)) {
-                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement url, the agreement is ignored.");
-                continue;
 ```
 
 ### StaticCallOnSubclass
@@ -216,22 +204,34 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 #### Snippet
 ```java
         @Override
-        public String getShortName() {
-            return StringUtil.notNullize(params.get("short-name"), "Terms of Service");
+        public String getNewVersionNote() {
+            return StringUtil.notNullize(params.get("new-version-note"),
+                    "We've updated the " + getShortName() + " agreement. " +
+                    "Review the terms and click \"I agree\" when you're ready to continue using TeamCity.");
+```
+
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getFullName() {
+            return StringUtil.notNullize(params.get("full-name"), "Terms of Service");
         }
 
 ```
 
 ### StaticCallOnSubclass
-Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
 ```java
-        String msg = "Configuration was loaded from " + myConfig.getMainConfig() + ", ";
-        if (!myAgreements.isEmpty()) {
-            msg += myAgreements.size() + " " + StringUtil.pluralize("agreement", myAgreements.size())+ " loaded";
-        } else {
-            msg += "no agreements were loaded";
+        @Override
+        public String getNewUserNote() {
+            return StringUtil.notNullize(params.get("new-user-note"),
+                    "You have to accept the " + getShortName() + " agreement before you can continue to use TeamCity. " +
+                    "Review the terms and click \"I agree\" when you're ready to proceed.");
 ```
 
 ### StaticCallOnSubclass
@@ -248,18 +248,6 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Variable is already assigned to this value
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-                } catch (ParseException e) {
-                    TermsOfServiceLogger.LOGGER.warnAndDebugDetails("Invalid 'enforcement-date' date format for the agreement '" + id + "', supported format is: " + pattern, e);
-                    parsedEnforcementDate = null;
-                }
-            }
-```
-
-### DataFlowIssue
 Argument `myGuestNotice` might be null
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
@@ -269,6 +257,18 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
         return Optional.of(myGuestNotice);
     }
 
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+                } catch (ParseException e) {
+                    TermsOfServiceLogger.LOGGER.warnAndDebugDetails("Invalid 'enforcement-date' date format for the agreement '" + id + "', supported format is: " + pattern, e);
+                    parsedEnforcementDate = null;
+                }
+            }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
