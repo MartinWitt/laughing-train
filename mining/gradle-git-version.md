@@ -12,8 +12,8 @@ I found 23 bad smells with 3 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | DataFlowIssue | 1 | false |
 | NestedAssignment | 1 | false |
-| BoundedWildcard | 1 | false |
 | AbstractClassNeverImplemented | 1 | false |
+| BoundedWildcard | 1 | false |
 | UnusedAssignment | 1 | false |
 | CodeBlock2Expr | 1 | true |
 ## RuleId[ruleID=RedundantFieldInitialization]
@@ -81,6 +81,18 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
+#### Snippet
+```java
+        } catch (IOException | RuntimeException e) {
+            log.debug("JGit describe failed", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
 ```java
@@ -96,8 +108,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
-        if (ref == null) {
+        String gitHashFull = getGitHashFull();
+        if (gitHashFull == null) {
             return null;
         }
 
@@ -108,10 +120,10 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-
-        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
-    }
+        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
+        if (ref == null) {
+            return null;
+        }
 
 ```
 
@@ -132,8 +144,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        String gitHashFull = getGitHashFull();
-        if (gitHashFull == null) {
+        if (isRepoEmpty()) {
+            log.debug("Repository is empty");
             return null;
         }
 
@@ -144,23 +156,11 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        if (isRepoEmpty()) {
-            log.debug("Repository is empty");
-            return null;
-        }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
-#### Snippet
-```java
-        } catch (IOException | RuntimeException e) {
-            log.debug("JGit describe failed", e);
-            return null;
-        }
+        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
+        return match.matches() ? match.group(1) : null;
     }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -227,19 +227,6 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
             builder.append(System.getProperty("line.separator"));
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
-#### Snippet
-```java
-
-    private static void updateCommitHashMap(
-            Map<String, RefWithTagName> map,
-            RefWithTagNameComparator comparator,
-            ObjectId objectId,
-```
-
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `GitVersionCacheService` has no concrete subclass
@@ -251,6 +238,19 @@ import org.slf4j.LoggerFactory;
 public abstract class GitVersionCacheService implements BuildService<BuildServiceParameters.None> {
 
     private static final Logger log = LoggerFactory.getLogger(GitVersionCacheService.class);
+```
+
+## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
+#### Snippet
+```java
+
+    private static void updateCommitHashMap(
+            Map<String, RefWithTagName> map,
+            RefWithTagNameComparator comparator,
+            ObjectId objectId,
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
