@@ -67,14 +67,38 @@ in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
+in `src/main/java/com/google/escapevelocity/MethodFinder.java`
 #### Snippet
 ```java
-    Object value = evaluate(context);
-    if (value == null) {
+  static Method visibleMethod(Method method, Class<?> in) {
+    if (in == null) {
       return null;
     }
-    if (!(value instanceof Integer)) {
+    Method methodInClass;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/MethodFinder.java`
+#### Snippet
+```java
+      methodInClass = in.getMethod(method.getName(), method.getParameterTypes());
+    } catch (NoSuchMethodException e) {
+      return null;
+    }
+    if (classIsPublic(in) || in.getName().startsWith(THIS_PACKAGE)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/MethodFinder.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -115,38 +139,14 @@ in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/google/escapevelocity/MethodFinder.java`
+in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 #### Snippet
 ```java
-  static Method visibleMethod(Method method, Class<?> in) {
-    if (in == null) {
+    Object value = evaluate(context);
+    if (value == null) {
       return null;
     }
-    Method methodInClass;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/MethodFinder.java`
-#### Snippet
-```java
-      methodInClass = in.getMethod(method.getName(), method.getParameterTypes());
-    } catch (NoSuchMethodException e) {
-      return null;
-    }
-    if (classIsPublic(in) || in.getName().startsWith(THIS_PACKAGE)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/MethodFinder.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
+    if (!(value instanceof Integer)) {
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -176,6 +176,18 @@ in `src/main/java/com/google/escapevelocity/SetSpacing.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/java/com/google/escapevelocity/Node.java`
+#### Snippet
+```java
+    private final ImmutableList<Node> nodes;
+
+    Cons(String resourceName, int lineNumber, ImmutableList<Node> nodes) {
+      super(resourceName, lineNumber);
+      this.nodes = nodes;
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/com/google/escapevelocity/Macro.java`
 #### Snippet
@@ -197,18 +209,6 @@ in `src/main/java/com/google/escapevelocity/Macro.java`
       List<ExpressionNode> thunks,
       Node bodyContent,
       StringBuilder output) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/java/com/google/escapevelocity/Node.java`
-#### Snippet
-```java
-    private final ImmutableList<Node> nodes;
-
-    Cons(String resourceName, int lineNumber, ImmutableList<Node> nodes) {
-      super(resourceName, lineNumber);
-      this.nodes = nodes;
 ```
 
 ### BoundedWildcard
@@ -274,18 +274,6 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `src/main/java/com/google/escapevelocity/Parser.java`
-#### Snippet
-```java
-      next();
-    }
-    Integer value = Ints.tryParse(sb.toString());
-    if (value == null) {
-      throw parseException("Invalid integer: " + sb);
-```
-
-### UnstableApiUsage
 'closed(int, int)' is marked unstable with @Beta
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
@@ -307,6 +295,18 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
               : ContiguousSet.closed(to, from).descendingSet();
       return new ForwardingSortedSet<Integer>() {
         @Override
+```
+
+### UnstableApiUsage
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `src/main/java/com/google/escapevelocity/Parser.java`
+#### Snippet
+```java
+      next();
+    }
+    Integer value = Ints.tryParse(sb.toString());
+    if (value == null) {
+      throw parseException("Invalid integer: " + sb);
 ```
 
 ## RuleId[ruleID=JavaReflectionMemberAccess]
