@@ -125,6 +125,18 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/RetryableOperation.java`
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `subTreePath`
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
+#### Snippet
+```java
+        } else {
+            if (subTreePath.startsWith("/")) {
+                subTreePath = subTreePath.substring(1);
+            }
+            pRelPath = String.format("%s/%s", subTreePath, name);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `n`
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
 #### Snippet
@@ -146,18 +158,6 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
                 n = null;
             }
         }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `subTreePath`
-in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
-#### Snippet
-```java
-        } else {
-            if (subTreePath.startsWith("/")) {
-                subTreePath = subTreePath.substring(1);
-            }
-            pRelPath = String.format("%s/%s", subTreePath, name);
 ```
 
 ## RuleId[ruleID=MismatchedJavadocCode]
@@ -188,7 +188,7 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/RetryableOperation.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-14-15-08-57.516.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-23-23-04-45.403.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -231,7 +231,7 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/GroupMembershipVisitor.java
 ```java
                 report(groupname + " is not a group");
             } else {
-                ((Group) group).removeMembers(members.toArray(new String[0]));
+                ((Group) group).addMembers(members.toArray(new String[0]));
             }
         } catch (RepositoryException e) {
 ```
@@ -243,7 +243,7 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/GroupMembershipVisitor.java
 ```java
                 report(groupname + " is not a group");
             } else {
-                ((Group) group).addMembers(members.toArray(new String[0]));
+                ((Group) group).removeMembers(members.toArray(new String[0]));
             }
         } catch (RepositoryException e) {
 ```
@@ -265,11 +265,11 @@ Allocation of zero length array
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
 #### Snippet
 ```java
-            LocalRestrictions restr = createLocalRestrictions(line.getRestrictions(), acl, session);
-            List<String> privNames = line.getProperty(PROP_PRIVILEGES);
-            Privilege[] privs = AccessControlUtils.privilegesFromNames(acMgr, privNames.toArray(new String[0]));
-            Predicate<PrincipalAccessControlList.Entry> predicate = entry -> {
-                if (!jcrPaths.contains(entry.getEffectivePath())) {
+                }
+            } else if (action == AclLine.Action.ALLOW) {
+                final Privilege[] privileges = AccessControlUtils.privilegesFromNames(acMgr, line.getProperty(PROP_PRIVILEGES).toArray(new String[0]));
+                for (String effectivePath : jcrPaths) {
+                    if (acl == null) {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -277,11 +277,11 @@ Allocation of zero length array
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
 #### Snippet
 ```java
-                }
-            } else if (action == AclLine.Action.ALLOW) {
-                final Privilege[] privileges = AccessControlUtils.privilegesFromNames(acMgr, line.getProperty(PROP_PRIVILEGES).toArray(new String[0]));
-                for (String effectivePath : jcrPaths) {
-                    if (acl == null) {
+            LocalRestrictions restr = createLocalRestrictions(line.getRestrictions(), acl, session);
+            List<String> privNames = line.getProperty(PROP_PRIVILEGES);
+            Privilege[] privs = AccessControlUtils.privilegesFromNames(acMgr, privNames.toArray(new String[0]));
+            Predicate<PrincipalAccessControlList.Entry> predicate = entry -> {
+                if (!jcrPaths.contains(entry.getEffectivePath())) {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -310,6 +310,18 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
+#### Snippet
+```java
+            }
+        } catch (Exception e) {
+            report(e, "Failed to set repository level ACL (" + e.toString() + ") " + line);
+        }
+    }
+```
+
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
@@ -346,18 +358,6 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
     }
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
-#### Snippet
-```java
-            }
-        } catch (Exception e) {
-            report(e, "Failed to set repository level ACL (" + e.toString() + ") " + line);
-        }
-    }
-```
-
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Operation`
@@ -390,9 +390,9 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
 ```java
      * @param propertyLines the property lines to process to set the properties
      */
-    private void setNodeProperties(String nodePath, List<PropertyLine> propertyLines) throws RepositoryException {
-        log.info("Setting properties on nodePath '{}'", nodePath);
-        Node n = session.getNode(nodePath);
+    private void setAuthorizableProperties(String nodePath, List<PropertyLine> propertyLines) throws RepositoryException {
+        int lastHashIndex = nodePath.lastIndexOf(SUBTREE_DELIMINATOR);
+        if (lastHashIndex == -1) {
 ```
 
 ### BoundedWildcard
@@ -402,9 +402,9 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
 ```java
      * @param propertyLines the property lines to process to set the properties
      */
-    private void setAuthorizableProperties(String nodePath, List<PropertyLine> propertyLines) throws RepositoryException {
-        int lastHashIndex = nodePath.lastIndexOf(SUBTREE_DELIMINATOR);
-        if (lastHashIndex == -1) {
+    private void setNodeProperties(String nodePath, List<PropertyLine> propertyLines) throws RepositoryException {
+        log.info("Setting properties on nodePath '{}'", nodePath);
+        Node n = session.getNode(nodePath);
 ```
 
 ### BoundedWildcard
@@ -426,7 +426,7 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
 ```java
     }
 
-    public static void removePrincipalEntries(Session session, String principalName, Collection<AclLine> lines) throws RepositoryException {
+    public static void setPrincipalAcl(Session session, String principalName, Collection<AclLine> lines, boolean isStrict) throws RepositoryException {
         final JackrabbitAccessControlManager acMgr = getJACM(session);
         Principal principal = AccessControlUtils.getPrincipal(session, principalName);
 ```
@@ -450,7 +450,7 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
 ```java
     }
 
-    public static void setPrincipalAcl(Session session, String principalName, Collection<AclLine> lines, boolean isStrict) throws RepositoryException {
+    public static void removePrincipalEntries(Session session, String principalName, Collection<AclLine> lines) throws RepositoryException {
         final JackrabbitAccessControlManager acMgr = getJACM(session);
         Principal principal = AccessControlUtils.getPrincipal(session, principalName);
 ```
@@ -461,10 +461,10 @@ Variable `group` initializer `null` is redundant
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/GroupMembershipVisitor.java`
 #### Snippet
 ```java
-        List<String> members = rm.getMembers();
-        String groupname = rm.getGroupname();
+        List<String> members = am.getMembers();
+        String groupname = am.getGroupname();
         Authorizable group = null;
-        log.info("Removing members '{}' from group '{}'", members, groupname);
+        log.info("Adding members '{}' to group '{}'", members, groupname);
         try {
 ```
 
@@ -473,10 +473,10 @@ Variable `group` initializer `null` is redundant
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/GroupMembershipVisitor.java`
 #### Snippet
 ```java
-        List<String> members = am.getMembers();
-        String groupname = am.getGroupname();
+        List<String> members = rm.getMembers();
+        String groupname = rm.getGroupname();
         Authorizable group = null;
-        log.info("Adding members '{}' to group '{}'", members, groupname);
+        log.info("Removing members '{}' from group '{}'", members, groupname);
         try {
 ```
 
