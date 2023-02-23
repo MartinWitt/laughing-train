@@ -1,13 +1,13 @@
 # kiota-java 
  
 # Bad smells
-I found 250 bad smells with 22 repairable:
+I found 252 bad smells with 22 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ConstantValue | 28 | false |
-| DataFlowIssue | 21 | false |
+| DataFlowIssue | 22 | false |
+| DoubleBraceInitialization | 21 | false |
 | NullableProblems | 20 | false |
-| DoubleBraceInitialization | 20 | false |
 | MissortedModifiers | 17 | false |
 | BoundedWildcard | 15 | false |
 | RegExpRedundantEscape | 14 | false |
@@ -68,11 +68,11 @@ Type may be primitive
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
 ```java
-                final String contentLengthHeaderValue = getHeaderValue(x, "Content-Length");
-                if(contentLengthHeaderValue != null && !contentLengthHeaderValue.isEmpty()) {
-                    final Integer contentLengthHeaderValueAsInt = Integer.parseInt(contentLengthHeaderValue);
-                    spanForAttributes.setAttribute(SemanticAttributes.HTTP_RESPONSE_CONTENT_LENGTH, contentLengthHeaderValueAsInt);
-                }
+
+            final String statusCodeAsString = Integer.toString(response.code());
+            final Integer statusCode = response.code();
+            if (errorMappings == null ||
+            !errorMappings.containsKey(statusCodeAsString) &&
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -80,11 +80,11 @@ Type may be primitive
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
 ```java
-
-            final String statusCodeAsString = Integer.toString(response.code());
-            final Integer statusCode = response.code();
-            if (errorMappings == null ||
-            !errorMappings.containsKey(statusCodeAsString) &&
+                final String contentLengthHeaderValue = getHeaderValue(x, "Content-Length");
+                if(contentLengthHeaderValue != null && !contentLengthHeaderValue.isEmpty()) {
+                    final Integer contentLengthHeaderValueAsInt = Integer.parseInt(contentLengthHeaderValue);
+                    spanForAttributes.setAttribute(SemanticAttributes.HTTP_RESPONSE_CONTENT_LENGTH, contentLengthHeaderValueAsInt);
+                }
 ```
 
 ## RuleId[ruleID=OptionalIsPresent]
@@ -200,15 +200,15 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/All
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `addEvent` may produce `NullPointerException`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/ChaosHandler.java`
+Argument `targetUri` might be null
+in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/BaseBearerTokenAuthenticationProvider.java`
 #### Snippet
 ```java
-
-            if(dice % failureRate == 0) {
-                span.addEvent(chaosHandlerTriggeredEventKey);
-                return new Response
-                        .Builder()
+                return result;
+            }
+            return this.accessTokenProvider.getAuthorizationToken(targetUri, additionalAuthenticationContext)
+                .thenApply(token -> {
+                    if(token != null && !token.isEmpty()) { 
 ```
 
 ### DataFlowIssue
@@ -224,15 +224,51 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/RequestHeaders.jav
 ```
 
 ### DataFlowIssue
-Argument `targetUri` might be null
-in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/BaseBearerTokenAuthenticationProvider.java`
+Method invocation `containsKey` may produce `NullPointerException`
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
 #### Snippet
 ```java
-                return result;
-            }
-            return this.accessTokenProvider.getAuthorizationToken(targetUri, additionalAuthenticationContext)
-                .thenApply(token -> {
-                    if(token != null && !token.isEmpty()) { 
+        if(uri != null) {
+            return uri;
+        } else if(pathParameters.containsKey(RAW_URL_KEY) &&
+            pathParameters.get(RAW_URL_KEY) instanceof String) {
+            setUri(new URI((String)pathParameters.get(RAW_URL_KEY)));
+```
+
+### DataFlowIssue
+Method invocation `getValue1` may produce `NullPointerException`
+in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+#### Snippet
+```java
+        final Pair<Boolean, Object> oldValue = this.store.put(key, valueToAdd);
+        for(final TriConsumer<String, Object, Object> callback : this.subscriptionStore.values()) {
+            callback.accept(key, oldValue.getValue1(), value);
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `addEvent` may produce `NullPointerException`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/ChaosHandler.java`
+#### Snippet
+```java
+
+            if(dice % failureRate == 0) {
+                span.addEvent(chaosHandlerTriggeredEventKey);
+                return new Response
+                        .Builder()
+```
+
+### DataFlowIssue
+Method invocation `split` may produce `NullPointerException`
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
+#### Snippet
+```java
+    @Nullable
+    public <T> List<T> getCollectionOfPrimitiveValues(@Nonnull final Class<T> targetClass) {
+        final List<String> primitiveStringCollection = Arrays.asList(getStringValue().split(","));
+        final Iterator<String> sourceIterator = primitiveStringCollection.iterator();
+        final FormParseNode _this = this;
 ```
 
 ### DataFlowIssue
@@ -240,21 +276,9 @@ Argument `getStringValue()` might be null
 in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
 #### Snippet
 ```java
-    public Float getFloatValue() {
+    public Double getDoubleValue() {
         try {
-            return Float.parseFloat(getStringValue());
-        } catch (final NumberFormatException ex) {
-            return null;
-```
-
-### DataFlowIssue
-Argument `getStringValue()` might be null
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
-#### Snippet
-```java
-    public Short getShortValue() {
-        try {
-            return Short.parseShort(getStringValue());
+            return Double.parseDouble(getStringValue());
         } catch (final NumberFormatException ex) {
             return null;
 ```
@@ -276,9 +300,9 @@ Argument `getStringValue()` might be null
 in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
 #### Snippet
 ```java
-    public Long getLongValue() {
+    public Integer getIntegerValue() {
         try {
-            return Long.parseLong(getStringValue());
+            return Integer.parseInt(getStringValue());
         } catch (final NumberFormatException ex) {
             return null;
 ```
@@ -288,9 +312,21 @@ Argument `getStringValue()` might be null
 in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
 #### Snippet
 ```java
-    public Integer getIntegerValue() {
+    public Float getFloatValue() {
         try {
-            return Integer.parseInt(getStringValue());
+            return Float.parseFloat(getStringValue());
+        } catch (final NumberFormatException ex) {
+            return null;
+```
+
+### DataFlowIssue
+Argument `getStringValue()` might be null
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
+#### Snippet
+```java
+    public Long getLongValue() {
+        try {
+            return Long.parseLong(getStringValue());
         } catch (final NumberFormatException ex) {
             return null;
 ```
@@ -308,6 +344,18 @@ in `components/serialization/form/src/main/java/com/microsoft/kiota/serializatio
 ```
 
 ### DataFlowIssue
+Argument `getStringValue()` might be null
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
+#### Snippet
+```java
+    public Short getShortValue() {
+        try {
+            return Short.parseShort(getStringValue());
+        } catch (final NumberFormatException ex) {
+            return null;
+```
+
+### DataFlowIssue
 Method invocation `toLowerCase` may produce `NullPointerException`
 in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
 #### Snippet
@@ -320,15 +368,15 @@ in `components/serialization/form/src/main/java/com/microsoft/kiota/serializatio
 ```
 
 ### DataFlowIssue
-Argument `getStringValue()` might be null
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
+Argument `this.getStringValue()` might be null
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNode.java`
 #### Snippet
 ```java
-    public Double getDoubleValue() {
-        try {
-            return Double.parseDouble(getStringValue());
-        } catch (final NumberFormatException ex) {
-            return null;
+    @Nullable
+    public OffsetDateTime getOffsetDateTimeValue() {
+        return OffsetDateTime.parse(this.getStringValue());
+    }
+    @Nullable
 ```
 
 ### DataFlowIssue
@@ -339,30 +387,6 @@ in `components/serialization/text/src/main/java/com/microsoft/kiota/serializatio
     @Nullable
     public LocalDate getLocalDateValue() {
         return LocalDate.parse(this.getStringValue());
-    }
-    @Nullable
-```
-
-### DataFlowIssue
-Argument `this.getStringValue()` might be null
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNode.java`
-#### Snippet
-```java
-    @Nullable
-    public UUID getUUIDValue() {
-        return UUID.fromString(this.getStringValue());
-    }
-    @Nullable
-```
-
-### DataFlowIssue
-Argument `this.getStringValue()` might be null
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNode.java`
-#### Snippet
-```java
-    @Nullable
-    public OffsetDateTime getOffsetDateTimeValue() {
-        return OffsetDateTime.parse(this.getStringValue());
     }
     @Nullable
 ```
@@ -385,34 +409,22 @@ in `components/serialization/text/src/main/java/com/microsoft/kiota/serializatio
 #### Snippet
 ```java
     @Nullable
-    public LocalTime getLocalTimeValue() {
-        return LocalTime.parse(this.getStringValue());
+    public UUID getUUIDValue() {
+        return UUID.fromString(this.getStringValue());
     }
     @Nullable
 ```
 
 ### DataFlowIssue
-Method invocation `getValue1` may produce `NullPointerException`
-in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+Argument `this.getStringValue()` might be null
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNode.java`
 #### Snippet
 ```java
-        final Pair<Boolean, Object> oldValue = this.store.put(key, valueToAdd);
-        for(final TriConsumer<String, Object, Object> callback : this.subscriptionStore.values()) {
-            callback.accept(key, oldValue.getValue1(), value);
-        }
+    @Nullable
+    public LocalTime getLocalTimeValue() {
+        return LocalTime.parse(this.getStringValue());
     }
-```
-
-### DataFlowIssue
-Method invocation `containsKey` may produce `NullPointerException`
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
-#### Snippet
-```java
-        if(uri != null) {
-            return uri;
-        } else if(pathParameters.containsKey(RAW_URL_KEY) &&
-            pathParameters.get(RAW_URL_KEY) instanceof String) {
-            setUri(new URI((String)pathParameters.get(RAW_URL_KEY)));
+    @Nullable
 ```
 
 ### DataFlowIssue
@@ -517,18 +529,6 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/RequestHeaders.jav
 ## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
-#### Snippet
-```java
-    public <T extends Enum<T>> void writeEnumSetValue(@Nullable final String key, @Nullable final EnumSet<T> values) {
-        if(values != null && !values.isEmpty()) {
-            final Optional<String> concatenatedValue = values.stream().map(v -> this.getStringValueFromValuedEnum(v)).reduce((x, y) -> { return x + "," + y; });
-            if(concatenatedValue.isPresent()) {
-                this.writeStringValue(key, concatenatedValue.get());
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
 #### Snippet
 ```java
@@ -537,6 +537,18 @@ in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentica
             return this.creds.getToken(context).toFuture().thenApply(r -> r.getToken());
         } finally {
             span.end();
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
+#### Snippet
+```java
+    public <T extends Enum<T>> void writeEnumSetValue(@Nullable final String key, @Nullable final EnumSet<T> values) {
+        if(values != null && !values.isEmpty()) {
+            final Optional<String> concatenatedValue = values.stream().map(v -> this.getStringValueFromValuedEnum(v)).reduce((x, y) -> { return x + "," + y; });
+            if(concatenatedValue.isPresent()) {
+                this.writeStringValue(key, concatenatedValue.get());
 ```
 
 ### Convert2MethodRef
@@ -625,6 +637,42 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\:` in RegExp
+in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
+#### Snippet
+```java
+    private static final String STRING_PATTERN_USER_INFO = "([^@\\[/?#]*)";
+    private static final String STRING_PATTERN_HOST_IPV4 = "[^\\[{/?#:]*";
+    private static final String STRING_PATTERN_HOST_IPV6 = "\\[[\\p{XDigit}\\:\\.]*[%\\p{Alnum}]*\\]";
+    private static final String STRING_PATTERN_HOST = "(" + STRING_PATTERN_HOST_IPV6 + "|" + STRING_PATTERN_HOST_IPV4 + ")";
+    private static final String STRING_PATTERN_PORT = "(\\d*(?:\\{[^/]+?\\})?)";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
+#### Snippet
+```java
+    private static final String STRING_PATTERN_USER_INFO = "([^@\\[/?#]*)";
+    private static final String STRING_PATTERN_HOST_IPV4 = "[^\\[{/?#:]*";
+    private static final String STRING_PATTERN_HOST_IPV6 = "\\[[\\p{XDigit}\\:\\.]*[%\\p{Alnum}]*\\]";
+    private static final String STRING_PATTERN_HOST = "(" + STRING_PATTERN_HOST_IPV6 + "|" + STRING_PATTERN_HOST_IPV4 + ")";
+    private static final String STRING_PATTERN_PORT = "(\\d*(?:\\{[^/]+?\\})?)";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
+#### Snippet
+```java
+    private static final String STRING_PATTERN_USER_INFO = "([^@\\[/?#]*)";
+    private static final String STRING_PATTERN_HOST_IPV4 = "[^\\[{/?#:]*";
+    private static final String STRING_PATTERN_HOST_IPV6 = "\\[[\\p{XDigit}\\:\\.]*[%\\p{Alnum}]*\\]";
+    private static final String STRING_PATTERN_HOST = "(" + STRING_PATTERN_HOST_IPV6 + "|" + STRING_PATTERN_HOST_IPV4 + ")";
+    private static final String STRING_PATTERN_PORT = "(\\d*(?:\\{[^/]+?\\})?)";
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\}` in RegExp
 in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 #### Snippet
@@ -673,42 +721,6 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\:` in RegExp
-in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
-#### Snippet
-```java
-    private static final String STRING_PATTERN_USER_INFO = "([^@\\[/?#]*)";
-    private static final String STRING_PATTERN_HOST_IPV4 = "[^\\[{/?#:]*";
-    private static final String STRING_PATTERN_HOST_IPV6 = "\\[[\\p{XDigit}\\:\\.]*[%\\p{Alnum}]*\\]";
-    private static final String STRING_PATTERN_HOST = "(" + STRING_PATTERN_HOST_IPV6 + "|" + STRING_PATTERN_HOST_IPV4 + ")";
-    private static final String STRING_PATTERN_PORT = "(\\d*(?:\\{[^/]+?\\})?)";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
-#### Snippet
-```java
-    private static final String STRING_PATTERN_USER_INFO = "([^@\\[/?#]*)";
-    private static final String STRING_PATTERN_HOST_IPV4 = "[^\\[{/?#:]*";
-    private static final String STRING_PATTERN_HOST_IPV6 = "\\[[\\p{XDigit}\\:\\.]*[%\\p{Alnum}]*\\]";
-    private static final String STRING_PATTERN_HOST = "(" + STRING_PATTERN_HOST_IPV6 + "|" + STRING_PATTERN_HOST_IPV4 + ")";
-    private static final String STRING_PATTERN_PORT = "(\\d*(?:\\{[^/]+?\\})?)";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
-#### Snippet
-```java
-    private static final String STRING_PATTERN_USER_INFO = "([^@\\[/?#]*)";
-    private static final String STRING_PATTERN_HOST_IPV4 = "[^\\[{/?#:]*";
-    private static final String STRING_PATTERN_HOST_IPV6 = "\\[[\\p{XDigit}\\:\\.]*[%\\p{Alnum}]*\\]";
-    private static final String STRING_PATTERN_HOST = "(" + STRING_PATTERN_HOST_IPV6 + "|" + STRING_PATTERN_HOST_IPV4 + ")";
-    private static final String STRING_PATTERN_PORT = "(\\d*(?:\\{[^/]+?\\})?)";
-```
-
-### RegExpRedundantEscape
 Redundant character escape `\\}` in RegExp
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
@@ -735,18 +747,6 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`nonNullAdditionalValuesToMerge.size() > 0` can be replaced with '!nonNullAdditionalValuesToMerge.isEmpty()'
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
-#### Snippet
-```java
-        depth++;
-        final List<Parsable> nonNullAdditionalValuesToMerge = Stream.of(additionalValuesToMerge).filter(Objects::nonNull).collect(Collectors.toList());
-        if(value != null || nonNullAdditionalValuesToMerge.size() > 0) {
-            if(onBeforeObjectSerialization != null && value != null) {
-                onBeforeObjectSerialization.accept(value);
-```
-
-### SizeReplaceableByIsEmpty
 `location.length() == 0` can be replaced with 'location.isEmpty()'
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RedirectHandler.java`
 #### Snippet
@@ -756,6 +756,18 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/Red
         if (location == null || location.length() == 0) return null;
 
         // For relative URL in location header, the new url to redirect is relative to original request
+```
+
+### SizeReplaceableByIsEmpty
+`nonNullAdditionalValuesToMerge.size() > 0` can be replaced with '!nonNullAdditionalValuesToMerge.isEmpty()'
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
+#### Snippet
+```java
+        depth++;
+        final List<Parsable> nonNullAdditionalValuesToMerge = Stream.of(additionalValuesToMerge).filter(Objects::nonNull).collect(Collectors.toList());
+        if(value != null || nonNullAdditionalValuesToMerge.size() > 0) {
+            if(onBeforeObjectSerialization != null && value != null) {
+                onBeforeObjectSerialization.accept(value);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -918,15 +930,15 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/Pars
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Consumer`
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
+Can generalize to `? extends RequestOption`
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
 #### Snippet
 ```java
-        return result;
-    }
-    private <T extends Parsable> void assignFieldValues(final T item, final Map<String, Consumer<ParseNode>> fieldDeserializers) {
-        if(!fields.isEmpty()) {
-            if(this.onBeforeAssignFieldValues != null) {
+     * @param options the request options to add.
+     */
+    public void addRequestOptions(@Nullable final Collection<RequestOption> options) { 
+        if(options == null || options.isEmpty()) return;
+        for(final RequestOption option : options) {
 ```
 
 ### BoundedWildcard
@@ -978,15 +990,15 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/Seri
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNode.java`
+Can generalize to `? extends Consumer`
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
 #### Snippet
 ```java
+        return result;
     }
-    @Nullable
-    public <T extends Parsable> List<T> getCollectionOfObjectValues(@Nonnull final ParsableFactory<T> factory) {
-        Objects.requireNonNull(factory, "parameter factory cannot be null");
-        if(currentNode.isJsonNull()) {
+    private <T extends Parsable> void assignFieldValues(final T item, final Map<String, Consumer<ParseNode>> fieldDeserializers) {
+        if(!fields.isEmpty()) {
+            if(this.onBeforeAssignFieldValues != null) {
 ```
 
 ### BoundedWildcard
@@ -1002,15 +1014,15 @@ in `components/serialization/json/src/main/java/com/microsoft/kiota/serializatio
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RequestOption`
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+Can generalize to `? extends T`
+in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNode.java`
 #### Snippet
 ```java
-     * @param options the request options to add.
-     */
-    public void addRequestOptions(@Nullable final Collection<RequestOption> options) { 
-        if(options == null || options.isEmpty()) return;
-        for(final RequestOption option : options) {
+    }
+    @Nullable
+    public <T extends Parsable> List<T> getCollectionOfObjectValues(@Nonnull final ParsableFactory<T> factory) {
+        Objects.requireNonNull(factory, "parameter factory cannot be null");
+        if(currentNode.isJsonNull()) {
 ```
 
 ### BoundedWildcard
@@ -1018,11 +1030,11 @@ Can generalize to `? super PathSegment`
 in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 #### Snippet
 ```java
-     * @return The template as a string
-     */
-    protected String toString(Predicate<PathSegment> filter) {
-        StringBuilder builder = new StringBuilder(templateString.length());
-        UriTemplateParser.VariablePathSegment previousVariable = null;
+         * @param isQuerySegment    Whether is a query segment
+         */
+        protected void addVariableSegment(List<PathSegment> segments,
+                                          String variable,
+                                          String prefix,
 ```
 
 ### BoundedWildcard
@@ -1042,11 +1054,11 @@ Can generalize to `? super PathSegment`
 in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 #### Snippet
 ```java
-         * @param isQuerySegment    Whether is a query segment
-         */
-        protected void addVariableSegment(List<PathSegment> segments,
-                                          String variable,
-                                          String prefix,
+     * @return The template as a string
+     */
+    protected String toString(Predicate<PathSegment> filter) {
+        StringBuilder builder = new StringBuilder(templateString.length());
+        UriTemplateParser.VariablePathSegment previousVariable = null;
 ```
 
 ### BoundedWildcard
@@ -1073,29 +1085,306 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestA
         try(final Scope scope = span.makeCurrent()) {
 ```
 
-## RuleId[ruleID=NullableProblems]
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNodeFactory.java`
+#### Snippet
+```java
+        return validContentType;
+    }
+    private final static String validContentType = "application/x-www-form-urlencoded";
+    @Override
+    @Nonnull
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/BaseBearerTokenAuthenticationProvider.java`
+#### Snippet
+```java
+    }
+    private final AccessTokenProvider accessTokenProvider;
+    private final static String authorizationHeaderKey = "Authorization";
+    private final static String ClaimsKey = "claims";
+    @Nonnull
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/BaseBearerTokenAuthenticationProvider.java`
+#### Snippet
+```java
+    private final AccessTokenProvider accessTokenProvider;
+    private final static String authorizationHeaderKey = "Authorization";
+    private final static String ClaimsKey = "claims";
+    @Nonnull
+    public CompletableFuture<Void> authenticateRequest(@Nonnull final RequestInformation request, @Nullable final Map<String, Object> additionalAuthenticationContext) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNodeFactory.java`
+#### Snippet
+```java
+        return validContentType;
+    }
+    private final static String validContentType = "text/plain";
+    @Override
+    @Nonnull
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/UserAgentHandler.java`
+#### Snippet
+```java
+        }
+    }
+    private final static String USER_AGENT_HEADER_NAME = "User-Agent";
+    /* @inheritdoc */
+    @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
+#### Snippet
+```java
+    }
+    private final static String ClaimsKey = "claims";
+    private final static String parentSpanKey = "parent-span";
+    @Nonnull
+    public CompletableFuture<String> getAuthorizationToken(@Nonnull final URI uri, @Nullable final Map<String, Object> additionalAuthenticationContext) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
+#### Snippet
+```java
+        }
+    }
+    private final static String ClaimsKey = "claims";
+    private final static String parentSpanKey = "parent-span";
+    @Nonnull
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/SerializationWriterFactoryRegistry.java`
+#### Snippet
+```java
+    public SerializationWriterFactoryRegistry() {}
+    /** Default singleton instance of the registry to be used when registering new factories that should be available by default. */
+    public final static SerializationWriterFactoryRegistry defaultInstance = new SerializationWriterFactoryRegistry();
+    /** List of factories that are registered by content type. */
+    @Nonnull
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNodeFactory.java`
+#### Snippet
+```java
+        return validContentType;
+    }
+    private final static String validContentType = "application/json";
+    /** {@inheritDoc} */
+    @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNode.java`
+#### Snippet
+```java
+public class TextParseNode implements ParseNode {
+    private final String text;
+    private final static String NO_STRUCTURED_DATA_MESSAGE = "text does not support structured data";
+    /**
+     * Initializes a new instance of the {@link TextParseNode} class.
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/ApiKeyAuthenticationProvider.java`
 #### Snippet
 ```java
-public class ApiKeyAuthenticationProvider implements AuthenticationProvider {
-    private final ApiKeyLocation location;
+        this.validator = new AllowedHostsValidator(validHosts);
+    }
+    private final static String parentSpanKey = "parent-span";
+    /** {@inheritDoc} */
+    @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
+#### Snippet
+```java
+/** Serialization writer implementation for text/plain */
+public class TextSerializationWriter implements SerializationWriter {
+    private final static String NO_STRUCTURED_DATA_MESSAGE = "text does not support structured data";
+    private final ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    private final OutputStreamWriter writer;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+        }
+    }
+    private final static String claimsKey = "claims";
+    private CompletableFuture<Response> getHttpResponseMessage(@Nonnull final RequestInformation requestInfo, @Nonnull final Span parentSpan, @Nonnull final Span spanForAttributes, @Nullable final String claims) {
+        Objects.requireNonNull(requestInfo, "parameter requestInfo cannot be null");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+    }
+    private final static Pattern bearerPattern = Pattern.compile("^Bearer\\s.*", Pattern.CASE_INSENSITIVE);
+    private final static Pattern claimsPattern = Pattern.compile("\\s?claims=\"([^\"]+)\"", Pattern.CASE_INSENSITIVE);
+    /** Key used for events when an authentication challenge is returned by the API */
     @Nonnull
-    private final String paramName;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+        return null;
+    }
+    private final static Pattern bearerPattern = Pattern.compile("^Bearer\\s.*", Pattern.CASE_INSENSITIVE);
+    private final static Pattern claimsPattern = Pattern.compile("\\s?claims=\"([^\"]+)\"", Pattern.CASE_INSENSITIVE);
+    /** Key used for events when an authentication challenge is returned by the API */
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+        return null;
+    }
+    private final static Pattern queryParametersCleanupPattern = Pattern.compile("\\{\\?[^\\}]+}", Pattern.CASE_INSENSITIVE);
+    private final char[] queryParametersToDecodeForTracing = {'-', '.', '~', '$'};
+    private Span startSpan(@Nonnull final RequestInformation requestInfo, @Nonnull final String methodName) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+/** RequestAdapter implementation for OkHttp */
+public class OkHttpRequestAdapter implements com.microsoft.kiota.RequestAdapter {
+    private final static String contentTypeHeaderKey = "Content-Type";
+    @Nonnull
+    private final OkHttpClient client;
+```
+
+## RuleId[ruleID=NullableProblems]
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+#### Snippet
+```java
+    public String urlTemplate;
+    /** The path parameters for the current request */
+    @Nullable
+    public HashMap<String, Object> pathParameters = new HashMap<>();
+    private URI uri;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+#### Snippet
+```java
+    public final RequestHeaders headers = new RequestHeaders();
+    /** The Request Body. */
+    @Nullable
+    public InputStream content;
     @Nonnull
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/ApiKeyAuthenticationProvider.java`
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+#### Snippet
+```java
+    @Nullable
+    public InputStream content;
+    @Nonnull
+    private final HashMap<String, RequestOption> requestOptions = new HashMap<>();
+    /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+#### Snippet
+```java
+    }
+    /** The request headers */
+    @Nonnull
+    public final RequestHeaders headers = new RequestHeaders();
+    /** The Request Body. */
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
 #### Snippet
 ```java
     @Nonnull
-    private final String paramName;
+    private static final String BINARY_CONTENT_TYPE = "application/octet-stream";
     @Nonnull
-    private final String apiKey;
-    private final AllowedHostsValidator validator;
+    private static final String CONTENT_TYPE_HEADER = "Content-Type";
+    /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+#### Snippet
+```java
+    }
+    /** The url template for the current request */
+    @Nullable
+    public String urlTemplate;
+    /** The path parameters for the current request */
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+#### Snippet
+```java
+        }
+    }
+    @Nonnull
+    private static final String BINARY_CONTENT_TYPE = "application/octet-stream";
+    @Nonnull
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+#### Snippet
+```java
+    private static String RAW_URL_KEY = "request-raw-url";
+    /** The HTTP method for the request */
+    @Nullable
+    public HttpMethod httpMethod;
+
 ```
 
 ### NullableProblems
@@ -1120,18 +1409,6 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/Seri
     @Nonnull
     public final HashMap<String, SerializationWriterFactory> contentTypeAssociatedFactories = new HashMap<>();
     @Nonnull
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/AdditionalDataHolder.java`
-#### Snippet
-```java
-     * @return The additional data for this object.
-     */
-    @Nonnull
-    Map<String, Object> getAdditionalData();    
-}
 ```
 
 ### NullableProblems
@@ -1196,98 +1473,38 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/Pars
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/ApiKeyAuthenticationProvider.java`
 #### Snippet
 ```java
-    }
-    /** The request headers */
     @Nonnull
-    public final RequestHeaders headers = new RequestHeaders();
-    /** The Request Body. */
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
-#### Snippet
-```java
-    public String urlTemplate;
-    /** The path parameters for the current request */
-    @Nullable
-    public HashMap<String, Object> pathParameters = new HashMap<>();
-    private URI uri;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
-#### Snippet
-```java
-    }
-    /** The url template for the current request */
-    @Nullable
-    public String urlTemplate;
-    /** The path parameters for the current request */
+    private final String paramName;
+    @Nonnull
+    private final String apiKey;
+    private final AllowedHostsValidator validator;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/ApiKeyAuthenticationProvider.java`
 #### Snippet
 ```java
-        }
-    }
+public class ApiKeyAuthenticationProvider implements AuthenticationProvider {
+    private final ApiKeyLocation location;
     @Nonnull
-    private static final String BINARY_CONTENT_TYPE = "application/octet-stream";
+    private final String paramName;
     @Nonnull
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
+Overridden methods are not annotated
+in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/AdditionalDataHolder.java`
 #### Snippet
 ```java
+     * @return The additional data for this object.
+     */
     @Nonnull
-    private static final String BINARY_CONTENT_TYPE = "application/octet-stream";
-    @Nonnull
-    private static final String CONTENT_TYPE_HEADER = "Content-Type";
-    /**
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
-#### Snippet
-```java
-    private static String RAW_URL_KEY = "request-raw-url";
-    /** The HTTP method for the request */
-    @Nullable
-    public HttpMethod httpMethod;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
-#### Snippet
-```java
-    @Nullable
-    public InputStream content;
-    @Nonnull
-    private final HashMap<String, RequestOption> requestOptions = new HashMap<>();
-    /**
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `components/abstractions/src/main/java/com/microsoft/kiota/RequestInformation.java`
-#### Snippet
-```java
-    public final RequestHeaders headers = new RequestHeaders();
-    /** The Request Body. */
-    @Nullable
-    public InputStream content;
-    @Nonnull
+    Map<String, Object> getAdditionalData();    
+}
 ```
 
 ### NullableProblems
@@ -1312,211 +1529,6 @@ in `components/serialization/json/src/main/java/com/microsoft/kiota/serializatio
     public void writeByteArrayValue(@Nullable final String key, @Nullable @Nonnull final byte[] value) {
         if(value != null)
             this.writeStringValue(key, Base64.getEncoder().encodeToString(value));
-```
-
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNodeFactory.java`
-#### Snippet
-```java
-        return validContentType;
-    }
-    private final static String validContentType = "application/json";
-    /** {@inheritDoc} */
-    @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/ApiKeyAuthenticationProvider.java`
-#### Snippet
-```java
-        this.validator = new AllowedHostsValidator(validHosts);
-    }
-    private final static String parentSpanKey = "parent-span";
-    /** {@inheritDoc} */
-    @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/SerializationWriterFactoryRegistry.java`
-#### Snippet
-```java
-    public SerializationWriterFactoryRegistry() {}
-    /** Default singleton instance of the registry to be used when registering new factories that should be available by default. */
-    public final static SerializationWriterFactoryRegistry defaultInstance = new SerializationWriterFactoryRegistry();
-    /** List of factories that are registered by content type. */
-    @Nonnull
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/BaseBearerTokenAuthenticationProvider.java`
-#### Snippet
-```java
-    private final AccessTokenProvider accessTokenProvider;
-    private final static String authorizationHeaderKey = "Authorization";
-    private final static String ClaimsKey = "claims";
-    @Nonnull
-    public CompletableFuture<Void> authenticateRequest(@Nonnull final RequestInformation request, @Nullable final Map<String, Object> additionalAuthenticationContext) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/BaseBearerTokenAuthenticationProvider.java`
-#### Snippet
-```java
-    }
-    private final AccessTokenProvider accessTokenProvider;
-    private final static String authorizationHeaderKey = "Authorization";
-    private final static String ClaimsKey = "claims";
-    @Nonnull
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
-#### Snippet
-```java
-/** Serialization writer implementation for text/plain */
-public class TextSerializationWriter implements SerializationWriter {
-    private final static String NO_STRUCTURED_DATA_MESSAGE = "text does not support structured data";
-    private final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    private final OutputStreamWriter writer;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/UserAgentHandler.java`
-#### Snippet
-```java
-        }
-    }
-    private final static String USER_AGENT_HEADER_NAME = "User-Agent";
-    /* @inheritdoc */
-    @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNodeFactory.java`
-#### Snippet
-```java
-        return validContentType;
-    }
-    private final static String validContentType = "application/x-www-form-urlencoded";
-    @Override
-    @Nonnull
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNodeFactory.java`
-#### Snippet
-```java
-        return validContentType;
-    }
-    private final static String validContentType = "text/plain";
-    @Override
-    @Nonnull
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNode.java`
-#### Snippet
-```java
-public class TextParseNode implements ParseNode {
-    private final String text;
-    private final static String NO_STRUCTURED_DATA_MESSAGE = "text does not support structured data";
-    /**
-     * Initializes a new instance of the {@link TextParseNode} class.
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
-#### Snippet
-```java
-    }
-    private final static String ClaimsKey = "claims";
-    private final static String parentSpanKey = "parent-span";
-    @Nonnull
-    public CompletableFuture<String> getAuthorizationToken(@Nonnull final URI uri, @Nullable final Map<String, Object> additionalAuthenticationContext) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
-#### Snippet
-```java
-        }
-    }
-    private final static String ClaimsKey = "claims";
-    private final static String parentSpanKey = "parent-span";
-    @Nonnull
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
-    }
-    private final static Pattern bearerPattern = Pattern.compile("^Bearer\\s.*", Pattern.CASE_INSENSITIVE);
-    private final static Pattern claimsPattern = Pattern.compile("\\s?claims=\"([^\"]+)\"", Pattern.CASE_INSENSITIVE);
-    /** Key used for events when an authentication challenge is returned by the API */
-    @Nonnull
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
-        }
-    }
-    private final static String claimsKey = "claims";
-    private CompletableFuture<Response> getHttpResponseMessage(@Nonnull final RequestInformation requestInfo, @Nonnull final Span parentSpan, @Nonnull final Span spanForAttributes, @Nullable final String claims) {
-        Objects.requireNonNull(requestInfo, "parameter requestInfo cannot be null");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
-        return null;
-    }
-    private final static Pattern queryParametersCleanupPattern = Pattern.compile("\\{\\?[^\\}]+}", Pattern.CASE_INSENSITIVE);
-    private final char[] queryParametersToDecodeForTracing = {'-', '.', '~', '$'};
-    private Span startSpan(@Nonnull final RequestInformation requestInfo, @Nonnull final String methodName) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
-        return null;
-    }
-    private final static Pattern bearerPattern = Pattern.compile("^Bearer\\s.*", Pattern.CASE_INSENSITIVE);
-    private final static Pattern claimsPattern = Pattern.compile("\\s?claims=\"([^\"]+)\"", Pattern.CASE_INSENSITIVE);
-    /** Key used for events when an authentication challenge is returned by the API */
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
-/** RequestAdapter implementation for OkHttp */
-public class OkHttpRequestAdapter implements com.microsoft.kiota.RequestAdapter {
-    private final static String contentTypeHeaderKey = "Content-Type";
-    @Nonnull
-    private final OkHttpClient client;
 ```
 
 ## RuleId[ruleID=UtilityClassWithPublicConstructor]
@@ -1544,35 +1556,10 @@ public class BackingStoreFactorySingleton {
     public BackingStoreFactorySingleton() {}
 ```
 
-## RuleId[ruleID=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Unnecessary boxing
-in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
-#### Snippet
-```java
-    public <T> void set(@Nonnull final String key, @Nullable final T value) {
-        Objects.requireNonNull(key);
-        final Pair<Boolean, Object> valueToAdd = Pair.with(Boolean.valueOf(this.isInitializationCompleted), value);
-        final Pair<Boolean, Object> oldValue = this.store.put(key, valueToAdd);
-        for(final TriConsumer<String, Object, Object> callback : this.subscriptionStore.values()) {
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
-#### Snippet
-```java
-        for(final Map.Entry<String, Pair<Boolean, Object>> entry : this.store.entrySet()) {
-            final Pair<Boolean, Object> wrapper = entry.getValue();
-            final Pair<Boolean, Object> updatedValue = wrapper.setAt0(Boolean.valueOf(!value));
-            entry.setValue(updatedValue);
-        }
-```
-
 ## RuleId[ruleID=InstanceofIncompatibleInterface]
 ### InstanceofIncompatibleInterface
 'instanceof' incompatible interface `ValuedEnum`
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
 #### Snippet
 ```java
     }
@@ -1584,7 +1571,7 @@ in `components/serialization/text/src/main/java/com/microsoft/kiota/serializatio
 
 ### InstanceofIncompatibleInterface
 'instanceof' incompatible interface `ValuedEnum`
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
 #### Snippet
 ```java
     }
@@ -1604,6 +1591,31 @@ in `components/serialization/json/src/main/java/com/microsoft/kiota/serializatio
         if(value instanceof ValuedEnum) {
             final ValuedEnum valued = (ValuedEnum)value;
             return valued.getValue();
+```
+
+## RuleId[ruleID=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Unnecessary boxing
+in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+#### Snippet
+```java
+        for(final Map.Entry<String, Pair<Boolean, Object>> entry : this.store.entrySet()) {
+            final Pair<Boolean, Object> wrapper = entry.getValue();
+            final Pair<Boolean, Object> updatedValue = wrapper.setAt0(Boolean.valueOf(!value));
+            entry.setValue(updatedValue);
+        }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+#### Snippet
+```java
+    public <T> void set(@Nonnull final String key, @Nullable final T value) {
+        Objects.requireNonNull(key);
+        final Pair<Boolean, Object> valueToAdd = Pair.with(Boolean.valueOf(this.isInitializationCompleted), value);
+        final Pair<Boolean, Object> oldValue = this.store.put(key, valueToAdd);
+        for(final TriConsumer<String, Object, Object> callback : this.subscriptionStore.values()) {
 ```
 
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
@@ -1635,14 +1647,14 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBack
 ## RuleId[ruleID=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
+in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
 #### Snippet
 ```java
-    public TextSerializationWriter() {
-        try {
-            this.writer = new OutputStreamWriter(this.stream, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+                final String rawClaim = (String) additionalAuthenticationContext.get(ClaimsKey);
+                try {
+                    decodedClaim = new String(Base64.getDecoder().decode(rawClaim), "UTF-8");
+                } catch (final UnsupportedEncodingException e) {
+                    span.recordException(e);
 ```
 
 ### CharsetObjectCanBeUsed
@@ -1659,14 +1671,14 @@ in `components/serialization/form/src/main/java/com/microsoft/kiota/serializatio
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
 #### Snippet
 ```java
-                final String rawClaim = (String) additionalAuthenticationContext.get(ClaimsKey);
-                try {
-                    decodedClaim = new String(Base64.getDecoder().decode(rawClaim), "UTF-8");
-                } catch (final UnsupportedEncodingException e) {
-                    span.recordException(e);
+    public TextSerializationWriter() {
+        try {
+            this.writer = new OutputStreamWriter(this.stream, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
 ```
 
 ### CharsetObjectCanBeUsed
@@ -1709,6 +1721,54 @@ import java.time.OffsetDateTime;
 
 ### JavaLangImport
 Unnecessary import from the 'java.lang' package
+in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/SerializationWriter.java`
+#### Snippet
+```java
+import java.util.UUID;
+import java.util.EnumSet;
+import java.lang.Enum;
+import java.math.BigDecimal;
+import java.util.function.Consumer;
+```
+
+### JavaLangImport
+Unnecessary import from the 'java.lang' package
+in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+#### Snippet
+```java
+package com.microsoft.kiota.store;
+
+import java.lang.ClassCastException;
+
+import java.util.List;
+```
+
+### JavaLangImport
+Unnecessary import from the 'java.lang' package
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
+#### Snippet
+```java
+package com.microsoft.kiota.serialization;
+
+import java.lang.Enum;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+```
+
+### JavaLangImport
+Unnecessary import from the 'java.lang' package
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNode.java`
+#### Snippet
+```java
+package com.microsoft.kiota.serialization;
+
+import java.lang.UnsupportedOperationException;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+```
+
+### JavaLangImport
+Unnecessary import from the 'java.lang' package
 in `components/abstractions/src/main/java/com/microsoft/kiota/ApiClientBuilder.java`
 #### Snippet
 ```java
@@ -1741,54 +1801,6 @@ import java.lang.Enum;
 import java.lang.UnsupportedOperationException;
 import java.math.BigDecimal;
 import java.io.ByteArrayInputStream;
-```
-
-### JavaLangImport
-Unnecessary import from the 'java.lang' package
-in `components/abstractions/src/main/java/com/microsoft/kiota/serialization/SerializationWriter.java`
-#### Snippet
-```java
-import java.util.UUID;
-import java.util.EnumSet;
-import java.lang.Enum;
-import java.math.BigDecimal;
-import java.util.function.Consumer;
-```
-
-### JavaLangImport
-Unnecessary import from the 'java.lang' package
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
-#### Snippet
-```java
-package com.microsoft.kiota.serialization;
-
-import java.lang.Enum;
-import java.math.BigDecimal;
-import java.net.URLEncoder;
-```
-
-### JavaLangImport
-Unnecessary import from the 'java.lang' package
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextParseNode.java`
-#### Snippet
-```java
-package com.microsoft.kiota.serialization;
-
-import java.lang.UnsupportedOperationException;
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-```
-
-### JavaLangImport
-Unnecessary import from the 'java.lang' package
-in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
-#### Snippet
-```java
-package com.microsoft.kiota.store;
-
-import java.lang.ClassCastException;
-
-import java.util.List;
 ```
 
 ### JavaLangImport
@@ -1880,18 +1892,6 @@ import javax.annotation.Nonnull;
 
 ## RuleId[ruleID=SamePackageImport]
 ### SamePackageImport
-Unnecessary import from the same package `import com.microsoft.kiota.authentication.BaseBearerTokenAuthenticationProvider;`
-in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAuthenticationProvider.java`
-#### Snippet
-```java
-
-import com.azure.core.credential.TokenCredential;
-import com.microsoft.kiota.authentication.BaseBearerTokenAuthenticationProvider;
-
-/** Implementation of AuthenticationProvider that supports implementations of TokenCredential from Azure.Identity. */
-```
-
-### SamePackageImport
 Unnecessary import from the same package `import com.microsoft.kiota.authentication.AccessTokenProvider;`
 in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
 #### Snippet
@@ -1901,6 +1901,18 @@ import com.azure.core.credential.TokenRequestContext;
 import com.microsoft.kiota.authentication.AccessTokenProvider;
 
 import io.opentelemetry.api.trace.Span;
+```
+
+### SamePackageImport
+Unnecessary import from the same package `import com.microsoft.kiota.authentication.BaseBearerTokenAuthenticationProvider;`
+in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAuthenticationProvider.java`
+#### Snippet
+```java
+
+import com.azure.core.credential.TokenCredential;
+import com.microsoft.kiota.authentication.BaseBearerTokenAuthenticationProvider;
+
+/** Implementation of AuthenticationProvider that supports implementations of TokenCredential from Azure.Identity. */
 ```
 
 ### SamePackageImport
@@ -2017,7 +2029,7 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 ## RuleId[ruleID=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
-in `components/serialization/json/build.gradle`
+in `components/serialization/form/build.gradle`
 #### Snippet
 ```java
 apply from: "gradle/dependencies.gradle"
@@ -2029,7 +2041,7 @@ def pomConfig = {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `components/serialization/json/build.gradle`
+in `components/serialization/form/build.gradle`
 #### Snippet
 ```java
 tasks.withType(Sign)*.enabled = mavenCentralPublishingEnabled.toBoolean()
@@ -2041,7 +2053,7 @@ def fixAscNames = { name ->
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `components/serialization/form/build.gradle`
+in `components/serialization/json/build.gradle`
 #### Snippet
 ```java
 apply from: "gradle/dependencies.gradle"
@@ -2053,7 +2065,7 @@ def pomConfig = {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `components/serialization/form/build.gradle`
+in `components/serialization/json/build.gradle`
 #### Snippet
 ```java
 tasks.withType(Sign)*.enabled = mavenCentralPublishingEnabled.toBoolean()
@@ -2200,42 +2212,6 @@ in `components/serialization/form/src/main/java/com/microsoft/kiota/serializatio
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
-#### Snippet
-```java
-            final ValuedEnum valued = (ValuedEnum)value;
-            return valued.getValue();
-        } else return null;
-    }
-    @Nonnull
-```
-
-### ReturnNull
-Return of `null`
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
-#### Snippet
-```java
-            return (T)targetEnum.getMethod("forValue", String.class).invoke(null, rawValue);
-        } catch (SecurityException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
-#### Snippet
-```java
-            final ValuedEnum valued = (ValuedEnum)value;
-            return valued.getValue();
-        } else return null;
-    }
-    @Nonnull
-```
-
-### ReturnNull
-Return of `null`
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RedirectHandler.java`
 #### Snippet
 ```java
@@ -2256,6 +2232,42 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/Red
         if (locationUrl == null) return null;
 
         // Most redirects don't include a request body.
+```
+
+### ReturnNull
+Return of `null`
+in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+    @SuppressWarnings("unchecked")
+```
+
+### ReturnNull
+Return of `null`
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
+#### Snippet
+```java
+            final ValuedEnum valued = (ValuedEnum)value;
+            return valued.getValue();
+        } else return null;
+    }
+    @Nonnull
+```
+
+### ReturnNull
+Return of `null`
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
+#### Snippet
+```java
+            return (T)targetEnum.getMethod("forValue", String.class).invoke(null, rawValue);
+        } catch (SecurityException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -2296,14 +2308,14 @@ in `components/serialization/text/src/main/java/com/microsoft/kiota/serializatio
 
 ### ReturnNull
 Return of `null`
-in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
+            final ValuedEnum valued = (ValuedEnum)value;
+            return valued.getValue();
+        } else return null;
     }
-    @SuppressWarnings("unchecked")
+    @Nonnull
 ```
 
 ### ReturnNull
@@ -2386,8 +2398,8 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 #### Snippet
 ```java
      */
-    protected UriTemplate(CharSequence templateString) {
-        this(templateString, new Object[0]);
+    public UriTemplate nest(CharSequence uriTemplate) {
+        return nest(uriTemplate, new Object[0]);
     }
 
 ```
@@ -2398,8 +2410,8 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/UriTemplate.java`
 #### Snippet
 ```java
      */
-    public UriTemplate nest(CharSequence uriTemplate) {
-        return nest(uriTemplate, new Object[0]);
+    protected UriTemplate(CharSequence templateString) {
+        this(templateString, new Object[0]);
     }
 
 ```
@@ -2422,6 +2434,18 @@ Double brace initialization
 in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
 #### Snippet
 ```java
+                        final Consumer<Parsable> onBefore = _this.getOnBeforeAssignFieldValues();
+                        final Consumer<Parsable> onAfter = _this.getOnAfterAssignFieldValues();
+                        final FormParseNode itemNode = new FormParseNode(item) {{
+                            this.setOnBeforeAssignFieldValues(onBefore);
+                            this.setOnAfterAssignFieldValues(onAfter);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormParseNode.java`
+#### Snippet
+```java
                     final Consumer<Parsable> onBefore = this.onBeforeAssignFieldValues;
                     final Consumer<Parsable> onAfter = this.onAfterAssignFieldValues;
                     fieldDeserializer.accept(new FormParseNode(fieldValue) {{
@@ -2434,11 +2458,35 @@ Double brace initialization
 in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNode.java`
 #### Snippet
 ```java
-            final Consumer<Parsable> onBefore = this.onBeforeAssignFieldValues;
-            final Consumer<Parsable> onAfter = this.onAfterAssignFieldValues;
-            return new JsonParseNode(object.get(identifier)) {{
-                this.setOnBeforeAssignFieldValues(onBefore);
-                this.setOnAfterAssignFieldValues(onAfter);
+                            final Consumer<Parsable> onBefore = _this.getOnBeforeAssignFieldValues();
+                            final Consumer<Parsable> onAfter = _this.getOnAfterAssignFieldValues();
+                            final JsonParseNode itemNode = new JsonParseNode(item) {{
+                                this.setOnBeforeAssignFieldValues(onBefore);
+                                this.setOnAfterAssignFieldValues(onAfter);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNode.java`
+#### Snippet
+```java
+                            final Consumer<Parsable> onBefore = _this.getOnBeforeAssignFieldValues();
+                            final Consumer<Parsable> onAfter = _this.getOnAfterAssignFieldValues();
+                            final JsonParseNode itemNode = new JsonParseNode(item) {{
+                                this.setOnBeforeAssignFieldValues(onBefore);
+                                this.setOnAfterAssignFieldValues(onAfter);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNode.java`
+#### Snippet
+```java
+                            final Consumer<Parsable> onBefore = _this.getOnBeforeAssignFieldValues();
+                            final Consumer<Parsable> onAfter = _this.getOnAfterAssignFieldValues();
+                            final JsonParseNode itemNode = new JsonParseNode(item) {{
+                                this.setOnBeforeAssignFieldValues(onBefore);
+                                this.setOnAfterAssignFieldValues(onAfter);
 ```
 
 ### DoubleBraceInitialization
@@ -2458,35 +2506,59 @@ Double brace initialization
 in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNode.java`
 #### Snippet
 ```java
-                            final Consumer<Parsable> onBefore = _this.getOnBeforeAssignFieldValues();
-                            final Consumer<Parsable> onAfter = _this.getOnAfterAssignFieldValues();
-                            final JsonParseNode itemNode = new JsonParseNode(item) {{
-                                this.setOnBeforeAssignFieldValues(onBefore);
-                                this.setOnAfterAssignFieldValues(onAfter);
+            final Consumer<Parsable> onBefore = this.onBeforeAssignFieldValues;
+            final Consumer<Parsable> onAfter = this.onAfterAssignFieldValues;
+            return new JsonParseNode(object.get(identifier)) {{
+                this.setOnBeforeAssignFieldValues(onBefore);
+                this.setOnAfterAssignFieldValues(onAfter);
 ```
 
 ### DoubleBraceInitialization
 Double brace initialization
-in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNode.java`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
 ```java
-                            final Consumer<Parsable> onBefore = _this.getOnBeforeAssignFieldValues();
-                            final Consumer<Parsable> onAfter = _this.getOnAfterAssignFieldValues();
-                            final JsonParseNode itemNode = new JsonParseNode(item) {{
-                                this.setOnBeforeAssignFieldValues(onBefore);
-                                this.setOnAfterAssignFieldValues(onAfter);
+                        }
+                    } catch(ApiException ex) {
+                        return new CompletableFuture<ModelType>(){{
+                            this.completeExceptionally(ex);
+                        }};
 ```
 
 ### DoubleBraceInitialization
 Double brace initialization
-in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonParseNode.java`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
 ```java
-                            final Consumer<Parsable> onBefore = _this.getOnBeforeAssignFieldValues();
-                            final Consumer<Parsable> onAfter = _this.getOnAfterAssignFieldValues();
-                            final JsonParseNode itemNode = new JsonParseNode(item) {{
-                                this.setOnBeforeAssignFieldValues(onBefore);
-                                this.setOnAfterAssignFieldValues(onAfter);
+                        }};
+                    } catch(IOException ex) {
+                        return new CompletableFuture<List<ModelType>>(){{
+                            this.completeExceptionally(new RuntimeException("failed to read the response body", ex));
+                        }};
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+                        }
+                    } catch(ApiException ex) {
+                        return new CompletableFuture<List<ModelType>>(){{
+                            this.completeExceptionally(ex);
+                        }};
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+                    } catch (IOException ex) {
+                        spanForAttributes.recordException(ex);
+                        return new CompletableFuture<Response>(){{
+                            this.completeExceptionally(ex);
+                        }};
 ```
 
 ### DoubleBraceInitialization
@@ -2496,6 +2568,18 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestA
 ```java
                     } catch(IOException ex) {
                         span.recordException(ex);
+                        return new CompletableFuture<ModelType>(){{
+                            this.completeExceptionally(new RuntimeException("failed to read the response body", ex));
+                        }};
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+                        }};
+                    } catch(IOException ex) {
                         return new CompletableFuture<ModelType>(){{
                             this.completeExceptionally(new RuntimeException("failed to read the response body", ex));
                         }};
@@ -2518,30 +2602,6 @@ Double brace initialization
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
 ```java
-                        }
-                    } catch(ApiException ex) {
-                        return new CompletableFuture<ModelType>(){{
-                            this.completeExceptionally(ex);
-                        }};
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
-                        }};
-                    } catch(IOException ex) {
-                        return new CompletableFuture<ModelType>(){{
-                            this.completeExceptionally(new RuntimeException("failed to read the response body", ex));
-                        }};
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
                     } catch(ApiException ex) {
                         span.recordException(ex);
                         return new CompletableFuture<ModelType>(){{
@@ -2554,10 +2614,10 @@ Double brace initialization
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
 ```java
-                    } catch (IOException ex) {
-                        spanForAttributes.recordException(ex);
-                        return new CompletableFuture<Response>(){{
-                            this.completeExceptionally(ex);
+                        }};
+                    } catch(IOException ex) {
+                        return new CompletableFuture<ModelType>(){{
+                            this.completeExceptionally(new RuntimeException("failed to read the response body", ex));
                         }};
 ```
 
@@ -2578,30 +2638,6 @@ Double brace initialization
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
 ```java
-                        }};
-                    } catch(IOException ex) {
-                        return new CompletableFuture<List<ModelType>>(){{
-                            this.completeExceptionally(new RuntimeException("failed to read the response body", ex));
-                        }};
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
-                        }};
-                    } catch(IOException ex) {
-                        return new CompletableFuture<List<ModelType>>(){{
-                            this.completeExceptionally(new RuntimeException("failed to read the response body", ex));
-                        }};
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
                         }
                     } catch(ApiException ex) {
                         return new CompletableFuture<List<ModelType>>(){{
@@ -2638,21 +2674,9 @@ Double brace initialization
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
 ```java
-                        }
-                    } catch(ApiException ex) {
-                        return new CompletableFuture<List<ModelType>>(){{
-                            this.completeExceptionally(ex);
-                        }};
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
                         }};
                     } catch(IOException ex) {
-                        return new CompletableFuture<ModelType>(){{
+                        return new CompletableFuture<List<ModelType>>(){{
                             this.completeExceptionally(new RuntimeException("failed to read the response body", ex));
                         }};
 ```
@@ -2683,18 +2707,6 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/Red
 ```
 
 ### UnusedAssignment
-Variable `retryDelay` initializer `RetryHandlerOption.DEFAULT_DELAY * DELAY_MILLISECONDS` is redundant
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RetryHandler.java`
-#### Snippet
-```java
-
-    private double exponentialBackOffDelay(double delay, int executionCount) {
-        double retryDelay = RetryHandlerOption.DEFAULT_DELAY * DELAY_MILLISECONDS;
-        retryDelay = (double)((Math.pow(2.0, (double)executionCount)-1)*0.5);
-        retryDelay = (executionCount < 2 ? delay : retryDelay + delay) + (double)Math.random();
-```
-
-### UnusedAssignment
 Variable `shouldRetry` initializer `false` is redundant
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RetryHandler.java`
 #### Snippet
@@ -2704,6 +2716,18 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/Ret
         boolean shouldRetry = false;
         // Status codes 429 503 504
         int statusCode = response.code();
+```
+
+### UnusedAssignment
+Variable `retryDelay` initializer `RetryHandlerOption.DEFAULT_DELAY * DELAY_MILLISECONDS` is redundant
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RetryHandler.java`
+#### Snippet
+```java
+
+    private double exponentialBackOffDelay(double delay, int executionCount) {
+        double retryDelay = RetryHandlerOption.DEFAULT_DELAY * DELAY_MILLISECONDS;
+        retryDelay = (double)((Math.pow(2.0, (double)executionCount)-1)*0.5);
+        retryDelay = (executionCount < 2 ? delay : retryDelay + delay) + (double)Math.random();
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -2734,27 +2758,27 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/All
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
-Condition `allowedHosts != null` is always `true`
-in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/AllowedHostsValidator.java`
+Condition `backingStore != null` is always `true`
+in `components/abstractions/src/main/java/com/microsoft/kiota/store/BackingStoreParseNodeFactory.java`
 #### Snippet
 ```java
-    public void setAllowedHosts(@Nonnull final Set<String> allowedHosts) {
-        validHosts = new HashSet<String>();
-        if(allowedHosts != null) {
-            for (final String host : allowedHosts) {
-                if (host != null && !host.isEmpty())
+                    final BackedModel backedModel = (BackedModel)x;
+                    final BackingStore backingStore = backedModel.getBackingStore();
+                    if(backingStore != null) {
+                        backingStore.setIsInitializationCompleted(false);
+                    }
 ```
 
 ### ConstantValue
-Condition `nameOption.parametersToDecode == null` is always `false`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/ParametersNameDecodingHandler.java`
+Condition `backingStore != null` is always `true`
+in `components/abstractions/src/main/java/com/microsoft/kiota/store/BackingStoreParseNodeFactory.java`
 #### Snippet
 ```java
-                nameOption == null ||
-                !nameOption.enable ||
-                nameOption.parametersToDecode == null ||
-                nameOption.parametersToDecode.length == 0) {
-                    return chain.proceed(request);
+                    final BackedModel backedModel = (BackedModel)x;
+                    final BackingStore backingStore = backedModel.getBackingStore();
+                    if(backingStore != null) {
+                        backingStore.setIsInitializationCompleted(true);
+                    }
 ```
 
 ### ConstantValue
@@ -2794,66 +2818,6 @@ in `components/abstractions/src/main/java/com/microsoft/kiota/store/BackingStore
 ```
 
 ### ConstantValue
-Condition `value != null` is always `true`
-in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
-#### Snippet
-```java
-    }
-    public void writeByteArrayValue(@Nullable final String key, @Nonnull final byte[] value) {
-        if(value != null)
-            this.writeStringValue(key, Base64.getEncoder().encodeToString(value));
-    }
-```
-
-### ConstantValue
-Condition `backingStore != null` is always `true`
-in `components/abstractions/src/main/java/com/microsoft/kiota/store/BackingStoreParseNodeFactory.java`
-#### Snippet
-```java
-                    final BackedModel backedModel = (BackedModel)x;
-                    final BackingStore backingStore = backedModel.getBackingStore();
-                    if(backingStore != null) {
-                        backingStore.setIsInitializationCompleted(false);
-                    }
-```
-
-### ConstantValue
-Condition `backingStore != null` is always `true`
-in `components/abstractions/src/main/java/com/microsoft/kiota/store/BackingStoreParseNodeFactory.java`
-#### Snippet
-```java
-                    final BackedModel backedModel = (BackedModel)x;
-                    final BackingStore backingStore = backedModel.getBackingStore();
-                    if(backingStore != null) {
-                        backingStore.setIsInitializationCompleted(true);
-                    }
-```
-
-### ConstantValue
-Condition `concatenatedValue.isPresent()` is always `true`
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
-#### Snippet
-```java
-        if(values != null && !values.isEmpty()) {
-            final Optional<String> concatenatedValue = values.stream().map(v -> this.getStringValueFromValuedEnum(v)).reduce((x, y) -> { return x + "," + y; });
-            if(concatenatedValue.isPresent()) {
-                this.writeStringValue(key, concatenatedValue.get());
-            }
-```
-
-### ConstantValue
-Condition `value == null` is always `false`
-in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
-#### Snippet
-```java
-    }
-    public void writeAdditionalData(@Nonnull final Map<String, Object> value) {
-        if(value == null) return;
-        for(final Map.Entry<String, Object> dataValue : value.entrySet()) {
-            this.writeAnyValue(dataValue.getKey(), dataValue.getValue());
-```
-
-### ConstantValue
 Condition `request == null` is always `false`
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RedirectHandler.java`
 #### Snippet
@@ -2887,6 +2851,90 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/Red
                 if (response == null) {
                     throw new IllegalArgumentException("response cannot be null");
                 }
+```
+
+### ConstantValue
+Condition `scopes == null` is always `false`
+in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
+#### Snippet
+```java
+        creds = Objects.requireNonNull(tokenCredential, "parameter tokenCredential cannot be null");
+
+        if(scopes == null) {
+            _scopes = new ArrayList<String>();
+        } else {
+```
+
+### ConstantValue
+Condition `allowedHosts == null` is always `false`
+in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
+#### Snippet
+```java
+            _scopes = Arrays.asList(scopes);
+        }
+        if (allowedHosts == null || allowedHosts.length == 0) {
+            _hostValidator = new AllowedHostsValidator();
+        } else {
+```
+
+### ConstantValue
+Condition `this.returnOnlyChangedValues` is always `true` when reached
+in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+#### Snippet
+```java
+            final Boolean hasChanged = wrapper.getValue0();
+            if(!this.returnOnlyChangedValues ||
+                (this.returnOnlyChangedValues && hasChanged != null && hasChanged.booleanValue())) {
+                return wrapper.getValue1();
+            }
+```
+
+### ConstantValue
+Condition `nameOption.parametersToDecode == null` is always `false`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/ParametersNameDecodingHandler.java`
+#### Snippet
+```java
+                nameOption == null ||
+                !nameOption.enable ||
+                nameOption.parametersToDecode == null ||
+                nameOption.parametersToDecode.length == 0) {
+                    return chain.proceed(request);
+```
+
+### ConstantValue
+Condition `concatenatedValue.isPresent()` is always `true`
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
+#### Snippet
+```java
+        if(values != null && !values.isEmpty()) {
+            final Optional<String> concatenatedValue = values.stream().map(v -> this.getStringValueFromValuedEnum(v)).reduce((x, y) -> { return x + "," + y; });
+            if(concatenatedValue.isPresent()) {
+                this.writeStringValue(key, concatenatedValue.get());
+            }
+```
+
+### ConstantValue
+Condition `value == null` is always `false`
+in `components/serialization/form/src/main/java/com/microsoft/kiota/serialization/FormSerializationWriter.java`
+#### Snippet
+```java
+    }
+    public void writeAdditionalData(@Nonnull final Map<String, Object> value) {
+        if(value == null) return;
+        for(final Map.Entry<String, Object> dataValue : value.entrySet()) {
+            this.writeAnyValue(dataValue.getKey(), dataValue.getValue());
+```
+
+### ConstantValue
+Condition `allowedHosts != null` is always `true`
+in `components/abstractions/src/main/java/com/microsoft/kiota/authentication/AllowedHostsValidator.java`
+#### Snippet
+```java
+    public void setAllowedHosts(@Nonnull final Set<String> allowedHosts) {
+        validHosts = new HashSet<String>();
+        if(allowedHosts != null) {
+            for (final String host : allowedHosts) {
+                if (host != null && !host.isEmpty())
 ```
 
 ### ConstantValue
@@ -2938,18 +2986,6 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/Ret
 ```
 
 ### ConstantValue
-Condition `retryDelay == -1` is always `true`
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RetryHandler.java`
-#### Snippet
-```java
-                retryDelay = tryParseDateHeader(retryAfterHeader);
-            }
-        } else if(retryDelay == -1) {
-            retryDelay = exponentialBackOffDelay(delay, executionCount);
-        }
-```
-
-### ConstantValue
 Condition `retryOption != null` is always `true`
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RetryHandler.java`
 #### Snippet
@@ -2974,51 +3010,27 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/Ret
 ```
 
 ### ConstantValue
-Condition `scopes == null` is always `false`
-in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
+Condition `retryDelay == -1` is always `true`
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/RetryHandler.java`
 #### Snippet
 ```java
-        creds = Objects.requireNonNull(tokenCredential, "parameter tokenCredential cannot be null");
-
-        if(scopes == null) {
-            _scopes = new ArrayList<String>();
-        } else {
-```
-
-### ConstantValue
-Condition `allowedHosts == null` is always `false`
-in `components/authentication/azure/src/main/java/com/microsoft/kiota/authentication/AzureIdentityAccessTokenProvider.java`
-#### Snippet
-```java
-            _scopes = Arrays.asList(scopes);
+                retryDelay = tryParseDateHeader(retryAfterHeader);
+            }
+        } else if(retryDelay == -1) {
+            retryDelay = exponentialBackOffDelay(delay, executionCount);
         }
-        if (allowedHosts == null || allowedHosts.length == 0) {
-            _hostValidator = new AllowedHostsValidator();
-        } else {
 ```
 
 ### ConstantValue
-Condition `this.returnOnlyChangedValues` is always `true` when reached
-in `components/abstractions/src/main/java/com/microsoft/kiota/store/InMemoryBackingStore.java`
+Condition `value != null` is always `true`
+in `components/serialization/text/src/main/java/com/microsoft/kiota/serialization/TextSerializationWriter.java`
 #### Snippet
 ```java
-            final Boolean hasChanged = wrapper.getValue0();
-            if(!this.returnOnlyChangedValues ||
-                (this.returnOnlyChangedValues && hasChanged != null && hasChanged.booleanValue())) {
-                return wrapper.getValue1();
-            }
-```
-
-### ConstantValue
-Condition `concatenatedValue.isPresent()` is always `true`
-in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonSerializationWriter.java`
-#### Snippet
-```java
-        if(values != null && !values.isEmpty()) {
-            final Optional<String> concatenatedValue = values.stream().map(v -> this.getStringValueFromValuedEnum(v)).reduce((x, y) -> { return x + "," + y; });
-            if(concatenatedValue.isPresent()) {
-                this.writeStringValue(key, concatenatedValue.get());
-            }
+    }
+    public void writeByteArrayValue(@Nullable final String key, @Nonnull final byte[] value) {
+        if(value != null)
+            this.writeStringValue(key, Base64.getEncoder().encodeToString(value));
+    }
 ```
 
 ### ConstantValue
@@ -3031,6 +3043,18 @@ in `components/serialization/json/src/main/java/com/microsoft/kiota/serializatio
         if(value == null) return;
         for(final Map.Entry<String, Object> dataValue : value.entrySet()) {
             this.writeAnyValue(dataValue.getKey(), dataValue.getValue());
+```
+
+### ConstantValue
+Condition `concatenatedValue.isPresent()` is always `true`
+in `components/serialization/json/src/main/java/com/microsoft/kiota/serialization/JsonSerializationWriter.java`
+#### Snippet
+```java
+        if(values != null && !values.isEmpty()) {
+            final Optional<String> concatenatedValue = values.stream().map(v -> this.getStringValueFromValuedEnum(v)).reduce((x, y) -> { return x + "," + y; });
+            if(concatenatedValue.isPresent()) {
+                this.writeStringValue(key, concatenatedValue.get());
+            }
 ```
 
 ### ConstantValue
@@ -3071,18 +3095,6 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestA
 
 ## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
 ### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'result' to 'List'
-in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
-#### Snippet
-```java
-                            final Object result = rootNode.getCollectionOfEnumValues(targetClass);
-                            setResponseType(result, span);
-                            return CompletableFuture.completedFuture((List<ModelType>)result);
-                        } finally {
-                            deserializationSpan.end();
-```
-
-### CastCanBeRemovedNarrowingVariableType
 Cast may be removed by changing the type of 'result' to 'ModelType'
 in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
 #### Snippet
@@ -3090,6 +3102,18 @@ in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestA
                             final Object result = rootNode.getEnumValue(targetClass);
                             setResponseType(result, span);
                             return CompletableFuture.completedFuture((ModelType)result);
+                        } finally {
+                            deserializationSpan.end();
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'result' to 'List'
+in `components/http/okHttp/src/main/java/com/microsoft/kiota/http/OkHttpRequestAdapter.java`
+#### Snippet
+```java
+                            final Object result = rootNode.getCollectionOfEnumValues(targetClass);
+                            setResponseType(result, span);
+                            return CompletableFuture.completedFuture((List<ModelType>)result);
                         } finally {
                             deserializationSpan.end();
 ```
