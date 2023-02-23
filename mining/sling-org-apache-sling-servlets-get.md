@@ -1,7 +1,7 @@
 # sling-org-apache-sling-servlets-get 
  
 # Bad smells
-I found 39 bad smells with 4 repairable:
+I found 40 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DataFlowIssue | 8 | false |
@@ -18,6 +18,7 @@ I found 39 bad smells with 4 repairable:
 | CStyleArrayDeclaration | 1 | false |
 | Java8MapApi | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
@@ -65,15 +66,51 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getWorkspace` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
+Method invocation `include` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
 ```java
-        
-        try {
-        	VersionManager vm = req.getResourceResolver().adaptTo(Session.class).getWorkspace().getVersionManager();
-            resp.getWriter().write(renderer.prettyPrint(getJsonObject(req.getResource(), vm), opt));
-        } catch (Exception e) {
+
+                try {
+					dispatcher.include(request, response);
+				} catch (ServletException e) {
+					throw new IOException(e);
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+#### Snippet
+```java
+        if (resource.getResourceType().equals(JcrConstants.NT_LINKEDFILE)) {
+            final ValueMap vm = resource.adaptTo(ValueMap.class);
+            final String actualResourcePath = vm.get(JcrConstants.JCR_CONTENT, String.class);
+            resource = request.getResourceResolver().getResource(actualResourcePath);
+            if (resource == null) {
+```
+
+### DataFlowIssue
+Argument `actualResourcePath` might be null
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+#### Snippet
+```java
+            final ValueMap vm = resource.adaptTo(ValueMap.class);
+            final String actualResourcePath = vm.get(JcrConstants.JCR_CONTENT, String.class);
+            resource = request.getResourceResolver().getResource(actualResourcePath);
+            if (resource == null) {
+                log.warn("Path {} does not exist",actualResourcePath);
+```
+
+### DataFlowIssue
+Argument `resourceInputStream` might be null
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+#### Snippet
+```java
+            InputStream resourceInputStream = resource.adaptTo(InputStream.class);
+
+            try (InputStream istream = new BufferedInputStream(resourceInputStream,
+                    IO_BUFFER_SIZE)) {
+                Range currentRange = ranges.next();
 ```
 
 ### DataFlowIssue
@@ -101,51 +138,15 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
 ```
 
 ### DataFlowIssue
-Method invocation `include` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+Method invocation `getWorkspace` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
 #### Snippet
 ```java
-
-                try {
-					dispatcher.include(request, response);
-				} catch (ServletException e) {
-					throw new IOException(e);
-```
-
-### DataFlowIssue
-Argument `resourceInputStream` might be null
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
-#### Snippet
-```java
-            InputStream resourceInputStream = resource.adaptTo(InputStream.class);
-
-            try (InputStream istream = new BufferedInputStream(resourceInputStream,
-                    IO_BUFFER_SIZE)) {
-                Range currentRange = ranges.next();
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
-#### Snippet
-```java
-        if (resource.getResourceType().equals(JcrConstants.NT_LINKEDFILE)) {
-            final ValueMap vm = resource.adaptTo(ValueMap.class);
-            final String actualResourcePath = vm.get(JcrConstants.JCR_CONTENT, String.class);
-            resource = request.getResourceResolver().getResource(actualResourcePath);
-            if (resource == null) {
-```
-
-### DataFlowIssue
-Argument `actualResourcePath` might be null
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
-#### Snippet
-```java
-            final ValueMap vm = resource.adaptTo(ValueMap.class);
-            final String actualResourcePath = vm.get(JcrConstants.JCR_CONTENT, String.class);
-            resource = request.getResourceResolver().getResource(actualResourcePath);
-            if (resource == null) {
-                log.warn("Path {} does not exist",actualResourcePath);
+        
+        try {
+        	VersionManager vm = req.getResourceResolver().adaptTo(Session.class).getWorkspace().getVersionManager();
+            resp.getWriter().write(renderer.prettyPrint(getJsonObject(req.getResource(), vm), opt));
+        } catch (Exception e) {
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -188,15 +189,15 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
+Unnecessary string length argument
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
 ```java
-                }
-                indent(sb, newindent);
-                sb.append(quote(o.toString()));
-                sb.append(": ");
-                sb.append(valueToString(v,
+                    if (dashPos < rangeDefinition.length() - 1)
+                        currentRange.end = Long.parseLong(rangeDefinition.substring(
+                            dashPos + 1, rangeDefinition.length()));
+                    else
+                        currentRange.end = fileLength - 1;
 ```
 
 ### StringOperationCanBeSimplified
@@ -212,15 +213,15 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java
 ```
 
 ### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+Call to `toString()` is redundant
+in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
 #### Snippet
 ```java
-                    if (dashPos < rangeDefinition.length() - 1)
-                        currentRange.end = Long.parseLong(rangeDefinition.substring(
-                            dashPos + 1, rangeDefinition.length()));
-                    else
-                        currentRange.end = fileLength - 1;
+                }
+                indent(sb, newindent);
+                sb.append(quote(o.toString()));
+                sb.append(": ");
+                sb.append(valueToString(v,
 ```
 
 ## RuleId[ruleID=WhileCanBeForeach]
@@ -371,6 +372,19 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
                 return null;
             }
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-23-19-40-52.794.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
