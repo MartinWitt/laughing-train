@@ -184,18 +184,6 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
-Unnecessary empty string argument
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-        if (this.myDescription == null || this.myDescription.length() == 0) throw new RuntimeException("Description");
-
-        StringBuilder response = new StringBuilder("");
-
-        //Create Post String
-```
-
-### StringOperationCanBeSimplified
 Unnecessary string length argument
 in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 #### Snippet
@@ -217,6 +205,18 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
         cookie.put(token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR)).toLowerCase(), token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length()));
     }
     }
+```
+
+### StringOperationCanBeSimplified
+Unnecessary empty string argument
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+        if (this.myDescription == null || this.myDescription.length() == 0) throw new RuntimeException("Description");
+
+        StringBuilder response = new StringBuilder("");
+
+        //Create Post String
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -307,6 +307,18 @@ public class PropertySheetPanel extends JPanel {
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field '_highlighter' in a Serializable class
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+    private final ViewerTreeSelectionListener _treeSelectionListener;
+    private final EditorCaretMover _caretMover;
+    private final EditorPsiElementHighlighter _highlighter;
+    private final PsiViewerProjectService _projectComponent;
+    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field '_caretMover' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
@@ -316,18 +328,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
     private final EditorCaretMover _caretMover;
     private final EditorPsiElementHighlighter _highlighter;
     private final PsiViewerProjectService _projectComponent;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_model' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private String _actionTitle;
-    private PsiViewerTree _tree;
-    private PsiViewerTreeModel _model;
-    private PsiElement _rootElement; // The root element of the tree
-    private PsiElement _selectedElement; // The currently selected element in the tree
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -355,15 +355,15 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field '_highlighter' in a Serializable class
+Non-serializable field '_model' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
 ```java
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
-    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
+    private String _actionTitle;
+    private PsiViewerTree _tree;
+    private PsiViewerTreeModel _model;
+    private PsiElement _rootElement; // The root element of the tree
+    private PsiElement _selectedElement; // The currently selected element in the tree
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -725,6 +725,18 @@ import idea.plugin.psiviewer.util.Helpers;
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+
+String headerName=null;
+for (int i=1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
+    if (headerName.equalsIgnoreCase(SET_COOKIE)) {
+    Map cookie = new HashMap();
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
@@ -747,31 +759,7 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
             }
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
-#### Snippet
-```java
-
-String headerName=null;
-for (int i=1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
-    if (headerName.equalsIgnoreCase(SET_COOKIE)) {
-    Map cookie = new HashMap();
-```
-
 ## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
@@ -784,29 +772,53 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 }
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
-    private String myDescription = null;
-    private String myExtraInformation = "";
-    private String myAffectedVersion = null;
-    private final boolean myShowDialog = ApplicationInfo.getInstance().getBuild().getBaselineVersion() > 110;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 ```
 
+## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
 ```java
-    private static final String PROJECT_NAME = "PSI";
+    private static final String TREE_SELECTION_CHANGED = "tree selection changed";
 
-    private String myDescription = null;
-    private String myExtraInformation = "";
-    private String myAffectedVersion = null;
+    private boolean inSetSelectedElement = false;
+
+    private void setSelectedElement(PsiElement element, String reason)
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+        public boolean SHOW_PROPERTIES = true;
+        public int SPLIT_DIVIDER_POSITION = 300;
+        public boolean AUTOSCROLL_TO_SOURCE = false;
+        public boolean AUTOSCROLL_FROM_SOURCE = false;
+    }
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+
+    static class State {
+        public boolean HIGHLIGHT = false;
+        public boolean FILTER_WHITESPACE = false;
+        public boolean SHOW_PROPERTIES = true;
 ```
 
 ### RedundantFieldInitialization
@@ -834,42 +846,54 @@ in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectServi
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+Field initialization to `null` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
+    private String myDescription = null;
+    private String myExtraInformation = "";
+    private String myAffectedVersion = null;
+    private final boolean myShowDialog = ApplicationInfo.getInstance().getBuild().getBaselineVersion() > 110;
 
-    static class State {
-        public boolean HIGHLIGHT = false;
-        public boolean FILTER_WHITESPACE = false;
-        public boolean SHOW_PROPERTIES = true;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+Field initialization to `null` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-        public boolean AUTOSCROLL_TO_SOURCE = false;
-        public boolean AUTOSCROLL_FROM_SOURCE = false;
-    }
-```
+    private static final String PROJECT_NAME = "PSI";
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private static final String TREE_SELECTION_CHANGED = "tree selection changed";
-
-    private boolean inSetSelectedElement = false;
-
-    private void setSelectedElement(PsiElement element, String reason)
+    private String myDescription = null;
+    private String myExtraInformation = "";
+    private String myAffectedVersion = null;
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `rootElement`
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+                if( selectedRoot != null )
+                {
+                    rootElement = selectedRoot;
+                }
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `element`
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+        {
+            list.addFirst(element);
+            element = element.getParent();
+        }
+        if (element != null)
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `user`
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
@@ -894,30 +918,6 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
         descBuilder.append("\n\nDescription: ").append(description).append("\n\nUser: ").append(user);
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `element`
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-        {
-            list.addFirst(element);
-            element = element.getParent();
-        }
-        if (element != null)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `rootElement`
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-                if( selectedRoot != null )
-                {
-                    rootElement = selectedRoot;
-                }
-            }
-```
-
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `CaretListener`
@@ -937,7 +937,7 @@ Return of `null`
 in `src/main/java/idea/plugin/psiviewer/view/configuration/AlphaChooserPanel.java`
 #### Snippet
 ```java
-    public Icon getLargeDisplayIcon()
+    public Icon getSmallDisplayIcon()
     {
         return null;
     }
@@ -949,35 +949,11 @@ Return of `null`
 in `src/main/java/idea/plugin/psiviewer/view/configuration/AlphaChooserPanel.java`
 #### Snippet
 ```java
-    public Icon getSmallDisplayIcon()
+    public Icon getLargeDisplayIcon()
     {
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/controller/actions/ViewElementAtCaretAction.java`
-#### Snippet
-```java
-        Editor editor = ActionEventUtil.getEditor(event);
-        if (editor == null)
-            return null;
-        final PsiFile psiFile = ActionEventUtil.getPsiFile(event);
-        if (psiFile == null)
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/controller/actions/ViewElementAtCaretAction.java`
-#### Snippet
-```java
-        final PsiFile psiFile = ActionEventUtil.getPsiFile(event);
-        if (psiFile == null)
-            return null;
-        return psiFile.findElementAt(editor.getCaretModel().getOffset());
-    }
 ```
 
 ### ReturnNull
@@ -1002,6 +978,30 @@ in `src/main/java/idea/plugin/psiviewer/view/EditorCaretMover.java`
         if (virtualFile == null) return null;
 
         OpenFileDescriptor fileDesc = new OpenFileDescriptor(_project, virtualFile, i);    // 20050826 IDEA 5.0.1 #3461
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/idea/plugin/psiviewer/controller/actions/ViewElementAtCaretAction.java`
+#### Snippet
+```java
+        Editor editor = ActionEventUtil.getEditor(event);
+        if (editor == null)
+            return null;
+        final PsiFile psiFile = ActionEventUtil.getPsiFile(event);
+        if (psiFile == null)
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/idea/plugin/psiviewer/controller/actions/ViewElementAtCaretAction.java`
+#### Snippet
+```java
+        final PsiFile psiFile = ActionEventUtil.getPsiFile(event);
+        if (psiFile == null)
+            return null;
+        return psiFile.findElementAt(editor.getCaretModel().getOffset());
+    }
 ```
 
 ### ReturnNull
@@ -1055,18 +1055,6 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorSubmitDialog.java
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `status` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-        }
-
-        SubmittedReportInfo.SubmissionStatus status = NEW_ISSUE;
-
-        if (ResultString == null)
-```
-
-### UnnecessaryLocalVariable
 Local variable `ioe` is redundant
 in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 #### Snippet
@@ -1078,19 +1066,19 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 }
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+### UnnecessaryLocalVariable
+Local variable `status` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
-        try
-        {
-            Object args[] = {};
-            getter.setAccessible(true);
+        }
 
+        SubmittedReportInfo.SubmissionStatus status = NEW_ISSUE;
+
+        if (ResultString == null)
 ```
 
+## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
@@ -1101,6 +1089,18 @@ in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
             propertyDescriptors = new PropertyDescriptor[0];
         }
         return propertyDescriptors;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+#### Snippet
+```java
+        try
+        {
+            Object args[] = {};
+            getter.setAccessible(true);
+
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
