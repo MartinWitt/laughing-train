@@ -149,6 +149,18 @@ in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
+Abstract class `AesEncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesEncryptedValue.java`
+#### Snippet
+```java
+@JsonDeserialize(as = ImmutableAesEncryptedValue.class)
+@JsonSerialize(as = AesEncryptedValue.class)
+public abstract class AesEncryptedValue extends EncryptedValue {
+    public enum Mode {
+        GCM,
+```
+
+### AbstractClassNeverImplemented
 Abstract class `KeyPairFiles` has no concrete subclass
 in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPairFiles.java`
 #### Snippet
@@ -158,18 +170,6 @@ in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPairFiles
 public abstract class KeyPairFiles {
 
     public abstract Path encryptionKeyFile();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RsaEncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/rsa/RsaEncryptedValue.java`
-#### Snippet
-```java
-@JsonDeserialize(as = ImmutableRsaEncryptedValue.class)
-@JsonSerialize(as = RsaEncryptedValue.class)
-public abstract class RsaEncryptedValue extends EncryptedValue {
-
-    public enum Mode {
 ```
 
 ### AbstractClassNeverImplemented
@@ -197,15 +197,15 @@ public abstract class LegacyEncryptedValue extends EncryptedValue {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `EncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
+Abstract class `RsaEncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/rsa/RsaEncryptedValue.java`
 #### Snippet
 ```java
-})
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-public abstract class EncryptedValue {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String PREFIX = "enc:";
+@JsonDeserialize(as = ImmutableRsaEncryptedValue.class)
+@JsonSerialize(as = RsaEncryptedValue.class)
+public abstract class RsaEncryptedValue extends EncryptedValue {
+
+    public enum Mode {
 ```
 
 ### AbstractClassNeverImplemented
@@ -221,14 +221,14 @@ public abstract class KeyWithType {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AesEncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesEncryptedValue.java`
+Abstract class `EncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
 #### Snippet
 ```java
-@JsonDeserialize(as = ImmutableAesEncryptedValue.class)
-@JsonSerialize(as = AesEncryptedValue.class)
-public abstract class AesEncryptedValue extends EncryptedValue {
-    public enum Mode {
-        GCM,
+})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
+public abstract class EncryptedValue {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final String PREFIX = "enc:";
 ```
 
