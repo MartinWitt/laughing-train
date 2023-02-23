@@ -35,26 +35,14 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=SuspiciousNameCombination]
 ### SuspiciousNameCombination
 'y' should probably not be passed as parameter 'x'
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/GammaDistribution.java`
 #### Snippet
 ```java
-        final long n2 = checkSampleSize(y.length);
-        final double m1 = StatisticUtils.mean(x);
-        final double m2 = StatisticUtils.mean(y);
-        final double v1 = StatisticUtils.variance(x, m1);
-        final double v2 = StatisticUtils.variance(y, m2);
-```
-
-### SuspiciousNameCombination
-'y' should probably not be passed as parameter 'x'
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
-#### Snippet
-```java
-        final double m2 = StatisticUtils.mean(y);
-        final double v1 = StatisticUtils.variance(x, m1);
-        final double v2 = StatisticUtils.variance(y, m2);
-        return equalVariances ?
-            computeHomoscedasticT(mu, m1, v1, n1, m2, v2, n2) :
+        // More accurate to log the density when it is finite.
+        // See NUMBERS-174: 'Log of the Gamma P Derivative'
+        final double p = RegularizedGamma.P.derivative(shape, y) / scale;
+        if (p <= Double.MAX_VALUE && p >= Double.MIN_NORMAL) {
+            return Math.log(p);
 ```
 
 ### SuspiciousNameCombination
@@ -83,14 +71,26 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 
 ### SuspiciousNameCombination
 'y' should probably not be passed as parameter 'x'
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/GammaDistribution.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
 #### Snippet
 ```java
-        // More accurate to log the density when it is finite.
-        // See NUMBERS-174: 'Log of the Gamma P Derivative'
-        final double p = RegularizedGamma.P.derivative(shape, y) / scale;
-        if (p <= Double.MAX_VALUE && p >= Double.MIN_NORMAL) {
-            return Math.log(p);
+        final long n2 = checkSampleSize(y.length);
+        final double m1 = StatisticUtils.mean(x);
+        final double m2 = StatisticUtils.mean(y);
+        final double v1 = StatisticUtils.variance(x, m1);
+        final double v2 = StatisticUtils.variance(y, m2);
+```
+
+### SuspiciousNameCombination
+'y' should probably not be passed as parameter 'x'
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
+#### Snippet
+```java
+        final double m2 = StatisticUtils.mean(y);
+        final double v1 = StatisticUtils.variance(x, m1);
+        final double v2 = StatisticUtils.variance(y, m2);
+        return equalVariances ?
+            computeHomoscedasticT(mu, m1, v1, n1, m2, v2, n2) :
 ```
 
 ### SuspiciousNameCombination
@@ -139,18 +139,6 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
             DD.twoProd(n, x, z);
             final double u = z.hi();
             final double v = z.lo();
-```
-
-### SuspiciousNameCombination
-'y' should probably not be passed as parameter 'x'
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
-#### Snippet
-```java
-        // Sort the sample arrays
-        sort(x, SAMPLE_1_NAME);
-        sort(y, SAMPLE_2_NAME);
-        final int n = x.length;
-        final int m = y.length;
 ```
 
 ### SuspiciousNameCombination
@@ -213,6 +201,18 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
         // next quotient q2 = r1 / y
 ```
 
+### SuspiciousNameCombination
+'y' should probably not be passed as parameter 'x'
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+#### Snippet
+```java
+        // Sort the sample arrays
+        sort(x, SAMPLE_1_NAME);
+        sort(y, SAMPLE_2_NAME);
+        final int n = x.length;
+        final int m = y.length;
+```
+
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `getStatistic()` only delegates to its super method
@@ -254,38 +254,14 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/WilcoxonSignedRankTest.java`
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
 #### Snippet
 ```java
-        final double[] u = new double[t + 1];
-        // Initialize u_1(t) using base cases for recursion
-        u[0] = u[1] = 1;
-
-        // Each u_n(t) is created using the current correct values for u_{n-1}(t)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/HypergeometricDistribution.java`
-#### Snippet
-```java
-                p1 = p0;
-            }
-            midpoint = v = new double[] {x, p1};
-        }
-        return v;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
-#### Snippet
-```java
-        long m = median;
-        if (m == NO_MEDIAN) {
+        double m = median;
+        if (Double.isNaN(m)) {
             median = m = inverseCumulativeProbability(0.5);
         }
-        return (int) m;
+        return m;
 ```
 
 ### NestedAssignment
@@ -302,14 +278,38 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
 
 ### NestedAssignment
 Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/WilcoxonSignedRankTest.java`
 #### Snippet
 ```java
-        double m = median;
-        if (Double.isNaN(m)) {
+        final double[] u = new double[t + 1];
+        // Initialize u_1(t) using base cases for recursion
+        u[0] = u[1] = 1;
+
+        // Each u_n(t) is created using the current correct values for u_{n-1}(t)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
+#### Snippet
+```java
+        long m = median;
+        if (m == NO_MEDIAN) {
             median = m = inverseCumulativeProbability(0.5);
         }
-        return m;
+        return (int) m;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/HypergeometricDistribution.java`
+#### Snippet
+```java
+                p1 = p0;
+            }
+            midpoint = v = new double[] {x, p1};
+        }
+        return v;
 ```
 
 ### NestedAssignment
@@ -486,15 +486,15 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `lm` is redundant
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+Local variable `shape` is redundant
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/NakagamiDistribution.java`
 #### Snippet
 ```java
-
-        // Normalized by binom(m+n, n). Check this is possible.
-        final long lm = m;
-        if (n + lm > Integer.MAX_VALUE) {
-            return -1;
+        // Generate using a related Gamma distribution
+        // See https://en.wikipedia.org/wiki/Nakagami_distribution#Generation
+        final double shape = mu;
+        final double scale = omega / mu;
+        final SharedStateContinuousSampler sampler =
 ```
 
 ### UnnecessaryLocalVariable
@@ -510,28 +510,15 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `shape` is redundant
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/NakagamiDistribution.java`
+Local variable `lm` is redundant
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
 #### Snippet
 ```java
-        // Generate using a related Gamma distribution
-        // See https://en.wikipedia.org/wiki/Nakagami_distribution#Generation
-        final double shape = mu;
-        final double scale = omega / mu;
-        final SharedStateContinuousSampler sampler =
-```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
-#### Snippet
-```java
-        if (nonNanSize == 0) {
-            // Either NaN are left in-place or removed
-            return nanStrategy == NaNStrategy.FIXED ? data : new double[0];
-        }
-
+        // Normalized by binom(m+n, n). Check this is possible.
+        final long lm = m;
+        if (n + lm > Integer.MAX_VALUE) {
+            return -1;
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -559,17 +546,17 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
                 // Atomically grow without destroying the previous computation.
 ```
 
-## RuleId[ruleID=ConstantMathCall]
-### ConstantMathCall
-Constant call to `sqrt()` can be simplified
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
 #### Snippet
 ```java
-    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
-    /** &radic;(2 &pi;). */
-    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
-    /** The mu parameter of this distribution. */
-    private final double mu;
+        if (nonNanSize == 0) {
+            // Either NaN are left in-place or removed
+            return nanStrategy == NaNStrategy.FIXED ? data : new double[0];
+        }
+
 ```
 
 ## RuleId[ruleID=ManualMinMaxCalculation]
@@ -667,6 +654,19 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
                 plus = dp > plus ? dp : plus;
             }
             sign[0] = Double.compare(plus, minus);
+```
+
+## RuleId[ruleID=ConstantMathCall]
+### ConstantMathCall
+Constant call to `sqrt()` can be simplified
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
+#### Snippet
+```java
+    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
+    /** &radic;(2 &pi;). */
+    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
+    /** The mu parameter of this distribution. */
+    private final double mu;
 ```
 
 ## RuleId[ruleID=NumericOverflow]
