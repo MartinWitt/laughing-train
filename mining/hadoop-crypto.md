@@ -57,18 +57,6 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/CipherSymm
 
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
-#### Snippet
-```java
-    @Override
-    public KeyMaterial unwrap(byte[] wrappedKeyMaterial, PrivateKey key) {
-        DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
-        Cipher keyUnwrappingCipher = KeySerializers.getCipher(Cipher.UNWRAP_MODE, key);
-
-```
-
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMaterials.java`
 #### Snippet
 ```java
@@ -77,6 +65,18 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMateria
             DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
             return stream.read();
         } catch (IOException e) {
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+    @Override
+    public KeyMaterial unwrap(byte[] wrappedKeyMaterial, PrivateKey key) {
+        DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
+        Cipher keyUnwrappingCipher = KeySerializers.getCipher(Cipher.UNWRAP_MODE, key);
+
 ```
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -118,14 +118,14 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `read()` only delegates to its super method
+Method `close()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
 #### Snippet
 ```java
 
     @Override
-    public int read(byte[] bytes, int off, int len) throws IOException {
-        return super.read(bytes, off, len);
+    public void close() throws IOException {
+        super.close();
     }
 ```
 
@@ -142,14 +142,14 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 ```
 
 ### RedundantMethodOverride
-Method `close()` only delegates to its super method
+Method `read()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
 #### Snippet
 ```java
 
     @Override
-    public void close() throws IOException {
-        super.close();
+    public int read(byte[] bytes, int off, int len) throws IOException {
+        return super.read(bytes, off, len);
     }
 ```
 
@@ -217,18 +217,6 @@ public final class FsCipherOutputStream extends FilterOutputStream {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'KeySerializerV1' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
-#### Snippet
-```java
- */
-@Deprecated
-enum KeySerializerV1 implements KeySerializer {
-    INSTANCE;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'SymmetricKeySerializerV3' is still used
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
 #### Snippet
@@ -236,6 +224,18 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricK
  */
 @Deprecated
 enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
+    INSTANCE;
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'KeySerializerV1' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+ */
+@Deprecated
+enum KeySerializerV1 implements KeySerializer {
     INSTANCE;
 
 ```
