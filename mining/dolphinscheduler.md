@@ -1,7 +1,7 @@
 # dolphinscheduler 
  
 # Bad smells
-I found 1553 bad smells with 155 repairable:
+I found 1552 bad smells with 155 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 259 | false |
@@ -88,7 +88,6 @@ I found 1553 bad smells with 155 repairable:
 | WhileLoopSpinsOnField | 1 | false |
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
 | RegExpDuplicateCharacterInClass | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | TypeParameterExtendsObject | 1 | false |
 | NonExceptionNameEndsWithException | 1 | false |
 | IOResource | 1 | false |
@@ -182,9 +181,9 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```java
         }
 
-        Boolean existResource = false;
+        Boolean doesResExist = false;
         try {
-            existResource = storageOperate.exists(fullName);
+            doesResExist = storageOperate.exists(fullName);
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -194,9 +193,9 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```java
         }
 
-        Boolean doesResExist = false;
+        Boolean existResource = false;
         try {
-            doesResExist = storageOperate.exists(fullName);
+            existResource = storageOperate.exists(fullName);
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -277,11 +276,11 @@ Modifier `public` is redundant for interface members
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/repository/ProcessInstanceDao.java`
 #### Snippet
 ```java
-     * @param processInstance processInstance
-     */
-    public int upsertProcessInstance(ProcessInstance processInstance);
+public interface ProcessInstanceDao {
 
-    void deleteByIds(List<Integer> needToDeleteWorkflowInstanceIds);
+    public int insertProcessInstance(ProcessInstance processInstance);
+
+    public int updateProcessInstance(ProcessInstance processInstance);
 ```
 
 ### UnnecessaryModifier
@@ -289,11 +288,11 @@ Modifier `public` is redundant for interface members
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/repository/ProcessInstanceDao.java`
 #### Snippet
 ```java
-public interface ProcessInstanceDao {
+     * @param processInstance processInstance
+     */
+    public int upsertProcessInstance(ProcessInstance processInstance);
 
-    public int insertProcessInstance(ProcessInstance processInstance);
-
-    public int updateProcessInstance(ProcessInstance processInstance);
+    void deleteByIds(List<Integer> needToDeleteWorkflowInstanceIds);
 ```
 
 ### UnnecessaryModifier
@@ -313,11 +312,11 @@ Modifier `public` is redundant for interface members
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/TaskCallBack.java`
 #### Snippet
 ```java
+public interface TaskCallBack {
+
     public void updateRemoteApplicationInfo(int taskInstanceId, ApplicationInfo applicationInfo);
 
     public void updateTaskInstanceInfo(int taskInstanceId);
-}
-
 ```
 
 ### UnnecessaryModifier
@@ -325,11 +324,11 @@ Modifier `public` is redundant for interface members
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/TaskCallBack.java`
 #### Snippet
 ```java
-public interface TaskCallBack {
-
     public void updateRemoteApplicationInfo(int taskInstanceId, ApplicationInfo applicationInfo);
 
     public void updateTaskInstanceInfo(int taskInstanceId);
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -662,114 +661,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
         String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
         String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
 ```
 
@@ -818,6 +709,90 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         }
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
 
 ```
 
@@ -846,6 +821,30 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\$` in RegExp
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/ParameterUtils.java`
 #### Snippet
@@ -867,54 +866,6 @@ public class ParameterUtils {
     private static final Pattern DATE_PARSE_PATTERN = Pattern.compile("\\$\\[([^\\$\\]]+)]");
 
     private static final Pattern DATE_START_PATTERN = Pattern.compile("^[0-9]");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\_` in RegExp
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
-#### Snippet
-```java
-    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
-
-    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.]+$");
-
-    private static final Set<String> POSSIBLE_MALICIOUS_KEYS = Sets.newHashSet("allowLoadLocalInfile");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
-#### Snippet
-```java
-    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
-
-    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.]+$");
-
-    private static final Set<String> POSSIBLE_MALICIOUS_KEYS = Sets.newHashSet("allowLoadLocalInfile");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\@` in RegExp
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
-#### Snippet
-```java
-    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
-
-    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.]+$");
-
-    private static final Set<String> POSSIBLE_MALICIOUS_KEYS = Sets.newHashSet("allowLoadLocalInfile");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
-#### Snippet
-```java
-    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
-
-    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.]+$");
-
-    private static final Set<String> POSSIBLE_MALICIOUS_KEYS = Sets.newHashSet("allowLoadLocalInfile");
 ```
 
 ### RegExpRedundantEscape
@@ -994,6 +945,54 @@ Redundant character escape `\\_` in RegExp
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
 #### Snippet
 ```java
+    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
+
+    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.]+$");
+
+    private static final Set<String> POSSIBLE_MALICIOUS_KEYS = Sets.newHashSet("allowLoadLocalInfile");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
+#### Snippet
+```java
+    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
+
+    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.]+$");
+
+    private static final Set<String> POSSIBLE_MALICIOUS_KEYS = Sets.newHashSet("allowLoadLocalInfile");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\@` in RegExp
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
+#### Snippet
+```java
+    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
+
+    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.]+$");
+
+    private static final Set<String> POSSIBLE_MALICIOUS_KEYS = Sets.newHashSet("allowLoadLocalInfile");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
+#### Snippet
+```java
+    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
+
+    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.]+$");
+
+    private static final Set<String> POSSIBLE_MALICIOUS_KEYS = Sets.newHashSet("allowLoadLocalInfile");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\_` in RegExp
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
+#### Snippet
+```java
 public abstract class AbstractDataSourceProcessor implements DataSourceProcessor {
 
     private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
@@ -1043,11 +1042,11 @@ Obsolete collection type `Stack` used
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
 #### Snippet
 ```java
-     */
-    private static Integer calculate(List<String> result) {
-        Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < result.size(); i++) {
-            if (Character.isDigit(result.get(i).charAt(0))) {
+    private static List<String> convert2SuffixList(List<String> srcList) {
+        List<String> result = new ArrayList<>();
+        Stack<String> stack = new Stack<>();
+
+        for (int i = 0; i < srcList.size(); i++) {
 ```
 
 ### ObsoleteCollection
@@ -1055,11 +1054,11 @@ Obsolete collection type `Stack<>` used
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
 #### Snippet
 ```java
-     */
-    private static Integer calculate(List<String> result) {
-        Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < result.size(); i++) {
-            if (Character.isDigit(result.get(i).charAt(0))) {
+    private static List<String> convert2SuffixList(List<String> srcList) {
+        List<String> result = new ArrayList<>();
+        Stack<String> stack = new Stack<>();
+
+        for (int i = 0; i < srcList.size(); i++) {
 ```
 
 ### ObsoleteCollection
@@ -1067,11 +1066,11 @@ Obsolete collection type `Stack` used
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
 #### Snippet
 ```java
-    private static List<String> convert2SuffixList(List<String> srcList) {
-        List<String> result = new ArrayList<>();
-        Stack<String> stack = new Stack<>();
-
-        for (int i = 0; i < srcList.size(); i++) {
+     */
+    private static Integer calculate(List<String> result) {
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < result.size(); i++) {
+            if (Character.isDigit(result.get(i).charAt(0))) {
 ```
 
 ### ObsoleteCollection
@@ -1079,11 +1078,11 @@ Obsolete collection type `Stack<>` used
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
 #### Snippet
 ```java
-    private static List<String> convert2SuffixList(List<String> srcList) {
-        List<String> result = new ArrayList<>();
-        Stack<String> stack = new Stack<>();
-
-        for (int i = 0; i < srcList.size(); i++) {
+     */
+    private static Integer calculate(List<String> result) {
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < result.size(); i++) {
+            if (Character.isDigit(result.get(i).charAt(0))) {
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -1221,6 +1220,90 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+                return DATAX_READER_PLUGIN_RDBMS;
+            case PRESTO:
+                return DATAX_READER_PLUGIN_RDBMS;
+            default:
+                return null;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+                return DATAX_WRITER_PLUGIN_RDBMS;
+            case PRESTO:
+                return DATAX_WRITER_PLUGIN_RDBMS;
+            default:
+                return null;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+                return String.format("\"%s\"", column);
+            case ORACLE:
+                return String.format("\"%s\"", column);
+            case SQLSERVER:
+                return String.format("\"%s\"", column);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+                return String.format("\"%s\"", column);
+            case SQLSERVER:
+                return String.format("\"%s\"", column);
+            case CLICKHOUSE:
+                return String.format("`%s`", column);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+                return String.format("\"%s\"", column);
+            case CLICKHOUSE:
+                return String.format("`%s`", column);
+            default:
+                return column;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkArgsUtils.java`
+#### Snippet
+```java
+                break;
+            case STANDALONE:
+                args.add(FlinkConstants.FLINK_RUN); // run
+                break;
+        }
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkArgsUtils.java`
+#### Snippet
+```java
+                break;
+            case STANDALONE:
+                break;
+        }
+
+```
+
+### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
@@ -1266,90 +1349,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
                 break;
             case EXECUTE_TASK:
                 processInstance.setRunTimes(runTime + 1);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return String.format("\"%s\"", column);
-            case ORACLE:
-                return String.format("\"%s\"", column);
-            case SQLSERVER:
-                return String.format("\"%s\"", column);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return String.format("\"%s\"", column);
-            case SQLSERVER:
-                return String.format("\"%s\"", column);
-            case CLICKHOUSE:
-                return String.format("`%s`", column);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return String.format("\"%s\"", column);
-            case CLICKHOUSE:
-                return String.format("`%s`", column);
-            default:
-                return column;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return DATAX_READER_PLUGIN_RDBMS;
-            case PRESTO:
-                return DATAX_READER_PLUGIN_RDBMS;
-            default:
-                return null;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return DATAX_WRITER_PLUGIN_RDBMS;
-            case PRESTO:
-                return DATAX_WRITER_PLUGIN_RDBMS;
-            default:
-                return null;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkArgsUtils.java`
-#### Snippet
-```java
-                break;
-            case STANDALONE:
-                args.add(FlinkConstants.FLINK_RUN); // run
-                break;
-        }
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkArgsUtils.java`
-#### Snippet
-```java
-                break;
-            case STANDALONE:
-                break;
-        }
-
 ```
 
 ## RuleId[ruleID=RegExpSimplifiable]
@@ -1418,15 +1417,27 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SizeReplaceableByIsEmpty
-`userDefinedParams.length() > 0` can be replaced with '!userDefinedParams.isEmpty()'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+`needRecountState.size() == 0` can be replaced with 'needRecountState.isEmpty()'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
-        }
+                taskInstanceMapper.countTaskInstanceStateByProjectIdsV2(null, null, projectId));
+        List<TaskExecutionStatus> needRecountState = setOptional(startTimeStates);
+        if (needRecountState.size() == 0) {
+            TaskCountDto taskCountResult = new TaskCountDto(startTimeStates.get());
+            result.put(Constants.DATA_LIST, taskCountResult);
+```
 
-        if (userDefinedParams != null && userDefinedParams.length() > 0) {
-            globalParams = JSONUtils.toList(userDefinedParams, Property.class);
-        }
+### SizeReplaceableByIsEmpty
+`needRecountState.size() == 0` can be replaced with 'needRecountState.isEmpty()'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+                taskInstanceMapper.countTaskInstanceStateByProjectIdsV2(startTime, endTime, projectIds));
+        List<TaskExecutionStatus> needRecountState = setOptional(startTimeStates);
+        if (needRecountState.size() == 0) {
+            TaskCountDto taskCountResult = new TaskCountDto(startTimeStates.get());
+            result.put(Constants.DATA_LIST, taskCountResult);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1454,30 +1465,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SizeReplaceableByIsEmpty
-`needRecountState.size() == 0` can be replaced with 'needRecountState.isEmpty()'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-                taskInstanceMapper.countTaskInstanceStateByProjectIdsV2(startTime, endTime, projectIds));
-        List<TaskExecutionStatus> needRecountState = setOptional(startTimeStates);
-        if (needRecountState.size() == 0) {
-            TaskCountDto taskCountResult = new TaskCountDto(startTimeStates.get());
-            result.put(Constants.DATA_LIST, taskCountResult);
-```
-
-### SizeReplaceableByIsEmpty
-`needRecountState.size() == 0` can be replaced with 'needRecountState.isEmpty()'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-                taskInstanceMapper.countTaskInstanceStateByProjectIdsV2(null, null, projectId));
-        List<TaskExecutionStatus> needRecountState = setOptional(startTimeStates);
-        if (needRecountState.size() == 0) {
-            TaskCountDto taskCountResult = new TaskCountDto(startTimeStates.get());
-            result.put(Constants.DATA_LIST, taskCountResult);
-```
-
-### SizeReplaceableByIsEmpty
 `startTimeStates.get().size() != 0` can be replaced with '!startTimeStates.get().isEmpty()'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
@@ -1487,6 +1474,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
         if (startTimeStates.isPresent() && startTimeStates.get().size() != 0) {
             List<TaskExecutionStatus> instanceState =
                     startTimeStates.get().stream().map(ExecuteStatusCount::getState).collect(Collectors.toList());
+```
+
+### SizeReplaceableByIsEmpty
+`userDefinedParams.length() > 0` can be replaced with '!userDefinedParams.isEmpty()'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+        }
+
+        if (userDefinedParams != null && userDefinedParams.length() > 0) {
+            globalParams = JSONUtils.toList(userDefinedParams, Property.class);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1502,15 +1501,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SizeReplaceableByIsEmpty
-`existResourcesList.size() > 0` can be replaced with '!existResourcesList.isEmpty()'
+`resourcesNeedToDeleteSet.size() > 0` can be replaced with '!resourcesNeedToDeleteSet.isEmpty()'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-        }
 
-        if (existResourcesList.size() > 0 && !fullName.equals(originFullName)) {
-            // check if any related task is online. If it is, it can not be updated.
-            for (ResourcesTask existResource : existResourcesList) {
+        // delete data in database
+        if (resourcesNeedToDeleteSet.size() > 0) {
+            for (ResourcesTask resourcesTask : resourcesNeedToDeleteSet) {
+                int taskId = resourcesTask.getTaskId();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1538,15 +1537,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SizeReplaceableByIsEmpty
-`resourcesNeedToDeleteSet.size() > 0` can be replaced with '!resourcesNeedToDeleteSet.isEmpty()'
+`existResourcesList.size() > 0` can be replaced with '!existResourcesList.isEmpty()'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
+        }
 
-        // delete data in database
-        if (resourcesNeedToDeleteSet.size() > 0) {
-            for (ResourcesTask resourcesTask : resourcesNeedToDeleteSet) {
-                int taskId = resourcesTask.getTaskId();
+        if (existResourcesList.size() > 0 && !fullName.equals(originFullName)) {
+            // check if any related task is online. If it is, it can not be updated.
+            for (ResourcesTask existResource : existResourcesList) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1706,27 +1705,39 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### SizeReplaceableByIsEmpty
-`activeTaskProcessorMaps.size() == 0` can be replaced with 'activeTaskProcessorMaps.isEmpty()'
+`this.errorTaskMap.size() > 0` can be replaced with '!this.errorTaskMap.isEmpty()'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
 #### Snippet
 ```java
-            }
-            if (processInstance.getFailureStrategy() == FailureStrategy.CONTINUE) {
-                return readyToSubmitTaskQueue.size() == 0 && activeTaskProcessorMaps.size() == 0
-                        && waitToRetryTaskInstanceMap.size() == 0;
-            }
+            return true;
+        }
+        if (this.errorTaskMap.size() > 0) {
+            return true;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
-`waitToRetryTaskInstanceMap.size() == 0` can be replaced with 'waitToRetryTaskInstanceMap.isEmpty()'
+`this.dependFailedTaskSet.size() > 0` can be replaced with '!this.dependFailedTaskSet.isEmpty()'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
 #### Snippet
 ```java
-            if (processInstance.getFailureStrategy() == FailureStrategy.CONTINUE) {
-                return readyToSubmitTaskQueue.size() == 0 && activeTaskProcessorMaps.size() == 0
-                        && waitToRetryTaskInstanceMap.size() == 0;
-            }
+            return true;
         }
+        return this.dependFailedTaskSet.size() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`startParamMap.size() > 0` can be replaced with '!startParamMap.isEmpty()'
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
+#### Snippet
+```java
+        Map<String, String> globalMap = processDefinition.getGlobalParamMap();
+        List<Property> globalParamList = processDefinition.getGlobalParamList();
+        if (startParamMap.size() > 0 && globalMap != null) {
+            // start param to overwrite global param
+            for (Map.Entry<String, String> param : globalMap.entrySet()) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1754,27 +1765,15 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### SizeReplaceableByIsEmpty
-`this.errorTaskMap.size() > 0` can be replaced with '!this.errorTaskMap.isEmpty()'
+`allProperty.size() > 0` can be replaced with '!allProperty.isEmpty()'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
 #### Snippet
 ```java
-            return true;
-        }
-        if (this.errorTaskMap.size() > 0) {
-            return true;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`this.dependFailedTaskSet.size() > 0` can be replaced with '!this.dependFailedTaskSet.isEmpty()'
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
-#### Snippet
-```java
-            return true;
-        }
-        return this.dependFailedTaskSet.size() > 0;
-    }
-
+                }
+            }
+            if (allProperty.size() > 0) {
+                taskInstance.setVarPool(JSONUtils.toJsonString(allProperty.values()));
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1790,27 +1789,27 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### SizeReplaceableByIsEmpty
-`allProperty.size() > 0` can be replaced with '!allProperty.isEmpty()'
+`activeTaskProcessorMaps.size() == 0` can be replaced with 'activeTaskProcessorMaps.isEmpty()'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
 #### Snippet
 ```java
-                }
             }
-            if (allProperty.size() > 0) {
-                taskInstance.setVarPool(JSONUtils.toJsonString(allProperty.values()));
+            if (processInstance.getFailureStrategy() == FailureStrategy.CONTINUE) {
+                return readyToSubmitTaskQueue.size() == 0 && activeTaskProcessorMaps.size() == 0
+                        && waitToRetryTaskInstanceMap.size() == 0;
             }
 ```
 
 ### SizeReplaceableByIsEmpty
-`startParamMap.size() > 0` can be replaced with '!startParamMap.isEmpty()'
+`waitToRetryTaskInstanceMap.size() == 0` can be replaced with 'waitToRetryTaskInstanceMap.isEmpty()'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
 #### Snippet
 ```java
-        Map<String, String> globalMap = processDefinition.getGlobalParamMap();
-        List<Property> globalParamList = processDefinition.getGlobalParamList();
-        if (startParamMap.size() > 0 && globalMap != null) {
-            // start param to overwrite global param
-            for (Map.Entry<String, String> param : globalMap.entrySet()) {
+            if (processInstance.getFailureStrategy() == FailureStrategy.CONTINUE) {
+                return readyToSubmitTaskQueue.size() == 0 && activeTaskProcessorMaps.size() == 0
+                        && waitToRetryTaskInstanceMap.size() == 0;
+            }
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1862,18 +1861,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 ```
 
 ### SizeReplaceableByIsEmpty
-`paramsMap.size() == 0` can be replaced with 'paramsMap.isEmpty()'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
-#### Snippet
-```java
-
-    private StringBuilder addCustomParameters(Map<String, Property> paramsMap) {
-        if (paramsMap == null || paramsMap.size() == 0) {
-            return new StringBuilder();
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `paramScript.size() > 0` can be replaced with '!paramScript.isEmpty()'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisParameters.java`
 #### Snippet
@@ -1886,6 +1873,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/
 ```
 
 ### SizeReplaceableByIsEmpty
+`paramsMap.size() == 0` can be replaced with 'paramsMap.isEmpty()'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
+#### Snippet
+```java
+
+    private StringBuilder addCustomParameters(Map<String, Property> paramsMap) {
+        if (paramsMap == null || paramsMap.size() == 0) {
+            return new StringBuilder();
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `resourceList.size() > 0` can be replaced with '!resourceList.isEmpty()'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-hivecli/src/main/java/org/apache/dolphinscheduler/plugin/task/hivecli/HiveCliParameters.java`
 #### Snippet
@@ -1895,6 +1894,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-hivecli/src/main/java/org
             return (resourceList != null) && (resourceList.size() > 0);
         } else {
             return false;
+```
+
+### SizeReplaceableByIsEmpty
+`paragraphId.trim().length() == 0` can be replaced with 'paragraphId.trim().isEmpty()'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-zeppelin/src/main/java/org/apache/dolphinscheduler/plugin/task/zeppelin/ZeppelinTask.java`
+#### Snippet
+```java
+            }
+
+            if (paragraphId == null || paragraphId.trim().length() == 0) {
+                final NoteResult noteResult = this.zClient.executeNote(noteId, zeppelinParamsMap);
+                final List<ParagraphResult> paragraphResultList = noteResult.getParagraphResultList();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1931,18 +1942,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-datasync/src/main/java/or
         if (includes != null && includes.size() > 0) {
             List<FilterRule> collect = includes.stream()
                     .map(e -> FilterRule.builder().filterType(e.getFilterType()).value(e.getValue()).build())
-```
-
-### SizeReplaceableByIsEmpty
-`paragraphId.trim().length() == 0` can be replaced with 'paragraphId.trim().isEmpty()'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-zeppelin/src/main/java/org/apache/dolphinscheduler/plugin/task/zeppelin/ZeppelinTask.java`
-#### Snippet
-```java
-            }
-
-            if (paragraphId == null || paragraphId.trim().length() == 0) {
-                final NoteResult noteResult = this.zClient.executeNote(noteId, zeppelinParamsMap);
-                final List<ParagraphResult> paragraphResultList = noteResult.getParagraphResultList();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2158,8 +2157,8 @@ Number objects are compared using `!=`, not 'equals()'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
+    public Map<String, Object> queryUnauthorizedNamespace(User loginUser, Integer userId) {
         Map<String, Object> result = new HashMap<>();
-
         if (loginUser.getId() != userId && isNotAdmin(loginUser, result)) {
             return result;
         }
@@ -2170,8 +2169,8 @@ Number objects are compared using `!=`, not 'equals()'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
-    public Map<String, Object> queryUnauthorizedNamespace(User loginUser, Integer userId) {
         Map<String, Object> result = new HashMap<>();
+
         if (loginUser.getId() != userId && isNotAdmin(loginUser, result)) {
             return result;
         }
@@ -2227,10 +2226,10 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Re
 
 ### NumberEquality
 Number objects are compared using `!=`, not 'equals()'
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/AlertGroup.java`
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/DataSource.java`
 #### Snippet
 ```java
-        AlertGroup that = (AlertGroup) o;
+        DataSource that = (DataSource) o;
 
         if (id != that.id) {
             return false;
@@ -2239,10 +2238,10 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Al
 
 ### NumberEquality
 Number objects are compared using `!=`, not 'equals()'
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/DataSource.java`
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/AlertGroup.java`
 #### Snippet
 ```java
-        DataSource that = (DataSource) o;
+        AlertGroup that = (AlertGroup) o;
 
         if (id != that.id) {
             return false;
@@ -2396,18 +2395,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DataSource`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
-#### Snippet
-```java
-     * handle datasource connection password for safety
-     */
-    private void handlePasswd(List<DataSource> dataSourceList) {
-        for (DataSource dataSource : dataSourceList) {
-            String connectionParams = dataSource.getConnectionParams();
-```
-
-### BoundedWildcard
 Can generalize to `? extends AlertPluginInstance`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertPluginInstanceServiceImpl.java`
 #### Snippet
@@ -2420,15 +2407,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### BoundedWildcard
-Can generalize to `? super WorkFlowLineage`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
+Can generalize to `? extends DataSource`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
 #### Snippet
 ```java
-
-    private void getUpstreamLineages(long sourceWorkFlowCode,
-                                     List<WorkFlowLineage> upstreamWorkFlowLineages) {
-        List<DependentProcessDefinition> workFlowDependentDefinitionList =
-                workFlowLineageMapper.queryUpstreamDependentParamsByProcessDefinitionCode(sourceWorkFlowCode,
+     * handle datasource connection password for safety
+     */
+    private void handlePasswd(List<DataSource> dataSourceList) {
+        for (DataSource dataSource : dataSourceList) {
+            String connectionParams = dataSource.getConnectionParams();
 ```
 
 ### BoundedWildcard
@@ -2480,15 +2467,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TaskInstance`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+Can generalize to `? super WorkFlowLineage`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
 #### Snippet
 ```java
-     * add dependent result for dependent task
-     */
-    private void addDependResultForTaskList(User loginUser, List<TaskInstance> taskInstanceList) throws IOException {
-        for (TaskInstance taskInstance : taskInstanceList) {
-            if (TASK_TYPE_DEPENDENT.equalsIgnoreCase(taskInstance.getTaskType())) {
+
+    private void getUpstreamLineages(long sourceWorkFlowCode,
+                                     List<WorkFlowLineage> upstreamWorkFlowLineages) {
+        List<DependentProcessDefinition> workFlowDependentDefinitionList =
+                workFlowLineageMapper.queryUpstreamDependentParamsByProcessDefinitionCode(sourceWorkFlowCode,
 ```
 
 ### BoundedWildcard
@@ -2540,39 +2527,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends K8sNamespace`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+Can generalize to `? extends TaskInstance`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
 #### Snippet
 ```java
-     * @return namespace list that authorization
+     * add dependent result for dependent task
      */
-    private List<K8sNamespace> getUnauthorizedNamespaces(Set<K8sNamespace> namespaceSet,
-                                                         List<K8sNamespace> authedNamespaceList) {
-        List<K8sNamespace> resultList = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends K8sNamespace`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
-#### Snippet
-```java
-     */
-    private List<K8sNamespace> getUnauthorizedNamespaces(Set<K8sNamespace> namespaceSet,
-                                                         List<K8sNamespace> authedNamespaceList) {
-        List<K8sNamespace> resultList = new ArrayList<>();
-        for (K8sNamespace k8sNamespace : namespaceSet) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends K8sNamespace`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
-#### Snippet
-```java
-     * @param k8sNamespaces source data
-     */
-    private void setClusterName(List<K8sNamespace> k8sNamespaces) {
-        if (CollectionUtils.isNotEmpty(k8sNamespaces)) {
-            List<Cluster> clusters = clusterMapper.queryAllClusterList();
+    private void addDependResultForTaskList(User loginUser, List<TaskInstance> taskInstanceList) throws IOException {
+        for (TaskInstance taskInstance : taskInstanceList) {
+            if (TASK_TYPE_DEPENDENT.equalsIgnoreCase(taskInstance.getTaskType())) {
 ```
 
 ### BoundedWildcard
@@ -2624,6 +2587,42 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends K8sNamespace`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+#### Snippet
+```java
+     * @return namespace list that authorization
+     */
+    private List<K8sNamespace> getUnauthorizedNamespaces(Set<K8sNamespace> namespaceSet,
+                                                         List<K8sNamespace> authedNamespaceList) {
+        List<K8sNamespace> resultList = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends K8sNamespace`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+#### Snippet
+```java
+     */
+    private List<K8sNamespace> getUnauthorizedNamespaces(Set<K8sNamespace> namespaceSet,
+                                                         List<K8sNamespace> authedNamespaceList) {
+        List<K8sNamespace> resultList = new ArrayList<>();
+        for (K8sNamespace k8sNamespace : namespaceSet) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends K8sNamespace`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+#### Snippet
+```java
+     * @param k8sNamespaces source data
+     */
+    private void setClusterName(List<K8sNamespace> k8sNamespaces) {
+        if (CollectionUtils.isNotEmpty(k8sNamespaces)) {
+            List<Cluster> clusters = clusterMapper.queryAllClusterList();
+```
+
+### BoundedWildcard
 Can generalize to `? super Integer`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
@@ -2660,30 +2659,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/ResourceProcessDefinitionUtils.java`
-#### Snippet
-```java
-     * @return resource process definition map (resourceId -> processDefinitionCodes)
-     */
-    public static Map<Integer, Set<Long>> getResourceProcessDefinitionMap(List<Map<String, Object>> resourceList) {
-
-        // resourceId -> processDefinitionCodes
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/ResourceProcessDefinitionUtils.java`
-#### Snippet
-```java
-    }
-
-    public static <T> Map<Integer, Set<T>> getResourceObjectMap(List<Map<String, Object>> resourceList,
-                                                                String objectName, Class<T> clazz) {
-        // resourceId -> task ids or code depends on the objectName
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProcessTaskRelation`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
 #### Snippet
@@ -2705,6 +2680,66 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
                                                                              List<ProcessTaskRelation> processTaskRelations) {
         Date now = new Date();
         List<ProcessTaskRelationLog> processTaskRelationLogs = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/ResourceProcessDefinitionUtils.java`
+#### Snippet
+```java
+    }
+
+    public static <T> Map<Integer, Set<T>> getResourceObjectMap(List<Map<String, Object>> resourceList,
+                                                                String objectName, Class<T> clazz) {
+        // resourceId -> task ids or code depends on the objectName
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/ResourceProcessDefinitionUtils.java`
+#### Snippet
+```java
+     * @return resource process definition map (resourceId -> processDefinitionCodes)
+     */
+    public static Map<Integer, Set<Long>> getResourceProcessDefinitionMap(List<Map<String, Object>> resourceList) {
+
+        // resourceId -> processDefinitionCodes
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    protected void doBatchOperateProcessDefinition(User loginUser,
+                                                   long targetProjectCode,
+                                                   List<String> failedProcessList,
+                                                   String processDefinitionCodes,
+                                                   Map<String, Object> result,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProcessTaskRelationLog`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+     */
+    private void taskUsedInOtherTaskValid(ProcessDefinition processDefinition,
+                                          List<ProcessTaskRelationLog> taskRelationList) {
+        List<ProcessTaskRelation> oldProcessTaskRelationList = processTaskRelationMapper
+                .queryByProcessCode(processDefinition.getProjectCode(), processDefinition.getCode());
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskNode`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+     * @return if graph has cycle flag
+     */
+    private boolean graphHasCycle(List<TaskNode> taskNodeResponseList) {
+        DAG<String, TaskNode, String> graph = new DAG<>();
+        // Fill the vertices
 ```
 
 ### BoundedWildcard
@@ -2732,42 +2767,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/repositor
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TaskNode`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-     * @return if graph has cycle flag
-     */
-    private boolean graphHasCycle(List<TaskNode> taskNodeResponseList) {
-        DAG<String, TaskNode, String> graph = new DAG<>();
-        // Fill the vertices
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProcessTaskRelationLog`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-     */
-    private void taskUsedInOtherTaskValid(ProcessDefinition processDefinition,
-                                          List<ProcessTaskRelationLog> taskRelationList) {
-        List<ProcessTaskRelation> oldProcessTaskRelationList = processTaskRelationMapper
-                .queryByProcessCode(processDefinition.getProjectCode(), processDefinition.getCode());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    protected void doBatchOperateProcessDefinition(User loginUser,
-                                                   long targetProjectCode,
-                                                   List<String> failedProcessList,
-                                                   String processDefinitionCodes,
-                                                   Map<String, Object> result,
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProcessDefinition`
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/upgrade/ProcessDefinitionDao.java`
 #### Snippet
@@ -2792,6 +2791,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/repositor
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ProcessDefinitionLog`
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/upgrade/JsonSplitDao.java`
+#### Snippet
+```java
+     * @param processDefinitionLogs processDefinitionLogs
+     */
+    public void executeJsonSplitProcessDefinition(Connection conn, List<ProcessDefinitionLog> processDefinitionLogs) {
+        String updateSql =
+                "UPDATE t_ds_process_definition SET global_params=?,timeout=?,tenant_id=?,locations=?,update_time=? where id=?";
+```
+
+### BoundedWildcard
 Can generalize to `? extends ProcessTaskRelationLog`
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/upgrade/JsonSplitDao.java`
 #### Snippet
@@ -2813,18 +2824,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/upgrade/J
     public void executeJsonSplitTaskDefinition(Connection conn, List<TaskDefinitionLog> taskDefinitionLogs) {
         String insertSql =
                 "insert into t_ds_task_definition (code,name,version,description,project_code,user_id,task_type,task_params,flag,task_priority,"
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProcessDefinitionLog`
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/upgrade/JsonSplitDao.java`
-#### Snippet
-```java
-     * @param processDefinitionLogs processDefinitionLogs
-     */
-    public void executeJsonSplitProcessDefinition(Connection conn, List<ProcessDefinitionLog> processDefinitionLogs) {
-        String updateSql =
-                "UPDATE t_ds_process_definition SET global_params=?,timeout=?,tenant_id=?,locations=?,update_time=? where id=?";
 ```
 
 ### BoundedWildcard
@@ -2856,18 +2855,6 @@ Can generalize to `? super String`
 in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-dingtalk/src/main/java/org/apache/dolphinscheduler/plugin/alert/dingtalk/DingTalkSender.java`
 #### Snippet
 ```java
-     * @param text text
-     */
-    private void generateTextMsg(String title, String content, Map<String, Object> text) {
-        StringBuilder builder = new StringBuilder(title);
-        builder.append("\n");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-dingtalk/src/main/java/org/apache/dolphinscheduler/plugin/alert/dingtalk/DingTalkSender.java`
-#### Snippet
-```java
      * @param items items
      */
     private void setMsgAt(Map<String, Object> items) {
@@ -2885,6 +2872,18 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
     private void generateMarkdownMsg(String title, String content, Map<String, Object> text) {
         StringBuilder builder = new StringBuilder(content);
         if (org.apache.commons.lang3.StringUtils.isNotBlank(keyword)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-dingtalk/src/main/java/org/apache/dolphinscheduler/plugin/alert/dingtalk/DingTalkSender.java`
+#### Snippet
+```java
+     * @param text text
+     */
+    private void generateTextMsg(String title, String content, Map<String, Object> text) {
+        StringBuilder builder = new StringBuilder(title);
+        builder.append("\n");
 ```
 
 ### BoundedWildcard
@@ -2948,18 +2947,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Date`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
-#### Snippet
-```java
-     * @return true if task instance need fail over
-     */
-    private boolean checkTaskInstanceNeedFailover(Optional<Date> needFailoverWorkerStartTime,
-                                                  @Nullable ProcessInstance processInstance,
-                                                  TaskInstance taskInstance) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Server`
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
 #### Snippet
@@ -2969,6 +2956,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
     private Optional<Date> getServerStartupTime(List<Server> servers, String host) {
         if (CollectionUtils.isEmpty(servers)) {
             return Optional.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Date`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
+#### Snippet
+```java
+     * @return true if task instance need fail over
+     */
+    private boolean checkTaskInstanceNeedFailover(Optional<Date> needFailoverWorkerStartTime,
+                                                  @Nullable ProcessInstance processInstance,
+                                                  TaskInstance taskInstance) {
 ```
 
 ### BoundedWildcard
@@ -3008,42 +3007,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HostWeight`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/LowerWeightRoundRobin.java`
-#### Snippet
-```java
-    }
-
-    private List<HostWeight> canAssignTaskHost(Collection<HostWeight> sources) {
-        if (CollectionUtils.isEmpty(sources)) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
-#### Snippet
-```java
-    }
-
-    private void setTaskUdfFuncResourceInfo(Map<Integer, AbstractResourceParameters> map) {
-        if (MapUtils.isEmpty(map)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractResourceParameters`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
-#### Snippet
-```java
-    }
-
-    private void setTaskUdfFuncResourceInfo(Map<Integer, AbstractResourceParameters> map) {
-        if (MapUtils.isEmpty(map)) {
-            return;
-```
-
-### BoundedWildcard
 Can generalize to `? super DqRuleInputEntry`
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
 #### Snippet
@@ -3080,6 +3043,30 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Integer`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
+#### Snippet
+```java
+    }
+
+    private void setTaskUdfFuncResourceInfo(Map<Integer, AbstractResourceParameters> map) {
+        if (MapUtils.isEmpty(map)) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractResourceParameters`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
+#### Snippet
+```java
+    }
+
+    private void setTaskUdfFuncResourceInfo(Map<Integer, AbstractResourceParameters> map) {
+        if (MapUtils.isEmpty(map)) {
+            return;
+```
+
+### BoundedWildcard
 Can generalize to `? extends HostWorker`
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/RoundRobinSelector.java`
 #### Snippet
@@ -3092,15 +3079,15 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends WorkerHeartBeat`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/LowerWeightHostManager.java`
+Can generalize to `? extends HostWeight`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/LowerWeightRoundRobin.java`
 #### Snippet
 ```java
-         */
-        private void syncWorkerResources(final Map<String, Set<String>> workerGroupNodes,
-                                         final Map<String, WorkerHeartBeat> workerNodeInfoMap) {
-            try {
-                Map<String, Set<HostWeight>> workerHostWeights = new HashMap<>();
+    }
+
+    private List<HostWeight> canAssignTaskHost(Collection<HostWeight> sources) {
+        if (CollectionUtils.isEmpty(sources)) {
+            return Collections.emptyList();
 ```
 
 ### BoundedWildcard
@@ -3113,6 +3100,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
         private void syncWorkerHostWeight(Map<String, Set<HostWeight>> workerHostWeights) {
             workerGroupWriteLock.lock();
             try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends WorkerHeartBeat`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/LowerWeightHostManager.java`
+#### Snippet
+```java
+         */
+        private void syncWorkerResources(final Map<String, Set<String>> workerGroupNodes,
+                                         final Map<String, WorkerHeartBeat> workerNodeInfoMap) {
+            try {
+                Map<String, Set<HostWeight>> workerHostWeights = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -3140,18 +3139,6 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TaskInstance`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
-#### Snippet
-```java
-     * @return recovery node code list
-     */
-    private List<String> getRecoveryNodeCodeList(List<TaskInstance> recoverNodeList) {
-        List<String> recoveryNodeCodeList = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(recoverNodeList)) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
 #### Snippet
@@ -3161,6 +3148,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
     private void setIndirectDepList(String taskCode, List<String> indirectDepCodeList) {
         TaskNode taskNode = dag.getNode(taskCode);
         List<String> depCodeList = taskNode.getDepList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskInstance`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
+#### Snippet
+```java
+     * @return recovery node code list
+     */
+    private List<String> getRecoveryNodeCodeList(List<TaskInstance> recoverNodeList) {
+        List<String> recoveryNodeCodeList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(recoverNodeList)) {
 ```
 
 ### BoundedWildcard
@@ -3197,6 +3196,66 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/b
     public static <T> T getBean(Class<T> requiredType, T defaultValue) {
         try {
             return applicationContext.getBean(requiredType);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Server`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/MasterPriorityQueue.java`
+#### Snippet
+```java
+    }
+
+    public void putList(List<Server> serverList) {
+        for (Server server : serverList) {
+            this.queue.put(server);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Schedule`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CronUtils.java`
+#### Snippet
+```java
+    public static List<ZonedDateTime> getSelfFireDateList(@NonNull final ZonedDateTime startTime,
+                                                          @NonNull final ZonedDateTime endTime,
+                                                          @NonNull final List<Schedule> schedules) throws CronParseException {
+        List<ZonedDateTime> result = new ArrayList<>();
+        if (startTime.equals(endTime)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskDefinitionLog`
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
+#### Snippet
+```java
+    }
+
+    private void convertConditions(List<TaskDefinitionLog> taskDefinitionLogList,
+                                   Map<String, Long> taskNameCodeMap) throws Exception {
+        for (TaskDefinitionLog taskDefinitionLog : taskDefinitionLogList) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskDefinitionLog`
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
+#### Snippet
+```java
+    }
+
+    private void convertDependence(List<TaskDefinitionLog> taskDefinitionLogs,
+                                   Map<Integer, Long> projectIdCodeMap,
+                                   Map<Integer, Map<Long, Map<String, Long>>> processTaskMap) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`>
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
+#### Snippet
+```java
+    private void convertDependence(List<TaskDefinitionLog> taskDefinitionLogs,
+                                   Map<Integer, Long> projectIdCodeMap,
+                                   Map<Integer, Map<Long, Map<String, Long>>> processTaskMap) {
+        for (TaskDefinitionLog taskDefinitionLog : taskDefinitionLogs) {
+            if (TASK_TYPE_DEPENDENT.equals(taskDefinitionLog.getTaskType())) {
 ```
 
 ### BoundedWildcard
@@ -3260,18 +3319,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TaskDefinitionLog`
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
-#### Snippet
-```java
-    }
-
-    private void convertConditions(List<TaskDefinitionLog> taskDefinitionLogList,
-                                   Map<String, Long> taskNameCodeMap) throws Exception {
-        for (TaskDefinitionLog taskDefinitionLog : taskDefinitionLogList) {
-```
-
-### BoundedWildcard
 Can generalize to `? super ProcessTaskRelationLog`
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
 #### Snippet
@@ -3281,54 +3328,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
                                            List<ProcessTaskRelationLog> processTaskRelationLogs) {
         Date now = new Date();
         for (Map.Entry<String, List<String>> entry : taskNamePreMap.entrySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TaskDefinitionLog`
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
-#### Snippet
-```java
-    }
-
-    private void convertDependence(List<TaskDefinitionLog> taskDefinitionLogs,
-                                   Map<Integer, Long> projectIdCodeMap,
-                                   Map<Integer, Map<Long, Map<String, Long>>> processTaskMap) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`>
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
-#### Snippet
-```java
-    private void convertDependence(List<TaskDefinitionLog> taskDefinitionLogs,
-                                   Map<Integer, Long> projectIdCodeMap,
-                                   Map<Integer, Map<Long, Map<String, Long>>> processTaskMap) {
-        for (TaskDefinitionLog taskDefinitionLog : taskDefinitionLogs) {
-            if (TASK_TYPE_DEPENDENT.equals(taskDefinitionLog.getTaskType())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Server`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/MasterPriorityQueue.java`
-#### Snippet
-```java
-    }
-
-    public void putList(List<Server> serverList) {
-        for (Server server : serverList) {
-            this.queue.put(server);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Schedule`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CronUtils.java`
-#### Snippet
-```java
-    public static List<ZonedDateTime> getSelfFireDateList(@NonNull final ZonedDateTime startTime,
-                                                          @NonNull final ZonedDateTime endTime,
-                                                          @NonNull final List<Schedule> schedules) throws CronParseException {
-        List<ZonedDateTime> result = new ArrayList<>();
-        if (startTime.equals(endTime)) {
 ```
 
 ### BoundedWildcard
@@ -3428,18 +3427,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
-#### Snippet
-```java
-     * @param command command
-     */
-    private void generateCgroupCommand(List<String> command) {
-        Integer cpuQuota = taskRequest.getCpuQuota();
-        Integer memoryMax = taskRequest.getMemoryMax();
-```
-
-### BoundedWildcard
 Can generalize to `? extends PodList`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManager.java`
 #### Snippet
@@ -3449,6 +3436,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
                                                      FilterWatchListDeletable<Pod, PodList> watchList) throws TaskException {
         String phase;
         try {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
+#### Snippet
+```java
+     * @param command command
+     */
+    private void generateCgroupCommand(List<String> command) {
+        Integer cpuQuota = taskRequest.getCpuQuota();
+        Integer memoryMax = taskRequest.getMemoryMax();
 ```
 
 ### BoundedWildcard
@@ -3512,6 +3511,30 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-http/src/main/java/org/ap
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/apache/dolphinscheduler/plugin/task/spark/SparkTask.java`
+#### Snippet
+```java
+    }
+
+    private void populateSparkResourceDefinitions(List<String> args) {
+        int driverCores = sparkParameters.getDriverCores();
+        if (driverCores > 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskDefinitionLog`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public int saveTaskDefine(User operator, long projectCode, List<TaskDefinitionLog> taskDefinitionLogs,
+                              Boolean syncDefine) {
+        Date now = new Date();
+```
+
+### BoundedWildcard
 Can generalize to `? super Long`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
@@ -3552,83 +3575,11 @@ Can generalize to `? extends TaskDefinitionLog`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-
-    @Override
-    public int saveTaskDefine(User operator, long projectCode, List<TaskDefinitionLog> taskDefinitionLogs,
-                              Boolean syncDefine) {
-        Date now = new Date();
-```
-
-### BoundedWildcard
-Can generalize to `? extends TaskDefinitionLog`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
                                 int processDefinitionVersion,
                                 List<ProcessTaskRelationLog> taskRelationList,
                                 List<TaskDefinitionLog> taskDefinitionLogs,
                                 Boolean syncDefine) {
         if (taskRelationList.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/apache/dolphinscheduler/plugin/task/spark/SparkTask.java`
-#### Snippet
-```java
-    }
-
-    private void populateSparkResourceDefinitions(List<String> args) {
-        int driverCores = sparkParameters.getDriverCores();
-        if (driverCores > 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends UdfFuncParameters`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-     * @return
-     */
-    private List<String> buildTempFuncSql(List<UdfFuncParameters> udfFuncParameters) {
-        return udfFuncParameters.stream().map(value -> MessageFormat
-                .format(CREATE_OR_REPLACE_FUNCTION_FORMAT, value.getFuncName(), value.getClassName()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends UdfFuncParameters`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-     * @return
-     */
-    private List<String> buildJarSql(List<UdfFuncParameters> udfFuncParameters) {
-        return udfFuncParameters.stream().map(value -> {
-            String defaultFS = value.getDefaultFS();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Property`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-    }
-
-    private String setNonQuerySqlReturn(String updateResult, List<Property> properties) {
-        String result = null;
-        for (Property info : properties) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SqlBinds`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-    }
-
-    private String executeUpdate(Connection connection, List<SqlBinds> statementsBinds,
-                                 String handlerType) throws Exception {
-        int result = 0;
 ```
 
 ### BoundedWildcard
@@ -3656,6 +3607,54 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apa
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends UdfFuncParameters`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+     * @return
+     */
+    private List<String> buildTempFuncSql(List<UdfFuncParameters> udfFuncParameters) {
+        return udfFuncParameters.stream().map(value -> MessageFormat
+                .format(CREATE_OR_REPLACE_FUNCTION_FORMAT, value.getFuncName(), value.getClassName()))
+```
+
+### BoundedWildcard
+Can generalize to `? extends SqlBinds`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+    }
+
+    private String executeUpdate(Connection connection, List<SqlBinds> statementsBinds,
+                                 String handlerType) throws Exception {
+        int result = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Property`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+    }
+
+    private String setNonQuerySqlReturn(String updateResult, List<Property> properties) {
+        String result = null;
+        for (Property info : properties) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends UdfFuncParameters`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+     * @return
+     */
+    private List<String> buildJarSql(List<UdfFuncParameters> udfFuncParameters) {
+        return udfFuncParameters.stream().map(value -> {
+            String defaultFS = value.getDefaultFS();
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowParameters.java`
 #### Snippet
@@ -3701,78 +3700,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/
     private void addParamsMapForBasicAlgorithm(HashMap<String, String> paramsMap) {
         paramsMap.put("algorithm", algorithm);
         paramsMap.put("search_params", searchParams);
-```
-
-### BoundedWildcard
-Can generalize to `? extends TaskNode`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
-#### Snippet
-```java
-     */
-    private static void setTaskNodeSkip(String skipNodeCode,
-                                        DAG<String, TaskNode, TaskNodeRelation> dag,
-                                        Map<String, TaskInstance> completeTaskList,
-                                        Map<String, TaskNode> skipTaskNodeList) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProcessTaskRelation`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
-#### Snippet
-```java
-     */
-    public static ProcessDag getProcessDag(List<TaskNode> taskNodeList,
-                                           List<ProcessTaskRelation> processTaskRelations) {
-        Map<Long, TaskNode> taskNodeMap = new HashMap<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
-#### Snippet
-```java
-     */
-    public static boolean allDependsForbiddenOrEnd(TaskNode taskNode,
-                                                   DAG<String, TaskNode, TaskNodeRelation> dag,
-                                                   Map<String, TaskNode> skipTaskNodeList,
-                                                   Map<String, TaskInstance> completeTaskList) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TaskNode`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
-#### Snippet
-```java
-     */
-    public static boolean allDependsForbiddenOrEnd(TaskNode taskNode,
-                                                   DAG<String, TaskNode, TaskNodeRelation> dag,
-                                                   Map<String, TaskNode> skipTaskNodeList,
-                                                   Map<String, TaskInstance> completeTaskList) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TaskNode`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
-#### Snippet
-```java
-     * @return task node
-     */
-    public static TaskNode findNodeByCode(List<TaskNode> nodeDetails, String nodeCode) {
-        for (TaskNode taskNode : nodeDetails) {
-            if (Long.toString(taskNode.getCode()).equals(nodeCode)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
-#### Snippet
-```java
-     */
-    private static List<TaskNode> getFlowNodeListPre(TaskNode startNode, List<String> recoveryNodeCodeList,
-                                                     List<TaskNode> taskNodeList, List<String> visitedNodeCodeList) {
-
-        List<TaskNode> resultList = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -3805,6 +3732,66 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/u
 #### Snippet
 ```java
      */
+    private static void setTaskNodeSkip(String skipNodeCode,
+                                        DAG<String, TaskNode, TaskNodeRelation> dag,
+                                        Map<String, TaskInstance> completeTaskList,
+                                        Map<String, TaskNode> skipTaskNodeList) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskNode`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+#### Snippet
+```java
+     * @return task node
+     */
+    public static TaskNode findNodeByCode(List<TaskNode> nodeDetails, String nodeCode) {
+        for (TaskNode taskNode : nodeDetails) {
+            if (Long.toString(taskNode.getCode()).equals(nodeCode)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+#### Snippet
+```java
+     */
+    public static boolean allDependsForbiddenOrEnd(TaskNode taskNode,
+                                                   DAG<String, TaskNode, TaskNodeRelation> dag,
+                                                   Map<String, TaskNode> skipTaskNodeList,
+                                                   Map<String, TaskInstance> completeTaskList) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskNode`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+#### Snippet
+```java
+     */
+    public static boolean allDependsForbiddenOrEnd(TaskNode taskNode,
+                                                   DAG<String, TaskNode, TaskNodeRelation> dag,
+                                                   Map<String, TaskNode> skipTaskNodeList,
+                                                   Map<String, TaskInstance> completeTaskList) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskNode`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+#### Snippet
+```java
+     * @return task node
+     */
+    public static TaskNode findNodeByName(List<TaskNode> nodeDetails, String nodeName) {
+        for (TaskNode taskNode : nodeDetails) {
+            if (taskNode.getName().equals(nodeName)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskNode`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+#### Snippet
+```java
+     */
     public static boolean haveSubAfterNode(String parentNodeCode,
                                            DAG<String, TaskNode, TaskNodeRelation> dag, String filterNodeType) {
         Set<String> subsequentNodes = dag.getSubsequentNodes(parentNodeCode);
@@ -3824,27 +3811,27 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/u
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TaskNode`
+Can generalize to `? super String`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
 #### Snippet
 ```java
-     * @return task node
      */
-    public static TaskNode findNodeByName(List<TaskNode> nodeDetails, String nodeName) {
-        for (TaskNode taskNode : nodeDetails) {
-            if (taskNode.getName().equals(nodeName)) {
+    private static List<TaskNode> getFlowNodeListPre(TaskNode startNode, List<String> recoveryNodeCodeList,
+                                                     List<TaskNode> taskNodeList, List<String> visitedNodeCodeList) {
+
+        List<TaskNode> resultList = new ArrayList<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Property`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-procedure/src/main/java/org/apache/dolphinscheduler/plugin/task/procedure/ProcedureTask.java`
+Can generalize to `? extends ProcessTaskRelation`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
 #### Snippet
 ```java
      */
-    private Map<Integer, Property> getOutParameterMap(CallableStatement stmt, Map<Integer, Property> paramsMap,
-                                                      Map<String, Property> totalParamsMap) throws Exception {
-        Map<Integer, Property> outParameterMap = new HashMap<>();
-        if (procedureParameters.getLocalParametersMap() == null) {
+    public static ProcessDag getProcessDag(List<TaskNode> taskNodeList,
+                                           List<ProcessTaskRelation> processTaskRelations) {
+        Map<Long, TaskNode> taskNodeMap = new HashMap<>();
+
 ```
 
 ### BoundedWildcard
@@ -3869,6 +3856,18 @@ in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data
                                         List<WriterConfig> writerConfigs) throws DataQualityException {
 
         List<BatchWriter> writerList = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Property`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-procedure/src/main/java/org/apache/dolphinscheduler/plugin/task/procedure/ProcedureTask.java`
+#### Snippet
+```java
+     */
+    private Map<Integer, Property> getOutParameterMap(CallableStatement stmt, Map<Integer, Property> paramsMap,
+                                                      Map<String, Property> totalParamsMap) throws Exception {
+        Map<Integer, Property> outParameterMap = new HashMap<>();
+        if (procedureParameters.getLocalParametersMap() == null) {
 ```
 
 ### BoundedWildcard
@@ -3944,78 +3943,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/or
 ```
 
 ### BoundedWildcard
-Can generalize to `? super BaseConfig`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
-#### Snippet
-```java
-    }
-
-    public static void addStatisticsValueTableReaderConfig(List<BaseConfig> readerConfigList,
-                                                           DataQualityTaskExecutionContext dataQualityTaskExecutionContext) {
-        if (dataQualityTaskExecutionContext.isComparisonNeedStatisticsValueTable()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super BaseConfig`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
-#### Snippet
-```java
-    private static int setTransformerConfig(int index,
-                                            Map<String, String> inputParameterValueResult,
-                                            List<BaseConfig> transformerConfigList,
-                                            DqRuleExecuteSql executeSqlDefinition) {
-        Map<String, Object> config = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MappingColumn`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
-#### Snippet
-```java
-    }
-
-    public static List<String> getTargetColumnList(List<MappingColumn> mappingColumns) {
-        List<String> list = new ArrayList<>();
-        mappingColumns.forEach(item -> list.add(item.getTargetField()));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
-#### Snippet
-```java
-
-    public static List<BaseConfig> getReaderConfigList(
-                                                       Map<String, String> inputParameterValue,
-                                                       DataQualityTaskExecutionContext dataQualityTaskExecutionContext) throws DataQualityException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
-#### Snippet
-```java
-
-    public static List<BaseConfig> getReaderConfigList(
-                                                       Map<String, String> inputParameterValue,
-                                                       DataQualityTaskExecutionContext dataQualityTaskExecutionContext) throws DataQualityException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends DqRuleExecuteSql`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
-#### Snippet
-```java
-    }
-
-    private static void checkAndReplace(List<DqRuleExecuteSql> list, String checkValue, String replaceSrc) {
-        if (StringUtils.isEmpty(checkValue) && CollectionUtils.isNotEmpty(list)) {
-            for (DqRuleExecuteSql executeSqlDefinition : list) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends MappingColumn`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
 #### Snippet
@@ -4040,6 +3967,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends MappingColumn`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
+#### Snippet
+```java
+    }
+
+    public static List<String> getTargetColumnList(List<MappingColumn> mappingColumns) {
+        List<String> list = new ArrayList<>();
+        mappingColumns.forEach(item -> list.add(item.getTargetField()));
+```
+
+### BoundedWildcard
 Can generalize to `? extends DqRuleInputEntry`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
 #### Snippet
@@ -4049,6 +3988,66 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java
     public static Map<String, String> getInputParameterMapFromEntryList(List<DqRuleInputEntry> defaultInputEntryList) {
 
         Map<String, String> defaultInputParameterValue = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DqRuleExecuteSql`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
+#### Snippet
+```java
+    }
+
+    private static void checkAndReplace(List<DqRuleExecuteSql> list, String checkValue, String replaceSrc) {
+        if (StringUtils.isEmpty(checkValue) && CollectionUtils.isNotEmpty(list)) {
+            for (DqRuleExecuteSql executeSqlDefinition : list) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
+#### Snippet
+```java
+
+    public static List<BaseConfig> getReaderConfigList(
+                                                       Map<String, String> inputParameterValue,
+                                                       DataQualityTaskExecutionContext dataQualityTaskExecutionContext) throws DataQualityException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
+#### Snippet
+```java
+
+    public static List<BaseConfig> getReaderConfigList(
+                                                       Map<String, String> inputParameterValue,
+                                                       DataQualityTaskExecutionContext dataQualityTaskExecutionContext) throws DataQualityException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super BaseConfig`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
+#### Snippet
+```java
+    }
+
+    public static void addStatisticsValueTableReaderConfig(List<BaseConfig> readerConfigList,
+                                                           DataQualityTaskExecutionContext dataQualityTaskExecutionContext) {
+        if (dataQualityTaskExecutionContext.isComparisonNeedStatisticsValueTable()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super BaseConfig`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
+#### Snippet
+```java
+    private static int setTransformerConfig(int index,
+                                            Map<String, String> inputParameterValueResult,
+                                            List<BaseConfig> transformerConfigList,
+                                            DqRuleExecuteSql executeSqlDefinition) {
+        Map<String, Object> config = new HashMap<>();
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -4142,10 +4141,10 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
 #### Snippet
 ```java
 
-    // suffix of the package file
-    final static String PACK_SUFFIX = "_ds_pack.zip";
-
     // root path in resource storage
+    final static String RESOURCE_TAG = "DATA_TRANSFER";
+
+    private TaskFilesTransferUtils() {
 ```
 
 ### MissortedModifiers
@@ -4178,22 +4177,10 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
 #### Snippet
 ```java
 
+    // suffix of the package file
+    final static String PACK_SUFFIX = "_ds_pack.zip";
+
     // root path in resource storage
-    final static String RESOURCE_TAG = "DATA_TRANSFER";
-
-    private TaskFilesTransferUtils() {
-```
-
-### MissortedModifiers
-Missorted modifiers `protected @Nullable`
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/runner/WorkerTaskExecuteRunnable.java`
-#### Snippet
-```java
-    protected final WorkerRpcClient workerRpcClient;
-
-    protected @Nullable AbstractTask task;
-
-    protected WorkerTaskExecuteRunnable(
 ```
 
 ### MissortedModifiers
@@ -4206,6 +4193,18 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
     public @Nullable AbstractTask getTask() {
         return task;
     }
+```
+
+### MissortedModifiers
+Missorted modifiers `protected @Nullable`
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/runner/WorkerTaskExecuteRunnable.java`
+#### Snippet
+```java
+    protected final WorkerRpcClient workerRpcClient;
+
+    protected @Nullable AbstractTask task;
+
+    protected WorkerTaskExecuteRunnable(
 ```
 
 ### MissortedModifiers
@@ -4299,6 +4298,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/
 ```java
     }
 
+    static public String getPresetRepositoryVersion() {
+        String version = PropertyUtils.getString(MlflowConstants.PRESET_REPOSITORY_VERSION_KEY);
+        if (StringUtils.isEmpty(version)) {
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowTask.java`
+#### Snippet
+```java
+    }
+
     static public String getVersionString(String version, String repository) {
         String versionString;
         if (StringUtils.isEmpty(version)) {
@@ -4317,15 +4328,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static public`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowTask.java`
+Missorted modifiers `synchronized static`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-hive/src/main/java/org/apache/dolphinscheduler/plugin/datasource/hive/security/UserGroupInformationFactory.java`
 #### Snippet
 ```java
     }
 
-    static public String getPresetRepositoryVersion() {
-        String version = PropertyUtils.getString(MlflowConstants.PRESET_REPOSITORY_VERSION_KEY);
-        if (StringUtils.isEmpty(version)) {
+    public synchronized static void logout(String userName) {
+        Integer currentLoginTimes = currentLoginTimesMap.get(userName);
+        if (currentLoginTimes == null) {
 ```
 
 ### MissortedModifiers
@@ -4338,18 +4349,6 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-hive/src/main
     public synchronized static UserGroupInformation login(String userName) {
         UserGroupInformation userGroupInformation = userGroupInformationMap.get(userName);
         if (userGroupInformation == null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `synchronized static`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-hive/src/main/java/org/apache/dolphinscheduler/plugin/datasource/hive/security/UserGroupInformationFactory.java`
-#### Snippet
-```java
-    }
-
-    public synchronized static void logout(String userName) {
-        Integer currentLoginTimes = currentLoginTimesMap.get(userName);
-        if (currentLoginTimes == null) {
 ```
 
 ## RuleId[ruleID=IfStatementMissingBreakInLoop]
@@ -4479,6 +4478,126 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/mod
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+#### Snippet
+```java
+    public Result updateProcessInstance(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
+                                        @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
+                                        @PathVariable(value = "id") Integer id,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+#### Snippet
+```java
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
+                                        @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
+                                        @PathVariable(value = "id") Integer id,
+                                        @RequestParam(value = "scheduleTime", required = false) String scheduleTime,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+#### Snippet
+```java
+                                        @PathVariable(value = "id") Integer id,
+                                        @RequestParam(value = "scheduleTime", required = false) String scheduleTime,
+                                        @RequestParam(value = "syncDefine", required = true) Boolean syncDefine,
+                                        @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+                                        @RequestParam(value = "locations", required = false) String locations,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+#### Snippet
+```java
+                                        @RequestParam(value = "locations", required = false) String locations,
+                                        @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
+                                        @RequestParam(value = "tenantCode", required = true) String tenantCode) {
+        Map<String, Object> result = processInstanceService.updateProcessInstance(loginUser, projectCode, id,
+                taskRelationJson, taskDefinitionJson, scheduleTime, syncDefine, globalParams, locations, timeout,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+#### Snippet
+```java
+                                                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                                                          @RequestParam("size") Integer size,
+                                                                          @RequestParam(value = "startTime", required = true) String startTime,
+                                                                          @RequestParam(value = "endTime", required = true) String endTime) {
+        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+#### Snippet
+```java
+                                                                          @RequestParam("size") Integer size,
+                                                                          @RequestParam(value = "startTime", required = true) String startTime,
+                                                                          @RequestParam(value = "endTime", required = true) String endTime) {
+        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
+                projectCode, size, startTime, endTime);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
+#### Snippet
+```java
+    @Operation(summary = "queryTaskListPaging", description = "QUERY_TASK_INSTANCE_LIST_PAGING_NOTES")
+    @Parameters({
+            @Parameter(name = "processInstanceId", description = "PROCESS_INSTANCE_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
+            @Parameter(name = "processInstanceName", description = "PROCESS_INSTANCE_NAME", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "searchVal", description = "SEARCH_VAL", schema = @Schema(implementation = String.class)),
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
+#### Snippet
+```java
+    @Parameters({
+            @Parameter(name = "processInstanceId", description = "PROCESS_INSTANCE_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
+            @Parameter(name = "processInstanceName", description = "PROCESS_INSTANCE_NAME", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "searchVal", description = "SEARCH_VAL", schema = @Schema(implementation = String.class)),
+            @Parameter(name = "taskName", description = "TASK_NAME", schema = @Schema(implementation = String.class)),
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
+#### Snippet
+```java
+            @Parameter(name = "startDate", description = "START_DATE", schema = @Schema(implementation = String.class)),
+            @Parameter(name = "endDate", description = "END_DATE", schema = @Schema(implementation = String.class)),
+            @Parameter(name = "taskExecuteType", description = "TASK_EXECUTE_TYPE", required = false, schema = @Schema(implementation = TaskExecuteType.class, example = "STREAM")),
+            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
+            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "20")),
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+    public Result createTaskDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                       @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                       @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson) {
+        Map<String, Object> result =
+                taskDefinitionService.createTaskDefinition(loginUser, projectCode, taskDefinitionJson);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
 #### Snippet
 ```java
@@ -4499,6 +4618,78 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
         Map<String, Object> result = taskDefinitionService.updateTaskWithUpstream(loginUser, projectCode, code,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+            @Parameter(name = "processDefinitionCode", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class)),
+            @Parameter(name = "taskDefinitionJsonObj", description = "TASK_DEFINITION_JSON", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "upstreamCodes", description = "UPSTREAM_CODES", required = false, schema = @Schema(implementation = String.class))
+    })
+    @PostMapping("/save-single")
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+    public Result createTaskBindsWorkFlow(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                          @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
+                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
+                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                          @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
+                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
+                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
+        Map<String, Object> result = taskDefinitionService.createTaskBindsWorkFlow(loginUser, projectCode,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+    public Result releaseTaskDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @PathVariable(value = "code", required = true) long code,
+                                        @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
+        Map<String, Object> result =
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @PathVariable(value = "code", required = true) long code,
+                                        @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
+        Map<String, Object> result =
+                taskDefinitionService.releaseTaskDefinition(loginUser, projectCode, code, releaseState);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+                                       @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                       @PathVariable(value = "code") long code,
+                                       @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj) {
+        Map<String, Object> result =
+                taskDefinitionService.updateTaskDefinition(loginUser, projectCode, code, taskDefinitionJsonObj);
 ```
 
 ### DefaultAnnotationParam
@@ -4563,194 +4754,86 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-                                       @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                       @PathVariable(value = "code") long code,
-                                       @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj) {
-        Map<String, Object> result =
-                taskDefinitionService.updateTaskDefinition(loginUser, projectCode, code, taskDefinitionJsonObj);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "processDefinitionCode", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class)),
-            @Parameter(name = "taskDefinitionJsonObj", description = "TASK_DEFINITION_JSON", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "upstreamCodes", description = "UPSTREAM_CODES", required = false, schema = @Schema(implementation = String.class))
-    })
-    @PostMapping("/save-single")
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-    public Result createTaskBindsWorkFlow(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                          @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
-                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
-                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                          @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
-                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
-                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
-        Map<String, Object> result = taskDefinitionService.createTaskBindsWorkFlow(loginUser, projectCode,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-    public Result createTaskDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                       @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                       @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson) {
-        Map<String, Object> result =
-                taskDefinitionService.createTaskDefinition(loginUser, projectCode, taskDefinitionJson);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-    public Result releaseTaskDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @PathVariable(value = "code", required = true) long code,
-                                        @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
-        Map<String, Object> result =
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @PathVariable(value = "code", required = true) long code,
-                                        @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
-        Map<String, Object> result =
-                taskDefinitionService.releaseTaskDefinition(loginUser, projectCode, code, releaseState);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
-#### Snippet
-```java
-                                                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                                                          @RequestParam("size") Integer size,
-                                                                          @RequestParam(value = "startTime", required = true) String startTime,
-                                                                          @RequestParam(value = "endTime", required = true) String endTime) {
-        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
-#### Snippet
-```java
-                                                                          @RequestParam("size") Integer size,
-                                                                          @RequestParam(value = "startTime", required = true) String startTime,
-                                                                          @RequestParam(value = "endTime", required = true) String endTime) {
-        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
-                projectCode, size, startTime, endTime);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
-#### Snippet
-```java
-    public Result updateProcessInstance(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
-                                        @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
-                                        @PathVariable(value = "id") Integer id,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
-#### Snippet
-```java
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
-                                        @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
-                                        @PathVariable(value = "id") Integer id,
-                                        @RequestParam(value = "scheduleTime", required = false) String scheduleTime,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
-#### Snippet
-```java
-                                        @PathVariable(value = "id") Integer id,
-                                        @RequestParam(value = "scheduleTime", required = false) String scheduleTime,
-                                        @RequestParam(value = "syncDefine", required = true) Boolean syncDefine,
-                                        @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
-                                        @RequestParam(value = "locations", required = false) String locations,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
-#### Snippet
-```java
-                                        @RequestParam(value = "locations", required = false) String locations,
-                                        @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
-                                        @RequestParam(value = "tenantCode", required = true) String tenantCode) {
-        Map<String, Object> result = processInstanceService.updateProcessInstance(loginUser, projectCode, id,
-                taskRelationJson, taskDefinitionJson, scheduleTime, syncDefine, globalParams, locations, timeout,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
-#### Snippet
-```java
-    @Operation(summary = "queryTaskListPaging", description = "QUERY_TASK_INSTANCE_LIST_PAGING_NOTES")
+    @Operation(summary = "queryListPaging", description = "QUERY_PROCESS_DEFINITION_LIST_PAGING_NOTES")
     @Parameters({
-            @Parameter(name = "processInstanceId", description = "PROCESS_INSTANCE_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
-            @Parameter(name = "processInstanceName", description = "PROCESS_INSTANCE_NAME", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "searchVal", description = "SEARCH_VAL", schema = @Schema(implementation = String.class)),
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
-#### Snippet
-```java
-    @Parameters({
-            @Parameter(name = "processInstanceId", description = "PROCESS_INSTANCE_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
-            @Parameter(name = "processInstanceName", description = "PROCESS_INSTANCE_NAME", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "searchVal", description = "SEARCH_VAL", schema = @Schema(implementation = String.class)),
-            @Parameter(name = "taskName", description = "TASK_NAME", schema = @Schema(implementation = String.class)),
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
-#### Snippet
-```java
-            @Parameter(name = "startDate", description = "START_DATE", schema = @Schema(implementation = String.class)),
-            @Parameter(name = "endDate", description = "END_DATE", schema = @Schema(implementation = String.class)),
-            @Parameter(name = "taskExecuteType", description = "TASK_EXECUTE_TYPE", required = false, schema = @Schema(implementation = TaskExecuteType.class, example = "STREAM")),
+            @Parameter(name = "searchVal", description = "SEARCH_VAL", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "userId", description = "USER_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
             @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
-            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "20")),
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    @Parameters({
+            @Parameter(name = "searchVal", description = "SEARCH_VAL", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "userId", description = "USER_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
+            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
+            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "10")),
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
+            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "10")),
+            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
+    })
+    @GetMapping()
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result moveProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @RequestParam(value = "codes", required = true) String codes,
+                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
+        return returnDataList(
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @RequestParam(value = "codes", required = true) String codes,
+                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
+        return returnDataList(
+                processDefinitionService.batchMoveProcessDefinition(loginUser, projectCode, codes, targetProjectCode));
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    @Parameters({
+            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = false, schema = @Schema(implementation = Long.class)),
+    })
+    @GetMapping(value = "/verify-name")
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result verifyProcessDefinitionName(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                              @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                              @RequestParam(value = "name", required = true) String name,
+                                              @RequestParam(value = "code", required = false, defaultValue = "0") long processDefinitionCode) {
+        Map<String, Object> result = processDefinitionService.verifyProcessDefinitionName(loginUser, projectCode, name,
 ```
 
 ### DefaultAnnotationParam
@@ -4759,7 +4842,103 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 #### Snippet
 ```java
             @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
+            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class))
+    })
+    @PostMapping(value = "/empty")
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result createEmptyProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                               @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                               @RequestParam(value = "name", required = true) String name,
+                                               @RequestParam(value = "description", required = false) String description,
+                                               @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                               @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+                                               @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
+                                               @RequestParam(value = "tenantCode", required = true) String tenantCode,
+                                               @RequestParam(value = "scheduleJson", required = false) String scheduleJson,
+                                               @RequestParam(value = "executionType", defaultValue = "PARALLEL") ProcessExecutionTypeEnum executionType) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result releaseWorkflowAndSchedule(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                             @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                             @PathVariable(value = "code", required = true) long code,
+                                             @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
+        return returnDataList(
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                             @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                             @PathVariable(value = "code", required = true) long code,
+                                             @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
+        return returnDataList(
+                processDefinitionService.releaseWorkflowAndSchedule(loginUser, projectCode, code, releaseState));
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result queryProcessDefinitionByCode(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                               @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                               @PathVariable(value = "code", required = true) long code) {
+        Map<String, Object> result =
+                processDefinitionService.queryProcessDefinitionByCode(loginUser, projectCode, code);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result releaseProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                           @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                           @PathVariable(value = "code", required = true) long code,
+                                           @RequestParam(value = "releaseState", required = true) ReleaseState releaseState) {
+        Map<String, Object> result =
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                           @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                           @PathVariable(value = "code", required = true) long code,
+                                           @RequestParam(value = "releaseState", required = true) ReleaseState releaseState) {
+        Map<String, Object> result =
+                processDefinitionService.releaseProcessDefinition(loginUser, projectCode, code, releaseState);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
             @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
+            @Parameter(name = "locations", description = "PROCESS_DEFINITION_LOCATIONS", required = true, schema = @Schema(implementation = String.class)),
             @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
             @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
             @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
@@ -4770,7 +4949,7 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-            @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
+            @Parameter(name = "locations", description = "PROCESS_DEFINITION_LOCATIONS", required = true, schema = @Schema(implementation = String.class)),
             @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
             @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
             @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
@@ -4786,7 +4965,7 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
             @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
             @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
     })
-    @PutMapping(value = "/{code}/basic-info")
+    @PutMapping(value = "/{code}")
 ```
 
 ### DefaultAnnotationParam
@@ -4794,11 +4973,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-    public Result updateProcessDefinitionBasicInfo(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                                   @RequestParam(value = "name", required = true) String name,
-                                                   @PathVariable(value = "code", required = true) long code,
-                                                   @RequestParam(value = "description", required = false) String description,
+    public Result updateProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                          @RequestParam(value = "name", required = true) String name,
+                                          @PathVariable(value = "code", required = true) long code,
+                                          @RequestParam(value = "description", required = false) String description,
 ```
 
 ### DefaultAnnotationParam
@@ -4806,11 +4985,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-                                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                                   @RequestParam(value = "name", required = true) String name,
-                                                   @PathVariable(value = "code", required = true) long code,
-                                                   @RequestParam(value = "description", required = false) String description,
-                                                   @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                          @RequestParam(value = "name", required = true) String name,
+                                          @PathVariable(value = "code", required = true) long code,
+                                          @RequestParam(value = "description", required = false) String description,
+                                          @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
 ```
 
 ### DefaultAnnotationParam
@@ -4818,11 +4997,35 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-                                                   @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
-                                                   @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
-                                                   @RequestParam(value = "tenantCode", required = true) String tenantCode,
-                                                   @RequestParam(value = "scheduleJson", required = false) String scheduleJson,
-                                                   @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
+                                          @RequestParam(value = "locations", required = false) String locations,
+                                          @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
+                                          @RequestParam(value = "tenantCode", required = true) String tenantCode,
+                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
+                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                          @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
+                                          @RequestParam(value = "tenantCode", required = true) String tenantCode,
+                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
+                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
+                                          @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                          @RequestParam(value = "tenantCode", required = true) String tenantCode,
+                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
+                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
+                                          @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
+                                          @RequestParam(value = "executionType", defaultValue = "PARALLEL") ProcessExecutionTypeEnum executionType,
 ```
 
 ### DefaultAnnotationParam
@@ -4926,8 +5129,8 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
+            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
             @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
-            @Parameter(name = "locations", description = "PROCESS_DEFINITION_LOCATIONS", required = true, schema = @Schema(implementation = String.class)),
             @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
             @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
             @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
@@ -4938,23 +5141,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-            @Parameter(name = "locations", description = "PROCESS_DEFINITION_LOCATIONS", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
-            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
-    })
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
+            @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
             @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
             @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
             @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
     })
-    @PutMapping(value = "/{code}")
 ```
 
 ### DefaultAnnotationParam
@@ -4962,11 +5153,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-    public Result updateProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                          @RequestParam(value = "name", required = true) String name,
-                                          @PathVariable(value = "code", required = true) long code,
-                                          @RequestParam(value = "description", required = false) String description,
+            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
+            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
+    })
+    @PutMapping(value = "/{code}/basic-info")
 ```
 
 ### DefaultAnnotationParam
@@ -4974,11 +5165,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                          @RequestParam(value = "name", required = true) String name,
-                                          @PathVariable(value = "code", required = true) long code,
-                                          @RequestParam(value = "description", required = false) String description,
-                                          @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+    public Result updateProcessDefinitionBasicInfo(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                                   @RequestParam(value = "name", required = true) String name,
+                                                   @PathVariable(value = "code", required = true) long code,
+                                                   @RequestParam(value = "description", required = false) String description,
 ```
 
 ### DefaultAnnotationParam
@@ -4986,11 +5177,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-                                          @RequestParam(value = "locations", required = false) String locations,
-                                          @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
-                                          @RequestParam(value = "tenantCode", required = true) String tenantCode,
-                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
-                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
+                                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                                   @RequestParam(value = "name", required = true) String name,
+                                                   @PathVariable(value = "code", required = true) long code,
+                                                   @RequestParam(value = "description", required = false) String description,
+                                                   @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
 ```
 
 ### DefaultAnnotationParam
@@ -4998,35 +5189,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-                                          @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
-                                          @RequestParam(value = "tenantCode", required = true) String tenantCode,
-                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
-                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
-                                          @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessTaskRelationController.java`
-#### Snippet
-```java
-    public Result deleteUpstreamRelation(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                         @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                         @RequestParam(name = "preTaskCodes", required = true) String preTaskCodes,
-                                         @PathVariable("taskCode") long taskCode) {
-        return returnDataList(
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                          @RequestParam(value = "tenantCode", required = true) String tenantCode,
-                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
-                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
-                                          @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
-                                          @RequestParam(value = "executionType", defaultValue = "PARALLEL") ProcessExecutionTypeEnum executionType,
+                                                   @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+                                                   @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
+                                                   @RequestParam(value = "tenantCode", required = true) String tenantCode,
+                                                   @RequestParam(value = "scheduleJson", required = false) String scheduleJson,
+                                                   @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
 ```
 
 ### DefaultAnnotationParam
@@ -5043,18 +5210,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
-            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class))
-    })
-    @PostMapping(value = "/empty")
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessTaskRelationController.java`
 #### Snippet
 ```java
@@ -5063,18 +5218,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
                                             @RequestParam(name = "preTaskCode", required = true) long preTaskCode,
                                             @RequestParam(name = "postTaskCode", required = true) long postTaskCode) {
         Map<String, Object> result = new HashMap<>();
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result createEmptyProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                               @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                               @RequestParam(value = "name", required = true) String name,
-                                               @RequestParam(value = "description", required = false) String description,
-                                               @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
 ```
 
 ### DefaultAnnotationParam
@@ -5091,18 +5234,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                               @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
-                                               @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
-                                               @RequestParam(value = "tenantCode", required = true) String tenantCode,
-                                               @RequestParam(value = "scheduleJson", required = false) String scheduleJson,
-                                               @RequestParam(value = "executionType", defaultValue = "PARALLEL") ProcessExecutionTypeEnum executionType) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessTaskRelationController.java`
 #### Snippet
 ```java
@@ -5115,26 +5246,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessTaskRelationController.java`
 #### Snippet
 ```java
-    public Result queryProcessDefinitionByCode(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                               @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                               @PathVariable(value = "code", required = true) long code) {
-        Map<String, Object> result =
-                processDefinitionService.queryProcessDefinitionByCode(loginUser, projectCode, code);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result releaseProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                           @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                           @PathVariable(value = "code", required = true) long code,
-                                           @RequestParam(value = "releaseState", required = true) ReleaseState releaseState) {
-        Map<String, Object> result =
+    public Result deleteUpstreamRelation(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                         @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                         @RequestParam(name = "preTaskCodes", required = true) String preTaskCodes,
+                                         @PathVariable("taskCode") long taskCode) {
+        return returnDataList(
 ```
 
 ### DefaultAnnotationParam
@@ -5151,122 +5270,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AccessTokenController.java`
 #### Snippet
 ```java
-                                           @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                           @PathVariable(value = "code", required = true) long code,
-                                           @RequestParam(value = "releaseState", required = true) ReleaseState releaseState) {
-        Map<String, Object> result =
-                processDefinitionService.releaseProcessDefinition(loginUser, projectCode, code, releaseState);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result releaseWorkflowAndSchedule(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                             @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                             @PathVariable(value = "code", required = true) long code,
-                                             @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
-        return returnDataList(
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                             @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                             @PathVariable(value = "code", required = true) long code,
-                                             @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
-        return returnDataList(
-                processDefinitionService.releaseWorkflowAndSchedule(loginUser, projectCode, code, releaseState));
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result moveProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @RequestParam(value = "codes", required = true) String codes,
-                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
-        return returnDataList(
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @RequestParam(value = "codes", required = true) String codes,
-                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
-        return returnDataList(
-                processDefinitionService.batchMoveProcessDefinition(loginUser, projectCode, codes, targetProjectCode));
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    @Operation(summary = "queryListPaging", description = "QUERY_PROCESS_DEFINITION_LIST_PAGING_NOTES")
-    @Parameters({
-            @Parameter(name = "searchVal", description = "SEARCH_VAL", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "userId", description = "USER_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
-            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    @Parameters({
-            @Parameter(name = "searchVal", description = "SEARCH_VAL", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "userId", description = "USER_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
-            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
-            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "10")),
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
-            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "10")),
-            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
+            @Parameter(name = "userId", description = "USER_ID", schema = @Schema(implementation = int.class), required = true),
+            @Parameter(name = "expireTime", description = "EXPIRE_TIME", schema = @Schema(implementation = String.class), required = true, example = "2021-12-31 00:00:00"),
+            @Parameter(name = "token", description = "TOKEN", required = false, schema = @Schema(implementation = String.class), example = "xxxx")
     })
-    @GetMapping()
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    @Parameters({
-            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = false, schema = @Schema(implementation = Long.class)),
-    })
-    @GetMapping(value = "/verify-name")
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result verifyProcessDefinitionName(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                              @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                              @RequestParam(value = "name", required = true) String name,
-                                              @RequestParam(value = "code", required = false, defaultValue = "0") long processDefinitionCode) {
-        Map<String, Object> result = processDefinitionService.verifyProcessDefinitionName(loginUser, projectCode, name,
+    @PostMapping()
 ```
 
 ### DefaultAnnotationParam
@@ -5279,18 +5290,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
             @Parameter(name = "token", description = "TOKEN", required = false, schema = @Schema(implementation = String.class), example = "xxxx")
     })
     @PutMapping(value = "/{id}")
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AccessTokenController.java`
-#### Snippet
-```java
-            @Parameter(name = "userId", description = "USER_ID", schema = @Schema(implementation = int.class), required = true),
-            @Parameter(name = "expireTime", description = "EXPIRE_TIME", schema = @Schema(implementation = String.class), required = true, example = "2021-12-31 00:00:00"),
-            @Parameter(name = "token", description = "TOKEN", required = false, schema = @Schema(implementation = String.class), example = "xxxx")
-    })
-    @PostMapping()
 ```
 
 ### DefaultAnnotationParam
@@ -5334,47 +5333,23 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
 #### Snippet
 ```java
-    @Parameters({
-            @Parameter(name = "id", description = "K8S_NAMESPACE_ID", required = true, schema = @Schema(implementation = int.class, example = "100")),
-            @Parameter(name = "userName", description = "OWNER", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "limitsCpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
-            @Parameter(name = "limitsMemory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))})
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
-            @Parameter(name = "id", description = "K8S_NAMESPACE_ID", required = true, schema = @Schema(implementation = int.class, example = "100")),
-            @Parameter(name = "userName", description = "OWNER", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "limitsCpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
-            @Parameter(name = "limitsMemory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))})
-    @PutMapping(value = "/{id}")
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
-            @Parameter(name = "userName", description = "OWNER", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "limitsCpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
-            @Parameter(name = "limitsMemory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))})
-    @PutMapping(value = "/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
             @Parameter(name = "namespace", description = "NAMESPACE", required = true, schema = @Schema(implementation = String.class)),
             @Parameter(name = "clusterCode", description = "CLUSTER_CODE", required = true, schema = @Schema(implementation = long.class)),
             @Parameter(name = "limits_cpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
             @Parameter(name = "limits_memory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))
     })
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
+#### Snippet
+```java
+    public Result<Map<String, Object>> queryWorkFlowLineageByCode(@Parameter(hidden = true) @RequestAttribute(value = SESSION_USER) User loginUser,
+                                                                  @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                                                  @PathVariable(value = "workFlowCode", required = true) long workFlowCode) {
+        try {
+            Map<String, Object> result = workFlowLineageService.queryWorkFlowLineageByCode(projectCode, workFlowCode);
 ```
 
 ### DefaultAnnotationParam
@@ -5403,6 +5378,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
+#### Snippet
+```java
+    @Parameters({
+            @Parameter(name = "id", description = "K8S_NAMESPACE_ID", required = true, schema = @Schema(implementation = int.class, example = "100")),
+            @Parameter(name = "userName", description = "OWNER", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "limitsCpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
+            @Parameter(name = "limitsMemory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))})
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
 #### Snippet
 ```java
@@ -5415,26 +5402,26 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
 #### Snippet
 ```java
-    public Result<Map<String, Object>> queryWorkFlowLineageByCode(@Parameter(hidden = true) @RequestAttribute(value = SESSION_USER) User loginUser,
-                                                                  @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                                                  @PathVariable(value = "workFlowCode", required = true) long workFlowCode) {
-        try {
-            Map<String, Object> result = workFlowLineageService.queryWorkFlowLineageByCode(projectCode, workFlowCode);
+            @Parameter(name = "id", description = "K8S_NAMESPACE_ID", required = true, schema = @Schema(implementation = int.class, example = "100")),
+            @Parameter(name = "userName", description = "OWNER", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "limitsCpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
+            @Parameter(name = "limitsMemory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))})
+    @PutMapping(value = "/{id}")
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskGroupController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
 #### Snippet
 ```java
-    @Parameters({
-            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
-            @Parameter(name = "name", description = "TASK_GROUP_NAME", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "20"))
-    })
+            @Parameter(name = "userName", description = "OWNER", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "limitsCpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
+            @Parameter(name = "limitsMemory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))})
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
 ```
 
 ### DefaultAnnotationParam
@@ -5487,6 +5474,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskGroupController.java`
+#### Snippet
+```java
+    @Parameters({
+            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
+            @Parameter(name = "name", description = "TASK_GROUP_NAME", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "20"))
+    })
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/Validate.java`
 #### Snippet
 ```java
@@ -5535,6 +5534,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Pr
 ```
 
 ### RedundantMethodOverride
+Method `equals()` only delegates to its super method
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/ProcessTaskRelationLog.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+```
+
+### RedundantMethodOverride
 Method `hashCode()` only delegates to its super method
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/ProcessTaskRelationLog.java`
 #### Snippet
@@ -5547,30 +5558,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Pr
 ```
 
 ### RedundantMethodOverride
-Method `equals()` only delegates to its super method
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/ProcessTaskRelationLog.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
-    }
-```
-
-### RedundantMethodOverride
-Method `equals()` only delegates to its super method
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskDefinitionLog.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
-    }
-```
-
-### RedundantMethodOverride
 Method `toString()` only delegates to its super method
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskDefinitionLog.java`
 #### Snippet
@@ -5579,6 +5566,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Ta
     @Override
     public String toString() {
         return super.toString();
+    }
+```
+
+### RedundantMethodOverride
+Method `equals()` only delegates to its super method
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskDefinitionLog.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 ```
 
@@ -5729,18 +5728,6 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/in
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/fswitch/SwitchParam.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends PluginParams.Builder {
-
-        public Builder(String name, String title) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
 in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/group/GroupParam.java`
 #### Snippet
 ```java
@@ -5753,7 +5740,7 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/gr
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/select/SelectParam.java`
+in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/checkbox/CheckboxParam.java`
 #### Snippet
 ```java
     }
@@ -5777,7 +5764,19 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/ra
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/checkbox/CheckboxParam.java`
+in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/fswitch/SwitchParam.java`
+#### Snippet
+```java
+    }
+
+    public static class Builder extends PluginParams.Builder {
+
+        public Builder(String name, String title) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/select/SelectParam.java`
 #### Snippet
 ```java
     }
@@ -5962,18 +5961,6 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 
 ### NestedAssignment
 Result of assignment expression used
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OSUtils.java`
-#### Snippet
-```java
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                if (line.contains(":")) {
-                    String[] userInfo = line.split(":");
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/ScriptRunner.java`
 #### Snippet
 ```java
@@ -5994,6 +5981,18 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
             while ((length = inputStream.read(buffer)) != -1) {
                 output.write(buffer, 0, length);
             }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OSUtils.java`
+#### Snippet
+```java
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.contains(":")) {
+                    String[] userInfo = line.split(":");
 ```
 
 ### NestedAssignment
@@ -6058,6 +6057,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 
 ### NestedAssignment
 Result of assignment expression used
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/LogUtils.java`
+#### Snippet
+```java
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)))) {
+            while ((line = br.readLine()) != null) {
+                sb.append(line + "\r\n");
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/JdbcUrlParser.java`
 #### Snippet
 ```java
@@ -6118,14 +6129,14 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 
 ### NestedAssignment
 Result of assignment expression used
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/LogUtils.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
 #### Snippet
 ```java
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)))) {
-            while ((line = br.readLine()) != null) {
-                sb.append(line + "\r\n");
-            }
+
+        int scriptStart = 0;
+        while ((scriptStart = rawScript.indexOf("${setShareVar(${", scriptStart)) != -1) {
+            int start = -1;
+            int end = rawScript.indexOf('}', scriptStart + len);
 ```
 
 ### NestedAssignment
@@ -6138,18 +6149,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
         while ((nRead = lines.read(buf, 0, buf.length)) > 0) {
             line = new String(buf, 0, nRead);
             output.append(line);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
-#### Snippet
-```java
-
-        int scriptStart = 0;
-        while ((scriptStart = rawScript.indexOf("${setShareVar(${", scriptStart)) != -1) {
-            int start = -1;
-            int end = rawScript.indexOf('}', scriptStart + len);
 ```
 
 ### NestedAssignment
@@ -6372,18 +6371,6 @@ public class QueueCreateResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/queue/QueueUpdateResponse.java`
-#### Snippet
-```java
- * queue update response
- */
-@Data
-public class QueueUpdateResponse extends Result {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/queue/QueueVerifyResponse.java`
 #### Snippet
 ```java
@@ -6408,13 +6395,13 @@ public class QueueListResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectUpdateResponse.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/queue/QueueUpdateResponse.java`
 #### Snippet
 ```java
- * project update response
+ * queue update response
  */
 @Data
-public class ProjectUpdateResponse extends Result {
+public class QueueUpdateResponse extends Result {
 
 ```
 
@@ -6432,6 +6419,18 @@ public class QueueListPagingResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectUpdateResponse.java`
+#### Snippet
+```java
+ * project update response
+ */
+@Data
+public class ProjectUpdateResponse extends Result {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectCreateResponse.java`
 #### Snippet
 ```java
@@ -6439,30 +6438,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/proje
  */
 @Data
 public class ProjectCreateResponse extends Result {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectListPagingResponse.java`
-#### Snippet
-```java
- * project List paging response
- */
-@Data
-public class ProjectListPagingResponse extends Result {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectQueryRequest.java`
-#### Snippet
-```java
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
-public class ProjectQueryRequest extends PageQueryDto {
 
 ```
 
@@ -6480,6 +6455,18 @@ public class ProjectDeleteResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectListPagingResponse.java`
+#### Snippet
+```java
+ * project List paging response
+ */
+@Data
+public class ProjectListPagingResponse extends Result {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectQueryResponse.java`
 #### Snippet
 ```java
@@ -6487,6 +6474,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/proje
  */
 @Data
 public class ProjectQueryResponse extends Result {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectQueryRequest.java`
+#### Snippet
+```java
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+public class ProjectQueryRequest extends PageQueryDto {
 
 ```
 
@@ -6564,13 +6563,25 @@ public class TaskInstanceSuccessResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskInstance/TaskInstanceQueryRequest.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskInstance/TaskInstanceRemoveCacheResponse.java`
+#### Snippet
+```java
+ * task instance success response
+ */
+@Data
+public class TaskInstanceRemoveCacheResponse extends Result {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskRelation/TaskRelationUpdateUpstreamRequest.java`
 #### Snippet
 ```java
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class TaskInstanceQueryRequest extends PageQueryDto {
+public class TaskRelationUpdateUpstreamRequest extends PageQueryDto {
 
 ```
 
@@ -6588,13 +6599,13 @@ public class WorkflowExecuteResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskInstance/TaskInstanceRemoveCacheResponse.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskInstance/TaskInstanceQueryRequest.java`
 #### Snippet
 ```java
- * task instance success response
- */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class TaskInstanceRemoveCacheResponse extends Result {
+public class TaskInstanceQueryRequest extends PageQueryDto {
 
 ```
 
@@ -6624,18 +6635,6 @@ public class WorkflowInstanceQueryRequest extends PageQueryDto {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskRelation/TaskRelationUpdateUpstreamRequest.java`
-#### Snippet
-```java
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
-public class TaskRelationUpdateUpstreamRequest extends PageQueryDto {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/exceptions/ServiceException.java`
 #### Snippet
 ```java
@@ -6643,18 +6642,6 @@ import lombok.Data;
 
 @Data
 public class ServiceException extends RuntimeException {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/LoopTaskYamlDefinition.java`
-#### Snippet
-```java
-    }
-
-    @Data
-    public static class LoopTaskQueryStateYamlDefinition extends LoopTaskMethodYamlDefinition {
 
 ```
 
@@ -6680,6 +6667,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
     @Data
     public static class LoopTaskCancelYamlDefinition extends LoopTaskMethodYamlDefinition {
     }
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/LoopTaskYamlDefinition.java`
+#### Snippet
+```java
+    }
+
+    @Data
+    public static class LoopTaskQueryStateYamlDefinition extends LoopTaskMethodYamlDefinition {
+
 ```
 
 ### Lombok
@@ -6864,18 +6863,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `taskEventHandlerList` are queried, but never updated
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/queue/TaskExecuteThreadPool.java`
-#### Snippet
-```java
-
-    @Autowired
-    private List<TaskEventHandler> taskEventHandlerList;
-
-    @Autowired
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `masterNodes` are updated, but never queried
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/ServerNodeManager.java`
 #### Snippet
@@ -6885,6 +6872,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
     private final Set<String> masterNodes = new HashSet<>();
 
     private final Map<String, WorkerHeartBeat> workerNodeInfo = new HashMap<>();
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `taskEventHandlerList` are queried, but never updated
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/queue/TaskExecuteThreadPool.java`
+#### Snippet
+```java
+
+    @Autowired
+    private List<TaskEventHandler> taskEventHandlerList;
+
+    @Autowired
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -7241,14 +7240,14 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/CodeGenerateUtils.java`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/NetUtils.java`
 #### Snippet
 ```java
-    }
+    private static final String NETWORK_PRIORITY_INNER = "inner";
+    private static final String NETWORK_PRIORITY_OUTER = "outer";
+    private static InetAddress LOCAL_ADDRESS = null;
+    private static volatile String HOST_ADDRESS;
 
-    private static CodeGenerateUtils instance = null;
-
-    public static synchronized CodeGenerateUtils getInstance() throws CodeGenerateException {
 ```
 
 ### RedundantFieldInitialization
@@ -7265,50 +7264,14 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/NetUtils.java`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/CodeGenerateUtils.java`
 #### Snippet
 ```java
-    private static final String NETWORK_PRIORITY_INNER = "inner";
-    private static final String NETWORK_PRIORITY_OUTER = "outer";
-    private static InetAddress LOCAL_ADDRESS = null;
-    private static volatile String HOST_ADDRESS;
+    }
 
-```
+    private static CodeGenerateUtils instance = null;
 
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/shell/AbstractShell.java`
-#### Snippet
-```java
-     * Time after which the executing script would be timedout
-     */
-    protected long timeOutInterval = 0L;
-    /**
-     * If or not script timed out
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0D` is redundant
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OSUtils.java`
-#### Snippet
-```java
-    private static long[] prevTicks = new long[CentralProcessor.TickType.values().length];
-    private static long prevTickTime = 0L;
-    private static double cpuUsage = 0.0D;
-
-    private OSUtils() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OSUtils.java`
-#### Snippet
-```java
-    private static final HardwareAbstractionLayer hal = SI.getHardware();
-    private static long[] prevTicks = new long[CentralProcessor.TickType.values().length];
-    private static long prevTickTime = 0L;
-    private static double cpuUsage = 0.0D;
-
+    public static synchronized CodeGenerateUtils getInstance() throws CodeGenerateException {
 ```
 
 ### RedundantFieldInitialization
@@ -7324,6 +7287,42 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/shell/AbstractShell.java`
+#### Snippet
+```java
+     * Time after which the executing script would be timedout
+     */
+    protected long timeOutInterval = 0L;
+    /**
+     * If or not script timed out
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OSUtils.java`
+#### Snippet
+```java
+    private static final HardwareAbstractionLayer hal = SI.getHardware();
+    private static long[] prevTicks = new long[CentralProcessor.TickType.values().length];
+    private static long prevTickTime = 0L;
+    private static double cpuUsage = 0.0D;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0D` is redundant
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OSUtils.java`
+#### Snippet
+```java
+    private static long[] prevTicks = new long[CentralProcessor.TickType.values().length];
+    private static long prevTickTime = 0L;
+    private static double cpuUsage = 0.0D;
+
+    private OSUtils() {
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/SubTaskProcessor.java`
 #### Snippet
@@ -7333,6 +7332,18 @@ public class SubTaskProcessor extends BaseTaskProcessor {
     private ProcessInstance subProcessInstance = null;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
+#### Snippet
+```java
+            LoggerFactory.getLogger(String.format(TaskConstants.TASK_LOG_LOGGER_NAME_FORMAT, getClass()));
+
+    protected boolean killed = false;
+
+    protected boolean paused = false;
 ```
 
 ### RedundantFieldInitialization
@@ -7352,35 +7363,23 @@ Field initialization to `false` is redundant
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
 #### Snippet
 ```java
-    protected boolean killed = false;
-
-    protected boolean paused = false;
-
-    protected boolean timeout = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
-#### Snippet
-```java
-            LoggerFactory.getLogger(String.format(TaskConstants.TASK_LOG_LOGGER_NAME_FORMAT, getClass()));
-
-    protected boolean killed = false;
-
-    protected boolean paused = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
-#### Snippet
-```java
     protected boolean paused = false;
 
     protected boolean timeout = false;
 
     protected TaskInstance taskInstance = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
+#### Snippet
+```java
+    protected boolean killed = false;
+
+    protected boolean paused = false;
+
+    protected boolean timeout = false;
 ```
 
 ### RedundantFieldInitialization
@@ -7412,18 +7411,6 @@ Field initialization to `0` is redundant
 in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protocol/MessageHeader.java`
 #### Snippet
 ```java
-    private byte eventType;
-
-    private int msgLength = 0;
-
-    private long requestId = 0L;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protocol/MessageHeader.java`
-#### Snippet
-```java
     private long requestId = 0L;
 
     private byte serialization = 0;
@@ -7441,6 +7428,18 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protoc
     private long requestId = 0L;
 
     private byte serialization = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protocol/MessageHeader.java`
+#### Snippet
+```java
+    private byte eventType;
+
+    private int msgLength = 0;
+
+    private long requestId = 0L;
 ```
 
 ### RedundantFieldInitialization
@@ -7472,11 +7471,11 @@ Field initialization to `false` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/DataQualityTaskExecutionContext.java`
 #### Snippet
 ```java
-     * if comparison value calculate from statistics value table
-     */
-    private boolean comparisonNeedStatisticsValueTable = false;
-    /**
      * compare with fixed value
+     */
+    private boolean compareWithFixedValue = false;
+    /**
+     * error output path
 ```
 
 ### RedundantFieldInitialization
@@ -7484,11 +7483,11 @@ Field initialization to `false` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/DataQualityTaskExecutionContext.java`
 #### Snippet
 ```java
-     * compare with fixed value
+     * if comparison value calculate from statistics value table
      */
-    private boolean compareWithFixedValue = false;
+    private boolean comparisonNeedStatisticsValueTable = false;
     /**
-     * error output path
+     * compare with fixed value
 ```
 
 ### RedundantFieldInitialization
@@ -7517,18 +7516,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
-#### Snippet
-```java
-    protected LinkedBlockingQueue<String> logBuffer;
-
-    protected boolean logOutputIsSuccess = false;
-
-    /*
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/BaseLoopTaskExecutor.java`
 #### Snippet
 ```java
@@ -7537,6 +7524,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
     protected volatile boolean cancel = false;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
+#### Snippet
+```java
+    protected LinkedBlockingQueue<String> logBuffer;
+
+    protected boolean logOutputIsSuccess = false;
+
+    /*
 ```
 
 ### RedundantFieldInitialization
@@ -7756,19 +7755,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 public class StateEventHandleFailure extends Exception {
 
     public StateEventHandleFailure(String message) {
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-23-05-06-25.205.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
@@ -8200,6 +8186,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UnusedAssignment
+Variable `user` initializer `null` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+            return result;
+        }
+        User user = null;
+        if (loginUser.getUserType() == UserType.ADMIN_USER) {
+            user = loginUser;
+```
+
+### UnusedAssignment
 Variable `userSet` initializer `null` is redundant
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
 #### Snippet
@@ -8224,15 +8222,75 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UnusedAssignment
-Variable `user` initializer `null` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+Variable `content` initializer `new ArrayList<>()` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-            return result;
         }
-        User user = null;
-        if (loginUser.getUserType() == UserType.ADMIN_USER) {
-            user = loginUser;
+
+        List<String> content = new ArrayList<>();
+        try {
+            if (storageOperate.exists(fullName)) {
+```
+
+### UnusedAssignment
+Variable `defaultPath` initializer `""` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+        }
+
+        String defaultPath = "";
+        List<StorageEntity> resourcesList = new ArrayList<>();
+        String resourceStorageType =
+```
+
+### UnusedAssignment
+Variable `result` initializer `new Result<>()` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+    public Result<Object> delete(User loginUser, String fullName,
+                                 String resTenantCode) throws IOException {
+        Result<Object> result = new Result<>();
+
+        result = checkResourceUploadStartupState();
+```
+
+### UnusedAssignment
+Variable `result` initializer `new Result<>()` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+                                          int pid,
+                                          String currentDir) {
+        Result<Object> result = new Result<>();
+
+        result = checkResourceUploadStartupState();
+```
+
+### UnusedAssignment
+Variable `result` initializer `new Result<>()` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+                                         ResourceType type,
+                                         MultipartFile file) {
+        Result<Object> result = new Result<>();
+
+        result = checkResourceUploadStartupState();
+```
+
+### UnusedAssignment
+Variable `result` initializer `new Result<>()` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+                                         MultipartFile file,
+                                         String currentDir) {
+        Result<Object> result = new Result<>();
+
+        result = checkResourceUploadStartupState();
 ```
 
 ### UnusedAssignment
@@ -8257,78 +8315,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
         String fullName = "";
         String userResRootPath = storageOperate.getResDir(tenantCode);
         if (!currentDir.contains(userResRootPath)) {
-```
-
-### UnusedAssignment
-Variable `content` initializer `new ArrayList<>()` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        List<String> content = new ArrayList<>();
-        try {
-            if (storageOperate.exists(fullName)) {
-```
-
-### UnusedAssignment
-Variable `result` initializer `new Result<>()` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-                                         ResourceType type,
-                                         MultipartFile file) {
-        Result<Object> result = new Result<>();
-
-        result = checkResourceUploadStartupState();
-```
-
-### UnusedAssignment
-Variable `result` initializer `new Result<>()` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-    public Result<Object> delete(User loginUser, String fullName,
-                                 String resTenantCode) throws IOException {
-        Result<Object> result = new Result<>();
-
-        result = checkResourceUploadStartupState();
-```
-
-### UnusedAssignment
-Variable `result` initializer `new Result<>()` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-                                         MultipartFile file,
-                                         String currentDir) {
-        Result<Object> result = new Result<>();
-
-        result = checkResourceUploadStartupState();
-```
-
-### UnusedAssignment
-Variable `defaultPath` initializer `""` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        String defaultPath = "";
-        List<StorageEntity> resourcesList = new ArrayList<>();
-        String resourceStorageType =
-```
-
-### UnusedAssignment
-Variable `result` initializer `new Result<>()` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-                                          int pid,
-                                          String currentDir) {
-        Result<Object> result = new Result<>();
-
-        result = checkResourceUploadStartupState();
 ```
 
 ### UnusedAssignment
@@ -8380,18 +8366,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/she
 ```
 
 ### UnusedAssignment
-Variable `businessDate` initializer `runTime` is redundant
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/placeholder/BusinessTimeUtils.java`
-#### Snippet
-```java
-     */
-    public static Map<String, String> getBusinessTime(CommandType commandType, Date runTime, String timezone) {
-        Date businessDate = runTime;
-        Map<String, String> result = new HashMap<>();
-        switch (commandType) {
-```
-
-### UnusedAssignment
 Variable `crcString` initializer `""` is redundant
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/FileUtils.java`
 #### Snippet
@@ -8401,6 +8375,18 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
         String crcString = "";
         if (file.isDirectory()) {
             // file system interface remains the same order
+```
+
+### UnusedAssignment
+Variable `businessDate` initializer `runTime` is redundant
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/placeholder/BusinessTimeUtils.java`
+#### Snippet
+```java
+     */
+    public static Map<String, String> getBusinessTime(CommandType commandType, Date runTime, String timezone) {
+        Date businessDate = runTime;
+        Map<String, String> result = new HashMap<>();
+        switch (commandType) {
 ```
 
 ### UnusedAssignment
@@ -8476,6 +8462,30 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### UnusedAssignment
+Variable `command` initializer `null` is redundant
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+#### Snippet
+```java
+            // build the command will add resource
+            // Step 3: to run the command
+            String command = null;
+            switch (javaParameters.getRunType()) {
+                case JavaConstants.RUN_TYPE_JAVA:
+```
+
+### UnusedAssignment
+Variable `start` initializer `-1` is redundant
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+#### Snippet
+```java
+        int scriptStart = 0;
+        while ((scriptStart = rawScript.indexOf("${setShareVar(${", scriptStart)) != -1) {
+            int start = -1;
+            int end = rawScript.indexOf('}', scriptStart + len);
+            String prop = rawScript.substring(scriptStart + len, end);
+```
+
+### UnusedAssignment
 Variable `statusCode` initializer `null` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-http/src/main/java/org/apache/dolphinscheduler/plugin/task/http/HttpTask.java`
 #### Snippet
@@ -8500,18 +8510,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-http/src/main/java/org/ap
 ```
 
 ### UnusedAssignment
-Variable `preTaskId` initializer `0` is redundant
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-                                                          TaskInstance parentTask) {
-
-        Integer preTaskId = 0;
-        List<TaskInstance> preTaskList =
-                taskInstanceDao.findPreviousTaskListByWorkProcessId(parentProcessInstance.getId());
-```
-
-### UnusedAssignment
 Variable `line` initializer `""` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/ShellExecutor.java`
 #### Snippet
@@ -8524,27 +8522,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### UnusedAssignment
-Variable `start` initializer `-1` is redundant
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+Variable `preTaskId` initializer `0` is redundant
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-        int scriptStart = 0;
-        while ((scriptStart = rawScript.indexOf("${setShareVar(${", scriptStart)) != -1) {
-            int start = -1;
-            int end = rawScript.indexOf('}', scriptStart + len);
-            String prop = rawScript.substring(scriptStart + len, end);
-```
+                                                          TaskInstance parentTask) {
 
-### UnusedAssignment
-Variable `command` initializer `null` is redundant
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
-#### Snippet
-```java
-            // build the command will add resource
-            // Step 3: to run the command
-            String command = null;
-            switch (javaParameters.getRunType()) {
-                case JavaConstants.RUN_TYPE_JAVA:
+        Integer preTaskId = 0;
+        List<TaskInstance> preTaskList =
+                taskInstanceDao.findPreviousTaskListByWorkProcessId(parentProcessInstance.getId());
 ```
 
 ### UnusedAssignment
@@ -8644,6 +8630,18 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/o
 ```
 
 ### UnusedAssignment
+Variable `pathToExplore` initializer `""` is redundant
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+
+        do {
+            String pathToExplore = "";
+            if (foldersToFetch.size() == 0) {
+                pathToExplore = path;
+```
+
+### UnusedAssignment
 Variable `alias` initializer `""` is redundant
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
 #### Snippet
@@ -8665,18 +8663,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/
             String fileName = "";
             String fullName = fileStatus.getPath().toString();
             if (fileStatus.isDirectory()) {
-```
-
-### UnusedAssignment
-Variable `pathToExplore` initializer `""` is redundant
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-
-        do {
-            String pathToExplore = "";
-            if (foldersToFetch.size() == 0) {
-                pathToExplore = path;
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -8778,6 +8764,30 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### ConstantValue
+Value `startParams` is always 'null'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+            case RECOVER_SUSPENDED_PROCESS:
+                result = insertCommand(loginUser, processInstanceId, processDefinition.getCode(),
+                        processDefinition.getVersion(), CommandType.RECOVER_SUSPENDED_PROCESS, startParams,
+                        processInstance.getTestFlag());
+                break;
+```
+
+### ConstantValue
+Value `startParams` is always 'null'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+            case START_FAILURE_TASK_PROCESS:
+                result = insertCommand(loginUser, processInstanceId, processDefinition.getCode(),
+                        processDefinition.getVersion(), CommandType.START_FAILURE_TASK_PROCESS, startParams,
+                        processInstance.getTestFlag());
+                break;
+```
+
+### ConstantValue
 Condition `start == null` is always `false`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
 #### Snippet
@@ -8814,27 +8824,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### ConstantValue
-Value `startParams` is always 'null'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+Condition `Objects.nonNull(localUserDefParams)` is always `true`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-            case RECOVER_SUSPENDED_PROCESS:
-                result = insertCommand(loginUser, processInstanceId, processDefinition.getCode(),
-                        processDefinition.getVersion(), CommandType.RECOVER_SUSPENDED_PROCESS, startParams,
-                        processInstance.getTestFlag());
-                break;
-```
+        }
 
-### ConstantValue
-Value `startParams` is always 'null'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-            case START_FAILURE_TASK_PROCESS:
-                result = insertCommand(loginUser, processInstanceId, processDefinition.getCode(),
-                        processDefinition.getVersion(), CommandType.START_FAILURE_TASK_PROCESS, startParams,
-                        processInstance.getTestFlag());
-                break;
+        if (Objects.nonNull(localUserDefParams)) {
+            resultMap.put(LOCAL_PARAMS, localUserDefParams);
+        }
 ```
 
 ### ConstantValue
@@ -8850,18 +8848,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### ConstantValue
-Condition `Objects.nonNull(localUserDefParams)` is always `true`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        if (Objects.nonNull(localUserDefParams)) {
-            resultMap.put(LOCAL_PARAMS, localUserDefParams);
-        }
-```
-
-### ConstantValue
 Condition `e instanceof SQLIntegrityConstraintViolationException` is always `false`
 in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-mysql/src/main/java/org/apache/dolphinscheduler/plugin/registry/mysql/MysqlOperator.java`
 #### Snippet
@@ -8871,6 +8857,18 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
             if (e instanceof SQLIntegrityConstraintViolationException) {
                 return null;
             }
+```
+
+### ConstantValue
+Value `column` is always 'null'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+    public static String doConvertKeywordsColumn(DbType dbType, String column) {
+        if (column == null) {
+            return column;
+        }
+
 ```
 
 ### ConstantValue
@@ -8895,18 +8893,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
             return processInstance;
         }
         processInstance = findProcessInstanceById(processInstanceMap.getProcessInstanceId());
-```
-
-### ConstantValue
-Value `column` is always 'null'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-    public static String doConvertKeywordsColumn(DbType dbType, String column) {
-        if (column == null) {
-            return column;
-        }
-
 ```
 
 ### ConstantValue
@@ -9022,18 +9008,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `mustNotNull` may be 'static'
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-email/src/main/java/org/apache/dolphinscheduler/plugin/alert/email/MailSender.java`
-#### Snippet
-```java
-    private final String showType;
-    private final AlertTemplate alertTemplate;
-    private final String mustNotNull = " must not be null";
-    private String xlsFilePath;
-
-```
-
-### FieldMayBeStatic
 Field `mailProtocol` may be 'static'
 in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-email/src/main/java/org/apache/dolphinscheduler/plugin/alert/email/MailSender.java`
 #### Snippet
@@ -9046,6 +9020,18 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 ```
 
 ### FieldMayBeStatic
+Field `mustNotNull` may be 'static'
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-email/src/main/java/org/apache/dolphinscheduler/plugin/alert/email/MailSender.java`
+#### Snippet
+```java
+    private final String showType;
+    private final AlertTemplate alertTemplate;
+    private final String mustNotNull = " must not be null";
+    private String xlsFilePath;
+
+```
+
+### FieldMayBeStatic
 Field `rgex` may be 'static'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/SwitchTaskProcessor.java`
 #### Snippet
@@ -9055,6 +9041,18 @@ public class SwitchTaskProcessor extends BaseTaskProcessor {
     protected final String rgex = "['\"]*\\$\\{(.*?)\\}['\"]*";
 
     /**
+```
+
+### FieldMayBeStatic
+Field `MEMORY_FACTOR` may be 'static'
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
+#### Snippet
+```java
+    private final int CPU_FACTOR = 10;
+
+    private final int MEMORY_FACTOR = 20;
+
+    private final int LOAD_AVERAGE_FACTOR = 70;
 ```
 
 ### FieldMayBeStatic
@@ -9082,15 +9080,15 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### FieldMayBeStatic
-Field `MEMORY_FACTOR` may be 'static'
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
+Field `taskInstanceIdHolder` may be 'static'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/http/method/HttpLoopTaskCancelTaskMethodDefinition.java`
 #### Snippet
 ```java
-    private final int CPU_FACTOR = 10;
+            LoopTaskCancelMethodDefinition {
 
-    private final int MEMORY_FACTOR = 20;
+    private final String taskInstanceIdHolder = "${taskInstanceId}";
 
-    private final int LOAD_AVERAGE_FACTOR = 70;
+    public HttpLoopTaskCancelTaskMethodDefinition(String url,
 ```
 
 ### FieldMayBeStatic
@@ -9103,18 +9101,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
     private final String taskInstanceIdHolder = "${taskInstanceId}";
 
     public HttpLoopTaskQueryStatusMethodDefinition(String url,
-```
-
-### FieldMayBeStatic
-Field `taskInstanceIdHolder` may be 'static'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/http/method/HttpLoopTaskCancelTaskMethodDefinition.java`
-#### Snippet
-```java
-            LoopTaskCancelMethodDefinition {
-
-    private final String taskInstanceIdHolder = "${taskInstanceId}";
-
-    public HttpLoopTaskCancelTaskMethodDefinition(String url,
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -9155,18 +9141,6 @@ public class WorkflowUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TaskInstanceUtils` has only 'static' members, and lacks a 'private' constructor
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/TaskInstanceUtils.java`
-#### Snippet
-```java
-import org.apache.dolphinscheduler.dao.entity.TaskInstance;
-
-public class TaskInstanceUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ResourceProcessDefinitionUtils` has only 'static' members, and lacks a 'private' constructor
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/ResourceProcessDefinitionUtils.java`
 #### Snippet
@@ -9174,6 +9148,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/Res
  * resource process definition utils
  */
 public class ResourceProcessDefinitionUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TaskInstanceUtils` has only 'static' members, and lacks a 'private' constructor
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/TaskInstanceUtils.java`
+#### Snippet
+```java
+import org.apache.dolphinscheduler.dao.entity.TaskInstance;
+
+public class TaskInstanceUtils {
 
     /**
 ```
@@ -9203,18 +9189,6 @@ public class DemoConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MigrateResource` has only 'static' members, and lacks a 'private' constructor
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resource/MigrateResource.java`
-#### Snippet
-```java
-@SpringBootApplication
-@ComponentScan("org.apache.dolphinscheduler")
-public class MigrateResource {
-
-    public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CreateProcessDemo` has only 'static' members, and lacks a 'private' constructor
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/CreateProcessDemo.java`
 #### Snippet
@@ -9222,6 +9196,18 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         })
 })
 public class CreateProcessDemo {
+
+    public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MigrateResource` has only 'static' members, and lacks a 'private' constructor
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resource/MigrateResource.java`
+#### Snippet
+```java
+@SpringBootApplication
+@ComponentScan("org.apache.dolphinscheduler")
+public class MigrateResource {
 
     public static void main(String[] args) {
 ```
@@ -9251,18 +9237,6 @@ public class InitDolphinScheduler {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MILLISECONDS` has only 'static' members, and lacks a 'private' constructor
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
-#### Snippet
-```java
-     * Time unit representing one thousandth of a second
-     */
-    public static class MILLISECONDS {
-
-        public static long toDays(long d) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ThreadLocalContext` has only 'static' members, and lacks a 'private' constructor
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/thread/ThreadLocalContext.java`
 #### Snippet
@@ -9275,15 +9249,15 @@ public class ThreadLocalContext {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DateConstants` has only 'static' members, and lacks a 'private' constructor
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/constants/DateConstants.java`
+Class `MILLISECONDS` has only 'static' members, and lacks a 'private' constructor
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
 #### Snippet
 ```java
-package org.apache.dolphinscheduler.common.constants;
+     * Time unit representing one thousandth of a second
+     */
+    public static class MILLISECONDS {
 
-public class DateConstants {
-
-    /**
+        public static long toDays(long d) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9294,6 +9268,18 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/con
  * The key org.apache.dolphinscheduler.dao.entity.Command#commandParam
  */
 public class CommandKeyConstants {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DateConstants` has only 'static' members, and lacks a 'private' constructor
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/constants/DateConstants.java`
+#### Snippet
+```java
+package org.apache.dolphinscheduler.common.constants;
+
+public class DateConstants {
 
     /**
 ```
@@ -9395,18 +9381,6 @@ public class CommonUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ParamUtils` has only 'static' members, and lacks a 'private' constructor
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/ParamUtils.java`
-#### Snippet
-```java
- * Param Utility class
- */
-public class ParamUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ProcessUtils` has only 'static' members, and lacks a 'private' constructor
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/ProcessUtils.java`
 #### Snippet
@@ -9414,6 +9388,18 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/u
  */
 @Slf4j
 public class ProcessUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ParamUtils` has only 'static' members, and lacks a 'private' constructor
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/ParamUtils.java`
+#### Snippet
+```java
+ * Param Utility class
+ */
+public class ParamUtils {
 
     /**
 ```
@@ -9503,6 +9489,18 @@ public class TimePlaceholderUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CONSTANTS` has only 'static' members, and lacks a 'private' constructor
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsHook.java`
+#### Snippet
+```java
+    }
+
+    public static class CONSTANTS {
+
+        public static final int CHECK_INTERVAL = 1000;
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AWS_KEY` has only 'static' members, and lacks a 'private' constructor
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsHook.java`
 #### Snippet
@@ -9536,18 +9534,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apa
     public static class START_TYPE {
 
         public static final String START_REPLICATION = "start-replication";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CONSTANTS` has only 'static' members, and lacks a 'private' constructor
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsHook.java`
-#### Snippet
-```java
-    }
-
-    public static class CONSTANTS {
-
-        public static final int CHECK_INTERVAL = 1000;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9587,18 +9573,6 @@ public class ChunJunConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `COMMAND` has only 'static' members, and lacks a 'private' constructor
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-kubeflow/src/main/java/org/apache/dolphinscheduler/plugin/kubeflow/KubeflowHelper.java`
-#### Snippet
-```java
-    }
-
-    public static class COMMAND {
-
-        public static final String SET_CONFIG = "export KUBECONFIG=%s";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `STATUS` has only 'static' members, and lacks a 'private' constructor
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-kubeflow/src/main/java/org/apache/dolphinscheduler/plugin/kubeflow/KubeflowHelper.java`
 #### Snippet
@@ -9608,6 +9582,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-kubeflow/src/main/java/or
     public static class STATUS {
 
         public static final HashSet<String> SUCCESS_SET = Sets.newHashSet("Succeeded", "Available", "Bound");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `COMMAND` has only 'static' members, and lacks a 'private' constructor
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-kubeflow/src/main/java/org/apache/dolphinscheduler/plugin/kubeflow/KubeflowHelper.java`
+#### Snippet
+```java
+    }
+
+    public static class COMMAND {
+
+        public static final String SET_CONFIG = "export KUBECONFIG=%s";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9744,15 +9730,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### DataFlowIssue
-Unboxing of `resource.getId()` may produce `NullPointerException`
+Method invocation `containsKey` may produce `NullPointerException`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-
-        if (resource.isDirectory()) {
-            listAllChildren(resource.getId(), childList);
-        }
-        return childList;
+                new TypeReference<Map<String, Object>>() {
+                });
+        if (taskParameters.containsKey("resourceList")) {
+            String resourceListStr = JSONUtils.toJsonString(taskParameters.get("resourceList"));
+            List<ResourceInfo> resourceInfoList = JSONUtils.toList(resourceListStr, ResourceInfo.class);
 ```
 
 ### DataFlowIssue
@@ -9780,27 +9766,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### DataFlowIssue
-Method invocation `containsKey` may produce `NullPointerException`
+Unboxing of `resource.getId()` may produce `NullPointerException`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-                new TypeReference<Map<String, Object>>() {
-                });
-        if (taskParameters.containsKey("resourceList")) {
-            String resourceListStr = JSONUtils.toJsonString(taskParameters.get("resourceList"));
-            List<ResourceInfo> resourceInfoList = JSONUtils.toList(resourceListStr, ResourceInfo.class);
-```
 
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskInstance.java`
-#### Snippet
-```java
-                    });
-            this.switchDependency =
-                    JSONUtils.parseObject((String) taskParamsMap.get(Constants.SWITCH_RESULT), SwitchParameters.class);
+        if (resource.isDirectory()) {
+            listAllChildren(resource.getId(), childList);
         }
-        return this.switchDependency;
+        return childList;
 ```
 
 ### DataFlowIssue
@@ -9813,6 +9787,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Ta
                     JSONUtils.parseObject((String) taskParamsMap.get(Constants.DEPENDENCE), DependentParameters.class);
         }
         return this.dependency;
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskInstance.java`
+#### Snippet
+```java
+                    });
+            this.switchDependency =
+                    JSONUtils.parseObject((String) taskParamsMap.get(Constants.SWITCH_RESULT), SwitchParameters.class);
+        }
+        return this.switchDependency;
 ```
 
 ### DataFlowIssue
@@ -9900,6 +9886,30 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
 ```
 
 ### DataFlowIssue
+Dereference of `subPaths` may produce `NullPointerException`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/FileUtils.java`
+#### Snippet
+```java
+            String[] subPaths = file.list();
+            StringBuilder concatenatedCRC = new StringBuilder();
+            for (String subPath : subPaths) {
+                concatenatedCRC.append(getFileChecksum(pathName + FOLDER_SEPARATOR + subPath));
+            }
+```
+
+### DataFlowIssue
+Argument `sourceName` might be null
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/config/YamlPropertySourceFactory.java`
+#### Snippet
+```java
+        Properties propertiesFromYaml = loadYamlIntoProperties(resource);
+        String sourceName = name != null ? name : resource.getResource().getFilename();
+        return new PropertiesPropertySource(sourceName, propertiesFromYaml);
+    }
+
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
 #### Snippet
@@ -9945,30 +9955,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
         strBuilder = seconds > 0 ? strBuilder.append(seconds).append("s") : strBuilder;
 
         return strBuilder.toString();
-```
-
-### DataFlowIssue
-Argument `sourceName` might be null
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/config/YamlPropertySourceFactory.java`
-#### Snippet
-```java
-        Properties propertiesFromYaml = loadYamlIntoProperties(resource);
-        String sourceName = name != null ? name : resource.getResource().getFilename();
-        return new PropertiesPropertySource(sourceName, propertiesFromYaml);
-    }
-
-```
-
-### DataFlowIssue
-Dereference of `subPaths` may produce `NullPointerException`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/FileUtils.java`
-#### Snippet
-```java
-            String[] subPaths = file.list();
-            StringBuilder concatenatedCRC = new StringBuilder();
-            for (String subPath : subPaths) {
-                concatenatedCRC.append(getFileChecksum(pathName + FOLDER_SEPARATOR + subPath));
-            }
 ```
 
 ### DataFlowIssue
@@ -10176,30 +10162,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### DataFlowIssue
-Method invocation `getNamespace` may produce `NullPointerException`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
-#### Snippet
-```java
-                K8sTaskParameters k8sTaskParameters =
-                        JSONUtils.parseObject(taskInstance.getTaskParams(), K8sTaskParameters.class);
-                namespace = k8sTaskParameters.getNamespace();
-                break;
-            case "SPARK":
-```
-
-### DataFlowIssue
-Method invocation `getNamespace` may produce `NullPointerException`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
-#### Snippet
-```java
-                SparkParameters sparkParameters =
-                        JSONUtils.parseObject(taskInstance.getTaskParams(), SparkParameters.class);
-                if (StringUtils.isNotEmpty(sparkParameters.getNamespace())) {
-                    namespace = sparkParameters.getNamespace();
-                }
-```
-
-### DataFlowIssue
 Method invocation `isHive` may produce `NullPointerException`
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
 #### Snippet
@@ -10221,6 +10183,30 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
                         DbType.of(Integer.parseInt(config.get(SRC_CONNECTOR_TYPE))).isHive() ? 1 : 0);
                 dataQualityTaskExecutionContext.setSourceConnectorType(srcConnectorType.getDescription());
                 dataQualityTaskExecutionContext.setSourceType(dataSource.getType().getCode());
+```
+
+### DataFlowIssue
+Method invocation `getNamespace` may produce `NullPointerException`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
+#### Snippet
+```java
+                K8sTaskParameters k8sTaskParameters =
+                        JSONUtils.parseObject(taskInstance.getTaskParams(), K8sTaskParameters.class);
+                namespace = k8sTaskParameters.getNamespace();
+                break;
+            case "SPARK":
+```
+
+### DataFlowIssue
+Method invocation `getNamespace` may produce `NullPointerException`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/BaseTaskProcessor.java`
+#### Snippet
+```java
+                SparkParameters sparkParameters =
+                        JSONUtils.parseObject(taskInstance.getTaskParams(), SparkParameters.class);
+                if (StringUtils.isNotEmpty(sparkParameters.getNamespace())) {
+                    namespace = sparkParameters.getNamespace();
+                }
 ```
 
 ### DataFlowIssue
@@ -10440,6 +10426,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/a
 ```
 
 ### DataFlowIssue
+Method invocation `getResources` may produce `NullPointerException`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sqoop/src/main/java/org/apache/dolphinscheduler/plugin/task/sqoop/SqoopTaskChannel.java`
+#### Snippet
+```java
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return JSONUtils.parseObject(parameters, SqoopParameters.class).getResources();
+    }
+}
+```
+
+### DataFlowIssue
 Method invocation `getProcessDefinitionCode` may produce `NullPointerException`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
@@ -10485,18 +10483,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
         Object localParams = taskParams.get(LOCAL_PARAMS);
         if (localParams == null) {
             return;
-```
-
-### DataFlowIssue
-Method invocation `getResources` may produce `NullPointerException`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sqoop/src/main/java/org/apache/dolphinscheduler/plugin/task/sqoop/SqoopTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return JSONUtils.parseObject(parameters, SqoopParameters.class).getResources();
-    }
-}
 ```
 
 ### DataFlowIssue
@@ -10754,18 +10740,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
-#### Snippet
-```java
-    private enum WorkflowRunnableStatus {
-        CREATED, INITIALIZE_DAG, INITIALIZE_QUEUE, STARTED,
-        ;
-
-    }
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/codec/NettyDecoder.java`
 #### Snippet
 ```java
@@ -10786,6 +10760,18 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/com
     WORKFLOW_EXECUTING_DATA_RESPONSE;
 }
 
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
+#### Snippet
+```java
+    private enum WorkflowRunnableStatus {
+        CREATED, INITIALIZE_DAG, INITIALIZE_QUEUE, STARTED,
+        ;
+
+    }
 ```
 
 ### UnnecessarySemicolon
@@ -10878,18 +10864,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dvc/src/main/java/org/apa
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
 #### Snippet
 ```java
-                });
-                if (CollectionUtils.isNotEmpty(workerGroupList)) {
-                    workerGroupList.stream().forEach(workerGroup -> {
-                        if (!StringUtils.isEmpty(workerGroup)) {
-                            EnvironmentWorkerGroupRelation relation = new EnvironmentWorkerGroupRelation();
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
-#### Snippet
-```java
                 environmentMapper.update(env, new UpdateWrapper<Environment>().lambda().eq(Environment::getCode, code));
         if (update > 0) {
             deleteWorkerGroupSet.stream().forEach(key -> {
@@ -10907,6 +10881,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
             addWorkerGroupSet.stream().forEach(key -> {
                 if (StringUtils.isNotEmpty(key)) {
                     EnvironmentWorkerGroupRelation relation = new EnvironmentWorkerGroupRelation();
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
+#### Snippet
+```java
+                });
+                if (CollectionUtils.isNotEmpty(workerGroupList)) {
+                    workerGroupList.stream().forEach(workerGroup -> {
+                        if (!StringUtils.isEmpty(workerGroup)) {
+                            EnvironmentWorkerGroupRelation relation = new EnvironmentWorkerGroupRelation();
 ```
 
 ### SimplifyStreamApiCallChains
@@ -11011,11 +10997,11 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/or
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
-    public List<ExecuteStatusCount> countTaskInstanceAllStatesByProjectCodes(Date startTime, Date endTime,
-                                                                             Long[] projectCodes) {
+        }
+        Set<Integer> projectId = Collections.singleton(project.getId());
         Optional<List<ExecuteStatusCount>> startTimeStates = Optional.ofNullable(
-                this.taskInstanceMapper.countTaskInstanceStateByProjectCodes(startTime, endTime, projectCodes));
-
+                taskInstanceMapper.countTaskInstanceStateByProjectIdsV2(null, null, projectId));
+        List<TaskExecutionStatus> needRecountState = setOptional(startTimeStates);
 ```
 
 ### OptionalContainsCollection
@@ -11035,11 +11021,11 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
-        }
-        Set<Integer> projectId = Collections.singleton(project.getId());
+    public List<ExecuteStatusCount> countTaskInstanceAllStatesByProjectCodes(Date startTime, Date endTime,
+                                                                             Long[] projectCodes) {
         Optional<List<ExecuteStatusCount>> startTimeStates = Optional.ofNullable(
-                taskInstanceMapper.countTaskInstanceStateByProjectIdsV2(null, null, projectId));
-        List<TaskExecutionStatus> needRecountState = setOptional(startTimeStates);
+                this.taskInstanceMapper.countTaskInstanceStateByProjectCodes(startTime, endTime, projectCodes));
+
 ```
 
 ### OptionalContainsCollection
@@ -11130,13 +11116,13 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'processInstance' in a Serializable class
+Non-serializable field 'switchDependency' in a Serializable class
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskInstance.java`
 #### Snippet
 ```java
      */
     @TableField(exist = false)
-    private ProcessInstance processInstance;
+    private SwitchParameters switchDependency;
 
     /**
 ```
@@ -11166,13 +11152,13 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Ta
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'switchDependency' in a Serializable class
+Non-serializable field 'processInstance' in a Serializable class
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskInstance.java`
 #### Snippet
 ```java
      */
     @TableField(exist = false)
-    private SwitchParameters switchDependency;
+    private ProcessInstance processInstance;
 
     /**
 ```
@@ -11187,6 +11173,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Ta
     private TaskDefinition taskDefine;
 
     /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'masterConfig' in a Serializable class
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
+#### Snippet
+```java
+
+    @Autowired
+    private MasterConfig masterConfig;
+
+    @Autowired
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -11209,18 +11207,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private StateEventCallbackService stateEventCallbackService;
-
-    @Autowired
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'masterConfig' in a Serializable class
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
-#### Snippet
-```java
-
-    @Autowired
-    private MasterConfig masterConfig;
 
     @Autowired
 ```
@@ -11286,18 +11272,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'submit' in a Serializable class
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/LoopTaskYamlDefinition.java`
-#### Snippet
-```java
-    public static class LoopTaskAPIYamlDefinition implements Serializable {
-
-        private LoopTaskSubmitMethodYamlDefinition submit;
-        private LoopTaskQueryStateYamlDefinition queryState;
-        private LoopTaskCancelYamlDefinition cancel;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'queryState' in a Serializable class
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/LoopTaskYamlDefinition.java`
 #### Snippet
@@ -11307,6 +11281,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
         private LoopTaskQueryStateYamlDefinition queryState;
         private LoopTaskCancelYamlDefinition cancel;
     }
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'submit' in a Serializable class
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/LoopTaskYamlDefinition.java`
+#### Snippet
+```java
+    public static class LoopTaskAPIYamlDefinition implements Serializable {
+
+        private LoopTaskSubmitMethodYamlDefinition submit;
+        private LoopTaskQueryStateYamlDefinition queryState;
+        private LoopTaskCancelYamlDefinition cancel;
 ```
 
 ## RuleId[ruleID=MismatchedJavadocCode]
@@ -11360,18 +11346,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/D
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProjectService.java`
-#### Snippet
-```java
-     * @param projectCode project code
-     * @param perm String
-     * @return true if the login user have permission to see the project
-     */
-    Map<String, Object> checkProjectAndAuth(User loginUser, Project project, long projectCode, String perm);
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/QueueService.java`
 #### Snippet
 ```java
@@ -11384,14 +11358,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/Q
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ClusterService.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProjectService.java`
 #### Snippet
 ```java
-     *
-     * @param clusterName cluster name
-     * @return true if the cluster name not exists, otherwise return false
+     * @param projectCode project code
+     * @param perm String
+     * @return true if the login user have permission to see the project
      */
-    Map<String, Object> verifyCluster(String clusterName);
+    Map<String, Object> checkProjectAndAuth(User loginUser, Project project, long projectCode, String perm);
 ```
 
 ### MismatchedJavadocCode
@@ -11420,26 +11394,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/R
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UsersService.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ClusterService.java`
 #### Snippet
 ```java
      *
-     * @param userName user name
-     * @return true if user name not exists, otherwise return false
+     * @param clusterName cluster name
+     * @return true if the cluster name not exists, otherwise return false
      */
-    Result<Object> verifyUserName(String userName);
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/K8sNamespaceService.java`
-#### Snippet
-```java
-     * @param namespace   namespace
-     * @param clusterCode cluster code
-     * @return true if the k8s and namespace not exists, otherwise return false
-     */
-    Result<Object> verifyNamespaceK8s(String namespace, Long clusterCode);
+    Map<String, Object> verifyCluster(String clusterName);
 ```
 
 ### MismatchedJavadocCode
@@ -11456,6 +11418,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/E
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/K8sNamespaceService.java`
+#### Snippet
+```java
+     * @param namespace   namespace
+     * @param clusterCode cluster code
+     * @return true if the k8s and namespace not exists, otherwise return false
+     */
+    Result<Object> verifyNamespaceK8s(String namespace, Long clusterCode);
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UdfFuncService.java`
 #### Snippet
 ```java
@@ -11464,6 +11438,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/U
      * @return true if the name can user, otherwise return false
      */
     Result<Object> verifyUdfFuncByName(User loginUser, String name);
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UsersService.java`
+#### Snippet
+```java
+     *
+     * @param userName user name
+     * @return true if user name not exists, otherwise return false
+     */
+    Result<Object> verifyUserName(String userName);
 ```
 
 ### MismatchedJavadocCode
@@ -11507,6 +11493,18 @@ Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
 #### Snippet
 ```java
+     *
+     * @param name datasource name
+     * @return true if data datasource not exists, otherwise return false
+     */
+    @Override
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
      * @param type data source type
      * @param connectionParam connectionParam
      * @return true if connect successfully, otherwise false
@@ -11522,18 +11520,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
      * @param connectionParam connectionParam
      * @return true if connect successfully, otherwise false
      * @return true if connect successfully, otherwise false
-     */
-    @Override
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
-#### Snippet
-```java
-     *
-     * @param name datasource name
-     * @return true if data datasource not exists, otherwise return false
      */
     @Override
 ```
@@ -11576,6 +11562,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+     * @param project     project
+     * @param projectCode project code
+     * @return true if the login user have permission to see the project
+     */
+    @Override
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
 #### Snippet
 ```java
@@ -11600,14 +11598,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/EnvironmentController.java`
 #### Snippet
 ```java
-     * @param project     project
-     * @param projectCode project code
-     * @return true if the login user have permission to see the project
+     * @param loginUser login user
+     * @param environmentName environment name
+     * @return true if the environment name not exists, otherwise return false
      */
-    @Override
+    @Operation(summary = "verifyEnvironment", description = "VERIFY_ENVIRONMENT_NOTES")
 ```
 
 ### MismatchedJavadocCode
@@ -11624,26 +11622,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/EnvironmentController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
-     * @param loginUser login user
-     * @param environmentName environment name
-     * @return true if the environment name not exists, otherwise return false
+     * @param projectCode project code
+     * @param name name
+     * @return true if process definition name not exists, otherwise false
      */
-    @Operation(summary = "verifyEnvironment", description = "VERIFY_ENVIRONMENT_NOTES")
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-     * @param fullName  resource full name
-     * @param type      resource type
-     * @return true if the resource name not exists, otherwise return false
-     */
-    @Override
+    @Operation(summary = "verify-name", description = "VERIFY_PROCESS_DEFINITION_NAME_NOTES")
 ```
 
 ### MismatchedJavadocCode
@@ -11660,14 +11646,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-     * @param projectCode project code
-     * @param name name
-     * @return true if process definition name not exists, otherwise false
+     * @param fullName  resource full name
+     * @param type      resource type
+     * @return true if the resource name not exists, otherwise return false
      */
-    @Operation(summary = "verify-name", description = "VERIFY_PROCESS_DEFINITION_NAME_NOTES")
+    @Override
 ```
 
 ### MismatchedJavadocCode
@@ -11720,14 +11706,26 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/QueueV2Controller.java`
+#### Snippet
+```java
+     * @param loginUser          login user
+     * @param queueVerifyRequest queueVerifyRequest
+     * @return true if the queue name not exists, otherwise return false
+     */
+    @Operation(summary = "verifyQueue", description = "VERIFY_QUEUE_NOTES")
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ResourcesController.java`
 #### Snippet
 ```java
-     * @param loginUser login user
-     * @param name name
-     * @return true if the name can user, otherwise return false
+     * @param tenantCode tenantcode of the owner of the resource
+     * @param type resource type
+     * @return true if the resource name not exists, otherwise return false
      */
-    @Operation(summary = "verifyUdfFuncName", description = "VERIFY_UDF_FUNCTION_NAME_NOTES")
+    @Operation(summary = "queryResourceByFileName", description = "QUERY_BY_RESOURCE_FILE_NAME")
 ```
 
 ### MismatchedJavadocCode
@@ -11747,11 +11745,11 @@ Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ResourcesController.java`
 #### Snippet
 ```java
-     * @param tenantCode tenantcode of the owner of the resource
-     * @param type resource type
-     * @return true if the resource name not exists, otherwise return false
+     * @param loginUser login user
+     * @param name name
+     * @return true if the name can user, otherwise return false
      */
-    @Operation(summary = "queryResourceByFileName", description = "QUERY_BY_RESOURCE_FILE_NAME")
+    @Operation(summary = "verifyUdfFuncName", description = "VERIFY_UDF_FUNCTION_NAME_NOTES")
 ```
 
 ### MismatchedJavadocCode
@@ -11768,14 +11766,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/QueueV2Controller.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-     * @param loginUser          login user
-     * @param queueVerifyRequest queueVerifyRequest
-     * @return true if the queue name not exists, otherwise return false
+     * @param projectCode project code
+     * @param name name
+     * @return true if process definition name not exists, otherwise false
      */
-    @Operation(summary = "verifyQueue", description = "VERIFY_QUEUE_NOTES")
+    @Override
 ```
 
 ### MismatchedJavadocCode
@@ -11788,18 +11786,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/K8
      * @return true if exist else return null
      */
     K8sNamespace queryByNamespaceCode(@Param("clusterCode") Long namespaceCode);
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-     * @param projectCode project code
-     * @param name name
-     * @return true if process definition name not exists, otherwise false
-     */
-    @Override
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -12213,30 +12199,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/upgrade/S
 in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
 #### Snippet
 ```java
-        requireNonNull(showType, AlertConstants.NAME_SHOW_TYPE + MUST_NOT_NULL);
-        weChatTokenUrlReplace = weChatTokenUrl
-                .replace(CORP_ID_REGEX, weChatCorpId)
-                .replace(SECRET_REGEX, weChatSecret);
-        weChatToken = getToken();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
-#### Snippet
-```java
-        weChatTokenUrlReplace = weChatTokenUrl
-                .replace(CORP_ID_REGEX, weChatCorpId)
-                .replace(SECRET_REGEX, weChatSecret);
-        weChatToken = getToken();
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
-#### Snippet
-```java
         String msgJson = "";
         if (sendType.equals(WeChatType.APP.getDescp())) {
             enterpriseWeChatPushUrlReplace = WeChatAlertConstants.WE_CHAT_PUSH_URL.replace(TOKEN_REGEX, weChatToken);
@@ -12254,6 +12216,30 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
                     WeChatAlertConstants.WE_CHAT_APP_CHAT_PUSH_URL.replace(TOKEN_REGEX, weChatToken);
             WechatAppChatMessage wechatAppChatMessage =
                     new WechatAppChatMessage(weChatAgentIdChatId, showType, contentMap, WE_CHAT_MESSAGE_SAFE_PUBLICITY);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
+#### Snippet
+```java
+        requireNonNull(showType, AlertConstants.NAME_SHOW_TYPE + MUST_NOT_NULL);
+        weChatTokenUrlReplace = weChatTokenUrl
+                .replace(CORP_ID_REGEX, weChatCorpId)
+                .replace(SECRET_REGEX, weChatSecret);
+        weChatToken = getToken();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
+#### Snippet
+```java
+        weChatTokenUrlReplace = weChatTokenUrl
+                .replace(CORP_ID_REGEX, weChatCorpId)
+                .replace(SECRET_REGEX, weChatSecret);
+        weChatToken = getToken();
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -12278,114 +12264,6 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
             url = url.replace(BOT_TOKEN_REGEX, botToken);
         }
         enableProxy = Boolean.valueOf(config.get(TelegramParamsConstants.NAME_TELEGRAM_PROXY_ENABLE));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -12457,6 +12335,90 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         }
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
 
 ```
 
@@ -12482,6 +12444,30 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String absolutePath = System.getProperty("user.dir");
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -12521,18 +12507,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManager.java`
-#### Snippet
-```java
-    private String getAppAddress(String appAddress, String rmHa) {
-
-        String[] split1 = appAddress.split(Constants.DOUBLE_SLASH);
-
-        if (split1.length != 2) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManager.java`
 #### Snippet
@@ -12542,6 +12516,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
         String jobId = applicationId.replace("application", "job");
         return String.format(JOB_HISTORY_ADDRESS, jobId);
     }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManager.java`
+#### Snippet
+```java
+    private String getAppAddress(String appAddress, String rmHa) {
+
+        String[] split1 = appAddress.split(Constants.DOUBLE_SLASH);
+
+        if (split1.length != 2) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -12629,6 +12615,42 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+#### Snippet
+```java
+     **/
+    protected String buildJavaSourceContent() {
+        String rawJavaScript = javaParameters.getRawScript().replaceAll("\\r\\n", "\n");
+        // replace placeholder
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+#### Snippet
+```java
+    @Override
+    public String getPreScript() {
+        String rawJavaScript = javaParameters.getRawScript().replaceAll("\\r\\n", "\n");
+        try {
+            rawJavaScript = convertJavaSourceCodePlaceholders(rawJavaScript);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+#### Snippet
+```java
+                ? mainJar.getRes()
+                // when update resource maybe has error
+                : mainJar.getResourceName().replaceFirst(SINGLE_SLASH, "");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
 #### Snippet
@@ -12666,42 +12688,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/a
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
-#### Snippet
-```java
-     **/
-    protected String buildJavaSourceContent() {
-        String rawJavaScript = javaParameters.getRawScript().replaceAll("\\r\\n", "\n");
-        // replace placeholder
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
-#### Snippet
-```java
-    @Override
-    public String getPreScript() {
-        String rawJavaScript = javaParameters.getRawScript().replaceAll("\\r\\n", "\n");
-        try {
-            rawJavaScript = convertJavaSourceCodePlaceholders(rawJavaScript);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
-#### Snippet
-```java
-                ? mainJar.getRes()
-                // when update resource maybe has error
-                : mainJar.getResourceName().replaceFirst(SINGLE_SLASH, "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FileUtils.java`
 #### Snippet
 ```java
@@ -12722,42 +12708,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-shell/src/main/java/org/a
         String script = shellParameters.getRawScript().replaceAll("\\r\\n", System.lineSeparator());
         script = parseScript(script);
         shellParameters.setRawScript(script);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
-#### Snippet
-```java
-        String[] columnNames;
-        sql = String.format("SELECT t.* FROM ( %s ) t WHERE 0 = 1", sql);
-        sql = sql.replace(";", "");
-
-        try (
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
-#### Snippet
-```java
-            columnNames = new String[num];
-            for (int i = 1; i <= num; i++) {
-                columnNames[i - 1] = md.getColumnName(i).replace("t.", "");
-            }
-        } catch (SQLException | ExecutionException e) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
-#### Snippet
-```java
-
-        if (dataXParameters.getCustomConfig() == Flag.YES.ordinal()) {
-            json = dataXParameters.getJson().replaceAll("\\r\\n", System.lineSeparator());
-        } else {
-            ObjectNode job = JSONUtils.createObjectNode();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -12786,6 +12736,42 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/a
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
+#### Snippet
+```java
+
+        if (dataXParameters.getCustomConfig() == Flag.YES.ordinal()) {
+            json = dataXParameters.getJson().replaceAll("\\r\\n", System.lineSeparator());
+        } else {
+            ObjectNode job = JSONUtils.createObjectNode();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
+#### Snippet
+```java
+        String[] columnNames;
+        sql = String.format("SELECT t.* FROM ( %s ) t WHERE 0 = 1", sql);
+        sql = sql.replace(";", "");
+
+        try (
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
+#### Snippet
+```java
+            columnNames = new String[num];
+            for (int i = 1; i <= num; i++) {
+                columnNames[i - 1] = md.getColumnName(i).replace("t.", "");
+            }
+        } catch (SQLException | ExecutionException e) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisTask.java`
 #### Snippet
 ```java
@@ -12794,6 +12780,42 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/
         String script = linkisParameters.getRawScript().replaceAll("\\r\\n", "\n");
         script = parseScript(script);
         return script;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonConfig.java`
+#### Snippet
+```java
+    private PigeonConfig() {
+        ResourceBundle bundle =
+                ResourceBundle.getBundle(PigeonConfig.class.getPackage().getName().replace(".", "/") + "/config");
+        this.jobTriggerUrl = bundle.getString("job.trigger.url");
+        this.jobStatusUrl = bundle.getString("job.status.url");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowTask.java`
+#### Snippet
+```java
+            String status;
+            try {
+                status = OSUtils.exeShell(command).replace("\n", "").replace("\"", "");
+            } catch (Exception e) {
+                status = String.format("error --- %s", e.getMessage());
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowTask.java`
+#### Snippet
+```java
+            String status;
+            try {
+                status = OSUtils.exeShell(command).replace("\n", "").replace("\"", "");
+            } catch (Exception e) {
+                status = String.format("error --- %s", e.getMessage());
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -12833,30 +12855,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonConfig.java`
-#### Snippet
-```java
-    private PigeonConfig() {
-        ResourceBundle bundle =
-                ResourceBundle.getBundle(PigeonConfig.class.getPackage().getName().replace(".", "/") + "/config");
-        this.jobTriggerUrl = bundle.getString("job.trigger.url");
-        this.jobStatusUrl = bundle.getString("job.status.url");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-python/src/main/java/org/apache/dolphinscheduler/plugin/task/python/PythonTask.java`
-#### Snippet
-```java
-    protected String buildPythonScriptContent() throws Exception {
-        log.info("raw python script : {}", pythonParameters.getRawScript());
-        String rawPythonScript = pythonParameters.getRawScript().replaceAll("\\r\\n", System.lineSeparator());
-        Map<String, Property> paramsMap = mergeParamsWithContext(pythonParameters);
-        return ParameterUtils.convertParameterPlaceholders(rawPythonScript, ParamUtils.convert(paramsMap));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-python/src/main/java/org/apache/dolphinscheduler/plugin/task/python/PythonTask.java`
 #### Snippet
@@ -12869,27 +12867,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-python/src/main/java/org/
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowTask.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-python/src/main/java/org/apache/dolphinscheduler/plugin/task/python/PythonTask.java`
 #### Snippet
 ```java
-            String status;
-            try {
-                status = OSUtils.exeShell(command).replace("\n", "").replace("\"", "");
-            } catch (Exception e) {
-                status = String.format("error --- %s", e.getMessage());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowTask.java`
-#### Snippet
-```java
-            String status;
-            try {
-                status = OSUtils.exeShell(command).replace("\n", "").replace("\"", "");
-            } catch (Exception e) {
-                status = String.format("error --- %s", e.getMessage());
+    protected String buildPythonScriptContent() throws Exception {
+        log.info("raw python script : {}", pythonParameters.getRawScript());
+        String rawPythonScript = pythonParameters.getRawScript().replaceAll("\\r\\n", System.lineSeparator());
+        Map<String, Property> paramsMap = mergeParamsWithContext(pythonParameters);
+        return ParameterUtils.convertParameterPlaceholders(rawPythonScript, ParamUtils.convert(paramsMap));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -12942,12 +12928,12 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-seatunnel/src/main/java/o
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/rule/parser/SingleTableCustomSqlRuleParser.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/rule/parser/MultiTableAccuracyRuleParser.java`
 #### Snippet
 ```java
-        String writerSql = RuleManager.SINGLE_TABLE_CUSTOM_SQL_WRITER_SQL;
+        String writerSql = RuleManager.DEFAULT_COMPARISON_WRITER_SQL;
         if (context.isCompareWithFixedValue()) {
-            writerSql = writerSql.replaceAll("join \\$\\{comparison_table}", "");
+            writerSql = writerSql.replaceAll("full join \\$\\{comparison_table}", "");
         }
 
 ```
@@ -12978,18 +12964,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/rule/parser/MultiTableAccuracyRuleParser.java`
-#### Snippet
-```java
-        String writerSql = RuleManager.DEFAULT_COMPARISON_WRITER_SQL;
-        if (context.isCompareWithFixedValue()) {
-            writerSql = writerSql.replaceAll("full join \\$\\{comparison_table}", "");
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/rule/parser/SingleTableRuleParser.java`
 #### Snippet
 ```java
@@ -13001,15 +12975,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-db2/src/main/java/org/apache/dolphinscheduler/plugin/datasource/db2/param/Db2DataSourceProcessor.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/rule/parser/SingleTableCustomSqlRuleParser.java`
 #### Snippet
 ```java
-        db2DatasourceParamDTO.setUserName(db2DatasourceParamDTO.getUserName());
+        String writerSql = RuleManager.SINGLE_TABLE_CUSTOM_SQL_WRITER_SQL;
+        if (context.isCompareWithFixedValue()) {
+            writerSql = writerSql.replaceAll("join \\$\\{comparison_table}", "");
+        }
 
-        String[] hostSeperator = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
-        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
-        db2DatasourceParamDTO.setHost(hostPortArray[0].split(Constants.COLON)[0]);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13017,11 +12991,11 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-db2/src/main/
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/org/apache/dolphinscheduler/plugin/storage/s3/S3StorageOperator.java`
 #### Snippet
 ```java
-            return "";
-        } else {
-            return RESOURCE_UPLOAD_PATH.replaceFirst(FOLDER_SEPARATOR, "");
+    public String getResourceFileName(String tenantCode, String fileName) {
+        if (fileName.startsWith(FOLDER_SEPARATOR)) {
+            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
         }
-    }
+        return String.format(FORMAT_S_S, getS3ResDir(tenantCode), fileName);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13041,11 +13015,23 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/or
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/org/apache/dolphinscheduler/plugin/storage/s3/S3StorageOperator.java`
 #### Snippet
 ```java
-    public String getResourceFileName(String tenantCode, String fileName) {
-        if (fileName.startsWith(FOLDER_SEPARATOR)) {
-            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
+            return "";
+        } else {
+            return RESOURCE_UPLOAD_PATH.replaceFirst(FOLDER_SEPARATOR, "");
         }
-        return String.format(FORMAT_S_S, getS3ResDir(tenantCode), fileName);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-db2/src/main/java/org/apache/dolphinscheduler/plugin/datasource/db2/param/Db2DataSourceProcessor.java`
+#### Snippet
+```java
+        db2DatasourceParamDTO.setUserName(db2DatasourceParamDTO.getUserName());
+
+        String[] hostSeperator = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
+        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
+        db2DatasourceParamDTO.setHost(hostPortArray[0].split(Constants.COLON)[0]);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13058,18 +13044,6 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-hive/src/main
         String[] tmpArray = hiveConnectionParam.getAddress().split(Constants.DOUBLE_SLASH);
         StringBuilder hosts = new StringBuilder();
         String[] hostPortArray = tmpArray[tmpArray.length - 1].split(Constants.COMMA);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-trino/src/main/java/org/apache/dolphinscheduler/plugin/datasource/trino/param/TrinoDataSourceProcessor.java`
-#### Snippet
-```java
-        TrinoConnectionParam connectionParams = (TrinoConnectionParam) createConnectionParams(connectionJson);
-
-        String[] hostSeperator = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
-        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
-
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13109,30 +13083,6 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-mysql/src/mai
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-dameng/src/main/java/org/apache/dolphinscheduler/plugin/datasource/dameng/param/DamengDataSourceProcessor.java`
-#### Snippet
-```java
-
-        String address = connectionParams.getAddress();
-        String[] hostSeperator = address.split(Constants.DOUBLE_SLASH);
-        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
-        damengDatasourceParamDTO.setPort(Integer.parseInt(hostPortArray[0].split(Constants.COLON)[1]));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-spark/src/main/java/org/apache/dolphinscheduler/plugin/datasource/spark/param/SparkDataSourceProcessor.java`
-#### Snippet
-```java
-
-        StringBuilder hosts = new StringBuilder();
-        String[] tmpArray = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
-        String[] hostPortArray = tmpArray[tmpArray.length - 1].split(Constants.COMMA);
-        Arrays.stream(hostPortArray)
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/org/apache/dolphinscheduler/plugin/storage/oss/OssStorageOperator.java`
 #### Snippet
@@ -13149,6 +13099,18 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/o
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/org/apache/dolphinscheduler/plugin/storage/oss/OssStorageOperator.java`
 #### Snippet
 ```java
+    public String getResourceFileName(String tenantCode, String fileName) {
+        if (fileName.startsWith(FOLDER_SEPARATOR)) {
+            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
+        }
+        return String.format(FORMAT_S_S, getOssResDir(tenantCode), fileName);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/org/apache/dolphinscheduler/plugin/storage/oss/OssStorageOperator.java`
+#### Snippet
+```java
             return "";
         } else {
             return RESOURCE_UPLOAD_PATH.replaceFirst(FOLDER_SEPARATOR, "");
@@ -13157,15 +13119,39 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/o
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/org/apache/dolphinscheduler/plugin/storage/oss/OssStorageOperator.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-spark/src/main/java/org/apache/dolphinscheduler/plugin/datasource/spark/param/SparkDataSourceProcessor.java`
 #### Snippet
 ```java
-    public String getResourceFileName(String tenantCode, String fileName) {
-        if (fileName.startsWith(FOLDER_SEPARATOR)) {
-            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
-        }
-        return String.format(FORMAT_S_S, getOssResDir(tenantCode), fileName);
+
+        StringBuilder hosts = new StringBuilder();
+        String[] tmpArray = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
+        String[] hostPortArray = tmpArray[tmpArray.length - 1].split(Constants.COMMA);
+        Arrays.stream(hostPortArray)
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-trino/src/main/java/org/apache/dolphinscheduler/plugin/datasource/trino/param/TrinoDataSourceProcessor.java`
+#### Snippet
+```java
+        TrinoConnectionParam connectionParams = (TrinoConnectionParam) createConnectionParams(connectionJson);
+
+        String[] hostSeperator = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
+        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-dameng/src/main/java/org/apache/dolphinscheduler/plugin/datasource/dameng/param/DamengDataSourceProcessor.java`
+#### Snippet
+```java
+
+        String address = connectionParams.getAddress();
+        String[] hostSeperator = address.split(Constants.DOUBLE_SLASH);
+        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
+        damengDatasourceParamDTO.setPort(Integer.parseInt(hostPortArray[0].split(Constants.COLON)[1]));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13193,6 +13179,66 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+    public static String getHdfsUdfFileName(String tenantCode, String fileName) {
+        if (fileName.startsWith(FOLDER_SEPARATOR)) {
+            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
+        }
+        return String.format(FORMAT_S_S, getHdfsUdfDir(tenantCode), fileName);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+    public String getJobHistoryUrl(String applicationId) {
+        // eg:application_1587475402360_712719 -> job_1587475402360_712719
+        String jobId = applicationId.replace("application", "job");
+        return String.format(hdfsProperties.getYarnJobHistoryStatusAddress(), jobId);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+    public static String getAppAddress(String appAddress, String rmHa) {
+
+        String[] split1 = appAddress.split(Constants.DOUBLE_SLASH);
+
+        if (split1.length != 2) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+    public static String getHdfsResourceFileName(String tenantCode, String fileName) {
+        if (fileName.startsWith(FOLDER_SEPARATOR)) {
+            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
+        }
+        return String.format(FORMAT_S_S, getHdfsResDir(tenantCode), fileName);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+    public static String getHdfsFileName(ResourceType resourceType, String tenantCode, String fileName) {
+        if (fileName.startsWith(FOLDER_SEPARATOR)) {
+            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
+        }
+        return String.format(FORMAT_S_S, getHdfsDir(resourceType, tenantCode), fileName);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-sqlserver/src/main/java/org/apache/dolphinscheduler/plugin/datasource/sqlserver/param/SQLServerDataSourceProcessor.java`
 #### Snippet
@@ -13202,18 +13248,6 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-sqlserver/src
         String[] hostSeperator = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
         String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-clickhouse/src/main/java/org/apache/dolphinscheduler/plugin/datasource/clickhouse/param/ClickHouseDataSourceProcessor.java`
-#### Snippet
-```java
-        clickHouseDatasourceParamDTO.setOther(connectionParams.getOther());
-
-        String[] hostSeperator = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
-        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
-        clickHouseDatasourceParamDTO.setPort(Integer.parseInt(hostPortArray[0].split(Constants.COLON)[1]));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13230,26 +13264,14 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-azure-sql/src
 
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-postgresql/src/main/java/org/apache/dolphinscheduler/plugin/datasource/postgresql/param/PostgreSQLDataSourceProcessor.java`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-clickhouse/src/main/java/org/apache/dolphinscheduler/plugin/datasource/clickhouse/param/ClickHouseDataSourceProcessor.java`
 #### Snippet
 ```java
+        clickHouseDatasourceParamDTO.setOther(connectionParams.getOther());
 
-        String address = connectionParams.getAddress();
-        String[] hostSeperator = address.split(Constants.DOUBLE_SLASH);
+        String[] hostSeperator = connectionParams.getAddress().split(Constants.DOUBLE_SLASH);
         String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
-        postgreSqlDatasourceParamDTO.setHost(hostPortArray[0].split(Constants.COLON)[0]);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-starrocks/src/main/java/org/apache/dolphinscheduler/plugin/datasource/starrocks/param/StarRocksDataSourceProcessor.java`
-#### Snippet
-```java
-
-        String address = connectionParams.getAddress();
-        String[] hostSeperator = address.split(Constants.DOUBLE_SLASH);
-        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
-        starRocksDataSourceParamDTO.setPort(Integer.parseInt(hostPortArray[0].split(Constants.COLON)[1]));
+        clickHouseDatasourceParamDTO.setPort(Integer.parseInt(hostPortArray[0].split(Constants.COLON)[1]));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13274,6 +13296,30 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-starrocks/src
             password = password.replace(AUTO_DESERIALIZE, "");
         }
         return DriverManager.getConnection(getJdbcUrl(connectionParam), user, password);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-starrocks/src/main/java/org/apache/dolphinscheduler/plugin/datasource/starrocks/param/StarRocksDataSourceProcessor.java`
+#### Snippet
+```java
+
+        String address = connectionParams.getAddress();
+        String[] hostSeperator = address.split(Constants.DOUBLE_SLASH);
+        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
+        starRocksDataSourceParamDTO.setPort(Integer.parseInt(hostPortArray[0].split(Constants.COLON)[1]));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-postgresql/src/main/java/org/apache/dolphinscheduler/plugin/datasource/postgresql/param/PostgreSQLDataSourceProcessor.java`
+#### Snippet
+```java
+
+        String address = connectionParams.getAddress();
+        String[] hostSeperator = address.split(Constants.DOUBLE_SLASH);
+        String[] hostPortArray = hostSeperator[hostSeperator.length - 1].split(Constants.COMMA);
+        postgreSqlDatasourceParamDTO.setHost(hostPortArray[0].split(Constants.COLON)[0]);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13310,66 +13356,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java
                     String.valueOf(item.get(TARGET_FIELD)).replace("\"", ""));
             list.add(column);
         });
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-    public static String getHdfsResourceFileName(String tenantCode, String fileName) {
-        if (fileName.startsWith(FOLDER_SEPARATOR)) {
-            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
-        }
-        return String.format(FORMAT_S_S, getHdfsResDir(tenantCode), fileName);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-    public static String getHdfsUdfFileName(String tenantCode, String fileName) {
-        if (fileName.startsWith(FOLDER_SEPARATOR)) {
-            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
-        }
-        return String.format(FORMAT_S_S, getHdfsUdfDir(tenantCode), fileName);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-    public static String getHdfsFileName(ResourceType resourceType, String tenantCode, String fileName) {
-        if (fileName.startsWith(FOLDER_SEPARATOR)) {
-            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
-        }
-        return String.format(FORMAT_S_S, getHdfsDir(resourceType, tenantCode), fileName);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-    public static String getAppAddress(String appAddress, String rmHa) {
-
-        String[] split1 = appAddress.split(Constants.DOUBLE_SLASH);
-
-        if (split1.length != 2) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-    public String getJobHistoryUrl(String applicationId) {
-        // eg:application_1587475402360_712719 -> job_1587475402360_712719
-        String jobId = applicationId.replace("application", "job");
-        return String.format(hdfsProperties.getYarnJobHistoryStatusAddress(), jobId);
-    }
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -13539,114 +13525,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
         String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
         String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
 ```
 
@@ -13695,6 +13573,90 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         }
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+        String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
 
 ```
 
@@ -13720,6 +13682,30 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String absolutePath = System.getProperty("user.dir");
 
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -13838,18 +13824,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/K8sTaskExecutionContext.java`
 #### Snippet
 ```java
-    private String configYaml;
-
-    private String namespace;
-
-    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-```
-
-### RedundantModifiersValueLombok
-@Value already marks non-static, package-local fields private.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/K8sTaskExecutionContext.java`
-#### Snippet
-```java
 public class K8sTaskExecutionContext implements Serializable {
 
     private String configYaml;
@@ -13859,6 +13833,18 @@ public class K8sTaskExecutionContext implements Serializable {
 
 ### RedundantModifiersValueLombok
 @Value already marks non-static, package-local fields private.
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/K8sTaskExecutionContext.java`
+#### Snippet
+```java
+    private String configYaml;
+
+    private String namespace;
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+```
+
+### RedundantModifiersValueLombok
+@Value already marks non-static, package-local fields private.
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManagerContext.java`
 #### Snippet
 ```java
@@ -13910,6 +13896,30 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
 #### Snippet
 ```java
+     * execute path
+     */
+    private final String executePath;
+
+    /**
+```
+
+### RedundantModifiersValueLombok
+@Value already marks non-static fields final.
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
+#### Snippet
+```java
+     * execute path
+     */
+    private final String executePath;
+
+    /**
+```
+
+### RedundantModifiersValueLombok
+@Value already marks non-static, package-local fields private.
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
+#### Snippet
+```java
      * appId list
      */
     private final List<String> appIds;
@@ -13949,30 +13959,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
      * tenant code
      */
     private final String tenantCode;
-
-    /**
-```
-
-### RedundantModifiersValueLombok
-@Value already marks non-static, package-local fields private.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
-#### Snippet
-```java
-     * execute path
-     */
-    private final String executePath;
-
-    /**
-```
-
-### RedundantModifiersValueLombok
-@Value already marks non-static fields final.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
-#### Snippet
-```java
-     * execute path
-     */
-    private final String executePath;
 
     /**
 ```
@@ -14040,18 +14026,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `userId`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AccessTokenServiceImpl.java`
-#### Snippet
-```java
-            return result;
-        }
-        userId = loginUser.getUserType().equals(UserType.ADMIN_USER) ? 0 : userId;
-        // query access token for specified user
-        List<AccessToken> accessTokenList = this.accessTokenMapper.queryAccessTokenByUser(userId);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `token`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AccessTokenServiceImpl.java`
 #### Snippet
@@ -14061,6 +14035,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
             token = EncryptionUtils.getMd5(userId + expireTime + System.currentTimeMillis());
         }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `userId`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AccessTokenServiceImpl.java`
+#### Snippet
+```java
+            return result;
+        }
+        userId = loginUser.getUserType().equals(UserType.ADMIN_USER) ? 0 : userId;
+        // query access token for specified user
+        List<AccessToken> accessTokenList = this.accessTokenMapper.queryAccessTokenByUser(userId);
 ```
 
 ### AssignmentToMethodParameter
@@ -14101,25 +14087,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `searchVal`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/DataSourceController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProjectController.java`
 #### Snippet
 ```java
             return result;
         }
         searchVal = ParameterUtils.handleEscapes(searchVal);
-        return dataSourceService.queryDataSourceListPaging(loginUser, searchVal, pageNo, pageSize);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `searchVal`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/EnvironmentController.java`
-#### Snippet
-```java
-            return result;
-        }
-        searchVal = ParameterUtils.handleEscapes(searchVal);
-        result = environmentService.queryEnvironmentListPaging(loginUser, pageNo, pageSize, searchVal);
+        result = projectService.queryProjectListPaging(loginUser, pageSize, pageNo, searchVal);
         return result;
 ```
 
@@ -14137,26 +14111,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `searchVal`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProjectController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/EnvironmentController.java`
 #### Snippet
 ```java
             return result;
         }
         searchVal = ParameterUtils.handleEscapes(searchVal);
-        result = projectService.queryProjectListPaging(loginUser, pageSize, pageNo, searchVal);
+        result = environmentService.queryEnvironmentListPaging(loginUser, pageNo, pageSize, searchVal);
         return result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `searchTaskName`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-            return result;
-        }
-        searchTaskName = ParameterUtils.handleEscapes(searchTaskName);
-        return taskDefinitionService.queryTaskDefinitionListPaging(loginUser, projectCode,
-                searchTaskName, taskType, taskExecuteType, pageNo, pageSize);
 ```
 
 ### AssignmentToMethodParameter
@@ -14173,6 +14135,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `searchVal`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/DataSourceController.java`
+#### Snippet
+```java
+            return result;
+        }
+        searchVal = ParameterUtils.handleEscapes(searchVal);
+        return dataSourceService.queryDataSourceListPaging(loginUser, searchVal, pageNo, pageSize);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `searchVal`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AlertGroupController.java`
 #### Snippet
 ```java
@@ -14181,6 +14155,42 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
         searchVal = ParameterUtils.handleEscapes(searchVal);
         return alertGroupService.listPaging(loginUser, searchVal, pageNo, pageSize);
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `searchVal`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
+#### Snippet
+```java
+            return result;
+        }
+        searchVal = ParameterUtils.handleEscapes(searchVal);
+        result = taskInstanceService.queryTaskListPaging(
+                loginUser,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `searchTaskName`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+            return result;
+        }
+        searchTaskName = ParameterUtils.handleEscapes(searchTaskName);
+        return taskDefinitionService.queryTaskDefinitionListPaging(loginUser, projectCode,
+                searchTaskName, taskType, taskExecuteType, pageNo, pageSize);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `searchVal`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+            return result;
+        }
+        searchVal = ParameterUtils.handleEscapes(searchVal);
+
+        PageInfo<ProcessDefinition> pageInfo = processDefinitionService.queryProcessDefinitionListPaging(
 ```
 
 ### AssignmentToMethodParameter
@@ -14209,30 +14219,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `searchVal`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
-#### Snippet
-```java
-            return result;
-        }
-        searchVal = ParameterUtils.handleEscapes(searchVal);
-        result = taskInstanceService.queryTaskListPaging(
-                loginUser,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `searchVal`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            return result;
-        }
-        searchVal = ParameterUtils.handleEscapes(searchVal);
-
-        PageInfo<ProcessDefinition> pageInfo = processDefinitionService.queryProcessDefinitionListPaging(
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `searchVal`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/QueueController.java`
 #### Snippet
 ```java
@@ -14257,18 +14243,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `searchVal`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AccessTokenController.java`
-#### Snippet
-```java
-            return result;
-        }
-        searchVal = ParameterUtils.handleEscapes(searchVal);
-        result = accessTokenService.queryAccessTokenList(loginUser, searchVal, pageNo, pageSize);
-        return result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `searchVal`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ClusterController.java`
 #### Snippet
 ```java
@@ -14288,7 +14262,7 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
         }
         searchVal = ParameterUtils.handleEscapes(searchVal);
 
-        return dqExecuteResultService.queryResultListPaging(loginUser, searchVal, state, ruleType, startTime, endTime,
+        return dqRuleService.queryRuleListPaging(loginUser, searchVal, ruleType, startTime, endTime, pageNo, pageSize);
 ```
 
 ### AssignmentToMethodParameter
@@ -14300,7 +14274,19 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
         }
         searchVal = ParameterUtils.handleEscapes(searchVal);
 
-        return dqRuleService.queryRuleListPaging(loginUser, searchVal, ruleType, startTime, endTime, pageNo, pageSize);
+        return dqExecuteResultService.queryResultListPaging(loginUser, searchVal, state, ruleType, startTime, endTime,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `searchVal`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AccessTokenController.java`
+#### Snippet
+```java
+            return result;
+        }
+        searchVal = ParameterUtils.handleEscapes(searchVal);
+        result = accessTokenService.queryAccessTokenList(loginUser, searchVal, pageNo, pageSize);
+        return result;
 ```
 
 ### AssignmentToMethodParameter
@@ -14316,27 +14302,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `timeout`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ExecutorController.java`
+Assignment to method parameter `searchVal`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/SchedulerController.java`
 #### Snippet
 ```java
-
-        if (timeout == null) {
-            timeout = Constants.MAX_TASK_TIMEOUT;
+            return result;
         }
-        Map<String, String> startParamMap = null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `complementDependentMode`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ExecutorController.java`
-#### Snippet
-```java
-
-        if (complementDependentMode == null) {
-            complementDependentMode = ComplementDependentMode.OFF_MODE;
-        }
-
+        searchVal = ParameterUtils.handleEscapes(searchVal);
+        result = schedulerService.querySchedule(loginUser, projectCode, processDefinitionCode, searchVal, pageNo,
+                pageSize);
 ```
 
 ### AssignmentToMethodParameter
@@ -14358,6 +14332,30 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 ```java
         if (complementDependentMode == null) {
             log.debug("Parameter complementDependentMode set to {} due to null.", ComplementDependentMode.OFF_MODE);
+            complementDependentMode = ComplementDependentMode.OFF_MODE;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `timeout`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ExecutorController.java`
+#### Snippet
+```java
+
+        if (timeout == null) {
+            timeout = Constants.MAX_TASK_TIMEOUT;
+        }
+        Map<String, String> startParamMap = null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `complementDependentMode`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ExecutorController.java`
+#### Snippet
+```java
+
+        if (complementDependentMode == null) {
             complementDependentMode = ComplementDependentMode.OFF_MODE;
         }
 
@@ -14389,14 +14387,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `searchVal`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/SchedulerController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TenantController.java`
 #### Snippet
 ```java
-            return result;
+
         }
         searchVal = ParameterUtils.handleEscapes(searchVal);
-        result = schedulerService.querySchedule(loginUser, projectCode, processDefinitionCode, searchVal, pageNo,
-                pageSize);
+        result = tenantService.queryTenantList(loginUser, searchVal, pageNo, pageSize);
+        return result;
 ```
 
 ### AssignmentToMethodParameter
@@ -14413,18 +14411,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `searchVal`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TenantController.java`
-#### Snippet
-```java
-
-        }
-        searchVal = ParameterUtils.handleEscapes(searchVal);
-        result = tenantService.queryTenantList(loginUser, searchVal, pageNo, pageSize);
-        return result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `searchVal`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ResourcesController.java`
 #### Snippet
 ```java
@@ -14433,18 +14419,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
         searchVal = ParameterUtils.handleEscapes(searchVal);
         result = resourceService.queryResourceListPaging(loginUser, fullName, tenantCode, type, searchVal, pageNo,
                 pageSize);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `userName`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/UsersController.java`
-#### Snippet
-```java
-    public Result<Object> activateUser(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                       @RequestParam(value = "userName") String userName) {
-        userName = ParameterUtils.handleEscapes(userName);
-        Map<String, Object> result = usersService.activateUser(loginUser, userName);
-        return returnDataList(result);
 ```
 
 ### AssignmentToMethodParameter
@@ -14505,6 +14479,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
         searchVal = ParameterUtils.handleEscapes(searchVal);
         result = usersService.queryUserList(loginUser, searchVal, pageNo, pageSize);
         return result;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `userName`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/UsersController.java`
+#### Snippet
+```java
+    public Result<Object> activateUser(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                       @RequestParam(value = "userName") String userName) {
+        userName = ParameterUtils.handleEscapes(userName);
+        Map<String, Object> result = usersService.activateUser(loginUser, userName);
+        return returnDataList(result);
 ```
 
 ### AssignmentToMethodParameter
@@ -14712,18 +14698,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `parameterString`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/ParameterUtils.java`
-#### Snippet
-```java
-        // replace variable ${} form,refers to the replacement of system variables and custom variables
-        if (!parameterMap.isEmpty()) {
-            parameterString = PlaceholderUtils.replacePlaceholders(parameterString, parameterMap, true);
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `scheduleTime`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/ParameterUtils.java`
 #### Snippet
@@ -14745,6 +14719,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
         text = ParameterUtils.convertParameterPlaceholders2(text, convert(paramsMap));
 
         return text;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parameterString`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/ParameterUtils.java`
+#### Snippet
+```java
+        // replace variable ${} form,refers to the replacement of system variables and custom variables
+        if (!parameterMap.isEmpty()) {
+            parameterString = PlaceholderUtils.replacePlaceholders(parameterString, parameterMap, true);
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -14772,39 +14758,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `processMap`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+Assignment to method parameter `rawScript`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
 #### Snippet
 ```java
-        if (parentInstance.getCommandType() == CommandType.REPEAT_RUNNING) {
-            // update current task id to map
-            processMap = findPreviousTaskProcessMap(parentInstance, parentTask);
-            if (processMap != null) {
-                processMap.setParentTaskInstanceId(parentTask.getId());
-```
+            String replaceScript = String.format("print(\"${{setValue({},{})}}\".format(\"%s\",%s))", prop, value);
 
-### AssignmentToMethodParameter
-Assignment to method parameter `processMap`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-        }
-        // new task
-        processMap = new ProcessInstanceMap();
-        processMap.setParentProcessInstanceId(parentInstance.getId());
-        processMap.setParentTaskInstanceId(parentTask.getId());
-```
+            rawScript = rawScript.substring(0, scriptStart) + replaceScript + rawScript.substring(start, end);
 
-### AssignmentToMethodParameter
-Assignment to method parameter `taskDefinitionLogs`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-        }
-        if (CollectionUtils.isEmpty(taskDefinitionLogs)) {
-            taskDefinitionLogs = taskDefinitionLogDao.getTaskDefineLogList(taskRelationList);
-        }
-        Map<Long, TaskDefinitionLog> taskDefinitionLogMap = taskDefinitionLogs.stream()
+            scriptStart += replaceScript.length();
 ```
 
 ### AssignmentToMethodParameter
@@ -14856,42 +14818,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/a
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `rawScript`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
-#### Snippet
-```java
-            String replaceScript = String.format("print(\"${{setValue({},{})}}\".format(\"%s\",%s))", prop, value);
-
-            rawScript = rawScript.substring(0, scriptStart) + replaceScript + rawScript.substring(start, end);
-
-            scriptStart += replaceScript.length();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sql`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
-#### Snippet
-```java
-    public String[] tryExecuteSqlResolveColumnNames(DbType sourceType, BaseConnectionParam baseDataSource, String sql) {
-        String[] columnNames;
-        sql = String.format("SELECT t.* FROM ( %s ) t WHERE 0 = 1", sql);
-        sql = sql.replace(";", "");
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sql`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
-#### Snippet
-```java
-        String[] columnNames;
-        sql = String.format("SELECT t.* FROM ( %s ) t WHERE 0 = 1", sql);
-        sql = sql.replace(";", "");
-
-        try (
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `script`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/apache/dolphinscheduler/plugin/task/spark/SparkTask.java`
 #### Snippet
@@ -14913,6 +14839,54 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/a
         script = ParameterUtils.convertParameterPlaceholders(script, ParamUtils.convert(paramsMap));
         return script;
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `processMap`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+        if (parentInstance.getCommandType() == CommandType.REPEAT_RUNNING) {
+            // update current task id to map
+            processMap = findPreviousTaskProcessMap(parentInstance, parentTask);
+            if (processMap != null) {
+                processMap.setParentTaskInstanceId(parentTask.getId());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `processMap`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+        }
+        // new task
+        processMap = new ProcessInstanceMap();
+        processMap.setParentProcessInstanceId(parentInstance.getId());
+        processMap.setParentTaskInstanceId(parentTask.getId());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `taskDefinitionLogs`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+        }
+        if (CollectionUtils.isEmpty(taskDefinitionLogs)) {
+            taskDefinitionLogs = taskDefinitionLogDao.getTaskDefineLogList(taskRelationList);
+        }
+        Map<Long, TaskDefinitionLog> taskDefinitionLogMap = taskDefinitionLogs.stream()
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `content`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+            String paramName = m.group(1);
+            String paramValue = sqlParamsMap.get(paramName).getValue();
+            content = m.replaceFirst(paramValue);
+        }
+        return content;
 ```
 
 ### AssignmentToMethodParameter
@@ -14940,15 +14914,27 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apa
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `content`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+Assignment to method parameter `sql`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
 #### Snippet
 ```java
-            String paramName = m.group(1);
-            String paramValue = sqlParamsMap.get(paramName).getValue();
-            content = m.replaceFirst(paramValue);
-        }
-        return content;
+    public String[] tryExecuteSqlResolveColumnNames(DbType sourceType, BaseConnectionParam baseDataSource, String sql) {
+        String[] columnNames;
+        sql = String.format("SELECT t.* FROM ( %s ) t WHERE 0 = 1", sql);
+        sql = sql.replace(";", "");
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sql`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
+#### Snippet
+```java
+        String[] columnNames;
+        sql = String.format("SELECT t.* FROM ( %s ) t WHERE 0 = 1", sql);
+        sql = sql.replace(";", "");
+
+        try (
 ```
 
 ### AssignmentToMethodParameter
@@ -14992,11 +14978,11 @@ Assignment to method parameter `fileName`
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/org/apache/dolphinscheduler/plugin/storage/s3/S3StorageOperator.java`
 #### Snippet
 ```java
-    public String getFileName(ResourceType resourceType, String tenantCode, String fileName) {
+    public String getResourceFileName(String tenantCode, String fileName) {
         if (fileName.startsWith(FOLDER_SEPARATOR)) {
             fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
         }
-        return getDir(resourceType, tenantCode) + fileName;
+        return String.format(FORMAT_S_S, getS3ResDir(tenantCode), fileName);
 ```
 
 ### AssignmentToMethodParameter
@@ -15004,11 +14990,11 @@ Assignment to method parameter `fileName`
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/org/apache/dolphinscheduler/plugin/storage/s3/S3StorageOperator.java`
 #### Snippet
 ```java
-    public String getResourceFileName(String tenantCode, String fileName) {
+    public String getFileName(ResourceType resourceType, String tenantCode, String fileName) {
         if (fileName.startsWith(FOLDER_SEPARATOR)) {
             fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
         }
-        return String.format(FORMAT_S_S, getS3ResDir(tenantCode), fileName);
+        return getDir(resourceType, tenantCode) + fileName;
 ```
 
 ### AssignmentToMethodParameter
@@ -15036,15 +15022,39 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/o
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
+Assignment to method parameter `fileName`
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
 #### Snippet
 ```java
-                                            DqRuleExecuteSql executeSqlDefinition) {
-        Map<String, Object> config = new HashMap<>();
-        config.put(INDEX, index++);
-        config.put(SQL,
-                ParameterUtils.convertParameterPlaceholders(executeSqlDefinition.getSql(), inputParameterValueResult));
+    public static String getHdfsUdfFileName(String tenantCode, String fileName) {
+        if (fileName.startsWith(FOLDER_SEPARATOR)) {
+            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
+        }
+        return String.format(FORMAT_S_S, getHdfsUdfDir(tenantCode), fileName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fileName`
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+    public static String getHdfsResourceFileName(String tenantCode, String fileName) {
+        if (fileName.startsWith(FOLDER_SEPARATOR)) {
+            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
+        }
+        return String.format(FORMAT_S_S, getHdfsResDir(tenantCode), fileName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fileName`
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+    public static String getHdfsFileName(ResourceType resourceType, String tenantCode, String fileName) {
+        if (fileName.startsWith(FOLDER_SEPARATOR)) {
+            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
+        }
+        return String.format(FORMAT_S_S, getHdfsDir(resourceType, tenantCode), fileName);
 ```
 
 ### AssignmentToMethodParameter
@@ -15084,39 +15094,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+Assignment to method parameter `index`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
 #### Snippet
 ```java
-    public static String getHdfsResourceFileName(String tenantCode, String fileName) {
-        if (fileName.startsWith(FOLDER_SEPARATOR)) {
-            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
-        }
-        return String.format(FORMAT_S_S, getHdfsResDir(tenantCode), fileName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-    public static String getHdfsUdfFileName(String tenantCode, String fileName) {
-        if (fileName.startsWith(FOLDER_SEPARATOR)) {
-            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
-        }
-        return String.format(FORMAT_S_S, getHdfsUdfDir(tenantCode), fileName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-    public static String getHdfsFileName(ResourceType resourceType, String tenantCode, String fileName) {
-        if (fileName.startsWith(FOLDER_SEPARATOR)) {
-            fileName = fileName.replaceFirst(FOLDER_SEPARATOR, "");
-        }
-        return String.format(FORMAT_S_S, getHdfsDir(resourceType, tenantCode), fileName);
+                                            DqRuleExecuteSql executeSqlDefinition) {
+        Map<String, Object> config = new HashMap<>();
+        config.put(INDEX, index++);
+        config.put(SQL,
+                ParameterUtils.convertParameterPlaceholders(executeSqlDefinition.getSql(), inputParameterValueResult));
 ```
 
 ## RuleId[ruleID=UnnecessaryContinue]
@@ -15147,13 +15133,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/enums/Exe
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/utils/RegexUtils.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sManager.java`
 #### Snippet
 ```java
-            return str.replaceAll("[\n|\r|\t]", "_");
+                                                               boolean update) throws RemotingException {
+        if (null == clusterCode) {
+            return null;
         }
-        return null;
-    }
 
 ```
 
@@ -15171,13 +15157,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sMa
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sManager.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/utils/RegexUtils.java`
 #### Snippet
 ```java
-                                                               boolean update) throws RemotingException {
-        if (null == clusterCode) {
-            return null;
+            return str.replaceAll("[\n|\r|\t]", "_");
         }
+        return null;
+    }
 
 ```
 
@@ -15191,6 +15177,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sCl
                 return null;
             }
         }
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/utils/FileUtils.java`
+#### Snippet
+```java
+            log.error("File can not be read, fileName:{}", filename);
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -15231,30 +15229,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/utils/FileUtils.java`
-#### Snippet
-```java
-            log.error("File can not be read, fileName:{}", filename);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
-#### Snippet
-```java
-    public String getTaskWorkerGroup(TaskInstance taskInstance) {
-        if (taskInstance == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
 #### Snippet
 ```java
@@ -15279,14 +15253,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
 #### Snippet
 ```java
-    private String getDbSchemaPattern(DbType dbType, String schema, BaseConnectionParam connectionParam) {
-        if (dbType == null) {
+    public String getTaskWorkerGroup(TaskInstance taskInstance) {
+        if (taskInstance == null) {
             return null;
         }
-        String schemaPattern = null;
+
 ```
 
 ### ReturnNull
@@ -15315,6 +15289,30 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### ReturnNull
 Return of `null`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
+    private String getDbSchemaPattern(DbType dbType, String schema, BaseConnectionParam connectionParam) {
+        if (dbType == null) {
+            return null;
+        }
+        String schemaPattern = null;
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+            return checkResult;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/impl/AbstractAuthenticator.java`
 #### Snippet
 ```java
@@ -15323,6 +15321,42 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/
             return null;
         }
         // get user object from session
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+        if (processInstance == null) {
+            log.error("Process instance does not exist, processInstanceId:{}.", processInstanceId);
+            return null;
+        }
+        Host host = new Host(processInstance.getHost());
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+            log.error("Query executing process instance from master error, processInstanceId:{}.",
+                    processInstanceId);
+            return null;
+        }
+        WorkflowExecutingDataResponseCommand responseCommand =
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+                    .collect(Collectors.joining(COMMA));
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -15359,54 +15393,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-            return checkResult;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-                    .collect(Collectors.joining(COMMA));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-        if (processInstance == null) {
-            log.error("Process instance does not exist, processInstanceId:{}.", processInstanceId);
-            return null;
-        }
-        Host host = new Host(processInstance.getHost());
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-            log.error("Query executing process instance from master error, processInstanceId:{}.",
-                    processInstanceId);
-            return null;
-        }
-        WorkflowExecutingDataResponseCommand responseCommand =
 ```
 
 ### ReturnNull
@@ -15558,8 +15544,8 @@ Return of `null`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-    @Override
-    public String doOtherOperateProcess(User loginUser, ProcessDefinition processDefinition) {
+            return dataSourceMapper.queryDataSourceByNameAndUserId(loginUser.getId(), datasourceName);
+        }
         return null;
     }
 
@@ -15570,8 +15556,8 @@ Return of `null`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-            return dataSourceMapper.queryDataSourceByNameAndUserId(loginUser.getId(), datasourceName);
-        }
+    @Override
+    public String doOtherOperateProcess(User loginUser, ProcessDefinition processDefinition) {
         return null;
     }
 
@@ -15666,18 +15652,6 @@ Return of `null`
 in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
 #### Snippet
 ```java
-            return contents.toString();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
-#### Snippet
-```java
             log.info("we chat alert get token error{}", e.getMessage());
         }
         return null;
@@ -15707,6 +15681,18 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
                 return null;
             }
         }
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
+#### Snippet
+```java
+            return contents.toString();
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -15786,18 +15772,6 @@ Return of `null`
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
 #### Snippet
 ```java
-        if (Objects.isNull(httpget) || Objects.isNull(httpClient)) {
-            log.error("HttpGet or HttpClient parameter is null");
-            return null;
-        }
-        String responseContent = null;
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
-#### Snippet
-```java
         @Override
         public X509Certificate[] getAcceptedIssuers() {
             return null;
@@ -15807,26 +15781,14 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/PropertyUtils.java`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
 #### Snippet
 ```java
-    public static Map<String, String> getPropertiesByPrefix(String prefix) {
-        if (Strings.isNullOrEmpty(prefix)) {
+        if (Objects.isNull(httpget) || Objects.isNull(httpClient)) {
+            log.error("HttpGet or HttpClient parameter is null");
             return null;
         }
-        Set<Object> keys = properties.keySet();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/PropertyUtils.java`
-#### Snippet
-```java
-        Set<Object> keys = properties.keySet();
-        if (CollectionUtils.isEmpty(keys)) {
-            return null;
-        }
-        Map<String, String> propertiesMap = new HashMap<>();
+        String responseContent = null;
 ```
 
 ### ReturnNull
@@ -15867,6 +15829,30 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 
 ### ReturnNull
 Return of `null`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/PropertyUtils.java`
+#### Snippet
+```java
+    public static Map<String, String> getPropertiesByPrefix(String prefix) {
+        if (Strings.isNullOrEmpty(prefix)) {
+            return null;
+        }
+        Set<Object> keys = properties.keySet();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/PropertyUtils.java`
+#### Snippet
+```java
+        Set<Object> keys = properties.keySet();
+        if (CollectionUtils.isEmpty(keys)) {
+            return null;
+        }
+        Map<String, String> propertiesMap = new HashMap<>();
+```
+
+### ReturnNull
+Return of `null`
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OSUtils.java`
 #### Snippet
 ```java
@@ -15875,6 +15861,30 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
+#### Snippet
+```java
+            log.error("error while parse date:" + date, e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
+#### Snippet
+```java
+    public static TimeZone getTimezone(String timezoneId) {
+        if (StringUtils.isEmpty(timezoneId)) {
+            return null;
+        }
+        return TimeZone.getTimeZone(timezoneId);
 ```
 
 ### ReturnNull
@@ -15906,46 +15916,10 @@ Return of `null`
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
 #### Snippet
 ```java
-    public static TimeZone getTimezone(String timezoneId) {
-        if (StringUtils.isEmpty(timezoneId)) {
-            return null;
-        }
-        return TimeZone.getTimeZone(timezoneId);
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
-#### Snippet
-```java
             log.error("error while parse date:" + date, e);
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
-#### Snippet
-```java
-            log.error("error while parse date:" + date, e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/KerberosHttpClient.java`
-#### Snippet
-```java
-            @Override
-            public Principal getUserPrincipal() {
-                return null;
-            }
 
 ```
 
@@ -15975,6 +15949,18 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 
 ### ReturnNull
 Return of `null`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/KerberosHttpClient.java`
+#### Snippet
+```java
+            @Override
+            public Principal getUserPrincipal() {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/JSONUtils.java`
 #### Snippet
 ```java
@@ -15995,18 +15981,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
             return null;
         }
         String json = new String(src, UTF_8);
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/JSONUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -16047,13 +16021,13 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteRunnable.java`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/JSONUtils.java`
 #### Snippet
 ```java
-
-        if (globalParams.isEmpty() && localParams.isEmpty() && varParams.isEmpty()) {
-            return null;
         }
+
+        return null;
+    }
 
 ```
 
@@ -16064,6 +16038,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```java
         if (tenant == null) {
             log.error("tenant not exists,task instance id : {}", taskInstance.getId());
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteRunnable.java`
+#### Snippet
+```java
+
+        if (globalParams.isEmpty() && localParams.isEmpty() && varParams.isEmpty()) {
             return null;
         }
 
@@ -16095,6 +16081,18 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serial
 
 ### ReturnNull
 Return of `null`
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffUtils.java`
+#### Snippet
+```java
+        T obj = schema.newMessage();
+        if (null == obj) {
+            return null;
+        }
+        ProtostuffIOUtil.mergeFrom(bytes, obj, schema);
+```
+
+### ReturnNull
+Return of `null`
 in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote/NettyClient.java`
 #### Snippet
 ```java
@@ -16107,14 +16105,50 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffUtils.java`
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/codec/NettyDecoder.java`
 #### Snippet
 ```java
-        T obj = schema.newMessage();
-        if (null == obj) {
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/NettyRemotingClient.java`
+#### Snippet
+```java
+            log.warn(String.format("connect to %s error", host), ex);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/utils/JsonSerializer.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            log.error("deserialize exception!", e);
             return null;
         }
-        ProtostuffIOUtil.mergeFrom(bytes, obj, schema);
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
+#### Snippet
+```java
+            log.error("Clone retry taskInstance error because taskNode is null, taskCode:{}",
+                    taskInstance.getTaskCode());
+            return null;
+        }
+        TaskInstance newTaskInstance = newTaskInstance(processInstance, taskNode);
 ```
 
 ### ReturnNull
@@ -16139,54 +16173,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
             return null;
         }
         TaskInstance newTaskInstance = newTaskInstance(processInstance, taskNode);
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
-#### Snippet
-```java
-            log.error("Clone retry taskInstance error because taskNode is null, taskCode:{}",
-                    taskInstance.getTaskCode());
-            return null;
-        }
-        TaskInstance newTaskInstance = newTaskInstance(processInstance, taskNode);
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/NettyRemotingClient.java`
-#### Snippet
-```java
-            log.warn(String.format("connect to %s error", host), ex);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/codec/NettyDecoder.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/utils/JsonSerializer.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            log.error("deserialize exception!", e);
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -16227,6 +16213,18 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/c
 
 ### ReturnNull
 Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/alert/AlertClientService.java`
+#### Snippet
+```java
+            this.client.closeChannel(address);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CycleFactory.java`
 #### Snippet
 ```java
@@ -16242,8 +16240,8 @@ Return of `null`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CycleFactory.java`
 #### Snippet
 ```java
-                return CycleEnum.MINUTE;
             }
+
             return null;
         }
     }
@@ -16258,43 +16256,7 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/c
 
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CycleFactory.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CycleFactory.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CycleFactory.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
+    }
 ```
 
 ### ReturnNull
@@ -16330,6 +16292,30 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/c
 
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CycleFactory.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CycleFactory.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
     }
 ```
 
@@ -16354,6 +16340,18 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/c
 
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CycleFactory.java`
+#### Snippet
+```java
+                return CycleEnum.MINUTE;
+            }
+            return null;
+        }
     }
 ```
 
@@ -16366,18 +16364,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/c
 
             return null;
         }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/alert/AlertClientService.java`
-#### Snippet
-```java
-            this.client.closeChannel(address);
-        }
-        return null;
-    }
 
 ```
 
@@ -16458,18 +16444,6 @@ Return of `null`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
 #### Snippet
 ```java
-                                     String timezone) {
-        if (globalParamList == null || globalParamList.isEmpty()) {
-            return null;
-        }
-        Map<String, String> globalMap = new HashMap<>();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
-#### Snippet
-```java
 
         if (MapUtils.isEmpty(globalParams) && MapUtils.isEmpty(localParams) && MapUtils.isEmpty(varParams)) {
             return null;
@@ -16479,14 +16453,14 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/e
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-mysql/src/main/java/org/apache/dolphinscheduler/plugin/registry/mysql/MysqlOperator.java`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
 #### Snippet
 ```java
-        } catch (Exception e) {
-            if (e instanceof SQLIntegrityConstraintViolationException) {
-                return null;
-            }
-            throw e;
+                                     String timezone) {
+        if (globalParamList == null || globalParamList.isEmpty()) {
+            return null;
+        }
+        Map<String, String> globalMap = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -16499,6 +16473,18 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
             return null;
         }
         return mysqlRegistryData.getData();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-mysql/src/main/java/org/apache/dolphinscheduler/plugin/registry/mysql/MysqlOperator.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            if (e instanceof SQLIntegrityConstraintViolationException) {
+                return null;
+            }
+            throw e;
 ```
 
 ### ReturnNull
@@ -16567,6 +16553,30 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 #### Snippet
 ```java
 
+            if (StringUtils.isEmpty(retStr)) {
+                return null;
+            }
+            // to json
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManager.java`
+#### Snippet
+```java
+            // get ResourceManager state
+            if (!jsonObject.has("clusterInfo")) {
+                return null;
+            }
+            return jsonObject.get("clusterInfo").path("haState").asText();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManager.java`
+#### Snippet
+```java
+
         if (split1.length != 2) {
             return null;
         }
@@ -16614,30 +16624,6 @@ Return of `null`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManager.java`
 #### Snippet
 ```java
-
-            if (StringUtils.isEmpty(retStr)) {
-                return null;
-            }
-            // to json
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManager.java`
-#### Snippet
-```java
-            // get ResourceManager state
-            if (!jsonObject.has("clusterInfo")) {
-                return null;
-            }
-            return jsonObject.get("clusterInfo").path("haState").asText();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManager.java`
-#### Snippet
-```java
                 log.error("yarn ha application url generation failed, message:{}", e.getMessage());
             }
             return null;
@@ -16659,23 +16645,11 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/JdbcUrlParser.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/ParameterUtils.java`
 #### Snippet
 ```java
-
-        if (jdbcUrl == null || !jdbcUrl.startsWith("jdbc:") || (pos1 = jdbcUrl.indexOf(COLON, 5)) == -1) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/JdbcUrlParser.java`
-#### Snippet
-```java
-
-        if (StringUtils.isEmpty(database)) {
+    private static String dateTemplateParse(String templateStr, Date date) {
+        if (templateStr == null) {
             return null;
         }
 
@@ -16695,11 +16669,23 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/ParameterUtils.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/JdbcUrlParser.java`
 #### Snippet
 ```java
-    private static String dateTemplateParse(String templateStr, Date date) {
-        if (templateStr == null) {
+
+        if (jdbcUrl == null || !jdbcUrl.startsWith("jdbc:") || (pos1 = jdbcUrl.indexOf(COLON, 5)) == -1) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/JdbcUrlParser.java`
+#### Snippet
+```java
+
+        if (StringUtils.isEmpty(database)) {
             return null;
         }
 
@@ -16839,14 +16825,14 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-k8s/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsHook.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-k8s/src/main/java/org/apache/dolphinscheduler/plugin/task/k8s/K8sTaskChannel.java`
 #### Snippet
 ```java
-    public String replaceFileParameters(String parameter) throws IOException {
-        if (parameter == null) {
-            return null;
-        }
-        if (parameter.startsWith("file://")) {
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -16863,14 +16849,14 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-k8s/src/main/java/org/apache/dolphinscheduler/plugin/task/k8s/K8sTaskChannel.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsHook.java`
 #### Snippet
 ```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-
+    public String replaceFileParameters(String parameter) throws IOException {
+        if (parameter == null) {
+            return null;
+        }
+        if (parameter.startsWith("file://")) {
 ```
 
 ### ReturnNull
@@ -16935,26 +16921,14 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/a
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dinky/src/main/java/org/apache/dolphinscheduler/plugin/task/dinky/DinkyTaskChannel.java`
 #### Snippet
 ```java
-    public String findConfigYamlByName(String clusterName) {
-        if (Strings.isNullOrEmpty(clusterName)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-        nodeWrapper.eq("name", clusterName);
-        Cluster cluster = clusterMapper.selectOne(nodeWrapper);
-        return cluster == null ? null : ClusterConfUtils.getK8sConfig(cluster.getConfig());
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return null;
     }
-
+}
 ```
 
 ### ReturnNull
@@ -16995,11 +16969,179 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-http/src/main/java/org/ap
 
 ### ReturnNull
 Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+                return DATAX_READER_PLUGIN_RDBMS;
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+                return new PrestoStatementParser(sql);
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+                return DATAX_WRITER_PLUGIN_RDBMS;
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
+#### Snippet
+```java
+    public static String[] convertKeywordsColumns(DbType dbType, String[] columns) {
+        if (columns == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkTask.java`
+#### Snippet
+```java
+            return str.substring(6);
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkTaskChannelFactory.java`
+#### Snippet
+```java
+    @Override
+    public List<PluginParams> getParams() {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkTaskChannel.java`
+#### Snippet
+```java
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-shell/src/main/java/org/apache/dolphinscheduler/plugin/task/shell/ShellTaskChannel.java`
+#### Snippet
+```java
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/apache/dolphinscheduler/plugin/task/spark/SparkTaskChannel.java`
+#### Snippet
+```java
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/apache/dolphinscheduler/plugin/task/spark/SparkTaskChannelFactory.java`
+#### Snippet
+```java
+    @Override
+    public List<PluginParams> getParams() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sqoop/src/main/java/org/apache/dolphinscheduler/plugin/task/sqoop/SqoopTaskChannelFactory.java`
+#### Snippet
+```java
+    @Override
+    public List<PluginParams> getParams() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sqoop/src/main/java/org/apache/dolphinscheduler/plugin/task/sqoop/generator/SqoopJobGenerator.java`
+#### Snippet
+```java
+                return new HdfsTargetGenerator();
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sqoop/src/main/java/org/apache/dolphinscheduler/plugin/task/sqoop/generator/SqoopJobGenerator.java`
+#### Snippet
+```java
+                return new HdfsSourceGenerator();
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-                    taskInstance.getProcessInstance().getId(),
-                    processInstance.getState());
+        log.info("sub process instance is not found,parent task:{},parent instance:{}",
+                parentTask.getId(), parentProcessInstance.getId());
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    public String findConfigYamlByName(String clusterName) {
+        if (Strings.isNullOrEmpty(clusterName)) {
             return null;
         }
 
@@ -17010,10 +17152,22 @@ Return of `null`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
+        nodeWrapper.eq("name", clusterName);
+        Cluster cluster = clusterMapper.selectOne(nodeWrapper);
+        return cluster == null ? null : ClusterConfUtils.getK8sConfig(cluster.getConfig());
+    }
 
-        if (userId == 0) {
-            return null;
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+            return processInstanceMapper.selectById(taskInstance.getProcessInstanceId());
         }
+        return null;
+    }
 
 ```
 
@@ -17026,6 +17180,18 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
             return testDataSourceId;
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+                    taskInstance.getProcessInstance().getId(),
+                    processInstance.getState());
+            return null;
+        }
 
 ```
 
@@ -17082,22 +17248,10 @@ Return of `null`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-            return processInstanceMapper.selectById(taskInstance.getProcessInstanceId());
+
+        if (userId == 0) {
+            return null;
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-        log.info("sub process instance is not found,parent task:{},parent instance:{}",
-                parentTask.getId(), parentProcessInstance.getId());
-        return null;
-    }
 
 ```
 
@@ -17127,186 +17281,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dinky/src/main/java/org/apache/dolphinscheduler/plugin/task/dinky/DinkyTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return new PrestoStatementParser(sql);
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-    public static String[] convertKeywordsColumns(DbType dbType, String[] columns) {
-        if (columns == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return DATAX_READER_PLUGIN_RDBMS;
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return DATAX_WRITER_PLUGIN_RDBMS;
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkTaskChannelFactory.java`
-#### Snippet
-```java
-    @Override
-    public List<PluginParams> getParams() {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkTask.java`
-#### Snippet
-```java
-            return str.substring(6);
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-shell/src/main/java/org/apache/dolphinscheduler/plugin/task/shell/ShellTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/apache/dolphinscheduler/plugin/task/spark/SparkTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/apache/dolphinscheduler/plugin/task/spark/SparkTaskChannelFactory.java`
-#### Snippet
-```java
-    @Override
-    public List<PluginParams> getParams() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sqoop/src/main/java/org/apache/dolphinscheduler/plugin/task/sqoop/SqoopTaskChannelFactory.java`
-#### Snippet
-```java
-    @Override
-    public List<PluginParams> getParams() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
-#### Snippet
-```java
-        } catch (SQLException | ExecutionException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sqoop/src/main/java/org/apache/dolphinscheduler/plugin/task/sqoop/generator/SqoopJobGenerator.java`
-#### Snippet
-```java
-                return new HdfsTargetGenerator();
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sqoop/src/main/java/org/apache/dolphinscheduler/plugin/task/sqoop/generator/SqoopJobGenerator.java`
-#### Snippet
-```java
-                return new HdfsSourceGenerator();
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisTaskChannelFactory.java`
 #### Snippet
 ```java
@@ -17331,18 +17305,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
 #### Snippet
 ```java
@@ -17355,6 +17317,30 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-mlflow/src/main/java/org/apache/dolphinscheduler/plugin/task/mlflow/MlflowTaskChannel.java`
+#### Snippet
+```java
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
+#### Snippet
+```java
+        } catch (SQLException | ExecutionException e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonTaskChannel.java`
 #### Snippet
 ```java
@@ -17363,30 +17349,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/
         return null;
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisTask.java`
-#### Snippet
-```java
-            return str.substring(11);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisTask.java`
-#### Snippet
-```java
-            return str.substring(11);
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -17411,6 +17373,30 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-python/src/main/java/org/
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisTask.java`
+#### Snippet
+```java
+            return str.substring(11);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisTask.java`
+#### Snippet
+```java
+            return str.substring(11);
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -17511,6 +17497,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-kubeflow/src/main/java/or
 
 ### ReturnNull
 Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-openmldb/src/main/java/org/apache/dolphinscheduler/plugin/task/openmldb/OpenmldbTaskChannel.java`
+#### Snippet
+```java
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-openmldb/src/main/java/org/apache/dolphinscheduler/plugin/task/openmldb/OpenmldbTaskChannelFactory.java`
 #### Snippet
 ```java
@@ -17523,7 +17521,7 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-openmldb/src/main/java/or
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-openmldb/src/main/java/org/apache/dolphinscheduler/plugin/task/openmldb/OpenmldbTaskChannel.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-zeppelin/src/main/java/org/apache/dolphinscheduler/plugin/task/zeppelin/ZeppelinTaskChannel.java`
 #### Snippet
 ```java
     @Override
@@ -17543,18 +17541,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-zeppelin/src/main/java/or
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-zeppelin/src/main/java/org/apache/dolphinscheduler/plugin/task/zeppelin/ZeppelinTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -17595,14 +17581,14 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-seatunnel/src/main/java/o
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-procedure/src/main/java/org/apache/dolphinscheduler/plugin/task/procedure/ProcedureParameters.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datasync/src/main/java/org/apache/dolphinscheduler/plugin/task/datasync/DatasyncHook.java`
 #### Snippet
 ```java
+            return describe.status();
         }
-        if (CollectionUtils.isEmpty(localParams)) {
-            return null;
-        }
-        List<Property> outPropertyList = getOutProperty(localParams);
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -17631,31 +17617,19 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-datasync/src/main/java/or
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datasync/src/main/java/org/apache/dolphinscheduler/plugin/task/datasync/DatasyncHook.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-procedure/src/main/java/org/apache/dolphinscheduler/plugin/task/procedure/ProcedureParameters.java`
 #### Snippet
 ```java
-            return describe.status();
         }
-        return null;
-    }
-
+        if (CollectionUtils.isEmpty(localParams)) {
+            return null;
+        }
+        List<Property> outPropertyList = getOutProperty(localParams);
 ```
 
 ### ReturnNull
 Return of `null`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-datafactory/src/main/java/org/apache/dolphinscheduler/plugin/task/datafactory/DatafactoryTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/DataQualityTaskChannel.java`
 #### Snippet
 ```java
     @Override
@@ -17679,10 +17653,34 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datafactory/src/main/java/org/apache/dolphinscheduler/plugin/task/datafactory/DatafactoryHook.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/DataQualityTaskChannel.java`
 #### Snippet
 ```java
-            return DatafactoryStatus.valueOf(pipelineRun.status());
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+#### Snippet
+```java
+            }
         }
         return null;
     }
@@ -17703,10 +17701,10 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/u
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datafactory/src/main/java/org/apache/dolphinscheduler/plugin/task/datafactory/DatafactoryHook.java`
 #### Snippet
 ```java
-            }
+            return DatafactoryStatus.valueOf(pipelineRun.status());
         }
         return null;
     }
@@ -17715,11 +17713,23 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/u
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink-stream/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkStreamTaskChannelFactory.java`
 #### Snippet
 ```java
-            }
-        }
+    @Override
+    public List<PluginParams> getParams() {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink-stream/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkStreamTaskChannel.java`
+#### Snippet
+```java
+    @Override
+    public ResourceParametersHelper getResources(String parameters) {
         return null;
     }
 
@@ -17747,30 +17757,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink-stream/src/main/jav
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink-stream/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkStreamTaskChannel.java`
-#### Snippet
-```java
-    @Override
-    public ResourceParametersHelper getResources(String parameters) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink-stream/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkStreamTaskChannelFactory.java`
-#### Snippet
-```java
-    @Override
-    public List<PluginParams> getParams() {
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -17835,18 +17821,6 @@ in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data/quality/flow/batch/transformer/TransformerFactory.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data/quality/utils/JsonUtils.java`
 #### Snippet
 ```java
@@ -17867,6 +17841,18 @@ in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data/quality/flow/batch/transformer/TransformerFactory.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -17931,18 +17917,6 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-hive/src/main
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-trino/src/main/java/org/apache/dolphinscheduler/plugin/datasource/trino/param/TrinoDataSourceProcessor.java`
-#### Snippet
-```java
-            return String.join("&", list);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-mysql/src/main/java/org/apache/dolphinscheduler/plugin/datasource/mysql/param/MySQLDataSourceProcessor.java`
 #### Snippet
 ```java
@@ -17967,23 +17941,11 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-mysql/src/mai
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-dameng/src/main/java/org/apache/dolphinscheduler/plugin/datasource/dameng/param/DamengDataSourceProcessor.java`
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/org/apache/dolphinscheduler/plugin/storage/oss/OssStorageOperator.java`
 #### Snippet
 ```java
-    private String transformOther(Map<String, String> paramMap) {
-        if (MapUtils.isEmpty(paramMap)) {
-            return null;
-        }
-        List<String> otherList = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-athena/src/main/java/org/apache/dolphinscheduler/plugin/datasource/athena/param/AthenaDataSourceProcessor.java`
-#### Snippet
-```java
-            return String.join(Constants.SEMICOLON, list);
-        }
+    @Override
+    public String getResourceFileName(String fullName) {
         return null;
     }
 
@@ -18003,11 +17965,11 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-spark/src/mai
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/org/apache/dolphinscheduler/plugin/storage/oss/OssStorageOperator.java`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-trino/src/main/java/org/apache/dolphinscheduler/plugin/datasource/trino/param/TrinoDataSourceProcessor.java`
 #### Snippet
 ```java
-    @Override
-    public String getResourceFileName(String fullName) {
+            return String.join("&", list);
+        }
         return null;
     }
 
@@ -18015,11 +17977,23 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/o
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-oracle/src/main/java/org/apache/dolphinscheduler/plugin/datasource/oracle/param/OracleDataSourceProcessor.java`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-athena/src/main/java/org/apache/dolphinscheduler/plugin/datasource/athena/param/AthenaDataSourceProcessor.java`
 #### Snippet
 ```java
-    private String transformOther(Map<String, String> otherMap) {
-        if (MapUtils.isEmpty(otherMap)) {
+            return String.join(Constants.SEMICOLON, list);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-dameng/src/main/java/org/apache/dolphinscheduler/plugin/datasource/dameng/param/DamengDataSourceProcessor.java`
+#### Snippet
+```java
+    private String transformOther(Map<String, String> paramMap) {
+        if (MapUtils.isEmpty(paramMap)) {
             return null;
         }
         List<String> otherList = new ArrayList<>();
@@ -18028,18 +18002,6 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-oracle/src/ma
 ### ReturnNull
 Return of `null`
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/main/java/org/apache/dolphinscheduler/plugin/datasource/redshift/param/RedshiftAuthMode.java`
-#### Snippet
-```java
-            return AUTH_TYPE_MAP.get(type);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-azure-sql/src/main/java/org/apache/dolphinscheduler/plugin/datasource/azuresql/param/AzureSQLAuthMode.java`
 #### Snippet
 ```java
             return AUTH_TYPE_MAP.get(type);
@@ -18063,10 +18025,22 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-presto/src/ma
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/main/java/org/apache/dolphinscheduler/plugin/datasource/redshift/param/RedshiftDataSourceProcessor.java`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-oracle/src/main/java/org/apache/dolphinscheduler/plugin/datasource/oracle/param/OracleDataSourceProcessor.java`
 #### Snippet
 ```java
-            return String.join(Constants.SEMICOLON, list);
+    private String transformOther(Map<String, String> otherMap) {
+        if (MapUtils.isEmpty(otherMap)) {
+            return null;
+        }
+        List<String> otherList = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-azure-sql/src/main/java/org/apache/dolphinscheduler/plugin/datasource/azuresql/param/AzureSQLAuthMode.java`
+#### Snippet
+```java
+            return AUTH_TYPE_MAP.get(type);
         }
         return null;
     }
@@ -18078,7 +18052,7 @@ Return of `null`
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/main/java/org/apache/dolphinscheduler/plugin/datasource/redshift/param/RedshiftDataSourceProcessor.java`
 #### Snippet
 ```java
-            }
+            return String.join(Constants.SEMICOLON, list);
         }
         return null;
     }
@@ -18099,98 +18073,14 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/
 
 ### ReturnNull
 Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-sqlserver/src/main/java/org/apache/dolphinscheduler/plugin/datasource/sqlserver/param/SQLServerDataSourceProcessor.java`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/main/java/org/apache/dolphinscheduler/plugin/datasource/redshift/param/RedshiftDataSourceProcessor.java`
 #### Snippet
 ```java
-    private String transformOther(Map<String, String> otherMap) {
-        if (MapUtils.isEmpty(otherMap)) {
-            return null;
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-clickhouse/src/main/java/org/apache/dolphinscheduler/plugin/datasource/clickhouse/param/ClickHouseDataSourceProcessor.java`
-#### Snippet
-```java
-    private String transformOther(Map<String, String> otherMap) {
-        if (MapUtils.isEmpty(otherMap)) {
-            return null;
-        }
-        List<String> otherList = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-postgresql/src/main/java/org/apache/dolphinscheduler/plugin/datasource/postgresql/param/PostgreSQLDataSourceProcessor.java`
-#### Snippet
-```java
-    private String transformOther(Map<String, String> otherMap) {
-        if (MapUtils.isEmpty(otherMap)) {
-            return null;
-        }
-        List<String> otherList = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-starrocks/src/main/java/org/apache/dolphinscheduler/plugin/datasource/starrocks/param/StarRocksDataSourceProcessor.java`
-#### Snippet
-```java
-    private String transformOther(Map<String, String> paramMap) {
-        if (MapUtils.isEmpty(paramMap)) {
-            return null;
-        }
-        Map<String, String> otherMap = new HashMap<>();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-starrocks/src/main/java/org/apache/dolphinscheduler/plugin/datasource/starrocks/param/StarRocksDataSourceProcessor.java`
-#### Snippet
-```java
-        });
-        if (MapUtils.isEmpty(otherMap)) {
-            return null;
-        }
-        List<String> otherList = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
-#### Snippet
-```java
-        DqRuleExecuteSql errorOutputSql = null;
-        if (CollectionUtils.isEmpty(dqRuleExecuteSqlList)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-
-            if (StringUtils.isEmpty(retStr)) {
-                return null;
             }
-            // to json
-```
+        }
+        return null;
+    }
 
-### ReturnNull
-Return of `null`
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-            // get ResourceManager state
-            if (!jsonObject.has("clusterInfo")) {
-                return null;
-            }
-            return jsonObject.get("clusterInfo").path("haState").asText();
 ```
 
 ### ReturnNull
@@ -18236,6 +18126,102 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/
 ```java
 
         if (StringUtils.isEmpty(activeRM)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+
+            if (StringUtils.isEmpty(retStr)) {
+                return null;
+            }
+            // to json
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+            // get ResourceManager state
+            if (!jsonObject.has("clusterInfo")) {
+                return null;
+            }
+            return jsonObject.get("clusterInfo").path("haState").asText();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-sqlserver/src/main/java/org/apache/dolphinscheduler/plugin/datasource/sqlserver/param/SQLServerDataSourceProcessor.java`
+#### Snippet
+```java
+    private String transformOther(Map<String, String> otherMap) {
+        if (MapUtils.isEmpty(otherMap)) {
+            return null;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-clickhouse/src/main/java/org/apache/dolphinscheduler/plugin/datasource/clickhouse/param/ClickHouseDataSourceProcessor.java`
+#### Snippet
+```java
+    private String transformOther(Map<String, String> otherMap) {
+        if (MapUtils.isEmpty(otherMap)) {
+            return null;
+        }
+        List<String> otherList = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-starrocks/src/main/java/org/apache/dolphinscheduler/plugin/datasource/starrocks/param/StarRocksDataSourceProcessor.java`
+#### Snippet
+```java
+    private String transformOther(Map<String, String> paramMap) {
+        if (MapUtils.isEmpty(paramMap)) {
+            return null;
+        }
+        Map<String, String> otherMap = new HashMap<>();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-starrocks/src/main/java/org/apache/dolphinscheduler/plugin/datasource/starrocks/param/StarRocksDataSourceProcessor.java`
+#### Snippet
+```java
+        });
+        if (MapUtils.isEmpty(otherMap)) {
+            return null;
+        }
+        List<String> otherList = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-postgresql/src/main/java/org/apache/dolphinscheduler/plugin/datasource/postgresql/param/PostgreSQLDataSourceProcessor.java`
+#### Snippet
+```java
+    private String transformOther(Map<String, String> otherMap) {
+        if (MapUtils.isEmpty(otherMap)) {
+            return null;
+        }
+        List<String> otherList = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dataquality/src/main/java/org/apache/dolphinscheduler/plugin/task/dq/utils/RuleParserUtils.java`
+#### Snippet
+```java
+        DqRuleExecuteSql errorOutputSql = null;
+        if (CollectionUtils.isEmpty(dqRuleExecuteSqlList)) {
             return null;
         }
 
@@ -18452,18 +18438,6 @@ Local variable `command` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-dvc/src/main/java/org/apache/dolphinscheduler/plugin/task/dvc/DvcTask.java`
 #### Snippet
 ```java
-        args.add(DvcConstants.GIT_UPDATE_FOR_UPDATE_DATA);
-
-        String command = String.join("\n", args);
-        return command;
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `command` is redundant
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dvc/src/main/java/org/apache/dolphinscheduler/plugin/task/dvc/DvcTask.java`
-#### Snippet
-```java
         args.add(DvcConstants.GIT_UPDATE_FOR_INIT_DVC);
 
         String command = String.join("\n", args);
@@ -18477,6 +18451,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-dvc/src/main/java/org/apa
 #### Snippet
 ```java
         args.add(DvcConstants.DVC_DOWNLOAD);
+
+        String command = String.join("\n", args);
+        return command;
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `command` is redundant
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dvc/src/main/java/org/apache/dolphinscheduler/plugin/task/dvc/DvcTask.java`
+#### Snippet
+```java
+        args.add(DvcConstants.GIT_UPDATE_FOR_UPDATE_DATA);
 
         String command = String.join("\n", args);
         return command;
@@ -18618,18 +18604,6 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
-#### Snippet
-```java
-                        logBuffer.clear();
-                    } else {
-                        Thread.sleep(TaskConstants.DEFAULT_LOG_FLUSH_INTERVAL);
-                    }
-                }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/BaseLoopTaskExecutor.java`
 #### Snippet
 ```java
@@ -18638,6 +18612,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
                 Thread.sleep(loopInterval);
             }
             if (loopTaskInstanceStatus != null && loopTaskInstanceStatus.isSuccess()) {
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
+#### Snippet
+```java
+                        logBuffer.clear();
+                    } else {
+                        Thread.sleep(TaskConstants.DEFAULT_LOG_FLUSH_INTERVAL);
+                    }
+                }
 ```
 
 ### BusyWait
@@ -18720,78 +18706,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/intercept
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
 #### Snippet
 ```java
-            String token = request.getHeader("token");
-            if (!StringUtils.isEmpty(token)) {
-                RateLimiter tenantRateLimiter = tenantRateLimiterCache.get(token);
-                if (!tenantRateLimiter.tryAcquire()) {
-                    response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-```
-
-### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-            if (!StringUtils.isEmpty(token)) {
-                RateLimiter tenantRateLimiter = tenantRateLimiterCache.get(token);
-                if (!tenantRateLimiter.tryAcquire()) {
-                    response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-                    log.warn("Too many request, reach tenant rate limit, current tenant:{} qps is {}", token,
-```
-
-### UnstableApiUsage
-'getRate()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-                    response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-                    log.warn("Too many request, reach tenant rate limit, current tenant:{} qps is {}", token,
-                            tenantRateLimiter.getRate());
-                    return false;
-                }
-```
-
-### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-        // global rate limit
-        if (trafficConfiguration.isGlobalSwitch()) {
-            if (!globalRateLimiter.tryAcquire()) {
-                response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-                log.warn("Too many request, reach global rate limit, current qps is {}",
-```
-
-### UnstableApiUsage
-'getRate()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-                response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-                log.warn("Too many request, reach global rate limit, current qps is {}",
-                        globalRateLimiter.getRate());
-                return false;
-            }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-            .maximumSize(100)
-            .expireAfterAccess(10, TimeUnit.MINUTES)
-            .build(new CacheLoader<String, RateLimiter>() {
-
-                @Override
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
 
                 @Override
                 public RateLimiter load(String token) {
@@ -18852,10 +18766,82 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/intercept
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
 #### Snippet
 ```java
+            String token = request.getHeader("token");
+            if (!StringUtils.isEmpty(token)) {
+                RateLimiter tenantRateLimiter = tenantRateLimiterCache.get(token);
+                if (!tenantRateLimiter.tryAcquire()) {
+                    response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+```
+
+### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+            if (!StringUtils.isEmpty(token)) {
+                RateLimiter tenantRateLimiter = tenantRateLimiterCache.get(token);
+                if (!tenantRateLimiter.tryAcquire()) {
+                    response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+                    log.warn("Too many request, reach tenant rate limit, current tenant:{} qps is {}", token,
+```
+
+### UnstableApiUsage
+'getRate()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+                    response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+                    log.warn("Too many request, reach tenant rate limit, current tenant:{} qps is {}", token,
+                            tenantRateLimiter.getRate());
+                    return false;
+                }
+```
+
+### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+        // global rate limit
+        if (trafficConfiguration.isGlobalSwitch()) {
+            if (!globalRateLimiter.tryAcquire()) {
+                response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+                log.warn("Too many request, reach global rate limit, current qps is {}",
+```
+
+### UnstableApiUsage
+'getRate()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+                response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+                log.warn("Too many request, reach global rate limit, current qps is {}",
+                        globalRateLimiter.getRate());
+                return false;
+            }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
     private RateLimiter globalRateLimiter;
 
     private LoadingCache<String, RateLimiter> tenantRateLimiterCache = CacheBuilder.newBuilder()
             .maximumSize(100)
             .expireAfterAccess(10, TimeUnit.MINUTES)
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+            .maximumSize(100)
+            .expireAfterAccess(10, TimeUnit.MINUTES)
+            .build(new CacheLoader<String, RateLimiter>() {
+
+                @Override
 ```
 
