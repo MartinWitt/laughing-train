@@ -35,27 +35,27 @@ I found 289 bad smells with 44 repairable:
 | RedundantStringFormatCall | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `StreamConfig` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/rocketmq/streams/core/metadata/StreamConfig.java`
+Class `OperatorNameMaker` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/OperatorNameMaker.java`
 #### Snippet
 ```java
- */
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class StreamConfig {
-    public static final String TIME_TYPE = "timeType";
-    public static final String ALLOW_LATENESS_MILLISECOND = "allowLatenessMillisecond";
+public class OperatorNameMaker {
+    public static final String SOURCE_PREFIX = "ROCKETMQ-SOURCE";
+    public static final String SHUFFLE_SOURCE_PREFIX = "ROCKETMQ-SHUFFLE-SOURCE";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Constant` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/rocketmq/streams/core/common/Constant.java`
+Class `Utils` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
 #### Snippet
 ```java
-import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
-public class Constant {
-
-    public static final String SHUFFLE_KEY_CLASS_NAME = "shuffle.key.class.name";
+public class Utils {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final String pattern = "%s@%s@%s";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -71,15 +71,87 @@ public class WordCount {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JoinWithoutWindow` has only 'static' members, and lacks a 'private' constructor
-in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWithoutWindow.java`
+Class `RocketMQUtil` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
 #### Snippet
 ```java
-import java.util.Properties;
+import java.util.Set;
 
-public class JoinWithoutWindow {
+public class RocketMQUtil {
+    private static final Logger logger = LoggerFactory.getLogger(RocketMQUtil.class.getName());
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Demo` has only 'static' members, and lacks a 'private' constructor
+in `example/src/main/java/org/apache/rocketmq/streams/examples/pojo/Demo.java`
+#### Snippet
+```java
+ * 5、观察输出结果
+ */
+public class Demo {
     public static void main(String[] args) {
-        StreamBuilder builder = new StreamBuilder("JoinWithoutWindow");
+        StreamBuilder builder = new StreamBuilder("demo");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Constant` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/rocketmq/streams/core/common/Constant.java`
+#### Snippet
+```java
+import java.nio.charset.StandardCharsets;
+
+public class Constant {
+
+    public static final String SHUFFLE_KEY_CLASS_NAME = "shuffle.key.class.name";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `WindowBuilder` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowBuilder.java`
+#### Snippet
+```java
+
+
+public class WindowBuilder {
+
+    public static WindowInfo tumblingWindow(Time size) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SlideWindowCount` has only 'static' members, and lacks a 'private' constructor
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/SlideWindowCount.java`
+#### Snippet
+```java
+ * 5、观察输出结果
+ */
+public class SlideWindowCount {
+    public static void main(String[] args) {
+        StreamBuilder builder = new StreamBuilder("slideWindowCount");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StreamConfig` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/rocketmq/streams/core/metadata/StreamConfig.java`
+#### Snippet
+```java
+ */
+
+public class StreamConfig {
+    public static final String TIME_TYPE = "timeType";
+    public static final String ALLOW_LATENESS_MILLISECOND = "allowLatenessMillisecond";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SessionWindowCount` has only 'static' members, and lacks a 'private' constructor
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/SessionWindowCount.java`
+#### Snippet
+```java
+ * 5、观察输出结果
+ */
+public class SessionWindowCount {
+    public static void main(String[] args) {
+        StreamBuilder builder = new StreamBuilder("sessionWindowCount");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -107,6 +179,18 @@ public class WindowWordCount {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `JoinWithoutWindow` has only 'static' members, and lacks a 'private' constructor
+in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWithoutWindow.java`
+#### Snippet
+```java
+import java.util.Properties;
+
+public class JoinWithoutWindow {
+    public static void main(String[] args) {
+        StreamBuilder builder = new StreamBuilder("JoinWithoutWindow");
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `WordCountSink` has only 'static' members, and lacks a 'private' constructor
 in `example/src/main/java/org/apache/rocketmq/streams/examples/sink/WordCountSink.java`
 #### Snippet
@@ -116,90 +200,6 @@ in `example/src/main/java/org/apache/rocketmq/streams/examples/sink/WordCountSin
 public class WordCountSink {
     public static void main(String[] args) {
         StreamBuilder builder = new StreamBuilder("wordCount");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
-#### Snippet
-```java
-import java.util.Date;
-
-public class Utils {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-    public static final String pattern = "%s@%s@%s";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OperatorNameMaker` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/OperatorNameMaker.java`
-#### Snippet
-```java
-import java.util.concurrent.atomic.AtomicInteger;
-
-public class OperatorNameMaker {
-    public static final String SOURCE_PREFIX = "ROCKETMQ-SOURCE";
-    public static final String SHUFFLE_SOURCE_PREFIX = "ROCKETMQ-SHUFFLE-SOURCE";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `WindowBuilder` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowBuilder.java`
-#### Snippet
-```java
-
-
-public class WindowBuilder {
-
-    public static WindowInfo tumblingWindow(Time size) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Demo` has only 'static' members, and lacks a 'private' constructor
-in `example/src/main/java/org/apache/rocketmq/streams/examples/pojo/Demo.java`
-#### Snippet
-```java
- * 5、观察输出结果
- */
-public class Demo {
-    public static void main(String[] args) {
-        StreamBuilder builder = new StreamBuilder("demo");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RocketMQUtil` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
-#### Snippet
-```java
-import java.util.Set;
-
-public class RocketMQUtil {
-    private static final Logger logger = LoggerFactory.getLogger(RocketMQUtil.class.getName());
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SessionWindowCount` has only 'static' members, and lacks a 'private' constructor
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/SessionWindowCount.java`
-#### Snippet
-```java
- * 5、观察输出结果
- */
-public class SessionWindowCount {
-    public static void main(String[] args) {
-        StreamBuilder builder = new StreamBuilder("sessionWindowCount");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JoinWindow` has only 'static' members, and lacks a 'private' constructor
-in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWindow.java`
-#### Snippet
-```java
- * 5、观察输出结果
- */
-public class JoinWindow {
-    public static void main(String[] args) {
-        StreamBuilder builder = new StreamBuilder("joinWindow");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -215,15 +215,15 @@ public class WindowAvg {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SlideWindowCount` has only 'static' members, and lacks a 'private' constructor
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/SlideWindowCount.java`
+Class `JoinWindow` has only 'static' members, and lacks a 'private' constructor
+in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWindow.java`
 #### Snippet
 ```java
  * 5、观察输出结果
  */
-public class SlideWindowCount {
+public class JoinWindow {
     public static void main(String[] args) {
-        StreamBuilder builder = new StreamBuilder("slideWindowCount");
+        StreamBuilder builder = new StreamBuilder("joinWindow");
 ```
 
 ## RuleId[ruleID=TypeParameterHidesVisibleType]
@@ -279,18 +279,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/Cou
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
-#### Snippet
-```java
-
-    @Override
-    public Accumulator<V, Double> clone() {
-        return new AvgAccumulator<>();
-    }
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/MinAccumulator.java`
 #### Snippet
 ```java
@@ -298,6 +286,18 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/Min
     @Override
     public Accumulator<V, Double> clone() {
         return new MinAccumulator<>();
+    }
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
+#### Snippet
+```java
+
+    @Override
+    public Accumulator<V, Double> clone() {
+        return new AvgAccumulator<>();
     }
 ```
 
@@ -381,18 +381,6 @@ Empty `catch` block
 in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-        try {
-            future.get(100, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException | TimeoutException e) {
-        }
-    }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
                 try {
                     logger.debug("recover state, key: " + new String(key, StandardCharsets.UTF_8) + ", stateTopicQueue: " + stateTopicQueue);
                 } catch (Throwable t) {
@@ -412,52 +400,40 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java
     }
 ```
 
+### CatchMayIgnoreException
+Empty `catch` block
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+#### Snippet
+```java
+        try {
+            future.get(100, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | TimeoutException e) {
+        }
+    }
+```
+
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`keySet.size() == 0` can be replaced with 'keySet.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
+`clusters.size() == 0` can be replaced with 'clusters.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
 #### Snippet
 ```java
-                    if (keySet != null) {
-                        keySet.removeIf(rocksDBKey -> Arrays.equals(rocksDBKey, key));
-                        if (keySet.size() == 0) {
-                            iterator.remove();
-                        }
-```
+        }
 
-### SizeReplaceableByIsEmpty
-`keySet.size() == 0` can be replaced with 'keySet.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
-#### Snippet
-```java
-                    if (keySet != null) {
-                        keySet.removeIf(rocksDBKey -> Arrays.equals(rocksDBKey, key));
-                        if (keySet.size() == 0) {
-                            iterator.remove();
-                        }
-```
-
-### SizeReplaceableByIsEmpty
-`messageQueues.size() == 0` can be replaced with 'messageQueues.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
-#### Snippet
-```java
-
-    protected Set<MessageQueue> convertSourceTopicQueue2StateTopicQueue(Set<MessageQueue> messageQueues) {
-        if (messageQueues == null || messageQueues.size() == 0) {
-            return new HashSet<>();
+        if (clusters == null || clusters.size() == 0) {
+            clusters = getCluster(mqAdmin);
         }
 ```
 
 ### SizeReplaceableByIsEmpty
-`windowStateBytes.size() == 0` can be replaced with 'windowStateBytes.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
+`clusters.size() == 0` can be replaced with 'clusters.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
 #### Snippet
 ```java
-    private List<Pair<WindowKey, WindowState<K, V>>> deserializerState(List<Pair<byte[], byte[]>> windowStateBytes) throws Throwable {
-        List<Pair<WindowKey, WindowState<K, V>>> result = new ArrayList<>();
-        if (windowStateBytes == null || windowStateBytes.size() == 0) {
-            return result;
+        }
+
+        if (clusters == null || clusters.size() == 0) {
+            clusters = getCluster(mqAdmin);
         }
 ```
 
@@ -474,39 +450,99 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.jav
 ```
 
 ### SizeReplaceableByIsEmpty
-`target.size() == 0` can be replaced with 'target.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+`pairs.size() == 0` can be replaced with 'pairs.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+            List<Pair<WindowKey, WindowState<K, Accumulator<R, OV>>>> pairs = this.windowStore.searchMatchKeyPrefix(name);
+
+            if (pairs.size() == 0) {
+                return new Pair<>(dataTime, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`pairs.size() == 0` can be replaced with 'pairs.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+            }
+
+            if (pairs.size() == 0 || createNewSessionWindow) {
+                return new Pair<>(lastStateSessionEnd, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`messageQueues.size() == 0` can be replaced with 'messageQueues.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
 #### Snippet
 ```java
 
-    private List<MessageExt> sortByQueueOffset(List<MessageExt> target) {
-        if (target == null || target.size() == 0) {
-            return new ArrayList<>();
+    protected Set<MessageQueue> convertSourceTopicQueue2StateTopicQueue(Set<MessageQueue> messageQueues) {
+        if (messageQueues == null || messageQueues.size() == 0) {
+            return new HashSet<>();
         }
 ```
 
 ### SizeReplaceableByIsEmpty
-`addQueues.size() == 0` can be replaced with 'addQueues.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+`keySet.size() == 0` can be replaced with 'keySet.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
 #### Snippet
 ```java
+                    if (keySet != null) {
+                        keySet.removeIf(rocksDBKey -> Arrays.equals(rocksDBKey, key));
+                        if (keySet.size() == 0) {
+                            iterator.remove();
+                        }
+```
 
-    public void loadState(Set<MessageQueue> addQueues) throws Throwable {
-        if (addQueues == null || addQueues.size() == 0) {
-            return;
+### SizeReplaceableByIsEmpty
+`keySet.size() == 0` can be replaced with 'keySet.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
+#### Snippet
+```java
+                    if (keySet != null) {
+                        keySet.removeIf(rocksDBKey -> Arrays.equals(rocksDBKey, key));
+                        if (keySet.size() == 0) {
+                            iterator.remove();
+                        }
+```
+
+### SizeReplaceableByIsEmpty
+`windowStateBytes.size() == 0` can be replaced with 'windowStateBytes.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
+#### Snippet
+```java
+    private List<Pair<WindowKey, WindowState<K, V>>> deserializerState(List<Pair<byte[], byte[]>> windowStateBytes) throws Throwable {
+        List<Pair<WindowKey, WindowState<K, V>>> result = new ArrayList<>();
+        if (windowStateBytes == null || windowStateBytes.size() == 0) {
+            return result;
         }
 ```
 
 ### SizeReplaceableByIsEmpty
-`msgs.size() == 0` can be replaced with 'msgs.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+`pairs.size() == 0` can be replaced with 'pairs.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
-    // 能保证一个q里面后面pull到的数据queueOffset一定比前一批次拉取的queueOffset大吗？
-    private void replayState(List<MessageExt> msgs) throws Throwable {
-        if (msgs == null || msgs.size() == 0) {
-            return;
-        }
+            List<Pair<WindowKey, WindowState<K, OV>>> pairs = this.windowStore.searchMatchKeyPrefix(name);
+
+            if (pairs.size() == 0) {
+                return new Pair<>(dataTime, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`pairs.size() == 0` can be replaced with 'pairs.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
+#### Snippet
+```java
+            }
+
+            if (pairs.size() == 0 || createNewSessionWindow) {
+                return new Pair<>(lastStateSessionEnd, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -534,27 +570,15 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java
 ```
 
 ### SizeReplaceableByIsEmpty
-`removeQueues.size() == 0` can be replaced with 'removeQueues.isEmpty()'
+`target.size() == 0` can be replaced with 'target.isEmpty()'
 in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
 
-    public void removeState(Set<MessageQueue> removeQueues) throws Throwable {
-        if (removeQueues == null || removeQueues.size() == 0) {
-            return;
+    private List<MessageExt> sortByQueueOffset(List<MessageExt> target) {
+        if (target == null || target.size() == 0) {
+            return new ArrayList<>();
         }
-```
-
-### SizeReplaceableByIsEmpty
-`removeQueues.size() == 0` can be replaced with 'removeQueues.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-        Future<?> future = this.executor.submit(() -> {
-            try {
-                if (removeQueues.size() == 0) {
-                    return;
-                }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -582,51 +606,51 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java
 ```
 
 ### SizeReplaceableByIsEmpty
-`clusters.size() == 0` can be replaced with 'clusters.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
+`msgs.size() == 0` can be replaced with 'msgs.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-        }
-
-        if (clusters == null || clusters.size() == 0) {
-            clusters = getCluster(mqAdmin);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`clusters.size() == 0` can be replaced with 'clusters.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
-#### Snippet
-```java
-        }
-
-        if (clusters == null || clusters.size() == 0) {
-            clusters = getCluster(mqAdmin);
+    // 能保证一个q里面后面pull到的数据queueOffset一定比前一批次拉取的queueOffset大吗？
+    private void replayState(List<MessageExt> msgs) throws Throwable {
+        if (msgs == null || msgs.size() == 0) {
+            return;
         }
 ```
 
 ### SizeReplaceableByIsEmpty
-`pairs.size() == 0` can be replaced with 'pairs.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
+`addQueues.size() == 0` can be replaced with 'addQueues.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-            List<Pair<WindowKey, WindowState<K, OV>>> pairs = this.windowStore.searchMatchKeyPrefix(name);
 
-            if (pairs.size() == 0) {
-                return new Pair<>(dataTime, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
-            }
+    public void loadState(Set<MessageQueue> addQueues) throws Throwable {
+        if (addQueues == null || addQueues.size() == 0) {
+            return;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
-`pairs.size() == 0` can be replaced with 'pairs.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
+`removeQueues.size() == 0` can be replaced with 'removeQueues.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-            }
 
-            if (pairs.size() == 0 || createNewSessionWindow) {
-                return new Pair<>(lastStateSessionEnd, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
-            }
+    public void removeState(Set<MessageQueue> removeQueues) throws Throwable {
+        if (removeQueues == null || removeQueues.size() == 0) {
+            return;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`removeQueues.size() == 0` can be replaced with 'removeQueues.isEmpty()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+#### Snippet
+```java
+        Future<?> future = this.executor.submit(() -> {
+            try {
+                if (removeQueues.size() == 0) {
+                    return;
+                }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -701,30 +725,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/JoinWindowFi
                 for (Pair<WindowKey, WindowState<K, V2>> rightPair : rightPairs) {
 ```
 
-### SizeReplaceableByIsEmpty
-`pairs.size() == 0` can be replaced with 'pairs.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-            List<Pair<WindowKey, WindowState<K, Accumulator<R, OV>>>> pairs = this.windowStore.searchMatchKeyPrefix(name);
-
-            if (pairs.size() == 0) {
-                return new Pair<>(dataTime, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`pairs.size() == 0` can be replaced with 'pairs.isEmpty()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-            }
-
-            if (pairs.size() == 0 || createNewSessionWindow) {
-                return new Pair<>(lastStateSessionEnd, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
-            }
-```
-
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
@@ -753,98 +753,38 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowKey.java`
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super T`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/TimestampSelectorSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/FilterSupplier.java`
 #### Snippet
 ```java
-        private final ValueMapperAction<T, Long> valueMapperAction;
+        private final FilterAction<T> filterAction;
 
-        public TimestampSelector(ValueMapperAction<T, Long> valueMapperAction) {
-            this.valueMapperAction = valueMapperAction;
+        public FilterProcessor(FilterAction<T> filterAction) {
+            this.filterAction = filterAction;
         }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+Can generalize to `? super K`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SinkSupplier.java`
 #### Snippet
 ```java
-        private Accumulator<R, OV> accumulator;
+        private K key;
 
-        public AccumulatorProcessor(String currentName, String parentName, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
-            this.currentName = currentName;
-            this.parentName = parentName;
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
-#### Snippet
-```java
-        private Accumulator<R, OV> accumulator;
-
-        public AccumulatorProcessor(String currentName, String parentName, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
-            this.currentName = currentName;
-            this.parentName = parentName;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Processor`
-in `core/src/main/java/org/apache/rocketmq/streams/core/topology/TopologyBuilder.java`
-#### Snippet
-```java
-
-
-    public <T> void addRealSink(String name, String parentName, String topicName, Supplier<Processor<T>> supplier) {
-        SinkFactory<T> sinkFactory = new SinkFactory<>(name, supplier);
-        realNodeFactory.put(name, sinkFactory);
-```
-
-### BoundedWildcard
-Can generalize to `? extends KEY`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/KeySelectSupplier.java`
-#### Snippet
-```java
-
-
-        public MapperProcessor(SelectAction<KEY, T> selectAction) {
-            this.selectAction = selectAction;
-        }
+        public SinkProcessor(String topicName, KeyValueSerializer<K, T> serializer) {
+            this.topicName = topicName;
+            this.serializer = serializer;
 ```
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/KeySelectSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SinkSupplier.java`
 #### Snippet
 ```java
+        private K key;
 
-
-        public MapperProcessor(SelectAction<KEY, T> selectAction) {
-            this.selectAction = selectAction;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageQueue`
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
-#### Snippet
-```java
-    }
-
-    protected Set<MessageQueue> convertSourceTopicQueue2StateTopicQueue(Set<MessageQueue> messageQueues) {
-        if (messageQueues == null || messageQueues.size() == 0) {
-            return new HashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SumAggregate.java`
-#### Snippet
-```java
-    private final SelectAction<? extends Number, V> selectAction;
-
-    public SumAggregate(SelectAction<? extends Number, V> selectAction) {
-        this.selectAction = selectAction;
-    }
+        public SinkProcessor(String topicName, KeyValueSerializer<K, T> serializer) {
+            this.topicName = topicName;
+            this.serializer = serializer;
 ```
 
 ### BoundedWildcard
@@ -857,90 +797,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/MultiV
         public MultiValueMapperProcessor(ValueMapperAction<T, ? extends Iterable<? extends VR>> valueMapperAction) {
             this.valueMapperAction = valueMapperAction;
         }
-```
-
-### BoundedWildcard
-Can generalize to `? super Long`
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AbstractWindowFire.java`
-#### Snippet
-```java
-    public AbstractWindowFire(StreamContext<V> context,
-                              MessageQueue stateTopicMessageQueue,
-                              BiFunction<Long, MessageQueue, Long> commitWatermark) {
-        this.context = context;
-        this.stateTopicMessageQueue = stateTopicMessageQueue;
-```
-
-### BoundedWildcard
-Can generalize to `? super MessageQueue`
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AbstractWindowFire.java`
-#### Snippet
-```java
-    public AbstractWindowFire(StreamContext<V> context,
-                              MessageQueue stateTopicMessageQueue,
-                              BiFunction<Long, MessageQueue, Long> commitWatermark) {
-        this.context = context;
-        this.stateTopicMessageQueue = stateTopicMessageQueue;
-```
-
-### BoundedWildcard
-Can generalize to `? extends WindowState`
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
-#### Snippet
-```java
-
-    public WindowStore(StateStore stateStore,
-                       ValueMapperAction<byte[], WindowState<K, V>> bytes2State,
-                       ValueMapperAction<WindowState<K, V>, byte[]> state2Bytes) {
-        this.stateStore = stateStore;
-```
-
-### BoundedWildcard
-Can generalize to `? super WindowState`
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
-#### Snippet
-```java
-    public WindowStore(StateStore stateStore,
-                       ValueMapperAction<byte[], WindowState<K, V>> bytes2State,
-                       ValueMapperAction<WindowState<K, V>, byte[]> state2Bytes) {
-        this.stateStore = stateStore;
-        this.bytes2State = bytes2State;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
-#### Snippet
-```java
-    }
-
-    private List<Pair<WindowKey, WindowState<K, V>>> deserializerState(List<Pair<byte[], byte[]>> windowStateBytes) throws Throwable {
-        List<Pair<WindowKey, WindowState<K, V>>> result = new ArrayList<>();
-        if (windowStateBytes == null || windowStateBytes.size() == 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/StreamContextImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public <K> void forward(Data<K, V> data) throws Throwable {
-        this.key = data.getKey();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Processor`
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/StreamContextImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void init(List<Processor<V>> childrenProcessors) {
-        this.childList.clear();
-        if (childrenProcessors != null) {
 ```
 
 ### BoundedWildcard
@@ -981,38 +837,278 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Foreac
 
 ### BoundedWildcard
 Can generalize to `? super V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SumAggregate.java`
+#### Snippet
+```java
+    private final SelectAction<? extends Number, V> selectAction;
+
+    public SumAggregate(SelectAction<? extends Number, V> selectAction) {
+        this.selectAction = selectAction;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends KEY`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/KeySelectSupplier.java`
 #### Snippet
 ```java
 
-    @Override
-    public GroupedStream<K, V> min(SelectAction<? extends Number, V> selectAction) {
-        String name = OperatorNameMaker.makeName(MIN_PREFIX, pipeline.getJobId());
 
+        public MapperProcessor(SelectAction<KEY, T> selectAction) {
+            this.selectAction = selectAction;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/KeySelectSupplier.java`
+#### Snippet
+```java
+
+
+        public MapperProcessor(SelectAction<KEY, T> selectAction) {
+            this.selectAction = selectAction;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Processor`
+in `core/src/main/java/org/apache/rocketmq/streams/core/topology/real/SourceFactory.java`
+#### Snippet
+```java
+    private final Supplier<Processor<T>> supplier;
+
+    public SourceFactory(String name, String topic, Supplier<Processor<T>> supplier) {
+        this.name = name;
+        this.topic = topic;
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+#### Snippet
+```java
+        private Accumulator<R, OV> accumulator;
+
+        public AccumulatorProcessor(String currentName, String parentName, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
+            this.currentName = currentName;
+            this.parentName = parentName;
 ```
 
 ### BoundedWildcard
 Can generalize to `? super V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+#### Snippet
+```java
+        private Accumulator<R, OV> accumulator;
+
+        public AccumulatorProcessor(String currentName, String parentName, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
+            this.currentName = currentName;
+            this.parentName = parentName;
+```
+
+### BoundedWildcard
+Can generalize to `? extends WindowKey`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
+#### Snippet
+```java
+    public List<Pair<byte[], byte[]>> searchStateLessThanWatermark(String name,
+                                                                   long lessThanThisTime,
+                                                                   ValueMapperAction<byte[], WindowKey> deserializer) throws Throwable {
+        readOptions = new ReadOptions();
+        readOptions.setPrefixSameAsStart(true).setTotalOrderSeek(true);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
+#### Snippet
+```java
+
+    public List<Pair<String, byte[]>> searchByKeyPrefix(String keyPrefix,
+                                                        ValueMapperAction<String, byte[]> string2Bytes,
+                                                        ValueMapperAction<byte[], String> byte2String) throws Throwable {
+        readOptions = new ReadOptions();
+```
+
+### BoundedWildcard
+Can generalize to `? super Long`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AbstractWindowFire.java`
+#### Snippet
+```java
+    public AbstractWindowFire(StreamContext<V> context,
+                              MessageQueue stateTopicMessageQueue,
+                              BiFunction<Long, MessageQueue, Long> commitWatermark) {
+        this.context = context;
+        this.stateTopicMessageQueue = stateTopicMessageQueue;
+```
+
+### BoundedWildcard
+Can generalize to `? super MessageQueue`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AbstractWindowFire.java`
+#### Snippet
+```java
+    public AbstractWindowFire(StreamContext<V> context,
+                              MessageQueue stateTopicMessageQueue,
+                              BiFunction<Long, MessageQueue, Long> commitWatermark) {
+        this.context = context;
+        this.stateTopicMessageQueue = stateTopicMessageQueue;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Processor`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/StreamContextImpl.java`
 #### Snippet
 ```java
 
     @Override
-    public <OUT> GroupedStream<K, OUT> aggregate(Accumulator<V, OUT> accumulator) {
-        String name = OperatorNameMaker.makeName(ACCUMULATE_PREFIX, pipeline.getJobId());
-        Supplier<Processor<V>> supplier = new AccumulatorSupplier<>(name, parent.getName(), value -> value, accumulator);
+    public void init(List<Processor<V>> childrenProcessors) {
+        this.childList.clear();
+        if (childrenProcessors != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/StreamContextImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public <K> void forward(Data<K, V> data) throws Throwable {
+        this.key = data.getKey();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends MessageQueue`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
+#### Snippet
+```java
+    }
+
+    private void removeTask(Set<MessageQueue> removeQueues) {
+        for (MessageQueue removeQueue : removeQueues) {
+            String key = Utils.buildKey(removeQueue.getBrokerName(), removeQueue.getTopic(), removeQueue.getQueueId());
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
+#### Snippet
+```java
+    }
+
+    public void setRecoverHandler(BiFunction<Set<MessageQueue>, Set<MessageQueue>, Throwable> handler) {
+        this.recoverHandler = handler;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
+#### Snippet
+```java
+    }
+
+    public void setRecoverHandler(BiFunction<Set<MessageQueue>, Set<MessageQueue>, Throwable> handler) {
+        this.recoverHandler = handler;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Throwable`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
+#### Snippet
+```java
+    }
+
+    public void setRecoverHandler(BiFunction<Set<MessageQueue>, Set<MessageQueue>, Throwable> handler) {
+        this.recoverHandler = handler;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MessageQueue`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
+#### Snippet
+```java
+
+
+    private void buildTask(Set<MessageQueue> addQueues) {
+        for (MessageQueue messageQueue : addQueues) {
+            String key = Utils.buildKey(messageQueue.getBrokerName(), messageQueue.getTopic(), messageQueue.getQueueId());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Processor`
+in `core/src/main/java/org/apache/rocketmq/streams/core/topology/TopologyBuilder.java`
+#### Snippet
+```java
+
+
+    public <T> void addRealSink(String name, String parentName, String topicName, Supplier<Processor<T>> supplier) {
+        SinkFactory<T> sinkFactory = new SinkFactory<>(name, supplier);
+        realNodeFactory.put(name, sinkFactory);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/TimestampSelectorSupplier.java`
+#### Snippet
+```java
+        private final ValueMapperAction<T, Long> valueMapperAction;
+
+        public TimestampSelector(ValueMapperAction<T, Long> valueMapperAction) {
+            this.valueMapperAction = valueMapperAction;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+        private final AtomicReference<Throwable> errorReference = new AtomicReference<>(null);
+
+        public WindowAccumulatorProcessor(String name, WindowInfo windowInfo, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
+            this.name = String.join(Constant.SPLIT, name, WindowAccumulatorProcessor.class.getSimpleName());
+            this.windowInfo = windowInfo;
 ```
 
 ### BoundedWildcard
 Can generalize to `? super V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
 #### Snippet
 ```java
+        private final AtomicReference<Throwable> errorReference = new AtomicReference<>(null);
 
-    @Override
-    public GroupedStream<K, V> max(SelectAction<? extends Number, V> selectAction) {
-        String name = OperatorNameMaker.makeName(MAX_PREFIX, pipeline.getJobId());
-        Supplier<Processor<V>> supplier = new AggregateSupplier<>(name, parent.getName(), () -> null, (AggregateAction<K, V, V>) (key, value, accumulator) -> {
+        public WindowAccumulatorProcessor(String name, WindowInfo windowInfo, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
+            this.name = String.join(Constant.SPLIT, name, WindowAccumulatorProcessor.class.getSimpleName());
+            this.windowInfo = windowInfo;
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+        private WindowStore<K, Accumulator<R, OV>> windowStore;
+
+        public SessionWindowAccumulatorProcessor(String name, WindowInfo windowInfo, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
+            this.name = String.join(Constant.SPLIT, name, SessionWindowAccumulatorProcessor.class.getSimpleName());
+            this.windowInfo = windowInfo;
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+        private WindowStore<K, Accumulator<R, OV>> windowStore;
+
+        public SessionWindowAccumulatorProcessor(String name, WindowInfo windowInfo, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
+            this.name = String.join(Constant.SPLIT, name, SessionWindowAccumulatorProcessor.class.getSimpleName());
+            this.windowInfo = windowInfo;
 ```
 
 ### BoundedWildcard
@@ -1052,102 +1148,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAg
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/FilterSupplier.java`
-#### Snippet
-```java
-        private final FilterAction<T> filterAction;
-
-        public FilterProcessor(FilterAction<T> filterAction) {
-            this.filterAction = filterAction;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/WindowStreamImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public <OUT> WindowStream<K, OUT> aggregate(Accumulator<V, OUT> accumulator) {
-        String name = OperatorNameMaker.makeName(AGGREGATE_PREFIX, pipeline.getJobId());
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageExt`
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-    //拉的数据越多，重放效率越高,
-    // 能保证一个q里面后面pull到的数据queueOffset一定比前一批次拉取的queueOffset大吗？
-    private void replayState(List<MessageExt> msgs) throws Throwable {
-        if (msgs == null || msgs.size() == 0) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Processor`
-in `core/src/main/java/org/apache/rocketmq/streams/core/topology/real/SourceFactory.java`
-#### Snippet
-```java
-    private final Supplier<Processor<T>> supplier;
-
-    public SourceFactory(String name, String topic, Supplier<Processor<T>> supplier) {
-        this.name = name;
-        this.topic = topic;
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SinkSupplier.java`
-#### Snippet
-```java
-        private K key;
-
-        public SinkProcessor(String topicName, KeyValueSerializer<K, T> serializer) {
-            this.topicName = topicName;
-            this.serializer = serializer;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SinkSupplier.java`
-#### Snippet
-```java
-        private K key;
-
-        public SinkProcessor(String topicName, KeyValueSerializer<K, T> serializer) {
-            this.topicName = topicName;
-            this.serializer = serializer;
-```
-
-### BoundedWildcard
-Can generalize to `? extends WindowKey`
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
-#### Snippet
-```java
-    public List<Pair<byte[], byte[]>> searchStateLessThanWatermark(String name,
-                                                                   long lessThanThisTime,
-                                                                   ValueMapperAction<byte[], WindowKey> deserializer) throws Throwable {
-        readOptions = new ReadOptions();
-        readOptions.setPrefixSameAsStart(true).setTotalOrderSeek(true);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
-#### Snippet
-```java
-
-    public List<Pair<String, byte[]>> searchByKeyPrefix(String keyPrefix,
-                                                        ValueMapperAction<String, byte[]> string2Bytes,
-                                                        ValueMapperAction<byte[], String> byte2String) throws Throwable {
-        readOptions = new ReadOptions();
-```
-
-### BoundedWildcard
 Can generalize to `? extends OV`
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
 #### Snippet
@@ -1184,6 +1184,102 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Aggreg
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends MessageQueue`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
+#### Snippet
+```java
+    }
+
+    protected Set<MessageQueue> convertSourceTopicQueue2StateTopicQueue(Set<MessageQueue> messageQueues) {
+        if (messageQueues == null || messageQueues.size() == 0) {
+            return new HashSet<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/WindowStreamImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public <OUT> WindowStream<K, OUT> aggregate(Accumulator<V, OUT> accumulator) {
+        String name = OperatorNameMaker.makeName(AGGREGATE_PREFIX, pipeline.getJobId());
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends WindowState`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
+#### Snippet
+```java
+
+    public WindowStore(StateStore stateStore,
+                       ValueMapperAction<byte[], WindowState<K, V>> bytes2State,
+                       ValueMapperAction<WindowState<K, V>, byte[]> state2Bytes) {
+        this.stateStore = stateStore;
+```
+
+### BoundedWildcard
+Can generalize to `? super WindowState`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
+#### Snippet
+```java
+    public WindowStore(StateStore stateStore,
+                       ValueMapperAction<byte[], WindowState<K, V>> bytes2State,
+                       ValueMapperAction<WindowState<K, V>, byte[]> state2Bytes) {
+        this.stateStore = stateStore;
+        this.bytes2State = bytes2State;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
+#### Snippet
+```java
+    }
+
+    private List<Pair<WindowKey, WindowState<K, V>>> deserializerState(List<Pair<byte[], byte[]>> windowStateBytes) throws Throwable {
+        List<Pair<WindowKey, WindowState<K, V>>> result = new ArrayList<>();
+        if (windowStateBytes == null || windowStateBytes.size() == 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public <OUT> GroupedStream<K, OUT> aggregate(Accumulator<V, OUT> accumulator) {
+        String name = OperatorNameMaker.makeName(ACCUMULATE_PREFIX, pipeline.getJobId());
+        Supplier<Processor<V>> supplier = new AccumulatorSupplier<>(name, parent.getName(), value -> value, accumulator);
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public GroupedStream<K, V> min(SelectAction<? extends Number, V> selectAction) {
+        String name = OperatorNameMaker.makeName(MIN_PREFIX, pipeline.getJobId());
+
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public GroupedStream<K, V> max(SelectAction<? extends Number, V> selectAction) {
+        String name = OperatorNameMaker.makeName(MAX_PREFIX, pipeline.getJobId());
+        Supplier<Processor<V>> supplier = new AggregateSupplier<>(name, parent.getName(), () -> null, (AggregateAction<K, V, V>) (key, value, accumulator) -> {
+```
+
+### BoundedWildcard
 Can generalize to `? extends OV`
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
@@ -1253,6 +1349,18 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Window
         public WindowAggregateProcessor(String name, WindowInfo windowInfo, Supplier<OV> initAction, AggregateAction<K, V, OV> aggregateAction) {
             this.name = String.join(Constant.SPLIT, name, WindowAggregateProcessor.class.getSimpleName());
             this.windowInfo = windowInfo;
+```
+
+### BoundedWildcard
+Can generalize to `? extends MessageExt`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+#### Snippet
+```java
+    //拉的数据越多，重放效率越高,
+    // 能保证一个q里面后面pull到的数据queueOffset一定比前一批次拉取的queueOffset大吗？
+    private void replayState(List<MessageExt> msgs) throws Throwable {
+        if (msgs == null || msgs.size() == 0) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -1313,114 +1421,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/JoinWindowFi
                           BiFunction<Long, MessageQueue, Long> commitWatermark) {
         this.joinType = joinType;
         this.stateTopicMessageQueue = stateTopicMessageQueue;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageQueue`
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
-#### Snippet
-```java
-    }
-
-    private void removeTask(Set<MessageQueue> removeQueues) {
-        for (MessageQueue removeQueue : removeQueues) {
-            String key = Utils.buildKey(removeQueue.getBrokerName(), removeQueue.getTopic(), removeQueue.getQueueId());
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageQueue`
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
-#### Snippet
-```java
-
-
-    private void buildTask(Set<MessageQueue> addQueues) {
-        for (MessageQueue messageQueue : addQueues) {
-            String key = Utils.buildKey(messageQueue.getBrokerName(), messageQueue.getTopic(), messageQueue.getQueueId());
-```
-
-### BoundedWildcard
-Can generalize to `? super Set`
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
-#### Snippet
-```java
-    }
-
-    public void setRecoverHandler(BiFunction<Set<MessageQueue>, Set<MessageQueue>, Throwable> handler) {
-        this.recoverHandler = handler;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Set`
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
-#### Snippet
-```java
-    }
-
-    public void setRecoverHandler(BiFunction<Set<MessageQueue>, Set<MessageQueue>, Throwable> handler) {
-        this.recoverHandler = handler;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Throwable`
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueListenerWrapper.java`
-#### Snippet
-```java
-    }
-
-    public void setRecoverHandler(BiFunction<Set<MessageQueue>, Set<MessageQueue>, Throwable> handler) {
-        this.recoverHandler = handler;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-        private WindowStore<K, Accumulator<R, OV>> windowStore;
-
-        public SessionWindowAccumulatorProcessor(String name, WindowInfo windowInfo, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
-            this.name = String.join(Constant.SPLIT, name, SessionWindowAccumulatorProcessor.class.getSimpleName());
-            this.windowInfo = windowInfo;
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-        private WindowStore<K, Accumulator<R, OV>> windowStore;
-
-        public SessionWindowAccumulatorProcessor(String name, WindowInfo windowInfo, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
-            this.name = String.join(Constant.SPLIT, name, SessionWindowAccumulatorProcessor.class.getSimpleName());
-            this.windowInfo = windowInfo;
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-        private final AtomicReference<Throwable> errorReference = new AtomicReference<>(null);
-
-        public WindowAccumulatorProcessor(String name, WindowInfo windowInfo, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
-            this.name = String.join(Constant.SPLIT, name, WindowAccumulatorProcessor.class.getSimpleName());
-            this.windowInfo = windowInfo;
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-        private final AtomicReference<Throwable> errorReference = new AtomicReference<>(null);
-
-        public WindowAccumulatorProcessor(String name, WindowInfo windowInfo, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
-            this.name = String.join(Constant.SPLIT, name, WindowAccumulatorProcessor.class.getSimpleName());
-            this.windowInfo = windowInfo;
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -1474,6 +1474,30 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.jav
 ```
 
 ## RuleId[ruleID=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
+#### Snippet
+```java
+        byte[] bytes = rocksDBStore.get(keyBytes);
+        Object result = Utils.byte2Object(bytes, Object.class);
+        System.out.println(result);
+
+        byte[] bytes2 = rocksDBStore.get(keyBytes2);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
+#### Snippet
+```java
+        byte[] bytes2 = rocksDBStore.get(keyBytes2);
+        Object result2 = Utils.byte2Object(bytes2, Object.class);
+        System.out.println(result2);
+
+        String keyPrefix = "time@1668249210000";
+```
+
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWithoutWindow.java`
@@ -1548,6 +1572,18 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/PrintS
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowAvg.java`
+#### Snippet
+```java
+            Integer num = Integer.parseInt(value);
+            return new Pair<>(null, num);
+        }).foreach(value -> System.out.println(String.format("time:%s, input:%d", LocalTime.now(), value)))
+        .filter(value -> value > 0)
+        .keyBy(value -> "key")
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWindow.java`
 #### Snippet
 ```java
@@ -1592,42 +1628,6 @@ in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWi
                     System.out.println("name in num: " + value1.getName());
                     return new Union(value1.getName(), value1.getAge(), 0);
                 }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
-#### Snippet
-```java
-        byte[] bytes = rocksDBStore.get(keyBytes);
-        Object result = Utils.byte2Object(bytes, Object.class);
-        System.out.println(result);
-
-        byte[] bytes2 = rocksDBStore.get(keyBytes2);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
-#### Snippet
-```java
-        byte[] bytes2 = rocksDBStore.get(keyBytes2);
-        Object result2 = Utils.byte2Object(bytes2, Object.class);
-        System.out.println(result2);
-
-        String keyPrefix = "time@1668249210000";
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowAvg.java`
-#### Snippet
-```java
-            Integer num = Integer.parseInt(value);
-            return new Pair<>(null, num);
-        }).foreach(value -> System.out.println(String.format("time:%s, input:%d", LocalTime.now(), value)))
-        .filter(value -> value > 0)
-        .keyBy(value -> "key")
 ```
 
 ## RuleId[ruleID=UnnecessarySuperQualifier]
@@ -1693,26 +1693,62 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Accumu
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
 #### Snippet
 ```java
-                case LEFT_STREAM:
-                case RIGHT_STREAM: {
-                    String storeKey = Utils.buildKey(name, super.toHexString(key));
-                    byte[] keyBytes = Utils.object2Byte(storeKey);
-                    byte[] valueBytes = super.object2Byte(data);
+        public void preProcess(StreamContext<V> context) throws RecoverStateStoreThrowable {
+            super.preProcess(context);
+            this.windowStore = new WindowStore<>(super.waitStateReplay(),
+                    WindowState::byte2WindowState,
+                    WindowState::windowState2Byte);
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
 #### Snippet
 ```java
-                    String storeKey = Utils.buildKey(name, super.toHexString(key));
-                    byte[] keyBytes = Utils.object2Byte(storeKey);
-                    byte[] valueBytes = super.object2Byte(data);
 
-                    this.stateStore.put(stateTopicMessageQueue, keyBytes, valueBytes);
+            //f(time) -> List<Window>
+            List<Window> windows = super.calculateWindow(windowInfo, time);
+            for (Window window : windows) {
+                logger.debug("timestamp=" + time + ". time -> window: " + Utils.format(time) + "->" + window);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+                //f(Window + key, store) -> oldValue
+                //todo key 怎么转化成对应的string，只和key的值有关系
+                WindowKey windowKey = new WindowKey(name, super.toHexString(key), window.getEndTime(), window.getStartTime());
+                WindowState<K, Accumulator<R, OV>> oldState = this.windowStore.get(windowKey);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+                }
+
+                WindowKey windowKey = new WindowKey(name, super.toHexString(key), newSessionWindowTime.getValue(), newSessionWindowTime.getKey());
+                logger.info("new session window, with key={}, valueTime={}, sessionBegin=[{}], sessionEnd=[{}]", key, Utils.format(time),
+                        Utils.format(newSessionWindowTime.getKey()), Utils.format(newSessionWindowTime.getValue()));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+        public void preProcess(StreamContext<V> context) throws RecoverStateStoreThrowable {
+            super.preProcess(context);
+            this.windowStore = new WindowStore<>(super.waitStateReplay(),
+                    WindowState::byte2WindowState,
+                    WindowState::windowState2Byte);
 ```
 
 ### UnnecessarySuperQualifier
@@ -1789,146 +1825,26 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAg
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
 #### Snippet
 ```java
-        public void preProcess(StreamContext<Object> context) throws RecoverStateStoreThrowable {
-            super.preProcess(context);
-            leftWindowStore = new WindowStore<>(super.waitStateReplay(), WindowState::byte2WindowState, WindowState::windowState2Byte);
-            rightWindowStore = new WindowStore<>(super.waitStateReplay(), WindowState::byte2WindowState, WindowState::windowState2Byte);
-
+                case LEFT_STREAM:
+                case RIGHT_STREAM: {
+                    String storeKey = Utils.buildKey(name, super.toHexString(key));
+                    byte[] keyBytes = Utils.object2Byte(storeKey);
+                    byte[] valueBytes = super.object2Byte(data);
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
 #### Snippet
 ```java
-            super.preProcess(context);
-            leftWindowStore = new WindowStore<>(super.waitStateReplay(), WindowState::byte2WindowState, WindowState::windowState2Byte);
-            rightWindowStore = new WindowStore<>(super.waitStateReplay(), WindowState::byte2WindowState, WindowState::windowState2Byte);
+                    String storeKey = Utils.buildKey(name, super.toHexString(key));
+                    byte[] keyBytes = Utils.object2Byte(storeKey);
+                    byte[] valueBytes = super.object2Byte(data);
 
-            this.idleWindowScaner = context.getDefaultWindowScaner();
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
-#### Snippet
-```java
-        private void store(Object key, Object data, long time, StreamType streamType) throws Throwable {
-            String name = Utils.buildKey(this.name, streamType.name());
-            List<Window> windows = super.calculateWindow(windowInfo, time);
-            for (Window window : windows) {
-                logger.debug("timestamp=" + time + ". time -> window: " + Utils.format(time) + "->" + window);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
-#### Snippet
-```java
-                logger.debug("timestamp=" + time + ". time -> window: " + Utils.format(time) + "->" + window);
-
-                WindowKey windowKey = new WindowKey(name, super.toHexString(key), window.getEndTime(), window.getStartTime());
-
-                switch (streamType) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-    public void put(MessageQueue stateTopicMessageQueue, byte[] key, byte[] value) throws Throwable {
-        String stateTopicQueueKey = buildKey(stateTopicMessageQueue);
-        super.putInCalculating(stateTopicQueueKey, key);
-        this.rocksDBStore.put(key, value);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-
-                String stateTopicQueueKey = buildKey(stateTopicQueue);
-                super.putInRecover(stateTopicQueueKey, key);
-                this.rocksDBStore.put(key, value);
-            }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-        for (MessageQueue stateTopicQueue : stateTopicQueues) {
-            String stateTopicQueueKey = buildKey(stateTopicQueue);
-            Set<byte[]> keySet = super.getInCalculating(stateTopicQueueKey);
-
-            if (keySet == null || keySet.size() == 0) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-                this.producer.send(message, stateTopicQueue);
-            }
-            super.removeCalculating(stateTopicQueueKey);
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-        }
-        //删除远程
-        String stateTopicQueue = super.whichStateTopicQueueBelongTo(key);
-        String[] split = Utils.split(stateTopicQueue);
-        String topic = split[1];
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-
-        //删除内存中的key
-        super.removeAllKey(key);
-
-        logger.debug("delete key from RocketMQ and Rocksdb, key=" + new String(key, StandardCharsets.UTF_8) + ",MessageQueue: " + queue);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-                Map<String/*brokerName@topic@queueId*/, List<MessageQueue>> groupByUniqueQueue = stateTopicQueue.stream().parallel().collect(Collectors.groupingBy(this::buildKey));
-                for (String stateUniqueQueue : groupByUniqueQueue.keySet()) {
-                    Set<byte[]> stateTopicQueueKey = super.getAll(stateUniqueQueue);
-                    for (byte[] key : stateTopicQueueKey) {
-                        this.rocksDBStore.deleteByKey(key);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
-#### Snippet
-```java
-                        this.rocksDBStore.deleteByKey(key);
-                    }
-                    super.removeAll(stateUniqueQueue);
-                }
-
+                    this.stateStore.put(stateTopicMessageQueue, keyBytes, valueBytes);
 ```
 
 ### UnnecessarySuperQualifier
@@ -1993,6 +1909,66 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Aggreg
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
+#### Snippet
+```java
+        public void preProcess(StreamContext<Object> context) throws RecoverStateStoreThrowable {
+            super.preProcess(context);
+            leftWindowStore = new WindowStore<>(super.waitStateReplay(), WindowState::byte2WindowState, WindowState::windowState2Byte);
+            rightWindowStore = new WindowStore<>(super.waitStateReplay(), WindowState::byte2WindowState, WindowState::windowState2Byte);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
+#### Snippet
+```java
+            super.preProcess(context);
+            leftWindowStore = new WindowStore<>(super.waitStateReplay(), WindowState::byte2WindowState, WindowState::windowState2Byte);
+            rightWindowStore = new WindowStore<>(super.waitStateReplay(), WindowState::byte2WindowState, WindowState::windowState2Byte);
+
+            this.idleWindowScaner = context.getDefaultWindowScaner();
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
+#### Snippet
+```java
+        private void store(Object key, Object data, long time, StreamType streamType) throws Throwable {
+            String name = Utils.buildKey(this.name, streamType.name());
+            List<Window> windows = super.calculateWindow(windowInfo, time);
+            for (Window window : windows) {
+                logger.debug("timestamp=" + time + ". time -> window: " + Utils.format(time) + "->" + window);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
+#### Snippet
+```java
+                logger.debug("timestamp=" + time + ". time -> window: " + Utils.format(time) + "->" + window);
+
+                WindowKey windowKey = new WindowKey(name, super.toHexString(key), window.getEndTime(), window.getStartTime());
+
+                switch (streamType) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
+#### Snippet
+```java
+        public void preProcess(StreamContext<V> context) throws RecoverStateStoreThrowable {
+            super.preProcess(context);
+            this.windowStore = new WindowStore<>(super.waitStateReplay(),
+                    WindowState::byte2WindowState,
+                    WindowState::windowState2Byte);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
@@ -2041,74 +2017,98 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Window
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-        public void preProcess(StreamContext<V> context) throws RecoverStateStoreThrowable {
-            super.preProcess(context);
-            this.windowStore = new WindowStore<>(super.waitStateReplay(),
-                    WindowState::byte2WindowState,
-                    WindowState::windowState2Byte);
+        }
+        //删除远程
+        String stateTopicQueue = super.whichStateTopicQueueBelongTo(key);
+        String[] split = Utils.split(stateTopicQueue);
+        String topic = split[1];
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-        public void preProcess(StreamContext<V> context) throws RecoverStateStoreThrowable {
-            super.preProcess(context);
-            this.windowStore = new WindowStore<>(super.waitStateReplay(),
-                    WindowState::byte2WindowState,
-                    WindowState::windowState2Byte);
+
+        //删除内存中的key
+        super.removeAllKey(key);
+
+        logger.debug("delete key from RocketMQ and Rocksdb, key=" + new String(key, StandardCharsets.UTF_8) + ",MessageQueue: " + queue);
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
+        for (MessageQueue stateTopicQueue : stateTopicQueues) {
+            String stateTopicQueueKey = buildKey(stateTopicQueue);
+            Set<byte[]> keySet = super.getInCalculating(stateTopicQueueKey);
 
-            //f(time) -> List<Window>
-            List<Window> windows = super.calculateWindow(windowInfo, time);
-            for (Window window : windows) {
-                logger.debug("timestamp=" + time + ". time -> window: " + Utils.format(time) + "->" + window);
+            if (keySet == null || keySet.size() == 0) {
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-                //f(Window + key, store) -> oldValue
-                //todo key 怎么转化成对应的string，只和key的值有关系
-                WindowKey windowKey = new WindowKey(name, super.toHexString(key), window.getEndTime(), window.getStartTime());
-                WindowState<K, Accumulator<R, OV>> oldState = this.windowStore.get(windowKey);
-
+                this.producer.send(message, stateTopicQueue);
+            }
+            super.removeCalculating(stateTopicQueueKey);
+        }
+    }
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
+
+                String stateTopicQueueKey = buildKey(stateTopicQueue);
+                super.putInRecover(stateTopicQueueKey, key);
+                this.rocksDBStore.put(key, value);
+            }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+#### Snippet
+```java
+    public void put(MessageQueue stateTopicMessageQueue, byte[] key, byte[] value) throws Throwable {
+        String stateTopicQueueKey = buildKey(stateTopicMessageQueue);
+        super.putInCalculating(stateTopicQueueKey, key);
+        this.rocksDBStore.put(key, value);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+#### Snippet
+```java
+                Map<String/*brokerName@topic@queueId*/, List<MessageQueue>> groupByUniqueQueue = stateTopicQueue.stream().parallel().collect(Collectors.groupingBy(this::buildKey));
+                for (String stateUniqueQueue : groupByUniqueQueue.keySet()) {
+                    Set<byte[]> stateTopicQueueKey = super.getAll(stateUniqueQueue);
+                    for (byte[] key : stateTopicQueueKey) {
+                        this.rocksDBStore.deleteByKey(key);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
+#### Snippet
+```java
+                        this.rocksDBStore.deleteByKey(key);
+                    }
+                    super.removeAll(stateUniqueQueue);
                 }
 
-                WindowKey windowKey = new WindowKey(name, super.toHexString(key), newSessionWindowTime.getValue(), newSessionWindowTime.getKey());
-                logger.info("new session window, with key={}, valueTime={}, sessionBegin=[{}], sessionEnd=[{}]", key, Utils.format(time),
-                        Utils.format(newSessionWindowTime.getKey()), Utils.format(newSessionWindowTime.getValue()));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-        public void preProcess(StreamContext<V> context) throws RecoverStateStoreThrowable {
-            super.preProcess(context);
-            this.windowStore = new WindowStore<>(super.waitStateReplay(),
-                    WindowState::byte2WindowState,
-                    WindowState::windowState2Byte);
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -2523,18 +2523,6 @@ import java.util.concurrent.CountDownLatch;
 
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
-`avg = avg + (valueToDouble - avg) / (num + 1)` could be simplified to 'avg += (valueToDouble - avg) / (num + 1)'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
-#### Snippet
-```java
-                num = 1;
-            } else {
-                avg = avg + (valueToDouble - avg) / (num + 1);
-                num++;
-            }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `avg = avg + numOther / (num + numOther) * (avgOther - avg)` could be simplified to 'avg += numOther / (num + numOther) \* (avgOther - avg)'
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
 #### Snippet
@@ -2556,6 +2544,18 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/Avg
             num = num + numOther;
         } else {
             throw new IllegalArgumentException("Merge avg, input is not a AvgAccumulator.");
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`avg = avg + (valueToDouble - avg) / (num + 1)` could be simplified to 'avg += (valueToDouble - avg) / (num + 1)'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
+#### Snippet
+```java
+                num = 1;
+            } else {
+                avg = avg + (valueToDouble - avg) / (num + 1);
+                num++;
+            }
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -2599,19 +2599,175 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/topology/TopologyBuilder
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AddTagSupplier.java`
+in `example/src/main/java/org/apache/rocketmq/streams/examples/WordCount.java`
 #### Snippet
 ```java
-    public AddTagSupplier(Supplier<Object> value) {
 
-        properties.put(Constant.STREAM_TAG, value.get());
-    }
+        Properties properties = new Properties();
+        properties.put(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+
+        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/pojo/Demo.java`
+#### Snippet
+```java
+
+        Properties properties = new Properties();
+        properties.put(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+
+        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/SlideWindowCount.java`
+#### Snippet
+```java
+
+        Properties properties = new Properties();
+        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+
+        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
+#### Snippet
+```java
+
+        long prepareTime(MessageExt messageExt, SourceSupplier.SourceProcessor<K, V> processor) {
+            TimeType type = (TimeType) properties.get(StreamConfig.TIME_TYPE);
+
+            long timestamp;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AggregateWindowFire.java`
+#### Snippet
+```java
+
+                Properties header = this.context.getHeader();
+                header.put(Constant.WINDOW_START_TIME, windowKey.getWindowStart());
+                header.put(Constant.WINDOW_END_TIME, windowEnd);
+                Data<K, OV> result = new Data<>(value.getKey(), value.getValue(), value.getRecordLastTimestamp(), header);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AggregateWindowFire.java`
+#### Snippet
+```java
+                Properties header = this.context.getHeader();
+                header.put(Constant.WINDOW_START_TIME, windowKey.getWindowStart());
+                header.put(Constant.WINDOW_END_TIME, windowEnd);
+                Data<K, OV> result = new Data<>(value.getKey(), value.getValue(), value.getRecordLastTimestamp(), header);
+                Data<K, V> convert = this.convert(result);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AccumulatorWindowFire.java`
+#### Snippet
+```java
+
+                Properties header = context.getHeader();
+                header.put(Constant.WINDOW_START_TIME, windowKey.getWindowStart());
+                header.put(Constant.WINDOW_END_TIME, windowEnd);
 
 ```
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/WordCount.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AccumulatorWindowFire.java`
+#### Snippet
+```java
+                Properties header = context.getHeader();
+                header.put(Constant.WINDOW_START_TIME, windowKey.getWindowStart());
+                header.put(Constant.WINDOW_END_TIME, windowEnd);
+
+                Accumulator<R, OV> rovAccumulator = value.getValue();
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/SessionWindowCount.java`
+#### Snippet
+```java
+
+        Properties properties = new Properties();
+        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+
+        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowCount.java`
+#### Snippet
+```java
+
+        Properties properties = new Properties();
+        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+        properties.put(StreamConfig.TIME_TYPE, TimeType.EVENT_TIME);
+        properties.put(StreamConfig.ALLOW_LATENESS_MILLISECOND, 2000);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowCount.java`
+#### Snippet
+```java
+        Properties properties = new Properties();
+        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+        properties.put(StreamConfig.TIME_TYPE, TimeType.EVENT_TIME);
+        properties.put(StreamConfig.ALLOW_LATENESS_MILLISECOND, 2000);
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowCount.java`
+#### Snippet
+```java
+        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+        properties.put(StreamConfig.TIME_TYPE, TimeType.EVENT_TIME);
+        properties.put(StreamConfig.ALLOW_LATENESS_MILLISECOND, 2000);
+
+        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowWordCount.java`
+#### Snippet
+```java
+
+        Properties properties = new Properties();
+        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+        properties.put(StreamConfig.TIME_TYPE, TimeType.PROCESS_TIME);
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowWordCount.java`
+#### Snippet
+```java
+        Properties properties = new Properties();
+        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+        properties.put(StreamConfig.TIME_TYPE, TimeType.PROCESS_TIME);
+
+        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWithoutWindow.java`
 #### Snippet
 ```java
 
@@ -2646,42 +2802,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AggregateSes
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AccumulatorWindowFire.java`
-#### Snippet
-```java
-
-                Properties header = context.getHeader();
-                header.put(Constant.WINDOW_START_TIME, windowKey.getWindowStart());
-                header.put(Constant.WINDOW_END_TIME, windowEnd);
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AccumulatorWindowFire.java`
-#### Snippet
-```java
-                Properties header = context.getHeader();
-                header.put(Constant.WINDOW_START_TIME, windowKey.getWindowStart());
-                header.put(Constant.WINDOW_END_TIME, windowEnd);
-
-                Accumulator<R, OV> rovAccumulator = value.getValue();
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWithoutWindow.java`
-#### Snippet
-```java
-
-        Properties properties = new Properties();
-        properties.put(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-
-        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
-```
-
-### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/PrintSupplier.java`
 #### Snippet
@@ -2707,90 +2827,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/PrintS
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AccumulatorSessionWindowFire.java`
-#### Snippet
-```java
-
-                Properties header = context.getHeader();
-                header.put(Constant.WINDOW_START_TIME, windowBegin);
-                header.put(Constant.WINDOW_END_TIME, windowEnd);
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AccumulatorSessionWindowFire.java`
-#### Snippet
-```java
-                Properties header = context.getHeader();
-                header.put(Constant.WINDOW_START_TIME, windowBegin);
-                header.put(Constant.WINDOW_END_TIME, windowEnd);
-
-                Accumulator<R, OV> value = state.getValue();
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowCount.java`
-#### Snippet
-```java
-
-        Properties properties = new Properties();
-        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-        properties.put(StreamConfig.TIME_TYPE, TimeType.EVENT_TIME);
-        properties.put(StreamConfig.ALLOW_LATENESS_MILLISECOND, 2000);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowCount.java`
-#### Snippet
-```java
-        Properties properties = new Properties();
-        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-        properties.put(StreamConfig.TIME_TYPE, TimeType.EVENT_TIME);
-        properties.put(StreamConfig.ALLOW_LATENESS_MILLISECOND, 2000);
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowCount.java`
-#### Snippet
-```java
-        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-        properties.put(StreamConfig.TIME_TYPE, TimeType.EVENT_TIME);
-        properties.put(StreamConfig.ALLOW_LATENESS_MILLISECOND, 2000);
-
-        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowWordCount.java`
-#### Snippet
-```java
-
-        Properties properties = new Properties();
-        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-        properties.put(StreamConfig.TIME_TYPE, TimeType.PROCESS_TIME);
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowWordCount.java`
-#### Snippet
-```java
-        Properties properties = new Properties();
-        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-        properties.put(StreamConfig.TIME_TYPE, TimeType.PROCESS_TIME);
-
-        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
 in `example/src/main/java/org/apache/rocketmq/streams/examples/sink/WordCountSink.java`
 #### Snippet
 ```java
@@ -2802,15 +2838,39 @@ in `example/src/main/java/org/apache/rocketmq/streams/examples/sink/WordCountSin
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
+Call to `Hashtable.putIfAbsent()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowAvg.java`
 #### Snippet
 ```java
 
-        long prepareTime(MessageExt messageExt, SourceSupplier.SourceProcessor<K, V> processor) {
-            TimeType type = (TimeType) properties.get(StreamConfig.TIME_TYPE);
+        Properties properties = new Properties();
+        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
 
-            long timestamp;
+        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AddTagSupplier.java`
+#### Snippet
+```java
+    public AddTagSupplier(Supplier<Object> value) {
+
+        properties.put(Constant.STREAM_TAG, value.get());
+    }
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWindow.java`
+#### Snippet
+```java
+
+        Properties properties = new Properties();
+        properties.put(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
+
+        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -2839,86 +2899,26 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWi
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/pojo/Demo.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AccumulatorSessionWindowFire.java`
 #### Snippet
 ```java
 
-        Properties properties = new Properties();
-        properties.put(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-
-        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/SessionWindowCount.java`
-#### Snippet
-```java
-
-        Properties properties = new Properties();
-        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-
-        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/joinWindow/JoinWindow.java`
-#### Snippet
-```java
-
-        Properties properties = new Properties();
-        properties.put(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-
-        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowAvg.java`
-#### Snippet
-```java
-
-        Properties properties = new Properties();
-        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-
-        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `example/src/main/java/org/apache/rocketmq/streams/examples/window/SlideWindowCount.java`
-#### Snippet
-```java
-
-        Properties properties = new Properties();
-        properties.putIfAbsent(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
-
-        RocketMQStream rocketMQStream = new RocketMQStream(topologyBuilder, properties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AggregateWindowFire.java`
-#### Snippet
-```java
-
-                Properties header = this.context.getHeader();
-                header.put(Constant.WINDOW_START_TIME, windowKey.getWindowStart());
+                Properties header = context.getHeader();
+                header.put(Constant.WINDOW_START_TIME, windowBegin);
                 header.put(Constant.WINDOW_END_TIME, windowEnd);
-                Data<K, OV> result = new Data<>(value.getKey(), value.getValue(), value.getRecordLastTimestamp(), header);
+
 ```
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AggregateWindowFire.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/AccumulatorSessionWindowFire.java`
 #### Snippet
 ```java
-                Properties header = this.context.getHeader();
-                header.put(Constant.WINDOW_START_TIME, windowKey.getWindowStart());
+                Properties header = context.getHeader();
+                header.put(Constant.WINDOW_START_TIME, windowBegin);
                 header.put(Constant.WINDOW_END_TIME, windowEnd);
-                Data<K, OV> result = new Data<>(value.getKey(), value.getValue(), value.getRecordLastTimestamp(), header);
-                Data<K, V> convert = this.convert(result);
+
+                Accumulator<R, OV> value = state.getValue();
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -2984,42 +2984,6 @@ public interface StateStore extends AutoCloseable {
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
-#### Snippet
-```java
-        private volatile boolean stop = false;
-
-        private long lastCommit = 0;
-        private int commitInterval = 10 * 1000;
-        private final HashSet<MessageQueue> mq2Commit = new HashSet<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
-#### Snippet
-```java
-        private final MessageQueueListenerWrapper wrapper;
-        private final IdleWindowScaner idleWindowScaner;
-        private volatile boolean stop = false;
-
-        private long lastCommit = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowInfo.java`
-#### Snippet
-```java
-    private WindowType windowType;
-
-    private JoinStream joinStream = null;
-
-    private Time windowSize;//窗口大小
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `core/src/main/java/org/apache/rocketmq/streams/core/topology/virtual/ProcessorNode.java`
 #### Snippet
@@ -3028,18 +2992,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/topology/virtual/Process
     protected final List<String> parentNames;
     protected boolean shuffle = false;
 
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/IdleWindowScaner.java`
-#### Snippet
-```java
-
-    private final Integer maxIdleTime;
-    private long sessionTimeOut = 0;
-    private final ScheduledExecutorService executor;
 
 ```
 
@@ -3055,17 +3007,52 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/running/AbstractProcesso
     @Override
 ```
 
-## RuleId[ruleID=EqualsAndHashcode]
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
-in `core/src/main/java/org/apache/rocketmq/streams/core/topology/virtual/ProcessorNode.java`
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/IdleWindowScaner.java`
 #### Snippet
 ```java
-import java.util.function.Supplier;
 
-public class ProcessorNode<T> extends AbstractGraphNode {
-    protected final Supplier<Processor<T>> supplier;
-    protected final List<String> parentNames;
+    private final Integer maxIdleTime;
+    private long sessionTimeOut = 0;
+    private final ScheduledExecutorService executor;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
+#### Snippet
+```java
+        private final MessageQueueListenerWrapper wrapper;
+        private final IdleWindowScaner idleWindowScaner;
+        private volatile boolean stop = false;
+
+        private long lastCommit = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
+#### Snippet
+```java
+        private volatile boolean stop = false;
+
+        private long lastCommit = 0;
+        private int commitInterval = 10 * 1000;
+        private final HashSet<MessageQueue> mq2Commit = new HashSet<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowInfo.java`
+#### Snippet
+```java
+    private WindowType windowType;
+
+    private JoinStream joinStream = null;
+
+    private Time windowSize;//窗口大小
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -3117,10 +3104,23 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/running/AbstractWindowPr
         } catch (Throwable t) {
 ```
 
+## RuleId[ruleID=EqualsAndHashcode]
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `core/src/main/java/org/apache/rocketmq/streams/core/topology/virtual/ProcessorNode.java`
+#### Snippet
+```java
+import java.util.function.Supplier;
+
+public class ProcessorNode<T> extends AbstractGraphNode {
+    protected final Supplier<Processor<T>> supplier;
+    protected final List<String> parentNames;
+```
+
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-24-06-03-45.585.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-24-12-11-09.699.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3131,102 +3131,6 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-24-06-03-45.585.
 ```
 
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
-#### Snippet
-```java
-    protected static String stateTopic2SourceTopic(String stateTopic) {
-        if (StringUtils.isEmpty(stateTopic)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
-#### Snippet
-```java
-    private WindowState<K, V> deserializerState(byte[] source) throws Throwable {
-        if (source == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
-#### Snippet
-```java
-                try {
-                    PlanetaryEngine.this.stateStore.recover(addQueue, removeQueue);
-                    return null;
-                } catch (Throwable e) {
-                    logger.error("recover error.", e);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
-#### Snippet
-```java
-        String name = OperatorNameMaker.makeName(MIN_PREFIX, pipeline.getJobId());
-
-        Supplier<Processor<V>> supplier = new AggregateSupplier<>(name, parent.getName(), () -> null, (AggregateAction<K, V, V>) (key, value, accumulator) -> {
-            Number number = selectAction.select(value);
-            if (accumulator == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
-#### Snippet
-```java
-    public GroupedStream<K, ? extends Number> sum(SelectAction<? extends Number, V> selectAction) {
-        String name = OperatorNameMaker.makeName(SUM_PREFIX, pipeline.getJobId());
-        Supplier<Processor<V>> supplier = new AggregateSupplier<>(name, parent.getName(), () -> null, new SumAggregate<>(selectAction));
-
-        GraphNode graphNode;
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
-#### Snippet
-```java
-    public GroupedStream<K, V> max(SelectAction<? extends Number, V> selectAction) {
-        String name = OperatorNameMaker.makeName(MAX_PREFIX, pipeline.getJobId());
-        Supplier<Processor<V>> supplier = new AggregateSupplier<>(name, parent.getName(), () -> null, (AggregateAction<K, V, V>) (key, value, accumulator) -> {
-            Number number = selectAction.select(value);
-            if (accumulator == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
-#### Snippet
-```java
-    public static <B> B byte2Object(byte[] source, Class<B> clazz) throws IOException {
-        if (source == null || source.length == 0 || clazz == null) {
-            return null;
-        }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
@@ -3241,23 +3145,11 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/WindowStreamImpl.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
 #### Snippet
 ```java
-        String name = OperatorNameMaker.makeName(AGGREGATE_PREFIX, pipeline.getJobId());
-
-        Supplier<Processor<V>> supplier = new WindowAggregateSupplier<>(name, windowInfo, () -> null, aggregateAction);
-
-        //是否需要分组计算
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
-#### Snippet
-```java
-    public byte[] get(byte[] key) throws RocksDBException {
-        if (key == null) {
+    public static <B> B byte2Object(byte[] source, Class<B> clazz) throws IOException {
+        if (source == null || source.length == 0 || clazz == null) {
             return null;
         }
 
@@ -3289,6 +3181,138 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/running/AbstractProcesso
 
 ### ReturnNull
 Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
+#### Snippet
+```java
+                try {
+                    PlanetaryEngine.this.stateStore.recover(addQueue, removeQueue);
+                    return null;
+                } catch (Throwable e) {
+                    logger.error("recover error.", e);
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
+#### Snippet
+```java
+    public byte[] get(byte[] key) throws RocksDBException {
+        if (key == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+            if (dataTime < maxFireSessionEnd) {
+                logger.warn("late data, discard. key=[{}], data=[{}], dataTime < maxFireSessionEnd: [{}] < [{}]", key, data, dataTime, maxFireSessionEnd);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+                return new Pair<>(lastStateSessionEnd, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
+#### Snippet
+```java
+    protected static String stateTopic2SourceTopic(String stateTopic) {
+        if (StringUtils.isEmpty(stateTopic)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/state/AbstractStore.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/WindowStreamImpl.java`
+#### Snippet
+```java
+        String name = OperatorNameMaker.makeName(AGGREGATE_PREFIX, pipeline.getJobId());
+
+        Supplier<Processor<V>> supplier = new WindowAggregateSupplier<>(name, windowInfo, () -> null, aggregateAction);
+
+        //是否需要分组计算
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
+#### Snippet
+```java
+    private WindowState<K, V> deserializerState(byte[] source) throws Throwable {
+        if (source == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+#### Snippet
+```java
+    public GroupedStream<K, ? extends Number> sum(SelectAction<? extends Number, V> selectAction) {
+        String name = OperatorNameMaker.makeName(SUM_PREFIX, pipeline.getJobId());
+        Supplier<Processor<V>> supplier = new AggregateSupplier<>(name, parent.getName(), () -> null, new SumAggregate<>(selectAction));
+
+        GraphNode graphNode;
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+#### Snippet
+```java
+        String name = OperatorNameMaker.makeName(MIN_PREFIX, pipeline.getJobId());
+
+        Supplier<Processor<V>> supplier = new AggregateSupplier<>(name, parent.getName(), () -> null, (AggregateAction<K, V, V>) (key, value, accumulator) -> {
+            Number number = selectAction.select(value);
+            if (accumulator == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/GroupedStreamImpl.java`
+#### Snippet
+```java
+    public GroupedStream<K, V> max(SelectAction<? extends Number, V> selectAction) {
+        String name = OperatorNameMaker.makeName(MAX_PREFIX, pipeline.getJobId());
+        Supplier<Processor<V>> supplier = new AggregateSupplier<>(name, parent.getName(), () -> null, (AggregateAction<K, V, V>) (key, value, accumulator) -> {
+            Number number = selectAction.select(value);
+            if (accumulator == null) {
+```
+
+### ReturnNull
+Return of `null`
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
@@ -3311,31 +3335,31 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Window
     }
 ```
 
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-            if (dataTime < maxFireSessionEnd) {
-                logger.warn("late data, discard. key=[{}], data=[{}], dataTime < maxFireSessionEnd: [{}] < [{}]", key, data, dataTime, maxFireSessionEnd);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-                return new Pair<>(lastStateSessionEnd, dataTime + windowInfo.getSessionTimeout().toMilliseconds());
-            }
-            return null;
-        }
-
-```
-
 ## RuleId[ruleID=AssignmentToLambdaParameter]
+### AssignmentToLambdaParameter
+Assignment to lambda parameter `timeType`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/IdleWindowScaner.java`
+#### Snippet
+```java
+        this.lastUpdateTime2WindowKey.compute(windowKey, (key, timeType) -> {
+            if (timeType == null) {
+                timeType = new TimeType(Type.AggregateSessionWindow, System.currentTimeMillis());
+            } else {
+                timeType.setUpdateTime(System.currentTimeMillis());
+```
+
+### AssignmentToLambdaParameter
+Assignment to lambda parameter `timeType`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/IdleWindowScaner.java`
+#### Snippet
+```java
+        this.lastUpdateTime2WindowKey.compute(windowKey, (key, timeType) -> {
+            if (timeType == null) {
+                timeType = new TimeType(Type.AccumulatorWindow, System.currentTimeMillis());
+            } else {
+                timeType.setUpdateTime(System.currentTimeMillis());
+```
+
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `timeType`
 in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/IdleWindowScaner.java`
@@ -3372,30 +3396,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/IdleWindowSc
                 timeType.setUpdateTime(System.currentTimeMillis());
 ```
 
-### AssignmentToLambdaParameter
-Assignment to lambda parameter `timeType`
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/IdleWindowScaner.java`
-#### Snippet
-```java
-        this.lastUpdateTime2WindowKey.compute(windowKey, (key, timeType) -> {
-            if (timeType == null) {
-                timeType = new TimeType(Type.AggregateSessionWindow, System.currentTimeMillis());
-            } else {
-                timeType.setUpdateTime(System.currentTimeMillis());
-```
-
-### AssignmentToLambdaParameter
-Assignment to lambda parameter `timeType`
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/IdleWindowScaner.java`
-#### Snippet
-```java
-        this.lastUpdateTime2WindowKey.compute(windowKey, (key, timeType) -> {
-            if (timeType == null) {
-                timeType = new TimeType(Type.AccumulatorWindow, System.currentTimeMillis());
-            } else {
-                timeType.setUpdateTime(System.currentTimeMillis());
-```
-
 ## RuleId[ruleID=RedundantStringFormatCall]
 ### RedundantStringFormatCall
 Redundant call to `format()`
@@ -3412,26 +3412,38 @@ in `example/src/main/java/org/apache/rocketmq/streams/examples/window/WindowAvg.
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowKey.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
 #### Snippet
 ```java
-    public static byte[] windowKey2Byte(WindowKey windowKey) {
-        if (windowKey == null) {
-            return new byte[0];
+    public static String[] split(String source, String split) {
+        if (StringUtils.isEmpty(source) || StringUtils.isEmpty(split)) {
+            return new String[]{};
         }
 
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowState.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
 #### Snippet
 ```java
-    public static byte[] windowState2Byte(WindowState<?, ?> state) throws Throwable {
-        if (state == null) {
-            return new byte[0];
+    public static byte[] object2Byte(Object target) throws JsonProcessingException {
+        if (target == null) {
+            return new byte[]{};
         }
 
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
+#### Snippet
+```java
+                }
+            } else {
+                String[] masterArray = masterSet.toArray(new String[]{});
+
+                topicConfig = new TopicConfig(topicName, queueNumInEachBroker + remainder,
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3472,11 +3484,11 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/serialization/serImpl/KV
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/AbstractProcessor.java`
 #### Snippet
 ```java
-    public static byte[] object2Byte(Object target) throws JsonProcessingException {
-        if (target == null) {
+    protected byte[] object2Byte(Object obj) throws JsonProcessingException {
+        if (obj == null) {
             return new byte[]{};
         }
 
@@ -3484,12 +3496,24 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/Utils.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowState.java`
 #### Snippet
 ```java
-    public static String[] split(String source, String split) {
-        if (StringUtils.isEmpty(source) || StringUtils.isEmpty(split)) {
-            return new String[]{};
+    public static byte[] windowState2Byte(WindowState<?, ?> state) throws Throwable {
+        if (state == null) {
+            return new byte[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowKey.java`
+#### Snippet
+```java
+    public static byte[] windowKey2Byte(WindowKey windowKey) {
+        if (windowKey == null) {
+            return new byte[0];
         }
 
 ```
@@ -3504,29 +3528,5 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java
             return new byte[0];
         }
         return this.rocksDBStore.get(key);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
-#### Snippet
-```java
-                }
-            } else {
-                String[] masterArray = masterSet.toArray(new String[]{});
-
-                topicConfig = new TopicConfig(topicName, queueNumInEachBroker + remainder,
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/AbstractProcessor.java`
-#### Snippet
-```java
-    protected byte[] object2Byte(Object obj) throws JsonProcessingException {
-        if (obj == null) {
-            return new byte[]{};
-        }
-
 ```
 
