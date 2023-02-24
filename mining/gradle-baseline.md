@@ -233,6 +233,18 @@ in `baseline-refaster-rules/src/main/java/com/palantir/baseline/refaster/SortedF
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StringBuilderConstantParameters.java`
 #### Snippet
 ```java
+            return Description.NO_MATCH;
+        }
+        Optional<List<ExpressionTree>> result = tree.getMethodSelect().accept(StringBuilderVisitor.INSTANCE, state);
+        if (!result.isPresent()) {
+            return Description.NO_MATCH;
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StringBuilderConstantParameters.java`
+#### Snippet
+```java
 
         @Override
         public Optional<List<ExpressionTree>> visitMethodInvocation(MethodInvocationTree node, VisitorState state) {
@@ -274,18 +286,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StringBu
         public Optional<List<ExpressionTree>> visitMemberSelect(MemberSelectTree node, VisitorState state) {
             if (node.getIdentifier().contentEquals("append")
                     || node.getIdentifier().contentEquals("toString")) {
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StringBuilderConstantParameters.java`
-#### Snippet
-```java
-            return Description.NO_MATCH;
-        }
-        Optional<List<ExpressionTree>> result = tree.getMethodSelect().accept(StringBuilderVisitor.INSTANCE, state);
-        if (!result.isPresent()) {
-            return Description.NO_MATCH;
 ```
 
 ### OptionalContainsCollection
@@ -478,18 +478,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/CompileT
 ```
 
 ### BoundedWildcard
-Can generalize to `? super VariableTree`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/JUnit5RuleUsage.java`
-#### Snippet
-```java
-    }
-
-    static Matcher<ClassTree> hasVariable(Matcher<VariableTree> matcher) {
-        return (classTree, state) -> classTree.getMembers().stream()
-                .filter(tree -> tree instanceof VariableTree)
-```
-
-### BoundedWildcard
 Can generalize to `? super ExpressionTree`
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/PreconditionsMessageFormat.java`
 #### Snippet
@@ -499,6 +487,18 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/Precondi
     protected PreconditionsMessageFormat(Matcher<ExpressionTree> methodMatcher) {
         this.methodMatcher = methodMatcher;
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super VariableTree`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/JUnit5RuleUsage.java`
+#### Snippet
+```java
+    }
+
+    static Matcher<ClassTree> hasVariable(Matcher<VariableTree> matcher) {
+        return (classTree, state) -> classTree.getMembers().stream()
+                .filter(tree -> tree instanceof VariableTree)
 ```
 
 ### BoundedWildcard
@@ -514,18 +514,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ThrowSpe
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends O`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesBuilderMissingInitialization.java`
-#### Snippet
-```java
-     * Returns a function for use in Optional.flatMap that filters by type, and casts to that type.
-     */
-    private <I, O extends I> Function<I, Optional<O>> filterByType(Class<O> clazz) {
-        return value -> {
-            if (clazz.isInstance(value)) {
-```
-
-### BoundedWildcard
 Can generalize to `? super ClassTree`
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/MoreMatchers.java`
 #### Snippet
@@ -538,15 +526,15 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/MoreMatc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Type`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/CatchSpecificity.java`
+Can generalize to `? extends O`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesBuilderMissingInitialization.java`
 #### Snippet
 ```java
-        private final Name exceptionName;
-
-        ImpossibleConditionScanner(SuggestedFix.Builder fix, List<Type> caughtTypes, Name exceptionName) {
-            this.fix = fix;
-            this.caughtTypes = caughtTypes;
+     * Returns a function for use in Optional.flatMap that filters by type, and casts to that type.
+     */
+    private <I, O extends I> Function<I, Optional<O>> filterByType(Class<O> clazz) {
+        return value -> {
+            if (clazz.isInstance(value)) {
 ```
 
 ### BoundedWildcard
@@ -583,6 +571,18 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/CatchSpe
     private static boolean containsBroadException(Collection<Type> exceptions, VisitorState state) {
         return exceptions.stream().anyMatch(type -> isBroadException(type, state));
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/CatchSpecificity.java`
+#### Snippet
+```java
+        private final Name exceptionName;
+
+        ImpossibleConditionScanner(SuggestedFix.Builder fix, List<Type> caughtTypes, Name exceptionName) {
+            this.fix = fix;
+            this.caughtTypes = caughtTypes;
 ```
 
 ### BoundedWildcard
@@ -622,30 +622,6 @@ in `baseline-refaster-rules/src/main/java/com/palantir/baseline/refaster/Optiona
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Set`
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckImplicitDependenciesTask.java`
-#### Snippet
-```java
-    }
-
-    public final void ignore(Provider<Set<String>> value) {
-        ignore.set(value);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckJUnitDependencies.java`
-#### Snippet
-```java
-    }
-
-    private boolean fileContainsSubstring(File file, Predicate<String> substring) {
-        try (Stream<String> lines = Files.lines(file.toPath())) {
-            return lines.anyMatch(substring);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ResolvedComponentResult`
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckJUnitDependencies.java`
 #### Snippet
@@ -670,15 +646,39 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckJUnitD
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckJUnitDependencies.java`
+#### Snippet
+```java
+    }
+
+    private boolean fileContainsSubstring(File file, Predicate<String> substring) {
+        try (Stream<String> lines = Files.lines(file.toPath())) {
+            return lines.anyMatch(substring);
+```
+
+### BoundedWildcard
 Can generalize to `? extends Set`
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnusedDependenciesTask.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckImplicitDependenciesTask.java`
 #### Snippet
 ```java
     }
 
     public final void ignore(Provider<Set<String>> value) {
-        ignore.addAll(value);
+        ignore.set(value);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends CodeTransformer`
+in `baseline-refaster-testing/src/main/java/com/palantir/baseline/refaster/RefasterTestHelper.java`
+#### Snippet
+```java
+        private JavaFileObject input;
+
+        RefactoringTestInput(List<CodeTransformer> transformers, JavaFileObject input) {
+            this.transformers = transformers;
+            this.input = input;
 ```
 
 ### BoundedWildcard
@@ -706,15 +706,27 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckImplic
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends UnusedSpec`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
+Can generalize to `? extends Set`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnusedDependenciesTask.java`
 #### Snippet
 ```java
+    }
 
-    private static ImmutableList<SuggestedFix> buildUnusedLambdaParameterFix(
-            Symbol.VarSymbol _symbol, Collection<UnusedSpec> values, VisitorState state) {
-        SuggestedFix.Builder fix = SuggestedFix.builder();
+    public final void ignore(Provider<Set<String>> value) {
+        ignore.addAll(value);
+    }
+```
 
+### BoundedWildcard
+Can generalize to `? extends ModuleVersionIdentifier`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckClassUniquenessLockTask.java`
+#### Snippet
+```java
+    }
+
+    private String clashingJarHeader(Set<ModuleVersionIdentifier> clashingJars) {
+        return clashingJars.stream()
+                .map(mvi -> mvi.getGroup() + ":" + mvi.getName())
 ```
 
 ### BoundedWildcard
@@ -754,6 +766,18 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUn
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends UnusedSpec`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
+#### Snippet
+```java
+
+    private static ImmutableList<SuggestedFix> buildUnusedLambdaParameterFix(
+            Symbol.VarSymbol _symbol, Collection<UnusedSpec> values, VisitorState state) {
+        SuggestedFix.Builder fix = SuggestedFix.builder();
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends TreePath`
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
 #### Snippet
@@ -783,10 +807,10 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUn
 #### Snippet
 ```java
 
-    private static ImmutableList<SuggestedFix> buildUnusedVarFixes(
-            Symbol varSymbol, List<TreePath> usagePaths, VisitorState state) {
-        // Don't suggest a fix for fields annotated @Inject: we can warn on them, but they *could* be
-        // used outside the class.
+    private static ImmutableList<SuggestedFix> buildUnusedParameterFixes(
+            Symbol varSymbol, Symbol.MethodSymbol methodSymbol, List<TreePath> usagePaths, VisitorState state) {
+        boolean isPrivateMethod = methodSymbol.getModifiers().contains(Modifier.PRIVATE);
+        int index = methodSymbol.params.indexOf(varSymbol);
 ```
 
 ### BoundedWildcard
@@ -819,34 +843,10 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUn
 #### Snippet
 ```java
 
-    private static ImmutableList<SuggestedFix> buildUnusedParameterFixes(
-            Symbol varSymbol, Symbol.MethodSymbol methodSymbol, List<TreePath> usagePaths, VisitorState state) {
-        boolean isPrivateMethod = methodSymbol.getModifiers().contains(Modifier.PRIVATE);
-        int index = methodSymbol.params.indexOf(varSymbol);
-```
-
-### BoundedWildcard
-Can generalize to `? extends CodeTransformer`
-in `baseline-refaster-testing/src/main/java/com/palantir/baseline/refaster/RefasterTestHelper.java`
-#### Snippet
-```java
-        private JavaFileObject input;
-
-        RefactoringTestInput(List<CodeTransformer> transformers, JavaFileObject input) {
-            this.transformers = transformers;
-            this.input = input;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleVersionIdentifier`
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckClassUniquenessLockTask.java`
-#### Snippet
-```java
-    }
-
-    private String clashingJarHeader(Set<ModuleVersionIdentifier> clashingJars) {
-        return clashingJars.stream()
-                .map(mvi -> mvi.getGroup() + ":" + mvi.getName())
+    private static ImmutableList<SuggestedFix> buildUnusedVarFixes(
+            Symbol varSymbol, List<TreePath> usagePaths, VisitorState state) {
+        // Don't suggest a fix for fields annotated @Inject: we can warn on them, but they *could* be
+        // used outside the class.
 ```
 
 ### BoundedWildcard
@@ -898,15 +898,15 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineT
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ModuleComponentIdentifier`
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineErrorProne.java`
+Can generalize to `? extends JavaInstallationMetadata`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/JavaInstallationMetadataWrapper.java`
 #### Snippet
 ```java
-    }
 
-    private static boolean hasDependenciesMatching(Configuration configuration, Spec<ModuleComponentIdentifier> spec) {
-        return !Iterables.isEmpty(configuration
-                .getIncoming()
+    JavaInstallationMetadataWrapper(
+            JavaLanguageVersion javaLanguageVersion, Provider<JavaInstallationMetadata> delegate) {
+        this.javaLanguageVersion = javaLanguageVersion;
+        this.delegate = delegate;
 ```
 
 ### BoundedWildcard
@@ -934,27 +934,15 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineE
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaInstallationMetadata`
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/JavaInstallationMetadataWrapper.java`
+Can generalize to `? super ModuleComponentIdentifier`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineErrorProne.java`
 #### Snippet
 ```java
+    }
 
-    JavaInstallationMetadataWrapper(
-            JavaLanguageVersion javaLanguageVersion, Provider<JavaInstallationMetadata> delegate) {
-        this.javaLanguageVersion = javaLanguageVersion;
-        this.delegate = delegate;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineModuleJvmArgs.java`
-#### Snippet
-```java
-
-    private static void addManifestAttribute(
-            Jar jarTask, Manifest manifest, String attributeName, Provider<Set<String>> valueProperty) {
-        Project project = jarTask.getProject();
-        // Only locally defined values are applied to jars
+    private static boolean hasDependenciesMatching(Configuration configuration, Spec<ModuleComponentIdentifier> spec) {
+        return !Iterables.isEmpty(configuration
+                .getIncoming()
 ```
 
 ### BoundedWildcard
@@ -967,6 +955,18 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
     ConfiguredJavaToolchain(ObjectFactory objectFactory, Provider<JavaInstallationMetadata> javaInstallationMetadata) {
         this.objectFactory = objectFactory;
         this.javaInstallationMetadata = javaInstallationMetadata;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineModuleJvmArgs.java`
+#### Snippet
+```java
+
+    private static void addManifestAttribute(
+            Jar jarTask, Manifest manifest, String attributeName, Provider<Set<String>> valueProperty) {
+        Project project = jarTask.getProject();
+        // Only locally defined values are applied to jars
 ```
 
 ### BoundedWildcard
@@ -1006,6 +1006,54 @@ in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFinishedAc
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Safety`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyPropagationTransfer.java`
+#### Snippet
+```java
+     * but returning {@link Safety#UNKNOWN} rather than null.
+     */
+    private static Safety getValueOfSubNode(TransferInput<Safety, AccessPathStore<Safety>> input, Node node) {
+        Safety maybeSafety = input.getValueOfSubNode(node);
+        return Safety.nullToUnknown(maybeSafety);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Safety`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyPropagationTransfer.java`
+#### Snippet
+```java
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
+    private Safety fieldSafety(
+            @Nullable VarSymbol accessed, @Nullable AccessPath path, AccessPathValues<Safety> store) {
+        if (accessed == null) {
+            return Safety.UNKNOWN;
+```
+
+### BoundedWildcard
+Can generalize to `? extends AccessPathStore`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyPropagationTransfer.java`
+#### Snippet
+```java
+
+    private static TransferResult<Safety, AccessPathStore<Safety>> noStoreChanges(
+            Safety value, TransferInput<?, AccessPathStore<Safety>> input) {
+        return new RegularTransferResult<>(value, input.getRegularStore());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends AccessPathStore`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyPropagationTransfer.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    private static TransferResult<Safety, AccessPathStore<Safety>> updateRegularStore(
+            Safety value, TransferInput<?, AccessPathStore<Safety>> input, ReadableUpdates updates) {
+        ResultingStore newStore = updateStore(input.getRegularStore(), updates);
+        return new RegularTransferResult<>(value, newStore.store, newStore.storeChanged);
+```
+
+### BoundedWildcard
 Can generalize to `? super Task`
 in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/DefaultTaskTimer.java`
 #### Snippet
@@ -1042,18 +1090,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ResolvedDependency`
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
-#### Snippet
-```java
-        private final Map<ResolvedArtifact, ResolvedDependency> artifactsFromDependency = new ConcurrentHashMap<>();
-
-        public void populateIndexes(Set<ResolvedDependency> declaredDependencies) {
-            Set<ResolvedArtifact> allArtifacts = declaredDependencies.stream()
-                    .flatMap(dependency -> dependency.getAllModuleArtifacts().stream())
-```
-
-### BoundedWildcard
 Can generalize to `? extends CheckUnusedDependenciesParentTask`
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
 #### Snippet
@@ -1078,51 +1114,15 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineE
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Safety`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyPropagationTransfer.java`
+Can generalize to `? extends ResolvedDependency`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
 #### Snippet
 ```java
-    @SuppressWarnings("checkstyle:CyclomaticComplexity")
-    private Safety fieldSafety(
-            @Nullable VarSymbol accessed, @Nullable AccessPath path, AccessPathValues<Safety> store) {
-        if (accessed == null) {
-            return Safety.UNKNOWN;
-```
+        private final Map<ResolvedArtifact, ResolvedDependency> artifactsFromDependency = new ConcurrentHashMap<>();
 
-### BoundedWildcard
-Can generalize to `? extends AccessPathStore`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyPropagationTransfer.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    private static TransferResult<Safety, AccessPathStore<Safety>> updateRegularStore(
-            Safety value, TransferInput<?, AccessPathStore<Safety>> input, ReadableUpdates updates) {
-        ResultingStore newStore = updateStore(input.getRegularStore(), updates);
-        return new RegularTransferResult<>(value, newStore.store, newStore.storeChanged);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Safety`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyPropagationTransfer.java`
-#### Snippet
-```java
-     * but returning {@link Safety#UNKNOWN} rather than null.
-     */
-    private static Safety getValueOfSubNode(TransferInput<Safety, AccessPathStore<Safety>> input, Node node) {
-        Safety maybeSafety = input.getValueOfSubNode(node);
-        return Safety.nullToUnknown(maybeSafety);
-```
-
-### BoundedWildcard
-Can generalize to `? extends AccessPathStore`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyPropagationTransfer.java`
-#### Snippet
-```java
-
-    private static TransferResult<Safety, AccessPathStore<Safety>> noStoreChanges(
-            Safety value, TransferInput<?, AccessPathStore<Safety>> input) {
-        return new RegularTransferResult<>(value, input.getRegularStore());
-    }
+        public void populateIndexes(Set<ResolvedDependency> declaredDependencies) {
+            Set<ResolvedArtifact> allArtifacts = declaredDependencies.stream()
+                    .flatMap(dependency -> dependency.getAllModuleArtifacts().stream())
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -1276,30 +1276,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/services/JarClassHasher.java`
-#### Snippet
-```java
-                    }
-
-                    String className = entry.getName().replaceAll("/", ".").replaceAll("\\.class$", "");
-                    HashingInputStream inputStream = new HashingInputStream(Hashing.sha256(), jarInputStream);
-                    ByteStreams.exhaust(inputStream);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/services/JarClassHasher.java`
-#### Snippet
-```java
-                    }
-
-                    String className = entry.getName().replaceAll("/", ".").replaceAll("\\.class$", "");
-                    HashingInputStream inputStream = new HashingInputStream(Hashing.sha256(), jarInputStream);
-                    ByteStreams.exhaust(inputStream);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/FailuresReportGenerator.java`
 #### Snippet
 ```java
@@ -1310,19 +1286,31 @@ in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/FailuresReportG
 
 ```
 
-## RuleId[ruleID=SimplifyOptionalCallChains]
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesBuilderMissingInitialization.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/services/JarClassHasher.java`
 #### Snippet
 ```java
-                        ASTHelpers.hasAnnotation(classSymbol, "org.immutables.value.Value.Immutable", state))
-                .findAny();
-        if (!interfaceClass.isPresent()) {
-            return Description.NO_MATCH;
-        }
+                    }
+
+                    String className = entry.getName().replaceAll("/", ".").replaceAll("\\.class$", "");
+                    HashingInputStream inputStream = new HashingInputStream(Hashing.sha256(), jarInputStream);
+                    ByteStreams.exhaust(inputStream);
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/services/JarClassHasher.java`
+#### Snippet
+```java
+                    }
+
+                    String className = entry.getName().replaceAll("/", ".").replaceAll("\\.class$", "");
+                    HashingInputStream inputStream = new HashingInputStream(Hashing.sha256(), jarInputStream);
+                    ByteStreams.exhaust(inputStream);
+```
+
+## RuleId[ruleID=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/PreferSafeLoggableExceptions.java`
@@ -1343,6 +1331,18 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/Optional
         LambdaExpressionTree lambdaExpressionTree = (LambdaExpressionTree) functionParameter;
         Optional<ExpressionTree> maybeExpression = finalExpression(lambdaExpressionTree);
         if (!maybeExpression.isPresent()) {
+            return Description.NO_MATCH;
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesBuilderMissingInitialization.java`
+#### Snippet
+```java
+                        ASTHelpers.hasAnnotation(classSymbol, "org.immutables.value.Value.Immutable", state))
+                .findAny();
+        if (!interfaceClass.isPresent()) {
             return Description.NO_MATCH;
         }
 ```
@@ -1385,30 +1385,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckJUnitD
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
-#### Snippet
-```java
-                .filter(a -> allUsageSites.stream().noneMatch(tp -> tp.getLeaf().equals(a)))
-                .findFirst();
-        if (!removedVariableTree.isPresent() || !reassignment.isPresent()) {
-            return SuggestedFix.builder().build();
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
-#### Snippet
-```java
-                .filter(a -> allUsageSites.stream().noneMatch(tp -> tp.getLeaf().equals(a)))
-                .findFirst();
-        if (!removedVariableTree.isPresent() || !reassignment.isPresent()) {
-            return SuggestedFix.builder().build();
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineReleaseCompatibility.java`
 #### Snippet
 ```java
@@ -1417,6 +1393,30 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineR
             if (!taskTarget.isPresent()) {
                 log.debug(
                         "BaselineReleaseCompatibility is a no-op for {} in {} as no targetCompatibility is set",
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
+#### Snippet
+```java
+                .filter(a -> allUsageSites.stream().noneMatch(tp -> tp.getLeaf().equals(a)))
+                .findFirst();
+        if (!removedVariableTree.isPresent() || !reassignment.isPresent()) {
+            return SuggestedFix.builder().build();
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
+#### Snippet
+```java
+                .filter(a -> allUsageSites.stream().noneMatch(tp -> tp.getLeaf().equals(a)))
+                .findFirst();
+        if (!removedVariableTree.isPresent() || !reassignment.isPresent()) {
+            return SuggestedFix.builder().build();
+        }
 ```
 
 ### SimplifyOptionalCallChains
@@ -1437,10 +1437,10 @@ Qualifier `com.google.errorprone.suppliers` is unnecessary, and can be replaced 
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/SafeLoggingPropagation.java`
 #### Snippet
 ```java
-            VisitorState.memoize(state -> state.getName("org.immutables.value.Value.Style"));
+            TO_STRING);
 
-    private static final com.google.errorprone.suppliers.Supplier<Name> JACKSON_ANNOTATION =
-            VisitorState.memoize(state -> state.getName("com.fasterxml.jackson.annotation.JacksonAnnotation"));
+    private static final com.google.errorprone.suppliers.Supplier<Name> TO_STRING_NAME =
+            VisitorState.memoize(state -> state.getName("toString"));
 
 ```
 
@@ -1449,10 +1449,10 @@ Qualifier `com.google.errorprone.suppliers` is unnecessary, and can be replaced 
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/SafeLoggingPropagation.java`
 #### Snippet
 ```java
-            TO_STRING);
+            VisitorState.memoize(state -> state.getName("org.immutables.value.Value.Style"));
 
-    private static final com.google.errorprone.suppliers.Supplier<Name> TO_STRING_NAME =
-            VisitorState.memoize(state -> state.getName("toString"));
+    private static final com.google.errorprone.suppliers.Supplier<Name> JACKSON_ANNOTATION =
+            VisitorState.memoize(state -> state.getName("com.fasterxml.jackson.annotation.JacksonAnnotation"));
 
 ```
 
@@ -1485,6 +1485,18 @@ Qualifier `com.google.errorprone.suppliers` is unnecessary, and can be replaced 
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyAnnotations.java`
 #### Snippet
 ```java
+            VisitorState.memoize(state -> state.getName(DO_NOT_LOG));
+
+    private static final com.google.errorprone.suppliers.Supplier<Type> throwableSupplier =
+            Suppliers.typeFromClass(Throwable.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.suppliers` is unnecessary, and can be replaced with an import
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyAnnotations.java`
+#### Snippet
+```java
 
     private static final class TypeArgumentHandler {
         private final com.google.errorprone.suppliers.Supplier<Type> typeSupplier;
@@ -1509,10 +1521,10 @@ Qualifier `com.google.errorprone.suppliers` is unnecessary, and can be replaced 
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyAnnotations.java`
 #### Snippet
 ```java
+    private static final com.google.errorprone.suppliers.Supplier<Name> unsafeName =
+            VisitorState.memoize(state -> state.getName(UNSAFE));
+    private static final com.google.errorprone.suppliers.Supplier<Name> doNotLogName =
             VisitorState.memoize(state -> state.getName(DO_NOT_LOG));
-
-    private static final com.google.errorprone.suppliers.Supplier<Type> throwableSupplier =
-            Suppliers.typeFromClass(Throwable.class);
 
 ```
 
@@ -1526,18 +1538,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/S
     private static final com.google.errorprone.suppliers.Supplier<Name> unsafeName =
             VisitorState.memoize(state -> state.getName(UNSAFE));
     private static final com.google.errorprone.suppliers.Supplier<Name> doNotLogName =
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.suppliers` is unnecessary, and can be replaced with an import
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/safety/SafetyAnnotations.java`
-#### Snippet
-```java
-    private static final com.google.errorprone.suppliers.Supplier<Name> unsafeName =
-            VisitorState.memoize(state -> state.getName(UNSAFE));
-    private static final com.google.errorprone.suppliers.Supplier<Name> doNotLogName =
-            VisitorState.memoize(state -> state.getName(DO_NOT_LOG));
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1601,30 +1601,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckExplic
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.tasks.testing` is unnecessary, and can be replaced with an import
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineTesting.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("IllegalImports")
-    private static Property<org.gradle.api.internal.tasks.testing.TestFramework> getTestFrameworkWithReflection(
-            Test task) {
-        try {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.tasks.testing` is unnecessary, and can be replaced with an import
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineTesting.java`
-#### Snippet
-```java
-        try {
-            Method getTestFrameworkProperty = Test.class.getMethod("getTestFrameworkProperty");
-            return (Property<org.gradle.api.internal.tasks.testing.TestFramework>)
-                    getTestFrameworkProperty.invoke(task);
-        } catch (ReflectiveOperationException e) {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.gradle.api.internal.tasks.testing.junitplatform` is unnecessary, and can be replaced with an import
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineTesting.java`
 #### Snippet
@@ -1670,6 +1646,30 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineT
                 .map(org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestFramework.class::isInstance)
                 .getOrElse(false);
     }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.tasks.testing` is unnecessary, and can be replaced with an import
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineTesting.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("IllegalImports")
+    private static Property<org.gradle.api.internal.tasks.testing.TestFramework> getTestFrameworkWithReflection(
+            Test task) {
+        try {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.tasks.testing` is unnecessary, and can be replaced with an import
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineTesting.java`
+#### Snippet
+```java
+        try {
+            Method getTestFrameworkProperty = Test.class.getMethod("getTestFrameworkProperty");
+            return (Property<org.gradle.api.internal.tasks.testing.TestFramework>)
+                    getTestFrameworkProperty.invoke(task);
+        } catch (ReflectiveOperationException e) {
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1760,30 +1760,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineR
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineImmutables.java`
-#### Snippet
-```java
-    @Override
-    public void apply(Project project) {
-        project.getPluginManager().withPlugin("java", unused -> {
-            project.getExtensions().getByType(SourceSetContainer.class).configureEach(sourceSet -> {
-                project.getTasks()
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineImmutables.java`
-#### Snippet
-```java
-    public void apply(Project project) {
-        project.getPluginManager().withPlugin("java", unused -> {
-            project.getExtensions().getByType(SourceSetContainer.class).configureEach(sourceSet -> {
-                project.getTasks()
-                        .named(sourceSet.getCompileJavaTaskName(), JavaCompile.class)
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineFormat.java`
 #### Snippet
 ```java
@@ -1847,6 +1823,18 @@ Statement lambda can be replaced with expression lambda
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineFormat.java`
 #### Snippet
 ```java
+        }
+
+        spotlessExtension.groovyGradle(ext -> {
+            ext.greclipse().configFile(configFile.toAbsolutePath());
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineFormat.java`
+#### Snippet
+```java
 
     private void configureCopyrightStep(Project project, SpotlessExtension spotlessExtension) {
         project.getPluginManager().withPlugin("java", javaPlugin -> {
@@ -1868,14 +1856,26 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineF
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineFormat.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineImmutables.java`
 #### Snippet
 ```java
-        }
+    @Override
+    public void apply(Project project) {
+        project.getPluginManager().withPlugin("java", unused -> {
+            project.getExtensions().getByType(SourceSetContainer.class).configureEach(sourceSet -> {
+                project.getTasks()
+```
 
-        spotlessExtension.groovyGradle(ext -> {
-            ext.greclipse().configFile(configFile.toAbsolutePath());
-        });
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineImmutables.java`
+#### Snippet
+```java
+    public void apply(Project project) {
+        project.getPluginManager().withPlugin("java", unused -> {
+            project.getExtensions().getByType(SourceSetContainer.class).configureEach(sourceSet -> {
+                project.getTasks()
+                        .named(sourceSet.getCompileJavaTaskName(), JavaCompile.class)
 ```
 
 ### CodeBlock2Expr
@@ -1900,6 +1900,18 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineC
         project.getPluginManager().withPlugin("com.palantir.junit-reports", unused -> {
             project.getExtensions().configure(JunitReportsExtension.class, junitReports -> junitReports
                     .getReportsDirectory()
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineErrorProne.java`
+#### Snippet
+```java
+    @Override
+    public void apply(Project project) {
+        project.getPluginManager().withPlugin("java", unused -> {
+            applyToJavaProject(project);
+        });
 ```
 
 ### CodeBlock2Expr
@@ -1964,18 +1976,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineE
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineErrorProne.java`
-#### Snippet
-```java
-    @Override
-    public void apply(Project project) {
-        project.getPluginManager().withPlugin("java", unused -> {
-            applyToJavaProject(project);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineModuleJvmArgs.java`
 #### Snippet
 ```java
@@ -2024,30 +2024,6 @@ in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/JunitReportsPlu
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
-#### Snippet
-```java
-        private boolean leftHandSideAssignment = false;
-        // When this greater than zero, the usage of identifiers are real.
-        private int inArrayAccess = 0;
-        // This is true when we are processing a `return` statement. Elements used in return statement
-        // must not be considered unused.
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
-#### Snippet
-```java
-        private final Set<Symbol> hasBeenAssigned = new HashSet<>();
-
-        private TreePath currentExpressionStatement = null;
-
-        private final Map<Symbol, TreePath> unusedElements;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
 #### Snippet
@@ -2072,6 +2048,18 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUn
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
+#### Snippet
+```java
+        private final Set<Symbol> hasBeenAssigned = new HashSet<>();
+
+        private TreePath currentExpressionStatement = null;
+
+        private final Map<Symbol, TreePath> unusedElements;
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
 #### Snippet
@@ -2083,7 +2071,31 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUn
         private final Set<Symbol> hasBeenAssigned = new HashSet<>();
 ```
 
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
+#### Snippet
+```java
+        private boolean leftHandSideAssignment = false;
+        // When this greater than zero, the usage of identifiers are real.
+        private int inArrayAccess = 0;
+        // This is true when we are processing a `return` statement. Elements used in return statement
+        // must not be considered unused.
+```
+
 ## RuleId[ruleID=ReturnNull]
+### ReturnNull
+Return of `null`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/SafeLoggingPropagation.java`
+#### Snippet
+```java
+        @Override
+        public Safety visitNewClass(NewClassTree node, VisitorState _state) {
+            return null;
+        }
+
+```
+
 ### ReturnNull
 Return of `null`
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/SafeLoggingPropagation.java`
@@ -2103,18 +2115,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/SafeLogg
 ```java
         @Override
         public Safety visitLambdaExpression(LambdaExpressionTree node, VisitorState _state) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/SafeLoggingPropagation.java`
-#### Snippet
-```java
-        @Override
-        public Safety visitNewClass(NewClassTree node, VisitorState _state) {
             return null;
         }
 
@@ -2149,8 +2149,8 @@ Return of `null`
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/Slf4jLevelCheck.java`
 #### Snippet
 ```java
-            // Do not flag logging from a catch withing a level-check conditional. These are sometimes
-            // more severe if there's a problem generating fine grained logging.
+                }
+            }
             return null;
         }
 
@@ -2161,8 +2161,8 @@ Return of `null`
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/Slf4jLevelCheck.java`
 #### Snippet
 ```java
-                }
-            }
+            // Do not flag logging from a catch withing a level-check conditional. These are sometimes
+            // more severe if there's a problem generating fine grained logging.
             return null;
         }
 
@@ -2417,11 +2417,11 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckImplic
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnusedDependenciesTask.java`
 #### Snippet
 ```java
-    /** All classes which are mentioned in this project's source code. */
-    private Set<String> referencedClasses() {
-        return Streams.stream(sourceClasses.get().iterator())
+        excludeSourceOnlyDependencies();
+
+        Set<ResolvedArtifact> necessaryArtifacts = Streams.stream(
+                        sourceClasses.get().iterator())
                 .flatMap(BaselineExactDependencies::referencedClasses)
-                .collect(Collectors.toSet());
 ```
 
 ### UnstableApiUsage
@@ -2429,11 +2429,11 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnused
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnusedDependenciesTask.java`
 #### Snippet
 ```java
-        excludeSourceOnlyDependencies();
-
-        Set<ResolvedArtifact> necessaryArtifacts = Streams.stream(
-                        sourceClasses.get().iterator())
+    /** All classes which are mentioned in this project's source code. */
+    private Set<String> referencedClasses() {
+        return Streams.stream(sourceClasses.get().iterator())
                 .flatMap(BaselineExactDependencies::referencedClasses)
+                .collect(Collectors.toSet());
 ```
 
 ### UnstableApiUsage
@@ -2446,30 +2446,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineI
                                     .getJvmArgumentProviders()
                                     .add(new CommandLineArgumentProvider() {
                                         @Override
-```
-
-### UnstableApiUsage
-Overridden method 'getJvmVersion()' is marked unstable with @Incubating
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/JavaInstallationMetadataWrapper.java`
-#### Snippet
-```java
-
-    @Override
-    public String getJvmVersion() {
-        return delegate.get().getJvmVersion();
-    }
-```
-
-### UnstableApiUsage
-'getJvmVersion()' is marked unstable with @Incubating
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/JavaInstallationMetadataWrapper.java`
-#### Snippet
-```java
-    @Override
-    public String getJvmVersion() {
-        return delegate.get().getJvmVersion();
-    }
-
 ```
 
 ### UnstableApiUsage
@@ -2492,6 +2468,30 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
     @Override
     public String getJavaRuntimeVersion() {
         return delegate.get().getJavaRuntimeVersion();
+    }
+
+```
+
+### UnstableApiUsage
+Overridden method 'getJvmVersion()' is marked unstable with @Incubating
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/JavaInstallationMetadataWrapper.java`
+#### Snippet
+```java
+
+    @Override
+    public String getJvmVersion() {
+        return delegate.get().getJvmVersion();
+    }
+```
+
+### UnstableApiUsage
+'getJvmVersion()' is marked unstable with @Incubating
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/JavaInstallationMetadataWrapper.java`
+#### Snippet
+```java
+    @Override
+    public String getJvmVersion() {
+        return delegate.get().getJvmVersion();
     }
 
 ```
@@ -2573,11 +2573,11 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-            @Override
-            public void execute(ScalaCompile scalaCompileTask) {
-                scalaCompileTask.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
-                scalaCompileTask
-                        .getOptions()
+                @Override
+                public void execute(Checkstyle checkstyle) {
+                    checkstyle.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
+                }
+            });
 ```
 
 ### UnstableApiUsage
@@ -2585,11 +2585,11 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-                @Override
-                public void execute(Checkstyle checkstyle) {
-                    checkstyle.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
-                }
-            });
+            @Override
+            public void execute(ScalaCompile scalaCompileTask) {
+                scalaCompileTask.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
+                scalaCompileTask
+                        .getOptions()
 ```
 
 ### UnstableApiUsage
