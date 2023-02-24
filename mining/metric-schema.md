@@ -22,6 +22,30 @@ I found 29 bad smells with 1 repairable:
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
+            String namespaceName,
+            String metricName,
+            Optional<String> libraryName,
+            MetricDefinition definition,
+            MetricNamespace metricNamespace,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+            String namespace,
+            String metricName,
+            Optional<String> libraryName,
+            MetricNamespace metricNamespace,
+            MetricDefinition definition,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
             String namespace,
             String metricName,
             Optional<String> libraryName,
@@ -35,34 +59,10 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 #### Snippet
 ```java
             String namespace,
-            String metricName,
-            Optional<String> libraryName,
-            MetricNamespace metricNamespace,
-            MetricDefinition definition,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
             MetricNamespace metrics,
             Optional<String> libraryName,
             String packageName,
             ImplementationVisibility visibility) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespaceName,
-            String metricName,
-            Optional<String> libraryName,
-            MetricDefinition definition,
-            MetricNamespace metricNamespace,
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -269,18 +269,6 @@ Can generalize to `? extends Directory`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
 ```java
-
-    private static TaskProvider<CompileMetricSchemaTask> createCompileSchemaTask(
-            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
-        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
-        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
     private static void createManifestTask(
             Project project,
             Provider<Directory> metricSchemaDir,
@@ -298,6 +286,18 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
             TaskProvider<CompileMetricSchemaTask> compileSchemaTask) {
         Provider<RegularFile> manifestFile = metricSchemaDir.map(dir -> dir.file("manifest.json"));
         Configuration runtimeClasspath = project.getConfigurations().getByName("runtimeClasspath");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directory`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+
+    private static TaskProvider<CompileMetricSchemaTask> createCompileSchemaTask(
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
