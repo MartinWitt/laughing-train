@@ -27,8 +27,8 @@ I found 388 bad smells with 33 repairable:
 | UnnecessaryModifier | 3 | true |
 | ClassNameSameAsAncestorName | 3 | false |
 | UnnecessaryLocalVariable | 3 | true |
-| DataFlowIssue | 2 | false |
 | RedundantClassCall | 2 | false |
+| DataFlowIssue | 2 | false |
 | StringOperationCanBeSimplified | 2 | false |
 | AssignmentToForLoopParameter | 2 | false |
 | ManualMinMaxCalculation | 2 | false |
@@ -62,6 +62,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/ElementAnalyzer.
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Method\[methods.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
+#### Snippet
+```java
+    private static Method[] toArray( final List<Method> methods )
+    {
+        return null != methods && !methods.isEmpty() ? methods.toArray( new Method[methods.size()] ) : NO_METHODS;
+    }
+}
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Map\[properties.size()\]'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/MergedProperties.java`
 #### Snippet
@@ -71,30 +83,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/MergedProperties
         this.properties = properties.toArray( new Map[properties.size()] );
     }
 
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new URL\[classPath.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/BundleClassSpace.java`
-#### Snippet
-```java
-                }
-
-                bundleClassPath = classPath.isEmpty() ? NO_URLS : classPath.toArray( new URL[classPath.size()] );
-            }
-        }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Binding\[visible.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
-#### Snippet
-```java
-                        }
-                    }
-                    wildcards = visible.isEmpty() ? NO_BINDINGS : visible.toArray( new Binding[visible.size()] );
-                }
-            }
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -110,6 +98,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBindings.
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Binding\[visible.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
+#### Snippet
+```java
+                        }
+                    }
+                    wildcards = visible.isEmpty() ? NO_BINDINGS : visible.toArray( new Binding[visible.size()] );
+                }
+            }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[names.size()\]'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/ZipEntryIterator.java`
 #### Snippet
@@ -122,15 +122,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/ZipEntryIterato
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new URL\[indexPath.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
+Call to `toArray()` with pre-sized array argument 'new URL\[classPath.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/BundleClassSpace.java`
 #### Snippet
 ```java
+                }
 
-        final ClassLoader parent = SisuIndex.class.getClassLoader();
-        final URL[] urls = indexPath.toArray( new URL[indexPath.size()] );
-        final ClassLoader loader = urls.length > 0 ? URLClassLoader.newInstance( urls, parent ) : parent;
-
+                bundleClassPath = classPath.isEmpty() ? NO_URLS : classPath.toArray( new URL[classPath.size()] );
+            }
+        }
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -146,15 +146,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/URLClassSpace.j
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Method\[methods.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
+Call to `toArray()` with pre-sized array argument 'new URL\[indexPath.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
 #### Snippet
 ```java
-    private static Method[] toArray( final List<Method> methods )
-    {
-        return null != methods && !methods.isEmpty() ? methods.toArray( new Method[methods.size()] ) : NO_METHODS;
-    }
-}
+
+        final ClassLoader parent = SisuIndex.class.getClassLoader();
+        final URL[] urls = indexPath.toArray( new URL[indexPath.size()] );
+        final ClassLoader loader = urls.length > 0 ? URLClassLoader.newInstance( urls, parent ) : parent;
+
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
@@ -207,6 +207,31 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
     }
 ```
 
+## RuleId[ruleID=RedundantClassCall]
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+#### Snippet
+```java
+        try
+        {
+            hasGuiceServlet = BindingTargetVisitor.class.isInstance( ServletFinder.THIS );
+        }
+        catch ( final LinkageError e )
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+        }
+        // this cast lets us load the 'Logs' class and log messages even if Guice is not available
+        throw RuntimeException.class.cast( new ProvisionException( problem.toString(), problem ) );
+    }
+
+```
+
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Dereference of `listOfBlocksToProcess` may produce `NullPointerException`
@@ -243,31 +268,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Constants.j
     try (DataInputStream callerClassStream = new DataInputStream(classInputStream); ) {
       callerClassStream.readInt();
       minorVersion = callerClassStream.readUnsignedShort();
-```
-
-## RuleId[ruleID=RedundantClassCall]
-### RedundantClassCall
-Redundant call to `cast()`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
-#### Snippet
-```java
-        }
-        // this cast lets us load the 'Logs' class and log messages even if Guice is not available
-        throw RuntimeException.class.cast( new ProvisionException( problem.toString(), problem ) );
-    }
-
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
-#### Snippet
-```java
-        try
-        {
-            hasGuiceServlet = BindingTargetVisitor.class.isInstance( ServletFinder.THIS );
-        }
-        catch ( final LinkageError e )
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -310,6 +310,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/ZipEntryIterato
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'visitMethodInsn' is still used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public void visitMethodInsn(
+      final int opcode, final String owner, final String name, final String descriptor) {
+    int opcodeAndSource = opcode | (api < Opcodes.ASM5 ? Opcodes.SOURCE_DEPRECATED : 0);
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'Description' is still used
 in `org.eclipse.sisu.inject/src/main/java/org/sonatype/inject/Description.java`
 #### Snippet
@@ -343,18 +355,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
   @Deprecated int ASM10_EXPERIMENTAL = 1 << 24 | 10 << 16 | 0 << 8;
 
   /*
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'visitMethodInsn' is still used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public void visitMethodInsn(
-      final int opcode, final String owner, final String name, final String descriptor) {
-    int opcodeAndSource = opcode | (api < Opcodes.ASM5 ? Opcodes.SOURCE_DEPRECATED : 0);
 ```
 
 ### DeprecatedIsStillUsed
@@ -396,18 +396,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/TypePath.ja
 ```
 
 ### SizeReplaceableByIsEmpty
-`( (Named) qualifier ).value().length() == 0` can be replaced with '( (Named) qualifier ).value().isEmpty()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/LocatorWiring.java`
-#### Snippet
-```java
-        if ( qualifier instanceof Named )
-        {
-            if ( ( (Named) qualifier ).value().length() == 0 )
-            {
-                // special case for wildcard @Named dependencies: match any @Named bean regardless of actual name
-```
-
-### SizeReplaceableByIsEmpty
 `( (String) name ).length() > 0` can be replaced with '!( (String) name ).isEmpty()'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.java`
 #### Snippet
@@ -420,15 +408,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.j
 ```
 
 ### SizeReplaceableByIsEmpty
-`option.trim().length() == 0` can be replaced with 'option.trim().isEmpty()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/BeanScanning.java`
+`qualifiers.length() > 0` can be replaced with '!qualifiers.isEmpty()'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
 #### Snippet
 ```java
-    {
-        final String option = (String) properties.get( BeanScanning.class.getName() );
-        if ( null == option || option.trim().length() == 0 )
+            return Collections.emptySet();
+        }
+        if ( qualifiers != null && qualifiers.length() > 0 )
         {
-            return BeanScanning.ON;
+            final Set<String> annotationTypes = new HashSet<String>();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -441,6 +429,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifierCache.
             if ( qualifiers != null && qualifiers.length() > 0 )
             {
                 final StringBuilder buf = new StringBuilder( "L" );
+```
+
+### SizeReplaceableByIsEmpty
+`option.trim().length() == 0` can be replaced with 'option.trim().isEmpty()'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/BeanScanning.java`
+#### Snippet
+```java
+    {
+        final String option = (String) properties.get( BeanScanning.class.getName() );
+        if ( null == option || option.trim().length() == 0 )
+        {
+            return BeanScanning.ON;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -468,15 +468,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/FileEntryIterat
 ```
 
 ### SizeReplaceableByIsEmpty
-`qualifiers.length() > 0` can be replaced with '!qualifiers.isEmpty()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
+`( (Named) qualifier ).value().length() == 0` can be replaced with '( (Named) qualifier ).value().isEmpty()'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/LocatorWiring.java`
 #### Snippet
 ```java
-            return Collections.emptySet();
-        }
-        if ( qualifiers != null && qualifiers.length() > 0 )
+        if ( qualifier instanceof Named )
         {
-            final Set<String> annotationTypes = new HashSet<String>();
+            if ( ( (Named) qualifier ).value().length() == 0 )
+            {
+                // special case for wildcard @Named dependencies: match any @Named bean regardless of actual name
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -542,6 +542,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBi
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `isQualified |= QUALIFIER_DESC.equals( desc )`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifierCache.java`
+#### Snippet
+```java
+    public AnnotationVisitor visitAnnotation( final String desc )
+    {
+        isQualified |= QUALIFIER_DESC.equals( desc );
+        return null;
+    }
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `frameChanged |= merge(symbolTable, concreteOutputType, dstFrame.inputLocals, i)`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
 #### Snippet
@@ -603,6 +615,30 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `hasAsmInstructions |= label.resolve(code.data, code.length)`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+  public void visitLabel(final Label label) {
+    // Resolve the forward references to this label, if any.
+    hasAsmInstructions |= label.resolve(code.data, code.length);
+    // visitLabel starts a new basic block (except for debug only labels), so we need to update the
+    // previous and current block references and list of successors.
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `applyBinding &= analyzeDependencies( p.getDependencies() )`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DependencyAnalyzer.java`
+#### Snippet
+```java
+        for ( final InjectionPoint p : points )
+        {
+            applyBinding &= analyzeDependencies( p.getDependencies() );
+        }
+        return applyBinding;
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `hasFrames |= methodWriter.hasFrames()`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
 #### Snippet
@@ -624,67 +660,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter
       hasAsmInstructions |= methodWriter.hasAsmInstructions();
       methodWriter.putMethodInfo(result);
       methodWriter = (MethodWriter) methodWriter.mv;
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isQualified |= QUALIFIER_DESC.equals( desc )`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifierCache.java`
-#### Snippet
-```java
-    public AnnotationVisitor visitAnnotation( final String desc )
-    {
-        isQualified |= QUALIFIER_DESC.equals( desc );
-        return null;
-    }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `applyBinding &= analyzeDependencies( p.getDependencies() )`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DependencyAnalyzer.java`
-#### Snippet
-```java
-        for ( final InjectionPoint p : points )
-        {
-            applyBinding &= analyzeDependencies( p.getDependencies() );
-        }
-        return applyBinding;
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `hasAsmInstructions |= label.resolve(code.data, code.length)`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
-#### Snippet
-```java
-  public void visitLabel(final Label label) {
-    // Resolve the forward references to this label, if any.
-    hasAsmInstructions |= label.resolve(code.data, code.length);
-    // visitLabel starts a new basic block (except for debug only labels), so we need to update the
-    // previous and current block references and list of successors.
-```
-
-## RuleId[ruleID=AssignmentToForLoopParameter]
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/FileEntryIterator.java`
-#### Snippet
-```java
-                        }
-                    }
-                    i += 2;
-                }
-                else
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `currChar`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
-#### Snippet
-```java
-        for ( char prevChar = ' ', currChar; cursor < len; prevChar = currChar, cursor++ )
-        {
-            currChar = format.charAt( cursor );
-            if ( prevChar == '{' && currChar == '}' )
-            {
 ```
 
 ## RuleId[ruleID=FinalStaticMethod]
@@ -726,18 +701,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStra
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildKeys.java`
-#### Snippet
-```java
-     * @return Temporary {@link Reference} for the given key; used in queries.
-     */
-    static final <K> Reference<K> tempKey( final K key )
-    {
-        return new Weak<K>( key, null );
-```
-
-### FinalStaticMethod
-'static' method declared `final`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/GlobberStrategy.java`
 #### Snippet
 ```java
@@ -748,19 +711,44 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/GlobberStrategy
         if ( null == glob || "*".equals( glob ) )
 ```
 
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ByteVector.java`
+### FinalStaticMethod
+'static' method declared `final`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildKeys.java`
 #### Snippet
 ```java
-    int doubleCapacity = 2 * data.length;
-    int minimalCapacity = length + size;
-    byte[] newData = new byte[doubleCapacity > minimalCapacity ? doubleCapacity : minimalCapacity];
-    System.arraycopy(data, 0, newData, 0, length);
-    data = newData;
+     * @return Temporary {@link Reference} for the given key; used in queries.
+     */
+    static final <K> Reference<K> tempKey( final K key )
+    {
+        return new Weak<K>( key, null );
 ```
 
+## RuleId[ruleID=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/FileEntryIterator.java`
+#### Snippet
+```java
+                        }
+                    }
+                    i += 2;
+                }
+                else
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `currChar`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+        for ( char prevChar = ' ', currChar; cursor < len; prevChar = currChar, cursor++ )
+        {
+            currChar = format.charAt( cursor );
+            if ( prevChar == '{' && currChar == '}' )
+            {
+```
+
+## RuleId[ruleID=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.min()' call
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.java`
@@ -773,29 +761,29 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.j
         else
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Module`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/MergedModule.java`
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ByteVector.java`
 #### Snippet
 ```java
-    }
-
-    public MergedModule( final Iterable<Module> modules )
-    {
-        this.modules = modules;
+    int doubleCapacity = 2 * data.length;
+    int minimalCapacity = length + size;
+    byte[] newData = new byte[doubleCapacity > minimalCapacity ? doubleCapacity : minimalCapacity];
+    System.arraycopy(data, 0, newData, 0, length);
+    data = newData;
 ```
 
+## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Module`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/WireModule.java`
+Can generalize to `? extends K`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/ProviderIterableAdapter.java`
 #### Snippet
 ```java
-    }
+        // ----------------------------------------------------------------------
 
-    public WireModule( final Iterable<Module> modules )
-    {
-        this.modules = modules;
+        ProviderEntry( final BeanEntry<K, V> entry )
+        {
+            this.entry = entry;
 ```
 
 ### BoundedWildcard
@@ -835,15 +823,63 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/ElementAnalyzer.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BindingPublisher`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/ImplicitBindings.java`
+Can generalize to `? extends T`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtensions.java`
 #### Snippet
 ```java
-    // ----------------------------------------------------------------------
-
-    ImplicitBindings( final Iterable<BindingPublisher> publishers )
+     * @return List of extension types
+     */
+    public <T> List<Class<? extends T>> load( final Class<T> spi )
     {
-        this.publishers = publishers;
+        final String index = "META-INF/services/" + spi.getName();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtensions.java`
+#### Snippet
+```java
+     * @return List of extensions
+     */
+    public <T, C> List<T> create( final Class<T> spi, final Class<C> contextType, final C context )
+    {
+        final List<T> extensions = new ArrayList<T>();
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildElements.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        Soft( final T value, final ReferenceQueue<T> queue, final int index )
+        {
+            super( value, queue );
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildElements.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        Weak( final T value, final ReferenceQueue<T> queue, final int index )
+        {
+            super( value, queue );
+```
+
+### BoundedWildcard
+Can generalize to `? extends Module`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/WireModule.java`
+#### Snippet
+```java
+    }
+
+    public WireModule( final Iterable<Module> modules )
+    {
+        this.modules = modules;
 ```
 
 ### BoundedWildcard
@@ -871,99 +907,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/NamedIterableAda
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtensions.java`
+Can generalize to `? extends Module`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/MergedModule.java`
 #### Snippet
 ```java
-     * @return List of extensions
-     */
-    public <T, C> List<T> create( final Class<T> spi, final Class<C> contextType, final C context )
+    }
+
+    public MergedModule( final Iterable<Module> modules )
     {
-        final List<T> extensions = new ArrayList<T>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtensions.java`
-#### Snippet
-```java
-     * @return List of extension types
-     */
-    public <T> List<Class<? extends T>> load( final Class<T> spi )
-    {
-        final String index = "META-INF/services/" + spi.getName();
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        StrongEntry( final Entry<K, Reference<V>> entry, final V value )
-        {
-            this.entry = entry;
-```
-
-### BoundedWildcard
-Can generalize to `? super Reference`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        StrongEntry( final Entry<K, Reference<V>> entry, final V value )
-        {
-            this.entry = entry;
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/ProviderIterableAdapter.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        ProviderEntry( final BeanEntry<K, V> entry )
-        {
-            this.entry = entry;
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrentValues.java`
-#### Snippet
-```java
-    // ----------------------------------------------------------------------
-
-    MildConcurrentValues( final ConcurrentMap<K, Reference<V>> map, final boolean soft )
-    {
-        super( map, soft );
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildElements.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        Weak( final T value, final ReferenceQueue<T> queue, final int index )
-        {
-            super( value, queue );
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildElements.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        Soft( final T value, final ReferenceQueue<T> queue, final int index )
-        {
-            super( value, queue );
+        this.modules = modules;
 ```
 
 ### BoundedWildcard
@@ -976,6 +928,30 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrent
     MildConcurrentKeys( final ConcurrentMap<Reference<K>, V> map, final boolean soft )
     {
         super( map, soft );
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        StrongEntry( final Entry<K, Reference<V>> entry, final V value )
+        {
+            this.entry = entry;
+```
+
+### BoundedWildcard
+Can generalize to `? super Reference`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        StrongEntry( final Entry<K, Reference<V>> entry, final V value )
+        {
+            this.entry = entry;
 ```
 
 ### BoundedWildcard
@@ -1003,15 +979,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/WatchedBeans.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Module`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/ChildWireModule.java`
+Can generalize to `? super K`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrentValues.java`
 #### Snippet
 ```java
-    }
+    // ----------------------------------------------------------------------
 
-    public ChildWireModule( final Injector parent, final Iterable<Module> modules )
+    MildConcurrentValues( final ConcurrentMap<K, Reference<V>> map, final boolean soft )
     {
-        this.modules = modules;
+        super( map, soft );
 ```
 
 ### BoundedWildcard
@@ -1024,6 +1000,42 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildKeys.java`
     MildKeys( final Map<Reference<K>, V> map, final boolean soft )
     {
         this.map = map;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BindingPublisher`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/ImplicitBindings.java`
+#### Snippet
+```java
+    // ----------------------------------------------------------------------
+
+    ImplicitBindings( final Iterable<BindingPublisher> publishers )
+    {
+        this.publishers = publishers;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Module`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/ChildWireModule.java`
+#### Snippet
+```java
+    }
+
+    public ChildWireModule( final Injector parent, final Iterable<Module> modules )
+    {
+        this.modules = modules;
+```
+
+### BoundedWildcard
+Can generalize to `? extends org.sonatype.inject.Mediator`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
+#### Snippet
+```java
+
+    @SuppressWarnings( "deprecation" )
+    private void registerLegacyMediator( final Class<org.sonatype.inject.Mediator> mediatorType )
+    {
+        final TypeLiteral<?>[] args = resolveTypeArguments( mediatorType, org.sonatype.inject.Mediator.class );
 ```
 
 ### BoundedWildcard
@@ -1048,18 +1060,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBi
     private void registerMediator( final Class<Mediator> mediatorType )
     {
         final TypeLiteral<?>[] args = resolveTypeArguments( mediatorType, Mediator.class );
-```
-
-### BoundedWildcard
-Can generalize to `? extends org.sonatype.inject.Mediator`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
-#### Snippet
-```java
-
-    @SuppressWarnings( "deprecation" )
-    private void registerLegacyMediator( final Class<org.sonatype.inject.Mediator> mediatorType )
-    {
-        final TypeLiteral<?>[] args = resolveTypeArguments( mediatorType, org.sonatype.inject.Mediator.class );
 ```
 
 ### BoundedWildcard
@@ -1142,7 +1142,7 @@ Unnecessary boxing
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DependencyAnalyzer.java`
 #### Snippet
 ```java
-    public Boolean visit( final StaticInjectionRequest request )
+    public Boolean visit( final InjectionRequest<?> request )
     {
         return Boolean.valueOf( analyzeInjectionPoints( request.getInjectionPoints() ) );
     }
@@ -1166,11 +1166,11 @@ Unnecessary boxing
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DependencyAnalyzer.java`
 #### Snippet
 ```java
-        if ( binding instanceof HasDependencies )
-        {
-            return Boolean.valueOf( analyzeDependencies( ( (HasDependencies) binding ).getDependencies() ) );
-        }
-        return Boolean.TRUE;
+    public Boolean visit( final StaticInjectionRequest request )
+    {
+        return Boolean.valueOf( analyzeInjectionPoints( request.getInjectionPoints() ) );
+    }
+
 ```
 
 ### UnnecessaryBoxing
@@ -1178,60 +1178,11 @@ Unnecessary boxing
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DependencyAnalyzer.java`
 #### Snippet
 ```java
-    public Boolean visit( final InjectionRequest<?> request )
-    {
-        return Boolean.valueOf( analyzeInjectionPoints( request.getInjectionPoints() ) );
-    }
-
-```
-
-## RuleId[ruleID=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
-#### Snippet
-```java
-        if ( parent.isDirectory() || parent.mkdirs() )
+        if ( binding instanceof HasDependencies )
         {
-            return new OutputStreamWriter( new FileOutputStream( index ), "UTF-8" );
+            return Boolean.valueOf( analyzeDependencies( ( (HasDependencies) binding ).getDependencies() ) );
         }
-        throw new IOException( "Error creating: " + parent );
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
-#### Snippet
-```java
-        throws IOException
-    {
-        return new InputStreamReader( new FileInputStream( new File( targetDirectory, path ) ), "UTF-8" );
-    }
-
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/IndexedClassFinder.java`
-#### Snippet
-```java
-            {
-                final BufferedReader reader =
-                    new BufferedReader( new InputStreamReader( Streams.open( url ), "UTF-8" ) );
-                try
-                {
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
-#### Snippet
-```java
-    {
-        final FileObject file = environment.getFiler().getResource( StandardLocation.CLASS_OUTPUT, "", path );
-        return new InputStreamReader( file.openInputStream(), "UTF-8" );
-    }
-
+        return Boolean.TRUE;
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -1243,6 +1194,30 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
         public void debug( final String message, final Throwable cause )
         {
             System.out.println( DEBUG + message );
+            if ( null != cause )
+            {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+            if ( null != cause )
+            {
+                cause.printStackTrace( System.out );
+            }
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+        public void trace( final String message, final Throwable cause )
+        {
+            System.out.println( TRACE + message );
             if ( null != cause )
             {
 ```
@@ -1285,26 +1260,14 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
 #### Snippet
 ```java
-        public void trace( final String message, final Throwable cause )
-        {
-            System.out.println( TRACE + message );
-            if ( null != cause )
-            {
-```
+    protected void info( final String message )
+    {
+        System.out.println( "[INFO] " + message );
+    }
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
-#### Snippet
-```java
-            if ( null != cause )
-            {
-                cause.printStackTrace( System.out );
-            }
-        }
 ```
 
 ### SystemOutErr
@@ -1319,16 +1282,53 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
 
 ```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
+## RuleId[ruleID=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
+#### Snippet
+```java
+    {
+        final FileObject file = environment.getFiler().getResource( StandardLocation.CLASS_OUTPUT, "", path );
+        return new InputStreamReader( file.openInputStream(), "UTF-8" );
+    }
+
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
 #### Snippet
 ```java
-    protected void info( final String message )
+        throws IOException
     {
-        System.out.println( "[INFO] " + message );
+        return new InputStreamReader( new FileInputStream( new File( targetDirectory, path ) ), "UTF-8" );
     }
 
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
+#### Snippet
+```java
+        if ( parent.isDirectory() || parent.mkdirs() )
+        {
+            return new OutputStreamWriter( new FileOutputStream( index ), "UTF-8" );
+        }
+        throw new IOException( "Error creating: " + parent );
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/IndexedClassFinder.java`
+#### Snippet
+```java
+            {
+                final BufferedReader reader =
+                    new BufferedReader( new InputStreamReader( Streams.open( url ), "UTF-8" ) );
+                try
+                {
 ```
 
 ## RuleId[ruleID=UnnecessaryUnboxing]
@@ -1378,42 +1378,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/AnnotationW
       annotation.put12('S', symbolTable.addConstantInteger(((Short) value).shortValue()).index);
     } else if (value instanceof Type) {
       annotation.put12('c', symbolTable.addConstantUtf8(((Type) value).getDescriptor()));
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
-#### Snippet
-```java
-  static int getAbstractTypeFromApiFormat(final SymbolTable symbolTable, final Object type) {
-    if (type instanceof Integer) {
-      return CONSTANT_KIND | ((Integer) type).intValue();
-    } else if (type instanceof String) {
-      String descriptor = Type.getObjectType((String) type).getDescriptor();
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.java`
-#### Snippet
-```java
-    {
-        final Object ranking = reference.getProperty( Constants.SERVICE_RANKING );
-        return ranking instanceof Integer ? ( (Integer) ranking ).intValue() : 0;
-    }
-}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifierCache.java`
-#### Snippet
-```java
-            return isQualified;
-        }
-        return result.booleanValue();
-    }
-
 ```
 
 ### UnnecessaryUnboxing
@@ -1490,6 +1454,42 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/SymbolTable
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.java`
+#### Snippet
+```java
+    {
+        final Object ranking = reference.getProperty( Constants.SERVICE_RANKING );
+        return ranking instanceof Integer ? ( (Integer) ranking ).intValue() : 0;
+    }
+}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifierCache.java`
+#### Snippet
+```java
+            return isQualified;
+        }
+        return result.booleanValue();
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
+#### Snippet
+```java
+  static int getAbstractTypeFromApiFormat(final SymbolTable symbolTable, final Object type) {
+    if (type instanceof Integer) {
+      return CONSTANT_KIND | ((Integer) type).intValue();
+    } else if (type instanceof String) {
+      String descriptor = Type.getObjectType((String) type).getDescriptor();
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
 #### Snippet
 ```java
@@ -1514,18 +1514,6 @@ public interface BeanEntry<Q extends Annotation, T>
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `Weak` is the same as one of its superclass' names
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
-#### Snippet
-```java
-     * Weak value with an {@link InverseMapping} back to its key.
-     */
-    private static final class Weak<K, V>
-        extends MildKeys.Weak<V>
-        implements InverseMapping
-```
-
-### ClassNameSameAsAncestorName
 Class name `Soft` is the same as one of its superclass' names
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
 #### Snippet
@@ -1534,6 +1522,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.jav
      */
     private static final class Soft<K, V>
         extends MildKeys.Soft<V>
+        implements InverseMapping
+```
+
+### ClassNameSameAsAncestorName
+Class name `Weak` is the same as one of its superclass' names
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
+#### Snippet
+```java
+     * Weak value with an {@link InverseMapping} back to its key.
+     */
+    private static final class Weak<K, V>
+        extends MildKeys.Weak<V>
         implements InverseMapping
 ```
 
@@ -1552,30 +1552,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.sisu.space.asm` is unnecessary and can be removed
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassTooLargeException.java`
-#### Snippet
-```java
-   *
-   * @param className the internal name of the class (see {@link
-   *     org.eclipse.sisu.space.asm.Type#getInternalName()}).
-   * @param constantPoolCount the number of constant pool items of the class.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.sisu.space.asm` is unnecessary and can be removed
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassTooLargeException.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the internal name of the class (see {@link org.eclipse.sisu.space.asm.Type#getInternalName()}).
-   *
-   * @return the internal name of the class.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.google.inject` is unnecessary and can be removed
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/BeanProviders.java`
 #### Snippet
@@ -1588,15 +1564,39 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/BeanProviders.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.sisu.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/LocatorWiring.java`
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
 #### Snippet
 ```java
-
-            return BeanEntry.class == entryType.getRawType() ? beanEntries
-                                                             : org.eclipse.sisu.inject.Legacy.adapt( beanEntries );
+        if ( HAS_QUALIFIER )
+        {
+            return null != anno.getAnnotation( javax.inject.Qualifier.class );
         }
-        return null;
+        for ( final AnnotationMirror mirror : anno.getAnnotationMirrors() )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
+#### Snippet
+```java
+        try
+        {
+            hasQualifier = javax.inject.Qualifier.class.isAnnotation();
+        }
+        catch ( final LinkageError e )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.spi` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
+#### Snippet
+```java
+        {
+            // in Guice4 binding.getSource() returns ElementSource and not the original declaring source
+            hasDeclaringSource = com.google.inject.spi.ElementSource.class.getMethod( "getDeclaringSource" ) != null; // NOSONAR
+        }
+        catch ( final Exception e )
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1624,15 +1624,27 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.spi` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
+Qualifier `org.eclipse.sisu.space.asm` is unnecessary and can be removed
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassTooLargeException.java`
 #### Snippet
 ```java
-        {
-            // in Guice4 binding.getSource() returns ElementSource and not the original declaring source
-            hasDeclaringSource = com.google.inject.spi.ElementSource.class.getMethod( "getDeclaringSource" ) != null; // NOSONAR
-        }
-        catch ( final Exception e )
+   *
+   * @param className the internal name of the class (see {@link
+   *     org.eclipse.sisu.space.asm.Type#getInternalName()}).
+   * @param constantPoolCount the number of constant pool items of the class.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.sisu.space.asm` is unnecessary and can be removed
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassTooLargeException.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the internal name of the class (see {@link org.eclipse.sisu.space.asm.Type#getInternalName()}).
+   *
+   * @return the internal name of the class.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1645,6 +1657,198 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/BeanScanning.ja
  * @see org.eclipse.sisu.space.SpaceModule
  */
 public enum BeanScanning
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+#### Snippet
+```java
+        }
+
+        public Class<?> visit( final com.google.inject.servlet.LinkedFilterBinding binding )
+        {
+            // this assumes only one level of indirection: api-->impl
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+#### Snippet
+```java
+        }
+
+        public Class<?> visit( final com.google.inject.servlet.InstanceServletBinding binding )
+        {
+            return binding.getServletInstance().getClass();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+#### Snippet
+```java
+        }
+
+        public Class<?> visit( final com.google.inject.servlet.LinkedServletBinding binding )
+        {
+            // this assumes only one level of indirection: api-->impl
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        public Class<?> visit( final com.google.inject.servlet.InstanceFilterBinding binding )
+        {
+            return binding.getFilterInstance().getClass();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+#### Snippet
+```java
+    static final class ServletFinder
+        extends ProviderFinder
+        implements com.google.inject.servlet.ServletModuleTargetVisitor<Object, Class<?>>
+    {
+        // ----------------------------------------------------------------------
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger( SISU );
+
+        // ----------------------------------------------------------------------
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger( SISU );
+
+        // ----------------------------------------------------------------------
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.logging` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger( SISU );
+
+        // ----------------------------------------------------------------------
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.logging` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger( SISU );
+
+        // ----------------------------------------------------------------------
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.name` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
+#### Snippet
+```java
+        // ----------------------------------------------------------------------
+
+        JsrNamed( final com.google.inject.name.Named named )
+        {
+            value = named.value();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
+#### Snippet
+```java
+        public Class<? extends Annotation> annotationType()
+        {
+            return javax.inject.Named.class;
+        }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
+#### Snippet
+```java
+        public String toString()
+        {
+            return "@" + javax.inject.Named.class.getName() + "(value=" + value + ")";
+        }
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.name` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
+#### Snippet
+```java
+    LazyBeanEntry( final Q qualifier, final Binding<T> binding, final int rank )
+    {
+        if ( null != qualifier && com.google.inject.name.Named.class == qualifier.annotationType() )
+        {
+            this.qualifier = (Q) new JsrNamed( (com.google.inject.name.Named) qualifier );
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.name` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
+#### Snippet
+```java
+        if ( null != qualifier && com.google.inject.name.Named.class == qualifier.annotationType() )
+        {
+            this.qualifier = (Q) new JsrNamed( (com.google.inject.name.Named) qualifier );
+        }
+        else
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.name` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
+#### Snippet
+```java
+     */
+    private static final class JsrNamed
+        implements com.google.inject.name.Named, javax.inject.Named
+    {
+        // ----------------------------------------------------------------------
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
+#### Snippet
+```java
+     */
+    private static final class JsrNamed
+        implements com.google.inject.name.Named, javax.inject.Named
+    {
+        // ----------------------------------------------------------------------
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1696,171 +1900,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.name` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
+Qualifier `org.eclipse.sisu.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/LocatorWiring.java`
 #### Snippet
 ```java
-    LazyBeanEntry( final Q qualifier, final Binding<T> binding, final int rank )
-    {
-        if ( null != qualifier && com.google.inject.name.Named.class == qualifier.annotationType() )
-        {
-            this.qualifier = (Q) new JsrNamed( (com.google.inject.name.Named) qualifier );
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.name` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
-#### Snippet
-```java
-        if ( null != qualifier && com.google.inject.name.Named.class == qualifier.annotationType() )
-        {
-            this.qualifier = (Q) new JsrNamed( (com.google.inject.name.Named) qualifier );
+            return BeanEntry.class == entryType.getRawType() ? beanEntries
+                                                             : org.eclipse.sisu.inject.Legacy.adapt( beanEntries );
         }
-        else
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
-#### Snippet
-```java
-        public Class<? extends Annotation> annotationType()
-        {
-            return javax.inject.Named.class;
-        }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.name` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        JsrNamed( final com.google.inject.name.Named named )
-        {
-            value = named.value();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.name` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
-#### Snippet
-```java
-     */
-    private static final class JsrNamed
-        implements com.google.inject.name.Named, javax.inject.Named
-    {
-        // ----------------------------------------------------------------------
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
-#### Snippet
-```java
-     */
-    private static final class JsrNamed
-        implements com.google.inject.name.Named, javax.inject.Named
-    {
-        // ----------------------------------------------------------------------
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.java`
-#### Snippet
-```java
-        public String toString()
-        {
-            return "@" + javax.inject.Named.class.getName() + "(value=" + value + ")";
-        }
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger( SISU );
-
-        // ----------------------------------------------------------------------
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger( SISU );
-
-        // ----------------------------------------------------------------------
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.logging` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger( SISU );
-
-        // ----------------------------------------------------------------------
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.logging` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger( SISU );
-
-        // ----------------------------------------------------------------------
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/DeclaredMembers.java`
-#### Snippet
-```java
-                }
-
-                if ( null == clazz || clazz == java.lang.Object.class )
-                {
-                    return false;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
-#### Snippet
-```java
-        if ( HAS_QUALIFIER )
-        {
-            return null != anno.getAnnotation( javax.inject.Qualifier.class );
-        }
-        for ( final AnnotationMirror mirror : anno.getAnnotationMirrors() )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
-#### Snippet
-```java
-        try
-        {
-            hasQualifier = javax.inject.Qualifier.class.isAnnotation();
-        }
-        catch ( final LinkageError e )
+        return null;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1873,42 +1921,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DependencyAnalyz
             if ( javax.inject.Provider.class == clazz || com.google.inject.Provider.class == clazz )
             {
                 requireKey( key.ofType( TypeArguments.get( key.getTypeLiteral(), 0 ) ) );
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanListener.java`
-#### Snippet
-```java
-        for ( final BeanProperty<?> property : new BeanProperties( type.getRawType() ) )
-        {
-            if ( property.getAnnotation( javax.inject.Inject.class ) != null
-                || property.getAnnotation( com.google.inject.Inject.class ) != null )
-            {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanListener.java`
-#### Snippet
-```java
-        {
-            if ( property.getAnnotation( javax.inject.Inject.class ) != null
-                || property.getAnnotation( com.google.inject.Inject.class ) != null )
-            {
-                continue; // these properties will have already been injected by Guice
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.spi` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanScheduler.java`
-#### Snippet
-```java
-     */
-    static final class CycleActivator
-        implements com.google.inject.spi.ProvisionListener
-    {
-        private static final BindingScopingVisitor<Boolean> IS_SCOPED = new DefaultBindingScopingVisitor<Boolean>()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1936,99 +1948,51 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanScheduler.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+Qualifier `com.google.inject.spi` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanScheduler.java`
 #### Snippet
 ```java
-    static final class ServletFinder
-        extends ProviderFinder
-        implements com.google.inject.servlet.ServletModuleTargetVisitor<Object, Class<?>>
+     */
+    static final class CycleActivator
+        implements com.google.inject.spi.ProvisionListener
     {
-        // ----------------------------------------------------------------------
+        private static final BindingScopingVisitor<Boolean> IS_SCOPED = new DefaultBindingScopingVisitor<Boolean>()
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanListener.java`
 #### Snippet
 ```java
-        }
-
-        public Class<?> visit( final com.google.inject.servlet.InstanceServletBinding binding )
+        for ( final BeanProperty<?> property : new BeanProperties( type.getRawType() ) )
         {
-            return binding.getServletInstance().getClass();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
-#### Snippet
-```java
-        }
-
-        public Class<?> visit( final com.google.inject.servlet.LinkedServletBinding binding )
-        {
-            // this assumes only one level of indirection: api-->impl
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
-#### Snippet
-```java
-        }
-
-        public Class<?> visit( final com.google.inject.servlet.LinkedFilterBinding binding )
-        {
-            // this assumes only one level of indirection: api-->impl
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.servlet` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
-#### Snippet
-```java
-        // ----------------------------------------------------------------------
-
-        public Class<?> visit( final com.google.inject.servlet.InstanceFilterBinding binding )
-        {
-            return binding.getFilterInstance().getClass();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.enterprise.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
-#### Snippet
-```java
-        try
-        {
-            hasJsr299Typed = javax.enterprise.inject.Typed.class.isAnnotation();
-        }
-        catch ( final LinkageError e )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.enterprise.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
-#### Snippet
-```java
-            if ( HAS_JSR299_TYPED )
+            if ( property.getAnnotation( javax.inject.Inject.class ) != null
+                || property.getAnnotation( com.google.inject.Inject.class ) != null )
             {
-                final javax.enterprise.inject.Typed typed = c.getAnnotation( javax.enterprise.inject.Typed.class );
-                if ( null != typed )
-                {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.enterprise.inject` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
+Qualifier `com.google.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanListener.java`
 #### Snippet
 ```java
-            if ( HAS_JSR299_TYPED )
+        {
+            if ( property.getAnnotation( javax.inject.Inject.class ) != null
+                || property.getAnnotation( com.google.inject.Inject.class ) != null )
             {
-                final javax.enterprise.inject.Typed typed = c.getAnnotation( javax.enterprise.inject.Typed.class );
-                if ( null != typed )
+                continue; // these properties will have already been injected by Guice
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/DeclaredMembers.java`
+#### Snippet
+```java
+                }
+
+                if ( null == clazz || clazz == java.lang.Object.class )
                 {
+                    return false;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2036,35 +2000,23 @@ Qualifier `org.eclipse.sisu` is unnecessary, and can be replaced with an import
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
 #### Snippet
 ```java
-                }
-            }
-            final org.eclipse.sisu.Typed typed = c.getAnnotation( org.eclipse.sisu.Typed.class );
-            if ( null != typed )
-            {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.sisu` is unnecessary, and can be replaced with an import
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
-#### Snippet
-```java
-                }
-            }
-            final org.eclipse.sisu.Typed typed = c.getAnnotation( org.eclipse.sisu.Typed.class );
-            if ( null != typed )
-            {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary and can be removed
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
-#### Snippet
-```java
-    private void bindProviderType( final Class<?> providerType )
+    private static boolean isEagerSingleton( final Class<?> type )
     {
-        final TypeLiteral[] args = resolveTypeArguments( providerType, javax.inject.Provider.class );
-        if ( args.length != 1 )
-        {
+        return type.isAnnotationPresent( org.eclipse.sisu.EagerSingleton.class )
+            || type.isAnnotationPresent( org.sonatype.inject.EagerSingleton.class );
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.sonatype.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
+#### Snippet
+```java
+    {
+        return type.isAnnotationPresent( org.eclipse.sisu.EagerSingleton.class )
+            || type.isAnnotationPresent( org.sonatype.inject.EagerSingleton.class );
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2104,27 +2056,75 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBi
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.enterprise.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
+#### Snippet
+```java
+            if ( HAS_JSR299_TYPED )
+            {
+                final javax.enterprise.inject.Typed typed = c.getAnnotation( javax.enterprise.inject.Typed.class );
+                if ( null != typed )
+                {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.enterprise.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
+#### Snippet
+```java
+            if ( HAS_JSR299_TYPED )
+            {
+                final javax.enterprise.inject.Typed typed = c.getAnnotation( javax.enterprise.inject.Typed.class );
+                if ( null != typed )
+                {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.sisu` is unnecessary, and can be replaced with an import
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
 #### Snippet
 ```java
-    private static boolean isEagerSingleton( final Class<?> type )
-    {
-        return type.isAnnotationPresent( org.eclipse.sisu.EagerSingleton.class )
-            || type.isAnnotationPresent( org.sonatype.inject.EagerSingleton.class );
-    }
+                }
+            }
+            final org.eclipse.sisu.Typed typed = c.getAnnotation( org.eclipse.sisu.Typed.class );
+            if ( null != typed )
+            {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.sonatype.inject` is unnecessary, and can be replaced with an import
+Qualifier `org.eclipse.sisu` is unnecessary, and can be replaced with an import
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
 #### Snippet
 ```java
-    {
-        return type.isAnnotationPresent( org.eclipse.sisu.EagerSingleton.class )
-            || type.isAnnotationPresent( org.sonatype.inject.EagerSingleton.class );
-    }
+                }
+            }
+            final org.eclipse.sisu.Typed typed = c.getAnnotation( org.eclipse.sisu.Typed.class );
+            if ( null != typed )
+            {
+```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.enterprise.inject` is unnecessary, and can be replaced with an import
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
+#### Snippet
+```java
+        try
+        {
+            hasJsr299Typed = javax.enterprise.inject.Typed.class.isAnnotation();
+        }
+        catch ( final LinkageError e )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary and can be removed
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
+#### Snippet
+```java
+    private void bindProviderType( final Class<?> providerType )
+    {
+        final TypeLiteral[] args = resolveTypeArguments( providerType, javax.inject.Provider.class );
+        if ( args.length != 1 )
+        {
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -2140,511 +2140,7 @@ import org.eclipse.sisu.space.GlobberStrategy;
 import org.eclipse.sisu.space.Tokens;
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`slot = slot + t.getSize()` could be simplified to 'slot += t.getSize()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DynamicGlue.java`
-#### Snippet
-```java
-            {
-                v.visitVarInsn( t.getOpcode( Opcodes.ILOAD ), slot );
-                slot = slot + t.getSize();
-            }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`slot = slot + t.getSize()` could be simplified to 'slot += t.getSize()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DynamicGlue.java`
-#### Snippet
-```java
-            {
-                v.visitVarInsn( t.getOpcode( Opcodes.ILOAD ), slot );
-                slot = slot + t.getSize();
-            }
-
-```
-
 ## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
-#### Snippet
-```java
-      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastRuntimeInvisibleTypeAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
-#### Snippet
-```java
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastRuntimeInvisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeInvisibleTypeAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
-#### Snippet
-```java
-  public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
-#### Snippet
-```java
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtender.java`
-#### Snippet
-```java
-        if ( null == locator )
-        {
-            locators.put( extenderId, locator = createLocator( context ) );
-        }
-        return locator;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
-#### Snippet
-```java
-        }
-        int x = 0, y, expressionEnd = 0, expressionNum = 0;
-        while ( ( x = buf.indexOf( "${", x ) ) >= 0 && ( y = buf.indexOf( "}", x ) + 1 ) > 0 )
-        {
-            if ( y > expressionEnd ) // making progress
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
-#### Snippet
-```java
-        }
-        int x = 0, y, expressionEnd = 0, expressionNum = 0;
-        while ( ( x = buf.indexOf( "${", x ) ) >= 0 && ( y = buf.indexOf( "}", x ) + 1 ) > 0 )
-        {
-            if ( y > expressionEnd ) // making progress
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LocatedBeans.java`
-#### Snippet
-```java
-            {
-                final Binding<T> binding = itr.next();
-                if ( null != readCache && null != ( nextBean = readCache.get( binding ) ) )
-                {
-                    return true;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
-#### Snippet
-```java
-        // If this local has never been assigned in this basic block, so it is still equal to its
-        // value in the input frame.
-        abstractType = outputLocals[localIndex] = LOCAL_KIND | localIndex;
-      }
-      return abstractType;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/LifecycleManager.java`
-#### Snippet
-```java
-    public boolean unmanage()
-    {
-        for ( Object bean; ( bean = popStoppable() ) != null; )
-        {
-            lifecycleFor( bean ).stop( bean );
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastRuntimeInvisibleTypeAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastRuntimeInvisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeInvisibleTypeAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-      lastField.fv = fieldWriter;
-    }
-    return lastField = fieldWriter;
-  }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-  public final AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-      lastRecordComponent.delegate = recordComponentWriter;
-    }
-    return lastRecordComponent = recordComponentWriter;
-  }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-  public final ModuleVisitor visitModule(
-      final String name, final int access, final String version) {
-    return moduleWriter =
-        new ModuleWriter(
-            symbolTable,
-            symbolTable.addConstantModule(name).index,
-            access,
-            version == null ? 0 : symbolTable.addConstantUtf8(version));
-  }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-      lastMethod.mv = methodWriter;
-    }
-    return lastMethod = methodWriter;
-  }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
-#### Snippet
-```java
-    void compact()
-    {
-        for ( Reference<? extends V> ref; ( ref = queue.poll() ) != null; )
-        {
-            // only remove this specific key-value mapping
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrentValues.java`
-#### Snippet
-```java
-    void compact()
-    {
-        for ( Reference<? extends V> ref; ( ref = queue.poll() ) != null; )
-        {
-            // only remove this specific key-value mapping; thread-safe
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrentValues.java`
-#### Snippet
-```java
-         * We must either add our value to the map, or return a non-null existing value.
-         */
-        for ( Reference<V> oldRef; ( oldRef = concurrentMap.putIfAbsent( key, ref ) ) != null; )
-        {
-            final V oldValue = oldRef.get();
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildElements.java`
-#### Snippet
-```java
-    private void compact()
-    {
-        for ( Reference<? extends T> ref; ( ref = queue.poll() ) != null; )
-        {
-            evict( ref );
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
-#### Snippet
-```java
-        {
-            final int index;
-            if ( null == ( o = content ) || ( index = o.indexOfThis( element ) ) < 0 )
-            {
-                return false;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
-#### Snippet
-```java
-        {
-            final int index;
-            if ( null == ( o = content ) || ( index = o.indexOfThis( element ) ) < 0 )
-            {
-                return false;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
-#### Snippet
-```java
-        do
-        {
-            n = null != ( o = content ) ? o.insert( element, rank ) : new Content( element, rank );
-        }
-        while ( !CONTENT_UPDATER.compareAndSet( this, o, n ) );
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
-#### Snippet
-```java
-        do
-        {
-            if ( null == ( o = content ) || ( index = o.indexOf( element ) ) < 0 )
-            {
-                return null;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
-#### Snippet
-```java
-        do
-        {
-            if ( null == ( o = content ) || ( index = o.indexOf( element ) ) < 0 )
-            {
-                return null;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-            {
-                // most common case: adding the one (and-only) entry
-                n = newBean = new LazyBeanEntry( qualifier, binding, rank );
-            }
-            else if ( o instanceof LazyBeanEntry )
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-                    return oldBean;
-                }
-                n = createMap( oldBean, newBean = new LazyBeanEntry( qualifier, binding, rank ) );
-            }
-            else
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-                {
-                    final Map<Binding, LazyBeanEntry> map = (Map) o;
-                    if ( null == ( newBean = map.get( binding ) ) )
-                    {
-                        map.put( binding, newBean = new LazyBeanEntry( qualifier, binding, rank ) );
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-                    if ( null == ( newBean = map.get( binding ) ) )
-                    {
-                        map.put( binding, newBean = new LazyBeanEntry( qualifier, binding, rank ) );
-                        mutated = true;
-                    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DefaultBeanLocator.java`
-#### Snippet
-```java
-
-        RankedBindings result;
-        while ( null != ( result = cachedBindings.get( id ) ) && !type.equals( result.type() ) )
-        {
-            id++; // collision! (should be very rare) ... resort to linear scan from base id
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
-#### Snippet
-```java
-      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastRuntimeInvisibleTypeAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
-#### Snippet
-```java
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastRuntimeInvisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeInvisibleTypeAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
-#### Snippet
-```java
-  public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
-#### Snippet
-```java
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildKeys.java`
-#### Snippet
-```java
-    final void compact()
-    {
-        for ( Reference<? extends K> ref; ( ref = queue.poll() ) != null; )
-        {
-            map.remove( ref );
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanScheduler.java`
-#### Snippet
-```java
-                if ( null == holder )
-                {
-                    pendingHolder.set( holder = new Object[1] );
-                }
-                if ( null == holder[0] )
-```
-
 ### NestedAssignment
 Result of assignment expression used
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/SymbolTable.java`
@@ -2671,64 +2167,50 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/SymbolTable
 
 ### NestedAssignment
 Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LocatedBeans.java`
 #### Snippet
 ```java
-      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastCodeRuntimeVisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
+            {
+                final Binding<T> binding = itr.next();
+                if ( null != readCache && null != ( nextBean = readCache.get( binding ) ) )
+                {
+                    return true;
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildElements.java`
 #### Snippet
 ```java
-              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeInvisibleTypeAnnotation);
-    }
-  }
+    private void compact()
+    {
+        for ( Reference<? extends T> ref; ( ref = queue.poll() ) != null; )
+        {
+            evict( ref );
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtender.java`
 #### Snippet
 ```java
-    typeAnnotation.putShort(symbolTable.addConstantUtf8(descriptor)).putShort(0);
-    if (visible) {
-      return lastCodeRuntimeVisibleTypeAnnotation =
-          new AnnotationWriter(
-              symbolTable,
-              /* useNamedValues = */ true,
-              typeAnnotation,
-              lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
+        if ( null == locator )
+        {
+            locators.put( extenderId, locator = createLocator( context ) );
+        }
+        return locator;
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
 #### Snippet
 ```java
-              lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
-          new AnnotationWriter(
-              symbolTable,
-              /* useNamedValues = */ true,
-              typeAnnotation,
-              lastCodeRuntimeInvisibleTypeAnnotation);
-    }
-  }
+        // If this local has never been assigned in this basic block, so it is still equal to its
+        // value in the input frame.
+        abstractType = outputLocals[localIndex] = LOCAL_KIND | localIndex;
+      }
+      return abstractType;
 ```
 
 ### NestedAssignment
@@ -2763,32 +2245,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
               typePath,
               descriptor,
               lastCodeRuntimeInvisibleTypeAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
-#### Snippet
-```java
-  public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
-#### Snippet
-```java
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
     }
   }
 ```
@@ -2856,23 +2312,99 @@ Result of assignment expression used
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
 #### Snippet
 ```java
+    typeAnnotation.putShort(symbolTable.addConstantUtf8(descriptor)).putShort(0);
+    if (visible) {
+      return lastCodeRuntimeVisibleTypeAnnotation =
+          new AnnotationWriter(
+              symbolTable,
+              /* useNamedValues = */ true,
+              typeAnnotation,
+              lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+              lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+          new AnnotationWriter(
+              symbolTable,
+              /* useNamedValues = */ true,
+              typeAnnotation,
+              lastCodeRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastCodeRuntimeVisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+  public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
             || constantSymbol.tag == Symbol.CONSTANT_DOUBLE_TAG
             || (constantSymbol.tag == Symbol.CONSTANT_DYNAMIC_TAG
                 && ((firstDescriptorChar = constantSymbol.value.charAt(0)) == 'J'
                     || firstDescriptorChar == 'D'));
     if (isLongOrDouble) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
-#### Snippet
-```java
-    final int bytecodeStartOffset = currentOffset;
-    final int bytecodeEndOffset = currentOffset + codeLength;
-    final Label[] labels = context.currentMethodLabels = new Label[codeLength + 1];
-    while (currentOffset < bytecodeEndOffset) {
-      final int bytecodeOffset = currentOffset - bytecodeStartOffset;
 ```
 
 ### NestedAssignment
@@ -2906,11 +2438,479 @@ Result of assignment expression used
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
 #### Snippet
 ```java
+    final int bytecodeStartOffset = currentOffset;
+    final int bytecodeEndOffset = currentOffset + codeLength;
+    final Label[] labels = context.currentMethodLabels = new Label[codeLength + 1];
+    while (currentOffset < bytecodeEndOffset) {
+      final int bytecodeOffset = currentOffset - bytecodeStartOffset;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
+#### Snippet
+```java
       int bytesRead;
       int readCount = 0;
       while ((bytesRead = inputStream.read(data, 0, bufferSize)) != -1) {
         outputStream.write(data, 0, bytesRead);
         readCount++;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/LifecycleManager.java`
+#### Snippet
+```java
+    public boolean unmanage()
+    {
+        for ( Object bean; ( bean = popStoppable() ) != null; )
+        {
+            lifecycleFor( bean ).stop( bean );
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
+#### Snippet
+```java
+    void compact()
+    {
+        for ( Reference<? extends V> ref; ( ref = queue.poll() ) != null; )
+        {
+            // only remove this specific key-value mapping
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+            {
+                // most common case: adding the one (and-only) entry
+                n = newBean = new LazyBeanEntry( qualifier, binding, rank );
+            }
+            else if ( o instanceof LazyBeanEntry )
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+                    return oldBean;
+                }
+                n = createMap( oldBean, newBean = new LazyBeanEntry( qualifier, binding, rank ) );
+            }
+            else
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+                {
+                    final Map<Binding, LazyBeanEntry> map = (Map) o;
+                    if ( null == ( newBean = map.get( binding ) ) )
+                    {
+                        map.put( binding, newBean = new LazyBeanEntry( qualifier, binding, rank ) );
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+                    if ( null == ( newBean = map.get( binding ) ) )
+                    {
+                        map.put( binding, newBean = new LazyBeanEntry( qualifier, binding, rank ) );
+                        mutated = true;
+                    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrentValues.java`
+#### Snippet
+```java
+    void compact()
+    {
+        for ( Reference<? extends V> ref; ( ref = queue.poll() ) != null; )
+        {
+            // only remove this specific key-value mapping; thread-safe
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrentValues.java`
+#### Snippet
+```java
+         * We must either add our value to the map, or return a non-null existing value.
+         */
+        for ( Reference<V> oldRef; ( oldRef = concurrentMap.putIfAbsent( key, ref ) ) != null; )
+        {
+            final V oldValue = oldRef.get();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildKeys.java`
+#### Snippet
+```java
+    final void compact()
+    {
+        for ( Reference<? extends K> ref; ( ref = queue.poll() ) != null; )
+        {
+            map.remove( ref );
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
+#### Snippet
+```java
+      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
+#### Snippet
+```java
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastRuntimeInvisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
+#### Snippet
+```java
+  public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
+#### Snippet
+```java
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DefaultBeanLocator.java`
+#### Snippet
+```java
+
+        RankedBindings result;
+        while ( null != ( result = cachedBindings.get( id ) ) && !type.equals( result.type() ) )
+        {
+            id++; // collision! (should be very rare) ... resort to linear scan from base id
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanScheduler.java`
+#### Snippet
+```java
+                if ( null == holder )
+                {
+                    pendingHolder.set( holder = new Object[1] );
+                }
+                if ( null == holder[0] )
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
+#### Snippet
+```java
+      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
+#### Snippet
+```java
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastRuntimeInvisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
+#### Snippet
+```java
+  public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
+#### Snippet
+```java
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
+#### Snippet
+```java
+        }
+        int x = 0, y, expressionEnd = 0, expressionNum = 0;
+        while ( ( x = buf.indexOf( "${", x ) ) >= 0 && ( y = buf.indexOf( "}", x ) + 1 ) > 0 )
+        {
+            if ( y > expressionEnd ) // making progress
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
+#### Snippet
+```java
+        }
+        int x = 0, y, expressionEnd = 0, expressionNum = 0;
+        while ( ( x = buf.indexOf( "${", x ) ) >= 0 && ( y = buf.indexOf( "}", x ) + 1 ) > 0 )
+        {
+            if ( y > expressionEnd ) // making progress
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+      lastField.fv = fieldWriter;
+    }
+    return lastField = fieldWriter;
+  }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastRuntimeInvisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+      lastRecordComponent.delegate = recordComponentWriter;
+    }
+    return lastRecordComponent = recordComponentWriter;
+  }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+  public final AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+      lastMethod.mv = methodWriter;
+    }
+    return lastMethod = methodWriter;
+  }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+  public final ModuleVisitor visitModule(
+      final String name, final int access, final String version) {
+    return moduleWriter =
+        new ModuleWriter(
+            symbolTable,
+            symbolTable.addConstantModule(name).index,
+            access,
+            version == null ? 0 : symbolTable.addConstantUtf8(version));
+  }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
+#### Snippet
+```java
+        do
+        {
+            if ( null == ( o = content ) || ( index = o.indexOf( element ) ) < 0 )
+            {
+                return null;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
+#### Snippet
+```java
+        do
+        {
+            if ( null == ( o = content ) || ( index = o.indexOf( element ) ) < 0 )
+            {
+                return null;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
+#### Snippet
+```java
+        {
+            final int index;
+            if ( null == ( o = content ) || ( index = o.indexOfThis( element ) ) < 0 )
+            {
+                return false;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
+#### Snippet
+```java
+        {
+            final int index;
+            if ( null == ( o = content ) || ( index = o.indexOfThis( element ) ) < 0 )
+            {
+                return false;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
+#### Snippet
+```java
+        do
+        {
+            n = null != ( o = content ) ? o.insert( element, rank ) : new Content( element, rank );
+        }
+        while ( !CONTENT_UPDATER.compareAndSet( this, o, n ) );
+```
+
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`slot = slot + t.getSize()` could be simplified to 'slot += t.getSize()'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DynamicGlue.java`
+#### Snippet
+```java
+            {
+                v.visitVarInsn( t.getOpcode( Opcodes.ILOAD ), slot );
+                slot = slot + t.getSize();
+            }
+
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`slot = slot + t.getSize()` could be simplified to 'slot += t.getSize()'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DynamicGlue.java`
+#### Snippet
+```java
+            {
+                v.visitVarInsn( t.getOpcode( Opcodes.ILOAD ), slot );
+                slot = slot + t.getSize();
+            }
+
 ```
 
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
@@ -2977,18 +2977,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.
 ```
 
 ### ExtendsAnnotation
-Class 'HiddenSource' implements annotation interface `Hidden`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/HiddenSource.java`
-#### Snippet
-```java
- */
-final class HiddenSource
-    implements Hidden, AnnotatedSource
-{
-    // ----------------------------------------------------------------------
-```
-
-### ExtendsAnnotation
 Class 'DescriptionSource' implements annotation interface `Description`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DescriptionSource.java`
 #### Snippet
@@ -3008,6 +2996,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/PrioritySource
  */
 final class PrioritySource
     implements Priority, AnnotatedSource
+{
+    // ----------------------------------------------------------------------
+```
+
+### ExtendsAnnotation
+Class 'HiddenSource' implements annotation interface `Hidden`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/HiddenSource.java`
+#### Snippet
+```java
+ */
+final class HiddenSource
+    implements Hidden, AnnotatedSource
 {
     // ----------------------------------------------------------------------
 ```
@@ -3050,30 +3050,29 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/InjectedTest.j
         // put any per-test properties here...
 ```
 
-## RuleId[ruleID=UnnecessaryContinue]
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
-#### Snippet
-```java
-                finally
-                {
-                    continue; // ignore any logging exceptions and continue stopping
-                }
-            }
-```
-
 ## RuleId[ruleID=PointlessBitwiseExpression]
 ### PointlessBitwiseExpression
 `0 << 16` can be replaced with '0'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
   int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
 ```
 
 ### PointlessBitwiseExpression
@@ -3089,15 +3088,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 ```
 
 ### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
+`0 << 16` can be replaced with '0'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int ASM4 = 4 << 16 | 0 << 8;
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+
 ```
 
 ### PointlessBitwiseExpression
@@ -3105,11 +3104,71 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
   int V1_7 = 0 << 16 | 51;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+
+  int V1_1 = 3 << 16 | 45;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
   int V1_8 = 0 << 16 | 52;
   int V9 = 0 << 16 | 53;
   int V10 = 0 << 16 | 54;
   int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+
+  int ASM4 = 4 << 16 | 0 << 8;
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
 ```
 
 ### PointlessBitwiseExpression
@@ -3129,18 +3188,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
   int V12 = 0 << 16 | 56;
   int V13 = 0 << 16 | 57;
   int V14 = 0 << 16 | 58;
@@ -3149,15 +3196,87 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 ```
 
 ### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+```
+
+### PointlessBitwiseExpression
 `0 << 16` can be replaced with '0'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V15 = 0 << 16 | 59;
   int V16 = 0 << 16 | 60;
   int V17 = 0 << 16 | 61;
   int V18 = 0 << 16 | 62;
   int V19 = 0 << 16 | 63;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+  /**
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_1 = 3 << 16 | 45;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
   int V20 = 0 << 16 | 64;
+
+  /**
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
 ```
 
 ### PointlessBitwiseExpression
@@ -3170,6 +3289,42 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
   int V1_4 = 0 << 16 | 48;
   int V1_5 = 0 << 16 | 49;
   int V1_6 = 0 << 16 | 50;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM4 = 4 << 16 | 0 << 8;
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
 ```
 
 ### PointlessBitwiseExpression
@@ -3201,179 +3356,24 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
   int V1_7 = 0 << 16 | 51;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
-  /**
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_1 = 3 << 16 | 45;
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-
-  int ASM4 = 4 << 16 | 0 << 8;
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
   int V1_8 = 0 << 16 | 52;
   int V9 = 0 << 16 | 53;
   int V10 = 0 << 16 | 54;
   int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
 ```
 
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+## RuleId[ruleID=UnnecessaryContinue]
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
 #### Snippet
 ```java
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-
-  int V1_1 = 3 << 16 | 45;
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-
-  /**
+                finally
+                {
+                    continue; // ignore any logging exceptions and continue stopping
+                }
+            }
 ```
 
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
@@ -3428,30 +3428,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtensions
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
-#### Snippet
-```java
-                catch ( final Exception e )
-                {
-                    final Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
-                    Logs.debug( "Problem creating: {}", impl, cause );
-                }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanPropertySetter.java`
-#### Snippet
-```java
-        catch ( final Exception e )
-        {
-            final Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
-            throw new ProvisionException( "Error injecting: " + method, cause );
-        }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
 #### Snippet
 ```java
@@ -3476,6 +3452,30 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.ja
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
+#### Snippet
+```java
+                catch ( final Exception e )
+                {
+                    final Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
+                    Logs.debug( "Problem creating: {}", impl, cause );
+                }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanPropertySetter.java`
+#### Snippet
+```java
+        catch ( final Exception e )
+        {
+            final Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
+            throw new ProvisionException( "Error injecting: " + method, cause );
+        }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
 #### Snippet
 ```java
@@ -3489,10 +3489,22 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBi
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldVisitor.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/TypePath.java`
 #### Snippet
 ```java
-      return fv.visitAnnotation(descriptor, visible);
+  public static TypePath fromString(final String typePath) {
+    if (typePath == null || typePath.length() == 0) {
+      return null;
+    }
+    int typePathLength = typePath.length();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
+#### Snippet
+```java
+      return mv.visitTryCatchAnnotation(typeRef, typePath, descriptor, visible);
     }
     return null;
   }
@@ -3501,10 +3513,10 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldVisito
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldVisitor.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
 #### Snippet
 ```java
-      return fv.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
+      return mv.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
     }
     return null;
   }
@@ -3513,38 +3525,98 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldVisito
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/StringProperties.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
 #### Snippet
 ```java
-            return (String) value;
+          typeRef, typePath, start, end, index, descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
+#### Snippet
+```java
+      return mv.visitAnnotation(descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
+#### Snippet
+```java
+      return mv.visitParameterAnnotation(parameter, descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
+#### Snippet
+```java
+      return mv.visitInsnAnnotation(typeRef, typePath, descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
+#### Snippet
+```java
+      return mv.visitAnnotationDefault();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuTracker.java`
+#### Snippet
+```java
+        if ( SUPPORT_BUNDLE_NAMES.contains( bundle.getSymbolicName() ) )
+        {
+            return null; // ignore our main support bundles
         }
-        return null;
-    }
-
+        if ( null != bundle.getHeaders().get( Constants.FRAGMENT_HOST ) )
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/AnnotationVisitor.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuTracker.java`
 #### Snippet
 ```java
-      return av.visitAnnotation(name, descriptor);
-    }
-    return null;
-  }
-
+        if ( null != bundle.getHeaders().get( Constants.FRAGMENT_HOST ) )
+        {
+            return null; // fragment, we'll scan it when we process the host
+        }
+        // check plans in reverse order
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/AnnotationVisitor.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Handler.java`
 #### Snippet
 ```java
-      return av.visitArray(name);
-    }
-    return null;
-  }
-
+  static Handler removeRange(final Handler firstHandler, final Label start, final Label end) {
+    if (firstHandler == null) {
+      return null;
+    } else {
+      firstHandler.nextHandler = removeRange(firstHandler.nextHandler, start, end);
 ```
 
 ### ReturnNull
@@ -3553,42 +3625,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisito
 #### Snippet
 ```java
       return cv.visitRecordComponent(name, descriptor, signature);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
-#### Snippet
-```java
-      return cv.visitMethod(access, name, descriptor, signature, exceptions);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
-#### Snippet
-```java
-      return cv.visitField(access, name, descriptor, signature, value);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
-#### Snippet
-```java
-      return cv.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
     }
     return null;
   }
@@ -3621,10 +3657,10 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisito
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentVisitor.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
 #### Snippet
 ```java
-      return delegate.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
+      return cv.visitField(access, name, descriptor, signature, value);
     }
     return null;
   }
@@ -3633,10 +3669,10 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordCompo
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentVisitor.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
 #### Snippet
 ```java
-      return delegate.visitAnnotation(descriptor, visible);
+      return cv.visitMethod(access, name, descriptor, signature, exceptions);
     }
     return null;
   }
@@ -3645,25 +3681,13 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordCompo
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/MergedProperties.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
+      return cv.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuBundlePlan.java`
-#### Snippet
-```java
-    public BindingPublisher prepare( final Bundle bundle )
-    {
-        return appliesTo( bundle ) ? InjectorBindings.findBindingPublisher( inject( compose( bundle ) ) ) : null;
-    }
+    return null;
+  }
 
 ```
 
@@ -3681,50 +3705,14 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/InjectedTest.j
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/StringProperties.java`
 #### Snippet
 ```java
-    private static String nullify( final String value )
-    {
-        return "null".equals( value ) ? null : value;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
-#### Snippet
-```java
-            return (V) converter.convert( (String) value, expectedType );
+            return (String) value;
         }
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Handler.java`
-#### Snippet
-```java
-  static Handler removeRange(final Handler firstHandler, final Label start, final Label end) {
-    if (firstHandler == null) {
-      return null;
-    } else {
-      firstHandler.nextHandler = removeRange(firstHandler.nextHandler, start, end);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/TypePath.java`
-#### Snippet
-```java
-  public static TypePath fromString(final String typePath) {
-    if (typePath == null || typePath.length() == 0) {
-      return null;
-    }
-    int typePathLength = typePath.length();
 ```
 
 ### ReturnNull
@@ -3741,54 +3729,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/BeanProviders.ja
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/LifecycleManager.java`
-#### Snippet
-```java
-    public PropertyBinding manage( final BeanProperty<?> property )
-    {
-        return null; // no custom property bindings
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/LocatorWiring.java`
-#### Snippet
-```java
-                                                             : org.eclipse.sisu.inject.Legacy.adapt( beanEntries );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/BindingTracker.java`
-#### Snippet
-```java
-        {
-            Logs.warn( "Problem subscribing to service: {}", reference, e );
-            return null;
-        }
-        synchronized ( subscribers )
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeVisitor.java`
-#### Snippet
-```java
-            qualified = qualified || qualifierCache.qualify( space, desc );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.java`
 #### Snippet
 ```java
@@ -3801,38 +3741,50 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.j
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/ImplicitBindings.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldVisitor.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
+      return fv.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
     }
-}
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SpaceScanner.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldVisitor.java`
 #### Snippet
 ```java
-    private static org.eclipse.sisu.space.asm.ClassVisitor adapt( final ClassVisitor _cv )
-    {
-        return null == _cv ? null : new org.eclipse.sisu.space.asm.ClassVisitor( Opcodes.ASM9 )
-        {
-            @Override
+      return fv.visitAnnotation(descriptor, visible);
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SpaceScanner.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/AnnotationVisitor.java`
 #### Snippet
 ```java
-            {
-                final AnnotationVisitor _av = _cv.visitAnnotation( desc );
-                return null == _av ? null : new org.eclipse.sisu.space.asm.AnnotationVisitor( Opcodes.ASM9 )
-                {
-                    {
+      return av.visitArray(name);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/AnnotationVisitor.java`
+#### Snippet
+```java
+      return av.visitAnnotation(name, descriptor);
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -3873,6 +3825,102 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/MergedProperties.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBindings.java`
+#### Snippet
+```java
+    public <T> T adapt( final Class<T> type )
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifierCache.java`
+#### Snippet
+```java
+    {
+        isQualified |= QUALIFIER_DESC.equals( desc );
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SpaceScanner.java`
+#### Snippet
+```java
+    private static org.eclipse.sisu.space.asm.ClassVisitor adapt( final ClassVisitor _cv )
+    {
+        return null == _cv ? null : new org.eclipse.sisu.space.asm.ClassVisitor( Opcodes.ASM9 )
+        {
+            @Override
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SpaceScanner.java`
+#### Snippet
+```java
+            {
+                final AnnotationVisitor _av = _cv.visitAnnotation( desc );
+                return null == _av ? null : new org.eclipse.sisu.space.asm.AnnotationVisitor( Opcodes.ASM9 )
+                {
+                    {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
+#### Snippet
+```java
+    public <T> T adapt( final Class<T> type )
+    {
+        return Injector.class == type ? (T) injector : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeVisitor.java`
+#### Snippet
+```java
+            qualified = qualified || qualifierCache.qualify( space, desc );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
+#### Snippet
+```java
+    int constantPoolEntryIndex = readUnsignedShort(offset);
+    if (offset == 0 || constantPoolEntryIndex == 0) {
+      return null;
+    }
+    return readUtf(constantPoolEntryIndex, charBuffer);
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/InjectedTestCase.java`
 #### Snippet
 ```java
@@ -3881,6 +3929,66 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/InjectedTestCa
         return i.hasNext() ? i.next().getValue() : null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentVisitor.java`
+#### Snippet
+```java
+      return delegate.visitAnnotation(descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentVisitor.java`
+#### Snippet
+```java
+      return delegate.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/LifecycleManager.java`
+#### Snippet
+```java
+    public PropertyBinding manage( final BeanProperty<?> property )
+    {
+        return null; // no custom property bindings
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/BindingTracker.java`
+#### Snippet
+```java
+        {
+            Logs.warn( "Problem subscribing to service: {}", reference, e );
+            return null;
+        }
+        synchronized ( subscribers )
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/AbstractDeferredClass.java`
+#### Snippet
+```java
+            }
+        }
+        return null; // not used
+    }
+
 ```
 
 ### ReturnNull
@@ -3901,7 +4009,7 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.jav
 #### Snippet
 ```java
 
-        final Reference<V> ref = map.get( key );
+        final Reference<V> ref = map.put( key, mildValue( key, value ) );
         return null != ref ? ref.get() : null;
     }
 
@@ -3913,7 +4021,7 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.jav
 #### Snippet
 ```java
 
-        final Reference<V> ref = map.put( key, mildValue( key, value ) );
+        final Reference<V> ref = map.get( key );
         return null != ref ? ref.get() : null;
     }
 
@@ -3921,13 +4029,85 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.jav
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
 #### Snippet
 ```java
-    public <T> T adapt( final Class<T> type )
-    {
-        return Injector.class == type ? (T) injector : null;
-    }
+            }
+
+            return null;
+        }
+    },
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
+#### Snippet
+```java
+
+            final Class<?> implementation = Implementations.find( binding );
+            return null != implementation ? implementation.getAnnotation( markerType ) : null;
+        }
+    },
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
+#### Snippet
+```java
+        {
+            final Annotation qualifier = qualify( binding.getKey() );
+            return qualifier instanceof Named ? qualifier : null;
+        }
+    },
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
+#### Snippet
+```java
+        {
+            final Annotation qualifier = MARKED.qualifies( requirement, binding );
+            return requirement.getAnnotation().equals( qualifier ) ? qualifier : null;
+        }
+    };
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+            if ( null == o )
+            {
+                return null;
+            }
+            else if ( o instanceof LazyBeanEntry )
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+                if ( binding != oldBean.binding )
+                {
+                    return null;
+                }
+                n = null; // clear single entry
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/GlobberStrategy.java`
+#### Snippet
+```java
+        public final String compile( final String glob )
+        {
+            return null;
+        }
 
 ```
 
@@ -3957,194 +4137,50 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrent
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuTracker.java`
-#### Snippet
-```java
-        if ( SUPPORT_BUNDLE_NAMES.contains( bundle.getSymbolicName() ) )
-        {
-            return null; // ignore our main support bundles
-        }
-        if ( null != bundle.getHeaders().get( Constants.FRAGMENT_HOST ) )
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuTracker.java`
-#### Snippet
-```java
-        if ( null != bundle.getHeaders().get( Constants.FRAGMENT_HOST ) )
-        {
-            return null; // fragment, we'll scan it when we process the host
-        }
-        // check plans in reverse order
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/AbstractDeferredClass.java`
-#### Snippet
-```java
-            }
-        }
-        return null; // not used
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBindings.java`
-#### Snippet
-```java
-    public <T> T adapt( final Class<T> type )
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-          typeRef, typePath, start, end, index, descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-      return mv.visitTryCatchAnnotation(typeRef, typePath, descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-      return mv.visitParameterAnnotation(parameter, descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-      return mv.visitAnnotation(descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-      return mv.visitInsnAnnotation(typeRef, typePath, descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-      return mv.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-      return mv.visitAnnotationDefault();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifierCache.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
 #### Snippet
 ```java
     {
-        isQualified |= QUALIFIER_DESC.equals( desc );
-        return null;
+        final javax.annotation.Priority jsr250 = clazz.getAnnotation( javax.annotation.Priority.class );
+        return null != jsr250 ? (T) new PrioritySource( binding.getSource(), jsr250.value() ) : null;
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
 #### Snippet
 ```java
-        {
-            final Annotation qualifier = MARKED.qualifies( requirement, binding );
-            return requirement.getAnnotation().equals( qualifier ) ? qualifier : null;
-        }
-    };
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
-#### Snippet
-```java
-
-            final Class<?> implementation = Implementations.find( binding );
-            return null != implementation ? implementation.getAnnotation( markerType ) : null;
-        }
-    },
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
-#### Snippet
-```java
+                }
             }
-
             return null;
         }
-    },
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
 #### Snippet
 ```java
-        {
-            final Annotation qualifier = qualify( binding.getKey() );
-            return qualifier instanceof Named ? qualifier : null;
-        }
-    },
+    {
+        final org.sonatype.inject.Description legacy = clazz.getAnnotation( org.sonatype.inject.Description.class );
+        return null != legacy ? (T) new DescriptionSource( binding.getSource(), legacy.value() ) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+#### Snippet
+```java
+    public static String identityToString( final Object object )
+    {
+        return null == object ? null : object.getClass().getName() + '@' //
+            + Integer.toHexString( System.identityHashCode( object ) );
+    }
 ```
 
 ### ReturnNull
@@ -4155,6 +4191,54 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.
     {
         final Description description = Sources.getAnnotation( binding, Description.class );
         return null != description ? description.value() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/ImplicitBindings.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DescriptionSource.java`
+#### Snippet
+```java
+            return ( (AnnotatedSource) source ).getAnnotation( binding, annotationType );
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/PrioritySource.java`
+#### Snippet
+```java
+            return ( (AnnotatedSource) source ).getAnnotation( binding, annotationType );
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/LocatorWiring.java`
+#### Snippet
+```java
+                                                             : org.eclipse.sisu.inject.Legacy.adapt( beanEntries );
+        }
+        return null;
     }
 
 ```
@@ -4173,14 +4257,38 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/HiddenSource.j
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Logs.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuBundlePlan.java`
 #### Snippet
 ```java
-    public static String identityToString( final Object object )
+    public BindingPublisher prepare( final Bundle bundle )
     {
-        return null == object ? null : object.getClass().getName() + '@' //
-            + Integer.toHexString( System.identityHashCode( object ) );
+        return appliesTo( bundle ) ? InjectorBindings.findBindingPublisher( inject( compose( bundle ) ) ) : null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
+#### Snippet
+```java
+    private static String nullify( final String value )
+    {
+        return "null".equals( value ) ? null : value;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
+#### Snippet
+```java
+            return (V) converter.convert( (String) value, expectedType );
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -4212,18 +4320,6 @@ Return of `null`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
 #### Snippet
 ```java
-    {
-        final Content snapshot = content;
-        return null != snapshot ? (T) snapshot.objs[0] : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
-#### Snippet
-```java
             if ( null == ( o = content ) || ( index = o.indexOf( element ) ) < 0 )
             {
                 return null;
@@ -4233,96 +4329,12 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-            if ( null == o )
-            {
-                return null;
-            }
-            else if ( o instanceof LazyBeanEntry )
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-                if ( binding != oldBean.binding )
-                {
-                    return null;
-                }
-                n = null; // clear single entry
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DescriptionSource.java`
-#### Snippet
-```java
-            return ( (AnnotatedSource) source ).getAnnotation( binding, annotationType );
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/PrioritySource.java`
-#### Snippet
-```java
-            return ( (AnnotatedSource) source ).getAnnotation( binding, annotationType );
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/GlobberStrategy.java`
-#### Snippet
-```java
-        public final String compile( final String glob )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedSequence.java`
 #### Snippet
 ```java
     {
-        final org.sonatype.inject.Description legacy = clazz.getAnnotation( org.sonatype.inject.Description.class );
-        return null != legacy ? (T) new DescriptionSource( binding.getSource(), legacy.value() ) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
-#### Snippet
-```java
-    {
-        final javax.annotation.Priority jsr250 = clazz.getAnnotation( javax.annotation.Priority.class );
-        return null != jsr250 ? (T) new PrioritySource( binding.getSource(), jsr250.value() ) : null;
+        final Content snapshot = content;
+        return null != snapshot ? (T) snapshot.objs[0] : null;
     }
 
 ```
@@ -4337,30 +4349,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBi
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
-#### Snippet
-```java
-            final Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
-            binder.addError( "Error creating instance of: " + type + " reason: " + cause );
-            return null;
-        }
-        catch ( final LinkageError e )
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
-#### Snippet
-```java
-        {
-            binder.addError( "Error creating instance of: " + type + " reason: " + e );
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -4401,14 +4389,26 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBi
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
 #### Snippet
 ```java
-    int constantPoolEntryIndex = readUnsignedShort(offset);
-    if (offset == 0 || constantPoolEntryIndex == 0) {
-      return null;
+            final Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
+            binder.addError( "Error creating instance of: " + type + " reason: " + cause );
+            return null;
+        }
+        catch ( final LinkageError e )
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBinder.java`
+#### Snippet
+```java
+        {
+            binder.addError( "Error creating instance of: " + type + " reason: " + e );
+            return null;
+        }
     }
-    return readUtf(constantPoolEntryIndex, charBuffer);
 ```
 
 ### ReturnNull
@@ -4437,18 +4437,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Legacy.java`
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `injector` is redundant
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/Main.java`
-#### Snippet
-```java
-        final BeanScanning scanning = BeanScanning.select( properties );
-        final Module app = wire( scanning, modules );
-        final Injector injector = Guice.createInjector( app );
-
-        return injector;
-```
-
-### UnnecessaryLocalVariable
 Local variable `end` is redundant
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Type.java`
 #### Snippet
@@ -4472,77 +4460,16 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Type.java`
     if (end - begin != otherEnd - otherBegin) {
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
+### UnnecessaryLocalVariable
+Local variable `injector` is redundant
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/Main.java`
 #### Snippet
 ```java
-                if ( NIL == value )
-                {
-                    synchronized ( this )
-                    {
-                        if ( NIL == value )
-```
+        final BeanScanning scanning = BeanScanning.select( properties );
+        final Module app = wire( scanning, modules );
+        final Injector injector = Guice.createInjector( app );
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
-#### Snippet
-```java
-        if ( null == wildcards )
-        {
-            synchronized ( this )
-            {
-                if ( null == wildcards )
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-            else
-            {
-                synchronized ( this )
-                {
-                    final Map<Binding, LazyBeanEntry> map = (Map) o;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-        if ( mutated )
-        {
-            synchronized ( this )
-            {
-                if ( mutated )
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-            return Collections.singleton( ( (LazyBeanEntry<?, T>) o ).binding );
-        }
-        synchronized ( this )
-        {
-            return new ArrayList( ( (Map<Binding, BeanEntry>) o ).keySet() );
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
-#### Snippet
-```java
-            else
-            {
-                synchronized ( this )
-                {
-                    oldBean = ( (Map<?, LazyBeanEntry>) o ).remove( binding );
+        return injector;
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -4566,6 +4493,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.j
    */
   protected Label[] getLabels() {
     return new Label[0];
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
+#### Snippet
+```java
+   */
+  public void accept(final ClassVisitor classVisitor, final int parsingOptions) {
+    accept(classVisitor, new Attribute[0], parsingOptions);
   }
 
 ```
@@ -4618,43 +4557,80 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/Main.java`
 
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
+## RuleId[ruleID=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
 #### Snippet
 ```java
-   */
-  public void accept(final ClassVisitor classVisitor, final int parsingOptions) {
-    accept(classVisitor, new Attribute[0], parsingOptions);
-  }
+                if ( NIL == value )
+                {
+                    synchronized ( this )
+                    {
+                        if ( NIL == value )
+```
 
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
+#### Snippet
+```java
+        if ( null == wildcards )
+        {
+            synchronized ( this )
+            {
+                if ( null == wildcards )
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+            return Collections.singleton( ( (LazyBeanEntry<?, T>) o ).binding );
+        }
+        synchronized ( this )
+        {
+            return new ArrayList( ( (Map<Binding, BeanEntry>) o ).keySet() );
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+            else
+            {
+                synchronized ( this )
+                {
+                    final Map<Binding, LazyBeanEntry> map = (Map) o;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+        if ( mutated )
+        {
+            synchronized ( this )
+            {
+                if ( mutated )
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+            else
+            {
+                synchronized ( this )
+                {
+                    oldBean = ( (Map<?, LazyBeanEntry>) o ).remove( binding );
 ```
 
 ## RuleId[ruleID=PointlessBooleanExpression]
-### PointlessBooleanExpression
-`false == iterator().hasNext()` can be simplified to '!iterator().hasNext()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntryMapAdapter.java`
-#### Snippet
-```java
-        public boolean isEmpty()
-        {
-            return false == iterator().hasNext();
-        }
-
-```
-
-### PointlessBooleanExpression
-`false == value instanceof String` can be simplified to '!(value instanceof String)'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
-#### Snippet
-```java
-        final Class<?> clazz = expectedType.getRawType();
-        Object value = interpolate( template, clazz );
-        if ( false == value instanceof String )
-        {
-            return (V) value; // found non-String mapping
-```
-
 ### PointlessBooleanExpression
 `false == iterator().hasNext()` can be simplified to '!iterator().hasNext()'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntryListAdapter.java`
@@ -4664,6 +4640,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntryListAdapter
     {
         return false == iterator().hasNext();
     }
+
+```
+
+### PointlessBooleanExpression
+`false == iterator().hasNext()` can be simplified to '!iterator().hasNext()'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntryMapAdapter.java`
+#### Snippet
+```java
+        public boolean isEmpty()
+        {
+            return false == iterator().hasNext();
+        }
 
 ```
 
@@ -4691,31 +4679,19 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntrySetAdapter.
 
 ```
 
+### PointlessBooleanExpression
+`false == value instanceof String` can be simplified to '!(value instanceof String)'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
+#### Snippet
+```java
+        final Class<?> clazz = expectedType.getRawType();
+        Object value = interpolate( template, clazz );
+        if ( false == value instanceof String )
+        {
+            return (V) value; // found non-String mapping
+```
+
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Value `code` is always 'null'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.java`
-#### Snippet
-```java
-    final int maxStack = -1;
-    final int maxLocals = -1;
-    putAttributes(symbolTable, code, codeLength, maxStack, maxLocals, output);
-  }
-
-```
-
-### ConstantValue
-Value `code` is always 'null'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.java`
-#### Snippet
-```java
-    final int maxStack = -1;
-    final int maxLocals = -1;
-    return computeAttributesSize(symbolTable, code, codeLength, maxStack, maxLocals);
-  }
-
-```
-
 ### ConstantValue
 Condition `com.google.inject.spi.ElementSource.class.getMethod( "getDeclaringSource" ) != null` is always `true`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
@@ -4765,6 +4741,42 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
 ```
 
 ### ConstantValue
+Value `code` is always 'null'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.java`
+#### Snippet
+```java
+    final int maxStack = -1;
+    final int maxLocals = -1;
+    putAttributes(symbolTable, code, codeLength, maxStack, maxLocals, output);
+  }
+
+```
+
+### ConstantValue
+Value `code` is always 'null'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.java`
+#### Snippet
+```java
+    final int maxStack = -1;
+    final int maxLocals = -1;
+    return computeAttributesSize(symbolTable, code, codeLength, maxStack, maxLocals);
+  }
+
+```
+
+### ConstantValue
+Condition `frameType >= Frame.CHOP_FRAME` is always `true`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
+#### Snippet
+```java
+        context.currentFrameType = Opcodes.F_SAME1;
+        context.currentFrameStackCount = 1;
+      } else if (frameType >= Frame.CHOP_FRAME && frameType < Frame.SAME_FRAME_EXTENDED) {
+        context.currentFrameType = Opcodes.F_CHOP;
+        context.currentFrameLocalCountDelta = Frame.SAME_FRAME_EXTENDED - frameType;
+```
+
+### ConstantValue
 Value `n` is always 'null'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
 #### Snippet
@@ -4798,17 +4810,5 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementation
         HAS_GUICE_SERVLET = hasGuiceServlet;
 
         boolean hasJsr250Priority;
-```
-
-### ConstantValue
-Condition `frameType >= Frame.CHOP_FRAME` is always `true`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
-#### Snippet
-```java
-        context.currentFrameType = Opcodes.F_SAME1;
-        context.currentFrameStackCount = 1;
-      } else if (frameType >= Frame.CHOP_FRAME && frameType < Frame.SAME_FRAME_EXTENDED) {
-        context.currentFrameType = Opcodes.F_CHOP;
-        context.currentFrameLocalCountDelta = Frame.SAME_FRAME_EXTENDED - frameType;
 ```
 
