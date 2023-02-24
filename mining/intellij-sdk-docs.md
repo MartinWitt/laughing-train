@@ -1,7 +1,7 @@
 # intellij-sdk-docs 
  
 # Bad smells
-I found 100 bad smells with 27 repairable:
+I found 98 bad smells with 27 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DataFlowIssue | 18 | false |
@@ -17,13 +17,13 @@ I found 100 bad smells with 27 repairable:
 | CStyleArrayDeclaration | 4 | false |
 | SizeReplaceableByIsEmpty | 4 | true |
 | NestedAssignment | 4 | false |
-| RedundantMethodOverride | 3 | false |
 | RedundantFieldInitialization | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
 | NonShortCircuitBoolean | 1 | false |
 | RedundantEscapeInRegexReplacement | 1 | false |
 | MissortedModifiers | 1 | false |
 | RedundantSuppression | 1 | false |
+| RedundantMethodOverride | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
 | DialogTitleCapitalization | 1 | false |
 | SuspiciousToArrayCall | 1 | false |
@@ -33,13 +33,13 @@ I found 100 bad smells with 27 repairable:
 | ZeroLengthArrayInitialization | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new ResolveResult\[results.size()\]'
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleReference.java`
+Call to `toArray()` with pre-sized array argument 'new NavigationItem\[properties.size()\]'
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleChooseByNameContributor.java`
 #### Snippet
 ```java
-      results.add(new PsiElementResolveResult(property));
-    }
-    return results.toArray(new ResolveResult[results.size()]);
+    // TODO: include non project items
+    List<SimpleProperty> properties = SimpleUtil.findProperties(project, name);
+    return properties.toArray(new NavigationItem[properties.size()]);
   }
 
 ```
@@ -57,13 +57,13 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new NavigationItem\[properties.size()\]'
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleChooseByNameContributor.java`
+Call to `toArray()` with pre-sized array argument 'new ResolveResult\[results.size()\]'
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleReference.java`
 #### Snippet
 ```java
-    // TODO: include non project items
-    List<SimpleProperty> properties = SimpleUtil.findProperties(project, name);
-    return properties.toArray(new NavigationItem[properties.size()]);
+      results.add(new PsiElementResolveResult(property));
+    }
+    return results.toArray(new ResolveResult[results.size()]);
   }
 
 ```
@@ -81,6 +81,42 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 ```
 
 ## RuleId[ruleID=MarkedForRemoval]
+### MarkedForRemoval
+'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
+in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
+#### Snippet
+```java
+  //  Legacy code, awaiting refactoring of AbstractProjectViewPSIPane#createBuilder
+  @Override
+  protected BaseProjectTreeBuilder createBuilder(@NotNull DefaultTreeModel treeModel) {
+    return null;
+  }
+```
+
+### MarkedForRemoval
+'com.intellij.ide.util.treeView.AbstractTreeUpdater' is deprecated and marked for removal
+in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  protected AbstractTreeUpdater createTreeUpdater(@NotNull AbstractTreeBuilder builder) {
+    throw new IllegalStateException("ImagesProjectViewPane tree is async now");
+  }
+```
+
+### MarkedForRemoval
+'com.intellij.ide.util.treeView.AbstractTreeBuilder' is deprecated and marked for removal
+in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  protected AbstractTreeUpdater createTreeUpdater(@NotNull AbstractTreeBuilder builder) {
+    throw new IllegalStateException("ImagesProjectViewPane tree is async now");
+  }
+```
+
 ### MarkedForRemoval
 'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
 in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
@@ -115,42 +151,6 @@ import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeUpdater;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
-```
-
-### MarkedForRemoval
-'com.intellij.ide.util.treeView.AbstractTreeUpdater' is deprecated and marked for removal
-in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
-#### Snippet
-```java
-  @NotNull
-  @Override
-  protected AbstractTreeUpdater createTreeUpdater(@NotNull AbstractTreeBuilder builder) {
-    throw new IllegalStateException("ImagesProjectViewPane tree is async now");
-  }
-```
-
-### MarkedForRemoval
-'com.intellij.ide.util.treeView.AbstractTreeBuilder' is deprecated and marked for removal
-in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
-#### Snippet
-```java
-  @NotNull
-  @Override
-  protected AbstractTreeUpdater createTreeUpdater(@NotNull AbstractTreeBuilder builder) {
-    throw new IllegalStateException("ImagesProjectViewPane tree is async now");
-  }
-```
-
-### MarkedForRemoval
-'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
-in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
-#### Snippet
-```java
-  //  Legacy code, awaiting refactoring of AbstractProjectViewPSIPane#createBuilder
-  @Override
-  protected BaseProjectTreeBuilder createBuilder(@NotNull DefaultTreeModel treeModel) {
-    return null;
-  }
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -505,6 +505,18 @@ in `code_samples/comparing_references_inspection/src/main/java/org/intellij/sdk/
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_CMAP_Z`
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+
+  /* The ZZ_CMAP_Z table has 272 entries */
+  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
+    "\1\0\1\100\1\200\u010d\100");
+
+```
+
+### CStyleArrayDeclaration
 C-style array declaration of field `ZZ_CMAP_A`
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
@@ -538,18 +550,6 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
   private static final int ZZ_LEXSTATE[] = { 
      0,  0,  1, 1
   };
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_Z`
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-
-  /* The ZZ_CMAP_Z table has 272 entries */
-  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\1\100\1\200\u010d\100");
-
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -652,18 +652,6 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 
 ### SizeReplaceableByIsEmpty
 `property.getKey().length() > 0` can be replaced with '!property.getKey().isEmpty()'
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleReference.java`
-#### Snippet
-```java
-    List<LookupElement> variants = new ArrayList<>();
-    for (final SimpleProperty property : properties) {
-      if (property.getKey() != null && property.getKey().length() > 0) {
-        variants.add(LookupElementBuilder
-                .create(property).withIcon(SimpleIcons.FILE)
-```
-
-### SizeReplaceableByIsEmpty
-`property.getKey().length() > 0` can be replaced with '!property.getKey().isEmpty()'
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleChooseByNameContributor.java`
 #### Snippet
 ```java
@@ -672,6 +660,18 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
       if (property.getKey() != null && property.getKey().length() > 0) {
         names.add(property.getKey());
       }
+```
+
+### SizeReplaceableByIsEmpty
+`property.getKey().length() > 0` can be replaced with '!property.getKey().isEmpty()'
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleReference.java`
+#### Snippet
+```java
+    List<LookupElement> variants = new ArrayList<>();
+    for (final SimpleProperty property : properties) {
+      if (property.getKey() != null && property.getKey().length() > 0) {
+        variants.add(LookupElementBuilder
+                .create(property).withIcon(SimpleIcons.FILE)
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -800,30 +800,6 @@ in `code_samples/module/src/main/java/org/intellij/sdk/module/DemoModuleType.jav
                                                         @NotNull ModulesProvider modulesProvider) {
 ```
 
-### RedundantMethodOverride
-Method `visitElement()` only delegates to its super method
-in `code_samples/inspection_basics/src/main/java/org/intellij/sdk/inspection/DemoInspectionVisitor.java`
-#### Snippet
-```java
-
-  @Override
-  public void visitElement(@NotNull PsiElement element) {
-    super.visitElement(element);
-  }
-```
-
-### RedundantMethodOverride
-Method `visitPlainTextFile()` only delegates to its super method
-in `code_samples/inspection_basics/src/main/java/org/intellij/sdk/inspection/DemoInspectionVisitor.java`
-#### Snippet
-```java
-
-  @Override
-  public void visitPlainTextFile(@NotNull PsiPlainTextFile file) {
-    super.visitPlainTextFile(file);
-  }
-```
-
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -905,6 +881,18 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
 ```java
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
+  private boolean zzRefill() throws java.io.IOException {
+    return true;
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+   * @exception   java.io.IOException  if any I/O-Error occurs
+   */
   public IElementType advance() throws java.io.IOException {
     int zzInput;
     int zzAction;
@@ -915,10 +903,10 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
 ```java
-   * @exception   java.io.IOException  if any I/O-Error occurs
+   * @param   in  the java.io.Reader to read input from.
    */
-  private boolean zzRefill() throws java.io.IOException {
-    return true;
+  SimpleLexer(java.io.Reader in) {
+    this.zzReader = in;
   }
 ```
 
@@ -932,18 +920,6 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
   private java.io.Reader zzReader;
 
   /** the current state of the DFA */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-   * @param   in  the java.io.Reader to read input from.
-   */
-  SimpleLexer(java.io.Reader in) {
-    this.zzReader = in;
-  }
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1128,18 +1104,6 @@ Return of `null`
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/impl/SimplePsiImplUtil.java`
 #### Snippet
 ```java
-      return keyNode.getText().replaceAll("\\\\ ", " ");
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/impl/SimplePsiImplUtil.java`
-#### Snippet
-```java
       return keyNode.getPsi();
     } else {
       return null;
@@ -1153,6 +1117,18 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 #### Snippet
 ```java
       return valueNode.getText();
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/impl/SimplePsiImplUtil.java`
+#### Snippet
+```java
+      return keyNode.getText().replaceAll("\\\\ ", " ");
     } else {
       return null;
     }
@@ -1199,6 +1175,18 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
+The value `zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result)` assigned to `offset` is never used
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+    int [] result = new int[21];
+    int offset = 0;
+    offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
+    return result;
+  }
+```
+
+### UnusedAssignment
 The value `zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result)` assigned to `offset` is never used
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
@@ -1218,18 +1206,6 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
     int [] result = new int[21];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
-    return result;
-  }
-```
-
-### UnusedAssignment
-The value `zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result)` assigned to `offset` is never used
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-    int [] result = new int[21];
-    int offset = 0;
-    offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
   }
 ```
