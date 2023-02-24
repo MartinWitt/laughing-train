@@ -225,18 +225,6 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Configuration`
-in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
-#### Snippet
-```java
-    }
-
-    public final void setClasspath(Provider<Configuration> provider) {
-        classpath.set(provider);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 #### Snippet
@@ -246,6 +234,18 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
     protected final void configureArgs(List<String> args) throws IOException {
         args.add("-cp");
         args.add(generateClasspathArgument());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Configuration`
+in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
+#### Snippet
+```java
+    }
+
+    public final void setClasspath(Provider<Configuration> provider) {
+        classpath.set(provider);
+    }
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
