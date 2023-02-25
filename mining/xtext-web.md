@@ -69,30 +69,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/IServiceCon
 
 ## RuleId[ruleID=PointlessArithmeticExpression]
 ### PointlessArithmeticExpression
-`31 * 1` can be replaced with '31'
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
-#### Snippet
-```java
-	@Override
-	public int hashCode() {
-		return 31 * 1 + ((this.regions == null) ? 0 : this.regions.hashCode());
-	}
-
-```
-
-### PointlessArithmeticExpression
-`31 * 1` can be replaced with '31'
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-	@Override
-	public int hashCode() {
-		return 31 * 1 + ((this.issues == null) ? 0 : this.issues.hashCode());
-	}
-
-```
-
-### PointlessArithmeticExpression
 `SIGNAL_FEATURE_COUNT + 0` can be replaced with 'SIGNAL_FEATURE_COUNT'
 in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
 #### Snippet
@@ -112,6 +88,18 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
    * @ordered
    */
   int INPUT_SIGNAL_FEATURE_COUNT = SIGNAL_FEATURE_COUNT + 0;
+
+  /**
+```
+
+### PointlessArithmeticExpression
+`FEATURE_FEATURE_COUNT + 0` can be replaced with 'FEATURE_FEATURE_COUNT'
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * @ordered
+   */
+  int PROPERTY_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 0;
 
   /**
 ```
@@ -141,18 +129,6 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 ```
 
 ### PointlessArithmeticExpression
-`FEATURE_FEATURE_COUNT + 0` can be replaced with 'FEATURE_FEATURE_COUNT'
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * @ordered
-   */
-  int PROPERTY_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 0;
-
-  /**
-```
-
-### PointlessArithmeticExpression
 `ABSTRACT_ELEMENT_FEATURE_COUNT + 0` can be replaced with 'ABSTRACT_ELEMENT_FEATURE_COUNT'
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
 #### Snippet
@@ -162,6 +138,30 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
   int ENTITY__SUPER_TYPE = ABSTRACT_ELEMENT_FEATURE_COUNT + 0;
 
   /**
+```
+
+### PointlessArithmeticExpression
+`31 * 1` can be replaced with '31'
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+	@Override
+	public int hashCode() {
+		return 31 * 1 + ((this.issues == null) ? 0 : this.issues.hashCode());
+	}
+
+```
+
+### PointlessArithmeticExpression
+`31 * 1` can be replaced with '31'
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
+#### Snippet
+```java
+	@Override
+	public int hashCode() {
+		return 31 * 1 + ((this.regions == null) ? 0 : this.regions.hashCode());
+	}
+
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -180,7 +180,67 @@ public class ServerLauncher {
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextResourcesServlet.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/FileResourceHandler.java`
+#### Snippet
+```java
+			}
+		} catch (Throwable e) {
+			throw Exceptions.sneakyThrow(e);
+		}
+	}
+```
+
+### DataFlowIssue
+Dereference of `Exceptions.sneakyThrow(exception.getCause())` will produce `NullPointerException`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/FileResourceHandler.java`
+#### Snippet
+```java
+			return document;
+		} catch (WrappedException exception) {
+			throw Exceptions.sneakyThrow(exception.getCause());
+		}
+	}
+```
+
+### DataFlowIssue
+Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
+#### Snippet
+```java
+			return null;
+		} catch (IOException e) {
+			throw Exceptions.sneakyThrow(e);
+		}
+	}
+```
+
+### DataFlowIssue
+Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentSynchronizer.java`
+#### Snippet
+```java
+			return false;
+		} catch (InterruptedException e) {
+			throw Exceptions.sneakyThrow(e);
+		}
+	}
+```
+
+### DataFlowIssue
+Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
+#### Snippet
+```java
+			return result;
+		} catch (Exception e) {
+			throw Exceptions.sneakyThrow(e);
+		}
+	}
+```
+
+### DataFlowIssue
+Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextServlet.java`
 #### Snippet
 ```java
 			}
@@ -192,7 +252,7 @@ in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/Xt
 
 ### DataFlowIssue
 Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextServlet.java`
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextResourcesServlet.java`
 #### Snippet
 ```java
 			}
@@ -212,18 +272,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 		throw Exceptions.sneakyThrow(throwable);
 	}
 
-```
-
-### DataFlowIssue
-Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
-#### Snippet
-```java
-			return document;
-		} catch (IOException e) {
-			throw Exceptions.sneakyThrow(e);
-		}
-	}
 ```
 
 ### DataFlowIssue
@@ -252,35 +300,11 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 
 ### DataFlowIssue
 Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/FileResourceHandler.java`
-#### Snippet
-```java
-			}
-		} catch (Throwable e) {
-			throw Exceptions.sneakyThrow(e);
-		}
-	}
-```
-
-### DataFlowIssue
-Dereference of `Exceptions.sneakyThrow(exception.getCause())` will produce `NullPointerException`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/FileResourceHandler.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
 #### Snippet
 ```java
 			return document;
-		} catch (WrappedException exception) {
-			throw Exceptions.sneakyThrow(exception.getCause());
-		}
-	}
-```
-
-### DataFlowIssue
-Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentSynchronizer.java`
-#### Snippet
-```java
-			return false;
-		} catch (InterruptedException e) {
+		} catch (IOException e) {
 			throw Exceptions.sneakyThrow(e);
 		}
 	}
@@ -298,31 +322,19 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/Xtext
 	}
 ```
 
-### DataFlowIssue
-Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
-#### Snippet
-```java
-			return null;
-		} catch (IOException e) {
-			throw Exceptions.sneakyThrow(e);
-		}
-	}
-```
-
-### DataFlowIssue
-Dereference of `Exceptions.sneakyThrow(e)` will produce `NullPointerException`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
-#### Snippet
-```java
-			return result;
-		} catch (Exception e) {
-			throw Exceptions.sneakyThrow(e);
-		}
-	}
-```
-
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `modelPackage` from instance context
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+    if (modelPackage == null)
+    {
+      modelPackage = StatemachinePackage.eINSTANCE;
+    }
+  }
+```
+
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `modelPackage` from instance context
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
@@ -359,18 +371,6 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
   }
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `modelPackage` from instance context
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-    if (modelPackage == null)
-    {
-      modelPackage = StatemachinePackage.eINSTANCE;
-    }
-  }
-```
-
 ## RuleId[ruleID=MethodOverloadsParentMethod]
 ### MethodOverloadsParentMethod
 Method `_format()` overloads a compatible method of a superclass, when overriding might have been intended
@@ -379,9 +379,9 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 ```java
 	}
 
-	protected void _format(Property property, IFormattableDocument document) {
-		document.surround(regionFor(property).keyword(":"), this::noSpace);
-		document.format(property.getType());
+	protected void _format(Operation operation, IFormattableDocument document) {
+		document.append(regionFor(operation).keyword("op"), this::oneSpace);
+		document.surround(regionFor(operation).keyword("("), this::noSpace);
 ```
 
 ### MethodOverloadsParentMethod
@@ -415,9 +415,9 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 ```java
 	}
 
-	protected void _format(Operation operation, IFormattableDocument document) {
-		document.append(regionFor(operation).keyword("op"), this::oneSpace);
-		document.surround(regionFor(operation).keyword("("), this::noSpace);
+	protected void _format(Property property, IFormattableDocument document) {
+		document.surround(regionFor(property).keyword(":"), this::noSpace);
+		document.format(property.getType());
 ```
 
 ### MethodOverloadsParentMethod
@@ -433,39 +433,15 @@ public class EntitiesFormatter extends XbaseFormatter {
 ```
 
 ### MethodOverloadsParentMethod
-Method `format()` overloads a compatible method of a superclass, when overriding might have been intended
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+Method `_infer()` overloads a compatible method of a superclass, when overriding might have been intended
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
 #### Snippet
 ```java
-	}
+	private IJvmModelAssociations jvmModelAssociations;
 
-	protected void format(Transition transition, IFormattableDocument doc) {
-		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
-		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
-```
-
-### MethodOverloadsParentMethod
-Method `format()` overloads a compatible method of a superclass, when overriding might have been intended
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-	}
-
-	protected void format(Event event, IFormattableDocument doc) {
-		ISemanticRegion equalsSignEqualsSignKeyword = regionFor(event)
-				.keyword(ga.getEventAccess().getEqualsSignEqualsSignKeyword_1());
-```
-
-### MethodOverloadsParentMethod
-Method `format()` overloads a compatible method of a superclass, when overriding might have been intended
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-	}
-
-	protected void format(Condition condition, IFormattableDocument doc) {
-		ISemanticRegion andKeyword = regionFor(condition).keyword(ga.getConditionAccess().getAndKeyword_1_0());
-		doc.prepend(andKeyword, it -> it.oneSpace());
+	protected void _infer(Entity entity, IJvmDeclaredTypeAcceptor acceptor, boolean prelinkingPhase) {
+		acceptor.accept(jvmTypesBuilder.toClass(entity, qualifiedNameProvider.getFullyQualifiedName(entity)),
+				(JvmGenericType it) -> {
 ```
 
 ### MethodOverloadsParentMethod
@@ -478,18 +454,6 @@ in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example
 	protected void format(Signal signal, IFormattableDocument doc) {
 		ISemanticRegion signalKeyword = regionFor(signal).keyword(ga.getSignalAccess().getSignalKeyword_1());
 		doc.prepend(signalKeyword, it -> it.oneSpace());
-```
-
-### MethodOverloadsParentMethod
-Method `format()` overloads a compatible method of a superclass, when overriding might have been intended
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-	}
-
-	protected void format(Command command, IFormattableDocument doc) {
-		doc.append(regionFor(command).keyword(ga.getCommandAccess().getSetKeyword_0()), it -> it.oneSpace());
-		ISemanticRegion equalsSignKeyword = regionFor(command).keyword(ga.getCommandAccess().getEqualsSignKeyword_2());
 ```
 
 ### MethodOverloadsParentMethod
@@ -511,120 +475,60 @@ in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example
 ```java
 	}
 
+	protected void format(Command command, IFormattableDocument doc) {
+		doc.append(regionFor(command).keyword(ga.getCommandAccess().getSetKeyword_0()), it -> it.oneSpace());
+		ISemanticRegion equalsSignKeyword = regionFor(command).keyword(ga.getCommandAccess().getEqualsSignKeyword_2());
+```
+
+### MethodOverloadsParentMethod
+Method `format()` overloads a compatible method of a superclass, when overriding might have been intended
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+	}
+
+	protected void format(Event event, IFormattableDocument doc) {
+		ISemanticRegion equalsSignEqualsSignKeyword = regionFor(event)
+				.keyword(ga.getEventAccess().getEqualsSignEqualsSignKeyword_1());
+```
+
+### MethodOverloadsParentMethod
+Method `format()` overloads a compatible method of a superclass, when overriding might have been intended
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+	}
+
 	protected void format(State state, IFormattableDocument doc) {
 		doc.append(regionFor(state).keyword(ga.getStateAccess().getStateKeyword_0()), it -> it.oneSpace());
 		ISemanticRegion nameAssignment = regionFor(state).assignment(ga.getStateAccess().getNameAssignment_1());
 ```
 
 ### MethodOverloadsParentMethod
-Method `_infer()` overloads a compatible method of a superclass, when overriding might have been intended
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
-#### Snippet
-```java
-	private IJvmModelAssociations jvmModelAssociations;
-
-	protected void _infer(Entity entity, IJvmDeclaredTypeAcceptor acceptor, boolean prelinkingPhase) {
-		acceptor.accept(jvmTypesBuilder.toClass(entity, qualifiedNameProvider.getFullyQualifiedName(entity)),
-				(JvmGenericType it) -> {
-```
-
-## RuleId[ruleID=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/contentassist/ContentAssistService.java`
-#### Snippet
-```java
-					});
-			result.getEntries()
-					.addAll(Lists.transform(sorted, (Pair<Integer, ContentAssistEntry> it) -> it.getValue()));
-		}
-		return result;
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
+Method `format()` overloads a compatible method of a superclass, when overriding might have been intended
 in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
 #### Snippet
 ```java
+	}
+
+	protected void format(Condition condition, IFormattableDocument doc) {
+		ISemanticRegion andKeyword = regionFor(condition).keyword(ga.getConditionAccess().getAndKeyword_1_0());
+		doc.prepend(andKeyword, it -> it.oneSpace());
+```
+
+### MethodOverloadsParentMethod
+Method `format()` overloads a compatible method of a superclass, when overriding might have been intended
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+	}
 
 	protected void format(Transition transition, IFormattableDocument doc) {
 		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
 		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
-		doc.prepend(gotoKeyword, it -> it.oneSpace());
 ```
 
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
-		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
-		doc.prepend(gotoKeyword, it -> it.oneSpace());
-		doc.append(gotoKeyword, it -> it.oneSpace());
-		if (transition.getCondition() != null) {
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
-		doc.prepend(gotoKeyword, it -> it.oneSpace());
-		doc.append(gotoKeyword, it -> it.oneSpace());
-		if (transition.getCondition() != null) {
-			doc.format(transition.getCondition());
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-		ISemanticRegion equalsSignEqualsSignKeyword = regionFor(event)
-				.keyword(ga.getEventAccess().getEqualsSignEqualsSignKeyword_1());
-		doc.prepend(equalsSignEqualsSignKeyword, it -> it.oneSpace());
-		doc.append(equalsSignEqualsSignKeyword, it -> it.oneSpace());
-	}
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-				.keyword(ga.getEventAccess().getEqualsSignEqualsSignKeyword_1());
-		doc.prepend(equalsSignEqualsSignKeyword, it -> it.oneSpace());
-		doc.append(equalsSignEqualsSignKeyword, it -> it.oneSpace());
-	}
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-	protected void format(Condition condition, IFormattableDocument doc) {
-		ISemanticRegion andKeyword = regionFor(condition).keyword(ga.getConditionAccess().getAndKeyword_1_0());
-		doc.prepend(andKeyword, it -> it.oneSpace());
-		doc.append(andKeyword, it -> it.oneSpace());
-		for (Event event : condition.getEvents()) {
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-		ISemanticRegion andKeyword = regionFor(condition).keyword(ga.getConditionAccess().getAndKeyword_1_0());
-		doc.prepend(andKeyword, it -> it.oneSpace());
-		doc.append(andKeyword, it -> it.oneSpace());
-		for (Event event : condition.getEvents()) {
-			doc.format(event);
-```
-
+## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
@@ -681,6 +585,30 @@ in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example
 		ISemanticRegion equalsSignKeyword = regionFor(command).keyword(ga.getCommandAccess().getEqualsSignKeyword_2());
 		doc.prepend(equalsSignKeyword, it -> it.oneSpace());
 		doc.append(equalsSignKeyword, it -> it.oneSpace());
+	}
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+		ISemanticRegion equalsSignEqualsSignKeyword = regionFor(event)
+				.keyword(ga.getEventAccess().getEqualsSignEqualsSignKeyword_1());
+		doc.prepend(equalsSignEqualsSignKeyword, it -> it.oneSpace());
+		doc.append(equalsSignEqualsSignKeyword, it -> it.oneSpace());
+	}
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+				.keyword(ga.getEventAccess().getEqualsSignEqualsSignKeyword_1());
+		doc.prepend(equalsSignEqualsSignKeyword, it -> it.oneSpace());
+		doc.append(equalsSignEqualsSignKeyword, it -> it.oneSpace());
 	}
 
 ```
@@ -757,29 +685,102 @@ in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example
 	}
 ```
 
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+	protected void format(Condition condition, IFormattableDocument doc) {
+		ISemanticRegion andKeyword = regionFor(condition).keyword(ga.getConditionAccess().getAndKeyword_1_0());
+		doc.prepend(andKeyword, it -> it.oneSpace());
+		doc.append(andKeyword, it -> it.oneSpace());
+		for (Event event : condition.getEvents()) {
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+		ISemanticRegion andKeyword = regionFor(condition).keyword(ga.getConditionAccess().getAndKeyword_1_0());
+		doc.prepend(andKeyword, it -> it.oneSpace());
+		doc.append(andKeyword, it -> it.oneSpace());
+		for (Event event : condition.getEvents()) {
+			doc.format(event);
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+
+	protected void format(Transition transition, IFormattableDocument doc) {
+		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
+		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
+		doc.prepend(gotoKeyword, it -> it.oneSpace());
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
+		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
+		doc.prepend(gotoKeyword, it -> it.oneSpace());
+		doc.append(gotoKeyword, it -> it.oneSpace());
+		if (transition.getCondition() != null) {
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
+		doc.prepend(gotoKeyword, it -> it.oneSpace());
+		doc.append(gotoKeyword, it -> it.oneSpace());
+		if (transition.getCondition() != null) {
+			doc.format(transition.getCondition());
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/contentassist/ContentAssistService.java`
+#### Snippet
+```java
+					});
+			result.getEntries()
+					.addAll(Lists.transform(sorted, (Pair<Integer, ContentAssistEntry> it) -> it.getValue()));
+		}
+		return result;
+```
+
 ## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `org.eclipse.xtext.web.example.statemachine.ide/src/org/eclipse/xtext/web/example/statemachine/ide/StatemachineWebContentProposalProvider.java`
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
 #### Snippet
 ```java
-			IScope scope = getScopeProvider().getScope(context.getCurrentModel(),
-					StatemachinePackage.Literals.EVENT__SIGNAL);
-			for (IEObjectDescription description : Iterables.filter(scope.getAllElements(),
-					it -> StatemachinePackage.Literals.INPUT_SIGNAL.equals(it.getEClass()))) {
-				ContentAssistEntry entry = getProposalCreator().createProposal(description.getName().toString(),
+		entitiesJvmModelHelper.handleDuplicateJvmOperations(inferredType, (Collection<JvmOperation> jvmOperations) -> {
+			// we only remove getters/setters we created automatically
+			JvmOperation getterOrSetter = Iterables.getFirst(Iterables.filter(jvmOperations,
+					it -> jvmModelAssociations.getPrimarySourceElement(it) instanceof Property), null);
+			if (getterOrSetter != null) {
 ```
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `org.eclipse.xtext.web.example.statemachine.ide/src/org/eclipse/xtext/web/example/statemachine/ide/StatemachineWebContentProposalProvider.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverService.java`
 #### Snippet
 ```java
-			IScope scope = getScopeProvider().getScope(context.getCurrentModel(),
-					StatemachinePackage.Literals.COMMAND__SIGNAL);
-			for (IEObjectDescription description_1 : Iterables.filter(scope.getAllElements(),
-					it -> StatemachinePackage.Literals.OUTPUT_SIGNAL.equals(it.getEClass()))) {
-				ContentAssistEntry entry = getProposalCreator().createProposal(description_1.getName().toString(),
+			return surroundWithDiv(nameHtml, ((SimpleImageDescription) it).getImageID() + "-icon");
+		} else if (it instanceof AlternativeImageDescription) {
+			List<String> strings = Lists
+					.transform(((AlternativeImageDescription) it).getImageIDs(), (String s) -> s + "-icon");
+			return surroundWithDiv(nameHtml,
+					strings.toArray(new String[strings.size()]));
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -821,6 +822,30 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
+in `org.eclipse.xtext.web.example.statemachine.ide/src/org/eclipse/xtext/web/example/statemachine/ide/StatemachineWebContentProposalProvider.java`
+#### Snippet
+```java
+			IScope scope = getScopeProvider().getScope(context.getCurrentModel(),
+					StatemachinePackage.Literals.EVENT__SIGNAL);
+			for (IEObjectDescription description : Iterables.filter(scope.getAllElements(),
+					it -> StatemachinePackage.Literals.INPUT_SIGNAL.equals(it.getEClass()))) {
+				ContentAssistEntry entry = getProposalCreator().createProposal(description.getName().toString(),
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `org.eclipse.xtext.web.example.statemachine.ide/src/org/eclipse/xtext/web/example/statemachine/ide/StatemachineWebContentProposalProvider.java`
+#### Snippet
+```java
+			IScope scope = getScopeProvider().getScope(context.getCurrentModel(),
+					StatemachinePackage.Literals.COMMAND__SIGNAL);
+			for (IEObjectDescription description_1 : Iterables.filter(scope.getAllElements(),
+					it -> StatemachinePackage.Literals.OUTPUT_SIGNAL.equals(it.getEClass()))) {
+				ContentAssistEntry entry = getProposalCreator().createProposal(description_1.getName().toString(),
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
 in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/contentassist/ContentAssistService.java`
 #### Snippet
 ```java
@@ -829,31 +854,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/contentassi
 					.addAll(Lists.transform(sorted, (Pair<Integer, ContentAssistEntry> it) -> it.getValue()));
 		}
 		return result;
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
-#### Snippet
-```java
-		entitiesJvmModelHelper.handleDuplicateJvmOperations(inferredType, (Collection<JvmOperation> jvmOperations) -> {
-			// we only remove getters/setters we created automatically
-			JvmOperation getterOrSetter = Iterables.getFirst(Iterables.filter(jvmOperations,
-					it -> jvmModelAssociations.getPrimarySourceElement(it) instanceof Property), null);
-			if (getterOrSetter != null) {
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverService.java`
-#### Snippet
-```java
-			return surroundWithDiv(nameHtml, ((SimpleImageDescription) it).getImageID() + "-icon");
-		} else if (it instanceof AlternativeImageDescription) {
-			List<String> strings = Lists
-					.transform(((AlternativeImageDescription) it).getImageIDs(), (String s) -> s + "-icon");
-			return surroundWithDiv(nameHtml,
-					strings.toArray(new String[strings.size()]));
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -896,14 +896,14 @@ in `org.eclipse.xtext.web.example.jetty/src/main/java/org/eclipse/xtext/web/exam
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder result` can be replaced with 'String'
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/EventImpl.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/AbstractElementImpl.java`
 #### Snippet
 ```java
     if (eIsProxy()) return super.toString();
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (value: ");
-    result.append(value);
+    result.append(" (name: ");
+    result.append(name);
 ```
 
 ### StringBufferReplaceableByString
@@ -920,7 +920,7 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 
 ### StringBufferReplaceableByString
 `StringBuilder result` can be replaced with 'String'
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/AbstractElementImpl.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/SignalImpl.java`
 #### Snippet
 ```java
     if (eIsProxy()) return super.toString();
@@ -944,14 +944,14 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 
 ### StringBufferReplaceableByString
 `StringBuilder result` can be replaced with 'String'
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/SignalImpl.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/EventImpl.java`
 #### Snippet
 ```java
     if (eIsProxy()) return super.toString();
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
-    result.append(name);
+    result.append(" (value: ");
+    result.append(value);
 ```
 
 ### StringBufferReplaceableByString
@@ -967,18 +967,6 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
-#### Snippet
-```java
-								// The document has changed since we executed our synchronous work - stop
-								// precomputation
-								return;
-							} catch (Throwable throwable) {
-								if (operationCanceledManager.isOperationCanceledException(throwable)) {
-```
-
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
 in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
@@ -1003,6 +991,18 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 			throw new IllegalArgumentException(
 ```
 
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
+#### Snippet
+```java
+								// The document has changed since we executed our synchronous work - stop
+								// precomputation
+								return;
+							} catch (Throwable throwable) {
+								if (operationCanceledManager.isOperationCanceledException(throwable)) {
+```
+
 ## RuleId[ruleID=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -1019,18 +1019,6 @@ in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
-#### Snippet
-```java
-		} else {
-			throw new IllegalArgumentException(
-					"Unhandled parameter types: " + Arrays.asList(service, exception).toString());
-		}
-	}
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
 #### Snippet
 ```java
@@ -1041,53 +1029,29 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 	}
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
+#### Snippet
+```java
+		} else {
+			throw new IllegalArgumentException(
+					"Unhandled parameter types: " + Arrays.asList(service, exception).toString());
+		}
+	}
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super AbstractElement`
-in `org.eclipse.xtext.web.example.statemachine.ide/src-gen/org/eclipse/xtext/web/example/statemachine/ide/contentassist/antlr/StatemachineParser.java`
+Can generalize to `? super HighlightingResult.Region`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingService.java`
 #### Snippet
 ```java
-		}
-		
-		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, StatemachineGrammarAccess grammarAccess) {
-			builder.put(grammarAccess.getSignalAccess().getAlternatives_0(), "rule__Signal__Alternatives_0");
-			builder.put(grammarAccess.getStatemachineAccess().getGroup(), "rule__Statemachine__Group__0");
-```
 
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.xtext.web.example.statemachine.ide/src-gen/org/eclipse/xtext/web/example/statemachine/ide/contentassist/antlr/StatemachineParser.java`
-#### Snippet
-```java
-		}
-		
-		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, StatemachineGrammarAccess grammarAccess) {
-			builder.put(grammarAccess.getSignalAccess().getAlternatives_0(), "rule__Signal__Alternatives_0");
-			builder.put(grammarAccess.getStatemachineAccess().getGroup(), "rule__Statemachine__Group__0");
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractElement`
-in `org.eclipse.xtext.web.example.entities.ide/src-gen/org/eclipse/xtext/web/example/entities/ide/contentassist/antlr/EntitiesParser.java`
-#### Snippet
-```java
-		}
-		
-		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, EntitiesGrammarAccess grammarAccess) {
-			builder.put(grammarAccess.getAbstractElementAccess().getAlternatives(), "rule__AbstractElement__Alternatives");
-			builder.put(grammarAccess.getFeatureAccess().getAlternatives(), "rule__Feature__Alternatives");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.xtext.web.example.entities.ide/src-gen/org/eclipse/xtext/web/example/entities/ide/contentassist/antlr/EntitiesParser.java`
-#### Snippet
-```java
-		}
-		
-		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, EntitiesGrammarAccess grammarAccess) {
-			builder.put(grammarAccess.getAbstractElementAccess().getAlternatives(), "rule__AbstractElement__Alternatives");
-			builder.put(grammarAccess.getFeatureAccess().getAlternatives(), "rule__Feature__Alternatives");
+	protected IHighlightedPositionAcceptor createHighlightedPositionAcceptor(
+			List<HighlightingResult.Region> positions) {
+		return (int offset, int length, String... ids) -> {
+			HighlightingResult.Region region = new HighlightingResult.Region(offset, length, ids);
 ```
 
 ### BoundedWildcard
@@ -1127,15 +1091,51 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/Xtext
 ```
 
 ### BoundedWildcard
-Can generalize to `? super HighlightingResult.Region`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingService.java`
+Can generalize to `? super AbstractElement`
+in `org.eclipse.xtext.web.example.statemachine.ide/src-gen/org/eclipse/xtext/web/example/statemachine/ide/contentassist/antlr/StatemachineParser.java`
 #### Snippet
 ```java
+		}
+		
+		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, StatemachineGrammarAccess grammarAccess) {
+			builder.put(grammarAccess.getSignalAccess().getAlternatives_0(), "rule__Signal__Alternatives_0");
+			builder.put(grammarAccess.getStatemachineAccess().getGroup(), "rule__Statemachine__Group__0");
+```
 
-	protected IHighlightedPositionAcceptor createHighlightedPositionAcceptor(
-			List<HighlightingResult.Region> positions) {
-		return (int offset, int length, String... ids) -> {
-			HighlightingResult.Region region = new HighlightingResult.Region(offset, length, ids);
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.xtext.web.example.statemachine.ide/src-gen/org/eclipse/xtext/web/example/statemachine/ide/contentassist/antlr/StatemachineParser.java`
+#### Snippet
+```java
+		}
+		
+		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, StatemachineGrammarAccess grammarAccess) {
+			builder.put(grammarAccess.getSignalAccess().getAlternatives_0(), "rule__Signal__Alternatives_0");
+			builder.put(grammarAccess.getStatemachineAccess().getGroup(), "rule__Statemachine__Group__0");
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractElement`
+in `org.eclipse.xtext.web.example.entities.ide/src-gen/org/eclipse/xtext/web/example/entities/ide/contentassist/antlr/EntitiesParser.java`
+#### Snippet
+```java
+		}
+		
+		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, EntitiesGrammarAccess grammarAccess) {
+			builder.put(grammarAccess.getAbstractElementAccess().getAlternatives(), "rule__AbstractElement__Alternatives");
+			builder.put(grammarAccess.getFeatureAccess().getAlternatives(), "rule__Feature__Alternatives");
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.xtext.web.example.entities.ide/src-gen/org/eclipse/xtext/web/example/entities/ide/contentassist/antlr/EntitiesParser.java`
+#### Snippet
+```java
+		}
+		
+		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, EntitiesGrammarAccess grammarAccess) {
+			builder.put(grammarAccess.getAbstractElementAccess().getAlternatives(), "rule__AbstractElement__Alternatives");
+			builder.put(grammarAccess.getFeatureAccess().getAlternatives(), "rule__Feature__Alternatives");
 ```
 
 ## RuleId[ruleID=AnonymousHasLambdaAlternative]
@@ -1159,7 +1159,7 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 ```java
 	 *                                                            is absent
 	 */
-	protected int getInt(IServiceContext context, String key, Optional<Integer> defaultValue)
+	protected String getString(IServiceContext context, String key, Optional<String> defaultValue)
 			throws InvalidRequestException.InvalidParametersException {
 		String stringValue = context.getParameter(key);
 ```
@@ -1183,7 +1183,7 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 ```java
 	 *                                                            is absent
 	 */
-	protected String getString(IServiceContext context, String key, Optional<String> defaultValue)
+	protected int getInt(IServiceContext context, String key, Optional<Integer> defaultValue)
 			throws InvalidRequestException.InvalidParametersException {
 		String stringValue = context.getParameter(key);
 ```
@@ -1196,9 +1196,9 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 ```java
 						"The parameter '" + key + "' must be specified.");
 			}
-			return defaultValue.get().intValue();
+			return defaultValue.get().booleanValue();
 		}
-		try {
+		String lowerCase = stringValue.toLowerCase();
 ```
 
 ### UnnecessaryUnboxing
@@ -1208,12 +1208,24 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 ```java
 						"The parameter '" + key + "' must be specified.");
 			}
-			return defaultValue.get().booleanValue();
+			return defaultValue.get().intValue();
 		}
-		String lowerCase = stringValue.toLowerCase();
+		try {
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
+#### Snippet
+```java
+			String[] contentType = null;
+			if (request.getContentType() != null) {
+				contentType = request.getContentType().split(";(\\s*)");
+			}
+			if (contentType != null && "application/x-www-form-urlencoded".equals(contentType[0])) {
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
@@ -1238,101 +1250,101 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 		}
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
-#### Snippet
-```java
-			String[] contentType = null;
-			if (request.getContentType() != null) {
-				contentType = request.getContentType().split(";(\\s*)");
-			}
-			if (contentType != null && "application/x-www-form-urlencoded".equals(contentType[0])) {
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/InputSignal.java`
 #### Snippet
 ```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getSignals <em>Signals</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getStates <em>States</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getSignals <em>Signals</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getStates <em>States</em>}</li>
- * </ul>
  *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
-#### Snippet
-```java
- * </ul>
  *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getStatemachine()
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getInputSignal()
  * @model
  * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
 #### Snippet
 ```java
+   * @return the value of the '<em>New Value</em>' attribute.
+   * @see #setNewValue(boolean)
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCommand_NewValue()
+   * @model
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Signal</em>' reference.
+   * @see #setSignal(Signal)
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCommand_Signal()
+   * @model
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
+#### Snippet
+```java
+
   /**
-   * Returns the value of the '<em><b>States</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.State}.
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue <em>New Value</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
 #### Snippet
 ```java
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>States</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getStatemachine_States()
-   * @model containment="true"
-   * @generated
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal <em>Signal</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue <em>New Value</em>}</li>
+ * </ul>
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
 #### Snippet
 ```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal <em>Signal</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue <em>New Value</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCommand()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
+#### Snippet
+```java
+
   /**
-   * Returns the value of the '<em><b>Signals</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal}.
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal <em>Signal</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Signals</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getStatemachine_Signals()
-   * @model containment="true"
-   * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1360,255 +1372,783 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/AbstractElementImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.AbstractElementImpl#getName <em>Name</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/OperationImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.OperationImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.OperationImpl#getBody <em>Body</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/OperationImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.OperationImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.OperationImpl#getBody <em>Body</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
 #### Snippet
 ```java
 
   /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal <em>Signal</em>}' reference.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getSignals <em>Signals</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
 #### Snippet
 ```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue <em>Value</em>}' attribute.
-   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(boolean)
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getEvent_Value()
-   * @model
+   * @return the meta object for the containment reference list '<em>Signals</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getSignals()
+   * @see #getStatemachine()
    * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
 #### Snippet
 ```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue <em>Value</em>}</li>
- * </ul>
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
 #### Snippet
 ```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue <em>Value</em>}</li>
- * </ul>
- *
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition()
+   * @see #getTransition()
+   * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.OutputSignal <em>Output Signal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Output Signal</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.OutputSignal
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine <em>Statemachine</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Statemachine</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event <em>Event</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Event</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Event
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the reference '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState <em>State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>State</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState()
+   * @see #getTransition()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Signal#getName()
+   * @see #getSignal()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getStates <em>States</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>States</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getStates()
+   * @see #getStatemachine()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Condition#getEvents <em>Events</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Events</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Condition#getEvents()
+   * @see #getCondition()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.InputSignal <em>Input Signal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Input Signal</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.InputSignal
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal <em>Signal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Signal</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Signal
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue <em>New Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>New Value</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue()
+   * @see #getCommand()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates <em>Nested States</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Nested States</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates()
+   * @see #getState()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the reference '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal <em>Signal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Signal</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal()
+   * @see #getEvent()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary, and can be replaced with an import
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * @generated
+   */
+  StatemachinePackage eINSTANCE = org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachinePackageImpl.init();
+
+  /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue()
+   * @see #getEvent()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
 #### Snippet
 ```java
  * </ul>
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachineFactory
+ * @model kind="package"
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State <em>State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>State</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Transitions</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions()
+   * @see #getState()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State#getName()
+   * @see #getState()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition <em>Transition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Transition</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Transition
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Commands</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands()
+   * @see #getState()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Condition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Condition</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Condition
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the reference '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal <em>Signal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Signal</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal()
+   * @see #getCommand()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command <em>Command</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Command</em>'.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Command
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/OutputSignal.java`
+#### Snippet
+```java
  *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getEvent()
+ *
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getOutputSignal()
  * @model
  * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Signal</em>' reference.
-   * @see #setSignal(Signal)
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getEvent_Signal()
-   * @model
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Condition.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Signal.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Condition#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal#getName <em>Name</em>}</li>
  * </ul>
  *
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Condition.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Signal.java`
 #### Snippet
 ```java
  * </ul>
  *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCondition()
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getSignal()
  * @model
  * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Condition.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Signal.java`
 #### Snippet
 ```java
+
   /**
-   * Returns the value of the '<em><b>Events</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.Event}.
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Condition.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Signal.java`
 #### Snippet
 ```java
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getSignal_Name()
+   * @model
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection <em>Import Section</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Events</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCondition_Events()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Import Section</em>' containment reference.
+   * @see #setImportSection(XImportSection)
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntities_ImportSection()
    * @model containment="true"
    * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
 #### Snippet
 ```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Property</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
-#### Snippet
-```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Entities</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
-#### Snippet
-```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Package Declaration</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
-#### Snippet
-```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
-#### Snippet
-```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Entity</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
-#### Snippet
-```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Operation</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
+  /**
+   * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
 #### Snippet
 ```java
- * which is the result of the switch.
- * <!-- end-user-doc -->
- * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Elements</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntities_Elements()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection <em>Import Section</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getElements <em>Elements</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection <em>Import Section</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getElements <em>Elements</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntities()
+ * @model
  * @generated
- */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntitiesImpl.java`
 #### Snippet
 ```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Abstract Element</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntitiesImpl#getImportSection <em>Import Section</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntitiesImpl#getElements <em>Elements</em>}</li>
+ * </ul>
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntitiesImpl.java`
 #### Snippet
 ```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject)
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary, and can be replaced with an import
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/validation/AbstractStatemachineValidator.java`
-#### Snippet
-```java
-	protected List<EPackage> getEPackages() {
-		List<EPackage> result = new ArrayList<EPackage>();
-		result.add(org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage.eINSTANCE);
-		return result;
-	}
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntitiesImpl#getImportSection <em>Import Section</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntitiesImpl#getElements <em>Elements</em>}</li>
+ * </ul>
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1625,26 +2165,242 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/TransitionImpl.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.TransitionImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.TransitionImpl#getState <em>State</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getTransitions <em>Transitions</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getNestedStates <em>Nested States</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getNestedStates <em>Nested States</em>}</li>
  * </ul>
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/TransitionImpl.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getNestedStates <em>Nested States</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/SignalImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.SignalImpl#getName <em>Name</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/CommandImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.CommandImpl#getSignal <em>Signal</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.CommandImpl#isNewValue <em>New Value</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/CommandImpl.java`
 #### Snippet
 ```java
  * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.TransitionImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.TransitionImpl#getState <em>State</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.CommandImpl#getSignal <em>Signal</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.CommandImpl#isNewValue <em>New Value</em>}</li>
  * </ul>
  *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/AbstractElement.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getAbstractElement_Name()
+   * @model
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/AbstractElement.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/AbstractElement.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement#getName <em>Name</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/AbstractElement.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getAbstractElement()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/EventImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.EventImpl#getSignal <em>Signal</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.EventImpl#isValue <em>Value</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/EventImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.EventImpl#getSignal <em>Signal</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.EventImpl#isValue <em>Value</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody <em>Body</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Body</em>' containment reference.
+   * @see #setBody(XExpression)
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getOperation_Body()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
+#### Snippet
+```java
+  /**
+   * Returns the value of the '<em><b>Params</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.common.types.JvmFormalParameter}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Params</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getOperation_Params()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getParams <em>Params</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody <em>Body</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getParams <em>Params</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody <em>Body</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getOperation()
+ * @model
+ * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1652,11 +2408,11 @@ Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary an
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Feature.java`
 #### Snippet
 ```java
-   * @return the value of the '<em>Type</em>' containment reference.
-   * @see #setType(JvmTypeReference)
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getFeature_Type()
-   * @model containment="true"
-   * @generated
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.Feature#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1724,16 +2480,676 @@ Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary an
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Feature.java`
 #### Snippet
 ```java
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(JvmTypeReference)
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getFeature_Type()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelFactory.java`
+#### Snippet
+```java
+ * It provides a create method for each non-abstract class of the model.
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage
+ * @generated
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary, and can be replaced with an import
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelFactory.java`
+#### Snippet
+```java
+   * @generated
+   */
+  DomainmodelFactory eINSTANCE = org.eclipse.xtext.web.example.entities.domainmodel.impl.DomainmodelFactoryImpl.init();
 
   /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.Feature#getName <em>Name</em>}' attribute.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
+#### Snippet
+```java
+  /**
+   * Creates an instance of the model <b>Package</b>, registered with
+   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+   * package URI value.
+   * <p>Note: the correct way to create the package is via the static
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
+#### Snippet
+```java
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecore.EPackage.Registry
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#eNS_URI
+   * @see #init()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecore.EPackage.Registry
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#eNS_URI
+   * @see #init()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary, and can be replaced with an import
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/validation/AbstractEntitiesValidator.java`
+#### Snippet
+```java
+	protected List<EPackage> getEPackages() {
+		List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
+		result.add(org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage.eINSTANCE);
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/xtext/xbase/Xbase"));
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/xtext/common/JavaVMTypes"));
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntityImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntityImpl#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntityImpl#getFeatures <em>Features</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntityImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntityImpl#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntityImpl#getFeatures <em>Features</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Condition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Condition
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine <em>Statemachine</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State <em>State</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+ * It provides an adapter <code>createXXX</code> method for each class of the model.
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage
+ * @generated
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.InputSignal <em>Input Signal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.InputSignal
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command <em>Command</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Command
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.OutputSignal <em>Output Signal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.OutputSignal
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event <em>Event</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Event
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal <em>Signal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Signal
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition <em>Transition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Transition
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+  /**
+   * Returns the value of the '<em><b>Transitions</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Transitions</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState_Transitions()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates <em>Nested States</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates <em>Nested States</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates <em>Nested States</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+  /**
+   * Returns the value of the '<em><b>Nested States</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.State}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Nested States</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState_NestedStates()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState_Name()
+   * @model
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+  /**
+   * Returns the value of the '<em><b>Commands</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.Command}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Commands</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState_Commands()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/TransitionImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.TransitionImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.TransitionImpl#getState <em>State</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/TransitionImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.TransitionImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.TransitionImpl#getState <em>State</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachineImpl#getSignals <em>Signals</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachineImpl#getStates <em>States</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachineImpl#getSignals <em>Signals</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachineImpl#getStates <em>States</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+ * which is the result of the switch.
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage
+ * @generated
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Package Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Abstract Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject)
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Operation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Entities</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Entity</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/PackageDeclaration.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration#getElements <em>Elements</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/PackageDeclaration.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getPackageDeclaration()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/PackageDeclaration.java`
 #### Snippet
 ```java
   /**
@@ -1745,74 +3161,878 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/PackageDeclaration.java`
 #### Snippet
 ```java
    * <!-- end-user-doc -->
    * @return the value of the '<em>Elements</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntities_Elements()
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getPackageDeclaration_Elements()
    * @model containment="true"
    * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection <em>Import Section</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/PackageDeclarationImpl.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection <em>Import Section</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getElements <em>Elements</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.PackageDeclarationImpl#getElements <em>Elements</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getFeatures <em>Features</em>}</li>
  * </ul>
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
 #### Snippet
 ```java
  * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection <em>Import Section</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getElements <em>Elements</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getFeatures <em>Features</em>}</li>
  * </ul>
  *
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
 #### Snippet
 ```java
  * </ul>
  *
- * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntities()
+ * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntity()
  * @model
  * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entities.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
 #### Snippet
 ```java
-   * @return the value of the '<em>Import Section</em>' containment reference.
-   * @see #setImportSection(XImportSection)
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntities_ImportSection()
+  /**
+   * Returns the value of the '<em><b>Features</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.web.example.entities.domainmodel.Feature}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Features</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntity_Features()
    * @model containment="true"
    * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Super Type</em>' containment reference.
+   * @see #setSuperType(JvmParameterizedTypeReference)
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntity_SuperType()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType <em>Super Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation <em>Operation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Operation</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Operation
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getFeatures <em>Features</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Features</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entity#getFeatures()
+   * @see #getEntity()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType <em>Super Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Super Type</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType()
+   * @see #getEntity()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement <em>Abstract Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Abstract Element</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entities#getElements()
+   * @see #getEntities()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody <em>Body</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Body</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody()
+   * @see #getOperation()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.entities.domainmodel.Feature#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Feature#getName()
+   * @see #getFeature()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection <em>Import Section</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Import Section</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection()
+   * @see #getEntities()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement#getName()
+   * @see #getAbstractElement()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Property <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Property
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration#getElements()
+   * @see #getPackageDeclaration()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Feature <em>Feature</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Feature</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Feature
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities <em>Entities</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Entities</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entities
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration <em>Package Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Package Declaration</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.entities.domainmodel.Feature#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Feature#getType()
+   * @see #getFeature()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary, and can be replaced with an import
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * @generated
+   */
+  DomainmodelPackage eINSTANCE = org.eclipse.xtext.web.example.entities.domainmodel.impl.DomainmodelPackageImpl.init();
+
+  /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity <em>Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Entity</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entity
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Operation#getParams()
+   * @see #getOperation()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
+#### Snippet
+```java
+ * </ul>
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelFactory
+ * @model kind="package"
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+  /**
+   * Creates an instance of the model <b>Package</b>, registered with
+   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+   * package URI value.
+   * <p>Note: the correct way to create the package is via the static
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecore.EPackage.Registry
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#eNS_URI
+   * @see #init()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecore.EPackage.Registry
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#eNS_URI
+   * @see #init()
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition <em>Condition</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
+#### Snippet
+```java
+   * @return the value of the '<em>State</em>' reference.
+   * @see #setState(State)
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getTransition_State()
+   * @model
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState <em>State</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState <em>State</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getTransition()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState <em>State</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Condition</em>' containment reference.
+   * @see #setCondition(Condition)
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getTransition_Condition()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+#### Snippet
+```java
+  /**
+   * Returns the value of the '<em><b>States</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.State}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>States</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getStatemachine_States()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getSignals <em>Signals</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getStates <em>States</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getSignals <em>Signals</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getStates <em>States</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getStatemachine()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+#### Snippet
+```java
+  /**
+   * Returns the value of the '<em><b>Signals</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Statemachine.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Signals</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getStatemachine_Signals()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Value</em>' attribute.
+   * @see #setValue(boolean)
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getEvent_Value()
+   * @model
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue <em>Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+#### Snippet
+```java
+   * @return the value of the '<em>Signal</em>' reference.
+   * @see #setSignal(Signal)
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getEvent_Signal()
+   * @model
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal <em>Signal</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue <em>Value</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal <em>Signal</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue <em>Value</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getEvent()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Event.java`
+#### Snippet
+```java
+
+  /**
+   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal <em>Signal</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities <em>Entities</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entities
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement <em>Abstract Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement
+   * @generated
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1894,30 +4114,6 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 ```java
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity <em>Entity</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entity
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
    * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration <em>Package Declaration</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1940,6 +4136,30 @@ Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary an
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
 #### Snippet
 ```java
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity <em>Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entity
+   * @generated
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
  * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage
@@ -1948,123 +4168,99 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities <em>Entities</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entities
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement <em>Abstract Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineImpl.java`
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachineImpl#getSignals <em>Signals</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachineImpl#getStates <em>States</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.FeatureImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.FeatureImpl#getType <em>Type</em>}</li>
  * </ul>
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineImpl.java`
+Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
 #### Snippet
 ```java
  * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachineImpl#getSignals <em>Signals</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachineImpl#getStates <em>States</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.FeatureImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.FeatureImpl#getType <em>Type</em>}</li>
  * </ul>
  *
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/EventImpl.java`
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Condition.java`
+#### Snippet
+```java
+  /**
+   * Returns the value of the '<em><b>Events</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.Event}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Condition.java`
+#### Snippet
+```java
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Events</em>' containment reference list.
+   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCondition_Events()
+   * @model containment="true"
+   * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Condition.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.EventImpl#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.EventImpl#isValue <em>Value</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/EventImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.EventImpl#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.EventImpl#isValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Condition#getEvents <em>Events</em>}</li>
  * </ul>
  *
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Condition.java`
 #### Snippet
 ```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getCommands <em>Commands</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getTransitions <em>Transitions</em>}</li>
+ * </ul>
+ *
+ * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCondition()
+ * @model
+ * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
+Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary, and can be replaced with an import
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/validation/AbstractStatemachineValidator.java`
 #### Snippet
 ```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getCommands <em>Commands</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getTransitions <em>Transitions</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getNestedStates <em>Nested States</em>}</li>
+	protected List<EPackage> getEPackages() {
+		List<EPackage> result = new ArrayList<EPackage>();
+		result.add(org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage.eINSTANCE);
+		return result;
+	}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
+#### Snippet
+```java
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Input Signal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2085,43 +4281,7 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 #### Snippet
 ```java
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Output Signal</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getCommands <em>Commands</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getTransitions <em>Transitions</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getNestedStates <em>Nested States</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getCommands <em>Commands</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getTransitions <em>Transitions</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.StateImpl#getNestedStates <em>Nested States</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
-#### Snippet
-```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>State</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Command</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
@@ -2145,7 +4305,7 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 #### Snippet
 ```java
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Condition</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Statemachine</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
@@ -2169,19 +4329,7 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 #### Snippet
 ```java
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Statemachine</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
-#### Snippet
-```java
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Command</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Output Signal</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
@@ -2217,94 +4365,22 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 #### Snippet
 ```java
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Input Signal</em>'.
+   * @return the result of interpreting the object as an instance of '<em>State</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/PackageDeclaration.java`
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
 #### Snippet
 ```java
-  /**
-   * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/PackageDeclaration.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Elements</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getPackageDeclaration_Elements()
-   * @model containment="true"
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Condition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/PackageDeclaration.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration#getElements <em>Elements</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/PackageDeclaration.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getPackageDeclaration()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/PackageDeclarationImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.PackageDeclarationImpl#getElements <em>Elements</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntityImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntityImpl#getSuperType <em>Super Type</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntityImpl#getFeatures <em>Features</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntityImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntityImpl#getSuperType <em>Super Type</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntityImpl#getFeatures <em>Features</em>}</li>
- * </ul>
- *
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2317,2082 +4393,6 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
  * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getProperty()
  * @model
  * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType <em>Super Type</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getFeatures <em>Features</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType <em>Super Type</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getFeatures <em>Features</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntity()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Super Type</em>' containment reference.
-   * @see #setSuperType(JvmParameterizedTypeReference)
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntity_SuperType()
-   * @model containment="true"
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType <em>Super Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
-#### Snippet
-```java
-  /**
-   * Returns the value of the '<em><b>Features</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.web.example.entities.domainmodel.Feature}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Entity.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Features</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getEntity_Features()
-   * @model containment="true"
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/OutputSignal.java`
-#### Snippet
-```java
- *
- *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getOutputSignal()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/AbstractElementImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.AbstractElementImpl#getName <em>Name</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/CommandImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.CommandImpl#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.CommandImpl#isNewValue <em>New Value</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/CommandImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.CommandImpl#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.CommandImpl#isNewValue <em>New Value</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/SignalImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.impl.SignalImpl#getName <em>Name</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary, and can be replaced with an import
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/validation/AbstractEntitiesValidator.java`
-#### Snippet
-```java
-	protected List<EPackage> getEPackages() {
-		List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
-		result.add(org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage.eINSTANCE);
-		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/xtext/xbase/Xbase"));
-		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/xtext/common/JavaVMTypes"));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary, and can be replaced with an import
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelFactory.java`
-#### Snippet
-```java
-   * @generated
-   */
-  DomainmodelFactory eINSTANCE = org.eclipse.xtext.web.example.entities.domainmodel.impl.DomainmodelFactoryImpl.init();
-
-  /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelFactory.java`
-#### Snippet
-```java
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
- * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage
- * @generated
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/AbstractElement.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement#getName <em>Name</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/AbstractElement.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getAbstractElement()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/AbstractElement.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/AbstractElement.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getAbstractElement_Name()
-   * @model
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event <em>Event</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Event
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Condition <em>Condition</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Condition
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage
- * @generated
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.InputSignal <em>Input Signal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.InputSignal
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine <em>Statemachine</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State <em>State</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.OutputSignal <em>Output Signal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.OutputSignal
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command <em>Command</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Command
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition <em>Transition</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Transition
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal <em>Signal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Signal
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.FeatureImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.FeatureImpl#getType <em>Type</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.FeatureImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.FeatureImpl#getType <em>Type</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
-#### Snippet
-```java
-   * @return the value of the '<em>New Value</em>' attribute.
-   * @see #setNewValue(boolean)
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCommand_NewValue()
-   * @model
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue <em>New Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Signal</em>' reference.
-   * @see #setSignal(Signal)
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCommand_Signal()
-   * @model
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue <em>New Value</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue <em>New Value</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getCommand()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Command.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal <em>Signal</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State <em>State</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>State</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.InputSignal <em>Input Signal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Input Signal</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.InputSignal
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getSignals <em>Signals</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Signals</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getSignals()
-   * @see #getStatemachine()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Condition <em>Condition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Condition</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Condition
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates <em>Nested States</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Nested States</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates()
-   * @see #getState()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine.impl` is unnecessary, and can be replaced with an import
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * @generated
-   */
-  StatemachinePackage eINSTANCE = org.eclipse.xtext.web.example.statemachine.statemachine.impl.StatemachinePackageImpl.init();
-
-  /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Condition#getEvents <em>Events</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Events</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Condition#getEvents()
-   * @see #getCondition()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition <em>Condition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Condition</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition()
-   * @see #getTransition()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal <em>Signal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Signal</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Signal
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the reference '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState <em>State</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>State</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState()
-   * @see #getTransition()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Commands</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands()
-   * @see #getState()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Transitions</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions()
-   * @see #getState()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition <em>Transition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Transition</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Transition
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the reference '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal <em>Signal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Signal</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Command#getSignal()
-   * @see #getCommand()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Signal#getName()
-   * @see #getSignal()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command <em>Command</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Command</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Command
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.State#getName()
-   * @see #getState()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Event#isValue()
-   * @see #getEvent()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getStates <em>States</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>States</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine#getStates()
-   * @see #getStatemachine()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
- * </ul>
- * <!-- end-user-doc -->
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachineFactory
- * @model kind="package"
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue <em>New Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>New Value</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Command#isNewValue()
-   * @see #getCommand()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.OutputSignal <em>Output Signal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Output Signal</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.OutputSignal
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the reference '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal <em>Signal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Signal</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Event#getSignal()
-   * @see #getEvent()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine <em>Statemachine</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Statemachine</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Statemachine
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Event <em>Event</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/StatemachinePackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Event</em>'.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.Event
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState <em>State</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Condition</em>' containment reference.
-   * @see #setCondition(Condition)
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getTransition_Condition()
-   * @model containment="true"
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState <em>State</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getState <em>State</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getTransition()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
-#### Snippet
-```java
-   * @return the value of the '<em>State</em>' reference.
-   * @see #setState(State)
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getTransition_State()
-   * @model
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Transition.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition#getCondition <em>Condition</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
-#### Snippet
-```java
-  /**
-   * Creates an instance of the model <b>Package</b>, registered with
-   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-   * package URI value.
-   * <p>Note: the correct way to create the package is via the static
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
-#### Snippet
-```java
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#eNS_URI
-   * @see #init()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#eNS_URI
-   * @see #init()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement#getName()
-   * @see #getAbstractElement()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement <em>Abstract Element</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Abstract Element</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.AbstractElement
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getParams <em>Params</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Params</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Operation#getParams()
-   * @see #getOperation()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getElements <em>Elements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Elements</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entities#getElements()
-   * @see #getEntities()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType <em>Super Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Super Type</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entity#getSuperType()
-   * @see #getEntity()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary, and can be replaced with an import
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * @generated
-   */
-  DomainmodelPackage eINSTANCE = org.eclipse.xtext.web.example.entities.domainmodel.impl.DomainmodelPackageImpl.init();
-
-  /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration <em>Package Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Package Declaration</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the attribute '{@link org.eclipse.xtext.web.example.entities.domainmodel.Feature#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Feature#getName()
-   * @see #getFeature()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Feature <em>Feature</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Feature</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Feature
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities <em>Entities</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Entities</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entities
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
- * </ul>
- * <!-- end-user-doc -->
- * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelFactory
- * @model kind="package"
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity#getFeatures <em>Features</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Features</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entity#getFeatures()
-   * @see #getEntity()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration#getElements <em>Elements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Elements</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.PackageDeclaration#getElements()
-   * @see #getPackageDeclaration()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection <em>Import Section</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Import Section</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entities#getImportSection()
-   * @see #getEntities()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Entity <em>Entity</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Entity</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Entity
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Property <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Property</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Property
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation <em>Operation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Operation</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Operation
-   * @generated
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.entities.domainmodel.Feature#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Feature#getType()
-   * @see #getFeature()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody <em>Body</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/DomainmodelPackage.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Body</em>'.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody()
-   * @see #getOperation()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
-#### Snippet
-```java
-  /**
-   * Creates an instance of the model <b>Package</b>, registered with
-   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-   * package URI value.
-   * <p>Note: the correct way to create the package is via the static
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
-#### Snippet
-```java
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#eNS_URI
-   * @see #init()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#eNS_URI
-   * @see #init()
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Signal.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getSignal_Name()
-   * @model
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Signal.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal#getName <em>Name</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Signal.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getSignal()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/Signal.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.Signal#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState_Name()
-   * @model
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
-  /**
-   * Returns the value of the '<em><b>Commands</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.Command}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Commands</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState_Commands()
-   * @model containment="true"
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
-  /**
-   * Returns the value of the '<em><b>Transitions</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.Transition}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Transitions</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState_Transitions()
-   * @model containment="true"
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
-  /**
-   * Returns the value of the '<em><b>Nested States</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.web.example.statemachine.statemachine.State}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Nested States</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState_NestedStates()
-   * @model containment="true"
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates <em>Nested States</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates <em>Nested States</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getCommands <em>Commands</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getTransitions <em>Transitions</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.statemachine.statemachine.State#getNestedStates <em>Nested States</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/State.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getState()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntitiesImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntitiesImpl#getImportSection <em>Import Section</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntitiesImpl#getElements <em>Elements</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntitiesImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntitiesImpl#getImportSection <em>Import Section</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.EntitiesImpl#getElements <em>Elements</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
-#### Snippet
-```java
-   * @return the value of the '<em>Body</em>' containment reference.
-   * @see #setBody(XExpression)
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getOperation_Body()
-   * @model containment="true"
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
-#### Snippet
-```java
-  /**
-   * Returns the value of the '<em><b>Params</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.common.types.JvmFormalParameter}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
-#### Snippet
-```java
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Params</em>' containment reference list.
-   * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getOperation_Params()
-   * @model containment="true"
-   * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getParams <em>Params</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody <em>Body</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getParams <em>Params</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody <em>Body</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtext.web.example.entities.domainmodel.DomainmodelPackage#getOperation()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/Operation.java`
-#### Snippet
-```java
-
-  /**
-   * Sets the value of the '{@link org.eclipse.xtext.web.example.entities.domainmodel.Operation#getBody <em>Body</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.statemachine.statemachine` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/InputSignal.java`
-#### Snippet
-```java
- *
- *
- * @see org.eclipse.xtext.web.example.statemachine.statemachine.StatemachinePackage#getInputSignal()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/OperationImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.OperationImpl#getParams <em>Params</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.OperationImpl#getBody <em>Body</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.web.example.entities.domainmodel.impl` is unnecessary and can be removed
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/OperationImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.OperationImpl#getParams <em>Params</em>}</li>
- *   <li>{@link org.eclipse.xtext.web.example.entities.domainmodel.impl.OperationImpl#getBody <em>Body</em>}</li>
- * </ul>
- *
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -5008,6 +5008,19 @@ import java.util.ArrayList;
 /*******************************************************************************
 ```
 
+## RuleId[ruleID=RegExpSingleCharAlternation]
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
+#### Snippet
+```java
+					}
+				}
+			}).replaceAll("(\\n|\\f|\\r)+", " ");
+			LOG.trace("xtext-service/" + serviceType + stringParams);
+		}
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -5031,19 +5044,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/Xtext
 		return text = newText;
 	}
 
-```
-
-## RuleId[ruleID=RegExpSingleCharAlternation]
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
-#### Snippet
-```java
-					}
-				}
-			}).replaceAll("(\\n|\\f|\\r)+", " ");
-			LOG.trace("xtext-service/" + serviceType + stringParams);
-		}
 ```
 
 ## RuleId[ruleID=ReplaceNullCheck]
@@ -5086,6 +5086,30 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/G
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationService.java`
+#### Snippet
+```java
+		List<Issue> issues = resourceValidator.validate(it.getResource(), CheckMode.ALL, cancelIndicator);
+		ValidationResult result = new ValidationResult();
+		IterableExtensions.filter(issues, i -> !Severity.IGNORE.equals(i.getSeverity())).forEach(issue -> {
+			result.getIssues().add(new ValidationResult.Issue(issue.getMessage(), translate(issue.getSeverity()),
+					issue.getLineNumber(), issue.getColumn(), issue.getOffset(), issue.getLength()));
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
+#### Snippet
+```java
+			serviceDescriptor.context = context;
+			serviceDescriptor.service = () -> {
+				return new ServiceConflictResult("invalidStateId");
+			};
+			serviceDescriptor.hasConflict = true;
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/validation/EntitiesValidator.java`
 #### Snippet
 ```java
@@ -5120,30 +5144,6 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 						});
 ```
 
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
-#### Snippet
-```java
-			serviceDescriptor.context = context;
-			serviceDescriptor.service = () -> {
-				return new ServiceConflictResult("invalidStateId");
-			};
-			serviceDescriptor.hasConflict = true;
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationService.java`
-#### Snippet
-```java
-		List<Issue> issues = resourceValidator.validate(it.getResource(), CheckMode.ALL, cancelIndicator);
-		ValidationResult result = new ValidationResult();
-		IterableExtensions.filter(issues, i -> !Severity.IGNORE.equals(i.getSeverity())).forEach(issue -> {
-			result.getIssues().add(new ValidationResult.Issue(issue.getMessage(), translate(issue.getSeverity()),
-					issue.getLineNumber(), issue.getColumn(), issue.getOffset(), issue.getLength()));
-```
-
 ## RuleId[ruleID=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
@@ -5169,68 +5169,7 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/Xtext
 							try {
 ```
 
-## RuleId[ruleID=GroovyUnusedAssignment]
-### GroovyUnusedAssignment
-Assignment is not used
-in `gradle/java-compiler-settings.gradle`
-#### Snippet
-```java
- */
-
-sourceCompatibility = '11'
-
-tasks.withType(JavaCompile) {
-```
-
 ## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextResourcesServlet.java`
-#### Snippet
-```java
-	private static final long DEFAULT_EXPIRE_TIME_S = 86400L; // 1 day
-
-	private boolean disableCache = false;
-
-	@Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
-  private EClass packageDeclarationEClass = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
-  private EClass propertyEClass = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
-  private EClass entitiesEClass = null;
-
-  /**
-```
-
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
@@ -5239,30 +5178,6 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
    * @generated
    */
   private boolean isInitialized = false;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
-  private EClass abstractElementEClass = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
-  private EClass entityEClass = null;
 
   /**
 ```
@@ -5286,7 +5201,31 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 ```java
    * @generated
    */
-  private static boolean isInited = false;
+  private boolean isCreated = false;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private EClass propertyEClass = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private EClass entityEClass = null;
 
   /**
 ```
@@ -5298,7 +5237,43 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 ```java
    * @generated
    */
-  private boolean isCreated = false;
+  private static boolean isInited = false;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private EClass entitiesEClass = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private EClass packageDeclarationEClass = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelPackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private EClass abstractElementEClass = null;
 
   /**
 ```
@@ -5334,31 +5309,67 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 ```java
    * @generated
    */
-  private EClass commandEClass = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
-  private EClass transitionEClass = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
   private EClass conditionEClass = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private EClass inputSignalEClass = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private boolean isInitialized = false;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private EClass statemachineEClass = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private EClass signalEClass = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
+  private static boolean isInited = false;
 
   /**
 ```
@@ -5382,6 +5393,18 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 ```java
    * @generated
    */
+  private EClass transitionEClass = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+#### Snippet
+```java
+   * @generated
+   */
   private EClass outputSignalEClass = null;
 
   /**
@@ -5394,7 +5417,7 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 ```java
    * @generated
    */
-  private EClass inputSignalEClass = null;
+  private EClass commandEClass = null;
 
   /**
 ```
@@ -5412,85 +5435,38 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
-  private EClass signalEClass = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
-#### Snippet
-```java
-   * @generated
-   */
-  private EClass statemachineEClass = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextResourcesServlet.java`
 #### Snippet
 ```java
-   * @generated
-   */
-  private static boolean isInited = false;
+	private static final long DEFAULT_EXPIRE_TIME_S = 86400L; // 1 day
 
-  /**
+	private boolean disableCache = false;
+
+	@Override
 ```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachinePackageImpl.java`
+## RuleId[ruleID=GroovyUnusedAssignment]
+### GroovyUnusedAssignment
+Assignment is not used
+in `gradle/java-compiler-settings.gradle`
 #### Snippet
 ```java
-   * @generated
-   */
-  private boolean isInitialized = false;
+ */
 
-  /**
+sourceCompatibility = '11'
+
+tasks.withType(JavaCompile) {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/TransitionImpl.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/OperationImpl.java`
 #### Snippet
 ```java
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__CONDITION, oldCondition, newCondition);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntityImpl.java`
-#### Snippet
-```java
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainmodelPackage.ENTITY__SUPER_TYPE, oldSuperType, newSuperType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
-#### Snippet
-```java
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainmodelPackage.FEATURE__TYPE, oldType, newType);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainmodelPackage.OPERATION__BODY, oldBody, newBody);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -5510,11 +5486,35 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/OperationImpl.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntityImpl.java`
 #### Snippet
 ```java
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainmodelPackage.OPERATION__BODY, oldBody, newBody);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainmodelPackage.ENTITY__SUPER_TYPE, oldSuperType, newSuperType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/TransitionImpl.java`
+#### Snippet
+```java
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__CONDITION, oldCondition, newCondition);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
+#### Snippet
+```java
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DomainmodelPackage.FEATURE__TYPE, oldType, newType);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -5548,6 +5548,66 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ISession.ja
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverService.java`
+#### Snippet
+```java
+					nameHtml, (String $0, IImageDescription $1) -> addIconDivs($1, $0));
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingService.java`
+#### Snippet
+```java
+					it.updateText(textWrapper.get(), regionWrapper.get().getOffset(), regionWrapper.get().getLength());
+				}
+				return null;
+			}
+		};
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingService.java`
+#### Snippet
+```java
+		IParseResult parseResult = resource.getParseResult();
+		if (parseResult == null) {
+			return null;
+		}
+		ICompositeNode rootNode = parseResult.getRootNode();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/UpdateDocumentService.java`
+#### Snippet
+```java
+			public Object exec(IXtextWebDocument doc, CancelIndicator cancelIndicator) throws Exception {
+				doc.setText(fullText);
+				return null;
+			}
+		});
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/UpdateDocumentService.java`
+#### Snippet
+```java
+					doc.updateText(deltaText, offset, replaceLength);
+				}
+				return null;
+			}
+		});
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/services/StatemachineGrammarAccess.java`
 #### Snippet
 ```java
@@ -5560,10 +5620,10 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
 #### Snippet
 ```java
-  public T caseProperty(Property object)
+  public Adapter createConditionAdapter()
   {
     return null;
   }
@@ -5572,14 +5632,122 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
 #### Snippet
 ```java
-  public T caseEntities(Entities object)
+  public Adapter createStatemachineAdapter()
   {
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createStateAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createInputSignalAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createCommandAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createOutputSignalAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createEventAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createSignalAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createEObjectAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createTransitionAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
+#### Snippet
+```java
+				return parameters.put(IServiceContext.SERVICE_TYPE, substring);
+			}
+			return null;
+		} catch (IOException e) {
+			throw Exceptions.sneakyThrow(e);
 ```
 
 ### ReturnNull
@@ -5600,30 +5768,6 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 #### Snippet
 ```java
   public T caseFeature(Feature object)
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
-#### Snippet
-```java
-  public T caseEntity(Entity object)
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
-#### Snippet
-```java
-  public T caseOperation(Operation object)
   {
     return null;
   }
@@ -5656,26 +5800,62 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
 #### Snippet
 ```java
-							return formatterPreferencesProvider.getPreferenceValues($0.getResource());
-						}
-						return null;
-					}
-				});
+  public T caseProperty(Property object)
+  {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
 #### Snippet
 ```java
-		} catch (Throwable t) {
-			if (t instanceof IOException) {
-				return null;
-			} else {
-				throw Exceptions.sneakyThrow(t);
+  public T caseOperation(Operation object)
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+  public T caseEntities(Entities object)
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelSwitch.java`
+#### Snippet
+```java
+  public T caseEntity(Entity object)
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/DefaultContentTypeProvider.java`
+#### Snippet
+```java
+      return URLConnection.guessContentTypeFromName(fileName);
+    }
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -5688,6 +5868,42 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 				return null;
 			}
 		}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createEntitiesAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createEObjectAdapter()
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+#### Snippet
+```java
+  public Adapter createAbstractElementAdapter()
+  {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -5731,18 +5947,6 @@ Return of `null`
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
 #### Snippet
 ```java
-  public Adapter createEntityAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
-#### Snippet
-```java
   public Adapter createPackageDeclarationAdapter()
   {
     return null;
@@ -5755,7 +5959,7 @@ Return of `null`
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
 #### Snippet
 ```java
-  public Adapter createEObjectAdapter()
+  public Adapter createEntityAdapter()
   {
     return null;
   }
@@ -5764,22 +5968,46 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/util/ElementAtOffsetUtil.java`
 #### Snippet
 ```java
-  public Adapter createEntitiesAdapter()
-  {
-    return null;
-  }
-
+			}
+		}
+		return null;
+	}
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/util/DomainmodelAdapterFactory.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
 #### Snippet
 ```java
-  public Adapter createAbstractElementAdapter()
+		} catch (Throwable t) {
+			if (t instanceof IOException) {
+				return null;
+			} else {
+				throw Exceptions.sneakyThrow(t);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
+#### Snippet
+```java
+							return formatterPreferencesProvider.getPreferenceValues($0.getResource());
+						}
+						return null;
+					}
+				});
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
+#### Snippet
+```java
+  public T caseInputSignal(InputSignal object)
   {
     return null;
   }
@@ -5803,43 +6031,7 @@ Return of `null`
 in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
 #### Snippet
 ```java
-  public T caseOutputSignal(OutputSignal object)
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
-#### Snippet
-```java
-  public T caseState(State object)
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
-#### Snippet
-```java
-  public T caseCondition(Condition object)
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
-#### Snippet
-```java
-  public T caseEvent(Event object)
+  public T caseCommand(Command object)
   {
     return null;
   }
@@ -5863,7 +6055,19 @@ Return of `null`
 in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
 #### Snippet
 ```java
-  public T caseCommand(Command object)
+  public T caseEvent(Event object)
+  {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
+#### Snippet
+```java
+  public T caseOutputSignal(OutputSignal object)
   {
     return null;
   }
@@ -5899,7 +6103,7 @@ Return of `null`
 in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
 #### Snippet
 ```java
-  public T caseInputSignal(InputSignal object)
+  public T caseState(State object)
   {
     return null;
   }
@@ -5908,242 +6112,26 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/DefaultContentTypeProvider.java`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineSwitch.java`
 #### Snippet
 ```java
-      return URLConnection.guessContentTypeFromName(fileName);
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/util/ElementAtOffsetUtil.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/UpdateDocumentService.java`
-#### Snippet
-```java
-					doc.updateText(deltaText, offset, replaceLength);
-				}
-				return null;
-			}
-		});
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/UpdateDocumentService.java`
-#### Snippet
-```java
-			public Object exec(IXtextWebDocument doc, CancelIndicator cancelIndicator) throws Exception {
-				doc.setText(fullText);
-				return null;
-			}
-		});
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createEObjectAdapter()
+  public T caseCondition(Condition object)
   {
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createEventAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createConditionAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createInputSignalAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createStatemachineAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createStateAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createOutputSignalAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createCommandAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createTransitionAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/util/StatemachineAdapterFactory.java`
-#### Snippet
-```java
-  public Adapter createSignalAdapter()
-  {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
-#### Snippet
-```java
-				return parameters.put(IServiceContext.SERVICE_TYPE, substring);
-			}
-			return null;
-		} catch (IOException e) {
-			throw Exceptions.sneakyThrow(e);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverService.java`
-#### Snippet
-```java
-					nameHtml, (String $0, IImageDescription $1) -> addIconDivs($1, $0));
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingService.java`
-#### Snippet
-```java
-					it.updateText(textWrapper.get(), regionWrapper.get().getOffset(), regionWrapper.get().getLength());
-				}
-				return null;
-			}
-		};
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingService.java`
-#### Snippet
-```java
-		IParseResult parseResult = resource.getParseResult();
-		if (parseResult == null) {
-			return null;
-		}
-		ICompositeNode rootNode = parseResult.getRootNode();
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `service` is redundant
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextServlet.java`
-#### Snippet
-```java
-		Injector injector = getInjector(serviceContext);
-		XtextServiceDispatcher serviceDispatcher = injector.getInstance(XtextServiceDispatcher.class);
-		XtextServiceDispatcher.ServiceDescriptor service = serviceDispatcher.getService(serviceContext);
-		return service;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `event` is redundant
+Local variable `signal` is redundant
 in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
 #### Snippet
 ```java
-  public Event createEvent()
+  public Signal createSignal()
   {
-    EventImpl event = new EventImpl();
-    return event;
+    SignalImpl signal = new SignalImpl();
+    return signal;
   }
 ```
 
@@ -6160,18 +6148,6 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `inputSignal` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
-#### Snippet
-```java
-  public InputSignal createInputSignal()
-  {
-    InputSignalImpl inputSignal = new InputSignalImpl();
-    return inputSignal;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `state` is redundant
 in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
 #### Snippet
@@ -6180,54 +6156,6 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
   {
     StateImpl state = new StateImpl();
     return state;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `outputSignal` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
-#### Snippet
-```java
-  public OutputSignal createOutputSignal()
-  {
-    OutputSignalImpl outputSignal = new OutputSignalImpl();
-    return outputSignal;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `transition` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
-#### Snippet
-```java
-  public Transition createTransition()
-  {
-    TransitionImpl transition = new TransitionImpl();
-    return transition;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `command` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
-#### Snippet
-```java
-  public Command createCommand()
-  {
-    CommandImpl command = new CommandImpl();
-    return command;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `signal` is redundant
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
-#### Snippet
-```java
-  public Signal createSignal()
-  {
-    SignalImpl signal = new SignalImpl();
-    return signal;
   }
 ```
 
@@ -6244,26 +6172,86 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `entity` is redundant
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelFactoryImpl.java`
+Local variable `event` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
 #### Snippet
 ```java
-  public Entity createEntity()
+  public Event createEvent()
   {
-    EntityImpl entity = new EntityImpl();
-    return entity;
+    EventImpl event = new EventImpl();
+    return event;
   }
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `operation` is redundant
+Local variable `outputSignal` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
+#### Snippet
+```java
+  public OutputSignal createOutputSignal()
+  {
+    OutputSignalImpl outputSignal = new OutputSignalImpl();
+    return outputSignal;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `inputSignal` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
+#### Snippet
+```java
+  public InputSignal createInputSignal()
+  {
+    InputSignalImpl inputSignal = new InputSignalImpl();
+    return inputSignal;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `command` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
+#### Snippet
+```java
+  public Command createCommand()
+  {
+    CommandImpl command = new CommandImpl();
+    return command;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `transition` is redundant
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StatemachineFactoryImpl.java`
+#### Snippet
+```java
+  public Transition createTransition()
+  {
+    TransitionImpl transition = new TransitionImpl();
+    return transition;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `service` is redundant
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextServlet.java`
+#### Snippet
+```java
+		Injector injector = getInjector(serviceContext);
+		XtextServiceDispatcher serviceDispatcher = injector.getInstance(XtextServiceDispatcher.class);
+		XtextServiceDispatcher.ServiceDescriptor service = serviceDispatcher.getService(serviceContext);
+		return service;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `property` is redundant
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelFactoryImpl.java`
 #### Snippet
 ```java
-  public Operation createOperation()
+  public Property createProperty()
   {
-    OperationImpl operation = new OperationImpl();
-    return operation;
+    PropertyImpl property = new PropertyImpl();
+    return property;
   }
 ```
 
@@ -6292,18 +6280,6 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `abstractElement` is redundant
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelFactoryImpl.java`
-#### Snippet
-```java
-  public AbstractElement createAbstractElement()
-  {
-    AbstractElementImpl abstractElement = new AbstractElementImpl();
-    return abstractElement;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `packageDeclaration` is redundant
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelFactoryImpl.java`
 #### Snippet
@@ -6316,14 +6292,38 @@ in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `property` is redundant
+Local variable `abstractElement` is redundant
 in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelFactoryImpl.java`
 #### Snippet
 ```java
-  public Property createProperty()
+  public AbstractElement createAbstractElement()
   {
-    PropertyImpl property = new PropertyImpl();
-    return property;
+    AbstractElementImpl abstractElement = new AbstractElementImpl();
+    return abstractElement;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `entity` is redundant
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelFactoryImpl.java`
+#### Snippet
+```java
+  public Entity createEntity()
+  {
+    EntityImpl entity = new EntityImpl();
+    return entity;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `operation` is redundant
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/DomainmodelFactoryImpl.java`
+#### Snippet
+```java
+  public Operation createOperation()
+  {
+    OperationImpl operation = new OperationImpl();
+    return operation;
   }
 ```
 
@@ -6342,15 +6342,27 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/contentassi
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `contentType` initializer `null` is redundant
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextResourcesServlet.java`
+Variable `operationType` initializer `null` is redundant
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
 #### Snippet
 ```java
-					}
-					String mimeType = getServletContext().getMimeType(fileName);
-					String contentType = null;
-					if (mimeType != null) {
-						contentType = mimeType;
+						} else if (f instanceof Operation) {
+							// operations are mapped to methods
+							JvmTypeReference operationType = null;
+							if (((Operation) f).getType() != null) {
+								operationType = ((Operation) f).getType();
+```
+
+### UnusedAssignment
+Variable `charset` initializer `null` is redundant
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
+#### Snippet
+```java
+			}
+			if (contentType != null && "application/x-www-form-urlencoded".equals(contentType[0])) {
+				String charset = null;
+				if (contentType != null && contentType.length >= 2 && contentType[1].startsWith("charset=")) {
+					charset = (contentType[1]).substring("charset=".length());
 ```
 
 ### UnusedAssignment
@@ -6378,6 +6390,18 @@ in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/Xt
 ```
 
 ### UnusedAssignment
+Variable `contentType` initializer `null` is redundant
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/XtextResourcesServlet.java`
+#### Snippet
+```java
+					}
+					String mimeType = getServletContext().getMimeType(fileName);
+					String contentType = null;
+					if (mimeType != null) {
+						contentType = mimeType;
+```
+
+### UnusedAssignment
 Variable `document` initializer `null` is redundant
 in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
 #### Snippet
@@ -6401,30 +6425,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 				uriString = resourceId;
 ```
 
-### UnusedAssignment
-Variable `charset` initializer `null` is redundant
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
-#### Snippet
-```java
-			}
-			if (contentType != null && "application/x-www-form-urlencoded".equals(contentType[0])) {
-				String charset = null;
-				if (contentType != null && contentType.length >= 2 && contentType[1].startsWith("charset=")) {
-					charset = (contentType[1]).substring("charset=".length());
-```
-
-### UnusedAssignment
-Variable `operationType` initializer `null` is redundant
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
-#### Snippet
-```java
-						} else if (f instanceof Operation) {
-							// operations are mapped to methods
-							JvmTypeReference operationType = null;
-							if (((Operation) f).getType() != null) {
-								operationType = ((Operation) f).getType();
-```
-
 ## RuleId[ruleID=TypeParameterExtendsObject]
 ### TypeParameterExtendsObject
 Type parameter `T` explicitly extends 'java.lang.Object'
@@ -6434,18 +6434,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ISession.ja
    * done in an atomic block, thus the session store may be accessed from multiple threads.
    */
   <T extends Object> T get(Object key, Function0<? extends T> factory);
-  
-  /**
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ISession.java`
-#### Snippet
-```java
-   * is associated with that key.
-   */
-  <T extends Object> T get(Object key);
   
   /**
 ```
@@ -6467,47 +6455,23 @@ Type parameter `T` explicitly extends 'java.lang.Object'
 in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ISession.java`
 #### Snippet
 ```java
+   * is associated with that key.
+   */
+  <T extends Object> T get(Object key);
+  
+  /**
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ISession.java`
+#### Snippet
+```java
   class NullImpl implements ISession {
     @Override
     public <T extends Object> T get(Object key) {
       return null;
     }
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
-#### Snippet
-```java
-	 * the document, but is not relevant for the current service request.
-	 */
-	public <T extends Object> T modify(CancelableUnitOfWork<T, IXtextWebDocument> work,
-			CancelableUnitOfWork<?, IXtextWebDocument> asynchronousWork) {
-		return doAccess(work, true, true, asynchronousWork);
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
-#### Snippet
-```java
-	 * are canceled if they support cancellation.
-	 */
-	public <T extends Object> T priorityReadOnly(CancelableUnitOfWork<T, IXtextWebDocument> work) {
-		return doAccess(work, true, false, null);
-	}
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
-#### Snippet
-```java
-	 * units are canceled if they support cancellation.
-	 */
-	public <T extends Object> T modify(CancelableUnitOfWork<T, IXtextWebDocument> work) {
-		return doAccess(work, true, true, null);
-	}
 ```
 
 ### TypeParameterExtendsObject
@@ -6534,7 +6498,139 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/Xtext
 	}
 ```
 
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
+#### Snippet
+```java
+	 * units are canceled if they support cancellation.
+	 */
+	public <T extends Object> T modify(CancelableUnitOfWork<T, IXtextWebDocument> work) {
+		return doAccess(work, true, true, null);
+	}
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
+#### Snippet
+```java
+	 * are canceled if they support cancellation.
+	 */
+	public <T extends Object> T priorityReadOnly(CancelableUnitOfWork<T, IXtextWebDocument> work) {
+		return doAccess(work, true, false, null);
+	}
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/XtextWebDocumentAccess.java`
+#### Snippet
+```java
+	 * the document, but is not relevant for the current service request.
+	 */
+	public <T extends Object> T modify(CancelableUnitOfWork<T, IXtextWebDocument> work,
+			CancelableUnitOfWork<?, IXtextWebDocument> asynchronousWork) {
+		return doAccess(work, true, true, asynchronousWork);
+```
+
 ## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `NAME_EDEFAULT == null` is always `true`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/AbstractElementImpl.java`
+#### Snippet
+```java
+    {
+      case DomainmodelPackage.ABSTRACT_ELEMENT__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+    }
+    return super.eIsSet(featureID);
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/OperationImpl.java`
+#### Snippet
+```java
+      NotificationChain msgs = null;
+      if (body != null)
+        msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.OPERATION__BODY, null, msgs);
+      if (newBody != null)
+        msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.OPERATION__BODY, null, msgs);
+```
+
+### ConstantValue
+Value `entity` is always 'null'
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
+#### Snippet
+```java
+		} else {
+			throw new IllegalArgumentException(
+					"Unhandled parameter types: " + Arrays.asList(entity, acceptor, prelinkingPhase).toString());
+		}
+	}
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntitiesImpl.java`
+#### Snippet
+```java
+      NotificationChain msgs = null;
+      if (importSection != null)
+        msgs = ((InternalEObject)importSection).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.ENTITIES__IMPORT_SECTION, null, msgs);
+      if (newImportSection != null)
+        msgs = ((InternalEObject)newImportSection).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.ENTITIES__IMPORT_SECTION, null, msgs);
+```
+
+### ConstantValue
+Condition `NAME_EDEFAULT == null` is always `true`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
+#### Snippet
+```java
+    {
+      case StatemachinePackage.STATE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case StatemachinePackage.STATE__COMMANDS:
+        return commands != null && !commands.isEmpty();
+```
+
+### ConstantValue
+Condition `NAME_EDEFAULT == null` is always `true`
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/SignalImpl.java`
+#### Snippet
+```java
+    {
+      case StatemachinePackage.SIGNAL__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+    }
+    return super.eIsSet(featureID);
+```
+
+### ConstantValue
+Value `resourceId` is always 'null'
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/IWebDocumentProvider.java`
+#### Snippet
+```java
+    public XtextWebDocument get(String resourceId, IServiceContext serviceContext) {
+      if (resourceId == null) {
+        return new XtextWebDocument(resourceId, synchronizerProvider.get());
+      } else {
+        return new XtextWebDocument(resourceId, serviceContext.getSession().get(DocumentSynchronizer.class,  () -> this.synchronizerProvider.get()));
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntityImpl.java`
+#### Snippet
+```java
+      NotificationChain msgs = null;
+      if (superType != null)
+        msgs = ((InternalEObject)superType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.ENTITY__SUPER_TYPE, null, msgs);
+      if (newSuperType != null)
+        msgs = ((InternalEObject)newSuperType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.ENTITY__SUPER_TYPE, null, msgs);
+```
+
 ### ConstantValue
 Value `grammar` is always 'null'
 in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/services/StatemachineGrammarAccess.java`
@@ -6548,15 +6644,63 @@ in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/exa
 ```
 
 ### ConstantValue
-Condition `this.regions == null` is always `false`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
+Value `msgs` is always 'null'
+in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/TransitionImpl.java`
+#### Snippet
+```java
+      NotificationChain msgs = null;
+      if (condition != null)
+        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__CONDITION, null, msgs);
+      if (newCondition != null)
+        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__CONDITION, null, msgs);
+```
+
+### ConstantValue
+Condition `contentType != null` is always `true`
+in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
+#### Snippet
+```java
+			if (contentType != null && "application/x-www-form-urlencoded".equals(contentType[0])) {
+				String charset = null;
+				if (contentType != null && contentType.length >= 2 && contentType[1].startsWith("charset=")) {
+					charset = (contentType[1]).substring("charset=".length());
+				} else {
+```
+
+### ConstantValue
+Condition `this.issues == null` is always `false` when reached
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+	@Override
+	public int hashCode() {
+		return 31 * 1 + ((this.issues == null) ? 0 : this.issues.hashCode());
+	}
+
+```
+
+### ConstantValue
+Condition `this.issues == null` is always `false`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
 #### Snippet
 ```java
 			return false;
-		HighlightingResult other = (HighlightingResult) obj;
-		if (this.regions == null) {
-			if (other.regions != null)
+		ValidationResult other = (ValidationResult) obj;
+		if (this.issues == null) {
+			if (other.issues != null)
 				return false;
+```
+
+### ConstantValue
+Value `grammar` is always 'null'
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/services/EntitiesGrammarAccess.java`
+#### Snippet
+```java
+			}
+		}
+		return grammar;
+	}
+	
 ```
 
 ### ConstantValue
@@ -6569,6 +6713,18 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcolor
 		return 31 * 1 + ((this.regions == null) ? 0 : this.regions.hashCode());
 	}
 
+```
+
+### ConstantValue
+Condition `this.regions == null` is always `false`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
+#### Snippet
+```java
+			return false;
+		HighlightingResult other = (HighlightingResult) obj;
+		if (this.regions == null) {
+			if (other.regions != null)
+				return false;
 ```
 
 ### ConstantValue
@@ -6596,18 +6752,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/contentassi
 ```
 
 ### ConstantValue
-Value `serviceType` is always 'null'
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
-#### Snippet
-```java
-		} else {
-			throw new InvalidRequestException.InvalidParametersException(
-					"The service type '" + serviceType + "' is not supported.");
-		}
-	}
-```
-
-### ConstantValue
 Value `exception` is always 'null'
 in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
 #### Snippet
@@ -6632,6 +6776,18 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 ```
 
 ### ConstantValue
+Value `serviceType` is always 'null'
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
+#### Snippet
+```java
+		} else {
+			throw new InvalidRequestException.InvalidParametersException(
+					"The service type '" + serviceType + "' is not supported.");
+		}
+	}
+```
+
+### ConstantValue
 Condition `t instanceof IOException` is always `false`
 in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServiceDispatcher.java`
 #### Snippet
@@ -6641,6 +6797,54 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 			if (t instanceof IOException) {
 				return null;
 			} else {
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
+#### Snippet
+```java
+      NotificationChain msgs = null;
+      if (type != null)
+        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.FEATURE__TYPE, null, msgs);
+      if (newType != null)
+        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.FEATURE__TYPE, null, msgs);
+```
+
+### ConstantValue
+Condition `NAME_EDEFAULT == null` is always `true`
+in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
+#### Snippet
+```java
+    {
+      case DomainmodelPackage.FEATURE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case DomainmodelPackage.FEATURE__TYPE:
+        return type != null;
+```
+
+### ConstantValue
+Condition `artifacts == null` is always `false`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
+#### Snippet
+```java
+				return false;
+			GeneratedArtifacts other = (GeneratedArtifacts) obj;
+			if (artifacts == null) {
+				if (other.artifacts != null)
+					return false;
+```
+
+### ConstantValue
+Condition `artifacts == null` is always `false` when reached
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
+#### Snippet
+```java
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((artifacts == null) ? 0 : artifacts.hashCode());
+			return result;
+		}
 ```
 
 ### ConstantValue
@@ -6691,221 +6895,101 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences
 				return false;
 ```
 
-### ConstantValue
-Value `grammar` is always 'null'
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/services/EntitiesGrammarAccess.java`
-#### Snippet
-```java
-			}
-		}
-		return grammar;
-	}
-	
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/TransitionImpl.java`
-#### Snippet
-```java
-      NotificationChain msgs = null;
-      if (condition != null)
-        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__CONDITION, null, msgs);
-      if (newCondition != null)
-        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__CONDITION, null, msgs);
-```
-
-### ConstantValue
-Condition `NAME_EDEFAULT == null` is always `true`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/StateImpl.java`
-#### Snippet
-```java
-    {
-      case StatemachinePackage.STATE__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case StatemachinePackage.STATE__COMMANDS:
-        return commands != null && !commands.isEmpty();
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntityImpl.java`
-#### Snippet
-```java
-      NotificationChain msgs = null;
-      if (superType != null)
-        msgs = ((InternalEObject)superType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.ENTITY__SUPER_TYPE, null, msgs);
-      if (newSuperType != null)
-        msgs = ((InternalEObject)newSuperType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.ENTITY__SUPER_TYPE, null, msgs);
-```
-
-### ConstantValue
-Condition `NAME_EDEFAULT == null` is always `true`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/AbstractElementImpl.java`
-#### Snippet
-```java
-    {
-      case DomainmodelPackage.ABSTRACT_ELEMENT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-    }
-    return super.eIsSet(featureID);
-```
-
-### ConstantValue
-Condition `artifacts == null` is always `false`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
-#### Snippet
-```java
-				return false;
-			GeneratedArtifacts other = (GeneratedArtifacts) obj;
-			if (artifacts == null) {
-				if (other.artifacts != null)
-					return false;
-```
-
-### ConstantValue
-Condition `artifacts == null` is always `false` when reached
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
-#### Snippet
-```java
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((artifacts == null) ? 0 : artifacts.hashCode());
-			return result;
-		}
-```
-
-### ConstantValue
-Condition `NAME_EDEFAULT == null` is always `true`
-in `org.eclipse.xtext.web.example.statemachine/src-gen/org/eclipse/xtext/web/example/statemachine/statemachine/impl/SignalImpl.java`
-#### Snippet
-```java
-    {
-      case StatemachinePackage.SIGNAL__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-    }
-    return super.eIsSet(featureID);
-```
-
-### ConstantValue
-Value `resourceId` is always 'null'
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/IWebDocumentProvider.java`
-#### Snippet
-```java
-    public XtextWebDocument get(String resourceId, IServiceContext serviceContext) {
-      if (resourceId == null) {
-        return new XtextWebDocument(resourceId, synchronizerProvider.get());
-      } else {
-        return new XtextWebDocument(resourceId, serviceContext.getSession().get(DocumentSynchronizer.class,  () -> this.synchronizerProvider.get()));
-```
-
-### ConstantValue
-Condition `this.issues == null` is always `false`
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-			return false;
-		ValidationResult other = (ValidationResult) obj;
-		if (this.issues == null) {
-			if (other.issues != null)
-				return false;
-```
-
-### ConstantValue
-Condition `this.issues == null` is always `false` when reached
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+## RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
 #### Snippet
 ```java
 	@Override
-	public int hashCode() {
-		return 31 * 1 + ((this.issues == null) ? 0 : this.issues.hashCode());
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("conflict", this.conflict);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("conflict", this.conflict);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("conflict", this.conflict);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
+#### Snippet
+```java
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("conflict", this.conflict);
+		return b.toString();
+	}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
+#### Snippet
+```java
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("conflict", this.conflict);
+		return b.toString();
 	}
 
 ```
 
-### ConstantValue
-Condition `NAME_EDEFAULT == null` is always `true`
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
-#### Snippet
-```java
-    {
-      case DomainmodelPackage.FEATURE__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case DomainmodelPackage.FEATURE__TYPE:
-        return type != null;
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/FeatureImpl.java`
-#### Snippet
-```java
-      NotificationChain msgs = null;
-      if (type != null)
-        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.FEATURE__TYPE, null, msgs);
-      if (newType != null)
-        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.FEATURE__TYPE, null, msgs);
-```
-
-### ConstantValue
-Condition `contentType != null` is always `true`
-in `org.eclipse.xtext.web.servlet/src/main/java/org/eclipse/xtext/web/servlet/HttpServiceContext.java`
-#### Snippet
-```java
-			if (contentType != null && "application/x-www-form-urlencoded".equals(contentType[0])) {
-				String charset = null;
-				if (contentType != null && contentType.length >= 2 && contentType[1].startsWith("charset=")) {
-					charset = (contentType[1]).substring("charset=".length());
-				} else {
-```
-
-### ConstantValue
-Value `entity` is always 'null'
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/jvmmodel/EntitiesJvmModelInferrer.java`
-#### Snippet
-```java
-		} else {
-			throw new IllegalArgumentException(
-					"Unhandled parameter types: " + Arrays.asList(entity, acceptor, prelinkingPhase).toString());
-		}
-	}
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/EntitiesImpl.java`
-#### Snippet
-```java
-      NotificationChain msgs = null;
-      if (importSection != null)
-        msgs = ((InternalEObject)importSection).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.ENTITIES__IMPORT_SECTION, null, msgs);
-      if (newImportSection != null)
-        msgs = ((InternalEObject)newImportSection).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.ENTITIES__IMPORT_SECTION, null, msgs);
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtext.web.example.entities/src-gen/org/eclipse/xtext/web/example/entities/domainmodel/impl/OperationImpl.java`
-#### Snippet
-```java
-      NotificationChain msgs = null;
-      if (body != null)
-        msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.OPERATION__BODY, null, msgs);
-      if (newBody != null)
-        msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DomainmodelPackage.OPERATION__BODY, null, msgs);
-```
-
-## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
 'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
 in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
 #### Snippet
 ```java
 
-	protected void _format(Property property, IFormattableDocument document) {
-		document.surround(regionFor(property).keyword(":"), this::noSpace);
-		document.format(property.getType());
-	}
+	protected void _format(Operation operation, IFormattableDocument document) {
+		document.append(regionFor(operation).keyword("op"), this::oneSpace);
+		document.surround(regionFor(operation).keyword("("), this::noSpace);
+		if (!operation.getParams().isEmpty()) {
+```
+
+### UnstableApiUsage
+'oneSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+
+	protected void _format(Operation operation, IFormattableDocument document) {
+		document.append(regionFor(operation).keyword("op"), this::oneSpace);
+		document.surround(regionFor(operation).keyword("("), this::noSpace);
+		if (!operation.getParams().isEmpty()) {
+```
+
+### UnstableApiUsage
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+	protected void _format(Operation operation, IFormattableDocument document) {
+		document.append(regionFor(operation).keyword("op"), this::oneSpace);
+		document.surround(regionFor(operation).keyword("("), this::noSpace);
+		if (!operation.getParams().isEmpty()) {
+			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
 ```
 
 ### UnstableApiUsage
@@ -6913,11 +6997,143 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
 #### Snippet
 ```java
+	protected void _format(Operation operation, IFormattableDocument document) {
+		document.append(regionFor(operation).keyword("op"), this::oneSpace);
+		document.surround(regionFor(operation).keyword("("), this::noSpace);
+		if (!operation.getParams().isEmpty()) {
+			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
+```
 
-	protected void _format(Property property, IFormattableDocument document) {
-		document.surround(regionFor(property).keyword(":"), this::noSpace);
-		document.format(property.getType());
-	}
+### UnstableApiUsage
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+		document.surround(regionFor(operation).keyword("("), this::noSpace);
+		if (!operation.getParams().isEmpty()) {
+			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
+				document.append(document.prepend(comma, this::noSpace), this::oneSpace);
+			}
+```
+
+### UnstableApiUsage
+'noSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+		if (!operation.getParams().isEmpty()) {
+			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
+				document.append(document.prepend(comma, this::noSpace), this::oneSpace);
+			}
+			for (JvmFormalParameter params : operation.getParams()) {
+```
+
+### UnstableApiUsage
+'oneSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+		if (!operation.getParams().isEmpty()) {
+			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
+				document.append(document.prepend(comma, this::noSpace), this::oneSpace);
+			}
+			for (JvmFormalParameter params : operation.getParams()) {
+```
+
+### UnstableApiUsage
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+				document.format(params);
+			}
+			document.prepend(regionFor(operation).keyword(")"), this::noSpace);
+		}
+		if (operation.getType() != null) {
+```
+
+### UnstableApiUsage
+'noSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+				document.format(params);
+			}
+			document.prepend(regionFor(operation).keyword(")"), this::noSpace);
+		}
+		if (operation.getType() != null) {
+```
+
+### UnstableApiUsage
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+		}
+		if (operation.getType() != null) {
+			document.append(regionFor(operation).keyword(")"), this::noSpace);
+			document.append(document.prepend(operation.getType(), this::noSpace), this::oneSpace);
+			document.format(operation.getType());
+```
+
+### UnstableApiUsage
+'noSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+		}
+		if (operation.getType() != null) {
+			document.append(regionFor(operation).keyword(")"), this::noSpace);
+			document.append(document.prepend(operation.getType(), this::noSpace), this::oneSpace);
+			document.format(operation.getType());
+```
+
+### UnstableApiUsage
+'noSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+		if (operation.getType() != null) {
+			document.append(regionFor(operation).keyword(")"), this::noSpace);
+			document.append(document.prepend(operation.getType(), this::noSpace), this::oneSpace);
+			document.format(operation.getType());
+		} else {
+```
+
+### UnstableApiUsage
+'oneSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+		if (operation.getType() != null) {
+			document.append(regionFor(operation).keyword(")"), this::noSpace);
+			document.append(document.prepend(operation.getType(), this::noSpace), this::oneSpace);
+			document.format(operation.getType());
+		} else {
+```
+
+### UnstableApiUsage
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+			document.format(operation.getType());
+		} else {
+			document.append(regionFor(operation).keyword(")"), this::oneSpace);
+		}
+		document.format(operation.getBody());
+```
+
+### UnstableApiUsage
+'oneSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+			document.format(operation.getType());
+		} else {
+			document.append(regionFor(operation).keyword(")"), this::oneSpace);
+		}
+		document.format(operation.getBody());
 ```
 
 ### UnstableApiUsage
@@ -7005,6 +7221,18 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 ```
 
 ### UnstableApiUsage
+'formatUsingPolymorphicDispatcher(java.lang.Object, org.eclipse.xtext.formatting2.IFormattableDocument)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
+#### Snippet
+```java
+
+	public void format(Object object, IFormattableDocument document) {
+		formatUsingPolymorphicDispatcher(object, document);
+	}
+}
+```
+
+### UnstableApiUsage
 'org.eclipse.xtext.xbase.lib.Extension' is marked unstable with @Beta
 in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
 #### Snippet
@@ -7089,51 +7317,15 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 ```
 
 ### UnstableApiUsage
-'formatUsingPolymorphicDispatcher(java.lang.Object, org.eclipse.xtext.formatting2.IFormattableDocument)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
 in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
 #### Snippet
 ```java
 
-	public void format(Object object, IFormattableDocument document) {
-		formatUsingPolymorphicDispatcher(object, document);
+	protected void _format(Property property, IFormattableDocument document) {
+		document.surround(regionFor(property).keyword(":"), this::noSpace);
+		document.format(property.getType());
 	}
-}
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-
-	protected void _format(Operation operation, IFormattableDocument document) {
-		document.append(regionFor(operation).keyword("op"), this::oneSpace);
-		document.surround(regionFor(operation).keyword("("), this::noSpace);
-		if (!operation.getParams().isEmpty()) {
-```
-
-### UnstableApiUsage
-'oneSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-
-	protected void _format(Operation operation, IFormattableDocument document) {
-		document.append(regionFor(operation).keyword("op"), this::oneSpace);
-		document.surround(regionFor(operation).keyword("("), this::noSpace);
-		if (!operation.getParams().isEmpty()) {
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-	protected void _format(Operation operation, IFormattableDocument document) {
-		document.append(regionFor(operation).keyword("op"), this::oneSpace);
-		document.surround(regionFor(operation).keyword("("), this::noSpace);
-		if (!operation.getParams().isEmpty()) {
-			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
 ```
 
 ### UnstableApiUsage
@@ -7141,143 +7333,11 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
 #### Snippet
 ```java
-	protected void _format(Operation operation, IFormattableDocument document) {
-		document.append(regionFor(operation).keyword("op"), this::oneSpace);
-		document.surround(regionFor(operation).keyword("("), this::noSpace);
-		if (!operation.getParams().isEmpty()) {
-			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
-```
 
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-		document.surround(regionFor(operation).keyword("("), this::noSpace);
-		if (!operation.getParams().isEmpty()) {
-			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
-				document.append(document.prepend(comma, this::noSpace), this::oneSpace);
-			}
-```
-
-### UnstableApiUsage
-'noSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-		if (!operation.getParams().isEmpty()) {
-			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
-				document.append(document.prepend(comma, this::noSpace), this::oneSpace);
-			}
-			for (JvmFormalParameter params : operation.getParams()) {
-```
-
-### UnstableApiUsage
-'oneSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-		if (!operation.getParams().isEmpty()) {
-			for (ISemanticRegion comma : regionFor(operation).keywords(",")) {
-				document.append(document.prepend(comma, this::noSpace), this::oneSpace);
-			}
-			for (JvmFormalParameter params : operation.getParams()) {
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-				document.format(params);
-			}
-			document.prepend(regionFor(operation).keyword(")"), this::noSpace);
-		}
-		if (operation.getType() != null) {
-```
-
-### UnstableApiUsage
-'noSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-				document.format(params);
-			}
-			document.prepend(regionFor(operation).keyword(")"), this::noSpace);
-		}
-		if (operation.getType() != null) {
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-		}
-		if (operation.getType() != null) {
-			document.append(regionFor(operation).keyword(")"), this::noSpace);
-			document.append(document.prepend(operation.getType(), this::noSpace), this::oneSpace);
-			document.format(operation.getType());
-```
-
-### UnstableApiUsage
-'noSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-		}
-		if (operation.getType() != null) {
-			document.append(regionFor(operation).keyword(")"), this::noSpace);
-			document.append(document.prepend(operation.getType(), this::noSpace), this::oneSpace);
-			document.format(operation.getType());
-```
-
-### UnstableApiUsage
-'noSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-		if (operation.getType() != null) {
-			document.append(regionFor(operation).keyword(")"), this::noSpace);
-			document.append(document.prepend(operation.getType(), this::noSpace), this::oneSpace);
-			document.format(operation.getType());
-		} else {
-```
-
-### UnstableApiUsage
-'oneSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-		if (operation.getType() != null) {
-			document.append(regionFor(operation).keyword(")"), this::noSpace);
-			document.append(document.prepend(operation.getType(), this::noSpace), this::oneSpace);
-			document.format(operation.getType());
-		} else {
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-			document.format(operation.getType());
-		} else {
-			document.append(regionFor(operation).keyword(")"), this::oneSpace);
-		}
-		document.format(operation.getBody());
-```
-
-### UnstableApiUsage
-'oneSpace(org.eclipse.xtext.formatting2.IHiddenRegionFormatter)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/formatting2/EntitiesFormatter.java`
-#### Snippet
-```java
-			document.format(operation.getType());
-		} else {
-			document.append(regionFor(operation).keyword(")"), this::oneSpace);
-		}
-		document.format(operation.getBody());
+	protected void _format(Property property, IFormattableDocument document) {
+		document.surround(regionFor(property).keyword(":"), this::noSpace);
+		document.format(property.getType());
+	}
 ```
 
 ### UnstableApiUsage
@@ -7302,6 +7362,702 @@ in `org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/ent
 		}), this::newLine);
 		format(entities.getImportSection(), document);
 		for (AbstractElement element : entities.getElements()) {
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("fullText", this.fullText);
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("fullText", this.fullText);
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("fullText", this.fullText);
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
+#### Snippet
+```java
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("fullText", this.fullText);
+		b.add("stateId", this.stateId);
+		b.add("dirty", this.dirty);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
+#### Snippet
+```java
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("fullText", this.fullText);
+		b.add("stateId", this.stateId);
+		b.add("dirty", this.dirty);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
+#### Snippet
+```java
+		b.add("fullText", this.fullText);
+		b.add("stateId", this.stateId);
+		b.add("dirty", this.dirty);
+		return b.toString();
+	}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
+#### Snippet
+```java
+		b.add("stateId", this.stateId);
+		b.add("dirty", this.dirty);
+		return b.toString();
+	}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+#### Snippet
+```java
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+		b.add("title", this.title);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+#### Snippet
+```java
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+		b.add("title", this.title);
+		b.add("content", this.content);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+#### Snippet
+```java
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+		b.add("title", this.title);
+		b.add("content", this.content);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+#### Snippet
+```java
+		b.add("stateId", this.stateId);
+		b.add("title", this.title);
+		b.add("content", this.content);
+		return b.toString();
+	}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+#### Snippet
+```java
+		b.add("title", this.title);
+		b.add("content", this.content);
+		return b.toString();
+	}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+```
+
+### UnstableApiUsage
+'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
+#### Snippet
+```java
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+		b.add("formattedText", this.formattedText);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
+#### Snippet
+```java
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+		b.add("formattedText", this.formattedText);
+		b.add("replaceRegion", this.replaceRegion);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
+#### Snippet
+```java
+		b.skipNulls();
+		b.add("stateId", this.stateId);
+		b.add("formattedText", this.formattedText);
+		b.add("replaceRegion", this.replaceRegion);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
+#### Snippet
+```java
+		b.add("stateId", this.stateId);
+		b.add("formattedText", this.formattedText);
+		b.add("replaceRegion", this.replaceRegion);
+		return b.toString();
+	}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
+#### Snippet
+```java
+		b.add("formattedText", this.formattedText);
+		b.add("replaceRegion", this.replaceRegion);
+		return b.toString();
+	}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("stateId", this.stateId);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("stateId", this.stateId);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("stateId", this.stateId);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
+#### Snippet
+```java
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("stateId", this.stateId);
+		return b.toString();
+	}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
+#### Snippet
+```java
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("stateId", this.stateId);
+		return b.toString();
+	}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("name", this.name);
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("name", this.name);
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("name", this.name);
+```
+
+### UnstableApiUsage
+'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
+#### Snippet
+```java
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("name", this.name);
+		b.add("contentType", this.contentType);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
+#### Snippet
+```java
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.skipNulls();
+		b.add("name", this.name);
+		b.add("contentType", this.contentType);
+		b.add("content", this.content);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
+#### Snippet
+```java
+		b.skipNulls();
+		b.add("name", this.name);
+		b.add("contentType", this.contentType);
+		b.add("content", this.content);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
+#### Snippet
+```java
+		b.add("name", this.name);
+		b.add("contentType", this.contentType);
+		b.add("content", this.content);
+		return b.toString();
+	}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
+#### Snippet
+```java
+		b.add("contentType", this.contentType);
+		b.add("content", this.content);
+		return b.toString();
+	}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtend.lib.annotations.FinalFieldsConstructor' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/util/CancelIndicatorProgressMonitor.java`
+#### Snippet
+```java
+import org.eclipse.xtext.util.CancelIndicator;
+
+@FinalFieldsConstructor
+public class CancelIndicatorProgressMonitor implements IProgressMonitor {
+  private final CancelIndicator delegate;
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("issues", this.issues);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("issues", this.issues);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("issues", this.issues);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("issues", this.issues);
+		return b.toString();
+	}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("issues", this.issues);
+		return b.toString();
+	}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+		@Override
+		public String toString() {
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.skipNulls();
+			b.add("description", this.description);
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+		@Override
+		public String toString() {
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.skipNulls();
+			b.add("description", this.description);
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+		@Override
+		public String toString() {
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.skipNulls();
+			b.add("description", this.description);
+```
+
+### UnstableApiUsage
+'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+		public String toString() {
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.skipNulls();
+			b.add("description", this.description);
+			b.add("severity", this.severity);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.skipNulls();
+			b.add("description", this.description);
+			b.add("severity", this.severity);
+			b.add("line", this.line);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+			b.skipNulls();
+			b.add("description", this.description);
+			b.add("severity", this.severity);
+			b.add("line", this.line);
+			b.add("column", this.column);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+			b.add("description", this.description);
+			b.add("severity", this.severity);
+			b.add("line", this.line);
+			b.add("column", this.column);
+			b.add("offset", this.offset);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+			b.add("severity", this.severity);
+			b.add("line", this.line);
+			b.add("column", this.column);
+			b.add("offset", this.offset);
+			b.add("length", this.length);
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+			b.add("line", this.line);
+			b.add("column", this.column);
+			b.add("offset", this.offset);
+			b.add("length", this.length);
+			return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+			b.add("column", this.column);
+			b.add("offset", this.offset);
+			b.add("length", this.length);
+			return b.toString();
+		}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
+#### Snippet
+```java
+			b.add("offset", this.offset);
+			b.add("length", this.length);
+			return b.toString();
+		}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("regions", this.regions);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("regions", this.regions);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("regions", this.regions);
+		return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
+#### Snippet
+```java
+	public String toString() {
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("regions", this.regions);
+		return b.toString();
+	}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
+#### Snippet
+```java
+		ToStringBuilder b = new ToStringBuilder(this);
+		b.add("regions", this.regions);
+		return b.toString();
+	}
+
 ```
 
 ### UnstableApiUsage
@@ -7402,66 +8158,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcolor
 
 ### UnstableApiUsage
 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("regions", this.regions);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("regions", this.regions);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("regions", this.regions);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
-#### Snippet
-```java
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("regions", this.regions);
-		return b.toString();
-	}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/syntaxcoloring/HighlightingResult.java`
-#### Snippet
-```java
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("regions", this.regions);
-		return b.toString();
-	}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
 in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/contentassist/ContentAssistResult.java`
 #### Snippet
 ```java
@@ -7638,798 +8334,6 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/XtextServic
 			return b.toString();
 		}
 	}
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
-#### Snippet
-```java
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-		b.add("writeRegions", this.writeRegions);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
-#### Snippet
-```java
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-		b.add("writeRegions", this.writeRegions);
-		b.add("readRegions", this.readRegions);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
-#### Snippet
-```java
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-		b.add("writeRegions", this.writeRegions);
-		b.add("readRegions", this.readRegions);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
-#### Snippet
-```java
-		b.add("stateId", this.stateId);
-		b.add("writeRegions", this.writeRegions);
-		b.add("readRegions", this.readRegions);
-		return b.toString();
-	}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
-#### Snippet
-```java
-		b.add("writeRegions", this.writeRegions);
-		b.add("readRegions", this.readRegions);
-		return b.toString();
-	}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("stateId", this.stateId);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("stateId", this.stateId);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("stateId", this.stateId);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
-#### Snippet
-```java
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("stateId", this.stateId);
-		return b.toString();
-	}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/model/DocumentStateResult.java`
-#### Snippet
-```java
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("stateId", this.stateId);
-		return b.toString();
-	}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("conflict", this.conflict);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("conflict", this.conflict);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("conflict", this.conflict);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
-#### Snippet
-```java
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("conflict", this.conflict);
-		return b.toString();
-	}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/ServiceConflictResult.java`
-#### Snippet
-```java
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("conflict", this.conflict);
-		return b.toString();
-	}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("name", this.name);
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("name", this.name);
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("name", this.name);
-```
-
-### UnstableApiUsage
-'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
-#### Snippet
-```java
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("name", this.name);
-		b.add("contentType", this.contentType);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
-#### Snippet
-```java
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("name", this.name);
-		b.add("contentType", this.contentType);
-		b.add("content", this.content);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
-#### Snippet
-```java
-		b.skipNulls();
-		b.add("name", this.name);
-		b.add("contentType", this.contentType);
-		b.add("content", this.content);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
-#### Snippet
-```java
-		b.add("name", this.name);
-		b.add("contentType", this.contentType);
-		b.add("content", this.content);
-		return b.toString();
-	}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorResult.java`
-#### Snippet
-```java
-		b.add("contentType", this.contentType);
-		b.add("content", this.content);
-		return b.toString();
-	}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
-#### Snippet
-```java
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-		b.add("formattedText", this.formattedText);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
-#### Snippet
-```java
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-		b.add("formattedText", this.formattedText);
-		b.add("replaceRegion", this.replaceRegion);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
-#### Snippet
-```java
-		b.skipNulls();
-		b.add("stateId", this.stateId);
-		b.add("formattedText", this.formattedText);
-		b.add("replaceRegion", this.replaceRegion);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
-#### Snippet
-```java
-		b.add("stateId", this.stateId);
-		b.add("formattedText", this.formattedText);
-		b.add("replaceRegion", this.replaceRegion);
-		return b.toString();
-	}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/formatting/FormattingResult.java`
-#### Snippet
-```java
-		b.add("formattedText", this.formattedText);
-		b.add("replaceRegion", this.replaceRegion);
-		return b.toString();
-	}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
-#### Snippet
-```java
-		@Override
-		public String toString() {
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.add("artifacts", artifacts);
-			return b.toString();
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
-#### Snippet
-```java
-		@Override
-		public String toString() {
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.add("artifacts", artifacts);
-			return b.toString();
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
-#### Snippet
-```java
-		@Override
-		public String toString() {
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.add("artifacts", artifacts);
-			return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
-#### Snippet
-```java
-		public String toString() {
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.add("artifacts", artifacts);
-			return b.toString();
-		}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
-#### Snippet
-```java
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.add("artifacts", artifacts);
-			return b.toString();
-		}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("issues", this.issues);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("issues", this.issues);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("issues", this.issues);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("issues", this.issues);
-		return b.toString();
-	}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("issues", this.issues);
-		return b.toString();
-	}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-		@Override
-		public String toString() {
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.skipNulls();
-			b.add("description", this.description);
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-		@Override
-		public String toString() {
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.skipNulls();
-			b.add("description", this.description);
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-		@Override
-		public String toString() {
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.skipNulls();
-			b.add("description", this.description);
-```
-
-### UnstableApiUsage
-'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-		public String toString() {
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.skipNulls();
-			b.add("description", this.description);
-			b.add("severity", this.severity);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-			ToStringBuilder b = new ToStringBuilder(this);
-			b.skipNulls();
-			b.add("description", this.description);
-			b.add("severity", this.severity);
-			b.add("line", this.line);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-			b.skipNulls();
-			b.add("description", this.description);
-			b.add("severity", this.severity);
-			b.add("line", this.line);
-			b.add("column", this.column);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-			b.add("description", this.description);
-			b.add("severity", this.severity);
-			b.add("line", this.line);
-			b.add("column", this.column);
-			b.add("offset", this.offset);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-			b.add("severity", this.severity);
-			b.add("line", this.line);
-			b.add("column", this.column);
-			b.add("offset", this.offset);
-			b.add("length", this.length);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-			b.add("line", this.line);
-			b.add("column", this.column);
-			b.add("offset", this.offset);
-			b.add("length", this.length);
-			return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-			b.add("column", this.column);
-			b.add("offset", this.offset);
-			b.add("length", this.length);
-			return b.toString();
-		}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/validation/ValidationResult.java`
-#### Snippet
-```java
-			b.add("offset", this.offset);
-			b.add("length", this.length);
-			return b.toString();
-		}
-
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("fullText", this.fullText);
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("fullText", this.fullText);
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("fullText", this.fullText);
-		b.add("stateId", this.stateId);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
-#### Snippet
-```java
-	public String toString() {
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("fullText", this.fullText);
-		b.add("stateId", this.stateId);
-		b.add("dirty", this.dirty);
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
-#### Snippet
-```java
-		ToStringBuilder b = new ToStringBuilder(this);
-		b.add("fullText", this.fullText);
-		b.add("stateId", this.stateId);
-		b.add("dirty", this.dirty);
-		return b.toString();
-```
-
-### UnstableApiUsage
-'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
-#### Snippet
-```java
-		b.add("fullText", this.fullText);
-		b.add("stateId", this.stateId);
-		b.add("dirty", this.dirty);
-		return b.toString();
-	}
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/persistence/ResourceContentResult.java`
-#### Snippet
-```java
-		b.add("stateId", this.stateId);
-		b.add("dirty", this.dirty);
-		return b.toString();
-	}
-
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-
-	protected void format(Transition transition, IFormattableDocument doc) {
-		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
-		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
-		doc.prepend(gotoKeyword, it -> it.oneSpace());
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-	protected void format(Transition transition, IFormattableDocument doc) {
-		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
-		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
-		doc.prepend(gotoKeyword, it -> it.oneSpace());
-		doc.append(gotoKeyword, it -> it.oneSpace());
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-
-	protected void format(Event event, IFormattableDocument doc) {
-		ISemanticRegion equalsSignEqualsSignKeyword = regionFor(event)
-				.keyword(ga.getEventAccess().getEqualsSignEqualsSignKeyword_1());
-		doc.prepend(equalsSignEqualsSignKeyword, it -> it.oneSpace());
-```
-
-### UnstableApiUsage
-'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-
-	protected void format(Condition condition, IFormattableDocument doc) {
-		ISemanticRegion andKeyword = regionFor(condition).keyword(ga.getConditionAccess().getAndKeyword_1_0());
-		doc.prepend(andKeyword, it -> it.oneSpace());
-		doc.append(andKeyword, it -> it.oneSpace());
 ```
 
 ### UnstableApiUsage
@@ -8469,27 +8373,15 @@ in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example
 ```
 
 ### UnstableApiUsage
-'AbstractJavaFormatter()' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
 in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
 #### Snippet
 ```java
-import com.google.inject.Inject;
 
-public class StatemachineFormatter extends AbstractJavaFormatter {
-
-	@Inject
-```
-
-### UnstableApiUsage
-'org.eclipse.xtext.formatting2.AbstractJavaFormatter' is marked unstable with @Beta
-in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
-#### Snippet
-```java
-import com.google.inject.Inject;
-
-public class StatemachineFormatter extends AbstractJavaFormatter {
-
-	@Inject
+	protected void format(Event event, IFormattableDocument doc) {
+		ISemanticRegion equalsSignEqualsSignKeyword = regionFor(event)
+				.keyword(ga.getEventAccess().getEqualsSignEqualsSignKeyword_1());
+		doc.prepend(equalsSignEqualsSignKeyword, it -> it.oneSpace());
 ```
 
 ### UnstableApiUsage
@@ -8529,20 +8421,128 @@ in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example
 ```
 
 ### UnstableApiUsage
-'org.eclipse.xtend.lib.annotations.FinalFieldsConstructor' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/util/CancelIndicatorProgressMonitor.java`
+'AbstractJavaFormatter()' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
 #### Snippet
 ```java
-import org.eclipse.xtext.util.CancelIndicator;
+import com.google.inject.Inject;
 
-@FinalFieldsConstructor
-public class CancelIndicatorProgressMonitor implements IProgressMonitor {
-  private final CancelIndicator delegate;
+public class StatemachineFormatter extends AbstractJavaFormatter {
+
+	@Inject
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.formatting2.AbstractJavaFormatter' is marked unstable with @Beta
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+import com.google.inject.Inject;
+
+public class StatemachineFormatter extends AbstractJavaFormatter {
+
+	@Inject
+```
+
+### UnstableApiUsage
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+
+	protected void format(Condition condition, IFormattableDocument doc) {
+		ISemanticRegion andKeyword = regionFor(condition).keyword(ga.getConditionAccess().getAndKeyword_1_0());
+		doc.prepend(andKeyword, it -> it.oneSpace());
+		doc.append(andKeyword, it -> it.oneSpace());
+```
+
+### UnstableApiUsage
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+
+	protected void format(Transition transition, IFormattableDocument doc) {
+		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
+		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
+		doc.prepend(gotoKeyword, it -> it.oneSpace());
+```
+
+### UnstableApiUsage
+'regionFor(org.eclipse.emf.ecore.EObject)' is declared in unstable class 'org.eclipse.xtext.formatting2.AbstractJavaFormatter' marked with @Beta
+in `org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/formatting2/StatemachineFormatter.java`
+#### Snippet
+```java
+	protected void format(Transition transition, IFormattableDocument doc) {
+		doc.append(regionFor(transition).keyword(ga.getTransitionAccess().getIfKeyword_0()), it -> it.oneSpace());
+		ISemanticRegion gotoKeyword = regionFor(transition).keyword(ga.getTransitionAccess().getGotoKeyword_2());
+		doc.prepend(gotoKeyword, it -> it.oneSpace());
+		doc.append(gotoKeyword, it -> it.oneSpace());
 ```
 
 ### UnstableApiUsage
 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
+#### Snippet
+```java
+		@Override
+		public String toString() {
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.add("artifacts", artifacts);
+			return b.toString();
+```
+
+### UnstableApiUsage
+'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
+#### Snippet
+```java
+		@Override
+		public String toString() {
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.add("artifacts", artifacts);
+			return b.toString();
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
+#### Snippet
+```java
+		@Override
+		public String toString() {
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.add("artifacts", artifacts);
+			return b.toString();
+```
+
+### UnstableApiUsage
+'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
+#### Snippet
+```java
+		public String toString() {
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.add("artifacts", artifacts);
+			return b.toString();
+		}
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/generator/GeneratorService.java`
+#### Snippet
+```java
+			ToStringBuilder b = new ToStringBuilder(this);
+			b.add("artifacts", artifacts);
+			return b.toString();
+		}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
 #### Snippet
 ```java
 	@Override
@@ -8554,7 +8554,7 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/Hover
 
 ### UnstableApiUsage
 'ToStringBuilder(java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
 #### Snippet
 ```java
 	@Override
@@ -8566,7 +8566,7 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/Hover
 
 ### UnstableApiUsage
 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' is marked unstable with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
 #### Snippet
 ```java
 	@Override
@@ -8578,59 +8578,59 @@ in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/Hover
 
 ### UnstableApiUsage
 'skipNulls()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
 #### Snippet
 ```java
 	public String toString() {
 		ToStringBuilder b = new ToStringBuilder(this);
 		b.skipNulls();
 		b.add("stateId", this.stateId);
-		b.add("title", this.title);
+		b.add("writeRegions", this.writeRegions);
 ```
 
 ### UnstableApiUsage
 'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
 #### Snippet
 ```java
 		ToStringBuilder b = new ToStringBuilder(this);
 		b.skipNulls();
 		b.add("stateId", this.stateId);
-		b.add("title", this.title);
-		b.add("content", this.content);
+		b.add("writeRegions", this.writeRegions);
+		b.add("readRegions", this.readRegions);
 ```
 
 ### UnstableApiUsage
 'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
 #### Snippet
 ```java
 		b.skipNulls();
 		b.add("stateId", this.stateId);
-		b.add("title", this.title);
-		b.add("content", this.content);
+		b.add("writeRegions", this.writeRegions);
+		b.add("readRegions", this.readRegions);
 		return b.toString();
 ```
 
 ### UnstableApiUsage
 'add(java.lang.String, java.lang.Object)' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
 #### Snippet
 ```java
 		b.add("stateId", this.stateId);
-		b.add("title", this.title);
-		b.add("content", this.content);
+		b.add("writeRegions", this.writeRegions);
+		b.add("readRegions", this.readRegions);
 		return b.toString();
 	}
 ```
 
 ### UnstableApiUsage
 'toString()' is declared in unstable class 'org.eclipse.xtext.xbase.lib.util.ToStringBuilder' marked with @Beta
-in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/hover/HoverResult.java`
+in `org.eclipse.xtext.web/src/main/java/org/eclipse/xtext/web/server/occurrences/OccurrencesResult.java`
 #### Snippet
 ```java
-		b.add("title", this.title);
-		b.add("content", this.content);
+		b.add("writeRegions", this.writeRegions);
+		b.add("readRegions", this.readRegions);
 		return b.toString();
 	}
 
