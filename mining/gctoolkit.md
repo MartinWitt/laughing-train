@@ -110,6 +110,18 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalHeapParser.j
 
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
+Commented out code (8 lines)
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+#### Snippet
+```java
+    }
+
+    /*
+    private static final int METASPACE_OCCUPANCY_BEFORE_COLLECTION = 24;
+    private static final int METASPACE_OCCUPANCY_AFTER_COLLECTION = 25;
+```
+
+### CommentedOutCode
 Commented out code (68 lines)
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/ParNewSerial.java`
 #### Snippet
@@ -119,18 +131,6 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/ParNewSerial.java`
 /*
 
     public static final Pattern PAR_OLD_REDUCTION = Pattern.compile("\\[ParOldGen: " + FROM_TO_CONFIGURED + "\\]");
-```
-
-### CommentedOutCode
-Commented out code (12 lines)
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
-#### Snippet
-```java
-    //ignore this logging for now
-    private void youngRegionAllotment(GCLogTrace trace, String line) {
-//        if (before) {
-//            forwardReference.setYoungOccupancyBeforeCollection(trace.getLongGroup(3));
-//            forwardReference.setSurvivorOccupancyBeforeCollection(trace.getLongGroup(5));
 ```
 
 ### CommentedOutCode
@@ -146,15 +146,15 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 ```
 
 ### CommentedOutCode
-Commented out code (8 lines)
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+Commented out code (12 lines)
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 #### Snippet
 ```java
-    }
-
-    /*
-    private static final int METASPACE_OCCUPANCY_BEFORE_COLLECTION = 24;
-    private static final int METASPACE_OCCUPANCY_AFTER_COLLECTION = 25;
+    //ignore this logging for now
+    private void youngRegionAllotment(GCLogTrace trace, String line) {
+//        if (before) {
+//            forwardReference.setYoungOccupancyBeforeCollection(trace.getLongGroup(3));
+//            forwardReference.setSurvivorOccupancyBeforeCollection(trace.getLongGroup(5));
 ```
 
 ### CommentedOutCode
@@ -208,6 +208,234 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFile.java`
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+    Pattern TAGS = Pattern.compile(".*(?<=^|\\])\\[([a-z0-9,. ]+)\\]");
+
+    String UNIFIED_META_RECORD = "Metaspace: " + BEFORE_AFTER_CONFIGURED;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+    Pattern TAGS = Pattern.compile(".*(?<=^|\\])\\[([a-z0-9,. ]+)\\]");
+
+    String UNIFIED_META_RECORD = "Metaspace: " + BEFORE_AFTER_CONFIGURED;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+
+    String DATE_STAMP = "\\[" + DATE + "\\]";
+    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
+    String TIME_MILLIS = "\\[\\d+ms\\]";
+    String TIME_NANOS = "\\[\\d+ns\\]";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\+` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+     */
+
+    String DATE_STAMP = "\\[" + DATE + "\\]";
+    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
+    String TIME_MILLIS = "\\[\\d+ms\\]";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+     */
+
+    String DATE_STAMP = "\\[" + DATE + "\\]";
+    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
+    String TIME_MILLIS = "\\[\\d+ms\\]";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String TIME_NANOS = "\\[\\d+ns\\]";
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\+` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
+    String TIME_MILLIS = "\\[\\d+ms\\]";
+    String TIME_NANOS = "\\[\\d+ns\\]";
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String TIME_MILLIS = "\\[\\d+ms\\]";
+    String TIME_NANOS = "\\[\\d+ns\\]";
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String DATE_STAMP = "\\[" + DATE + "\\]";
+    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
+    String TIME_MILLIS = "\\[\\d+ms\\]";
+    String TIME_NANOS = "\\[\\d+ns\\]";
+    String PID_TID = "\\[\\d+\\]";
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\+` in RegExp
 in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
 #### Snippet
@@ -216,6 +444,66 @@ in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
     private static final String INTEGER = "\\d+";
     private static final String DATE = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}[\\+|\\-]\\d{4}";
     private static final String TIME = INTEGER + DECIMAL_POINT + "\\d{3}";
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\+` in RegExp
+in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
+#### Snippet
+```java
+    private static final Pattern PREUNIFIED_DATE_TIMESTAMP = Pattern.compile(DATE_TIMESTAMP);
+    // JEP 158 has ISO-8601 time and uptime in seconds and milliseconds as the first two decorators.
+    private static final Pattern UNIFIED_DATE_TIMESTAMP = Pattern.compile("^(" + DATE_TAG + ")?(" + UPTIME_TAG + ")?");
+    private static final DateTimeStamp EMPTY_DATE = new DateTimeStamp(TIMESTAMP_NOT_SET);
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
+#### Snippet
+```java
+    private static final Pattern PREUNIFIED_DATE_TIMESTAMP = Pattern.compile(DATE_TIMESTAMP);
+    // JEP 158 has ISO-8601 time and uptime in seconds and milliseconds as the first two decorators.
+    private static final Pattern UNIFIED_DATE_TIMESTAMP = Pattern.compile("^(" + DATE_TAG + ")?(" + UPTIME_TAG + ")?");
+    private static final DateTimeStamp EMPTY_DATE = new DateTimeStamp(TIMESTAMP_NOT_SET);
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\]` in RegExp
+in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
+#### Snippet
+```java
+    private static final Pattern PREUNIFIED_DATE_TIMESTAMP = Pattern.compile(DATE_TIMESTAMP);
+    // JEP 158 has ISO-8601 time and uptime in seconds and milliseconds as the first two decorators.
+    private static final Pattern UNIFIED_DATE_TIMESTAMP = Pattern.compile("^(" + DATE_TAG + ")?(" + UPTIME_TAG + ")?");
+    private static final DateTimeStamp EMPTY_DATE = new DateTimeStamp(TIMESTAMP_NOT_SET);
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\+` in RegExp
+in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
+#### Snippet
+```java
+
+    // Unified Tokens
+    private static final String DATE_TAG = "\\[" + DATE + "\\]";
+    private static final String UPTIME_TAG = "\\[(" + TIME + ")s\\]";
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
+#### Snippet
+```java
+
+    // Unified Tokens
+    private static final String DATE_TAG = "\\[" + DATE + "\\]";
+    private static final String UPTIME_TAG = "\\[(" + TIME + ")s\\]";
 
 ```
 
@@ -236,58 +524,10 @@ Redundant character escape `\+` in RegExp
 in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
 #### Snippet
 ```java
-
-    // Unified Tokens
-    private static final String DATE_TAG = "\\[" + DATE + "\\]";
-    private static final String UPTIME_TAG = "\\[(" + TIME + ")s\\]";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
-#### Snippet
-```java
-
-    // Unified Tokens
-    private static final String DATE_TAG = "\\[" + DATE + "\\]";
-    private static final String UPTIME_TAG = "\\[(" + TIME + ")s\\]";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\+` in RegExp
-in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
-#### Snippet
-```java
-    private static final Pattern PREUNIFIED_DATE_TIMESTAMP = Pattern.compile(DATE_TIMESTAMP);
-    // JEP 158 has ISO-8601 time and uptime in seconds and milliseconds as the first two decorators.
-    private static final Pattern UNIFIED_DATE_TIMESTAMP = Pattern.compile("^(" + DATE_TAG + ")?(" + UPTIME_TAG + ")?");
-    private static final DateTimeStamp EMPTY_DATE = new DateTimeStamp(TIMESTAMP_NOT_SET);
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
-#### Snippet
-```java
-    private static final Pattern PREUNIFIED_DATE_TIMESTAMP = Pattern.compile(DATE_TIMESTAMP);
-    // JEP 158 has ISO-8601 time and uptime in seconds and milliseconds as the first two decorators.
-    private static final Pattern UNIFIED_DATE_TIMESTAMP = Pattern.compile("^(" + DATE_TAG + ")?(" + UPTIME_TAG + ")?");
-    private static final DateTimeStamp EMPTY_DATE = new DateTimeStamp(TIMESTAMP_NOT_SET);
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
-#### Snippet
-```java
-    private static final Pattern PREUNIFIED_DATE_TIMESTAMP = Pattern.compile(DATE_TIMESTAMP);
-    // JEP 158 has ISO-8601 time and uptime in seconds and milliseconds as the first two decorators.
-    private static final Pattern UNIFIED_DATE_TIMESTAMP = Pattern.compile("^(" + DATE_TAG + ")?(" + UPTIME_TAG + ")?");
-    private static final DateTimeStamp EMPTY_DATE = new DateTimeStamp(TIMESTAMP_NOT_SET);
+    // Pre-unified tokens
+    private static final String TIMESTAMP = "(" + TIME + "): ";
+    private static final String DATE_STAMP = "(" + DATE + "): ";
+    private static final String DATE_TIMESTAMP = "^(?:" + DATE_STAMP + ")?" + TIMESTAMP;
 
 ```
 
@@ -301,246 +541,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
     private static final String DATE_TIMESTAMP = "^(?:" + DATE_STAMP + ")?" + TIMESTAMP;
 
     //  2017-09-07T09:00:12.795+0200: 0.716:
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\+` in RegExp
-in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
-#### Snippet
-```java
-    // Pre-unified tokens
-    private static final String TIMESTAMP = "(" + TIME + "): ";
-    private static final String DATE_STAMP = "(" + DATE + "): ";
-    private static final String DATE_TIMESTAMP = "^(?:" + DATE_STAMP + ")?" + TIMESTAMP;
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\+` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-     */
-
-    String DATE_STAMP = "\\[" + DATE + "\\]";
-    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
-    String TIME_MILLIS = "\\[\\d+ms\\]";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-     */
-
-    String DATE_STAMP = "\\[" + DATE + "\\]";
-    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
-    String TIME_MILLIS = "\\[\\d+ms\\]";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String TIME_MILLIS = "\\[\\d+ms\\]";
-    String TIME_NANOS = "\\[\\d+ns\\]";
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String DATE_STAMP = "\\[" + DATE + "\\]";
-    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
-    String TIME_MILLIS = "\\[\\d+ms\\]";
-    String TIME_NANOS = "\\[\\d+ns\\]";
-    String PID_TID = "\\[\\d+\\]";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-    Pattern TAGS = Pattern.compile(".*(?<=^|\\])\\[([a-z0-9,. ]+)\\]");
-
-    String UNIFIED_META_RECORD = "Metaspace: " + BEFORE_AFTER_CONFIGURED;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-    Pattern TAGS = Pattern.compile(".*(?<=^|\\])\\[([a-z0-9,. ]+)\\]");
-
-    String UNIFIED_META_RECORD = "Metaspace: " + BEFORE_AFTER_CONFIGURED;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-
-    String DATE_STAMP = "\\[" + DATE + "\\]";
-    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
-    String TIME_MILLIS = "\\[\\d+ms\\]";
-    String TIME_NANOS = "\\[\\d+ns\\]";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\+` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
-    String TIME_MILLIS = "\\[\\d+ms\\]";
-    String TIME_NANOS = "\\[\\d+ns\\]";
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String TIME_NANOS = "\\[\\d+ns\\]";
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
 ```
 
 ## RuleId[ruleID=ObsoleteCollection]
@@ -584,14 +584,14 @@ in `IT/src/main/java/com/microsoft/gctoolkit/integration/aggregation/CollectionC
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `s.length() > 0` can be replaced with '!s.isEmpty()'
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFile.java`
+in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
 #### Snippet
 ```java
-                .filter(Objects::nonNull)
-                .map(String::trim)
-                .filter(s -> s.length() > 0)
-                .limit(limit);
-    }
+                    .filter(Objects::nonNull)
+                    .map(String::trim)
+                    .filter(s -> s.length() > 0),
+                    Stream.of(endOfData()));
+        else // yes, this is returning an empty stream.
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -608,14 +608,14 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFile.java`
 
 ### SizeReplaceableByIsEmpty
 `s.length() > 0` can be replaced with '!s.isEmpty()'
-in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFile.java`
 #### Snippet
 ```java
-                    .filter(Objects::nonNull)
-                    .map(String::trim)
-                    .filter(s -> s.length() > 0),
-                    Stream.of(endOfData()));
-        else // yes, this is returning an empty stream.
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .filter(s -> s.length() > 0)
+                .limit(limit);
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -642,43 +642,6 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.jav
                 super.publish(ChannelName.G1GC_PARSER_OUTBOX,event);
 ```
 
-## RuleId[ruleID=UnnecessaryReturn]
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/UnifiedDiarizer.java`
-#### Snippet
-```java
-            getDiary().setTrue(DEFNEW, SERIAL, GC_CAUSE);
-            getDiary().setFalse(PARALLELGC, PARALLELOLDGC, PARNEW, CMS, ICMS, CMS_DEBUG_LEVEL_1, G1GC, ZGC, SHENANDOAH, PRE_JDK70_40, JDK70, JDK80, RSET_STATS);
-            return;
-        }
-    }
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
-#### Snippet
-```java
-     */
-    private void ignore(GCLogTrace trace, String line) {
-        return;
-    }
-
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
-#### Snippet
-```java
-     */
-    private void ignore(GCLogTrace trace, String line) {
-        return;
-    }
-
-```
-
 ## RuleId[ruleID=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `value &= states[flag.ordinal()].isTrue()`
@@ -702,6 +665,43 @@ in `api/src/main/java/com/microsoft/gctoolkit/jvm/Diary.java`
         if ( isStateKnown(flag) & isTrue(flag))
             events.add(eventSource);
     }
+```
+
+## RuleId[ruleID=UnnecessaryReturn]
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/UnifiedDiarizer.java`
+#### Snippet
+```java
+            getDiary().setTrue(DEFNEW, SERIAL, GC_CAUSE);
+            getDiary().setFalse(PARALLELGC, PARALLELOLDGC, PARNEW, CMS, ICMS, CMS_DEBUG_LEVEL_1, G1GC, ZGC, SHENANDOAH, PRE_JDK70_40, JDK70, JDK80, RSET_STATS);
+            return;
+        }
+    }
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
+#### Snippet
+```java
+     */
+    private void ignore(GCLogTrace trace, String line) {
+        return;
+    }
+
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
+#### Snippet
+```java
+     */
+    private void ignore(GCLogTrace trace, String line) {
+        return;
+    }
+
 ```
 
 ## RuleId[ruleID=ManualMinMaxCalculation]
@@ -731,54 +731,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/event/jvm/SurvivorRecord.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends GCLogFileSegment`
-in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
-#### Snippet
-```java
-    }
-
-    private Stream<String> stream(LogFileMetadata metadata, LinkedList<GCLogFileSegment> segments) throws IOException {
-        //todo: find rolling files....
-        if (metadata.isPlainText() || metadata.isDirectory()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Aggregation`
-in `api/src/main/java/com/microsoft/gctoolkit/jvm/AbstractJavaVirtualMachine.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void analyze(List<Aggregation> registeredAggregations, JVMEventChannel eventBus, DataSourceChannel dataSourceBus) {
-        Phaser finishLine = new Phaser();
-        try {
-```
-
-### BoundedWildcard
-Can generalize to `? super EventSource`
-in `api/src/main/java/com/microsoft/gctoolkit/jvm/Diary.java`
-#### Snippet
-```java
-
- */
-    private void evaluate(Set<EventSource> events, SupportedFlags flag, EventSource eventSource) {
-        if ( isStateKnown(flag) & isTrue(flag))
-            events.add(eventSource);
-```
-
-### BoundedWildcard
-Can generalize to `? extends LogFileSegment`
-in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingLogFileMetadata.java`
-#### Snippet
-```java
-    }
-
-    private List<LogFileSegment> removeIneligibleSegments(final List<LogFileSegment> logFileSegments, final LogFileSegment current) {
-        return logFileSegments.stream()
-                .filter( segment -> segment.getEndTime() <= current.getStartTime())
-```
-
-### BoundedWildcard
 Can generalize to `? extends com.microsoft.gctoolkit.integration.collections.XYDataSet.Point`
 in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
 #### Snippet
@@ -802,17 +754,161 @@ in `sample/src/main/java/com/microsoft/gctoolkit/sample/collections/XYDataSet.ja
     }
 ```
 
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final private`
-in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/JVMEventVerticle.java`
+### BoundedWildcard
+Can generalize to `? extends GCLogFileSegment`
+in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
 #### Snippet
 ```java
-    private static final Logger LOGGER = Logger.getLogger(JVMEventVerticle.class.getName());
+    }
+
+    private Stream<String> stream(LogFileMetadata metadata, LinkedList<GCLogFileSegment> segments) throws IOException {
+        //todo: find rolling files....
+        if (metadata.isPlainText() || metadata.isDirectory()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super EventSource`
+in `api/src/main/java/com/microsoft/gctoolkit/jvm/Diary.java`
+#### Snippet
+```java
+
+ */
+    private void evaluate(Set<EventSource> events, SupportedFlags flag, EventSource eventSource) {
+        if ( isStateKnown(flag) & isTrue(flag))
+            events.add(eventSource);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Aggregation`
+in `api/src/main/java/com/microsoft/gctoolkit/jvm/AbstractJavaVirtualMachine.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void analyze(List<Aggregation> registeredAggregations, JVMEventChannel eventBus, DataSourceChannel dataSourceBus) {
+        Phaser finishLine = new Phaser();
+        try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends LogFileSegment`
+in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingLogFileMetadata.java`
+#### Snippet
+```java
+    }
+
+    private List<LogFileSegment> removeIneligibleSegments(final List<LogFileSegment> logFileSegments, final LogFileSegment current) {
+        return logFileSegments.stream()
+                .filter( segment -> segment.getEndTime() <= current.getStartTime())
+```
+
+## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `sample/src/main/java/com/microsoft/gctoolkit/sample/aggregation/CollectionCycleCountsAggregation.java`
+#### Snippet
+```java
+public abstract class CollectionCycleCountsAggregation extends Aggregation {
+
+    abstract public void count(GarbageCollectionTypes gcType);
+
+}
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `sample/src/main/java/com/microsoft/gctoolkit/sample/aggregation/HeapOccupancyAfterCollectionAggregation.java`
+#### Snippet
+```java
+public abstract class HeapOccupancyAfterCollectionAggregation extends Aggregation {
+
+    abstract public void addDataPoint(GarbageCollectionTypes gcType, DateTimeStamp timeStamp, long heapOccupancy);
+
+}
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/aggregation/CollectionCycleCountsAggregation.java`
+#### Snippet
+```java
+public abstract class CollectionCycleCountsAggregation extends Aggregation {
+
+    abstract public void count(GarbageCollectionTypes gcType);
+
+}
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `api/src/main/java/com/microsoft/gctoolkit/aggregator/Aggregation.java`
+#### Snippet
+```java
+     * @return {@code true} if the Aggregation contains a warning.
+     */
+    abstract public boolean hasWarning();
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `api/src/main/java/com/microsoft/gctoolkit/aggregator/Aggregation.java`
+#### Snippet
+```java
+     * @return {@code true} if there is no data in the Aggregation.
+     */
+    abstract public boolean isEmpty();
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/DataSourceVerticle.java`
+#### Snippet
+```java
+
     final private Vertx vertx;
     final private String inbox;
-    final private JVMEventChannelListener processor;
     private String id;
+    final private DataSourceChannelListener processor;
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/DataSourceVerticle.java`
+#### Snippet
+```java
+    final private String inbox;
+    private String id;
+    final private DataSourceChannelListener processor;
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/DataSourceVerticle.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = Logger.getLogger(DataSourceVerticle.class.getName());
+
+    final private Vertx vertx;
+    final private String inbox;
+    private String id;
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `api/src/main/java/com/microsoft/gctoolkit/io/FileDataSource.java`
+#### Snippet
+```java
+     * @return a diary.
+     */
+    abstract public Diary diary() throws IOException;
+
+    /**
 ```
 
 ### MissortedModifiers
@@ -825,6 +921,18 @@ in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/JVMEventVerticle.java`
     final private JVMEventChannelListener processor;
     private String id;
 
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/JVMEventVerticle.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = Logger.getLogger(JVMEventVerticle.class.getName());
+    final private Vertx vertx;
+    final private String inbox;
+    final private JVMEventChannelListener processor;
+    private String id;
 ```
 
 ### MissortedModifiers
@@ -863,114 +971,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
     private double timeStamp;
 ```
 
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `api/src/main/java/com/microsoft/gctoolkit/io/FileDataSource.java`
-#### Snippet
-```java
-     * @return a diary.
-     */
-    abstract public Diary diary() throws IOException;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `sample/src/main/java/com/microsoft/gctoolkit/sample/aggregation/HeapOccupancyAfterCollectionAggregation.java`
-#### Snippet
-```java
-public abstract class HeapOccupancyAfterCollectionAggregation extends Aggregation {
-
-    abstract public void addDataPoint(GarbageCollectionTypes gcType, DateTimeStamp timeStamp, long heapOccupancy);
-
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/aggregation/CollectionCycleCountsAggregation.java`
-#### Snippet
-```java
-public abstract class CollectionCycleCountsAggregation extends Aggregation {
-
-    abstract public void count(GarbageCollectionTypes gcType);
-
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `api/src/main/java/com/microsoft/gctoolkit/aggregator/Aggregation.java`
-#### Snippet
-```java
-     * @return {@code true} if there is no data in the Aggregation.
-     */
-    abstract public boolean isEmpty();
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `api/src/main/java/com/microsoft/gctoolkit/aggregator/Aggregation.java`
-#### Snippet
-```java
-     * @return {@code true} if the Aggregation contains a warning.
-     */
-    abstract public boolean hasWarning();
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/DataSourceVerticle.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = Logger.getLogger(DataSourceVerticle.class.getName());
-
-    final private Vertx vertx;
-    final private String inbox;
-    private String id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/DataSourceVerticle.java`
-#### Snippet
-```java
-    final private String inbox;
-    private String id;
-    final private DataSourceChannelListener processor;
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/DataSourceVerticle.java`
-#### Snippet
-```java
-
-    final private Vertx vertx;
-    final private String inbox;
-    private String id;
-    final private DataSourceChannelListener processor;
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `sample/src/main/java/com/microsoft/gctoolkit/sample/aggregation/CollectionCycleCountsAggregation.java`
-#### Snippet
-```java
-public abstract class CollectionCycleCountsAggregation extends Aggregation {
-
-    abstract public void count(GarbageCollectionTypes gcType);
-
-}
-```
-
 ## RuleId[ruleID=ExplicitArrayFilling]
 ### ExplicitArrayFilling
 Can be replaced with single 'Arrays.fill()' method call
@@ -985,42 +985,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/jvm/Diary.java`
 ```
 
 ## RuleId[ruleID=AccessStaticViaInstance]
-### AccessStaticViaInstance
-Static member 'com.microsoft.gctoolkit.parser.UnifiedGCLogParser.GCID_COUNTER' accessed via instance reference
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
-#### Snippet
-```java
-        if (pauseEvent == null) {
-            if (diary.isPSOldGen())
-                pauseEvent = new GenerationalForwardReference(PSFull, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-            else
-                pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-```
-
-### AccessStaticViaInstance
-Static member 'com.microsoft.gctoolkit.parser.UnifiedGCLogParser.GCID_COUNTER' accessed via instance reference
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
-#### Snippet
-```java
-                pauseEvent = new GenerationalForwardReference(PSFull, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-            else
-                pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-            pauseEvent.setStartTime(getClock());
-        } else if (pauseEvent.getGarbageCollectionType() == ParNew) {
-```
-
-### AccessStaticViaInstance
-Static member 'com.microsoft.gctoolkit.parser.UnifiedGCLogParser.GCID_COUNTER' accessed via instance reference
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
-#### Snippet
-```java
-        } else if (pauseEvent.getGarbageCollectionType() != ConcurrentModeFailure) {
-            LOGGER.warning("Maybe Full Pause event not recorded: " + pauseEvent.getGcID()); //todo: difficult to know if this is a full or a CMF
-            pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-            pauseEvent.setStartTime(getClock());
-        }
-```
-
 ### AccessStaticViaInstance
 Static member 'com.microsoft.gctoolkit.parser.UnifiedGCLogParser.GCID_COUNTER' accessed via instance reference
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
@@ -1057,175 +1021,43 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParse
             LOGGER.warning("Unrecognized collection phase -> " + line);
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `publishTo()` only delegates to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-
-    @Override
-    public void publishTo(JVMEventChannel channel) {
-        super.publishTo(channel);
-    }
-```
-
-### RedundantMethodOverride
-Method `publishTo()` only delegates to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-
-    @Override
-    public void publishTo(JVMEventChannel bus) {
-        super.publishTo(bus);
-    }
-```
-
-### RedundantMethodOverride
-Method `publishTo()` only delegates to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/ShenandoahParser.java`
-#### Snippet
-```java
-
-    @Override
-    public void publishTo(JVMEventChannel bus) {
-        super.publishTo(bus);
-    }
-```
-
-### RedundantMethodOverride
-Method `groupNotNull()` is identical to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-    }
-
-    public boolean groupNotNull(int index) {
-        return getGroup(index) != null;
-    }
-```
-
-### RedundantMethodOverride
-Method `groupCount()` is identical to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-    }
-
-    public int groupCount() {
-        return trace.groupCount();
-    }
-```
-
-### RedundantMethodOverride
-Method `getIntegerGroup()` is identical to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-    }
-
-    public int getIntegerGroup(int index) {
-        return Integer.parseInt(trace.group(index));
-    }
-```
-
-### RedundantMethodOverride
-Method `getLongGroup()` is identical to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-    }
-
-    public long getLongGroup(int index) {
-        return Long.parseLong(trace.group(index));
-    }
-```
-
-### RedundantMethodOverride
-Method `publishTo()` only delegates to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-
-    @Override
-    public void publishTo(JVMEventChannel bus) {
-        super.publishTo(bus);
-    }
-```
-
-### RedundantMethodOverride
-Method `publishTo()` only delegates to its super method
+### AccessStaticViaInstance
+Static member 'com.microsoft.gctoolkit.parser.UnifiedGCLogParser.GCID_COUNTER' accessed via instance reference
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
 #### Snippet
 ```java
-
-    @Override
-    public void publishTo(JVMEventChannel bus) {
-        super.publishTo(bus);
-    }
+        if (pauseEvent == null) {
+            if (diary.isPSOldGen())
+                pauseEvent = new GenerationalForwardReference(PSFull, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+            else
+                pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
 ```
 
-### RedundantMethodOverride
-Method `publishTo()` only delegates to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
+### AccessStaticViaInstance
+Static member 'com.microsoft.gctoolkit.parser.UnifiedGCLogParser.GCID_COUNTER' accessed via instance reference
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
 #### Snippet
 ```java
-
-    @Override
-    public void publishTo(JVMEventChannel bus) {
-        super.publishTo(bus);
-    }
+                pauseEvent = new GenerationalForwardReference(PSFull, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+            else
+                pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+            pauseEvent.setStartTime(getClock());
+        } else if (pauseEvent.getGarbageCollectionType() == ParNew) {
 ```
 
-### RedundantMethodOverride
-Method `publishTo()` only delegates to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointParser.java`
+### AccessStaticViaInstance
+Static member 'com.microsoft.gctoolkit.parser.UnifiedGCLogParser.GCID_COUNTER' accessed via instance reference
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
 #### Snippet
 ```java
-
-    @Override
-    public void publishTo(JVMEventChannel bus) {
-        super.publishTo(bus);
-    }
+        } else if (pauseEvent.getGarbageCollectionType() != ConcurrentModeFailure) {
+            LOGGER.warning("Maybe Full Pause event not recorded: " + pauseEvent.getGcID()); //todo: difficult to know if this is a full or a CMF
+            pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+            pauseEvent.setStartTime(getClock());
+        }
 ```
 
-### RedundantMethodOverride
-Method `getTotalOccupancyWithTotalHeapSizeSummary()` is identical to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
-#### Snippet
-```java
-    }
-
-    MemoryPoolSummary getTotalOccupancyWithTotalHeapSizeSummary(GCLogTrace trace, int offset) {
-        MemoryPoolSummary summary = trace.getOccupancyWithMemoryPoolSizeSummary(offset);
-        return summary;
-```
-
-### RedundantMethodOverride
-Method `getTotalOccupancyBeforeAfterWithTotalHeapPoolSizeSummary()` is identical to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
-#### Snippet
-```java
-
-    // todo: mixes aggregator with parsing. premature optimization...
-    MemoryPoolSummary getTotalOccupancyBeforeAfterWithTotalHeapPoolSizeSummary(GCLogTrace trace, int offset) {
-        MemoryPoolSummary summary = trace.getOccupancyBeforeAfterWithMemoryPoolSizeSummary(offset);
-        return summary;
-```
-
-### RedundantMethodOverride
-Method `extractCPUSummary()` is identical to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
-#### Snippet
-```java
-    }
-
-    CPUSummary extractCPUSummary(String line) {
-        GCLogTrace trace;
-        if ((trace = CPU_BREAKDOWN.parse(line)) != null) {
-```
-
+## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `extractReferenceBlock()` is identical to its super method
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
@@ -1251,8 +1083,56 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.ja
 ```
 
 ### RedundantMethodOverride
+Method `getTotalOccupancyBeforeAfterWithTotalHeapPoolSizeSummary()` is identical to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
+#### Snippet
+```java
+
+    // todo: mixes aggregator with parsing. premature optimization...
+    MemoryPoolSummary getTotalOccupancyBeforeAfterWithTotalHeapPoolSizeSummary(GCLogTrace trace, int offset) {
+        MemoryPoolSummary summary = trace.getOccupancyBeforeAfterWithMemoryPoolSizeSummary(offset);
+        return summary;
+```
+
+### RedundantMethodOverride
+Method `getTotalOccupancyWithTotalHeapSizeSummary()` is identical to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
+#### Snippet
+```java
+    }
+
+    MemoryPoolSummary getTotalOccupancyWithTotalHeapSizeSummary(GCLogTrace trace, int offset) {
+        MemoryPoolSummary summary = trace.getOccupancyWithMemoryPoolSizeSummary(offset);
+        return summary;
+```
+
+### RedundantMethodOverride
+Method `extractCPUSummary()` is identical to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
+#### Snippet
+```java
+    }
+
+    CPUSummary extractCPUSummary(String line) {
+        GCLogTrace trace;
+        if ((trace = CPU_BREAKDOWN.parse(line)) != null) {
+```
+
+### RedundantMethodOverride
 Method `publishTo()` only delegates to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/ShenandoahParser.java`
+#### Snippet
+```java
+
+    @Override
+    public void publishTo(JVMEventChannel bus) {
+        super.publishTo(bus);
+    }
+```
+
+### RedundantMethodOverride
+Method `publishTo()` only delegates to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 #### Snippet
 ```java
 
@@ -1288,7 +1168,115 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.jav
 
 ### RedundantMethodOverride
 Method `publishTo()` only delegates to its super method
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+
+    @Override
+    public void publishTo(JVMEventChannel channel) {
+        super.publishTo(channel);
+    }
+```
+
+### RedundantMethodOverride
+Method `publishTo()` only delegates to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+
+    @Override
+    public void publishTo(JVMEventChannel bus) {
+        super.publishTo(bus);
+    }
+```
+
+### RedundantMethodOverride
+Method `groupCount()` is identical to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+    }
+
+    public int groupCount() {
+        return trace.groupCount();
+    }
+```
+
+### RedundantMethodOverride
+Method `groupNotNull()` is identical to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+    }
+
+    public boolean groupNotNull(int index) {
+        return getGroup(index) != null;
+    }
+```
+
+### RedundantMethodOverride
+Method `getLongGroup()` is identical to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+    }
+
+    public long getLongGroup(int index) {
+        return Long.parseLong(trace.group(index));
+    }
+```
+
+### RedundantMethodOverride
+Method `getIntegerGroup()` is identical to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+    }
+
+    public int getIntegerGroup(int index) {
+        return Integer.parseInt(trace.group(index));
+    }
+```
+
+### RedundantMethodOverride
+Method `publishTo()` only delegates to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointParser.java`
+#### Snippet
+```java
+
+    @Override
+    public void publishTo(JVMEventChannel bus) {
+        super.publishTo(bus);
+    }
+```
+
+### RedundantMethodOverride
+Method `publishTo()` only delegates to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+
+    @Override
+    public void publishTo(JVMEventChannel bus) {
+        super.publishTo(bus);
+    }
+```
+
+### RedundantMethodOverride
+Method `publishTo()` only delegates to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+
+    @Override
+    public void publishTo(JVMEventChannel bus) {
+        super.publishTo(bus);
+    }
+```
+
+### RedundantMethodOverride
+Method `publishTo()` only delegates to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
 #### Snippet
 ```java
 
@@ -1301,6 +1289,18 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 ### RedundantMethodOverride
 Method `publishTo()` only delegates to its super method
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalHeapParser.java`
+#### Snippet
+```java
+
+    @Override
+    public void publishTo(JVMEventChannel bus) {
+        super.publishTo(bus);
+    }
+```
+
+### RedundantMethodOverride
+Method `publishTo()` only delegates to its super method
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
 #### Snippet
 ```java
 
@@ -1519,6 +1519,42 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
+#### Snippet
+```java
+                    return;
+            }
+            super.advanceClock(trace.getDateTimeStamp());
+        } catch (Throwable t) {
+            LOGGER.log(Level.FINE, "[PARSING ERROR] " + record, t);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/aggregation/PauseTimeSummary.java`
+#### Snippet
+```java
+     */
+    public double getPercentPaused() {
+        return (totalPauseTime / super.estimatedRuntime()) * 100.0D;
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/ShenandoahParser.java`
+#### Snippet
+```java
+
+    public void publish(JVMEvent event) {
+        super.publish(ChannelName.SHENANDOAH_PARSER_OUTBOX, event);
+        forwardReference = null;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `api/src/main/java/com/microsoft/gctoolkit/jvm/UnifiedJavaVirtualMachine.java`
 #### Snippet
 ```java
@@ -1527,6 +1563,78 @@ in `api/src/main/java/com/microsoft/gctoolkit/jvm/UnifiedJavaVirtualMachine.java
                 super.setDataSource(logFile);
                 return true;
             }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
+#### Snippet
+```java
+
+    private void publish(JVMEvent event) {
+        super.publish(ChannelName.G1GC_PARSER_OUTBOX,event);
+    }
+}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `api/src/main/java/com/microsoft/gctoolkit/event/jvm/JVMTermination.java`
+#### Snippet
+```java
+
+    public DateTimeStamp getTimeOfTerminationEvent() {
+        return super.getDateTimeStamp();
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `sample/src/main/java/com/microsoft/gctoolkit/sample/aggregation/PauseTimeSummary.java`
+#### Snippet
+```java
+     */
+    public double getPercentPaused() {
+        return (totalPauseTime / super.estimatedRuntime()) * 100.0D;
+    }
+}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/ZGCParser.java`
+#### Snippet
+```java
+
+    public void publish(JVMEvent event) {
+        super.publish(ChannelName.ZGC_PARSER_OUTBOX, event);
+        forwardReference = null;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+            startOfPhase = getClock();
+        else if ((trace = EndOfFile.parse(line)) != null) {
+            super.publish(ChannelName.CMS_TENURED_POOL_PARSER_OUTBOX, new JVMTermination(getClock(), diary.getTimeOfFirstEvent()));
+        }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+
+    private void publish(GenerationalGCEvent event) {
+        super.publish(ChannelName.CMS_TENURED_POOL_PARSER_OUTBOX, event);
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -1567,6 +1675,18 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `api/src/main/java/com/microsoft/gctoolkit/jvm/PreUnifiedJavaVirtualMachine.java`
+#### Snippet
+```java
+            if (logFile instanceof GCLogFile) {
+                if (!((GCLogFile) logFile).isUnified()) {
+                    super.setDataSource(logFile);
+                    return true;
+                }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
 #### Snippet
 ```java
@@ -1579,50 +1699,26 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.ja
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/ShenandoahParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointParser.java`
 #### Snippet
 ```java
-
-    public void publish(JVMEvent event) {
-        super.publish(ChannelName.SHENANDOAH_PARSER_OUTBOX, event);
-        forwardReference = null;
-    }
+        if ((trace = TRACE.parse(line)) != null) {
+            Safepoint safepoint = trace.toSafepoint();
+            super.publish(ChannelName.JVM_EVENT_PARSER_OUTBOX, safepoint);
+        } else if (line.equals(END_OF_DATA_SENTINEL))
+            super.publish( ChannelName.JVM_EVENT_PARSER_OUTBOX, new JVMTermination(getClock(),diary.getTimeOfFirstEvent()));
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGCLogParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointParser.java`
 #### Snippet
 ```java
-        try {
-            DateTimeStamp now = new Decorators(record).getDateTimeStamp();
-            super.advanceClock(now);
-        } catch (Throwable t) {
-            LOGGER.log(Level.FINE, "[PARSING ERROR] " + record, t);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
-#### Snippet
-```java
-
-    public String getVMOP() {
-        return super.getGroup(VMOP);
+            super.publish(ChannelName.JVM_EVENT_PARSER_OUTBOX, safepoint);
+        } else if (line.equals(END_OF_DATA_SENTINEL))
+            super.publish( ChannelName.JVM_EVENT_PARSER_OUTBOX, new JVMTermination(getClock(),diary.getTimeOfFirstEvent()));
     }
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-
-    private void publish(JVMEvent event) {
-        super.publish(ChannelName.JVM_EVENT_PARSER_OUTBOX, event);
-    }
-}
 ```
 
 ### UnnecessarySuperQualifier
@@ -1639,38 +1735,74 @@ public abstract class SharedAggregation extends Aggregation {
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
 #### Snippet
 ```java
-        if (pauseEvent == null) {
-            if (diary.isPSOldGen())
-                pauseEvent = new GenerationalForwardReference(PSFull, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-            else
-                pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+
+    public String getVMOP() {
+        return super.getGroup(VMOP);
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGCLogParser.java`
 #### Snippet
 ```java
-                pauseEvent = new GenerationalForwardReference(PSFull, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-            else
-                pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-            pauseEvent.setStartTime(getClock());
-        } else if (pauseEvent.getGarbageCollectionType() == ParNew) {
+        try {
+            DateTimeStamp now = new Decorators(record).getDateTimeStamp();
+            super.advanceClock(now);
+        } catch (Throwable t) {
+            LOGGER.log(Level.FINE, "[PARSING ERROR] " + record, t);
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
 #### Snippet
 ```java
-        } else if (pauseEvent.getGarbageCollectionType() != ConcurrentModeFailure) {
-            LOGGER.warning("Maybe Full Pause event not recorded: " + pauseEvent.getGcID()); //todo: difficult to know if this is a full or a CMF
-            pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
-            pauseEvent.setStartTime(getClock());
+
+    private void publish(JVMEvent event) {
+        super.publish(ChannelName.JVM_EVENT_PARSER_OUTBOX, event);
+    }
+}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+
+    private void publish(JVMEvent event) {
+        super.publish(ChannelName.SURVIVOR_MEMORY_POOL_PARSER_OUTBOX, event);
+    }
+}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalHeapParser.java`
+#### Snippet
+```java
+            treeHeightForwardReference = 0;
         }
+        super.publish(ChannelName.GENERATIONAL_HEAP_PARSER_OUTBOX, event);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+#### Snippet
+```java
+
+    private void jvmExit(GCLogTrace trace, String line) {
+        super.publish(ChannelName.GENERATIONAL_HEAP_PARSER_OUTBOX,  new JVMTermination(getClock(),diary.getTimeOfFirstEvent()));
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -1714,11 +1846,35 @@ Qualifier `super` is unnecessary in this context
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
 #### Snippet
 ```java
+        if (pauseEvent == null) {
+            if (diary.isPSOldGen())
+                pauseEvent = new GenerationalForwardReference(PSFull, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+            else
+                pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+```
 
-    private void publish(GenerationalGCEvent event) {
-        super.publish(ChannelName.GENERATIONAL_HEAP_PARSER_OUTBOX, event);
-    }
-}
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+#### Snippet
+```java
+                pauseEvent = new GenerationalForwardReference(PSFull, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+            else
+                pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+            pauseEvent.setStartTime(getClock());
+        } else if (pauseEvent.getGarbageCollectionType() == ParNew) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+#### Snippet
+```java
+        } else if (pauseEvent.getGarbageCollectionType() != ConcurrentModeFailure) {
+            LOGGER.warning("Maybe Full Pause event not recorded: " + pauseEvent.getGcID()); //todo: difficult to know if this is a full or a CMF
+            pauseEvent = new GenerationalForwardReference(FullGC, new Decorators(line), super.GCID_COUNTER.parse(line).getIntegerGroup(1));
+            pauseEvent.setStartTime(getClock());
+        }
 ```
 
 ### UnnecessarySuperQualifier
@@ -1727,118 +1883,10 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParse
 #### Snippet
 ```java
 
-    private void jvmExit(GCLogTrace trace, String line) {
-        super.publish(ChannelName.GENERATIONAL_HEAP_PARSER_OUTBOX,  new JVMTermination(getClock(),diary.getTimeOfFirstEvent()));
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-
-    private void publish(JVMEvent event) {
-        super.publish(ChannelName.SURVIVOR_MEMORY_POOL_PARSER_OUTBOX, event);
+    private void publish(GenerationalGCEvent event) {
+        super.publish(ChannelName.GENERATIONAL_HEAP_PARSER_OUTBOX, event);
     }
 }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `api/src/main/java/com/microsoft/gctoolkit/event/jvm/JVMTermination.java`
-#### Snippet
-```java
-
-    public DateTimeStamp getTimeOfTerminationEvent() {
-        return super.getDateTimeStamp();
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointParser.java`
-#### Snippet
-```java
-        if ((trace = TRACE.parse(line)) != null) {
-            Safepoint safepoint = trace.toSafepoint();
-            super.publish(ChannelName.JVM_EVENT_PARSER_OUTBOX, safepoint);
-        } else if (line.equals(END_OF_DATA_SENTINEL))
-            super.publish( ChannelName.JVM_EVENT_PARSER_OUTBOX, new JVMTermination(getClock(),diary.getTimeOfFirstEvent()));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointParser.java`
-#### Snippet
-```java
-            super.publish(ChannelName.JVM_EVENT_PARSER_OUTBOX, safepoint);
-        } else if (line.equals(END_OF_DATA_SENTINEL))
-            super.publish( ChannelName.JVM_EVENT_PARSER_OUTBOX, new JVMTermination(getClock(),diary.getTimeOfFirstEvent()));
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
-#### Snippet
-```java
-                    return;
-            }
-            super.advanceClock(trace.getDateTimeStamp());
-        } catch (Throwable t) {
-            LOGGER.log(Level.FINE, "[PARSING ERROR] " + record, t);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `sample/src/main/java/com/microsoft/gctoolkit/sample/aggregation/PauseTimeSummary.java`
-#### Snippet
-```java
-     */
-    public double getPercentPaused() {
-        return (totalPauseTime / super.estimatedRuntime()) * 100.0D;
-    }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `api/src/main/java/com/microsoft/gctoolkit/jvm/PreUnifiedJavaVirtualMachine.java`
-#### Snippet
-```java
-            if (logFile instanceof GCLogFile) {
-                if (!((GCLogFile) logFile).isUnified()) {
-                    super.setDataSource(logFile);
-                    return true;
-                }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
-#### Snippet
-```java
-
-    public void publish(G1GCConcurrentEvent concurrentEvent) {
-        super.publish(ChannelName.G1GC_PARSER_OUTBOX,concurrentEvent);
-        drainBacklog();
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
-#### Snippet
-```java
-
-    public void endOfFile(GCLogTrace trace, String line) {
-        super.publish(ChannelName.G1GC_PARSER_OUTBOX, new JVMTermination(getClock(),diary.getTimeOfFirstEvent()));
-    }
-
 ```
 
 ### UnnecessarySuperQualifier
@@ -1858,6 +1906,18 @@ Qualifier `super` is unnecessary in this context
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
 #### Snippet
 ```java
+
+    public void publish(G1GCConcurrentEvent concurrentEvent) {
+        super.publish(ChannelName.G1GC_PARSER_OUTBOX,concurrentEvent);
+        drainBacklog();
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
+#### Snippet
+```java
         if (backlog.size() > 0)
             for (JVMEvent event : backlog)
                 super.publish(ChannelName.G1GC_PARSER_OUTBOX,event);
@@ -1867,72 +1927,12 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.jav
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/aggregation/PauseTimeSummary.java`
-#### Snippet
-```java
-     */
-    public double getPercentPaused() {
-        return (totalPauseTime / super.estimatedRuntime()) * 100.0D;
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/ZGCParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
 #### Snippet
 ```java
 
-    public void publish(JVMEvent event) {
-        super.publish(ChannelName.ZGC_PARSER_OUTBOX, event);
-        forwardReference = null;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-            startOfPhase = getClock();
-        else if ((trace = EndOfFile.parse(line)) != null) {
-            super.publish(ChannelName.CMS_TENURED_POOL_PARSER_OUTBOX, new JVMTermination(getClock(), diary.getTimeOfFirstEvent()));
-        }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-
-    private void publish(GenerationalGCEvent event) {
-        super.publish(ChannelName.CMS_TENURED_POOL_PARSER_OUTBOX, event);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
-#### Snippet
-```java
-
-    private void publish(JVMEvent event) {
-        super.publish(ChannelName.G1GC_PARSER_OUTBOX,event);
-    }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalHeapParser.java`
-#### Snippet
-```java
-            treeHeightForwardReference = 0;
-        }
-        super.publish(ChannelName.GENERATIONAL_HEAP_PARSER_OUTBOX, event);
+    public void endOfFile(GCLogTrace trace, String line) {
+        super.publish(ChannelName.G1GC_PARSER_OUTBOX, new JVMTermination(getClock(),diary.getTimeOfFirstEvent()));
     }
 
 ```
@@ -2011,258 +2011,6 @@ import com.microsoft.gctoolkit.event.g1gc.G1GCPauseEvent;
 ```
 
 ## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
-#### Snippet
-```java
-        if (linesFound > 0) {
-            String line;
-            while ((line = randomAccessFile.readLine()) != null) {
-                lines.add(line);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-        GCLogTrace trace;
-
-        if ((trace = TENURING_SUMMARY.parse(entry)) != null) {
-            forwardReference = new SurvivorRecord(getClock(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
-        } else if ((trace = TENURING_AGE_BREAKDOWN.parse(entry)) != null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-        if ((trace = TENURING_SUMMARY.parse(entry)) != null) {
-            forwardReference = new SurvivorRecord(getClock(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
-        } else if ((trace = TENURING_AGE_BREAKDOWN.parse(entry)) != null) {
-            forwardReference.add(trace.getIntegerGroup(1), trace.getLongGroup(2));
-        } else if (entry.equals(END_OF_DATA_SENTINEL) || (JVM_EXIT.parse(entry) != null)) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-        try {
-
-            if ((trace = UNIFIED_LOGGING_APPLICATION_STOP_TIME_WITH_STOPPING_TIME.parse(line)) != null) {
-                if (safePointReason != null)
-                    publish(new ApplicationStoppedTime(timeStamp, trace.getDoubleGroup(1), trace.getDoubleGroup(2), safePointReason));
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-            } else if (GC_PAUSE_CLAUSE.parse(line) != null) {
-                gcPause = true;
-            } else if ((trace = SAFEPOINT_REGION.parse(line)) != null) {
-                timeStamp = getClock();
-                safePointReason = ApplicationStoppedTime.VMOperations.valueOf(trace.getGroup(1));
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-                timeStamp = getClock();
-                safePointReason = ApplicationStoppedTime.VMOperations.valueOf(trace.getGroup(1));
-            } else if ((trace = LEAVING_SAFEPOINT.parse(line)) != null) {
-            } //noop this one.
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-            } //noop this one.
-
-            else if ((trace = UNIFIED_LOGGING_APPLICATION_TIME.parse(line)) != null) {
-                publish(new ApplicationConcurrentTime(getClock(), trace.getDoubleGroup(1)));
-            } else if (line.equals(END_OF_DATA_SENTINEL) || (JVM_EXIT.parse(line) != null)) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-        try {
-            //todo: unified safepointing here???
-            if ((trace = APPLICATION_STOP_TIME.parse(line)) != null) {
-                if (lastEventWasGC) {
-                    // can estimate TTSP
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-                    publish(new ApplicationStoppedTime(trace.getDateTimeStamp(), trace.getDoubleGroup(3), lastEventWasGC));
-                }
-            } else if ((trace = APPLICATION_STOP_TIME_WITH_STOPPING_TIME.parse(line)) != null) {
-                publish(new ApplicationStoppedTime(trace.getDateTimeStamp(), trace.getDoubleGroup(3), trace.getDoubleGroup(4), lastEventWasGC));
-                lastEventWasGC = false;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-                lastEventWasGC = false;
-                gcPauseTime = GCPAUSE_TIME_NOT_SET;
-            } else if ((trace = APPLICATION_TIME.parse(line)) != null) {
-                publish(new ApplicationConcurrentTime(trace.getDateTimeStamp(), trace.getDoubleGroup(3)));
-                lastEventWasGC = false;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-                publish(new ApplicationConcurrentTime(trace.getDateTimeStamp(), trace.getDoubleGroup(3)));
-                lastEventWasGC = false;
-            } else if ((trace = SIMPLE_APPLICATION_STOP_TIME.parse(line)) != null) {
-                safePoints.add(new StoppedTime(trace.getDoubleGroup(1), safePoints.isEmpty()));
-            } else if ((trace = SIMPLE_APPLICATION_TIME.parse(line)) != null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-            } else if ((trace = SIMPLE_APPLICATION_STOP_TIME.parse(line)) != null) {
-                safePoints.add(new StoppedTime(trace.getDoubleGroup(1), safePoints.isEmpty()));
-            } else if ((trace = SIMPLE_APPLICATION_TIME.parse(line)) != null) {
-                safePoints.add(new ConcurrentTime(trace.getDoubleGroup(3)));
-            } else if ((trace = GC_PAUSE_CLAUSE.parse(line)) != null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-            } else if ((trace = SIMPLE_APPLICATION_TIME.parse(line)) != null) {
-                safePoints.add(new ConcurrentTime(trace.getDoubleGroup(3)));
-            } else if ((trace = GC_PAUSE_CLAUSE.parse(line)) != null) {
-                gcPauseTime = trace.getPauseTime();
-                lastEventWasGC = true;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-                gcPauseTime = trace.getPauseTime();
-                lastEventWasGC = true;
-            } else if ((trace = TLAB_START.parse(line)) != null) {
-                extractTLAB(trace, 2);
-            } else if ((trace = TLAB_CONT.parse(line)) != null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-            } else if ((trace = TLAB_START.parse(line)) != null) {
-                extractTLAB(trace, 2);
-            } else if ((trace = TLAB_CONT.parse(line)) != null) {
-                extractTLAB(trace, 0);
-            } else if ((trace = TLAB_TOTALS.parse(line)) != null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-            } else if ((trace = TLAB_CONT.parse(line)) != null) {
-                extractTLAB(trace, 0);
-            } else if ((trace = TLAB_TOTALS.parse(line)) != null) {
-                extractTLABSummary(trace);
-            } else if (line.equals(END_OF_DATA_SENTINEL)) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `api/src/main/java/com/microsoft/gctoolkit/jvm/Diary.java`
-#### Snippet
-```java
-        boolean first = true;
-        for(SupportedFlags flag : SupportedFlags.values()) {
-            if (!first || (first = false)) {
-                buffer.append(", ");
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-        GCLogTrace trace;
-
-        if ((trace = DESIRED_SURVIVOR_SIZE.parse(entry)) != null) {
-            forwardReference = new SurvivorRecord(new Decorators(entry).getDateTimeStamp(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
-        } else if ((trace = AGE_TABLE_HEADER.parse(entry)) != null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-        if ((trace = DESIRED_SURVIVOR_SIZE.parse(entry)) != null) {
-            forwardReference = new SurvivorRecord(new Decorators(entry).getDateTimeStamp(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
-        } else if ((trace = AGE_TABLE_HEADER.parse(entry)) != null) {
-            //we've collected this data so.. eat it...
-        } else if ((trace = AGE_RECORD.parse(entry)) != null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-        } else if ((trace = AGE_TABLE_HEADER.parse(entry)) != null) {
-            //we've collected this data so.. eat it...
-        } else if ((trace = AGE_RECORD.parse(entry)) != null) {
-            forwardReference.add(trace.getIntegerGroup(1), trace.getLongGroup(2));
-            ageDataCollected = true;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointParser.java`
-#### Snippet
-```java
-    protected void process(String line) {
-        SafepointTrace trace;
-        if ((trace = TRACE.parse(line)) != null) {
-            Safepoint safepoint = trace.toSafepoint();
-            super.publish(ChannelName.JVM_EVENT_PARSER_OUTBOX, safepoint);
-```
-
 ### NestedAssignment
 Result of assignment expression used
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
@@ -2388,6 +2136,18 @@ Result of assignment expression used
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
 #### Snippet
 ```java
+    CPUSummary extractCPUSummary(String line) {
+        GCLogTrace trace;
+        if ((trace = CPU_BREAKDOWN.parse(line)) != null) {
+            return new CPUSummary(trace.getDoubleGroup(1), trace.getDoubleGroup(2), trace.getDoubleGroup(3));
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
+#### Snippet
+```java
         GCLogTrace trace;
         MemoryPoolSummary metaDataPool = null;
         if ((trace = PERM_SPACE_RECORD.parse(line)) != null) {
@@ -2409,14 +2169,242 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
-    CPUSummary extractCPUSummary(String line) {
-        GCLogTrace trace;
-        if ((trace = CPU_BREAKDOWN.parse(line)) != null) {
-            return new CPUSummary(trace.getDoubleGroup(1), trace.getDoubleGroup(2), trace.getDoubleGroup(3));
+        int index = 0;
+        String key;
+        while ((key = fullGCInternalPhaseOrder.get(++index)) != null) {
+            collection.addInternalPhase(key, fullGCInternalPhases.get(key));
         }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+
+        //this rule must be evaluated before CONCURRENT_PHASE_END_BLOCK
+        if ((trace = ABORT_PRECLEAN_DUE_TO_TIME_CLAUSE.parse(line)) != null)
+            abortPrecleanDueToTime(trace);
+        else if ((trace = CONCURRENT_PHASE_START_BLOCK.parse(line)) != null)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+        if ((trace = ABORT_PRECLEAN_DUE_TO_TIME_CLAUSE.parse(line)) != null)
+            abortPrecleanDueToTime(trace);
+        else if ((trace = CONCURRENT_PHASE_START_BLOCK.parse(line)) != null)
+            startOfConcurrentPhase(trace);
+        else if ((trace = CONCURRENT_PHASE_END_BLOCK.parse(line)) != null)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+        else if ((trace = CONCURRENT_PHASE_START_BLOCK.parse(line)) != null)
+            startOfConcurrentPhase(trace);
+        else if ((trace = CONCURRENT_PHASE_END_BLOCK.parse(line)) != null)
+            endOfConcurrentPhase(trace);
+        else if ((trace = PRECLEAN_REFERENCE.parse(line)) != null)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+        else if ((trace = CONCURRENT_PHASE_END_BLOCK.parse(line)) != null)
+            endOfConcurrentPhase(trace);
+        else if ((trace = PRECLEAN_REFERENCE.parse(line)) != null)
+            endConcurrentPrecleanWithReferenceProcessing(trace);
+        else if ((trace = INITIAL_MARK.parse(line)) != null)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+        else if ((trace = PRECLEAN_REFERENCE.parse(line)) != null)
+            endConcurrentPrecleanWithReferenceProcessing(trace);
+        else if ((trace = INITIAL_MARK.parse(line)) != null)
+            initialMark(trace);
+        else if ((trace = REMARK_CLAUSE.parse(line)) != null)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+        else if ((trace = INITIAL_MARK.parse(line)) != null)
+            initialMark(trace);
+        else if ((trace = REMARK_CLAUSE.parse(line)) != null)
+            remark(trace, line);
+        else if ((trace = REMARK_REFERENCE_PROCESSING.parse(line)) != null)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+        else if ((trace = REMARK_CLAUSE.parse(line)) != null)
+            remark(trace, line);
+        else if ((trace = REMARK_REFERENCE_PROCESSING.parse(line)) != null)
+            remarkWithReferenceProcessing(trace, line);
+        else if ((trace = SPLIT_REMARK.parse(line)) != null)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+        else if ((trace = REMARK_REFERENCE_PROCESSING.parse(line)) != null)
+            remarkWithReferenceProcessing(trace, line);
+        else if ((trace = SPLIT_REMARK.parse(line)) != null)
+            startOfPhase = getClock();
+        else if ((trace = EndOfFile.parse(line)) != null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+        else if ((trace = SPLIT_REMARK.parse(line)) != null)
+            startOfPhase = getClock();
+        else if ((trace = EndOfFile.parse(line)) != null) {
+            super.publish(ChannelName.CMS_TENURED_POOL_PARSER_OUTBOX, new JVMTermination(getClock(), diary.getTimeOfFirstEvent()));
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+        GCLogTrace trace;
+
+        if ((trace = TENURING_SUMMARY.parse(entry)) != null) {
+            forwardReference = new SurvivorRecord(getClock(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
+        } else if ((trace = TENURING_AGE_BREAKDOWN.parse(entry)) != null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+        if ((trace = TENURING_SUMMARY.parse(entry)) != null) {
+            forwardReference = new SurvivorRecord(getClock(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
+        } else if ((trace = TENURING_AGE_BREAKDOWN.parse(entry)) != null) {
+            forwardReference.add(trace.getIntegerGroup(1), trace.getLongGroup(2));
+        } else if (entry.equals(END_OF_DATA_SENTINEL) || (JVM_EXIT.parse(entry) != null)) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+        GCLogTrace trace;
+
+        if ((trace = PREFIX.parse(line)) != null) {
+            String cause = trace.getGroup(3);
+            if (cause != null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+                }
+            } else {
+                if ((trace = G1GC_PREFIX.parse(line)) != null) {
+                    cause = trace.getGroup(3);
+                    if (cause == null)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+
+        GCLogTrace gcLogTrace;
+        if ((gcLogTrace = MEMORY_SUMMARY_RULE.parse(line)) != null) {
+            if (gcLogTrace.next() != null)
+                getDiary().setTrue(SupportedFlags.GC_DETAILS);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+            getDiary().setFalse(SupportedFlags.PRINT_HEAP_AT_GC);
+
+        if ((trace = TenuredPatterns.TENURING_SUMMARY.parse(line)) != null) {
+
+            //we have seen at least one good tenuring summary without an age breakdown
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+        //Can get a lot of information from the perm space record
+        // (CMS Perm |PS Perm |Perm |PSPermGen|Metaspace)
+        if ((trace = ParallelPatterns.PERM_SPACE_RECORD.parse(line)) != null) {
+            String value = trace.getGroup(1).trim();
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+            getDiary().setTrue(SupportedFlags.GC_CAUSE);
+        } else if (getDiary().isGenerationalKnown() && getDiary().isGenerational()) {
+            if ((trace = PREFIX.parse(line)) != null) {
+                if ((trace.getGroup(3) == null) && getDiary().isTrue(SupportedFlags.GC_DETAILS)) {
+                    getDiary().setTrue(SupportedFlags.JDK70);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+                    getDiary().setFalse(SupportedFlags.PRE_JDK70_40);
+                }
+            } else if ((trace = FULL_PREFIX.parse(line)) != null) {
+                if ((trace.getGroup(3) == null) && getDiary().isTrue(SupportedFlags.GC_DETAILS)) {
+                    getDiary().setTrue(SupportedFlags.JDK70);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+
+        } else if (getDiary().isG1GCKnown() && getDiary().isG1GC()) {
+            if ((trace = G1GC_PREFIX.parse(line)) != null) {
+                if (getDiary().isTrue(SupportedFlags.GC_DETAILS) && (trace.gcCause() == GCCause.GCCAUSE_NOT_SET)) {
+                    getDiary().setTrue(SupportedFlags.JDK70);
 ```
 
 ### NestedAssignment
@@ -2589,221 +2577,245 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.j
 
 ### NestedAssignment
 Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+        try {
+
+            if ((trace = UNIFIED_LOGGING_APPLICATION_STOP_TIME_WITH_STOPPING_TIME.parse(line)) != null) {
+                if (safePointReason != null)
+                    publish(new ApplicationStoppedTime(timeStamp, trace.getDoubleGroup(1), trace.getDoubleGroup(2), safePointReason));
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+            } else if (GC_PAUSE_CLAUSE.parse(line) != null) {
+                gcPause = true;
+            } else if ((trace = SAFEPOINT_REGION.parse(line)) != null) {
+                timeStamp = getClock();
+                safePointReason = ApplicationStoppedTime.VMOperations.valueOf(trace.getGroup(1));
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+                timeStamp = getClock();
+                safePointReason = ApplicationStoppedTime.VMOperations.valueOf(trace.getGroup(1));
+            } else if ((trace = LEAVING_SAFEPOINT.parse(line)) != null) {
+            } //noop this one.
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+            } //noop this one.
+
+            else if ((trace = UNIFIED_LOGGING_APPLICATION_TIME.parse(line)) != null) {
+                publish(new ApplicationConcurrentTime(getClock(), trace.getDoubleGroup(1)));
+            } else if (line.equals(END_OF_DATA_SENTINEL) || (JVM_EXIT.parse(line) != null)) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointParser.java`
+#### Snippet
+```java
+    protected void process(String line) {
+        SafepointTrace trace;
+        if ((trace = TRACE.parse(line)) != null) {
+            Safepoint safepoint = trace.toSafepoint();
+            super.publish(ChannelName.JVM_EVENT_PARSER_OUTBOX, safepoint);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
+#### Snippet
+```java
+        if (linesFound > 0) {
+            String line;
+            while ((line = randomAccessFile.readLine()) != null) {
+                lines.add(line);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `api/src/main/java/com/microsoft/gctoolkit/jvm/Diary.java`
+#### Snippet
+```java
+        boolean first = true;
+        for(SupportedFlags flag : SupportedFlags.values()) {
+            if (!first || (first = false)) {
+                buffer.append(", ");
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+        try {
+            //todo: unified safepointing here???
+            if ((trace = APPLICATION_STOP_TIME.parse(line)) != null) {
+                if (lastEventWasGC) {
+                    // can estimate TTSP
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+                    publish(new ApplicationStoppedTime(trace.getDateTimeStamp(), trace.getDoubleGroup(3), lastEventWasGC));
+                }
+            } else if ((trace = APPLICATION_STOP_TIME_WITH_STOPPING_TIME.parse(line)) != null) {
+                publish(new ApplicationStoppedTime(trace.getDateTimeStamp(), trace.getDoubleGroup(3), trace.getDoubleGroup(4), lastEventWasGC));
+                lastEventWasGC = false;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+                lastEventWasGC = false;
+                gcPauseTime = GCPAUSE_TIME_NOT_SET;
+            } else if ((trace = APPLICATION_TIME.parse(line)) != null) {
+                publish(new ApplicationConcurrentTime(trace.getDateTimeStamp(), trace.getDoubleGroup(3)));
+                lastEventWasGC = false;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+                publish(new ApplicationConcurrentTime(trace.getDateTimeStamp(), trace.getDoubleGroup(3)));
+                lastEventWasGC = false;
+            } else if ((trace = SIMPLE_APPLICATION_STOP_TIME.parse(line)) != null) {
+                safePoints.add(new StoppedTime(trace.getDoubleGroup(1), safePoints.isEmpty()));
+            } else if ((trace = SIMPLE_APPLICATION_TIME.parse(line)) != null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+            } else if ((trace = SIMPLE_APPLICATION_STOP_TIME.parse(line)) != null) {
+                safePoints.add(new StoppedTime(trace.getDoubleGroup(1), safePoints.isEmpty()));
+            } else if ((trace = SIMPLE_APPLICATION_TIME.parse(line)) != null) {
+                safePoints.add(new ConcurrentTime(trace.getDoubleGroup(3)));
+            } else if ((trace = GC_PAUSE_CLAUSE.parse(line)) != null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+            } else if ((trace = SIMPLE_APPLICATION_TIME.parse(line)) != null) {
+                safePoints.add(new ConcurrentTime(trace.getDoubleGroup(3)));
+            } else if ((trace = GC_PAUSE_CLAUSE.parse(line)) != null) {
+                gcPauseTime = trace.getPauseTime();
+                lastEventWasGC = true;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+                gcPauseTime = trace.getPauseTime();
+                lastEventWasGC = true;
+            } else if ((trace = TLAB_START.parse(line)) != null) {
+                extractTLAB(trace, 2);
+            } else if ((trace = TLAB_CONT.parse(line)) != null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+            } else if ((trace = TLAB_START.parse(line)) != null) {
+                extractTLAB(trace, 2);
+            } else if ((trace = TLAB_CONT.parse(line)) != null) {
+                extractTLAB(trace, 0);
+            } else if ((trace = TLAB_TOTALS.parse(line)) != null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+            } else if ((trace = TLAB_CONT.parse(line)) != null) {
+                extractTLAB(trace, 0);
+            } else if ((trace = TLAB_TOTALS.parse(line)) != null) {
+                extractTLABSummary(trace);
+            } else if (line.equals(END_OF_DATA_SENTINEL)) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
 #### Snippet
 ```java
         GCLogTrace trace;
 
-        if ((trace = PREFIX.parse(line)) != null) {
-            String cause = trace.getGroup(3);
-            if (cause != null) {
+        if ((trace = DESIRED_SURVIVOR_SIZE.parse(entry)) != null) {
+            forwardReference = new SurvivorRecord(new Decorators(entry).getDateTimeStamp(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
+        } else if ((trace = AGE_TABLE_HEADER.parse(entry)) != null) {
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
 #### Snippet
 ```java
-                }
-            } else {
-                if ((trace = G1GC_PREFIX.parse(line)) != null) {
-                    cause = trace.getGroup(3);
-                    if (cause == null)
+        if ((trace = DESIRED_SURVIVOR_SIZE.parse(entry)) != null) {
+            forwardReference = new SurvivorRecord(new Decorators(entry).getDateTimeStamp(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
+        } else if ((trace = AGE_TABLE_HEADER.parse(entry)) != null) {
+            //we've collected this data so.. eat it...
+        } else if ((trace = AGE_RECORD.parse(entry)) != null) {
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
 #### Snippet
 ```java
-
-        GCLogTrace gcLogTrace;
-        if ((gcLogTrace = MEMORY_SUMMARY_RULE.parse(line)) != null) {
-            if (gcLogTrace.next() != null)
-                getDiary().setTrue(SupportedFlags.GC_DETAILS);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-            getDiary().setFalse(SupportedFlags.PRINT_HEAP_AT_GC);
-
-        if ((trace = TenuredPatterns.TENURING_SUMMARY.parse(line)) != null) {
-
-            //we have seen at least one good tenuring summary without an age breakdown
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-        //Can get a lot of information from the perm space record
-        // (CMS Perm |PS Perm |Perm |PSPermGen|Metaspace)
-        if ((trace = ParallelPatterns.PERM_SPACE_RECORD.parse(line)) != null) {
-            String value = trace.getGroup(1).trim();
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-            getDiary().setTrue(SupportedFlags.GC_CAUSE);
-        } else if (getDiary().isGenerationalKnown() && getDiary().isGenerational()) {
-            if ((trace = PREFIX.parse(line)) != null) {
-                if ((trace.getGroup(3) == null) && getDiary().isTrue(SupportedFlags.GC_DETAILS)) {
-                    getDiary().setTrue(SupportedFlags.JDK70);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-                    getDiary().setFalse(SupportedFlags.PRE_JDK70_40);
-                }
-            } else if ((trace = FULL_PREFIX.parse(line)) != null) {
-                if ((trace.getGroup(3) == null) && getDiary().isTrue(SupportedFlags.GC_DETAILS)) {
-                    getDiary().setTrue(SupportedFlags.JDK70);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-
-        } else if (getDiary().isG1GCKnown() && getDiary().isG1GC()) {
-            if ((trace = G1GC_PREFIX.parse(line)) != null) {
-                if (getDiary().isTrue(SupportedFlags.GC_DETAILS) && (trace.gcCause() == GCCause.GCCAUSE_NOT_SET)) {
-                    getDiary().setTrue(SupportedFlags.JDK70);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-
-        //this rule must be evaluated before CONCURRENT_PHASE_END_BLOCK
-        if ((trace = ABORT_PRECLEAN_DUE_TO_TIME_CLAUSE.parse(line)) != null)
-            abortPrecleanDueToTime(trace);
-        else if ((trace = CONCURRENT_PHASE_START_BLOCK.parse(line)) != null)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-        if ((trace = ABORT_PRECLEAN_DUE_TO_TIME_CLAUSE.parse(line)) != null)
-            abortPrecleanDueToTime(trace);
-        else if ((trace = CONCURRENT_PHASE_START_BLOCK.parse(line)) != null)
-            startOfConcurrentPhase(trace);
-        else if ((trace = CONCURRENT_PHASE_END_BLOCK.parse(line)) != null)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-        else if ((trace = CONCURRENT_PHASE_START_BLOCK.parse(line)) != null)
-            startOfConcurrentPhase(trace);
-        else if ((trace = CONCURRENT_PHASE_END_BLOCK.parse(line)) != null)
-            endOfConcurrentPhase(trace);
-        else if ((trace = PRECLEAN_REFERENCE.parse(line)) != null)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-        else if ((trace = CONCURRENT_PHASE_END_BLOCK.parse(line)) != null)
-            endOfConcurrentPhase(trace);
-        else if ((trace = PRECLEAN_REFERENCE.parse(line)) != null)
-            endConcurrentPrecleanWithReferenceProcessing(trace);
-        else if ((trace = INITIAL_MARK.parse(line)) != null)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-        else if ((trace = PRECLEAN_REFERENCE.parse(line)) != null)
-            endConcurrentPrecleanWithReferenceProcessing(trace);
-        else if ((trace = INITIAL_MARK.parse(line)) != null)
-            initialMark(trace);
-        else if ((trace = REMARK_CLAUSE.parse(line)) != null)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-        else if ((trace = INITIAL_MARK.parse(line)) != null)
-            initialMark(trace);
-        else if ((trace = REMARK_CLAUSE.parse(line)) != null)
-            remark(trace, line);
-        else if ((trace = REMARK_REFERENCE_PROCESSING.parse(line)) != null)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-        else if ((trace = REMARK_CLAUSE.parse(line)) != null)
-            remark(trace, line);
-        else if ((trace = REMARK_REFERENCE_PROCESSING.parse(line)) != null)
-            remarkWithReferenceProcessing(trace, line);
-        else if ((trace = SPLIT_REMARK.parse(line)) != null)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-        else if ((trace = REMARK_REFERENCE_PROCESSING.parse(line)) != null)
-            remarkWithReferenceProcessing(trace, line);
-        else if ((trace = SPLIT_REMARK.parse(line)) != null)
-            startOfPhase = getClock();
-        else if ((trace = EndOfFile.parse(line)) != null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-        else if ((trace = SPLIT_REMARK.parse(line)) != null)
-            startOfPhase = getClock();
-        else if ((trace = EndOfFile.parse(line)) != null) {
-            super.publish(ChannelName.CMS_TENURED_POOL_PARSER_OUTBOX, new JVMTermination(getClock(), diary.getTimeOfFirstEvent()));
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
-#### Snippet
-```java
-        int index = 0;
-        String key;
-        while ((key = fullGCInternalPhaseOrder.get(++index)) != null) {
-            collection.addInternalPhase(key, fullGCInternalPhases.get(key));
-        }
+        } else if ((trace = AGE_TABLE_HEADER.parse(entry)) != null) {
+            //we've collected this data so.. eat it...
+        } else if ((trace = AGE_RECORD.parse(entry)) != null) {
+            forwardReference.add(trace.getIntegerGroup(1), trace.getLongGroup(2));
+            ageDataCollected = true;
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/DataSourceVerticle.java`
+#### Snippet
+```java
+                    vertx.undeploy(id);
+                }
+            }).completionHandler(result -> {promise.complete();});
+        } catch(Throwable t) {
+            LOGGER.log(Level.WARNING,"Vertx: processing DataSource failed",t);
+```
+
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/JVMEventVerticle.java`
@@ -2828,19 +2840,19 @@ in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
                         System.out.printf(message, gcType, dataSet.size());
 ```
 
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `vertx/src/main/java/com/microsoft/gctoolkit/vertx/DataSourceVerticle.java`
+## RuleId[ruleID=MismatchedCollectionQueryUpdate]
+### MismatchedCollectionQueryUpdate
+Contents of collection `tagsAndLevels` are updated, but never queried
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/UnifiedDiarizer.java`
 #### Snippet
 ```java
-                    vertx.undeploy(id);
-                }
-            }).completionHandler(result -> {promise.complete();});
-        } catch(Throwable t) {
-            LOGGER.log(Level.WARNING,"Vertx: processing DataSource failed",t);
+
+    private final Diary diary;
+    private final TreeSet<String> tagsAndLevels = new TreeSet<>();
+    private int stopTheWorldEvents = 0;
+
 ```
 
-## RuleId[ruleID=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `phases` are updated, but never queried
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
@@ -2863,18 +2875,6 @@ public class TLABSummary {
     private ArrayList<String> tlabRecords;
 
     public TLABSummary() {
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `tagsAndLevels` are updated, but never queried
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/UnifiedDiarizer.java`
-#### Snippet
-```java
-
-    private final Diary diary;
-    private final TreeSet<String> tagsAndLevels = new TreeSet<>();
-    private int stopTheWorldEvents = 0;
-
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -3384,291 +3384,15 @@ in `sample/src/main/java/com/microsoft/gctoolkit/sample/aggregation/HeapOccupanc
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1ConcurrentMark.java`
-#### Snippet
-```java
-    private int availableWorkerThreads = -1;
-    private double precleanDuration = -1.0d;
-    private boolean aborted = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Young.java`
-#### Snippet
-```java
-    private StatisticalSummary workerTotal;
-    private StatisticalSummary processedBuffersSummary;
-    private boolean toSpaceExhausted = false;
-
-    private final Map<String, StatisticalSummary> parallelPhaseSummaries = new ConcurrentHashMap<>();
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
+in `api/src/main/java/com/microsoft/gctoolkit/event/jvm/SurvivorRecord.java`
 #### Snippet
 ```java
-    private GarbageCollectionTypes gcType;
-    private MemoryPoolSummary young = null;
-    private MemoryPoolSummary tenured = null;
-    private MemoryPoolSummary heap = null;
-    private MetaspaceRecord metaspace = null;
-```
+    // JDK bug, we have now seen a max tenuring threshold of 32, even 64
+    // Fold anything older than 15 back into the 15th slot
+    private ArrayList<Long> bytesAtAge = null;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
-#### Snippet
-```java
-    }
-
-    private MetaspaceRecord classspace = null;
-    private final Map<String, Double> remarkPhases = new ConcurrentHashMap<>();
-    private final Map<String, Double> phases = new ConcurrentHashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
-#### Snippet
-```java
-    private MemoryPoolSummary heap = null;
-    private MetaspaceRecord metaspace = null;
-    private MetaspaceRecord nonClassspace = null;
-
-    public MetaspaceRecord getNonClassspace() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
-#### Snippet
-```java
-    private MemoryPoolSummary young = null;
-    private MemoryPoolSummary tenured = null;
-    private MemoryPoolSummary heap = null;
-    private MetaspaceRecord metaspace = null;
-    private MetaspaceRecord nonClassspace = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
-#### Snippet
-```java
-
-    private GarbageCollectionTypes gcType;
-    private MemoryPoolSummary young = null;
-    private MemoryPoolSummary tenured = null;
-    private MemoryPoolSummary heap = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
-#### Snippet
-```java
-    private MemoryPoolSummary tenured = null;
-    private MemoryPoolSummary heap = null;
-    private MetaspaceRecord metaspace = null;
-    private MetaspaceRecord nonClassspace = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileZipSegment.java`
-#### Snippet
-```java
-    private final String segmentName;
-    private DateTimeStamp endTime = null;
-    private DateTimeStamp startTime = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileZipSegment.java`
-#### Snippet
-```java
-    private final Path path;
-    private final String segmentName;
-    private DateTimeStamp endTime = null;
-    private DateTimeStamp startTime = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
-#### Snippet
-```java
-    private final int segmentIndex;
-    private final boolean current;
-    private DateTimeStamp endTime = null;
-    private DateTimeStamp startTime = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
-#### Snippet
-```java
-    private final boolean current;
-    private DateTimeStamp endTime = null;
-    private DateTimeStamp startTime = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-public class SurvivorMemoryPoolParser extends PreUnifiedGCLogParser implements TenuredPatterns {
-
-    private SurvivorRecord forwardReference = null;
-
-    public SurvivorMemoryPoolParser() {}
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-    private DateTimeStamp timeStamp = new DateTimeStamp(0.0d);
-    private ApplicationStoppedTime.VMOperations safePointReason = null;
-    private boolean gcPause = false;
-
-    public UnifiedJVMEventParser() {}
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = Logger.getLogger(UnifiedJVMEventParser.class.getName());
-    private DateTimeStamp timeStamp = new DateTimeStamp(0.0d);
-    private ApplicationStoppedTime.VMOperations safePointReason = null;
-    private boolean gcPause = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFile.java`
-#### Snippet
-```java
-    private Diary diary;
-    private TripleState unifiedFormat = TripleState.UNKNOWN;
-    private JavaVirtualMachine jvm = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0d` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Remark.java`
-#### Snippet
-```java
-public class G1Remark extends G1RealPause {
-
-    private double referenceProcessingTime = 0.0d;
-    private double finalizeMarkingTime = 0.0d;
-    private double unloadingTime = 0.0d;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0d` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Remark.java`
-#### Snippet
-```java
-
-    private double referenceProcessingTime = 0.0d;
-    private double finalizeMarkingTime = 0.0d;
-    private double unloadingTime = 0.0d;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0d` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Remark.java`
-#### Snippet
-```java
-    private double referenceProcessingTime = 0.0d;
-    private double finalizeMarkingTime = 0.0d;
-    private double unloadingTime = 0.0d;
-
-    public G1Remark(DateTimeStamp timeStamp, double referenceProcessingTimes, double duration) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/io/SingleGCLogFile.java`
-#### Snippet
-```java
-     */
-
-    private SingleLogFileMetadata metadata = null;
-
-    public SingleGCLogFile(Path path) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
-#### Snippet
-```java
-    private int initialMarkCount = 0;
-    private int remarkCount = 0;
-    private int defNewCount = 0;
-
-    public int getInitialMarkCount() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
-#### Snippet
-```java
-
-    private int initialMarkCount = 0;
-    private int remarkCount = 0;
-    private int defNewCount = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
-#### Snippet
-```java
-    }
-
-    private int initialMarkCount = 0;
-    private int remarkCount = 0;
-    private int defNewCount = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCPauseEvent.java`
-#### Snippet
-```java
-    private MemoryPoolSummary heap;
-    private MemoryPoolSummary permOrMetaspace;
-    private ReferenceGCSummary referenceGCSummary = null;
-
-    private CPUSummary cpuSummary;
+    public SurvivorRecord(DateTimeStamp timeStamp, long desiredOccupancy, int calculatedTenuringThreshold, int maxTenuringThreshold) {
 ```
 
 ### RedundantFieldInitialization
@@ -3697,134 +3421,14 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/ForwardReference.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/generational/ParNew.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/io/LogLineFilter.java`
 #### Snippet
 ```java
-public class ParNew extends GenerationalGCPauseEvent {
+    //Internal hack to deal with our sftp server not being able to capture a complete zip file.
+    private static String prefixFilter = null;
+    private Pattern filterPattern = null;
 
-    private TLABSummary tlabSummary = null;
-
-    private int dutyCycle = -1;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/GCToolKit.java`
-#### Snippet
-```java
-    private final HashSet<DataSourceParser> registeredDataSourceParsers = new HashSet<>();
-    private List<Aggregation> registeredAggregations;
-    private JVMEventChannel jvmEventChannel = null;
-    private DataSourceChannel dataSourceChannel = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/GCToolKit.java`
-#### Snippet
-```java
-    private List<Aggregation> registeredAggregations;
-    private JVMEventChannel jvmEventChannel = null;
-    private DataSourceChannel dataSourceChannel = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Trap.java`
-#### Snippet
-```java
-    }
-
-    private int errorCount = 0;
-
-    private void trap(Exception e) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-    private final Collection<SafePointData> safePoints = new ArrayList<>();
-    private DateTimeStamp timeStamp = new DateTimeStamp(0.0d);
-    private boolean lastEventWasGC = false;
-    private double gcPauseTime = GCPAUSE_TIME_NOT_SET;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
-#### Snippet
-```java
-     */
-    private GenerationalForwardReference pauseEvent = null;
-    private GenerationalForwardReference concurrentCyclePauseEvent = null;
-    private GenerationalForwardReference concurrentEvent = null;
-    private boolean inConcurrentPhase = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
-#### Snippet
-```java
-    private GenerationalForwardReference pauseEvent = null;
-    private GenerationalForwardReference concurrentCyclePauseEvent = null;
-    private GenerationalForwardReference concurrentEvent = null;
-    private boolean inConcurrentPhase = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
-#### Snippet
-```java
-    private GenerationalForwardReference concurrentCyclePauseEvent = null;
-    private GenerationalForwardReference concurrentEvent = null;
-    private boolean inConcurrentPhase = false;
-
-    private void tag(GCLogTrace trace, String line) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
-#### Snippet
-```java
-     * Data Extraction methods
-     */
-    private GenerationalForwardReference pauseEvent = null;
-    private GenerationalForwardReference concurrentCyclePauseEvent = null;
-    private GenerationalForwardReference concurrentEvent = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-
-    private SurvivorRecord forwardReference = null;
-    private boolean ageDataCollected = false;
-
-    public UnifiedSurvivorMemoryPoolParser() {}
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-    private GCParseRule AGE_RECORD = new GCParseRule("AGE_RECORD", "- age\\s+" + COUNTER + ":\\s+" + COUNTER + " bytes,\\s+" + COUNTER + " total");
-
-    private SurvivorRecord forwardReference = null;
-    private boolean ageDataCollected = false;
-
+    static {
 ```
 
 ### RedundantFieldInitialization
@@ -3852,15 +3456,15 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/io/LogLineFilter.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/io/LogLineFilter.java`
+Field initialization to `0.0d` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
 #### Snippet
 ```java
-    //Internal hack to deal with our sftp server not being able to capture a complete zip file.
-    private static String prefixFilter = null;
-    private Pattern filterPattern = null;
+    protected Diary diary;
+    private DateTimeStamp clock = new DateTimeStamp(0.0d);
+    private double lastDuration = 0.0d;
 
-    static {
+
 ```
 
 ### RedundantFieldInitialization
@@ -3877,42 +3481,6 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/UnifiedDiarizer.java
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/Decorators.java`
-#### Snippet
-```java
-    int numberOfDecorators;
-
-    private Matcher decoratorMatcher = null;
-    private String tags;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0d` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
-#### Snippet
-```java
-    protected Diary diary;
-    private DateTimeStamp clock = new DateTimeStamp(0.0d);
-    private double lastDuration = 0.0d;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/jvm/SurvivorRecord.java`
-#### Snippet
-```java
-    // JDK bug, we have now seen a max tenuring threshold of 32, even 64
-    // Fold anything older than 15 back into the 15th slot
-    private ArrayList<Long> bytesAtAge = null;
-
-    public SurvivorRecord(DateTimeStamp timeStamp, long desiredOccupancy, int calculatedTenuringThreshold, int maxTenuringThreshold) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `api/src/main/java/com/microsoft/gctoolkit/aggregator/Aggregation.java`
 #### Snippet
 ```java
@@ -3924,207 +3492,63 @@ public abstract class Aggregation {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-    private boolean simpleParallelOrParNewDetected = false;
-    private boolean simpleFullGCDetected = false;
-    private boolean simpleCMSCycleDetected = false;
-
-    //TODO: #148 PSYoung -> PSOldGen, DefNew->PSOldGen, so maybe we need to break up Parallel for generational collections
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-    private int collectionCount = 0;
-    private int youngCollectionCount = 0;
-    private int tenuringSummary = 0;
-    private boolean ageTableDetected = false;
-    private int maxTenuringThreshold = 15;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
     }
 
-    private boolean simpleParallelOrParNewDetected = false;
-    private boolean simpleFullGCDetected = false;
-    private boolean simpleCMSCycleDetected = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-
-    private boolean simpleParallelOrParNewDetected = false;
-    private boolean simpleFullGCDetected = false;
-    private boolean simpleCMSCycleDetected = false;
+    private int evacuationWorkersUsed = 0;
+    private int evacuationWorkersAvailable = 0;
 
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
-    private int youngCollectionCount = 0;
-    private int tenuringSummary = 0;
-    private boolean ageTableDetected = false;
-    private int maxTenuringThreshold = 15;
-    private int setGCFlags = 0;
-```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-    private boolean ageTableDetected = false;
-    private int maxTenuringThreshold = 15;
-    private int setGCFlags = 0;
-    private DateTimeStamp timeOfFirstEvent = null;
+    private GarbageCollectionTypes pausePhaseDuringConcurrentCycle = null;
+    private GarbageCollectionTypes gcType = null;
+    private GarbageCollectionTypes concurrentPhase;
 
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
-    private boolean firstCMSCycle = false;
-    private int youngCountAfterFirstCMSCycle = 0;
-    private int collectionCount = 0;
-    private int youngCollectionCount = 0;
-    private int tenuringSummary = 0;
+    private static final Logger LOGGER = Logger.getLogger(G1GCForwardReference.class.getName());
+
+    private static int heapRegionSize = 0;
+    private static long minHeapSize;
+    private static long initialHeapSize;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
-    private int youngCountAfterFirstCMSCycle = 0;
-    private int collectionCount = 0;
-    private int youngCollectionCount = 0;
-    private int tenuringSummary = 0;
-    private boolean ageTableDetected = false;
+
+    // Concurrent Remark values
+    private int concurrentMarkWorkersUsed = 0;
+    private int concurrentMarkWorkersAvailable = 0;
+
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
     }
 
-    private boolean firstCMSCycle = false;
-    private int youngCountAfterFirstCMSCycle = 0;
-    private int collectionCount = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-    private int maxTenuringThreshold = 15;
-    private int setGCFlags = 0;
-    private DateTimeStamp timeOfFirstEvent = null;
-
-    {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-
-    private boolean firstCMSCycle = false;
-    private int youngCountAfterFirstCMSCycle = 0;
-    private int collectionCount = 0;
-    private int youngCollectionCount = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
-#### Snippet
-```java
-
-    // state variables
-    private boolean before = false; //todo what happens if this gets out of sync. #IHateState
-    private int gcInvocations = 0;
-    private int fullGCInvocations = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
-#### Snippet
-```java
-
-    //return to JVM
-    private int regionSize = 0; //region size in Gigabytes
-
-    public void heapRegionSize(GCLogTrace trace, String line) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
-#### Snippet
-```java
-    private boolean before = false; //todo what happens if this gets out of sync. #IHateState
-    private int gcInvocations = 0;
-    private int fullGCInvocations = 0;
-    private DateTimeStamp jvmTerminationEventTime = new DateTimeStamp(-1.0d);
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
-#### Snippet
-```java
-    // state variables
-    private boolean before = false; //todo what happens if this gets out of sync. #IHateState
-    private int gcInvocations = 0;
-    private int fullGCInvocations = 0;
-    private DateTimeStamp jvmTerminationEventTime = new DateTimeStamp(-1.0d);
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
-#### Snippet
-```java
-
-    private G1GCForwardReference forwardReference;
-    private boolean concurrentPhaseActive = false;
-
-    private final RuleSet<GCParseRule, BiConsumer<GCLogTrace, String>> parseRules;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-
-    private static final Logger LOG = Logger.getLogger(CMSTenuredPoolParser.class.getName());
-    private DateTimeStamp startOfPhase = null;
-    private GCParseRule EndOfFile = new GCParseRule("END_OF_DATA_SENTINEL", END_OF_DATA_SENTINEL);
-
+    private GarbageCollectionTypes pausePhaseDuringConcurrentCycle = null;
+    private GarbageCollectionTypes gcType = null;
+    private GarbageCollectionTypes concurrentPhase;
 ```
 
 ### RedundantFieldInitialization
@@ -4158,44 +3582,20 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.jav
 ```java
     }
 
-    private UnifiedCountSummary terminationAttempts = null;
-
-    void setTerminationAttempts(UnifiedCountSummary summary) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
-#### Snippet
-```java
-
-    private GarbageCollectionTypes pausePhaseDuringConcurrentCycle = null;
-    private GarbageCollectionTypes gcType = null;
-    private GarbageCollectionTypes concurrentPhase;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
-#### Snippet
-```java
-    }
-
     private UnifiedCountSummary unifiedCountSummary = null;
 
     void setProcessedBuffersSummary(UnifiedCountSummary summary) {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
+Field initialization to `null` is redundant
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
     }
 
-    private int evacuationWorkersUsed = 0;
-    private int evacuationWorkersAvailable = 0;
+    private DateTimeStamp pausePhaseDuringConcurrentCycleTime = null;
+    private double pausePhaseDuringConcurrentCycleDuration = -1.0d;
 
 ```
 
@@ -4204,11 +3604,11 @@ Field initialization to `0` is redundant
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
-
     // Concurrent Remark values
     private int concurrentMarkWorkersUsed = 0;
     private int concurrentMarkWorkersAvailable = 0;
 
+    void concurrentMarkWorkers(int used, int available) {
 ```
 
 ### RedundantFieldInitialization
@@ -4230,45 +3630,645 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.jav
 ```java
     }
 
-    private GarbageCollectionTypes pausePhaseDuringConcurrentCycle = null;
-    private GarbageCollectionTypes gcType = null;
-    private GarbageCollectionTypes concurrentPhase;
+    private UnifiedCountSummary terminationAttempts = null;
+
+    void setTerminationAttempts(UnifiedCountSummary summary) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 #### Snippet
 ```java
-    // Concurrent Remark values
-    private int concurrentMarkWorkersUsed = 0;
-    private int concurrentMarkWorkersAvailable = 0;
+    private boolean before = false; //todo what happens if this gets out of sync. #IHateState
+    private int gcInvocations = 0;
+    private int fullGCInvocations = 0;
+    private DateTimeStamp jvmTerminationEventTime = new DateTimeStamp(-1.0d);
 
-    void concurrentMarkWorkers(int used, int available) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
+#### Snippet
+```java
+
+    // state variables
+    private boolean before = false; //todo what happens if this gets out of sync. #IHateState
+    private int gcInvocations = 0;
+    private int fullGCInvocations = 0;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 #### Snippet
 ```java
-    private static final Logger LOGGER = Logger.getLogger(G1GCForwardReference.class.getName());
 
-    private static int heapRegionSize = 0;
-    private static long minHeapSize;
-    private static long initialHeapSize;
+    //return to JVM
+    private int regionSize = 0; //region size in Gigabytes
+
+    public void heapRegionSize(GCLogTrace trace, String line) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
+#### Snippet
+```java
+
+    private G1GCForwardReference forwardReference;
+    private boolean concurrentPhaseActive = false;
+
+    private final RuleSet<GCParseRule, BiConsumer<GCLogTrace, String>> parseRules;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
+#### Snippet
+```java
+    // state variables
+    private boolean before = false; //todo what happens if this gets out of sync. #IHateState
+    private int gcInvocations = 0;
+    private int fullGCInvocations = 0;
+    private DateTimeStamp jvmTerminationEventTime = new DateTimeStamp(-1.0d);
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
+#### Snippet
+```java
+    private MemoryPoolSummary tenured = null;
+    private MemoryPoolSummary heap = null;
+    private MetaspaceRecord metaspace = null;
+    private MetaspaceRecord nonClassspace = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
+#### Snippet
+```java
+    private MemoryPoolSummary young = null;
+    private MemoryPoolSummary tenured = null;
+    private MemoryPoolSummary heap = null;
+    private MetaspaceRecord metaspace = null;
+    private MetaspaceRecord nonClassspace = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
+#### Snippet
+```java
+    private MemoryPoolSummary heap = null;
+    private MetaspaceRecord metaspace = null;
+    private MetaspaceRecord nonClassspace = null;
+
+    public MetaspaceRecord getNonClassspace() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
+#### Snippet
+```java
+
+    private GarbageCollectionTypes gcType;
+    private MemoryPoolSummary young = null;
+    private MemoryPoolSummary tenured = null;
+    private MemoryPoolSummary heap = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
 #### Snippet
 ```java
     }
 
-    private DateTimeStamp pausePhaseDuringConcurrentCycleTime = null;
-    private double pausePhaseDuringConcurrentCycleDuration = -1.0d;
+    private MetaspaceRecord classspace = null;
+    private final Map<String, Double> remarkPhases = new ConcurrentHashMap<>();
+    private final Map<String, Double> phases = new ConcurrentHashMap<>();
+```
 
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GenerationalForwardReference.java`
+#### Snippet
+```java
+    private GarbageCollectionTypes gcType;
+    private MemoryPoolSummary young = null;
+    private MemoryPoolSummary tenured = null;
+    private MemoryPoolSummary heap = null;
+    private MetaspaceRecord metaspace = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Young.java`
+#### Snippet
+```java
+    private StatisticalSummary workerTotal;
+    private StatisticalSummary processedBuffersSummary;
+    private boolean toSpaceExhausted = false;
+
+    private final Map<String, StatisticalSummary> parallelPhaseSummaries = new ConcurrentHashMap<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+
+    private static final Logger LOG = Logger.getLogger(CMSTenuredPoolParser.class.getName());
+    private DateTimeStamp startOfPhase = null;
+    private GCParseRule EndOfFile = new GCParseRule("END_OF_DATA_SENTINEL", END_OF_DATA_SENTINEL);
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1ConcurrentMark.java`
+#### Snippet
+```java
+    private int availableWorkerThreads = -1;
+    private double precleanDuration = -1.0d;
+    private boolean aborted = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileZipSegment.java`
+#### Snippet
+```java
+    private final String segmentName;
+    private DateTimeStamp endTime = null;
+    private DateTimeStamp startTime = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileZipSegment.java`
+#### Snippet
+```java
+    private final Path path;
+    private final String segmentName;
+    private DateTimeStamp endTime = null;
+    private DateTimeStamp startTime = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/SurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+public class SurvivorMemoryPoolParser extends PreUnifiedGCLogParser implements TenuredPatterns {
+
+    private SurvivorRecord forwardReference = null;
+
+    public SurvivorMemoryPoolParser() {}
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0d` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Remark.java`
+#### Snippet
+```java
+
+    private double referenceProcessingTime = 0.0d;
+    private double finalizeMarkingTime = 0.0d;
+    private double unloadingTime = 0.0d;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0d` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Remark.java`
+#### Snippet
+```java
+public class G1Remark extends G1RealPause {
+
+    private double referenceProcessingTime = 0.0d;
+    private double finalizeMarkingTime = 0.0d;
+    private double unloadingTime = 0.0d;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0d` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Remark.java`
+#### Snippet
+```java
+    private double referenceProcessingTime = 0.0d;
+    private double finalizeMarkingTime = 0.0d;
+    private double unloadingTime = 0.0d;
+
+    public G1Remark(DateTimeStamp timeStamp, double referenceProcessingTimes, double duration) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    private int maxTenuringThreshold = 15;
+    private int setGCFlags = 0;
+    private DateTimeStamp timeOfFirstEvent = null;
+
+    {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    private int youngCollectionCount = 0;
+    private int tenuringSummary = 0;
+    private boolean ageTableDetected = false;
+    private int maxTenuringThreshold = 15;
+    private int setGCFlags = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    private boolean ageTableDetected = false;
+    private int maxTenuringThreshold = 15;
+    private int setGCFlags = 0;
+    private DateTimeStamp timeOfFirstEvent = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+
+    private boolean firstCMSCycle = false;
+    private int youngCountAfterFirstCMSCycle = 0;
+    private int collectionCount = 0;
+    private int youngCollectionCount = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    private boolean simpleParallelOrParNewDetected = false;
+    private boolean simpleFullGCDetected = false;
+    private boolean simpleCMSCycleDetected = false;
+
+    //TODO: #148 PSYoung -> PSOldGen, DefNew->PSOldGen, so maybe we need to break up Parallel for generational collections
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    }
+
+    private boolean simpleParallelOrParNewDetected = false;
+    private boolean simpleFullGCDetected = false;
+    private boolean simpleCMSCycleDetected = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    }
+
+    private boolean firstCMSCycle = false;
+    private int youngCountAfterFirstCMSCycle = 0;
+    private int collectionCount = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    private int youngCountAfterFirstCMSCycle = 0;
+    private int collectionCount = 0;
+    private int youngCollectionCount = 0;
+    private int tenuringSummary = 0;
+    private boolean ageTableDetected = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    private boolean firstCMSCycle = false;
+    private int youngCountAfterFirstCMSCycle = 0;
+    private int collectionCount = 0;
+    private int youngCollectionCount = 0;
+    private int tenuringSummary = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+
+    private boolean simpleParallelOrParNewDetected = false;
+    private boolean simpleFullGCDetected = false;
+    private boolean simpleCMSCycleDetected = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    private int collectionCount = 0;
+    private int youngCollectionCount = 0;
+    private int tenuringSummary = 0;
+    private boolean ageTableDetected = false;
+    private int maxTenuringThreshold = 15;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFile.java`
+#### Snippet
+```java
+    private Diary diary;
+    private TripleState unifiedFormat = TripleState.UNKNOWN;
+    private JavaVirtualMachine jvm = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCPauseEvent.java`
+#### Snippet
+```java
+    private MemoryPoolSummary heap;
+    private MemoryPoolSummary permOrMetaspace;
+    private ReferenceGCSummary referenceGCSummary = null;
+
+    private CPUSummary cpuSummary;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = Logger.getLogger(UnifiedJVMEventParser.class.getName());
+    private DateTimeStamp timeStamp = new DateTimeStamp(0.0d);
+    private ApplicationStoppedTime.VMOperations safePointReason = null;
+    private boolean gcPause = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+    private DateTimeStamp timeStamp = new DateTimeStamp(0.0d);
+    private ApplicationStoppedTime.VMOperations safePointReason = null;
+    private boolean gcPause = false;
+
+    public UnifiedJVMEventParser() {}
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/io/SingleGCLogFile.java`
+#### Snippet
+```java
+     */
+
+    private SingleLogFileMetadata metadata = null;
+
+    public SingleGCLogFile(Path path) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
+#### Snippet
+```java
+    private final boolean current;
+    private DateTimeStamp endTime = null;
+    private DateTimeStamp startTime = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
+#### Snippet
+```java
+    private final int segmentIndex;
+    private final boolean current;
+    private DateTimeStamp endTime = null;
+    private DateTimeStamp startTime = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/GCToolKit.java`
+#### Snippet
+```java
+    private final HashSet<DataSourceParser> registeredDataSourceParsers = new HashSet<>();
+    private List<Aggregation> registeredAggregations;
+    private JVMEventChannel jvmEventChannel = null;
+    private DataSourceChannel dataSourceChannel = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/GCToolKit.java`
+#### Snippet
+```java
+    private List<Aggregation> registeredAggregations;
+    private JVMEventChannel jvmEventChannel = null;
+    private DataSourceChannel dataSourceChannel = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/Decorators.java`
+#### Snippet
+```java
+    int numberOfDecorators;
+
+    private Matcher decoratorMatcher = null;
+    private String tags;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Trap.java`
+#### Snippet
+```java
+    }
+
+    private int errorCount = 0;
+
+    private void trap(Exception e) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
+#### Snippet
+```java
+    }
+
+    private int initialMarkCount = 0;
+    private int remarkCount = 0;
+    private int defNewCount = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
+#### Snippet
+```java
+    private int initialMarkCount = 0;
+    private int remarkCount = 0;
+    private int defNewCount = 0;
+
+    public int getInitialMarkCount() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
+#### Snippet
+```java
+
+    private int initialMarkCount = 0;
+    private int remarkCount = 0;
+    private int defNewCount = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/generational/ParNew.java`
+#### Snippet
+```java
+public class ParNew extends GenerationalGCPauseEvent {
+
+    private TLABSummary tlabSummary = null;
+
+    private int dutyCycle = -1;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+    private final Collection<SafePointData> safePoints = new ArrayList<>();
+    private DateTimeStamp timeStamp = new DateTimeStamp(0.0d);
+    private boolean lastEventWasGC = false;
+    private double gcPauseTime = GCPAUSE_TIME_NOT_SET;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+
+    private SurvivorRecord forwardReference = null;
+    private boolean ageDataCollected = false;
+
+    public UnifiedSurvivorMemoryPoolParser() {}
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+    private GCParseRule AGE_RECORD = new GCParseRule("AGE_RECORD", "- age\\s+" + COUNTER + ":\\s+" + COUNTER + " bytes,\\s+" + COUNTER + " total");
+
+    private SurvivorRecord forwardReference = null;
+    private boolean ageDataCollected = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+#### Snippet
+```java
+     * Data Extraction methods
+     */
+    private GenerationalForwardReference pauseEvent = null;
+    private GenerationalForwardReference concurrentCyclePauseEvent = null;
+    private GenerationalForwardReference concurrentEvent = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+#### Snippet
+```java
+    private GenerationalForwardReference concurrentCyclePauseEvent = null;
+    private GenerationalForwardReference concurrentEvent = null;
+    private boolean inConcurrentPhase = false;
+
+    private void tag(GCLogTrace trace, String line) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+#### Snippet
+```java
+    private GenerationalForwardReference pauseEvent = null;
+    private GenerationalForwardReference concurrentCyclePauseEvent = null;
+    private GenerationalForwardReference concurrentEvent = null;
+    private boolean inConcurrentPhase = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+#### Snippet
+```java
+     */
+    private GenerationalForwardReference pauseEvent = null;
+    private GenerationalForwardReference concurrentCyclePauseEvent = null;
+    private GenerationalForwardReference concurrentEvent = null;
+    private boolean inConcurrentPhase = false;
 ```
 
 ### RedundantFieldInitialization
@@ -4299,7 +4299,7 @@ public class MalformedEvent extends Exception {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-23-13-27-27.223.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-25-18-46-36.907.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -4310,18 +4310,6 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-23-13-27-27.223.
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
-#### Snippet
-```java
-            switch (segments.size()) {
-                case 0:
-                    String[] empty = new String[0];
-                    return Arrays.stream(empty);
-                case 1:
-```
-
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `api/src/main/java/com/microsoft/gctoolkit/event/jvm/SurvivorRecord.java`
@@ -4346,67 +4334,19 @@ in `api/src/main/java/com/microsoft/gctoolkit/event/jvm/SurvivorRecord.java`
 }
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
+#### Snippet
+```java
+            switch (segments.size()) {
+                case 0:
+                    String[] empty = new String[0];
+                    return Arrays.stream(empty);
+                case 1:
+```
+
 ## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `trace` initializer `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-    protected void process(String line) {
-
-        GCLogTrace trace = null;
-
-        try {
-```
-
-### UnusedAssignment
-The value `LEAVING_SAFEPOINT.parse(line)` assigned to `trace` is never used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
-#### Snippet
-```java
-                timeStamp = getClock();
-                safePointReason = ApplicationStoppedTime.VMOperations.valueOf(trace.getGroup(1));
-            } else if ((trace = LEAVING_SAFEPOINT.parse(line)) != null) {
-            } //noop this one.
-
-```
-
-### UnusedAssignment
-Variable `referenceProcessingTime` initializer `0.0d` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Remark.java`
-#### Snippet
-```java
-public class G1Remark extends G1RealPause {
-
-    private double referenceProcessingTime = 0.0d;
-    private double finalizeMarkingTime = 0.0d;
-    private double unloadingTime = 0.0d;
-```
-
-### UnusedAssignment
-Variable `trace` initializer `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
-#### Snippet
-```java
-    protected void process(String line) {
-
-        GCLogTrace trace = null;
-
-        try {
-```
-
-### UnusedAssignment
-The value `AGE_TABLE_HEADER.parse(entry)` assigned to `trace` is never used
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
-#### Snippet
-```java
-        if ((trace = DESIRED_SURVIVOR_SIZE.parse(entry)) != null) {
-            forwardReference = new SurvivorRecord(new Decorators(entry).getDateTimeStamp(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
-        } else if ((trace = AGE_TABLE_HEADER.parse(entry)) != null) {
-            //we've collected this data so.. eat it...
-        } else if ((trace = AGE_RECORD.parse(entry)) != null) {
-```
-
 ### UnusedAssignment
 Variable `prefixFilter` initializer `null` is redundant
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/io/LogLineFilter.java`
@@ -4432,42 +4372,6 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/io/LogLineFilter.java`
 ```
 
 ### UnusedAssignment
-Variable `baseLength` initializer `0` is redundant
-in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingLogFileMetadata.java`
-#### Snippet
-```java
-        }
-
-        int baseLength = 0;
-        if ( "current".equals(bits[bits.length - 1]))
-            baseLength = bits.length - 2;
-```
-
-### UnusedAssignment
-Variable `collection` initializer `null` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
-#### Snippet
-```java
-        MemoryPoolSummary summary = trace.getOccupancyBeforeAfterWithMemoryPoolSizeSummary(9);
-        if ("young".equals(trace.getGroup(4))) {
-            G1Young collection = null;
-            if (trace.getGroup(6) == null)
-                collection = new G1Young(getClock(), trace.gcCause(), trace.getPauseTime());
-```
-
-### UnusedAssignment
-Variable `forwardReference` initializer `trap` is redundant
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
-#### Snippet
-```java
-
-    private final G1GCPauseEvent trap = new G1Trap();
-    private G1GCPauseEvent forwardReference = trap;
-
-    private DateTimeStamp timeStampForwardReference;
-```
-
-### UnusedAssignment
 The value `SPLIT_REMARK.parse(line)` assigned to `trace` is never used
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
 #### Snippet
@@ -4489,6 +4393,102 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.jav
         else if ((trace = EndOfFile.parse(line)) != null) {
             super.publish(ChannelName.CMS_TENURED_POOL_PARSER_OUTBOX, new JVMTermination(getClock(), diary.getTimeOfFirstEvent()));
         }
+```
+
+### UnusedAssignment
+Variable `referenceProcessingTime` initializer `0.0d` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1Remark.java`
+#### Snippet
+```java
+public class G1Remark extends G1RealPause {
+
+    private double referenceProcessingTime = 0.0d;
+    private double finalizeMarkingTime = 0.0d;
+    private double unloadingTime = 0.0d;
+```
+
+### UnusedAssignment
+Variable `trace` initializer `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+    protected void process(String line) {
+
+        GCLogTrace trace = null;
+
+        try {
+```
+
+### UnusedAssignment
+The value `LEAVING_SAFEPOINT.parse(line)` assigned to `trace` is never used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedJVMEventParser.java`
+#### Snippet
+```java
+                timeStamp = getClock();
+                safePointReason = ApplicationStoppedTime.VMOperations.valueOf(trace.getGroup(1));
+            } else if ((trace = LEAVING_SAFEPOINT.parse(line)) != null) {
+            } //noop this one.
+
+```
+
+### UnusedAssignment
+Variable `trace` initializer `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JVMEventParser.java`
+#### Snippet
+```java
+    protected void process(String line) {
+
+        GCLogTrace trace = null;
+
+        try {
+```
+
+### UnusedAssignment
+Variable `baseLength` initializer `0` is redundant
+in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingLogFileMetadata.java`
+#### Snippet
+```java
+        }
+
+        int baseLength = 0;
+        if ( "current".equals(bits[bits.length - 1]))
+            baseLength = bits.length - 2;
+```
+
+### UnusedAssignment
+The value `AGE_TABLE_HEADER.parse(entry)` assigned to `trace` is never used
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedSurvivorMemoryPoolParser.java`
+#### Snippet
+```java
+        if ((trace = DESIRED_SURVIVOR_SIZE.parse(entry)) != null) {
+            forwardReference = new SurvivorRecord(new Decorators(entry).getDateTimeStamp(), trace.getLongGroup(1), trace.getIntegerGroup(2), trace.getIntegerGroup(3));
+        } else if ((trace = AGE_TABLE_HEADER.parse(entry)) != null) {
+            //we've collected this data so.. eat it...
+        } else if ((trace = AGE_RECORD.parse(entry)) != null) {
+```
+
+### UnusedAssignment
+Variable `forwardReference` initializer `trap` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
+#### Snippet
+```java
+
+    private final G1GCPauseEvent trap = new G1Trap();
+    private G1GCPauseEvent forwardReference = trap;
+
+    private DateTimeStamp timeStampForwardReference;
+```
+
+### UnusedAssignment
+Variable `collection` initializer `null` is redundant
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.java`
+#### Snippet
+```java
+        MemoryPoolSummary summary = trace.getOccupancyBeforeAfterWithMemoryPoolSizeSummary(9);
+        if ("young".equals(trace.getGroup(4))) {
+            G1Young collection = null;
+            if (trace.getGroup(6) == null)
+                collection = new G1Young(getClock(), trace.gcCause(), trace.getPauseTime());
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -4518,6 +4518,18 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingLogFileMetadata.java`
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
+Condition `m == null` is always `false`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JHiccupTrace.java`
+#### Snippet
+```java
+    public static JHiccupTrace toTrace(String line) {
+        Matcher m = JHICCUP_LOG_ENTRY.matcher(line);
+        return (m == null) ? null : new JHiccupTrace(m);
+    }
+
+```
+
+### ConstantValue
 Condition `dateTimeStamp != null` is always `true`
 in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileZipSegment.java`
 #### Snippet
@@ -4527,6 +4539,30 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileZipSegment.java`
                     .max(Comparator.comparing(dateTimeStamp -> dateTimeStamp != null ? dateTimeStamp.getTimeStamp() : 0))
                     .orElse(new DateTimeStamp(-1.0d));
         }
+```
+
+### ConstantValue
+Condition `simpleCMSCycleDetected` is always `true` when reached
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    @Override
+    public boolean completed() {
+        return getDiary().isComplete() || lineCount < 1 || (simpleCMSCycleDetected && (simpleCMSCycleDetected || simpleFullGCDetected));
+    }
+
+```
+
+### ConstantValue
+Condition `simpleCMSCycleDetected || simpleFullGCDetected` is always `true` when reached
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
+#### Snippet
+```java
+    @Override
+    public boolean completed() {
+        return getDiary().isComplete() || lineCount < 1 || (simpleCMSCycleDetected && (simpleCMSCycleDetected || simpleFullGCDetected));
+    }
+
 ```
 
 ### ConstantValue
@@ -4565,42 +4601,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
         }
 ```
 
-### ConstantValue
-Condition `m == null` is always `false`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JHiccupTrace.java`
-#### Snippet
-```java
-    public static JHiccupTrace toTrace(String line) {
-        Matcher m = JHICCUP_LOG_ENTRY.matcher(line);
-        return (m == null) ? null : new JHiccupTrace(m);
-    }
-
-```
-
-### ConstantValue
-Condition `simpleCMSCycleDetected` is always `true` when reached
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-    @Override
-    public boolean completed() {
-        return getDiary().isComplete() || lineCount < 1 || (simpleCMSCycleDetected && (simpleCMSCycleDetected || simpleFullGCDetected));
-    }
-
-```
-
-### ConstantValue
-Condition `simpleCMSCycleDetected || simpleFullGCDetected` is always `true` when reached
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-    @Override
-    public boolean completed() {
-        return getDiary().isComplete() || lineCount < 1 || (simpleCMSCycleDetected && (simpleCMSCycleDetected || simpleFullGCDetected));
-    }
-
-```
-
 ## RuleId[ruleID=IOResource]
 ### IOResource
 'ZipFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
@@ -4615,18 +4615,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileZipSegment.java`
 ```
 
 ### IOResource
-'RandomAccessFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
-#### Snippet
-```java
-        boolean foundEOL = false;
-        char eol = 0;
-        RandomAccessFile randomAccessFile = new RandomAccessFile(path.toFile(), "r");
-        long currentPosition = randomAccessFile.length() - 1;
-        int linesFound = 0;
-```
-
-### IOResource
 'ZipFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
 #### Snippet
@@ -4636,6 +4624,18 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
         ZipFile zipFile = new ZipFile(path.toFile());
         List<ZipEntry> entries = zipFile.stream().filter(entry -> !entry.isDirectory()).collect(Collectors.toList());
         Vector<InputStream> streams = new Vector<>();
+```
+
+### IOResource
+'RandomAccessFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
+#### Snippet
+```java
+        boolean foundEOL = false;
+        char eol = 0;
+        RandomAccessFile randomAccessFile = new RandomAccessFile(path.toFile(), "r");
+        long currentPosition = randomAccessFile.length() - 1;
+        int linesFound = 0;
 ```
 
 ## RuleId[ruleID=RedundantOperationOnEmptyContainer]
@@ -4665,75 +4665,15 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingGCLogFile.java`
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `INITIALLY_RUNNING_THREADS` may be 'static'
+Field `VMOP_TIME` may be 'static'
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
 #### Snippet
 ```java
-    private final int VMOP = 2;
-    private final int TOTAL_THREADS = 3;
-    private final int INITIALLY_RUNNING_THREADS = 4;
-    private final int WAITING_TO_BLOCK = 5;
-    private final int SPIN_TIME = 6;
-```
-
-### FieldMayBeStatic
-Field `TOTAL_THREADS` may be 'static'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
-#### Snippet
-```java
-    private final int TIME_STAMP = 1;
-    private final int VMOP = 2;
-    private final int TOTAL_THREADS = 3;
-    private final int INITIALLY_RUNNING_THREADS = 4;
-    private final int WAITING_TO_BLOCK = 5;
-```
-
-### FieldMayBeStatic
-Field `TRAP_COUNT` may be 'static'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
-#### Snippet
-```java
+    private final int SYNC_TIME = 8;
     private final int CLEANUP_TIME = 9;
     private final int VMOP_TIME = 10;
     private final int TRAP_COUNT = 11;
 
-}
-```
-
-### FieldMayBeStatic
-Field `WAITING_TO_BLOCK` may be 'static'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
-#### Snippet
-```java
-    private final int TOTAL_THREADS = 3;
-    private final int INITIALLY_RUNNING_THREADS = 4;
-    private final int WAITING_TO_BLOCK = 5;
-    private final int SPIN_TIME = 6;
-    private final int BLOCK_TIME = 7;
-```
-
-### FieldMayBeStatic
-Field `SPIN_TIME` may be 'static'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
-#### Snippet
-```java
-    private final int INITIALLY_RUNNING_THREADS = 4;
-    private final int WAITING_TO_BLOCK = 5;
-    private final int SPIN_TIME = 6;
-    private final int BLOCK_TIME = 7;
-    private final int SYNC_TIME = 8;
-```
-
-### FieldMayBeStatic
-Field `BLOCK_TIME` may be 'static'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
-#### Snippet
-```java
-    private final int WAITING_TO_BLOCK = 5;
-    private final int SPIN_TIME = 6;
-    private final int BLOCK_TIME = 7;
-    private final int SYNC_TIME = 8;
-    private final int CLEANUP_TIME = 9;
 ```
 
 ### FieldMayBeStatic
@@ -4749,18 +4689,6 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.jav
 ```
 
 ### FieldMayBeStatic
-Field `CLEANUP_TIME` may be 'static'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
-#### Snippet
-```java
-    private final int BLOCK_TIME = 7;
-    private final int SYNC_TIME = 8;
-    private final int CLEANUP_TIME = 9;
-    private final int VMOP_TIME = 10;
-    private final int TRAP_COUNT = 11;
-```
-
-### FieldMayBeStatic
 Field `SYNC_TIME` may be 'static'
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
 #### Snippet
@@ -4773,15 +4701,15 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.jav
 ```
 
 ### FieldMayBeStatic
-Field `VMOP_TIME` may be 'static'
+Field `INITIALLY_RUNNING_THREADS` may be 'static'
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
 #### Snippet
 ```java
-    private final int SYNC_TIME = 8;
-    private final int CLEANUP_TIME = 9;
-    private final int VMOP_TIME = 10;
-    private final int TRAP_COUNT = 11;
-
+    private final int VMOP = 2;
+    private final int TOTAL_THREADS = 3;
+    private final int INITIALLY_RUNNING_THREADS = 4;
+    private final int WAITING_TO_BLOCK = 5;
+    private final int SPIN_TIME = 6;
 ```
 
 ### FieldMayBeStatic
@@ -4794,6 +4722,78 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.jav
     private final int VMOP = 2;
     private final int TOTAL_THREADS = 3;
     private final int INITIALLY_RUNNING_THREADS = 4;
+```
+
+### FieldMayBeStatic
+Field `CLEANUP_TIME` may be 'static'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
+#### Snippet
+```java
+    private final int BLOCK_TIME = 7;
+    private final int SYNC_TIME = 8;
+    private final int CLEANUP_TIME = 9;
+    private final int VMOP_TIME = 10;
+    private final int TRAP_COUNT = 11;
+```
+
+### FieldMayBeStatic
+Field `BLOCK_TIME` may be 'static'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
+#### Snippet
+```java
+    private final int WAITING_TO_BLOCK = 5;
+    private final int SPIN_TIME = 6;
+    private final int BLOCK_TIME = 7;
+    private final int SYNC_TIME = 8;
+    private final int CLEANUP_TIME = 9;
+```
+
+### FieldMayBeStatic
+Field `SPIN_TIME` may be 'static'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
+#### Snippet
+```java
+    private final int INITIALLY_RUNNING_THREADS = 4;
+    private final int WAITING_TO_BLOCK = 5;
+    private final int SPIN_TIME = 6;
+    private final int BLOCK_TIME = 7;
+    private final int SYNC_TIME = 8;
+```
+
+### FieldMayBeStatic
+Field `TRAP_COUNT` may be 'static'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
+#### Snippet
+```java
+    private final int CLEANUP_TIME = 9;
+    private final int VMOP_TIME = 10;
+    private final int TRAP_COUNT = 11;
+
+}
+```
+
+### FieldMayBeStatic
+Field `TOTAL_THREADS` may be 'static'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
+#### Snippet
+```java
+    private final int TIME_STAMP = 1;
+    private final int VMOP = 2;
+    private final int TOTAL_THREADS = 3;
+    private final int INITIALLY_RUNNING_THREADS = 4;
+    private final int WAITING_TO_BLOCK = 5;
+```
+
+### FieldMayBeStatic
+Field `WAITING_TO_BLOCK` may be 'static'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/vmops/SafepointTrace.java`
+#### Snippet
+```java
+    private final int TOTAL_THREADS = 3;
+    private final int INITIALLY_RUNNING_THREADS = 4;
+    private final int WAITING_TO_BLOCK = 5;
+    private final int SPIN_TIME = 6;
+    private final int BLOCK_TIME = 7;
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -4809,17 +4809,30 @@ public class GCCauses {
         Map.entry(GCCause.JAVA_LANG_SYSTEM.getLabel(), GCCause.JAVA_LANG_SYSTEM),
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Method invocation `add` may produce `NullPointerException`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `api/src/main/java/com/microsoft/gctoolkit/event/shenandoah/ShenandoahCycle.java`
 #### Snippet
 ```java
-        fillOutMemoryPoolData(youngCollection, forwardReference);
-        fillOutMetaspaceData(youngCollection, forwardReference);
-        youngCollection.add(forwardReference.getCPUSummary());
-        // add in reference processing
-        return youngCollection;
+        Pause_Final_Mark, Concurrent_cleanup,
+        Concurrent_evacuation, Pause_Init_Update_Refs,
+        Concurrent_update_references, Pause_Final_Update_Refs;
+    }
+
+```
+
+## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Method invocation `isDirectory` may produce `NullPointerException`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/io/SafepointLogFile.java`
+#### Snippet
+```java
+        do {
+            entry = zipStream.getNextEntry();
+        } while (entry.isDirectory());
+        return new BufferedReader(new InputStreamReader(new BufferedInputStream(zipStream))).lines();
+    }
 ```
 
 ### DataFlowIssue
@@ -4859,41 +4872,28 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/io/SafepointLogFile.java
 ```
 
 ### DataFlowIssue
-Method invocation `isDirectory` may produce `NullPointerException`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/io/SafepointLogFile.java`
+Method invocation `add` may produce `NullPointerException`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
 #### Snippet
 ```java
-        do {
-            entry = zipStream.getNextEntry();
-        } while (entry.isDirectory());
-        return new BufferedReader(new InputStreamReader(new BufferedInputStream(zipStream))).lines();
-    }
-```
-
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `api/src/main/java/com/microsoft/gctoolkit/event/shenandoah/ShenandoahCycle.java`
-#### Snippet
-```java
-        Pause_Final_Mark, Concurrent_cleanup,
-        Concurrent_evacuation, Pause_Init_Update_Refs,
-        Concurrent_update_references, Pause_Final_Update_Refs;
-    }
-
+        fillOutMemoryPoolData(youngCollection, forwardReference);
+        fillOutMetaspaceData(youngCollection, forwardReference);
+        youngCollection.add(forwardReference.getCPUSummary());
+        // add in reference processing
+        return youngCollection;
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
-'List.of().stream()' can be replaced with 'Stream.of()'
-in `api/src/main/java/com/microsoft/gctoolkit/io/SingleLogFileMetadata.java`
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 #### Snippet
 ```java
-
-    public Stream<LogFileSegment> logFiles() {
-        return List.of(logFile).stream();
-    }
-
+            publish(event);
+            concurrentPhaseActive = false;
+            eventQueue.stream().forEach(this::publish);
+            eventQueue.clear();
+        } else {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -4909,15 +4909,15 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
 ```
 
 ### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedG1GCParser.java`
+'List.of().stream()' can be replaced with 'Stream.of()'
+in `api/src/main/java/com/microsoft/gctoolkit/io/SingleLogFileMetadata.java`
 #### Snippet
 ```java
-            publish(event);
-            concurrentPhaseActive = false;
-            eventQueue.stream().forEach(this::publish);
-            eventQueue.clear();
-        } else {
+
+    public Stream<LogFileSegment> logFiles() {
+        return List.of(logFile).stream();
+    }
+
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -4936,11 +4936,11 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingLogFileMetadata.java`
 ## RuleId[ruleID=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/GarbageCollectorFlag.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/CommandLineFlag.java`
 #### Snippet
 ```java
         try {
-            return Enum.valueOf(GarbageCollectorFlag.class, string.trim());
+            return Enum.valueOf(CommandLineFlag.class, string.trim());
         } catch (IllegalArgumentException ex) {
         }
         return null;
@@ -4948,11 +4948,11 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/GarbageCollectorFlag
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/CommandLineFlag.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/GarbageCollectorFlag.java`
 #### Snippet
 ```java
         try {
-            return Enum.valueOf(CommandLineFlag.class, string.trim());
+            return Enum.valueOf(GarbageCollectorFlag.class, string.trim());
         } catch (IllegalArgumentException ex) {
         }
         return null;
@@ -4973,18 +4973,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/event/jvm/JVMEvent.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
-#### Snippet
-```java
-            publish(new ConcurrentReset(startOfPhase, duration, cpuTime, wallTime));
-        else
-            LOG.warning("concurrent phase choked on " + trace.toString());
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
 #### Snippet
 ```java
@@ -4993,6 +4981,18 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.jav
             throw new MalformedEvent("G1GC Event type is undefined (null): " + this.toString());
         }
         switch (this.gcType) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/CMSTenuredPoolParser.java`
+#### Snippet
+```java
+            publish(new ConcurrentReset(startOfPhase, duration, cpuTime, wallTime));
+        else
+            LOG.warning("concurrent phase choked on " + trace.toString());
+    }
+
 ```
 
 ## RuleId[ruleID=SetReplaceableByEnumSet]
@@ -5010,30 +5010,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/jvm/Diary.java`
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `RegionsSummary` may be 'static'
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/RSetConcurrentRefinement.java`
-#### Snippet
-```java
-    }
-
-    class RegionsSummary {
-
-        private int youngRegionsStatistics;
-```
-
-### InnerClassMayBeStatic
-Inner class `ConcurrentRefinementStatistics` may be 'static'
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/RSetConcurrentRefinement.java`
-#### Snippet
-```java
-     */
-
-    class ConcurrentRefinementStatistics {
-        private int cardsProcessed;
-        private int completedBuffers;
-```
-
-### InnerClassMayBeStatic
 Inner class `ShenandoahForwardReference` may be 'static'
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/ShenandoahParser.java`
 #### Snippet
@@ -5043,6 +5019,18 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/ShenandoahParser.java`
     private class ShenandoahForwardReference {
 
         JVMEvent toShenandoahCycle() {
+```
+
+### InnerClassMayBeStatic
+Inner class `ZGCForwardReference` may be 'static'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/ZGCParser.java`
+#### Snippet
+```java
+    }
+
+    private class ZGCForwardReference {
+        private final DateTimeStamp startTimeStamp;
+        private final GCCause gcCause;
 ```
 
 ### InnerClassMayBeStatic
@@ -5070,18 +5058,78 @@ in `api/src/main/java/com/microsoft/gctoolkit/event/shenandoah/ShenandoahCycle.j
 ```
 
 ### InnerClassMayBeStatic
-Inner class `ZGCForwardReference` may be 'static'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/ZGCParser.java`
+Inner class `RegionsSummary` may be 'static'
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/RSetConcurrentRefinement.java`
 #### Snippet
 ```java
     }
 
-    private class ZGCForwardReference {
-        private final DateTimeStamp startTimeStamp;
-        private final GCCause gcCause;
+    class RegionsSummary {
+
+        private int youngRegionsStatistics;
+```
+
+### InnerClassMayBeStatic
+Inner class `ConcurrentRefinementStatistics` may be 'static'
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/RSetConcurrentRefinement.java`
+#### Snippet
+```java
+     */
+
+    class ConcurrentRefinementStatistics {
+        private int cardsProcessed;
+        private int completedBuffers;
 ```
 
 ## RuleId[ruleID=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+        //And yes, that means System.out.println is in here in on purpose
+        //if ( debugging) {
+        System.out.println(threadName + ", not implemented: " + getGroup(0));
+        for (int i = 1; i < groupCount() + 1; i++) {
+            System.out.println(i + ": " + getGroup(i));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+        System.out.println(threadName + ", not implemented: " + getGroup(0));
+        for (int i = 1; i < groupCount() + 1; i++) {
+            System.out.println(i + ": " + getGroup(i));
+        }
+        System.out.println("-----------------------------------------");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+            System.out.println(i + ": " + getGroup(i));
+        }
+        System.out.println("-----------------------------------------");
+        //}
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGCLogParser.java`
+#### Snippet
+```java
+    void noop() {
+        if (DEBUG)
+            System.out.println("noop");
+    }
+}
+```
+
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
@@ -5154,55 +5202,19 @@ in `sample/src/main/java/com/microsoft/gctoolkit/sample/Main.java`
 
 ```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGCLogParser.java`
-#### Snippet
-```java
-    void noop() {
-        if (DEBUG)
-            System.out.println("noop");
-    }
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-        //And yes, that means System.out.println is in here in on purpose
-        //if ( debugging) {
-        System.out.println(threadName + ", not implemented: " + getGroup(0));
-        for (int i = 1; i < groupCount() + 1; i++) {
-            System.out.println(i + ": " + getGroup(i));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-        System.out.println(threadName + ", not implemented: " + getGroup(0));
-        for (int i = 1; i < groupCount() + 1; i++) {
-            System.out.println(i + ": " + getGroup(i));
-        }
-        System.out.println("-----------------------------------------");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-            System.out.println(i + ": " + getGroup(i));
-        }
-        System.out.println("-----------------------------------------");
-        //}
-    }
-```
-
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JHiccupTrace.java`
+#### Snippet
+```java
+
+    private double convertToDouble(String value) {
+        return Double.parseDouble(value.replaceAll(EUROPEAN_FORMAT_SEPARATOR, US_FORMAT_SEPARATOR));
+    }
+
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/AbstractLogTrace.java`
@@ -5239,18 +5251,6 @@ in `api/src/main/java/com/microsoft/gctoolkit/io/RotatingLogFileMetadata.java`
         else
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JHiccupTrace.java`
-#### Snippet
-```java
-
-    private double convertToDouble(String value) {
-        return Double.parseDouble(value.replaceAll(EUROPEAN_FORMAT_SEPARATOR, US_FORMAT_SEPARATOR));
-    }
-
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
@@ -5259,92 +5259,8 @@ in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.j
 ```java
     }
 
-    public com.microsoft.gctoolkit.integration.collections.XYDataSet scaleSeries(double scaleFactor) {
-        com.microsoft.gctoolkit.integration.collections.XYDataSet scaled = new com.microsoft.gctoolkit.integration.collections.XYDataSet();
-        for (com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item : dataSeries) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
-
-    public com.microsoft.gctoolkit.integration.collections.XYDataSet scaleSeries(double scaleFactor) {
-        com.microsoft.gctoolkit.integration.collections.XYDataSet scaled = new com.microsoft.gctoolkit.integration.collections.XYDataSet();
-        for (com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item : dataSeries) {
-            scaled.add(item.getX(), item.getY().doubleValue() * scaleFactor);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
-
-    public com.microsoft.gctoolkit.integration.collections.XYDataSet scaleSeries(double scaleFactor) {
-        com.microsoft.gctoolkit.integration.collections.XYDataSet scaled = new com.microsoft.gctoolkit.integration.collections.XYDataSet();
-        for (com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item : dataSeries) {
-            scaled.add(item.getX(), item.getY().doubleValue() * scaleFactor);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
-    public com.microsoft.gctoolkit.integration.collections.XYDataSet scaleSeries(double scaleFactor) {
-        com.microsoft.gctoolkit.integration.collections.XYDataSet scaled = new com.microsoft.gctoolkit.integration.collections.XYDataSet();
-        for (com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item : dataSeries) {
-            scaled.add(item.getX(), item.getY().doubleValue() * scaleFactor);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
-    }
-
-    public void add(com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item) {
-        dataSeries.add(item);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
-
-public class XYDataSet {
-    private final List<com.microsoft.gctoolkit.integration.collections.XYDataSet.Point> dataSeries;
-
-    public XYDataSet() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
-    }
-
-    protected void addAll(List<com.microsoft.gctoolkit.integration.collections.XYDataSet.Point> items) {
-        dataSeries.addAll(items);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
-    }
-
-    public Stream<com.microsoft.gctoolkit.integration.collections.XYDataSet.Point> stream() {
-        return dataSeries.stream();
+    public XYDataSet(com.microsoft.gctoolkit.integration.collections.XYDataSet series) {
+        dataSeries = new ArrayList<>(series.getItems());
     }
 ```
 
@@ -5357,6 +5273,30 @@ in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.j
      */
     public List<com.microsoft.gctoolkit.integration.collections.XYDataSet.Point> getItems() {
         return List.copyOf(dataSeries);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+    public OptionalDouble maxOfY() {
+        return dataSeries.stream()
+                .map(com.microsoft.gctoolkit.integration.collections.XYDataSet.Point::getY)
+                .mapToDouble(Number::doubleValue)
+                .max();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+    }
+
+    public Stream<com.microsoft.gctoolkit.integration.collections.XYDataSet.Point> stream() {
+        return dataSeries.stream();
     }
 ```
 
@@ -5413,30 +5353,6 @@ Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and c
 in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
 #### Snippet
 ```java
-    public OptionalDouble maxOfY() {
-        return dataSeries.stream()
-                .map(com.microsoft.gctoolkit.integration.collections.XYDataSet.Point::getY)
-                .mapToDouble(Number::doubleValue)
-                .max();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
-    }
-
-    public XYDataSet(com.microsoft.gctoolkit.integration.collections.XYDataSet series) {
-        dataSeries = new ArrayList<>(series.getItems());
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
-in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
-#### Snippet
-```java
 
     public void add(Number x, Number y) {
         dataSeries.add(new com.microsoft.gctoolkit.integration.collections.XYDataSet.Point(x, y));
@@ -5444,17 +5360,125 @@ in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.j
 
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+    }
+
+    public void add(com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item) {
+        dataSeries.add(item);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+    }
+
+    protected void addAll(List<com.microsoft.gctoolkit.integration.collections.XYDataSet.Point> items) {
+        dataSeries.addAll(items);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+
+public class XYDataSet {
+    private final List<com.microsoft.gctoolkit.integration.collections.XYDataSet.Point> dataSeries;
+
+    public XYDataSet() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+    }
+
+    public com.microsoft.gctoolkit.integration.collections.XYDataSet scaleSeries(double scaleFactor) {
+        com.microsoft.gctoolkit.integration.collections.XYDataSet scaled = new com.microsoft.gctoolkit.integration.collections.XYDataSet();
+        for (com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item : dataSeries) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+
+    public com.microsoft.gctoolkit.integration.collections.XYDataSet scaleSeries(double scaleFactor) {
+        com.microsoft.gctoolkit.integration.collections.XYDataSet scaled = new com.microsoft.gctoolkit.integration.collections.XYDataSet();
+        for (com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item : dataSeries) {
+            scaled.add(item.getX(), item.getY().doubleValue() * scaleFactor);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+
+    public com.microsoft.gctoolkit.integration.collections.XYDataSet scaleSeries(double scaleFactor) {
+        com.microsoft.gctoolkit.integration.collections.XYDataSet scaled = new com.microsoft.gctoolkit.integration.collections.XYDataSet();
+        for (com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item : dataSeries) {
+            scaled.add(item.getX(), item.getY().doubleValue() * scaleFactor);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.gctoolkit.integration.collections` is unnecessary and can be removed
+in `IT/src/main/java/com/microsoft/gctoolkit/integration/collections/XYDataSet.java`
+#### Snippet
+```java
+    public com.microsoft.gctoolkit.integration.collections.XYDataSet scaleSeries(double scaleFactor) {
+        com.microsoft.gctoolkit.integration.collections.XYDataSet scaled = new com.microsoft.gctoolkit.integration.collections.XYDataSet();
+        for (com.microsoft.gctoolkit.integration.collections.XYDataSet.Point item : dataSeries) {
+            scaled.add(item.getX(), item.getY().doubleValue() * scaleFactor);
+        }
+```
+
 ## RuleId[ruleID=RegExpSingleCharAlternation]
 ### RegExpSingleCharAlternation
 Single character alternation in RegExp
-in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
 #### Snippet
 ```java
-    // Unified Tokens
-    private static final String DATE_TAG = "\\[" + DATE + "\\]";
-    private static final String UPTIME_TAG = "\\[(" + TIME + ")s\\]";
+    private static final GCParseRule G1GC_PREFIX = new GCParseRule("G1GC_PREFIX", G1GCTokens.G1GC_PREFIX);
+    private static final GCParseRule REFERENCE_PROCESSING_BLOCK = new GCParseRule("REFERENCE_PROCESSING_BLOCK", PreUnifiedTokens.REFERENCE_RECORDS);
+    private static final Pattern excludeG1Ergonomics = Pattern.compile("^\\d+(\\.|,)\\d+: \\[G1Ergonomics");
 
-    // Pre-unified tokens
+
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+
+    String DATE_STAMP = "\\[" + DATE + "\\]";
+    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
+    String TIME_MILLIS = "\\[\\d+ms\\]";
+    String TIME_NANOS = "\\[\\d+ns\\]";
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+#### Snippet
+```java
+    String PID_TID = "\\[\\d+\\]";
+    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
+    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
+    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
+    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
 ```
 
 ### RegExpSingleCharAlternation
@@ -5486,11 +5510,11 @@ Single character alternation in RegExp
 in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
 #### Snippet
 ```java
-    private static final String TIMESTAMP = "(" + TIME + "): ";
-    private static final String DATE_STAMP = "(" + DATE + "): ";
-    private static final String DATE_TIMESTAMP = "^(?:" + DATE_STAMP + ")?" + TIMESTAMP;
+    private static final String INTEGER = "\\d+";
+    private static final String DATE = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}[\\+|\\-]\\d{4}";
+    private static final String TIME = INTEGER + DECIMAL_POINT + "\\d{3}";
 
-    //  2017-09-07T09:00:12.795+0200: 0.716:
+    // Unified Tokens
 ```
 
 ### RegExpSingleCharAlternation
@@ -5510,47 +5534,23 @@ Single character alternation in RegExp
 in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
 #### Snippet
 ```java
-    private static final String INTEGER = "\\d+";
-    private static final String DATE = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}[\\+|\\-]\\d{4}";
-    private static final String TIME = INTEGER + DECIMAL_POINT + "\\d{3}";
-
     // Unified Tokens
+    private static final String DATE_TAG = "\\[" + DATE + "\\]";
+    private static final String UPTIME_TAG = "\\[(" + TIME + ")s\\]";
+
+    // Pre-unified tokens
 ```
 
 ### RegExpSingleCharAlternation
 Single character alternation in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
+in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
 #### Snippet
 ```java
+    private static final String TIMESTAMP = "(" + TIME + "): ";
+    private static final String DATE_STAMP = "(" + DATE + "): ";
+    private static final String DATE_TIMESTAMP = "^(?:" + DATE_STAMP + ")?" + TIMESTAMP;
 
-    String DATE_STAMP = "\\[" + DATE + "\\]";
-    String UPTIME = "\\[" + INTEGER + DECIMAL_POINT + "\\d{3}s\\]";
-    String TIME_MILLIS = "\\[\\d+ms\\]";
-    String TIME_NANOS = "\\[\\d+ns\\]";
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/unified/UnifiedLoggingTokens.java`
-#### Snippet
-```java
-    String PID_TID = "\\[\\d+\\]";
-    String UNIFIED_LOG_LEVEL_BLOCK = "\\[(?:error|warning|info|debug|trace|develop) *\\]";
-    Pattern DECORATORS = Pattern.compile("(" + DATE_STAMP + ")?(" + UPTIME + ")?(" + TIME_MILLIS + ")?(" + TIME_MILLIS + ")?(" + TIME_NANOS + ")?(" + TIME_NANOS + ")?(" + PID_TID + ")?(" + PID_TID + ")?(" + UNIFIED_LOG_LEVEL_BLOCK + ")?");
-    //Using zero-width negative lookbehind to miss capturing records formatted like [0x1f03].
-    //[0.081s][trace][safepoint] Thread: 0x00007fd0d2006800  [0x1f03] State: _at_safepoint _has_called_back 0 _at_poll_safepoint 0
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/PreUnifiedDiarizer.java`
-#### Snippet
-```java
-    private static final GCParseRule G1GC_PREFIX = new GCParseRule("G1GC_PREFIX", G1GCTokens.G1GC_PREFIX);
-    private static final GCParseRule REFERENCE_PROCESSING_BLOCK = new GCParseRule("REFERENCE_PROCESSING_BLOCK", PreUnifiedTokens.REFERENCE_RECORDS);
-    private static final Pattern excludeG1Ergonomics = Pattern.compile("^\\d+(\\.|,)\\d+: \\[G1Ergonomics");
-
-
+    //  2017-09-07T09:00:12.795+0200: 0.716:
 ```
 
 ### RegExpSingleCharAlternation
@@ -5604,126 +5604,6 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedG1GCParser.jav
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `G1GCConcurrentEvent()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCConcurrentEvent.java`
-#### Snippet
-```java
-public abstract class G1GCConcurrentEvent extends G1GCEvent {
-
-    public G1GCConcurrentEvent(DateTimeStamp timeStamp, GarbageCollectionTypes type, GCCause cause, double duration) {
-        super(timeStamp, type, cause, duration);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `LogFileMetadata()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/io/LogFileMetadata.java`
-#### Snippet
-```java
-    private final Path path;
-
-    public LogFileMetadata(Path path) throws IOException {
-        this.path = path;
-        magic();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractLogTrace()` of an abstract class should not be declared 'public'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/AbstractLogTrace.java`
-#### Snippet
-```java
-    protected final Matcher trace;
-
-    public AbstractLogTrace(Matcher matcher) {
-        this.trace = matcher;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `G1GCPauseEvent()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCPauseEvent.java`
-#### Snippet
-```java
-    private CPUSummary cpuSummary;
-
-    public G1GCPauseEvent(DateTimeStamp timeStamp, GarbageCollectionTypes type, GCCause cause, double duration) {
-        super(timeStamp, type, cause, duration);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `G1GCEvent()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCEvent.java`
-#### Snippet
-```java
-    }
-
-    public G1GCEvent(DateTimeStamp timeStamp, double duration) {
-        this(timeStamp, GarbageCollectionTypes.Unknown, GCCause.UNKNOWN_GCCAUSE, duration);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `G1GCEvent()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCEvent.java`
-#### Snippet
-```java
-    }
-
-    public G1GCEvent(DateTimeStamp timeStamp, GCCause cause, double duration) {
-        this(timeStamp, GarbageCollectionTypes.Unknown, cause, duration);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `G1GCEvent()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCEvent.java`
-#### Snippet
-```java
-    }
-
-    public G1GCEvent(DateTimeStamp timeStamp, GarbageCollectionTypes gcType, double duration) {
-        this(timeStamp, gcType, GCCause.UNKNOWN_GCCAUSE, duration);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `G1GCEvent()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCEvent.java`
-#### Snippet
-```java
-public abstract class G1GCEvent extends GCEvent {
-
-    public G1GCEvent(DateTimeStamp timeStamp, GarbageCollectionTypes type, GCCause cause, double duration) {
-        super(timeStamp, type, cause, duration);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `UnifiedGCLogParser()` of an abstract class should not be declared 'public'
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGCLogParser.java`
-#### Snippet
-```java
-    private static final boolean DEBUG = Boolean.getBoolean("microsoft.debug");
-
-    public UnifiedGCLogParser() {}
-
-    void advanceClock(String record) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `CMSPauseEvent()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/event/generational/CMSPauseEvent.java`
-#### Snippet
-```java
-public abstract class CMSPauseEvent extends GenerationalGCPauseEvent implements CMSPhase {
-
-    public CMSPauseEvent(DateTimeStamp timeStamp, GarbageCollectionTypes gcType, GCCause cause, double duration) {
-        super(timeStamp, gcType, cause, duration);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `PreUnifiedGCLogParser()` of an abstract class should not be declared 'public'
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
 #### Snippet
@@ -5760,6 +5640,18 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `GenerationalGCPauseEvent()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/event/generational/GenerationalGCPauseEvent.java`
+#### Snippet
+```java
+    private CPUSummary cpuSummary;
+
+    public GenerationalGCPauseEvent(DateTimeStamp timeStamp, GarbageCollectionTypes type, GCCause cause, double duration) {
+        super(timeStamp, type, cause, duration);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `G1RealPause()` of an abstract class should not be declared 'public'
 in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1RealPause.java`
 #### Snippet
@@ -5772,28 +5664,304 @@ public abstract class G1RealPause extends G1GCPauseEvent {
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GenerationalGCPauseEvent()` of an abstract class should not be declared 'public'
-in `api/src/main/java/com/microsoft/gctoolkit/event/generational/GenerationalGCPauseEvent.java`
+Constructor `AbstractLogTrace()` of an abstract class should not be declared 'public'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/AbstractLogTrace.java`
+#### Snippet
+```java
+    protected final Matcher trace;
+
+    public AbstractLogTrace(Matcher matcher) {
+        this.trace = matcher;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `G1GCConcurrentEvent()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCConcurrentEvent.java`
+#### Snippet
+```java
+public abstract class G1GCConcurrentEvent extends G1GCEvent {
+
+    public G1GCConcurrentEvent(DateTimeStamp timeStamp, GarbageCollectionTypes type, GCCause cause, double duration) {
+        super(timeStamp, type, cause, duration);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `G1GCPauseEvent()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCPauseEvent.java`
 #### Snippet
 ```java
     private CPUSummary cpuSummary;
 
-    public GenerationalGCPauseEvent(DateTimeStamp timeStamp, GarbageCollectionTypes type, GCCause cause, double duration) {
+    public G1GCPauseEvent(DateTimeStamp timeStamp, GarbageCollectionTypes type, GCCause cause, double duration) {
         super(timeStamp, type, cause, duration);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `G1GCEvent()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCEvent.java`
+#### Snippet
+```java
+    }
+
+    public G1GCEvent(DateTimeStamp timeStamp, GarbageCollectionTypes gcType, double duration) {
+        this(timeStamp, gcType, GCCause.UNKNOWN_GCCAUSE, duration);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `G1GCEvent()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCEvent.java`
+#### Snippet
+```java
+    }
+
+    public G1GCEvent(DateTimeStamp timeStamp, GCCause cause, double duration) {
+        this(timeStamp, GarbageCollectionTypes.Unknown, cause, duration);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `G1GCEvent()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCEvent.java`
+#### Snippet
+```java
+public abstract class G1GCEvent extends GCEvent {
+
+    public G1GCEvent(DateTimeStamp timeStamp, GarbageCollectionTypes type, GCCause cause, double duration) {
+        super(timeStamp, type, cause, duration);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `G1GCEvent()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/event/g1gc/G1GCEvent.java`
+#### Snippet
+```java
+    }
+
+    public G1GCEvent(DateTimeStamp timeStamp, double duration) {
+        this(timeStamp, GarbageCollectionTypes.Unknown, GCCause.UNKNOWN_GCCAUSE, duration);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `UnifiedGCLogParser()` of an abstract class should not be declared 'public'
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGCLogParser.java`
+#### Snippet
+```java
+    private static final boolean DEBUG = Boolean.getBoolean("microsoft.debug");
+
+    public UnifiedGCLogParser() {}
+
+    void advanceClock(String record) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `LogFileMetadata()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/io/LogFileMetadata.java`
+#### Snippet
+```java
+    private final Path path;
+
+    public LogFileMetadata(Path path) throws IOException {
+        this.path = path;
+        magic();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `CMSPauseEvent()` of an abstract class should not be declared 'public'
+in `api/src/main/java/com/microsoft/gctoolkit/event/generational/CMSPauseEvent.java`
+#### Snippet
+```java
+public abstract class CMSPauseEvent extends GenerationalGCPauseEvent implements CMSPhase {
+
+    public CMSPauseEvent(DateTimeStamp timeStamp, GarbageCollectionTypes gcType, GCCause cause, double duration) {
+        super(timeStamp, gcType, cause, duration);
     }
 ```
 
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/JHiccupTrace.java`
 #### Snippet
 ```java
-            e.printStackTrace();
+    public static JHiccupTrace toTrace(String line) {
+        Matcher m = JHICCUP_LOG_ENTRY.matcher(line);
+        return (m == null) ? null : new JHiccupTrace(m);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
+#### Snippet
+```java
+            return new CPUSummary(trace.getDoubleGroup(1), trace.getDoubleGroup(2), trace.getDoubleGroup(3));
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/CommandLineFlag.java`
+#### Snippet
+```java
+        } catch (IllegalArgumentException ex) {
         }
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
+#### Snippet
+```java
+            return new CPUSummary(trace.getDoubleGroup(1), trace.getDoubleGroup(2), trace.getDoubleGroup(3));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `api/src/main/java/com/microsoft/gctoolkit/aggregator/Aggregation.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/SafepointParseRule.java`
+#### Snippet
+```java
+        } else {
+            misses();
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+#### Snippet
+```java
+                // The phase is a reset that occurs after an eager collection of humongous regions. This event will be
+                // filled in a future PR.
+                return null;
+            default:
+                throw new MalformedEvent("Unrecognized Event " + gcType);
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/ShenandoahParser.java`
+#### Snippet
+```java
+
+        JVMEvent toShenandoahCycle() {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+#### Snippet
+```java
+    private SurvivorMemoryPoolSummary getSurvivorMemoryPoolSummary() {
+        if (memoryPoolMeasurment[SURVIVOR_OCCUPANCY_BEFORE_COLLECTION] == -1L)
+            return null;
+        return new SurvivorMemoryPoolSummary(memoryPoolMeasurment[SURVIVOR_OCCUPANCY_BEFORE_COLLECTION], memoryPoolMeasurment[SURVIVOR_OCCUPANCY_AFTER_COLLECTION], memoryPoolMeasurment[SURVIVOR_SIZE_AFTER_COLLECTION]);
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+#### Snippet
+```java
+    private MemoryPoolSummary getMemoryPoolSummary(int offset) {
+        if (memoryPoolMeasurment[offset + OCCUPANCY_BEFORE_OFFSET] == -1L) //do we have recorded values
+            return null;
+        //do we know the size of the memory pool prior to the collection
+        long sizeBeforeCollection = (memoryPoolMeasurment[offset + SIZE_BEFORE_OFFSET] > -1L) ? memoryPoolMeasurment[offset + SIZE_BEFORE_OFFSET] : memoryPoolMeasurment[offset + SIZE_AFTER_OFFSET];
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
+#### Snippet
+```java
+                LOGGER.warning("Unrecognized Concurrent Event " + getConcurrentPhase());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/GarbageCollectorFlag.java`
+#### Snippet
+```java
+        } catch (IllegalArgumentException ex) {
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/collection/MRUQueue.java`
+#### Snippet
+```java
+    @Override
+    public V remove(Object key) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/collection/MRUQueue.java`
+#### Snippet
+```java
+            return entries.get(key);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCParseRule.java`
+#### Snippet
+```java
+            return new GCLogTrace(matcher);
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -5822,35 +5990,11 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/AbstractLogTrace.java`
 
 ### ReturnNull
 Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/SafepointParseRule.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/collection/RuleSet.java`
 #### Snippet
 ```java
-        } else {
-            misses();
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/ShenandoahParser.java`
-#### Snippet
-```java
-
-        JVMEvent toShenandoahCycle() {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-        }
-
+    @Override
+    public V remove(Object key) {
         return null;
     }
 
@@ -5858,23 +6002,11 @@ in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
 
 ### ReturnNull
 Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/collection/RuleSet.java`
 #### Snippet
 ```java
-            notYetImplemented();
+            return entries.get(key);
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -5909,7 +6041,55 @@ Return of `null`
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
             notYetImplemented();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogTrace.java`
+#### Snippet
+```java
+            notYetImplemented();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `api/src/main/java/com/microsoft/gctoolkit/io/GCLogFileSegment.java`
+#### Snippet
+```java
+            e.printStackTrace();
         }
         return null;
     }
@@ -5922,6 +6102,18 @@ in `api/src/main/java/com/microsoft/gctoolkit/time/DateTimeStamp.java`
 #### Snippet
 ```java
             return ZonedDateTime.from(temporalAccessor);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/Decorators.java`
+#### Snippet
+```java
+            LOGGER.log(Level.SEVERE, npe.getMessage(), npe);
         }
         return null;
     }
@@ -5945,7 +6137,7 @@ Return of `null`
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
 #### Snippet
 ```java
-                LOGGER.warning(values.getGarbageCollectionType() + " is unrecognized");
+                LOGGER.warning(forwardReference.getGarbageCollectionType() + " is unrecognized");
         }
         return null;
     }
@@ -5969,203 +6161,11 @@ Return of `null`
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/UnifiedGenerationalParser.java`
 #### Snippet
 ```java
-                LOGGER.warning(forwardReference.getGarbageCollectionType() + " is unrecognized");
+                LOGGER.warning(values.getGarbageCollectionType() + " is unrecognized");
         }
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/GarbageCollectorFlag.java`
-#### Snippet
-```java
-        } catch (IllegalArgumentException ex) {
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/Decorators.java`
-#### Snippet
-```java
-            LOGGER.log(Level.SEVERE, npe.getMessage(), npe);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/JHiccupTrace.java`
-#### Snippet
-```java
-    public static JHiccupTrace toTrace(String line) {
-        Matcher m = JHICCUP_LOG_ENTRY.matcher(line);
-        return (m == null) ? null : new JHiccupTrace(m);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/jvm/CommandLineFlag.java`
-#### Snippet
-```java
-        } catch (IllegalArgumentException ex) {
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
-#### Snippet
-```java
-            return new CPUSummary(trace.getDoubleGroup(1), trace.getDoubleGroup(2), trace.getDoubleGroup(3));
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCLogParser.java`
-#### Snippet
-```java
-            return new CPUSummary(trace.getDoubleGroup(1), trace.getDoubleGroup(2), trace.getDoubleGroup(3));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/collection/MRUQueue.java`
-#### Snippet
-```java
-            return entries.get(key);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/collection/MRUQueue.java`
-#### Snippet
-```java
-    @Override
-    public V remove(Object key) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/collection/RuleSet.java`
-#### Snippet
-```java
-            return entries.get(key);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/collection/RuleSet.java`
-#### Snippet
-```java
-    @Override
-    public V remove(Object key) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/GCParseRule.java`
-#### Snippet
-```java
-            return new GCLogTrace(matcher);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `api/src/main/java/com/microsoft/gctoolkit/aggregator/Aggregation.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
-#### Snippet
-```java
-                LOGGER.warning("Unrecognized Concurrent Event " + getConcurrentPhase());
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
-#### Snippet
-```java
-    private SurvivorMemoryPoolSummary getSurvivorMemoryPoolSummary() {
-        if (memoryPoolMeasurment[SURVIVOR_OCCUPANCY_BEFORE_COLLECTION] == -1L)
-            return null;
-        return new SurvivorMemoryPoolSummary(memoryPoolMeasurment[SURVIVOR_OCCUPANCY_BEFORE_COLLECTION], memoryPoolMeasurment[SURVIVOR_OCCUPANCY_AFTER_COLLECTION], memoryPoolMeasurment[SURVIVOR_SIZE_AFTER_COLLECTION]);
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
-#### Snippet
-```java
-                // The phase is a reset that occurs after an eager collection of humongous regions. This event will be
-                // filled in a future PR.
-                return null;
-            default:
-                throw new MalformedEvent("Unrecognized Event " + gcType);
-```
-
-### ReturnNull
-Return of `null`
-in `parser/src/main/java/com/microsoft/gctoolkit/parser/G1GCForwardReference.java`
-#### Snippet
-```java
-    private MemoryPoolSummary getMemoryPoolSummary(int offset) {
-        if (memoryPoolMeasurment[offset + OCCUPANCY_BEFORE_OFFSET] == -1L) //do we have recorded values
-            return null;
-        //do we know the size of the memory pool prior to the collection
-        long sizeBeforeCollection = (memoryPoolMeasurment[offset + SIZE_BEFORE_OFFSET] > -1L) ? memoryPoolMeasurment[offset + SIZE_BEFORE_OFFSET] : memoryPoolMeasurment[offset + SIZE_AFTER_OFFSET];
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -6187,9 +6187,9 @@ Local variable `summary` is redundant
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
 #### Snippet
 ```java
-
-    MemoryPoolSummary getTotalOccupancyWithTotalHeapSizeSummary(GCLogTrace trace, int offset) {
-        MemoryPoolSummary summary = trace.getOccupancyWithMemoryPoolSizeSummary(offset);
+    // todo: mixes aggregator with parsing. premature optimization...
+    MemoryPoolSummary getTotalOccupancyBeforeAfterWithTotalHeapPoolSizeSummary(GCLogTrace trace, int offset) {
+        MemoryPoolSummary summary = trace.getOccupancyBeforeAfterWithMemoryPoolSizeSummary(offset);
         return summary;
     }
 ```
@@ -6199,9 +6199,9 @@ Local variable `summary` is redundant
 in `parser/src/main/java/com/microsoft/gctoolkit/parser/PreUnifiedGCLogParser.java`
 #### Snippet
 ```java
-    // todo: mixes aggregator with parsing. premature optimization...
-    MemoryPoolSummary getTotalOccupancyBeforeAfterWithTotalHeapPoolSizeSummary(GCLogTrace trace, int offset) {
-        MemoryPoolSummary summary = trace.getOccupancyBeforeAfterWithMemoryPoolSizeSummary(offset);
+
+    MemoryPoolSummary getTotalOccupancyWithTotalHeapSizeSummary(GCLogTrace trace, int offset) {
+        MemoryPoolSummary summary = trace.getOccupancyWithMemoryPoolSizeSummary(offset);
         return summary;
     }
 ```
