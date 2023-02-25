@@ -1,11 +1,12 @@
 # airavata-data-catalog 
  
 # Bad smells
-I found 10 bad smells with 1 repairable:
+I found 23 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| SystemOutErr | 5 | false |
+| SystemOutErr | 16 | false |
 | DefaultAnnotationParam | 2 | false |
+| ReturnNull | 2 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | UnnecessarySemicolon | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
@@ -70,6 +71,138 @@ in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/cl
 
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+                metadataSchema = MetadataSchema.newBuilder().setSchemaName("my_schema").build();
+                metadataSchema = client.createMetadataSchema(metadataSchema);
+                System.out.println(
+                        MessageFormat.format("Created metadata schema with name [{0}]",
+                                metadataSchema.getSchemaName()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+                                metadataSchema.getSchemaName()));
+            } else {
+                System.out.println(
+                        MessageFormat.format("Found metadata schema with name [{0}]",
+                                metadataSchema.getSchemaName()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+            if (field1Exists == null) {
+                field1 = client.createMetadataSchemaField(field1);
+                System.out.println(MessageFormat.format("Created metadata schema field [{0}] in schema [{1}]",
+                        field1.getFieldName(), field1.getSchemaName()));
+            } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+            } else {
+                field1 = field1Exists;
+                System.out.println(MessageFormat.format("Found metadata schema field [{0}] in schema [{1}]",
+                        field1.getFieldName(), field1.getSchemaName()));
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+            if (field2Exists == null) {
+                field2 = client.createMetadataSchemaField(field2);
+                System.out.println(MessageFormat.format("Created metadata schema field [{0}] in schema [{1}]",
+                        field2.getFieldName(), field2.getSchemaName()));
+            } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+            } else {
+                field2 = field2Exists;
+                System.out.println(MessageFormat.format("Found metadata schema field [{0}] in schema [{1}]",
+                        field2.getFieldName(), field2.getSchemaName()));
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+
+            List<MetadataSchemaField> fields = client.getMetadataSchemaFields(metadataSchema.getSchemaName());
+            System.out.println(MessageFormat.format("Found {0} fields for schema {1}", fields.size(),
+                    metadataSchema.getSchemaName()));
+            for (MetadataSchemaField field : fields) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+                    metadataSchema.getSchemaName()));
+            for (MetadataSchemaField field : fields) {
+                System.out.println(MessageFormat.format("-> field {0}", field.getFieldName()));
+            }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+
+            result = client.addDataProductToMetadataSchema(result.getDataProductId(), metadataSchema.getSchemaName());
+            System.out.println(MessageFormat.format("Added data product [{0}] to metadata schema [{1}]",
+                    result.getDataProductId(), metadataSchema.getSchemaName()));
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+            result = client.removeDataProductFromMetadataSchema(result.getDataProductId(),
+                    metadataSchema.getSchemaName());
+            System.out.println(MessageFormat.format("Removed data product [{0}] from metadata schema [{1}]",
+                    result.getDataProductId(), metadataSchema.getSchemaName()));
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+                    .build();
+            DataProduct result3 = client.createDataProduct(dataProduct3);
+            System.out.println(
+                    MessageFormat.format("Created third data product [{0}], supporting schemas [{1}]",
+                            result3.getDataProductId(), result3.getMetadataSchemasList()));
+```
+
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -95,6 +228,31 @@ in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mo
 
 ```
 
+## RuleId[ruleID=ReturnNull]
+### ReturnNull
+Return of `null`
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+        } catch (StatusRuntimeException e) {
+            if (e.getStatus() == Status.NOT_FOUND) {
+                return null;
+            }
+            throw e;
+```
+
+### ReturnNull
+Return of `null`
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+        } catch (StatusRuntimeException e) {
+            if (e.getStatus() == Status.NOT_FOUND) {
+                return null;
+            }
+            throw e;
+```
+
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `DataCatalogApiServiceApplication` has only 'static' members, and lacks a 'private' constructor
@@ -114,9 +272,9 @@ Unnecessary semicolon `;`
 in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
 #### Snippet
 ```java
-import io.grpc.Channel;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;;
+import io.grpc.ManagedChannelBuilder;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;;
 
 public class DataCatalogAPIClient {
 ```
