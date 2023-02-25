@@ -130,6 +130,18 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
+#### Snippet
+```java
+    private final Supplier<T> supplier;
+
+    SupplierLogVisitor(Supplier<T> supplier) {
+        this.supplier = supplier;
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? super Node`
 in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/idea/XmlUtils.java`
 #### Snippet
@@ -163,18 +175,6 @@ in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/i
     private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
         for (Pair<String, ConsoleViewContentType> item : lines) {
             // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
-#### Snippet
-```java
-    private final Supplier<T> supplier;
-
-    SupplierLogVisitor(Supplier<T> supplier) {
-        this.supplier = supplier;
-    }
 ```
 
 ### BoundedWildcard
