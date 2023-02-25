@@ -319,18 +319,6 @@ class Statistics implements Cloneable {
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`committers.size() == 0` can be replaced with 'committers.isEmpty()'
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/ModificationAnalyzerFactory.java`
-#### Snippet
-```java
-    public User getOnlyCommitter(Set<String> usersToIgnore) throws HeuristicNotApplicableException {
-      Collection<SUser> committers = myVcsChange.getCommitters();
-      if (committers.size() == 0) {
-        throw new HeuristicNotApplicableException(
-          "committer \"" + myVcsChange.getUserName() + "\" does not have corresponding TeamCity user");
-```
-
-### SizeReplaceableByIsEmpty
 `withoutExtension.length() == 0` can be replaced with 'withoutExtension.isEmpty()'
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/ModificationAnalyzerFactory.java`
 #### Snippet
@@ -342,19 +330,19 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/Mo
     }
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends BuildProblem`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/FailedBuildInfo.java`
+### SizeReplaceableByIsEmpty
+`committers.size() == 0` can be replaced with 'committers.isEmpty()'
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/ModificationAnalyzerFactory.java`
 #### Snippet
 ```java
-  }
-
-  public void addProcessedBuildProblems(@NotNull Collection<BuildProblem> buildProblems) {
-    for (BuildProblem buildProblem : buildProblems) {
-      myProcessedBuildProblems.add(buildProblem.getId());
+    public User getOnlyCommitter(Set<String> usersToIgnore) throws HeuristicNotApplicableException {
+      Collection<SUser> committers = myVcsChange.getCommitters();
+      if (committers.size() == 0) {
+        throw new HeuristicNotApplicableException(
+          "committer \"" + myVcsChange.getUserName() + "\" does not have corresponding TeamCity user");
 ```
 
+## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends STestRun`
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/FailedBuildInfo.java`
@@ -365,6 +353,18 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Failed
   public void addProcessedTestRuns(@NotNull Collection<STestRun> tests) {
     for (STestRun testRun : tests) {
       myProcessedTests.add(testRun.getTestRunId());
+```
+
+### BoundedWildcard
+Can generalize to `? extends BuildProblem`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/FailedBuildInfo.java`
+#### Snippet
+```java
+  }
+
+  public void addProcessedBuildProblems(@NotNull Collection<BuildProblem> buildProblems) {
+    for (BuildProblem buildProblem : buildProblems) {
+      myProcessedBuildProblems.add(buildProblem.getId());
 ```
 
 ### BoundedWildcard
@@ -416,18 +416,6 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/persistent/As
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BuildProblem`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/BuildProblemsFilter.java`
-#### Snippet
-```java
-  List<BuildProblem> getStillApplicable(final FailedBuildInfo failedBuildInfo,
-                                        final SProject sProject,
-                                        final List<BuildProblem> allBuildProblems) {
-    SBuild sBuild = failedBuildInfo.getBuild();
-    if (LOGGER.isDebugEnabled()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends SVcsModification`
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/heuristics/BrokenFileHeuristic.java`
 #### Snippet
@@ -437,6 +425,18 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/heuristics/Br
   private Responsibility findResponsibleUser(List<SVcsModification> vcsChanges,
                                              String problemText,
                                              HeuristicContext heuristicContext) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends BuildProblem`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/BuildProblemsFilter.java`
+#### Snippet
+```java
+  List<BuildProblem> getStillApplicable(final FailedBuildInfo failedBuildInfo,
+                                        final SProject sProject,
+                                        final List<BuildProblem> allBuildProblems) {
+    SBuild sBuild = failedBuildInfo.getBuild();
+    if (LOGGER.isDebugEnabled()) {
 ```
 
 ### BoundedWildcard
@@ -505,35 +505,35 @@ Missorted modifiers `final static`
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
 #### Snippet
 ```java
+  //Constants
+  public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
+  public final static String TEST_RUN_IN_REQUEST = "loadedTestRun";
+  public final static int DEFAULT_TEST_COUNT_THRESHOLD = 100;
+  public final static String ARTIFACT_DIRECTORY = "investigationsAutoAssigner";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
+#### Snippet
+```java
+
+  //Constants
+  public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
+  public final static String TEST_RUN_IN_REQUEST = "loadedTestRun";
+  public final static int DEFAULT_TEST_COUNT_THRESHOLD = 100;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
+#### Snippet
+```java
   public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
   public final static String TEST_RUN_IN_REQUEST = "loadedTestRun";
   public final static int DEFAULT_TEST_COUNT_THRESHOLD = 100;
   public final static String ARTIFACT_DIRECTORY = "investigationsAutoAssigner";
   public static final String PLUGIN_DATA_DIR = ARTIFACT_DIRECTORY;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
-#### Snippet
-```java
-  //Constants
-  public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
-  public final static String TEST_RUN_IN_REQUEST = "loadedTestRun";
-  public final static int DEFAULT_TEST_COUNT_THRESHOLD = 100;
-  public final static String ARTIFACT_DIRECTORY = "investigationsAutoAssigner";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
-#### Snippet
-```java
-
-  //Constants
-  public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
-  public final static String TEST_RUN_IN_REQUEST = "loadedTestRun";
-  public final static int DEFAULT_TEST_COUNT_THRESHOLD = 100;
 ```
 
 ### MissortedModifiers
@@ -549,18 +549,6 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Consta
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/TargetProjectFinder.java`
-#### Snippet
-```java
-  }
-
-  private static boolean hasModifyPermission(final @NotNull SUser user, final SProject project) {
-    return user.isPermissionGrantedForProject(project.getProjectId(), Permission.ASSIGN_INVESTIGATION) ||
-           user.isPermissionGrantedForProject(project.getProjectId(), Permission.MANAGE_BUILD_PROBLEMS);
-```
-
-### MissortedModifiers
 Missorted modifiers `private final @NotNull`
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/TargetProjectFinder.java`
 #### Snippet
@@ -570,6 +558,18 @@ public class TargetProjectFinder {
   private final @NotNull ProjectManager myProjectManager;
 
   public TargetProjectFinder(@NotNull final ProjectManager projectManager) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/TargetProjectFinder.java`
+#### Snippet
+```java
+  }
+
+  private static boolean hasModifyPermission(final @NotNull SUser user, final SProject project) {
+    return user.isPermissionGrantedForProject(project.getProjectId(), Permission.ASSIGN_INVESTIGATION) ||
+           user.isPermissionGrantedForProject(project.getProjectId(), Permission.MANAGE_BUILD_PROBLEMS);
 ```
 
 ### MissortedModifiers
