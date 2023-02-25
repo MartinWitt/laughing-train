@@ -1,13 +1,13 @@
 # commons-imaging 
  
 # Bad smells
-I found 780 bad smells with 29 repairable:
+I found 783 bad smells with 29 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 170 | false |
 | CommentedOutCode | 118 | false |
+| AssignmentToMethodParameter | 92 | false |
 | PointlessBitwiseExpression | 92 | false |
-| AssignmentToMethodParameter | 88 | false |
 | PointlessArithmeticExpression | 32 | false |
 | ConstantValue | 32 | false |
 | BoundedWildcard | 25 | false |
@@ -32,13 +32,13 @@ I found 780 bad smells with 29 repairable:
 | UtilityClassWithoutPrivateConstructor | 2 | true |
 | SizeReplaceableByIsEmpty | 2 | true |
 | UnnecessaryToStringCall | 2 | true |
-| AssignmentToForLoopParameter | 2 | false |
 | IfStatementWithIdenticalBranches | 2 | false |
 | MismatchedArrayReadWrite | 1 | false |
 | UnnecessarySemicolon | 1 | false |
 | MismatchedJavadocCode | 1 | false |
 | CatchMayIgnoreException | 1 | false |
 | ManualMinMaxCalculation | 1 | false |
+| AssignmentToForLoopParameter | 1 | false |
 | RedundantMethodOverride | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
@@ -90,11 +90,11 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/decoder/JpegDecoder.ja
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
 ```java
-        final long bits = Double.doubleToRawLongBits(value);
-        if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
-            result[offset + 0] = (byte) (0xff & (bits >> 0));
-            result[offset + 1] = (byte) (0xff & (bits >> 8));
-            result[offset + 2] = (byte) (0xff & (bits >> 16));
+    private static void toBytes(final int value, final ByteOrder byteOrder, final byte[] result, final int offset) {
+        if (byteOrder == ByteOrder.BIG_ENDIAN) {
+            result[offset + 0] = (byte) (value >> 24);
+            result[offset + 1] = (byte) (value >> 16);
+            result[offset + 2] = (byte) (value >> 8);
 ```
 
 ### PointlessArithmeticExpression
@@ -102,11 +102,35 @@ in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
 ```java
-            result[offset + 2] = (byte) (0xff & (bits >> 40));
-            result[offset + 1] = (byte) (0xff & (bits >> 48));
-            result[offset + 0] = (byte) (0xff & (bits >> 56));
+            result[offset + 2] = (byte) (value >> 16);
+            result[offset + 1] = (byte) (value >> 8);
+            result[offset + 0] = (byte) (value >> 0);
         }
     }
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+
+    public static int toUInt16(final byte[] bytes, final int offset, final ByteOrder byteOrder) {
+        final int byte0 = 0xff & bytes[offset + 0];
+        final int byte1 = 0xff & bytes[offset + 1];
+        if (byteOrder == ByteOrder.BIG_ENDIAN) {
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+
+    private static float toFloat(final byte[] bytes, final int offset, final ByteOrder byteOrder) {
+        final int byte0 = 0xff & bytes[offset + 0];
+        final int byte1 = 0xff & bytes[offset + 1];
+        final int byte2 = 0xff & bytes[offset + 2];
 ```
 
 ### PointlessArithmeticExpression
@@ -150,78 +174,6 @@ in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
 ```java
-            final byte[] result, final int offset) {
-        if (byteOrder == ByteOrder.BIG_ENDIAN) {
-            result[offset + 0] = (byte) (value.numerator >> 24);
-            result[offset + 1] = (byte) (value.numerator >> 16);
-            result[offset + 2] = (byte) (value.numerator >> 8);
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-            result[offset + 2] = (byte) (value.numerator >> 16);
-            result[offset + 1] = (byte) (value.numerator >> 8);
-            result[offset + 0] = (byte) (value.numerator >> 0);
-            result[offset + 7] = (byte) (value.divisor >> 24);
-            result[offset + 6] = (byte) (value.divisor >> 16);
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-
-    private static double toDouble(final byte[] bytes, final int offset, final ByteOrder byteOrder) {
-        final long byte0 = 0xffL & bytes[offset + 0];
-        final long byte1 = 0xffL & bytes[offset + 1];
-        final long byte2 = 0xffL & bytes[offset + 2];
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-
-    private static float toFloat(final byte[] bytes, final int offset, final ByteOrder byteOrder) {
-        final int byte0 = 0xff & bytes[offset + 0];
-        final int byte1 = 0xff & bytes[offset + 1];
-        final int byte2 = 0xff & bytes[offset + 2];
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-
-    public static int toUInt16(final byte[] bytes, final int offset, final ByteOrder byteOrder) {
-        final int byte0 = 0xff & bytes[offset + 0];
-        final int byte1 = 0xff & bytes[offset + 1];
-        if (byteOrder == ByteOrder.BIG_ENDIAN) {
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-
-    public static int toInt(final byte[] bytes, final int offset, final ByteOrder byteOrder) {
-        final int byte0 = 0xff & bytes[offset + 0];
-        final int byte1 = 0xff & bytes[offset + 1];
-        final int byte2 = 0xff & bytes[offset + 2];
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
         final int bits = Float.floatToRawIntBits(value);
         if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
             result[offset + 0] = (byte) (0xff & (bits >> 0));
@@ -246,11 +198,11 @@ in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
 ```java
-    private static void toBytes(final int value, final ByteOrder byteOrder, final byte[] result, final int offset) {
-        if (byteOrder == ByteOrder.BIG_ENDIAN) {
-            result[offset + 0] = (byte) (value >> 24);
-            result[offset + 1] = (byte) (value >> 16);
-            result[offset + 2] = (byte) (value >> 8);
+
+    private static double toDouble(final byte[] bytes, final int offset, final ByteOrder byteOrder) {
+        final long byte0 = 0xffL & bytes[offset + 0];
+        final long byte1 = 0xffL & bytes[offset + 1];
+        final long byte2 = 0xffL & bytes[offset + 2];
 ```
 
 ### PointlessArithmeticExpression
@@ -258,9 +210,57 @@ in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
 ```java
-            result[offset + 2] = (byte) (value >> 16);
-            result[offset + 1] = (byte) (value >> 8);
-            result[offset + 0] = (byte) (value >> 0);
+
+    public static int toInt(final byte[] bytes, final int offset, final ByteOrder byteOrder) {
+        final int byte0 = 0xff & bytes[offset + 0];
+        final int byte1 = 0xff & bytes[offset + 1];
+        final int byte2 = 0xff & bytes[offset + 2];
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+            final byte[] result, final int offset) {
+        if (byteOrder == ByteOrder.BIG_ENDIAN) {
+            result[offset + 0] = (byte) (value.numerator >> 24);
+            result[offset + 1] = (byte) (value.numerator >> 16);
+            result[offset + 2] = (byte) (value.numerator >> 8);
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+            result[offset + 2] = (byte) (value.numerator >> 16);
+            result[offset + 1] = (byte) (value.numerator >> 8);
+            result[offset + 0] = (byte) (value.numerator >> 0);
+            result[offset + 7] = (byte) (value.divisor >> 24);
+            result[offset + 6] = (byte) (value.divisor >> 16);
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+        final long bits = Double.doubleToRawLongBits(value);
+        if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
+            result[offset + 0] = (byte) (0xff & (bits >> 0));
+            result[offset + 1] = (byte) (0xff & (bits >> 8));
+            result[offset + 2] = (byte) (0xff & (bits >> 16));
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+            result[offset + 2] = (byte) (0xff & (bits >> 40));
+            result[offset + 1] = (byte) (0xff & (bits >> 48));
+            result[offset + 0] = (byte) (0xff & (bits >> 56));
         }
     }
 ```
@@ -326,18 +326,6 @@ in `src/main/java/org/apache/commons/imaging/palette/PaletteFactory.java`
 ```
 
 ### PointlessArithmeticExpression
-`4 * x + 0` can be replaced with '4 \* x'
-in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxWriter.java`
-#### Snippet
-```java
-            src.getRGB(0, y, src.getWidth(), 1, rgbs, 0, src.getWidth());
-            for (int x = 0; x < rgbs.length; x++) {
-                plane[4 * x + 0] = (byte) rgbs[x];
-                plane[4 * x + 1] = (byte) (rgbs[x] >> 8);
-                plane[4 * x + 2] = (byte) (rgbs[x] >> 16);
-```
-
-### PointlessArithmeticExpression
 `3 * i + 0` can be replaced with '3 \* i'
 in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxWriter.java`
 #### Snippet
@@ -347,6 +335,18 @@ in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxWriter.java`
             palette16[3 * i + 0] = (byte) (0xff & (rgb >> 16));
             palette16[3 * i + 1] = (byte) (0xff & (rgb >> 8));
             palette16[3 * i + 2] = (byte) (0xff & rgb);
+```
+
+### PointlessArithmeticExpression
+`4 * x + 0` can be replaced with '4 \* x'
+in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxWriter.java`
+#### Snippet
+```java
+            src.getRGB(0, y, src.getWidth(), 1, rgbs, 0, src.getWidth());
+            for (int x = 0; x < rgbs.length; x++) {
+                plane[4 * x + 0] = (byte) rgbs[x];
+                plane[4 * x + 1] = (byte) (rgbs[x] >> 8);
+                plane[4 * x + 2] = (byte) (rgbs[x] >> 16);
 ```
 
 ### PointlessArithmeticExpression
@@ -544,6 +544,18 @@ in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
 ```
 
 ### DataFlowIssue
+Method invocation `name` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+#### Snippet
+```java
+        }
+        final PngChunkIhdr pngChunkIHDR = (PngChunkIhdr) IHDRs.get(0);
+        pw.println("Color: " + pngChunkIHDR.pngColorType.name());
+
+        pw.println("chunks: " + chunks.size());
+```
+
+### DataFlowIssue
 Argument `pngChunkIHDR.pngColorType` might be null
 in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
 #### Snippet
@@ -565,18 +577,6 @@ in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
             final int bitsPerPixel = bitDepth * pngColorType.getSamplesPerPixel();
 
             final boolean hasAlpha = pngColorType.hasAlpha() || transparencyFilter != null;
-```
-
-### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
-#### Snippet
-```java
-        }
-        final PngChunkIhdr pngChunkIHDR = (PngChunkIhdr) IHDRs.get(0);
-        pw.println("Color: " + pngChunkIHDR.pngColorType.name());
-
-        pw.println("chunks: " + chunks.size());
 ```
 
 ### DataFlowIssue
@@ -642,222 +642,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffRasterDataType.jav
 
 ## RuleId[ruleID=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final List<FieldType> LONG_OR_SHORT =
-            Collections.unmodifiableList(Arrays.asList(
-                    SHORT, LONG));
-
-    public static final List<FieldType> BYTE_OR_SHORT =
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final List<FieldType> ASCII_OR_RATIONAL =
-            Collections.unmodifiableList(Arrays.asList(
-                    ASCII, RATIONAL));
-
-    public static final List<FieldType> ASCII_OR_BYTE =
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeByte UNDEFINED = new FieldTypeByte(7, "Undefined");
-    public static final FieldTypeShort SSHORT = new FieldTypeShort(8, "SShort");
-    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
-    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
-    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final List<FieldType> SHORT_OR_RATIONAL =
-            Collections.unmodifiableList(Arrays.asList(
-                    SHORT, RATIONAL));
-
-    public static final List<FieldType> SHORT_OR_LONG_OR_RATIONAL =
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeShort SSHORT = new FieldTypeShort(8, "SShort");
-    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
-    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
-    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
-    public static final FieldTypeDouble DOUBLE = new FieldTypeDouble(12, "Double");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final List<FieldType> LONG_OR_IFD =
-            Collections.unmodifiableList(Arrays.asList(
-                    (FieldType) LONG, IFD));
-
-    public static final List<FieldType> ASCII_OR_RATIONAL =
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-                    UNDEFINED, SSHORT, SLONG,
-                    SRATIONAL, FLOAT, DOUBLE,
-                    IFD));
-
-    public static final List<FieldType> SHORT_OR_LONG =
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeByte from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
- */
-public abstract class FieldType {
-    public static final FieldTypeByte BYTE = new FieldTypeByte(1, "Byte");
-    public static final FieldTypeAscii ASCII = new FieldTypeAscii(2, "ASCII");
-    public static final FieldTypeShort SHORT = new FieldTypeShort(3, "Short");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
-    public static final FieldTypeDouble DOUBLE = new FieldTypeDouble(12, "Double");
-    public static final FieldTypeLong IFD = new FieldTypeLong(13, "IFD");
-
-    private final int type;
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeShort SHORT = new FieldTypeShort(3, "Short");
-    public static final FieldTypeLong LONG = new FieldTypeLong(4, "Long");
-    public static final FieldTypeRational RATIONAL = new FieldTypeRational(5, "Rational");
-    public static final FieldTypeByte SBYTE = new FieldTypeByte(6, "SByte");
-    public static final FieldTypeByte UNDEFINED = new FieldTypeByte(7, "Undefined");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeByte from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeRational RATIONAL = new FieldTypeRational(5, "Rational");
-    public static final FieldTypeByte SBYTE = new FieldTypeByte(6, "SByte");
-    public static final FieldTypeByte UNDEFINED = new FieldTypeByte(7, "Undefined");
-    public static final FieldTypeShort SSHORT = new FieldTypeShort(8, "SShort");
-    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeDouble from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
-    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
-    public static final FieldTypeDouble DOUBLE = new FieldTypeDouble(12, "Double");
-    public static final FieldTypeLong IFD = new FieldTypeLong(13, "IFD");
-
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final List<FieldType> SHORT_OR_LONG_OR_RATIONAL =
-            Collections.unmodifiableList(Arrays.asList(
-                    SHORT, LONG, RATIONAL));
-
-    public static final List<FieldType> LONG_OR_SHORT =
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeShort from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeByte BYTE = new FieldTypeByte(1, "Byte");
-    public static final FieldTypeAscii ASCII = new FieldTypeAscii(2, "ASCII");
-    public static final FieldTypeShort SHORT = new FieldTypeShort(3, "Short");
-    public static final FieldTypeLong LONG = new FieldTypeLong(4, "Long");
-    public static final FieldTypeRational RATIONAL = new FieldTypeRational(5, "Rational");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeFloat from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
-    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
-    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
-    public static final FieldTypeDouble DOUBLE = new FieldTypeDouble(12, "Double");
-    public static final FieldTypeLong IFD = new FieldTypeLong(13, "IFD");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final List<FieldType> SHORT_OR_LONG =
-            Collections.unmodifiableList(Arrays.asList(
-                    SHORT, LONG));
-
-    public static final List<FieldType> SHORT_OR_RATIONAL =
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeShort from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final FieldTypeByte SBYTE = new FieldTypeByte(6, "SByte");
-    public static final FieldTypeByte UNDEFINED = new FieldTypeByte(7, "Undefined");
-    public static final FieldTypeShort SSHORT = new FieldTypeShort(8, "SShort");
-    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
-    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass FieldTypeByte from superclass FieldType initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
-#### Snippet
-```java
-    public static final List<FieldType> BYTE_OR_SHORT =
-            Collections.unmodifiableList(Arrays.asList(
-                    SHORT, BYTE));
-
-    public static final List<FieldType> LONG_OR_IFD =
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass FieldTypeByte from superclass FieldType initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
 #### Snippet
@@ -882,6 +666,54 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.j
 ```
 
 ### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final List<FieldType> ASCII_OR_RATIONAL =
+            Collections.unmodifiableList(Arrays.asList(
+                    ASCII, RATIONAL));
+
+    public static final List<FieldType> ASCII_OR_BYTE =
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final List<FieldType> SHORT_OR_LONG =
+            Collections.unmodifiableList(Arrays.asList(
+                    SHORT, LONG));
+
+    public static final List<FieldType> SHORT_OR_RATIONAL =
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeDouble from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
+    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
+    public static final FieldTypeDouble DOUBLE = new FieldTypeDouble(12, "Double");
+    public static final FieldTypeLong IFD = new FieldTypeLong(13, "IFD");
+
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
+    public static final FieldTypeDouble DOUBLE = new FieldTypeDouble(12, "Double");
+    public static final FieldTypeLong IFD = new FieldTypeLong(13, "IFD");
+
+    private final int type;
+```
+
+### StaticInitializerReferencesSubClass
 Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
 #### Snippet
@@ -894,6 +726,126 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.j
 ```
 
 ### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeFloat from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
+    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
+    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
+    public static final FieldTypeDouble DOUBLE = new FieldTypeDouble(12, "Double");
+    public static final FieldTypeLong IFD = new FieldTypeLong(13, "IFD");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final List<FieldType> LONG_OR_SHORT =
+            Collections.unmodifiableList(Arrays.asList(
+                    SHORT, LONG));
+
+    public static final List<FieldType> BYTE_OR_SHORT =
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeByte from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+ */
+public abstract class FieldType {
+    public static final FieldTypeByte BYTE = new FieldTypeByte(1, "Byte");
+    public static final FieldTypeAscii ASCII = new FieldTypeAscii(2, "ASCII");
+    public static final FieldTypeShort SHORT = new FieldTypeShort(3, "Short");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeShort from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeByte SBYTE = new FieldTypeByte(6, "SByte");
+    public static final FieldTypeByte UNDEFINED = new FieldTypeByte(7, "Undefined");
+    public static final FieldTypeShort SSHORT = new FieldTypeShort(8, "SShort");
+    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
+    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final List<FieldType> SHORT_OR_LONG_OR_RATIONAL =
+            Collections.unmodifiableList(Arrays.asList(
+                    SHORT, LONG, RATIONAL));
+
+    public static final List<FieldType> LONG_OR_SHORT =
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final List<FieldType> LONG_OR_IFD =
+            Collections.unmodifiableList(Arrays.asList(
+                    (FieldType) LONG, IFD));
+
+    public static final List<FieldType> ASCII_OR_RATIONAL =
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeShort SSHORT = new FieldTypeShort(8, "SShort");
+    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
+    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
+    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
+    public static final FieldTypeDouble DOUBLE = new FieldTypeDouble(12, "Double");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeByte from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final List<FieldType> BYTE_OR_SHORT =
+            Collections.unmodifiableList(Arrays.asList(
+                    SHORT, BYTE));
+
+    public static final List<FieldType> LONG_OR_IFD =
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeByte UNDEFINED = new FieldTypeByte(7, "Undefined");
+    public static final FieldTypeShort SSHORT = new FieldTypeShort(8, "SShort");
+    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
+    public static final FieldTypeRational SRATIONAL = new FieldTypeRational(10, "SRational");
+    public static final FieldTypeFloat FLOAT = new FieldTypeFloat(11, "Float");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeShort SHORT = new FieldTypeShort(3, "Short");
+    public static final FieldTypeLong LONG = new FieldTypeLong(4, "Long");
+    public static final FieldTypeRational RATIONAL = new FieldTypeRational(5, "Rational");
+    public static final FieldTypeByte SBYTE = new FieldTypeByte(6, "SByte");
+    public static final FieldTypeByte UNDEFINED = new FieldTypeByte(7, "Undefined");
+```
+
+### StaticInitializerReferencesSubClass
 Referencing subclass FieldTypeAscii from superclass FieldType initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
 #### Snippet
@@ -903,6 +855,54 @@ public abstract class FieldType {
     public static final FieldTypeAscii ASCII = new FieldTypeAscii(2, "ASCII");
     public static final FieldTypeShort SHORT = new FieldTypeShort(3, "Short");
     public static final FieldTypeLong LONG = new FieldTypeLong(4, "Long");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeLong from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+                    UNDEFINED, SSHORT, SLONG,
+                    SRATIONAL, FLOAT, DOUBLE,
+                    IFD));
+
+    public static final List<FieldType> SHORT_OR_LONG =
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeShort from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeByte BYTE = new FieldTypeByte(1, "Byte");
+    public static final FieldTypeAscii ASCII = new FieldTypeAscii(2, "ASCII");
+    public static final FieldTypeShort SHORT = new FieldTypeShort(3, "Short");
+    public static final FieldTypeLong LONG = new FieldTypeLong(4, "Long");
+    public static final FieldTypeRational RATIONAL = new FieldTypeRational(5, "Rational");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeByte from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final FieldTypeRational RATIONAL = new FieldTypeRational(5, "Rational");
+    public static final FieldTypeByte SBYTE = new FieldTypeByte(6, "SByte");
+    public static final FieldTypeByte UNDEFINED = new FieldTypeByte(7, "Undefined");
+    public static final FieldTypeShort SSHORT = new FieldTypeShort(8, "SShort");
+    public static final FieldTypeLong SLONG = new FieldTypeLong(9, "SLong");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass FieldTypeRational from superclass FieldType initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldType.java`
+#### Snippet
+```java
+    public static final List<FieldType> SHORT_OR_RATIONAL =
+            Collections.unmodifiableList(Arrays.asList(
+                    SHORT, RATIONAL));
+
+    public static final List<FieldType> SHORT_OR_LONG_OR_RATIONAL =
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -940,6 +940,54 @@ in `src/main/java/org/apache/commons/imaging/common/GenericImageMetadata.java`
             // Debug.debug("prefix", prefix);
             // Debug.debug("item", items.get(i));
             // Debug.debug();
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageContents.java`
+#### Snippet
+```java
+        pw.println("LayerAndMaskDataLength: " + LayerAndMaskDataLength + " ("
+                + Integer.toHexString(LayerAndMaskDataLength) + ")");
+        // System.out.println("Depth: " + Depth + " ("
+        // + Integer.toHexString(Depth) + ")");
+        // System.out.println("Mode: " + Mode + " (" + Integer.toHexString(Mode)
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
+#### Snippet
+```java
+                    throw new IOException("couldn't read bits");
+                }
+                // System.out.println("cache 1: " + cache + " ("
+                // + Integer.toHexString(cache) + ", "
+                // + Integer.toBinaryString(cache) + ")");
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
+#### Snippet
+```java
+                    throw new IOException("couldn't read bits");
+                }
+                // System.out.println("cache 2: " + cache + " ("
+                // + Integer.toHexString(cache) + ", "
+                // + Integer.toBinaryString(cache) + ")");
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+        int BitsPerPixel = header.depth * getChannelsPerMode(header.mode);
+        // System.out.println("header.Depth: " + header.Depth);
+        // System.out.println("header.Mode: " + header.Mode);
+        // System.out.println("getChannelsPerMode(header.Mode): " +
 ```
 
 ### CommentedOutCode
@@ -1000,6 +1048,102 @@ in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
             // is.
             // ImageContents imageContents = readImageContents(is);
             // return imageContents;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+            skipBytes(is, ColorModeDataLength);
+            // byte ColorModeData[] = readByteArray("ColorModeData",
+            // ColorModeDataLength, is, "Not a Valid PSD File");
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+            skipBytes(is, ImageResourcesLength);
+            // byte ImageResources[] = readByteArray("ImageResources",
+            // ImageResourcesLength, is, "Not a Valid PSD File");
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+            skipBytes(is, LayerAndMaskDataLength);
+            // byte LayerAndMaskData[] = readByteArray("LayerAndMaskData",
+            // LayerAndMaskDataLength, is, "Not a Valid PSD File");
+
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+            read2Bytes("Compression", is, "Not a Valid PSD File", getByteOrder());
+
+            // byte ImageData[] = readByteArray("ImageData",
+            // LayerAndMaskDataLength, is, "Not a Valid PSD File");
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+            skipBytes(is, colorModeDataLength);
+            // byte ColorModeData[] = readByteArray("ColorModeData",
+            // ColorModeDataLength, is, "Not a Valid PSD File");
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+            skipBytes(is, imageResourcesLength);
+            // byte ImageResources[] = readByteArray("ImageResources",
+            // ImageResourcesLength, is, "Not a Valid PSD File");
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+            skipBytes(is, layerAndMaskDataLength);
+            // byte LayerAndMaskData[] = readByteArray("LayerAndMaskData",
+            // LayerAndMaskDataLength, is, "Not a Valid PSD File");
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+            read2Bytes("Compression", is, "Not a Valid PSD File", getByteOrder());
+
+            // byte ImageData[] = readByteArray("ImageData",
+            // LayerAndMaskDataLength, is, "Not a Valid PSD File");
+
 ```
 
 ### CommentedOutCode
@@ -1064,150 +1208,6 @@ in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
 
 ### CommentedOutCode
 Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-            skipBytes(is, ColorModeDataLength);
-            // byte ColorModeData[] = readByteArray("ColorModeData",
-            // ColorModeDataLength, is, "Not a Valid PSD File");
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-            skipBytes(is, ImageResourcesLength);
-            // byte ImageResources[] = readByteArray("ImageResources",
-            // ImageResourcesLength, is, "Not a Valid PSD File");
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-            skipBytes(is, LayerAndMaskDataLength);
-            // byte LayerAndMaskData[] = readByteArray("LayerAndMaskData",
-            // LayerAndMaskDataLength, is, "Not a Valid PSD File");
-
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-            read2Bytes("Compression", is, "Not a Valid PSD File", getByteOrder());
-
-            // byte ImageData[] = readByteArray("ImageData",
-            // LayerAndMaskDataLength, is, "Not a Valid PSD File");
-
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-        int BitsPerPixel = header.depth * getChannelsPerMode(header.mode);
-        // System.out.println("header.Depth: " + header.Depth);
-        // System.out.println("header.Mode: " + header.Mode);
-        // System.out.println("getChannelsPerMode(header.Mode): " +
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-            skipBytes(is, colorModeDataLength);
-            // byte ColorModeData[] = readByteArray("ColorModeData",
-            // ColorModeDataLength, is, "Not a Valid PSD File");
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-            skipBytes(is, imageResourcesLength);
-            // byte ImageResources[] = readByteArray("ImageResources",
-            // ImageResourcesLength, is, "Not a Valid PSD File");
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-            skipBytes(is, layerAndMaskDataLength);
-            // byte LayerAndMaskData[] = readByteArray("LayerAndMaskData",
-            // LayerAndMaskDataLength, is, "Not a Valid PSD File");
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-            read2Bytes("Compression", is, "Not a Valid PSD File", getByteOrder());
-
-            // byte ImageData[] = readByteArray("ImageData",
-            // LayerAndMaskDataLength, is, "Not a Valid PSD File");
-
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageContents.java`
-#### Snippet
-```java
-        pw.println("LayerAndMaskDataLength: " + LayerAndMaskDataLength + " ("
-                + Integer.toHexString(LayerAndMaskDataLength) + ")");
-        // System.out.println("Depth: " + Depth + " ("
-        // + Integer.toHexString(Depth) + ")");
-        // System.out.println("Mode: " + Mode + " (" + Integer.toHexString(Mode)
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
-#### Snippet
-```java
-                    throw new IOException("couldn't read bits");
-                }
-                // System.out.println("cache 1: " + cache + " ("
-                // + Integer.toHexString(cache) + ", "
-                // + Integer.toBinaryString(cache) + ")");
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
-#### Snippet
-```java
-                    throw new IOException("couldn't read bits");
-                }
-                // System.out.println("cache 2: " + cache + " ("
-                // + Integer.toHexString(cache) + ", "
-                // + Integer.toBinaryString(cache) + ")");
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
 in `src/main/java/org/apache/commons/imaging/formats/psd/datareaders/CompressedDataReader.java`
 #### Snippet
 ```java
@@ -1219,15 +1219,15 @@ in `src/main/java/org/apache/commons/imaging/formats/psd/datareaders/CompressedD
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/commons/imaging/formats/png/scanlinefilters/ScanlineFilterPaeth.java`
+Commented out code (4 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory.java`
 #### Snippet
 ```java
+            field.writeField(bos);
 
-            dst[i] = (byte) ((src[i] + paethPredictor) % 256);
-            // dst[i] = (byte) ((src[i] + paethPredictor) );
-            // dst[i] = src[i];
-
+            // Debug.debug("\t" + "writing field (" + field.tag + ", 0x" +
+            // Integer.toHexString(field.tag) + ")", field.tagInfo);
+            // if(field.tagInfo.isOffset())
 ```
 
 ### CommentedOutCode
@@ -1240,6 +1240,18 @@ in `src/main/java/org/apache/commons/imaging/formats/png/scanlinefilters/Scanlin
             // if(i<10)
             // System.out.println("\t" + i + ": " + dst[i]);
             // dst[i] = b;
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/commons/imaging/formats/png/scanlinefilters/ScanlineFilterPaeth.java`
+#### Snippet
+```java
+
+            dst[i] = (byte) ((src[i] + paethPredictor) % 256);
+            // dst[i] = (byte) ((src[i] + paethPredictor) );
+            // dst[i] = src[i];
+
 ```
 
 ### CommentedOutCode
@@ -1279,42 +1291,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterB
 ```
 
 ### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory.java`
-#### Snippet
-```java
-            field.writeField(bos);
-
-            // Debug.debug("\t" + "writing field (" + field.tag + ", 0x" +
-            // Integer.toHexString(field.tag) + ")", field.tagInfo);
-            // if(field.tagInfo.isOffset())
-```
-
-### CommentedOutCode
-Commented out code (14 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
-#### Snippet
-```java
-            return result.toString();
-        // } else if (o instanceof Number[])
-        // {
-        // Number numbers[] = (Number[]) o;
-        // StringBuilder result = new StringBuilder();
-```
-
-### CommentedOutCode
-Commented out code (15 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
-#### Snippet
-```java
-            return result.toString();
-        }
-        // else if (o instanceof short[])
-        // {
-        // short numbers[] = (short[]) o;
-```
-
-### CommentedOutCode
 Commented out code (2 lines)
 in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
 #### Snippet
@@ -1348,6 +1324,30 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
         // if (o == null)
         // return null;
 
+```
+
+### CommentedOutCode
+Commented out code (14 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
+#### Snippet
+```java
+            return result.toString();
+        // } else if (o instanceof Number[])
+        // {
+        // Number numbers[] = (Number[]) o;
+        // StringBuilder result = new StringBuilder();
+```
+
+### CommentedOutCode
+Commented out code (15 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
+#### Snippet
+```java
+            return result.toString();
+        }
+        // else if (o instanceof short[])
+        // {
+        // short numbers[] = (short[]) o;
 ```
 
 ### CommentedOutCode
@@ -1435,30 +1435,6 @@ in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
 ```
 
 ### CommentedOutCode
-Commented out code (18 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffReader.java`
-#### Snippet
-```java
-
-//    NOT USED
-//    private static class DirectoryCollector extends Collector {
-//        private final boolean readImageData;
-//
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/palette/PaletteFactory.java`
-#### Snippet
-```java
-            LOGGER.finest("first total: " + sum);
-            LOGGER.finest("second total: " + (total - sum));
-            // System.out.println("start: " + start);
-            // System.out.println("end: " + end);
-            LOGGER.finest("slice: " + slice);
-```
-
-### CommentedOutCode
 Commented out code (4 lines)
 in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
 #### Snippet
@@ -1511,18 +1487,6 @@ Commented out code (2 lines)
 in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
 #### Snippet
 ```java
-
-        final BmpHeaderInfo bhi = ic.bhi;
-        // byte colorTable[] = ic.colorTable;
-        // byte imageData[] = ic.imageData;
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
-#### Snippet
-```java
                     break;
                 case 1: // EOF
                     // System.out.println("xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -1552,6 +1516,42 @@ in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
                     // System.out.println("b: " + b);
                     // System.out.println("size: " + size);
                     // System.out.println("RLESamplesPerByte: " +
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
+#### Snippet
+```java
+
+        final BmpHeaderInfo bhi = ic.bhi;
+        // byte colorTable[] = ic.colorTable;
+        // byte imageData[] = ic.imageData;
+
+```
+
+### CommentedOutCode
+Commented out code (18 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffReader.java`
+#### Snippet
+```java
+
+//    NOT USED
+//    private static class DirectoryCollector extends Collector {
+//        private final boolean readImageData;
+//
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/palette/PaletteFactory.java`
+#### Snippet
+```java
+            LOGGER.finest("first total: " + sum);
+            LOGGER.finest("second total: " + (total - sum));
+            // System.out.println("start: " + start);
+            // System.out.println("end: " + end);
+            LOGGER.finest("slice: " + slice);
 ```
 
 ### CommentedOutCode
@@ -1603,15 +1603,15 @@ in `src/main/java/org/apache/commons/imaging/formats/png/scanlinefilters/Scanlin
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
+Commented out code (4 lines)
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/iptc/IptcParser.java`
 #### Snippet
 ```java
-        }
 
-        // if (SOF_segments.size() != 1)
-        // System.out.println("Incoherent SOFN Data Found: "
-        // + SOF_segments.size());
+                final byte[] recordData = element.getValue().getBytes(charset);
+                /*
+                if (!new String(recordData, charset).equals(element.getValue())) {
+                    throw new ImageWriteException(
 ```
 
 ### CommentedOutCode
@@ -1663,15 +1663,39 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/iptc/IptcParser.java`
 ```
 
 ### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/iptc/IptcParser.java`
+Commented out code (3 lines)
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 #### Snippet
 ```java
+        final byte[] bytes = segment.getSegmentData();
 
-                final byte[] recordData = element.getValue().getBytes(charset);
-                /*
-                if (!new String(recordData, charset).equals(element.getValue())) {
-                    throw new ImageWriteException(
+        // byte head[] = readBytearray("exif head", bytes, 0, 6);
+        //
+        // Debug.debug("head", head);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
+#### Snippet
+```java
+                // // Debug.debug("visitSegment keepMarker(marker, markers)",
+                // keepMarker(marker, markers));
+                // Debug.debug("visitSegment keepMarker(marker, markers)",
+                // keepMarker(marker, markers));
+
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
+#### Snippet
+```java
+        }
+
+        // if (SOF_segments.size() != 1)
+        // System.out.println("Incoherent SOFN Data Found: "
+        // + SOF_segments.size());
 ```
 
 ### CommentedOutCode
@@ -1723,27 +1747,15 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
+Commented out code (23 lines)
+in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
 #### Snippet
 ```java
-        final byte[] bytes = segment.getSegmentData();
+    }
 
-        // byte head[] = readBytearray("exif head", bytes, 0, 6);
-        //
-        // Debug.debug("head", head);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
-#### Snippet
-```java
-                // // Debug.debug("visitSegment keepMarker(marker, markers)",
-                // keepMarker(marker, markers));
-                // Debug.debug("visitSegment keepMarker(marker, markers)",
-                // keepMarker(marker, markers));
-
+    // public boolean extractImages(ByteSource byteSource, File dst_dir,
+    // String dst_root, ImageParser encoder) throws ImageReadException,
+    // IOException, ImageWriteException
 ```
 
 ### CommentedOutCode
@@ -1780,18 +1792,6 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/SosSegment.ja
         // Debug.debug("successive_approximation_bit_position",
         // successive_approximation_bit_position);
         successiveApproximationBitHigh = (successiveApproximationBitPosition >> 4) & 0xf;
-```
-
-### CommentedOutCode
-Commented out code (23 lines)
-in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
-#### Snippet
-```java
-    }
-
-    // public boolean extractImages(ByteSource byteSource, File dst_dir,
-    // String dst_root, ImageParser encoder) throws ImageReadException,
-    // IOException, ImageWriteException
 ```
 
 ### CommentedOutCode
@@ -1879,18 +1879,6 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/decoder/JpegDecoder.ja
 ```
 
 ### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpWriterRgb.java`
-#### Snippet
-```java
-
-class BmpWriterRgb implements BmpWriter {
-    // private final boolean alpha;
-    //
-    // public BmpWriterRgb(boolean alpha)
-```
-
-### CommentedOutCode
 Commented out code (2 lines)
 in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpWriterRgb.java`
 #### Snippet
@@ -1903,15 +1891,27 @@ in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpWriterRgb.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/exif/ExifRewriter.java`
+Commented out code (6 lines)
+in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpWriterRgb.java`
 #### Snippet
 ```java
-        final List<JFIFPiece> pieces = jfifPieces.pieces;
 
-        // Debug.debug("pieces", pieces);
+class BmpWriterRgb implements BmpWriter {
+    // private final boolean alpha;
+    //
+    // public BmpWriterRgb(boolean alpha)
+```
 
-        // pieces.removeAll(jfifPieces.exifSegments);
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/commons/imaging/icc/IccTag.java`
+#### Snippet
+```java
+
+            itdt = getIccTagDataType(dataTypeSignature);
+            // if (itdt != null)
+            // {
+            // System.out.println("\t\t\t" + "itdt: " + itdt.name);
 ```
 
 ### CommentedOutCode
@@ -1927,15 +1927,15 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/exif/ExifRewriter.java
 ```
 
 ### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/commons/imaging/icc/IccTag.java`
+Commented out code (3 lines)
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/exif/ExifRewriter.java`
 #### Snippet
 ```java
+        final List<JFIFPiece> pieces = jfifPieces.pieces;
 
-            itdt = getIccTagDataType(dataTypeSignature);
-            // if (itdt != null)
-            // {
-            // System.out.println("\t\t\t" + "itdt: " + itdt.name);
+        // Debug.debug("pieces", pieces);
+
+        // pieces.removeAll(jfifPieces.exifSegments);
 ```
 
 ### CommentedOutCode
@@ -1963,39 +1963,39 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/xmp/JpegRewriter.java`
 ```
 
 ### CommentedOutCode
-Commented out code (9 lines)
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
 ```java
-        float physicalWidthInch = -1;
+                        stopBeforeImageData, formatCompliance);
+                result.add(id);
+                // if (stopBeforeImageData)
+                // return result;
 
-        // if (pngChunkpHYs != null)
-        // {
-        // System.out.println("\t" + "pngChunkpHYs.UnitSpecifier: " +
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegUtils.java`
-#### Snippet
-```java
-        case JpegConstants.SOS_MARKER:
-            return "SOS_MARKER";
-            // case JPEG_APP0 :
-            // return "JPEG_APP0";
-            // case JPEG_APP0_MARKER :
 ```
 
 ### CommentedOutCode
 Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/png/scanlinefilters/ScanlineFilterAverage.java`
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
 ```java
 
-            dst[i] = (byte) ((src[i] + average) % 256);
-            // dst[i] = src[i];
-            // dst[i] = (byte) 255;
-        }
+        Palette palette2 = new PaletteFactory().makeExactRgbPaletteSimple(src, maxColors);
+        // int palette[] = new PaletteFactory().makePaletteSimple(src, 256);
+        // Map palette_map = paletteToMap(palette);
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
+#### Snippet
+```java
+            bos.write(EXTENSION_CODE);
+            bos.write((byte) 0xf9);
+            // bos.write(0xff & (kGraphicControlExtension >> 8));
+            // bos.write(0xff & (kGraphicControlExtension >> 0));
+
 ```
 
 ### CommentedOutCode
@@ -2048,6 +2048,42 @@ in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 
 ### CommentedOutCode
 Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/png/scanlinefilters/ScanlineFilterAverage.java`
+#### Snippet
+```java
+
+            dst[i] = (byte) ((src[i] + average) % 256);
+            // dst[i] = src[i];
+            // dst[i] = (byte) 255;
+        }
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegUtils.java`
+#### Snippet
+```java
+        case JpegConstants.SOS_MARKER:
+            return "SOS_MARKER";
+            // case JPEG_APP0 :
+            // return "JPEG_APP0";
+            // case JPEG_APP0_MARKER :
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/png/PngCrc.java`
+#### Snippet
+```java
+        }
+        for (n = 0; n < buf.length; n++) {
+            // Debug.debug("crc[" + n + "]", c + " (" + Long.toHexString(c) +
+            // ")");
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
 in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
 #### Snippet
 ```java
@@ -2068,126 +2104,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java
                     // if (tagInfo.isUnknown())
                     // Debug.debug(
                     // "\t" + "unknown tag(0x"
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
-#### Snippet
-```java
-
-        Palette palette2 = new PaletteFactory().makeExactRgbPaletteSimple(src, maxColors);
-        // int palette[] = new PaletteFactory().makePaletteSimple(src, 256);
-        // Map palette_map = paletteToMap(palette);
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
-#### Snippet
-```java
-            bos.write(EXTENSION_CODE);
-            bos.write((byte) 0xf9);
-            // bos.write(0xff & (kGraphicControlExtension >> 8));
-            // bos.write(0xff & (kGraphicControlExtension >> 0));
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
-#### Snippet
-```java
-                        stopBeforeImageData, formatCompliance);
-                result.add(id);
-                // if (stopBeforeImageData)
-                // return result;
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/png/PngCrc.java`
-#### Snippet
-```java
-        }
-        for (n = 0; n < buf.length; n++) {
-            // Debug.debug("crc[" + n + "]", c + " (" + Long.toHexString(c) +
-            // ")");
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-        }
-
-        // int bitsPerPixel = getTagAsValueOrArraySum(entries,
-        // TIFF_TAG_BITS_PER_SAMPLE);
-
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-        int predictor = -1;
-        {
-            // dumpOptionalNumberTag(entries, TIFF_TAG_FILL_ORDER);
-            // dumpOptionalNumberTag(entries, TIFF_TAG_FREE_BYTE_COUNTS);
-            // dumpOptionalNumberTag(entries, TIFF_TAG_FREE_OFFSETS);
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-            }
-            // catch (Exception e)
-            // {
-            // Debug.debug(e);
-            // pw.println("");
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-        }
-
-        // int bitsPerPixel = getTagAsValueOrArraySum(entries,
-        // TIFF_TAG_BITS_PER_SAMPLE);
-        int predictor = -1;
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-        int predictor = -1;
-        {
-            // dumpOptionalNumberTag(entries, TIFF_TAG_FILL_ORDER);
-            // dumpOptionalNumberTag(entries, TIFF_TAG_FREE_BYTE_COUNTS);
-            // dumpOptionalNumberTag(entries, TIFF_TAG_FREE_OFFSETS);
-```
-
-### CommentedOutCode
-Commented out code (14 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-                    bitsPerSample, predictor, width, height);
-        case 6: {
-//            final double yCbCrCoefficients[] = directory.findField(
-//                    TiffTagConstants.TIFF_TAG_YCBCR_COEFFICIENTS, true)
-//                    .getDoubleArrayValue();
 ```
 
 ### CommentedOutCode
@@ -2227,15 +2143,87 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/Segment.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreters/PhotometricInterpreterLogLuv.java`
+Commented out code (9 lines)
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
 #### Snippet
 ```java
-        final RgbValues rgbValues = getRgbValues(tristimulusValues);
+        float physicalWidthInch = -1;
 
-        // float R = 1.910f * X - 0.532f * Y - 0.288f * Z;
-        // float G = -0.985f * X + 1.999f * Y - 0.028f * Z;
-        // float B = 0.058f * X - 0.118f * Y + 0.898f * Z;
+        // if (pngChunkpHYs != null)
+        // {
+        // System.out.println("\t" + "pngChunkpHYs.UnitSpecifier: " +
+```
+
+### CommentedOutCode
+Commented out code (14 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+                    bitsPerSample, predictor, width, height);
+        case 6: {
+//            final double yCbCrCoefficients[] = directory.findField(
+//                    TiffTagConstants.TIFF_TAG_YCBCR_COEFFICIENTS, true)
+//                    .getDoubleArrayValue();
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+            }
+            // catch (Exception e)
+            // {
+            // Debug.debug(e);
+            // pw.println("");
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+        }
+
+        // int bitsPerPixel = getTagAsValueOrArraySum(entries,
+        // TIFF_TAG_BITS_PER_SAMPLE);
+
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+        int predictor = -1;
+        {
+            // dumpOptionalNumberTag(entries, TIFF_TAG_FILL_ORDER);
+            // dumpOptionalNumberTag(entries, TIFF_TAG_FREE_BYTE_COUNTS);
+            // dumpOptionalNumberTag(entries, TIFF_TAG_FREE_OFFSETS);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+        }
+
+        // int bitsPerPixel = getTagAsValueOrArraySum(entries,
+        // TIFF_TAG_BITS_PER_SAMPLE);
+        int predictor = -1;
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+        int predictor = -1;
+        {
+            // dumpOptionalNumberTag(entries, TIFF_TAG_FILL_ORDER);
+            // dumpOptionalNumberTag(entries, TIFF_TAG_FREE_BYTE_COUNTS);
+            // dumpOptionalNumberTag(entries, TIFF_TAG_FREE_OFFSETS);
 ```
 
 ### CommentedOutCode
@@ -2248,6 +2236,30 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreter
         // var_R = ((var_R + 0.16561039f) / (3.0152583f + 0.16561039f));
         // var_G = ((var_G + 0.06561642f) / (3.0239854f + 0.06561642f));
         // var_B = ((var_B + 0.19393992f) / (3.1043448f + 0.19393992f));
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreters/PhotometricInterpreterLogLuv.java`
+#### Snippet
+```java
+        final RgbValues rgbValues = getRgbValues(tristimulusValues);
+
+        // float R = 1.910f * X - 0.532f * Y - 0.288f * Z;
+        // float G = -0.985f * X + 1.999f * Y - 0.028f * Z;
+        // float B = 0.058f * X - 0.118f * Y + 0.898f * Z;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/imaging/formats/bmp/PixelParserRle.java`
+#### Snippet
+```java
+
+            if ((x >= 0) && (x < width) && (y >= 0) && (y < height)) {
+                // int rgb = 0xff000000;
+                // rgb = getNextRGB();
+                final int rgb = rgbs[i % rgbs.length];
 ```
 
 ### CommentedOutCode
@@ -2284,18 +2296,6 @@ in `src/main/java/org/apache/commons/imaging/formats/bmp/PixelParserRle.java`
                         // System.out.println("written: " + written);
                         // System.out.println("");
                         x += written;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/imaging/formats/bmp/PixelParserRle.java`
-#### Snippet
-```java
-
-            if ((x >= 0) && (x < width) && (y >= 0) && (y < height)) {
-                // int rgb = 0xff000000;
-                // rgb = getNextRGB();
-                final int rgb = rgbs[i % rgbs.length];
 ```
 
 ### CommentedOutCode
@@ -2543,10 +2543,10 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/decoder/Dct.java`
 #### Snippet
 ```java
 
-    private static final float[] DCT_SCALING_FACTORS = {
-            (float) (0.5 / Math.sqrt(2.0)),
-            (float) (0.25 / Math.cos(Math.PI / 16.0)),
-            (float) (0.25 / Math.cos(2.0 * Math.PI / 16.0)),
+    private static final float[] IDCT_SCALING_FACTORS = {
+            (float) (2.0 * 4.0 / Math.sqrt(2.0) * 0.0625),
+            (float) (4.0 * Math.cos(Math.PI / 16.0) * 0.125),
+            (float) (4.0 * Math.cos(2.0 * Math.PI / 16.0) * 0.125),
 ```
 
 ### ConstantMathCall
@@ -2555,22 +2555,10 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/decoder/Dct.java`
 #### Snippet
 ```java
 
-    private static final float[] IDCT_SCALING_FACTORS = {
-            (float) (2.0 * 4.0 / Math.sqrt(2.0) * 0.0625),
-            (float) (4.0 * Math.cos(Math.PI / 16.0) * 0.125),
-            (float) (4.0 * Math.cos(2.0 * Math.PI / 16.0) * 0.125),
-```
-
-### ConstantMathCall
-Constant call to `toRadians()` can be simplified
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
-        final double kCH = 1.0; // chroma and hue factor, 1.0 for CIE reference conditions
-        final double FAC_1 = 100.0 / Math.log(139.0 / 100.0); // L99 scaling factor = 303.67100547050995
-        final double ang = Math.toRadians(26.0);
-
-        final double L99o = FAC_1 / kE * Math.log(1 + 0.0039 * L); // Lightness correction kE
+    private static final float[] DCT_SCALING_FACTORS = {
+            (float) (0.5 / Math.sqrt(2.0)),
+            (float) (0.25 / Math.cos(Math.PI / 16.0)),
+            (float) (0.25 / Math.cos(2.0 * Math.PI / 16.0)),
 ```
 
 ### ConstantMathCall
@@ -2590,11 +2578,11 @@ Constant call to `toRadians()` can be simplified
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-        final double kE = 1.0; // brightness factor, 1.0 for CIE reference conditions
         final double kCH = 1.0; // chroma and hue factor, 1.0 for CIE reference conditions
-        final double ang = Math.toRadians(16.0);
+        final double FAC_1 = 100.0 / Math.log(139.0 / 100.0); // L99 scaling factor = 303.67100547050995
+        final double ang = Math.toRadians(26.0);
 
-        final double L99 = kE * FAC_1 * Math.log(1. + 0.0158 * L);
+        final double L = (Math.exp(L99o * kE / FAC_1) - 1.0) / 0.0039;
 ```
 
 ### ConstantMathCall
@@ -2606,7 +2594,19 @@ in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
         final double FAC_1 = 100.0 / Math.log(139.0 / 100.0); // L99 scaling factor = 303.67100547050995
         final double ang = Math.toRadians(26.0);
 
-        final double L = (Math.exp(L99o * kE / FAC_1) - 1.0) / 0.0039;
+        final double L99o = FAC_1 / kE * Math.log(1 + 0.0039 * L); // Lightness correction kE
+```
+
+### ConstantMathCall
+Constant call to `toRadians()` can be simplified
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+        final double kE = 1.0; // brightness factor, 1.0 for CIE reference conditions
+        final double kCH = 1.0; // chroma and hue factor, 1.0 for CIE reference conditions
+        final double ang = Math.toRadians(16.0);
+
+        final double L99 = kE * FAC_1 * Math.log(1. + 0.0158 * L);
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -2653,23 +2653,11 @@ Assignment to for-loop parameter `i`
 in `src/main/java/org/apache/commons/imaging/common/BasicCParser.java`
 #### Snippet
 ```java
-                    final char hex1 = string.charAt(i + 1);
-                    final char hex2 = string.charAt(i + 2);
-                    i += 2;
-                    int constant;
-                    try {
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/imaging/common/BasicCParser.java`
-#### Snippet
-```java
-                            constant += (string.charAt(i + j) - '0');
-                        }
-                        i += length - 1;
-                        stringBuilder.append((char) constant);
-                        break;
+            final char c = string.charAt(i);
+            if (hadBackSlash) {
+                i = parseEscape(i, stringBuilder, string);
+                hadBackSlash = false;
+            } else {
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -2746,6 +2734,18 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterL
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends TiffOutputField`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterLossless.java`
+#### Snippet
+```java
+    }
+
+    private List<TiffElement> analyzeOldTiff(final Map<Integer, TiffOutputField> frozenFields) throws ImageWriteException,
+            IOException {
+        try {
+```
+
+### BoundedWildcard
 Can generalize to `? extends TiffElement`
 in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterLossless.java`
 #### Snippet
@@ -2770,15 +2770,15 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterL
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TiffOutputField`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterLossless.java`
+Can generalize to `? extends TagInfo`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffTags.java`
 #### Snippet
 ```java
-    }
 
-    private List<TiffElement> analyzeOldTiff(final Map<Integer, TiffOutputField> frozenFields) throws ImageWriteException,
-            IOException {
-        try {
+    private static Map<Integer, List<TagInfo>> makeTagMap(
+            final List<TagInfo> tags) {
+        // make sure to use the thread-safe version; this is shared state.
+        final Map<Integer, List<TagInfo>> map = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -2791,18 +2791,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffTags.java`
     private static TagInfo getTag(final int directoryType, final List<TagInfo> possibleMatches) {
         // Please keep this method in sync with TiffImageMetadata's findField()
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends TagInfo`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffTags.java`
-#### Snippet
-```java
-
-    private static Map<Integer, List<TagInfo>> makeTagMap(
-            final List<TagInfo> tags) {
-        // make sure to use the thread-safe version; this is shared state.
-        final Map<Integer, List<TagInfo>> map = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -2854,15 +2842,15 @@ in `src/main/java/org/apache/commons/imaging/formats/png/PngImageInfo.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends App2Segment`
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
+Can generalize to `? extends IptcRecord`
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/iptc/IptcParser.java`
 #### Snippet
 ```java
     }
 
-    private byte[] assembleSegments(final List<App2Segment> segments, final boolean startWithZero)
-            throws ImageReadException {
-        if (segments.isEmpty()) {
+    public byte[] writeIPTCBlock(List<IptcRecord> elements)
+            throws ImageWriteException, IOException {
+        Charset charset = DEFAULT_CHARSET;
 ```
 
 ### BoundedWildcard
@@ -2878,15 +2866,15 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends IptcRecord`
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/iptc/IptcParser.java`
+Can generalize to `? extends App2Segment`
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 #### Snippet
 ```java
     }
 
-    public byte[] writeIPTCBlock(List<IptcRecord> elements)
-            throws ImageWriteException, IOException {
-        Charset charset = DEFAULT_CHARSET;
+    private byte[] assembleSegments(final List<App2Segment> segments, final boolean startWithZero)
+            throws ImageReadException {
+        if (segments.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -2926,27 +2914,15 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/xmp/JpegRewriter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PngChunk`
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
-#### Snippet
-```java
-    }
-
-    private List<PngChunk> filterChunks(final List<PngChunk> chunks, final ChunkType type) {
-        final List<PngChunk> result = new ArrayList<>();
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends GifBlock`
 in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
 ```java
-    }
-
-    private List<String> getComments(final List<GifBlock> blocks) throws IOException {
-        final List<String> result = new ArrayList<>();
-        final int code = 0x21fe;
+     */
+    @SuppressWarnings("unchecked")
+    private <T extends GifBlock> List<T> findAllBlocks(final List<GifBlock> blocks, final int code) {
+        final List<T> filteredBlocks = new ArrayList<>();
+        for (final GifBlock gifBlock : blocks) {
 ```
 
 ### BoundedWildcard
@@ -2966,11 +2942,23 @@ Can generalize to `? extends GifBlock`
 in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
 ```java
-     */
-    @SuppressWarnings("unchecked")
-    private <T extends GifBlock> List<T> findAllBlocks(final List<GifBlock> blocks, final int code) {
-        final List<T> filteredBlocks = new ArrayList<>();
-        for (final GifBlock gifBlock : blocks) {
+    }
+
+    private List<String> getComments(final List<GifBlock> blocks) throws IOException {
+        final List<String> result = new ArrayList<>();
+        final int code = 0x21fe;
+```
+
+### BoundedWildcard
+Can generalize to `? extends PngChunk`
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+#### Snippet
+```java
+    }
+
+    private List<PngChunk> filterChunks(final List<PngChunk> chunks, final ChunkType type) {
+        final List<PngChunk> result = new ArrayList<>();
+
 ```
 
 ## RuleId[ruleID=UnnecessaryUnboxing]
@@ -3389,42 +3377,6 @@ in `src/main/java/org/apache/commons/imaging/formats/dcx/DcxImageParser.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.imaging.common` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/imaging/Imaging.java`
-#### Snippet
-```java
-     * @param fileName Filename associated with image data (optional).
-     * @return An instance of IImageMetadata.
-     * @see org.apache.commons.imaging.common.ImageMetadata
-     * @throws ImageReadException if it fails to read the image metadata
-     * @throws IOException if it fails to read the image data
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.imaging.common` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/imaging/Imaging.java`
-#### Snippet
-```java
-     * @param file File containing image data.
-     * @return An instance of IImageMetadata.
-     * @see org.apache.commons.imaging.common.ImageMetadata
-     * @throws ImageReadException if it fails to read the image metadata
-     * @throws IOException if it fails to read the image data
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.imaging.common` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/imaging/Imaging.java`
-#### Snippet
-```java
-     * @param bytes Byte array containing an image file.
-     * @return An instance of ImageMetadata.
-     * @see org.apache.commons.imaging.common.ImageMetadata
-     * @throws ImageReadException if it fails to read the image metadata
-     * @throws IOException if it fails to read the image data
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/xmp/JpegXmpRewriter.java`
 #### Snippet
@@ -3446,6 +3398,42 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/xmp/JpegXmpRewriter.ja
      * @see java.io.OutputStream
      * @throws ImageReadException if it fails to read the JFIF segments
      * @throws IOException if it fails to read or write the data from the segments
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.imaging.common` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/imaging/Imaging.java`
+#### Snippet
+```java
+     * @param file File containing image data.
+     * @return An instance of IImageMetadata.
+     * @see org.apache.commons.imaging.common.ImageMetadata
+     * @throws ImageReadException if it fails to read the image metadata
+     * @throws IOException if it fails to read the image data
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.imaging.common` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/imaging/Imaging.java`
+#### Snippet
+```java
+     * @param fileName Filename associated with image data (optional).
+     * @return An instance of IImageMetadata.
+     * @see org.apache.commons.imaging.common.ImageMetadata
+     * @throws ImageReadException if it fails to read the image metadata
+     * @throws IOException if it fails to read the image data
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.imaging.common` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/imaging/Imaging.java`
+#### Snippet
+```java
+     * @param bytes Byte array containing an image file.
+     * @return An instance of ImageMetadata.
+     * @see org.apache.commons.imaging.common.ImageMetadata
+     * @throws ImageReadException if it fails to read the image metadata
+     * @throws IOException if it fails to read the image data
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3702,18 +3690,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/datareaders/ImageDataR
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`bitCache = (bitCache << (8 - bitsInCache))` could be simplified to 'bitCache \<\<= (8 - bitsInCache)'
-in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpWriterPalette.java`
-#### Snippet
-```java
-
-            if (bitsInCache > 0) {
-                bitCache = (bitCache << (8 - bitsInCache));
-
-                baos.write(0xff & bitCache);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `n = n / 12.92` could be simplified to 'n /= 12.92'
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
@@ -3723,6 +3699,18 @@ in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
             n = n / 12.92;
         }
         return n;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`bitCache = (bitCache << (8 - bitsInCache))` could be simplified to 'bitCache \<\<= (8 - bitsInCache)'
+in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpWriterPalette.java`
+#### Snippet
+```java
+
+            if (bitsInCache > 0) {
+                bitCache = (bitCache << (8 - bitsInCache));
+
+                baos.write(0xff & bitCache);
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -3800,6 +3788,18 @@ in `src/main/java/org/apache/commons/imaging/common/bytesource/ByteSourceInputSt
 
 ### NestedAssignment
 Result of assignment expression used
+in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
+#### Snippet
+```java
+                        BufferedReader reader = new BufferedReader(isReader)) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        if (line.charAt(0) == '!') {
+                            continue;
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
 #### Snippet
 ```java
@@ -3834,31 +3834,7 @@ in `src/main/java/org/apache/commons/imaging/formats/rgbe/InfoHeaderReader.java`
         }
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
-#### Snippet
-```java
-                        BufferedReader reader = new BufferedReader(isReader)) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        if (line.charAt(0) == '!') {
-                            continue;
-```
-
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `TiffImageWriterBase()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterBase.java`
-#### Snippet
-```java
-    }
-
-    public TiffImageWriterBase(final ByteOrder byteOrder) {
-        this.byteOrder = byteOrder;
-    }
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `TiffImageWriterBase()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterBase.java`
@@ -3868,6 +3844,18 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterB
 
     public TiffImageWriterBase() {
         this.byteOrder = DEFAULT_TIFF_BYTE_ORDER;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TiffImageWriterBase()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterBase.java`
+#### Snippet
+```java
+    }
+
+    public TiffImageWriterBase(final ByteOrder byteOrder) {
+        this.byteOrder = byteOrder;
     }
 ```
 
@@ -3920,18 +3908,6 @@ in `src/main/java/org/apache/commons/imaging/formats/png/transparencyfilters/Tra
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `DataElement()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffElement.java`
-#### Snippet
-```java
-        private final byte[] data;
-
-        public DataElement(final long offset, final int length, final byte[] data) {
-            super(offset, length);
-
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `TiffElement()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffElement.java`
 #### Snippet
@@ -3944,14 +3920,14 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffElement.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GenericSegment()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/GenericSegment.java`
+Constructor `DataElement()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffElement.java`
 #### Snippet
 ```java
-    }
+        private final byte[] data;
 
-    public GenericSegment(final int marker, final byte[] bytes) {
-        super(marker, bytes.length);
+        public DataElement(final long offset, final int length, final byte[] data) {
+            super(offset, length);
 
 ```
 
@@ -3964,6 +3940,18 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/GenericSegmen
 
     public GenericSegment(final int marker, final int markerLength, final InputStream is) throws IOException {
         super(marker, markerLength);
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `GenericSegment()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/GenericSegment.java`
+#### Snippet
+```java
+    }
+
+    public GenericSegment(final int marker, final byte[] bytes) {
+        super(marker, bytes.length);
 
 ```
 
@@ -4034,11 +4022,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImagingParameters.java`
 #### Snippet
 ```java
-     * TIFF_FLAG_T6_OPTIONS_UNCOMPRESSED_MODE.</p>
+     * 8000 (roughly 8K). Minimum value is 8000.
      */
-    private Integer t6Options = null;
+    private Integer lzwCompressionBlockSize = null;
 
-    public boolean isReadThumbnails() {
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -4046,9 +4034,21 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImagingParameters.java`
 #### Snippet
 ```java
-     * 8000 (roughly 8K). Minimum value is 8000.
+     * TIFF compression algorithm, if any.
      */
-    private Integer lzwCompressionBlockSize = null;
+    private Integer compression = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImagingParameters.java`
+#### Snippet
+```java
+     * and TIFF_FLAG_T4_OPTIONS_FILL flags.</p>
+     */
+    private Integer t4Options = null;
 
     /**
 ```
@@ -4082,23 +4082,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImagingParameters.java`
 #### Snippet
 ```java
-     * TIFF compression algorithm, if any.
+     * TIFF_FLAG_T6_OPTIONS_UNCOMPRESSED_MODE.</p>
      */
-    private Integer compression = null;
+    private Integer t6Options = null;
 
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImagingParameters.java`
-#### Snippet
-```java
-     * and TIFF_FLAG_T4_OPTIONS_FILL flags.</p>
-     */
-    private Integer t4Options = null;
-
-    /**
+    public boolean isReadThumbnails() {
 ```
 
 ### RedundantFieldInitialization
@@ -4114,13 +4102,25 @@ in `src/main/java/org/apache/commons/imaging/formats/pcx/RleWriter.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/imaging/formats/png/PngImagingParameters.java`
 #### Snippet
 ```java
-    private boolean forceTrueColor = false;
+     * <p>Valid values: a list of WriteTexts.</p>
+     */
+    private List<? extends PngText> textChunks = null;
 
-    private boolean predictorEnabled = false;
+    public byte getBitDepth() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImagingParameters.java`
+#### Snippet
+```java
+     * @see org.apache.commons.imaging.formats.png.PhysicalScale
+     */
+    private PhysicalScale physicalScale = null;
 
     /**
 ```
@@ -4142,47 +4142,23 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/imaging/formats/png/PngImagingParameters.java`
 #### Snippet
 ```java
+    private boolean forceTrueColor = false;
+
+    private boolean predictorEnabled = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImagingParameters.java`
+#### Snippet
+```java
     private boolean forceIndexedColor = false;
 
     private boolean forceTrueColor = false;
 
     private boolean predictorEnabled = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImagingParameters.java`
-#### Snippet
-```java
-     * @see org.apache.commons.imaging.formats.png.PhysicalScale
-     */
-    private PhysicalScale physicalScale = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImagingParameters.java`
-#### Snippet
-```java
-     * <p>Valid values: a list of WriteTexts.</p>
-     */
-    private List<? extends PngText> textChunks = null;
-
-    public byte getBitDepth() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/imaging/ImagingParameters.java`
-#### Snippet
-```java
-     * or writing a file format. Default is {@code false}.
-     */
-    private boolean strict = false;
-
-    /**
 ```
 
 ### RedundantFieldInitialization
@@ -4193,6 +4169,18 @@ in `src/main/java/org/apache/commons/imaging/ImagingParameters.java`
      * Factory to create {@code BufferedImage}s. Default is {@code null}.
      */
     private BufferedImageFactory bufferedImageFactory = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/imaging/ImagingParameters.java`
+#### Snippet
+```java
+     * or writing a file format. Default is {@code false}.
+     */
+    private boolean strict = false;
 
     /**
 ```
@@ -4226,30 +4214,6 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
 #### Snippet
 ```java
-        boolean haveGray4Level = false;
-        int gray4LevelArgb;
-        boolean haveMono = false;
-        int monoArgb;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
-#### Snippet
-```java
-        boolean haveColor = false;
-        int colorArgb;
-        boolean haveGray = false;
-        int grayArgb;
-        boolean haveGray4Level = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
-#### Snippet
-```java
     private static class PaletteEntry {
         int index;
         boolean haveColor = false;
@@ -4262,11 +4226,35 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
 #### Snippet
 ```java
+        boolean haveGray4Level = false;
+        int gray4LevelArgb;
+        boolean haveMono = false;
+        int monoArgb;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
+#### Snippet
+```java
         boolean haveGray = false;
         int grayArgb;
         boolean haveGray4Level = false;
         int gray4LevelArgb;
         boolean haveMono = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
+#### Snippet
+```java
+        boolean haveColor = false;
+        int colorArgb;
+        boolean haveGray = false;
+        int grayArgb;
+        boolean haveGray4Level = false;
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -4291,6 +4279,66 @@ in `src/main/java/org/apache/commons/imaging/common/GenericImageMetadata.java`
         if (null == prefix) {
             prefix = "";
         }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/org/apache/commons/imaging/common/mylzw/MyBitOutputStream.java`
+#### Snippet
+```java
+    public void writeBits(int value, final int sampleBits) throws IOException {
+        final int sampleMask = (1 << sampleBits) - 1;
+        value &= sampleMask;
+
+        if (byteOrder == ByteOrder.BIG_ENDIAN) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
+#### Snippet
+```java
+                if (count >= cacheBitsRemaining) {
+                    result = ((1 << cacheBitsRemaining) - 1) & cache;
+                    count -= cacheBitsRemaining;
+                    cacheBitsRemaining = 0;
+                } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
+#### Snippet
+```java
+                    cacheBitsRemaining -= count;
+                    result = ((1 << count) - 1) & (cache >> cacheBitsRemaining);
+                    count = 0;
+                }
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
+#### Snippet
+```java
+                bytesRead++;
+                result = (result << 8) | (0xff & cache);
+                count -= 8;
+            }
+            if (count > 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
+#### Snippet
+```java
+                result = (result << count)
+                        | (((1 << count) - 1) & (cache >> cacheBitsRemaining));
+                count = 0;
+            }
 
 ```
 
@@ -4391,75 +4439,51 @@ in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/imaging/common/mylzw/MyBitOutputStream.java`
+Assignment to method parameter `i`
+in `src/main/java/org/apache/commons/imaging/common/BasicCParser.java`
 #### Snippet
 ```java
-    public void writeBits(int value, final int sampleBits) throws IOException {
-        final int sampleMask = (1 << sampleBits) - 1;
-        value &= sampleMask;
-
-        if (byteOrder == ByteOrder.BIG_ENDIAN) {
+        final char hex1 = string.charAt(i + 1);
+        final char hex2 = string.charAt(i + 2);
+        i += 2;
+        int constant;
+        try {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
+Assignment to method parameter `i`
+in `src/main/java/org/apache/commons/imaging/common/BasicCParser.java`
 #### Snippet
 ```java
-                if (count >= cacheBitsRemaining) {
-                    result = ((1 << cacheBitsRemaining) - 1) & cache;
-                    count -= cacheBitsRemaining;
-                    cacheBitsRemaining = 0;
-                } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
-#### Snippet
-```java
-                    cacheBitsRemaining -= count;
-                    result = ((1 << count) - 1) & (cache >> cacheBitsRemaining);
-                    count = 0;
-                }
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
-#### Snippet
-```java
-                bytesRead++;
-                result = (result << 8) | (0xff & cache);
-                count -= 8;
-            }
-            if (count > 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/imaging/common/itu_t4/BitInputStreamFlexible.java`
-#### Snippet
-```java
-                result = (result << count)
-                        | (((1 << count) - 1) & (cache >> cacheBitsRemaining));
-                count = 0;
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/imaging/common/RationalNumber.java`
-#### Snippet
-```java
-        if (value < 0) {
-            negative = true;
-            value = Math.abs(value);
+            constant += (string.charAt(i + j) - '0');
         }
+        i += length - 1;
+        stringBuilder.append((char) constant);
+        return i;
+```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `src/main/java/org/apache/commons/imaging/common/BasicCParser.java`
+#### Snippet
+```java
+            break;
+        case 'x':
+            i = appendHex(i, stringBuilder, string);
+            break;
+        case '0':
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `src/main/java/org/apache/commons/imaging/common/BasicCParser.java`
+#### Snippet
+```java
+        case '6':
+        case '7':
+            i = appendOct(i, stringBuilder, string);
+            break;
+        case 'a':
 ```
 
 ### AssignmentToMethodParameter
@@ -4508,6 +4532,18 @@ in `src/main/java/org/apache/commons/imaging/common/RationalNumber.java`
         n = n / gcd;
 
         return new RationalNumber((int) n, (int) d);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/org/apache/commons/imaging/common/RationalNumber.java`
+#### Snippet
+```java
+        if (value < 0) {
+            negative = true;
+            value = Math.abs(value);
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -4607,18 +4643,6 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/App2Segment.j
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `argb`
-in `src/main/java/org/apache/commons/imaging/palette/PaletteFactory.java`
-#### Snippet
-```java
-        for (int i = 0; i < COMPONENTS; i++) {
-            int sample = argb & 0xff;
-            argb >>= 8;
-
-            sample >>= (8 - precision);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `params`
 in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
 #### Snippet
@@ -4628,6 +4652,18 @@ in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
             params = new BmpImagingParameters();
         }
         final PixelDensity pixelDensity = params.getPixelDensity();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `argb`
+in `src/main/java/org/apache/commons/imaging/palette/PaletteFactory.java`
+#### Snippet
+```java
+        for (int i = 0; i < COMPONENTS; i++) {
+            int sample = argb & 0xff;
+            argb >>= 8;
+
+            sample >>= (8 - precision);
 ```
 
 ### AssignmentToMethodParameter
@@ -4659,11 +4695,11 @@ Assignment to method parameter `params`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 #### Snippet
 ```java
-
+            throws ImageReadException, IOException {
         if (params == null) {
-            params = new TiffImagingParameters();
+            params = new JpegImagingParameters();
         }
-        params.setReadThumbnails(Boolean.TRUE);
+        final TiffImageMetadata exif = getExifMetadata(byteSource, new TiffImagingParameters());
 ```
 
 ### AssignmentToMethodParameter
@@ -4671,11 +4707,11 @@ Assignment to method parameter `params`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 #### Snippet
 ```java
-            throws ImageReadException, IOException {
+
         if (params == null) {
-            params = new JpegImagingParameters();
+            params = new TiffImagingParameters();
         }
-        final TiffImageMetadata exif = getExifMetadata(byteSource, new TiffImagingParameters());
+        params.setReadThumbnails(Boolean.TRUE);
 ```
 
 ### AssignmentToMethodParameter
@@ -4716,6 +4752,18 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/DqtSegment.ja
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `params`
+in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
+#### Snippet
+```java
+    public void writeImage(final BufferedImage src, final OutputStream os, IcoImagingParameters params) throws ImageWriteException, IOException {
+        if (params == null) {
+            params = new IcoImagingParameters();
+        }
+        final PixelDensity pixelDensity = params.getPixelDensity();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `params`
 in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxWriter.java`
 #### Snippet
 ```java
@@ -4751,18 +4799,6 @@ in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxImageParser.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `params`
-in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
-#### Snippet
-```java
-    public void writeImage(final BufferedImage src, final OutputStream os, IcoImagingParameters params) throws ImageWriteException, IOException {
-        if (params == null) {
-            params = new IcoImagingParameters();
-        }
-        final PixelDensity pixelDensity = params.getPixelDensity();
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `newData`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/iptc/JpegIptcRewriter.java`
 #### Snippet
@@ -4772,6 +4808,30 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/iptc/JpegIptcRewriter.
             newData = new PhotoshopApp13Data(newData.getRecords(), newBlocks);
 
             final byte[] segmentBytes = new IptcParser().writePhotoshopApp13Segment(newData);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bi`
+in `src/main/java/org/apache/commons/imaging/ColorTools.java`
+#### Snippet
+```java
+        final ColorConvertOp op = new ColorConvertOp(from, to, hints);
+
+        bi = relabelColorSpace(bi, from);
+
+        BufferedImage result = op.filter(bi, null);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `src/main/java/org/apache/commons/imaging/ColorTools.java`
+#### Snippet
+```java
+            // uses the unsigned version of java's right shift operator,
+            // so that left hand bits are zeroed.
+            i >>>= 1;
+        }
+        return count;
 ```
 
 ### AssignmentToMethodParameter
@@ -4832,30 +4892,6 @@ in `src/main/java/org/apache/commons/imaging/ColorTools.java`
         bi = relabelColorSpace(bi, to);
 
         return bi;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bi`
-in `src/main/java/org/apache/commons/imaging/ColorTools.java`
-#### Snippet
-```java
-        final ColorConvertOp op = new ColorConvertOp(from, to, hints);
-
-        bi = relabelColorSpace(bi, from);
-
-        BufferedImage result = op.filter(bi, null);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `src/main/java/org/apache/commons/imaging/ColorTools.java`
-#### Snippet
-```java
-            // uses the unsigned version of java's right shift operator,
-            // so that left hand bits are zeroed.
-            i >>>= 1;
-        }
-        return count;
 ```
 
 ### AssignmentToMethodParameter
@@ -4967,15 +5003,15 @@ in `src/main/java/org/apache/commons/imaging/formats/bmp/PixelParser.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+Assignment to method parameter `params`
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
 ```java
-    private static double pivotXYZ(double n) {
-        if (n > XYZ_t0) {
-            n = Math.pow(n, 1 / 3.0);
-        } else {
-            n = XYZ_m * n + 16 / 116.0;
+    public void writeImage(final BufferedImage src, final OutputStream os, GifImagingParameters params) throws ImageWriteException, IOException {
+        if (params == null) {
+            params = new GifImagingParameters();
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -4983,35 +5019,59 @@ Assignment to method parameter `n`
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-            n = Math.pow(n, 1 / 3.0);
+    private static double unPivotRGB(double n) {
+        if (n > 0.04045) {
+            n = Math.pow((n + 0.055) / 1.055, 2.4);
         } else {
-            n = XYZ_m * n + 16 / 116.0;
+            n = n / 12.92;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+            n = Math.pow((n + 0.055) / 1.055, 2.4);
+        } else {
+            n = n / 12.92;
         }
         return n;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `vH`
+Assignment to method parameter `red`
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-    private static double convertHuetoRGB(final double v1, final double v2, double vH) {
-        if (vH < 0) {
-            vH += 1;
-        }
-        if (vH > 1) {
+
+    private static int convertRGBtoRGB(int red, int green, int blue) {
+        red = Math.min(255, Math.max(0, red));
+        green = Math.min(255, Math.max(0, green));
+        blue = Math.min(255, Math.max(0, blue));
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `vH`
+Assignment to method parameter `green`
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-        }
-        if (vH > 1) {
-            vH -= 1;
-        }
-        if ((6 * vH) < 1) {
+    private static int convertRGBtoRGB(int red, int green, int blue) {
+        red = Math.min(255, Math.max(0, red));
+        green = Math.min(255, Math.max(0, green));
+        blue = Math.min(255, Math.max(0, blue));
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `blue`
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+        red = Math.min(255, Math.max(0, red));
+        green = Math.min(255, Math.max(0, green));
+        blue = Math.min(255, Math.max(0, blue));
+
+        final int alpha = 0xff;
 ```
 
 ### AssignmentToMethodParameter
@@ -5055,30 +5115,6 @@ Assignment to method parameter `n`
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-    private static double unPivotRGB(double n) {
-        if (n > 0.04045) {
-            n = Math.pow((n + 0.055) / 1.055, 2.4);
-        } else {
-            n = n / 12.92;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
-            n = Math.pow((n + 0.055) / 1.055, 2.4);
-        } else {
-            n = n / 12.92;
-        }
-        return n;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
         final double nCube = Math.pow(n, 3);
         if (nCube > XYZ_t0) {
             n = nCube;
@@ -5099,39 +5135,51 @@ in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `red`
+Assignment to method parameter `vH`
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-
-    private static int convertRGBtoRGB(int red, int green, int blue) {
-        red = Math.min(255, Math.max(0, red));
-        green = Math.min(255, Math.max(0, green));
-        blue = Math.min(255, Math.max(0, blue));
+    private static double convertHuetoRGB(final double v1, final double v2, double vH) {
+        if (vH < 0) {
+            vH += 1;
+        }
+        if (vH > 1) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `green`
+Assignment to method parameter `vH`
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-    private static int convertRGBtoRGB(int red, int green, int blue) {
-        red = Math.min(255, Math.max(0, red));
-        green = Math.min(255, Math.max(0, green));
-        blue = Math.min(255, Math.max(0, blue));
-
+        }
+        if (vH > 1) {
+            vH -= 1;
+        }
+        if ((6 * vH) < 1) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `blue`
+Assignment to method parameter `n`
 in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-        red = Math.min(255, Math.max(0, red));
-        green = Math.min(255, Math.max(0, green));
-        blue = Math.min(255, Math.max(0, blue));
+    private static double pivotXYZ(double n) {
+        if (n > XYZ_t0) {
+            n = Math.pow(n, 1 / 3.0);
+        } else {
+            n = XYZ_m * n + 16 / 116.0;
+```
 
-        final int alpha = 0xff;
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+            n = Math.pow(n, 1 / 3.0);
+        } else {
+            n = XYZ_m * n + 16 / 116.0;
+        }
+        return n;
 ```
 
 ### AssignmentToMethodParameter
@@ -5159,15 +5207,51 @@ in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `params`
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
+Assignment to method parameter `color`
+in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
 #### Snippet
 ```java
-    public void writeImage(final BufferedImage src, final OutputStream os, GifImagingParameters params) throws ImageWriteException, IOException {
-        if (params == null) {
-            params = new GifImagingParameters();
-        }
+    private int parseColor(String color) throws ImageReadException {
+        if (color.charAt(0) == '#') {
+            color = color.substring(1);
+            if (color.length() == 3) {
+                final int red = Integer.parseInt(color.substring(0, 1), 16);
+```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
+#### Snippet
+```java
+        for (int i = 0; i < charsPerPixel; i++) {
+            final int multiple = index / highestPower;
+            index -= (multiple * highestPower);
+            highestPower /= WRITE_PALETTE.length;
+            stringBuilder.append(WRITE_PALETTE[multiple]);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
+#### Snippet
+```java
+    public static byte[] head(final byte[] bytes, int count) {
+        if (count > bytes.length) {
+            count = bytes.length;
+        }
+        return slice(bytes, 0, count);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `params`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+            throws ImageReadException, IOException {
+        if (params == null) {
+            params = new XmpImagingParameters();
+        }
+        final FormatCompliance formatCompliance = FormatCompliance.getDefault();
 ```
 
 ### AssignmentToMethodParameter
@@ -5180,6 +5264,18 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
             params = this.getDefaultParameters();
         }
         final FormatCompliance formatCompliance = FormatCompliance.getDefault();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `params`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+
+        if (params == null) {
+            params = this.getDefaultParameters();
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -5207,42 +5303,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `params`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-            throws ImageReadException, IOException {
-        if (params == null) {
-            params = new XmpImagingParameters();
-        }
-        final FormatCompliance formatCompliance = FormatCompliance.getDefault();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `params`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-
-        if (params == null) {
-            params = this.getDefaultParameters();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
-#### Snippet
-```java
-    public static byte[] head(final byte[] bytes, int count) {
-        if (count > bytes.length) {
-            count = bytes.length;
-        }
-        return slice(bytes, 0, count);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `x`
 in `src/main/java/org/apache/commons/imaging/formats/bmp/PixelParserRle.java`
 #### Snippet
@@ -5252,6 +5312,18 @@ in `src/main/java/org/apache/commons/imaging/formats/bmp/PixelParserRle.java`
             x++;
             pixelsWritten++;
         }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `prefix`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputSet.java`
+#### Snippet
+```java
+    public String toString(String prefix) {
+        if (prefix == null) {
+            prefix = "";
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -5276,42 +5348,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputSet.ja
         latitude = Math.abs(latitude);
 
         gpsDirectory.removeField(GpsTagConstants.GPS_TAG_GPS_LONGITUDE_REF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `prefix`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputSet.java`
-#### Snippet
-```java
-    public String toString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `color`
-in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
-#### Snippet
-```java
-    private int parseColor(String color) throws ImageReadException {
-        if (color.charAt(0) == '#') {
-            color = color.substring(1);
-            if (color.length() == 3) {
-                final int red = Integer.parseInt(color.substring(0, 1), 16);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
-#### Snippet
-```java
-        for (int i = 0; i < charsPerPixel; i++) {
-            final int multiple = index / highestPower;
-            index -= (multiple * highestPower);
-            highestPower /= WRITE_PALETTE.length;
-            stringBuilder.append(WRITE_PALETTE[multiple]);
 ```
 
 ### AssignmentToMethodParameter
@@ -5340,18 +5376,6 @@ in `src/main/java/org/apache/commons/imaging/formats/pnm/PamWriter.java`
 ```
 
 ### PointlessBitwiseExpression
-`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
-in `src/main/java/org/apache/commons/imaging/formats/pnm/PamFileInfo.java`
-#### Snippet
-```java
-                 | ((0xff & red)   << 16)
-                 | ((0xff & green) << 8)
-                 | ((0xff & blue)  << 0);
-        }
-    }
-```
-
-### PointlessBitwiseExpression
 `(0xff & sample) << 0` can be replaced with '(0xff \& sample)'
 in `src/main/java/org/apache/commons/imaging/formats/pnm/PamFileInfo.java`
 #### Snippet
@@ -5359,6 +5383,18 @@ in `src/main/java/org/apache/commons/imaging/formats/pnm/PamFileInfo.java`
                  | ((0xff & sample) << 16)
                  | ((0xff & sample) << 8)
                  | ((0xff & sample) << 0);
+        }
+    }
+```
+
+### PointlessBitwiseExpression
+`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
+in `src/main/java/org/apache/commons/imaging/formats/pnm/PamFileInfo.java`
+#### Snippet
+```java
+                 | ((0xff & red)   << 16)
+                 | ((0xff & green) << 8)
+                 | ((0xff & blue)  << 0);
         }
     }
 ```
@@ -5388,27 +5424,63 @@ in `src/main/java/org/apache/commons/imaging/formats/pnm/PgmWriter.java`
 ```
 
 ### PointlessBitwiseExpression
-`bits >> 0` can be replaced with 'bits'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
+in `src/main/java/org/apache/commons/imaging/formats/psd/dataparsers/DataParserRgb.java`
 #### Snippet
 ```java
-        final long bits = Double.doubleToRawLongBits(value);
-        if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
-            result[offset + 0] = (byte) (0xff & (bits >> 0));
-            result[offset + 1] = (byte) (0xff & (bits >> 8));
-            result[offset + 2] = (byte) (0xff & (bits >> 16));
+             | ((0xff & red)   << 16)
+             | ((0xff & green) << 8)
+             | ((0xff & blue)  << 0);
+    }
+
 ```
 
 ### PointlessBitwiseExpression
-`bits >> 0` can be replaced with 'bits'
+`value >> 0` can be replaced with 'value'
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
 ```java
-            result[offset + 7] = (byte) (0xff & (bits >> 56));
+            result[offset + 1] = (byte) (value >> 16);
+            result[offset + 2] = (byte) (value >> 8);
+            result[offset + 3] = (byte) (value >> 0);
         } else {
-            result[offset + 7] = (byte) (0xff & (bits >> 0));
-            result[offset + 6] = (byte) (0xff & (bits >> 8));
-            result[offset + 5] = (byte) (0xff & (bits >> 16));
+            result[offset + 3] = (byte) (value >> 24);
+```
+
+### PointlessBitwiseExpression
+`value >> 0` can be replaced with 'value'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+            result[offset + 2] = (byte) (value >> 16);
+            result[offset + 1] = (byte) (value >> 8);
+            result[offset + 0] = (byte) (value >> 0);
+        }
+    }
+```
+
+### PointlessBitwiseExpression
+`byte3 << 0` can be replaced with 'byte3'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+        final int bits;
+        if (byteOrder == ByteOrder.BIG_ENDIAN) {
+            bits = (byte0 << 24) | (byte1 << 16) | (byte2 << 8) | (byte3 << 0);
+        } else {
+            bits = (byte3 << 24) | (byte2 << 16) | (byte1 << 8) | (byte0 << 0);
+```
+
+### PointlessBitwiseExpression
+`byte0 << 0` can be replaced with 'byte0'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+            bits = (byte0 << 24) | (byte1 << 16) | (byte2 << 8) | (byte3 << 0);
+        } else {
+            bits = (byte3 << 24) | (byte2 << 16) | (byte1 << 8) | (byte0 << 0);
+        }
+        return Float.intBitsToFloat(bits);
 ```
 
 ### PointlessBitwiseExpression
@@ -5436,6 +5508,54 @@ in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 ```
 
 ### PointlessBitwiseExpression
+`bits >> 0` can be replaced with 'bits'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+        final int bits = Float.floatToRawIntBits(value);
+        if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
+            result[offset + 0] = (byte) (0xff & (bits >> 0));
+            result[offset + 1] = (byte) (0xff & (bits >> 8));
+            result[offset + 2] = (byte) (0xff & (bits >> 16));
+```
+
+### PointlessBitwiseExpression
+`bits >> 0` can be replaced with 'bits'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+            result[offset + 3] = (byte) (0xff & (bits >> 24));
+        } else {
+            result[offset + 3] = (byte) (0xff & (bits >> 0));
+            result[offset + 2] = (byte) (0xff & (bits >> 8));
+            result[offset + 1] = (byte) (0xff & (bits >> 16));
+```
+
+### PointlessBitwiseExpression
+`byte7 << 0` can be replaced with 'byte7'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+            bits = (byte0 << 56) | (byte1 << 48) | (byte2 << 40)
+                    | (byte3 << 32) | (byte4 << 24) | (byte5 << 16)
+                    | (byte6 << 8) | (byte7 << 0);
+        } else {
+            bits = (byte7 << 56) | (byte6 << 48) | (byte5 << 40)
+```
+
+### PointlessBitwiseExpression
+`byte0 << 0` can be replaced with 'byte0'
+in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
+#### Snippet
+```java
+            bits = (byte7 << 56) | (byte6 << 48) | (byte5 << 40)
+                    | (byte4 << 32) | (byte3 << 24) | (byte2 << 16)
+                    | (byte1 << 8) | (byte0 << 0);
+        }
+        return Double.longBitsToDouble(bits);
+```
+
+### PointlessBitwiseExpression
 `value.numerator >> 0` can be replaced with 'value.numerator'
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
@@ -5445,6 +5565,30 @@ in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
             result[offset + 3] = (byte) (value.numerator >> 0);
             result[offset + 4] = (byte) (value.divisor >> 24);
             result[offset + 5] = (byte) (value.divisor >> 16);
+```
+
+### PointlessBitwiseExpression
+`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
+in `src/main/java/org/apache/commons/imaging/formats/pnm/PpmFileInfo.java`
+#### Snippet
+```java
+             | ((0xff & red)   << 16)
+             | ((0xff & green) << 8)
+             | ((0xff & blue)  << 0);
+    }
+
+```
+
+### PointlessBitwiseExpression
+`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
+in `src/main/java/org/apache/commons/imaging/formats/pnm/PpmFileInfo.java`
+#### Snippet
+```java
+              | ((0xff & red)   << 16)
+              | ((0xff & green) << 8)
+              | ((0xff & blue)  << 0);
+    }
+}
 ```
 
 ### PointlessBitwiseExpression
@@ -5484,59 +5628,11 @@ in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 ```
 
 ### PointlessBitwiseExpression
-`byte7 << 0` can be replaced with 'byte7'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-            bits = (byte0 << 56) | (byte1 << 48) | (byte2 << 40)
-                    | (byte3 << 32) | (byte4 << 24) | (byte5 << 16)
-                    | (byte6 << 8) | (byte7 << 0);
-        } else {
-            bits = (byte7 << 56) | (byte6 << 48) | (byte5 << 40)
-```
-
-### PointlessBitwiseExpression
-`byte0 << 0` can be replaced with 'byte0'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-            bits = (byte7 << 56) | (byte6 << 48) | (byte5 << 40)
-                    | (byte4 << 32) | (byte3 << 24) | (byte2 << 16)
-                    | (byte1 << 8) | (byte0 << 0);
-        }
-        return Double.longBitsToDouble(bits);
-```
-
-### PointlessBitwiseExpression
-`byte3 << 0` can be replaced with 'byte3'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-        final int bits;
-        if (byteOrder == ByteOrder.BIG_ENDIAN) {
-            bits = (byte0 << 24) | (byte1 << 16) | (byte2 << 8) | (byte3 << 0);
-        } else {
-            bits = (byte3 << 24) | (byte2 << 16) | (byte1 << 8) | (byte0 << 0);
-```
-
-### PointlessBitwiseExpression
-`byte0 << 0` can be replaced with 'byte0'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-            bits = (byte0 << 24) | (byte1 << 16) | (byte2 << 8) | (byte3 << 0);
-        } else {
-            bits = (byte3 << 24) | (byte2 << 16) | (byte1 << 8) | (byte0 << 0);
-        }
-        return Float.intBitsToFloat(bits);
-```
-
-### PointlessBitwiseExpression
 `bits >> 0` can be replaced with 'bits'
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
 ```java
-        final int bits = Float.floatToRawIntBits(value);
+        final long bits = Double.doubleToRawLongBits(value);
         if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
             result[offset + 0] = (byte) (0xff & (bits >> 0));
             result[offset + 1] = (byte) (0xff & (bits >> 8));
@@ -5548,47 +5644,11 @@ in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
 #### Snippet
 ```java
-            result[offset + 3] = (byte) (0xff & (bits >> 24));
+            result[offset + 7] = (byte) (0xff & (bits >> 56));
         } else {
-            result[offset + 3] = (byte) (0xff & (bits >> 0));
-            result[offset + 2] = (byte) (0xff & (bits >> 8));
-            result[offset + 1] = (byte) (0xff & (bits >> 16));
-```
-
-### PointlessBitwiseExpression
-`value >> 0` can be replaced with 'value'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-            result[offset + 1] = (byte) (value >> 16);
-            result[offset + 2] = (byte) (value >> 8);
-            result[offset + 3] = (byte) (value >> 0);
-        } else {
-            result[offset + 3] = (byte) (value >> 24);
-```
-
-### PointlessBitwiseExpression
-`value >> 0` can be replaced with 'value'
-in `src/main/java/org/apache/commons/imaging/common/ByteConversions.java`
-#### Snippet
-```java
-            result[offset + 2] = (byte) (value >> 16);
-            result[offset + 1] = (byte) (value >> 8);
-            result[offset + 0] = (byte) (value >> 0);
-        }
-    }
-```
-
-### PointlessBitwiseExpression
-`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
-in `src/main/java/org/apache/commons/imaging/formats/psd/dataparsers/DataParserRgb.java`
-#### Snippet
-```java
-             | ((0xff & red)   << 16)
-             | ((0xff & green) << 8)
-             | ((0xff & blue)  << 0);
-    }
-
+            result[offset + 7] = (byte) (0xff & (bits >> 0));
+            result[offset + 6] = (byte) (0xff & (bits >> 8));
+            result[offset + 5] = (byte) (0xff & (bits >> 16));
 ```
 
 ### PointlessBitwiseExpression
@@ -5613,30 +5673,6 @@ in `src/main/java/org/apache/commons/imaging/formats/pnm/PgmFileInfo.java`
              | ((0xff & sample) << 0);
     }
 
-```
-
-### PointlessBitwiseExpression
-`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
-in `src/main/java/org/apache/commons/imaging/formats/pnm/PpmFileInfo.java`
-#### Snippet
-```java
-             | ((0xff & red)   << 16)
-             | ((0xff & green) << 8)
-             | ((0xff & blue)  << 0);
-    }
-
-```
-
-### PointlessBitwiseExpression
-`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
-in `src/main/java/org/apache/commons/imaging/formats/pnm/PpmFileInfo.java`
-#### Snippet
-```java
-              | ((0xff & red)   << 16)
-              | ((0xff & green) << 8)
-              | ((0xff & blue)  << 0);
-    }
-}
 ```
 
 ### PointlessBitwiseExpression
@@ -5649,18 +5685,6 @@ in `src/main/java/org/apache/commons/imaging/formats/png/transparencyfilters/Tra
                 | ((0xff & transparentBlue) << 0);
 
     }
-```
-
-### PointlessBitwiseExpression
-`rgb >> 0` can be replaced with 'rgb'
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterBase.java`
-#### Snippet
-```java
-                        final int red = 0xff & (rgb >> 16);
-                        final int green = 0xff & (rgb >> 8);
-                        final int blue = 0xff & (rgb >> 0);
-
-                        if (bitsPerSample == 1) {
 ```
 
 ### PointlessBitwiseExpression
@@ -5688,15 +5712,15 @@ in `src/main/java/org/apache/commons/imaging/formats/pnm/PpmWriter.java`
 ```
 
 ### PointlessBitwiseExpression
-`(0xff & ' ') << 0` can be replaced with '(0xff \& ' ')'
-in `src/main/java/org/apache/commons/imaging/icc/IccConstants.java`
+`rgb >> 0` can be replaced with 'rgb'
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterBase.java`
 #### Snippet
 ```java
-public final class IccConstants {
-    public static final int IEC = (((0xff & 'I') << 24) | ((0xff & 'E') << 16)
-            | ((0xff & 'C') << 8) | ((0xff & ' ') << 0));
-    public static final int sRGB = (((0xff & 's') << 24) | ((0xff & 'R') << 16)
-            | ((0xff & 'G') << 8) | ((0xff & 'B') << 0));
+                        final int red = 0xff & (rgb >> 16);
+                        final int green = 0xff & (rgb >> 8);
+                        final int blue = 0xff & (rgb >> 0);
+
+                        if (bitsPerSample == 1) {
 ```
 
 ### PointlessBitwiseExpression
@@ -5709,6 +5733,18 @@ in `src/main/java/org/apache/commons/imaging/icc/IccConstants.java`
             | ((0xff & 'G') << 8) | ((0xff & 'B') << 0));
 
     private IccConstants() {
+```
+
+### PointlessBitwiseExpression
+`(0xff & ' ') << 0` can be replaced with '(0xff \& ' ')'
+in `src/main/java/org/apache/commons/imaging/icc/IccConstants.java`
+#### Snippet
+```java
+public final class IccConstants {
+    public static final int IEC = (((0xff & 'I') << 24) | ((0xff & 'E') << 16)
+            | ((0xff & 'C') << 8) | ((0xff & ' ') << 0));
+    public static final int sRGB = (((0xff & 's') << 24) | ((0xff & 'R') << 16)
+            | ((0xff & 'G') << 8) | ((0xff & 'B') << 0));
 ```
 
 ### PointlessBitwiseExpression
@@ -5760,15 +5796,15 @@ in `src/main/java/org/apache/commons/imaging/palette/ColorGroup.java`
 ```
 
 ### PointlessBitwiseExpression
-`argb >> 0` can be replaced with 'argb'
-in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
+`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
+in `src/main/java/org/apache/commons/imaging/formats/png/ScanExpediter.java`
 #### Snippet
 ```java
-                final int red = 0xff & (argb >> 16);
-                final int green = 0xff & (argb >> 8);
-                final int blue = 0xff & (argb >> 0);
-                int sample = (red + green + blue) / 3;
-                if (sample > 127) {
+             | ((0xff & red)   << 16)
+             | ((0xff & green) << 8)
+             | ((0xff & blue)  << 0);
+    }
+
 ```
 
 ### PointlessBitwiseExpression
@@ -5784,15 +5820,15 @@ in `src/main/java/org/apache/commons/imaging/formats/psd/dataparsers/DataParserI
 ```
 
 ### PointlessBitwiseExpression
-`(0xff & blue) << 0` can be replaced with '(0xff \& blue)'
-in `src/main/java/org/apache/commons/imaging/formats/png/ScanExpediter.java`
+`argb >> 0` can be replaced with 'argb'
+in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
 #### Snippet
 ```java
-             | ((0xff & red)   << 16)
-             | ((0xff & green) << 8)
-             | ((0xff & blue)  << 0);
-    }
-
+                final int red = 0xff & (argb >> 16);
+                final int green = 0xff & (argb >> 8);
+                final int blue = 0xff & (argb >> 0);
+                int sample = (red + green + blue) / 3;
+                if (sample > 127) {
 ```
 
 ### PointlessBitwiseExpression
@@ -5916,18 +5952,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreter
 ```
 
 ### PointlessBitwiseExpression
-`blue << 0` can be replaced with 'blue'
-in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreters/PhotometricInterpreterYCbCr.java`
-#### Snippet
-```java
-
-        final int alpha = 0xff;
-        final int rgb = (alpha << 24) | (red << 16) | (green << 8) | (blue << 0);
-        imageBuilder.setRGB(x, y, rgb);
-
-```
-
-### PointlessBitwiseExpression
 `b << 0` can be replaced with 'b'
 in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreters/PhotometricInterpreterYCbCr.java`
 #### Snippet
@@ -5936,6 +5960,18 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreter
         final int alpha = 0xff;
         return (alpha << 24) | (r << 16) | (g << 8) | (b << 0);
     }
+
+```
+
+### PointlessBitwiseExpression
+`blue << 0` can be replaced with 'blue'
+in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreters/PhotometricInterpreterYCbCr.java`
+#### Snippet
+```java
+
+        final int alpha = 0xff;
+        final int rgb = (alpha << 24) | (red << 16) | (green << 8) | (blue << 0);
+        imageBuilder.setRGB(x, y, rgb);
 
 ```
 
@@ -6060,18 +6096,6 @@ in `src/main/java/org/apache/commons/imaging/formats/png/chunks/PngChunkPlte.jav
 ```
 
 ### PointlessBitwiseExpression
-`i >> 0` can be replaced with 'i'
-in `src/main/java/org/apache/commons/imaging/icc/IccProfileInfo.java`
-#### Snippet
-```java
-        pw.println(msg + ": '" + (char) (0xff & (i >> 24))
-                + (char) (0xff & (i >> 16)) + (char) (0xff & (i >> 8))
-                + (char) (0xff & (i >> 0)) + "'");
-    }
-
-```
-
-### PointlessBitwiseExpression
 `blue << 0` can be replaced with 'blue'
 in `src/main/java/org/apache/commons/imaging/formats/bmp/PixelParser.java`
 #### Snippet
@@ -6084,109 +6108,13 @@ in `src/main/java/org/apache/commons/imaging/formats/bmp/PixelParser.java`
 ```
 
 ### PointlessBitwiseExpression
-`byteQuad >> 0` can be replaced with 'byteQuad'
-in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
+`i >> 0` can be replaced with 'i'
+in `src/main/java/org/apache/commons/imaging/icc/IccProfileInfo.java`
 #### Snippet
 ```java
-        final byte b2 = (byte) ((byteQuad >> 16) & 0xff);
-        final byte b3 = (byte) ((byteQuad >> 8) & 0xff);
-        final byte b4 = (byte) ((byteQuad >> 0) & 0xff);
-
-        final char c1 = (char) b1;
-```
-
-### PointlessBitwiseExpression
-`chunkType >> 0` can be replaced with 'chunkType'
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
-#### Snippet
-```java
-        result.append((char) (0xff & (chunkType >> 16)));
-        result.append((char) (0xff & (chunkType >> 8)));
-        result.append((char) (0xff & (chunkType >> 0)));
-        return result.toString();
-    }
-```
-
-### PointlessBitwiseExpression
-`rgb >> 0` can be replaced with 'rgb'
-in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpWriterPalette.java`
-#### Snippet
-```java
-            final int red = 0xff & (rgb >> 16);
-            final int green = 0xff & (rgb >> 8);
-            final int blue = 0xff & (rgb >> 0);
-
-            bos.write(blue);
-```
-
-### PointlessBitwiseExpression
-`rgb >> 0` can be replaced with 'rgb'
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
-        final int R = 0xff & (rgb >> 16);
-        final int G = 0xff & (rgb >> 8);
-        final int B = 0xff & (rgb >> 0);
-
-        final double var_R = (R / 255.0); // Where RGB values = 0 ÷ 255
-```
-
-### PointlessBitwiseExpression
-`rgb >> 0` can be replaced with 'rgb'
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
-        final int R = 0xff & (rgb >> 16);
-        final int G = 0xff & (rgb >> 8);
-        final int B = 0xff & (rgb >> 0);
-
-        // RGB values = 0 ÷ 255
-```
-
-### PointlessBitwiseExpression
-`blue << 0` can be replaced with 'blue'
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
-        final int alpha = 0xff;
-
-        return (alpha << 24) | (red << 16) | (green << 8) | (blue << 0);
-    }
-
-```
-
-### PointlessBitwiseExpression
-`rgb >> 0` can be replaced with 'rgb'
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
-        final int R = 0xff & (rgb >> 16);
-        final int G = 0xff & (rgb >> 8);
-        final int B = 0xff & (rgb >> 0);
-
-        final double var_R = (R / 255.0); // RGB values = 0 ÷ 255
-```
-
-### PointlessBitwiseExpression
-`rgb >> 0` can be replaced with 'rgb'
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
-        final int r = 0xff & (rgb >> 16);
-        final int g = 0xff & (rgb >> 8);
-        final int b = 0xff & (rgb >> 0);
-
-        double var_R = r / 255.0; // Where R = 0 ÷ 255
-```
-
-### PointlessBitwiseExpression
-`blue << 0` can be replaced with 'blue'
-in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
-#### Snippet
-```java
-        final int alpha = 0xff;
-
-        return (alpha << 24) | (red << 16) | (green << 8) | (blue << 0);
+        pw.println(msg + ": '" + (char) (0xff & (i >> 24))
+                + (char) (0xff & (i >> 16)) + (char) (0xff & (i >> 8))
+                + (char) (0xff & (i >> 0)) + "'");
     }
 
 ```
@@ -6201,6 +6129,30 @@ in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
             final int rgb = (alpha << 24) | (red << 16) | (green << 8) | (blue << 0);
             result[i] = rgb;
         }
+```
+
+### PointlessBitwiseExpression
+`identifier3 << 0` can be replaced with 'identifier3'
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
+#### Snippet
+```java
+        if (LOGGER.isLoggable(Level.FINEST)) {
+            printCharQuad("identifier: ", ((identifier1 << 16)
+                    | (identifier2 << 8) | (identifier3 << 0)));
+            printCharQuad("version: ",
+                    ((version1 << 16) | (version2 << 8) | (version3 << 0)));
+```
+
+### PointlessBitwiseExpression
+`version3 << 0` can be replaced with 'version3'
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
+#### Snippet
+```java
+                    | (identifier2 << 8) | (identifier3 << 0)));
+            printCharQuad("version: ",
+                    ((version1 << 16) | (version2 << 8) | (version3 << 0)));
+        }
+
 ```
 
 ### PointlessBitwiseExpression
@@ -6231,27 +6183,99 @@ in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 ```
 
 ### PointlessBitwiseExpression
-`identifier3 << 0` can be replaced with 'identifier3'
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
+`byteQuad >> 0` can be replaced with 'byteQuad'
+in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
 #### Snippet
 ```java
-        if (LOGGER.isLoggable(Level.FINEST)) {
-            printCharQuad("identifier: ", ((identifier1 << 16)
-                    | (identifier2 << 8) | (identifier3 << 0)));
-            printCharQuad("version: ",
-                    ((version1 << 16) | (version2 << 8) | (version3 << 0)));
+        final byte b2 = (byte) ((byteQuad >> 16) & 0xff);
+        final byte b3 = (byte) ((byteQuad >> 8) & 0xff);
+        final byte b4 = (byte) ((byteQuad >> 0) & 0xff);
+
+        final char c1 = (char) b1;
 ```
 
 ### PointlessBitwiseExpression
-`version3 << 0` can be replaced with 'version3'
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
+`blue << 0` can be replaced with 'blue'
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
 #### Snippet
 ```java
-                    | (identifier2 << 8) | (identifier3 << 0)));
-            printCharQuad("version: ",
-                    ((version1 << 16) | (version2 << 8) | (version3 << 0)));
-        }
+        final int alpha = 0xff;
 
+        return (alpha << 24) | (red << 16) | (green << 8) | (blue << 0);
+    }
+
+```
+
+### PointlessBitwiseExpression
+`rgb >> 0` can be replaced with 'rgb'
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+        final int R = 0xff & (rgb >> 16);
+        final int G = 0xff & (rgb >> 8);
+        final int B = 0xff & (rgb >> 0);
+
+        final double var_R = (R / 255.0); // Where RGB values = 0 ÷ 255
+```
+
+### PointlessBitwiseExpression
+`rgb >> 0` can be replaced with 'rgb'
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+        final int R = 0xff & (rgb >> 16);
+        final int G = 0xff & (rgb >> 8);
+        final int B = 0xff & (rgb >> 0);
+
+        final double var_R = (R / 255.0); // RGB values = 0 ÷ 255
+```
+
+### PointlessBitwiseExpression
+`blue << 0` can be replaced with 'blue'
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+        final int alpha = 0xff;
+
+        return (alpha << 24) | (red << 16) | (green << 8) | (blue << 0);
+    }
+
+```
+
+### PointlessBitwiseExpression
+`rgb >> 0` can be replaced with 'rgb'
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+        final int R = 0xff & (rgb >> 16);
+        final int G = 0xff & (rgb >> 8);
+        final int B = 0xff & (rgb >> 0);
+
+        // RGB values = 0 ÷ 255
+```
+
+### PointlessBitwiseExpression
+`rgb >> 0` can be replaced with 'rgb'
+in `src/main/java/org/apache/commons/imaging/color/ColorConversions.java`
+#### Snippet
+```java
+        final int r = 0xff & (rgb >> 16);
+        final int g = 0xff & (rgb >> 8);
+        final int b = 0xff & (rgb >> 0);
+
+        double var_R = r / 255.0; // Where R = 0 ÷ 255
+```
+
+### PointlessBitwiseExpression
+`rgb >> 0` can be replaced with 'rgb'
+in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpWriterPalette.java`
+#### Snippet
+```java
+            final int red = 0xff & (rgb >> 16);
+            final int green = 0xff & (rgb >> 8);
+            final int blue = 0xff & (rgb >> 0);
+
+            bos.write(blue);
 ```
 
 ### PointlessBitwiseExpression
@@ -6262,6 +6286,30 @@ in `src/main/java/org/apache/commons/imaging/formats/psd/dataparsers/DataParserG
               | ((0xff & sample) << 16)
               | ((0xff & sample) << 8)
               | ((0xff & sample) << 0);
+    }
+
+```
+
+### PointlessBitwiseExpression
+`chunkType >> 0` can be replaced with 'chunkType'
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+#### Snippet
+```java
+        result.append((char) (0xff & (chunkType >> 16)));
+        result.append((char) (0xff & (chunkType >> 8)));
+        result.append((char) (0xff & (chunkType >> 0)));
+        return result.toString();
+    }
+```
+
+### PointlessBitwiseExpression
+`(0xff & c4) << 0` can be replaced with '(0xff \& c4)'
+in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
+#### Snippet
+```java
+
+    public static int charsToQuad(final char c1, final char c2, final char c3, final char c4) {
+        return (((0xff & c1) << 24) | ((0xff & c2) << 16) | ((0xff & c3) << 8) | ((0xff & c4) << 0));
     }
 
 ```
@@ -6279,14 +6327,26 @@ in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
 ```
 
 ### PointlessBitwiseExpression
-`(0xff & c4) << 0` can be replaced with '(0xff \& c4)'
+`byte2 << 0` can be replaced with 'byte2'
 in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
 #### Snippet
 ```java
+        if (byteOrder == ByteOrder.BIG_ENDIAN) {
+            result = (byte0 << 16) | (byte1 << 8)
+                    | (byte2 << 0);
+        } else {
+            result = (byte2 << 16) | (byte1 << 8)
+```
 
-    public static int charsToQuad(final char c1, final char c2, final char c3, final char c4) {
-        return (((0xff & c1) << 24) | ((0xff & c2) << 16) | ((0xff & c3) << 8) | ((0xff & c4) << 0));
-    }
+### PointlessBitwiseExpression
+`byte0 << 0` can be replaced with 'byte0'
+in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
+#### Snippet
+```java
+        } else {
+            result = (byte2 << 16) | (byte1 << 8)
+                    | (byte0 << 0);
+        }
 
 ```
 
@@ -6322,30 +6382,6 @@ in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
         } else {
             result = (byte3 << 24) | (byte2 << 16)
                     | (byte1 << 8) | (byte0 << 0);
-        }
-
-```
-
-### PointlessBitwiseExpression
-`byte2 << 0` can be replaced with 'byte2'
-in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
-#### Snippet
-```java
-        if (byteOrder == ByteOrder.BIG_ENDIAN) {
-            result = (byte0 << 16) | (byte1 << 8)
-                    | (byte2 << 0);
-        } else {
-            result = (byte2 << 16) | (byte1 << 8)
-```
-
-### PointlessBitwiseExpression
-`byte0 << 0` can be replaced with 'byte0'
-in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
-#### Snippet
-```java
-        } else {
-            result = (byte2 << 16) | (byte1 << 8)
-                    | (byte0 << 0);
         }
 
 ```
@@ -6387,15 +6423,15 @@ in `src/main/java/org/apache/commons/imaging/formats/png/PngWriter.java`
 ```
 
 ### PointlessBitwiseExpression
-`value >> 0` can be replaced with 'value'
+`argb >> 0` can be replaced with 'argb'
 in `src/main/java/org/apache/commons/imaging/formats/png/PngWriter.java`
 #### Snippet
 ```java
-        os.write(0xff & (value >> 16));
-        os.write(0xff & (value >> 8));
-        os.write(0xff & (value >> 0));
-    }
+                            final int red = 0xff & (argb >> 16);
+                            final int green = 0xff & (argb >> 8);
+                            final int blue = 0xff & (argb >> 0);
 
+                            if (isGrayscale) {
 ```
 
 ### PointlessBitwiseExpression
@@ -6423,21 +6459,21 @@ in `src/main/java/org/apache/commons/imaging/formats/png/PngWriter.java`
 ```
 
 ### PointlessBitwiseExpression
-`argb >> 0` can be replaced with 'argb'
+`value >> 0` can be replaced with 'value'
 in `src/main/java/org/apache/commons/imaging/formats/png/PngWriter.java`
 #### Snippet
 ```java
-                            final int red = 0xff & (argb >> 16);
-                            final int green = 0xff & (argb >> 8);
-                            final int blue = 0xff & (argb >> 0);
+        os.write(0xff & (value >> 16));
+        os.write(0xff & (value >> 8));
+        os.write(0xff & (value >> 0));
+    }
 
-                            if (isGrayscale) {
 ```
 
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-22-40-53.426.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-25-21-35-47.290.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -6458,6 +6494,30 @@ in `src/main/java/org/apache/commons/imaging/formats/pnm/WhiteSpaceReader.java`
         return buffer.length() > 0 ? buffer.toString() : null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+        if (blocks.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
+#### Snippet
+```java
+
+        if (xmpBlocks.isEmpty()) {
+            return null;
+        }
+        if (xmpBlocks.size() > 1) {
 ```
 
 ### ReturnNull
@@ -6498,34 +6558,22 @@ in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-        if (blocks.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
-#### Snippet
-```java
-
-        if (xmpBlocks.isEmpty()) {
-            return null;
-        }
-        if (xmpBlocks.size() > 1) {
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/imaging/common/BasicCParser.java`
 #### Snippet
 ```java
             throw new ImageReadException("Unterminated string ends XMP file");
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory.java`
+#### Snippet
+```java
+            }
         }
         return null;
     }
@@ -6558,18 +6606,6 @@ in `src/main/java/org/apache/commons/imaging/formats/pnm/PnmImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/icns/IcnsType.java`
 #### Snippet
 ```java
@@ -6618,11 +6654,23 @@ in `src/main/java/org/apache/commons/imaging/formats/icns/IcnsType.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffTags.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
 #### Snippet
 ```java
+        final Object o = getValue();
+        if (o == null) {
+            return null;
+        }
+        if (!(o instanceof String)) {
+```
 
-        if (possibleMatches.isEmpty()) {
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
+#### Snippet
+```java
+    private String getValueDescription(final Object o) {
+        if (o == null) {
             return null;
         }
 
@@ -6630,14 +6678,14 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffTags.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/palette/MedianCutQuantizer.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
 #### Snippet
 ```java
-                    colorMap.put(argb, color);
-                    if (colorMap.size() > max) {
-                        return null;
-                    }
-                }
+    public TiffElement getOversizeValueElement() {
+        if (isLocalValue()) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -6693,7 +6741,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageMetadata.java`
 #### Snippet
 ```java
-    public TiffImageData getRawImageData() {
+    public byte[] getEXIFThumbnailData() {
         if (exif == null) {
             return null;
         }
@@ -6705,8 +6753,20 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageMetadata.java`
 #### Snippet
 ```java
+            }
         }
+        return null;
+    }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageMetadata.java`
+#### Snippet
+```java
+            return Imaging.getImageSize(data);
+        }
         return null;
     }
 
@@ -6741,19 +6801,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageMetadata.java`
 #### Snippet
 ```java
-            return Imaging.getImageSize(data);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageMetadata.java`
-#### Snippet
-```java
-    public byte[] getEXIFThumbnailData() {
+    public TiffImageData getRawImageData() {
         if (exif == null) {
             return null;
         }
@@ -6765,8 +6813,8 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageMetadata.java`
 #### Snippet
 ```java
-            }
         }
+
         return null;
     }
 
@@ -6774,23 +6822,11 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageMetadata.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffTags.java`
 #### Snippet
 ```java
-        final Object o = getValue();
-        if (o == null) {
-            return null;
-        }
-        if (!(o instanceof String)) {
-```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
-#### Snippet
-```java
-    private String getValueDescription(final Object o) {
-        if (o == null) {
+        if (possibleMatches.isEmpty()) {
             return null;
         }
 
@@ -6798,11 +6834,23 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffField.java`
+in `src/main/java/org/apache/commons/imaging/palette/MedianCutQuantizer.java`
 #### Snippet
 ```java
-    public TiffElement getOversizeValueElement() {
-        if (isLocalValue()) {
+                    colorMap.put(argb, color);
+                    if (colorMap.size() > max) {
+                        return null;
+                    }
+                }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/icns/IcnsDecoder.java`
+#### Snippet
+```java
+        final IcnsType imageType = IcnsType.findImageType(imageElement.type);
+        if (imageType == null) {
             return null;
         }
 
@@ -6834,18 +6882,6 @@ in `src/main/java/org/apache/commons/imaging/formats/icns/IcnsImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/icns/IcnsDecoder.java`
-#### Snippet
-```java
-        final IcnsType imageType = IcnsType.findImageType(imageElement.type);
-        if (imageType == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
 #### Snippet
 ```java
@@ -6853,30 +6889,6 @@ in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
 
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
-#### Snippet
-```java
-    public IccProfileInfo getICCProfileInfo(final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
-#### Snippet
-```java
-    public IccProfileInfo getICCProfileInfo(final File file) {
-        if (file == null) {
-            return null;
-        }
 
 ```
 
@@ -6909,6 +6921,30 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
+#### Snippet
+```java
+    public IccProfileInfo getICCProfileInfo(final byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
+#### Snippet
+```java
     public IccProfileInfo getICCProfileInfo(final ICC_Profile iccProfile) {
         if (iccProfile == null) {
             return null;
@@ -6921,10 +6957,10 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/icc/IccProfileParser.java`
 #### Snippet
 ```java
+    public IccProfileInfo getICCProfileInfo(final File file) {
+        if (file == null) {
+            return null;
         }
-
-        return null;
-    }
 
 ```
 
@@ -6942,11 +6978,35 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/App2Segment.j
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
 #### Snippet
 ```java
-    public ImageMetadata getMetadata(final ByteSource byteSource, final XbmImagingParameters params)
             throws ImageReadException, IOException {
+        // TODO this should throw UnsupportedOperationException, but RoundtripTest has to be refactored completely before this can be changed
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
+#### Snippet
+```java
+    public byte[] getICCProfileBytes(final ByteSource byteSource, final BmpImagingParameters params)
+            throws ImageReadException, IOException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/png/ScanExpediter.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -6966,11 +7026,11 @@ in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/png/ScanExpediter.java`
+in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
 #### Snippet
 ```java
-        }
-
+    public ImageMetadata getMetadata(final ByteSource byteSource, final XbmImagingParameters params)
+            throws ImageReadException, IOException {
         return null;
     }
 
@@ -7038,11 +7098,11 @@ in `src/main/java/org/apache/commons/imaging/palette/PaletteFactory.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/wbmp/WbmpImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffContents.java`
 #### Snippet
 ```java
-    public byte[] getICCProfileBytes(final ByteSource byteSource, final WbmpImagingParameters params)
-            throws ImageReadException, IOException {
+        }
+
         return null;
     }
 
@@ -7062,23 +7122,11 @@ in `src/main/java/org/apache/commons/imaging/formats/wbmp/WbmpImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffContents.java`
+in `src/main/java/org/apache/commons/imaging/formats/wbmp/WbmpImageParser.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/Imaging.java`
-#### Snippet
-```java
-            return ((XmpEmbeddable) imageParser).getXmpXml(byteSource, null);
-        }
+    public byte[] getICCProfileBytes(final ByteSource byteSource, final WbmpImagingParameters params)
+            throws ImageReadException, IOException {
         return null;
     }
 
@@ -7122,37 +7170,13 @@ in `src/main/java/org/apache/commons/imaging/Imaging.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
+in `src/main/java/org/apache/commons/imaging/Imaging.java`
 #### Snippet
 ```java
-            throws ImageReadException, IOException {
-        // TODO this should throw UnsupportedOperationException, but RoundtripTest has to be refactored completely before this can be changed
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
-#### Snippet
-```java
-    public byte[] getICCProfileBytes(final ByteSource byteSource, final BmpImagingParameters params)
-            throws ImageReadException, IOException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
-#### Snippet
-```java
-        final byte[] bytes = getExifRawData(byteSource);
-        if (null == bytes) {
-            return null;
+            return ((XmpEmbeddable) imageParser).getXmpXml(byteSource, null);
         }
+        return null;
+    }
 
 ```
 
@@ -7173,11 +7197,23 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 #### Snippet
 ```java
-
-        if (null == photoshopApp13Data) {
+        // TODO: concatenate if multiple segments, need example.
+        if (exifSegments.isEmpty()) {
             return null;
         }
-        return new JpegPhotoshopMetadata(photoshopApp13Data);
+        if (exifSegments.size() > 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
+#### Snippet
+```java
+
+        if (filtered.isEmpty()) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -7221,11 +7257,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 #### Snippet
 ```java
-        // TODO: concatenate if multiple segments, need example.
-        if (exifSegments.isEmpty()) {
+
+        if (null == photoshopApp13Data) {
             return null;
         }
-        if (exifSegments.size() > 1) {
+        return new JpegPhotoshopMetadata(photoshopApp13Data);
 ```
 
 ### ReturnNull
@@ -7233,10 +7269,34 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/jpeg/JpegImageParser.java`
 #### Snippet
 ```java
-
-        if (filtered.isEmpty()) {
+        final byte[] bytes = getExifRawData(byteSource);
+        if (null == bytes) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
+#### Snippet
+```java
+    public ImageInfo getImageInfo(final ByteSource byteSource, final IcoImagingParameters params)
+            throws ImageReadException, IOException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
+#### Snippet
+```java
+    public ImageMetadata getMetadata(final ByteSource byteSource, final IcoImagingParameters params)
+            throws ImageReadException, IOException {
+        return null;
+    }
 
 ```
 
@@ -7266,11 +7326,11 @@ in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreters/floatingpoint/PaletteEntryForValue.java`
 #### Snippet
 ```java
-    public ImageMetadata getMetadata(final ByteSource byteSource, final IcoImagingParameters params)
-            throws ImageReadException, IOException {
+            return color;
+        }
         return null;
     }
 
@@ -7278,10 +7338,10 @@ in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxImageParser.java`
 #### Snippet
 ```java
-    public ImageInfo getImageInfo(final ByteSource byteSource, final IcoImagingParameters params)
+    public byte[] getICCProfileBytes(final ByteSource byteSource, final PcxImagingParameters params)
             throws ImageReadException, IOException {
         return null;
     }
@@ -7307,30 +7367,6 @@ in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxImageParser.java`
 ```java
     public ImageMetadata getMetadata(final ByteSource byteSource, final PcxImagingParameters params)
             throws ImageReadException, IOException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxImageParser.java`
-#### Snippet
-```java
-    public byte[] getICCProfileBytes(final ByteSource byteSource, final PcxImagingParameters params)
-            throws ImageReadException, IOException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/photometricinterpreters/floatingpoint/PaletteEntryForValue.java`
-#### Snippet
-```java
-            return color;
-        }
         return null;
     }
 
@@ -7386,50 +7422,38 @@ in `src/main/java/org/apache/commons/imaging/icc/IccTag.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
 ```java
-
-        if (chunks.isEmpty()) {
-            return null;
+            }
         }
+        return null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
 ```java
 
-        if (chunks.isEmpty()) {
-            return null;
-        }
-
+            if (result.isEmpty()) {
+                return null;
+            }
+            if (result.size() > 1) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
 ```java
+    public byte[] getICCProfileBytes(final ByteSource byteSource, final GifImagingParameters params)
+            throws ImageReadException, IOException {
+        return null;
+    }
 
-        if (chunks.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
-#### Snippet
-```java
-
-        if (xmpChunks.isEmpty()) {
-            return null;
-        }
-        if (xmpChunks.size() > 1) {
 ```
 
 ### ReturnNull
@@ -7454,90 +7478,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
             return null;
         }
         return tag.getValue(field);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
-#### Snippet
-```java
-                        + "\" is missing");
-            }
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
-#### Snippet
-```java
-                        + "\" has incorrect type " + field.getFieldType().getName());
-            }
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
-#### Snippet
-```java
-                        + "\" is missing");
-            }
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
-#### Snippet
-```java
-                        + "\" has incorrect type " + field.getFieldType().getName());
-            }
-            return null;
-        }
-        return field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
-#### Snippet
-```java
-                        + "\" is missing");
-            }
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
-#### Snippet
-```java
-                        + "\" has incorrect type " + field.getFieldType().getName());
-            }
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
-#### Snippet
-```java
-        throws ImageReadException, IOException {
-        if (null == tiffImageData) {
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -7665,11 +7605,59 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
 #### Snippet
 ```java
-    public BufferedImage getTiffImage() throws ImageReadException, IOException {
-        if (null == tiffImageData) {
+                        + "\" is missing");
+            }
             return null;
         }
+        return tag.getValue(field);
+```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+                        + "\" is missing");
+            }
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+                        + "\" has incorrect type " + field.getFieldType().getName());
+            }
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+                        + "\" is missing");
+            }
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+                        + "\" has incorrect type " + field.getFieldType().getName());
+            }
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
 ```
 
 ### ReturnNull
@@ -7693,7 +7681,67 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
             }
             return null;
         }
-        return tag.getValue(field);
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+                        + "\" has incorrect type " + field.getFieldType().getName());
+            }
+            return null;
+        }
+        return field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+        throws ImageReadException, IOException {
+        if (null == tiffImageData) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+    public BufferedImage getTiffImage() throws ImageReadException, IOException {
+        if (null == tiffImageData) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+                        + "\" is missing");
+            }
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+#### Snippet
+```java
+                        + "\" has incorrect type " + field.getFieldType().getName());
+            }
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
 ```
 
 ### ReturnNull
@@ -7794,11 +7842,11 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
 #### Snippet
 ```java
-                        + "\" is missing");
-            }
+        final TiffField field = findField(tag);
+        if (field == null) {
             return null;
         }
         if (!tag.dataTypes.contains(field.getFieldType())) {
@@ -7806,11 +7854,251 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffDirectory.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
 #### Snippet
 ```java
-                        + "\" has incorrect type " + field.getFieldType().getName());
-            }
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        return tag.getValue(field);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        return field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+            return null;
+        }
+        final byte[] bytes = field.getByteArrayValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        return tag.getValue(field);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        final TiffField field = findField(tag);
+        if (field == null) {
+            return null;
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
+        }
+        if (!tag.dataTypes.contains(field.getFieldType())) {
             return null;
         }
         final byte[] bytes = field.getByteArrayValue();
@@ -7849,234 +8137,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java
         if (field == null) {
             return null;
         }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        return tag.getValue(field);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        return field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        return field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
         return field.getValue();
 ```
 
@@ -8085,6 +8145,18 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
 #### Snippet
 ```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
+#### Snippet
+```java
         final TiffField field = findField(tag);
         if (field == null) {
             return null;
@@ -8101,7 +8173,7 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java
         if (!tag.dataTypes.contains(field.getFieldType())) {
             return null;
         }
-        final byte[] bytes = field.getByteArrayValue();
+        return field.getByteArrayValue();
 ```
 
 ### ReturnNull
@@ -8130,126 +8202,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        return tag.getValue(field);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        final TiffField field = findField(tag);
-        if (field == null) {
-            return null;
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageMetadata.java`
-#### Snippet
-```java
-        }
-        if (!tag.dataTypes.contains(field.getFieldType())) {
-            return null;
-        }
-        final byte[] bytes = field.getByteArrayValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
-#### Snippet
-```java
-    public byte[] getICCProfileBytes(final ByteSource byteSource, final GifImagingParameters params)
-            throws ImageReadException, IOException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
-#### Snippet
-```java
-
-            if (result.isEmpty()) {
-                return null;
-            }
-            if (result.size() > 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/common/bytesource/ByteSourceInputStream.java`
-#### Snippet
-```java
-            }
-            if (triedNext) {
-                return null;
-            }
-            triedNext = true;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/common/bytesource/ByteSourceInputStream.java`
-#### Snippet
-```java
-        final int read = is.read(readBuffer);
-        if (read < 1) {
-            return null;
-        }
-        if (read < BLOCK_SIZE) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/dcx/DcxImageParser.java`
-#### Snippet
-```java
-    public Dimension getImageSize(final ByteSource byteSource, final PcxImagingParameters params)
-            throws ImageReadException, IOException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/dcx/DcxImageParser.java`
 #### Snippet
 ```java
@@ -8265,7 +8217,19 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/dcx/DcxImageParser.java`
 #### Snippet
 ```java
-    public ImageInfo getImageInfo(final ByteSource byteSource, final PcxImagingParameters params)
+    public ImageMetadata getMetadata(final ByteSource byteSource, final PcxImagingParameters params)
+            throws ImageReadException, IOException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/dcx/DcxImageParser.java`
+#### Snippet
+```java
+    public Dimension getImageSize(final ByteSource byteSource, final PcxImagingParameters params)
             throws ImageReadException, IOException {
         return null;
     }
@@ -8289,34 +8253,10 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/formats/dcx/DcxImageParser.java`
 #### Snippet
 ```java
-    public ImageMetadata getMetadata(final ByteSource byteSource, final PcxImagingParameters params)
+    public ImageInfo getImageInfo(final ByteSource byteSource, final PcxImagingParameters params)
             throws ImageReadException, IOException {
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-            return new Rectangle(ix0, iy0, iwidth, iheight);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
-#### Snippet
-```java
-                false);
-        if (bytes == null) {
-            return null;
-        }
 
 ```
 
@@ -8334,23 +8274,35 @@ in `src/main/java/org/apache/commons/imaging/formats/jpeg/segments/App13Segment.
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputSet.java`
+in `src/main/java/org/apache/commons/imaging/common/bytesource/ByteSourceInputStream.java`
 #### Snippet
 ```java
-            }
+        final int read = is.read(readBuffer);
+        if (read < 1) {
+            return null;
         }
-        return null;
-    }
-
+        if (read < BLOCK_SIZE) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputSet.java`
+in `src/main/java/org/apache/commons/imaging/common/bytesource/ByteSourceInputStream.java`
 #### Snippet
 ```java
             }
-        }
+            if (triedNext) {
+                return null;
+            }
+            triedNext = true;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
+#### Snippet
+```java
+    public ImageMetadata getMetadata(final ByteSource byteSource, final XpmImagingParameters params)
+            throws ImageReadException, IOException {
         return null;
     }
 
@@ -8370,13 +8322,85 @@ in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
 #### Snippet
 ```java
-    public ImageMetadata getMetadata(final ByteSource byteSource, final XpmImagingParameters params)
-            throws ImageReadException, IOException {
+
+        if (chunks.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+#### Snippet
+```java
+
+        if (chunks.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+#### Snippet
+```java
+
+        if (xmpChunks.isEmpty()) {
+            return null;
+        }
+        if (xmpChunks.size() > 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/png/PngImageParser.java`
+#### Snippet
+```java
+
+        if (chunks.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+                false);
+        if (bytes == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+            return new Rectangle(ix0, iy0, iwidth, iheight);
+        }
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/ImageParser.java`
+#### Snippet
+```java
+            throws ImageReadException, IOException {
+        if (!canAcceptExtension(file)) {
+            return null;
+        }
 
 ```
 
@@ -8433,7 +8457,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/ImageParser.java`
 #### Snippet
 ```java
-
+            throws ImageReadException, IOException {
         if (!canAcceptExtension(file)) {
             return null;
         }
@@ -8457,6 +8481,18 @@ Return of `null`
 in `src/main/java/org/apache/commons/imaging/ImageParser.java`
 #### Snippet
 ```java
+
+        if (!canAcceptExtension(file)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/imaging/ImageParser.java`
+#### Snippet
+```java
     public FormatCompliance getFormatCompliance(final ByteSource byteSource)
             throws ImageReadException, IOException {
         return null;
@@ -8466,25 +8502,25 @@ in `src/main/java/org/apache/commons/imaging/ImageParser.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/ImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputSet.java`
 #### Snippet
 ```java
-            throws ImageReadException, IOException {
-        if (!canAcceptExtension(file)) {
-            return null;
+            }
         }
+        return null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/imaging/ImageParser.java`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffOutputSet.java`
 #### Snippet
 ```java
-            throws ImageReadException, IOException {
-        if (!canAcceptExtension(file)) {
-            return null;
+            }
         }
+        return null;
+    }
 
 ```
 
@@ -8625,42 +8661,6 @@ in `src/main/java/org/apache/commons/imaging/formats/icns/IcnsDecoder.java`
 ```
 
 ### UnusedAssignment
-Variable `yHot` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
-#### Snippet
-```java
-        final int height;
-        int xHot = -1;
-        int yHot = -1;
-
-        XbmHeader(final int width, final int height, final int xHot, final int yHot) {
-```
-
-### UnusedAssignment
-Variable `xHot` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
-#### Snippet
-```java
-        final int width;
-        final int height;
-        int xHot = -1;
-        int yHot = -1;
-
-```
-
-### UnusedAssignment
-Variable `ic` initializer `null` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
-#### Snippet
-```java
-    public ImageInfo getImageInfo(final ByteSource byteSource, final BmpImagingParameters params)
-            throws ImageReadException, IOException {
-        BmpImageContents ic = null;
-        try (InputStream is = byteSource.getInputStream()) {
-            ic = readImageContents(is, FormatCompliance.getDefault());
-```
-
-### UnusedAssignment
 Variable `width` initializer `0` is redundant
 in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
 #### Snippet
@@ -8781,15 +8781,39 @@ in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
 ```
 
 ### UnusedAssignment
-Variable `planesWanted` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxWriter.java`
+Variable `ic` initializer `null` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/bmp/BmpImageParser.java`
 #### Snippet
 ```java
-    private int encoding;
-    private int bitDepthWanted = -1;
-    private int planesWanted = -1;
-    private PixelDensity pixelDensity;
-    private final RleWriter rleWriter;
+    public ImageInfo getImageInfo(final ByteSource byteSource, final BmpImagingParameters params)
+            throws ImageReadException, IOException {
+        BmpImageContents ic = null;
+        try (InputStream is = byteSource.getInputStream()) {
+            ic = readImageContents(is, FormatCompliance.getDefault());
+```
+
+### UnusedAssignment
+Variable `yHot` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
+#### Snippet
+```java
+        final int height;
+        int xHot = -1;
+        int yHot = -1;
+
+        XbmHeader(final int width, final int height, final int xHot, final int yHot) {
+```
+
+### UnusedAssignment
+Variable `xHot` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/xbm/XbmImageParser.java`
+#### Snippet
+```java
+        final int width;
+        final int height;
+        int xHot = -1;
+        int yHot = -1;
+
 ```
 
 ### UnusedAssignment
@@ -8802,6 +8826,18 @@ class PcxWriter {
     private int bitDepthWanted = -1;
     private int planesWanted = -1;
     private PixelDensity pixelDensity;
+```
+
+### UnusedAssignment
+Variable `planesWanted` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxWriter.java`
+#### Snippet
+```java
+    private int encoding;
+    private int bitDepthWanted = -1;
+    private int planesWanted = -1;
+    private PixelDensity pixelDensity;
+    private final RleWriter rleWriter;
 ```
 
 ### UnusedAssignment
@@ -8826,6 +8862,30 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/fieldtypes/FieldTypeAs
             strings[stringsAdded++] = string;
         }
         if (strings.length == 1) {
+```
+
+### UnusedAssignment
+Variable `xHotSpot` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
+#### Snippet
+```java
+        final int numColors;
+        final int numCharsPerPixel;
+        int xHotSpot = -1;
+        int yHotSpot = -1;
+        final boolean xpmExt;
+```
+
+### UnusedAssignment
+Variable `yHotSpot` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
+#### Snippet
+```java
+        final int numCharsPerPixel;
+        int xHotSpot = -1;
+        int yHotSpot = -1;
+        final boolean xpmExt;
+
 ```
 
 ### UnusedAssignment
@@ -8862,30 +8922,6 @@ in `src/main/java/org/apache/commons/imaging/common/BinaryFunctions.java`
         int b = -1;
         int position = 0;
         while ((b = bis.read()) != -1) {
-```
-
-### UnusedAssignment
-Variable `xHotSpot` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
-#### Snippet
-```java
-        final int numColors;
-        final int numCharsPerPixel;
-        int xHotSpot = -1;
-        int yHotSpot = -1;
-        final boolean xpmExt;
-```
-
-### UnusedAssignment
-Variable `yHotSpot` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
-#### Snippet
-```java
-        final int numCharsPerPixel;
-        int xHotSpot = -1;
-        int yHotSpot = -1;
-        final boolean xpmExt;
-
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -8950,18 +8986,6 @@ in `src/main/java/org/apache/commons/imaging/formats/psd/PsdImageParser.java`
 ```
 
 ### ConstantValue
-Condition `usesUncompressedMode` is always `false`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterBase.java`
-#### Snippet
-```java
-            t6Options &= 0x4;
-            final boolean usesUncompressedMode = (t6Options & TIFF_FLAG_T6_OPTIONS_UNCOMPRESSED_MODE) != 0;
-            if (usesUncompressedMode) {
-                throw new ImageWriteException(
-                        "T.6 compression with the uncompressed mode extension is not yet supported");
-```
-
-### ConstantValue
 Condition `identifier2 == PnmConstants.PPM_RAW_CODE` is always `true`
 in `src/main/java/org/apache/commons/imaging/formats/pnm/PnmImageParser.java`
 #### Snippet
@@ -8971,6 +8995,18 @@ in `src/main/java/org/apache/commons/imaging/formats/pnm/PnmImageParser.java`
             if (identifier2 == PnmConstants.PPM_RAW_CODE) {
                 final int max = Integer.parseInt(wsr.readtoWhiteSpace());
                 return new PpmFileInfo(width, height, true, max);
+```
+
+### ConstantValue
+Condition `usesUncompressedMode` is always `false`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/write/TiffImageWriterBase.java`
+#### Snippet
+```java
+            t6Options &= 0x4;
+            final boolean usesUncompressedMode = (t6Options & TIFF_FLAG_T6_OPTIONS_UNCOMPRESSED_MODE) != 0;
+            if (usesUncompressedMode) {
+                throw new ImageWriteException(
+                        "T.6 compression with the uncompressed mode extension is not yet supported");
 ```
 
 ### ConstantValue
@@ -8990,11 +9026,11 @@ Condition `rowLength > width` is always `true`
 in `src/main/java/org/apache/commons/imaging/common/itu_t4/T4AndT6Compression.java`
 #### Snippet
 ```java
-            if (rowLength == width) {
-                outputStream.flush();
-            } else if (rowLength > width) {
-                throw new ImageReadException("Unrecoverable row length error in image row " + y);
-            }
+                    inputStream.flushCache();
+                    outputStream.flush();
+                } else if (rowLength > width) {
+                    throw new ImageReadException("Unrecoverable row length error in image row " + y);
+                }
 ```
 
 ### ConstantValue
@@ -9002,11 +9038,11 @@ Condition `rowLength > width` is always `true`
 in `src/main/java/org/apache/commons/imaging/common/itu_t4/T4AndT6Compression.java`
 #### Snippet
 ```java
-                    inputStream.flushCache();
-                    outputStream.flush();
-                } else if (rowLength > width) {
-                    throw new ImageReadException("Unrecoverable row length error in image row " + y);
-                }
+            if (rowLength == width) {
+                outputStream.flush();
+            } else if (rowLength > width) {
+                throw new ImageReadException("Unrecoverable row length error in image row " + y);
+            }
 ```
 
 ### ConstantValue
@@ -9070,30 +9106,6 @@ in `src/main/java/org/apache/commons/imaging/formats/tiff/datareaders/DataReader
 ```
 
 ### ConstantValue
-Condition `2 <= pcxHeader.nPlanes` is always `true`
-in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxImageParser.java`
-#### Snippet
-```java
-                    colorModel.isAlphaPremultiplied(), new Properties());
-        }
-        if (pcxHeader.bitsPerPixel == 1 && 2 <= pcxHeader.nPlanes
-                && pcxHeader.nPlanes <= 4) {
-            final IndexColorModel colorModel = new IndexColorModel(pcxHeader.nPlanes,
-```
-
-### ConstantValue
-Condition `pcxHeader.nPlanes <= 4` is always `true`
-in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxImageParser.java`
-#### Snippet
-```java
-        }
-        if (pcxHeader.bitsPerPixel == 1 && 2 <= pcxHeader.nPlanes
-                && pcxHeader.nPlanes <= 4) {
-            final IndexColorModel colorModel = new IndexColorModel(pcxHeader.nPlanes,
-                    1 << pcxHeader.nPlanes, pcxHeader.colormap, 0, false, -1,
-```
-
-### ConstantValue
 Condition `bitCount == 32` is always `true`
 in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
 #### Snippet
@@ -9115,6 +9127,30 @@ in `src/main/java/org/apache/commons/imaging/formats/ico/IcoImageParser.java`
                     } else if (bitCount == 8) {
                         final int rgb = 0xffffff & argb;
                         final int index = palette.getPaletteIndex(rgb);
+```
+
+### ConstantValue
+Condition `2 <= pcxHeader.nPlanes` is always `true`
+in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxImageParser.java`
+#### Snippet
+```java
+                    colorModel.isAlphaPremultiplied(), new Properties());
+        }
+        if (pcxHeader.bitsPerPixel == 1 && 2 <= pcxHeader.nPlanes
+                && pcxHeader.nPlanes <= 4) {
+            final IndexColorModel colorModel = new IndexColorModel(pcxHeader.nPlanes,
+```
+
+### ConstantValue
+Condition `pcxHeader.nPlanes <= 4` is always `true`
+in `src/main/java/org/apache/commons/imaging/formats/pcx/PcxImageParser.java`
+#### Snippet
+```java
+        }
+        if (pcxHeader.bitsPerPixel == 1 && 2 <= pcxHeader.nPlanes
+                && pcxHeader.nPlanes <= 4) {
+            final IndexColorModel colorModel = new IndexColorModel(pcxHeader.nPlanes,
+                    1 << pcxHeader.nPlanes, pcxHeader.colormap, 0, false, -1,
 ```
 
 ### ConstantValue
@@ -9178,18 +9214,6 @@ in `src/main/java/org/apache/commons/imaging/palette/QuantizedPalette.java`
 ```
 
 ### ConstantValue
-Condition `index > length` is always `false` when reached
-in `src/main/java/org/apache/commons/imaging/formats/png/transparencyfilters/TransparencyFilterIndexedColor.java`
-#### Snippet
-```java
-        }
-
-        if ((index < 0) || (index > length)) { // TODO check for > length cannot be true because of check above
-            throw new ImageReadException(
-                    "TransparencyFilterIndexedColor index: " + index + ", bytes.length: " + length);
-```
-
-### ConstantValue
 Condition `localColorTableFlag` is always `true`
 in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 #### Snippet
@@ -9226,15 +9250,15 @@ in `src/main/java/org/apache/commons/imaging/formats/gif/GifImageParser.java`
 ```
 
 ### ConstantValue
-Condition `directories == null` is always `false`
-in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+Condition `index > length` is always `false` when reached
+in `src/main/java/org/apache/commons/imaging/formats/png/transparencyfilters/TransparencyFilterIndexedColor.java`
 #### Snippet
 ```java
+        }
 
-                final List<TiffDirectory> directories = contents.directories;
-                if (directories == null) {
-                    return false;
-                }
+        if ((index < 0) || (index > length)) { // TODO check for > length cannot be true because of check above
+            throw new ImageReadException(
+                    "TransparencyFilterIndexedColor index: " + index + ", bytes.length: " + length);
 ```
 
 ### ConstantValue
@@ -9259,6 +9283,18 @@ in `src/main/java/org/apache/commons/imaging/formats/xpm/XpmImageParser.java`
             if (nextCharsPerPixel > Integer.MAX_VALUE) {
                 throw new ImageWriteException("Xpm: Can't write images with more than Integer.MAX_VALUE chars per pixel.");
             }
+```
+
+### ConstantValue
+Condition `directories == null` is always `false`
+in `src/main/java/org/apache/commons/imaging/formats/tiff/TiffImageParser.java`
+#### Snippet
+```java
+
+                final List<TiffDirectory> directories = contents.directories;
+                if (directories == null) {
+                    return false;
+                }
 ```
 
 ### ConstantValue
@@ -9293,10 +9329,10 @@ in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
 #### Snippet
 ```java
 
-        final List<Object> keys = new ArrayList<>(map.keySet());
-        result.append(message + " map: " + keys.size() + NEWLINE);
-        for (int i = 0; i < keys.size(); i++) {
-            final Object key = keys.get(i);
+        result.append(NEWLINE);
+        result.append("Throwable: "
+                + ((e == null) ? "" : ("(" + e.getClass().getName() + ")"))
+                + ":" + datetime + NEWLINE);
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -9304,10 +9340,10 @@ String concatenation as argument to `StringBuilder.append()` call
 in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
 #### Snippet
 ```java
-            final Object key = keys.get(i);
-            final Object value = map.get(key);
-            result.append("\t" + i + ": '" + key + "' -> '" + value + "'" + NEWLINE);
-        }
+                + ((e == null) ? "" : ("(" + e.getClass().getName() + ")"))
+                + ":" + datetime + NEWLINE);
+        result.append("Throwable: " + ((e == null) ? "null" : e.getLocalizedMessage()) + NEWLINE);
+        result.append(NEWLINE);
 
 ```
 
@@ -9331,8 +9367,8 @@ in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
             result.append(message + " (" + null + ")" + NEWLINE);
         } else {
             result.append(message + " (" + v.length + ")" + NEWLINE);
-            for (final int element : v) {
-                result.append("\t" + element + NEWLINE);
+            for (final char element : v) {
+                result.append("\t" + element + " (" + (0xff & element) + ")" + NEWLINE);
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -9341,8 +9377,8 @@ in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
 #### Snippet
 ```java
             result.append(message + " (" + v.length + ")" + NEWLINE);
-            for (final int element : v) {
-                result.append("\t" + element + NEWLINE);
+            for (final char element : v) {
+                result.append("\t" + element + " (" + (0xff & element) + ")" + NEWLINE);
             }
             result.append(NEWLINE);
 ```
@@ -9388,6 +9424,30 @@ String concatenation as argument to `StringBuilder.append()` call
 in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
 #### Snippet
 ```java
+
+        final List<Object> keys = new ArrayList<>(map.keySet());
+        result.append(message + " map: " + keys.size() + NEWLINE);
+        for (int i = 0; i < keys.size(); i++) {
+            final Object key = keys.get(i);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
+#### Snippet
+```java
+            final Object key = keys.get(i);
+            final Object value = map.get(key);
+            result.append("\t" + i + ": '" + key + "' -> '" + value + "'" + NEWLINE);
+        }
+
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
+#### Snippet
+```java
                     final StackTraceElement ste = stes[i];
 
                     result.append("\tat " + ste.getClassName() + "."
@@ -9415,8 +9475,8 @@ in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
             result.append(message + " (" + null + ")" + NEWLINE);
         } else {
             result.append(message + " (" + v.length + ")" + NEWLINE);
-            for (final char element : v) {
-                result.append("\t" + element + " (" + (0xff & element) + ")" + NEWLINE);
+            for (final int element : v) {
+                result.append("\t" + element + NEWLINE);
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -9425,33 +9485,9 @@ in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
 #### Snippet
 ```java
             result.append(message + " (" + v.length + ")" + NEWLINE);
-            for (final char element : v) {
-                result.append("\t" + element + " (" + (0xff & element) + ")" + NEWLINE);
+            for (final int element : v) {
+                result.append("\t" + element + NEWLINE);
             }
             result.append(NEWLINE);
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
-#### Snippet
-```java
-
-        result.append(NEWLINE);
-        result.append("Throwable: "
-                + ((e == null) ? "" : ("(" + e.getClass().getName() + ")"))
-                + ":" + datetime + NEWLINE);
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/org/apache/commons/imaging/internal/Debug.java`
-#### Snippet
-```java
-                + ((e == null) ? "" : ("(" + e.getClass().getName() + ")"))
-                + ":" + datetime + NEWLINE);
-        result.append("Throwable: " + ((e == null) ? "null" : e.getLocalizedMessage()) + NEWLINE);
-        result.append(NEWLINE);
-
 ```
 
