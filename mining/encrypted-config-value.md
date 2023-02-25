@@ -13,18 +13,6 @@ I found 18 bad smells with 2 repairable:
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/crypto/EncryptConfigValueCommand.java`
-#### Snippet
-```java
-
-        // print the resulting encrypted value to the console
-        System.out.println(encryptedValue);
-    }
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/crypto/GenerateKeyCommand.java`
 #### Snippet
 ```java
@@ -45,6 +33,18 @@ in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/
             System.out.println("Wrote private key to " + keyPairFiles.decryptionKeyFile());
         }
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/crypto/EncryptConfigValueCommand.java`
+#### Snippet
+```java
+
+        // print the resulting encrypted value to the console
+        System.out.println(encryptedValue);
+    }
+}
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -173,15 +173,15 @@ public abstract class KeyPair {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `EncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
+Abstract class `RsaEncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/rsa/RsaEncryptedValue.java`
 #### Snippet
 ```java
-})
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-public abstract class EncryptedValue {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String PREFIX = "enc:";
+@JsonDeserialize(as = ImmutableRsaEncryptedValue.class)
+@JsonSerialize(as = RsaEncryptedValue.class)
+public abstract class RsaEncryptedValue extends EncryptedValue {
+
+    public enum Mode {
 ```
 
 ### AbstractClassNeverImplemented
@@ -197,27 +197,15 @@ public abstract class LegacyEncryptedValue extends EncryptedValue {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `RsaEncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/rsa/RsaEncryptedValue.java`
+Abstract class `EncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
 #### Snippet
 ```java
-@JsonDeserialize(as = ImmutableRsaEncryptedValue.class)
-@JsonSerialize(as = RsaEncryptedValue.class)
-public abstract class RsaEncryptedValue extends EncryptedValue {
-
-    public enum Mode {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AesEncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesEncryptedValue.java`
-#### Snippet
-```java
-@JsonDeserialize(as = ImmutableAesEncryptedValue.class)
-@JsonSerialize(as = AesEncryptedValue.class)
-public abstract class AesEncryptedValue extends EncryptedValue {
-    public enum Mode {
-        GCM,
+})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
+public abstract class EncryptedValue {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final String PREFIX = "enc:";
 ```
 
 ### AbstractClassNeverImplemented
@@ -230,5 +218,17 @@ in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPairFiles
 public abstract class KeyPairFiles {
 
     public abstract Path encryptionKeyFile();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AesEncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesEncryptedValue.java`
+#### Snippet
+```java
+@JsonDeserialize(as = ImmutableAesEncryptedValue.class)
+@JsonSerialize(as = AesEncryptedValue.class)
+public abstract class AesEncryptedValue extends EncryptedValue {
+    public enum Mode {
+        GCM,
 ```
 
