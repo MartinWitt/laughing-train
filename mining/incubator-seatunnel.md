@@ -1,23 +1,23 @@
 # incubator-seatunnel 
  
 # Bad smells
-I found 1816 bad smells with 271 repairable:
+I found 1845 bad smells with 273 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 232 | false |
-| ReturnNull | 174 | false |
+| ReturnNull | 175 | false |
 | UtilityClassWithoutPrivateConstructor | 113 | true |
-| ZeroLengthArrayInitialization | 88 | false |
-| UnnecessaryFullyQualifiedName | 74 | false |
-| AssignmentToMethodParameter | 72 | false |
-| RedundantFieldInitialization | 70 | false |
+| ZeroLengthArrayInitialization | 89 | false |
+| UnnecessaryFullyQualifiedName | 75 | false |
+| RedundantFieldInitialization | 74 | false |
+| AssignmentToMethodParameter | 73 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 50 | false |
-| NullableProblems | 44 | false |
-| SizeReplaceableByIsEmpty | 39 | true |
+| SizeReplaceableByIsEmpty | 41 | true |
+| NullableProblems | 40 | false |
 | OptionalUsedAsFieldOrParameterType | 38 | false |
 | NonProtectedConstructorInAbstractClass | 38 | true |
+| SynchronizeOnThis | 36 | false |
 | SuspiciousToArrayCall | 36 | false |
-| SynchronizeOnThis | 35 | false |
 | PublicFieldAccessedInSynchronizedContext | 34 | false |
 | UnnecessaryLocalVariable | 34 | true |
 | CollectionContainsUrl | 33 | false |
@@ -25,32 +25,33 @@ I found 1816 bad smells with 271 repairable:
 | BusyWait | 31 | false |
 | RedundantMethodOverride | 29 | false |
 | EmptyMethod | 27 | false |
+| NonSerializableFieldInSerializableClass | 27 | false |
 | Convert2Lambda | 26 | false |
 | CodeBlock2Expr | 25 | true |
-| NonSerializableFieldInSerializableClass | 25 | false |
 | UseOfPropertiesAsHashtable | 23 | false |
-| UnusedAssignment | 20 | false |
-| DataFlowIssue | 20 | false |
-| ConstantValue | 19 | false |
+| UnusedAssignment | 22 | false |
+| DataFlowIssue | 21 | false |
+| ConstantValue | 20 | false |
 | RedundantSuppression | 16 | false |
 | RedundantClassCall | 16 | false |
 | IgnoreResultOfCall | 15 | false |
 | Anonymous2MethodRef | 15 | false |
 | OptionalGetWithoutIsPresent | 14 | false |
+| StringBufferReplaceableByString | 13 | false |
+| RedundantImplements | 13 | false |
+| Convert2MethodRef | 13 | false |
 | NestedAssignment | 12 | false |
-| Convert2MethodRef | 12 | false |
-| StringBufferReplaceableByString | 11 | false |
-| RedundantImplements | 11 | false |
+| SimplifyStreamApiCallChains | 10 | false |
 | SystemOutErr | 10 | false |
 | UnnecessaryModifier | 9 | true |
 | TrivialStringConcatenation | 9 | false |
 | MismatchedCollectionQueryUpdate | 9 | false |
 | UnnecessarySemicolon | 8 | false |
-| SimplifyStreamApiCallChains | 8 | false |
+| DeprecatedIsStillUsed | 8 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 7 | true |
 | RegExpRedundantEscape | 6 | false |
+| ReplaceAssignmentWithOperatorAssignment | 6 | false |
 | OptionalIsPresent | 6 | false |
-| ReplaceAssignmentWithOperatorAssignment | 5 | false |
 | FieldMayBeStatic | 5 | false |
 | AbstractMethodCallInConstructor | 5 | false |
 | StringEqualsEmptyString | 5 | false |
@@ -86,7 +87,6 @@ I found 1816 bad smells with 271 repairable:
 | InstanceofCatchParameter | 2 | false |
 | RedundantStringFormatCall | 2 | false |
 | Java8MapForEach | 2 | false |
-| DeprecatedIsStillUsed | 2 | false |
 | CatchMayIgnoreException | 2 | false |
 | UnnecessaryToStringCall | 2 | true |
 | SetReplaceableByEnumSet | 2 | false |
@@ -96,8 +96,10 @@ I found 1816 bad smells with 271 repairable:
 | CommentedOutCode | 1 | false |
 | ClassNameSameAsAncestorName | 1 | false |
 | RegExpDuplicateCharacterInClass | 1 | false |
+| UNUSED_IMPORT | 1 | false |
 | ReturnFromFinallyBlock | 1 | false |
 | EqualsAndHashcode | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | ProtectedMemberInFinalClass | 1 | true |
 | NonStrictComparisonCanBeEquality | 1 | true |
@@ -217,59 +219,23 @@ Modifier `public` is redundant for interface members
 in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
 #### Snippet
 ```java
-     * @return storage status, true is success, false is fail
-     */
-    public boolean store(Object key, Object value);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
-#### Snippet
-```java
-    public Set<Object> loadAllKeys();
-
-    public void destroy(boolean deleteAllFileFlag);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
-#### Snippet
-```java
-public interface IMapStorage {
-
-    public void initialize(Map<String, Object> properties);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
-#### Snippet
-```java
-     *     stored, return empty set.
-     */
-    public Set<Object> storeAll(Map<Object, Object> map);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
-#### Snippet
-```java
     public Set<Object> deleteAll(Collection<Object> keys);
 
     public Map<Object, Object> loadAll() throws IOException;
 
     public Set<Object> loadAllKeys();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
+#### Snippet
+```java
+     * @return storage status, true is success, false is fail
+     */
+    public boolean store(Object key, Object value);
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -289,6 +255,30 @@ Modifier `public` is redundant for interface members
 in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
 #### Snippet
 ```java
+    public Set<Object> loadAllKeys();
+
+    public void destroy(boolean deleteAllFileFlag);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
+#### Snippet
+```java
+     * @return storage status, true is success, false is fail
+     */
+    public boolean delete(Object key);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
+#### Snippet
+```java
     public Map<Object, Object> loadAll() throws IOException;
 
     public Set<Object> loadAllKeys();
@@ -301,9 +291,21 @@ Modifier `public` is redundant for interface members
 in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
 #### Snippet
 ```java
-     * @return storage status, true is success, false is fail
+     *     stored, return empty set.
      */
-    public boolean delete(Object key);
+    public Set<Object> storeAll(Map<Object, Object> map);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `seatunnel-engine/seatunnel-engine-storage/imap-storage-api/src/main/java/org/apache/seatunnel/engine/imap/storage/api/IMapStorage.java`
+#### Snippet
+```java
+public interface IMapStorage {
+
+    public void initialize(Map<String, Object> properties);
 
     /**
 ```
@@ -476,10 +478,10 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 #### Snippet
 ```java
     @Override
-    public boolean useCommitCoordinator() {
-        return StreamWriter.super.useCommitCoordinator();
+    public void onDataWriterCommit(WriterCommitMessage message) {
+        StreamWriter.super.onDataWriterCommit(message);
     }
-
+}
 ```
 
 ### UnnecessaryQualifierForThis
@@ -488,10 +490,10 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 #### Snippet
 ```java
     @Override
-    public void onDataWriterCommit(WriterCommitMessage message) {
-        StreamWriter.super.onDataWriterCommit(message);
+    public boolean useCommitCoordinator() {
+        return StreamWriter.super.useCommitCoordinator();
     }
-}
+
 ```
 
 ### UnnecessaryQualifierForThis
@@ -580,18 +582,6 @@ in `seatunnel-core/seatunnel-core-starter/src/main/java/org/apache/seatunnel/cor
 ```
 
 ### SizeReplaceableByIsEmpty
-`inputVertices.size() == 0` can be replaced with 'inputVertices.isEmpty()'
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/ExecutionPlanGenerator.java`
-#### Snippet
-```java
-        for (LogicalVertex logicalVertex : logicalVertices) {
-            List<LogicalVertex> inputVertices = inputVerticesMap.get(logicalVertex.getVertexId());
-            if (inputVertices == null || inputVertices.size() == 0) {
-                sourceVertices.add(logicalVertex);
-            }
-```
-
-### SizeReplaceableByIsEmpty
 `logicalPlan.getEdges().size() > 0` can be replaced with '!logicalPlan.getEdges().isEmpty()'
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/ExecutionPlanGenerator.java`
 #### Snippet
@@ -604,6 +594,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### SizeReplaceableByIsEmpty
+`inputVertices.size() == 0` can be replaced with 'inputVertices.isEmpty()'
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/ExecutionPlanGenerator.java`
+#### Snippet
+```java
+        for (LogicalVertex logicalVertex : logicalVertices) {
+            List<LogicalVertex> inputVertices = inputVerticesMap.get(logicalVertex.getVertexId());
+            if (inputVertices == null || inputVertices.size() == 0) {
+                sourceVertices.add(logicalVertex);
+            }
+```
+
+### SizeReplaceableByIsEmpty
 `chainedVertices.size() == 0` can be replaced with 'chainedVertices.isEmpty()'
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/ExecutionPlanGenerator.java`
 #### Snippet
@@ -613,6 +615,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
             if (chainedVertices.size() == 0) {
                 chainedVertices.add(logicalVertex);
             } else if (inputVerticesMap.get(logicalVertex.getVertexId()).size() == 1) {
+```
+
+### SizeReplaceableByIsEmpty
+`inputVertices.size() == 0` can be replaced with 'inputVertices.isEmpty()'
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
+#### Snippet
+```java
+        for (ExecutionVertex vertex : vertices) {
+            List<ExecutionVertex> inputVertices = inputVerticesMap.get(vertex.getVertexId());
+            if (inputVertices == null || inputVertices.size() == 0) {
+                sourceVertices.add(vertex);
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -640,18 +654,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### SizeReplaceableByIsEmpty
-`inputVertices.size() == 0` can be replaced with 'inputVertices.isEmpty()'
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
-#### Snippet
-```java
-        for (ExecutionVertex vertex : vertices) {
-            List<ExecutionVertex> inputVertices = inputVerticesMap.get(vertex.getVertexId());
-            if (inputVertices == null || inputVertices.size() == 0) {
-                sourceVertices.add(vertex);
-            }
-```
-
-### SizeReplaceableByIsEmpty
 `taskQueue.size() > 0` can be replaced with '!taskQueue.isEmpty()'
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
 #### Snippet
@@ -676,18 +678,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### SizeReplaceableByIsEmpty
-`errors.size() > 0` can be replaced with '!errors.isEmpty()'
-in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/seatunnel/translation/serialization/RowConverter.java`
-#### Snippet
-```java
-            }
-        }
-        if (errors.size() > 0) {
-            throw new UnsupportedOperationException(String.join(",", errors));
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `mapField.size() == 0` can be replaced with 'mapField.isEmpty()'
 in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/seatunnel/translation/serialization/RowConverter.java`
 #### Snippet
@@ -700,14 +690,14 @@ in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/se
 ```
 
 ### SizeReplaceableByIsEmpty
-`restoredSplitState.size() > 0` can be replaced with '!restoredSplitState.isEmpty()'
-in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/seatunnel/translation/source/ParallelSource.java`
+`errors.size() > 0` can be replaced with '!errors.isEmpty()'
+in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/seatunnel/translation/serialization/RowConverter.java`
 #### Snippet
 ```java
-                        1, String.format("parallel-split-enumerator-executor-%s", subtaskId));
-        splitEnumerator.open();
-        if (restoredSplitState.size() > 0) {
-            splitEnumerator.addSplitsBack(restoredSplitState, subtaskId);
+            }
+        }
+        if (errors.size() > 0) {
+            throw new UnsupportedOperationException(String.join(",", errors));
         }
 ```
 
@@ -724,14 +714,14 @@ in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/se
 ```
 
 ### SizeReplaceableByIsEmpty
-`mapData.size() == 0` can be replaced with 'mapData.isEmpty()'
-in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-13/src/main/java/org/apache/seatunnel/translation/flink/serialization/FlinkRowConverter.java`
+`restoredSplitState.size() > 0` can be replaced with '!restoredSplitState.isEmpty()'
+in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/seatunnel/translation/source/ParallelSource.java`
 #### Snippet
 ```java
-            MapType<?, ?> mapType,
-            BiFunction<Object, SeaTunnelDataType<?>, Object> convertFunction) {
-        if (mapData == null || mapData.size() == 0) {
-            return mapData;
+                        1, String.format("parallel-split-enumerator-executor-%s", subtaskId));
+        splitEnumerator.open();
+        if (restoredSplitState.size() > 0) {
+            splitEnumerator.addSplitsBack(restoredSplitState, subtaskId);
         }
 ```
 
@@ -749,6 +739,18 @@ in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/se
 
 ### SizeReplaceableByIsEmpty
 `mapData.size() == 0` can be replaced with 'mapData.isEmpty()'
+in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-13/src/main/java/org/apache/seatunnel/translation/flink/serialization/FlinkRowConverter.java`
+#### Snippet
+```java
+            MapType<?, ?> mapType,
+            BiFunction<Object, SeaTunnelDataType<?>, Object> convertFunction) {
+        if (mapData == null || mapData.size() == 0) {
+            return mapData;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`mapData.size() == 0` can be replaced with 'mapData.isEmpty()'
 in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-15/src/main/java/org/apache/seatunnel/translation/flink/serialization/FlinkRowConverter.java`
 #### Snippet
 ```java
@@ -762,6 +764,18 @@ in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flin
 ### SizeReplaceableByIsEmpty
 `mapData.size() == 0` can be replaced with 'mapData.isEmpty()'
 in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-2.4/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
+#### Snippet
+```java
+
+    private static ArrayBasedMapData convertMap(Map<?, ?> mapData, MapType<?, ?> mapType) {
+        if (mapData == null || mapData.size() == 0) {
+            return ArrayBasedMapData.apply(new Object[] {}, new Object[] {});
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`mapData.size() == 0` can be replaced with 'mapData.isEmpty()'
+in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
 #### Snippet
 ```java
 
@@ -808,14 +822,14 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/de
 ```
 
 ### SizeReplaceableByIsEmpty
-`mapData.size() == 0` can be replaced with 'mapData.isEmpty()'
-in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
+`commitInfos.size() == 0` can be replaced with 'commitInfos.isEmpty()'
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/commit/FileSinkAggregatedCommitter.java`
 #### Snippet
 ```java
-
-    private static ArrayBasedMapData convertMap(Map<?, ?> mapData, MapType<?, ?> mapType) {
-        if (mapData == null || mapData.size() == 0) {
-            return ArrayBasedMapData.apply(new Object[] {}, new Object[] {});
+    @Override
+    public FileAggregatedCommitInfo combine(List<FileCommitInfo> commitInfos) {
+        if (commitInfos == null || commitInfos.size() == 0) {
+            return null;
         }
 ```
 
@@ -832,15 +846,15 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
 ```
 
 ### SizeReplaceableByIsEmpty
-`commitInfos.size() == 0` can be replaced with 'commitInfos.isEmpty()'
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/commit/FileSinkAggregatedCommitter.java`
+`cons.size() > 0` can be replaced with '!cons.isEmpty()'
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
 #### Snippet
 ```java
-    @Override
-    public FileAggregatedCommitInfo combine(List<FileCommitInfo> commitInfos) {
-        if (commitInfos == null || commitInfos.size() == 0) {
-            return null;
-        }
+        ChannelSftp channel;
+
+        if (cons != null && cons.size() > 0) {
+            Iterator<ChannelSftp> it = cons.iterator();
+            if (it.hasNext()) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -872,18 +886,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
 in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
 #### Snippet
 ```java
-        ChannelSftp channel;
-
-        if (cons != null && cons.size() > 0) {
-            Iterator<ChannelSftp> it = cons.iterator();
-            if (it.hasNext()) {
-```
-
-### SizeReplaceableByIsEmpty
-`cons.size() > 0` can be replaced with '!cons.isEmpty()'
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
-#### Snippet
-```java
         this.maxConnection = 0;
         Set<ChannelSftp> cons = con2infoMap.keySet();
         if (cons != null && cons.size() > 0) {
@@ -901,6 +903,30 @@ in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/c
         while (pendingPartitionsQueue.size() != 0) {
             sourceSplits.add(pendingPartitionsQueue.poll());
         }
+```
+
+### SizeReplaceableByIsEmpty
+`diffSelf.size() == 0` can be replaced with 'diffSelf.isEmpty()'
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/model/QueryPartition.java`
+#### Snippet
+```java
+        diffSelf.removeAll(similar);
+        diffOther.removeAll(similar);
+        if (diffSelf.size() == 0) {
+            return 0;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`fieldVectors.size() == 0` can be replaced with 'fieldVectors.isEmpty()'
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksRowBatchReader.java`
+#### Snippet
+```java
+                            "schema size of fetch data is wrong.");
+                }
+                if (fieldVectors.size() == 0 || root.getRowCount() == 0) {
+                    log.debug("one batch in arrow has no data.");
+                    continue;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -940,15 +966,15 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
 ```
 
 ### SizeReplaceableByIsEmpty
-`readQueue.size() == 0` can be replaced with 'readQueue.isEmpty()'
-in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/RecordBuffer.java`
+`str.length() != 0` can be replaced with '!str.isEmpty()'
+in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/util/StringUtil.java`
 #### Snippet
 ```java
-            recycleBuffer(currentReadBuffer);
-            currentReadBuffer = null;
-            checkState(readQueue.size() == 0);
-            return -1;
-        }
+public final class StringUtil {
+    public static boolean isNullOrWhitespaceOnly(String str) {
+        if (str != null && str.length() != 0) {
+            int len = str.length();
+            for (int i = 0; i < len; ++i) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -964,15 +990,15 @@ in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/se
 ```
 
 ### SizeReplaceableByIsEmpty
-`str.length() != 0` can be replaced with '!str.isEmpty()'
-in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/util/StringUtil.java`
+`readQueue.size() == 0` can be replaced with 'readQueue.isEmpty()'
+in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/RecordBuffer.java`
 #### Snippet
 ```java
-public final class StringUtil {
-    public static boolean isNullOrWhitespaceOnly(String str) {
-        if (str != null && str.length() != 0) {
-            int len = str.length();
-            for (int i = 0; i < len; ++i) {
+            recycleBuffer(currentReadBuffer);
+            currentReadBuffer = null;
+            checkState(readQueue.size() == 0);
+            return -1;
+        }
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -1010,30 +1036,6 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/de
             identifierPart = identifierPart.replace(quotingChar + "", repeat(quotingChar));
             identifierPart = quotingChar + identifierPart + quotingChar;
         }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduInputFormat.java`
-#### Snippet
-```java
-            KuduPredicate lowerPred =
-                    KuduPredicate.newComparisonPredicate(
-                            schema.getColumn("" + keyColumn),
-                            KuduPredicate.ComparisonOp.GREATER_EQUAL,
-                            lowerBound);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduInputFormat.java`
-#### Snippet
-```java
-            KuduPredicate upperPred =
-                    KuduPredicate.newComparisonPredicate(
-                            schema.getColumn("" + keyColumn),
-                            KuduPredicate.ComparisonOp.LESS,
-                            upperBound);
 ```
 
 ### TrivialStringConcatenation
@@ -1084,6 +1086,30 @@ in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/co
 
 ```
 
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduInputFormat.java`
+#### Snippet
+```java
+            KuduPredicate lowerPred =
+                    KuduPredicate.newComparisonPredicate(
+                            schema.getColumn("" + keyColumn),
+                            KuduPredicate.ComparisonOp.GREATER_EQUAL,
+                            lowerBound);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduInputFormat.java`
+#### Snippet
+```java
+            KuduPredicate upperPred =
+                    KuduPredicate.newComparisonPredicate(
+                            schema.getColumn("" + keyColumn),
+                            KuduPredicate.ComparisonOp.LESS,
+                            upperBound);
+```
+
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
@@ -1107,54 +1133,6 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
             @NonNull boolean isStartWithSavePoint,
             @NonNull Data logicalDag,
             @NonNull JobConfig jobConfig,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextSerializationSchema.java`
-#### Snippet
-```java
-public class TextSerializationSchema implements SerializationSchema {
-    @NonNull private SeaTunnelRowType seaTunnelRowType;
-    @NonNull private String delimiter;
-    @Builder.Default private DateUtils.Formatter dateFormatter = DateUtils.Formatter.YYYY_MM_DD;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextSerializationSchema.java`
-#### Snippet
-```java
-@Builder
-public class TextSerializationSchema implements SerializationSchema {
-    @NonNull private SeaTunnelRowType seaTunnelRowType;
-    @NonNull private String delimiter;
-    @Builder.Default private DateUtils.Formatter dateFormatter = DateUtils.Formatter.YYYY_MM_DD;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextDeserializationSchema.java`
-#### Snippet
-```java
-public class TextDeserializationSchema implements DeserializationSchema<SeaTunnelRow> {
-    @NonNull private SeaTunnelRowType seaTunnelRowType;
-    @NonNull private String delimiter;
-    @Builder.Default private DateUtils.Formatter dateFormatter = DateUtils.Formatter.YYYY_MM_DD;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextDeserializationSchema.java`
-#### Snippet
-```java
-@Builder
-public class TextDeserializationSchema implements DeserializationSchema<SeaTunnelRow> {
-    @NonNull private SeaTunnelRowType seaTunnelRowType;
-    @NonNull private String delimiter;
-    @Builder.Default private DateUtils.Formatter dateFormatter = DateUtils.Formatter.YYYY_MM_DD;
 ```
 
 ### NullableProblems
@@ -1231,194 +1209,14 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/SimpleBatchStatementExecutor.java`
-#### Snippet
-```java
-public class SimpleBatchStatementExecutor implements JdbcBatchStatementExecutor<SeaTunnelRow> {
-    @NonNull private final StatementFactory statementFactory;
-    @NonNull private final SeaTunnelRowType rowType;
-    @NonNull private final JdbcRowConverter converter;
-    private transient PreparedStatement statement;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/SimpleBatchStatementExecutor.java`
-#### Snippet
-```java
-@RequiredArgsConstructor
-public class SimpleBatchStatementExecutor implements JdbcBatchStatementExecutor<SeaTunnelRow> {
-    @NonNull private final StatementFactory statementFactory;
-    @NonNull private final SeaTunnelRowType rowType;
-    @NonNull private final JdbcRowConverter converter;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/SimpleBatchStatementExecutor.java`
-#### Snippet
-```java
-    @NonNull private final StatementFactory statementFactory;
-    @NonNull private final SeaTunnelRowType rowType;
-    @NonNull private final JdbcRowConverter converter;
-    private transient PreparedStatement statement;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferedBatchStatementExecutor.java`
-#### Snippet
-```java
-@RequiredArgsConstructor
-public class BufferedBatchStatementExecutor implements JdbcBatchStatementExecutor<SeaTunnelRow> {
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> statementExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
-    @NonNull private final List<SeaTunnelRow> buffer = new ArrayList<>();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferedBatchStatementExecutor.java`
-#### Snippet
-```java
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> statementExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
-    @NonNull private final List<SeaTunnelRow> buffer = new ArrayList<>();
-
-    @Override
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferedBatchStatementExecutor.java`
-#### Snippet
-```java
-public class BufferedBatchStatementExecutor implements JdbcBatchStatementExecutor<SeaTunnelRow> {
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> statementExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
-    @NonNull private final List<SeaTunnelRow> buffer = new ArrayList<>();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/InsertOrUpdateBatchStatementExecutor.java`
-#### Snippet
-```java
-    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-    @NonNull private final SeaTunnelRowType valueRowType;
-    @NonNull private final JdbcRowConverter rowConverter;
-    private transient PreparedStatement existStatement;
-    private transient PreparedStatement insertStatement;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/InsertOrUpdateBatchStatementExecutor.java`
-#### Snippet
-```java
-    private final StatementFactory existStmtFactory;
-    @NonNull private final StatementFactory insertStmtFactory;
-    @NonNull private final StatementFactory updateStmtFactory;
-    private final SeaTunnelRowType keyRowType;
-    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/InsertOrUpdateBatchStatementExecutor.java`
-#### Snippet
-```java
-        implements JdbcBatchStatementExecutor<SeaTunnelRow> {
-    private final StatementFactory existStmtFactory;
-    @NonNull private final StatementFactory insertStmtFactory;
-    @NonNull private final StatementFactory updateStmtFactory;
-    private final SeaTunnelRowType keyRowType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/InsertOrUpdateBatchStatementExecutor.java`
-#### Snippet
-```java
-    private final SeaTunnelRowType keyRowType;
-    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-    @NonNull private final SeaTunnelRowType valueRowType;
-    @NonNull private final JdbcRowConverter rowConverter;
-    private transient PreparedStatement existStatement;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
-#### Snippet
-```java
-        implements JdbcBatchStatementExecutor<SeaTunnelRow> {
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> upsertExecutor;
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> deleteExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
-#### Snippet
-```java
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> upsertExecutor;
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> deleteExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
-#### Snippet
-```java
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
-
-    @NonNull private final LinkedHashMap<SeaTunnelRow, Pair<Boolean, SeaTunnelRow>> buffer =
-            new LinkedHashMap<>();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
-#### Snippet
-```java
-public class BufferReducedBatchStatementExecutor
-        implements JdbcBatchStatementExecutor<SeaTunnelRow> {
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> upsertExecutor;
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> deleteExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
-#### Snippet
-```java
-    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> deleteExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
-
-    @NonNull private final LinkedHashMap<SeaTunnelRow, Pair<Boolean, SeaTunnelRow>> buffer =
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
 in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormatBuilder.java`
 #### Snippet
 ```java
+@RequiredArgsConstructor
+public class JdbcOutputFormatBuilder {
     @NonNull private final JdbcDialect dialect;
     @NonNull private final JdbcConnectionProvider connectionProvider;
     @NonNull private final JdbcSinkOptions jdbcSinkOptions;
-    @NonNull private final SeaTunnelRowType seaTunnelRowType;
-
 ```
 
 ### NullableProblems
@@ -1438,18 +1236,6 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lo
 in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormatBuilder.java`
 #### Snippet
 ```java
-@RequiredArgsConstructor
-public class JdbcOutputFormatBuilder {
-    @NonNull private final JdbcDialect dialect;
-    @NonNull private final JdbcConnectionProvider connectionProvider;
-    @NonNull private final JdbcSinkOptions jdbcSinkOptions;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormatBuilder.java`
-#### Snippet
-```java
 public class JdbcOutputFormatBuilder {
     @NonNull private final JdbcDialect dialect;
     @NonNull private final JdbcConnectionProvider connectionProvider;
@@ -1459,38 +1245,254 @@ public class JdbcOutputFormatBuilder {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/SimpleBatchStatementExecutor.java`
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormatBuilder.java`
+#### Snippet
+```java
+    @NonNull private final JdbcDialect dialect;
+    @NonNull private final JdbcConnectionProvider connectionProvider;
+    @NonNull private final JdbcSinkOptions jdbcSinkOptions;
+    @NonNull private final SeaTunnelRowType seaTunnelRowType;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/SimpleBatchStatementExecutor.java`
+#### Snippet
+```java
+    @NonNull private final StatementFactory statementFactory;
+    @NonNull private final SeaTunnelRowType rowType;
+    @NonNull private final JdbcRowConverter converter;
+    private transient PreparedStatement statement;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/SimpleBatchStatementExecutor.java`
 #### Snippet
 ```java
 @RequiredArgsConstructor
-public class SimpleBatchStatementExecutor implements JdbcBatchStatementExecutor {
+public class SimpleBatchStatementExecutor implements JdbcBatchStatementExecutor<SeaTunnelRow> {
     @NonNull private final StatementFactory statementFactory;
+    @NonNull private final SeaTunnelRowType rowType;
+    @NonNull private final JdbcRowConverter converter;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/SimpleBatchStatementExecutor.java`
+#### Snippet
+```java
+public class SimpleBatchStatementExecutor implements JdbcBatchStatementExecutor<SeaTunnelRow> {
+    @NonNull private final StatementFactory statementFactory;
+    @NonNull private final SeaTunnelRowType rowType;
     @NonNull private final JdbcRowConverter converter;
     private transient PreparedStatement statement;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/SimpleBatchStatementExecutor.java`
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferedBatchStatementExecutor.java`
 #### Snippet
 ```java
-public class SimpleBatchStatementExecutor implements JdbcBatchStatementExecutor {
-    @NonNull private final StatementFactory statementFactory;
-    @NonNull private final JdbcRowConverter converter;
-    private transient PreparedStatement statement;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/BufferedBatchStatementExecutor.java`
-#### Snippet
-```java
-@RequiredArgsConstructor
-public class BufferedBatchStatementExecutor implements JdbcBatchStatementExecutor {
-    @NonNull private final JdbcBatchStatementExecutor statementExecutor;
+public class BufferedBatchStatementExecutor implements JdbcBatchStatementExecutor<SeaTunnelRow> {
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> statementExecutor;
     @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
     @NonNull private final List<SeaTunnelRow> buffer = new ArrayList<>();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferedBatchStatementExecutor.java`
+#### Snippet
+```java
+@RequiredArgsConstructor
+public class BufferedBatchStatementExecutor implements JdbcBatchStatementExecutor<SeaTunnelRow> {
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> statementExecutor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+    @NonNull private final List<SeaTunnelRow> buffer = new ArrayList<>();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferedBatchStatementExecutor.java`
+#### Snippet
+```java
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> statementExecutor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+    @NonNull private final List<SeaTunnelRow> buffer = new ArrayList<>();
+
+    @Override
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/InsertOrUpdateBatchStatementExecutor.java`
+#### Snippet
+```java
+    private final SeaTunnelRowType keyRowType;
+    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    @NonNull private final SeaTunnelRowType valueRowType;
+    @NonNull private final JdbcRowConverter rowConverter;
+    private transient PreparedStatement existStatement;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/InsertOrUpdateBatchStatementExecutor.java`
+#### Snippet
+```java
+    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    @NonNull private final SeaTunnelRowType valueRowType;
+    @NonNull private final JdbcRowConverter rowConverter;
+    private transient PreparedStatement existStatement;
+    private transient PreparedStatement insertStatement;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/InsertOrUpdateBatchStatementExecutor.java`
+#### Snippet
+```java
+        implements JdbcBatchStatementExecutor<SeaTunnelRow> {
+    private final StatementFactory existStmtFactory;
+    @NonNull private final StatementFactory insertStmtFactory;
+    @NonNull private final StatementFactory updateStmtFactory;
+    private final SeaTunnelRowType keyRowType;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/InsertOrUpdateBatchStatementExecutor.java`
+#### Snippet
+```java
+    private final StatementFactory existStmtFactory;
+    @NonNull private final StatementFactory insertStmtFactory;
+    @NonNull private final StatementFactory updateStmtFactory;
+    private final SeaTunnelRowType keyRowType;
+    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
+#### Snippet
+```java
+        implements JdbcBatchStatementExecutor<SeaTunnelRow> {
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> upsertExecutor;
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> deleteExecutor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
+#### Snippet
+```java
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+
+    @NonNull private final LinkedHashMap<SeaTunnelRow, Pair<Boolean, SeaTunnelRow>> buffer =
+            new LinkedHashMap<>();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
+#### Snippet
+```java
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> deleteExecutor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+
+    @NonNull private final LinkedHashMap<SeaTunnelRow, Pair<Boolean, SeaTunnelRow>> buffer =
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
+#### Snippet
+```java
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> upsertExecutor;
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> deleteExecutor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/executor/BufferReducedBatchStatementExecutor.java`
+#### Snippet
+```java
+public class BufferReducedBatchStatementExecutor
+        implements JdbcBatchStatementExecutor<SeaTunnelRow> {
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> upsertExecutor;
+    @NonNull private final JdbcBatchStatementExecutor<SeaTunnelRow> deleteExecutor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/SimpleBatchStatementExecutor.java`
+#### Snippet
+```java
+@RequiredArgsConstructor
+public class SimpleBatchStatementExecutor implements JdbcBatchStatementExecutor {
+    @NonNull private final StatementFactory statementFactory;
+    @NonNull private final JdbcRowConverter converter;
+    private transient PreparedStatement statement;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/SimpleBatchStatementExecutor.java`
+#### Snippet
+```java
+public class SimpleBatchStatementExecutor implements JdbcBatchStatementExecutor {
+    @NonNull private final StatementFactory statementFactory;
+    @NonNull private final JdbcRowConverter converter;
+    private transient PreparedStatement statement;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/InsertOrUpdateBatchStatementExecutor.java`
+#### Snippet
+```java
+    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    private final JdbcRowConverter keyRowConverter;
+    @NonNull private final JdbcRowConverter valueRowConverter;
+    private transient PreparedStatement existStatement;
+    private transient PreparedStatement insertStatement;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/InsertOrUpdateBatchStatementExecutor.java`
+#### Snippet
+```java
+public class InsertOrUpdateBatchStatementExecutor implements JdbcBatchStatementExecutor {
+    private final StatementFactory existStmtFactory;
+    @NonNull private final StatementFactory insertStmtFactory;
+    @NonNull private final StatementFactory updateStmtFactory;
+    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/InsertOrUpdateBatchStatementExecutor.java`
+#### Snippet
+```java
+    private final StatementFactory existStmtFactory;
+    @NonNull private final StatementFactory insertStmtFactory;
+    @NonNull private final StatementFactory updateStmtFactory;
+    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    private final JdbcRowConverter keyRowConverter;
 ```
 
 ### NullableProblems
@@ -1519,62 +1521,14 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/InsertOrUpdateBatchStatementExecutor.java`
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/BufferedBatchStatementExecutor.java`
 #### Snippet
 ```java
-    private final StatementFactory existStmtFactory;
-    @NonNull private final StatementFactory insertStmtFactory;
-    @NonNull private final StatementFactory updateStmtFactory;
-    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-    private final JdbcRowConverter keyRowConverter;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/InsertOrUpdateBatchStatementExecutor.java`
-#### Snippet
-```java
-public class InsertOrUpdateBatchStatementExecutor implements JdbcBatchStatementExecutor {
-    private final StatementFactory existStmtFactory;
-    @NonNull private final StatementFactory insertStmtFactory;
-    @NonNull private final StatementFactory updateStmtFactory;
-    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/InsertOrUpdateBatchStatementExecutor.java`
-#### Snippet
-```java
-    private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-    private final JdbcRowConverter keyRowConverter;
-    @NonNull private final JdbcRowConverter valueRowConverter;
-    private transient PreparedStatement existStatement;
-    private transient PreparedStatement insertStatement;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/ReduceBufferedBatchStatementExecutor.java`
-#### Snippet
-```java
-    private boolean ignoreUpdateBefore;
-
-    @NonNull private final LinkedHashMap<SeaTunnelRow, Pair<Boolean, SeaTunnelRow>> buffer =
-            new LinkedHashMap<>();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/ReduceBufferedBatchStatementExecutor.java`
-#### Snippet
-```java
-    @NonNull private final JdbcBatchStatementExecutor insertOrUpdateExecutor;
-    @NonNull private final JdbcBatchStatementExecutor deleteExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+@RequiredArgsConstructor
+public class BufferedBatchStatementExecutor implements JdbcBatchStatementExecutor {
+    @NonNull private final JdbcBatchStatementExecutor statementExecutor;
     @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
-    private boolean ignoreUpdateBefore;
+    @NonNull private final List<SeaTunnelRow> buffer = new ArrayList<>();
 ```
 
 ### NullableProblems
@@ -1594,11 +1548,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lo
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/ReduceBufferedBatchStatementExecutor.java`
 #### Snippet
 ```java
-public class ReduceBufferedBatchStatementExecutor implements JdbcBatchStatementExecutor {
-    @NonNull private final JdbcBatchStatementExecutor insertOrUpdateExecutor;
-    @NonNull private final JdbcBatchStatementExecutor deleteExecutor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
-    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+    private boolean ignoreUpdateBefore;
+
+    @NonNull private final LinkedHashMap<SeaTunnelRow, Pair<Boolean, SeaTunnelRow>> buffer =
+            new LinkedHashMap<>();
+
 ```
 
 ### NullableProblems
@@ -1613,19 +1567,31 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
 
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.java`
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/ReduceBufferedBatchStatementExecutor.java`
 #### Snippet
 ```java
-        File file = new File(filePath);
-        if (file.exists()) {
-            file.delete();
-        }
-
+    @NonNull private final JdbcBatchStatementExecutor insertOrUpdateExecutor;
+    @NonNull private final JdbcBatchStatementExecutor deleteExecutor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+    private boolean ignoreUpdateBefore;
 ```
 
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/ReduceBufferedBatchStatementExecutor.java`
+#### Snippet
+```java
+public class ReduceBufferedBatchStatementExecutor implements JdbcBatchStatementExecutor {
+    @NonNull private final JdbcBatchStatementExecutor insertOrUpdateExecutor;
+    @NonNull private final JdbcBatchStatementExecutor deleteExecutor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> keyExtractor;
+    @NonNull private final Function<SeaTunnelRow, SeaTunnelRow> valueTransform;
+```
+
+## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.java`
@@ -1663,6 +1629,30 @@ in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.j
 ```
 
 ### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.java`
+#### Snippet
+```java
+                deleteFiles(file);
+            }
+            file.delete();
+        }
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.java`
+#### Snippet
+```java
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
+
+```
+
+### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.java`
 #### Snippet
@@ -1675,15 +1665,15 @@ in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.j
 ```
 
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.java`
+Result of `DataInputStream.read()` is ignored
+in `seatunnel-engine/seatunnel-engine-storage/checkpoint-storage-plugins/checkpoint-storage-hdfs/src/main/java/org/apache/seatunnel/engine/checkpoint/storage/hdfs/HdfsStorage.java`
 #### Snippet
 ```java
-                deleteFiles(file);
-            }
-            file.delete();
-        }
-    }
+        try (FSDataInputStream in = fs.open(new Path(fileName))) {
+            byte[] datas = new byte[in.available()];
+            in.read(datas);
+            return deserializeCheckPointData(datas);
+        } catch (IOException e) {
 ```
 
 ### IgnoreResultOfCall
@@ -1708,18 +1698,6 @@ in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flin
             in.read(stateBytes);
             T commitT = serializer.deserialize(stateBytes);
             return new CommitWrapper<>(commitT);
-```
-
-### IgnoreResultOfCall
-Result of `DataInputStream.read()` is ignored
-in `seatunnel-engine/seatunnel-engine-storage/checkpoint-storage-plugins/checkpoint-storage-hdfs/src/main/java/org/apache/seatunnel/engine/checkpoint/storage/hdfs/HdfsStorage.java`
-#### Snippet
-```java
-        try (FSDataInputStream in = fs.open(new Path(fileName))) {
-            byte[] datas = new byte[in.available()];
-            in.read(datas);
-            return deserializeCheckPointData(datas);
-        } catch (IOException e) {
 ```
 
 ### IgnoreResultOfCall
@@ -1881,18 +1859,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### RedundantMethodOverride
-Method `getServiceName()` is identical to its super method
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/sink/SinkPrepareCommitOperation.java`
-#### Snippet
-```java
-
-    @Override
-    public String getServiceName() {
-        return SeaTunnelServer.SERVICE_NAME;
-    }
-```
-
-### RedundantMethodOverride
 Method `getFactoryId()` is identical to its super method
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/sink/SinkPrepareCommitOperation.java`
 #### Snippet
@@ -1905,14 +1871,14 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### RedundantMethodOverride
-Method `useCommitCoordinator()` only delegates to its super method
-in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-2.4/src/main/java/org/apache/seatunnel/translation/spark/sink/writer/SparkStreamWriter.java`
+Method `getServiceName()` is identical to its super method
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/sink/SinkPrepareCommitOperation.java`
 #### Snippet
 ```java
 
     @Override
-    public boolean useCommitCoordinator() {
-        return StreamWriter.super.useCommitCoordinator();
+    public String getServiceName() {
+        return SeaTunnelServer.SERVICE_NAME;
     }
 ```
 
@@ -1937,6 +1903,18 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
     @Override
     public DataWriterFactory<InternalRow> createWriterFactory() {
         return super.createWriterFactory();
+    }
+```
+
+### RedundantMethodOverride
+Method `useCommitCoordinator()` only delegates to its super method
+in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-2.4/src/main/java/org/apache/seatunnel/translation/spark/sink/writer/SparkStreamWriter.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean useCommitCoordinator() {
+        return StreamWriter.super.useCommitCoordinator();
     }
 ```
 
@@ -2025,6 +2003,18 @@ in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/c
 ```
 
 ### RedundantMethodOverride
+Method `beginTransaction()` only delegates to its super method
+in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaInternalProducer.java`
+#### Snippet
+```java
+
+    @Override
+    public void beginTransaction() throws ProducerFencedException {
+        super.beginTransaction();
+    }
+```
+
+### RedundantMethodOverride
 Method `abortTransaction()` only delegates to its super method
 in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaInternalProducer.java`
 #### Snippet
@@ -2045,18 +2035,6 @@ in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/c
     @Override
     public void commitTransaction() throws ProducerFencedException {
         super.commitTransaction();
-    }
-```
-
-### RedundantMethodOverride
-Method `beginTransaction()` only delegates to its super method
-in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaInternalProducer.java`
-#### Snippet
-```java
-
-    @Override
-    public void beginTransaction() throws ProducerFencedException {
-        super.beginTransaction();
     }
 ```
 
@@ -2157,18 +2135,6 @@ in `seatunnel-connectors-v2/connector-tablestore/src/main/java/org/apache/seatun
 ```
 
 ### RedundantMethodOverride
-Method `createAggregatedCommitter()` is identical to its super method
-in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/SelectDBSink.java`
-#### Snippet
-```java
-    @Override
-    public Optional<SinkAggregatedCommitter<SelectDBCommitInfo, SelectDBCommitInfo>>
-            createAggregatedCommitter() throws IOException {
-        return Optional.empty();
-    }
-```
-
-### RedundantMethodOverride
 Method `getAggregatedCommitInfoSerializer()` is identical to its super method
 in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/SelectDBSink.java`
 #### Snippet
@@ -2176,6 +2142,18 @@ in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/se
 
     @Override
     public Optional<Serializer<SelectDBCommitInfo>> getAggregatedCommitInfoSerializer() {
+        return Optional.empty();
+    }
+```
+
+### RedundantMethodOverride
+Method `createAggregatedCommitter()` is identical to its super method
+in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/SelectDBSink.java`
+#### Snippet
+```java
+    @Override
+    public Optional<SinkAggregatedCommitter<SelectDBCommitInfo, SelectDBCommitInfo>>
+            createAggregatedCommitter() throws IOException {
         return Optional.empty();
     }
 ```
@@ -2231,6 +2209,19 @@ in `seatunnel-connectors-v2/connector-maxcompute/src/main/java/org/apache/seatun
                 allSplit.add(new MaxcomputeSourceSplit(num, Math.min(splitRow, readerEnd - num)));
 ```
 
+## RuleId[ruleID=UNUSED_IMPORT]
+### UNUSED_IMPORT
+Unused import `import lombok.Builder;`
+in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextSerializationSchema.java`
+#### Snippet
+```java
+import org.apache.seatunnel.format.text.exception.SeaTunnelTextFormatException;
+
+import lombok.Builder;
+import lombok.NonNull;
+
+```
+
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `created = created & succeeded` could be simplified to 'created \&= succeeded'
@@ -2269,6 +2260,18 @@ in `seatunnel-connectors-v2/connector-datahub/src/main/java/org/apache/seatunnel
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
+`currentStart = currentStart - remainder` could be simplified to 'currentStart -= remainder'
+in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxDBSourceSplitEnumerator.java`
+#### Snippet
+```java
+            currentStart += size;
+            if (i + 1 <= numPartitions) {
+                currentStart = currentStart - remainder;
+            }
+        }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
 `index = index + 1` could be simplified to 'index += 1'
 in `seatunnel-connectors-v2/connector-openmldb/src/main/java/org/apache/seatunnel/connectors/seatunnel/openmldb/source/OpenMldbSourceReader.java`
 #### Snippet
@@ -2281,15 +2284,15 @@ in `seatunnel-connectors-v2/connector-openmldb/src/main/java/org/apache/seatunne
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`currentStart = currentStart - remainder` could be simplified to 'currentStart -= remainder'
-in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxDBSourceSplitEnumerator.java`
+`first = first + tabletsSize` could be simplified to 'first += tabletsSize'
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksQueryPlanReadClient.java`
 #### Snippet
 ```java
-            currentStart += size;
-            if (i + 1 <= numPartitions) {
-                currentStart = currentStart - remainder;
-            }
-        }
+                                                        beInfo.getValue().size(),
+                                                        first + tabletsSize)));
+                first = first + tabletsSize;
+                QueryPartition partitionDefinition =
+                        new QueryPartition(
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -2391,6 +2394,18 @@ in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/
 
 ### NestedAssignment
 Result of assignment expression used
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/file/RsyncFileTransfer.java`
+#### Snippet
+```java
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    log.info(line);
+                }
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/file/ClickhouseFileSinkWriter.java`
 #### Snippet
 ```java
@@ -2411,18 +2426,6 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
             while ((line = bufferedReader.readLine()) != null) {
                 log.error(line);
             }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/file/RsyncFileTransfer.java`
-#### Snippet
-```java
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    log.info(line);
-                }
 ```
 
 ### NestedAssignment
@@ -2500,14 +2503,14 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `startingSubtasks` are updated, but never queried
+Contents of collection `subtaskActions` are updated, but never queried
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointPlan.java`
 #### Snippet
 ```java
-    public static final class Builder {
-        private final Set<TaskLocation> pipelineSubtasks = new HashSet<>();
-        private final Set<TaskLocation> startingSubtasks = new HashSet<>();
         private final Map<Long, Integer> pipelineActions = new HashMap<>();
+
+        private final Map<TaskLocation, Set<Tuple2<Long, Integer>>> subtaskActions =
+                new HashMap<>();
 
 ```
 
@@ -2524,18 +2527,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `subtaskActions` are updated, but never queried
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointPlan.java`
-#### Snippet
-```java
-        private final Map<Long, Integer> pipelineActions = new HashMap<>();
-
-        private final Map<TaskLocation, Set<Tuple2<Long, Integer>>> subtaskActions =
-                new HashMap<>();
-
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `pipelineActions` are updated, but never queried
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointPlan.java`
 #### Snippet
@@ -2545,6 +2536,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
         private final Map<Long, Integer> pipelineActions = new HashMap<>();
 
         private final Map<TaskLocation, Set<Tuple2<Long, Integer>>> subtaskActions =
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `startingSubtasks` are updated, but never queried
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointPlan.java`
+#### Snippet
+```java
+    public static final class Builder {
+        private final Set<TaskLocation> pipelineSubtasks = new HashSet<>();
+        private final Set<TaskLocation> startingSubtasks = new HashSet<>();
+        private final Map<Long, Integer> pipelineActions = new HashMap<>();
+
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -2573,18 +2576,6 @@ in `seatunnel-common/src/main/java/org/apache/seatunnel/common/Handover.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `nodeEngine` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/SeaTunnelServer.java`
-#### Snippet
-```java
-    public static final String SERVICE_NAME = "st:impl:seaTunnelServer";
-
-    private NodeEngineImpl nodeEngine;
-    private final LiveOperationRegistry liveOperationRegistry;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `taskExecutionService` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/SeaTunnelServer.java`
 #### Snippet
@@ -2594,6 +2585,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
     private TaskExecutionService taskExecutionService;
     private CoordinatorService coordinatorService;
     private ScheduledExecutorService monitorService;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `nodeEngine` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/SeaTunnelServer.java`
+#### Snippet
+```java
+    public static final String SERVICE_NAME = "st:impl:seaTunnelServer";
+
+    private NodeEngineImpl nodeEngine;
+    private final LiveOperationRegistry liveOperationRegistry;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2609,18 +2612,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `jobMaster` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/SubPlan.java`
-#### Snippet
-```java
-    private final ExecutorService executorService;
-
-    private JobMaster jobMaster;
-
-    private PassiveCompletableFuture<Void> reSchedulerPipelineFuture;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `pipelineRestoreNum` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/SubPlan.java`
 #### Snippet
@@ -2633,15 +2624,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `enumerator` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SourceSplitEnumeratorTask.java`
+Field `jobMaster` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/SubPlan.java`
 #### Snippet
 ```java
+    private final ExecutorService executorService;
 
-    private final SourceAction<?, SplitT, Serializable> source;
-    private SourceSplitEnumerator<SplitT, Serializable> enumerator;
-    private SeaTunnelSplitEnumeratorContext<SplitT> enumeratorContext;
+    private JobMaster jobMaster;
 
+    private PassiveCompletableFuture<Void> reSchedulerPipelineFuture;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2669,6 +2660,30 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `enumerator` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SourceSplitEnumeratorTask.java`
+#### Snippet
+```java
+
+    private final SourceAction<?, SplitT, Serializable> source;
+    private SourceSplitEnumerator<SplitT, Serializable> enumerator;
+    private SeaTunnelSplitEnumeratorContext<SplitT> enumeratorContext;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `collector` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SourceFlowLifeCycle.java`
+#### Snippet
+```java
+    private final TaskLocation currentTaskLocation;
+
+    private SeaTunnelSourceCollector<T> collector;
+
+    private final MetricsContext metricsContext;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `splitSerializer` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SourceFlowLifeCycle.java`
 #### Snippet
@@ -2681,18 +2696,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `collector` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SourceFlowLifeCycle.java`
-#### Snippet
-```java
-    private final TaskLocation currentTaskLocation;
-
-    private SeaTunnelSourceCollector<T> collector;
-
-    public SourceFlowLifeCycle(
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `reader` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SourceFlowLifeCycle.java`
 #### Snippet
@@ -2702,30 +2705,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
     private SourceReader<T, SplitT> reader;
 
     private transient Serializer<SplitT> splitSerializer;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `unassignedSlots` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/service/slot/DefaultSlotService.java`
-#### Snippet
-```java
-    private ConcurrentMap<Integer, SlotProfile> assignedSlots;
-
-    private ConcurrentMap<Integer, SlotProfile> unassignedSlots;
-    private ScheduledExecutorService scheduledExecutorService;
-    private final SlotServiceConfig config;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `unassignedResource` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/service/slot/DefaultSlotService.java`
-#### Snippet
-```java
-    private final NodeEngineImpl nodeEngine;
-
-    private AtomicReference<ResourceProfile> unassignedResource;
-
-    private AtomicReference<ResourceProfile> assignedResource;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2753,15 +2732,27 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `contexts` is accessed in both synchronized and unsynchronized contexts
+Field `unassignedSlots` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/service/slot/DefaultSlotService.java`
 #### Snippet
 ```java
-    private final IdGenerator idGenerator;
-    private final TaskExecutionService taskExecutionService;
-    private ConcurrentMap<Integer, SlotContext> contexts;
-    private String slotServiceSequence;
+    private ConcurrentMap<Integer, SlotProfile> assignedSlots;
 
+    private ConcurrentMap<Integer, SlotProfile> unassignedSlots;
+    private ScheduledExecutorService scheduledExecutorService;
+    private final SlotServiceConfig config;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `unassignedResource` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/service/slot/DefaultSlotService.java`
+#### Snippet
+```java
+    private final NodeEngineImpl nodeEngine;
+
+    private AtomicReference<ResourceProfile> unassignedResource;
+
+    private AtomicReference<ResourceProfile> assignedResource;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2777,15 +2768,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `taskTracker` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/execution/TaskCallTimer.java`
+Field `contexts` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/service/slot/DefaultSlotService.java`
 #### Snippet
 ```java
-    TaskExecutionService.RunBusWorkSupplier runBusWorkSupplier;
+    private final IdGenerator idGenerator;
+    private final TaskExecutionService taskExecutionService;
+    private ConcurrentMap<Integer, SlotContext> contexts;
+    private String slotServiceSequence;
 
-    TaskTracker taskTracker;
-
-    private final Object lock = new Object();
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2810,6 +2801,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
     AtomicBoolean wait0 = new AtomicBoolean(false);
 
     public TaskCallTimer(
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `taskTracker` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/execution/TaskCallTimer.java`
+#### Snippet
+```java
+    TaskExecutionService.RunBusWorkSupplier runBusWorkSupplier;
+
+    TaskTracker taskTracker;
+
+    private final Object lock = new Object();
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2861,18 +2864,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `liveConnectionCount` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
-#### Snippet
-```java
-    // closed.
-    private int maxConnection;
-    private int liveConnectionCount;
-    private HashMap<ConnectionInfo, HashSet<ChannelSftp>> idleConnections =
-            new HashMap<ConnectionInfo, HashSet<ChannelSftp>>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `idleConnections` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
 #### Snippet
@@ -2882,6 +2873,18 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
     private HashMap<ConnectionInfo, HashSet<ChannelSftp>> idleConnections =
             new HashMap<ConnectionInfo, HashSet<ChannelSftp>>();
     private HashMap<ChannelSftp, ConnectionInfo> con2infoMap =
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `liveConnectionCount` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
+#### Snippet
+```java
+    // closed.
+    private int maxConnection;
+    private int liveConnectionCount;
+    private HashMap<ConnectionInfo, HashSet<ChannelSftp>> idleConnections =
+            new HashMap<ConnectionInfo, HashSet<ChannelSftp>>();
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2897,18 +2900,6 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `inputFormat` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/source/JdbcSourceReader.java`
-#### Snippet
-```java
-    SourceReader.Context context;
-    Deque<JdbcSourceSplit> splits = new LinkedList<>();
-    JdbcInputFormat inputFormat;
-    boolean noMoreSplit;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `noMoreSplit` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/source/JdbcSourceReader.java`
 #### Snippet
@@ -2921,14 +2912,14 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `scheduledFuture` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormat.java`
+Field `inputFormat` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/source/JdbcSourceReader.java`
 #### Snippet
 ```java
-
-    private transient ScheduledExecutorService scheduler;
-    private transient ScheduledFuture<?> scheduledFuture;
-    private transient volatile Exception flushException;
+    SourceReader.Context context;
+    Deque<JdbcSourceSplit> splits = new LinkedList<>();
+    JdbcInputFormat inputFormat;
+    boolean noMoreSplit;
 
 ```
 
@@ -2942,6 +2933,18 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
     private transient ScheduledExecutorService scheduler;
     private transient ScheduledFuture<?> scheduledFuture;
     private transient volatile Exception flushException;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `scheduledFuture` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormat.java`
+#### Snippet
+```java
+
+    private transient ScheduledExecutorService scheduler;
+    private transient ScheduledFuture<?> scheduledFuture;
+    private transient volatile Exception flushException;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2981,15 +2984,15 @@ in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/c
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `pendingSplit` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/source/KafkaSourceSplitEnumerator.java`
+Field `currentSplitContext` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/SourceReaderBase.java`
 #### Snippet
 ```java
-    private AdminClient adminClient;
 
-    private Map<TopicPartition, KafkaSourceSplit> pendingSplit;
-    private final Map<TopicPartition, KafkaSourceSplit> assignedSplit;
-    private ScheduledExecutorService executor;
+    private RecordsWithSplitIds<E> currentFetch;
+    private SplitContext<T, SplitStateT> currentSplitContext;
+    private Collector<T> currentSplitOutput;
+    private boolean noMoreSplitsAssignment;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3005,15 +3008,15 @@ in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentSplitContext` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/SourceReaderBase.java`
+Field `pendingSplit` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/source/KafkaSourceSplitEnumerator.java`
 #### Snippet
 ```java
+    private AdminClient adminClient;
 
-    private RecordsWithSplitIds<E> currentFetch;
-    private SplitContext<T, SplitStateT> currentSplitContext;
-    private Collector<T> currentSplitOutput;
-    private boolean noMoreSplitsAssignment;
+    private Map<TopicPartition, KafkaSourceSplit> pendingSplit;
+    private final Map<TopicPartition, KafkaSourceSplit> assignedSplit;
+    private ScheduledExecutorService executor;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3029,18 +3032,6 @@ in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `influxdb` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxdbSourceReader.java`
-#### Snippet
-```java
-@Slf4j
-public class InfluxdbSourceReader implements SourceReader<SeaTunnelRow, InfluxDBSourceSplit> {
-    private InfluxDB influxdb;
-    InfluxDBConfig config;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `config` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxdbSourceReader.java`
 #### Snippet
@@ -3050,6 +3041,18 @@ public class InfluxdbSourceReader implements SourceReader<SeaTunnelRow, InfluxDB
     InfluxDBConfig config;
 
     private final SourceReader.Context context;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `influxdb` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxdbSourceReader.java`
+#### Snippet
+```java
+@Slf4j
+public class InfluxdbSourceReader implements SourceReader<SeaTunnelRow, InfluxDBSourceSplit> {
+    private InfluxDB influxdb;
+    InfluxDBConfig config;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3101,18 +3104,6 @@ in `seatunnel-connectors-v2/connector-tablestore/src/main/java/org/apache/seatun
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `splits` is accessed in both synchronized and unsynchronized contexts
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/source/ElasticsearchSourceReader.java`
-#### Snippet
-```java
-    private final SeaTunnelRowDeserializer deserializer;
-
-    Deque<ElasticsearchSourceSplit> splits = new LinkedList<>();
-    boolean noMoreSplit;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `esRestClient` is accessed in both synchronized and unsynchronized contexts
 in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/source/ElasticsearchSourceReader.java`
 #### Snippet
@@ -3122,6 +3113,18 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
     private EsRestClient esRestClient;
 
     private final SeaTunnelRowDeserializer deserializer;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `splits` is accessed in both synchronized and unsynchronized contexts
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/source/ElasticsearchSourceReader.java`
+#### Snippet
+```java
+    private final SeaTunnelRowDeserializer deserializer;
+
+    Deque<ElasticsearchSourceSplit> splits = new LinkedList<>();
+    boolean noMoreSplit;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3173,17 +3176,42 @@ public class BinlogOffset extends Offset {
     private static final long serialVersionUID = 1L;
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkRuntimeEnvironment.java`
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-25-13-23-17.815.html`
 #### Snippet
 ```java
-    public static FlinkRuntimeEnvironment getInstance(Config config) {
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[ruleID=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/common/metrics/AbstractMetricsContext.java`
+#### Snippet
+```java
+            log.warn("Ignoring attempted add of a metric due to being null for name {}.", name);
+        } else {
+            synchronized (this) {
+                Metric prior = this.metrics.put(name, metric);
+                if (prior != null) {
+```
+
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
+#### Snippet
+```java
+    public static SparkRuntimeEnvironment getInstance(Config config) {
         if (INSTANCE == null) {
-            synchronized (FlinkRuntimeEnvironment.class) {
+            synchronized (SparkRuntimeEnvironment.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new FlinkRuntimeEnvironment(config);
+                    INSTANCE = new SparkRuntimeEnvironment(config);
 ```
 
 ### SynchronizeOnThis
@@ -3200,19 +3228,19 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/j
 
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
-in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-3-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkRuntimeEnvironment.java`
 #### Snippet
 ```java
-    public static SparkRuntimeEnvironment getInstance(Config config) {
+    public static FlinkRuntimeEnvironment getInstance(Config config) {
         if (INSTANCE == null) {
-            synchronized (SparkRuntimeEnvironment.class) {
+            synchronized (FlinkRuntimeEnvironment.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new SparkRuntimeEnvironment(config);
+                    INSTANCE = new FlinkRuntimeEnvironment(config);
 ```
 
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
-in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
+in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-3-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
 #### Snippet
 ```java
     public static SparkRuntimeEnvironment getInstance(Config config) {
@@ -3251,35 +3279,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
 #### Snippet
 ```java
-        TaskGroupImmutableInformation taskGroupImmutableInformation =
-                getTaskGroupImmutableInformation();
-        synchronized (this) {
-            ExecutionState currentState =
-                    (ExecutionState) runningJobStateIMap.get(taskGroupLocation);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
-#### Snippet
-```java
 
     private void resetExecutionState() {
         synchronized (this) {
             ExecutionState executionState = getExecutionState();
             if (!executionState.isEndState()) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
-#### Snippet
-```java
-    public boolean updateTaskState(
-            @NonNull ExecutionState current, @NonNull ExecutionState targetState) {
-        synchronized (this) {
-            // consistency check
-            if (current.isEndState()) {
 ```
 
 ### SynchronizeOnThis
@@ -3296,14 +3300,26 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalPlan.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
 #### Snippet
 ```java
-
-    public boolean updateJobState(@NonNull JobStatus targetState) {
+        TaskGroupImmutableInformation taskGroupImmutableInformation =
+                getTaskGroupImmutableInformation();
         synchronized (this) {
-            return updateJobState((JobStatus) runningJobStateIMap.get(jobId), targetState);
-        }
+            ExecutionState currentState =
+                    (ExecutionState) runningJobStateIMap.get(taskGroupLocation);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
+#### Snippet
+```java
+    public boolean updateTaskState(
+            @NonNull ExecutionState current, @NonNull ExecutionState targetState) {
+        synchronized (this) {
+            // consistency check
+            if (current.isEndState()) {
 ```
 
 ### SynchronizeOnThis
@@ -3316,6 +3332,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
         synchronized (this) {
             // consistency check
             JobStatus current = (JobStatus) runningJobStateIMap.get(jobId);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalPlan.java`
+#### Snippet
+```java
+
+    public boolean updateJobState(@NonNull JobStatus targetState) {
+        synchronized (this) {
+            return updateJobState((JobStatus) runningJobStateIMap.get(jobId), targetState);
+        }
 ```
 
 ### SynchronizeOnThis
@@ -3475,30 +3503,6 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```
 
 ### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/connectors/seatunnel/socket/sink/SocketClient.java`
-#### Snippet
-```java
-                    e);
-
-            synchronized (SocketClient.class) {
-                IOException lastException = null;
-                retries = 0;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/connectors/seatunnel/socket/sink/SocketClient.java`
-#### Snippet
-```java
-                    }
-                    try {
-                        this.wait(CONNECTION_RETRY_DELAY);
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-```
-
-### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/connectors/seatunnel/socket/sink/SocketClient.java`
 #### Snippet
@@ -3520,6 +3524,30 @@ in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/
             this.notifyAll();
             try {
                 if (outputStream != null) {
+```
+
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/connectors/seatunnel/socket/sink/SocketClient.java`
+#### Snippet
+```java
+                    e);
+
+            synchronized (SocketClient.class) {
+                IOException lastException = null;
+                retries = 0;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/connectors/seatunnel/socket/sink/SocketClient.java`
+#### Snippet
+```java
+                    }
+                    try {
+                        this.wait(CONNECTION_RETRY_DELAY);
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
 ```
 
 ### SynchronizeOnThis
@@ -3741,18 +3769,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/
 ```
 
 ### UnusedAssignment
-Variable `session` initializer `null` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
-#### Snippet
-```java
-        // create a new connection and add to pool
-        JSch jsch = new JSch();
-        Session session = null;
-        try {
-            if (user == null || user.length() == 0) {
-```
-
-### UnusedAssignment
 Variable `user` initializer `""` is redundant
 in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
 #### Snippet
@@ -3762,6 +3778,18 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
         private String user = "";
 
         ConnectionInfo(String hst, int prt, String usr) {
+```
+
+### UnusedAssignment
+Variable `session` initializer `null` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
+#### Snippet
+```java
+        // create a new connection and add to pool
+        JSch jsch = new JSch();
+        Session session = null;
+        try {
+            if (user == null || user.length() == 0) {
 ```
 
 ### UnusedAssignment
@@ -3786,30 +3814,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
         FileStatus fileStat = null;
         try {
             fileStat = getFileStatus(channel, absolute);
-```
-
-### UnusedAssignment
-Variable `columns` initializer `null` is redundant
-in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduInputFormat.java`
-#### Snippet
-```java
-
-    public List<ColumnSchema> getColumnsSchemas() {
-        List<ColumnSchema> columns = null;
-        try {
-            schema = kuduClient.openTable(tableName).getSchema();
-```
-
-### UnusedAssignment
-Variable `kuduScanner` initializer `null` is redundant
-in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduInputFormat.java`
-#### Snippet
-```java
-     */
-    public KuduScanner getKuduBuildSplit(int lowerBound, int upperBound) {
-        KuduScanner kuduScanner = null;
-        try {
-            KuduScanner.KuduScannerBuilder kuduScannerBuilder =
 ```
 
 ### UnusedAssignment
@@ -3858,6 +3862,54 @@ in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/co
         String columnslist = "";
         CheckResult checkResult =
                 CheckConfigUtil.checkAllExists(
+```
+
+### UnusedAssignment
+Variable `columns` initializer `null` is redundant
+in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduInputFormat.java`
+#### Snippet
+```java
+
+    public List<ColumnSchema> getColumnsSchemas() {
+        List<ColumnSchema> columns = null;
+        try {
+            schema = kuduClient.openTable(tableName).getSchema();
+```
+
+### UnusedAssignment
+Variable `kuduScanner` initializer `null` is redundant
+in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduInputFormat.java`
+#### Snippet
+```java
+     */
+    public KuduScanner getKuduBuildSplit(int lowerBound, int upperBound) {
+        KuduScanner kuduScanner = null;
+        try {
+            KuduScanner.KuduScannerBuilder kuduScannerBuilder =
+```
+
+### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksBeReadClient.java`
+#### Snippet
+```java
+        log.info("open Scan params.keep-alive-min {} min", params.getKeep_alive_min());
+        log.info("open Scan params.batch_size {}", params.getBatch_size());
+        TScanOpenResult result = null;
+        try {
+            result = client.open_scanner(params);
+```
+
+### UnusedAssignment
+Variable `hasNext` initializer `false` is redundant
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksBeReadClient.java`
+#### Snippet
+```java
+
+    public boolean hasNext() {
+        boolean hasNext = false;
+        // Arrow data was acquired synchronously during the iterative process
+        if (!eos.get() && (rowBatch == null || !rowBatch.hasNext())) {
 ```
 
 ### UnusedAssignment
@@ -3914,9 +3966,9 @@ Unnecessary semicolon `;`
 in `seatunnel-connectors-v2/connector-hbase/src/main/java/org/apache/seatunnel/connectors/seatunnel/hbase/config/HbaseConfig.java`
 #### Snippet
 ```java
-    public enum NullMode {
-        SKIP,
-        EMPTY;
+    public enum EnCoding {
+        UTF8,
+        GBK;
     }
 
 ```
@@ -3926,9 +3978,9 @@ Unnecessary semicolon `;`
 in `seatunnel-connectors-v2/connector-hbase/src/main/java/org/apache/seatunnel/connectors/seatunnel/hbase/config/HbaseConfig.java`
 #### Snippet
 ```java
-    public enum EnCoding {
-        UTF8,
-        GBK;
+    public enum NullMode {
+        SKIP,
+        EMPTY;
     }
 
 ```
@@ -3950,9 +4002,9 @@ Unnecessary semicolon `;`
 in `seatunnel-connectors-v2/connector-redis/src/main/java/org/apache/seatunnel/connectors/seatunnel/redis/config/RedisConfig.java`
 #### Snippet
 ```java
-    public enum HashKeyParseMode {
-        ALL,
-        KV;
+    public enum RedisMode {
+        SINGLE,
+        CLUSTER;
     }
 
 ```
@@ -3962,9 +4014,9 @@ Unnecessary semicolon `;`
 in `seatunnel-connectors-v2/connector-redis/src/main/java/org/apache/seatunnel/connectors/seatunnel/redis/config/RedisConfig.java`
 #### Snippet
 ```java
-    public enum RedisMode {
-        SINGLE,
-        CLUSTER;
+    public enum HashKeyParseMode {
+        ALL,
+        KV;
     }
 
 ```
@@ -4055,6 +4107,18 @@ in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunn
 ```
 
 ### SimplifyStreamApiCallChains
+Can be replaced with 'Collectors.joining'
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/source/StartRocksSourceSplitEnumerator.java`
+#### Snippet
+```java
+                                assignmentForReader.stream()
+                                        .map(p -> p.getSplitId())
+                                        .collect(Collectors.toList())),
+                        reader);
+                try {
+```
+
+### SimplifyStreamApiCallChains
 'Arrays.asList().stream()' can be replaced with 'Stream.of()'
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/JdbcRowConverter.java`
 #### Snippet
@@ -4064,6 +4128,18 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
                             .stream()
                             .filter(f -> f.isCurrentFieldType(unwrapCommonPrefix(fieldType)))
                             .findFirst()
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/engine/client/SeaTunnelClient.java`
+#### Snippet
+```java
+        Map<String, String> healthMetricsMap = new HashMap<>();
+        members.stream()
+                .forEach(
+                        member -> {
+                            String metrics =
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -4081,18 +4157,6 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 
 ## RuleId[ruleID=CollectionContainsUrl]
 ### CollectionContainsUrl
-Set `paths` may contain URL objects
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkExecution.java`
-#### Snippet
-```java
-
-        if (config.hasPath(path)) {
-            Set<URL> paths =
-                    Arrays.stream(config.getString(path).split(";"))
-                            .map(
-```
-
-### CollectionContainsUrl
 Set `jars` may contain URL objects
 in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/SourceExecuteProcessor.java`
 #### Snippet
@@ -4105,8 +4169,20 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/j
 ```
 
 ### CollectionContainsUrl
+Set `jars` may contain URL objects
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/SourceExecuteProcessor.java`
+#### Snippet
+```java
+                new SeaTunnelSourcePluginDiscovery(ADD_URL_TO_CLASSLOADER);
+        List<SeaTunnelSource> sources = new ArrayList<>();
+        Set<URL> jars = new HashSet<>();
+        for (Config sourceConfig : pluginConfigs) {
+            PluginIdentifier pluginIdentifier =
+```
+
+### CollectionContainsUrl
 Set `paths` may contain URL objects
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkExecution.java`
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkExecution.java`
 #### Snippet
 ```java
 
@@ -4117,15 +4193,15 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/j
 ```
 
 ### CollectionContainsUrl
-Set `jars` may contain URL objects
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/SourceExecuteProcessor.java`
+Set `paths` may contain URL objects
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkExecution.java`
 #### Snippet
 ```java
-                new SeaTunnelSourcePluginDiscovery(ADD_URL_TO_CLASSLOADER);
-        List<SeaTunnelSource> sources = new ArrayList<>();
-        Set<URL> jars = new HashSet<>();
-        for (Config sourceConfig : pluginConfigs) {
-            PluginIdentifier pluginIdentifier =
+
+        if (config.hasPath(path)) {
+            Set<URL> paths =
+                    Arrays.stream(config.getString(path).split(";"))
+                            .map(
 ```
 
 ### CollectionContainsUrl
@@ -4214,30 +4290,6 @@ in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-3-starter/src/main/ja
 
 ### CollectionContainsUrl
 Set `jarUrls` may contain URL objects
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/PartitionTransformAction.java`
-#### Snippet
-```java
-            @NonNull List<Action> upstreams,
-            @NonNull PartitionSeaTunnelTransform partitionTransformation,
-            @NonNull Set<URL> jarUrls) {
-        super(id, name, upstreams, jarUrls);
-        this.partitionTransformation = partitionTransformation;
-```
-
-### CollectionContainsUrl
-Set `jarUrls` may contain URL objects
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/PartitionTransformAction.java`
-#### Snippet
-```java
-            @NonNull String name,
-            @NonNull PartitionSeaTunnelTransform partitionTransformation,
-            @NonNull Set<URL> jarUrls) {
-        super(id, name, jarUrls);
-        this.partitionTransformation = partitionTransformation;
-```
-
-### CollectionContainsUrl
-Set `jarUrls` may contain URL objects
 in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/SourceAction.java`
 #### Snippet
 ```java
@@ -4250,26 +4302,14 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
 
 ### CollectionContainsUrl
 Set `jarUrls` may contain URL objects
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/TransformAction.java`
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/TransformChainAction.java`
 #### Snippet
 ```java
             @NonNull String name,
-            @NonNull SeaTunnelTransform<?> transform,
-            @NonNull Set<URL> jarUrls) {
-        super(id, name, jarUrls);
-        this.transform = transform;
-```
-
-### CollectionContainsUrl
-Set `jarUrls` may contain URL objects
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/TransformAction.java`
-#### Snippet
-```java
             @NonNull List<Action> upstreams,
-            @NonNull SeaTunnelTransform<?> transform,
-            @NonNull Set<URL> jarUrls) {
+            @NonNull Set<URL> jarUrls,
+            @NonNull List<SeaTunnelTransform<T>> transforms) {
         super(id, name, upstreams, jarUrls);
-        this.transform = transform;
 ```
 
 ### CollectionContainsUrl
@@ -4286,14 +4326,50 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
 
 ### CollectionContainsUrl
 Set `jarUrls` may contain URL objects
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/TransformChainAction.java`
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/TransformAction.java`
 #### Snippet
 ```java
             @NonNull String name,
+            @NonNull SeaTunnelTransform<?> transform,
+            @NonNull Set<URL> jarUrls) {
+        super(id, name, jarUrls);
+        this.transform = transform;
+```
+
+### CollectionContainsUrl
+Set `jarUrls` may contain URL objects
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/TransformAction.java`
+#### Snippet
+```java
             @NonNull List<Action> upstreams,
-            @NonNull Set<URL> jarUrls,
-            @NonNull List<SeaTunnelTransform<T>> transforms) {
+            @NonNull SeaTunnelTransform<?> transform,
+            @NonNull Set<URL> jarUrls) {
         super(id, name, upstreams, jarUrls);
+        this.transform = transform;
+```
+
+### CollectionContainsUrl
+Set `jarUrls` may contain URL objects
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/PartitionTransformAction.java`
+#### Snippet
+```java
+            @NonNull String name,
+            @NonNull PartitionSeaTunnelTransform partitionTransformation,
+            @NonNull Set<URL> jarUrls) {
+        super(id, name, jarUrls);
+        this.partitionTransformation = partitionTransformation;
+```
+
+### CollectionContainsUrl
+Set `jarUrls` may contain URL objects
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/dag/actions/PartitionTransformAction.java`
+#### Snippet
+```java
+            @NonNull List<Action> upstreams,
+            @NonNull PartitionSeaTunnelTransform partitionTransformation,
+            @NonNull Set<URL> jarUrls) {
+        super(id, name, upstreams, jarUrls);
+        this.partitionTransformation = partitionTransformation;
 ```
 
 ### CollectionContainsUrl
@@ -4333,36 +4409,12 @@ in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/
 ```
 
 ### CollectionContainsUrl
-Set `pluginJarsUrls` may contain URL objects
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
-#### Snippet
-```java
-    private final FlakeIdGenerator flakeIdGenerator;
-
-    private final Set<URL> pluginJarsUrls;
-
-    private final IMap<Object, Object> runningJobStateIMap;
-```
-
-### CollectionContainsUrl
-Set `pluginJarsUrls` may contain URL objects
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
-#### Snippet
-```java
-            int pipelineId,
-            int totalPipelineNum,
-            Set<URL> pluginJarsUrls,
-            @NonNull JobImmutableInformation jobImmutableInformation,
-            long initializationTimestamp,
-```
-
-### CollectionContainsUrl
 Set `jarUrls` may contain URL objects
 in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/parse/JobConfigParser.java`
 #### Snippet
 ```java
-            @NonNull List<Action> upstreams,
-            @NonNull SeaTunnelSink sink,
+            @NonNull String name,
+            @NonNull SeaTunnelTransform transformation,
             Set<URL> jarUrls) {
         if (!CollectionUtils.isEmpty(jarUrls)) {
             jarUrlsSet.addAll(jarUrls);
@@ -4373,8 +4425,8 @@ Set `jarUrls` may contain URL objects
 in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/parse/JobConfigParser.java`
 #### Snippet
 ```java
-            @NonNull String name,
-            @NonNull SeaTunnelTransform transformation,
+            @NonNull List<Action> upstreams,
+            @NonNull SeaTunnelSink sink,
             Set<URL> jarUrls) {
         if (!CollectionUtils.isEmpty(jarUrls)) {
             jarUrlsSet.addAll(jarUrls);
@@ -4405,6 +4457,18 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
 ```
 
 ### CollectionContainsUrl
+Set `jarUrlsSet` may contain URL objects
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/parse/JobConfigParser.java`
+#### Snippet
+```java
+
+    private List<Action> actions = new ArrayList<>();
+    private Set<URL> jarUrlsSet = new HashSet<>();
+
+    private JobConfig jobConfig;
+```
+
+### CollectionContainsUrl
 Set `jarUrls` may contain URL objects
 in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/parse/JobConfigParser.java`
 #### Snippet
@@ -4417,15 +4481,27 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
 ```
 
 ### CollectionContainsUrl
-Set `jarUrlsSet` may contain URL objects
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/parse/JobConfigParser.java`
+Set `pluginJarsUrls` may contain URL objects
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
 #### Snippet
 ```java
+            int pipelineId,
+            int totalPipelineNum,
+            Set<URL> pluginJarsUrls,
+            @NonNull JobImmutableInformation jobImmutableInformation,
+            long initializationTimestamp,
+```
 
-    private List<Action> actions = new ArrayList<>();
-    private Set<URL> jarUrlsSet = new HashSet<>();
+### CollectionContainsUrl
+Set `pluginJarsUrls` may contain URL objects
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
+#### Snippet
+```java
+    private final FlakeIdGenerator flakeIdGenerator;
 
-    private JobConfig jobConfig;
+    private final Set<URL> pluginJarsUrls;
+
+    private final IMap<Object, Object> runningJobStateIMap;
 ```
 
 ### CollectionContainsUrl
@@ -4851,30 +4927,6 @@ in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/se
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `loading` accessed in synchronized context
-in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/SelectDBSinkWriter.java`
-#### Snippet
-```java
-
-    public synchronized void flush(byte[] serialize) throws IOException {
-        if (!loading) {
-            log.info("start load by cache full, cnt {}, size {}", cacheCnt, cacheSize);
-            startLoad();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `loading` accessed in synchronized context
-in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/SelectDBSinkWriter.java`
-#### Snippet
-```java
-        log.info("start timer checker, interval {} ms", intervalTime);
-        try {
-            if (!loading) {
-                log.info("not loading, skip timer checker");
-                return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.loading` accessed in synchronized context
 in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/SelectDBSinkWriter.java`
 #### Snippet
@@ -4891,11 +4943,35 @@ Non-private field `loading` accessed in synchronized context
 in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/SelectDBSinkWriter.java`
 #### Snippet
 ```java
+        log.info("start timer checker, interval {} ms", intervalTime);
+        try {
+            if (!loading) {
+                log.info("not loading, skip timer checker");
+                return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `loading` accessed in synchronized context
+in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/SelectDBSinkWriter.java`
+#### Snippet
+```java
     public synchronized Optional<SelectDBCommitInfo> prepareCommit() throws IOException {
         checkState(selectdbCopyInto != null);
         if (!loading) {
             // No data was written during the entire checkpoint period
             log.info("start load by checkpoint, cnt {} size {} ", cacheCnt, cacheSize);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `loading` accessed in synchronized context
+in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/SelectDBSinkWriter.java`
+#### Snippet
+```java
+
+    public synchronized void flush(byte[] serialize) throws IOException {
+        if (!loading) {
+            log.info("start load by cache full, cnt {}, size {}", cacheCnt, cacheSize);
+            startLoad();
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -5130,18 +5206,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'writerStateSerializer'
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SinkFlowLifeCycle.java`
-#### Snippet
-```java
-    private SinkWriter<T, CommitInfoT, StateT> writer;
-
-    private transient Optional<Serializer<StateT>> writerStateSerializer;
-
-    private final int indexID;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for field 'committer'
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SinkFlowLifeCycle.java`
 #### Snippet
@@ -5154,15 +5218,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'condition'
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/MySqlUtils.java`
+`Optional`> used as type for field 'writerStateSerializer'
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SinkFlowLifeCycle.java`
 #### Snippet
 ```java
-            String projection,
-            String maxColumnProjection,
-            Optional<String> condition,
-            String orderBy) {
-        final StringBuilder sql = new StringBuilder("SELECT ");
+    private SinkWriter<T, CommitInfoT, StateT> writer;
+
+    private transient Optional<Serializer<StateT>> writerStateSerializer;
+
+    private final int indexID;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5187,6 +5251,18 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/
             Optional<String> orderBy) {
         final StringBuilder sql = new StringBuilder("SELECT ");
         sql.append(projection).append(" FROM ");
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'condition'
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/MySqlUtils.java`
+#### Snippet
+```java
+            String projection,
+            String maxColumnProjection,
+            Optional<String> condition,
+            String orderBy) {
+        final StringBuilder sql = new StringBuilder("SELECT ");
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5254,6 +5330,30 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/xa/XaFacadeImplAutoLoad.java`
 #### Snippet
 ```java
+        }
+
+        private Command(String name, Optional<Xid> xid, Callable<T> callable) {
+            this(name, xid, callable, e -> empty());
+        }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'xid'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/xa/XaFacadeImplAutoLoad.java`
+#### Snippet
+```java
+        private Command(
+                String name,
+                Optional<Xid> xid,
+                Callable<T> callable,
+                Function<XAException, Optional<T>> recover) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'xid'
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/xa/XaFacadeImplAutoLoad.java`
+#### Snippet
+```java
 
     private static String formatErrorMessage(
             String action, Optional<Xid> xid, Optional<Integer> errorCode, String... more) {
@@ -5271,18 +5371,6 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
             String action, Optional<Xid> xid, Optional<Integer> errorCode, String... more) {
         return String.format(
                 "unable to %s%s%s%s",
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'xid'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/xa/XaFacadeImplAutoLoad.java`
-#### Snippet
-```java
-        private Command(
-                String name,
-                Optional<Xid> xid,
-                Callable<T> callable,
-                Function<XAException, Optional<T>> recover) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5310,18 +5398,6 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'xid'
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/xa/XaFacadeImplAutoLoad.java`
-#### Snippet
-```java
-        }
-
-        private Command(String name, Optional<Xid> xid, Callable<T> callable) {
-            this(name, xid, callable, e -> empty());
-        }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'trustStorePassword'
 in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
 #### Snippet
@@ -5331,54 +5407,6 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
     private static KeyStore loadTrustStore(File trustStorePath, Optional<String> trustStorePassword)
             throws IOException, GeneralSecurityException {
         KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'keyStorePath'
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
-#### Snippet
-```java
-
-    public static Optional<SSLContext> buildSSLContext(
-            Optional<String> keyStorePath,
-            Optional<String> keyStorePassword,
-            Optional<String> trustStorePath,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'keyStorePassword'
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
-#### Snippet
-```java
-    public static Optional<SSLContext> buildSSLContext(
-            Optional<String> keyStorePath,
-            Optional<String> keyStorePassword,
-            Optional<String> trustStorePath,
-            Optional<String> trustStorePassword)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'trustStorePath'
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
-#### Snippet
-```java
-            Optional<String> keyStorePath,
-            Optional<String> keyStorePassword,
-            Optional<String> trustStorePath,
-            Optional<String> trustStorePassword)
-            throws GeneralSecurityException, IOException {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'trustStorePassword'
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
-#### Snippet
-```java
-            Optional<String> keyStorePassword,
-            Optional<String> trustStorePath,
-            Optional<String> trustStorePassword)
-            throws GeneralSecurityException, IOException {
-        if (!keyStorePath.isPresent() && !trustStorePath.isPresent()) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5427,6 +5455,54 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
             Optional<String> trustStorePassword)
             throws GeneralSecurityException, IOException {
         // load KeyStore if configured and get KeyManagers
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'keyStorePath'
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
+#### Snippet
+```java
+
+    public static Optional<SSLContext> buildSSLContext(
+            Optional<String> keyStorePath,
+            Optional<String> keyStorePassword,
+            Optional<String> trustStorePath,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'keyStorePassword'
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
+#### Snippet
+```java
+    public static Optional<SSLContext> buildSSLContext(
+            Optional<String> keyStorePath,
+            Optional<String> keyStorePassword,
+            Optional<String> trustStorePath,
+            Optional<String> trustStorePassword)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'trustStorePath'
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
+#### Snippet
+```java
+            Optional<String> keyStorePath,
+            Optional<String> keyStorePassword,
+            Optional<String> trustStorePath,
+            Optional<String> trustStorePassword)
+            throws GeneralSecurityException, IOException {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'trustStorePassword'
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
+#### Snippet
+```java
+            Optional<String> keyStorePassword,
+            Optional<String> trustStorePath,
+            Optional<String> trustStorePassword)
+            throws GeneralSecurityException, IOException {
+        if (!keyStorePath.isPresent() && !trustStorePath.isPresent()) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5637,18 +5713,6 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/j
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/FlinkStarter.java`
-#### Snippet
-```java
-    public static void main(String[] args) {
-        FlinkStarter flinkStarter = new FlinkStarter(args);
-        System.out.println(String.join(" ", flinkStarter.buildCommands()));
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `seatunnel-core/seatunnel-starter/src/main/java/org/apache/seatunnel/core/starter/seatunnel/command/ClientExecuteCommand.java`
 #### Snippet
 ```java
@@ -5681,6 +5745,18 @@ in `seatunnel-core/seatunnel-starter/src/main/java/org/apache/seatunnel/core/sta
                 System.out.println(jobMetrics);
             } else if (null != clientCommandArgs.getSavePointJobId()) {
                 engineClient.savePointJob(Long.parseLong(clientCommandArgs.getSavePointJobId()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/FlinkStarter.java`
+#### Snippet
+```java
+    public static void main(String[] args) {
+        FlinkStarter flinkStarter = new FlinkStarter(args);
+        System.out.println(String.join(" ", flinkStarter.buildCommands()));
+    }
+
 ```
 
 ### SystemOutErr
@@ -5787,10 +5863,10 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/j
 #### Snippet
 ```java
         @Override
-        public DeployMode convert(String value) {
-            DeployMode deployMode = DeployMode.valueOf(value.toUpperCase().replaceAll("-", "_"));
-            if (DEPLOY_MODE_TYPE_LIST.contains(deployMode)) {
-                return deployMode;
+        public MasterType convert(String value) {
+            MasterType masterType = MasterType.valueOf(value.toUpperCase().replaceAll("-", "_"));
+            if (MASTER_TYPE_LIST.contains(masterType)) {
+                return masterType;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5799,10 +5875,10 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/j
 #### Snippet
 ```java
         @Override
-        public MasterType convert(String value) {
-            MasterType masterType = MasterType.valueOf(value.toUpperCase().replaceAll("-", "_"));
-            if (MASTER_TYPE_LIST.contains(masterType)) {
-                return masterType;
+        public DeployMode convert(String value) {
+            DeployMode deployMode = DeployMode.valueOf(value.toUpperCase().replaceAll("-", "_"));
+            if (DEPLOY_MODE_TYPE_LIST.contains(deployMode)) {
+                return deployMode;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5855,18 +5931,6 @@ in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-3-starter/src/main/ja
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/BaseFileSinkWriter.java`
-#### Snippet
-```java
-            uuidPrefix = fileSinkStates.get(0).getUuidPrefix();
-        } else {
-            uuidPrefix = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/util/FileSystemUtils.java`
 #### Snippet
 ```java
@@ -5875,6 +5939,18 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
                 FileSystem.get(URI.create(path.replaceAll("\\\\", "/")), configuration);
         fileSystem.setWriteChecksum(false);
         return fileSystem;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/BaseFileSinkWriter.java`
+#### Snippet
+```java
+            uuidPrefix = fileSinkStates.get(0).getUuidPrefix();
+        } else {
+            uuidPrefix = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
+        }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5906,11 +5982,11 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
 in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/connectors/seatunnel/hive/commit/HiveSinkAggregatedCommitter.java`
 #### Snippet
 ```java
-                List<String> partitions =
-                        partitionDirAndValuesMap.keySet().stream()
-                                .map(partition -> partition.replaceAll("\\\\", "/"))
-                                .collect(Collectors.toList());
-                try {
+            List<String> partitions =
+                    partitionDirAndValuesMap.keySet().stream()
+                            .map(partition -> partition.replaceAll("\\\\", "/"))
+                            .collect(Collectors.toList());
+            try {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5918,11 +5994,11 @@ in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/co
 in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/connectors/seatunnel/hive/commit/HiveSinkAggregatedCommitter.java`
 #### Snippet
 ```java
-            List<String> partitions =
-                    partitionDirAndValuesMap.keySet().stream()
-                            .map(partition -> partition.replaceAll("\\\\", "/"))
-                            .collect(Collectors.toList());
-            try {
+                List<String> partitions =
+                        partitionDirAndValuesMap.keySet().stream()
+                                .map(partition -> partition.replaceAll("\\\\", "/"))
+                                .collect(Collectors.toList());
+                try {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -6003,6 +6079,18 @@ in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/
 #### Snippet
 ```java
                         .substring(start + 1, end)
+                        // replace the space between key and value
+                        .replace(" ", "");
+        int index;
+        if (genericType.startsWith(SqlType.DECIMAL.name())) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/schema/SeaTunnelSchema.java`
+#### Snippet
+```java
+                        .substring(start + 1, end)
                         // replace the space between precision and scale
                         .replace(" ", "");
         String[] split = decimalInfo.split(",");
@@ -6019,18 +6107,6 @@ in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/
                 .replace(" ", "");
     }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/schema/SeaTunnelSchema.java`
-#### Snippet
-```java
-                        .substring(start + 1, end)
-                        // replace the space between key and value
-                        .replace(" ", "");
-        int index;
-        if (genericType.startsWith(SqlType.DECIMAL.name())) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -6082,6 +6158,18 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/ClickhouseProxy.java`
+#### Snippet
+```java
+    public String localizationEngine(String engine, String ddl) {
+        if ("ReplicatedMergeTree".equalsIgnoreCase(engine)) {
+            return ddl.replaceAll("ReplicatedMergeTree(\\([^\\)]*\\))", "MergeTree()");
+        } else {
+            return ddl;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/ClickhouseProxy.java`
 #### Snippet
@@ -6103,18 +6191,6 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
                 String localTable = infos.get(2).replace("\\)", "").trim();
 
                 String localTableSQL =
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/ClickhouseProxy.java`
-#### Snippet
-```java
-    public String localizationEngine(String engine, String ddl) {
-        if ("ReplicatedMergeTree".equalsIgnoreCase(engine)) {
-            return ddl.replaceAll("ReplicatedMergeTree(\\([^\\)]*\\))", "MergeTree()");
-        } else {
-            return ddl;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -6155,6 +6231,23 @@ in `seatunnel-engine/seatunnel-engine-storage/imap-storage-plugins/imap-storage-
 ```
 
 ## RuleId[ruleID=SuspiciousToArrayCall]
+### SuspiciousToArrayCall
+Array of type 'java.lang.Object\[\]' expected, 'org.apache.seatunnel.format.json.JsonToRowConverters.JsonToRowConverter\[\]' found
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
+#### Snippet
+```java
+                                })
+                        .toArray(
+                                new IntFunction<JsonToRowConverter[]>() {
+                                    @Override
+                                    public JsonToRowConverter[] apply(int value) {
+                                        return new JsonToRowConverter[value];
+                                    }
+                                });
+        final String[] fieldNames = rowType.getFieldNames();
+
+```
+
 ### SuspiciousToArrayCall
 Array of type 'java.lang.Object\[\]' expected, 'org.apache.seatunnel.format.json.RowToJsonConverters.RowToJsonConverter\[\]' found
 in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
@@ -6269,23 +6362,6 @@ in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/f
 ```
 
 ### SuspiciousToArrayCall
-Array of type 'java.lang.Object\[\]' expected, 'org.apache.seatunnel.format.json.JsonToRowConverters.JsonToRowConverter\[\]' found
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
-#### Snippet
-```java
-                                })
-                        .toArray(
-                                new IntFunction<JsonToRowConverter[]>() {
-                                    @Override
-                                    public JsonToRowConverter[] apply(int value) {
-                                        return new JsonToRowConverter[value];
-                                    }
-                                });
-        final String[] fieldNames = rowType.getFieldNames();
-
-```
-
-### SuspiciousToArrayCall
 Array of type 'java.lang.Object\[\]' expected, 'java.lang.String\[\]' found
 in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/ParquetReadStrategy.java`
 #### Snippet
@@ -6382,51 +6458,15 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
 ```
 
 ### SuspiciousToArrayCall
-Array of type 'java.lang.Object\[\]' expected, 'java.time.LocalDate\[\]' found
+Array of type 'java.lang.Object\[\]' expected, 'java.math.BigDecimal\[\]' found
 in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
 #### Snippet
 ```java
+            }
         }
-        if (childType.getCategory() == TypeDescription.Category.DATE) {
-            return timestampList.toArray(TYPE_ARRAY_LOCAL_DATE);
-        } else {
-            return timestampList.toArray(TYPE_ARRAY_LOCAL_DATETIME);
-```
-
-### SuspiciousToArrayCall
-Array of type 'java.lang.Object\[\]' expected, 'java.time.LocalDateTime\[\]' found
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
-#### Snippet
-```java
-            return timestampList.toArray(TYPE_ARRAY_LOCAL_DATE);
-        } else {
-            return timestampList.toArray(TYPE_ARRAY_LOCAL_DATETIME);
-        }
+        return decimalList.toArray(TYPE_ARRAY_BIG_DECIMAL);
     }
-```
 
-### SuspiciousToArrayCall
-Array of type 'java.lang.Object\[\]' expected, 'java.lang.Float\[\]' found
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
-#### Snippet
-```java
-        }
-        if (colType.getCategory() == TypeDescription.Category.FLOAT) {
-            return doubleList.toArray(TYPE_ARRAY_FLOAT);
-        } else {
-            return doubleList.toArray(TYPE_ARRAY_DOUBLE);
-```
-
-### SuspiciousToArrayCall
-Array of type 'java.lang.Object\[\]' expected, 'java.lang.Double\[\]' found
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
-#### Snippet
-```java
-            return doubleList.toArray(TYPE_ARRAY_FLOAT);
-        } else {
-            return doubleList.toArray(TYPE_ARRAY_DOUBLE);
-        }
-    }
 ```
 
 ### SuspiciousToArrayCall
@@ -6490,6 +6530,54 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
 ```
 
 ### SuspiciousToArrayCall
+Array of type 'java.lang.Object\[\]' expected, 'java.time.LocalDate\[\]' found
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
+#### Snippet
+```java
+        }
+        if (childType.getCategory() == TypeDescription.Category.DATE) {
+            return timestampList.toArray(TYPE_ARRAY_LOCAL_DATE);
+        } else {
+            return timestampList.toArray(TYPE_ARRAY_LOCAL_DATETIME);
+```
+
+### SuspiciousToArrayCall
+Array of type 'java.lang.Object\[\]' expected, 'java.time.LocalDateTime\[\]' found
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
+#### Snippet
+```java
+            return timestampList.toArray(TYPE_ARRAY_LOCAL_DATE);
+        } else {
+            return timestampList.toArray(TYPE_ARRAY_LOCAL_DATETIME);
+        }
+    }
+```
+
+### SuspiciousToArrayCall
+Array of type 'java.lang.Object\[\]' expected, 'java.lang.Float\[\]' found
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
+#### Snippet
+```java
+        }
+        if (colType.getCategory() == TypeDescription.Category.FLOAT) {
+            return doubleList.toArray(TYPE_ARRAY_FLOAT);
+        } else {
+            return doubleList.toArray(TYPE_ARRAY_DOUBLE);
+```
+
+### SuspiciousToArrayCall
+Array of type 'java.lang.Object\[\]' expected, 'java.lang.Double\[\]' found
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
+#### Snippet
+```java
+            return doubleList.toArray(TYPE_ARRAY_FLOAT);
+        } else {
+            return doubleList.toArray(TYPE_ARRAY_DOUBLE);
+        }
+    }
+```
+
+### SuspiciousToArrayCall
 Array of type 'java.lang.Object\[\]' expected, 'java.lang.String\[\]' found
 in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
 #### Snippet
@@ -6499,18 +6587,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
             return bytesValList.toArray(TYPE_ARRAY_STRING);
         } else {
             return bytesValList.toArray();
-```
-
-### SuspiciousToArrayCall
-Array of type 'java.lang.Object\[\]' expected, 'java.math.BigDecimal\[\]' found
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
-#### Snippet
-```java
-            }
-        }
-        return decimalList.toArray(TYPE_ARRAY_BIG_DECIMAL);
-    }
-
 ```
 
 ### SuspiciousToArrayCall
@@ -6611,18 +6687,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `CoordinatorTask()` of an abstract class should not be declared 'public'
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/CoordinatorTask.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = -3957168748281681077L;
-
-    public CoordinatorTask(long jobID, TaskLocation taskID) {
-        super(jobID, taskID);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractTask()` of an abstract class should not be declared 'public'
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/AbstractTask.java`
 #### Snippet
@@ -6632,6 +6696,30 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
     public AbstractTask(long jobID, TaskLocation taskLocation) {
         this.taskLocation = taskLocation;
         this.jobID = jobID;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `CoordinatorTask()` of an abstract class should not be declared 'public'
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/CoordinatorTask.java`
+#### Snippet
+```java
+    private SeaTunnelMetricsContext metricsContext;
+
+    public CoordinatorTask(long jobID, TaskLocation taskID) {
+        super(jobID, taskID);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SeaTunnelTask()` of an abstract class should not be declared 'public'
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
+#### Snippet
+```java
+    private SeaTunnelMetricsContext metricsContext;
+
+    public SeaTunnelTask(long jobID, TaskLocation taskID, int indexID, Flow executionFlow) {
+        super(jobID, taskID);
+        this.indexID = indexID;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6671,15 +6759,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SeaTunnelTask()` of an abstract class should not be declared 'public'
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
+Constructor `SourceEventOperation()` of an abstract class should not be declared 'public'
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/SourceEventOperation.java`
 #### Snippet
 ```java
-    private MetricsContext metricsContext;
+    public SourceEventOperation() {}
 
-    public SeaTunnelTask(long jobID, TaskLocation taskID, int indexID, Flow executionFlow) {
-        super(jobID, taskID);
-        this.indexID = indexID;
+    public SourceEventOperation(
+            TaskLocation targetTaskLocation, TaskLocation currentTaskLocation, SourceEvent event) {
+        super(targetTaskLocation);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6695,15 +6783,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SourceEventOperation()` of an abstract class should not be declared 'public'
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/SourceEventOperation.java`
+Constructor `AbstractJobAsyncOperation()` of an abstract class should not be declared 'public'
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/operation/AbstractJobAsyncOperation.java`
 #### Snippet
 ```java
-    public SourceEventOperation() {}
+    public AbstractJobAsyncOperation() {}
 
-    public SourceEventOperation(
-            TaskLocation targetTaskLocation, TaskLocation currentTaskLocation, SourceEvent event) {
-        super(targetTaskLocation);
+    public AbstractJobAsyncOperation(long jobId) {
+        this.jobId = jobId;
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6716,18 +6804,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
     public AbstractJobAsyncOperation() {}
 
     public AbstractJobAsyncOperation(long jobId) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractJobAsyncOperation()` of an abstract class should not be declared 'public'
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/operation/AbstractJobAsyncOperation.java`
-#### Snippet
-```java
-    public AbstractJobAsyncOperation() {}
-
-    public AbstractJobAsyncOperation(long jobId) {
-        this.jobId = jobId;
-    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6815,18 +6891,6 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `OffsetFactory()` of an abstract class should not be declared 'public'
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/offset/OffsetFactory.java`
-#### Snippet
-```java
-
-public abstract class OffsetFactory implements Serializable {
-    public OffsetFactory() {}
-
-    public abstract Offset earliest();
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `SourceSplitStateBase()` of an abstract class should not be declared 'public'
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/split/state/SourceSplitStateBase.java`
 #### Snippet
@@ -6836,6 +6900,18 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
     public SourceSplitStateBase(SourceSplitBase split) {
         this.split = split;
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `OffsetFactory()` of an abstract class should not be declared 'public'
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/offset/OffsetFactory.java`
+#### Snippet
+```java
+
+public abstract class OffsetFactory implements Serializable {
+    public OffsetFactory() {}
+
+    public abstract Offset earliest();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6899,18 +6975,6 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BasePulsarConfig()` of an abstract class should not be declared 'public'
-in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/connectors/seatunnel/pulsar/config/BasePulsarConfig.java`
-#### Snippet
-```java
-    private final String authParams;
-
-    public BasePulsarConfig(String authPluginClassName, String authParams) {
-        this.authPluginClassName = authPluginClassName;
-        this.authParams = authParams;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `SourceReaderBase()` of an abstract class should not be declared 'public'
 in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/SourceReaderBase.java`
 #### Snippet
@@ -6920,6 +6984,18 @@ in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/
     public SourceReaderBase(
             BlockingQueue<RecordsWithSplitIds<E>> elementsQueue,
             SplitFetcherManager<E, SplitT> splitFetcherManager,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BasePulsarConfig()` of an abstract class should not be declared 'public'
+in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/connectors/seatunnel/pulsar/config/BasePulsarConfig.java`
+#### Snippet
+```java
+    private final String authParams;
+
+    public BasePulsarConfig(String authPluginClassName, String authParams) {
+        this.authPluginClassName = authPluginClassName;
+        this.authParams = authParams;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6975,18 +7051,6 @@ Constructor `SingleThreadMultiplexSourceReaderBase()` of an abstract class shoul
 in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/SingleThreadMultiplexSourceReaderBase.java`
 #### Snippet
 ```java
-    }
-
-    public SingleThreadMultiplexSourceReaderBase(
-            BlockingQueue<RecordsWithSplitIds<E>> elementsQueue,
-            Supplier<SplitReader<E, SplitT>> splitReaderSupplier,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SingleThreadMultiplexSourceReaderBase()` of an abstract class should not be declared 'public'
-in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/SingleThreadMultiplexSourceReaderBase.java`
-#### Snippet
-```java
         extends SourceReaderBase<E, T, SplitT, SplitStateT> {
 
     public SingleThreadMultiplexSourceReaderBase(
@@ -6995,15 +7059,15 @@ in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractPluginDiscovery()` of an abstract class should not be declared 'public'
-in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discovery/AbstractPluginDiscovery.java`
+Constructor `SingleThreadMultiplexSourceReaderBase()` of an abstract class should not be declared 'public'
+in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/SingleThreadMultiplexSourceReaderBase.java`
 #### Snippet
 ```java
-            new ConcurrentHashMap<>(Common.COLLECTION_SIZE);
+    }
 
-    public AbstractPluginDiscovery(
-            String pluginSubDir, BiConsumer<ClassLoader, URL> addURLToClassloader) {
-        this(
+    public SingleThreadMultiplexSourceReaderBase(
+            BlockingQueue<RecordsWithSplitIds<E>> elementsQueue,
+            Supplier<SplitReader<E, SplitT>> splitReaderSupplier,
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -7013,20 +7077,8 @@ in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discove
 ```java
     }
 
-    public AbstractPluginDiscovery(Path pluginDir, Config pluginConfig) {
-        this(pluginDir, pluginConfig, DEFAULT_URL_TO_CLASSLOADER);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractPluginDiscovery()` of an abstract class should not be declared 'public'
-in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discovery/AbstractPluginDiscovery.java`
-#### Snippet
-```java
-    }
-
-    public AbstractPluginDiscovery(Path pluginDir) {
-        this(pluginDir, loadConnectorPluginConfig());
+    public AbstractPluginDiscovery(String pluginSubDir) {
+        this(Common.connectorJarDir(pluginSubDir), loadConnectorPluginConfig());
     }
 ```
 
@@ -7049,9 +7101,33 @@ in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discove
 ```java
     }
 
-    public AbstractPluginDiscovery(String pluginSubDir) {
-        this(Common.connectorJarDir(pluginSubDir), loadConnectorPluginConfig());
+    public AbstractPluginDiscovery(Path pluginDir) {
+        this(pluginDir, loadConnectorPluginConfig());
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractPluginDiscovery()` of an abstract class should not be declared 'public'
+in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discovery/AbstractPluginDiscovery.java`
+#### Snippet
+```java
+    }
+
+    public AbstractPluginDiscovery(Path pluginDir, Config pluginConfig) {
+        this(pluginDir, pluginConfig, DEFAULT_URL_TO_CLASSLOADER);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractPluginDiscovery()` of an abstract class should not be declared 'public'
+in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discovery/AbstractPluginDiscovery.java`
+#### Snippet
+```java
+            new ConcurrentHashMap<>(Common.COLLECTION_SIZE);
+
+    public AbstractPluginDiscovery(
+            String pluginSubDir, BiConsumer<ClassLoader, URL> addURLToClassloader) {
+        this(
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -7132,18 +7208,6 @@ Assignment to method parameter `config`
 in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkExecution.java`
 #### Snippet
 ```java
-
-    private Config registerPlugin(Config config, List<URL> jars) {
-        config =
-                this.injectJarsToConfig(
-                        config, ConfigUtil.joinPath("env", "pipeline", "jars"), jars);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `config`
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkExecution.java`
-#### Snippet
-```java
             paths.addAll(validJars);
 
             config =
@@ -7164,6 +7228,18 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/j
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `config`
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkExecution.java`
+#### Snippet
+```java
+
+    private Config registerPlugin(Config config, List<URL> jars) {
+        config =
+                this.injectJarsToConfig(
+                        config, ConfigUtil.joinPath("env", "pipeline", "jars"), jars);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `clazz`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/ReflectionUtils.java`
 #### Snippet
@@ -7173,30 +7249,6 @@ in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/ReflectionU
         for (; clazz != null; clazz = clazz.getSuperclass()) {
             try {
                 m = clazz.getDeclaredMethod(methodName, parameterTypes);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/utils/ExceptionUtil.java`
-#### Snippet
-```java
-                && t.getCause() != null
-                && t.getCause() != t) {
-            t = t.getCause();
-        }
-        return t;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/utils/ExceptionUtil.java`
-#### Snippet
-```java
-
-    @NonNull private static RuntimeException peeledAndUnchecked(@NonNull Throwable t) {
-        t = peel(t);
-
-        if (t instanceof RuntimeException) {
 ```
 
 ### AssignmentToMethodParameter
@@ -7221,6 +7273,30 @@ in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/
             locator = new YamlSeaTunnelConfigLocator();
             locator.locateEverywhere();
         }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `t`
+in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/utils/ExceptionUtil.java`
+#### Snippet
+```java
+                && t.getCause() != null
+                && t.getCause() != t) {
+            t = t.getCause();
+        }
+        return t;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `t`
+in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/utils/ExceptionUtil.java`
+#### Snippet
+```java
+
+    @NonNull private static RuntimeException peeledAndUnchecked(@NonNull Throwable t) {
+        t = peel(t);
+
+        if (t instanceof RuntimeException) {
 ```
 
 ### AssignmentToMethodParameter
@@ -7384,11 +7460,11 @@ Assignment to method parameter `pluginConfig`
 in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/connectors/seatunnel/hive/sink/HiveSink.java`
 #### Snippet
 ```java
-            URI uri = new URI(hdfsLocation);
             String path = uri.getPath();
-            pluginConfig =
-                    pluginConfig.withValue(FILE_PATH.key(), ConfigValueFactory.fromAnyRef(path));
             hadoopConf = new HadoopConf(hdfsLocation.replace(path, ""));
+            pluginConfig =
+                    pluginConfig
+                            .withValue(FILE_PATH.key(), ConfigValueFactory.fromAnyRef(path))
 ```
 
 ### AssignmentToMethodParameter
@@ -7400,7 +7476,7 @@ in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/co
         if (TEXT_INPUT_FORMAT_CLASSNAME.equals(inputFormat)) {
             pluginConfig =
                     pluginConfig.withValue(
-                            BaseSourceConfig.FILE_TYPE.key(),
+                            FILE_TYPE.key(),
 ```
 
 ### AssignmentToMethodParameter
@@ -7408,11 +7484,23 @@ Assignment to method parameter `pluginConfig`
 in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/connectors/seatunnel/hive/source/HiveSource.java`
 #### Snippet
 ```java
-                            ConfigValueFactory.fromAnyRef(FileFormat.TEXT.toString()));
+            ObjectNode jsonNodes = JsonUtils.parseObject(render);
+            jsonNodes.putPOJO(SCHEMA.key(), schema);
+            pluginConfig = ConfigFactory.parseString(jsonNodes.toString());
+        } else if (PARQUET_INPUT_FORMAT_CLASSNAME.equals(inputFormat)) {
+            pluginConfig =
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pluginConfig`
+in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/connectors/seatunnel/hive/source/HiveSource.java`
+#### Snippet
+```java
+            pluginConfig = ConfigFactory.parseString(jsonNodes.toString());
         } else if (PARQUET_INPUT_FORMAT_CLASSNAME.equals(inputFormat)) {
             pluginConfig =
                     pluginConfig.withValue(
-                            BaseSourceConfig.FILE_TYPE.key(),
+                            FILE_TYPE.key(),
 ```
 
 ### AssignmentToMethodParameter
@@ -7424,7 +7512,7 @@ in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/co
         } else if (ORC_INPUT_FORMAT_CLASSNAME.equals(inputFormat)) {
             pluginConfig =
                     pluginConfig.withValue(
-                            BaseSourceConfig.FILE_TYPE.key(),
+                            FILE_TYPE.key(),
 ```
 
 ### AssignmentToMethodParameter
@@ -7500,6 +7588,42 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `body`
+in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/client/HttpClientProvider.java`
+#### Snippet
+```java
+
+        if (StringUtils.isBlank(body)) {
+            body = "";
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `method`
+in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/client/HttpClientProvider.java`
+#### Snippet
+```java
+            throws Exception {
+        // convert method option to uppercase
+        method = method.toUpperCase(Locale.ROOT);
+        if (HttpPost.METHOD_NAME.equals(method)) {
+            return doPost(url, headers, params, body);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `params`
+in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/client/HttpClientProvider.java`
+#### Snippet
+```java
+    public HttpResponse doDelete(String url, Map<String, String> params) throws Exception {
+        if (params == null) {
+            params = new HashMap<>(INITIAL_CAPACITY);
+        }
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `type`
 in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/schema/SeaTunnelSchema.java`
 #### Snippet
@@ -7569,42 +7693,6 @@ in `seatunnel-connectors-v2/connector-datahub/src/main/java/org/apache/seatunnel
             retryNums = retryNums - 1;
             PutRecordsResult recordsResult = dataHubClient.putRecords(project, topic, records);
             if (recordsResult.getFailedRecordCount() > 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `body`
-in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/client/HttpClientProvider.java`
-#### Snippet
-```java
-
-        if (StringUtils.isBlank(body)) {
-            body = "";
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `method`
-in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/client/HttpClientProvider.java`
-#### Snippet
-```java
-            throws Exception {
-        // convert method option to uppercase
-        method = method.toUpperCase(Locale.ROOT);
-        if (HttpPost.METHOD_NAME.equals(method)) {
-            return doPost(url, headers, params, body);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `params`
-in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/client/HttpClientProvider.java`
-#### Snippet
-```java
-    public HttpResponse doDelete(String url, Map<String, String> params) throws Exception {
-        if (params == null) {
-            params = new HashMap<>(INITIAL_CAPACITY);
-        }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -7925,11 +8013,11 @@ Synchronization on local variable `transactionManager`
 in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaInternalProducer.java`
 #### Snippet
 ```java
-        if (!transactionalId.equals(this.transactionalId)) {
-            Object transactionManager = getTransactionManager();
-            synchronized (transactionManager) {
-                ReflectionUtils.setField(transactionManager, "transactionalId", transactionalId);
-                ReflectionUtils.setField(
+
+        Object transactionManager = getTransactionManager();
+        synchronized (transactionManager) {
+            Object topicPartitionBookkeeper =
+                    ReflectionUtils.getField(
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -7937,11 +8025,11 @@ Synchronization on local variable `transactionManager`
 in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaInternalProducer.java`
 #### Snippet
 ```java
-
-        Object transactionManager = getTransactionManager();
-        synchronized (transactionManager) {
-            Object topicPartitionBookkeeper =
-                    ReflectionUtils.getField(
+        if (!transactionalId.equals(this.transactionalId)) {
+            Object transactionManager = getTransactionManager();
+            synchronized (transactionManager) {
+                ReflectionUtils.setField(transactionManager, "transactionalId", transactionalId);
+                ReflectionUtils.setField(
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -8022,7 +8110,7 @@ Return of `null`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/SerializationUtils.java`
 #### Snippet
 ```java
-            return Base64.encodeBase64String(serialize(obj));
+            return deserialize(Base64.decodeBase64(str));
         }
         return null;
     }
@@ -8034,22 +8122,10 @@ Return of `null`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/SerializationUtils.java`
 #### Snippet
 ```java
-            return deserialize(Base64.decodeBase64(str));
+            return Base64.encodeBase64String(serialize(obj));
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/JsonUtils.java`
-#### Snippet
-```java
-
-        if (node == null) {
-            return null;
-        }
 
 ```
 
@@ -8072,6 +8148,18 @@ in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/JsonUtils.j
 ```java
     public static <T> T parseObject(String json, TypeReference<T> type) {
         if (StringUtils.isEmpty(json)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/JsonUtils.java`
+#### Snippet
+```java
+
+        if (node == null) {
             return null;
         }
 
@@ -8163,18 +8251,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/RequestSplitOperation.java`
-#### Snippet
-```java
-                            server.getTaskExecutionService().getTask(enumeratorTaskID);
-                    task.requestSplit(taskID.getTaskIndex());
-                    return null;
-                },
-                new RetryUtils.RetryMaterial(
-```
-
-### ReturnNull
-Return of `null`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/SourceRegisterOperation.java`
 #### Snippet
 ```java
@@ -8187,23 +8263,11 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/checkpoint/CloseRequestOperation.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/RestoredSplitOperation.java`
 #### Snippet
 ```java
-                            server.getTaskExecutionService().getTask(readerLocation);
-                    task.close();
-                    return null;
-                },
-                new RetryUtils.RetryMaterial(
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/SourceNoMoreElementOperation.java`
-#### Snippet
-```java
-                            server.getTaskExecutionService().getTask(enumeratorTaskID);
-                    task.readerFinished(currentTaskID.getTaskID());
+                            taskExecutionService.getTask(taskLocation);
+                    task.addSplitsBack(deserialize, subtaskIndex);
                     return null;
                 },
                 new RetryUtils.RetryMaterial(
@@ -8223,11 +8287,11 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/RestoredSplitOperation.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/RequestSplitOperation.java`
 #### Snippet
 ```java
-                            taskExecutionService.getTask(taskLocation);
-                    task.addSplitsBack(deserialize, subtaskIndex);
+                            server.getTaskExecutionService().getTask(enumeratorTaskID);
+                    task.requestSplit(taskID.getTaskIndex());
                     return null;
                 },
                 new RetryUtils.RetryMaterial(
@@ -8255,6 +8319,42 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
                     return null;
                 },
                 new RetryUtils.RetryMaterial(
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/source/SourceNoMoreElementOperation.java`
+#### Snippet
+```java
+                            server.getTaskExecutionService().getTask(enumeratorTaskID);
+                    task.readerFinished(currentTaskID.getTaskID());
+                    return null;
+                },
+                new RetryUtils.RetryMaterial(
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/operation/checkpoint/CloseRequestOperation.java`
+#### Snippet
+```java
+                            server.getTaskExecutionService().getTask(readerLocation);
+                    task.close();
+                    return null;
+                },
+                new RetryUtils.RetryMaterial(
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalPlanGenerator.java`
+#### Snippet
+```java
+                                        runningJobStateTimestampsIMap);
+                            } else {
+                                return null;
+                            }
+                        })
 ```
 
 ### ReturnNull
@@ -8295,6 +8395,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ReturnNull
 Return of `null`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/execution/Task.java`
+#### Snippet
+```java
+
+    default MetricsContext getMetricsContext() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/service/slot/DefaultSlotService.java`
 #### Snippet
 ```java
@@ -8319,42 +8431,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/execution/Task.java`
-#### Snippet
-```java
-
-    default MetricsContext getMetricsContext() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalPlanGenerator.java`
-#### Snippet
-```java
-                                        runningJobStateTimestampsIMap);
-                            } else {
-                                return null;
-                            }
-                        })
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/operation/CheckpointBarrierTriggerOperation.java`
-#### Snippet
-```java
-                        sneakyThrow(e);
-                    }
-                    return null;
-                },
-                new RetryUtils.RetryMaterial(
-```
-
-### ReturnNull
-Return of `null`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/operation/NotifyTaskStartOperation.java`
 #### Snippet
 ```java
@@ -8367,7 +8443,7 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/operation/CheckpointFinishedOperation.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/operation/CheckpointBarrierTriggerOperation.java`
 #### Snippet
 ```java
                         sneakyThrow(e);
@@ -8391,14 +8467,14 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/persistence/FileMapStore.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/operation/CheckpointFinishedOperation.java`
 #### Snippet
 ```java
-    @Override
-    public Object load(Object key) {
-        return null;
-    }
-
+                        sneakyThrow(e);
+                    }
+                    return null;
+                },
+                new RetryUtils.RetryMaterial(
 ```
 
 ### ReturnNull
@@ -8411,54 +8487,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
                     return null;
                 },
                 new RetryUtils.RetryMaterial(
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/thirdparty/kubernetes/KubernetesResourceManager.java`
-#### Snippet
-```java
-    @Override
-    public CompletableFuture<Void> releaseWorker(String workerID) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/thirdparty/kubernetes/KubernetesResourceManager.java`
-#### Snippet
-```java
-    @Override
-    public CompletableFuture<CreateWorkerResult> createNewWorker(ResourceProfile resourceProfile) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/thirdparty/yarn/YarnResourceManager.java`
-#### Snippet
-```java
-    @Override
-    public CompletableFuture<CreateWorkerResult> createNewWorker(ResourceProfile resourceProfile) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/thirdparty/yarn/YarnResourceManager.java`
-#### Snippet
-```java
-    @Override
-    public CompletableFuture<Void> releaseWorker(String workerID) {
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -8547,26 +8575,62 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonDeserializationSchema.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/persistence/FileMapStore.java`
 #### Snippet
 ```java
-        } catch (Throwable t) {
-            if (ignoreParseErrors) {
-                return null;
-            }
-            throw new SeaTunnelJsonFormatException(
+    @Override
+    public Object load(Object key) {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonDeserializationSchema.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/thirdparty/yarn/YarnResourceManager.java`
 #### Snippet
 ```java
-    public SeaTunnelRow deserialize(String message) throws IOException {
-        if (message == null) {
-            return null;
-        }
-        return convertJsonNode(convert(message));
+    @Override
+    public CompletableFuture<CreateWorkerResult> createNewWorker(ResourceProfile resourceProfile) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/thirdparty/yarn/YarnResourceManager.java`
+#### Snippet
+```java
+    @Override
+    public CompletableFuture<Void> releaseWorker(String workerID) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/thirdparty/kubernetes/KubernetesResourceManager.java`
+#### Snippet
+```java
+    @Override
+    public CompletableFuture<CreateWorkerResult> createNewWorker(ResourceProfile resourceProfile) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/thirdparty/kubernetes/KubernetesResourceManager.java`
+#### Snippet
+```java
+    @Override
+    public CompletableFuture<Void> releaseWorker(String workerID) {
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -8598,11 +8662,23 @@ Return of `null`
 in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonDeserializationSchema.java`
 #### Snippet
 ```java
-    public SeaTunnelRow deserialize(byte[] message) throws IOException {
+        } catch (Throwable t) {
+            if (ignoreParseErrors) {
+                return null;
+            }
+            throw new SeaTunnelJsonFormatException(
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonDeserializationSchema.java`
+#### Snippet
+```java
+    public SeaTunnelRow deserialize(String message) throws IOException {
         if (message == null) {
             return null;
         }
-        return convertJsonNode(convertBytes(message));
+        return convertJsonNode(convert(message));
 ```
 
 ### ReturnNull
@@ -8619,11 +8695,23 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonDeserializationSchema.java`
+#### Snippet
+```java
+    public SeaTunnelRow deserialize(byte[] message) throws IOException {
+        if (message == null) {
+            return null;
+        }
+        return convertJsonNode(convertBytes(message));
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
 #### Snippet
 ```java
                     @Override
-                    public JsonNode convert(ObjectMapper mapper, JsonNode reuse, Object value) {
+                    public Object convert(JsonNode jsonNode) {
                         return null;
                     }
                 };
@@ -8631,38 +8719,14 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextDeserializationSchema.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
 #### Snippet
 ```java
-    private Object convert(String field, SeaTunnelDataType<?> fieldType) {
-        if (StringUtils.isBlank(field)) {
-            return null;
-        }
-        switch (fieldType.getSqlType()) {
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextDeserializationSchema.java`
-#### Snippet
-```java
-                return new BigDecimal(field);
-            case NULL:
-                return null;
-            case BYTES:
-                return field.getBytes();
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/canal/CanalJsonDeserializationSchema.java`
-#### Snippet
-```java
-        } catch (Throwable t) {
-            if (ignoreParseErrors) {
+                        String.format("Could not find field with name %s .", fieldName));
+            } else {
                 return null;
             }
-            throw new SeaTunnelJsonFormatException(
+        } else {
 ```
 
 ### ReturnNull
@@ -8691,23 +8755,11 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
-#### Snippet
-```java
-                        String.format("Could not find field with name %s .", fieldName));
-            } else {
-                return null;
-            }
-        } else {
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
 #### Snippet
 ```java
                     @Override
-                    public Object convert(JsonNode jsonNode) {
+                    public JsonNode convert(ObjectMapper mapper, JsonNode reuse, Object value) {
                         return null;
                     }
                 };
@@ -8715,6 +8767,42 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 
 ### ReturnNull
 Return of `null`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/canal/CanalJsonDeserializationSchema.java`
+#### Snippet
+```java
+        } catch (Throwable t) {
+            if (ignoreParseErrors) {
+                return null;
+            }
+            throw new SeaTunnelJsonFormatException(
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextDeserializationSchema.java`
+#### Snippet
+```java
+    private Object convert(String field, SeaTunnelDataType<?> fieldType, int level) {
+        if (StringUtils.isBlank(field)) {
+            return null;
+        }
+        switch (fieldType.getSqlType()) {
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-formats/seatunnel-format-text/src/main/java/org/apache/seatunnel/format/text/TextDeserializationSchema.java`
+#### Snippet
+```java
+                return new BigDecimal(field);
+            case NULL:
+                return null;
+            case BYTES:
+                return field.getBytes();
+```
+
+### ReturnNull
+Return of `null`
 in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-13/src/main/java/org/apache/seatunnel/translation/flink/serialization/FlinkRowConverter.java`
 #### Snippet
 ```java
@@ -8742,7 +8830,7 @@ Return of `null`
 in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-15/src/main/java/org/apache/seatunnel/translation/flink/serialization/FlinkRowConverter.java`
 #### Snippet
 ```java
-    private static Object convert(Object field, SeaTunnelDataType<?> dataType) {
+    private static Object reconvert(Object field, SeaTunnelDataType<?> dataType) {
         if (field == null) {
             return null;
         }
@@ -8754,7 +8842,7 @@ Return of `null`
 in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-15/src/main/java/org/apache/seatunnel/translation/flink/serialization/FlinkRowConverter.java`
 #### Snippet
 ```java
-    private static Object reconvert(Object field, SeaTunnelDataType<?> dataType) {
+    private static Object convert(Object field, SeaTunnelDataType<?> dataType) {
         if (field == null) {
             return null;
         }
@@ -8787,18 +8875,6 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/source/SeaTunnelSparkSource.java`
-#### Snippet
-```java
-    @Override
-    public StructType inferSchema(CaseInsensitiveStringMap caseInsensitiveStringMap) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-2.4/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
 #### Snippet
 ```java
@@ -8819,6 +8895,18 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
             return null;
         }
         switch (dataType.getSqlType()) {
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/source/SeaTunnelSparkSource.java`
+#### Snippet
+```java
+    @Override
+    public StructType inferSchema(CaseInsensitiveStringMap caseInsensitiveStringMap) {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -8835,42 +8923,6 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/debezium/relational/TableId.java`
-#### Snippet
-```java
-    protected static TableId parse(String[] parts, int numParts, boolean useCatalogBeforeSchema) {
-        if (numParts == 0) {
-            return null;
-        }
-        if (numParts == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/debezium/relational/TableId.java`
-#### Snippet
-```java
-    private static String quote(String identifierPart, char quotingChar) {
-        if (identifierPart == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/config/StartupConfig.java`
-#### Snippet
-```java
-                return offsetFactory.latest();
-            case INITIAL:
-                return null;
-            case TIMESTAMP:
-                return offsetFactory.timestamp(timestamp);
-```
-
-### ReturnNull
-Return of `null`
 in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
 #### Snippet
 ```java
@@ -8895,26 +8947,14 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/utils/SourceRecordUtils.java`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/config/StartupConfig.java`
 #### Snippet
 ```java
-        Struct value = (Struct) record.value();
-        if (schema.field(Envelope.FieldName.TIMESTAMP) == null) {
-            return null;
-        }
-        return value.getInt64(Envelope.FieldName.TIMESTAMP);
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/utils/SourceRecordUtils.java`
-#### Snippet
-```java
-            return source.getString(SCHEMA_NAME_KEY);
-        }
-        return null;
-    }
-
+                return offsetFactory.latest();
+            case INITIAL:
+                return null;
+            case TIMESTAMP:
+                return offsetFactory.timestamp(timestamp);
 ```
 
 ### ReturnNull
@@ -8939,6 +8979,54 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/utils/SourceRecordUtils.java`
+#### Snippet
+```java
+            return source.getString(SCHEMA_NAME_KEY);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/utils/SourceRecordUtils.java`
+#### Snippet
+```java
+        Struct value = (Struct) record.value();
+        if (schema.field(Envelope.FieldName.TIMESTAMP) == null) {
+            return null;
+        }
+        return value.getInt64(Envelope.FieldName.TIMESTAMP);
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/debezium/relational/TableId.java`
+#### Snippet
+```java
+    private static String quote(String identifierPart, char quotingChar) {
+        if (identifierPart == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/debezium/relational/TableId.java`
+#### Snippet
+```java
+    protected static TableId parse(String[] parts, int numParts, boolean useCatalogBeforeSchema) {
+        if (numParts == 0) {
+            return null;
+        }
+        if (numParts == 1) {
 ```
 
 ### ReturnNull
@@ -8994,18 +9082,6 @@ Return of `null`
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
 #### Snippet
 ```java
-    public static LocalDate toLocalDate(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof LocalDate) {
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
-#### Snippet
-```java
     public static LocalDateTime toLocalDateTime(Object obj, ZoneId serverTimeZone) {
         if (obj == null) {
             return null;
@@ -9018,23 +9094,23 @@ Return of `null`
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
 #### Snippet
 ```java
+    public static LocalDate toLocalDate(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof LocalDate) {
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
+#### Snippet
+```java
     public static LocalTime toLocalTime(Object obj) {
         if (obj == null) {
             return null;
         }
         if (obj instanceof LocalTime) {
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/config/ServerIdRange.java`
-#### Snippet
-```java
-    public static ServerIdRange from(String range) {
-        if (range == null) {
-            return null;
-        }
-        if (range.contains("-")) {
 ```
 
 ### ReturnNull
@@ -9071,6 +9147,18 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
             return null;
         } else {
             return fieldConverter.convert(fieldValue, fieldSchema);
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/config/ServerIdRange.java`
+#### Snippet
+```java
+    public static ServerIdRange from(String range) {
+        if (range == null) {
+            return null;
+        }
+        if (range.contains("-")) {
 ```
 
 ### ReturnNull
@@ -9147,18 +9235,6 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/source/eumerator/SqlServerChunkSplitter.java`
-#### Snippet
-```java
-        }
-        if (ObjectUtils.compare(chunkEnd, max) >= 0) {
-            return null;
-        } else {
-            return chunkEnd;
-```
-
-### ReturnNull
-Return of `null`
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/source/reader/fetch/SqlServerSourceFetchTaskContext.java`
 #### Snippet
 ```java
@@ -9178,19 +9254,7 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/
             if (source == null) {
                 return null;
             }
-            final Long timestamp = sourceInfo.getInt64(SourceInfo.TIMESTAMP_KEY);
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/source/reader/fetch/SqlServerSourceFetchTaskContext.java`
-#### Snippet
-```java
-            }
-            final Long timestamp = sourceInfo.getInt64(SourceInfo.TIMESTAMP_KEY);
-            return timestamp == null ? null : Instant.ofEpochMilli(timestamp);
-        }
-
+            return sourceInfo.getString(SourceInfo.COMMIT_LSN_KEY);
 ```
 
 ### ReturnNull
@@ -9238,7 +9302,31 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/
             if (source == null) {
                 return null;
             }
-            return sourceInfo.getString(SourceInfo.COMMIT_LSN_KEY);
+            final Long timestamp = sourceInfo.getInt64(SourceInfo.TIMESTAMP_KEY);
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/source/reader/fetch/SqlServerSourceFetchTaskContext.java`
+#### Snippet
+```java
+            }
+            final Long timestamp = sourceInfo.getInt64(SourceInfo.TIMESTAMP_KEY);
+            return timestamp == null ? null : Instant.ofEpochMilli(timestamp);
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/source/eumerator/SqlServerChunkSplitter.java`
+#### Snippet
+```java
+        }
+        if (ObjectUtils.compare(chunkEnd, max) >= 0) {
+            return null;
+        } else {
+            return chunkEnd;
 ```
 
 ### ReturnNull
@@ -9303,6 +9391,18 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
 
 ### ReturnNull
 Return of `null`
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/ParquetReadStrategy.java`
 #### Snippet
 ```java
@@ -9323,18 +9423,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
                 return null;
             case BYTES:
                 ByteBuffer buffer = (ByteBuffer) field;
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPConnectionPool.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -9423,6 +9511,54 @@ in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/co
 
 ### ReturnNull
 Return of `null`
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/xa/XaFacadeImplAutoLoad.java`
+#### Snippet
+```java
+                    () -> {
+                        runnable.run();
+                        return null;
+                    },
+                    e -> {
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-doris/src/main/java/org/apache/seatunnel/connectors/doris/client/DorisStreamLoadVisitor.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-doris/src/main/java/org/apache/seatunnel/connectors/doris/client/HttpHelper.java`
+#### Snippet
+```java
+                if (null == respEntity) {
+                    log.warn("Request failed with empty response.");
+                    return null;
+                }
+                return EntityUtils.toString(respEntity);
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-doris/src/main/java/org/apache/seatunnel/connectors/doris/client/HttpHelper.java`
+#### Snippet
+```java
+                if (null == respEntity) {
+                    log.warn("Request failed with empty response.");
+                    return null;
+                }
+                return JsonUtils.parseObject(EntityUtils.toString(respEntity), Map.class);
+```
+
+### ReturnNull
+Return of `null`
 in `seatunnel-connectors-v2/connector-doris/src/main/java/org/apache/seatunnel/connectors/doris/client/HttpHelper.java`
 #### Snippet
 ```java
@@ -9455,54 +9591,6 @@ in `seatunnel-connectors-v2/connector-doris/src/main/java/org/apache/seatunnel/c
             return null;
         }
         return respEntity;
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-doris/src/main/java/org/apache/seatunnel/connectors/doris/client/HttpHelper.java`
-#### Snippet
-```java
-                if (null == respEntity) {
-                    log.warn("Request failed with empty response.");
-                    return null;
-                }
-                return EntityUtils.toString(respEntity);
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-doris/src/main/java/org/apache/seatunnel/connectors/doris/client/HttpHelper.java`
-#### Snippet
-```java
-                if (null == respEntity) {
-                    log.warn("Request failed with empty response.");
-                    return null;
-                }
-                return JsonUtils.parseObject(EntityUtils.toString(respEntity), Map.class);
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/xa/XaFacadeImplAutoLoad.java`
-#### Snippet
-```java
-                    () -> {
-                        runnable.run();
-                        return null;
-                    },
-                    e -> {
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-doris/src/main/java/org/apache/seatunnel/connectors/doris/client/DorisStreamLoadVisitor.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -9558,11 +9646,11 @@ Return of `null`
 in `seatunnel-connectors-v2/connector-neo4j/src/main/java/org/apache/seatunnel/connectors/seatunnel/neo4j/source/Neo4jSourceReader.java`
 #### Snippet
 ```java
-                                        output.collect(new SeaTunnelRow(fields));
-                                    });
-                    return null;
-                });
-        this.context.signalNoMoreElement();
+                return value.asDouble();
+            case NULL:
+                return null;
+            case BYTES:
+                return value.asByteArray();
 ```
 
 ### ReturnNull
@@ -9570,11 +9658,11 @@ Return of `null`
 in `seatunnel-connectors-v2/connector-neo4j/src/main/java/org/apache/seatunnel/connectors/seatunnel/neo4j/source/Neo4jSourceReader.java`
 #### Snippet
 ```java
-                return value.asDouble();
-            case NULL:
-                return null;
-            case BYTES:
-                return value.asByteArray();
+                                        output.collect(new SeaTunnelRow(fields));
+                                    });
+                    return null;
+                });
+        this.context.signalNoMoreElement();
 ```
 
 ### ReturnNull
@@ -9687,18 +9775,6 @@ in `seatunnel-connectors-v2/connector-rabbitmq/src/main/java/org/apache/seatunne
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/serialize/StarRocksBaseSerializer.java`
-#### Snippet
-```java
-    protected Object convert(SeaTunnelDataType dataType, Object val) {
-        if (val == null) {
-            return null;
-        }
-        switch (dataType.getSqlType()) {
-```
-
-### ReturnNull
-Return of `null`
 in `seatunnel-connectors-v2/connector-tdengine/src/main/java/org/apache/seatunnel/connectors/seatunnel/tdengine/source/TDengineSourceSplitEnumerator.java`
 #### Snippet
 ```java
@@ -9711,14 +9787,26 @@ in `seatunnel-connectors-v2/connector-tdengine/src/main/java/org/apache/seatunne
 
 ### ReturnNull
 Return of `null`
-in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/StarRocksStreamLoadVisitor.java`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/HttpHelper.java`
 #### Snippet
 ```java
+            try (CloseableHttpResponse resp = httpClient.execute(httpPost)) {
+                HttpEntity respEntity = getHttpEntity(resp);
+                return respEntity != null ? EntityUtils.toString(respEntity, "UTF-8") : null;
             }
         }
-        return null;
-    }
+```
 
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/HttpHelper.java`
+#### Snippet
+```java
+                if (null == respEntity) {
+                    log.warn("Request failed with empty response.");
+                    return null;
+                }
+                return JsonUtils.parseObject(EntityUtils.toString(respEntity), Map.class);
 ```
 
 ### ReturnNull
@@ -9731,30 +9819,6 @@ in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunn
                     return null;
                 }
                 return EntityUtils.toString(respEntity);
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/HttpHelper.java`
-#### Snippet
-```java
-                if (null == respEntity) {
-                    log.warn("Request failed with empty response.");
-                    return null;
-                }
-                return JsonUtils.parseObject(EntityUtils.toString(respEntity), Map.class);
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/HttpHelper.java`
-#### Snippet
-```java
-                if (null == respEntity) {
-                    log.warn("Request failed with empty response.");
-                    return null;
-                }
-                return JsonUtils.parseObject(EntityUtils.toString(respEntity), Map.class);
 ```
 
 ### ReturnNull
@@ -9783,6 +9847,42 @@ in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunn
 
 ### ReturnNull
 Return of `null`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/HttpHelper.java`
+#### Snippet
+```java
+                if (null == respEntity) {
+                    log.warn("Request failed with empty response.");
+                    return null;
+                }
+                return JsonUtils.parseObject(EntityUtils.toString(respEntity), Map.class);
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/StarRocksStreamLoadVisitor.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/serialize/StarRocksBaseSerializer.java`
+#### Snippet
+```java
+    protected Object convert(SeaTunnelDataType dataType, Object val) {
+        if (val == null) {
+            return null;
+        }
+        switch (dataType.getSqlType()) {
+```
+
+### ReturnNull
+Return of `null`
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/source/ClickhouseSourceSplit.java`
 #### Snippet
 ```java
@@ -9791,6 +9891,18 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/source/ClickhouseSourceSplitEnumerator.java`
+#### Snippet
+```java
+    @Override
+    public ClickhouseSourceState snapshotState(long checkpointId) throws Exception {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -9815,18 +9927,6 @@ in `seatunnel-connectors-v2/connector-maxcompute/src/main/java/org/apache/seatun
                 return null;
             case BYTES:
                 ByteBuffer buffer = (ByteBuffer) field;
-```
-
-### ReturnNull
-Return of `null`
-in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/source/ClickhouseSourceSplitEnumerator.java`
-#### Snippet
-```java
-    @Override
-    public ClickhouseSourceState snapshotState(long checkpointId) throws Exception {
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -10035,15 +10135,15 @@ in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discove
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
 ### AssignmentToLambdaParameter
-Assignment to lambda parameter `num`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SinkAggregatedCommitterTask.java`
+Assignment to lambda parameter `e`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
 #### Snippet
 ```java
-        Integer count =
-                checkpointBarrierCounter.compute(
-                        barrier.getId(), (id, num) -> num == null ? 1 : ++num);
-        if (count != maxWriterSize) {
-            return;
+                                isCancel.set(true);
+                                if (e == null) {
+                                    e =
+                                            new IllegalStateException(
+                                                    "cancellationFuture should be completed exceptionally");
 ```
 
 ### AssignmentToLambdaParameter
@@ -10059,15 +10159,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### AssignmentToLambdaParameter
-Assignment to lambda parameter `e`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
+Assignment to lambda parameter `num`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SinkAggregatedCommitterTask.java`
 #### Snippet
 ```java
-                                isCancel.set(true);
-                                if (e == null) {
-                                    e =
-                                            new IllegalStateException(
-                                                    "cancellationFuture should be completed exceptionally");
+        Integer count =
+                checkpointBarrierCounter.compute(
+                        barrier.getId(), (id, num) -> num == null ? 1 : ++num);
+        if (count != maxWriterSize) {
+            return;
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -10120,15 +10220,15 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `blockSize` is redundant
+Local variable `stats` is redundant
 in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/ftp/system/SeaTunnelFTPFileSystem.java`
 #### Snippet
 ```java
-            boolean isDir = true;
-            int blockReplication = 1;
-            long blockSize = DEFAULT_BLOCK_SIZE; // Block Size not known.
-            long modTime = -1; // Modification time of root dir not known.
-            Path root = new Path("/");
+        FTPClient client = connect();
+        try {
+            FileStatus[] stats = listStatus(client, file);
+            return stats;
+        } finally {
 ```
 
 ### UnnecessaryLocalVariable
@@ -10138,20 +10238,8 @@ in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/
 ```java
         FTPClient client = connect();
         try {
-            boolean success = delete(client, file, recursive);
+            boolean success = rename(client, src, dst);
             return success;
-        } finally {
-```
-
-### UnnecessaryLocalVariable
-Local variable `status` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/ftp/system/SeaTunnelFTPFileSystem.java`
-#### Snippet
-```java
-        FTPClient client = connect();
-        try {
-            FileStatus status = getFileStatus(client, file);
-            return status;
         } finally {
 ```
 
@@ -10186,8 +10274,32 @@ in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/
 ```java
         FTPClient client = connect();
         try {
-            boolean success = rename(client, src, dst);
+            boolean success = delete(client, file, recursive);
             return success;
+        } finally {
+```
+
+### UnnecessaryLocalVariable
+Local variable `blockSize` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/ftp/system/SeaTunnelFTPFileSystem.java`
+#### Snippet
+```java
+            boolean isDir = true;
+            int blockReplication = 1;
+            long blockSize = DEFAULT_BLOCK_SIZE; // Block Size not known.
+            long modTime = -1; // Modification time of root dir not known.
+            Path root = new Path("/");
+```
+
+### UnnecessaryLocalVariable
+Local variable `status` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/ftp/system/SeaTunnelFTPFileSystem.java`
+#### Snippet
+```java
+        FTPClient client = connect();
+        try {
+            FileStatus status = getFileStatus(client, file);
+            return status;
         } finally {
 ```
 
@@ -10204,18 +10316,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `stats` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/ftp/system/SeaTunnelFTPFileSystem.java`
-#### Snippet
-```java
-        FTPClient client = connect();
-        try {
-            FileStatus[] stats = listStatus(client, file);
-            return stats;
-        } finally {
-```
-
-### UnnecessaryLocalVariable
 Local variable `accessToken` is redundant
 in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/util/AuthorizationUtil.java`
 #### Snippet
@@ -10225,6 +10325,66 @@ in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org
         String accessToken =
                 HttpConfig.BASIC + " " + encodeBase64URLSafeString(accountMessage.getBytes());
         return accessToken;
+```
+
+### UnnecessaryLocalVariable
+Local variable `success` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
+#### Snippet
+```java
+        ChannelSftp channel = connect();
+        try {
+            boolean success = rename(channel, src, dst);
+            return success;
+        } finally {
+```
+
+### UnnecessaryLocalVariable
+Local variable `blockSize` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
+#### Snippet
+```java
+            boolean isDir = true;
+            int blockReplication = 1;
+            long blockSize = DEFAULT_BLOCK_SIZE; // Block Size not known.
+            long modTime = -1; // Modification time of root directory not known.
+            Path root = new Path("/");
+```
+
+### UnnecessaryLocalVariable
+Local variable `fos` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
+#### Snippet
+```java
+            throw new IOException(e);
+        }
+        FSDataOutputStream fos =
+                new FSDataOutputStream(os, statistics) {
+                    @Override
+```
+
+### UnnecessaryLocalVariable
+Local variable `homeDir` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
+#### Snippet
+```java
+        try {
+            channel = connect();
+            Path homeDir = new Path(channel.pwd());
+            return homeDir;
+        } catch (Exception ioe) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `success` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
+#### Snippet
+```java
+        ChannelSftp channel = connect();
+        try {
+            boolean success = delete(channel, f, recursive);
+            return success;
+        } finally {
 ```
 
 ### UnnecessaryLocalVariable
@@ -10252,66 +10412,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `blockSize` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
-#### Snippet
-```java
-            boolean isDir = true;
-            int blockReplication = 1;
-            long blockSize = DEFAULT_BLOCK_SIZE; // Block Size not known.
-            long modTime = -1; // Modification time of root directory not known.
-            Path root = new Path("/");
-```
-
-### UnnecessaryLocalVariable
-Local variable `status` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
-#### Snippet
-```java
-        ChannelSftp channel = connect();
-        try {
-            FileStatus status = getFileStatus(channel, f);
-            return status;
-        } finally {
-```
-
-### UnnecessaryLocalVariable
-Local variable `success` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
-#### Snippet
-```java
-        ChannelSftp channel = connect();
-        try {
-            boolean success = rename(channel, src, dst);
-            return success;
-        } finally {
-```
-
-### UnnecessaryLocalVariable
-Local variable `homeDir` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
-#### Snippet
-```java
-        try {
-            channel = connect();
-            Path homeDir = new Path(channel.pwd());
-            return homeDir;
-        } catch (Exception ioe) {
-```
-
-### UnnecessaryLocalVariable
-Local variable `fos` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
-#### Snippet
-```java
-            throw new IOException(e);
-        }
-        FSDataOutputStream fos =
-                new FSDataOutputStream(os, statistics) {
-                    @Override
-```
-
-### UnnecessaryLocalVariable
 Local variable `stats` is redundant
 in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
 #### Snippet
@@ -10320,18 +10420,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
         try {
             FileStatus[] stats = listStatus(client, f);
             return stats;
-        } finally {
-```
-
-### UnnecessaryLocalVariable
-Local variable `success` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
-#### Snippet
-```java
-        ChannelSftp channel = connect();
-        try {
-            boolean success = delete(channel, f, recursive);
-            return success;
         } finally {
 ```
 
@@ -10345,6 +10433,18 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
         ChannelSftp channel = connectionPool.connect(host, port, user, pwd, keyFile);
 
         return channel;
+```
+
+### UnnecessaryLocalVariable
+Local variable `status` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
+#### Snippet
+```java
+        ChannelSftp channel = connect();
+        try {
+            FileStatus status = getFileStatus(channel, f);
+            return status;
+        } finally {
 ```
 
 ### UnnecessaryLocalVariable
@@ -10432,6 +10532,18 @@ in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/se
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `indexDocsCounts` is redundant
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/client/EsRestClient.java`
+#### Snippet
+```java
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                String entity = EntityUtils.toString(response.getEntity());
+                List<IndexDocsCount> indexDocsCounts =
+                        JsonUtils.toList(entity, IndexDocsCount.class);
+                return indexDocsCounts;
+```
+
+### UnnecessaryLocalVariable
 Local variable `scrollResult` is redundant
 in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/client/EsRestClient.java`
 #### Snippet
@@ -10453,18 +10565,6 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
                 ScrollResult scrollResult = getDocsFromScrollResponse(responseJson);
                 return scrollResult;
             } else {
-```
-
-### UnnecessaryLocalVariable
-Local variable `indexDocsCounts` is redundant
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/client/EsRestClient.java`
-#### Snippet
-```java
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                String entity = EntityUtils.toString(response.getEntity());
-                List<IndexDocsCount> indexDocsCounts =
-                        JsonUtils.toList(entity, IndexDocsCount.class);
-                return indexDocsCounts;
 ```
 
 ### UnnecessaryLocalVariable
@@ -10506,18 +10606,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SourceSplitEnumeratorTask.java`
-#### Snippet
-```java
-        while (null == restoreComplete) {
-            log.warn("Task init is not complete, try to get it again after 200 ms");
-            Thread.sleep(200);
-        }
-        restoreComplete.get();
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
 #### Snippet
 ```java
@@ -10530,14 +10618,14 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointCoordinator.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SourceSplitEnumeratorTask.java`
 #### Snippet
 ```java
-                        "waiting pending checkpoint completed, pending counter: "
-                                + pendingCounter.get());
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                throw new SeaTunnelEngineException(e);
+        while (null == restoreComplete) {
+            log.warn("Task init is not complete, try to get it again after 200 ms");
+            Thread.sleep(200);
+        }
+        restoreComplete.get();
 ```
 
 ### BusyWait
@@ -10550,6 +10638,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
                     Thread.sleep(DEFAULT_WORKER_CHECK_INTERVAL);
                 }
             } catch (InterruptedException e) {
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointCoordinator.java`
+#### Snippet
+```java
+                        "waiting pending checkpoint completed, pending counter: "
+                                + pendingCounter.get());
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new SeaTunnelEngineException(e);
 ```
 
 ### BusyWait
@@ -10567,18 +10667,6 @@ in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/se
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-13/src/main/java/org/apache/seatunnel/translation/flink/source/BaseSeaTunnelSourceFunction.java`
-#### Snippet
-```java
-                && ((StreamingRuntimeContext) getRuntimeContext()).isCheckpointingEnabled()) {
-            while (running && prevCheckpointId >= latestCompletedCheckpointId.get()) {
-                Thread.sleep(100);
-            }
-        }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-15/src/main/java/org/apache/seatunnel/translation/flink/source/BaseSeaTunnelSourceFunction.java`
 #### Snippet
 ```java
                 && ((StreamingRuntimeContext) getRuntimeContext()).isCheckpointingEnabled()) {
@@ -10614,14 +10702,14 @@ in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/se
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-2.4/src/main/java/org/apache/seatunnel/translation/spark/source/reader/micro/ParallelMicroBatchPartitionReader.java`
+in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-15/src/main/java/org/apache/seatunnel/translation/flink/source/BaseSeaTunnelSourceFunction.java`
 #### Snippet
 ```java
-
-                        while (!handover.isEmpty()) {
-                            Thread.sleep(CHECKPOINT_SLEEP_INTERVAL);
-                        }
-                        // Block #next() method
+                && ((StreamingRuntimeContext) getRuntimeContext()).isCheckpointingEnabled()) {
+            while (running && prevCheckpointId >= latestCompletedCheckpointId.get()) {
+                Thread.sleep(100);
+            }
+        }
 ```
 
 ### BusyWait
@@ -10658,6 +10746,18 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
                 Thread.sleep(SLEEP_TIME_INTERVAL);
             }
         }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-2.4/src/main/java/org/apache/seatunnel/translation/spark/source/reader/micro/ParallelMicroBatchPartitionReader.java`
+#### Snippet
+```java
+
+                        while (!handover.isEmpty()) {
+                            Thread.sleep(CHECKPOINT_SLEEP_INTERVAL);
+                        }
+                        // Block #next() method
 ```
 
 ### BusyWait
@@ -10710,18 +10810,6 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/source/partition/batch/ParallelBatchPartitionReader.java`
-#### Snippet
-```java
-        while (running && handover.isEmpty()) {
-            try {
-                Thread.sleep(INTERVAL);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/source/partition/batch/CoordinatedBatchPartitionReader.java`
 #### Snippet
 ```java
@@ -10742,6 +10830,18 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
                 Thread.sleep(SLEEP_TIME_INTERVAL);
             }
         }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/source/partition/batch/ParallelBatchPartitionReader.java`
+#### Snippet
+```java
+        while (running && handover.isEmpty()) {
+            try {
+                Thread.sleep(INTERVAL);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
 ```
 
 ### BusyWait
@@ -10879,15 +10979,15 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
-'init(io.sentry.@org.jetbrains.annotations.NotNull SentryOptions)' is marked unstable with @ApiStatus.Internal
-in `seatunnel-connectors-v2/connector-sentry/src/main/java/org/apache/seatunnel/connectors/seatunnel/sentry/sink/SentrySinkWriter.java`
+Overridden method 'onRetry(com.github.rholder.retry.Attempt)' is declared in unstable interface 'com.github.rholder.retry.RetryListener' marked with @Beta
+in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/client/HttpClientProvider.java`
 #### Snippet
 ```java
-                    pluginConfig.getBoolean(SentryConfig.ENABLE_EXTERNAL_CONFIGURATION.key()));
-        }
-        Sentry.init(options);
-    }
-
+                        new RetryListener() {
+                            @Override
+                            public <V> void onRetry(Attempt<V> attempt) {
+                                if (attempt.hasException()) {
+                                    log.warn(
 ```
 
 ### UnstableApiUsage
@@ -10915,15 +11015,15 @@ in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org
 ```
 
 ### UnstableApiUsage
-Overridden method 'onRetry(com.github.rholder.retry.Attempt)' is declared in unstable interface 'com.github.rholder.retry.RetryListener' marked with @Beta
-in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/client/HttpClientProvider.java`
+'init(io.sentry.@org.jetbrains.annotations.NotNull SentryOptions)' is marked unstable with @ApiStatus.Internal
+in `seatunnel-connectors-v2/connector-sentry/src/main/java/org/apache/seatunnel/connectors/seatunnel/sentry/sink/SentrySinkWriter.java`
 #### Snippet
 ```java
-                        new RetryListener() {
-                            @Override
-                            public <V> void onRetry(Attempt<V> attempt) {
-                                if (attempt.hasException()) {
-                                    log.warn(
+                    pluginConfig.getBoolean(SentryConfig.ENABLE_EXTERNAL_CONFIGURATION.key()));
+        }
+        Sentry.init(options);
+    }
+
 ```
 
 ## RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
@@ -11229,18 +11329,6 @@ Obsolete collection type `Vector` used
 in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
 #### Snippet
 ```java
-            return new FileStatus[] {fileStat};
-        }
-        Vector<LsEntry> sftpFiles;
-        try {
-            sftpFiles = (Vector<LsEntry>) client.ls(absolute.toUri().getPath());
-```
-
-### ObsoleteCollection
-Obsolete collection type `Vector` used
-in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
-#### Snippet
-```java
         }
         String pathName = parentPath.toUri().getPath();
         Vector<LsEntry> sftpFiles;
@@ -11248,7 +11336,31 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
             sftpFiles = (Vector<LsEntry>) client.ls(pathName);
 ```
 
+### ObsoleteCollection
+Obsolete collection type `Vector` used
+in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sftp/system/SFTPFileSystem.java`
+#### Snippet
+```java
+            return new FileStatus[] {fileStat};
+        }
+        Vector<LsEntry> sftpFiles;
+        try {
+            sftpFiles = (Vector<LsEntry>) client.ls(absolute.toUri().getPath());
+```
+
 ## RuleId[ruleID=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/debezium/relational/TableId.java`
+#### Snippet
+```java
+
+    private static String repeat(char quotingChar) {
+        return new StringBuilder().append(quotingChar).append(quotingChar).toString();
+    }
+
+```
+
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/debezium/relational/TableId.java`
@@ -11263,14 +11375,38 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/de
 
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/debezium/relational/TableId.java`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksQueryPlanReadClient.java`
 #### Snippet
 ```java
+    private QueryPlan getQueryPlan(String querySQL, String httpNode) {
+        String url =
+                new StringBuilder("http://")
+                        .append(httpNode)
+                        .append("/api/")
+```
 
-    private static String repeat(char quotingChar) {
-        return new StringBuilder().append(quotingChar).append(quotingChar).toString();
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksQueryPlanReadClient.java`
+#### Snippet
+```java
+        String auth = username + ":" + password;
+        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.UTF_8));
+        return new StringBuilder("Basic ").append(new String(encodedAuth)).toString();
     }
 
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/StarRocksStreamLoadVisitor.java`
+#### Snippet
+```java
+            try {
+                String queryLoadStateUrl =
+                        new StringBuilder(host)
+                                .append("/api/")
+                                .append(sinkConfig.getDatabase())
 ```
 
 ### StringBufferReplaceableByString
@@ -11335,14 +11471,14 @@ in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunn
 
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
-in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/StarRocksStreamLoadVisitor.java`
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/serialize/ElasticsearchRowSerializer.java`
 #### Snippet
 ```java
-            try {
-                String queryLoadStateUrl =
-                        new StringBuilder(host)
-                                .append("/api/")
-                                .append(sinkConfig.getDatabase())
+             * "${your_document_id}"} }
+             */
+            return new StringBuilder()
+                    .append("{ \"delete\" :")
+                    .append(objectMapper.writeValueAsString(deleteMetadata))
 ```
 
 ### StringBufferReplaceableByString
@@ -11367,18 +11503,6 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
                 return new StringBuilder()
                         .append("{ \"index\" :")
                         .append(objectMapper.writeValueAsString(indexMetadata))
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/serialize/ElasticsearchRowSerializer.java`
-#### Snippet
-```java
-             * "${your_document_id}"} }
-             */
-            return new StringBuilder()
-                    .append("{ \"delete\" :")
-                    .append(objectMapper.writeValueAsString(deleteMetadata))
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -11446,30 +11570,6 @@ in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/co
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super String`
-in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/ReadonlyConfig.java`
-#### Snippet
-```java
-    }
-
-    public void toMap(Map<String, String> result) {
-        if (confData.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/ReadonlyConfig.java`
-#### Snippet
-```java
-    }
-
-    public void toMap(Map<String, String> result) {
-        if (confData.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Column`
 in `seatunnel-api/src/main/java/org/apache/seatunnel/api/table/catalog/TableSchema.java`
 #### Snippet
@@ -11479,6 +11579,42 @@ in `seatunnel-api/src/main/java/org/apache/seatunnel/api/table/catalog/TableSche
         public Builder columns(List<Column> columns) {
             this.columns.addAll(columns);
             return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/ReadonlyConfig.java`
+#### Snippet
+```java
+    }
+
+    public void toMap(Map<String, String> result) {
+        if (confData.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/ReadonlyConfig.java`
+#### Snippet
+```java
+    }
+
+    public void toMap(Map<String, String> result) {
+        if (confData.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Option`
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/ConfigValidator.java`
+#### Snippet
+```java
+    }
+
+    private List<Option<?>> getAbsentOptions(List<Option<?>> requiredOption) {
+        List<Option<?>> absent = new ArrayList<>();
+        for (Option<?> option : requiredOption) {
 ```
 
 ### BoundedWildcard
@@ -11494,18 +11630,6 @@ in `seatunnel-api/src/main/java/org/apache/seatunnel/api/serialization/Deseriali
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `seatunnel-api/src/main/java/org/apache/seatunnel/api/common/metrics/JobMetrics.java`
-#### Snippet
-```java
-    }
-
-    private JobMetrics(Map<String, List<Measurement>> metrics) {
-        this.metrics = new HashMap<>(metrics);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super Measurement`
 in `seatunnel-api/src/main/java/org/apache/seatunnel/api/common/metrics/JobMetrics.java`
 #### Snippet
@@ -11518,15 +11642,39 @@ in `seatunnel-api/src/main/java/org/apache/seatunnel/api/common/metrics/JobMetri
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Option`
-in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/ConfigValidator.java`
+Can generalize to `? extends List`
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/common/metrics/JobMetrics.java`
 #### Snippet
 ```java
     }
 
-    private List<Option<?>> getAbsentOptions(List<Option<?>> requiredOption) {
-        List<Option<?>> absent = new ArrayList<>();
-        for (Option<?> option : requiredOption) {
+    private JobMetrics(Map<String, List<Measurement>> metrics) {
+        this.metrics = new HashMap<>(metrics);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/OptionRule.java`
+#### Snippet
+```java
+
+        public <T> Builder conditional(
+                @NonNull Option<T> conditionalOption,
+                @NonNull List<T> expectValues,
+                @NonNull Option<?>... requiredOptions) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/OptionRule.java`
+#### Snippet
+```java
+        public <T> Builder conditional(
+                @NonNull Option<T> conditionalOption,
+                @NonNull List<T> expectValues,
+                @NonNull Option<?>... requiredOptions) {
+            verifyConditionalExists(conditionalOption);
 ```
 
 ### BoundedWildcard
@@ -11578,39 +11726,15 @@ in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/Conf
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/OptionRule.java`
-#### Snippet
-```java
-
-        public <T> Builder conditional(
-                @NonNull Option<T> conditionalOption,
-                @NonNull List<T> expectValues,
-                @NonNull Option<?>... requiredOptions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/OptionRule.java`
-#### Snippet
-```java
-        public <T> Builder conditional(
-                @NonNull Option<T> conditionalOption,
-                @NonNull List<T> expectValues,
-                @NonNull Option<?>... requiredOptions) {
-            verifyConditionalExists(conditionalOption);
-```
-
-### BoundedWildcard
 Can generalize to `? super URL`
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/TransformExecuteProcessor.java`
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/SinkExecuteProcessor.java`
 #### Snippet
 ```java
     @Override
-    protected List<SeaTunnelTransform> initializePlugins(
-            List<URL> jarPaths, List<? extends Config> pluginConfigs) {
-        SeaTunnelTransformPluginDiscovery transformPluginDiscovery =
-                new SeaTunnelTransformPluginDiscovery();
+    protected List<SeaTunnelSink<SeaTunnelRow, Serializable, Serializable, Serializable>>
+            initializePlugins(List<URL> jarPaths, List<? extends Config> pluginConfigs) {
+        SeaTunnelSinkPluginDiscovery sinkPluginDiscovery =
+                new SeaTunnelSinkPluginDiscovery(ADD_URL_TO_CLASSLOADER);
 ```
 
 ### BoundedWildcard
@@ -11627,14 +11751,14 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/j
 
 ### BoundedWildcard
 Can generalize to `? super URL`
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/SinkExecuteProcessor.java`
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/TransformExecuteProcessor.java`
 #### Snippet
 ```java
     @Override
-    protected List<SeaTunnelSink<SeaTunnelRow, Serializable, Serializable, Serializable>>
-            initializePlugins(List<URL> jarPaths, List<? extends Config> pluginConfigs) {
-        SeaTunnelSinkPluginDiscovery sinkPluginDiscovery =
-                new SeaTunnelSinkPluginDiscovery(ADD_URL_TO_CLASSLOADER);
+    protected List<SeaTunnelTransform> initializePlugins(
+            List<URL> jarPaths, List<? extends Config> pluginConfigs) {
+        SeaTunnelTransformPluginDiscovery transformPluginDiscovery =
+                new SeaTunnelTransformPluginDiscovery();
 ```
 
 ### BoundedWildcard
@@ -11662,18 +11786,6 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DataStream`
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/SinkExecuteProcessor.java`
-#### Snippet
-```java
-
-    @Override
-    public List<DataStream<Row>> execute(List<DataStream<Row>> upstreamDataStreams)
-            throws TaskExecuteException {
-        DataStream<Row> input = upstreamDataStreams.get(0);
-```
-
-### BoundedWildcard
 Can generalize to `? super URL`
 in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/SinkExecuteProcessor.java`
 #### Snippet
@@ -11683,6 +11795,18 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/j
             initializePlugins(List<URL> jarPaths, List<? extends Config> pluginConfigs) {
         SeaTunnelSinkPluginDiscovery sinkPluginDiscovery =
                 new SeaTunnelSinkPluginDiscovery(ADD_URL_TO_CLASSLOADER);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataStream`
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/SinkExecuteProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    public List<DataStream<Row>> execute(List<DataStream<Row>> upstreamDataStreams)
+            throws TaskExecuteException {
+        DataStream<Row> input = upstreamDataStreams.get(0);
 ```
 
 ### BoundedWildcard
@@ -11726,11 +11850,11 @@ Can generalize to `? super String`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/PropertiesUtil.java`
 #### Snippet
 ```java
-
-    public static <T> void setOption(
-            Config config, String optionName, Function<String, T> getter, Consumer<T> setter) {
-        T value = null;
-        if (config.hasPath(optionName)) {
+            String optionName,
+            T defaultValue,
+            Function<String, T> getter,
+            Consumer<T> setter) {
+        T value;
 ```
 
 ### BoundedWildcard
@@ -11738,11 +11862,11 @@ Can generalize to `? extends T`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/PropertiesUtil.java`
 #### Snippet
 ```java
-
-    public static <T> void setOption(
-            Config config, String optionName, Function<String, T> getter, Consumer<T> setter) {
-        T value = null;
-        if (config.hasPath(optionName)) {
+            String optionName,
+            T defaultValue,
+            Function<String, T> getter,
+            Consumer<T> setter) {
+        T value;
 ```
 
 ### BoundedWildcard
@@ -11750,10 +11874,10 @@ Can generalize to `? super T`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/PropertiesUtil.java`
 #### Snippet
 ```java
-
-    public static <T> void setOption(
-            Config config, String optionName, Function<String, T> getter, Consumer<T> setter) {
-        T value = null;
+            T defaultValue,
+            Function<String, T> getter,
+            Consumer<T> setter) {
+        T value;
         if (config.hasPath(optionName)) {
 ```
 
@@ -11762,11 +11886,11 @@ Can generalize to `? super String`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/PropertiesUtil.java`
 #### Snippet
 ```java
-            String optionName,
-            T defaultValue,
-            Function<String, T> getter,
-            Consumer<T> setter) {
-        T value;
+
+    public static <T> void setOption(
+            Config config, String optionName, Function<String, T> getter, Consumer<T> setter) {
+        T value = null;
+        if (config.hasPath(optionName)) {
 ```
 
 ### BoundedWildcard
@@ -11774,11 +11898,11 @@ Can generalize to `? extends T`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/PropertiesUtil.java`
 #### Snippet
 ```java
-            String optionName,
-            T defaultValue,
-            Function<String, T> getter,
-            Consumer<T> setter) {
-        T value;
+
+    public static <T> void setOption(
+            Config config, String optionName, Function<String, T> getter, Consumer<T> setter) {
+        T value = null;
+        if (config.hasPath(optionName)) {
 ```
 
 ### BoundedWildcard
@@ -11786,10 +11910,10 @@ Can generalize to `? super T`
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/PropertiesUtil.java`
 #### Snippet
 ```java
-            T defaultValue,
-            Function<String, T> getter,
-            Consumer<T> setter) {
-        T value;
+
+    public static <T> void setOption(
+            Config config, String optionName, Function<String, T> getter, Consumer<T> setter) {
+        T value = null;
         if (config.hasPath(optionName)) {
 ```
 
@@ -11806,18 +11930,6 @@ in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/SparkStarter.java`
-#### Snippet
-```java
-
-    /** append option to StringBuilder */
-    protected void appendOption(List<String> commands, String option, String value) {
-        commands.add(option);
-        commands.add("\"" + value.replace("\"", "\\\"") + "\"");
-```
-
-### BoundedWildcard
 Can generalize to `? extends Path`
 in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/SparkStarter.java`
 #### Snippet
@@ -11827,6 +11939,18 @@ in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/ja
     protected void appendPaths(List<String> commands, String option, List<Path> paths) {
         if (!paths.isEmpty()) {
             String values = paths.stream().map(Path::toString).collect(Collectors.joining(","));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/SparkStarter.java`
+#### Snippet
+```java
+
+    /** append option to StringBuilder */
+    protected void appendOption(List<String> commands, String option, String value) {
+        commands.add(option);
+        commands.add("\"" + value.replace("\"", "\\\"") + "\"");
 ```
 
 ### BoundedWildcard
@@ -11890,18 +12014,6 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/utils/PassiveCompletableFuture.java`
-#### Snippet
-```java
-    public PassiveCompletableFuture() {}
-
-    public PassiveCompletableFuture(CompletableFuture<T> chainedFuture) {
-        if (chainedFuture != null) {
-            chainedFuture.whenComplete(
-```
-
-### BoundedWildcard
 Can generalize to `? super ClientMessage`
 in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/engine/client/SeaTunnelHazelcastClient.java`
 #### Snippet
@@ -11911,6 +12023,18 @@ in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/
             @NonNull Function<ClientMessage, Object> decoder) {
         ClientInvocation invocation = new ClientInvocation(hazelcastClient, request, null, uuid);
         try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/utils/PassiveCompletableFuture.java`
+#### Snippet
+```java
+    public PassiveCompletableFuture() {}
+
+    public PassiveCompletableFuture(CompletableFuture<T> chainedFuture) {
+        if (chainedFuture != null) {
+            chainedFuture.whenComplete(
 ```
 
 ### BoundedWildcard
@@ -11938,18 +12062,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TaskGroupImmutableInformation`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
-#### Snippet
-```java
-    }
-
-    private void deployInternal(Consumer<TaskGroupImmutableInformation> taskGroupConsumer) {
-        TaskGroupImmutableInformation taskGroupImmutableInformation =
-                getTaskGroupImmutableInformation();
-```
-
-### BoundedWildcard
 Can generalize to `? extends Map`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
 #### Snippet
@@ -11962,6 +12074,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
+Can generalize to `? super TaskGroupImmutableInformation`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalVertex.java`
+#### Snippet
+```java
+    }
+
+    private void deployInternal(Consumer<TaskGroupImmutableInformation> taskGroupConsumer) {
+        TaskGroupImmutableInformation taskGroupImmutableInformation =
+                getTaskGroupImmutableInformation();
+```
+
+### BoundedWildcard
 Can generalize to `? extends TaskExecutionState`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/SubPlan.java`
 #### Snippet
@@ -11971,18 +12095,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
     private void addPhysicalVertexCallBack(PassiveCompletableFuture<TaskExecutionState> future) {
         future.thenAcceptAsync(
                 executionState -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends OneInputFlowLifeCycle`>
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTransformCollector.java`
-#### Snippet
-```java
-    private final List<OneInputFlowLifeCycle<Record<?>>> outputs;
-
-    public SeaTunnelTransformCollector(List<OneInputFlowLifeCycle<Record<?>>> outputs) {
-        this.outputs = outputs;
-    }
 ```
 
 ### BoundedWildcard
@@ -12011,6 +12123,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### BoundedWildcard
 Can generalize to `? extends OneInputFlowLifeCycle`>
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTransformCollector.java`
+#### Snippet
+```java
+    private final List<OneInputFlowLifeCycle<Record<?>>> outputs;
+
+    public SeaTunnelTransformCollector(List<OneInputFlowLifeCycle<Record<?>>> outputs) {
+        this.outputs = outputs;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends OneInputFlowLifeCycle`>
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelSourceCollector.java`
 #### Snippet
 ```java
@@ -12019,78 +12143,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
             List<OneInputFlowLifeCycle<Record<?>>> outputs,
             MetricsContext metricsContext) {
         this.checkpointLock = checkpointLock;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/PartitionTransformSourceFlowLifeCycle.java`
-#### Snippet
-```java
-
-    @Override
-    public void collect(Collector<T> collector) throws Exception {
-        for (int i = 0; i < ringbuffers.length; i++) {
-            Ringbuffer<T> ringbuffer = ringbuffers[i];
-```
-
-### BoundedWildcard
-Can generalize to `? super Record`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/TransformFlowLifeCycle.java`
-#### Snippet
-```java
-            TransformChainAction<T> action,
-            SeaTunnelTask runningTask,
-            Collector<Record<?>> collector,
-            CompletableFuture<Void> completableFuture) {
-        super(action, runningTask, completableFuture);
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
-#### Snippet
-```java
-
-    private void splitUnionVertex(
-            List<List<ExecutionEdge>> pipelines,
-            List<ExecutionVertex> pipeline,
-            ExecutionVertex currentVertex) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExecutionEdge`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
-#### Snippet
-```java
-    }
-
-    private void fillVerticesMap(List<ExecutionEdge> edges) {
-        inputVerticesMap.clear();
-        targetVerticesMap.clear();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExecutionVertex`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
-#### Snippet
-```java
-    }
-
-    private List<ExecutionEdge> createExecutionEdges(List<ExecutionVertex> pipeline) {
-        checkArgument(pipeline != null && pipeline.size() > 1);
-        List<ExecutionEdge> edges = new ArrayList<>(pipeline.size() - 1);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ActionSubtaskState`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SinkAggregatedCommitterTask.java`
-#### Snippet
-```java
-
-    @Override
-    public void restoreState(List<ActionSubtaskState> actionStateList) throws Exception {
-        List<AggregatedCommitInfoT> aggregatedCommitInfos =
-                actionStateList.stream()
 ```
 
 ### BoundedWildcard
@@ -12106,15 +12158,39 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ExecutionVertex`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
+#### Snippet
+```java
+    }
+
+    private List<ExecutionEdge> createExecutionEdges(List<ExecutionVertex> pipeline) {
+        checkArgument(pipeline != null && pipeline.size() > 1);
+        List<ExecutionEdge> edges = new ArrayList<>(pipeline.size() - 1);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExecutionVertex`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
+#### Snippet
+```java
+    }
+
+    private List<ExecutionVertex> recreatePipeline(List<ExecutionVertex> pipeline) {
+        return pipeline.stream()
+                .map(vertex -> recreateVertex(vertex, vertex.getParallelism()))
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExecutionEdge`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
 #### Snippet
 ```java
+    }
 
-    private static List<ExecutionEdge> findVertexRelatedEdge(
-            List<ExecutionEdge> edges, ExecutionVertex vertex) {
-
-        List<ExecutionEdge> sourceEdges =
+    private void fillVerticesMap(List<ExecutionEdge> edges) {
+        inputVerticesMap.clear();
+        targetVerticesMap.clear();
 ```
 
 ### BoundedWildcard
@@ -12130,15 +12206,75 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExecutionVertex`
+Can generalize to `? extends ExecutionEdge`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
 #### Snippet
 ```java
-    }
 
-    private List<ExecutionVertex> recreatePipeline(List<ExecutionVertex> pipeline) {
-        return pipeline.stream()
-                .map(vertex -> recreateVertex(vertex, vertex.getParallelism()))
+    private static List<ExecutionEdge> findVertexRelatedEdge(
+            List<ExecutionEdge> edges, ExecutionVertex vertex) {
+
+        List<ExecutionEdge> sourceEdges =
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/execution/PipelineGenerator.java`
+#### Snippet
+```java
+
+    private void splitUnionVertex(
+            List<List<ExecutionEdge>> pipelines,
+            List<ExecutionVertex> pipeline,
+            ExecutionVertex currentVertex) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/PartitionTransformSourceFlowLifeCycle.java`
+#### Snippet
+```java
+
+    @Override
+    public void collect(Collector<T> collector) throws Exception {
+        for (int i = 0; i < ringbuffers.length; i++) {
+            Ringbuffer<T> ringbuffer = ringbuffers[i];
+```
+
+### BoundedWildcard
+Can generalize to `? extends Task`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
+#### Snippet
+```java
+
+    private void submitThreadShareTask(
+            TaskGroupExecutionTracker taskGroupExecutionTracker, List<Task> tasks) {
+        Stream<TaskTracker> taskTrackerStream =
+                tasks.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super TaskExecutionState`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
+#### Snippet
+```java
+                @NonNull CompletableFuture<Void> cancellationFuture,
+                @NonNull TaskGroup taskGroup,
+                @NonNull CompletableFuture<TaskExecutionState> future) {
+            this.future = future;
+            this.completionLatch = new AtomicInteger(taskGroup.getTasks().size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Task`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
+#### Snippet
+```java
+
+    private void submitBlockingTask(
+            TaskGroupExecutionTracker taskGroupExecutionTracker, List<Task> tasks) {
+
+        CountDownLatch startedLatch = new CountDownLatch(tasks.size());
 ```
 
 ### BoundedWildcard
@@ -12179,6 +12315,78 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### BoundedWildcard
 Can generalize to `? super Record`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/TransformFlowLifeCycle.java`
+#### Snippet
+```java
+            TransformChainAction<T> action,
+            SeaTunnelTask runningTask,
+            Collector<Record<?>> collector,
+            CompletableFuture<Void> completableFuture) {
+        super(action, runningTask, completableFuture);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ActionSubtaskState`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
+#### Snippet
+```java
+
+    @Override
+    public void restoreState(List<ActionSubtaskState> actionStateList) throws Exception {
+        Map<Long, List<ActionSubtaskState>> stateMap =
+                actionStateList.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super InternalCheckpointListener`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
+#### Snippet
+```java
+    }
+
+    public void notifyAllAction(ConsumerWithException<InternalCheckpointListener> consumer) {
+        allCycles.stream()
+                .filter(cycle -> cycle instanceof InternalCheckpointListener)
+```
+
+### BoundedWildcard
+Can generalize to `? super Action`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
+#### Snippet
+```java
+    }
+
+    private <T> Set<T> getFlowInfo(BiConsumer<Action, Set<T>> function) {
+        List<Flow> now = new ArrayList<>();
+        now.add(executionFlow);
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
+#### Snippet
+```java
+    }
+
+    private <T> Set<T> getFlowInfo(BiConsumer<Action, Set<T>> function) {
+        List<Flow> now = new ArrayList<>();
+        now.add(executionFlow);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ActionSubtaskState`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SinkAggregatedCommitterTask.java`
+#### Snippet
+```java
+
+    @Override
+    public void restoreState(List<ActionSubtaskState> actionStateList) throws Exception {
+        List<AggregatedCommitInfoT> aggregatedCommitInfos =
+                actionStateList.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super Record`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/group/queue/IntermediateBlockingQueue.java`
 #### Snippet
 ```java
@@ -12214,99 +12422,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Action`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
-#### Snippet
-```java
-    }
-
-    private <T> Set<T> getFlowInfo(BiConsumer<Action, Set<T>> function) {
-        List<Flow> now = new ArrayList<>();
-        now.add(executionFlow);
-```
-
-### BoundedWildcard
-Can generalize to `? super Set`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
-#### Snippet
-```java
-    }
-
-    private <T> Set<T> getFlowInfo(BiConsumer<Action, Set<T>> function) {
-        List<Flow> now = new ArrayList<>();
-        now.add(executionFlow);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ActionSubtaskState`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SinkFlowLifeCycle.java`
 #### Snippet
 ```java
 
     @Override
     public void restoreState(List<ActionSubtaskState> actionStateList) throws Exception {
-        Map<Long, List<ActionSubtaskState>> stateMap =
-                actionStateList.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? super InternalCheckpointListener`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/SeaTunnelTask.java`
-#### Snippet
-```java
-    }
-
-    public void notifyAllAction(ConsumerWithException<InternalCheckpointListener> consumer) {
-        allCycles.stream()
-                .filter(cycle -> cycle instanceof InternalCheckpointListener)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Task`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
-#### Snippet
-```java
-
-    private void submitThreadShareTask(
-            TaskGroupExecutionTracker taskGroupExecutionTracker, List<Task> tasks) {
-        Stream<TaskTracker> taskTrackerStream =
-                tasks.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Task`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
-#### Snippet
-```java
-
-    private void submitBlockingTask(
-            TaskGroupExecutionTracker taskGroupExecutionTracker, List<Task> tasks) {
-
-        CountDownLatch startedLatch = new CountDownLatch(tasks.size());
-```
-
-### BoundedWildcard
-Can generalize to `? super TaskExecutionState`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
-#### Snippet
-```java
-                @NonNull CompletableFuture<Void> cancellationFuture,
-                @NonNull TaskGroup taskGroup,
-                @NonNull CompletableFuture<TaskExecutionState> future) {
-            this.future = future;
-            this.completionLatch = new AtomicInteger(taskGroup.getTasks().size());
-```
-
-### BoundedWildcard
-Can generalize to `? super Record`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/group/queue/disruptor/RecordEventHandler.java`
-#### Snippet
-```java
-    }
-
-    private void handleRecord(Record<?> record, Collector<Record<?>> collector) throws Exception {
-        if (record != null) {
-            if (record.getData() instanceof Barrier) {
+        List<StateT> states = new ArrayList<>();
+        if (writerStateSerializer.isPresent()) {
 ```
 
 ### BoundedWildcard
@@ -12322,87 +12446,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ActionSubtaskState`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/flow/SinkFlowLifeCycle.java`
+Can generalize to `? super Record`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/group/queue/disruptor/RecordEventHandler.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public void restoreState(List<ActionSubtaskState> actionStateList) throws Exception {
-        List<StateT> states = new ArrayList<>();
-        if (writerStateSerializer.isPresent()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClientMessage`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/AbstractSeaTunnelMessageTask.java`
-#### Snippet
-```java
-            Node node,
-            Connection connection,
-            Function<ClientMessage, P> decoder,
-            Function<R, ClientMessage> encoder) {
-        super(clientMessage, node, connection);
-```
-
-### BoundedWildcard
-Can generalize to `? extends P`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/AbstractSeaTunnelMessageTask.java`
-#### Snippet
-```java
-            Node node,
-            Connection connection,
-            Function<ClientMessage, P> decoder,
-            Function<R, ClientMessage> encoder) {
-        super(clientMessage, node, connection);
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/AbstractSeaTunnelMessageTask.java`
-#### Snippet
-```java
-            Connection connection,
-            Function<ClientMessage, P> decoder,
-            Function<R, ClientMessage> encoder) {
-        super(clientMessage, node, connection);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/metrics/MetricsContext.java`
-#### Snippet
-```java
-
-    private Metric metric(
-            String name, Unit unit, BiFunction<String, Unit, AbstractMetric> metricSupplier) {
-        if (metrics == null) { // first metric being stored
-            metrics = new ConcurrentHashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super Unit`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/metrics/MetricsContext.java`
-#### Snippet
-```java
-
-    private Metric metric(
-            String name, Unit unit, BiFunction<String, Unit, AbstractMetric> metricSupplier) {
-        if (metrics == null) { // first metric being stored
-            metrics = new ConcurrentHashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractMetric`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/metrics/MetricsContext.java`
-#### Snippet
-```java
-
-    private Metric metric(
-            String name, Unit unit, BiFunction<String, Unit, AbstractMetric> metricSupplier) {
-        if (metrics == null) { // first metric being stored
-            metrics = new ConcurrentHashMap<>();
+    private void handleRecord(Record<?> record, Collector<Record<?>> collector) throws Exception {
+        if (record != null) {
+            if (record.getData() instanceof Barrier) {
 ```
 
 ### BoundedWildcard
@@ -12442,6 +12494,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ExecutionEdge`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalPlanGenerator.java`
+#### Snippet
+```java
+
+    private List<PhysicalVertex> getCommitterTask(
+            List<ExecutionEdge> edges, int pipelineIndex, int totalPipelineNum) {
+        AtomicInteger atomicInteger = new AtomicInteger(-1);
+        List<ExecutionEdge> collect =
+```
+
+### BoundedWildcard
 Can generalize to `? extends SourceAction`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalPlanGenerator.java`
 #### Snippet
@@ -12454,15 +12518,51 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExecutionEdge`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/physical/PhysicalPlanGenerator.java`
+Can generalize to `? super ClientMessage`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/AbstractSeaTunnelMessageTask.java`
 #### Snippet
 ```java
+            Node node,
+            Connection connection,
+            Function<ClientMessage, P> decoder,
+            Function<R, ClientMessage> encoder) {
+        super(clientMessage, node, connection);
+```
 
-    private List<PhysicalVertex> getCommitterTask(
-            List<ExecutionEdge> edges, int pipelineIndex, int totalPipelineNum) {
-        AtomicInteger atomicInteger = new AtomicInteger(-1);
-        List<ExecutionEdge> collect =
+### BoundedWildcard
+Can generalize to `? extends P`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/AbstractSeaTunnelMessageTask.java`
+#### Snippet
+```java
+            Node node,
+            Connection connection,
+            Function<ClientMessage, P> decoder,
+            Function<R, ClientMessage> encoder) {
+        super(clientMessage, node, connection);
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/AbstractSeaTunnelMessageTask.java`
+#### Snippet
+```java
+            Connection connection,
+            Function<ClientMessage, P> decoder,
+            Function<R, ClientMessage> encoder) {
+        super(clientMessage, node, connection);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskLocation`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointPlan.java`
+#### Snippet
+```java
+        }
+
+        public Builder startingSubtasks(Set<TaskLocation> startingVertices) {
+            this.startingSubtasks.addAll(startingVertices);
+            return this;
 ```
 
 ### BoundedWildcard
@@ -12494,35 +12594,11 @@ Can generalize to `? extends TaskLocation`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointPlan.java`
 #### Snippet
 ```java
-        }
-
-        public Builder startingSubtasks(Set<TaskLocation> startingVertices) {
-            this.startingSubtasks.addAll(startingVertices);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TaskLocation`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointPlan.java`
-#### Snippet
-```java
         private Builder() {}
 
         public Builder pipelineSubtasks(Set<TaskLocation> pipelineTaskIds) {
             this.pipelineSubtasks.addAll(pipelineTaskIds);
             return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/IMapCheckpointIDCounter.java`
-#### Snippet
-```java
-    private final IMap<Integer, Long> checkpointIdMap;
-
-    public IMapCheckpointIDCounter(Integer pipelineId, IMap<Integer, Long> checkpointIdMap) {
-        this.pipelineId = pipelineId;
-        this.checkpointIdMap = checkpointIdMap;
 ```
 
 ### BoundedWildcard
@@ -12550,15 +12626,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ActionSubtaskState`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/PendingCheckpoint.java`
+Can generalize to `? super Integer`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/IMapCheckpointIDCounter.java`
 #### Snippet
 ```java
-    public void acknowledgeTask(
-            TaskLocation taskLocation,
-            List<ActionSubtaskState> states,
-            SubtaskStatus subtaskStatus) {
-        boolean exist = notYetAcknowledgedTasks.remove(taskLocation.getTaskID());
+    private final IMap<Integer, Long> checkpointIdMap;
+
+    public IMapCheckpointIDCounter(Integer pipelineId, IMap<Integer, Long> checkpointIdMap) {
+        this.pipelineId = pipelineId;
+        this.checkpointIdMap = checkpointIdMap;
 ```
 
 ### BoundedWildcard
@@ -12579,10 +12655,10 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 #### Snippet
 ```java
 
-    private void deployPipeline(
-            @NonNull SubPlan pipeline, Map<TaskGroupLocation, SlotProfile> slotProfiles) {
-        if (pipeline.updatePipelineState(PipelineStatus.SCHEDULED, PipelineStatus.DEPLOYING)) {
+    private SlotProfile getOrApplyResourceForTask(
+            @NonNull PhysicalVertex task, Map<TaskGroupLocation, SlotProfile> ownedSlotProfiles) {
 
+        SlotProfile oldProfile;
 ```
 
 ### BoundedWildcard
@@ -12591,22 +12667,34 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 #### Snippet
 ```java
 
-    private SlotProfile getOrApplyResourceForTask(
-            @NonNull PhysicalVertex task, Map<TaskGroupLocation, SlotProfile> ownedSlotProfiles) {
+    private void deployPipeline(
+            @NonNull SubPlan pipeline, Map<TaskGroupLocation, SlotProfile> slotProfiles) {
+        if (pipeline.updatePipelineState(PipelineStatus.SCHEDULED, PipelineStatus.DEPLOYING)) {
 
-        SlotProfile oldProfile;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TaskLocation`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointCoordinator.java`
+Can generalize to `? extends ActionSubtaskState`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/PendingCheckpoint.java`
 #### Snippet
 ```java
-    }
+    public void acknowledgeTask(
+            TaskLocation taskLocation,
+            List<ActionSubtaskState> states,
+            SubtaskStatus subtaskStatus) {
+        boolean exist = notYetAcknowledgedTasks.remove(taskLocation.getTaskID());
+```
 
-    public static Map<Long, Integer> getPipelineTasks(Set<TaskLocation> pipelineSubtasks) {
-        return pipelineSubtasks.stream()
-                .collect(Collectors.groupingBy(TaskLocation::getTaskVertexId, Collectors.toList()))
+### BoundedWildcard
+Can generalize to `? extends SlotProfile`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/AbstractResourceManager.java`
+#### Snippet
+```java
+
+    @Override
+    public CompletableFuture<Void> releaseResources(long jobId, List<SlotProfile> profiles) {
+        CompletableFuture<Void> completableFuture = new CompletableFuture<>();
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -12622,15 +12710,15 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SlotProfile`
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/AbstractResourceManager.java`
+Can generalize to `? extends TaskLocation`
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointCoordinator.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public CompletableFuture<Void> releaseResources(long jobId, List<SlotProfile> profiles) {
-        CompletableFuture<Void> completableFuture = new CompletableFuture<>();
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
+    public static Map<Long, Integer> getPipelineTasks(Set<TaskLocation> pipelineSubtasks) {
+        return pipelineSubtasks.stream()
+                .collect(Collectors.groupingBy(TaskLocation::getTaskVertexId, Collectors.toList()))
 ```
 
 ### BoundedWildcard
@@ -12670,18 +12758,6 @@ in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flin
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SeaTunnelDataType`
-in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-13/src/main/java/org/apache/seatunnel/translation/flink/serialization/FlinkRowConverter.java`
-#### Snippet
-```java
-            Map<?, ?> mapData,
-            MapType<?, ?> mapType,
-            BiFunction<Object, SeaTunnelDataType<?>, Object> convertFunction) {
-        if (mapData == null || mapData.size() == 0) {
-            return mapData;
-```
-
-### BoundedWildcard
 Can generalize to `? super CommT`
 in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-15/src/main/java/org/apache/seatunnel/translation/flink/sink/FlinkGlobalCommitter.java`
 #### Snippet
@@ -12691,6 +12767,18 @@ in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flin
     FlinkGlobalCommitter(SinkAggregatedCommitter<CommT, GlobalCommT> aggregatedCommitter) {
         this.aggregatedCommitter = aggregatedCommitter;
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super SeaTunnelDataType`
+in `seatunnel-translation/seatunnel-translation-flink/seatunnel-translation-flink-13/src/main/java/org/apache/seatunnel/translation/flink/serialization/FlinkRowConverter.java`
+#### Snippet
+```java
+            Map<?, ?> mapData,
+            MapType<?, ?> mapType,
+            BiFunction<Object, SeaTunnelDataType<?>, Object> convertFunction) {
+        if (mapData == null || mapData.size() == 0) {
+            return mapData;
 ```
 
 ### BoundedWildcard
@@ -12814,18 +12902,6 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 ```
 
 ### BoundedWildcard
-Can generalize to `? super C`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceSplitReader.java`
-#### Snippet
-```java
-
-    public IncrementalSourceSplitReader(
-            int subtaskId, DataSourceDialect<C> dataSourceDialect, C sourceConfig) {
-        this.subtaskId = subtaskId;
-        this.splits = new ArrayDeque<>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends SourceSplitBase`
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceSplitReader.java`
 #### Snippet
@@ -12835,6 +12911,18 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
     public void handleSplitsChanges(SplitsChange<SourceSplitBase> splitsChanges) {
         if (!(splitsChanges instanceof SplitsAddition)) {
             throw new UnsupportedOperationException(
+```
+
+### BoundedWildcard
+Can generalize to `? super C`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceSplitReader.java`
+#### Snippet
+```java
+
+    public IncrementalSourceSplitReader(
+            int subtaskId, DataSourceDialect<C> dataSourceDialect, C sourceConfig) {
+        this.subtaskId = subtaskId;
+        this.splits = new ArrayDeque<>();
 ```
 
 ### BoundedWildcard
@@ -12934,18 +13022,6 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BinlogOffset`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/MySqlConnectionUtils.java`
-#### Snippet
-```java
-            JdbcConnection jdbc,
-            String showMasterStmt,
-            JdbcConnection.ResultSetMapper<BinlogOffset> function) {
-        try {
-            return jdbc.queryAndMap(
-```
-
-### BoundedWildcard
 Can generalize to `? extends SourceSplitBase`
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/enumerator/HybridSplitAssigner.java`
 #### Snippet
@@ -12958,15 +13034,15 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FakeSourceSplit`
-in `seatunnel-connectors-v2/connector-fake/src/main/java/org/apache/seatunnel/connectors/seatunnel/fake/source/FakeSourceReader.java`
+Can generalize to `? extends BinlogOffset`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/MySqlConnectionUtils.java`
 #### Snippet
 ```java
-
-    @Override
-    public void addSplits(List<FakeSourceSplit> splits) {
-        this.splits.addAll(splits);
-    }
+            JdbcConnection jdbc,
+            String showMasterStmt,
+            JdbcConnection.ResultSetMapper<BinlogOffset> function) {
+        try {
+            return jdbc.queryAndMap(
 ```
 
 ### BoundedWildcard
@@ -12982,18 +13058,6 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SnapshotSplitWatermark`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/enumerator/SnapshotSplitAssigner.java`
-#### Snippet
-```java
-
-    @Override
-    public void onCompletedSplits(List<SnapshotSplitWatermark> completedSplitWatermarks) {
-        completedSplitWatermarks.forEach(
-                m -> this.splitCompletedOffsets.put(m.getSplitId(), m.getHighWatermark()));
-```
-
-### BoundedWildcard
 Can generalize to `? super C`
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/enumerator/SnapshotSplitAssigner.java`
 #### Snippet
@@ -13006,15 +13070,39 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-fake/src/main/java/org/apache/seatunnel/connectors/seatunnel/fake/source/FakeDataGenerator.java`
+Can generalize to `? extends SnapshotSplitWatermark`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/enumerator/SnapshotSplitAssigner.java`
 #### Snippet
 ```java
-     * @param output Data collection and distribution
-     */
-    public void collectFakedRows(int rowNum, Collector<SeaTunnelRow> output) {
-        // Use manual configuration data preferentially
-        if (fakeConfig.getFakeRows() != null) {
+
+    @Override
+    public void onCompletedSplits(List<SnapshotSplitWatermark> completedSplitWatermarks) {
+        completedSplitWatermarks.forEach(
+                m -> this.splitCompletedOffsets.put(m.getSplitId(), m.getHighWatermark()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends FakeSourceSplit`
+in `seatunnel-connectors-v2/connector-fake/src/main/java/org/apache/seatunnel/connectors/seatunnel/fake/source/FakeSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void addSplits(List<FakeSourceSplit> splits) {
+        this.splits.addAll(splits);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super TableId`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/io/debezium/connector/sqlserver/SqlServerStreamingChangeEventSource.java`
+#### Snippet
+```java
+            SqlServerConnection dataConnection,
+            SqlServerConnection metadataConnection,
+            EventDispatcher<TableId> dispatcher,
+            ErrorHandler errorHandler,
+            Clock clock,
 ```
 
 ### BoundedWildcard
@@ -13030,15 +13118,15 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TableId`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/io/debezium/connector/sqlserver/SqlServerStreamingChangeEventSource.java`
+Can generalize to `? super SeaTunnelRow`
+in `seatunnel-connectors-v2/connector-fake/src/main/java/org/apache/seatunnel/connectors/seatunnel/fake/source/FakeDataGenerator.java`
 #### Snippet
 ```java
-            SqlServerConnection dataConnection,
-            SqlServerConnection metadataConnection,
-            EventDispatcher<TableId> dispatcher,
-            ErrorHandler errorHandler,
-            Clock clock,
+     * @param output Data collection and distribution
+     */
+    public void collectFakedRows(int rowNum, Collector<SeaTunnelRow> output) {
+        // Use manual configuration data preferentially
+        if (fakeConfig.getFakeRows() != null) {
 ```
 
 ### BoundedWildcard
@@ -13114,18 +13202,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FileAggregatedCommitInfo`
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/commit/FileSinkAggregatedCommitter.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void abort(List<FileAggregatedCommitInfo> aggregatedCommitInfos) throws Exception {
-        log.info("rollback aggregate commit");
-        if (aggregatedCommitInfos == null || aggregatedCommitInfos.size() == 0) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends FileCommitInfo`
 in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/commit/FileSinkAggregatedCommitter.java`
 #### Snippet
@@ -13147,6 +13223,42 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
             List<FileAggregatedCommitInfo> aggregatedCommitInfos) throws IOException {
         List<FileAggregatedCommitInfo> errorAggregatedCommitInfoList = new ArrayList<>();
         aggregatedCommitInfos.forEach(
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileAggregatedCommitInfo`
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/commit/FileSinkAggregatedCommitter.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void abort(List<FileAggregatedCommitInfo> aggregatedCommitInfos) throws Exception {
+        log.info("rollback aggregate commit");
+        if (aggregatedCommitInfos == null || aggregatedCommitInfos.size() == 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SourceSplitStateBase`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    protected void onSplitFinished(Map<String, SourceSplitStateBase> finishedSplitIds) {
+        for (SourceSplitStateBase splitState : finishedSplitIds.values()) {
+            SourceSplitBase sourceSplit = splitState.toSourceSplit();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SourceSplitBase`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void addSplits(List<SourceSplitBase> splits) {
+        // restore for finishedUnackedSplits
+        List<SourceSplitBase> unfinishedSplits = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -13210,39 +13322,15 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
+Can generalize to `? extends FileAggregatedCommitInfo`
+in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/connectors/seatunnel/hive/commit/HiveSinkAggregatedCommitter.java`
 #### Snippet
 ```java
 
     @Override
-    public void read(String path, Collector<SeaTunnelRow> output)
-            throws FileConnectorException, IOException {
-        if (Boolean.FALSE.equals(checkFileType(path))) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SourceSplitBase`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceReader.java`
-#### Snippet
-```java
-
-    @Override
-    public void addSplits(List<SourceSplitBase> splits) {
-        // restore for finishedUnackedSplits
-        List<SourceSplitBase> unfinishedSplits = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SourceSplitStateBase`
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceReader.java`
-#### Snippet
-```java
-
-    @Override
-    protected void onSplitFinished(Map<String, SourceSplitStateBase> finishedSplitIds) {
-        for (SourceSplitStateBase splitState : finishedSplitIds.values()) {
-            SourceSplitBase sourceSplit = splitState.toSourceSplit();
+    public void abort(List<FileAggregatedCommitInfo> aggregatedCommitInfos) throws Exception {
+        super.abort(aggregatedCommitInfos);
+        HiveMetaStoreProxy hiveMetaStore = HiveMetaStoreProxy.getInstance(pluginConfig);
 ```
 
 ### BoundedWildcard
@@ -13258,15 +13346,15 @@ in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/co
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FileAggregatedCommitInfo`
-in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/connectors/seatunnel/hive/commit/HiveSinkAggregatedCommitter.java`
+Can generalize to `? super SeaTunnelRow`
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/source/reader/OrcReadStrategy.java`
 #### Snippet
 ```java
 
     @Override
-    public void abort(List<FileAggregatedCommitInfo> aggregatedCommitInfos) throws Exception {
-        super.abort(aggregatedCommitInfos);
-        HiveMetaStoreProxy hiveMetaStore = HiveMetaStoreProxy.getInstance(pluginConfig);
+    public void read(String path, Collector<SeaTunnelRow> output)
+            throws FileConnectorException, IOException {
+        if (Boolean.FALSE.equals(checkFileType(path))) {
 ```
 
 ### BoundedWildcard
@@ -13306,51 +13394,15 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends XidInfo`
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/sink/JdbcSinkCommitter.java`
-#### Snippet
-```java
-
-    @Override
-    public List<XidInfo> commit(List<XidInfo> committables) {
-        return xaGroupOps
-                .commit(
-```
-
-### BoundedWildcard
-Can generalize to `? extends JdbcAggregatedCommitInfo`
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/sink/JdbcSinkAggregatedCommitter.java`
-#### Snippet
-```java
-    @Override
-    public List<JdbcAggregatedCommitInfo> commit(
-            List<JdbcAggregatedCommitInfo> aggregatedCommitInfos) throws IOException {
-        tryOpen();
-        return aggregatedCommitInfos.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends JdbcAggregatedCommitInfo`
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/sink/JdbcSinkAggregatedCommitter.java`
-#### Snippet
-```java
-
-    @Override
-    public void abort(List<JdbcAggregatedCommitInfo> aggregatedCommitInfo) throws IOException {
-        tryOpen();
-        for (JdbcAggregatedCommitInfo commitInfos : aggregatedCommitInfo) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends HudiSourceSplit`
-in `seatunnel-connectors-v2/connector-hudi/src/main/java/org/apache/seatunnel/connectors/seatunnel/hudi/source/HudiSourceSplitEnumerator.java`
+in `seatunnel-connectors-v2/connector-hudi/src/main/java/org/apache/seatunnel/connectors/seatunnel/hudi/source/HudiSourceReader.java`
 #### Snippet
 ```java
 
     @Override
-    public void addSplitsBack(List<HudiSourceSplit> splits, int subtaskId) {
-        if (!splits.isEmpty()) {
-            pendingSplit.addAll(splits);
+    public void addSplits(List<HudiSourceSplit> splits) {
+        sourceSplits.addAll(splits);
+    }
 ```
 
 ### BoundedWildcard
@@ -13366,27 +13418,51 @@ in `seatunnel-connectors-v2/connector-hudi/src/main/java/org/apache/seatunnel/co
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HudiSourceSplit`
-in `seatunnel-connectors-v2/connector-hudi/src/main/java/org/apache/seatunnel/connectors/seatunnel/hudi/source/HudiSourceReader.java`
+Can generalize to `? extends JdbcAggregatedCommitInfo`
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/sink/JdbcSinkAggregatedCommitter.java`
 #### Snippet
 ```java
 
     @Override
-    public void addSplits(List<HudiSourceSplit> splits) {
-        sourceSplits.addAll(splits);
-    }
+    public void abort(List<JdbcAggregatedCommitInfo> aggregatedCommitInfo) throws IOException {
+        tryOpen();
+        for (JdbcAggregatedCommitInfo commitInfos : aggregatedCommitInfo) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JdbcSourceSplit`
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/source/JdbcSourceReader.java`
+Can generalize to `? extends JdbcAggregatedCommitInfo`
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/sink/JdbcSinkAggregatedCommitter.java`
+#### Snippet
+```java
+    @Override
+    public List<JdbcAggregatedCommitInfo> commit(
+            List<JdbcAggregatedCommitInfo> aggregatedCommitInfos) throws IOException {
+        tryOpen();
+        return aggregatedCommitInfos.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends HudiSourceSplit`
+in `seatunnel-connectors-v2/connector-hudi/src/main/java/org/apache/seatunnel/connectors/seatunnel/hudi/source/HudiSourceSplitEnumerator.java`
 #### Snippet
 ```java
 
     @Override
-    public void addSplits(List<JdbcSourceSplit> splits) {
-        this.splits.addAll(splits);
-    }
+    public void addSplitsBack(List<HudiSourceSplit> splits, int subtaskId) {
+        if (!splits.isEmpty()) {
+            pendingSplit.addAll(splits);
+```
+
+### BoundedWildcard
+Can generalize to `? extends XidInfo`
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/sink/JdbcSinkCommitter.java`
+#### Snippet
+```java
+
+    @Override
+    public List<XidInfo> commit(List<XidInfo> committables) {
+        return xaGroupOps
+                .commit(
 ```
 
 ### BoundedWildcard
@@ -13399,6 +13475,18 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
     public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
         synchronized (output.getCheckpointLock()) {
             JdbcSourceSplit split = splits.poll();
+```
+
+### BoundedWildcard
+Can generalize to `? extends JdbcSourceSplit`
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/source/JdbcSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void addSplits(List<JdbcSourceSplit> splits) {
+        this.splits.addAll(splits);
+    }
 ```
 
 ### BoundedWildcard
@@ -13444,9 +13532,9 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```java
 
     @Override
-    public void rollback(List<XidInfo> xids) {
-        for (XidInfo x : xids) {
-            xaFacade.rollback(x.getXid());
+    public GroupXaOperationResult<XidInfo> failAndRollback(Collection<XidInfo> xids) {
+        GroupXaOperationResult<XidInfo> result = new GroupXaOperationResult<>();
+        if (xids.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -13456,21 +13544,9 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
 ```java
 
     @Override
-    public GroupXaOperationResult<XidInfo> failAndRollback(Collection<XidInfo> xids) {
-        GroupXaOperationResult<XidInfo> result = new GroupXaOperationResult<>();
-        if (xids.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends KuduSourceSplit`
-in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/source/KuduSourceReader.java`
-#### Snippet
-```java
-
-    @Override
-    public void addSplits(List<KuduSourceSplit> splits) {
-        this.splits.addAll(splits);
-    }
+    public void rollback(List<XidInfo> xids) {
+        for (XidInfo x : xids) {
+            xaFacade.rollback(x.getXid());
 ```
 
 ### BoundedWildcard
@@ -13483,6 +13559,18 @@ in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/co
     public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
         KuduSourceSplit split = splits.poll();
         Object[] parameterValues = split.parameterValues;
+```
+
+### BoundedWildcard
+Can generalize to `? extends KuduSourceSplit`
+in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/source/KuduSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void addSplits(List<KuduSourceSplit> splits) {
+        this.splits.addAll(splits);
+    }
 ```
 
 ### BoundedWildcard
@@ -13558,15 +13646,15 @@ in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/c
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends KafkaCommitInfo`
-in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaSinkCommitter.java`
+Can generalize to `? super SeaTunnelRow`
+in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/iotdb/source/IoTDBSourceReader.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public void abort(List<KafkaCommitInfo> commitInfos) {
-        if (commitInfos.isEmpty()) {
-            return;
+    private void read(IoTDBSourceSplit split, Collector<SeaTunnelRow> output) throws Exception {
+        try (SessionDataSet dataSet = session.executeQueryStatement(split.getQuery())) {
+            while (dataSet.hasNext()) {
 ```
 
 ### BoundedWildcard
@@ -13582,18 +13670,6 @@ in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/c
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/iotdb/source/IoTDBSourceReader.java`
-#### Snippet
-```java
-    }
-
-    private void read(IoTDBSourceSplit split, Collector<SeaTunnelRow> output) throws Exception {
-        try (SessionDataSet dataSet = session.executeQueryStatement(split.getQuery())) {
-            while (dataSet.hasNext()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends IoTDBSourceSplit`
 in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/iotdb/source/IoTDBSourceSplitEnumerator.java`
 #### Snippet
@@ -13603,6 +13679,30 @@ in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/c
     private void addPendingSplit(Collection<IoTDBSourceSplit> splits) {
         int readerCount = context.currentParallelism();
         for (IoTDBSourceSplit split : splits) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends KafkaCommitInfo`
+in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaSinkCommitter.java`
+#### Snippet
+```java
+
+    @Override
+    public void abort(List<KafkaCommitInfo> commitInfos) {
+        if (commitInfos.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends KafkaSourceSplit`
+in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/source/KafkaSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void addSplits(List<KafkaSourceSplit> splits) {
+        running = true;
+        splits.forEach(
 ```
 
 ### BoundedWildcard
@@ -13618,15 +13718,15 @@ in `seatunnel-connectors-v2/connector-neo4j/src/main/java/org/apache/seatunnel/c
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends KafkaSourceSplit`
-in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/source/KafkaSourceReader.java`
+Can generalize to `? extends AssertFieldRule.AssertRule`
+in `seatunnel-connectors-v2/connector-assert/src/main/java/org/apache/seatunnel/connectors/seatunnel/assertion/sink/AssertSinkWriter.java`
 #### Snippet
 ```java
-
-    @Override
-    public void addSplits(List<KafkaSourceSplit> splits) {
-        running = true;
-        splits.forEach(
+            SeaTunnelRowType seaTunnelRowType,
+            List<AssertFieldRule> assertFieldRules,
+            List<AssertFieldRule.AssertRule> assertRowRules) {
+        this.seaTunnelRowType = seaTunnelRowType;
+        this.assertFieldRules = assertFieldRules;
 ```
 
 ### BoundedWildcard
@@ -13654,15 +13754,15 @@ in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AssertFieldRule.AssertRule`
-in `seatunnel-connectors-v2/connector-assert/src/main/java/org/apache/seatunnel/connectors/seatunnel/assertion/sink/AssertSinkWriter.java`
+Can generalize to `? extends RecordsWithSplitIds`
+in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/SourceReaderBase.java`
 #### Snippet
 ```java
-            SeaTunnelRowType seaTunnelRowType,
-            List<AssertFieldRule> assertFieldRules,
-            List<AssertFieldRule.AssertRule> assertRowRules) {
-        this.seaTunnelRowType = seaTunnelRowType;
-        this.assertFieldRules = assertFieldRules;
+
+    public SourceReaderBase(
+            BlockingQueue<RecordsWithSplitIds<E>> elementsQueue,
+            SplitFetcherManager<E, SplitT> splitFetcherManager,
+            RecordEmitter<E, T, SplitStateT> recordEmitter,
 ```
 
 ### BoundedWildcard
@@ -13678,15 +13778,15 @@ in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/c
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RecordsWithSplitIds`
-in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/SourceReaderBase.java`
+Can generalize to `? extends SplitReader`
+in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/fetcher/SplitFetcherManager.java`
 #### Snippet
 ```java
-
-    public SourceReaderBase(
+    public SplitFetcherManager(
             BlockingQueue<RecordsWithSplitIds<E>> elementsQueue,
-            SplitFetcherManager<E, SplitT> splitFetcherManager,
-            RecordEmitter<E, T, SplitStateT> recordEmitter,
+            Supplier<SplitReader<E, SplitT>> splitReaderFactory,
+            Consumer<Collection<String>> splitFinishedHook) {
+        this.fetchers = new ConcurrentHashMap<>();
 ```
 
 ### BoundedWildcard
@@ -13702,18 +13802,6 @@ in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SplitReader`
-in `seatunnel-connectors-v2/connector-common/src/main/java/org/apache/seatunnel/connectors/seatunnel/common/source/reader/fetcher/SplitFetcherManager.java`
-#### Snippet
-```java
-    public SplitFetcherManager(
-            BlockingQueue<RecordsWithSplitIds<E>> elementsQueue,
-            Supplier<SplitReader<E, SplitT>> splitReaderFactory,
-            Consumer<Collection<String>> splitFinishedHook) {
-        this.fetchers = new ConcurrentHashMap<>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends PulsarPartitionSplit`
 in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/connectors/seatunnel/pulsar/source/reader/PulsarSourceReader.java`
 #### Snippet
@@ -13723,30 +13811,6 @@ in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/
     public void addSplits(List<PulsarPartitionSplit> splits) {
         splits.forEach(
                 split -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/connectors/seatunnel/socket/source/SocketSourceReader.java`
-#### Snippet
-```java
-
-    @Override
-    public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
-        StringBuilder buffer = new StringBuilder();
-        try (BufferedReader reader =
-```
-
-### BoundedWildcard
-Can generalize to `? extends PulsarPartitionSplit`
-in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/connectors/seatunnel/pulsar/source/enumerator/PulsarSplitEnumerator.java`
-#### Snippet
-```java
-
-    private void addPartitionSplitChangeToPendingAssignments(
-            Collection<PulsarPartitionSplit> newPartitionSplits) {
-        int numReaders = context.currentParallelism();
-        for (PulsarPartitionSplit split : newPartitionSplits) {
 ```
 
 ### BoundedWildcard
@@ -13762,27 +13826,27 @@ in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends IcebergFileScanTaskSplit`
-in `seatunnel-connectors-v2/connector-iceberg/src/main/java/org/apache/seatunnel/connectors/seatunnel/iceberg/source/reader/IcebergSourceReader.java`
+Can generalize to `? extends PulsarPartitionSplit`
+in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/connectors/seatunnel/pulsar/source/enumerator/PulsarSplitEnumerator.java`
 #### Snippet
 ```java
 
-    @Override
-    public void addSplits(List<IcebergFileScanTaskSplit> splits) {
-        log.info("Add {} splits to reader", splits.size());
-        pendingSplits.addAll(splits);
+    private void addPartitionSplitChangeToPendingAssignments(
+            Collection<PulsarPartitionSplit> newPartitionSplits) {
+        int numReaders = context.currentParallelism();
+        for (PulsarPartitionSplit split : newPartitionSplits) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-iceberg/src/main/java/org/apache/seatunnel/connectors/seatunnel/iceberg/source/reader/IcebergSourceReader.java`
+in `seatunnel-connectors-v2/connector-socket/src/main/java/org/apache/seatunnel/connectors/seatunnel/socket/source/SocketSourceReader.java`
 #### Snippet
 ```java
 
     @Override
     public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
-        for (IcebergFileScanTaskSplit pendingSplit = pendingSplits.poll();
-                pendingSplit != null;
+        StringBuilder buffer = new StringBuilder();
+        try (BufferedReader reader =
 ```
 
 ### BoundedWildcard
@@ -13799,6 +13863,30 @@ in `seatunnel-connectors-v2/connector-iceberg/src/main/java/org/apache/seatunnel
 
 ### BoundedWildcard
 Can generalize to `? super SeaTunnelRow`
+in `seatunnel-connectors-v2/connector-iceberg/src/main/java/org/apache/seatunnel/connectors/seatunnel/iceberg/source/reader/IcebergSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
+        for (IcebergFileScanTaskSplit pendingSplit = pendingSplits.poll();
+                pendingSplit != null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends IcebergFileScanTaskSplit`
+in `seatunnel-connectors-v2/connector-iceberg/src/main/java/org/apache/seatunnel/connectors/seatunnel/iceberg/source/reader/IcebergSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void addSplits(List<IcebergFileScanTaskSplit> splits) {
+        log.info("Add {} splits to reader", splits.size());
+        pendingSplits.addAll(splits);
+```
+
+### BoundedWildcard
+Can generalize to `? super SeaTunnelRow`
 in `seatunnel-connectors-v2/connector-mongodb/src/main/java/org/apache/seatunnel/connectors/seatunnel/mongodb/source/MongodbSourceReader.java`
 #### Snippet
 ```java
@@ -13807,30 +13895,6 @@ in `seatunnel-connectors-v2/connector-mongodb/src/main/java/org/apache/seatunnel
     public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
         try (MongoCursor<Document> mongoCursor =
                 client.getDatabase(params.getDatabase())
-```
-
-### BoundedWildcard
-Can generalize to `? extends Column`
-in `seatunnel-connectors-v2/connector-openmldb/src/main/java/org/apache/seatunnel/connectors/seatunnel/openmldb/source/OpenMldbSource.java`
-#### Snippet
-```java
-    }
-
-    private SeaTunnelRowType convert(List<Column> columnList) {
-        String[] fieldsName = new String[columnList.size()];
-        SeaTunnelDataType<?>[] fieldsType = new SeaTunnelDataType<?>[columnList.size()];
-```
-
-### BoundedWildcard
-Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxdbSourceReader.java`
-#### Snippet
-```java
-    public void notifyCheckpointComplete(long checkpointId) {}
-
-    private void read(InfluxDBSourceSplit split, Collector<SeaTunnelRow> output) {
-        QueryResult queryResult = influxdb.query(new Query(split.getQuery(), config.getDatabase()));
-        for (QueryResult.Result result : queryResult.getResults()) {
 ```
 
 ### BoundedWildcard
@@ -13847,14 +13911,14 @@ in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunne
 
 ### BoundedWildcard
 Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-openmldb/src/main/java/org/apache/seatunnel/connectors/seatunnel/openmldb/source/OpenMldbSourceReader.java`
+in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxdbSourceReader.java`
 #### Snippet
 ```java
+    public void notifyCheckpointComplete(long checkpointId) {}
 
-    @Override
-    public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
-        int totalFields = seaTunnelRowType.getTotalFields();
-        Object[] objects = new Object[totalFields];
+    private void read(InfluxDBSourceSplit split, Collector<SeaTunnelRow> output) {
+        QueryResult queryResult = influxdb.query(new Query(split.getQuery(), config.getDatabase()));
+        for (QueryResult.Result result : queryResult.getResults()) {
 ```
 
 ### BoundedWildcard
@@ -13870,6 +13934,30 @@ in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunne
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Column`
+in `seatunnel-connectors-v2/connector-openmldb/src/main/java/org/apache/seatunnel/connectors/seatunnel/openmldb/source/OpenMldbSource.java`
+#### Snippet
+```java
+    }
+
+    private SeaTunnelRowType convert(List<Column> columnList) {
+        String[] fieldsName = new String[columnList.size()];
+        SeaTunnelDataType<?>[] fieldsType = new SeaTunnelDataType<?>[columnList.size()];
+```
+
+### BoundedWildcard
+Can generalize to `? super SeaTunnelRow`
+in `seatunnel-connectors-v2/connector-openmldb/src/main/java/org/apache/seatunnel/connectors/seatunnel/openmldb/source/OpenMldbSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
+        int totalFields = seaTunnelRowType.getTotalFields();
+        Object[] objects = new Object[totalFields];
+```
+
+### BoundedWildcard
 Can generalize to `? super Delivery`
 in `seatunnel-connectors-v2/connector-rabbitmq/src/main/java/org/apache/seatunnel/connectors/seatunnel/rabbitmq/client/QueueingConsumer.java`
 #### Snippet
@@ -13882,18 +13970,6 @@ in `seatunnel-connectors-v2/connector-rabbitmq/src/main/java/org/apache/seatunne
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TDengineSourceSplit`
-in `seatunnel-connectors-v2/connector-tdengine/src/main/java/org/apache/seatunnel/connectors/seatunnel/tdengine/source/TDengineSourceReader.java`
-#### Snippet
-```java
-
-    @Override
-    public void addSplits(List<TDengineSourceSplit> splits) {
-        sourceSplits.addAll(splits);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super SeaTunnelRow`
 in `seatunnel-connectors-v2/connector-tdengine/src/main/java/org/apache/seatunnel/connectors/seatunnel/tdengine/source/TDengineSourceReader.java`
 #### Snippet
@@ -13903,6 +13979,18 @@ in `seatunnel-connectors-v2/connector-tdengine/src/main/java/org/apache/seatunne
     private void read(TDengineSourceSplit split, Collector<SeaTunnelRow> output) throws Exception {
         try (Statement statement = conn.createStatement()) {
             final ResultSet resultSet = statement.executeQuery(split.getQuery());
+```
+
+### BoundedWildcard
+Can generalize to `? extends TDengineSourceSplit`
+in `seatunnel-connectors-v2/connector-tdengine/src/main/java/org/apache/seatunnel/connectors/seatunnel/tdengine/source/TDengineSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void addSplits(List<TDengineSourceSplit> splits) {
+        sourceSplits.addAll(splits);
+    }
 ```
 
 ### BoundedWildcard
@@ -13942,6 +14030,30 @@ in `seatunnel-connectors-v2/connector-tdengine/src/main/java/org/apache/seatunne
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends StarRocksSourceSplit`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/source/StarRocksSourceReader.java`
+#### Snippet
+```java
+
+    @Override
+    public void addSplits(List<StarRocksSourceSplit> splits) {
+        pendingSplits.addAll(splits);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super SeaTunnelRow`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/source/StarRocksSourceReader.java`
+#### Snippet
+```java
+    }
+
+    private void read(StarRocksSourceSplit split, Collector<SeaTunnelRow> output) {
+        StarRocksBeReadClient client =
+                new StarRocksBeReadClient(split.getPartition(), sourceConfig, seaTunnelRowType);
+```
+
+### BoundedWildcard
 Can generalize to `? extends CKFileCommitInfo`
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/file/ClickhouseFileSinkAggCommitter.java`
 #### Snippet
@@ -13966,6 +14078,18 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends StarRocksSourceSplit`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/source/StartRocksSourceSplitEnumerator.java`
+#### Snippet
+```java
+    }
+
+    private void addPendingSplit(Collection<StarRocksSourceSplit> splits) {
+        int readerCount = context.currentParallelism();
+        for (StarRocksSourceSplit split : splits) {
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/sink/client/executor/FieldNamedPreparedStatement.java`
 #### Snippet
@@ -13978,15 +14102,15 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClickhouseSourceSplit`
+Can generalize to `? extends ClickHouseNode`
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/source/ClickhouseSourceReader.java`
 #### Snippet
 ```java
 
-    @Override
-    public void addSplits(List<ClickhouseSourceSplit> splits) {
-        this.splits.addAll(splits);
-    }
+    ClickhouseSourceReader(
+            List<ClickHouseNode> servers,
+            SourceReader.Context readerContext,
+            SeaTunnelRowType rowTypeInfo,
 ```
 
 ### BoundedWildcard
@@ -14002,15 +14126,15 @@ in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatun
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClickHouseNode`
+Can generalize to `? extends ClickhouseSourceSplit`
 in `seatunnel-connectors-v2/connector-clickhouse/src/main/java/org/apache/seatunnel/connectors/seatunnel/clickhouse/source/ClickhouseSourceReader.java`
 #### Snippet
 ```java
 
-    ClickhouseSourceReader(
-            List<ClickHouseNode> servers,
-            SourceReader.Context readerContext,
-            SeaTunnelRowType rowTypeInfo,
+    @Override
+    public void addSplits(List<ClickhouseSourceSplit> splits) {
+        this.splits.addAll(splits);
+    }
 ```
 
 ### BoundedWildcard
@@ -14086,27 +14210,15 @@ in `seatunnel-connectors-v2/connector-s3-redshift/src/main/java/org/apache/seatu
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/serialize/type/impl/RequiredIndexTypeSerializer.java`
+Can generalize to `? super SeaTunnelRow`
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/source/ElasticsearchSourceReader.java`
 #### Snippet
 ```java
 
-    @Override
-    public void fillType(Map<String, String> indexInner) {
-        indexInner.put("_type", type);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/serialize/type/impl/RequiredIndexTypeSerializer.java`
-#### Snippet
-```java
-
-    @Override
-    public void fillType(Map<String, String> indexInner) {
-        indexInner.put("_type", type);
-    }
+    private void outputFromScrollResult(
+            ScrollResult scrollResult, List<String> source, Collector<SeaTunnelRow> output) {
+        for (Map<String, Object> doc : scrollResult.getDocs()) {
+            SeaTunnelRow seaTunnelRow =
 ```
 
 ### BoundedWildcard
@@ -14122,15 +14234,27 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/source/ElasticsearchSourceReader.java`
+Can generalize to `? super String`
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/serialize/type/impl/RequiredIndexTypeSerializer.java`
 #### Snippet
 ```java
 
-    private void outputFromScrollResult(
-            ScrollResult scrollResult, List<String> source, Collector<SeaTunnelRow> output) {
-        for (Map<String, Object> doc : scrollResult.getDocs()) {
-            SeaTunnelRow seaTunnelRow =
+    @Override
+    public void fillType(Map<String, String> indexInner) {
+        indexInner.put("_type", type);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/serialize/type/impl/RequiredIndexTypeSerializer.java`
+#### Snippet
+```java
+
+    @Override
+    public void fillType(Map<String, String> indexInner) {
+        indexInner.put("_type", type);
+    }
 ```
 
 ### BoundedWildcard
@@ -14146,18 +14270,6 @@ in `seatunnel-connectors-v2/connector-google-sheets/src/main/java/org/apache/sea
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SeaTunnelRow`
-in `seatunnel-connectors-v2/connector-amazondynamodb/src/main/java/org/apache/seatunnel/connectors/seatunnel/amazondynamodb/source/AmazonDynamoDBSourceReader.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("magicnumber")
-    public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
-        ScanResponse scan =
-                dynamoDbClient.scan(
-```
-
-### BoundedWildcard
 Can generalize to `? extends ElasticsearchSourceSplit`
 in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/source/ElasticsearchSourceSplitEnumerator.java`
 #### Snippet
@@ -14170,6 +14282,18 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
 ```
 
 ### BoundedWildcard
+Can generalize to `? super SeaTunnelRow`
+in `seatunnel-connectors-v2/connector-amazondynamodb/src/main/java/org/apache/seatunnel/connectors/seatunnel/amazondynamodb/source/AmazonDynamoDBSourceReader.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings("magicnumber")
+    public void pollNext(Collector<SeaTunnelRow> output) throws Exception {
+        ScanResponse scan =
+                dynamoDbClient.scan(
+```
+
+### BoundedWildcard
 Can generalize to `? extends SelectDBCommitInfo`
 in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/committer/SelectDBCommitter.java`
 #### Snippet
@@ -14179,18 +14303,6 @@ in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/se
     public List<SelectDBCommitInfo> commit(List<SelectDBCommitInfo> commitInfos)
             throws IOException {
         for (SelectDBCommitInfo committable : commitInfos) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginIdentifier`
-in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discovery/AbstractPluginDiscovery.java`
-#### Snippet
-```java
-
-    @Override
-    public List<URL> getPluginJarPaths(List<PluginIdentifier> pluginIdentifiers) {
-        return pluginIdentifiers.stream()
-                .map(this::getPluginJarPath)
 ```
 
 ### BoundedWildcard
@@ -14215,6 +14327,18 @@ in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discove
             BiConsumer<ClassLoader, URL> addURLToClassLoaderConsumer) {
         this.pluginDir = pluginDir;
         this.pluginConfig = pluginConfig;
+```
+
+### BoundedWildcard
+Can generalize to `? extends PluginIdentifier`
+in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discovery/AbstractPluginDiscovery.java`
+#### Snippet
+```java
+
+    @Override
+    public List<URL> getPluginJarPaths(List<PluginIdentifier> pluginIdentifiers) {
+        return pluginIdentifiers.stream()
+                .map(this::getPluginJarPath)
 ```
 
 ### BoundedWildcard
@@ -14392,18 +14516,6 @@ public class MyHoursSourceParameter extends HttpParameter {
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `seatunnel-common/src/main/java/org/apache/seatunnel/common/config/TypesafeConfigUtils.java`
-#### Snippet
-```java
-        config.entrySet()
-                .forEach(
-                        entry -> {
-                            configMap.put(entry.getKey(), entry.getValue().unwrapped().toString());
-                        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/dag/DAGUtils.java`
 #### Snippet
 ```java
@@ -14476,18 +14588,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/operation/GetJobStatusOperation.java`
-#### Snippet
-```java
-                CompletableFuture.supplyAsync(
-                        () -> {
-                            return service.getCoordinatorService().getJobStatus(jobId);
-                        });
-
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/operation/ListJobStatusOperation.java`
 #### Snippet
 ```java
@@ -14508,6 +14608,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
                             return service.getCoordinatorService()
                                     .getJobHistoryService()
                                     .getJobDetailStateAsString(jobId);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/operation/GetJobStatusOperation.java`
+#### Snippet
+```java
+                CompletableFuture.supplyAsync(
+                        () -> {
+                            return service.getCoordinatorService().getJobStatus(jobId);
+                        });
+
 ```
 
 ### CodeBlock2Expr
@@ -14551,18 +14663,6 @@ Statement lambda can be replaced with expression lambda
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/scheduler/PipelineBaseScheduler.java`
 #### Snippet
 ```java
-            // deploy is a time-consuming operation, so we do it async
-            return CompletableFuture.runAsync(
-                    () -> {
-                        task.deploy(slotProfile);
-                    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/scheduler/PipelineBaseScheduler.java`
-#### Snippet
-```java
         pipeline.getCoordinatorVertexList()
                 .forEach(
                         coordinator -> {
@@ -14580,6 +14680,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
                         task -> {
                             makeTaskFailed(task.getTaskGroupLocation(), e);
                         });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/scheduler/PipelineBaseScheduler.java`
+#### Snippet
+```java
+            // deploy is a time-consuming operation, so we do it async
+            return CompletableFuture.runAsync(
+                    () -> {
+                        task.deploy(slotProfile);
+                    });
 ```
 
 ### CodeBlock2Expr
@@ -14688,6 +14800,18 @@ in `seatunnel-plugin-discovery/src/main/java/org/apache/seatunnel/plugin/discove
                             entry -> {
                                 pluginIdentifiers.put(
                                         PluginIdentifier.of(
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `seatunnel-common/src/main/java/org/apache/seatunnel/common/config/TypesafeConfigUtils.java`
+#### Snippet
+```java
+        config.entrySet()
+                .forEach(
+                        entry -> {
+                            configMap.put(entry.getKey(), entry.getValue().unwrapped().toString());
+                        });
 ```
 
 ## RuleId[ruleID=Lombok]
@@ -15404,14 +15528,26 @@ in `seatunnel-core/seatunnel-core-starter/src/main/java/org/apache/seatunnel/cor
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkRuntimeEnvironment.java`
+in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
 #### Snippet
 ```java
-public class FlinkRuntimeEnvironment implements RuntimeEnvironment {
-    private static final String RESULT_TABLE_NAME = "result_table_name";
-    private static volatile FlinkRuntimeEnvironment INSTANCE = null;
+    private static final long DEFAULT_SPARK_STREAMING_DURATION = 5;
+    private static final String PLUGIN_NAME_KEY = "plugin_name";
+    private static volatile SparkRuntimeEnvironment INSTANCE = null;
+
+    private SparkConf sparkConf;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
+#### Snippet
+```java
     private Config config;
 
+    private boolean enableHive = false;
+
+    private JobMode jobMode;
 ```
 
 ### RedundantFieldInitialization
@@ -15428,31 +15564,19 @@ public class FlinkRuntimeEnvironment implements RuntimeEnvironment {
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-3-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
+in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-13-starter/src/main/java/org/apache/seatunnel/core/starter/flink/execution/FlinkRuntimeEnvironment.java`
 #### Snippet
 ```java
-    private static final long DEFAULT_SPARK_STREAMING_DURATION = 5;
-    private static final String PLUGIN_NAME_KEY = "plugin_name";
-    private static volatile SparkRuntimeEnvironment INSTANCE = null;
-
-    private SparkConf sparkConf;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-3-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
-#### Snippet
-```java
+public class FlinkRuntimeEnvironment implements RuntimeEnvironment {
+    private static final String RESULT_TABLE_NAME = "result_table_name";
+    private static volatile FlinkRuntimeEnvironment INSTANCE = null;
     private Config config;
 
-    private boolean enableHive = false;
-
-    private JobMode jobMode;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
+in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-3-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
 #### Snippet
 ```java
     private static final long DEFAULT_SPARK_STREAMING_DURATION = 5;
@@ -15464,7 +15588,7 @@ in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/ja
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-2-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
+in `seatunnel-core/seatunnel-spark-starter/seatunnel-spark-3-starter/src/main/java/org/apache/seatunnel/core/starter/spark/execution/SparkRuntimeEnvironment.java`
 #### Snippet
 ```java
     private Config config;
@@ -15583,6 +15707,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `seatunnel-engine/seatunnel-engine-storage/imap-storage-plugins/imap-storage-file/src/main/java/org/apache/seatunnel/engine/imap/storage/file/future/RequestFuture.java`
+#### Snippet
+```java
+    private CountDownLatch latch = new CountDownLatch(1);
+
+    private boolean success = false;
+
+    @Override
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/checkpoint/CheckpointCoordinator.java`
 #### Snippet
@@ -15604,18 +15740,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
     private volatile boolean isAllTaskReady = false;
 
     @SneakyThrows
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `seatunnel-engine/seatunnel-engine-storage/imap-storage-plugins/imap-storage-file/src/main/java/org/apache/seatunnel/engine/imap/storage/file/future/RequestFuture.java`
-#### Snippet
-```java
-    private CountDownLatch latch = new CountDownLatch(1);
-
-    private boolean success = false;
-
-    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -15643,6 +15767,18 @@ in `seatunnel-engine/seatunnel-engine-storage/imap-storage-plugins/imap-storage-
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/canal/CanalJsonDeserializationSchema.java`
+#### Snippet
+```java
+        private boolean ignoreParseErrors = false;
+
+        private String database = null;
+
+        private String table = null;
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/canal/CanalJsonDeserializationSchema.java`
 #### Snippet
@@ -15667,15 +15803,15 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/canal/CanalJsonDeserializationSchema.java`
+Field initialization to `false` is redundant
+in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/seatunnel/translation/source/ParallelEnumeratorContext.java`
 #### Snippet
 ```java
-        private boolean ignoreParseErrors = false;
+    protected final Integer parallelism;
+    protected final Integer subtaskId;
+    protected volatile boolean running = false;
 
-        private String database = null;
-
-        private String table = null;
+    public ParallelEnumeratorContext(
 ```
 
 ### RedundantFieldInitialization
@@ -15688,18 +15824,6 @@ public class FlinkWriterState<StateT> implements Serializable {
     private long checkpointId = 0;
 
     private StateT state;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `seatunnel-translation/seatunnel-translation-base/src/main/java/org/apache/seatunnel/translation/source/ParallelEnumeratorContext.java`
-#### Snippet
-```java
-    protected final Integer parallelism;
-    protected final Integer subtaskId;
-    protected volatile boolean running = false;
-
-    public ParallelEnumeratorContext(
 ```
 
 ### RedundantFieldInitialization
@@ -15764,18 +15888,6 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/source/reader/fetch/transactionlog/SqlServerTransactionLogFetchTask.java`
-#### Snippet
-```java
-public class SqlServerTransactionLogFetchTask implements FetchTask<SourceSplitBase> {
-    private final IncrementalSplit split;
-    private volatile boolean taskRunning = false;
-
-    public SqlServerTransactionLogFetchTask(IncrementalSplit split) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/source/reader/fetch/scan/SqlServerSnapshotFetchTask.java`
 #### Snippet
 ```java
@@ -15784,6 +15896,18 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/
     private volatile boolean taskRunning = false;
 
     private SqlServerSnapshotSplitReadTask snapshotSplitReadTask;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/source/reader/fetch/transactionlog/SqlServerTransactionLogFetchTask.java`
+#### Snippet
+```java
+public class SqlServerTransactionLogFetchTask implements FetchTask<SourceSplitBase> {
+    private final IncrementalSplit split;
+    private volatile boolean taskRunning = false;
+
+    public SqlServerTransactionLogFetchTask(IncrementalSplit split) {
 ```
 
 ### RedundantFieldInitialization
@@ -15799,14 +15923,14 @@ in `seatunnel-connectors-v2/connector-fake/src/main/java/org/apache/seatunnel/co
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/writer/AbstractWriteStrategy.java`
+Field initialization to `false` is redundant
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceReader.java`
 #### Snippet
 ```java
-    protected int partId = 0;
-    protected int batchSize;
-    protected int currentBatchSize = 0;
-    protected boolean isKerberosAuthorization = false;
+    private final Map<String, IncrementalSplit> uncompletedIncrementalSplits;
+
+    private volatile boolean running = false;
+    private final int subtaskId;
 
 ```
 
@@ -15820,6 +15944,18 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
     protected int partId = 0;
     protected int batchSize;
     protected int currentBatchSize = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/writer/AbstractWriteStrategy.java`
+#### Snippet
+```java
+    protected int partId = 0;
+    protected int batchSize;
+    protected int currentBatchSize = 0;
+    protected boolean isKerberosAuthorization = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -15847,18 +15983,6 @@ in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/reader/IncrementalSourceReader.java`
-#### Snippet
-```java
-    private final Map<String, IncrementalSplit> uncompletedIncrementalSplits;
-
-    private volatile boolean running = false;
-    private final int subtaskId;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `seatunnel-connectors-v2/connector-hive/src/main/java/org/apache/seatunnel/connectors/seatunnel/hive/utils/HiveMetaStoreProxy.java`
 #### Snippet
@@ -15883,18 +16007,6 @@ in `seatunnel-connectors-v2/connector-hudi/src/main/java/org/apache/seatunnel/co
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormat.java`
-#### Snippet
-```java
-
-    private transient E jdbcStatementExecutor;
-    private transient int batchCount = 0;
-    private transient volatile boolean closed = false;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormat.java`
 #### Snippet
@@ -15904,6 +16016,18 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
     private transient volatile boolean closed = false;
 
     private transient ScheduledExecutorService scheduler;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/JdbcOutputFormat.java`
+#### Snippet
+```java
+
+    private transient E jdbcStatementExecutor;
+    private transient int batchCount = 0;
+    private transient volatile boolean closed = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -16027,18 +16151,6 @@ in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/connectors/seatunnel/pulsar/source/enumerator/PulsarSplitEnumerator.java`
-#### Snippet
-```java
-    private boolean noMoreNewPartitionSplits = false;
-
-    private ScheduledThreadPoolExecutor executor = null;
-
-    public PulsarSplitEnumerator(
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/connectors/seatunnel/pulsar/source/enumerator/PulsarSplitEnumerator.java`
 #### Snippet
@@ -16048,6 +16160,18 @@ in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/
     private boolean noMoreNewPartitionSplits = false;
 
     private ScheduledThreadPoolExecutor executor = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `seatunnel-connectors-v2/connector-pulsar/src/main/java/org/apache/seatunnel/connectors/seatunnel/pulsar/source/enumerator/PulsarSplitEnumerator.java`
+#### Snippet
+```java
+    private boolean noMoreNewPartitionSplits = false;
+
+    private ScheduledThreadPoolExecutor executor = null;
+
+    public PulsarSplitEnumerator(
 ```
 
 ### RedundantFieldInitialization
@@ -16111,6 +16235,54 @@ in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunn
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksBeReadClient.java`
+#### Snippet
+```java
+    private final int port;
+    private String contextId;
+    private int readerOffset = 0;
+    private final SourceConfig sourceConfig;
+    private final SeaTunnelRowType seaTunnelRowType;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksRowBatchReader.java`
+#### Snippet
+```java
+    private SeaTunnelDataType<?>[] seaTunnelDataTypes;
+    private int offsetInRowBatch = 0;
+    private int rowCountInOneBatch = 0;
+    private int readRowCount = 0;
+    private List<SeaTunnelRow> seaTunnelRowBatch = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksRowBatchReader.java`
+#### Snippet
+```java
+
+    private SeaTunnelDataType<?>[] seaTunnelDataTypes;
+    private int offsetInRowBatch = 0;
+    private int rowCountInOneBatch = 0;
+    private int readRowCount = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksRowBatchReader.java`
+#### Snippet
+```java
+    private int offsetInRowBatch = 0;
+    private int rowCountInOneBatch = 0;
+    private int readRowCount = 0;
+    private List<SeaTunnelRow> seaTunnelRowBatch = new ArrayList<>();
+    private final ArrowStreamReader arrowStreamReader;
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `seatunnel-connectors-v2/connector-s3-redshift/src/main/java/org/apache/seatunnel/connectors/seatunnel/redshift/RedshiftJdbcClient.java`
 #### Snippet
@@ -16120,6 +16292,18 @@ public class RedshiftJdbcClient {
     private static volatile RedshiftJdbcClient INSTANCE = null;
 
     private final Connection connection;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/SelectDBSinkWriter.java`
+#### Snippet
+```java
+    private final ArrayList<byte[]> cache = new ArrayList<>();
+    private int cacheSize = 0;
+    private int cacheCnt = 0;
+
+    private static final long MAX_CACHE_SIZE = 1024 * 1024L;
 ```
 
 ### RedundantFieldInitialization
@@ -16146,19 +16330,31 @@ in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/se
 
 ```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/SelectDBSinkWriter.java`
+## RuleId[ruleID=RedundantImplements]
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/common/metrics/ThreadSafeCounter.java`
 #### Snippet
 ```java
-    private final ArrayList<byte[]> cache = new ArrayList<>();
-    private int cacheSize = 0;
-    private int cacheCnt = 0;
+import java.util.concurrent.atomic.AtomicLongFieldUpdater;
 
-    private static final long MAX_CACHE_SIZE = 1024 * 1024L;
+public class ThreadSafeCounter implements Counter, Serializable {
+
+    private static final long serialVersionUID = 1L;
 ```
 
-## RuleId[ruleID=RedundantImplements]
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/common/metrics/ThreadSafeQPSMeter.java`
+#### Snippet
+```java
+import java.util.concurrent.atomic.AtomicLongFieldUpdater;
+
+public class ThreadSafeQPSMeter implements Meter, Serializable {
+
+    private static final long serialVersionUID = 1L;
+```
+
 ### RedundantImplements
 Redundant interface declaration `Serializable`
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/task/statemachine/SeaTunnelTaskState.java`
@@ -16233,18 +16429,6 @@ public class SeaTunnelSourceTable implements Table, SupportsRead {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/config/SaveMode.java`
-#### Snippet
-```java
-import java.util.Locale;
-
-public enum SaveMode implements Serializable {
-    APPEND(),
-    OVERWRITE(),
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/writer/WriteStrategy.java`
 #### Snippet
 ```java
@@ -16253,6 +16437,18 @@ import java.util.Map;
 public interface WriteStrategy extends Transaction, Serializable {
     /**
      * init hadoop conf
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `seatunnel-connectors-v2/connector-file/connector-file-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/sink/config/SaveMode.java`
+#### Snippet
+```java
+import java.util.Locale;
+
+public enum SaveMode implements Serializable {
+    APPEND(),
+    OVERWRITE(),
 ```
 
 ### RedundantImplements
@@ -16503,6 +16699,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/GetClusterHealthMetricsTask.java`
+#### Snippet
+```java
+    @Override
+    public Object[] getParameters() {
+        return new Object[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/SubmitJobTask.java`
 #### Snippet
 ```java
@@ -16527,6 +16735,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/CancelJobTask.java`
+#### Snippet
+```java
+    @Override
+    public Object[] getParameters() {
+        return new Object[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/ListJobStatusTask.java`
 #### Snippet
 ```java
@@ -16540,18 +16760,6 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/PrintMessageTask.java`
-#### Snippet
-```java
-    @Override
-    public Object[] getParameters() {
-        return new Object[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/protocol/task/CancelJobTask.java`
 #### Snippet
 ```java
     @Override
@@ -16626,11 +16834,11 @@ Allocation of zero length array
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/scheduler/PipelineBaseScheduler.java`
 #### Snippet
 ```java
+            try {
                 CompletableFuture<Void> voidCompletableFuture =
-                        CompletableFuture.allOf(
-                                deployCoordinatorFuture.toArray(new CompletableFuture[0]));
+                        CompletableFuture.allOf(collect.toArray(new CompletableFuture[0]));
                 voidCompletableFuture.get();
-                if (!pipeline.updatePipelineState(
+                physicalPlan.updateJobState(JobStatus.SCHEDULED, JobStatus.RUNNING);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -16638,11 +16846,11 @@ Allocation of zero length array
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/scheduler/PipelineBaseScheduler.java`
 #### Snippet
 ```java
-            try {
                 CompletableFuture<Void> voidCompletableFuture =
-                        CompletableFuture.allOf(collect.toArray(new CompletableFuture[0]));
+                        CompletableFuture.allOf(
+                                deployCoordinatorFuture.toArray(new CompletableFuture[0]));
                 voidCompletableFuture.get();
-                physicalPlan.updateJobState(JobStatus.SCHEDULED, JobStatus.RUNNING);
+                if (!pipeline.updatePipelineState(
 ```
 
 ### ZeroLengthArrayInitialization
@@ -16662,11 +16870,11 @@ Allocation of zero length array
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/ResourceRequestHandler.java`
 #### Snippet
 ```java
-    private <T> CompletableFuture<T> getAllOfFuture(List<CompletableFuture<T>> allRequestFuture) {
-        return (CompletableFuture<T>)
-                CompletableFuture.allOf(allRequestFuture.toArray(new CompletableFuture[0]));
-    }
-}
+        // Shuffle the order to ensure random selection of workers
+        List<WorkerProfile> workerProfiles =
+                Arrays.asList(registerWorker.values().toArray(new WorkerProfile[0]));
+        Collections.shuffle(workerProfiles);
+        // Check if there are still unassigned slots
 ```
 
 ### ZeroLengthArrayInitialization
@@ -16674,11 +16882,11 @@ Allocation of zero length array
 in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/resourcemanager/ResourceRequestHandler.java`
 #### Snippet
 ```java
-        // Shuffle the order to ensure random selection of workers
-        List<WorkerProfile> workerProfiles =
-                Arrays.asList(registerWorker.values().toArray(new WorkerProfile[0]));
-        Collections.shuffle(workerProfiles);
-        // Check if there are still unassigned slots
+    private <T> CompletableFuture<T> getAllOfFuture(List<CompletableFuture<T>> allRequestFuture) {
+        return (CompletableFuture<T>)
+                CompletableFuture.allOf(allRequestFuture.toArray(new CompletableFuture[0]));
+    }
+}
 ```
 
 ### ZeroLengthArrayInitialization
@@ -16815,6 +17023,30 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
+#### Snippet
+```java
+    private static ArrayBasedMapData convertMap(Map<?, ?> mapData, MapType<?, ?> mapType) {
+        if (mapData == null || mapData.size() == 0) {
+            return ArrayBasedMapData.apply(new Object[] {}, new Object[] {});
+        }
+        SeaTunnelDataType<?> keyType = mapType.getKeyType();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
+#### Snippet
+```java
+    private static ArrayBasedMapData convertMap(Map<?, ?> mapData, MapType<?, ?> mapType) {
+        if (mapData == null || mapData.size() == 0) {
+            return ArrayBasedMapData.apply(new Object[] {}, new Object[] {});
+        }
+        SeaTunnelDataType<?> keyType = mapType.getKeyType();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/debezium/relational/TableId.java`
 #### Snippet
 ```java
@@ -16823,30 +17055,6 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/io/de
         String[] parts = TableIdParser.parse(str).toArray(new String[0]);
 
         return TableId.parse(parts, parts.length, useCatalogBeforeSchema);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
-#### Snippet
-```java
-    private static ArrayBasedMapData convertMap(Map<?, ?> mapData, MapType<?, ?> mapType) {
-        if (mapData == null || mapData.size() == 0) {
-            return ArrayBasedMapData.apply(new Object[] {}, new Object[] {});
-        }
-        SeaTunnelDataType<?> keyType = mapType.getKeyType();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spark-3.3/src/main/java/org/apache/seatunnel/translation/spark/serialization/InternalRowConverter.java`
-#### Snippet
-```java
-    private static ArrayBasedMapData convertMap(Map<?, ?> mapData, MapType<?, ?> mapType) {
-        if (mapData == null || mapData.size() == 0) {
-            return ArrayBasedMapData.apply(new Object[] {}, new Object[] {});
-        }
-        SeaTunnelDataType<?> keyType = mapType.getKeyType();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -16914,11 +17122,11 @@ Allocation of zero length array
 in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/source/HttpSourceReader.java`
 #### Snippet
 ```java
-    private List<Map<String, String>> parseToMap(List<List<String>> datas, JsonField jsonField) {
-        List<Map<String, String>> decodeDatas = new ArrayList<>(datas.size());
-        String[] keys = jsonField.getFields().keySet().toArray(new String[] {});
-
-        for (List<String> data : datas) {
+            jsonPaths[index] =
+                    JsonPath.compile(
+                            jsonField.getFields().values().toArray(new String[] {})[index]);
+        }
+    }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -16926,11 +17134,11 @@ Allocation of zero length array
 in `seatunnel-connectors-v2/connector-http/connector-http-base/src/main/java/org/apache/seatunnel/connectors/seatunnel/http/source/HttpSourceReader.java`
 #### Snippet
 ```java
-            jsonPaths[index] =
-                    JsonPath.compile(
-                            jsonField.getFields().values().toArray(new String[] {})[index]);
-        }
-    }
+    private List<Map<String, String>> parseToMap(List<List<String>> datas, JsonField jsonField) {
+        List<Map<String, String>> decodeDatas = new ArrayList<>(datas.size());
+        String[] keys = jsonField.getFields().keySet().toArray(new String[] {});
+
+        for (List<String> data : datas) {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -17415,14 +17623,14 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `seatunnel-transforms-v2/src/main/java/org/apache/seatunnel/transform/FilterFieldTransform.java`
+in `seatunnel-transforms-v2/src/main/java/org/apache/seatunnel/transform/FieldMapperTransform.java`
 #### Snippet
 ```java
-            throw new IllegalArgumentException("The configuration missing key: " + KEY_FIELDS);
-        }
-        this.fields = pluginConfig.getStringList(KEY_FIELDS.key()).toArray(new String[0]);
-    }
 
+        return new SeaTunnelRowType(
+                outputFiledNameList.toArray(new String[0]),
+                outputDataTypeList.toArray(new SeaTunnelDataType[0]));
+    }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -17442,21 +17650,21 @@ Allocation of zero length array
 in `seatunnel-transforms-v2/src/main/java/org/apache/seatunnel/transform/FieldMapperTransform.java`
 #### Snippet
 ```java
-
         return new SeaTunnelRowType(
                 outputFiledNameList.toArray(new String[0]),
                 outputDataTypeList.toArray(new SeaTunnelDataType[0]));
     }
+
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `seatunnel-transforms-v2/src/main/java/org/apache/seatunnel/transform/FieldMapperTransform.java`
+in `seatunnel-transforms-v2/src/main/java/org/apache/seatunnel/transform/FilterFieldTransform.java`
 #### Snippet
 ```java
-        return new SeaTunnelRowType(
-                outputFiledNameList.toArray(new String[0]),
-                outputDataTypeList.toArray(new SeaTunnelDataType[0]));
+            throw new IllegalArgumentException("The configuration missing key: " + KEY_FIELDS);
+        }
+        this.fields = pluginConfig.getStringList(KEY_FIELDS.key()).toArray(new String[0]);
     }
 
 ```
@@ -17499,18 +17707,6 @@ public interface RunnableWithException {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `ConsumerWithException` ends with 'Exception'
-in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/function/ConsumerWithException.java`
-#### Snippet
-```java
-
-@FunctionalInterface
-public interface ConsumerWithException<T> {
-    /**
-     * Performs this operation on the given argument.
-```
-
-### NonExceptionNameEndsWithException
 Non-exception class name `SupplierWithException` ends with 'Exception'
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/function/SupplierWithException.java`
 #### Snippet
@@ -17520,6 +17716,18 @@ in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/function/Su
 public interface SupplierWithException<R, E extends Throwable> {
 
     /**
+```
+
+### NonExceptionNameEndsWithException
+Non-exception class name `ConsumerWithException` ends with 'Exception'
+in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/function/ConsumerWithException.java`
+#### Snippet
+```java
+
+@FunctionalInterface
+public interface ConsumerWithException<T> {
+    /**
+     * Performs this operation on the given argument.
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -17600,6 +17808,18 @@ in `seatunnel-translation/seatunnel-translation-spark/seatunnel-translation-spar
 in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaInternalProducer.java`
 #### Snippet
 ```java
+                                    transactionManager.getClass(),
+                                    "topicPartitionBookkeeper")
+                            .get();
+
+            transitionTransactionManagerStateTo(transactionManager, "INITIALIZING");
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaInternalProducer.java`
+#### Snippet
+```java
         Object producerIdAndEpoch =
                 ReflectionUtils.getField(transactionManager, PRODUCER_ID_AND_EPOCH_FIELD_NAME)
                         .get();
@@ -17617,18 +17837,6 @@ in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/c
         return (long) ReflectionUtils.getField(producerIdAndEpoch, "producerId").get();
     }
 
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/sink/KafkaInternalProducer.java`
-#### Snippet
-```java
-                                    transactionManager.getClass(),
-                                    "topicPartitionBookkeeper")
-                            .get();
-
-            transitionTransactionManagerStateTo(transactionManager, "INITIALIZING");
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -17717,18 +17925,6 @@ in `seatunnel-engine/seatunnel-engine-storage/imap-storage-plugins/imap-storage-
 ```
 
 ### ConstantValue
-Condition `created` is always `true`
-in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/ftp/system/SeaTunnelFTPFileSystem.java`
-#### Snippet
-```java
-                String parentDir = parent.toUri().getPath();
-                client.changeWorkingDirectory(parentDir);
-                created = created && client.makeDirectory(pathName);
-            }
-        } else if (isFile(client, absolute)) {
-```
-
-### ConstantValue
 Condition `getFileStatus(client, file) != null` is always `true`
 in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/ftp/system/SeaTunnelFTPFileSystem.java`
 #### Snippet
@@ -17738,6 +17934,18 @@ in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/
             return getFileStatus(client, file) != null;
         } catch (FileNotFoundException fnfe) {
             return false;
+```
+
+### ConstantValue
+Condition `created` is always `true`
+in `seatunnel-connectors-v2/connector-file/connector-file-ftp/src/main/java/org/apache/seatunnel/connectors/seatunnel/file/ftp/system/SeaTunnelFTPFileSystem.java`
+#### Snippet
+```java
+                String parentDir = parent.toUri().getPath();
+                client.changeWorkingDirectory(parentDir);
+                created = created && client.makeDirectory(pathName);
+            }
+        } else if (isFile(client, absolute)) {
 ```
 
 ### ConstantValue
@@ -17858,6 +18066,18 @@ in `seatunnel-connectors-v2/connector-file/connector-file-sftp/src/main/java/org
                 created = created & succeeded;
             }
         } else if (isFile(client, absolute)) {
+```
+
+### ConstantValue
+Condition `client != null` is always `true`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/source/StarRocksSourceReader.java`
+#### Snippet
+```java
+        }
+        // close client to be
+        if (client != null) {
+            client.close();
+        }
 ```
 
 ### ConstantValue
@@ -17988,18 +18208,6 @@ Can be replaced with single expression in functional style
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/MySqlUtils.java`
 #### Snippet
 ```java
-        sql.append(" FROM ");
-        sql.append(quotedTableIdString(tableId));
-        if (condition.isPresent()) {
-            sql.append(" WHERE ").append(condition.get());
-        }
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/MySqlUtils.java`
-#### Snippet
-```java
         sql.append(projection).append(" FROM ");
         sql.append(quotedTableIdString(tableId));
         if (condition.isPresent()) {
@@ -18016,6 +18224,18 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/
         }
         if (orderBy.isPresent()) {
             sql.append(" ORDER BY ").append(orderBy.get());
+        }
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/MySqlUtils.java`
+#### Snippet
+```java
+        sql.append(" FROM ");
+        sql.append(quotedTableIdString(tableId));
+        if (condition.isPresent()) {
+            sql.append(" WHERE ").append(condition.get());
         }
 ```
 
@@ -18061,11 +18281,11 @@ Can be replaced with 'Map.forEach()'
 in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/source/KafkaSourceSplitEnumerator.java`
 #### Snippet
 ```java
-        topicPartitionOffsets
+        pendingSplit
                 .entrySet()
                 .forEach(
-                        entry -> {
-                            if (pendingSplit.containsKey(entry.getKey())) {
+                        s -> {
+                            if (!assignedSplit.containsKey(s.getKey())) {
 ```
 
 ### Java8MapForEach
@@ -18073,11 +18293,11 @@ Can be replaced with 'Map.forEach()'
 in `seatunnel-connectors-v2/connector-kafka/src/main/java/org/apache/seatunnel/connectors/seatunnel/kafka/source/KafkaSourceSplitEnumerator.java`
 #### Snippet
 ```java
-        pendingSplit
+        topicPartitionOffsets
                 .entrySet()
                 .forEach(
-                        s -> {
-                            if (!assignedSplit.containsKey(s.getKey())) {
+                        entry -> {
+                            if (pendingSplit.containsKey(entry.getKey())) {
 ```
 
 ## RuleId[ruleID=FieldMayBeStatic]
@@ -18203,6 +18423,18 @@ public class TransformCommonOptions {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `FactoryUtil` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/table/factory/FactoryUtil.java`
+#### Snippet
+```java
+ * CatalogFactory}.
+ */
+public final class FactoryUtil {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FactoryUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `Options` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/Options.java`
 #### Snippet
@@ -18215,15 +18447,15 @@ public class Options {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FactoryUtil` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-api/src/main/java/org/apache/seatunnel/api/table/factory/FactoryUtil.java`
+Class `ConfigUtil` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/ConfigUtil.java`
 #### Snippet
 ```java
- * CatalogFactory}.
- */
-public final class FactoryUtil {
+import java.util.Map;
 
-    private static final Logger LOG = LoggerFactory.getLogger(FactoryUtil.class);
+public class ConfigUtil {
+    private static final JavaPropsMapper PROPERTIES_MAPPER = new JavaPropsMapper();
+    private static final ObjectMapper JACKSON_MAPPER = new ObjectMapper();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -18251,18 +18483,6 @@ public class SeaTunnelClient {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ConfigUtil` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-api/src/main/java/org/apache/seatunnel/api/configuration/util/ConfigUtil.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class ConfigUtil {
-    private static final JavaPropsMapper PROPERTIES_MAPPER = new JavaPropsMapper();
-    private static final ObjectMapper JACKSON_MAPPER = new ObjectMapper();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `JavaVersion` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-core/seatunnel-starter/src/main/java/org/apache/seatunnel/core/starter/seatunnel/jvm/JavaVersion.java`
 #### Snippet
@@ -18287,15 +18507,15 @@ final class TempDirectory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SeaTunnel` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-core/seatunnel-core-starter/src/main/java/org/apache/seatunnel/core/starter/SeaTunnel.java`
+Class `ConfigAdapterUtils` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-core/seatunnel-core-starter/src/main/java/org/apache/seatunnel/core/starter/utils/ConfigAdapterUtils.java`
 #### Snippet
 ```java
 
 @Slf4j
-public class SeaTunnel {
+public final class ConfigAdapterUtils {
+    private static final List<ConfigAdapter> CONFIG_ADAPTERS = new ArrayList<>(0);
 
-    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -18311,15 +18531,15 @@ public class SeaTunnelStarterConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ConfigAdapterUtils` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-core/seatunnel-core-starter/src/main/java/org/apache/seatunnel/core/starter/utils/ConfigAdapterUtils.java`
+Class `SeaTunnel` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-core/seatunnel-core-starter/src/main/java/org/apache/seatunnel/core/starter/SeaTunnel.java`
 #### Snippet
 ```java
 
 @Slf4j
-public final class ConfigAdapterUtils {
-    private static final List<ConfigAdapter> CONFIG_ADAPTERS = new ArrayList<>(0);
+public class SeaTunnel {
 
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -18383,18 +18603,6 @@ public class TimeUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/ReflectionUtils.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-public class ReflectionUtils {
-
-    public static Optional<Method> getDeclaredMethod(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `DateUtils` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/DateUtils.java`
 #### Snippet
@@ -18404,6 +18612,18 @@ import java.util.Map;
 public class DateUtils {
     private static final Map<Formatter, DateTimeFormatter> FORMATTER_MAP = new HashMap<>();
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/ReflectionUtils.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+public class ReflectionUtils {
+
+    public static Optional<Method> getDeclaredMethod(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -18431,18 +18651,6 @@ public class SerializationUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.java`
-#### Snippet
-```java
-
-@Slf4j
-public class FileUtils {
-
-    public static List<URL> searchJarFiles(@NonNull Path directory) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CollectionConstants` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/constants/CollectionConstants.java`
 #### Snippet
@@ -18452,6 +18660,18 @@ package org.apache.seatunnel.common.constants;
 public class CollectionConstants {
 
     public static final String PLUGIN_NAME = "plugin_name";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-common/src/main/java/org/apache/seatunnel/common/utils/FileUtils.java`
+#### Snippet
+```java
+
+@Slf4j
+public class FileUtils {
+
+    public static List<URL> searchJarFiles(@NonNull Path directory) throws IOException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -18503,18 +18723,6 @@ public class FactoryUtil<T> {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SeaTunnelFactoryIdConstant` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/serializeable/SeaTunnelFactoryIdConstant.java`
-#### Snippet
-```java
- * mechanism.
- */
-public final class SeaTunnelFactoryIdConstant {
-    /**
-     * Name of the system property that specifies SeaTunnelEngine's data serialization factory ID.
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ServerConfigOptions` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/config/server/ServerConfigOptions.java`
 #### Snippet
@@ -18524,6 +18732,18 @@ in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/
 public class ServerConfigOptions {
 
     public static final Option<Integer> BACKUP_COUNT =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SeaTunnelFactoryIdConstant` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/serializeable/SeaTunnelFactoryIdConstant.java`
+#### Snippet
+```java
+ * mechanism.
+ */
+public final class SeaTunnelFactoryIdConstant {
+    /**
+     * Name of the system property that specifies SeaTunnelEngine's data serialization factory ID.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -18672,10 +18892,10 @@ public class SeaTunnelEngineExample {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `SeaTunnelApiExample` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-examples/seatunnel-flink-connector-v2-example/src/main/java/org/apache/seatunnel/example/flink/v2/SeaTunnelApiExample.java`
+in `seatunnel-examples/seatunnel-spark-connector-v2-example/src/main/java/org/apache/seatunnel/example/spark/v2/SeaTunnelApiExample.java`
 #### Snippet
 ```java
-import java.nio.file.Paths;
+import java.net.URISyntaxException;
 
 public class SeaTunnelApiExample {
 
@@ -18684,10 +18904,10 @@ public class SeaTunnelApiExample {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `SeaTunnelApiExample` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-examples/seatunnel-spark-connector-v2-example/src/main/java/org/apache/seatunnel/example/spark/v2/SeaTunnelApiExample.java`
+in `seatunnel-examples/seatunnel-flink-connector-v2-example/src/main/java/org/apache/seatunnel/example/flink/v2/SeaTunnelApiExample.java`
 #### Snippet
 ```java
-import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
 public class SeaTunnelApiExample {
 
@@ -18779,18 +18999,6 @@ public class WatermarkEvent {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TableDiscoveryUtils` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/TableDiscoveryUtils.java`
-#### Snippet
-```java
-
-/** Utilities to discovery matched tables. */
-public class TableDiscoveryUtils {
-    private static final Logger LOG = LoggerFactory.getLogger(TableDiscoveryUtils.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `MySqlTypeUtils` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/MySqlTypeUtils.java`
 #### Snippet
@@ -18800,6 +19008,18 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/
 public class MySqlTypeUtils {
 
     // ============================data types=====================
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TableDiscoveryUtils` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-mysql/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/mysql/utils/TableDiscoveryUtils.java`
+#### Snippet
+```java
+
+/** Utilities to discovery matched tables. */
+public class TableDiscoveryUtils {
+    private static final Logger LOG = LoggerFactory.getLogger(TableDiscoveryUtils.class);
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -18827,18 +19047,6 @@ public class SqlServerTypeUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SqlServerConnectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/utils/SqlServerConnectionUtils.java`
-#### Snippet
-```java
-
-/** Utils for SqlServer connection. */
-public class SqlServerConnectionUtils {
-
-    public static SqlServerConnection createSqlServerConnection(Configuration dbzConfiguration) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `TableDiscoveryUtils` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/utils/TableDiscoveryUtils.java`
 #### Snippet
@@ -18848,6 +19056,18 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/
 public class TableDiscoveryUtils {
     private static final Logger LOG = LoggerFactory.getLogger(TableDiscoveryUtils.class);
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SqlServerConnectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-sqlserver/src/main/java/org/apache/seatunnel/connectors/seatunnel/cdc/sqlserver/source/utils/SqlServerConnectionUtils.java`
+#### Snippet
+```java
+
+/** Utils for SqlServer connection. */
+public class SqlServerConnectionUtils {
+
+    public static SqlServerConnection createSqlServerConnection(Configuration dbzConfiguration) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -18995,18 +19215,6 @@ public class EmailConfig {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SourceConstants` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/iotdb/constant/SourceConstants.java`
-#### Snippet
-```java
-package org.apache.seatunnel.connectors.seatunnel.iotdb.constant;
-
-public class SourceConstants {
-
-    public static final String FIELDS_K_V_SPLIT = ":";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SourceConfig` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/iotdb/config/SourceConfig.java`
 #### Snippet
@@ -19016,6 +19224,18 @@ in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/c
 public class SourceConfig {
 
     public static final Option<String> SQL =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SourceConstants` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-iotdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/iotdb/constant/SourceConstants.java`
+#### Snippet
+```java
+package org.apache.seatunnel.connectors.seatunnel.iotdb.constant;
+
+public class SourceConstants {
+
+    public static final String FIELDS_K_V_SPLIT = ":";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19127,18 +19347,6 @@ public class DataTypeValidator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MongodbOption` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-mongodb/src/main/java/org/apache/seatunnel/connectors/seatunnel/mongodb/config/MongodbOption.java`
-#### Snippet
-```java
-import org.apache.seatunnel.api.configuration.Options;
-
-public class MongodbOption {
-    public static final Option<String> URI =
-            Options.key("uri").stringType().noDefaultValue().withDescription("MongoDB uri");
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `IcebergScanSplitPlanner` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-iceberg/src/main/java/org/apache/seatunnel/connectors/seatunnel/iceberg/source/enumerator/scan/IcebergScanSplitPlanner.java`
 #### Snippet
@@ -19148,6 +19356,18 @@ in `seatunnel-connectors-v2/connector-iceberg/src/main/java/org/apache/seatunnel
 public class IcebergScanSplitPlanner {
 
     public static IcebergEnumerationResult planStreamSplits(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MongodbOption` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-mongodb/src/main/java/org/apache/seatunnel/connectors/seatunnel/mongodb/config/MongodbOption.java`
+#### Snippet
+```java
+import org.apache.seatunnel.api.configuration.Options;
+
+public class MongodbOption {
+    public static final Option<String> URI =
+            Options.key("uri").stringType().noDefaultValue().withDescription("MongoDB uri");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19163,18 +19383,6 @@ public class DingTalkConfig {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `OpenMldbConfig` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-openmldb/src/main/java/org/apache/seatunnel/connectors/seatunnel/openmldb/config/OpenMldbConfig.java`
-#### Snippet
-```java
-import org.apache.seatunnel.api.configuration.Options;
-
-public class OpenMldbConfig {
-    private static final int DEFAULT_SESSION_TIMEOUT = 10000;
-    private static final int DEFAULT_REQUEST_TIMEOUT = 60000;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `InfluxDBRowConverter` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/converter/InfluxDBRowConverter.java`
 #### Snippet
@@ -19184,6 +19392,18 @@ import java.util.List;
 public class InfluxDBRowConverter {
 
     public static SeaTunnelRow convert(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OpenMldbConfig` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-openmldb/src/main/java/org/apache/seatunnel/connectors/seatunnel/openmldb/config/OpenMldbConfig.java`
+#### Snippet
+```java
+import org.apache.seatunnel.api.configuration.Options;
+
+public class OpenMldbConfig {
+    private static final int DEFAULT_SESSION_TIMEOUT = 10000;
+    private static final int DEFAULT_REQUEST_TIMEOUT = 60000;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19235,6 +19455,18 @@ public class CassandraClient {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `TypeConvertUtil` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-cassandra/src/main/java/org/apache/seatunnel/connectors/seatunnel/cassandra/util/TypeConvertUtil.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+public class TypeConvertUtil {
+    public static SeaTunnelDataType<?> convert(DataType type) {
+        switch (type.getProtocolCode()) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `StarRocksDelimiterParser` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/serialize/StarRocksDelimiterParser.java`
 #### Snippet
@@ -19256,18 +19488,6 @@ import org.apache.seatunnel.connectors.seatunnel.clickhouse.exception.Clickhouse
 public class FileTransferFactory {
     public static FileTransfer createFileTransfer(
             ClickhouseFileCopyMethod type, String host, String user, String password) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TypeConvertUtil` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-cassandra/src/main/java/org/apache/seatunnel/connectors/seatunnel/cassandra/util/TypeConvertUtil.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class TypeConvertUtil {
-    public static SeaTunnelDataType<?> convert(DataType type) {
-        switch (type.getProtocolCode()) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19331,18 +19551,6 @@ public class MaxcomputeUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EsClusterConnectionConfig` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/config/EsClusterConnectionConfig.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class EsClusterConnectionConfig {
-
-    public static final Option<List<String>> HOSTS =
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `RegexUtils` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/RegexUtils.java`
 #### Snippet
@@ -19352,6 +19560,18 @@ import java.util.regex.Pattern;
 public class RegexUtils {
 
     public static List<String> extractDatas(String content, String regex) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SinkConfig` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/config/SinkConfig.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class SinkConfig {
+
+    public static final Option<String> INDEX =
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19367,15 +19587,15 @@ public class SourceConfig {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SinkConfig` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/config/SinkConfig.java`
+Class `EsClusterConnectionConfig` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/config/EsClusterConnectionConfig.java`
 #### Snippet
 ```java
 import java.util.List;
 
-public class SinkConfig {
+public class EsClusterConnectionConfig {
 
-    public static final Option<String> INDEX =
+    public static final Option<List<String>> HOSTS =
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19415,18 +19635,6 @@ public class SheetsConfig {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LoadStatus` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/LoadStatus.java`
-#### Snippet
-```java
-
-/** enum of LoadStatus. */
-public class LoadStatus {
-    public static final int SUCCESS = 0;
-    public static final String FAIL = "1";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SSLUtils` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/seatunnel/connectors/seatunnel/elasticsearch/util/SSLUtils.java`
 #### Snippet
@@ -19436,6 +19644,18 @@ in `seatunnel-connectors-v2/connector-elasticsearch/src/main/java/org/apache/sea
 public final class SSLUtils {
 
     public static Optional<SSLContext> buildSSLContext(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LoadStatus` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/sink/writer/LoadStatus.java`
+#### Snippet
+```java
+
+/** enum of LoadStatus. */
+public class LoadStatus {
+    public static final int SUCCESS = 0;
+    public static final String FAIL = "1";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19451,18 +19671,6 @@ public class LoadConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ResponseUtil` has only 'static' members, and lacks a 'private' constructor
-in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/util/ResponseUtil.java`
-#### Snippet
-```java
-
-/** util for handle response. */
-public class ResponseUtil {
-    public static final Pattern LABEL_EXIST_PATTERN =
-            Pattern.compile(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
 in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/util/StringUtil.java`
 #### Snippet
@@ -19472,6 +19680,18 @@ package org.apache.seatunnel.connector.selectdb.util;
 public final class StringUtil {
     public static boolean isNullOrWhitespaceOnly(String str) {
         if (str != null && str.length() != 0) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ResponseUtil` has only 'static' members, and lacks a 'private' constructor
+in `seatunnel-connectors-v2/connector-selectdb-cloud/src/main/java/org/apache/seatunnel/connector/selectdb/util/ResponseUtil.java`
+#### Snippet
+```java
+
+/** util for handle response. */
+public class ResponseUtil {
+    public static final Pattern LABEL_EXIST_PATTERN =
+            Pattern.compile(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19686,6 +19906,18 @@ in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/co
 ```
 
 ### DataFlowIssue
+Argument `split` might be null
+in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxdbSourceReader.java`
+#### Snippet
+```java
+            synchronized (output.getCheckpointLock()) {
+                InfluxDBSourceSplit split = pendingSplits.poll();
+                read(split, output);
+            }
+        }
+```
+
+### DataFlowIssue
 Argument `time` might be null
 in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/serialize/DefaultSerializer.java`
 #### Snippet
@@ -19723,11 +19955,11 @@ in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunne
 
 ### DataFlowIssue
 Argument `split` might be null
-in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunnel/connectors/seatunnel/influxdb/source/InfluxdbSourceReader.java`
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/source/StarRocksSourceReader.java`
 #### Snippet
 ```java
             synchronized (output.getCheckpointLock()) {
-                InfluxDBSourceSplit split = pendingSplits.poll();
+                StarRocksSourceSplit split = pendingSplits.poll();
                 read(split, output);
             }
         }
@@ -19784,6 +20016,18 @@ in `seatunnel-connectors-v2/connector-influxdb/src/main/java/org/apache/seatunne
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'deployLocalTask' is still used
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public PassiveCompletableFuture<TaskExecutionState> deployLocalTask(
+            @NonNull TaskGroup taskGroup,
+            @NonNull CompletableFuture<TaskExecutionState> resultFuture) {
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'extractSubConfig' is still used
 in `seatunnel-common/src/main/java/org/apache/seatunnel/common/config/TypesafeConfigUtils.java`
 #### Snippet
@@ -19796,15 +20040,75 @@ in `seatunnel-common/src/main/java/org/apache/seatunnel/common/config/TypesafeCo
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'deployLocalTask' is still used
-in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/TaskExecutionService.java`
+Deprecated member 'listJobStatus' is still used
+in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/engine/client/SeaTunnelClient.java`
+#### Snippet
+```java
+    /** list all jobId and job status */
+    @Deprecated
+    public String listJobStatus() {
+        return jobClient.listJobStatus();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getJobDetailStatus' is still used
+in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/engine/client/SeaTunnelClient.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public String getJobDetailStatus(Long jobId) {
+        return jobClient.getJobDetailStatus(jobId);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getJobStatus' is still used
+in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/engine/client/SeaTunnelClient.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public String getJobStatus(Long jobId) {
+        return jobClient.getJobStatus(jobId);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getJobMetrics' is still used
+in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/engine/client/SeaTunnelClient.java`
 #### Snippet
 ```java
 
     @Deprecated
-    public PassiveCompletableFuture<TaskExecutionState> deployLocalTask(
-            @NonNull TaskGroup taskGroup,
-            @NonNull CompletableFuture<TaskExecutionState> resultFuture) {
+    public String getJobMetrics(Long jobId) {
+        return jobClient.getJobMetrics(jobId);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'savePointJob' is still used
+in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/engine/client/SeaTunnelClient.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public void savePointJob(Long jobId) {
+        jobClient.savePointJob(jobId);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'cancelJob' is still used
+in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/engine/client/SeaTunnelClient.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public void cancelJob(Long jobId) {
+        jobClient.cancelJob(jobId);
+    }
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -19902,6 +20206,18 @@ in `seatunnel-connectors-v2/connector-iceberg/src/main/java/org/apache/seatunnel
                         .map(deleteFile -> deleteFile.path())
                         .collect(Collectors.toList()));
         return taskInfo.toString();
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/source/StartRocksSourceSplitEnumerator.java`
+#### Snippet
+```java
+                                ",",
+                                assignmentForReader.stream()
+                                        .map(p -> p.getSplitId())
+                                        .collect(Collectors.toList())),
+                        reader);
 ```
 
 ### Convert2MethodRef
@@ -20162,6 +20478,18 @@ in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'splitStart' in a Serializable class
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/split/SnapshotSplit.java`
+#### Snippet
+```java
+    private final TableId tableId;
+    private final SeaTunnelRowType splitKeyType;
+    private final Object splitStart;
+    private final Object splitEnd;
+
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'splitEnd' in a Serializable class
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/split/SnapshotSplit.java`
 #### Snippet
@@ -20175,14 +20503,14 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'splitStart' in a Serializable class
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/split/SnapshotSplit.java`
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/split/CompletedSnapshotSplitInfo.java`
 #### Snippet
 ```java
     private final TableId tableId;
     private final SeaTunnelRowType splitKeyType;
     private final Object splitStart;
     private final Object splitEnd;
-
+    private final Offset watermark;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -20195,18 +20523,6 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
     private final Object splitEnd;
     private final Offset watermark;
 
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'splitStart' in a Serializable class
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/base/source/split/CompletedSnapshotSplitInfo.java`
-#### Snippet
-```java
-    private final TableId tableId;
-    private final SeaTunnelRowType splitKeyType;
-    private final Object splitStart;
-    private final Object splitEnd;
-    private final Offset watermark;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -20258,18 +20574,6 @@ in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/co
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'kuduClient' in a Serializable class
-in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduOutputFormat.java`
-#### Snippet
-```java
-    private final String kuduTableName;
-    private final KuduSinkConfig.SaveMode saveMode;
-    private KuduClient kuduClient;
-    private KuduSession kuduSession;
-    private KuduTable kuduTable;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'kuduTable' in a Serializable class
 in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduOutputFormat.java`
 #### Snippet
@@ -20291,6 +20595,18 @@ in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/co
     private KuduSession kuduSession;
     private KuduTable kuduTable;
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'kuduClient' in a Serializable class
+in `seatunnel-connectors-v2/connector-kudu/src/main/java/org/apache/seatunnel/connectors/seatunnel/kudu/kuduclient/KuduOutputFormat.java`
+#### Snippet
+```java
+    private final String kuduTableName;
+    private final KuduSinkConfig.SaveMode saveMode;
+    private KuduClient kuduClient;
+    private KuduSession kuduSession;
+    private KuduTable kuduTable;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -20339,6 +20655,30 @@ in `seatunnel-connectors-v2/connector-dingtalk/src/main/java/org/apache/seatunne
         private DefaultDingTalkClient client;
 
         public RobotClient(String url, String secret) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'client' in a Serializable class
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksBeReadClient.java`
+#### Snippet
+```java
+    private static final String DEFAULT_CLUSTER_NAME = "default_cluster";
+
+    private TStarrocksExternalService.Client client;
+    private final String ip;
+    private final int port;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'rowBatch' in a Serializable class
+in `seatunnel-connectors-v2/connector-starrocks/src/main/java/org/apache/seatunnel/connectors/seatunnel/starrocks/client/source/StarRocksBeReadClient.java`
+#### Snippet
+```java
+    private final SourceConfig sourceConfig;
+    private final SeaTunnelRowType seaTunnelRowType;
+    private StarRocksRowBatchReader rowBatch;
+
+    private final List<Long> tabletIds;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -20680,11 +21020,11 @@ Qualifier `com.hazelcast.internal.serialization` is unnecessary, and can be repl
 in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelGetJobInfoCodec.java`
 #### Snippet
 ```java
-    }
 
-    public static ClientMessage encodeResponse(com.hazelcast.internal.serialization.Data response) {
-        ClientMessage clientMessage = ClientMessage.createForEncode();
-        ClientMessage.Frame initialFrame =
+    /** */
+    public static com.hazelcast.internal.serialization.Data decodeResponse(
+            ClientMessage clientMessage) {
+        ClientMessage.ForwardFrameIterator iterator = clientMessage.frameIterator();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20692,23 +21032,11 @@ Qualifier `com.hazelcast.internal.serialization` is unnecessary, and can be repl
 in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelGetJobInfoCodec.java`
 #### Snippet
 ```java
+    }
 
-    /** */
-    public static com.hazelcast.internal.serialization.Data decodeResponse(
-            ClientMessage clientMessage) {
-        ClientMessage.ForwardFrameIterator iterator = clientMessage.frameIterator();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.internal.serialization` is unnecessary, and can be replaced with an import
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelWaitForJobCompleteCodec.java`
-#### Snippet
-```java
-
-    /** */
-    public static com.hazelcast.internal.serialization.Data decodeResponse(
-            ClientMessage clientMessage) {
-        ClientMessage.ForwardFrameIterator iterator = clientMessage.frameIterator();
+    public static ClientMessage encodeResponse(com.hazelcast.internal.serialization.Data response) {
+        ClientMessage clientMessage = ClientMessage.createForEncode();
+        ClientMessage.Frame initialFrame =
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20721,6 +21049,18 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
             com.hazelcast.internal.serialization.Data jobResult) {
         ClientMessage clientMessage = ClientMessage.createForEncode();
         ClientMessage.Frame initialFrame =
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.internal.serialization` is unnecessary, and can be replaced with an import
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelWaitForJobCompleteCodec.java`
+#### Snippet
+```java
+
+    /** */
+    public static com.hazelcast.internal.serialization.Data decodeResponse(
+            ClientMessage clientMessage) {
+        ClientMessage.ForwardFrameIterator iterator = clientMessage.frameIterator();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20740,30 +21080,6 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelPrintMessageCodec.java`
 #### Snippet
 ```java
-
-    /** */
-    public static java.lang.String decodeResponse(ClientMessage clientMessage) {
-        ClientMessage.ForwardFrameIterator iterator = clientMessage.frameIterator();
-        // empty initial frame
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelPrintMessageCodec.java`
-#### Snippet
-```java
-    }
-
-    public static ClientMessage encodeResponse(java.lang.String response) {
-        ClientMessage clientMessage = ClientMessage.createForEncode();
-        ClientMessage.Frame initialFrame =
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelPrintMessageCodec.java`
-#### Snippet
-```java
     }
 
     public static java.lang.String decodeRequest(ClientMessage clientMessage) {
@@ -20773,19 +21089,7 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelGetJobMetricsCodec.java`
-#### Snippet
-```java
-
-    /** */
-    public static java.lang.String decodeResponse(ClientMessage clientMessage) {
-        ClientMessage.ForwardFrameIterator iterator = clientMessage.frameIterator();
-        // empty initial frame
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelGetJobMetricsCodec.java`
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelPrintMessageCodec.java`
 #### Snippet
 ```java
     }
@@ -20793,6 +21097,18 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
     public static ClientMessage encodeResponse(java.lang.String response) {
         ClientMessage clientMessage = ClientMessage.createForEncode();
         ClientMessage.Frame initialFrame =
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelPrintMessageCodec.java`
+#### Snippet
+```java
+
+    /** */
+    public static java.lang.String decodeResponse(ClientMessage clientMessage) {
+        ClientMessage.ForwardFrameIterator iterator = clientMessage.frameIterator();
+        // empty initial frame
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20820,6 +21136,30 @@ in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/en
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelGetJobMetricsCodec.java`
+#### Snippet
+```java
+    }
+
+    public static ClientMessage encodeResponse(java.lang.String response) {
+        ClientMessage clientMessage = ClientMessage.createForEncode();
+        ClientMessage.Frame initialFrame =
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/protocol/codec/SeaTunnelGetJobMetricsCodec.java`
+#### Snippet
+```java
+
+    /** */
+    public static java.lang.String decodeResponse(ClientMessage clientMessage) {
+        ClientMessage.ForwardFrameIterator iterator = clientMessage.frameIterator();
+        // empty initial frame
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.seatunnel.engine.core.job` is unnecessary and can be removed
 in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/serializable/JobDataSerializerHook.java`
 #### Snippet
@@ -20844,6 +21184,18 @@ in `seatunnel-engine/seatunnel-engine-client/src/main/java/org/apache/seatunnel/
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.seatunnel.api.source` is unnecessary, and can be replaced with an import
+in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/parse/ConnectorInstanceLoader.java`
+#### Snippet
+```java
+        if (jobContext.getJobMode() == JobMode.BATCH
+                && seaTunnelSource.getBoundedness()
+                        == org.apache.seatunnel.api.source.Boundedness.UNBOUNDED) {
+            throw new UnsupportedOperationException(
+                    String.format(
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.seatunnel.engine.common.config` is unnecessary and can be removed
 in `seatunnel-engine/seatunnel-engine-common/src/main/java/org/apache/seatunnel/engine/common/serializeable/ConfigDataSerializerHook.java`
 #### Snippet
@@ -20856,15 +21208,15 @@ public class ConfigDataSerializerHook implements DataSerializerHook {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.seatunnel.api.source` is unnecessary, and can be replaced with an import
-in `seatunnel-engine/seatunnel-engine-core/src/main/java/org/apache/seatunnel/engine/core/parse/ConnectorInstanceLoader.java`
+Qualifier `com.hazelcast.internal.diagnostics` is unnecessary, and can be replaced with an import
+in `seatunnel-engine/seatunnel-engine-server/src/main/java/org/apache/seatunnel/engine/server/SeaTunnelHealthMonitor.java`
 #### Snippet
 ```java
-        if (jobContext.getJobMode() == JobMode.BATCH
-                && seaTunnelSource.getBoundedness()
-                        == org.apache.seatunnel.api.source.Boundedness.UNBOUNDED) {
-            throw new UnsupportedOperationException(
-                    String.format(
+    public SeaTunnelHealthMonitor(Node node) {
+        this.node = node;
+        this.logger = node.getLogger(com.hazelcast.internal.diagnostics.HealthMonitor.class);
+        this.metricRegistry = node.nodeEngine.getMetricsRegistry();
+        this.monitorLevel = getHealthMonitorLevel();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -21052,78 +21404,6 @@ Qualifier `java.sql` is unnecessary, and can be replaced with an import
 in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
 #### Snippet
 ```java
-            return ((LocalDateTime) obj).toLocalDate();
-        }
-        if (obj instanceof java.sql.Date) {
-            return ((java.sql.Date) obj).toLocalDate();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
-#### Snippet
-```java
-        }
-        if (obj instanceof java.sql.Date) {
-            return ((java.sql.Date) obj).toLocalDate();
-        }
-        if (obj instanceof java.sql.Time) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
-#### Snippet
-```java
-            return ((java.sql.Date) obj).toLocalDate();
-        }
-        if (obj instanceof java.sql.Time) {
-            throw new IllegalArgumentException(
-                    "Unable to convert to LocalDate from a java.sql.Time value '" + obj + "'");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
-#### Snippet
-```java
-                    "Unable to convert to LocalDate from a java.sql.Time value '" + obj + "'");
-        }
-        if (obj instanceof java.util.Date) {
-            java.util.Date date = (java.util.Date) obj;
-            return LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
-#### Snippet
-```java
-        }
-        if (obj instanceof java.util.Date) {
-            java.util.Date date = (java.util.Date) obj;
-            return LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
-#### Snippet
-```java
-        }
-        if (obj instanceof java.util.Date) {
-            java.util.Date date = (java.util.Date) obj;
-            return LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
-#### Snippet
-```java
             return LocalDateTime.of(EPOCH, time);
         }
         if (obj instanceof java.sql.Date) {
@@ -21237,6 +21517,78 @@ in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/a
             java.util.Date date = (java.util.Date) obj;
             long millis = (int) (date.getTime() % MILLISECONDS_PER_SECOND);
             if (millis < 0) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
+#### Snippet
+```java
+            return ((LocalDateTime) obj).toLocalDate();
+        }
+        if (obj instanceof java.sql.Date) {
+            return ((java.sql.Date) obj).toLocalDate();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
+#### Snippet
+```java
+        }
+        if (obj instanceof java.sql.Date) {
+            return ((java.sql.Date) obj).toLocalDate();
+        }
+        if (obj instanceof java.sql.Time) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
+#### Snippet
+```java
+            return ((java.sql.Date) obj).toLocalDate();
+        }
+        if (obj instanceof java.sql.Time) {
+            throw new IllegalArgumentException(
+                    "Unable to convert to LocalDate from a java.sql.Time value '" + obj + "'");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
+#### Snippet
+```java
+                    "Unable to convert to LocalDate from a java.sql.Time value '" + obj + "'");
+        }
+        if (obj instanceof java.util.Date) {
+            java.util.Date date = (java.util.Date) obj;
+            return LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
+#### Snippet
+```java
+        }
+        if (obj instanceof java.util.Date) {
+            java.util.Date date = (java.util.Date) obj;
+            return LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `seatunnel-connectors-v2/connector-cdc/connector-cdc-base/src/main/java/org/apache/seatunnel/connectors/cdc/debezium/utils/TemporalConversions.java`
+#### Snippet
+```java
+        }
+        if (obj instanceof java.util.Date) {
+            java.util.Date date = (java.util.Date) obj;
+            return LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -21400,30 +21752,6 @@ Qualifier `java.sql` is unnecessary and can be removed
 in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/dialect/JdbcDialect.java`
 #### Snippet
 ```java
-    /**
-     * Constructs the dialects insert statement for a single row. The returned string will be used
-     * as a {@link java.sql.PreparedStatement}. Fields in the statement must be in the same order as
-     * the {@code fieldNames} parameter.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/dialect/JdbcDialect.java`
-#### Snippet
-```java
-    /**
-     * Constructs the dialects delete statement for a single row with the given condition. The
-     * returned string will be used as a {@link java.sql.PreparedStatement}. Fields in the statement
-     * must be in the same order as the {@code fieldNames} parameter.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/dialect/JdbcDialect.java`
-#### Snippet
-```java
      * UPDATE}, or PostgreSQL's {@code ON CONFLICT... DO UPDATE SET..}.
      *
      * <p>If supported, the returned string will be used as a {@link java.sql.PreparedStatement}.
@@ -21441,6 +21769,30 @@ in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/co
      * as a {@link java.sql.PreparedStatement}.
      *
      * <pre>{@code
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/dialect/JdbcDialect.java`
+#### Snippet
+```java
+    /**
+     * Constructs the dialects insert statement for a single row. The returned string will be used
+     * as a {@link java.sql.PreparedStatement}. Fields in the statement must be in the same order as
+     * the {@code fieldNames} parameter.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `seatunnel-connectors-v2/connector-jdbc/src/main/java/org/apache/seatunnel/connectors/seatunnel/jdbc/internal/dialect/JdbcDialect.java`
+#### Snippet
+```java
+    /**
+     * Constructs the dialects delete statement for a single row with the given condition. The
+     * returned string will be used as a {@link java.sql.PreparedStatement}. Fields in the statement
+     * must be in the same order as the {@code fieldNames} parameter.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -21554,7 +21906,7 @@ in `seatunnel-connectors-v2/connector-maxcompute/src/main/java/org/apache/seatun
 ## RuleId[ruleID=Anonymous2MethodRef]
 ### Anonymous2MethodRef
 Anonymous new Function, Object\>() can be replaced with method reference
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
 #### Snippet
 ```java
                 Arrays.stream(rowType.getFieldTypes())
@@ -21566,14 +21918,14 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 
 ### Anonymous2MethodRef
 Anonymous new IntFunction() can be replaced with method reference
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
 #### Snippet
 ```java
                                 })
                         .toArray(
-                                new IntFunction<RowToJsonConverter[]>() {
+                                new IntFunction<JsonToRowConverter[]>() {
                                     @Override
-                                    public RowToJsonConverter[] apply(int value) {
+                                    public JsonToRowConverter[] apply(int value) {
 ```
 
 ### Anonymous2MethodRef
@@ -21710,7 +22062,7 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 
 ### Anonymous2MethodRef
 Anonymous new Function, Object\>() can be replaced with method reference
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
 #### Snippet
 ```java
                 Arrays.stream(rowType.getFieldTypes())
@@ -21722,14 +22074,14 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 
 ### Anonymous2MethodRef
 Anonymous new IntFunction() can be replaced with method reference
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
 #### Snippet
 ```java
                                 })
                         .toArray(
-                                new IntFunction<JsonToRowConverter[]>() {
+                                new IntFunction<RowToJsonConverter[]>() {
                                     @Override
-                                    public JsonToRowConverter[] apply(int value) {
+                                    public RowToJsonConverter[] apply(int value) {
 ```
 
 ## RuleId[ruleID=Java8MapApi]
@@ -21771,8 +22123,20 @@ in `seatunnel-core/seatunnel-flink-starter/seatunnel-flink-15-starter/src/main/j
 ```
 
 ### Convert2Lambda
+Anonymous new JsonToRowConverter() can be replaced with lambda
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
+#### Snippet
+```java
+    private JsonToRowConverter createArrayConverter(ArrayType<?, ?> type) {
+        JsonToRowConverter valueConverter = createConverter(type.getElementType());
+        return new JsonToRowConverter() {
+            @Override
+            public Object convert(JsonNode jsonNode) {
+```
+
+### Convert2Lambda
 Anonymous new Function, Object\>() can be replaced with lambda
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
 #### Snippet
 ```java
                 Arrays.stream(rowType.getFieldTypes())
@@ -21784,14 +22148,26 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 
 ### Convert2Lambda
 Anonymous new IntFunction() can be replaced with lambda
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
 #### Snippet
 ```java
                                 })
                         .toArray(
-                                new IntFunction<RowToJsonConverter[]>() {
+                                new IntFunction<JsonToRowConverter[]>() {
                                     @Override
-                                    public RowToJsonConverter[] apply(int value) {
+                                    public JsonToRowConverter[] apply(int value) {
+```
+
+### Convert2Lambda
+Anonymous new JsonToRowConverter() can be replaced with lambda
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
+#### Snippet
+```java
+        final String[] fieldNames = rowType.getFieldNames();
+
+        return new JsonToRowConverter() {
+            @Override
+            public Object convert(JsonNode jsonNode) {
 ```
 
 ### Convert2Lambda
@@ -21963,36 +22339,12 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 ```
 
 ### Convert2Lambda
-Anonymous new Function, Object\>() can be replaced with lambda
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
-#### Snippet
-```java
-                Arrays.stream(rowType.getFieldTypes())
-                        .map(
-                                new Function<SeaTunnelDataType<?>, Object>() {
-                                    @Override
-                                    public Object apply(SeaTunnelDataType<?> seaTunnelDataType) {
-```
-
-### Convert2Lambda
-Anonymous new IntFunction() can be replaced with lambda
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
-#### Snippet
-```java
-                                })
-                        .toArray(
-                                new IntFunction<JsonToRowConverter[]>() {
-                                    @Override
-                                    public JsonToRowConverter[] apply(int value) {
-```
-
-### Convert2Lambda
 Anonymous new JsonToRowConverter() can be replaced with lambda
 in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
 #### Snippet
 ```java
-        final String[] fieldNames = rowType.getFieldNames();
 
+    private JsonToRowConverter wrapIntoNullableConverter(JsonToRowConverter converter) {
         return new JsonToRowConverter() {
             @Override
             public Object convert(JsonNode jsonNode) {
@@ -22023,27 +22375,27 @@ in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/f
 ```
 
 ### Convert2Lambda
-Anonymous new JsonToRowConverter() can be replaced with lambda
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
+Anonymous new Function, Object\>() can be replaced with lambda
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
 #### Snippet
 ```java
-    private JsonToRowConverter createArrayConverter(ArrayType<?, ?> type) {
-        JsonToRowConverter valueConverter = createConverter(type.getElementType());
-        return new JsonToRowConverter() {
-            @Override
-            public Object convert(JsonNode jsonNode) {
+                Arrays.stream(rowType.getFieldTypes())
+                        .map(
+                                new Function<SeaTunnelDataType<?>, Object>() {
+                                    @Override
+                                    public Object apply(SeaTunnelDataType<?> seaTunnelDataType) {
 ```
 
 ### Convert2Lambda
-Anonymous new JsonToRowConverter() can be replaced with lambda
-in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/JsonToRowConverters.java`
+Anonymous new IntFunction() can be replaced with lambda
+in `seatunnel-formats/seatunnel-format-json/src/main/java/org/apache/seatunnel/format/json/RowToJsonConverters.java`
 #### Snippet
 ```java
-
-    private JsonToRowConverter wrapIntoNullableConverter(JsonToRowConverter converter) {
-        return new JsonToRowConverter() {
-            @Override
-            public Object convert(JsonNode jsonNode) {
+                                })
+                        .toArray(
+                                new IntFunction<RowToJsonConverter[]>() {
+                                    @Override
+                                    public RowToJsonConverter[] apply(int value) {
 ```
 
 ### Convert2Lambda
