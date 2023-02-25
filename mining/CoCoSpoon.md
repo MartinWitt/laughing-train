@@ -6,23 +6,10 @@ I found 9 bad smells with 1 repairable:
 | --- | --- | --- |
 | UNUSED_IMPORT | 3 | false |
 | NonShortCircuitBoolean | 2 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | ExceptionNameDoesntEndWithException | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | ConstantValue | 1 | false |
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-24-23-04-46.520.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
 Exception class name `NoInsertionFound` does not end with 'Exception'
@@ -34,6 +21,19 @@ package fil.iagl.opl.cocospoon.insert;
 public class NoInsertionFound extends Exception {
 
 }
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-25-05-49-44.603.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
