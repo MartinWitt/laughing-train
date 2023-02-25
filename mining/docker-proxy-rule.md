@@ -121,30 +121,6 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameSer
 ```
 
 ### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-            }
-
-            Preconditions.checkState(InetAddresses.isInetAddress(ip), "IP address is not valid: %s", ip);
-            return Optional.of(ip);
-        } catch (InterruptedException | IOException | RuntimeException e) {
-```
-
-### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-            }
-
-            Preconditions.checkState(InetAddresses.isInetAddress(ip), "IP address is not valid: %s", ip);
-            return Optional.of(ip);
-        } catch (InterruptedException | IOException | RuntimeException e) {
-```
-
-### UnstableApiUsage
 'com.google.common.io.CharStreams' is marked unstable with @Beta
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
 #### Snippet
@@ -190,6 +166,30 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContain
             return Splitter.on(CharMatcher.anyOf(",/")).omitEmptyStrings().splitToList(labelsString);
         } catch (IOException | InterruptedException e) {
             throw Throwables.propagate(e);
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+            }
+
+            Preconditions.checkState(InetAddresses.isInetAddress(ip), "IP address is not valid: %s", ip);
+            return Optional.of(ip);
+        } catch (InterruptedException | IOException | RuntimeException e) {
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+            }
+
+            Preconditions.checkState(InetAddresses.isInetAddress(ip), "IP address is not valid: %s", ip);
+            return Optional.of(ip);
+        } catch (InterruptedException | IOException | RuntimeException e) {
 ```
 
 ### UnstableApiUsage
