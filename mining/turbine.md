@@ -35,8 +35,8 @@ I found 765 bad smells with 7 repairable:
 | StringOperationCanBeSimplified | 1 | false |
 | Convert2MethodRef | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
-| UnnecessaryQualifierForThis | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
+| UnnecessaryQualifierForThis | 1 | false |
 | UnnecessaryReturn | 1 | true |
 | AssignmentToForLoopParameter | 1 | false |
 | RedundantSuppression | 1 | false |
@@ -191,6 +191,18 @@ in `java/com/google/turbine/binder/lookup/MemberImportIndex.java`
 in `java/com/google/turbine/binder/lookup/MemberImportIndex.java`
 #### Snippet
 ```java
+                    LookupResult result = tli.scope().lookup(new LookupKey(i.type()));
+                    if (result == null) {
+                      return null;
+                    }
+                    ClassSymbol sym = (ClassSymbol) result.sym();
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NullMarked
+in `java/com/google/turbine/binder/lookup/MemberImportIndex.java`
+#### Snippet
+```java
                     for (int i = 0; i < result.remaining().size() - 1; i++) {
                       if (sym == null) {
                         return null;
@@ -211,27 +223,15 @@ in `java/com/google/turbine/binder/lookup/MemberImportIndex.java`
 ```
 
 ### DataFlowIssue
-`null` is returned by the method declared as @NullMarked
-in `java/com/google/turbine/binder/lookup/MemberImportIndex.java`
+Argument `info.superClassType()` might be null
+in `java/com/google/turbine/processing/ClassHierarchy.java`
 #### Snippet
 ```java
-                    LookupResult result = tli.scope().lookup(new LookupKey(i.type()));
-                    if (result == null) {
-                      return null;
-                    }
-                    ClassSymbol sym = (ClassSymbol) result.sym();
-```
-
-### DataFlowIssue
-Expression `namedImport(log, cpi, i, resolve)` might evaluate to null but is returned by the method declared as @NullMarked
-in `java/com/google/turbine/binder/lookup/ImportIndex.java`
-#### Snippet
-```java
-                @Override
-                public @Nullable ImportScope get() {
-                  return namedImport(log, cpi, i, resolve);
-                }
-              }));
+    }
+    if (info.superClassType() != null) {
+      node.add(info.superClassType());
+    }
+    for (Type type : info.interfaceTypes()) {
 ```
 
 ### DataFlowIssue
@@ -247,15 +247,15 @@ in `java/com/google/turbine/binder/lookup/ImportIndex.java`
 ```
 
 ### DataFlowIssue
-Argument `info.superClassType()` might be null
-in `java/com/google/turbine/processing/ClassHierarchy.java`
+Expression `namedImport(log, cpi, i, resolve)` might evaluate to null but is returned by the method declared as @NullMarked
+in `java/com/google/turbine/binder/lookup/ImportIndex.java`
 #### Snippet
 ```java
-    }
-    if (info.superClassType() != null) {
-      node.add(info.superClassType());
-    }
-    for (Type type : info.interfaceTypes()) {
+                @Override
+                public @Nullable ImportScope get() {
+                  return namedImport(log, cpi, i, resolve);
+                }
+              }));
 ```
 
 ### DataFlowIssue
@@ -271,18 +271,6 @@ in `java/com/google/turbine/binder/env/Env.java`
 ```
 
 ### DataFlowIssue
-Switch label `'\r'` is unreachable
-in `java/com/google/turbine/parse/StreamLexer.java`
-#### Snippet
-```java
-    }
-    switch (ch) {
-      case '\r':
-        eat();
-        if (ch == '\n') {
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `java/com/google/turbine/parse/StreamLexer.java`
 #### Snippet
@@ -292,6 +280,18 @@ in `java/com/google/turbine/parse/StreamLexer.java`
                       sawStar = false;
                       eat();
                       break;
+```
+
+### DataFlowIssue
+Switch label `'\r'` is unreachable
+in `java/com/google/turbine/parse/StreamLexer.java`
+#### Snippet
+```java
+    }
+    switch (ch) {
+      case '\r':
+        eat();
+        if (ch == '\n') {
 ```
 
 ### DataFlowIssue
@@ -331,135 +331,75 @@ in `java/com/google/turbine/binder/env/LazyEnv.java`
 ```
 
 ### DataFlowIssue
-Method invocation `decl` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
+Method invocation `defaultValue` may produce `NullPointerException`
+in `java/com/google/turbine/binder/ConstBinder.java`
 #### Snippet
 ```java
-    @Override
-    public String javadoc() {
-      VarDecl decl = info().decl();
-      return decl != null ? decl.javadoc() : null;
-    }
+  private MethodInfo bindMethod(MethodInfo base) {
+    Const value = null;
+    if (base.decl() != null && base.decl().defaultValue().isPresent()) {
+      value =
+          constEvaluator.evalAnnotationValue(base.decl().defaultValue().get(), base.returnType());
 ```
 
 ### DataFlowIssue
-Method invocation `access` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
+Method invocation `defaultValue` may produce `NullPointerException`
+in `java/com/google/turbine/binder/ConstBinder.java`
 #### Snippet
 ```java
-    @Override
-    public boolean isVarArgs() {
-      return (info().access() & TurbineFlag.ACC_VARARGS) == TurbineFlag.ACC_VARARGS;
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `annotations` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public TypeMirror asType() {
-      return factory.asTypeMirror(Type.TyVar.create(sym, info().annotations()));
+    if (base.decl() != null && base.decl().defaultValue().isPresent()) {
+      value =
+          constEvaluator.evalAnnotationValue(base.decl().defaultValue().get(), base.returnType());
     }
 
 ```
 
 ### DataFlowIssue
-Method invocation `type` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
+Argument `base.receiver()` might be null
+in `java/com/google/turbine/binder/ConstBinder.java`
 #### Snippet
 ```java
-              @Override
-              public TypeMirror get() {
-                return factory.asTypeMirror(info().type());
-              }
-            });
-```
-
-### DataFlowIssue
-Method invocation `type` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public TypeMirror asType() {
-      return factory.asTypeMirror(info().type());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `exceptions` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public List<? extends TypeMirror> getThrownTypes() {
-      return factory.asTypeMirrors(info().exceptions());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `access` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public Set<Modifier> getModifiers() {
-      return asModifierSet(ModifierOwner.PARAMETER, info().access());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `annotations` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    protected ImmutableList<AnnoInfo> annos() {
-      return info().annotations();
-    }
+        base.decl(),
+        constEvaluator.evaluateAnnotations(base.annotations()),
+        base.receiver() != null ? bindParameter(base.receiver()) : null);
   }
+
 ```
 
 ### DataFlowIssue
-Method invocation `binaryName` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
+Argument `base.superClassType()` might be null
+in `java/com/google/turbine/binder/ConstBinder.java`
 #### Snippet
 ```java
-                }
-                return new TurbineName(
-                    sym.binaryName().substring(info.owner().binaryName().length() + 1));
-              }
-            });
+        bindTypes(base.interfaceTypes()),
+        base.permits(),
+        base.superClassType() != null ? bindType(base.superClassType()) : null,
+        bindTypeParameters(base.typeParameterTypes()),
+        base.access(),
 ```
 
 ### DataFlowIssue
-Method invocation `access` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
+Method invocation `init` may produce `NullPointerException`
+in `java/com/google/turbine/binder/ConstBinder.java`
 #### Snippet
 ```java
-    @Override
-    public Set<Modifier> getModifiers() {
-      return asModifierSet(ModifierOwner.METHOD, info().access());
+
+  private @Nullable Value fieldValue(TypeBoundClass.FieldInfo base) {
+    if (base.decl() == null || !base.decl().init().isPresent()) {
+      return null;
     }
-
 ```
 
 ### DataFlowIssue
-Method invocation `annotations` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
+Method invocation `init` may produce `NullPointerException`
+in `java/com/google/turbine/binder/ConstBinder.java`
 #### Snippet
 ```java
-    @Override
-    protected ImmutableList<AnnoInfo> annos() {
-      return info().annotations();
+      value =
+          constEvaluator.coerce(
+              base.decl().init().get().position(), value, ((Type.PrimTy) type).primkind());
     }
-  }
+    return value;
 ```
 
 ### DataFlowIssue
@@ -499,39 +439,27 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 ```
 
 ### DataFlowIssue
-Method invocation `annotations` may produce `NullPointerException`
+Method invocation `upperBound` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
     @Override
-    protected ImmutableList<AnnoInfo> annos() {
-      return info().annotations();
+    public List<? extends TypeMirror> getBounds() {
+      ImmutableList<Type> bounds = info().upperBound().bounds();
+      return factory.asTypeMirrors(bounds.isEmpty() ? ImmutableList.of(ClassTy.OBJECT) : bounds);
     }
-  }
 ```
 
 ### DataFlowIssue
-Method invocation `tyParams` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-      MethodInfo info = info();
-      StringBuilder sb = new StringBuilder();
-      if (!info.tyParams().isEmpty()) {
-        sb.append('<');
-        Joiner.on(',').appendTo(sb, info.tyParams().keySet());
-```
-
-### DataFlowIssue
-Method invocation `annotations` may produce `NullPointerException`
+Method invocation `decl` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
     @Override
-    protected ImmutableList<AnnoInfo> annos() {
-      return info().annotations();
+    public String javadoc() {
+      VarDecl decl = info().decl();
+      return decl != null ? decl.javadoc() : null;
     }
-  }
 ```
 
 ### DataFlowIssue
@@ -547,6 +475,30 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 ```
 
 ### DataFlowIssue
+Method invocation `access` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public Set<Modifier> getModifiers() {
+      return asModifierSet(ModifierOwner.FIELD, info().access());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `annotations` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    protected ImmutableList<AnnoInfo> annos() {
+      return info().annotations();
+    }
+  }
+```
+
+### DataFlowIssue
 Method invocation `receiver` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
@@ -583,51 +535,123 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 ```
 
 ### DataFlowIssue
-Method invocation `defaultValue` may produce `NullPointerException`
+Method invocation `asType` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
     @Override
-    public AnnotationValue getDefaultValue() {
-      return info().defaultValue() != null
-          ? TurbineAnnotationMirror.annotationValue(factory, info().defaultValue())
-          : null;
+    public TypeMirror asType() {
+      return factory.asTypeMirror(info().asType());
+    }
+
 ```
 
 ### DataFlowIssue
-Argument `info().defaultValue()` might be null
+Method invocation `returnType` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
-    public AnnotationValue getDefaultValue() {
-      return info().defaultValue() != null
-          ? TurbineAnnotationMirror.annotationValue(factory, info().defaultValue())
-          : null;
+    @Override
+    public TypeMirror getReturnType() {
+      return factory.asTypeMirror(info().returnType());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `annotations` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public TypeMirror asType() {
+      return factory.asTypeMirror(Type.TyVar.create(sym, info().annotations()));
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `access` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public Set<Modifier> getModifiers() {
+      return asModifierSet(ModifierOwner.PARAMETER, info().access());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `annotations` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    protected ImmutableList<AnnoInfo> annos() {
+      return info().annotations();
+    }
+  }
+```
+
+### DataFlowIssue
+Method invocation `annotations` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    protected ImmutableList<AnnoInfo> annos() {
+      return info().annotations();
+    }
+  }
+```
+
+### DataFlowIssue
+Method invocation `access` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public boolean isVarArgs() {
+      return (info().access() & TurbineFlag.ACC_VARARGS) == TurbineFlag.ACC_VARARGS;
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `decl` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public String javadoc() {
+      MethDecl decl = info().decl();
+      return decl != null ? decl.javadoc() : null;
     }
 ```
 
 ### DataFlowIssue
-Method invocation `defaultValue` may produce `NullPointerException`
+Method invocation `annotations` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
-    public AnnotationValue getDefaultValue() {
-      return info().defaultValue() != null
-          ? TurbineAnnotationMirror.annotationValue(factory, info().defaultValue())
-          : null;
+    @Override
+    protected ImmutableList<AnnoInfo> annos() {
+      return info().annotations();
     }
+  }
 ```
 
 ### DataFlowIssue
-Method invocation `tyParams` may produce `NullPointerException`
+Method invocation `access` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
-    public List<? extends TypeParameterElement> getTypeParameters() {
-      ImmutableList.Builder<TurbineTypeParameterElement> result = ImmutableList.builder();
-      for (Map.Entry<TyVarSymbol, TyVarInfo> p : info().tyParams().entrySet()) {
-        result.add(factory.typeParameterElement(p.getKey()));
-      }
+    @Override
+    public boolean isDefault() {
+      return (info().access() & TurbineFlag.ACC_DEFAULT) == TurbineFlag.ACC_DEFAULT;
+    }
+
 ```
 
 ### DataFlowIssue
@@ -667,6 +691,90 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 ```
 
 ### DataFlowIssue
+Method invocation `access` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public Set<Modifier> getModifiers() {
+      return asModifierSet(ModifierOwner.METHOD, info().access());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `binaryName` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+                }
+                return new TurbineName(
+                    sym.binaryName().substring(info.owner().binaryName().length() + 1));
+              }
+            });
+```
+
+### DataFlowIssue
+Method invocation `exceptions` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public List<? extends TypeMirror> getThrownTypes() {
+      return factory.asTypeMirrors(info().exceptions());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `type` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public TypeMirror asType() {
+      return factory.asTypeMirror(info().type());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `owner` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+                return getNestingKind().equals(NestingKind.TOP_LEVEL)
+                    ? factory.packageElement(sym.owner())
+                    : factory.typeElement(info().owner());
+              }
+            });
+```
+
+### DataFlowIssue
+Method invocation `parameters` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+              public ImmutableList<VariableElement> get() {
+                ImmutableList.Builder<VariableElement> result = ImmutableList.builder();
+                for (ParamInfo param : info().parameters()) {
+                  if (param.synthetic()) {
+                    // ExecutableElement#getParameters doesn't expect synthetic or mandated
+```
+
+### DataFlowIssue
+Method invocation `type` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+              @Override
+              public TypeMirror get() {
+                return factory.asTypeMirror(info().type());
+              }
+            });
+```
+
+### DataFlowIssue
 Method invocation `sym` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
@@ -674,54 +782,6 @@ in `java/com/google/turbine/processing/TurbineElement.java`
     @Override
     public Name getSimpleName() {
       return new TurbineName(info().sym().name());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `upperBound` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public List<? extends TypeMirror> getBounds() {
-      ImmutableList<Type> bounds = info().upperBound().bounds();
-      return factory.asTypeMirrors(bounds.isEmpty() ? ImmutableList.of(ClassTy.OBJECT) : bounds);
-    }
-```
-
-### DataFlowIssue
-Method invocation `returnType` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public TypeMirror getReturnType() {
-      return factory.asTypeMirror(info().returnType());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `sym` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public Element getEnclosingElement() {
-      return factory.typeElement(info().sym().owner());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `access` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public Set<Modifier> getModifiers() {
-      return asModifierSet(ModifierOwner.FIELD, info().access());
     }
 
 ```
@@ -739,6 +799,42 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 ```
 
 ### DataFlowIssue
+Method invocation `sym` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public Element getEnclosingElement() {
+      return factory.typeElement(info().sym().owner());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `tyParams` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+      MethodInfo info = info();
+      StringBuilder sb = new StringBuilder();
+      if (!info.tyParams().isEmpty()) {
+        sb.append('<');
+        Joiner.on(',').appendTo(sb, info.tyParams().keySet());
+```
+
+### DataFlowIssue
+Method invocation `tyParams` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    public List<? extends TypeParameterElement> getTypeParameters() {
+      ImmutableList.Builder<TurbineTypeParameterElement> result = ImmutableList.builder();
+      for (Map.Entry<TyVarSymbol, TyVarInfo> p : info().tyParams().entrySet()) {
+        result.add(factory.typeParameterElement(p.getKey()));
+      }
+```
+
+### DataFlowIssue
 Method invocation `annotations` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
@@ -751,6 +847,42 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 ```
 
 ### DataFlowIssue
+Method invocation `defaultValue` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public AnnotationValue getDefaultValue() {
+      return info().defaultValue() != null
+          ? TurbineAnnotationMirror.annotationValue(factory, info().defaultValue())
+          : null;
+```
+
+### DataFlowIssue
+Argument `info().defaultValue()` might be null
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    public AnnotationValue getDefaultValue() {
+      return info().defaultValue() != null
+          ? TurbineAnnotationMirror.annotationValue(factory, info().defaultValue())
+          : null;
+    }
+```
+
+### DataFlowIssue
+Method invocation `defaultValue` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    public AnnotationValue getDefaultValue() {
+      return info().defaultValue() != null
+          ? TurbineAnnotationMirror.annotationValue(factory, info().defaultValue())
+          : null;
+    }
+```
+
+### DataFlowIssue
 Method invocation `access` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
@@ -760,198 +892,6 @@ in `java/com/google/turbine/processing/TurbineElement.java`
       return ((info().access() & TurbineFlag.ACC_ENUM) == TurbineFlag.ACC_ENUM)
           ? ElementKind.ENUM_CONSTANT
           : ElementKind.FIELD;
-```
-
-### DataFlowIssue
-Method invocation `access` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public boolean isDefault() {
-      return (info().access() & TurbineFlag.ACC_DEFAULT) == TurbineFlag.ACC_DEFAULT;
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `decl` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public String javadoc() {
-      MethDecl decl = info().decl();
-      return decl != null ? decl.javadoc() : null;
-    }
-```
-
-### DataFlowIssue
-Method invocation `parameters` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-              public ImmutableList<VariableElement> get() {
-                ImmutableList.Builder<VariableElement> result = ImmutableList.builder();
-                for (ParamInfo param : info().parameters()) {
-                  if (param.synthetic()) {
-                    // ExecutableElement#getParameters doesn't expect synthetic or mandated
-```
-
-### DataFlowIssue
-Method invocation `owner` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-                return getNestingKind().equals(NestingKind.TOP_LEVEL)
-                    ? factory.packageElement(sym.owner())
-                    : factory.typeElement(info().owner());
-              }
-            });
-```
-
-### DataFlowIssue
-Method invocation `asType` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public TypeMirror asType() {
-      return factory.asTypeMirror(info().asType());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `defaultValue` may produce `NullPointerException`
-in `java/com/google/turbine/binder/ConstBinder.java`
-#### Snippet
-```java
-  private MethodInfo bindMethod(MethodInfo base) {
-    Const value = null;
-    if (base.decl() != null && base.decl().defaultValue().isPresent()) {
-      value =
-          constEvaluator.evalAnnotationValue(base.decl().defaultValue().get(), base.returnType());
-```
-
-### DataFlowIssue
-Method invocation `defaultValue` may produce `NullPointerException`
-in `java/com/google/turbine/binder/ConstBinder.java`
-#### Snippet
-```java
-    if (base.decl() != null && base.decl().defaultValue().isPresent()) {
-      value =
-          constEvaluator.evalAnnotationValue(base.decl().defaultValue().get(), base.returnType());
-    }
-
-```
-
-### DataFlowIssue
-Argument `base.receiver()` might be null
-in `java/com/google/turbine/binder/ConstBinder.java`
-#### Snippet
-```java
-        base.decl(),
-        constEvaluator.evaluateAnnotations(base.annotations()),
-        base.receiver() != null ? bindParameter(base.receiver()) : null);
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `init` may produce `NullPointerException`
-in `java/com/google/turbine/binder/ConstBinder.java`
-#### Snippet
-```java
-
-  private @Nullable Value fieldValue(TypeBoundClass.FieldInfo base) {
-    if (base.decl() == null || !base.decl().init().isPresent()) {
-      return null;
-    }
-```
-
-### DataFlowIssue
-Method invocation `init` may produce `NullPointerException`
-in `java/com/google/turbine/binder/ConstBinder.java`
-#### Snippet
-```java
-      value =
-          constEvaluator.coerce(
-              base.decl().init().get().position(), value, ((Type.PrimTy) type).primkind());
-    }
-    return value;
-```
-
-### DataFlowIssue
-Argument `base.superClassType()` might be null
-in `java/com/google/turbine/binder/ConstBinder.java`
-#### Snippet
-```java
-        bindTypes(base.interfaceTypes()),
-        base.permits(),
-        base.superClassType() != null ? bindType(base.superClassType()) : null,
-        bindTypeParameters(base.typeParameterTypes()),
-        base.access(),
-```
-
-### DataFlowIssue
-Argument `m.defaultValue()` might be null
-in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
-#### Snippet
-```java
-
-    Const defaultValue =
-        m.defaultValue() != null ? BytecodeBinder.bindValue(m.defaultValue()) : null;
-
-    ImmutableList<AnnoInfo> annotations = BytecodeBinder.bindAnnotations(m.annotations());
-```
-
-### DataFlowIssue
-`null` is returned by the method declared as @NullMarked
-in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
-#### Snippet
-```java
-            public @Nullable ClassTy get() {
-              if (superclass() == null) {
-                return null;
-              }
-              if (sig.get() == null || sig.get().superClass() == null) {
-```
-
-### DataFlowIssue
-`null` is returned by the method declared as @NullMarked
-in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
-#### Snippet
-```java
-              String signature = classFile.get().signature();
-              if (signature == null) {
-                return null;
-              }
-              return new SigParser(signature).parseClassSig();
-```
-
-### DataFlowIssue
-`null` is returned by the method declared as @NullMarked
-in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
-#### Snippet
-```java
-                }
-              }
-              return null;
-            }
-          });
-```
-
-### DataFlowIssue
-`null` is returned by the method declared as @NullMarked
-in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
-#### Snippet
-```java
-              String superclass = classFile.get().superName();
-              if (superclass == null) {
-                return null;
-              }
-              return new ClassSymbol(superclass);
 ```
 
 ### DataFlowIssue
@@ -971,11 +911,71 @@ in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
 in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
 #### Snippet
 ```java
+            public @Nullable ClassTy get() {
+              if (superclass() == null) {
+                return null;
+              }
+              if (sig.get() == null || sig.get().superClass() == null) {
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NullMarked
+in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
+#### Snippet
+```java
             public @Nullable AnnotationMetadata get() {
               if ((access() & TurbineFlag.ACC_ANNOTATION) != TurbineFlag.ACC_ANNOTATION) {
                 return null;
               }
               RetentionPolicy retention = null;
+```
+
+### DataFlowIssue
+Argument `m.defaultValue()` might be null
+in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
+#### Snippet
+```java
+
+    Const defaultValue =
+        m.defaultValue() != null ? BytecodeBinder.bindValue(m.defaultValue()) : null;
+
+    ImmutableList<AnnoInfo> annotations = BytecodeBinder.bindAnnotations(m.annotations());
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NullMarked
+in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
+#### Snippet
+```java
+              String signature = classFile.get().signature();
+              if (signature == null) {
+                return null;
+              }
+              return new SigParser(signature).parseClassSig();
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NullMarked
+in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
+#### Snippet
+```java
+              String superclass = classFile.get().superName();
+              if (superclass == null) {
+                return null;
+              }
+              return new ClassSymbol(superclass);
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NullMarked
+in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
+#### Snippet
+```java
+                }
+              }
+              return null;
+            }
+          });
 ```
 
 ### DataFlowIssue
@@ -1003,18 +1003,6 @@ in `java/com/google/turbine/lower/LowerSignature.java`
 ```
 
 ### DataFlowIssue
-Argument `info.superclass()` might be null
-in `java/com/google/turbine/binder/Resolve.java`
-#### Snippet
-```java
-    }
-    if (info.superclass() != null) {
-      FieldInfo field = resolveField(env, origin, info.superclass(), name, seen);
-      if (field != null && visible(origin, field)) {
-        return field;
-```
-
-### DataFlowIssue
 Argument `bound.superclass()` might be null
 in `java/com/google/turbine/binder/Resolve.java`
 #### Snippet
@@ -1027,15 +1015,15 @@ in `java/com/google/turbine/binder/Resolve.java`
 ```
 
 ### DataFlowIssue
-Argument `base.owner()` might be null
-in `java/com/google/turbine/binder/TypeBinder.java`
+Argument `info.superclass()` might be null
+in `java/com/google/turbine/binder/Resolve.java`
 #### Snippet
 ```java
-            .append(new SingletonScope(base.decl().name().value(), owner));
-    if (base.owner() != null) {
-      enclosingScope = enclosingScope.append(new ClassMemberScope(base.owner(), env));
     }
-
+    if (info.superclass() != null) {
+      FieldInfo field = resolveField(env, origin, info.superclass(), name, seen);
+      if (field != null && visible(origin, field)) {
+        return field;
 ```
 
 ### DataFlowIssue
@@ -1051,6 +1039,18 @@ in `java/com/google/turbine/processing/TurbineTypes.java`
 ```
 
 ### DataFlowIssue
+Argument `base.owner()` might be null
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+            .append(new SingletonScope(base.decl().name().value(), owner));
+    if (base.owner() != null) {
+      enclosingScope = enclosingScope.append(new ClassMemberScope(base.owner(), env));
+    }
+
+```
+
+### DataFlowIssue
 Argument `tyParamSig.classBound()` might be null
 in `java/com/google/turbine/bytecode/sig/SigWriter.java`
 #### Snippet
@@ -1060,54 +1060,6 @@ in `java/com/google/turbine/bytecode/sig/SigWriter.java`
       writeTySig(tyParamSig.classBound());
     }
     for (Sig.TySig f : tyParamSig.interfaceBounds()) {
-```
-
-### DataFlowIssue
-Method invocation `position` may produce `NullPointerException`
-in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
-#### Snippet
-```java
-    ImmutableList.Builder<MethodInfo> result = ImmutableList.builder();
-    for (MethodInfo base : methods) {
-      int pos = base.decl() != null ? base.decl().position() : position;
-      ImmutableMap<TyVarSymbol, TyVarInfo> tps =
-          typeParameters(source, pos, env, sym, base.tyParams());
-```
-
-### DataFlowIssue
-Method invocation `repeatable` may produce `NullPointerException`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-          continue;
-        }
-        ClassSymbol container = info.annotationMetadata().repeatable();
-        if (container == null) {
-          if (isKotlinRepeatable(info)) {
-```
-
-### DataFlowIssue
-Argument `base.receiver()` might be null
-in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
-#### Snippet
-```java
-              base.decl(),
-              base.annotations(),
-              base.receiver() != null ? param(source, pos, env, sym, base.receiver()) : null));
-    }
-    return result.build();
-```
-
-### DataFlowIssue
-Argument `base.receiver()` might be null
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-        declarationAnnotations.build(),
-        base.receiver() != null
-            ? bindParam(env, base.receiver(), TurbineElementType.PARAMETER)
-            : null);
-  }
 ```
 
 ### DataFlowIssue
@@ -1135,6 +1087,90 @@ in `java/com/google/turbine/bytecode/AttributeWriter.java`
 ```
 
 ### DataFlowIssue
+Method invocation `position` may produce `NullPointerException`
+in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
+#### Snippet
+```java
+    ImmutableList.Builder<MethodInfo> result = ImmutableList.builder();
+    for (MethodInfo base : methods) {
+      int pos = base.decl() != null ? base.decl().position() : position;
+      ImmutableMap<TyVarSymbol, TyVarInfo> tps =
+          typeParameters(source, pos, env, sym, base.tyParams());
+```
+
+### DataFlowIssue
+Argument `base.receiver()` might be null
+in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
+#### Snippet
+```java
+              base.decl(),
+              base.annotations(),
+              base.receiver() != null ? param(source, pos, env, sym, base.receiver()) : null));
+    }
+    return result.build();
+```
+
+### DataFlowIssue
+Method invocation `repeatable` may produce `NullPointerException`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+          continue;
+        }
+        ClassSymbol container = info.annotationMetadata().repeatable();
+        if (container == null) {
+          if (isKotlinRepeatable(info)) {
+```
+
+### DataFlowIssue
+Argument `base.receiver()` might be null
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+        declarationAnnotations.build(),
+        base.receiver() != null
+            ? bindParam(env, base.receiver(), TurbineElementType.PARAMETER)
+            : null);
+  }
+```
+
+### DataFlowIssue
+Expression `env.get(sym)` might evaluate to null but is assigned to a variable that is annotated with @NotNull
+in `java/com/google/turbine/binder/env/CompoundEnv.java`
+#### Snippet
+```java
+  @Override
+  public @Nullable V get(S sym) {
+    V result = env.get(sym);
+    if (result != null) {
+      return result;
+```
+
+### DataFlowIssue
+Argument `inner.owner()` might be null
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+    TypeBoundClass inner = env.getNonNull(innerSym);
+    // this inner class is known to have an owner
+    ClassSymbol owner = requireNonNull(inner.owner());
+
+    String innerName = innerSym.binaryName().substring(owner.binaryName().length() + 1);
+```
+
+### DataFlowIssue
+Argument `m.defaultValue()` might be null
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+    }
+
+    ElementValue defaultValue = m.defaultValue() != null ? annotationValue(m.defaultValue()) : null;
+
+    ImmutableList<AnnotationInfo> annotations = lowerAnnotations(m.annotations());
+```
+
+### DataFlowIssue
 Method invocation `type` may produce `NullPointerException`
 in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
@@ -1159,51 +1195,27 @@ in `java/com/google/turbine/lower/Lower.java`
 ```
 
 ### DataFlowIssue
-Argument `m.defaultValue()` might be null
-in `java/com/google/turbine/lower/Lower.java`
+Argument `classfile.superName()` might be null
+in `java/com/google/turbine/bytecode/ClassWriter.java`
 #### Snippet
 ```java
-    }
-
-    ElementValue defaultValue = m.defaultValue() != null ? annotationValue(m.defaultValue()) : null;
-
-    ImmutableList<AnnotationInfo> annotations = lowerAnnotations(m.annotations());
+    output.writeShort(classfile.access());
+    output.writeShort(pool.classInfo(classfile.name()));
+    output.writeShort(classfile.superName() != null ? pool.classInfo(classfile.superName()) : 0);
+    output.writeShort(classfile.interfaces().size());
+    for (String i : classfile.interfaces()) {
 ```
 
 ### DataFlowIssue
-Argument `inner.owner()` might be null
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-    TypeBoundClass inner = env.getNonNull(innerSym);
-    // this inner class is known to have an owner
-    ClassSymbol owner = requireNonNull(inner.owner());
-
-    String innerName = innerSym.binaryName().substring(owner.binaryName().length() + 1);
-```
-
-### DataFlowIssue
-Expression `env.get(sym)` might evaluate to null but is assigned to a variable that is annotated with @NotNull
-in `java/com/google/turbine/binder/env/CompoundEnv.java`
-#### Snippet
-```java
-  @Override
-  public @Nullable V get(S sym) {
-    V result = env.get(sym);
-    if (result != null) {
-      return result;
-```
-
-### DataFlowIssue
-Method invocation `access` may produce `NullPointerException`
+Method invocation `name` may produce `NullPointerException`
 in `java/com/google/turbine/processing/TurbineElements.java`
 #### Snippet
 ```java
-        packageSymbol(asSymbol(overrider)),
-        packageSymbol(asSymbol(overridden)),
-        TurbineVisibility.fromAccess(((TurbineExecutableElement) overridden).info().access()));
-  }
-
+            TurbineExecutableElement m = (TurbineExecutableElement) el;
+            if (shouldAdd(s, from, methods, m)) {
+              methods.put(m.info().name(), m);
+              results.add(el);
+            }
 ```
 
 ### DataFlowIssue
@@ -1228,42 +1240,6 @@ in `java/com/google/turbine/processing/TurbineElements.java`
       int access = ((TurbineExecutableElement) hider).info().access();
       if ((access & TurbineFlag.ACC_STATIC) != TurbineFlag.ACC_STATIC) {
         return false;
-```
-
-### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElements.java`
-#### Snippet
-```java
-            TurbineExecutableElement m = (TurbineExecutableElement) el;
-            if (shouldAdd(s, from, methods, m)) {
-              methods.put(m.info().name(), m);
-              results.add(el);
-            }
-```
-
-### DataFlowIssue
-Method invocation `access` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElements.java`
-#### Snippet
-```java
-      return false;
-    }
-    if (!isVisible(from, packageSymbol(m.sym()), TurbineVisibility.fromAccess(m.info().access()))) {
-      // skip invisible methods in supers
-      return false;
-```
-
-### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineElements.java`
-#### Snippet
-```java
-    Set<TurbineExecutableElement> overrides = new HashSet<>();
-    Set<TurbineExecutableElement> overridden = new HashSet<>();
-    String name = m.info().name();
-    for (TurbineExecutableElement other : methods.get(name)) {
-      if (overrides(m, other, (TypeElement) m.getEnclosingElement())) {
 ```
 
 ### DataFlowIssue
@@ -1303,15 +1279,87 @@ in `java/com/google/turbine/processing/TurbineElements.java`
 ```
 
 ### DataFlowIssue
-Argument `classfile.superName()` might be null
-in `java/com/google/turbine/bytecode/ClassWriter.java`
+Method invocation `access` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElements.java`
 #### Snippet
 ```java
-    output.writeShort(classfile.access());
-    output.writeShort(pool.classInfo(classfile.name()));
-    output.writeShort(classfile.superName() != null ? pool.classInfo(classfile.superName()) : 0);
-    output.writeShort(classfile.interfaces().size());
-    for (String i : classfile.interfaces()) {
+      return false;
+    }
+    if (!isVisible(from, packageSymbol(m.sym()), TurbineVisibility.fromAccess(m.info().access()))) {
+      // skip invisible methods in supers
+      return false;
+```
+
+### DataFlowIssue
+Method invocation `name` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElements.java`
+#### Snippet
+```java
+    Set<TurbineExecutableElement> overrides = new HashSet<>();
+    Set<TurbineExecutableElement> overridden = new HashSet<>();
+    String name = m.info().name();
+    for (TurbineExecutableElement other : methods.get(name)) {
+      if (overrides(m, other, (TypeElement) m.getEnclosingElement())) {
+```
+
+### DataFlowIssue
+Method invocation `access` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineElements.java`
+#### Snippet
+```java
+        packageSymbol(asSymbol(overrider)),
+        packageSymbol(asSymbol(overridden)),
+        TurbineVisibility.fromAccess(((TurbineExecutableElement) overridden).info().access()));
+  }
+
+```
+
+### DataFlowIssue
+Argument `modulePath(moduleName)` might be null
+in `java/com/google/turbine/binder/JimageClassBinder.java`
+#### Snippet
+```java
+      if (moduleName != null) {
+        // TODO(cushon): is this requireNonNull safe?
+        Path modulePath = requireNonNull(modulePath(moduleName), moduleName);
+        Path modulePackagePath = modulePath.resolve(packageName);
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(modulePackagePath)) {
+```
+
+### DataFlowIssue
+Argument `field.signature()` might be null
+in `java/com/google/turbine/bytecode/LowerAttributes.java`
+#### Snippet
+```java
+    List<Attribute> attributes = new ArrayList<>();
+    if (field.signature() != null) {
+      attributes.add(new Signature(field.signature()));
+    }
+    if (field.value() != null) {
+```
+
+### DataFlowIssue
+Argument `field.value()` might be null
+in `java/com/google/turbine/bytecode/LowerAttributes.java`
+#### Snippet
+```java
+    }
+    if (field.value() != null) {
+      attributes.add(new ConstantValue(field.value()));
+    }
+    addAllAnnotations(attributes, field.annotations());
+```
+
+### DataFlowIssue
+Argument `component.signature()` might be null
+in `java/com/google/turbine/bytecode/LowerAttributes.java`
+#### Snippet
+```java
+      List<Attribute> attributes = new ArrayList<>();
+      if (component.signature() != null) {
+        attributes.add(new Attribute.Signature(component.signature()));
+      }
+      addAllAnnotations(attributes, component.annotations());
 ```
 
 ### DataFlowIssue
@@ -1399,51 +1447,15 @@ in `java/com/google/turbine/bytecode/LowerAttributes.java`
 ```
 
 ### DataFlowIssue
-Argument `component.signature()` might be null
-in `java/com/google/turbine/bytecode/LowerAttributes.java`
+Method invocation `typarams` may produce `NullPointerException`
+in `java/com/google/turbine/processing/TurbineMessager.java`
 #### Snippet
 ```java
-      List<Attribute> attributes = new ArrayList<>();
-      if (component.signature() != null) {
-        attributes.add(new Attribute.Signature(component.signature()));
-      }
-      addAllAnnotations(attributes, component.annotations());
-```
-
-### DataFlowIssue
-Argument `field.signature()` might be null
-in `java/com/google/turbine/bytecode/LowerAttributes.java`
-#### Snippet
-```java
-    List<Attribute> attributes = new ArrayList<>();
-    if (field.signature() != null) {
-      attributes.add(new Signature(field.signature()));
-    }
-    if (field.value() != null) {
-```
-
-### DataFlowIssue
-Argument `field.value()` might be null
-in `java/com/google/turbine/bytecode/LowerAttributes.java`
-#### Snippet
-```java
-    }
-    if (field.value() != null) {
-      attributes.add(new ConstantValue(field.value()));
-    }
-    addAllAnnotations(attributes, field.annotations());
-```
-
-### DataFlowIssue
-Argument `modulePath(moduleName)` might be null
-in `java/com/google/turbine/binder/JimageClassBinder.java`
-#### Snippet
-```java
-      if (moduleName != null) {
-        // TODO(cushon): is this requireNonNull safe?
-        Path modulePath = requireNonNull(modulePath(moduleName), moduleName);
-        Path modulePackagePath = modulePath.resolve(packageName);
-        try (DirectoryStream<Path> ds = Files.newDirectoryStream(modulePackagePath)) {
+        }
+        tyVars = minfo.tyParams();
+        trees = minfo.decl().typarams();
+        break;
+      default:
 ```
 
 ### DataFlowIssue
@@ -1456,18 +1468,6 @@ in `java/com/google/turbine/processing/TurbineMessager.java`
     return minfo.decl().params().get(idx).position();
   }
 
-```
-
-### DataFlowIssue
-Method invocation `typarams` may produce `NullPointerException`
-in `java/com/google/turbine/processing/TurbineMessager.java`
-#### Snippet
-```java
-        }
-        tyVars = minfo.tyParams();
-        trees = minfo.decl().typarams();
-        break;
-      default:
 ```
 
 ### DataFlowIssue
@@ -1507,18 +1507,6 @@ in `java/com/google/turbine/processing/TurbineAnnotationMirror.java`
 ```
 
 ### DataFlowIssue
-Method invocation `defaultValue` may produce `NullPointerException`
-in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
-#### Snippet
-```java
-     */
-    public boolean hasDefaultValue() {
-      return decl() != null ? decl().defaultValue().isPresent() : defaultValue() != null;
-    }
-
-```
-
-### DataFlowIssue
 Argument `JAVA_SPECIFICATION_VERSION.value()` might be null
 in `java/com/google/turbine/main/Main.java`
 #### Snippet
@@ -1528,6 +1516,18 @@ in `java/com/google/turbine/main/Main.java`
       if (release.getAsInt() == Integer.parseInt(JAVA_SPECIFICATION_VERSION.value())) {
         // if --release matches the host JDK, use its jimage instead of ct.sym
         return JimageClassBinder.bindDefault();
+```
+
+### DataFlowIssue
+Method invocation `defaultValue` may produce `NullPointerException`
+in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
+#### Snippet
+```java
+     */
+    public boolean hasDefaultValue() {
+      return decl() != null ? decl().defaultValue().isPresent() : defaultValue() != null;
+    }
+
 ```
 
 ### DataFlowIssue
@@ -1579,6 +1579,30 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### DataFlowIssue
+@Nullable method 'bitwiseXor' always returns a non-null value
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  }
+
+  private @Nullable Value bitwiseXor(int position, Value a, Value b) {
+    switch (a.constantTypeKind()) {
+      case BOOLEAN:
+```
+
+### DataFlowIssue
+@Nullable method 'mod' always returns a non-null value
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  }
+
+  private @Nullable Value mod(int position, Value a, Value b) {
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+```
+
+### DataFlowIssue
 @Nullable method 'lessThan' always returns a non-null value
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
@@ -1603,66 +1627,6 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### DataFlowIssue
-@Nullable method 'unaryNegate' always returns a non-null value
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable Value unaryNegate(int position, Value expr) {
-    switch (expr.constantTypeKind()) {
-      case BOOLEAN:
-```
-
-### DataFlowIssue
-@Nullable method 'bitwiseXor' always returns a non-null value
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable Value bitwiseXor(int position, Value a, Value b) {
-    switch (a.constantTypeKind()) {
-      case BOOLEAN:
-```
-
-### DataFlowIssue
-@Nullable method 'lessThanEqual' always returns a non-null value
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable Value lessThanEqual(int position, Value a, Value b) {
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-```
-
-### DataFlowIssue
-@Nullable method 'notEqual' always returns a non-null value
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable Value notEqual(int position, Value a, Value b) {
-    switch (a.constantTypeKind()) {
-      case STRING:
-```
-
-### DataFlowIssue
-@Nullable method 'mod' always returns a non-null value
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable Value mod(int position, Value a, Value b) {
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-```
-
-### DataFlowIssue
 @Nullable method 'shiftLeft' always returns a non-null value
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
@@ -1675,51 +1639,15 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### DataFlowIssue
-@Nullable method 'unaryPlus' always returns a non-null value
+@Nullable method 'bitwiseComp' always returns a non-null value
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
   }
 
-  private @Nullable Value unaryPlus(int position, Value expr) {
+  private @Nullable Value bitwiseComp(int position, Value expr) {
     expr = promoteUnary(position, expr);
     switch (expr.constantTypeKind()) {
-```
-
-### DataFlowIssue
-@Nullable method 'divide' always returns a non-null value
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable Value divide(int position, Value a, Value b) {
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-```
-
-### DataFlowIssue
-@Nullable method 'shiftRight' always returns a non-null value
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable Value shiftRight(int position, Value a, Value b) {
-    a = promoteUnary(position, a);
-    b = promoteUnary(position, b);
-```
-
-### DataFlowIssue
-@Nullable method 'add' always returns a non-null value
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable Value add(int position, Value a, Value b) {
-    if (a.constantTypeKind() == TurbineConstantTypeKind.STRING
-        || b.constantTypeKind() == TurbineConstantTypeKind.STRING) {
 ```
 
 ### DataFlowIssue
@@ -1759,15 +1687,39 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### DataFlowIssue
-@Nullable method 'equal' always returns a non-null value
+@Nullable method 'lessThanEqual' always returns a non-null value
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
   }
 
-  private @Nullable Value equal(int position, Value a, Value b) {
-    switch (a.constantTypeKind()) {
-      case STRING:
+  private @Nullable Value lessThanEqual(int position, Value a, Value b) {
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+```
+
+### DataFlowIssue
+@Nullable method 'unaryPlus' always returns a non-null value
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  }
+
+  private @Nullable Value unaryPlus(int position, Value expr) {
+    expr = promoteUnary(position, expr);
+    switch (expr.constantTypeKind()) {
+```
+
+### DataFlowIssue
+@Nullable method 'unaryNegate' always returns a non-null value
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  }
+
+  private @Nullable Value unaryNegate(int position, Value expr) {
+    switch (expr.constantTypeKind()) {
+      case BOOLEAN:
 ```
 
 ### DataFlowIssue
@@ -1783,15 +1735,63 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### DataFlowIssue
-@Nullable method 'bitwiseComp' always returns a non-null value
+@Nullable method 'add' always returns a non-null value
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
   }
 
-  private @Nullable Value bitwiseComp(int position, Value expr) {
-    expr = promoteUnary(position, expr);
-    switch (expr.constantTypeKind()) {
+  private @Nullable Value add(int position, Value a, Value b) {
+    if (a.constantTypeKind() == TurbineConstantTypeKind.STRING
+        || b.constantTypeKind() == TurbineConstantTypeKind.STRING) {
+```
+
+### DataFlowIssue
+@Nullable method 'notEqual' always returns a non-null value
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  }
+
+  private @Nullable Value notEqual(int position, Value a, Value b) {
+    switch (a.constantTypeKind()) {
+      case STRING:
+```
+
+### DataFlowIssue
+@Nullable method 'shiftRight' always returns a non-null value
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  }
+
+  private @Nullable Value shiftRight(int position, Value a, Value b) {
+    a = promoteUnary(position, a);
+    b = promoteUnary(position, b);
+```
+
+### DataFlowIssue
+@Nullable method 'divide' always returns a non-null value
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  }
+
+  private @Nullable Value divide(int position, Value a, Value b) {
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+```
+
+### DataFlowIssue
+@Nullable method 'equal' always returns a non-null value
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  }
+
+  private @Nullable Value equal(int position, Value a, Value b) {
+    switch (a.constantTypeKind()) {
+      case STRING:
 ```
 
 ### DataFlowIssue
@@ -1870,19 +1870,6 @@ in `java/com/google/turbine/lower/Lower.java`
     }
 ```
 
-## RuleId[ruleID=UnnecessaryQualifierForThis]
-### UnnecessaryQualifierForThis
-Qualifier `JimageClassBinder` on 'this' is unnecessary in this context
-in `java/com/google/turbine/binder/JimageClassBinder.java`
-#### Snippet
-```java
-            ClassSymbol sym = new ClassSymbol(binaryName);
-            packageClassesBySimpleName.put(packageName, sym.simpleName(), sym);
-            JimageClassBinder.this.env.put(
-                sym, new BytecodeBoundClass(sym, toByteArrayOrDie(path), env, path.toString()));
-          }
-```
-
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
@@ -1894,6 +1881,19 @@ in `java/com/google/turbine/options/TurbineOptionsParser.java`
           readOne(next, argumentDeque);
           break;
         case "--compress_jar":
+```
+
+## RuleId[ruleID=UnnecessaryQualifierForThis]
+### UnnecessaryQualifierForThis
+Qualifier `JimageClassBinder` on 'this' is unnecessary in this context
+in `java/com/google/turbine/binder/JimageClassBinder.java`
+#### Snippet
+```java
+            ClassSymbol sym = new ClassSymbol(binaryName);
+            packageClassesBySimpleName.put(packageName, sym.simpleName(), sym);
+            JimageClassBinder.this.env.put(
+                sym, new BytecodeBoundClass(sym, toByteArrayOrDie(path), env, path.toString()));
+          }
 ```
 
 ## RuleId[ruleID=OctalLiteral]
@@ -1935,18 +1935,6 @@ in `java/com/google/turbine/binder/ModuleBinder.java`
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `asBoolean(position, a).value() | asBoolean(position, b).value()`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-      case BOOLEAN:
-        return new Const.BooleanValue(
-            asBoolean(position, a).value() | asBoolean(position, b).value());
-      default:
-        break;
-```
-
-### NonShortCircuitBoolean
 Non-short-circuit boolean expression `asBoolean(position, a).value() & asBoolean(position, b).value()`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
@@ -1954,6 +1942,18 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
       case BOOLEAN:
         return new Const.BooleanValue(
             asBoolean(position, a).value() & asBoolean(position, b).value());
+      default:
+        break;
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `asBoolean(position, a).value() | asBoolean(position, b).value()`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+      case BOOLEAN:
+        return new Const.BooleanValue(
+            asBoolean(position, a).value() | asBoolean(position, b).value());
       default:
         break;
 ```
@@ -2010,15 +2010,15 @@ public abstract class TurbineOptions {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `WildUpperBoundedTy` has no concrete subclass
+Abstract class `MethodTy` has no concrete subclass
 in `java/com/google/turbine/type/Type.java`
 #### Snippet
 ```java
-  /** An upper-bounded wildcard type. */
+  /** A method type. */
   @AutoValue
-  abstract class WildUpperBoundedTy extends WildTy {
+  abstract class MethodTy implements Type {
 
-    public static WildUpperBoundedTy create(Type bound, ImmutableList<AnnoInfo> annotations) {
+    public abstract ImmutableSet<TyVarSymbol> tyParams();
 ```
 
 ### AbstractClassNeverImplemented
@@ -2046,30 +2046,6 @@ in `java/com/google/turbine/type/Type.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `MethodTy` has no concrete subclass
-in `java/com/google/turbine/type/Type.java`
-#### Snippet
-```java
-  /** A method type. */
-  @AutoValue
-  abstract class MethodTy implements Type {
-
-    public abstract ImmutableSet<TyVarSymbol> tyParams();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ClassTy` has no concrete subclass
-in `java/com/google/turbine/type/Type.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  abstract class ClassTy implements Type {
-
-    /**
-```
-
-### AbstractClassNeverImplemented
 Abstract class `WildLowerBoundedTy` has no concrete subclass
 in `java/com/google/turbine/type/Type.java`
 #### Snippet
@@ -2079,30 +2055,6 @@ in `java/com/google/turbine/type/Type.java`
   abstract class WildLowerBoundedTy extends WildTy {
 
     public static WildLowerBoundedTy create(Type bound, ImmutableList<AnnoInfo> annotations) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SimpleClassTy` has no concrete subclass
-in `java/com/google/turbine/type/Type.java`
-#### Snippet
-```java
-    /** One element of a qualified {@link ClassTy}. */
-    @AutoValue
-    public abstract static class SimpleClassTy {
-
-      public static SimpleClassTy create(
-```
-
-### AbstractClassNeverImplemented
-Abstract class `WildUnboundedTy` has no concrete subclass
-in `java/com/google/turbine/type/Type.java`
-#### Snippet
-```java
-  /** An unbounded wildcard type. */
-  @AutoValue
-  abstract class WildUnboundedTy extends WildTy {
-
-    public static WildUnboundedTy create(ImmutableList<AnnoInfo> annotations) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -2118,15 +2070,39 @@ in `java/com/google/turbine/type/Type.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ArrayTy` has no concrete subclass
+Abstract class `WildUnboundedTy` has no concrete subclass
 in `java/com/google/turbine/type/Type.java`
 #### Snippet
 ```java
-  /** An array type. */
+  /** An unbounded wildcard type. */
   @AutoValue
-  abstract class ArrayTy implements Type {
+  abstract class WildUnboundedTy extends WildTy {
 
-    public static ArrayTy create(Type elem, ImmutableList<AnnoInfo> annos) {
+    public static WildUnboundedTy create(ImmutableList<AnnoInfo> annotations) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ClassTy` has no concrete subclass
+in `java/com/google/turbine/type/Type.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  abstract class ClassTy implements Type {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SimpleClassTy` has no concrete subclass
+in `java/com/google/turbine/type/Type.java`
+#### Snippet
+```java
+    /** One element of a qualified {@link ClassTy}. */
+    @AutoValue
+    public abstract static class SimpleClassTy {
+
+      public static SimpleClassTy create(
 ```
 
 ### AbstractClassNeverImplemented
@@ -2139,6 +2115,30 @@ in `java/com/google/turbine/type/Type.java`
   abstract class IntersectionTy implements Type {
 
     public abstract ImmutableList<Type> bounds();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ArrayTy` has no concrete subclass
+in `java/com/google/turbine/type/Type.java`
+#### Snippet
+```java
+  /** An array type. */
+  @AutoValue
+  abstract class ArrayTy implements Type {
+
+    public static ArrayTy create(Type elem, ImmutableList<AnnoInfo> annos) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `WildUpperBoundedTy` has no concrete subclass
+in `java/com/google/turbine/type/Type.java`
+#### Snippet
+```java
+  /** An upper-bounded wildcard type. */
+  @AutoValue
+  abstract class WildUpperBoundedTy extends WildTy {
+
+    public static WildUpperBoundedTy create(Type bound, ImmutableList<AnnoInfo> annotations) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -2166,18 +2166,6 @@ public abstract class LanguageVersion {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ProcessorInfo` has no concrete subclass
-in `java/com/google/turbine/binder/Processing.java`
-#### Snippet
-```java
-  /** Information about any annotation processing performed by this compilation. */
-  @AutoValue
-  public abstract static class ProcessorInfo {
-
-    abstract ImmutableList<Processor> processors();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `SupportedAnnotationTypes` has no concrete subclass
 in `java/com/google/turbine/binder/Processing.java`
 #### Snippet
@@ -2187,6 +2175,18 @@ in `java/com/google/turbine/binder/Processing.java`
   abstract static class SupportedAnnotationTypes {
 
     abstract boolean everything();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ProcessorInfo` has no concrete subclass
+in `java/com/google/turbine/binder/Processing.java`
+#### Snippet
+```java
+  /** Information about any annotation processing performed by this compilation. */
+  @AutoValue
+  public abstract static class ProcessorInfo {
+
+    abstract ImmutableList<Processor> processors();
 ```
 
 ### AbstractClassNeverImplemented
@@ -2203,18 +2203,6 @@ in `java/com/google/turbine/binder/Binder.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Tree.Ident`
-in `java/com/google/turbine/parse/ConstExpressionParser.java`
-#### Snippet
-```java
-  }
-
-  private static ClassTy asClassTy(int pos, ImmutableList<Tree.Ident> names) {
-    ClassTy cty = null;
-    for (Tree.Ident bit : names) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends SavedToken`
 in `java/com/google/turbine/parse/IteratorLexer.java`
 #### Snippet
@@ -2227,6 +2215,18 @@ in `java/com/google/turbine/parse/IteratorLexer.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ClassSymbol`
+in `java/com/google/turbine/binder/lookup/SimpleTopLevelIndex.java`
+#### Snippet
+```java
+
+  /** Creates an index over the given symbols. */
+  public static TopLevelIndex of(Iterable<ClassSymbol> syms) {
+    Builder builder = builder();
+    for (ClassSymbol sym : syms) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Type`
 in `java/com/google/turbine/types/Deannotate.java`
 #### Snippet
@@ -2236,6 +2236,18 @@ in `java/com/google/turbine/types/Deannotate.java`
   private static ImmutableList<Type> deannotate(ImmutableList<Type> types) {
     ImmutableList.Builder<Type> result = ImmutableList.builder();
     for (Type type : types) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `java/com/google/turbine/binder/lookup/WildImportIndex.java`
+#### Snippet
+```java
+  private final ImmutableList<Supplier<ImportScope>> packages;
+
+  public WildImportIndex(ImmutableList<Supplier<ImportScope>> packages) {
+    this.packages = packages;
+  }
 ```
 
 ### BoundedWildcard
@@ -2252,30 +2264,6 @@ in `java/com/google/turbine/binder/lookup/WildImportIndex.java`
 
 ### BoundedWildcard
 Can generalize to `? extends Supplier`
-in `java/com/google/turbine/binder/lookup/WildImportIndex.java`
-#### Snippet
-```java
-  private final ImmutableList<Supplier<ImportScope>> packages;
-
-  public WildImportIndex(ImmutableList<Supplier<ImportScope>> packages) {
-    this.packages = packages;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassSymbol`
-in `java/com/google/turbine/binder/lookup/SimpleTopLevelIndex.java`
-#### Snippet
-```java
-
-  /** Creates an index over the given symbols. */
-  public static TopLevelIndex of(Iterable<ClassSymbol> syms) {
-    Builder builder = builder();
-    for (ClassSymbol sym : syms) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`
 in `java/com/google/turbine/binder/lookup/MemberImportIndex.java`
 #### Snippet
 ```java
@@ -2284,6 +2272,18 @@ in `java/com/google/turbine/binder/lookup/MemberImportIndex.java`
     public WildcardSymbols(Iterator<Supplier<ClassSymbol>> it) {
       this.it = it;
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tree.Ident`
+in `java/com/google/turbine/parse/ConstExpressionParser.java`
+#### Snippet
+```java
+  }
+
+  private static ClassTy asClassTy(int pos, ImmutableList<Tree.Ident> names) {
+    ClassTy cty = null;
+    for (Tree.Ident bit : names) {
 ```
 
 ### BoundedWildcard
@@ -2323,15 +2323,15 @@ in `java/com/google/turbine/processing/TurbineRoundEnvironment.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ImportDecl`
-in `java/com/google/turbine/binder/lookup/ImportIndex.java`
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/processing/ClassHierarchy.java`
 #### Snippet
 ```java
-      CanonicalSymbolResolver resolve,
-      final TopLevelIndex cpi,
-      ImmutableList<ImportDecl> imports) {
-    Map<String, Supplier<@Nullable ImportScope>> thunks = new HashMap<>();
-    for (final Tree.ImportDecl i : imports) {
+  private Env<ClassSymbol, ? extends TypeBoundClass> env;
+
+  ClassHierarchy(Env<ClassSymbol, ? extends TypeBoundClass> env) {
+    this.env = env;
+  }
 ```
 
 ### BoundedWildcard
@@ -2347,15 +2347,27 @@ in `java/com/google/turbine/binder/lookup/ImportIndex.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/processing/ClassHierarchy.java`
+Can generalize to `? extends ImportDecl`
+in `java/com/google/turbine/binder/lookup/ImportIndex.java`
 #### Snippet
 ```java
-  private Env<ClassSymbol, ? extends TypeBoundClass> env;
+      CanonicalSymbolResolver resolve,
+      final TopLevelIndex cpi,
+      ImmutableList<ImportDecl> imports) {
+    Map<String, Supplier<@Nullable ImportScope>> thunks = new HashMap<>();
+    for (final Tree.ImportDecl i : imports) {
+```
 
-  ClassHierarchy(Env<ClassSymbol, ? extends TypeBoundClass> env) {
-    this.env = env;
+### BoundedWildcard
+Can generalize to `? extends CompUnit`
+in `java/com/google/turbine/binder/CompUnitPreprocessor.java`
+#### Snippet
+```java
   }
+
+  public static ImmutableList<PreprocessedCompUnit> preprocess(List<CompUnit> units) {
+    ImmutableList.Builder<PreprocessedCompUnit> result = ImmutableList.builder();
+    for (CompUnit unit : units) {
 ```
 
 ### BoundedWildcard
@@ -2383,18 +2395,6 @@ in `java/com/google/turbine/binder/CompUnitPreprocessor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CompUnit`
-in `java/com/google/turbine/binder/CompUnitPreprocessor.java`
-#### Snippet
-```java
-  }
-
-  public static ImmutableList<PreprocessedCompUnit> preprocess(List<CompUnit> units) {
-    ImmutableList.Builder<PreprocessedCompUnit> result = ImmutableList.builder();
-    for (CompUnit unit : units) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Anno`
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
@@ -2416,66 +2416,6 @@ in `java/com/google/turbine/binder/env/LazyEnv.java`
   public LazyEnv(ImmutableMap<S, Completer<S, T, V>> completers, Env<S, ? extends T> base) {
     this.completers = completers;
     this.rec = CompoundEnv.<S, T>of(base).append(this);
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnoInfo`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-  }
-
-  static AnnoInfo getAnnotation(Iterable<AnnoInfo> annos, ClassSymbol sym) {
-    for (AnnoInfo anno : annos) {
-      if (Objects.equals(anno.sym(), sym)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    }
-
-    private void addAnnotationFromSuper(Map<ClassSymbol, AnnotationMirror> result, AnnoInfo anno) {
-      if (!isAnnotationInherited(anno.sym())) {
-        return;
-```
-
-### BoundedWildcard
-Can generalize to `? super AnnotationMirror`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    }
-
-    private void addAnnotationFromSuper(Map<ClassSymbol, AnnotationMirror> result, AnnoInfo anno) {
-      if (!isAnnotationInherited(anno.sym())) {
-        return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends RecordComponentInfo`
-in `java/com/google/turbine/binder/ConstBinder.java`
-#### Snippet
-```java
-
-  private ImmutableList<RecordComponentInfo> bindRecordComponents(
-      ImmutableList<RecordComponentInfo> components) {
-    ImmutableList.Builder<RecordComponentInfo> result = ImmutableList.builder();
-    for (RecordComponentInfo base : components) {
-```
-
-### BoundedWildcard
-Can generalize to `? super TurbineElementType`
-in `java/com/google/turbine/binder/ConstBinder.java`
-#### Snippet
-```java
-
-  private static void bindTargetElement(
-      ImmutableSet.Builder<TurbineElementType> target, EnumConstantValue enumVal) {
-    if (enumVal.sym().owner().binaryName().equals("java/lang/annotation/ElementType")) {
-      target.add(TurbineElementType.valueOf(enumVal.sym().name()));
 ```
 
 ### BoundedWildcard
@@ -2503,6 +2443,42 @@ in `java/com/google/turbine/binder/ConstBinder.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends RecordComponentInfo`
+in `java/com/google/turbine/binder/ConstBinder.java`
+#### Snippet
+```java
+
+  private ImmutableList<RecordComponentInfo> bindRecordComponents(
+      ImmutableList<RecordComponentInfo> components) {
+    ImmutableList.Builder<RecordComponentInfo> result = ImmutableList.builder();
+    for (RecordComponentInfo base : components) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ParamInfo`
+in `java/com/google/turbine/binder/ConstBinder.java`
+#### Snippet
+```java
+  }
+
+  private ImmutableList<ParamInfo> bindParameters(ImmutableList<ParamInfo> formals) {
+    ImmutableList.Builder<ParamInfo> result = ImmutableList.builder();
+    for (ParamInfo base : formals) {
+```
+
+### BoundedWildcard
+Can generalize to `? super TurbineElementType`
+in `java/com/google/turbine/binder/ConstBinder.java`
+#### Snippet
+```java
+
+  private static void bindTargetElement(
+      ImmutableSet.Builder<TurbineElementType> target, EnumConstantValue enumVal) {
+    if (enumVal.sym().owner().binaryName().equals("java/lang/annotation/ElementType")) {
+      target.add(TurbineElementType.valueOf(enumVal.sym().name()));
+```
+
+### BoundedWildcard
 Can generalize to `? extends AnnoInfo`
 in `java/com/google/turbine/binder/ConstBinder.java`
 #### Snippet
@@ -2527,15 +2503,39 @@ in `java/com/google/turbine/binder/ConstBinder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ParamInfo`
-in `java/com/google/turbine/binder/ConstBinder.java`
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    }
+
+    private void addAnnotationFromSuper(Map<ClassSymbol, AnnotationMirror> result, AnnoInfo anno) {
+      if (!isAnnotationInherited(anno.sym())) {
+        return;
+```
+
+### BoundedWildcard
+Can generalize to `? super AnnotationMirror`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    }
+
+    private void addAnnotationFromSuper(Map<ClassSymbol, AnnotationMirror> result, AnnoInfo anno) {
+      if (!isAnnotationInherited(anno.sym())) {
+        return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnoInfo`
+in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
   }
 
-  private ImmutableList<ParamInfo> bindParameters(ImmutableList<ParamInfo> formals) {
-    ImmutableList.Builder<ParamInfo> result = ImmutableList.builder();
-    for (ParamInfo base : formals) {
+  static AnnoInfo getAnnotation(Iterable<AnnoInfo> annos, ClassSymbol sym) {
+    for (AnnoInfo anno : annos) {
+      if (Objects.equals(anno.sym(), sym)) {
 ```
 
 ### BoundedWildcard
@@ -2587,6 +2587,54 @@ in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/lower/LowerSignature.java`
+#### Snippet
+```java
+  }
+
+  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
+    return type.tyKind() == TyKind.CLASS_TY
+        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/lower/LowerSignature.java`
+#### Snippet
+```java
+  }
+
+  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
+    return type.tyKind() == TyKind.CLASS_TY
+        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/lower/LowerSignature.java`
+#### Snippet
+```java
+
+  private boolean needsMethodSig(
+      ClassSymbol sym, Env<ClassSymbol, TypeBoundClass> env, TypeBoundClass.MethodInfo m) {
+    if ((env.getNonNull(sym).access() & TurbineFlag.ACC_ENUM) == TurbineFlag.ACC_ENUM
+        && m.name().equals("<init>")) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/lower/LowerSignature.java`
+#### Snippet
+```java
+
+  private boolean needsMethodSig(
+      ClassSymbol sym, Env<ClassSymbol, TypeBoundClass> env, TypeBoundClass.MethodInfo m) {
+    if ((env.getNonNull(sym).access() & TurbineFlag.ACC_ENUM) == TurbineFlag.ACC_ENUM
+        && m.name().equals("<init>")) {
+```
+
+### BoundedWildcard
 Can generalize to `? super ModuleSymbol`
 in `java/com/google/turbine/binder/ModuleBinder.java`
 #### Snippet
@@ -2612,50 +2660,50 @@ in `java/com/google/turbine/binder/ModuleBinder.java`
 
 ### BoundedWildcard
 Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/lower/LowerSignature.java`
+in `java/com/google/turbine/binder/Resolve.java`
 #### Snippet
 ```java
-  }
 
-  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
-    return type.tyKind() == TyKind.CLASS_TY
-        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/lower/LowerSignature.java`
-#### Snippet
-```java
-  }
-
-  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
-    return type.tyKind() == TyKind.CLASS_TY
-        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
+  private static @Nullable ClassSymbol resolve(
+      Env<ClassSymbol, ? extends HeaderBoundClass> env,
+      @Nullable ClassSymbol origin,
+      ClassSymbol sym,
 ```
 
 ### BoundedWildcard
 Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/lower/LowerSignature.java`
+in `java/com/google/turbine/binder/Resolve.java`
 #### Snippet
 ```java
-
-  private boolean needsMethodSig(
-      ClassSymbol sym, Env<ClassSymbol, TypeBoundClass> env, TypeBoundClass.MethodInfo m) {
-    if ((env.getNonNull(sym).access() & TurbineFlag.ACC_ENUM) == TurbineFlag.ACC_ENUM
-        && m.name().equals("<init>")) {
+      ClassSymbol sym,
+      Tree.Ident simpleName,
+      Set<ClassSymbol> seen) {
+    ClassSymbol result;
+    if (!seen.add(sym)) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/lower/LowerSignature.java`
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/binder/Resolve.java`
 #### Snippet
 ```java
+    private final CompoundEnv<ClassSymbol, BoundClass> env;
 
-  private boolean needsMethodSig(
-      ClassSymbol sym, Env<ClassSymbol, TypeBoundClass> env, TypeBoundClass.MethodInfo m) {
-    if ((env.getNonNull(sym).access() & TurbineFlag.ACC_ENUM) == TurbineFlag.ACC_ENUM
-        && m.name().equals("<init>")) {
+    public CanonicalResolver(String packagename, CompoundEnv<ClassSymbol, BoundClass> env) {
+      this.packagename = packagename;
+      this.env = env;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BoundClass`
+in `java/com/google/turbine/binder/Resolve.java`
+#### Snippet
+```java
+    private final CompoundEnv<ClassSymbol, BoundClass> env;
+
+    public CanonicalResolver(String packagename, CompoundEnv<ClassSymbol, BoundClass> env) {
+      this.packagename = packagename;
+      this.env = env;
 ```
 
 ### BoundedWildcard
@@ -2695,51 +2743,135 @@ in `java/com/google/turbine/binder/Resolve.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/binder/Resolve.java`
+Can generalize to `? extends SimpleClassTy`
+in `java/com/google/turbine/processing/TurbineTypes.java`
 #### Snippet
 ```java
-    private final CompoundEnv<ClassSymbol, BoundClass> env;
 
-    public CanonicalResolver(String packagename, CompoundEnv<ClassSymbol, BoundClass> env) {
-      this.packagename = packagename;
+  /** Returns true if any {@link SimpleClassTy} in the given iterator has type arguments. */
+  private static boolean hasTyArgs(Iterator<SimpleClassTy> it) {
+    while (it.hasNext()) {
+      if (!it.next().targs().isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `java/com/google/turbine/processing/TurbineTypes.java`
+#### Snippet
+```java
+  }
+
+  private static ImmutableList<Type> deannotate(ImmutableList<Type> types) {
+    ImmutableList.Builder<Type> result = ImmutableList.builder();
+    for (Type type : types) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `java/com/google/turbine/processing/TurbineTypes.java`
+#### Snippet
+```java
+  }
+
+  private static boolean implicitObjectBound(ModelFactory factory, ImmutableList<Type> bounds) {
+    if (bounds.isEmpty()) {
+      return true;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tree.VarDecl`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+
+  private ImmutableList<RecordComponentInfo> bindComponents(
+      CompoundScope scope, ImmutableList<Tree.VarDecl> components) {
+    ImmutableList.Builder<RecordComponentInfo> result = ImmutableList.builder();
+    for (Tree.VarDecl p : components) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends HeaderBoundClass`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+    private final Env<ClassSymbol, HeaderBoundClass> env;
+
+    public ClassMemberScope(ClassSymbol sym, Env<ClassSymbol, HeaderBoundClass> env) {
+      this.sym = sym;
       this.env = env;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BoundClass`
-in `java/com/google/turbine/binder/Resolve.java`
+Can generalize to `? extends RecordComponentInfo`
+in `java/com/google/turbine/binder/TypeBinder.java`
 #### Snippet
 ```java
-    private final CompoundEnv<ClassSymbol, BoundClass> env;
 
-    public CanonicalResolver(String packagename, CompoundEnv<ClassSymbol, BoundClass> env) {
-      this.packagename = packagename;
-      this.env = env;
+  private boolean isPrimaryConstructor(
+      MethodInfo m, ImmutableList<RecordComponentInfo> components) {
+    if (m.parameters().size() != components.size()) {
+      return false;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/binder/Resolve.java`
+Can generalize to `? extends RecordComponentInfo`
+in `java/com/google/turbine/binder/TypeBinder.java`
 #### Snippet
 ```java
 
-  private static @Nullable ClassSymbol resolve(
-      Env<ClassSymbol, ? extends HeaderBoundClass> env,
-      @Nullable ClassSymbol origin,
-      ClassSymbol sym,
+  private MethodInfo bindMethod(
+      int idx, CompoundScope scope, MethDecl t, ImmutableList<RecordComponentInfo> components) {
+
+    MethodSymbol sym = new MethodSymbol(idx, owner, t.name().value());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/binder/Resolve.java`
+Can generalize to `? extends Tree`
+in `java/com/google/turbine/binder/TypeBinder.java`
 #### Snippet
 ```java
-      ClassSymbol sym,
-      Tree.Ident simpleName,
-      Set<ClassSymbol> seen) {
-    ClassSymbol result;
-    if (!seen.add(sym)) {
+  }
+
+  private ImmutableList<FieldInfo> bindFields(CompoundScope scope, ImmutableList<Tree> members) {
+    Set<FieldSymbol> seen = new HashSet<>();
+    ImmutableList.Builder<FieldInfo> fields = ImmutableList.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tree.Type`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+  }
+
+  private ImmutableList<Type> bindTyArgs(CompoundScope scope, ImmutableList<Tree.Type> targs) {
+    ImmutableList.Builder<Type> result = ImmutableList.builder();
+    for (Tree.Type ty : targs) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassTy`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+  private Type bindClassTyRest(
+      CompoundScope scope,
+      ArrayList<ClassTy> flat,
+      ImmutableList<Tree.Ident> bits,
+      LookupResult result,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tree.Anno`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+
+  private ImmutableList<AnnoInfo> bindAnnotations(
+      CompoundScope scope, ImmutableList<Tree.Anno> trees) {
+    ImmutableList.Builder<AnnoInfo> result = ImmutableList.builder();
+    for (Tree.Anno tree : trees) {
 ```
 
 ### BoundedWildcard
@@ -2752,6 +2884,30 @@ in `java/com/google/turbine/binder/TypeBinder.java`
       SyntheticMethods syntheticMethods, ImmutableList<RecordComponentInfo> components) {
     MethodSymbol symbol = syntheticMethods.create(owner, "<init>");
     ImmutableList.Builder<ParamInfo> params = ImmutableList.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MethodInfo`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+      SyntheticMethods syntheticMethods,
+      ImmutableList<RecordComponentInfo> components,
+      List<MethodInfo> boundMethods) {
+    List<MethodInfo> boundConstructors = new ArrayList<>();
+    List<MethodInfo> boundNonConstructors = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tree`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+  private List<MethodInfo> bindMethods(
+      CompoundScope scope,
+      ImmutableList<Tree> members,
+      ImmutableList<RecordComponentInfo> components) {
+    List<MethodInfo> methods = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -2779,162 +2935,6 @@ in `java/com/google/turbine/binder/TypeBinder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HeaderBoundClass`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-    private final Env<ClassSymbol, HeaderBoundClass> env;
-
-    public ClassMemberScope(ClassSymbol sym, Env<ClassSymbol, HeaderBoundClass> env) {
-      this.sym = sym;
-      this.env = env;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tree`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-  private List<MethodInfo> bindMethods(
-      CompoundScope scope,
-      ImmutableList<Tree> members,
-      ImmutableList<RecordComponentInfo> components) {
-    List<MethodInfo> methods = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends RecordComponentInfo`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-
-  private boolean isPrimaryConstructor(
-      MethodInfo m, ImmutableList<RecordComponentInfo> components) {
-    if (m.parameters().size() != components.size()) {
-      return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tree.Anno`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-
-  private ImmutableList<AnnoInfo> bindAnnotations(
-      CompoundScope scope, ImmutableList<Tree.Anno> trees) {
-    ImmutableList.Builder<AnnoInfo> result = ImmutableList.builder();
-    for (Tree.Anno tree : trees) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassTy`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-  private Type bindClassTyRest(
-      CompoundScope scope,
-      ArrayList<ClassTy> flat,
-      ImmutableList<Tree.Ident> bits,
-      LookupResult result,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tree`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-  }
-
-  private ImmutableList<FieldInfo> bindFields(CompoundScope scope, ImmutableList<Tree> members) {
-    Set<FieldSymbol> seen = new HashSet<>();
-    ImmutableList.Builder<FieldInfo> fields = ImmutableList.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tree.VarDecl`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-
-  private ImmutableList<RecordComponentInfo> bindComponents(
-      CompoundScope scope, ImmutableList<Tree.VarDecl> components) {
-    ImmutableList.Builder<RecordComponentInfo> result = ImmutableList.builder();
-    for (Tree.VarDecl p : components) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tree.Type`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-  }
-
-  private ImmutableList<Type> bindTyArgs(CompoundScope scope, ImmutableList<Tree.Type> targs) {
-    ImmutableList.Builder<Type> result = ImmutableList.builder();
-    for (Tree.Type ty : targs) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RecordComponentInfo`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-
-  private MethodInfo bindMethod(
-      int idx, CompoundScope scope, MethDecl t, ImmutableList<RecordComponentInfo> components) {
-
-    MethodSymbol sym = new MethodSymbol(idx, owner, t.name().value());
-```
-
-### BoundedWildcard
-Can generalize to `? extends MethodInfo`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-      SyntheticMethods syntheticMethods,
-      ImmutableList<RecordComponentInfo> components,
-      List<MethodInfo> boundMethods) {
-    List<MethodInfo> boundConstructors = new ArrayList<>();
-    List<MethodInfo> boundNonConstructors = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Type`
-in `java/com/google/turbine/processing/TurbineTypes.java`
-#### Snippet
-```java
-  }
-
-  private static boolean implicitObjectBound(ModelFactory factory, ImmutableList<Type> bounds) {
-    if (bounds.isEmpty()) {
-      return true;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Type`
-in `java/com/google/turbine/processing/TurbineTypes.java`
-#### Snippet
-```java
-  }
-
-  private static ImmutableList<Type> deannotate(ImmutableList<Type> types) {
-    ImmutableList.Builder<Type> result = ImmutableList.builder();
-    for (Type type : types) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SimpleClassTy`
-in `java/com/google/turbine/processing/TurbineTypes.java`
-#### Snippet
-```java
-
-  /** Returns true if any {@link SimpleClassTy} in the given iterator has type arguments. */
-  private static boolean hasTyArgs(Iterator<SimpleClassTy> it) {
-    while (it.hasNext()) {
-      if (!it.next().targs().isEmpty()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends FieldInfo`
 in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
 #### Snippet
@@ -2944,78 +2944,6 @@ in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
       ImmutableList<FieldInfo> fields) {
     ImmutableList.Builder<FieldInfo> result = ImmutableList.builder();
     for (FieldInfo base : fields) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-   */
-  public static ImmutableList<AnnoInfo> groupRepeated(
-      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<AnnoInfo> annotations) {
-    Multimap<ClassSymbol, AnnoInfo> repeated =
-        MultimapBuilder.linkedHashKeys().arrayListValues().build();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MethodInfo`
-in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
-#### Snippet
-```java
-      Env<ClassSymbol, TypeBoundClass> env,
-      ClassSymbol sym,
-      ImmutableList<MethodInfo> methods) {
-    ImmutableList.Builder<MethodInfo> result = ImmutableList.builder();
-    for (MethodInfo base : methods) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RecordComponentInfo`
-in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
-#### Snippet
-```java
-      ClassSymbol sym,
-      int pos,
-      ImmutableList<RecordComponentInfo> components) {
-    ImmutableList.Builder<RecordComponentInfo> result = ImmutableList.builder();
-    for (RecordComponentInfo component : components) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-   */
-  public static ImmutableList<AnnoInfo> groupRepeated(
-      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<AnnoInfo> annotations) {
-    Multimap<ClassSymbol, AnnoInfo> repeated =
-        MultimapBuilder.linkedHashKeys().arrayListValues().build();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnoInfo`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-   */
-  public static ImmutableList<AnnoInfo> groupRepeated(
-      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<AnnoInfo> annotations) {
-    Multimap<ClassSymbol, AnnoInfo> repeated =
-        MultimapBuilder.linkedHashKeys().arrayListValues().build();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Type`
-in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
-#### Snippet
-```java
-      Env<ClassSymbol, TypeBoundClass> env,
-      ClassSymbol sym,
-      ImmutableList<Type> types) {
-    ImmutableList.Builder<Type> result = ImmutableList.builder();
-    for (Type type : types) {
 ```
 
 ### BoundedWildcard
@@ -3031,123 +2959,39 @@ in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FieldInfo`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+Can generalize to `? extends Type`
+in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
 #### Snippet
 ```java
-
-  private static ImmutableList<FieldInfo> bindFields(
-      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<FieldInfo> fields) {
-    ImmutableList.Builder<FieldInfo> result = ImmutableList.builder();
-    for (FieldInfo field : fields) {
+      Env<ClassSymbol, TypeBoundClass> env,
+      ClassSymbol sym,
+      ImmutableList<Type> types) {
+    ImmutableList.Builder<Type> result = ImmutableList.builder();
+    for (Type type : types) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends RecordComponentInfo`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
 #### Snippet
 ```java
-  private static ImmutableList<RecordComponentInfo> bindComponents(
-      Env<ClassSymbol, TypeBoundClass> env,
-      ImmutableList<RecordComponentInfo> components,
-      TurbineElementType declarationTarget) {
+      ClassSymbol sym,
+      int pos,
+      ImmutableList<RecordComponentInfo> components) {
     ImmutableList.Builder<RecordComponentInfo> result = ImmutableList.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnoInfo`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-
-  private static ImmutableList<AnnoInfo> appendAnnotations(
-      ImmutableList<AnnoInfo> annos, ImmutableList<AnnoInfo> extra) {
-    return ImmutableList.<AnnoInfo>builder().addAll(annos).addAll(extra).build();
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnoInfo`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-
-  private static ImmutableList<AnnoInfo> appendAnnotations(
-      ImmutableList<AnnoInfo> annos, ImmutableList<AnnoInfo> extra) {
-    return ImmutableList.<AnnoInfo>builder().addAll(annos).addAll(extra).build();
-  }
+    for (RecordComponentInfo component : components) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends MethodInfo`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+in `java/com/google/turbine/binder/CanonicalTypeBinder.java`
 #### Snippet
 ```java
-
-  private static ImmutableList<MethodInfo> bindMethods(
-      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<MethodInfo> fields) {
-    ImmutableList.Builder<MethodInfo> result = ImmutableList.builder();
-    for (MethodInfo field : fields) {
-```
-
-### BoundedWildcard
-Can generalize to `? super AnnoInfo`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-      Type type,
-      ImmutableList<AnnoInfo> annotations,
-      ImmutableList.Builder<AnnoInfo> declarationAnnotations) {
-    // desugar @Repeatable annotations before disambiguating: annotation containers may target
-    // a subset of the types targeted by their element annotation
-```
-
-### BoundedWildcard
-Can generalize to `? extends ParamInfo`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-  private static ImmutableList<ParamInfo> bindParameters(
       Env<ClassSymbol, TypeBoundClass> env,
-      ImmutableList<ParamInfo> params,
-      TurbineElementType declarationTarget) {
-    ImmutableList.Builder<ParamInfo> result = ImmutableList.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-
-  private static ImmutableSet<TurbineElementType> getTarget(
-      Env<ClassSymbol, TypeBoundClass> env, AnnoInfo anno) {
-    ClassSymbol sym = anno.sym();
-    if (sym == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
-#### Snippet
-```java
-
-  private static ImmutableSet<TurbineElementType> getTarget(
-      Env<ClassSymbol, TypeBoundClass> env, AnnoInfo anno) {
-    ClassSymbol sym = anno.sym();
-    if (sym == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `java/com/google/turbine/binder/ClassPathBinder.java`
-#### Snippet
-```java
-
-  /** Creates an environment containing symbols in the given classpath. */
-  public static ClassPath bindClasspath(Collection<Path> paths) throws IOException {
-    // TODO(cushon): this is going to require an env eventually,
-    // e.g. to look up type parameters in enclosing declarations
+      ClassSymbol sym,
+      ImmutableList<MethodInfo> methods) {
+    ImmutableList.Builder<MethodInfo> result = ImmutableList.builder();
+    for (MethodInfo base : methods) {
 ```
 
 ### BoundedWildcard
@@ -3235,6 +3079,198 @@ in `java/com/google/turbine/binder/ClassPathBinder.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Path`
+in `java/com/google/turbine/binder/ClassPathBinder.java`
+#### Snippet
+```java
+
+  /** Creates an environment containing symbols in the given classpath. */
+  public static ClassPath bindClasspath(Collection<Path> paths) throws IOException {
+    // TODO(cushon): this is going to require an env eventually,
+    // e.g. to look up type parameters in enclosing declarations
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnoInfo`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+
+  private static ImmutableList<AnnoInfo> appendAnnotations(
+      ImmutableList<AnnoInfo> annos, ImmutableList<AnnoInfo> extra) {
+    return ImmutableList.<AnnoInfo>builder().addAll(annos).addAll(extra).build();
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnoInfo`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+
+  private static ImmutableList<AnnoInfo> appendAnnotations(
+      ImmutableList<AnnoInfo> annos, ImmutableList<AnnoInfo> extra) {
+    return ImmutableList.<AnnoInfo>builder().addAll(annos).addAll(extra).build();
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super AnnoInfo`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+      Type type,
+      ImmutableList<AnnoInfo> annotations,
+      ImmutableList.Builder<AnnoInfo> declarationAnnotations) {
+    // desugar @Repeatable annotations before disambiguating: annotation containers may target
+    // a subset of the types targeted by their element annotation
+```
+
+### BoundedWildcard
+Can generalize to `? extends RecordComponentInfo`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+  private static ImmutableList<RecordComponentInfo> bindComponents(
+      Env<ClassSymbol, TypeBoundClass> env,
+      ImmutableList<RecordComponentInfo> components,
+      TurbineElementType declarationTarget) {
+    ImmutableList.Builder<RecordComponentInfo> result = ImmutableList.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+   */
+  public static ImmutableList<AnnoInfo> groupRepeated(
+      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<AnnoInfo> annotations) {
+    Multimap<ClassSymbol, AnnoInfo> repeated =
+        MultimapBuilder.linkedHashKeys().arrayListValues().build();
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+   */
+  public static ImmutableList<AnnoInfo> groupRepeated(
+      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<AnnoInfo> annotations) {
+    Multimap<ClassSymbol, AnnoInfo> repeated =
+        MultimapBuilder.linkedHashKeys().arrayListValues().build();
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnoInfo`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+   */
+  public static ImmutableList<AnnoInfo> groupRepeated(
+      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<AnnoInfo> annotations) {
+    Multimap<ClassSymbol, AnnoInfo> repeated =
+        MultimapBuilder.linkedHashKeys().arrayListValues().build();
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldInfo`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+
+  private static ImmutableList<FieldInfo> bindFields(
+      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<FieldInfo> fields) {
+    ImmutableList.Builder<FieldInfo> result = ImmutableList.builder();
+    for (FieldInfo field : fields) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ParamInfo`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+  private static ImmutableList<ParamInfo> bindParameters(
+      Env<ClassSymbol, TypeBoundClass> env,
+      ImmutableList<ParamInfo> params,
+      TurbineElementType declarationTarget) {
+    ImmutableList.Builder<ParamInfo> result = ImmutableList.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+
+  private static ImmutableSet<TurbineElementType> getTarget(
+      Env<ClassSymbol, TypeBoundClass> env, AnnoInfo anno) {
+    ClassSymbol sym = anno.sym();
+    if (sym == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+
+  private static ImmutableSet<TurbineElementType> getTarget(
+      Env<ClassSymbol, TypeBoundClass> env, AnnoInfo anno) {
+    ClassSymbol sym = anno.sym();
+    if (sym == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MethodInfo`
+in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
+#### Snippet
+```java
+
+  private static ImmutableList<MethodInfo> bindMethods(
+      Env<ClassSymbol, TypeBoundClass> env, ImmutableList<MethodInfo> fields) {
+    ImmutableList.Builder<MethodInfo> result = ImmutableList.builder();
+    for (MethodInfo field : fields) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassFile.AnnotationInfo`
+in `java/com/google/turbine/bytecode/ClassReader.java`
+#### Snippet
+```java
+   */
+  private void readAnnotations(
+      ImmutableList.Builder<ClassFile.AnnotationInfo> annotations,
+      ConstantPoolReader constantPool) {
+    int unusedLength = reader.u4();
+```
+
+### BoundedWildcard
+Can generalize to `? super ParameterInfo`
+in `java/com/google/turbine/bytecode/ClassReader.java`
+#### Snippet
+```java
+  /** Processes a JVMS 4.7.24 MethodParameters attribute. */
+  private void readMethodParameters(
+      ImmutableList.Builder<ParameterInfo> parameters, ConstantPoolReader constantPool) {
+    int unusedLength = reader.u4();
+    int numParameters = reader.u1();
+```
+
+### BoundedWildcard
+Can generalize to `? super S`
+in `java/com/google/turbine/binder/env/CompoundEnv.java`
+#### Snippet
+```java
+  private final Env<S, ? extends V> env;
+
+  private CompoundEnv(@Nullable Env<S, ? extends V> base, Env<S, ? extends V> env) {
+    this.base = base;
+    this.env = requireNonNull(env);
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `java/com/google/turbine/processing/TurbineFiler.java`
 #### Snippet
@@ -3271,27 +3307,63 @@ in `java/com/google/turbine/processing/TurbineFiler.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassFile.AnnotationInfo`
-in `java/com/google/turbine/bytecode/ClassReader.java`
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-   */
-  private void readAnnotations(
-      ImmutableList.Builder<ClassFile.AnnotationInfo> annotations,
-      ConstantPoolReader constantPool) {
-    int unusedLength = reader.u4();
+  }
+
+  private byte[] lower(SourceModuleInfo module, Set<ClassSymbol> symbols, int majorVersion) {
+    String name = "module-info";
+    ImmutableList<AnnotationInfo> annotations = lowerAnnotations(module.annos());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ParameterInfo`
-in `java/com/google/turbine/bytecode/ClassReader.java`
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-  /** Processes a JVMS 4.7.24 MethodParameters attribute. */
-  private void readMethodParameters(
-      ImmutableList.Builder<ParameterInfo> parameters, ConstantPoolReader constantPool) {
-    int unusedLength = reader.u4();
-    int numParameters = reader.u1();
+   */
+  private ClassFile.InnerClass innerClass(
+      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol innerSym) {
+    TypeBoundClass inner = env.getNonNull(innerSym);
+    // this inner class is known to have an owner
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+   */
+  private ClassFile.InnerClass innerClass(
+      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol innerSym) {
+    TypeBoundClass inner = env.getNonNull(innerSym);
+    // this inner class is known to have an owner
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+  }
+
+  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
+    return type.tyKind() == TyKind.CLASS_TY
+        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+  }
+
+  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
+    return type.tyKind() == TyKind.CLASS_TY
+        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
 ```
 
 ### BoundedWildcard
@@ -3307,159 +3379,15 @@ in `java/com/google/turbine/lower/Lower.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassSymbol`
+Can generalize to `? extends TyVarInfo`
 in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-  private void addEnclosing(
-      SourceFile source,
-      Env<ClassSymbol, TypeBoundClass> env,
-      Set<ClassSymbol> all,
-      ClassSymbol sym) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-  private void addEnclosing(
-      SourceFile source,
-      Env<ClassSymbol, TypeBoundClass> env,
-      Set<ClassSymbol> all,
-      ClassSymbol sym) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-      SourceFile source,
-      Env<ClassSymbol, TypeBoundClass> env,
-      Set<ClassSymbol> all,
-      ClassSymbol sym) {
-    TypeBoundClass info = env.get(sym);
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-  }
-
-  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
-    return type.tyKind() == TyKind.CLASS_TY
-        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-  }
-
-  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
-    return type.tyKind() == TyKind.CLASS_TY
-        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-
-  private byte[] lower(
-      SourceTypeBoundClass info, ClassSymbol sym, Set<ClassSymbol> symbols, int majorVersion) {
-    int access = classAccess(info);
-    String name = sig.descriptor(sym);
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-   */
-  private ClassFile.InnerClass innerClass(
-      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol innerSym) {
-    TypeBoundClass inner = env.getNonNull(innerSym);
-    // this inner class is known to have an owner
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-   */
-  private ClassFile.InnerClass innerClass(
-      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol innerSym) {
-    TypeBoundClass inner = env.getNonNull(innerSym);
-    // this inner class is known to have an owner
-```
-
-### BoundedWildcard
-Can generalize to `? extends SourceTypeBoundClass`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-  public static Lowered lowerAll(
-      LanguageVersion languageVersion,
-      ImmutableMap<ClassSymbol, SourceTypeBoundClass> units,
-      ImmutableList<SourceModuleInfo> modules,
-      Env<ClassSymbol, BytecodeBoundClass> classpath) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SourceModuleInfo`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-      LanguageVersion languageVersion,
-      ImmutableMap<ClassSymbol, SourceTypeBoundClass> units,
-      ImmutableList<SourceModuleInfo> modules,
-      Env<ClassSymbol, BytecodeBoundClass> classpath) {
-    CompoundEnv<ClassSymbol, TypeBoundClass> env =
-```
-
-### BoundedWildcard
-Can generalize to `? extends BytecodeBoundClass`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-      ImmutableMap<ClassSymbol, SourceTypeBoundClass> units,
-      ImmutableList<SourceModuleInfo> modules,
-      Env<ClassSymbol, BytecodeBoundClass> classpath) {
-    CompoundEnv<ClassSymbol, TypeBoundClass> env =
-        CompoundEnv.<ClassSymbol, TypeBoundClass>of(classpath).append(new SimpleEnv<>(units));
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-  }
-
-  private byte[] lower(SourceModuleInfo module, Set<ClassSymbol> symbols, int majorVersion) {
-    String name = "module-info";
-    ImmutableList<AnnotationInfo> annotations = lowerAnnotations(module.annos());
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnoInfo`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-  }
-
-  private ImmutableList<AnnotationInfo> lowerAnnotations(ImmutableList<AnnoInfo> annotations) {
-    ImmutableList.Builder<AnnotationInfo> lowered = ImmutableList.builder();
-    for (AnnoInfo annotation : annotations) {
+  private void typeParameterAnnotations(
+      ImmutableList.Builder<TypeAnnotationInfo> result,
+      Iterable<TyVarInfo> typeParameters,
+      TargetType targetType,
+      TargetType boundTargetType) {
 ```
 
 ### BoundedWildcard
@@ -3499,6 +3427,42 @@ in `java/com/google/turbine/lower/Lower.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+  private void addEnclosing(
+      SourceFile source,
+      Env<ClassSymbol, TypeBoundClass> env,
+      Set<ClassSymbol> all,
+      ClassSymbol sym) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+  private void addEnclosing(
+      SourceFile source,
+      Env<ClassSymbol, TypeBoundClass> env,
+      Set<ClassSymbol> all,
+      ClassSymbol sym) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+      SourceFile source,
+      Env<ClassSymbol, TypeBoundClass> env,
+      Set<ClassSymbol> all,
+      ClassSymbol sym) {
+    TypeBoundClass info = env.get(sym);
+```
+
+### BoundedWildcard
 Can generalize to `? extends TyVarInfo`
 in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
@@ -3511,27 +3475,75 @@ in `java/com/google/turbine/lower/Lower.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TyVarInfo`
+Can generalize to `? super ClassSymbol`
 in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-  private void typeParameterAnnotations(
-      ImmutableList.Builder<TypeAnnotationInfo> result,
-      Iterable<TyVarInfo> typeParameters,
-      TargetType targetType,
-      TargetType boundTargetType) {
+
+  private byte[] lower(
+      SourceTypeBoundClass info, ClassSymbol sym, Set<ClassSymbol> symbols, int majorVersion) {
+    int access = classAccess(info);
+    String name = sig.descriptor(sym);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super S`
-in `java/com/google/turbine/binder/env/CompoundEnv.java`
+Can generalize to `? extends SourceTypeBoundClass`
+in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-  private final Env<S, ? extends V> env;
+  public static Lowered lowerAll(
+      LanguageVersion languageVersion,
+      ImmutableMap<ClassSymbol, SourceTypeBoundClass> units,
+      ImmutableList<SourceModuleInfo> modules,
+      Env<ClassSymbol, BytecodeBoundClass> classpath) {
+```
 
-  private CompoundEnv(@Nullable Env<S, ? extends V> base, Env<S, ? extends V> env) {
-    this.base = base;
-    this.env = requireNonNull(env);
+### BoundedWildcard
+Can generalize to `? extends SourceModuleInfo`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+      LanguageVersion languageVersion,
+      ImmutableMap<ClassSymbol, SourceTypeBoundClass> units,
+      ImmutableList<SourceModuleInfo> modules,
+      Env<ClassSymbol, BytecodeBoundClass> classpath) {
+    CompoundEnv<ClassSymbol, TypeBoundClass> env =
+```
+
+### BoundedWildcard
+Can generalize to `? extends BytecodeBoundClass`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+      ImmutableMap<ClassSymbol, SourceTypeBoundClass> units,
+      ImmutableList<SourceModuleInfo> modules,
+      Env<ClassSymbol, BytecodeBoundClass> classpath) {
+    CompoundEnv<ClassSymbol, TypeBoundClass> env =
+        CompoundEnv.<ClassSymbol, TypeBoundClass>of(classpath).append(new SimpleEnv<>(units));
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnoInfo`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+  }
+
+  private ImmutableList<AnnotationInfo> lowerAnnotations(ImmutableList<AnnoInfo> annotations) {
+    ImmutableList.Builder<AnnotationInfo> lowered = ImmutableList.builder();
+    for (AnnoInfo annotation : annotations) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Attribute`
+in `java/com/google/turbine/bytecode/ClassWriter.java`
+#### Snippet
+```java
+
+  private static void writeAttributes(
+      ConstantPool pool, ByteArrayDataOutput body, List<Attribute> attributes) {
+    body.writeShort(attributes.size());
+    for (Attribute attribute : attributes) {
 ```
 
 ### BoundedWildcard
@@ -3559,75 +3571,15 @@ in `java/com/google/turbine/processing/TurbineElements.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Attribute`
-in `java/com/google/turbine/bytecode/ClassWriter.java`
+Can generalize to `? super String`
+in `java/com/google/turbine/binder/JimageClassBinder.java`
 #### Snippet
 ```java
+  private final Map<ClassSymbol, BytecodeBoundClass> env = new HashMap<>();
 
-  private static void writeAttributes(
-      ConstantPool pool, ByteArrayDataOutput body, List<Attribute> attributes) {
-    body.writeShort(attributes.size());
-    for (Attribute attribute : attributes) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ImmutableList`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-  }
-
-  private Type extraDims(Type type, Deque<ImmutableList<Anno>> extra) {
-    if (extra.isEmpty()) {
-      return type;
-```
-
-### BoundedWildcard
-Can generalize to `? super Anno`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-  }
-
-  private EnumSet<TurbineModifier> modifiersAndAnnotations(ImmutableList.Builder<Anno> annos) {
-    EnumSet<TurbineModifier> access = EnumSet.noneOf(TurbineModifier.class);
-    while (true) {
-```
-
-### BoundedWildcard
-Can generalize to `? super VarDecl`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-
-  private void formalParams(
-      ImmutableList.Builder<VarDecl> builder, EnumSet<TurbineModifier> access) {
-    while (token != Token.RPAREN) {
-      VarDecl formal = formalParam();
-```
-
-### BoundedWildcard
-Can generalize to `? super TurbineModifier`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-
-  private void formalParams(
-      ImmutableList.Builder<VarDecl> builder, EnumSet<TurbineModifier> access) {
-    while (token != Token.RPAREN) {
-      VarDecl formal = formalParam();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Ident`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-  }
-
-  private static String flatname(char join, ImmutableList<Ident> idents) {
-    StringBuilder sb = new StringBuilder();
-    boolean first = true;
+  public JimageClassBinder(ImmutableMultimap<String, String> packageMap, Path modules) {
+    this.packageMap = packageMap;
+    this.modulesRoot = modules;
 ```
 
 ### BoundedWildcard
@@ -3652,6 +3604,30 @@ in `java/com/google/turbine/bytecode/LowerAttributes.java`
   static void addAllAnnotations(List<Attribute> attributes, List<AnnotationInfo> annotations) {
     List<AnnotationInfo> visible = new ArrayList<>();
     List<AnnotationInfo> invisible = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super Attribute`
+in `java/com/google/turbine/bytecode/LowerAttributes.java`
+#### Snippet
+```java
+
+  static void addParameterAnnotations(
+      List<Attribute> attributes, ImmutableList<ImmutableList<AnnotationInfo>> annotations) {
+    List<List<AnnotationInfo>> visibles = new ArrayList<>();
+    List<List<AnnotationInfo>> invisibles = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ImmutableList`
+in `java/com/google/turbine/bytecode/LowerAttributes.java`
+#### Snippet
+```java
+
+  static void addParameterAnnotations(
+      List<Attribute> attributes, ImmutableList<ImmutableList<AnnotationInfo>> annotations) {
+    List<List<AnnotationInfo>> visibles = new ArrayList<>();
+    List<List<AnnotationInfo>> invisibles = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -3679,42 +3655,6 @@ in `java/com/google/turbine/bytecode/LowerAttributes.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Attribute`
-in `java/com/google/turbine/bytecode/LowerAttributes.java`
-#### Snippet
-```java
-
-  static void addParameterAnnotations(
-      List<Attribute> attributes, ImmutableList<ImmutableList<AnnotationInfo>> annotations) {
-    List<List<AnnotationInfo>> visibles = new ArrayList<>();
-    List<List<AnnotationInfo>> invisibles = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ImmutableList`
-in `java/com/google/turbine/bytecode/LowerAttributes.java`
-#### Snippet
-```java
-
-  static void addParameterAnnotations(
-      List<Attribute> attributes, ImmutableList<ImmutableList<AnnotationInfo>> annotations) {
-    List<List<AnnotationInfo>> visibles = new ArrayList<>();
-    List<List<AnnotationInfo>> invisibles = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `java/com/google/turbine/binder/JimageClassBinder.java`
-#### Snippet
-```java
-  private final Map<ClassSymbol, BytecodeBoundClass> env = new HashMap<>();
-
-  public JimageClassBinder(ImmutableMultimap<String, String> packageMap, Path modules) {
-    this.packageMap = packageMap;
-    this.modulesRoot = modules;
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `java/com/google/turbine/processing/ModelFactory.java`
 #### Snippet
@@ -3727,15 +3667,63 @@ in `java/com/google/turbine/processing/ModelFactory.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `java/com/google/turbine/processing/TurbineProcessingEnvironment.java`
+Can generalize to `? super VarDecl`
+in `java/com/google/turbine/parse/Parser.java`
 #### Snippet
 ```java
-      SourceVersion sourceVersion,
-      @Nullable ClassLoader processorLoader,
-      Map<String, byte[]> statistics) {
-    this.filer = filer;
-    this.types = types;
+
+  private void formalParams(
+      ImmutableList.Builder<VarDecl> builder, EnumSet<TurbineModifier> access) {
+    while (token != Token.RPAREN) {
+      VarDecl formal = formalParam();
+```
+
+### BoundedWildcard
+Can generalize to `? super TurbineModifier`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+
+  private void formalParams(
+      ImmutableList.Builder<VarDecl> builder, EnumSet<TurbineModifier> access) {
+    while (token != Token.RPAREN) {
+      VarDecl formal = formalParam();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ImmutableList`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+  }
+
+  private Type extraDims(Type type, Deque<ImmutableList<Anno>> extra) {
+    if (extra.isEmpty()) {
+      return type;
+```
+
+### BoundedWildcard
+Can generalize to `? super Anno`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+  }
+
+  private EnumSet<TurbineModifier> modifiersAndAnnotations(ImmutableList.Builder<Anno> annos) {
+    EnumSet<TurbineModifier> access = EnumSet.noneOf(TurbineModifier.class);
+    while (true) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Ident`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+  }
+
+  private static String flatname(char join, ImmutableList<Ident> idents) {
+    StringBuilder sb = new StringBuilder();
+    boolean first = true;
 ```
 
 ### BoundedWildcard
@@ -3751,15 +3739,15 @@ in `java/com/google/turbine/binder/bytecode/BytecodeBinder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Tree.Ident`
-in `java/com/google/turbine/type/Type.java`
+Can generalize to `? super String`
+in `java/com/google/turbine/processing/TurbineProcessingEnvironment.java`
 #### Snippet
 ```java
-    }
-
-    public static ErrorTy create(Iterable<Tree.Ident> names) {
-      List<String> bits = new ArrayList<>();
-      for (Tree.Ident ident : names) {
+      SourceVersion sourceVersion,
+      @Nullable ClassLoader processorLoader,
+      Map<String, byte[]> statistics) {
+    this.filer = filer;
+    this.types = types;
 ```
 
 ### BoundedWildcard
@@ -3772,6 +3760,18 @@ in `java/com/google/turbine/type/Type.java`
     private static boolean hasTargs(ImmutableList<SimpleClassTy> classes, int idx) {
       for (; idx >= 0; idx--) {
         SimpleClassTy simple = classes.get(idx);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tree.Ident`
+in `java/com/google/turbine/type/Type.java`
+#### Snippet
+```java
+    }
+
+    public static ErrorTy create(Iterable<Tree.Ident> names) {
+      List<String> bits = new ArrayList<>();
+      for (Tree.Ident ident : names) {
 ```
 
 ### BoundedWildcard
@@ -3811,18 +3811,6 @@ in `java/com/google/turbine/deps/Transitive.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ParamInfo`
-in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
-#### Snippet
-```java
-    }
-
-    private static ImmutableList<Type> asTypes(ImmutableList<ParamInfo> parameters) {
-      ImmutableList.Builder<Type> result = ImmutableList.builder();
-      for (ParamInfo param : parameters) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends AnnoInfo`
 in `java/com/google/turbine/deps/Dependencies.java`
 #### Snippet
@@ -3835,6 +3823,18 @@ in `java/com/google/turbine/deps/Dependencies.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ParamInfo`
+in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
+#### Snippet
+```java
+    }
+
+    private static ImmutableList<Type> asTypes(ImmutableList<ParamInfo> parameters) {
+      ImmutableList.Builder<Type> result = ImmutableList.builder();
+      for (ParamInfo param : parameters) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Type`
 in `java/com/google/turbine/types/Erasure.java`
 #### Snippet
@@ -3844,6 +3844,54 @@ in `java/com/google/turbine/types/Erasure.java`
       ImmutableList<Type> types, Function<TyVarSymbol, TyVarInfo> tenv) {
     ImmutableList.Builder<Type> result = ImmutableList.builder();
     for (Type type : types) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/binder/Processing.java`
+#### Snippet
+```java
+
+  private static boolean isAnnotationInherited(
+      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol sym) {
+    TypeBoundClass annoInfo = env.get(sym);
+    if (annoInfo == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/binder/Processing.java`
+#### Snippet
+```java
+
+  private static boolean isAnnotationInherited(
+      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol sym) {
+    TypeBoundClass annoInfo = env.get(sym);
+    if (annoInfo == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassSymbol`
+in `java/com/google/turbine/binder/Processing.java`
+#### Snippet
+```java
+  /** Returns a map from annotations present in the compilation to the annotated elements. */
+  private static ImmutableSetMultimap<ClassSymbol, Symbol> getAllAnnotations(
+      Env<ClassSymbol, TypeBoundClass> env, Iterable<ClassSymbol> syms) {
+    ImmutableSetMultimap.Builder<ClassSymbol, Symbol> result = ImmutableSetMultimap.builder();
+    for (ClassSymbol sym : syms) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompUnit`
+in `java/com/google/turbine/binder/Processing.java`
+#### Snippet
+```java
+  static @Nullable BindingResult process(
+      TurbineLog log,
+      final ImmutableList<CompUnit> initialSources,
+      final ClassPath classpath,
+      ProcessorInfo processorInfo,
 ```
 
 ### BoundedWildcard
@@ -3871,42 +3919,6 @@ in `java/com/google/turbine/binder/Processing.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CompUnit`
-in `java/com/google/turbine/binder/Processing.java`
-#### Snippet
-```java
-  static @Nullable BindingResult process(
-      TurbineLog log,
-      final ImmutableList<CompUnit> initialSources,
-      final ClassPath classpath,
-      ProcessorInfo processorInfo,
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/binder/Processing.java`
-#### Snippet
-```java
-
-  private static boolean isAnnotationInherited(
-      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol sym) {
-    TypeBoundClass annoInfo = env.get(sym);
-    if (annoInfo == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/binder/Processing.java`
-#### Snippet
-```java
-
-  private static boolean isAnnotationInherited(
-      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol sym) {
-    TypeBoundClass annoInfo = env.get(sym);
-    if (annoInfo == null) {
-```
-
-### BoundedWildcard
 Can generalize to `? super ClassSymbol`
 in `java/com/google/turbine/binder/Processing.java`
 #### Snippet
@@ -3919,15 +3931,27 @@ in `java/com/google/turbine/binder/Processing.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassSymbol`
-in `java/com/google/turbine/binder/Processing.java`
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/types/Canonicalize.java`
 #### Snippet
 ```java
-  /** Returns a map from annotations present in the compilation to the annotated elements. */
-  private static ImmutableSetMultimap<ClassSymbol, Symbol> getAllAnnotations(
-      Env<ClassSymbol, TypeBoundClass> env, Iterable<ClassSymbol> syms) {
-    ImmutableSetMultimap.Builder<ClassSymbol, Symbol> result = ImmutableSetMultimap.builder();
-    for (ClassSymbol sym : syms) {
+  private final Env<ClassSymbol, TypeBoundClass> env;
+
+  public Canonicalize(SourceFile source, int position, Env<ClassSymbol, TypeBoundClass> env) {
+    this.source = source;
+    this.position = position;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeBoundClass`
+in `java/com/google/turbine/types/Canonicalize.java`
+#### Snippet
+```java
+  private final Env<ClassSymbol, TypeBoundClass> env;
+
+  public Canonicalize(SourceFile source, int position, Env<ClassSymbol, TypeBoundClass> env) {
+    this.source = source;
+    this.position = position;
 ```
 
 ### BoundedWildcard
@@ -3967,27 +3991,15 @@ in `java/com/google/turbine/types/Canonicalize.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/types/Canonicalize.java`
+Can generalize to `? extends AnnoInfo`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
-  private final Env<ClassSymbol, TypeBoundClass> env;
+  }
 
-  public Canonicalize(SourceFile source, int position, Env<ClassSymbol, TypeBoundClass> env) {
-    this.source = source;
-    this.position = position;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeBoundClass`
-in `java/com/google/turbine/types/Canonicalize.java`
-#### Snippet
-```java
-  private final Env<ClassSymbol, TypeBoundClass> env;
-
-  public Canonicalize(SourceFile source, int position, Env<ClassSymbol, TypeBoundClass> env) {
-    this.source = source;
-    this.position = position;
+  ImmutableList<AnnoInfo> evaluateAnnotations(ImmutableList<AnnoInfo> annotations) {
+    ImmutableList.Builder<AnnoInfo> result = ImmutableList.builder();
+    for (AnnoInfo annotation : annotations) {
 ```
 
 ### BoundedWildcard
@@ -4012,138 +4024,6 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
       Env<FieldSymbol, Value> values,
       CompoundEnv<ClassSymbol, TypeBoundClass> env,
       TurbineLogWithSource log) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnoInfo`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  }
-
-  ImmutableList<AnnoInfo> evaluateAnnotations(ImmutableList<AnnoInfo> annotations) {
-    ImmutableList.Builder<AnnoInfo> result = ImmutableList.builder();
-    for (AnnoInfo annotation : annotations) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassSymbol`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-
-  private static Env<ClassSymbol, SourceTypeBoundClass> canonicalizeTypes(
-      ImmutableSet<ClassSymbol> syms,
-      Env<ClassSymbol, SourceTypeBoundClass> stenv,
-      Env<ClassSymbol, TypeBoundClass> tenv) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-  private static Env<ClassSymbol, SourceTypeBoundClass> canonicalizeTypes(
-      ImmutableSet<ClassSymbol> syms,
-      Env<ClassSymbol, SourceTypeBoundClass> stenv,
-      Env<ClassSymbol, TypeBoundClass> tenv) {
-    SimpleEnv.Builder<ClassSymbol, SourceTypeBoundClass> builder = SimpleEnv.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SourceTypeBoundClass`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-  private static Env<ClassSymbol, SourceTypeBoundClass> canonicalizeTypes(
-      ImmutableSet<ClassSymbol> syms,
-      Env<ClassSymbol, SourceTypeBoundClass> stenv,
-      Env<ClassSymbol, TypeBoundClass> tenv) {
-    SimpleEnv.Builder<ClassSymbol, SourceTypeBoundClass> builder = SimpleEnv.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassSymbol`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-  private static Env<ClassSymbol, SourceTypeBoundClass> bindTypes(
-      TurbineLog log,
-      ImmutableSet<ClassSymbol> syms,
-      Env<ClassSymbol, SourceHeaderBoundClass> shenv,
-      Env<ClassSymbol, HeaderBoundClass> henv) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassSymbol`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-      TurbineLog log,
-      ImmutableSet<ClassSymbol> syms,
-      Env<ClassSymbol, SourceHeaderBoundClass> shenv,
-      Env<ClassSymbol, HeaderBoundClass> henv) {
-    SimpleEnv.Builder<ClassSymbol, SourceTypeBoundClass> builder = SimpleEnv.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SourceHeaderBoundClass`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-      TurbineLog log,
-      ImmutableSet<ClassSymbol> syms,
-      Env<ClassSymbol, SourceHeaderBoundClass> shenv,
-      Env<ClassSymbol, HeaderBoundClass> henv) {
-    SimpleEnv.Builder<ClassSymbol, SourceTypeBoundClass> builder = SimpleEnv.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends PreprocessedCompUnit`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-  /** Records enclosing declarations of member classes, and group classes by compilation unit. */
-  static SimpleEnv<ClassSymbol, SourceBoundClass> bindSourceBoundClasses(
-      ImmutableList<PreprocessedCompUnit> units) {
-    SimpleEnv.Builder<ClassSymbol, SourceBoundClass> envBuilder = SimpleEnv.builder();
-    for (PreprocessedCompUnit unit : units) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SourceBoundClass`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-  private static BindPackagesResult bindPackages(
-      TurbineLog log,
-      Env<ClassSymbol, SourceBoundClass> ienv,
-      TopLevelIndex tli,
-      ImmutableList<PreprocessedCompUnit> units,
-```
-
-### BoundedWildcard
-Can generalize to `? extends PreprocessedCompUnit`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-      Env<ClassSymbol, SourceBoundClass> ienv,
-      TopLevelIndex tli,
-      ImmutableList<PreprocessedCompUnit> units,
-      CompoundEnv<ClassSymbol, BytecodeBoundClass> classPathEnv) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends BytecodeBoundClass`
-in `java/com/google/turbine/binder/Binder.java`
-#### Snippet
-```java
-      TopLevelIndex tli,
-      ImmutableList<PreprocessedCompUnit> units,
-      CompoundEnv<ClassSymbol, BytecodeBoundClass> classPathEnv) {
-
-    SimpleEnv.Builder<ClassSymbol, PackageSourceBoundClass> env = SimpleEnv.builder();
 ```
 
 ### BoundedWildcard
@@ -4211,6 +4091,42 @@ Can generalize to `? extends ClassSymbol`
 in `java/com/google/turbine/binder/Binder.java`
 #### Snippet
 ```java
+
+  private static Env<ClassSymbol, SourceTypeBoundClass> canonicalizeTypes(
+      ImmutableSet<ClassSymbol> syms,
+      Env<ClassSymbol, SourceTypeBoundClass> stenv,
+      Env<ClassSymbol, TypeBoundClass> tenv) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+  private static Env<ClassSymbol, SourceTypeBoundClass> canonicalizeTypes(
+      ImmutableSet<ClassSymbol> syms,
+      Env<ClassSymbol, SourceTypeBoundClass> stenv,
+      Env<ClassSymbol, TypeBoundClass> tenv) {
+    SimpleEnv.Builder<ClassSymbol, SourceTypeBoundClass> builder = SimpleEnv.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SourceTypeBoundClass`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+  private static Env<ClassSymbol, SourceTypeBoundClass> canonicalizeTypes(
+      ImmutableSet<ClassSymbol> syms,
+      Env<ClassSymbol, SourceTypeBoundClass> stenv,
+      Env<ClassSymbol, TypeBoundClass> tenv) {
+    SimpleEnv.Builder<ClassSymbol, SourceTypeBoundClass> builder = SimpleEnv.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassSymbol`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
    */
   private static Env<ClassSymbol, SourceTypeBoundClass> disambiguateTypeAnnotations(
       ImmutableSet<ClassSymbol> syms,
@@ -4252,6 +4168,18 @@ in `java/com/google/turbine/binder/Binder.java`
                 Env<ClassSymbol, HeaderBoundClass> henv, ClassSymbol sym) {
               PackageSourceBoundClass base = psenv.getNonNull(sym);
               return HierarchyBinder.bind(log.withSource(base.source()), sym, base, henv);
+```
+
+### BoundedWildcard
+Can generalize to `? extends PreprocessedCompUnit`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+  /** Records enclosing declarations of member classes, and group classes by compilation unit. */
+  static SimpleEnv<ClassSymbol, SourceBoundClass> bindSourceBoundClasses(
+      ImmutableList<PreprocessedCompUnit> units) {
+    SimpleEnv.Builder<ClassSymbol, SourceBoundClass> envBuilder = SimpleEnv.builder();
+    for (PreprocessedCompUnit unit : units) {
 ```
 
 ### BoundedWildcard
@@ -4300,6 +4228,78 @@ in `java/com/google/turbine/binder/Binder.java`
       CompoundEnv<ClassSymbol, BytecodeBoundClass> classPathEnv) {
     ImmutableMap.Builder<
             ClassSymbol, LazyEnv.Completer<ClassSymbol, HeaderBoundClass, SourceHeaderBoundClass>>
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassSymbol`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+  private static Env<ClassSymbol, SourceTypeBoundClass> bindTypes(
+      TurbineLog log,
+      ImmutableSet<ClassSymbol> syms,
+      Env<ClassSymbol, SourceHeaderBoundClass> shenv,
+      Env<ClassSymbol, HeaderBoundClass> henv) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassSymbol`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+      TurbineLog log,
+      ImmutableSet<ClassSymbol> syms,
+      Env<ClassSymbol, SourceHeaderBoundClass> shenv,
+      Env<ClassSymbol, HeaderBoundClass> henv) {
+    SimpleEnv.Builder<ClassSymbol, SourceTypeBoundClass> builder = SimpleEnv.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SourceHeaderBoundClass`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+      TurbineLog log,
+      ImmutableSet<ClassSymbol> syms,
+      Env<ClassSymbol, SourceHeaderBoundClass> shenv,
+      Env<ClassSymbol, HeaderBoundClass> henv) {
+    SimpleEnv.Builder<ClassSymbol, SourceTypeBoundClass> builder = SimpleEnv.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SourceBoundClass`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+  private static BindPackagesResult bindPackages(
+      TurbineLog log,
+      Env<ClassSymbol, SourceBoundClass> ienv,
+      TopLevelIndex tli,
+      ImmutableList<PreprocessedCompUnit> units,
+```
+
+### BoundedWildcard
+Can generalize to `? extends PreprocessedCompUnit`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+      Env<ClassSymbol, SourceBoundClass> ienv,
+      TopLevelIndex tli,
+      ImmutableList<PreprocessedCompUnit> units,
+      CompoundEnv<ClassSymbol, BytecodeBoundClass> classPathEnv) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends BytecodeBoundClass`
+in `java/com/google/turbine/binder/Binder.java`
+#### Snippet
+```java
+      TopLevelIndex tli,
+      ImmutableList<PreprocessedCompUnit> units,
+      CompoundEnv<ClassSymbol, BytecodeBoundClass> classPathEnv) {
+
+    SimpleEnv.Builder<ClassSymbol, PackageSourceBoundClass> env = SimpleEnv.builder();
 ```
 
 ## RuleId[ruleID=NullableProblems]
@@ -4357,18 +4357,6 @@ in `java/com/google/turbine/binder/bound/SourceTypeBoundClass.java`
 #### Snippet
 ```java
 
-  private final ImmutableMap<TyVarSymbol, TyVarInfo> typeParameterTypes;
-  private final @Nullable Type superClassType;
-  private final ImmutableList<Type> interfaceTypes;
-  private final ImmutableList<ClassSymbol> permits;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/binder/bound/SourceTypeBoundClass.java`
-#### Snippet
-```java
-
   private final TurbineTyKind kind;
   private final @Nullable ClassSymbol owner;
   private final ImmutableMap<String, ClassSymbol> children;
@@ -4385,6 +4373,18 @@ in `java/com/google/turbine/binder/bound/SourceTypeBoundClass.java`
   private final @Nullable AnnotationMetadata annotationMetadata;
   private final ImmutableList<AnnoInfo> annotations;
   private final Tree.TyDecl decl;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/binder/bound/SourceTypeBoundClass.java`
+#### Snippet
+```java
+
+  private final ImmutableMap<TyVarSymbol, TyVarInfo> typeParameterTypes;
+  private final @Nullable Type superClassType;
+  private final ImmutableList<Type> interfaceTypes;
+  private final ImmutableList<ClassSymbol> permits;
 ```
 
 ### NullableProblems
@@ -4416,11 +4416,11 @@ Non-null type argument is expected
 in `java/com/google/turbine/processing/ClassHierarchy.java`
 #### Snippet
 ```java
-
-  private final Map<ClassSymbol, HierarchyNode> cache = new HashMap<>();
   private Env<ClassSymbol, ? extends TypeBoundClass> env;
 
   ClassHierarchy(Env<ClassSymbol, ? extends TypeBoundClass> env) {
+    this.env = env;
+  }
 ```
 
 ### NullableProblems
@@ -4428,11 +4428,11 @@ Non-null type argument is expected
 in `java/com/google/turbine/processing/ClassHierarchy.java`
 #### Snippet
 ```java
+
+  private final Map<ClassSymbol, HierarchyNode> cache = new HashMap<>();
   private Env<ClassSymbol, ? extends TypeBoundClass> env;
 
   ClassHierarchy(Env<ClassSymbol, ? extends TypeBoundClass> env) {
-    this.env = env;
-  }
 ```
 
 ### NullableProblems
@@ -4488,18 +4488,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `java/com/google/turbine/tree/Tree.java`
 #### Snippet
 ```java
-    private final ImmutableList<VarDecl> components;
-    private final TurbineTyKind tykind;
-    private final @Nullable String javadoc;
-
-    public TyDecl(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
     private final Ident name;
     private final Optional<Expression> init;
     private final @Nullable String javadoc;
@@ -4508,15 +4496,27 @@ in `java/com/google/turbine/tree/Tree.java`
 ```
 
 ### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+    private final ImmutableList<VarDecl> components;
+    private final TurbineTyKind tykind;
+    private final @Nullable String javadoc;
+
+    public TyDecl(
+```
+
+### NullableProblems
 Non-null type argument is expected
 in `java/com/google/turbine/lower/LowerSignature.java`
 #### Snippet
 ```java
-  }
 
-  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
-    return type.tyKind() == TyKind.CLASS_TY
-        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
+  private Sig.TyParamSig tyParamSig(
+      TyVarSymbol sym, TyVarInfo info, Env<ClassSymbol, TypeBoundClass> env) {
+
+    String identifier = sym.name();
 ```
 
 ### NullableProblems
@@ -4529,6 +4529,30 @@ in `java/com/google/turbine/lower/LowerSignature.java`
       SourceTypeBoundClass info, Env<ClassSymbol, TypeBoundClass> env) {
     if (!classNeedsSig(info)) {
       return null;
+```
+
+### NullableProblems
+Non-null type argument is expected
+in `java/com/google/turbine/lower/LowerSignature.java`
+#### Snippet
+```java
+
+  private ImmutableList<Sig.TyParamSig> tyParamSig(
+      Map<TyVarSymbol, TyVarInfo> px, Env<ClassSymbol, TypeBoundClass> env) {
+    ImmutableList.Builder<Sig.TyParamSig> result = ImmutableList.builder();
+    for (Map.Entry<TyVarSymbol, TyVarInfo> entry : px.entrySet()) {
+```
+
+### NullableProblems
+Non-null type argument is expected
+in `java/com/google/turbine/lower/LowerSignature.java`
+#### Snippet
+```java
+  }
+
+  private boolean isInterface(Type type, Env<ClassSymbol, TypeBoundClass> env) {
+    return type.tyKind() == TyKind.CLASS_TY
+        && env.getNonNull(((ClassTy) type).sym()).kind() == TurbineTyKind.INTERFACE;
 ```
 
 ### NullableProblems
@@ -4549,34 +4573,22 @@ in `java/com/google/turbine/lower/LowerSignature.java`
 #### Snippet
 ```java
 
-  private Sig.TyParamSig tyParamSig(
-      TyVarSymbol sym, TyVarInfo info, Env<ClassSymbol, TypeBoundClass> env) {
-
-    String identifier = sym.name();
-```
-
-### NullableProblems
-Non-null type argument is expected
-in `java/com/google/turbine/lower/LowerSignature.java`
-#### Snippet
-```java
-
-  private ImmutableList<Sig.TyParamSig> tyParamSig(
-      Map<TyVarSymbol, TyVarInfo> px, Env<ClassSymbol, TypeBoundClass> env) {
-    ImmutableList.Builder<Sig.TyParamSig> result = ImmutableList.builder();
-    for (Map.Entry<TyVarSymbol, TyVarInfo> entry : px.entrySet()) {
-```
-
-### NullableProblems
-Non-null type argument is expected
-in `java/com/google/turbine/lower/LowerSignature.java`
-#### Snippet
-```java
-
   private boolean needsMethodSig(
       ClassSymbol sym, Env<ClassSymbol, TypeBoundClass> env, TypeBoundClass.MethodInfo m) {
     if ((env.getNonNull(sym).access() & TurbineFlag.ACC_ENUM) == TurbineFlag.ACC_ENUM
         && m.name().equals("<init>")) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassReader.java`
+#### Snippet
+```java
+  }
+
+  private final @Nullable String path;
+  private final ByteReader reader;
+
 ```
 
 ### NullableProblems
@@ -4593,13 +4605,13 @@ in `java/com/google/turbine/bytecode/sig/Sig.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassReader.java`
+in `java/com/google/turbine/binder/env/CompoundEnv.java`
 #### Snippet
 ```java
-  }
+public class CompoundEnv<S extends Symbol, V> implements Env<S, V> {
 
-  private final @Nullable String path;
-  private final ByteReader reader;
+  private final @Nullable Env<S, ? extends V> base;
+  private final Env<S, ? extends V> env;
 
 ```
 
@@ -4608,23 +4620,11 @@ Non-null type argument is expected
 in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-  private void addEnclosing(
-      SourceFile source,
-      Env<ClassSymbol, TypeBoundClass> env,
-      Set<ClassSymbol> all,
-      ClassSymbol sym) {
-```
-
-### NullableProblems
-Non-null type argument is expected
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-  private final Env<ClassSymbol, TypeBoundClass> env;
-
-  public Lower(Env<ClassSymbol, TypeBoundClass> env) {
-    this.env = env;
-  }
+   */
+  private ClassFile.InnerClass innerClass(
+      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol innerSym) {
+    TypeBoundClass inner = env.getNonNull(innerSym);
+    // this inner class is known to have an owner
 ```
 
 ### NullableProblems
@@ -4644,11 +4644,47 @@ Non-null type argument is expected
 in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-   */
-  private ClassFile.InnerClass innerClass(
-      Env<ClassSymbol, TypeBoundClass> env, ClassSymbol innerSym) {
-    TypeBoundClass inner = env.getNonNull(innerSym);
-    // this inner class is known to have an owner
+
+  private final LowerSignature sig = new LowerSignature();
+  private final Env<ClassSymbol, TypeBoundClass> env;
+
+  public Lower(Env<ClassSymbol, TypeBoundClass> env) {
+```
+
+### NullableProblems
+Non-null type argument is expected
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+  private static void addNestMembers(
+      SourceFile source,
+      Env<ClassSymbol, TypeBoundClass> env,
+      Set<ClassSymbol> nestMembers,
+      ClassSymbol sym) {
+```
+
+### NullableProblems
+Non-null type argument is expected
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+  private void addEnclosing(
+      SourceFile source,
+      Env<ClassSymbol, TypeBoundClass> env,
+      Set<ClassSymbol> all,
+      ClassSymbol sym) {
+```
+
+### NullableProblems
+Non-null type argument is expected
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+  private static byte[] lower(
+      SourceModuleInfo module,
+      CompoundEnv<ClassSymbol, TypeBoundClass> env,
+      Set<ClassSymbol> symbols,
+      int majorVersion) {
 ```
 
 ### NullableProblems
@@ -4680,18 +4716,6 @@ Non-null type argument is expected
 in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-  private static byte[] lower(
-      SourceModuleInfo module,
-      CompoundEnv<ClassSymbol, TypeBoundClass> env,
-      Set<ClassSymbol> symbols,
-      int majorVersion) {
-```
-
-### NullableProblems
-Non-null type argument is expected
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
   public static byte[] lower(
       SourceTypeBoundClass info,
       Env<ClassSymbol, TypeBoundClass> env,
@@ -4704,35 +4728,11 @@ Non-null type argument is expected
 in `java/com/google/turbine/lower/Lower.java`
 #### Snippet
 ```java
-  private static void addNestMembers(
-      SourceFile source,
-      Env<ClassSymbol, TypeBoundClass> env,
-      Set<ClassSymbol> nestMembers,
-      ClassSymbol sym) {
-```
-
-### NullableProblems
-Non-null type argument is expected
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-
-  private final LowerSignature sig = new LowerSignature();
   private final Env<ClassSymbol, TypeBoundClass> env;
 
   public Lower(Env<ClassSymbol, TypeBoundClass> env) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/binder/env/CompoundEnv.java`
-#### Snippet
-```java
-public class CompoundEnv<S extends Symbol, V> implements Env<S, V> {
-
-  private final @Nullable Env<S, ? extends V> base;
-  private final Env<S, ? extends V> env;
-
+    this.env = env;
+  }
 ```
 
 ### NullableProblems
@@ -4773,6 +4773,18 @@ public class ModelFactory {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/diag/TurbineDiagnostic.java`
+#### Snippet
+```java
+  private final ErrorKind kind;
+  private final ImmutableList<Object> args;
+  private final @Nullable SourceFile source;
+  private final int position;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
 in `java/com/google/turbine/binder/lookup/CompoundScope.java`
 #### Snippet
 ```java
@@ -4796,15 +4808,15 @@ in `java/com/google/turbine/binder/ClassPath.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/diag/TurbineDiagnostic.java`
+Non-null type argument is expected
+in `java/com/google/turbine/deps/Transitive.java`
 #### Snippet
 ```java
-  private final ErrorKind kind;
-  private final ImmutableList<Object> args;
-  private final @Nullable SourceFile source;
-  private final int position;
 
+  private static void addSuperTypes(
+      Set<ClassSymbol> closure, Env<ClassSymbol, TypeBoundClass> env, ClassSymbol sym) {
+    if (!closure.add(sym)) {
+      return;
 ```
 
 ### NullableProblems
@@ -4821,7 +4833,7 @@ in `java/com/google/turbine/deps/Transitive.java`
 
 ### NullableProblems
 Non-null type argument is expected
-in `java/com/google/turbine/deps/Transitive.java`
+in `java/com/google/turbine/deps/Dependencies.java`
 #### Snippet
 ```java
 
@@ -4829,78 +4841,6 @@ in `java/com/google/turbine/deps/Transitive.java`
       Set<ClassSymbol> closure, Env<ClassSymbol, TypeBoundClass> env, ClassSymbol sym) {
     if (!closure.add(sym)) {
       return;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
-#### Snippet
-```java
-  class TyVarInfo {
-    private final IntersectionTy upperBound;
-    private final @Nullable Type lowerBound;
-    private final ImmutableList<AnnoInfo> annotations;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
-#### Snippet
-```java
-    private final ImmutableList<AnnoInfo> annotations;
-
-    private final Tree.@Nullable VarDecl decl;
-    private final Const.@Nullable Value value;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
-#### Snippet
-```java
-    private final ImmutableList<Type> exceptions;
-    private final int access;
-    private final @Nullable Const defaultValue;
-    private final @Nullable MethDecl decl;
-    private final ImmutableList<AnnoInfo> annotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
-#### Snippet
-```java
-    private final int access;
-    private final @Nullable Const defaultValue;
-    private final @Nullable MethDecl decl;
-    private final ImmutableList<AnnoInfo> annotations;
-    private final @Nullable ParamInfo receiver;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
-#### Snippet
-```java
-    private final @Nullable MethDecl decl;
-    private final ImmutableList<AnnoInfo> annotations;
-    private final @Nullable ParamInfo receiver;
-
-    public MethodInfo(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
-#### Snippet
-```java
-
-    private final Tree.@Nullable VarDecl decl;
-    private final Const.@Nullable Value value;
-
-    public FieldInfo(
 ```
 
 ### NullableProblems
@@ -4928,27 +4868,75 @@ in `java/com/google/turbine/deps/Dependencies.java`
 ```
 
 ### NullableProblems
-Non-null type argument is expected
-in `java/com/google/turbine/deps/Dependencies.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
 #### Snippet
 ```java
-
-  private static void addSuperTypes(
-      Set<ClassSymbol> closure, Env<ClassSymbol, TypeBoundClass> env, ClassSymbol sym) {
-    if (!closure.add(sym)) {
-      return;
+    private final int access;
+    private final @Nullable Const defaultValue;
+    private final @Nullable MethDecl decl;
+    private final ImmutableList<AnnoInfo> annotations;
+    private final @Nullable ParamInfo receiver;
 ```
 
 ### NullableProblems
-Non-null type argument is expected
-in `java/com/google/turbine/types/Canonicalize.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
 #### Snippet
 ```java
-      SourceFile source,
-      int position,
-      Env<ClassSymbol, TypeBoundClass> env,
-      ClassSymbol sym,
-      Type type) {
+  class TyVarInfo {
+    private final IntersectionTy upperBound;
+    private final @Nullable Type lowerBound;
+    private final ImmutableList<AnnoInfo> annotations;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
+#### Snippet
+```java
+    private final @Nullable MethDecl decl;
+    private final ImmutableList<AnnoInfo> annotations;
+    private final @Nullable ParamInfo receiver;
+
+    public MethodInfo(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
+#### Snippet
+```java
+    private final ImmutableList<Type> exceptions;
+    private final int access;
+    private final @Nullable Const defaultValue;
+    private final @Nullable MethDecl decl;
+    private final ImmutableList<AnnoInfo> annotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
+#### Snippet
+```java
+    private final ImmutableList<AnnoInfo> annotations;
+
+    private final Tree.@Nullable VarDecl decl;
+    private final Const.@Nullable Value value;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/binder/bound/TypeBoundClass.java`
+#### Snippet
+```java
+
+    private final Tree.@Nullable VarDecl decl;
+    private final Const.@Nullable Value value;
+
+    public FieldInfo(
 ```
 
 ### NullableProblems
@@ -4968,11 +4956,11 @@ Non-null type argument is expected
 in `java/com/google/turbine/types/Canonicalize.java`
 #### Snippet
 ```java
-  private final SourceFile source;
-  private final int position;
   private final Env<ClassSymbol, TypeBoundClass> env;
 
   public Canonicalize(SourceFile source, int position, Env<ClassSymbol, TypeBoundClass> env) {
+    this.source = source;
+    this.position = position;
 ```
 
 ### NullableProblems
@@ -4980,11 +4968,23 @@ Non-null type argument is expected
 in `java/com/google/turbine/types/Canonicalize.java`
 #### Snippet
 ```java
+      SourceFile source,
+      int position,
+      Env<ClassSymbol, TypeBoundClass> env,
+      ClassSymbol sym,
+      Type type) {
+```
+
+### NullableProblems
+Non-null type argument is expected
+in `java/com/google/turbine/types/Canonicalize.java`
+#### Snippet
+```java
+  private final SourceFile source;
+  private final int position;
   private final Env<ClassSymbol, TypeBoundClass> env;
 
   public Canonicalize(SourceFile source, int position, Env<ClassSymbol, TypeBoundClass> env) {
-    this.source = source;
-    this.position = position;
 ```
 
 ### NullableProblems
@@ -5016,11 +5016,143 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `java/com/google/turbine/bytecode/ClassFile.java`
 #### Snippet
 ```java
+
+    private final String name;
+    private final @Nullable String version;
+    private final int flags;
+    private final ImmutableList<RequireInfo> requires;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+      }
+
+      private final @Nullable TypePath parent;
+      private final TypePath.@Nullable Kind kind;
+      private final int index;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+      private final String name;
+      private final String descriptor;
+      private final @Nullable String signature;
+      private final ImmutableList<AnnotationInfo> annotations;
+      private final ImmutableList<TypeAnnotationInfo> typeAnnotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+  private final ImmutableList<TypeAnnotationInfo> typeAnnotations;
+  private final @Nullable ModuleInfo module;
+  private final @Nullable String nestHost;
+  private final ImmutableList<String> nestMembers;
+  private final @Nullable RecordInfo record;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+  private final String name;
+  private final @Nullable String signature;
+  private final @Nullable String superClass;
+  private final List<String> interfaces;
+  private final List<String> permits;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+    private final String descriptor;
+    private final @Nullable String signature;
+    private final @Nullable Value value;
+    private final List<AnnotationInfo> annotations;
+    private final ImmutableList<TypeAnnotationInfo> typeAnnotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+
+      private final @Nullable TypePath parent;
+      private final TypePath.@Nullable Kind kind;
+      private final int index;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+    private final String name;
+    private final String descriptor;
+    private final @Nullable String signature;
+    private final List<String> exceptions;
+    private final AnnotationInfo.@Nullable ElementValue defaultValue;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+  private final int majorVersion;
+  private final String name;
+  private final @Nullable String signature;
+  private final @Nullable String superClass;
+  private final List<String> interfaces;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
     private final @Nullable String signature;
     private final List<String> exceptions;
     private final AnnotationInfo.@Nullable ElementValue defaultValue;
     private final List<AnnotationInfo> annotations;
     private final ImmutableList<ImmutableList<AnnotationInfo>> parameterAnnotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+  private final @Nullable String nestHost;
+  private final ImmutableList<String> nestMembers;
+  private final @Nullable RecordInfo record;
+  private final @Nullable String transitiveJar;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
+in `java/com/google/turbine/bytecode/ClassFile.java`
+#### Snippet
+```java
+      private final String moduleName;
+      private final int flags;
+      private final @Nullable String version;
+
+      public RequireInfo(String moduleName, int flags, @Nullable String version) {
 ```
 
 ### NullableProblems
@@ -5043,44 +5175,8 @@ in `java/com/google/turbine/bytecode/ClassFile.java`
     private final String name;
     private final String descriptor;
     private final @Nullable String signature;
-    private final List<String> exceptions;
-    private final AnnotationInfo.@Nullable ElementValue defaultValue;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-      private final String moduleName;
-      private final int flags;
-      private final @Nullable String version;
-
-      public RequireInfo(String moduleName, int flags, @Nullable String version) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-
-      private final @Nullable TypePath parent;
-      private final TypePath.@Nullable Kind kind;
-      private final int index;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-
-    private final String name;
-    private final @Nullable String version;
-    private final int flags;
-    private final ImmutableList<RequireInfo> requires;
+    private final @Nullable Value value;
+    private final List<AnnotationInfo> annotations;
 ```
 
 ### NullableProblems
@@ -5093,102 +5189,6 @@ in `java/com/google/turbine/bytecode/ClassFile.java`
   private final @Nullable ModuleInfo module;
   private final @Nullable String nestHost;
   private final ImmutableList<String> nestMembers;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-  private final String name;
-  private final @Nullable String signature;
-  private final @Nullable String superClass;
-  private final List<String> interfaces;
-  private final List<String> permits;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-  private final int majorVersion;
-  private final String name;
-  private final @Nullable String signature;
-  private final @Nullable String superClass;
-  private final List<String> interfaces;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-      }
-
-      private final @Nullable TypePath parent;
-      private final TypePath.@Nullable Kind kind;
-      private final int index;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-  private final @Nullable String nestHost;
-  private final ImmutableList<String> nestMembers;
-  private final @Nullable RecordInfo record;
-  private final @Nullable String transitiveJar;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-  private final ImmutableList<TypeAnnotationInfo> typeAnnotations;
-  private final @Nullable ModuleInfo module;
-  private final @Nullable String nestHost;
-  private final ImmutableList<String> nestMembers;
-  private final @Nullable RecordInfo record;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-      private final String name;
-      private final String descriptor;
-      private final @Nullable String signature;
-      private final ImmutableList<AnnotationInfo> annotations;
-      private final ImmutableList<TypeAnnotationInfo> typeAnnotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-    private final String descriptor;
-    private final @Nullable String signature;
-    private final @Nullable Value value;
-    private final List<AnnotationInfo> annotations;
-    private final ImmutableList<TypeAnnotationInfo> typeAnnotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.jspecify.nullness.Nullable'
-in `java/com/google/turbine/bytecode/ClassFile.java`
-#### Snippet
-```java
-    private final String name;
-    private final String descriptor;
-    private final @Nullable String signature;
-    private final @Nullable Value value;
-    private final List<AnnotationInfo> annotations;
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -5210,23 +5210,11 @@ Result of `Tree.accept()` is ignored
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
 ```java
-      case POST_INCR:
-      case POST_DECR:
-        unary.expr().accept(this, null);
-        append(unary.op().toString());
-        break;
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-      case BITWISE_COMP:
-        append(unary.op().toString());
-        unary.expr().accept(this, null);
-        break;
-      default:
+  @Override
+  public @Nullable Void visitClassLiteral(ClassLiteral classLiteral, @Nullable Void input) {
+    classLiteral.type().accept(this, input);
+    append(".class");
+    return null;
 ```
 
 ### IgnoreResultOfCall
@@ -5251,54 +5239,6 @@ in `java/com/google/turbine/tree/Pretty.java`
         t.accept(this, null);
         first = false;
       }
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  @Override
-  public @Nullable Void visitArrTy(Tree.ArrTy arrTy, @Nullable Void input) {
-    arrTy.elem().accept(this, null);
-    if (!arrTy.annos().isEmpty()) {
-      append(' ');
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-          append(" & ");
-        }
-        bound.accept(this, null);
-        first = false;
-      }
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-    printAnnos(varDecl.annos());
-    printModifiers(varDecl.mods());
-    varDecl.ty().accept(this, null);
-    append(' ').append(varDecl.name().value());
-    if (varDecl.init().isPresent()) {
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-    if (varDecl.init().isPresent()) {
-      append(" = ");
-      varDecl.init().get().accept(this, null);
-    }
-  }
 ```
 
 ### IgnoreResultOfCall
@@ -5378,6 +5318,66 @@ Result of `Anno.accept()` is ignored
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
 ```java
+  public @Nullable Void visitMethDecl(Tree.MethDecl methDecl, @Nullable Void input) {
+    for (Tree.Anno anno : methDecl.annos()) {
+      anno.accept(this, null);
+      printLine();
+    }
+```
+
+### IgnoreResultOfCall
+Result of `TyParam.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+          append(", ");
+        }
+        t.accept(this, null);
+        first = false;
+      }
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+    }
+    if (methDecl.ret().isPresent()) {
+      methDecl.ret().get().accept(this, null);
+      append(' ');
+    }
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+          append(", ");
+        }
+        e.accept(this, null);
+        first = false;
+      }
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+    if (methDecl.defaultValue().isPresent()) {
+      append(" default ");
+      methDecl.defaultValue().get().accept(this, null);
+      append(";");
+    } else if (methDecl.mods().contains(TurbineModifier.ABSTRACT)
+```
+
+### IgnoreResultOfCall
+Result of `Anno.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
   public @Nullable Void visitModDecl(ModDecl modDecl, @Nullable Void input) {
     for (Tree.Anno anno : modDecl.annos()) {
       anno.accept(this, null);
@@ -5402,9 +5402,129 @@ Result of `Tree.accept()` is ignored
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
 ```java
+      case POST_INCR:
+      case POST_DECR:
+        unary.expr().accept(this, null);
+        append(unary.op().toString());
+        break;
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+      case BITWISE_COMP:
+        append(unary.op().toString());
+        unary.expr().accept(this, null);
+        break;
+      default:
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+  @Override
+  public @Nullable Void visitParen(Tree.Paren paren, @Nullable Void input) {
+    paren.expr().accept(this, null);
+    return null;
+  }
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
         append(" ").append(binary.op().toString()).append(" ");
       }
       child.accept(this, null);
+      first = false;
+    }
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+  @Override
+  public @Nullable Void visitArrTy(Tree.ArrTy arrTy, @Nullable Void input) {
+    arrTy.elem().accept(this, null);
+    if (!arrTy.annos().isEmpty()) {
+      append(' ');
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+  static String pretty(Tree tree) {
+    Pretty pretty = new Pretty();
+    tree.accept(pretty, null);
+    return pretty.sb.toString();
+  }
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+          append(", ");
+        }
+        e.accept(this, null);
+        first = false;
+      }
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+  public @Nullable Void visitConditional(Tree.Conditional conditional, @Nullable Void input) {
+    append("(");
+    conditional.cond().accept(this, null);
+    append(" ? ");
+    conditional.iftrue().accept(this, null);
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+    conditional.cond().accept(this, null);
+    append(" ? ");
+    conditional.iftrue().accept(this, null);
+    append(" : ");
+    conditional.iffalse().accept(this, null);
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+    conditional.iftrue().accept(this, null);
+    append(" : ");
+    conditional.iffalse().accept(this, null);
+    append(")");
+    return null;
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+        append(", ");
+      }
+      e.accept(this, null);
       first = false;
     }
 ```
@@ -5498,23 +5618,11 @@ Result of `Anno.accept()` is ignored
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
 ```java
-  public @Nullable Void visitMethDecl(Tree.MethDecl methDecl, @Nullable Void input) {
-    for (Tree.Anno anno : methDecl.annos()) {
+  public @Nullable Void visitPkgDecl(Tree.PkgDecl pkgDecl, @Nullable Void input) {
+    for (Tree.Anno anno : pkgDecl.annos()) {
       anno.accept(this, null);
       printLine();
     }
-```
-
-### IgnoreResultOfCall
-Result of `TyParam.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-          append(", ");
-        }
-        t.accept(this, null);
-        first = false;
-      }
 ```
 
 ### IgnoreResultOfCall
@@ -5522,9 +5630,33 @@ Result of `Tree.accept()` is ignored
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
 ```java
+    printAnnos(varDecl.annos());
+    printModifiers(varDecl.mods());
+    varDecl.ty().accept(this, null);
+    append(' ').append(varDecl.name().value());
+    if (varDecl.init().isPresent()) {
+```
+
+### IgnoreResultOfCall
+Result of `Tree.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+    if (varDecl.init().isPresent()) {
+      append(" = ");
+      varDecl.init().get().accept(this, null);
     }
-    if (methDecl.ret().isPresent()) {
-      methDecl.ret().get().accept(this, null);
+  }
+```
+
+### IgnoreResultOfCall
+Result of `Anno.accept()` is ignored
+in `java/com/google/turbine/tree/Pretty.java`
+#### Snippet
+```java
+  private void printAnnos(ImmutableList<Anno> annos) {
+    for (Tree.Anno anno : annos) {
+      anno.accept(this, null);
       append(' ');
     }
 ```
@@ -5534,9 +5666,9 @@ Result of `Tree.accept()` is ignored
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
 ```java
-          append(", ");
+          append(" & ");
         }
-        e.accept(this, null);
+        bound.accept(this, null);
         first = false;
       }
 ```
@@ -5546,23 +5678,11 @@ Result of `Tree.accept()` is ignored
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
 ```java
-    if (methDecl.defaultValue().isPresent()) {
-      append(" default ");
-      methDecl.defaultValue().get().accept(this, null);
-      append(";");
-    } else if (methDecl.mods().contains(TurbineModifier.ABSTRACT)
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-        append(", ");
-      }
-      e.accept(this, null);
-      first = false;
-    }
+  public @Nullable Void visitAssign(Tree.Assign assign, @Nullable Void input) {
+    append(assign.name().value()).append(" = ");
+    assign.expr().accept(this, null);
+    return null;
+  }
 ```
 
 ### IgnoreResultOfCall
@@ -5587,126 +5707,6 @@ in `java/com/google/turbine/tree/Pretty.java`
       wildTy.upper().get().accept(this, null);
     }
     return null;
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  static String pretty(Tree tree) {
-    Pretty pretty = new Pretty();
-    tree.accept(pretty, null);
-    return pretty.sb.toString();
-  }
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-          append(", ");
-        }
-        e.accept(this, null);
-        first = false;
-      }
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  @Override
-  public @Nullable Void visitParen(Tree.Paren paren, @Nullable Void input) {
-    paren.expr().accept(this, null);
-    return null;
-  }
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  public @Nullable Void visitConditional(Tree.Conditional conditional, @Nullable Void input) {
-    append("(");
-    conditional.cond().accept(this, null);
-    append(" ? ");
-    conditional.iftrue().accept(this, null);
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-    conditional.cond().accept(this, null);
-    append(" ? ");
-    conditional.iftrue().accept(this, null);
-    append(" : ");
-    conditional.iffalse().accept(this, null);
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-    conditional.iftrue().accept(this, null);
-    append(" : ");
-    conditional.iffalse().accept(this, null);
-    append(")");
-    return null;
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  @Override
-  public @Nullable Void visitClassLiteral(ClassLiteral classLiteral, @Nullable Void input) {
-    classLiteral.type().accept(this, input);
-    append(".class");
-    return null;
-```
-
-### IgnoreResultOfCall
-Result of `Anno.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  public @Nullable Void visitPkgDecl(Tree.PkgDecl pkgDecl, @Nullable Void input) {
-    for (Tree.Anno anno : pkgDecl.annos()) {
-      anno.accept(this, null);
-      printLine();
-    }
-```
-
-### IgnoreResultOfCall
-Result of `Tree.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  public @Nullable Void visitAssign(Tree.Assign assign, @Nullable Void input) {
-    append(assign.name().value()).append(" = ");
-    assign.expr().accept(this, null);
-    return null;
-  }
-```
-
-### IgnoreResultOfCall
-Result of `Anno.accept()` is ignored
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  private void printAnnos(ImmutableList<Anno> annos) {
-    for (Tree.Anno anno : annos) {
-      anno.accept(this, null);
-      append(' ');
-    }
 ```
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -5735,15 +5735,15 @@ in `java/com/google/turbine/binder/CompUnitPreprocessor.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'xtnds'
+`Optional` used as type for field 'mod'
 in `java/com/google/turbine/tree/Tree.java`
 #### Snippet
 ```java
-    private final Ident name;
-    private final ImmutableList<TyParam> typarams;
-    private final Optional<ClassTy> xtnds;
-    private final ImmutableList<ClassTy> impls;
-    private final ImmutableList<ClassTy> permits;
+  public static class CompUnit extends Tree {
+    private final Optional<PkgDecl> pkg;
+    private final Optional<ModDecl> mod;
+    private final ImmutableList<ImportDecl> imports;
+    private final ImmutableList<TyDecl> decls;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5756,42 +5756,6 @@ in `java/com/google/turbine/tree/Tree.java`
     private final Optional<Expression> init;
     private final @Nullable String javadoc;
 
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'init'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-        Tree ty,
-        Ident name,
-        Optional<Expression> init,
-        @Nullable String javadoc) {
-      super(position);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'lower'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-  public static class WildTy extends Type {
-    private final Optional<Type> upper;
-    private final Optional<Type> lower;
-
-    public WildTy(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'base'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-  /** A class, enum, interface, or annotation {@link Type}. */
-  public static class ClassTy extends Type {
-    private final Optional<ClassTy> base;
-    private final Ident name;
-    private final ImmutableList<Type> tyargs;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5819,54 +5783,6 @@ in `java/com/google/turbine/tree/Tree.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'ret'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-    private final ImmutableList<Anno> annos;
-    private final ImmutableList<TyParam> typarams;
-    private final Optional<Tree> ret;
-    private final Ident name;
-    private final ImmutableList<VarDecl> params;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'defaultValue'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-    private final ImmutableList<VarDecl> params;
-    private final ImmutableList<ClassTy> exntys;
-    private final Optional<Tree> defaultValue;
-    private final String javadoc;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'upper'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-  /** A wildcard type, possibly with an upper or lower bound. */
-  public static class WildTy extends Type {
-    private final Optional<Type> upper;
-    private final Optional<Type> lower;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'mod'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-  public static class CompUnit extends Tree {
-    private final Optional<PkgDecl> pkg;
-    private final Optional<ModDecl> mod;
-    private final ImmutableList<ImportDecl> imports;
-    private final ImmutableList<TyDecl> decls;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'ret'
 in `java/com/google/turbine/tree/Tree.java`
 #### Snippet
@@ -5888,30 +5804,6 @@ in `java/com/google/turbine/tree/Tree.java`
         Optional<Tree> defaultValue,
         String javadoc) {
       super(position);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'xtnds'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-        Ident name,
-        ImmutableList<TyParam> typarams,
-        Optional<ClassTy> xtnds,
-        ImmutableList<ClassTy> impls,
-        ImmutableList<ClassTy> permits,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'pkg'
-in `java/com/google/turbine/tree/Tree.java`
-#### Snippet
-```java
-  /** A JLS 7.3 compilation unit. */
-  public static class CompUnit extends Tree {
-    private final Optional<PkgDecl> pkg;
-    private final Optional<ModDecl> mod;
-    private final ImmutableList<ImportDecl> imports;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5939,6 +5831,54 @@ in `java/com/google/turbine/tree/Tree.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'pkg'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+  /** A JLS 7.3 compilation unit. */
+  public static class CompUnit extends Tree {
+    private final Optional<PkgDecl> pkg;
+    private final Optional<ModDecl> mod;
+    private final ImmutableList<ImportDecl> imports;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'xtnds'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+    private final Ident name;
+    private final ImmutableList<TyParam> typarams;
+    private final Optional<ClassTy> xtnds;
+    private final ImmutableList<ClassTy> impls;
+    private final ImmutableList<ClassTy> permits;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'init'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+        Tree ty,
+        Ident name,
+        Optional<Expression> init,
+        @Nullable String javadoc) {
+      super(position);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'xtnds'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+        Ident name,
+        ImmutableList<TyParam> typarams,
+        Optional<ClassTy> xtnds,
+        ImmutableList<ClassTy> impls,
+        ImmutableList<ClassTy> permits,
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'base'
 in `java/com/google/turbine/tree/Tree.java`
 #### Snippet
@@ -5948,6 +5888,78 @@ in `java/com/google/turbine/tree/Tree.java`
         Optional<ClassTy> base,
         Ident name,
         ImmutableList<Type> tyargs,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'lower'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+  public static class WildTy extends Type {
+    private final Optional<Type> upper;
+    private final Optional<Type> lower;
+
+    public WildTy(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'defaultValue'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+    private final ImmutableList<VarDecl> params;
+    private final ImmutableList<ClassTy> exntys;
+    private final Optional<Tree> defaultValue;
+    private final String javadoc;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'base'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+  /** A class, enum, interface, or annotation {@link Type}. */
+  public static class ClassTy extends Type {
+    private final Optional<ClassTy> base;
+    private final Ident name;
+    private final ImmutableList<Type> tyargs;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'ret'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+    private final ImmutableList<Anno> annos;
+    private final ImmutableList<TyParam> typarams;
+    private final Optional<Tree> ret;
+    private final Ident name;
+    private final ImmutableList<VarDecl> params;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'upper'
+in `java/com/google/turbine/tree/Tree.java`
+#### Snippet
+```java
+  /** A wildcard type, possibly with an upper or lower bound. */
+  public static class WildTy extends Type {
+    private final Optional<Type> upper;
+    private final Optional<Type> lower;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'moduleVersion'
+in `java/com/google/turbine/binder/ModuleBinder.java`
+#### Snippet
+```java
+      CompoundEnv<ClassSymbol, TypeBoundClass> env,
+      Env<ModuleSymbol, ModuleInfo> moduleEnv,
+      Optional<String> moduleVersion,
+      TurbineLogWithSource log) {
+    this.module = module;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5972,18 +5984,6 @@ in `java/com/google/turbine/binder/ModuleBinder.java`
       Optional<String> moduleVersion,
       TurbineLogWithSource log) {
     return new ModuleBinder(module, env, moduleEnv, moduleVersion, log).bind();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'moduleVersion'
-in `java/com/google/turbine/binder/ModuleBinder.java`
-#### Snippet
-```java
-      CompoundEnv<ClassSymbol, TypeBoundClass> env,
-      Env<ModuleSymbol, ModuleInfo> moduleEnv,
-      Optional<String> moduleVersion,
-      TurbineLogWithSource log) {
-    this.module = module;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6027,11 +6027,11 @@ in `java/com/google/turbine/binder/Processing.java`
 in `java/com/google/turbine/binder/Binder.java`
 #### Snippet
 ```java
-      ClassPath classpath,
-      ClassPath bootclasspath,
-      Optional<String> moduleVersion) {
-    ImmutableList<PreprocessedCompUnit> preProcessedUnits = CompUnitPreprocessor.preprocess(units);
-
+      CompoundEnv<ClassSymbol, TypeBoundClass> env,
+      CompoundEnv<ModuleSymbol, ModuleInfo> moduleEnv,
+      Optional<String> moduleVersion,
+      TurbineLog log) {
+    // Allow resolution of modules in the current compilation. Currently this is only needed for
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6051,11 +6051,11 @@ in `java/com/google/turbine/binder/Binder.java`
 in `java/com/google/turbine/binder/Binder.java`
 #### Snippet
 ```java
-      CompoundEnv<ClassSymbol, TypeBoundClass> env,
-      CompoundEnv<ModuleSymbol, ModuleInfo> moduleEnv,
-      Optional<String> moduleVersion,
-      TurbineLog log) {
-    // Allow resolution of modules in the current compilation. Currently this is only needed for
+      ClassPath classpath,
+      ClassPath bootclasspath,
+      Optional<String> moduleVersion) {
+    ImmutableList<PreprocessedCompUnit> preProcessedUnits = CompUnitPreprocessor.preprocess(units);
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6526,11 +6526,11 @@ Result of assignment expression used
 in `java/com/google/turbine/bytecode/sig/SigParser.java`
 #### Snippet
 ```java
-    StringBuilder name = new StringBuilder();
-    char ch;
-    while ((ch = eat()) != ';') {
-      name.append(ch);
-    }
+        StringBuilder identifier = new StringBuilder();
+        char ch;
+        while ((ch = eat()) != ':') {
+          identifier.append(ch);
+        }
 ```
 
 ### NestedAssignment
@@ -6538,11 +6538,11 @@ Result of assignment expression used
 in `java/com/google/turbine/bytecode/sig/SigParser.java`
 #### Snippet
 ```java
-        StringBuilder identifier = new StringBuilder();
-        char ch;
-        while ((ch = eat()) != ':') {
-          identifier.append(ch);
-        }
+    StringBuilder name = new StringBuilder();
+    char ch;
+    while ((ch = eat()) != ';') {
+      name.append(ch);
+    }
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -6638,18 +6638,6 @@ Anonymous new Supplier() can be replaced with lambda
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
-      this.info =
-          memoize(
-              new Supplier<TypeBoundClass>() {
-                @Override
-                public TypeBoundClass get() {
-```
-
-### Convert2Lambda
-Anonymous new Supplier() can be replaced with lambda
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
     private static final Supplier<ElementKind> RECORD =
         Suppliers.memoize(
             new Supplier<ElementKind>() {
@@ -6683,6 +6671,30 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 
 ### Convert2Lambda
 Anonymous new Supplier() can be replaced with lambda
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+      this.info =
+          memoize(
+              new Supplier<TypeBoundClass>() {
+                @Override
+                public TypeBoundClass get() {
+```
+
+### Convert2Lambda
+Anonymous new Supplier() can be replaced with lambda
+in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
+#### Snippet
+```java
+    this.classFile =
+        Suppliers.memoize(
+            new Supplier<ClassFile>() {
+              @Override
+              public ClassFile get() {
+```
+
+### Convert2Lambda
+Anonymous new Supplier() can be replaced with lambda
 in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
 #### Snippet
 ```java
@@ -6703,18 +6715,6 @@ in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
     return new Function<String, TyVarSymbol>() {
       @Override
       public TyVarSymbol apply(String input) {
-```
-
-### Convert2Lambda
-Anonymous new Supplier() can be replaced with lambda
-in `java/com/google/turbine/binder/bytecode/BytecodeBoundClass.java`
-#### Snippet
-```java
-    this.classFile =
-        Suppliers.memoize(
-            new Supplier<ClassFile>() {
-              @Override
-              public ClassFile get() {
 ```
 
 ### Convert2Lambda
@@ -6802,6 +6802,18 @@ in `java/com/google/turbine/binder/JimageClassBinder.java`
 ```
 
 ### Convert2Lambda
+Anonymous new Supplier\>() can be replaced with lambda
+in `java/com/google/turbine/processing/TurbineAnnotationMirror.java`
+#### Snippet
+```java
+      this.elements =
+          factory.memoize(
+              new Supplier<ImmutableList<AnnotationValue>>() {
+                @Override
+                public ImmutableList<AnnotationValue> get() {
+```
+
+### Convert2Lambda
 Anonymous new Supplier() can be replaced with lambda
 in `java/com/google/turbine/processing/TurbineAnnotationMirror.java`
 #### Snippet
@@ -6849,18 +6861,6 @@ in `java/com/google/turbine/processing/TurbineAnnotationMirror.java`
               public ImmutableMap<ExecutableElement, AnnotationValue> get() {
 ```
 
-### Convert2Lambda
-Anonymous new Supplier\>() can be replaced with lambda
-in `java/com/google/turbine/processing/TurbineAnnotationMirror.java`
-#### Snippet
-```java
-      this.elements =
-          factory.memoize(
-              new Supplier<ImmutableList<AnnotationValue>>() {
-                @Override
-                public ImmutableList<AnnotationValue> get() {
-```
-
 ## RuleId[ruleID=EmptyMethod]
 ### EmptyMethod
 Method only calls its super
@@ -6900,18 +6900,6 @@ in `java/com/google/turbine/parse/VariableInitializerParser.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `java/com/google/turbine/tree/Pretty.java`
-#### Snippet
-```java
-  private final StringBuilder sb = new StringBuilder();
-  int indent = 0;
-  boolean newLine = false;
-
-  void printLine() {
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
@@ -6924,15 +6912,15 @@ in `java/com/google/turbine/tree/Pretty.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `java/com/google/turbine/parse/StreamLexer.java`
+Field initialization to `false` is redundant
+in `java/com/google/turbine/tree/Pretty.java`
 #### Snippet
 ```java
+  private final StringBuilder sb = new StringBuilder();
+  int indent = 0;
+  boolean newLine = false;
 
-  /** The value of the current string or character literal token. */
-  private String value = null;
-
-  /** A saved javadoc comment. */
+  void printLine() {
 ```
 
 ### RedundantFieldInitialization
@@ -6945,6 +6933,18 @@ in `java/com/google/turbine/parse/StreamLexer.java`
   private String javadoc = null;
 
   public StreamLexer(UnicodeEscapePreprocessor reader) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `java/com/google/turbine/parse/StreamLexer.java`
+#### Snippet
+```java
+
+  /** The value of the current string or character literal token. */
+  private String value = null;
+
+  /** A saved javadoc comment. */
 ```
 
 ### RedundantFieldInitialization
@@ -6997,27 +6997,15 @@ in `java/com/google/turbine/model/TurbineVisibility.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `java/com/google/turbine/parse/ConstExpressionParser.java`
+Assignment to method parameter `lookupKey`
+in `java/com/google/turbine/binder/lookup/SimpleTopLevelIndex.java`
 #### Snippet
 ```java
-      }
-      eat();
-      type = new Tree.ArrTy(position, ImmutableList.of(), type);
-    }
-    if (token != Token.DOT) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `java/com/google/turbine/parse/ConstExpressionParser.java`
-#### Snippet
-```java
-    boolean neg = text.startsWith("-");
-    if (neg) {
-      text = text.substring(1);
-    }
-    for (int i = 0; i < text.length(); i++) {
+              return null;
+            }
+            lookupKey = lookupKey.rest();
+          }
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -7057,15 +7045,27 @@ in `java/com/google/turbine/parse/ConstExpressionParser.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `lookupKey`
-in `java/com/google/turbine/binder/lookup/SimpleTopLevelIndex.java`
+Assignment to method parameter `type`
+in `java/com/google/turbine/parse/ConstExpressionParser.java`
 #### Snippet
 ```java
-              return null;
-            }
-            lookupKey = lookupKey.rest();
-          }
-        }
+      }
+      eat();
+      type = new Tree.ArrTy(position, ImmutableList.of(), type);
+    }
+    if (token != Token.DOT) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `java/com/google/turbine/parse/ConstExpressionParser.java`
+#### Snippet
+```java
+    boolean neg = text.startsWith("-");
+    if (neg) {
+      text = text.substring(1);
+    }
+    for (int i = 0; i < text.length(); i++) {
 ```
 
 ### AssignmentToMethodParameter
@@ -7090,42 +7090,6 @@ in `java/com/google/turbine/zip/Zip.java`
       buf = buf.duplicate();
       buf.position(offset);
       buf.limit(offset + length);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sym`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-        return Type.ErrorTy.create(bits);
-      }
-      sym = next;
-
-      annotations = bindAnnotations(scope, curr.annos());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `annotations`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-      sym = next;
-
-      annotations = bindAnnotations(scope, curr.annos());
-      classes.add(
-          Type.ClassTy.SimpleClassTy.create(sym, bindTyArgs(scope, curr.tyargs()), annotations));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `scope`
-in `java/com/google/turbine/binder/TypeBinder.java`
-#### Snippet
-```java
-
-    // type parameters can refer to each other in f-bounds, so update the scope first
-    scope = scope.append(new MapScope(typeParameters));
-    ImmutableMap<TyVarSymbol, TyVarInfo> typeParameterTypes =
-        bindTyParams(t.typarams(), scope, typeParameters);
 ```
 
 ### AssignmentToMethodParameter
@@ -7189,6 +7153,42 @@ in `java/com/google/turbine/processing/TurbineTypes.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `scope`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+
+    // type parameters can refer to each other in f-bounds, so update the scope first
+    scope = scope.append(new MapScope(typeParameters));
+    ImmutableMap<TyVarSymbol, TyVarInfo> typeParameterTypes =
+        bindTyParams(t.typarams(), scope, typeParameters);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sym`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+        return Type.ErrorTy.create(bits);
+      }
+      sym = next;
+
+      annotations = bindAnnotations(scope, curr.annos());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `annotations`
+in `java/com/google/turbine/binder/TypeBinder.java`
+#### Snippet
+```java
+      sym = next;
+
+      annotations = bindAnnotations(scope, curr.annos());
+      classes.add(
+          Type.ClassTy.SimpleClassTy.create(sym, bindTyArgs(scope, curr.tyargs()), annotations));
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `annotations`
 in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
 #### Snippet
@@ -7198,6 +7198,18 @@ in `java/com/google/turbine/binder/DisambiguateTypeAnnotations.java`
     annotations = groupRepeated(env, annotations);
     ImmutableList.Builder<AnnoInfo> typeAnnotations = ImmutableList.builder();
     for (AnnoInfo anno : annotations) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `java/com/google/turbine/lower/Lower.java`
+#### Snippet
+```java
+      for (ArrayTy arrayTy : flat) {
+        lowerTypeAnnotations(arrayTy.annos(), path);
+        path = path.array();
+      }
+      lowerTypeAnnotations(base, path);
 ```
 
 ### AssignmentToMethodParameter
@@ -7222,162 +7234,6 @@ in `java/com/google/turbine/lower/Lower.java`
         path = path.nested();
       }
     }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `java/com/google/turbine/lower/Lower.java`
-#### Snippet
-```java
-      for (ArrayTy arrayTy : flat) {
-        lowerTypeAnnotations(arrayTy.annos(), path);
-        path = path.array();
-      }
-      lowerTypeAnnotations(base, path);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-                  ImmutableList.<Type>of(),
-                  ImmutableList.of());
-          pos = position;
-          name = eatIdent();
-          return memberRest(pos, access, annos, typaram, result, name);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-    }
-    result = maybeDims(maybeAnnos(), result);
-    pos = position;
-    name = eatIdent();
-    switch (token) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `annos`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-
-    if (token == Token.AT) {
-      annos = ImmutableList.<Anno>builder().addAll(annos).addAll(maybeAnnos()).build();
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `ty`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-    while (maybe(Token.LBRACK)) {
-      eat(Token.RBRACK);
-      ty = new ArrTy(position, typeAnnos, ty);
-      typeAnnos = maybeAnnos();
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `typeAnnos`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-      eat(Token.RBRACK);
-      ty = new ArrTy(position, typeAnnos, ty);
-      typeAnnos = maybeAnnos();
-    }
-    return ty;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-        first = false;
-      } else {
-        name = parser.eatIdent();
-      }
-      Type ty = baseTy;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-    eat(Token.RPAREN);
-
-    result = extraDims(result);
-
-    ImmutableList.Builder<ClassTy> exceptions = ImmutableList.builder();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-    }
-    if (result == null) {
-      name = new Ident(position, CTOR_NAME);
-    }
-    return new MethDecl(
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `typeAnnos`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-    do {
-      if (typeAnnos == null) {
-        typeAnnos = maybeAnnos();
-      }
-      Ident name = eatIdent();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `ty`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-        tyargs = tyargs();
-      }
-      ty = new ClassTy(pos, Optional.ofNullable(ty), name, tyargs, typeAnnos);
-      typeAnnos = null;
-    } while (maybe(Token.DOT));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `typeAnnos`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-      }
-      ty = new ClassTy(pos, Optional.ofNullable(ty), name, tyargs, typeAnnos);
-      typeAnnos = null;
-    } while (maybe(Token.DOT));
-    return ty;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `ty`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-      annos = maybeAnnos();
-    }
-    ty = extraDims(ty, extra);
-    return ty;
-  }
 ```
 
 ### AssignmentToMethodParameter
@@ -7426,6 +7282,150 @@ in `java/com/google/common/escape/SourceCodeEscapers.java`
     c >>>= 4;
     r[2] = HEX_DIGITS[c & 0xF];
     return r;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ty`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+      annos = maybeAnnos();
+    }
+    ty = extraDims(ty, extra);
+    return ty;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+                  ImmutableList.<Type>of(),
+                  ImmutableList.of());
+          pos = position;
+          name = eatIdent();
+          return memberRest(pos, access, annos, typaram, result, name);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+    }
+    result = maybeDims(maybeAnnos(), result);
+    pos = position;
+    name = eatIdent();
+    switch (token) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ty`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+    while (maybe(Token.LBRACK)) {
+      eat(Token.RBRACK);
+      ty = new ArrTy(position, typeAnnos, ty);
+      typeAnnos = maybeAnnos();
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `typeAnnos`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+      eat(Token.RBRACK);
+      ty = new ArrTy(position, typeAnnos, ty);
+      typeAnnos = maybeAnnos();
+    }
+    return ty;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+    eat(Token.RPAREN);
+
+    result = extraDims(result);
+
+    ImmutableList.Builder<ClassTy> exceptions = ImmutableList.builder();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+    }
+    if (result == null) {
+      name = new Ident(position, CTOR_NAME);
+    }
+    return new MethDecl(
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `annos`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+
+    if (token == Token.AT) {
+      annos = ImmutableList.<Anno>builder().addAll(annos).addAll(maybeAnnos()).build();
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `typeAnnos`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+    do {
+      if (typeAnnos == null) {
+        typeAnnos = maybeAnnos();
+      }
+      Ident name = eatIdent();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ty`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+        tyargs = tyargs();
+      }
+      ty = new ClassTy(pos, Optional.ofNullable(ty), name, tyargs, typeAnnos);
+      typeAnnos = null;
+    } while (maybe(Token.DOT));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `typeAnnos`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+      }
+      ty = new ClassTy(pos, Optional.ofNullable(ty), name, tyargs, typeAnnos);
+      typeAnnos = null;
+    } while (maybe(Token.DOT));
+    return ty;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+        first = false;
+      } else {
+        name = parser.eatIdent();
+      }
+      Type ty = baseTy;
 ```
 
 ### AssignmentToMethodParameter
@@ -7501,18 +7501,6 @@ in `java/com/google/turbine/binder/Processing.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `owner`
-in `java/com/google/turbine/types/Canonicalize.java`
-#### Snippet
-```java
-    while (canonOwner != null && owner != null) {
-      if (!isSubclass(owner, canonOwner)) {
-        owner = getInfo(owner).owner();
-        continue;
-      }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `ty`
 in `java/com/google/turbine/types/Canonicalize.java`
 #### Snippet
@@ -7522,6 +7510,18 @@ in `java/com/google/turbine/types/Canonicalize.java`
     ty = ClassTy.create(args.build());
     return canon(base, ty);
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `owner`
+in `java/com/google/turbine/types/Canonicalize.java`
+#### Snippet
+```java
+    while (canonOwner != null && owner != null) {
+      if (!isSubclass(owner, canonOwner)) {
+        owner = getInfo(owner).owner();
+        continue;
+      }
 ```
 
 ### AssignmentToMethodParameter
@@ -7542,102 +7542,6 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
   private @Nullable Value greaterThan(int position, Value a, Value b) {
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-      case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  private @Nullable Value lessThan(int position, Value a, Value b) {
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-      case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  private @Nullable Value subtract(int position, Value a, Value b) {
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-      case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    }
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-      case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  private @Nullable Value lessThanEqual(int position, Value a, Value b) {
     TurbineConstantTypeKind type = promoteBinary(position, a, b);
     a = coerce(position, a, type);
     b = coerce(position, b, type);
@@ -7733,6 +7637,54 @@ Assignment to method parameter `a`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
+  private @Nullable Value lessThan(int position, Value a, Value b) {
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+      case INT:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  private @Nullable Value subtract(int position, Value a, Value b) {
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+      case INT:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
 
   private @Nullable Value shiftLeft(int position, Value a, Value b) {
     a = promoteUnary(position, a);
@@ -7758,118 +7710,10 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
 
-  private @Nullable Value unaryPlus(int position, Value expr) {
+  private @Nullable Value bitwiseComp(int position, Value expr) {
     expr = promoteUnary(position, expr);
     switch (expr.constantTypeKind()) {
       case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    }
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-      case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  private @Nullable Value divide(int position, Value a, Value b) {
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-      case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-
-  private @Nullable Value shiftRight(int position, Value a, Value b) {
-    a = promoteUnary(position, a);
-    b = promoteUnary(position, b);
-    switch (a.constantTypeKind()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-  private @Nullable Value shiftRight(int position, Value a, Value b) {
-    a = promoteUnary(position, a);
-    b = promoteUnary(position, b);
-    switch (a.constantTypeKind()) {
-      case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    }
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-      case INT:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sym`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-        return field;
-      }
-      sym = info.owner();
-    }
-    return null;
 ```
 
 ### AssignmentToMethodParameter
@@ -7921,6 +7765,30 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    }
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+      case INT:
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `expr`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
@@ -7937,7 +7805,7 @@ Assignment to method parameter `a`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
-    }
+  private @Nullable Value lessThanEqual(int position, Value a, Value b) {
     TurbineConstantTypeKind type = promoteBinary(position, a, b);
     a = coerce(position, a, type);
     b = coerce(position, b, type);
@@ -7957,27 +7825,27 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `a`
+Assignment to method parameter `expr`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
-    }
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
+
+  private @Nullable Value unaryPlus(int position, Value expr) {
+    expr = promoteUnary(position, expr);
+    switch (expr.constantTypeKind()) {
+      case INT:
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `b`
+Assignment to method parameter `sym`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
-    TurbineConstantTypeKind type = promoteBinary(position, a, b);
-    a = coerce(position, a, type);
-    b = coerce(position, b, type);
-    switch (type) {
-      case INT:
+        return field;
+      }
+      sym = info.owner();
+    }
+    return null;
 ```
 
 ### AssignmentToMethodParameter
@@ -8005,14 +7873,146 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr`
+Assignment to method parameter `a`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    }
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+      case INT:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    }
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+      case INT:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    }
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+      case INT:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
 
-  private @Nullable Value bitwiseComp(int position, Value expr) {
-    expr = promoteUnary(position, expr);
-    switch (expr.constantTypeKind()) {
+  private @Nullable Value shiftRight(int position, Value a, Value b) {
+    a = promoteUnary(position, a);
+    b = promoteUnary(position, b);
+    switch (a.constantTypeKind()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  private @Nullable Value shiftRight(int position, Value a, Value b) {
+    a = promoteUnary(position, a);
+    b = promoteUnary(position, b);
+    switch (a.constantTypeKind()) {
+      case INT:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+  private @Nullable Value divide(int position, Value a, Value b) {
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+      case INT:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    }
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+    TurbineConstantTypeKind type = promoteBinary(position, a, b);
+    a = coerce(position, a, type);
+    b = coerce(position, b, type);
+    switch (type) {
       case INT:
 ```
 
@@ -8034,35 +8034,35 @@ in `java/com/google/turbine/binder/Binder.java`
 in `java/com/google/turbine/parse/StreamLexer.java`
 #### Snippet
 ```java
-          sb.appendCodePoint(ch);
-          eat();
-          continue;
-      }
-    }
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `java/com/google/turbine/parse/StreamLexer.java`
-#### Snippet
-```java
-          sb.appendCodePoint(ch);
-          eat();
-          continue;
-      }
-    }
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `java/com/google/turbine/parse/StreamLexer.java`
-#### Snippet
-```java
                   sb.appendCodePoint(ch);
                   eat();
                   continue STRING;
               }
             }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `java/com/google/turbine/parse/StreamLexer.java`
+#### Snippet
+```java
+          sb.appendCodePoint(ch);
+          eat();
+          continue;
+      }
+    }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `java/com/google/turbine/parse/StreamLexer.java`
+#### Snippet
+```java
+          sb.appendCodePoint(ch);
+          eat();
+          continue;
+      }
+    }
 ```
 
 ### UnnecessaryContinue
@@ -8102,6 +8102,19 @@ in `java/com/google/turbine/model/Const.java`
       super(String.format("%s cannot be converted to %s", type, target));
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-25-20-53-39.321.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -8113,30 +8126,6 @@ in `java/com/google/turbine/parse/IteratorLexer.java`
     return null;
   }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public String javadoc() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public String javadoc() {
-      return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -8156,23 +8145,11 @@ Return of `null`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
-    TypeBoundClass info = factory.getSymbol(sym);
-    if (info == null) {
+    @Override
+    public String javadoc() {
       return null;
     }
-    AnnotationMetadata metadata = info.annotationMetadata();
-```
 
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    AnnotationMetadata metadata = info.annotationMetadata();
-    if (metadata == null) {
-      return null;
-    }
-    List<A> result = new ArrayList<>();
 ```
 
 ### ReturnNull
@@ -8194,66 +8171,6 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 ```java
     public Element getEnclosingElement() {
       // a package is not enclosed by another element
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-      return info().defaultValue() != null
-          ? TurbineAnnotationMirror.annotationValue(factory, info().defaultValue())
-          : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    public Object getConstantValue() {
-      if (info().value() == null) {
-        return null;
-      }
-      return info().value().getValue();
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public <A extends Annotation> A getAnnotation(Class<A> aClass) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public String javadoc() {
       return null;
     }
 
@@ -8288,11 +8205,35 @@ Return of `null`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
-      TypeBoundClass info = info();
-      if (!(info instanceof SourceTypeBoundClass)) {
-        return null;
-      }
-      return ((SourceTypeBoundClass) info).decl().javadoc();
+    @Override
+    public Object getConstantValue() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public Object getConstantValue() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public String javadoc() {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -8324,42 +8265,6 @@ Return of `null`
 in `java/com/google/turbine/processing/TurbineElement.java`
 #### Snippet
 ```java
-    @Override
-    public Object getConstantValue() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public String javadoc() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
-    @Override
-    public Object getConstantValue() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElement.java`
-#### Snippet
-```java
     public String javadoc() {
       MethDecl decl = info().decl();
       return decl != null ? decl.javadoc() : null;
@@ -8369,10 +8274,118 @@ in `java/com/google/turbine/processing/TurbineElement.java`
 
 ### ReturnNull
 Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    public Object getConstantValue() {
+      if (info().value() == null) {
+        return null;
+      }
+      return info().value().getValue();
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public <A extends Annotation> A getAnnotation(Class<A> aClass) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+      return info().defaultValue() != null
+          ? TurbineAnnotationMirror.annotationValue(factory, info().defaultValue())
+          : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public String javadoc() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+      TypeBoundClass info = info();
+      if (!(info instanceof SourceTypeBoundClass)) {
+        return null;
+      }
+      return ((SourceTypeBoundClass) info).decl().javadoc();
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    @Override
+    public String javadoc() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    TypeBoundClass info = factory.getSymbol(sym);
+    if (info == null) {
+      return null;
+    }
+    AnnotationMetadata metadata = info.annotationMetadata();
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElement.java`
+#### Snippet
+```java
+    AnnotationMetadata metadata = info.annotationMetadata();
+    if (metadata == null) {
+      return null;
+    }
+    List<A> result = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
 in `java/com/google/turbine/processing/TurbineTypes.java`
 #### Snippet
 ```java
-        return TurbineConstantTypeKind.DOUBLE;
+        return ((TurbineErrorType) t).asElement();
       default:
         return null;
     }
@@ -8384,7 +8397,7 @@ Return of `null`
 in `java/com/google/turbine/processing/TurbineTypes.java`
 #### Snippet
 ```java
-        return ((TurbineErrorType) t).asElement();
+        return TurbineConstantTypeKind.DOUBLE;
       default:
         return null;
     }
@@ -8420,18 +8433,6 @@ Return of `null`
 in `java/com/google/turbine/processing/TurbineElements.java`
 #### Snippet
 ```java
-    ImmutableList<String> packageName = ImmutableList.copyOf(Splitter.on('.').split(name));
-    if (factory.tli().lookupPackage(packageName) == null) {
-      return null;
-    }
-    return factory.packageElement(new PackageSymbol(Joiner.on('/').join(packageName)));
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/TurbineElements.java`
-#### Snippet
-```java
     ClassSymbol sym = factory.inferSymbol(name);
     if (sym == null) {
       return null;
@@ -8456,11 +8457,35 @@ Return of `null`
 in `java/com/google/turbine/processing/TurbineElements.java`
 #### Snippet
 ```java
+    ImmutableList<String> packageName = ImmutableList.copyOf(Splitter.on('.').split(name));
+    if (factory.tli().lookupPackage(packageName) == null) {
+      return null;
+    }
+    return factory.packageElement(new PackageSymbol(Joiner.on('/').join(packageName)));
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/TurbineElements.java`
+#### Snippet
+```java
     String comment = ((TurbineElement) e).javadoc();
     if (comment == null) {
       return null;
     }
     StringBuilder sb = new StringBuilder();
+```
+
+### ReturnNull
+Return of `null`
+in `java/com/google/turbine/processing/ModelFactory.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -8509,31 +8534,6 @@ in `java/com/google/turbine/processing/ModelFactory.java`
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `java/com/google/turbine/processing/ModelFactory.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-23-13-39-25.797.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -8746,18 +8746,6 @@ in `java/com/google/turbine/bytecode/AttributeWriter.java`
 ```
 
 ### ConstantValue
-Condition `i == null` is always `false`
-in `java/com/google/turbine/parse/Parser.java`
-#### Snippet
-```java
-            next();
-            ImportDecl i = importDeclaration();
-            if (i == null) {
-              continue;
-            }
-```
-
-### ConstantValue
 Condition `moduleName != null` is always `true`
 in `java/com/google/turbine/binder/JimageClassBinder.java`
 #### Snippet
@@ -8767,6 +8755,18 @@ in `java/com/google/turbine/binder/JimageClassBinder.java`
       if (moduleName != null) {
         // TODO(cushon): is this requireNonNull safe?
         Path modulePath = requireNonNull(modulePath(moduleName), moduleName);
+```
+
+### ConstantValue
+Condition `i == null` is always `false`
+in `java/com/google/turbine/parse/Parser.java`
+#### Snippet
+```java
+            next();
+            ImportDecl i = importDeclaration();
+            if (i == null) {
+              continue;
+            }
 ```
 
 ### ConstantValue
@@ -8806,15 +8806,27 @@ in `java/com/google/turbine/binder/Processing.java`
 ```
 
 ### ConstantValue
-Condition `field == null` is always `false`
+Condition `sym == null` is always `false`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
-  Const evalConstVar(ConstVarName t) {
-    FieldInfo field = resolveField(t);
-    if (field == null) {
+      }
+    }
+    if (sym == null) {
       return null;
     }
+```
+
+### ConstantValue
+Condition `a == null` is always `false`
+in `java/com/google/turbine/binder/ConstEvaluator.java`
+#### Snippet
+```java
+        {
+          Value a = (Value) ((Tree.Literal) t).value();
+          if (a == null) {
+            return null;
+          }
 ```
 
 ### ConstantValue
@@ -8842,42 +8854,18 @@ in `java/com/google/turbine/binder/ConstEvaluator.java`
 ```
 
 ### ConstantValue
-Condition `sym == null` is always `false`
+Condition `field == null` is always `false`
 in `java/com/google/turbine/binder/ConstEvaluator.java`
 #### Snippet
 ```java
-      }
-    }
-    if (sym == null) {
+  Const evalConstVar(ConstVarName t) {
+    FieldInfo field = resolveField(t);
+    if (field == null) {
       return null;
     }
 ```
 
-### ConstantValue
-Condition `a == null` is always `false`
-in `java/com/google/turbine/binder/ConstEvaluator.java`
-#### Snippet
-```java
-        {
-          Value a = (Value) ((Tree.Literal) t).value();
-          if (a == null) {
-            return null;
-          }
-```
-
 ## RuleId[ruleID=UnstableApiUsage]
-### UnstableApiUsage
-'getEntry(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `java/com/google/turbine/diag/LineMap.java`
-#### Snippet
-```java
-    checkArgument(0 <= position && position < source.length(), "%s", position);
-    // requireNonNull is safe because `lines` covers the whole file length.
-    return position - requireNonNull(lines.getEntry(position)).getKey().lowerEndpoint();
-  }
-
-```
-
 ### UnstableApiUsage
 'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
 in `java/com/google/turbine/diag/LineMap.java`
@@ -8888,6 +8876,18 @@ in `java/com/google/turbine/diag/LineMap.java`
     return requireNonNull(lines.get(position));
   }
 
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
+in `java/com/google/turbine/diag/LineMap.java`
+#### Snippet
+```java
+
+  private final String source;
+  private final ImmutableRangeMap<Integer, Integer> lines;
+
+  private LineMap(String source, ImmutableRangeMap<Integer, Integer> lines) {
 ```
 
 ### UnstableApiUsage
@@ -8987,6 +8987,18 @@ in `java/com/google/turbine/diag/LineMap.java`
 ```
 
 ### UnstableApiUsage
+'getEntry(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `java/com/google/turbine/diag/LineMap.java`
+#### Snippet
+```java
+    checkArgument(0 <= position && position < source.length(), "%s", position);
+    // requireNonNull is safe because `lines` covers the whole file length.
+    return position - requireNonNull(lines.getEntry(position)).getKey().lowerEndpoint();
+  }
+
+```
+
+### UnstableApiUsage
 'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
 in `java/com/google/turbine/diag/LineMap.java`
 #### Snippet
@@ -8996,18 +9008,6 @@ in `java/com/google/turbine/diag/LineMap.java`
   private LineMap(String source, ImmutableRangeMap<Integer, Integer> lines) {
     this.source = source;
     this.lines = lines;
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
-in `java/com/google/turbine/diag/LineMap.java`
-#### Snippet
-```java
-
-  private final String source;
-  private final ImmutableRangeMap<Integer, Integer> lines;
-
-  private LineMap(String source, ImmutableRangeMap<Integer, Integer> lines) {
 ```
 
 ### UnstableApiUsage
@@ -9123,6 +9123,30 @@ in `java/com/google/turbine/bytecode/AttributeWriter.java`
 in `java/com/google/turbine/bytecode/AttributeWriter.java`
 #### Snippet
 ```java
+      ByteArrayDataOutput output, Attribute.ParameterAnnotations attribute) {
+    output.writeShort(pool.utf8(attribute.kind().signature()));
+    ByteArrayDataOutput tmp = ByteStreams.newDataOutput();
+    tmp.writeByte(attribute.annotations().size());
+    for (List<AnnotationInfo> parameterAnnotations : attribute.annotations()) {
+```
+
+### UnstableApiUsage
+'newDataOutput()' is marked unstable with @Beta
+in `java/com/google/turbine/bytecode/AttributeWriter.java`
+#### Snippet
+```java
+  private void writeTypeAnnotation(ByteArrayDataOutput output, TypeAnnotations attribute) {
+    output.writeShort(pool.utf8(attribute.kind().signature()));
+    ByteArrayDataOutput tmp = ByteStreams.newDataOutput();
+    tmp.writeShort(attribute.annotations().size());
+    for (TypeAnnotationInfo annotation : attribute.annotations()) {
+```
+
+### UnstableApiUsage
+'newDataOutput()' is marked unstable with @Beta
+in `java/com/google/turbine/bytecode/AttributeWriter.java`
+#### Snippet
+```java
     ModuleInfo module = attribute.module();
 
     ByteArrayDataOutput tmp = ByteStreams.newDataOutput();
@@ -9155,30 +9179,6 @@ in `java/com/google/turbine/bytecode/AttributeWriter.java`
 ```
 
 ### UnstableApiUsage
-'newDataOutput()' is marked unstable with @Beta
-in `java/com/google/turbine/bytecode/AttributeWriter.java`
-#### Snippet
-```java
-      ByteArrayDataOutput output, Attribute.ParameterAnnotations attribute) {
-    output.writeShort(pool.utf8(attribute.kind().signature()));
-    ByteArrayDataOutput tmp = ByteStreams.newDataOutput();
-    tmp.writeByte(attribute.annotations().size());
-    for (List<AnnotationInfo> parameterAnnotations : attribute.annotations()) {
-```
-
-### UnstableApiUsage
-'newDataOutput()' is marked unstable with @Beta
-in `java/com/google/turbine/bytecode/AttributeWriter.java`
-#### Snippet
-```java
-  private void writeTypeAnnotation(ByteArrayDataOutput output, TypeAnnotations attribute) {
-    output.writeShort(pool.utf8(attribute.kind().signature()));
-    ByteArrayDataOutput tmp = ByteStreams.newDataOutput();
-    tmp.writeShort(attribute.annotations().size());
-    for (TypeAnnotationInfo annotation : attribute.annotations()) {
-```
-
-### UnstableApiUsage
 'newDataInput(byte\[\], int)' is marked unstable with @Beta
 in `java/com/google/turbine/bytecode/ByteReader.java`
 #### Snippet
@@ -9207,11 +9207,11 @@ in `java/com/google/turbine/bytecode/ByteReader.java`
 in `java/com/google/turbine/bytecode/ClassWriter.java`
 #### Snippet
 ```java
-  public static byte[] writeClass(ClassFile classfile) {
-    ConstantPool pool = new ConstantPool();
-    ByteArrayDataOutput output = ByteStreams.newDataOutput();
-    output.writeShort(classfile.access());
-    output.writeShort(pool.classInfo(classfile.name()));
+  private static byte[] finishClass(
+      ConstantPool pool, ByteArrayDataOutput body, ClassFile classfile) {
+    ByteArrayDataOutput result = ByteStreams.newDataOutput();
+    result.writeInt(MAGIC);
+    result.writeShort(MINOR_VERSION);
 ```
 
 ### UnstableApiUsage
@@ -9219,11 +9219,11 @@ in `java/com/google/turbine/bytecode/ClassWriter.java`
 in `java/com/google/turbine/bytecode/ClassWriter.java`
 #### Snippet
 ```java
-  private static byte[] finishClass(
-      ConstantPool pool, ByteArrayDataOutput body, ClassFile classfile) {
-    ByteArrayDataOutput result = ByteStreams.newDataOutput();
-    result.writeInt(MAGIC);
-    result.writeShort(MINOR_VERSION);
+  public static byte[] writeClass(ClassFile classfile) {
+    ConstantPool pool = new ConstantPool();
+    ByteArrayDataOutput output = ByteStreams.newDataOutput();
+    output.writeShort(classfile.access());
+    output.writeShort(pool.classInfo(classfile.name()));
 ```
 
 ### UnstableApiUsage
