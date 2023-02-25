@@ -93,6 +93,30 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/writer/Postm
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
+#### Snippet
+```java
+                .resolve(endpointDefinition.getHttpPath().get())
+                .toString();
+        return path.replaceAll("\\{", ":").replaceAll("}", "");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
+#### Snippet
+```java
+                .resolve(endpointDefinition.getHttpPath().get())
+                .toString();
+        return path.replaceAll("\\{", ":").replaceAll("}", "");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanCollectionGenerator.java`
 #### Snippet
 ```java
@@ -101,42 +125,6 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanColle
         String formattedApiBaseName = formattedApiBaseVariable.replaceAll("[{}]", "");
         config.apiPath()
                 .ifPresent(apiPath -> collection.addVariable(PostmanVariable.builder()
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
-#### Snippet
-```java
-                .resolve(endpointDefinition.getHttpPath().get())
-                .toString();
-        return path.replaceAll("\\{", ":").replaceAll("}", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
-#### Snippet
-```java
-                .resolve(endpointDefinition.getHttpPath().get())
-                .toString();
-        return path.replaceAll("\\{", ":").replaceAll("}", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
-#### Snippet
-```java
-        if (wrapped instanceof TextNode) {
-            return new TextNode(
-                    String.format("{{ Optional<%s> }}", wrapped.toString().replaceAll("[\"{}]", "")));
-        }
-        return wrapped;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -161,6 +149,18 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
             key = keyTemplate.toString().replaceAll("[\"]", "");
         }
         return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
+#### Snippet
+```java
+        if (wrapped instanceof TextNode) {
+            return new TextNode(
+                    String.format("{{ Optional<%s> }}", wrapped.toString().replaceAll("[\"{}]", "")));
+        }
+        return wrapped;
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
