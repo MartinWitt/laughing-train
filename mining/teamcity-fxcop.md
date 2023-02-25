@@ -84,15 +84,15 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopVisualStudioSearch.ja
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`reportPath.length() > 0` can be replaced with '!reportPath.isEmpty()'
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+`files.size() == 0` can be replaced with 'files.isEmpty()'
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
 #### Snippet
 ```java
-        }
+      files = matchFiles();
 
-        if (reportPath.length() > 0) {
-          inspectionFile += " :: " + reportPath + "|" + file;
-        } else {
+      if (files.size() == 0) {
+        throw new RunBuildException("No files matched the pattern");
+      }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -108,15 +108,15 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`files.size() == 0` can be replaced with 'files.isEmpty()'
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
+`reportPath.length() > 0` can be replaced with '!reportPath.isEmpty()'
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 #### Snippet
 ```java
-      files = matchFiles();
+        }
 
-      if (files.size() == 0) {
-        throw new RunBuildException("No files matched the pattern");
-      }
+        if (reportPath.length() > 0) {
+          inspectionFile += " :: " + reportPath + "|" + file;
+        } else {
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -145,18 +145,6 @@ public class FxCopRequirementsUtil {
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-      case MEMBER:
-      case ACCESSOR:
-        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
-      default:
-        return "_unknown_/_unknown_";
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
@@ -203,6 +191,18 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
     return source.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
   }
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+      case MEMBER:
+      case ACCESSOR:
+        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
+      default:
+        return "_unknown_/_unknown_";
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
