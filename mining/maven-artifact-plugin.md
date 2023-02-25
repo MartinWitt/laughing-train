@@ -22,18 +22,6 @@ I found 36 bad smells with 3 repairable:
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-     * Artifacts to ignore, specified as <code>extension</code> or <code>classifier.extension</code>.
-     */
-    @Parameter(property = "buildinfo.ignore", defaultValue = "")
-    private Set<String> ignore;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
 #### Snippet
 ```java
@@ -44,19 +32,19 @@ public class CheckBuildPlanMojo extends AbstractMojo {
     @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
 #### Snippet
 ```java
- * Plugin utility to detect if install or deploy is skipped in a build.
- */
-class PluginUtil {
-    static boolean isSkip(MavenProject project) {
-        return isSkip(project, "install") || isSkip(project, "deploy");
+     * Artifacts to ignore, specified as <code>extension</code> or <code>classifier.extension</code>.
+     */
+    @Parameter(property = "buildinfo.ignore", defaultValue = "")
+    private Set<String> ignore;
+
 ```
 
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
@@ -67,6 +55,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.j
 class JdkToolchainUtil {
     static String getJavaVersion(Toolchain toolchain) {
         String version = "unknown";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+#### Snippet
+```java
+ * Plugin utility to detect if install or deploy is skipped in a build.
+ */
+class PluginUtil {
+    static boolean isSkip(MavenProject project) {
+        return isSkip(project, "install") || isSkip(project, "deploy");
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -212,6 +212,30 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 #### Snippet
 ```java
@@ -224,47 +248,11 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-        ZipEntry zipEntry = jar.getEntry(entryName);
-        if (zipEntry == null) {
-            return null;
         }
-        try (InputStream in = jar.getInputStream(zipEntry)) {
-```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-            log.warn("Unable to read " + entryName + " from " + jar, e);
-        }
         return null;
     }
 
@@ -299,8 +287,20 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
+        ZipEntry zipEntry = jar.getEntry(entryName);
+        if (zipEntry == null) {
+            return null;
         }
+        try (InputStream in = jar.getInputStream(zipEntry)) {
+```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            log.warn("Unable to read " + entryName + " from " + jar, e);
+        }
         return null;
     }
 
