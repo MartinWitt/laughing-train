@@ -73,9 +73,9 @@ Return of `null`
 in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
 ```java
-  public V get(int key) {
-    int index = index(key);
-    return index < 0 ? null : unwrapNull(_values[index]);
+
+  private static <V> V unwrapNull(V value) {
+    return value == TObjectHash.NULL ? null : value;
   }
 
 ```
@@ -85,9 +85,9 @@ Return of `null`
 in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
 ```java
-
-  private static <V> V unwrapNull(V value) {
-    return value == TObjectHash.NULL ? null : value;
+  public V get(int key) {
+    int index = index(key);
+    return index < 0 ? null : unwrapNull(_values[index]);
   }
 
 ```
@@ -129,42 +129,6 @@ in `core/src/main/java/gnu/trove/THashMap.java`
 ```
 
 ## RuleId[ruleID=ArrayEquality]
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `core/src/main/java/gnu/trove/TObjectHash.java`
-#### Snippet
-```java
-  public TObjectHash<T> clone() {
-    TObjectHash<T> h = (TObjectHash<T>)super.clone();
-    h._set = _set == EMPTY_OBJECT_ARRAY ? EMPTY_OBJECT_ARRAY : _set.clone();
-    return h;
-  }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `core/src/main/java/gnu/trove/TObjectHash.java`
-#### Snippet
-```java
-  protected int index(T obj) {
-    Object[] set = _set;
-    if (set == EMPTY_OBJECT_ARRAY) return -1;
-    int length = set.length;
-    int hash = _hashingStrategy.computeHashCode(obj) & 0x7fffffff;
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `core/src/main/java/gnu/trove/TObjectHash.java`
-#### Snippet
-```java
-   */
-  protected int insertionIndex(T obj) {
-    if (_set == EMPTY_OBJECT_ARRAY) {
-      setUp((int)(DEFAULT_INITIAL_CAPACITY / DEFAULT_LOAD_FACTOR + 1));
-    }
-```
-
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
@@ -215,14 +179,38 @@ in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
-in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
+in `core/src/main/java/gnu/trove/TObjectHash.java`
 #### Snippet
 ```java
-    long[] set = _set;
-    Object[] values = _values;
-    if (values == EMPTY_OBJECT_ARRAY) return -1;
+   */
+  protected int insertionIndex(T obj) {
+    if (_set == EMPTY_OBJECT_ARRAY) {
+      setUp((int)(DEFAULT_INITIAL_CAPACITY / DEFAULT_LOAD_FACTOR + 1));
+    }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `core/src/main/java/gnu/trove/TObjectHash.java`
+#### Snippet
+```java
+  public TObjectHash<T> clone() {
+    TObjectHash<T> h = (TObjectHash<T>)super.clone();
+    h._set = _set == EMPTY_OBJECT_ARRAY ? EMPTY_OBJECT_ARRAY : _set.clone();
+    return h;
+  }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `core/src/main/java/gnu/trove/TObjectHash.java`
+#### Snippet
+```java
+  protected int index(T obj) {
+    Object[] set = _set;
+    if (set == EMPTY_OBJECT_ARRAY) return -1;
     int length = set.length;
-    int hash = _hashingStrategy.computeHashCode(val) & 0x7fffffff;
+    int hash = _hashingStrategy.computeHashCode(obj) & 0x7fffffff;
 ```
 
 ### ArrayEquality
@@ -259,6 +247,18 @@ in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
     m._set = _values == EMPTY_OBJECT_ARRAY ? null : _set.clone();
     return m;
   }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
+#### Snippet
+```java
+    long[] set = _set;
+    Object[] values = _values;
+    if (values == EMPTY_OBJECT_ARRAY) return -1;
+    int length = set.length;
+    int hash = _hashingStrategy.computeHashCode(val) & 0x7fffffff;
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -495,15 +495,15 @@ in `core/src/main/java/gnu/trove/TIterator.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/main/java/gnu/trove/TObjectHash.java`
+Can generalize to `? super V`
+in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
 ```java
-   * the procedure returned false for some value.
+   * the procedure returned false for some entry.
    */
-  public boolean forEach(TObjectProcedure<T> procedure) {
-    Object[] set = _set;
-    for (int i = set.length; i-- > 0; ) {
+  public boolean forEachEntry(TIntObjectProcedure<V> procedure) {
+    int[] keys = _set;
+    V[] values = _values;
 ```
 
 ### BoundedWildcard
@@ -535,6 +535,18 @@ Can generalize to `? super V`
 in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
 ```java
+   * @return true if the map was modified.
+   */
+  public boolean retainEntries(TIntObjectProcedure<V> procedure) {
+    boolean modified = false;
+    int[] keys = _set;
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
+#### Snippet
+```java
    * the procedure returned false for some value.
    */
   public boolean forEachValue(TObjectProcedure<V> procedure) {
@@ -543,27 +555,51 @@ in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `core/src/main/java/gnu/trove/TObjectHash.java`
+#### Snippet
+```java
+   * the procedure returned false for some value.
+   */
+  public boolean forEach(TObjectProcedure<T> procedure) {
+    Object[] set = _set;
+    for (int i = set.length; i-- > 0; ) {
+```
+
+### BoundedWildcard
 Can generalize to `? super V`
-in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
+in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 #### Snippet
 ```java
    * the procedure returned false for some entry.
    */
-  public boolean forEachEntry(TIntObjectProcedure<V> procedure) {
-    int[] keys = _set;
+  public boolean forEachEntry(TLongObjectProcedure<V> procedure) {
+    long[] keys = _set;
     V[] values = _values;
 ```
 
 ### BoundedWildcard
 Can generalize to `? super V`
-in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
+in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 #### Snippet
 ```java
-   * @return true if the map was modified.
+   * @param function a <code>TObjectFunction</code> value
    */
-  public boolean retainEntries(TIntObjectProcedure<V> procedure) {
-    boolean modified = false;
-    int[] keys = _set;
+  public void transformValues(TObjectFunction<V, V> function) {
+    V[] values = _values;
+    for (int i = values.length; i-- > 0; ) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
+#### Snippet
+```java
+   * @param function a <code>TObjectFunction</code> value
+   */
+  public void transformValues(TObjectFunction<V, V> function) {
+    V[] values = _values;
+    for (int i = values.length; i-- > 0; ) {
 ```
 
 ### BoundedWildcard
@@ -591,54 +627,6 @@ in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
-#### Snippet
-```java
-   * @param function a <code>TObjectFunction</code> value
-   */
-  public void transformValues(TObjectFunction<V, V> function) {
-    V[] values = _values;
-    for (int i = values.length; i-- > 0; ) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
-#### Snippet
-```java
-   * @param function a <code>TObjectFunction</code> value
-   */
-  public void transformValues(TObjectFunction<V, V> function) {
-    V[] values = _values;
-    for (int i = values.length; i-- > 0; ) {
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
-#### Snippet
-```java
-   * the procedure returned false for some entry.
-   */
-  public boolean forEachEntry(TLongObjectProcedure<V> procedure) {
-    long[] keys = _set;
-    V[] values = _values;
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
-#### Snippet
-```java
-    private final TObjectLongHashMap<K> _otherMap;
-
-    EqProcedure(TObjectLongHashMap<K> otherMap) {
-      _otherMap = otherMap;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super K`
 in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
 #### Snippet
@@ -660,6 +648,18 @@ in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
   public boolean forEachEntry(TObjectLongProcedure<K> procedure) {
     K[] keys = (K[])_set;
     long[] values = _values;
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
+#### Snippet
+```java
+    private final TObjectLongHashMap<K> _otherMap;
+
+    EqProcedure(TObjectLongHashMap<K> otherMap) {
+      _otherMap = otherMap;
+    }
 ```
 
 ### BoundedWildcard
@@ -699,30 +699,6 @@ in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-   * @param function a <code>TObjectFunction</code> value
-   */
-  public void transformValues(TObjectFunction<V, V> function) {
-    V[] values = _values;
-    Object[] set = _set;
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-   * @param function a <code>TObjectFunction</code> value
-   */
-  public void transformValues(TObjectFunction<V, V> function) {
-    V[] values = _values;
-    Object[] set = _set;
-```
-
-### BoundedWildcard
 Can generalize to `? extends V`
 in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
@@ -739,30 +715,6 @@ Can generalize to `? super K`
 in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
 ```java
-   * @return true if the map was modified.
-   */
-  public boolean retainEntries(TObjectObjectProcedure<K, V> procedure) {
-    Object[] keys = _set;
-    V[] values = _values;
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-   * @return true if the map was modified.
-   */
-  public boolean retainEntries(TObjectObjectProcedure<K, V> procedure) {
-    Object[] keys = _set;
-    V[] values = _values;
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
    * the procedure returned false for some entry.
    */
   public boolean forEachEntry(TObjectObjectProcedure<K, V> procedure) {
@@ -780,42 +732,6 @@ in `core/src/main/java/gnu/trove/THashMap.java`
   public boolean forEachEntry(TObjectObjectProcedure<K, V> procedure) {
     Object[] keys = _set;
     V[] values = _values;
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-    private final Map<K, V> _otherMap;
-
-    EqProcedure(Map<K, V> otherMap) {
-      _otherMap = otherMap;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-   * @param strategy used to compute hash codes and to compare objects.
-   */
-  public THashMap(Map<K, V> map, TObjectHashingStrategy<K> strategy) {
-    this(map.size(), strategy);
-    putAll(map);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-   * @param strategy used to compute hash codes and to compare objects.
-   */
-  public THashMap(Map<K, V> map, TObjectHashingStrategy<K> strategy) {
-    this(map.size(), strategy);
-    putAll(map);
 ```
 
 ### BoundedWildcard
@@ -843,6 +759,42 @@ in `core/src/main/java/gnu/trove/THashMap.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super K`
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+   * @return true if the map was modified.
+   */
+  public boolean retainEntries(TObjectObjectProcedure<K, V> procedure) {
+    Object[] keys = _set;
+    V[] values = _values;
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+   * @return true if the map was modified.
+   */
+  public boolean retainEntries(TObjectObjectProcedure<K, V> procedure) {
+    Object[] keys = _set;
+    V[] values = _values;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+    private final Map<K, V> _otherMap;
+
+    EqProcedure(Map<K, V> otherMap) {
+      _otherMap = otherMap;
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends K`
 in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
@@ -866,19 +818,55 @@ in `core/src/main/java/gnu/trove/THashMap.java`
     putAll(map);
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'TIntObjectHashMap' is still used
-in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
+### BoundedWildcard
+Can generalize to `? extends K`
+in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class TIntObjectHashMap<V> extends THash implements TIntHashingStrategy {
-  /**
-   * the values of the map
+   * @param strategy used to compute hash codes and to compare objects.
+   */
+  public THashMap(Map<K, V> map, TObjectHashingStrategy<K> strategy) {
+    this(map.size(), strategy);
+    putAll(map);
 ```
 
+### BoundedWildcard
+Can generalize to `? extends V`
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+   * @param strategy used to compute hash codes and to compare objects.
+   */
+  public THashMap(Map<K, V> map, TObjectHashingStrategy<K> strategy) {
+    this(map.size(), strategy);
+    putAll(map);
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+   * @param function a <code>TObjectFunction</code> value
+   */
+  public void transformValues(TObjectFunction<V, V> function) {
+    V[] values = _values;
+    Object[] set = _set;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+   * @param function a <code>TObjectFunction</code> value
+   */
+  public void transformValues(TObjectFunction<V, V> function) {
+    V[] values = _values;
+    Object[] set = _set;
+```
+
+## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'TPrimitiveHash' is still used
 in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
@@ -889,6 +877,18 @@ in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
 public abstract class TPrimitiveHash extends THash {
   /**
    * flags indicating whether each position in the hash is
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'TIntObjectHashMap' is still used
+in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class TIntObjectHashMap<V> extends THash implements TIntHashingStrategy {
+  /**
+   * the values of the map
 ```
 
 ### DeprecatedIsStillUsed
@@ -929,75 +929,39 @@ public class THashMap<K, V> extends TObjectHash<K> implements Map<K, V> {
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `TLongHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TLongHash.java`
+Constructor `TPrimitiveHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
 #### Snippet
 ```java
-   * @param strategy        used to compute hash codes and to compare keys.
+   * @param loadFactor      a <code>float</code> value
    */
-  public TLongHash(int initialCapacity, float loadFactor, TLongHashingStrategy strategy) {
+  public TPrimitiveHash(int initialCapacity, float loadFactor) {
     super(initialCapacity, loadFactor);
-    _hashingStrategy = strategy;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TLongHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TLongHash.java`
-#### Snippet
-```java
-   * capacity and load factor.
-   */
-  public TLongHash() {
-    _hashingStrategy = this;
   }
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `TLongHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TLongHash.java`
-#### Snippet
-```java
-   * @param strategy used to compute hash codes and to compare keys.
-   */
-  public TLongHash(TLongHashingStrategy strategy) {
-    _hashingStrategy = strategy;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TLongHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TLongHash.java`
-#### Snippet
-```java
-   * @param strategy        used to compute hash codes and to compare keys.
-   */
-  public TLongHash(int initialCapacity, TLongHashingStrategy strategy) {
-    super(initialCapacity);
-    _hashingStrategy = strategy;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TLongHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TLongHash.java`
-#### Snippet
-```java
-   *                        rehashing takes place.
-   */
-  public TLongHash(int initialCapacity, float loadFactor) {
-    super(initialCapacity, loadFactor);
-    _hashingStrategy = this;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TLongHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TLongHash.java`
+Constructor `TPrimitiveHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
 #### Snippet
 ```java
    * @param initialCapacity an <code>int</code> value
    */
-  public TLongHash(int initialCapacity) {
-    super(initialCapacity);
-    _hashingStrategy = this;
+  public TPrimitiveHash(int initialCapacity) {
+    this(initialCapacity, DEFAULT_LOAD_FACTOR);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TPrimitiveHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
+#### Snippet
+```java
+   * capacity and load factor.
+   */
+  public TPrimitiveHash() {
+    super();
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1005,11 +969,11 @@ Constructor `THash()` of an abstract class should not be declared 'public'
 in `core/src/main/java/gnu/trove/THash.java`
 #### Snippet
 ```java
-   * @param initialCapacity an <code>int</code> value
+   * @param loadFactor      a <code>float</code> value
    */
-  public THash(int initialCapacity) {
-    this(initialCapacity, DEFAULT_LOAD_FACTOR);
-  }
+  public THash(int initialCapacity, float loadFactor) {
+    super();
+    _loadFactor = loadFactor;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1029,22 +993,10 @@ Constructor `THash()` of an abstract class should not be declared 'public'
 in `core/src/main/java/gnu/trove/THash.java`
 #### Snippet
 ```java
-   * @param loadFactor      a <code>float</code> value
+   * @param initialCapacity an <code>int</code> value
    */
-  public THash(int initialCapacity, float loadFactor) {
-    super();
-    _loadFactor = loadFactor;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TObjectHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TObjectHash.java`
-#### Snippet
-```java
-   * default capacity and load factor.
-   */
-  public TObjectHash() {
-    _hashingStrategy = this;
+  public THash(int initialCapacity) {
+    this(initialCapacity, DEFAULT_LOAD_FACTOR);
   }
 ```
 
@@ -1065,6 +1017,18 @@ Constructor `TObjectHash()` of an abstract class should not be declared 'public'
 in `core/src/main/java/gnu/trove/TObjectHash.java`
 #### Snippet
 ```java
+   * @param initialCapacity an <code>int</code> value
+   */
+  public TObjectHash(int initialCapacity) {
+    super(initialCapacity);
+    _hashingStrategy = this;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TObjectHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TObjectHash.java`
+#### Snippet
+```java
    * @param strategy used to compute hash codes and to compare objects.
    */
   public TObjectHash(TObjectHashingStrategy<T> strategy) {
@@ -1077,11 +1041,11 @@ Constructor `TObjectHash()` of an abstract class should not be declared 'public'
 in `core/src/main/java/gnu/trove/TObjectHash.java`
 #### Snippet
 ```java
-   * @param strategy        used to compute hash codes and to compare objects.
+   * default capacity and load factor.
    */
-  public TObjectHash(int initialCapacity, float loadFactor, TObjectHashingStrategy<T> strategy) {
-    super(initialCapacity, loadFactor);
-    _hashingStrategy = strategy;
+  public TObjectHash() {
+    _hashingStrategy = this;
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1101,10 +1065,82 @@ Constructor `TObjectHash()` of an abstract class should not be declared 'public'
 in `core/src/main/java/gnu/trove/TObjectHash.java`
 #### Snippet
 ```java
+   * @param strategy        used to compute hash codes and to compare objects.
+   */
+  public TObjectHash(int initialCapacity, float loadFactor, TObjectHashingStrategy<T> strategy) {
+    super(initialCapacity, loadFactor);
+    _hashingStrategy = strategy;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TLongHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TLongHash.java`
+#### Snippet
+```java
+   * @param strategy        used to compute hash codes and to compare keys.
+   */
+  public TLongHash(int initialCapacity, float loadFactor, TLongHashingStrategy strategy) {
+    super(initialCapacity, loadFactor);
+    _hashingStrategy = strategy;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TLongHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TLongHash.java`
+#### Snippet
+```java
+   * @param strategy        used to compute hash codes and to compare keys.
+   */
+  public TLongHash(int initialCapacity, TLongHashingStrategy strategy) {
+    super(initialCapacity);
+    _hashingStrategy = strategy;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TLongHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TLongHash.java`
+#### Snippet
+```java
+   * capacity and load factor.
+   */
+  public TLongHash() {
+    _hashingStrategy = this;
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TLongHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TLongHash.java`
+#### Snippet
+```java
    * @param initialCapacity an <code>int</code> value
    */
-  public TObjectHash(int initialCapacity) {
+  public TLongHash(int initialCapacity) {
     super(initialCapacity);
+    _hashingStrategy = this;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TLongHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TLongHash.java`
+#### Snippet
+```java
+   * @param strategy used to compute hash codes and to compare keys.
+   */
+  public TLongHash(TLongHashingStrategy strategy) {
+    _hashingStrategy = strategy;
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TLongHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TLongHash.java`
+#### Snippet
+```java
+   *                        rehashing takes place.
+   */
+  public TLongHash(int initialCapacity, float loadFactor) {
+    super(initialCapacity, loadFactor);
     _hashingStrategy = this;
 ```
 
@@ -1118,42 +1154,6 @@ in `core/src/main/java/gnu/trove/TIntHash.java`
   public TIntHash(int initialCapacity, float loadFactor, TIntHashingStrategy strategy) {
     super(initialCapacity, loadFactor);
     _hashingStrategy = strategy;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TIntHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TIntHash.java`
-#### Snippet
-```java
-   * @param initialCapacity an <code>int</code> value
-   */
-  public TIntHash(int initialCapacity) {
-    super(initialCapacity);
-    _hashingStrategy = this;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TIntHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TIntHash.java`
-#### Snippet
-```java
-   * capacity and load factor.
-   */
-  public TIntHash() {
-    _hashingStrategy = this;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TIntHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TIntHash.java`
-#### Snippet
-```java
-   * @param strategy used to compute hash codes and to compare keys.
-   */
-  public TIntHash(TIntHashingStrategy strategy) {
-    _hashingStrategy = strategy;
-  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1181,38 +1181,38 @@ in `core/src/main/java/gnu/trove/TIntHash.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `TPrimitiveHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
+Constructor `TIntHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TIntHash.java`
 #### Snippet
 ```java
-   * capacity and load factor.
+   * @param strategy used to compute hash codes and to compare keys.
    */
-  public TPrimitiveHash() {
-    super();
+  public TIntHash(TIntHashingStrategy strategy) {
+    _hashingStrategy = strategy;
   }
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `TPrimitiveHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
+Constructor `TIntHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TIntHash.java`
 #### Snippet
 ```java
    * @param initialCapacity an <code>int</code> value
    */
-  public TPrimitiveHash(int initialCapacity) {
-    this(initialCapacity, DEFAULT_LOAD_FACTOR);
-  }
+  public TIntHash(int initialCapacity) {
+    super(initialCapacity);
+    _hashingStrategy = this;
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `TPrimitiveHash()` of an abstract class should not be declared 'public'
-in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
+Constructor `TIntHash()` of an abstract class should not be declared 'public'
+in `core/src/main/java/gnu/trove/TIntHash.java`
 #### Snippet
 ```java
-   * @param loadFactor      a <code>float</code> value
+   * capacity and load factor.
    */
-  public TPrimitiveHash(int initialCapacity, float loadFactor) {
-    super(initialCapacity, loadFactor);
+  public TIntHash() {
+    _hashingStrategy = this;
   }
 ```
 
