@@ -33,10 +33,10 @@ in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
 #### Snippet
 ```java
    */
-  @Parameter(property = "assertj.includePackagePrivateClasses")
-  public boolean includePackagePrivateClasses = false;
+  @Parameter(property = "assertj.skip")
+  public boolean skip = false;
 
-  @Override
+  /**
 ```
 
 ### RedundantFieldInitialization
@@ -57,25 +57,13 @@ in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
 #### Snippet
 ```java
    */
-  @Parameter(property = "assertj.skip")
-  public boolean skip = false;
+  @Parameter(property = "assertj.includePackagePrivateClasses")
+  public boolean includePackagePrivateClasses = false;
 
-  /**
+  @Override
 ```
 
 ## RuleId[ruleID=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
-#### Snippet
-```java
-   * Note that the Assertions entry point classes package is controlled by the entryPointClassPackage property.
-   */
-  @Parameter(defaultValue = "", property = "assertj.generateAssertionsInPackage")
-  public String generateAssertionsInPackage;
-
-```
-
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
@@ -88,19 +76,32 @@ public class AssertJAssertionsGeneratorMojo extends AbstractMojo {
 
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
 #### Snippet
 ```java
-  @VisibleForTesting
-  AssertionsGeneratorReport executeWithAssertionGenerator(AssertionsGenerator assertionGenerator) {
-    if (classes == null) classes = new String[0];
-    AssertionsGeneratorReport generatorReport = assertionGenerator.generateAssertionsFor(packages, classes, targetDir,
-                                                                                         entryPointClassPackage, hierarchical,
+   * Note that the Assertions entry point classes package is controlled by the entryPointClassPackage property.
+   */
+  @Parameter(defaultValue = "", property = "assertj.generateAssertionsInPackage")
+  public String generateAssertionsInPackage;
+
 ```
 
+## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Dereference of `targetDirPath.toFile().list()` may produce `NullPointerException`
+in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
+#### Snippet
+```java
+    try {
+      Path targetDirPath = Paths.get(targetDir);
+      if (Files.exists(targetDirPath) && targetDirPath.toFile().list().length > 0) {
+        getLog().info("Removing previously generated sources in " + targetDir);
+        FileUtils.cleanDirectory(targetDirPath.toFile());
+```
+
+## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
@@ -111,6 +112,18 @@ in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
     return new URLClassLoader(classpathElementUrls.toArray(new URL[0]), Thread.currentThread().getContextClassLoader());
   }
 
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  AssertionsGeneratorReport executeWithAssertionGenerator(AssertionsGenerator assertionGenerator) {
+    if (classes == null) classes = new String[0];
+    AssertionsGeneratorReport generatorReport = assertionGenerator.generateAssertionsFor(packages, classes, targetDir,
+                                                                                         entryPointClassPackage, hierarchical,
 ```
 
 ### ZeroLengthArrayInitialization
@@ -135,19 +148,6 @@ in `src/main/java/org/assertj/maven/generator/AssertionsGenerator.java`
     this.excludePatterns = new Pattern[0];
     this.assertionsEntryPointToGenerate = newHashSet();
   }
-```
-
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Dereference of `targetDirPath.toFile().list()` may produce `NullPointerException`
-in `src/main/java/org/assertj/maven/AssertJAssertionsGeneratorMojo.java`
-#### Snippet
-```java
-    try {
-      Path targetDirPath = Paths.get(targetDir);
-      if (Files.exists(targetDirPath) && targetDirPath.toFile().list().length > 0) {
-        getLog().info("Removing previously generated sources in " + targetDir);
-        FileUtils.cleanDirectory(targetDirPath.toFile());
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -225,18 +225,6 @@ public class Templates {
 
 ## RuleId[ruleID=UnstableTypeUsedInSignature]
 ### UnstableTypeUsedInSignature
-Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
-#### Snippet
-```java
-  private String[] inputClasses;
-  private Exception exception;
-  private Collection<TypeToken<?>> excludedClassesFromAssertionGeneration;
-  private Set<String> inputClassesNotFound;
-  private List<String> userTemplates;
-```
-
-### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
 in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
 #### Snippet
@@ -258,6 +246,18 @@ in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
   public void setExcludedClassesFromAssertionGeneration(Collection<TypeToken<?>> excludedClassSet) {
 	this.excludedClassesFromAssertionGeneration = excludedClassSet;
   }
+```
+
+### UnstableTypeUsedInSignature
+Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
+#### Snippet
+```java
+  private String[] inputClasses;
+  private Exception exception;
+  private Collection<TypeToken<?>> excludedClassesFromAssertionGeneration;
+  private Set<String> inputClassesNotFound;
+  private List<String> userTemplates;
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -310,6 +310,30 @@ in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/maven/generator/AssertionsGenerator.java`
+#### Snippet
+```java
+  }
+
+  private boolean isExcluded(TypeToken<?> element) {
+    String className = element.getRawType().getName();
+    for (Pattern excludePattern : excludePatterns) {
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/maven/generator/AssertionsGenerator.java`
+#### Snippet
+```java
+
+  private boolean isExcluded(TypeToken<?> element) {
+    String className = element.getRawType().getName();
+    for (Pattern excludePattern : excludePatterns) {
+      if (excludePattern.matcher(className).matches()) {
+```
+
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
 in `src/main/java/org/assertj/maven/generator/AssertionsGenerator.java`
@@ -404,30 +428,6 @@ in `src/main/java/org/assertj/maven/generator/AssertionsGenerator.java`
           ClassDescription classDescription = converter.convertToClassDescription(clazz);
           File generatedCustomAssertionFile = generator.generateCustomAssertionFor(classDescription);
           report.addGeneratedAssertionFile(generatedCustomAssertionFile);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/maven/generator/AssertionsGenerator.java`
-#### Snippet
-```java
-  }
-
-  private boolean isExcluded(TypeToken<?> element) {
-    String className = element.getRawType().getName();
-    for (Pattern excludePattern : excludePatterns) {
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/maven/generator/AssertionsGenerator.java`
-#### Snippet
-```java
-
-  private boolean isExcluded(TypeToken<?> element) {
-    String className = element.getRawType().getName();
-    for (Pattern excludePattern : excludePatterns) {
-      if (excludePattern.matcher(className).matches()) {
 ```
 
 ### UnstableApiUsage
@@ -555,18 +555,6 @@ in `src/main/java/org/assertj/maven/generator/AssertionsGenerator.java`
 in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
 #### Snippet
 ```java
-  private String[] inputClasses;
-  private Exception exception;
-  private Collection<TypeToken<?>> excludedClassesFromAssertionGeneration;
-  private Set<String> inputClassesNotFound;
-  private List<String> userTemplates;
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
-#### Snippet
-```java
   }
 
   public void reportInputClassesNotFound(Set<TypeToken<?>> classes, String[] inputClassNames) {
@@ -603,18 +591,6 @@ in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
 in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
 #### Snippet
 ```java
-  }
-
-  public void setExcludedClassesFromAssertionGeneration(Collection<TypeToken<?>> excludedClassSet) {
-	this.excludedClassesFromAssertionGeneration = excludedClassSet;
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
-#### Snippet
-```java
       reportBuilder.append(System.lineSeparator());
 	  reportBuilder.append("Input classes excluded from assertions generation:\n");
 	  for (TypeToken<?> excludedClass : excludedClassesFromAssertionGeneration) {
@@ -632,5 +608,29 @@ in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
         reportBuilder.append(INDENT).append(excludedClass.getRawType().getName()).append(System.lineSeparator());
 	  }
 	}
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
+#### Snippet
+```java
+  }
+
+  public void setExcludedClassesFromAssertionGeneration(Collection<TypeToken<?>> excludedClassSet) {
+	this.excludedClassesFromAssertionGeneration = excludedClassSet;
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/maven/generator/AssertionsGeneratorReport.java`
+#### Snippet
+```java
+  private String[] inputClasses;
+  private Exception exception;
+  private Collection<TypeToken<?>> excludedClassesFromAssertionGeneration;
+  private Set<String> inputClassesNotFound;
+  private List<String> userTemplates;
 ```
 
