@@ -6,23 +6,10 @@ I found 8 bad smells with 1 repairable:
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 2 | false |
 | WrongPackageStatement | 2 | false |
-| RedundantFieldInitialization | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
+| RedundantFieldInitialization | 1 | false |
 | StringBufferReplaceableByStringBuilder | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
-## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
-#### Snippet
-```java
-    public static final Logger LOG = LogManager.getLogger(com.microsoft.webapp.samples.PageVisits.class);
-
-    private int pageViews = 0;
-
-    /**
-```
-
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
 Iteration over `env.keySet()` may be replaced with 'entrySet()' iteration
@@ -34,6 +21,19 @@ in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
         for (String envName : env.keySet()) {
             if (envName.startsWith("WEBSITE")) {
                 buffer.append(String.format("%s = %s%n",
+```
+
+## RuleId[ruleID=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
+#### Snippet
+```java
+    public static final Logger LOG = LogManager.getLogger(com.microsoft.webapp.samples.PageVisits.class);
+
+    private int pageViews = 0;
+
+    /**
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByStringBuilder]
@@ -90,7 +90,7 @@ in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
 ## RuleId[ruleID=WrongPackageStatement]
 ### WrongPackageStatement
 Package name 'com.microsoft.webapp.samples' does not correspond to the file path 'main.java.com.microsoft.webapp.samples'
-in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
+in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
 #### Snippet
 ```java
  */
@@ -102,7 +102,7 @@ import java.io.IOException;
 
 ### WrongPackageStatement
 Package name 'com.microsoft.webapp.samples' does not correspond to the file path 'main.java.com.microsoft.webapp.samples'
-in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
+in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
 #### Snippet
 ```java
  */
