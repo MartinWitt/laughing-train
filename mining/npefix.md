@@ -78,18 +78,6 @@ I found 645 bad smells with 227 repairable:
 | RedundantFileCreation | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[dependencies.size()\]'
-in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
-#### Snippet
-```java
-        }
-        dependencies.addAll(Arrays.asList(deps));
-        URLClassLoader urlClassLoader = Launcher.getUrlClassLoader(dependencies.toArray(new String[dependencies.size()]));
-
-        String[] testsString = new TestClassesFinder().findIn(urlClassLoader, false);
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[tests.size()\]'
 in `src/main/java/utils/TestClassesFinder.java`
 #### Snippet
@@ -101,7 +89,31 @@ in `src/main/java/utils/TestClassesFinder.java`
 
 ```
 
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[dependencies.size()\]'
+in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
+#### Snippet
+```java
+        }
+        dependencies.addAll(Arrays.asList(deps));
+        URLClassLoader urlClassLoader = Launcher.getUrlClassLoader(dependencies.toArray(new String[dependencies.size()]));
+
+        String[] testsString = new TestClassesFinder().findIn(urlClassLoader, false);
+```
+
 ## RuleId[ruleID=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/utils/sacha/interfaces/IGeneralToJava.java`
+#### Snippet
+```java
+public interface IGeneralToJava {
+
+	public void changeToJava();
+
+}
+```
+
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `src/main/java/utils/sacha/project/utils/IMavenMerger.java`
@@ -119,11 +131,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
 ```
 
 ### UnnecessaryModifier
@@ -131,11 +143,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
 ```
 
 ### UnnecessaryModifier
@@ -143,11 +155,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
 ```
 
 ### UnnecessaryModifier
@@ -155,11 +167,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
 ```
 
 ### UnnecessaryModifier
@@ -167,11 +179,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
 ```
 
 ### UnnecessaryModifier
@@ -179,11 +191,383 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
 		public static final String BLOCK_CONTEXT_END = "blockEnd";
 		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
 		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+	}
+	public interface Method{
+		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
 		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
 		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	public interface Var{
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	public interface Var{
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	public interface Var{
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
 ```
 
 ### UnnecessaryModifier
@@ -227,83 +611,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
 		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
 		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
 ```
 
 ### UnnecessaryModifier
@@ -311,11 +623,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
 		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
 		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
 ```
 
 ### UnnecessaryModifier
@@ -323,47 +635,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
 		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
 		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
 ```
 
 ### UnnecessaryModifier
@@ -407,167 +683,119 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-
-public interface IConstants{
-	public interface Class {
-		public static final String THROWABLE = "java.lang.Throwable";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-
-		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-
-		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-
-		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String THROWABLE = "java.lang.Throwable";
-
-		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String THROWABLE = "java.lang.Throwable";
-
-		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String THROWABLE = "java.lang.Throwable";
-
-		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
 		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
 		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
 		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
 		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
 		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
 ```
 
 ### UnnecessaryModifier
@@ -575,11 +803,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
 		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
 		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
 		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
 		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
 ```
 
 ### UnnecessaryModifier
@@ -587,11 +815,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
 		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
 		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
 		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
 		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
 ```
 
 ### UnnecessaryModifier
@@ -599,11 +827,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
 ```
 
 ### UnnecessaryModifier
@@ -611,11 +839,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
 ```
 
 ### UnnecessaryModifier
@@ -623,11 +851,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
 ```
 
 ### UnnecessaryModifier
@@ -671,203 +899,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	}
-	public interface Var{
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	}
-	public interface Var{
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	}
-	public interface Var{
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	public interface Var{
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	public interface Var{
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	public interface Var{
-		public static final String DEFAULT_THROWABLE = "_bcornu_t";
-		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
 	}
 	public interface Method{
 		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
 		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
 ```
 
 ### UnnecessaryModifier
@@ -875,347 +911,23 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_TRY_START = "tryStart";
-		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
-		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
-		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
-		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
+	}
 	public interface Method{
 		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
 		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
 		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
+Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
+	}
 	public interface Method{
 		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
 		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
 		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	public interface Method{
-		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
-		public static final String THROW_CONTEXT = "_bcornu_throw_context";
-	}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
-		public static final String THROW_CONTEXT = "_bcornu_throw_context";
-	}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_CONTEXT = "_bcornu_static_context";
-		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
-		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
-		public static final String THROW_CONTEXT = "_bcornu_throw_context";
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
 ```
 
 ### UnnecessaryModifier
@@ -1235,11 +947,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
+	}
 ```
 
 ### UnnecessaryModifier
@@ -1247,11 +959,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
+	}
 ```
 
 ### UnnecessaryModifier
@@ -1259,11 +971,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
+	}
 ```
 
 ### UnnecessaryModifier
@@ -1271,11 +983,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
 ```
 
 ### UnnecessaryModifier
@@ -1283,11 +995,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
 ```
 
 ### UnnecessaryModifier
@@ -1295,11 +1007,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
 ```
 
 ### UnnecessaryModifier
@@ -1307,11 +1019,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
-	}
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
 ```
 
 ### UnnecessaryModifier
@@ -1319,11 +1031,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
-	}
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
 ```
 
 ### UnnecessaryModifier
@@ -1331,11 +1043,383 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+
+public interface IConstants{
+	public interface Class {
+		public static final String THROWABLE = "java.lang.Throwable";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	public interface Method{
+		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	public interface Method{
+		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	public interface Method{
+		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	}
+	public interface Var{
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	}
+	public interface Var{
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+	}
+	public interface Var{
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+		public static final String BLOCK_CONTEXT_END = "blockEnd";
+		public static final String TRY_CONTEXT_COMPUTE_ALL = "computeAll";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
+		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
+		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
 		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
 		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
 		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
 		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
 	}
+	public interface Method{
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+	}
+	public interface Method{
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+	}
+	public interface Method{
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
 ```
 
 ### UnnecessaryModifier
@@ -1379,11 +1463,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
 ```
 
 ### UnnecessaryModifier
@@ -1391,11 +1475,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
 ```
 
 ### UnnecessaryModifier
@@ -1403,11 +1487,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
 ```
 
 ### UnnecessaryModifier
@@ -1415,11 +1499,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
-	}
-	public interface Var{
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
 ```
 
 ### UnnecessaryModifier
@@ -1427,11 +1511,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
-	}
-	public interface Var{
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
 ```
 
 ### UnnecessaryModifier
@@ -1439,11 +1523,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
-	}
-	public interface Var{
+		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
+		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
 ```
 
 ### UnnecessaryModifier
@@ -1451,11 +1535,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
 ```
 
 ### UnnecessaryModifier
@@ -1463,11 +1547,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
 ```
 
 ### UnnecessaryModifier
@@ -1475,11 +1559,11 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
-		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
-		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
-		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
 ```
 
 ### UnnecessaryModifier
@@ -1487,11 +1571,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
 		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
 		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
 		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
 ```
 
 ### UnnecessaryModifier
@@ -1499,11 +1583,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
 		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
 		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
 		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
 ```
 
 ### UnnecessaryModifier
@@ -1511,11 +1595,83 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
+		public static final String TRY_CONTEXT_TRY_START = "tryStart";
+		public static final String TRY_CONTEXT_TRY_THROWS = "tryThrows";
 		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
 		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
 		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
-		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
-		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
+		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
+		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
+		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
+		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String THROWABLE = "java.lang.Throwable";
+
+		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String THROWABLE = "java.lang.Throwable";
+
+		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String THROWABLE = "java.lang.Throwable";
+
+		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
 ```
 
 ### UnnecessaryModifier
@@ -1559,510 +1715,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-		public static final String CATCH_MANAGER ="bcornu.resi.manager.CatchManager";
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
-		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
-		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
-		public static final String FAULT_INJECTOR ="bcornu.resi.manager.FaultInjector";
-		public static final String RESILIENCE_MANAGER ="bcornu.resi.manager.ResilienceManager";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	}
-	public interface Method{
-		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	}
-	public interface Method{
-		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-	}
-	public interface Method{
-		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String FAKE_EXCEPTION_THROWER ="bcornu.resi.utils.FakeExceptionThrower";
-		public static final String STATIC_MANAGER ="bcornu.resi.manager.StaticManager";
-		public static final String SUBMARINE_MANAGER ="bcornu.resi.manager.SubMarineManager";
-		public static final String EXCEPTION_CREATOR ="bcornu.resi.utils.ExceptionCreator";
-		public static final String ABEND_MANAGER ="bcornu.resi.manager.AbendManager";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT = TryContext.class.getCanonicalName();
-		public static final String TRY_CONTEXT_IMPL = "bcornu.resi.context.TryContextImpl";
-		public static final String FINALLY_MANAGER = "bcornu.resi.manager.FinallyManager";
-		public static final String BLOCK_CONTEXT = "bcornu.resi.context.BlockContext";
-		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
-	}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
-	}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
-		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
-		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
-		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
-	}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
-	}
-	public interface Method{
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
-	}
-	public interface Method{
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
-		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
-		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
-	}
-	public interface Method{
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
-		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
-		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
-		public static final String BLOCK_CONTEXT_START = "blockStart";
-		public static final String BLOCK_CONTEXT_END = "blockEnd";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
-		public static final String CONTEXT_LEARN_TRY_THROWN_EXCEPTION = "learnsThatTryHasThrownTheException";
-		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
-		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
-		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
-		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
-#### Snippet
-```java
 		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
 		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
 		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
@@ -2096,14 +1748,362 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/utils/sacha/interfaces/IGeneralToJava.java`
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
 #### Snippet
 ```java
-public interface IGeneralToJava {
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
+	}
+	public interface Var{
+```
 
-	public void changeToJava();
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
+	}
+	public interface Var{
+```
 
-}
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_FINALLY_COMPUTE = "finallyCompute";
+		public static final String FAKE_INITIALIZER_INITALIZE = "initialize";
+		public static final String TRY_CONTEXT_ALL_THROWS = "allThrows";
+	}
+	public interface Var{
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String STATIC_CONTEXT = "bcornu.resi.context.StaticContext";
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_CATCH_ACTIVATED = "setCatchActivated";
+		public static final String CONTEXT_CATCH_VISITED = "setCatchVisited";
+		public static final String CONTEXT_FINALLY_VISITED = "setFinallyVisited";
+		public static final String CONTEXT_FINALLY_ACTIVATED = "setFinallyActivated";
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+	}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+	}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONSTRUCTOR_CONTEXT = "bcornu.resi.context.ConstructorContext";
+		public static final String METHODE_CONTEXT = MethodContext.class.getCanonicalName();
+		public static final String FAKE_INITIALIZER = "bcornu.resi.utils.FakeInitializer";
+		public static final String THROW_MANAGER = "bcornu.resi.context.ThrowManager";
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+		public static final String TRY_CONTEXT_CATCH_COMPUTE = "catchCompute";
+		public static final String TRY_CONTEXT_FINALLY_START = "finallyStart";
+		public static final String TRY_CONTEXT_FINALLY_THROWS = "finallyThrows";
+		public static final String TRY_CONTEXT_FINALLY_END = "finallyEnd";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+
+		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+
+		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+
+		public static final String SUBMARINE_EXCEPTION = "bcornu.resi.exception.SubMarineException";
+		public static final String INJECTED_EXCEPTION = "bcornu.resi.exception.InjectedException";
+		public static final String CONSTRUCTOR_MANAGER = "bcornu.resi.manager.ConstructorManager";
+		public static final String ACTION_PERFORMED_MANAGER = "bcornu.resi.manager.ActionPerformedManager";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String CONTEXT_LEARN_FINALLY_THROWN_EXCEPTION = "learnsThatFinallyHasThrownTheException";
+		public static final String CONTEXT_TRY_FINISHED = "learnsThatTryHasFinished";
+		public static final String BLOCK_CONTEXT_THROWS = "blockThrows";
+		public static final String BLOCK_CONTEXT_COMPUTE = "compute";
+		public static final String BLOCK_CONTEXT_START = "blockStart";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+		public static final String THROW_CONTEXT = "_bcornu_throw_context";
+	}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+		public static final String THROW_CONTEXT = "_bcornu_throw_context";
+	}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+		public static final String THROW_CONTEXT = "_bcornu_throw_context";
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String DEFAULT_THROWABLE = "_bcornu_t";
+		public static final String TRY_CONTEXT_PREFIX = "_bcornu_try_context_";
+		public static final String STATIC_CONTEXT = "_bcornu_static_context";
+		public static final String METHODE_CONTEXT = "_bcornu_methode_context";
+		public static final String CONSTRUCTOR_CONTEXT = "_bcornu_constructor_context";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/fr/inria/spirals/npefix/transformer/utils/IConstants.java`
+#### Snippet
+```java
+		public static final String TRY_CONTEXT_TRY_END = "tryEnd";
+		public static final String TRY_CONTEXT_TRY_COMPUTE = "tryCompute";
+		public static final String TRY_CONTEXT_CATCH_START = "catchStart";
+		public static final String TRY_CONTEXT_CATCH_THROWS = "catchThrows";
+		public static final String TRY_CONTEXT_CATCH_END = "catchEnd";
 ```
 
 ### UnnecessaryModifier
@@ -2111,11 +2111,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
 #### Snippet
 ```java
-	public final static int SIZE_LASTMODIFIED = 8;
-	public static final int SIZE_COUNTER = 1;
-	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 
-	/** constants for safe chunky streams */
+	// 40b18b8123bc00141a2596e7a393be1e
+	public static final byte[] BEGIN_CHUNK = {64, -79, -117, -127, 35, -68, 0, 20, 26, 37, -106, -25, -93, -109, -66, 30};
+
+	// c058fbf323bc00141a51f38c7bbb77c6
 ```
 
 ### UnnecessaryModifier
@@ -2123,11 +2123,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
 #### Snippet
 ```java
-	public final static int SIZE_LASTMODIFIED = 8;
-	public static final int SIZE_COUNTER = 1;
-	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 
-	/** constants for safe chunky streams */
+	// 40b18b8123bc00141a2596e7a393be1e
+	public static final byte[] BEGIN_CHUNK = {64, -79, -117, -127, 35, -68, 0, 20, 26, 37, -106, -25, -93, -109, -66, 30};
+
+	// c058fbf323bc00141a51f38c7bbb77c6
 ```
 
 ### UnnecessaryModifier
@@ -2135,11 +2135,83 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
 #### Snippet
 ```java
+
+	// 40b18b8123bc00141a2596e7a393be1e
+	public static final byte[] BEGIN_CHUNK = {64, -79, -117, -127, 35, -68, 0, 20, 26, 37, -106, -25, -93, -109, -66, 30};
+
+	// c058fbf323bc00141a51f38c7bbb77c6
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
+#### Snippet
+```java
+	/** Common constants for NPEFixExecution Store classes. */
 	public final static int SIZE_LASTMODIFIED = 8;
 	public static final int SIZE_COUNTER = 1;
 	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 
-	/** constants for safe chunky streams */
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
+#### Snippet
+```java
+	/** Common constants for NPEFixExecution Store classes. */
+	public final static int SIZE_LASTMODIFIED = 8;
+	public static final int SIZE_COUNTER = 1;
+	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
+#### Snippet
+```java
+	/** Common constants for NPEFixExecution Store classes. */
+	public final static int SIZE_LASTMODIFIED = 8;
+	public static final int SIZE_COUNTER = 1;
+	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
+#### Snippet
+```java
+
+	/** Common constants for NPEFixExecution Store classes. */
+	public final static int SIZE_LASTMODIFIED = 8;
+	public static final int SIZE_COUNTER = 1;
+	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
+#### Snippet
+```java
+
+	/** Common constants for NPEFixExecution Store classes. */
+	public final static int SIZE_LASTMODIFIED = 8;
+	public static final int SIZE_COUNTER = 1;
+	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
+#### Snippet
+```java
+
+	/** Common constants for NPEFixExecution Store classes. */
+	public final static int SIZE_LASTMODIFIED = 8;
+	public static final int SIZE_COUNTER = 1;
+	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 ```
 
 ### UnnecessaryModifier
@@ -2173,78 +2245,6 @@ in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstant
 	// BEGIN_CHUNK and END_CHUNK must have the same length
 	public static final int CHUNK_DELIMITER_SIZE = BEGIN_CHUNK.length;
 }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
-#### Snippet
-```java
-	/** Common constants for NPEFixExecution Store classes. */
-	public final static int SIZE_LASTMODIFIED = 8;
-	public static final int SIZE_COUNTER = 1;
-	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
-#### Snippet
-```java
-	/** Common constants for NPEFixExecution Store classes. */
-	public final static int SIZE_LASTMODIFIED = 8;
-	public static final int SIZE_COUNTER = 1;
-	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
-#### Snippet
-```java
-	/** Common constants for NPEFixExecution Store classes. */
-	public final static int SIZE_LASTMODIFIED = 8;
-	public static final int SIZE_COUNTER = 1;
-	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
-#### Snippet
-```java
-
-	/** Common constants for NPEFixExecution Store classes. */
-	public final static int SIZE_LASTMODIFIED = 8;
-	public static final int SIZE_COUNTER = 1;
-	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
-#### Snippet
-```java
-
-	/** Common constants for NPEFixExecution Store classes. */
-	public final static int SIZE_LASTMODIFIED = 8;
-	public static final int SIZE_COUNTER = 1;
-	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
-#### Snippet
-```java
-
-	/** Common constants for NPEFixExecution Store classes. */
-	public final static int SIZE_LASTMODIFIED = 8;
-	public static final int SIZE_COUNTER = 1;
-	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 ```
 
 ### UnnecessaryModifier
@@ -2288,11 +2288,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
 #### Snippet
 ```java
+	public final static int SIZE_LASTMODIFIED = 8;
+	public static final int SIZE_COUNTER = 1;
+	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 
-	// 40b18b8123bc00141a2596e7a393be1e
-	public static final byte[] BEGIN_CHUNK = {64, -79, -117, -127, 35, -68, 0, 20, 26, 37, -106, -25, -93, -109, -66, 30};
-
-	// c058fbf323bc00141a51f38c7bbb77c6
+	/** constants for safe chunky streams */
 ```
 
 ### UnnecessaryModifier
@@ -2300,11 +2300,11 @@ Modifier `static` is redundant for interface fields
 in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
 #### Snippet
 ```java
+	public final static int SIZE_LASTMODIFIED = 8;
+	public static final int SIZE_COUNTER = 1;
+	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 
-	// 40b18b8123bc00141a2596e7a393be1e
-	public static final byte[] BEGIN_CHUNK = {64, -79, -117, -127, 35, -68, 0, 20, 26, 37, -106, -25, -93, -109, -66, 30};
-
-	// c058fbf323bc00141a51f38c7bbb77c6
+	/** constants for safe chunky streams */
 ```
 
 ### UnnecessaryModifier
@@ -2312,38 +2312,14 @@ Modifier `final` is redundant for interface fields
 in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstants.java`
 #### Snippet
 ```java
+	public final static int SIZE_LASTMODIFIED = 8;
+	public static final int SIZE_COUNTER = 1;
+	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 
-	// 40b18b8123bc00141a2596e7a393be1e
-	public static final byte[] BEGIN_CHUNK = {64, -79, -117, -127, 35, -68, 0, 20, 26, 37, -106, -25, -93, -109, -66, 30};
-
-	// c058fbf323bc00141a51f38c7bbb77c6
+	/** constants for safe chunky streams */
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `isKeyword()` declared in class 'fr.inria.spirals.npefix.patch.sorter.StringTokenIterator' but referenced via subclass 'fr.inria.spirals.npefix.patch.sorter.SingleFileTokenIterator'
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/TokenImpl.java`
-#### Snippet
-```java
-	@Override
-	public boolean isKeyword() {
-		return SingleFileTokenIterator.isKeyword(type);
-	}
-
-```
-
-### StaticCallOnSubclass
-Static method `isSyntax()` declared in class 'fr.inria.spirals.npefix.patch.sorter.StringTokenIterator' but referenced via subclass 'fr.inria.spirals.npefix.patch.sorter.SingleFileTokenIterator'
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/TokenImpl.java`
-#### Snippet
-```java
-	@Override
-	public boolean isSyntax() {
-		return SingleFileTokenIterator.isSyntax(type);
-	}
-
-```
-
 ### StaticCallOnSubclass
 Static method `isOperator()` declared in class 'fr.inria.spirals.npefix.patch.sorter.StringTokenIterator' but referenced via subclass 'fr.inria.spirals.npefix.patch.sorter.SingleFileTokenIterator'
 in `src/main/java/fr/inria/spirals/npefix/patch/sorter/TokenImpl.java`
@@ -2352,6 +2328,18 @@ in `src/main/java/fr/inria/spirals/npefix/patch/sorter/TokenImpl.java`
 	@Override
 	public boolean isOperator() {
 		return SingleFileTokenIterator.isOperator(type);
+	}
+
+```
+
+### StaticCallOnSubclass
+Static method `isKeyword()` declared in class 'fr.inria.spirals.npefix.patch.sorter.StringTokenIterator' but referenced via subclass 'fr.inria.spirals.npefix.patch.sorter.SingleFileTokenIterator'
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/TokenImpl.java`
+#### Snippet
+```java
+	@Override
+	public boolean isKeyword() {
+		return SingleFileTokenIterator.isKeyword(type);
 	}
 
 ```
@@ -2376,6 +2364,18 @@ in `src/main/java/fr/inria/spirals/npefix/patch/sorter/TokenImpl.java`
 	@Override
 	public boolean isText() {
 		return SingleFileTokenIterator.isText(type);
+	}
+
+```
+
+### StaticCallOnSubclass
+Static method `isSyntax()` declared in class 'fr.inria.spirals.npefix.patch.sorter.StringTokenIterator' but referenced via subclass 'fr.inria.spirals.npefix.patch.sorter.SingleFileTokenIterator'
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/TokenImpl.java`
+#### Snippet
+```java
+	@Override
+	public boolean isSyntax() {
+		return SingleFileTokenIterator.isSyntax(type);
 	}
 
 ```
@@ -2430,6 +2430,19 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEFixTemplateEvaluation.ja
 			String resourceParentPath = ((File)resource).getParent();
 ```
 
+## RuleId[ruleID=EmptyFinallyBlock]
+### EmptyFinallyBlock
+Empty `finally` block
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+			main.showUsage();
+			throw e;
+		} finally {
+
+		}
+```
+
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (3 lines)
@@ -2444,27 +2457,15 @@ in `src/main/java/utils/sacha/runner/utils/TestInfo.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
+Commented out code (27 lines)
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveInit.java`
 #### Snippet
 ```java
-	}
 
-	/*static {
-		PatchActivationImpl.startRMI();
-	}*/
-```
 
-### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
-#### Snippet
-```java
-		return instances;
-
-		/*Stack<Set<Object>> stack = CallChecker.getStack();
-		for (Iterator<Set<Object>> iterator = stack.iterator(); iterator.hasNext(); ) {
-			vars = iterator.next();
+		/*
+		// assign Integer in int
+		if(element.getType() != null &&
 ```
 
 ### CommentedOutCode
@@ -2480,15 +2481,15 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssi
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Experiment.java`
+Commented out code (3 lines)
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
 #### Snippet
 ```java
-				result[i] = 1;
-			} else {
-				//result[i] = new NGram(token, predicate, corpusTokens).perform();
-				//result[i] = new KneserNey(token, predicate, corpusTokens).perform();
-				result[i] = new Laplace(token, predicate, corpusTokens).perform();
+	}
+
+	/*static {
+		PatchActivationImpl.startRMI();
+	}*/
 ```
 
 ### CommentedOutCode
@@ -2504,28 +2505,27 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TernarySplitter
 ```
 
 ### CommentedOutCode
-Commented out code (27 lines)
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveInit.java`
+Commented out code (2 lines)
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Experiment.java`
 #### Snippet
 ```java
-
-
-		/*
-		// assign Integer in int
-		if(element.getType() != null &&
+				result[i] = 1;
+			} else {
+				//result[i] = new NGram(token, predicate, corpusTokens).perform();
+				//result[i] = new KneserNey(token, predicate, corpusTokens).perform();
+				result[i] = new Laplace(token, predicate, corpusTokens).perform();
 ```
 
-## RuleId[ruleID=EmptyFinallyBlock]
-### EmptyFinallyBlock
-Empty `finally` block
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
 #### Snippet
 ```java
-			main.showUsage();
-			throw e;
-		} finally {
+		return instances;
 
-		}
+		/*Stack<Set<Object>> stack = CallChecker.getStack();
+		for (Iterator<Set<Object>> iterator = stack.iterator(); iterator.hasNext(); ) {
+			vars = iterator.next();
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -2554,63 +2554,27 @@ in `src/main/java/fr/inria/spirals/npefix/config/Config.java`
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `CallChecker.currentClassLoader` from instance context
-in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
+Assignment to static field `idCount` from instance context
+in `src/main/java/fr/inria/spirals/npefix/resi/context/MethodContext.java`
 #### Snippet
 ```java
-		}
-		//CallChecker.strategySelector = selector;
-		CallChecker.currentClassLoader = getClass().getClassLoader();
-		final TestRunner testRunner = new TestRunner();
-		try {
+		className = stackTrace.getClassName();
+		this.location = new Location(stackTrace.getClassName(), line, sourceStart, sourceEnd);
+		this.id = idCount++;
+	}
+
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `currentUniqueId` from instance context
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
+Assignment to static field `DomSelector.strategy` from instance context
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 #### Snippet
 ```java
-
-	public Lapse(Selector strategySelector, String[] inputSources) {
-		this.uniqueId = currentUniqueId++;
-		this.locations = new HashSet<>();
-		nbApplication = new HashMap<>();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `counterInstrumentation` from instance context
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
-#### Snippet
-```java
-		}
-
-		counterInstrumentation++;
-		if (element.getKind().equals(BinaryOperatorKind.EQ)) {
-			counterCheckNull++;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `counterCheckNull` from instance context
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
-#### Snippet
-```java
-		counterInstrumentation++;
-		if (element.getKind().equals(BinaryOperatorKind.EQ)) {
-			counterCheckNull++;
-		} else {
-			counterCheckNotNull++;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `counterCheckNotNull` from instance context
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
-#### Snippet
-```java
-			counterCheckNull++;
-		} else {
-			counterCheckNotNull++;
-		}
-
+            Strategy strategy = strategies[i];
+            System.out.println(strategy);
+            DomSelector.strategy = strategy;
+            NPEOutput run = run(selector, tests);
+            // NPEOutput run = runCommandLine(selector, tests);
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -2646,7 +2610,7 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 
         CallChecker.currentClassLoader = urlClassLoader;
 
-        return getTestMethods(spoon, urlClassLoader, classnames);
+        return getTests(spoon, urlClassLoader);
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -2658,19 +2622,7 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 
         CallChecker.currentClassLoader = urlClassLoader;
 
-        return getTests(spoon, urlClassLoader);
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `DomSelector.strategy` from instance context
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
-#### Snippet
-```java
-            Strategy strategy = strategies[i];
-            System.out.println(strategy);
-            DomSelector.strategy = strategy;
-            NPEOutput run = run(selector, tests);
-            // NPEOutput run = runCommandLine(selector, tests);
+        return getTestMethods(spoon, urlClassLoader, classnames);
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -2710,15 +2662,63 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/BlockCoverage.j
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `idCount` from instance context
-in `src/main/java/fr/inria/spirals/npefix/resi/context/MethodContext.java`
+Assignment to static field `counterInstrumentation` from instance context
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
 #### Snippet
 ```java
-		className = stackTrace.getClassName();
-		this.location = new Location(stackTrace.getClassName(), line, sourceStart, sourceEnd);
-		this.id = idCount++;
-	}
+		}
 
+		counterInstrumentation++;
+		if (element.getKind().equals(BinaryOperatorKind.EQ)) {
+			counterCheckNull++;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `counterCheckNull` from instance context
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
+#### Snippet
+```java
+		counterInstrumentation++;
+		if (element.getKind().equals(BinaryOperatorKind.EQ)) {
+			counterCheckNull++;
+		} else {
+			counterCheckNotNull++;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `counterCheckNotNull` from instance context
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
+#### Snippet
+```java
+			counterCheckNull++;
+		} else {
+			counterCheckNotNull++;
+		}
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `currentUniqueId` from instance context
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
+#### Snippet
+```java
+
+	public Lapse(Selector strategySelector, String[] inputSources) {
+		this.uniqueId = currentUniqueId++;
+		this.locations = new HashSet<>();
+		nbApplication = new HashMap<>();
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `CallChecker.currentClassLoader` from instance context
+in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
+#### Snippet
+```java
+		}
+		//CallChecker.strategySelector = selector;
+		CallChecker.currentClassLoader = getClass().getClassLoader();
+		final TestRunner testRunner = new TestRunner();
+		try {
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -2751,11 +2751,11 @@ Obsolete collection type `Stack` used
 in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
 #### Snippet
 ```java
-		usedDecisionSeq.get(currentTestKey).add(lapse.getDecisions());
-
-		stackDecision.put(currentTestKey, new Stack<Decision>());
-		for (int i = 0; i < lapse.getDecisions().size(); i++) {
-			Decision decision = lapse.getDecisions().get(i);
+		this.currentTestKey = getCurrentLapse().getTestClassName() + "#" + getCurrentLapse().getTestName();
+		if(!stackDecision.containsKey(currentTestKey)) {
+			stackDecision.put(currentTestKey, new Stack<Decision>());
+		}
+		if(!usedDecisionSeq.containsKey(currentTestKey)) {
 ```
 
 ### ObsoleteCollection
@@ -2763,11 +2763,11 @@ Obsolete collection type `Stack` used
 in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
 #### Snippet
 ```java
-		this.currentTestKey = getCurrentLapse().getTestClassName() + "#" + getCurrentLapse().getTestName();
-		if(!stackDecision.containsKey(currentTestKey)) {
-			stackDecision.put(currentTestKey, new Stack<Decision>());
-		}
-		if(!usedDecisionSeq.containsKey(currentTestKey)) {
+		usedDecisionSeq.get(currentTestKey).add(lapse.getDecisions());
+
+		stackDecision.put(currentTestKey, new Stack<Decision>());
+		for (int i = 0; i < lapse.getDecisions().size(); i++) {
+			Decision decision = lapse.getDecisions().get(i);
 ```
 
 ### ObsoleteCollection
@@ -2821,90 +2821,6 @@ in `src/main/java/fr/inria/spirals/npefix/resi/strategies/Strat4.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`ctTry.getCatchers().size() == 0` can be replaced with 'ctTry.getCatchers().isEmpty()'
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/RemoveNPECheckProcessor.java`
-#### Snippet
-```java
-        CtElement parent = ctTry.getParent();
-        ctTry.removeCatcher(candidate);
-        if(ctTry.getCatchers().size() == 0) {
-            List<CtStatement> statements = ctTry.getBody().getStatements();
-            for (int i = 0; i < statements.size(); i++) {
-```
-
-### SizeReplaceableByIsEmpty
-`elements.size() > 0` can be replaced with '!elements.isEmpty()'
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
-#### Snippet
-```java
-            // junit 4
-            List<CtElement> elements = ctType.getElements(new AnnotationFilter<>(Test.class));
-            if(elements.size() > 0) {
-                continue;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`element.getStatements().size() > 0` can be replaced with '!element.getStatements().isEmpty()'
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/BlockCoverage.java`
-#### Snippet
-```java
-		// handle this() and super()
-		if (element.getParent() instanceof CtConstructor
-				&& element.getStatements().size() > 0 &&
-				(element.getStatement(0) instanceof CtThisAccess || element.getStatement(0) instanceof CtSuperAccess)) {
-			element.getStatement(0).insertAfter(blockCoverage);
-```
-
-### SizeReplaceableByIsEmpty
-`constructors.size() == 0` can be replaced with 'constructors.isEmpty()'
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
-#### Snippet
-```java
-		} catch (Throwable e) {
-			try{
-				if(constructors.size() == 0) {
-					constructors = Arrays.asList(clazz.getDeclaredConstructors());
-				}
-```
-
-### SizeReplaceableByIsEmpty
-`constructors.size() == 0` can be replaced with 'constructors.isEmpty()'
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
-#### Snippet
-```java
-					constructors = Arrays.asList(clazz.getDeclaredConstructors());
-				}
-				if(constructors.size() == 0) {
-					constructors.add(clazz.getEnclosingConstructor());
-				}
-```
-
-### SizeReplaceableByIsEmpty
-`constructors.size() == 0` can be replaced with 'constructors.isEmpty()'
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
-#### Snippet
-```java
-					constructors.add(clazz.getEnclosingConstructor());
-				}
-				if(constructors.size() == 0) {
-					//throw new ErrorInitClass("missing constructor " + clazz);
-					return instances;
-```
-
-### SizeReplaceableByIsEmpty
-`elements.size() == 0` can be replaced with 'elements.isEmpty()'
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
-#### Snippet
-```java
-            }
-        });
-        if (elements.size() == 0) {
-            return assigned;
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `string.length()==0` can be replaced with 'string.isEmpty()'
 in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
 #### Snippet
@@ -2941,6 +2857,42 @@ in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`elements.size() > 0` can be replaced with '!elements.isEmpty()'
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+            // junit 4
+            List<CtElement> elements = ctType.getElements(new AnnotationFilter<>(Test.class));
+            if(elements.size() > 0) {
+                continue;
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`element.getStatements().size() > 0` can be replaced with '!element.getStatements().isEmpty()'
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/BlockCoverage.java`
+#### Snippet
+```java
+		// handle this() and super()
+		if (element.getParent() instanceof CtConstructor
+				&& element.getStatements().size() > 0 &&
+				(element.getStatement(0) instanceof CtThisAccess || element.getStatement(0) instanceof CtSuperAccess)) {
+			element.getStatement(0).insertAfter(blockCoverage);
+```
+
+### SizeReplaceableByIsEmpty
+`elements.size() == 0` can be replaced with 'elements.isEmpty()'
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
+#### Snippet
+```java
+            }
+        });
+        if (elements.size() == 0) {
+            return assigned;
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `file.length() > 0` can be replaced with '!file.isEmpty()'
 in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
 #### Snippet
@@ -2950,6 +2902,54 @@ in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
 				if (file.length() > 0) {
 					if (!file.startsWith("URI//")) {
 						throw new IOException(location.getAbsolutePath() + " contains unexpected data: " + file);
+```
+
+### SizeReplaceableByIsEmpty
+`ctTry.getCatchers().size() == 0` can be replaced with 'ctTry.getCatchers().isEmpty()'
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/RemoveNPECheckProcessor.java`
+#### Snippet
+```java
+        CtElement parent = ctTry.getParent();
+        ctTry.removeCatcher(candidate);
+        if(ctTry.getCatchers().size() == 0) {
+            List<CtStatement> statements = ctTry.getBody().getStatements();
+            for (int i = 0; i < statements.size(); i++) {
+```
+
+### SizeReplaceableByIsEmpty
+`constructors.size() == 0` can be replaced with 'constructors.isEmpty()'
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
+#### Snippet
+```java
+		} catch (Throwable e) {
+			try{
+				if(constructors.size() == 0) {
+					constructors = Arrays.asList(clazz.getDeclaredConstructors());
+				}
+```
+
+### SizeReplaceableByIsEmpty
+`constructors.size() == 0` can be replaced with 'constructors.isEmpty()'
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
+#### Snippet
+```java
+					constructors = Arrays.asList(clazz.getDeclaredConstructors());
+				}
+				if(constructors.size() == 0) {
+					constructors.add(clazz.getEnclosingConstructor());
+				}
+```
+
+### SizeReplaceableByIsEmpty
+`constructors.size() == 0` can be replaced with 'constructors.isEmpty()'
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
+#### Snippet
+```java
+					constructors.add(clazz.getEnclosingConstructor());
+				}
+				if(constructors.size() == 0) {
+					//throw new ErrorInitClass("missing constructor " + clazz);
+					return instances;
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -3055,11 +3055,11 @@ Empty string used in concatenation
 in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 #### Snippet
 ```java
-        this.sourcePath = sourcePath;
-        this.complianceLevel = complianceLevel;
-        if(!File.pathSeparator.equals(classpath.charAt(classpath.length() - 1) + "")) {
-            classpath = classpath + File.pathSeparator;
-        }
+                            className,
+                            method,
+                            Config.CONFIG.getRandomSeed() + "");
+            try {
+                // run the new JVM
 ```
 
 ### TrivialStringConcatenation
@@ -3067,11 +3067,11 @@ Empty string used in concatenation
 in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 #### Snippet
 ```java
-                            className,
-                            method,
-                            Config.CONFIG.getRandomSeed() + "");
-            try {
-                // run the new JVM
+        this.sourcePath = sourcePath;
+        this.complianceLevel = complianceLevel;
+        if(!File.pathSeparator.equals(classpath.charAt(classpath.length() - 1) + "")) {
+            classpath = classpath + File.pathSeparator;
+        }
 ```
 
 ## RuleId[ruleID=BooleanConstructor]
@@ -3099,44 +3099,7 @@ in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
 		if(clazz == float.class){
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `MainEvaluation` has no concrete subclass
-in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
-#### Snippet
-```java
-import java.util.Iterator;
-
-public abstract class MainEvaluation {
-	private static final String WORKING_DIRECTORY = "workingDirectory";
-	private static final String OUTPUT_DIRECTORY = "outputDirectory";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `TestRunnerMain` has no concrete subclass
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-
-
-public abstract class TestRunnerMain {
-	/**
-	 * have to be set in static{testFolder = "%path%";} on instances
-```
-
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Decision`
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/DomSelector.java`
-#### Snippet
-```java
-
-	@Override
-	public <T> Decision<T> select(List<Decision<T>> decisions) {
-		this.decisions.addAll(decisions);
-		return decisions.get(currentIndex);
-```
-
 ### BoundedWildcard
 Can generalize to `? extends Decision`
 in `src/main/java/fr/inria/spirals/npefix/resi/selector/RandomSelector.java`
@@ -3151,7 +3114,7 @@ in `src/main/java/fr/inria/spirals/npefix/resi/selector/RandomSelector.java`
 
 ### BoundedWildcard
 Can generalize to `? extends Decision`
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/GreedySelector.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.java`
 #### Snippet
 ```java
 	}
@@ -3159,42 +3122,6 @@ in `src/main/java/fr/inria/spirals/npefix/resi/selector/GreedySelector.java`
 	private <T> void initDecision(List<Decision<T>> decisions) {
 		for (int i = 0; i < decisions.size(); i++) {
 			Decision decision = decisions.get(i);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Decision`
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
-#### Snippet
-```java
-	}
-
-	private <T> void initDecision(List<Decision<T>> decisions) {
-
-		for (int i = 0; i < decisions.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Decision`
-in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
-#### Snippet
-```java
-	private String[] inputSources;
-
-	public PatchesGenerator(List<Decision> decisions, Launcher spoon, String[] inputSources) {
-		this.decisions = new ArrayList<>();
-		for (int i = 0; i < decisions.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Decision`
-in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
-#### Snippet
-```java
-	}
-
-	private List<DecisionElement> getElements(CtType type, List<Decision> decisions) {
-		List<DecisionElement> elements = new ArrayList<>();
-
 ```
 
 ### BoundedWildcard
@@ -3210,75 +3137,15 @@ in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchGenerator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Token`
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
+Can generalize to `? extends Decision`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/GreedySelector.java`
 #### Snippet
 ```java
 	}
 
-	public int nbWordCanFollow(List<Token> predicates) {
-		int output = 0;
-		int size = predicates.size();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Token`
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
-#### Snippet
-```java
-	}
-
-	public int countWordCanFollow(List<Token> predicates) {
-		Set<String> followingWords = new HashSet<>();
-		int size = predicates.size();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Token`
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
-#### Snippet
-```java
-	}
-
-	public int count (Token token, List<Token> predicates) {
-		if (!this.contains(token)) {
-			return 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
-#### Snippet
-```java
-		return value;
-	}
-	public void setValue(Instance<T> value) {
-		this.value = value;
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
-#### Snippet
-```java
-	}
-
-	public Decision(Strategy strategy, Location location, Instance<T> value) {
-		this(strategy, location);
-		this.value = value;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtTypeReference`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.java`
-#### Snippet
-```java
-	}
-
-	private CtLocalVariable getNewTrycontext(CtTry element, List<CtTypeReference> catchables) {
-		CtTypeReference<Object> tryTypeRef = getFactory().Type().createReference(IConstants.Class.TRY_CONTEXT);
-
+	private <T> void initDecision(List<Decision<T>> decisions) {
+		for (int i = 0; i < decisions.size(); i++) {
+			Decision decision = decisions.get(i);
 ```
 
 ### BoundedWildcard
@@ -3307,14 +3174,147 @@ in `src/main/java/fr/inria/spirals/npefix/resi/context/instance/NewArrayInstance
 
 ### BoundedWildcard
 Can generalize to `? extends Decision`
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.java`
+in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
+#### Snippet
+```java
+	private String[] inputSources;
+
+	public PatchesGenerator(List<Decision> decisions, Launcher spoon, String[] inputSources) {
+		this.decisions = new ArrayList<>();
+		for (int i = 0; i < decisions.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Decision`
+in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
+#### Snippet
+```java
+	}
+
+	private List<DecisionElement> getElements(CtType type, List<Decision> decisions) {
+		List<DecisionElement> elements = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
+#### Snippet
+```java
+	}
+
+	public Decision(Strategy strategy, Location location, Instance<T> value) {
+		this(strategy, location);
+		this.value = value;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
+#### Snippet
+```java
+		return value;
+	}
+	public void setValue(Instance<T> value) {
+		this.value = value;
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends Token`
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
+#### Snippet
+```java
+	}
+
+	public int nbWordCanFollow(List<Token> predicates) {
+		int output = 0;
+		int size = predicates.size();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Token`
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
+#### Snippet
+```java
+	}
+
+	public int count (Token token, List<Token> predicates) {
+		if (!this.contains(token)) {
+			return 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Token`
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
+#### Snippet
+```java
+	}
+
+	public int countWordCanFollow(List<Token> predicates) {
+		Set<String> followingWords = new HashSet<>();
+		int size = predicates.size();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Decision`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
 #### Snippet
 ```java
 	}
 
 	private <T> void initDecision(List<Decision<T>> decisions) {
+
 		for (int i = 0; i < decisions.size(); i++) {
-			Decision decision = decisions.get(i);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtTypeReference`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.java`
+#### Snippet
+```java
+	}
+
+	private CtLocalVariable getNewTrycontext(CtTry element, List<CtTypeReference> catchables) {
+		CtTypeReference<Object> tryTypeRef = getFactory().Type().createReference(IConstants.Class.TRY_CONTEXT);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Decision`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/DomSelector.java`
+#### Snippet
+```java
+
+	@Override
+	public <T> Decision<T> select(List<Decision<T>> decisions) {
+		this.decisions.addAll(decisions);
+		return decisions.get(currentIndex);
+```
+
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `TestRunnerMain` has no concrete subclass
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+
+
+public abstract class TestRunnerMain {
+	/**
+	 * have to be set in static{testFolder = "%path%";} on instances
+```
+
+### AbstractClassNeverImplemented
+Abstract class `MainEvaluation` has no concrete subclass
+in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
+#### Snippet
+```java
+import java.util.Iterator;
+
+public abstract class MainEvaluation {
+	private static final String WORKING_DIRECTORY = "workingDirectory";
+	private static final String OUTPUT_DIRECTORY = "outputDirectory";
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -3330,67 +3330,17 @@ in `src/main/java/utils/org/eclipse/core/internal/localstore/ILocalStoreConstant
 	public static final int SIZE_KEY_SUFFIX = SIZE_LASTMODIFIED + SIZE_COUNTER;
 ```
 
-## RuleId[ruleID=IfStatementMissingBreakInLoop]
-### IfStatementMissingBreakInLoop
-Loop can be terminated after condition is met
-in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
-#### Snippet
-```java
-										currentPathString = workspaceLoc+currentPathString;
-										for (String ignoredPath : ignoredPaths)
-											if(ignoredPath.equalsIgnoreCase(currentPathString))
-												perform=false;
-									}
-```
-
-## RuleId[ruleID=ThrowablePrintedToSystemOut]
-### ThrowablePrintedToSystemOut
-'Throwable' argument `e` to 'System.out.println()' call
-in `src/main/java/fr/inria/spirals/npefix/resi/context/TryContext.java`
-#### Snippet
-```java
-				this.types[i++] = classLoader.loadClass(str);
-			} catch (ClassNotFoundException e) {
-				System.out.println(e);
-				//throw new RuntimeException(e);
-			}
-```
-
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+Result of `File.mkdir()` is ignored
+in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
 #### Snippet
 ```java
-				return false;
-			}
-			file.delete();
-		}
-		return delete;
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
-#### Snippet
-```java
-        File directory = new File(sourceOutput);
-        if(!directory.exists()) {
-            directory.mkdirs();
-        }
-        Collection resources = FileUtils.listFiles(directory, spoon.RESOURCES_FILE_FILTER, spoon.ALL_DIR_FILTER);
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
-#### Snippet
-```java
-            packageDir = packageDir.replace("/java", "").replace("/resources", "");
-            String targetDirectory = this.binOutput + packageDir;
-            new File(packageDir).mkdirs();
-
-            try {
+			File prefs = new File(getProjectDir().getAbsoluteFile()+"/.settings/org.eclipse.jdt.core.prefs");
+			if(!prefs.getParentFile().exists())
+				prefs.getParentFile().mkdir();
+			BufferedWriter out=null;
+			try {
 ```
 
 ### IgnoreResultOfCall
@@ -3430,27 +3380,39 @@ in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdir()` is ignored
-in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
+Result of `File.mkdirs()` is ignored
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 #### Snippet
 ```java
-			File prefs = new File(getProjectDir().getAbsoluteFile()+"/.settings/org.eclipse.jdt.core.prefs");
-			if(!prefs.getParentFile().exists())
-				prefs.getParentFile().mkdir();
-			BufferedWriter out=null;
-			try {
+        File directory = new File(sourceOutput);
+        if(!directory.exists()) {
+            directory.mkdirs();
+        }
+        Collection resources = FileUtils.listFiles(directory, spoon.RESOURCES_FILE_FILTER, spoon.ALL_DIR_FILTER);
 ```
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEFixTemplateEvaluation.java`
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 #### Snippet
 ```java
-		File directory = new File(sourceOutput);
-		if(!directory.exists()) {
-			directory.mkdirs();
+            packageDir = packageDir.replace("/java", "").replace("/resources", "");
+            String targetDirectory = this.binOutput + packageDir;
+            new File(packageDir).mkdirs();
+
+            try {
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+#### Snippet
+```java
+				return false;
+			}
+			file.delete();
 		}
-		Collection resources = FileUtils
+		return delete;
 ```
 
 ### IgnoreResultOfCall
@@ -3465,6 +3427,44 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEFixTemplateEvaluation.ja
 
 ```
 
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEFixTemplateEvaluation.java`
+#### Snippet
+```java
+		File directory = new File(sourceOutput);
+		if(!directory.exists()) {
+			directory.mkdirs();
+		}
+		Collection resources = FileUtils
+```
+
+## RuleId[ruleID=IfStatementMissingBreakInLoop]
+### IfStatementMissingBreakInLoop
+Loop can be terminated after condition is met
+in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
+#### Snippet
+```java
+										currentPathString = workspaceLoc+currentPathString;
+										for (String ignoredPath : ignoredPaths)
+											if(ignoredPath.equalsIgnoreCase(currentPathString))
+												perform=false;
+									}
+```
+
+## RuleId[ruleID=ThrowablePrintedToSystemOut]
+### ThrowablePrintedToSystemOut
+'Throwable' argument `e` to 'System.out.println()' call
+in `src/main/java/fr/inria/spirals/npefix/resi/context/TryContext.java`
+#### Snippet
+```java
+				this.types[i++] = classLoader.loadClass(str);
+			} catch (ClassNotFoundException e) {
+				System.out.println(e);
+				//throw new RuntimeException(e);
+			}
+```
+
 ## RuleId[ruleID=AccessStaticViaInstance]
 ### AccessStaticViaInstance
 Static member 'java.lang.Class\>.forName(java.lang.String)' accessed via instance reference
@@ -3476,18 +3476,6 @@ in `src/main/java/fr/inria/spirals/npefix/resi/context/instance/AbstractInstance
 			return getClass().forName(className);
 		} catch (ClassNotFoundException e) {
 			try {
-```
-
-### AccessStaticViaInstance
-Static member 'java.lang.Class\>.forName(java.lang.String)' accessed via instance reference
-in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
-#### Snippet
-```java
-		final TestRunner testRunner = new TestRunner();
-		try {
-			Class<?> testClass = getClass().forName(classTestName);
-			final Request request = Request.method(testClass, testName);
-
 ```
 
 ### AccessStaticViaInstance
@@ -3538,19 +3526,19 @@ in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
 			throw new RuntimeException(e);
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `hashCode()` is identical to its super method
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/Strat4.java`
+### AccessStaticViaInstance
+Static member 'java.lang.Class\>.forName(java.lang.String)' accessed via instance reference
+in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
 #### Snippet
 ```java
+		final TestRunner testRunner = new TestRunner();
+		try {
+			Class<?> testClass = getClass().forName(classTestName);
+			final Request request = Request.method(testClass, testName);
 
-	@Override
-	public int hashCode() {
-		return this.getClass().getSimpleName().hashCode();
-	}
 ```
 
+## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `loadClass()` only delegates to its super method
 in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
@@ -3560,6 +3548,18 @@ in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 	@Override
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
 		return super.loadClass(name);
+	}
+```
+
+### RedundantMethodOverride
+Method `hashCode()` is identical to its super method
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/Strat4.java`
+#### Snippet
+```java
+
+	@Override
+	public int hashCode() {
+		return this.getClass().getSimpleName().hashCode();
 	}
 ```
 
@@ -3590,18 +3590,6 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 ```
 
 ## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
-#### Snippet
-```java
-							new FileInputStream(targetsFile)));
-					String line;
-					while ((line = br.readLine()) != null) {
-						if(line.startsWith("#"))continue;
-						String[] lineB = line.split(":",2);
-```
-
 ### NestedAssignment
 Result of assignment expression used
 in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
@@ -3638,53 +3626,29 @@ in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 															String outputPathString = projectFolder.getAbsolutePath()+File.separator+node1.getAttributes().getNamedItem("path").getNodeValue();
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+#### Snippet
+```java
+							new FileInputStream(targetsFile)));
+					String line;
+					while ((line = br.readLine()) != null) {
+						if(line.startsWith("#"))continue;
+						String[] lineB = line.split(":",2);
+```
+
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `decisions` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+Field `usedDecisions` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.java`
 #### Snippet
 ```java
+public class MonoExplorerSelector extends AbstractSelector {
 
-	private Map<String, Set<List<Decision>>> usedDecisionSeq = new HashMap<>();
+	private Map<String, Set<Decision>> usedDecisions = new HashMap<>();
 	private Map<Location, Set<Decision>> decisions = new HashMap<>();
-	private Map<String, Stack<Decision>> stackDecision  = new HashMap<>();
 	private String currentTestKey;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `stackDecision` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
-#### Snippet
-```java
-	private Map<String, Set<List<Decision>>> usedDecisionSeq = new HashMap<>();
-	private Map<Location, Set<Decision>> decisions = new HashMap<>();
-	private Map<String, Stack<Decision>> stackDecision  = new HashMap<>();
-	private String currentTestKey;
-	private List<Strategy> strategies;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `usedDecisionSeq` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
-#### Snippet
-```java
-public class ExplorerSelector extends AbstractSelector {
-
-	private Map<String, Set<List<Decision>>> usedDecisionSeq = new HashMap<>();
-	private Map<Location, Set<Decision>> decisions = new HashMap<>();
-	private Map<String, Stack<Decision>> stackDecision  = new HashMap<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentTestKey` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
-#### Snippet
-```java
-	private Map<Location, Set<Decision>> decisions = new HashMap<>();
-	private Map<String, Stack<Decision>> stackDecision  = new HashMap<>();
-	private String currentTestKey;
-	private List<Strategy> strategies;
-
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3700,18 +3664,6 @@ in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.jav
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `usedDecisions` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.java`
-#### Snippet
-```java
-public class MonoExplorerSelector extends AbstractSelector {
-
-	private Map<String, Set<Decision>> usedDecisions = new HashMap<>();
-	private Map<Location, Set<Decision>> decisions = new HashMap<>();
-	private String currentTestKey;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `decisions` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.java`
 #### Snippet
@@ -3721,6 +3673,54 @@ in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.jav
 	private Map<Location, Set<Decision>> decisions = new HashMap<>();
 	private String currentTestKey;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `currentTestKey` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+#### Snippet
+```java
+	private Map<Location, Set<Decision>> decisions = new HashMap<>();
+	private Map<String, Stack<Decision>> stackDecision  = new HashMap<>();
+	private String currentTestKey;
+	private List<Strategy> strategies;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `usedDecisionSeq` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+#### Snippet
+```java
+public class ExplorerSelector extends AbstractSelector {
+
+	private Map<String, Set<List<Decision>>> usedDecisionSeq = new HashMap<>();
+	private Map<Location, Set<Decision>> decisions = new HashMap<>();
+	private Map<String, Stack<Decision>> stackDecision  = new HashMap<>();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `stackDecision` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+#### Snippet
+```java
+	private Map<String, Set<List<Decision>>> usedDecisionSeq = new HashMap<>();
+	private Map<Location, Set<Decision>> decisions = new HashMap<>();
+	private Map<String, Stack<Decision>> stackDecision  = new HashMap<>();
+	private String currentTestKey;
+	private List<Strategy> strategies;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `decisions` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+#### Snippet
+```java
+
+	private Map<String, Set<List<Decision>>> usedDecisionSeq = new HashMap<>();
+	private Map<Location, Set<Decision>> decisions = new HashMap<>();
+	private Map<String, Stack<Decision>> stackDecision  = new HashMap<>();
+	private String currentTestKey;
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -3750,27 +3750,267 @@ public class CheckLoopMain {
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+	 * have to be set in static{testFolder = "%path%";} on instances
+	 */
+	public static String testFolder = null;
+	
+	/**
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/DomSelector.java`
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+	private static class MyTextListener extends RunListener{
+		private final PrintStream fWriter;
+		private int errors=0;
+		private int failures=0;
+		
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+	public static Class<?>[] classesArray = null;
+
+	public static String eclipseTestReport = null;
+	private static TestInfo runnedTests = new TestInfo();
+	private static TestInfo importedTests = new TestInfo();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+	 * can be set instead of testFolder
+	 */
+	public static Class<?>[] classesArray = null;
+
+	public static String eclipseTestReport = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+		private final PrintStream fWriter;
+		private int errors=0;
+		private int failures=0;
+		
+		public MyTextListener(PrintStream writer) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+#### Snippet
+```java
+	}
+	private String outputFolder = null;
+	private String[] processors = null;
+	private String[] sources = null;
+	private boolean graphical = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+#### Snippet
+```java
+	private String[] processors = null;
+	private String[] sources = null;
+	private boolean graphical = false;
+	
+	
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+#### Snippet
+```java
+	private String outputFolder = null;
+	private String[] processors = null;
+	private String[] sources = null;
+	private boolean graphical = false;
+	
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+#### Snippet
+```java
+		Launcher.main(new String[]{"-h"});
+	}
+	private String outputFolder = null;
+	private String[] processors = null;
+	private String[] sources = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
+#### Snippet
+```java
+	
+	List<String> addedUrls = new ArrayList<String>();
+	private String M2REPO = null;
+	private File metadataFolder = null;
+	
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
+#### Snippet
+```java
+	List<String> addedUrls = new ArrayList<String>();
+	private String M2REPO = null;
+	private File metadataFolder = null;
+	
+	public EnrichableClassloader(URL[] urls) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/RemoveNullCheckProcessor.java`
+#### Snippet
+```java
+    private boolean isProcessed = false;
+
+    private int count = 0;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/RemoveNullCheckProcessor.java`
+#### Snippet
+```java
+public class RemoveNullCheckProcessor extends AbstractProcessor<CtIf> {
+
+    private boolean isProcessed = false;
+
+    private int count = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
 #### Snippet
 ```java
 
-	public static Strategy strategy = new NoStrat();
-	public int currentIndex = 0;
-	private Set<Decision> decisions = new HashSet<>();
+	private Date start;
+	int nbError = 0;
+	int nbAssignment = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
+#### Snippet
+```java
+	private Date start;
+	int nbError = 0;
+	int nbAssignment = 0;
+
+	@Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
+#### Snippet
+```java
+	private String valueType;
+	private DecisionType decisionType;
+	private int nbUse = 0;
+	private boolean isUsed = false;
+	private double epsilon;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
+#### Snippet
+```java
+	private DecisionType decisionType;
+	private int nbUse = 0;
+	private boolean isUsed = false;
+	private double epsilon;
 
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/finder/main/TestInFolder.java`
+in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
 #### Snippet
 ```java
-public class TestInFolder{
-	
-	private String testFolder = null;
+	private File projectDir = null;
+	private String projectName = null;
+	private File metadataFolder = null;
 
-	public TestInFolder(String testFolder) {
+	@Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
+#### Snippet
+```java
+public abstract class AbstractConfigurator implements IEclipseConfigurable {
+
+	private File projectDir = null;
+	private String projectName = null;
+	private File metadataFolder = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
+#### Snippet
+```java
+
+	private File projectDir = null;
+	private String projectName = null;
+	private File metadataFolder = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.java`
+#### Snippet
+```java
+
+	private Date start;
+	private int tryNumber = 0;
+	private CtVariableAccess mainContextVar = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.java`
+#### Snippet
+```java
+	private Date start;
+	private int tryNumber = 0;
+	private CtVariableAccess mainContextVar = null;
+
+	@Override
 ```
 
 ### RedundantFieldInitialization
@@ -3811,74 +4051,26 @@ in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
-#### Snippet
-```java
-	private Date start;
-	int nbError = 0;
-	int nbAssignment = 0;
-
-	@Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/DomSelector.java`
 #### Snippet
 ```java
 
-	private Date start;
-	int nbError = 0;
-	int nbAssignment = 0;
+	public static Strategy strategy = new NoStrat();
+	public int currentIndex = 0;
+	private Set<Decision> decisions = new HashSet<>();
 
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
+Field initialization to `null` is redundant
+in `src/main/java/utils/sacha/finder/main/TestInFolder.java`
 #### Snippet
 ```java
-	private DecisionType decisionType;
-	private int nbUse = 0;
-	private boolean isUsed = false;
-	private double epsilon;
+public class TestInFolder{
+	
+	private String testFolder = null;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
-#### Snippet
-```java
-	private String valueType;
-	private DecisionType decisionType;
-	private int nbUse = 0;
-	private boolean isUsed = false;
-	private double epsilon;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/RemoveNullCheckProcessor.java`
-#### Snippet
-```java
-    private boolean isProcessed = false;
-
-    private int count = 0;
-
-    @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/RemoveNullCheckProcessor.java`
-#### Snippet
-```java
-public class RemoveNullCheckProcessor extends AbstractProcessor<CtIf> {
-
-    private boolean isProcessed = false;
-
-    private int count = 0;
+	public TestInFolder(String testFolder) {
 ```
 
 ### RedundantFieldInitialization
@@ -3891,6 +4083,18 @@ in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStre
 	protected int chunkLength = 0;
 	protected boolean endOfFile = false;
 	protected InputStream input;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStream.java`
+#### Snippet
+```java
+	protected boolean endOfFile = false;
+	protected InputStream input;
+	protected int nextByteInBuffer = 0;
+	protected int nextByteInChunk = 0;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3922,215 +4126,11 @@ Field initialization to `0` is redundant
 in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStream.java`
 #### Snippet
 ```java
-	protected boolean endOfFile = false;
-	protected InputStream input;
-	protected int nextByteInBuffer = 0;
-	protected int nextByteInChunk = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStream.java`
-#### Snippet
-```java
 	protected static final int BUFFER_SIZE = 8192;
 	protected byte[] buffer;
 	protected int bufferLength = 0;
 	protected byte[] chunk;
 	protected int chunkLength = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
-#### Snippet
-```java
-	private String outputFolder = null;
-	private String[] processors = null;
-	private String[] sources = null;
-	private boolean graphical = false;
-	
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
-#### Snippet
-```java
-		Launcher.main(new String[]{"-h"});
-	}
-	private String outputFolder = null;
-	private String[] processors = null;
-	private String[] sources = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
-#### Snippet
-```java
-	}
-	private String outputFolder = null;
-	private String[] processors = null;
-	private String[] sources = null;
-	private boolean graphical = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
-#### Snippet
-```java
-	private String[] processors = null;
-	private String[] sources = null;
-	private boolean graphical = false;
-	
-	
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.java`
-#### Snippet
-```java
-
-	private Date start;
-	private int tryNumber = 0;
-	private CtVariableAccess mainContextVar = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-	private static class MyTextListener extends RunListener{
-		private final PrintStream fWriter;
-		private int errors=0;
-		private int failures=0;
-		
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-	 * have to be set in static{testFolder = "%path%";} on instances
-	 */
-	public static String testFolder = null;
-	
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.java`
-#### Snippet
-```java
-	private Date start;
-	private int tryNumber = 0;
-	private CtVariableAccess mainContextVar = null;
-
-	@Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-		private final PrintStream fWriter;
-		private int errors=0;
-		private int failures=0;
-		
-		public MyTextListener(PrintStream writer) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-	 * can be set instead of testFolder
-	 */
-	public static Class<?>[] classesArray = null;
-
-	public static String eclipseTestReport = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-	public static Class<?>[] classesArray = null;
-
-	public static String eclipseTestReport = null;
-	private static TestInfo runnedTests = new TestInfo();
-	private static TestInfo importedTests = new TestInfo();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
-#### Snippet
-```java
-	
-	List<String> addedUrls = new ArrayList<String>();
-	private String M2REPO = null;
-	private File metadataFolder = null;
-	
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
-#### Snippet
-```java
-	List<String> addedUrls = new ArrayList<String>();
-	private String M2REPO = null;
-	private File metadataFolder = null;
-	
-	public EnrichableClassloader(URL[] urls) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
-#### Snippet
-```java
-public abstract class AbstractConfigurator implements IEclipseConfigurable {
-
-	private File projectDir = null;
-	private String projectName = null;
-	private File metadataFolder = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
-#### Snippet
-```java
-
-	private File projectDir = null;
-	private String projectName = null;
-	private File metadataFolder = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
-#### Snippet
-```java
-	private File projectDir = null;
-	private String projectName = null;
-	private File metadataFolder = null;
-
-	@Override
 ```
 
 ## RuleId[ruleID=EqualsAndHashcode]
@@ -4174,7 +4174,7 @@ public interface Strategy extends Comparable<Strategy>, Serializable{
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-25-19-39-26.680.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-26-05-58-55.804.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -4199,15 +4199,15 @@ public class ForceReturn extends RuntimeException {
 
 ## RuleId[ruleID=InstanceofCatchParameter]
 ### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+'instanceof' on 'catch' parameter `t`
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
 #### Snippet
 ```java
-			throw new NoMoreDecision();
-		} catch (Throwable e) {
-			if (!(e instanceof NoMoreDecision)) {
-				e.printStackTrace();
-			}
+			Launcher.main(args.toArray(new String[]{}));
+		} catch (Exception t) {
+			throw t instanceof RuntimeException?(RuntimeException)t:new RuntimeException(t);
+		}
+	}
 ```
 
 ### InstanceofCatchParameter
@@ -4227,18 +4227,6 @@ in `src/main/java/utils/sacha/project/utils/MavenModulesMerger.java`
 in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
 #### Snippet
 ```java
-
-		}catch(Throwable t){
-			throw t instanceof RuntimeException?(RuntimeException)t : new RuntimeException(t);
-		}
-	}
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `t`
-in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
-#### Snippet
-```java
 			}
 		}catch(Throwable t){
 			throw t instanceof RuntimeException?(RuntimeException)t : new RuntimeException(t);
@@ -4260,14 +4248,26 @@ in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `t`
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
 #### Snippet
 ```java
-			Launcher.main(args.toArray(new String[]{}));
-		} catch (Exception t) {
-			throw t instanceof RuntimeException?(RuntimeException)t:new RuntimeException(t);
+
+		}catch(Throwable t){
+			throw t instanceof RuntimeException?(RuntimeException)t : new RuntimeException(t);
 		}
 	}
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+#### Snippet
+```java
+			throw new NoMoreDecision();
+		} catch (Throwable e) {
+			if (!(e instanceof NoMoreDecision)) {
+				e.printStackTrace();
+			}
 ```
 
 ## RuleId[ruleID=NonFinalFieldOfException]
@@ -4286,14 +4286,122 @@ public class ForceReturn extends RuntimeException {
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
+in `src/main/java/utils/sacha/finder/processor/Processor.java`
 #### Snippet
 ```java
+			}
+		});
+		return classes.toArray(new Class[0]);
+	}
+	
+```
 
-	public static void main(String[] args) {
-		ExecutionClient executionClient = new ExecutionClient(args[0], args[1], new String[0]);
-		Config.CONFIG.setRandomSeed(Integer.parseInt(args[2]));
-		executionClient.run();
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/utils/sacha/classloader/factory/ClassloaderFactory.java`
+#### Snippet
+```java
+			}
+		}
+		return new EnrichableClassloader(urls.toArray(new URL[0]));
+	}
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+#### Snippet
+```java
+			processorNames.add(class1.getCanonicalName());
+		}
+		this.setProcessors(processorNames.toArray(new String[0]));
+	}
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+#### Snippet
+```java
+		
+		try {
+			Launcher.main(args.toArray(new String[]{}));
+		} catch (Exception t) {
+			throw t instanceof RuntimeException?(RuntimeException)t:new RuntimeException(t);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+			}
+		}
+		String[] parameterTypes = new String[0];
+		if (object.has("parameters")) {
+			JSONArray jsonParameterTypes = object.getJSONArray("parameterTypes");
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/utils/sacha/finder/classes/impl/SourceFolderFinder.java`
+#### Snippet
+```java
+	@Override
+	public String[] getClasses() {
+		return getClassesLoc(new File(srcFolder),null).toArray(new String[0]);
+	}
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/utils/sacha/finder/classes/impl/ProjectFinder.java`
+#### Snippet
+```java
+				classes.addAll(SourceFolderFinder.getClassesLoc(new File(url.getPath()), null));	
+		}
+		return classes.toArray(new String[0]);
+	}
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/utils/sacha/finder/classes/impl/ClassloaderFinder.java`
+#### Snippet
+```java
+				classes.addAll(utils.sacha.finder.classes.impl.SourceFolderFinder.getClassesLoc(new File(url.getPath()), null));
+		}
+		return classes.toArray(new String[0]);
+	}
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+            }
+        }
+        return tests.toArray(new Class[]{});
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+            }
+        }
+        return new URLClassLoader(uRLClassPath.toArray(new URL[]{}), Thread.currentThread().getContextClassLoader());
+    }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4334,13 +4442,13 @@ in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/utils/sacha/classloader/factory/ClassloaderFactory.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
 #### Snippet
 ```java
-			}
-		}
-		return new EnrichableClassloader(urls.toArray(new URL[0]));
-	}
+            }
+        }
+        return tests.toArray(new Class[]{});
+    }
 
 ```
 
@@ -4358,62 +4466,26 @@ in `src/main/java/utils/sacha/impl/TestRunnerCore.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/utils/sacha/finder/classes/impl/ProjectFinder.java`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.java`
 #### Snippet
 ```java
-				classes.addAll(SourceFolderFinder.getClassesLoc(new File(url.getPath()), null));	
+			args.add(getFactory().Code().createLiteral(type.getQualifiedName()));
 		}
-		return classes.toArray(new String[0]);
-	}
+		CtConstructorCall ctx = getFactory().Code().createConstructorCall(tryTypeRef, args.toArray(new CtExpression[]{}));
+		ctx.setPosition(element.getPosition());
 
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
 #### Snippet
 ```java
-            }
-        }
-        return new URLClassLoader(uRLClassPath.toArray(new URL[]{}), Thread.currentThread().getContextClassLoader());
-    }
 
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
-#### Snippet
-```java
-            }
-        }
-        return tests.toArray(new Class[]{});
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/utils/sacha/finder/classes/impl/SourceFolderFinder.java`
-#### Snippet
-```java
-	@Override
-	public String[] getClasses() {
-		return getClassesLoc(new File(srcFolder),null).toArray(new String[0]);
-	}
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-			}
-		}
-		String[] parameterTypes = new String[0];
-		if (object.has("parameters")) {
-			JSONArray jsonParameterTypes = object.getJSONArray("parameterTypes");
+	public static void main(String[] args) {
+		ExecutionClient executionClient = new ExecutionClient(args[0], args[1], new String[0]);
+		Config.CONFIG.setRandomSeed(Integer.parseInt(args[2]));
+		executionClient.run();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4425,30 +4497,6 @@ in `src/main/java/utils/sacha/finder/classes/impl/ClasspathFinder.java`
 		String classPath = System.getProperty("java.class.path");
 		return findClassesInRoots(splitClassPath(classPath)).toArray(new String[0]);
 	}
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
-#### Snippet
-```java
-		}
-		try {
-			NewInstance<T> newInstance = new NewInstance<>(clazz.getCanonicalName(), new String[0], new ArrayList<Instance<?>>());
-			newInstance.getValue();
-			instances.add(newInstance);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
-#### Snippet
-```java
-            }
-        }
-        return tests.toArray(new Class[]{});
-    }
 
 ```
 
@@ -4466,62 +4514,14 @@ in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStre
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
 #### Snippet
 ```java
-			processorNames.add(class1.getCanonicalName());
 		}
-		this.setProcessors(processorNames.toArray(new String[0]));
-	}
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
-#### Snippet
-```java
-		
 		try {
-			Launcher.main(args.toArray(new String[]{}));
-		} catch (Exception t) {
-			throw t instanceof RuntimeException?(RuntimeException)t:new RuntimeException(t);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/utils/sacha/finder/processor/Processor.java`
-#### Snippet
-```java
-			}
-		});
-		return classes.toArray(new Class[0]);
-	}
-	
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.java`
-#### Snippet
-```java
-			args.add(getFactory().Code().createLiteral(type.getQualifiedName()));
-		}
-		CtConstructorCall ctx = getFactory().Code().createConstructorCall(tryTypeRef, args.toArray(new CtExpression[]{}));
-		ctx.setPosition(element.getPosition());
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/utils/sacha/finder/classes/impl/ClassloaderFinder.java`
-#### Snippet
-```java
-				classes.addAll(utils.sacha.finder.classes.impl.SourceFolderFinder.getClassesLoc(new File(url.getPath()), null));
-		}
-		return classes.toArray(new String[0]);
-	}
-
+			NewInstance<T> newInstance = new NewInstance<>(clazz.getCanonicalName(), new String[0], new ArrayList<Instance<?>>());
+			newInstance.getValue();
+			instances.add(newInstance);
 ```
 
 ## RuleId[ruleID=CastConflictsWithInstanceof]
@@ -4539,54 +4539,6 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCast
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `testFolder` initializer `null` is redundant
-in `src/main/java/utils/sacha/finder/main/TestInFolder.java`
-#### Snippet
-```java
-public class TestInFolder{
-	
-	private String testFolder = null;
-
-	public TestInFolder(String testFolder) {
-```
-
-### UnusedAssignment
-Variable `selection` initializer `null` is redundant
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
-#### Snippet
-```java
-		try{
-			BufferedReader br = null;
-			Object selection = null;
-			String[] arg = null;
-			try {
-```
-
-### UnusedAssignment
-Variable `instance` initializer `null` is redundant
-in `src/main/java/fr/inria/spirals/npefix/resi/context/instance/InstanceFactory.java`
-#### Snippet
-```java
-
-	public static Instance fromCtExpression(CtExpression expression) {
-		Instance instance = null;
-
-		if (expression == null) {
-```
-
-### UnusedAssignment
-Variable `parentType` initializer `null` is redundant
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
-#### Snippet
-```java
-	public void process(CtTypedElement element) {
-		CtStatement parent = (CtStatement) element.getParent();
-		CtTypeReference parentType = null;
-		if(parent instanceof CtReturn) {
-			CtMethod ctMethod = element.getParent(CtMethod.class);
-```
-
-### UnusedAssignment
 Variable `currentIndentation` initializer `""` is redundant
 in `src/main/java/fr/inria/spirals/npefix/patch/generator/Writer.java`
 #### Snippet
@@ -4599,39 +4551,15 @@ public class Writer {
 ```
 
 ### UnusedAssignment
-Variable `decisions` initializer `null` is redundant
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
+Variable `instance` initializer `null` is redundant
+in `src/main/java/fr/inria/spirals/npefix/resi/context/instance/InstanceFactory.java`
 #### Snippet
 ```java
-	private String testClassName;
-	private String testName;
-	private List<Decision> decisions = null;
-	private Map<String, Object> metadata = new HashMap<>();
-	private Date startDate;
-```
 
-### UnusedAssignment
-Variable `type` initializer `"test"` is redundant
-in `src/main/java/fr/inria/spirals/npefix/resi/oracle/AbstractOracle.java`
-#### Snippet
-```java
-	private  boolean isValid;
-	private String error;
-	private String type = "test";
+	public static Instance fromCtExpression(CtExpression expression) {
+		Instance instance = null;
 
-	public AbstractOracle(String type, boolean isValid)  {
-```
-
-### UnusedAssignment
-Variable `resultsRootPath` initializer `"/home/thomas/git/bandit-repair-experiments/results/2016-May/exhaustive_exploration"` is redundant
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-	 */
-	public static void main(String[] args) throws Exception {
-		String resultsRootPath = "/home/thomas/git/bandit-repair-experiments/results/2016-May/exhaustive_exploration";
-		resultsRootPath = "output/Template";
-		String resultsPath = resultsRootPath + "/results.json";
+		if (expression == null) {
 ```
 
 ### UnusedAssignment
@@ -4658,17 +4586,113 @@ in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 				if(line.startsWith("org.eclipse.jdt.core.classpathVariable.M2_REPO=")){
 ```
 
-## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Value `delete` is always 'true'
+### UnusedAssignment
+Variable `resultsRootPath` initializer `"/home/thomas/git/bandit-repair-experiments/results/2016-May/exhaustive_exploration"` is redundant
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+	 */
+	public static void main(String[] args) throws Exception {
+		String resultsRootPath = "/home/thomas/git/bandit-repair-experiments/results/2016-May/exhaustive_exploration";
+		resultsRootPath = "output/Template";
+		String resultsPath = resultsRootPath + "/results.json";
+```
+
+### UnusedAssignment
+Variable `type` initializer `"test"` is redundant
+in `src/main/java/fr/inria/spirals/npefix/resi/oracle/AbstractOracle.java`
+#### Snippet
+```java
+	private  boolean isValid;
+	private String error;
+	private String type = "test";
+
+	public AbstractOracle(String type, boolean isValid)  {
+```
+
+### UnusedAssignment
+Variable `parentType` initializer `null` is redundant
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
+#### Snippet
+```java
+	public void process(CtTypedElement element) {
+		CtStatement parent = (CtStatement) element.getParent();
+		CtTypeReference parentType = null;
+		if(parent instanceof CtReturn) {
+			CtMethod ctMethod = element.getParent(CtMethod.class);
+```
+
+### UnusedAssignment
+Variable `decisions` initializer `null` is redundant
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
+#### Snippet
+```java
+	private String testClassName;
+	private String testName;
+	private List<Decision> decisions = null;
+	private Map<String, Object> metadata = new HashMap<>();
+	private Date startDate;
+```
+
+### UnusedAssignment
+Variable `testFolder` initializer `null` is redundant
+in `src/main/java/utils/sacha/finder/main/TestInFolder.java`
+#### Snippet
+```java
+public class TestInFolder{
+	
+	private String testFolder = null;
+
+	public TestInFolder(String testFolder) {
+```
+
+### UnusedAssignment
+Variable `selection` initializer `null` is redundant
 in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
 #### Snippet
 ```java
-			file.delete();
-		}
-		return delete;
-	}
+		try{
+			BufferedReader br = null;
+			Object selection = null;
+			String[] arg = null;
+			try {
+```
 
+## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `outputFolder==null` is always `false`
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+#### Snippet
+```java
+		if(outputFolder != null){
+			args.add("-o");
+			if(outputFolder==null || outputFolder.length()==0)
+				throw new IllegalArgumentException("setOutputFolder can not be used with empty value");
+			args.add(outputFolder);
+```
+
+### ConstantValue
+Condition `t instanceof RuntimeException` is always `true`
+in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
+#### Snippet
+```java
+			Launcher.main(args.toArray(new String[]{}));
+		} catch (Exception t) {
+			throw t instanceof RuntimeException?(RuntimeException)t:new RuntimeException(t);
+		}
+	}
+```
+
+### ConstantValue
+Condition `currentPatch != null` is always `true`
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+			String line = lines[i];
+			if (!line.startsWith("+ ")) {
+				if (currentPatch != null && !currentPatch.isEmpty()) {
+					output.append(currentPatch);
+					currentPatch = "";
 ```
 
 ### ConstantValue
@@ -4685,26 +4709,14 @@ in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
 
 ### ConstantValue
 Condition `isEnd` is always `true`
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
 #### Snippet
 ```java
-					Lapse lapse = result.get(i);
-					if (lapse.getOracle().getError() != null) {
-						isEnd = isEnd && lapse.getOracle().getError().contains(NoMoreDecision.class.getSimpleName()) || lapse.getDecisions().isEmpty();
-					} else {
-						isEnd = false;
-```
-
-### ConstantValue
-Condition `parent instanceof CtTypedElement` is always `true`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
-#### Snippet
-```java
-			return ctMethod.getType().isPrimitive();
-		}
-		if(parent instanceof CtTypedElement) {
-			CtTypeReference type1 = ((CtTypedElement) parent).getType();
-			if (type1 == null) {
+                    Lapse lapse = result.get(i);
+                    if (lapse.getOracle().getError() != null) {
+                        isEnd = isEnd && lapse.getOracle().getError().contains("No more available decision");
+                    } else {
+                        isEnd = false;
 ```
 
 ### ConstantValue
@@ -4721,26 +4733,26 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 
 ### ConstantValue
 Condition `isEnd` is always `true`
-in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
 #### Snippet
 ```java
-                    Lapse lapse = result.get(i);
-                    if (lapse.getOracle().getError() != null) {
-                        isEnd = isEnd && lapse.getOracle().getError().contains("No more available decision");
-                    } else {
-                        isEnd = false;
+					Lapse lapse = result.get(i);
+					if (lapse.getOracle().getError() != null) {
+						isEnd = isEnd && lapse.getOracle().getError().contains(NoMoreDecision.class.getSimpleName()) || lapse.getDecisions().isEmpty();
+					} else {
+						isEnd = false;
 ```
 
 ### ConstantValue
-Condition `isAllUsed` is always `true`
-in `src/main/java/fr/inria/spirals/npefix/resi/context/NPEOutput.java`
+Condition `candidate.getParent() instanceof CtStatement ||true` is always `true`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TernarySplitter.java`
 #### Snippet
 ```java
-				for (int j = 0; j < lapse.getDecisions().size() && isAllUsed; j++) {
-					Decision decision = lapse.getDecisions().get(j);
-					isAllUsed = isAllUsed && decision.isUsed();
-				}
-				if (isAllUsed) {
+            return false;
+        }
+        return candidate.getParent() instanceof CtStatement ||true;
+    }
+
 ```
 
 ### ConstantValue
@@ -4756,15 +4768,39 @@ in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
 ```
 
 ### ConstantValue
-Condition `currentPatch != null` is always `true`
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+Condition `parent instanceof CtTypedElement` is always `true`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
 #### Snippet
 ```java
-			String line = lines[i];
-			if (!line.startsWith("+ ")) {
-				if (currentPatch != null && !currentPatch.isEmpty()) {
-					output.append(currentPatch);
-					currentPatch = "";
+			return ctMethod.getType().isPrimitive();
+		}
+		if(parent instanceof CtTypedElement) {
+			CtTypeReference type1 = ((CtTypedElement) parent).getType();
+			if (type1 == null) {
+```
+
+### ConstantValue
+Condition `isAllUsed` is always `true`
+in `src/main/java/fr/inria/spirals/npefix/resi/context/NPEOutput.java`
+#### Snippet
+```java
+				for (int j = 0; j < lapse.getDecisions().size() && isAllUsed; j++) {
+					Decision decision = lapse.getDecisions().get(j);
+					isAllUsed = isAllUsed && decision.isUsed();
+				}
+				if (isAllUsed) {
+```
+
+### ConstantValue
+Value `delete` is always 'true'
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+#### Snippet
+```java
+			file.delete();
+		}
+		return delete;
+	}
+
 ```
 
 ### ConstantValue
@@ -4803,65 +4839,17 @@ in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
 					return instances;
 ```
 
-### ConstantValue
-Condition `outputFolder==null` is always `false`
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
-#### Snippet
-```java
-		if(outputFolder != null){
-			args.add("-o");
-			if(outputFolder==null || outputFolder.length()==0)
-				throw new IllegalArgumentException("setOutputFolder can not be used with empty value");
-			args.add(outputFolder);
-```
-
-### ConstantValue
-Condition `t instanceof RuntimeException` is always `true`
-in `src/main/java/utils/sacha/impl/DefaultSpooner.java`
-#### Snippet
-```java
-			Launcher.main(args.toArray(new String[]{}));
-		} catch (Exception t) {
-			throw t instanceof RuntimeException?(RuntimeException)t:new RuntimeException(t);
-		}
-	}
-```
-
-### ConstantValue
-Condition `candidate.getParent() instanceof CtStatement ||true` is always `true`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TernarySplitter.java`
-#### Snippet
-```java
-            return false;
-        }
-        return candidate.getParent() instanceof CtStatement ||true;
-    }
-
-```
-
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/oracle/TestOracle.java`
 #### Snippet
 ```java
-		StringBuilder output = new StringBuilder();
-		if(testClassName != null) {
-			output.append(testClassName + "#" + testName + "\n");
-		}
-
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
-#### Snippet
-```java
-			for (int i = 0; i < decisions.size(); i++) {
-				Decision decision =  decisions.get(i);
-				output.append("\t" + (i + 1) + " " + decision.toString() + "\n");
-			}
-		}
+			Failure failure = failures.get(j);
+			Throwable exception = failure.getException();
+			output.append(failure.toString() + "\n");
+			if(exception != null) {
+				output.append(printException(exception));
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -4902,14 +4890,26 @@ in `src/main/java/fr/inria/spirals/npefix/resi/oracle/AbstractOracle.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/fr/inria/spirals/npefix/resi/oracle/TestOracle.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
 #### Snippet
 ```java
-			Failure failure = failures.get(j);
-			Throwable exception = failure.getException();
-			output.append(failure.toString() + "\n");
-			if(exception != null) {
-				output.append(printException(exception));
+		StringBuilder output = new StringBuilder();
+		if(testClassName != null) {
+			output.append(testClassName + "#" + testName + "\n");
+		}
+
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
+#### Snippet
+```java
+			for (int i = 0; i < decisions.size(); i++) {
+				Decision decision =  decisions.get(i);
+				output.append("\t" + (i + 1) + " " + decision.toString() + "\n");
+			}
+		}
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -4939,30 +4939,6 @@ in `src/main/java/utils/sacha/impl/AbstractConfigurator.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `RunSpoonWithClasspath` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/utils/sacha/mains/RunSpoonWithClasspath.java`
-#### Snippet
-```java
-
-/** Runs spoon in an easy manner */
-public class RunSpoonWithClasspath {
-
-	public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MainSpoon` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
-#### Snippet
-```java
-
-
-public class MainSpoon {
-
-	public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CheckLoopMain` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/utils/sacha/mains/CheckLoopMain.java`
 #### Snippet
@@ -4972,66 +4948,6 @@ in `src/main/java/utils/sacha/mains/CheckLoopMain.java`
 public class CheckLoopMain {
 
 	public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EclipseGeneralToJavaProject` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/utils/sacha/mains/EclipseGeneralToJavaProject.java`
-#### Snippet
-```java
-
-/**  Manipulates Eclipse projects (nature, classpath, etc.  **/
-public class EclipseGeneralToJavaProject {
-
-	public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TestSuiteGeneratorMain` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/utils/sacha/mains/TestSuiteGeneratorMain.java`
-#### Snippet
-```java
-
-/** Generates on standard output a JUnit4 test class that runs all the test of a given Eclipse project */
-public class TestSuiteGeneratorMain {
-
-	public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MergeMavenProjects` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/utils/sacha/mains/MergeMavenProjects.java`
-#### Snippet
-```java
-
-/** Merges Maven projects in one single Eclipse project */
-public class MergeMavenProjects {
-
-	public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ExceptionStack` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/spirals/npefix/resi/ExceptionStack.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class ExceptionStack {
-	
-	private static List<TryContext> tryContexts = new ArrayList<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClassloaderFactory` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/utils/sacha/classloader/factory/ClassloaderFactory.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class ClassloaderFactory {
-
-	public static EnrichableClassloader getEnrichableClassloader(){
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5054,6 +4970,66 @@ in `src/main/java/utils/sacha/mains/RepairLoop1.java`
 
 /** Is a basic example on how having the repair loop modification -> test suite (TODO Matias) */
 public class RepairLoop1 {
+
+	public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TestRunnerMain` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/utils/sacha/mains/TestRunnerMain.java`
+#### Snippet
+```java
+
+/** Runs all tests of an Eclipse project */
+public class TestRunnerMain  {
+
+	public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TestFinderMain` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/utils/sacha/mains/TestFinderMain.java`
+#### Snippet
+```java
+
+/** Runs all tests of an Eclipse project */
+public class TestFinderMain  {
+
+	public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MergeMavenProjects` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/utils/sacha/mains/MergeMavenProjects.java`
+#### Snippet
+```java
+
+/** Merges Maven projects in one single Eclipse project */
+public class MergeMavenProjects {
+
+	public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ClassloaderFactory` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/utils/sacha/classloader/factory/ClassloaderFactory.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class ClassloaderFactory {
+
+	public static EnrichableClassloader getEnrichableClassloader(){
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EclipseGeneralToJavaProject` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/utils/sacha/mains/EclipseGeneralToJavaProject.java`
+#### Snippet
+```java
+
+/**  Manipulates Eclipse projects (nature, classpath, etc.  **/
+public class EclipseGeneralToJavaProject {
 
 	public static void main(String[] args) {
 ```
@@ -5083,6 +5059,18 @@ public class ProcessorUtility {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ExceptionStack` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/spirals/npefix/resi/ExceptionStack.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class ExceptionStack {
+	
+	private static List<TryContext> tryContexts = new ArrayList<>();
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `RandomGenerator` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/fr/inria/spirals/npefix/resi/RandomGenerator.java`
 #### Snippet
@@ -5095,25 +5083,37 @@ public class RandomGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TestRunnerMain` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/utils/sacha/mains/TestRunnerMain.java`
+Class `RunSpoonWithClasspath` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/utils/sacha/mains/RunSpoonWithClasspath.java`
 #### Snippet
 ```java
 
-/** Runs all tests of an Eclipse project */
-public class TestRunnerMain  {
+/** Runs spoon in an easy manner */
+public class RunSpoonWithClasspath {
 
 	public static void main(String[] args) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TestFinderMain` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/utils/sacha/mains/TestFinderMain.java`
+Class `TestSuiteGeneratorMain` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/utils/sacha/mains/TestSuiteGeneratorMain.java`
 #### Snippet
 ```java
 
-/** Runs all tests of an Eclipse project */
-public class TestFinderMain  {
+/** Generates on standard output a JUnit4 test class that runs all the test of a given Eclipse project */
+public class TestSuiteGeneratorMain {
+
+	public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MainSpoon` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+#### Snippet
+```java
+
+
+public class MainSpoon {
 
 	public static void main(String[] args) {
 ```
@@ -5131,19 +5131,6 @@ in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 						}
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `src/main/java/utils/sacha/mains/TestFinderMain.java`
-#### Snippet
-```java
-		Class<?>[] tests = finder.findTestClasses();
-		for (Class<?> clazz : tests) {
-			System.out.println(clazz);;
-		}
-
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `openStream` may produce `NullPointerException`
@@ -5155,150 +5142,6 @@ in `src/main/java/fr/inria/spirals/npefix/config/Config.java`
 			properties.load(getClass().getResource("/config.ini").openStream());
 
 			this.timeoutIteration = Integer.parseInt(properties.getProperty(ITERATION_TIMEOUT));
-```
-
-### DataFlowIssue
-Dereference of `file.listFiles()` may produce `NullPointerException`
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
-#### Snippet
-```java
-		if (file.exists()) {
-			if (file.isDirectory())
-				for (File child : file.listFiles()) {
-					delete &= recursifDeleteJavaFiles(child);
-				}
-```
-
-### DataFlowIssue
-Array access `arg[0]` may produce `NullPointerException`
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
-#### Snippet
-```java
-			ISpooner spooner = new DefaultSpooner();
-			//project config
-			spooner.setEclipseProject(arg[0]);
-			spooner.setEclipseMetadataFolder("/home/thomas/workspace/.metadata");
-			String[] srcs = arg[1].split(":");
-```
-
-### DataFlowIssue
-Method invocation `setDecisionType` may produce `NullPointerException`
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/GreedySelector.java`
-#### Snippet
-```java
-			}
-			usedDecisions.add(bestDecision);
-			bestDecision.setDecisionType(BEST);
-			getCurrentLapse().putMetadata("strategy_selection", "best");
-			bestDecision.setEpsilon(epsilon);
-```
-
-### DataFlowIssue
-Method invocation `replaceAll` may produce `NullPointerException`
-in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
-#### Snippet
-```java
-		}
-
-		return diff.replaceAll("\n\\\\ No newline at end of file", "");
-	}
-
-```
-
-### DataFlowIssue
-Method invocation `getClassName` may produce `NullPointerException`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
-#### Snippet
-```java
-	public static void anIf(boolean value, String expression, int line, int sourceStart, int sourceEnd) {
-		Location location = CallChecker.getLocation(line, sourceStart, sourceEnd);
-		final String output = new Date().getTime() + "\t" + location.getClassName() + "\t" + location.getLine() + "\t" + location.getSourceStart() + "\t" + location.getSourceEnd() + "\t" + value + "\t" + expression;
-		try (FileWriter writer = new FileWriter("instrumentation-output.csv", true)) {
-			writer.write(output + System.getProperty("line.separator"));
-```
-
-### DataFlowIssue
-Dereference of `testSrcFolder.listFiles()` may produce `NullPointerException`
-in `src/main/java/utils/sacha/finder/classes/impl/SourceFolderFinder.java`
-#### Snippet
-```java
-	static List<String> getClassesLoc(File testSrcFolder,String pack) {
-		List<String> classes = new ArrayList<>();
-		for (File file : testSrcFolder.listFiles()) {
-			if(file.isDirectory())
-				classes.addAll(getClassesLoc(file, pack==null?file.getName():pack+'.'+file.getName()));
-```
-
-### DataFlowIssue
-Method invocation `getClassName` may produce `NullPointerException`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/BlockCoverage.java`
-#### Snippet
-```java
-	public static void aBlock(boolean isExecutableBlock, int line, int sourceStart, int sourceEnd) {
-		Location location = CallChecker.getLocation(line, sourceStart, sourceEnd);
-		final String output = new Date().getTime() + "\t" + location.getClassName() + "\t" + location.getLine() + "\t" + location.getSourceStart() + "\t" + location.getSourceEnd();
-		if (isExecutableBlock) {
-			try (FileWriter writer = new FileWriter("method-output.csv", true)) {
-```
-
-### DataFlowIssue
-Casting `body` to `CtBlock` may produce `ClassCastException`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
-#### Snippet
-```java
-						((CtLoop) parent).setBody(getFactory().Code().createCtBlock(body));
-					}
-					((CtBlock)body).insertBegin(invoc);
-				} else {
-					parent.insertAfter(invoc);
-```
-
-### DataFlowIssue
-Casting `target` to `CtInvocation` may produce `ClassCastException`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
-#### Snippet
-```java
-				target = ((CtTargetedExpression) target).getTarget();
-			}
-			CtElement ctElement = (CtElement) ((CtInvocation) target).getArguments().get(0);
-			if(ctElement instanceof CtArrayAccess) {
-				target = getTargetInINPECheck(((CtArrayAccess) ctElement).getTarget());
-```
-
-### DataFlowIssue
-Result of 'max' is the same as the first argument making the call meaningless
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Experiment.java`
-#### Snippet
-```java
-		for (int i = 0; i < patchTokens.fullSize(); i++) {
-			Token token = patchTokens.get(i);
-			Tokens predicate = patchTokens.subList(Math.max(i - n + 1, 0), Math.max(i, 0));
-			if (predicate.isEmpty()) {
-				result[i] = 1;
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
-#### Snippet
-```java
-						"\norg.eclipse.jdt.core.compiler.source=1.7\norg.eclipse.jdt.core.compiler.compliance=1.7");
-			} finally {
-				out.close();
-			}
-		}catch(Throwable t){
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
-#### Snippet
-```java
-						"</classpath>");
-			} finally {
-				out.close();
-			}
-		}catch(Throwable t){
 ```
 
 ### DataFlowIssue
@@ -5326,6 +5169,150 @@ in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 ```
 
 ### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
+#### Snippet
+```java
+						"</classpath>");
+			} finally {
+				out.close();
+			}
+		}catch(Throwable t){
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `src/main/java/utils/sacha/impl/GeneralToJavaCore.java`
+#### Snippet
+```java
+						"\norg.eclipse.jdt.core.compiler.source=1.7\norg.eclipse.jdt.core.compiler.compliance=1.7");
+			} finally {
+				out.close();
+			}
+		}catch(Throwable t){
+```
+
+### DataFlowIssue
+Method invocation `setDecisionType` may produce `NullPointerException`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/GreedySelector.java`
+#### Snippet
+```java
+			}
+			usedDecisions.add(bestDecision);
+			bestDecision.setDecisionType(BEST);
+			getCurrentLapse().putMetadata("strategy_selection", "best");
+			bestDecision.setEpsilon(epsilon);
+```
+
+### DataFlowIssue
+Method invocation `replaceAll` may produce `NullPointerException`
+in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
+#### Snippet
+```java
+		}
+
+		return diff.replaceAll("\n\\\\ No newline at end of file", "");
+	}
+
+```
+
+### DataFlowIssue
+Dereference of `testSrcFolder.listFiles()` may produce `NullPointerException`
+in `src/main/java/utils/sacha/finder/classes/impl/SourceFolderFinder.java`
+#### Snippet
+```java
+	static List<String> getClassesLoc(File testSrcFolder,String pack) {
+		List<String> classes = new ArrayList<>();
+		for (File file : testSrcFolder.listFiles()) {
+			if(file.isDirectory())
+				classes.addAll(getClassesLoc(file, pack==null?file.getName():pack+'.'+file.getName()));
+```
+
+### DataFlowIssue
+Casting `body` to `CtBlock` may produce `ClassCastException`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
+#### Snippet
+```java
+						((CtLoop) parent).setBody(getFactory().Code().createCtBlock(body));
+					}
+					((CtBlock)body).insertBegin(invoc);
+				} else {
+					parent.insertAfter(invoc);
+```
+
+### DataFlowIssue
+Casting `target` to `CtInvocation` may produce `ClassCastException`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
+#### Snippet
+```java
+				target = ((CtTargetedExpression) target).getTarget();
+			}
+			CtElement ctElement = (CtElement) ((CtInvocation) target).getArguments().get(0);
+			if(ctElement instanceof CtArrayAccess) {
+				target = getTargetInINPECheck(((CtArrayAccess) ctElement).getTarget());
+```
+
+### DataFlowIssue
+Method invocation `getClassName` may produce `NullPointerException`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/BlockCoverage.java`
+#### Snippet
+```java
+	public static void aBlock(boolean isExecutableBlock, int line, int sourceStart, int sourceEnd) {
+		Location location = CallChecker.getLocation(line, sourceStart, sourceEnd);
+		final String output = new Date().getTime() + "\t" + location.getClassName() + "\t" + location.getLine() + "\t" + location.getSourceStart() + "\t" + location.getSourceEnd();
+		if (isExecutableBlock) {
+			try (FileWriter writer = new FileWriter("method-output.csv", true)) {
+```
+
+### DataFlowIssue
+Method invocation `getClassName` may produce `NullPointerException`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
+#### Snippet
+```java
+	public static void anIf(boolean value, String expression, int line, int sourceStart, int sourceEnd) {
+		Location location = CallChecker.getLocation(line, sourceStart, sourceEnd);
+		final String output = new Date().getTime() + "\t" + location.getClassName() + "\t" + location.getLine() + "\t" + location.getSourceStart() + "\t" + location.getSourceEnd() + "\t" + value + "\t" + expression;
+		try (FileWriter writer = new FileWriter("instrumentation-output.csv", true)) {
+			writer.write(output + System.getProperty("line.separator"));
+```
+
+### DataFlowIssue
+Result of 'max' is the same as the first argument making the call meaningless
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Experiment.java`
+#### Snippet
+```java
+		for (int i = 0; i < patchTokens.fullSize(); i++) {
+			Token token = patchTokens.get(i);
+			Tokens predicate = patchTokens.subList(Math.max(i - n + 1, 0), Math.max(i, 0));
+			if (predicate.isEmpty()) {
+				result[i] = 1;
+```
+
+### DataFlowIssue
+Dereference of `file.listFiles()` may produce `NullPointerException`
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+#### Snippet
+```java
+		if (file.exists()) {
+			if (file.isDirectory())
+				for (File child : file.listFiles()) {
+					delete &= recursifDeleteJavaFiles(child);
+				}
+```
+
+### DataFlowIssue
+Array access `arg[0]` may produce `NullPointerException`
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+#### Snippet
+```java
+			ISpooner spooner = new DefaultSpooner();
+			//project config
+			spooner.setEclipseProject(arg[0]);
+			spooner.setEclipseMetadataFolder("/home/thomas/workspace/.metadata");
+			String[] srcs = arg[1].split(":");
+```
+
+### DataFlowIssue
 Dereference of `element.listFiles()` may produce `NullPointerException`
 in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEFixTemplateEvaluation.java`
 #### Snippet
@@ -5335,6 +5322,19 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEFixTemplateEvaluation.ja
 			for (File sub : element.listFiles()) {
 				deleteFile(sub);
 			}
+```
+
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `src/main/java/utils/sacha/mains/TestFinderMain.java`
+#### Snippet
+```java
+		Class<?>[] tests = finder.findTestClasses();
+		for (Class<?> clazz : tests) {
+			System.out.println(clazz);;
+		}
+
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -5377,7 +5377,7 @@ in `src/main/java/utils/sacha/finder/main/Main.java`
 ## RuleId[ruleID=RedundantCollectionOperation]
 ### RedundantCollectionOperation
 Unnecessary 'contains()' check
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.java`
 #### Snippet
 ```java
 				this.decisions.put(decision.getLocation(), new HashSet<Decision>());
@@ -5389,7 +5389,7 @@ in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
 
 ### RedundantCollectionOperation
 Unnecessary 'contains()' check
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
 #### Snippet
 ```java
 				this.decisions.put(decision.getLocation(), new HashSet<Decision>());
@@ -5402,18 +5402,6 @@ in `src/main/java/fr/inria/spirals/npefix/resi/selector/MonoExplorerSelector.jav
 ## RuleId[ruleID=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-					value = new PrimitiveInstance<>(primitiveValue);
-				}
-			} catch (RuntimeException e) {
-
-			}
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 #### Snippet
 ```java
@@ -5422,6 +5410,18 @@ in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 			} catch (IOException e) {
 			}
 		}
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+					value = new PrimitiveInstance<>(primitiveValue);
+				}
+			} catch (RuntimeException e) {
+
+			}
 ```
 
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -5576,138 +5576,6 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/DefaultRepairStrategy.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
-#### Snippet
-```java
-
-			spooner.spoon();
-			System.err.println("spoon done");
-		}catch(Throwable t){
-			t.printStackTrace();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
-#### Snippet
-```java
-
-			selector.restartTest(lapse);
-			System.out.println(lapse);
-			System.exit(0);
-		} catch (Exception e) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
-#### Snippet
-```java
-					offsetLine = patchGenerator.getOffsetLine();
-				} else {
-					System.err.println("Big problem need ternary");
-				}
-			} else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
-#### Snippet
-```java
-				continue;
-			}
-			System.out.println("Multirun " + output.size() + "/" + nbIteration + " " + ((int)(output.size()/(double)nbIteration * 100)) + "%");
-		}
-		output.setEnd(new Date());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
-#### Snippet
-```java
-
-	private void showUsage() {
-		System.err.println();
-		System.err.println("Usage: java -jar npefix.jar");
-		System.err.println("                          " + jsap.getUsage());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
-#### Snippet
-```java
-	private void showUsage() {
-		System.err.println();
-		System.err.println("Usage: java -jar npefix.jar");
-		System.err.println("                          " + jsap.getUsage());
-		System.err.println();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
-#### Snippet
-```java
-		System.err.println();
-		System.err.println("Usage: java -jar npefix.jar");
-		System.err.println("                          " + jsap.getUsage());
-		System.err.println();
-		System.err.println(jsap.getHelp());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
-#### Snippet
-```java
-		System.err.println("Usage: java -jar npefix.jar");
-		System.err.println("                          " + jsap.getUsage());
-		System.err.println();
-		System.err.println(jsap.getHelp());
-	}
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
-#### Snippet
-```java
-		System.err.println("                          " + jsap.getUsage());
-		System.err.println();
-		System.err.println(jsap.getHelp());
-	}
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
-#### Snippet
-```java
-		JSAPResult jsapConfig = jsap.parse(args);
-		if (!jsapConfig.success()) {
-			System.err.println();
-			for (Iterator<?> errs = jsapConfig.getErrorMessageIterator(); errs.hasNext(); ) {
-				System.err.println("Error: " + errs.next());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
-#### Snippet
-```java
-			System.err.println();
-			for (Iterator<?> errs = jsapConfig.getErrorMessageIterator(); errs.hasNext(); ) {
-				System.err.println("Error: " + errs.next());
-			}
-			showUsage();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/spirals/npefix/resi/context/instance/InstanceFactory.java`
 #### Snippet
 ```java
@@ -5716,6 +5584,42 @@ in `src/main/java/fr/inria/spirals/npefix/resi/context/instance/InstanceFactory.
 			System.err.println(expression.getType() + " not handled");
 		}
 		return instance;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/mains/TestRunnerMain.java`
+#### Snippet
+```java
+		// runs the test folder
+		ITestResult res = runner.runAllTestsInClasspath();
+		System.out.println(res.getNbRunTests());
+		System.out.println(res.getNbFailedTests());
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/mains/TestRunnerMain.java`
+#### Snippet
+```java
+		ITestResult res = runner.runAllTestsInClasspath();
+		System.out.println(res.getNbRunTests());
+		System.out.println(res.getNbFailedTests());
+
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/mains/TestFinderMain.java`
+#### Snippet
+```java
+		Class<?>[] tests = finder.findTestClasses();
+		for (Class<?> clazz : tests) {
+			System.out.println(clazz);;
+		}
+
 ```
 
 ### SystemOutErr
@@ -5804,170 +5708,182 @@ in `src/main/java/utils/sacha/runner/utils/TestInfo.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VariableFor.java`
+in `src/main/java/fr/inria/spirals/npefix/main/DecisionServer.java`
 #### Snippet
 ```java
 
-		if(element.getVariable().getDeclaration() == null) {
-			System.out.println(element.getVariable().getDeclaration());
-			return false;
-		}
+			Selector selector = new ExplorerSelector(new Strat4(ReturnType.NULL), new Strat4(ReturnType.VAR), new Strat4(ReturnType.NEW), new Strat4(ReturnType.VOID));
+			System.out.println("Start selector " + selector);
+
+			startRMI(selector);
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VariableFor.java`
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+		JUnitCore runner = new JUnitCore();
+		
+		MyTextListener listener = new MyTextListener(System.out);
+
+		runner.addListener(listener);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+			});
+		Result result = runner.run(classesArray);
+		System.out.println("IGNORED ("+result.getIgnoreCount()+" test"+(result.getIgnoreCount()>1?"s":"")+")\n");
+		
+		System.out.println("///////////////////////////  results  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+#### Snippet
+```java
+		System.out.println("IGNORED ("+result.getIgnoreCount()+" test"+(result.getIgnoreCount()>1?"s":"")+")\n");
+		
+		System.out.println("///////////////////////////  results  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+		if(eclipseTestReport!=null)
+			compareTests(eclipseTestReport);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveInit.java`
 #### Snippet
 ```java
 	@Override
 	public void processingDone() {
-		System.out.println("VariableFor in " + (new Date().getTime() - start.getTime()) + "ms");
+		System.out.println("VarInit --> "+ nbVarInit + " in " + (new Date().getTime() - start.getTime()) + "ms");
 	}
 
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/context/TryContext.java`
 #### Snippet
 ```java
-		CtTypeReference type = candidate.getType();
-		if(type == null) {
-			System.out.println(parent);
-			return false;
+				this.types[i++] = classLoader.loadClass(str);
+			} catch (ClassNotFoundException e) {
+				System.out.println(e);
+				//throw new RuntimeException(e);
+			}
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
+#### Snippet
+```java
+										currentPathString = currentPathString.replaceFirst("M2_REPO", getM2REPO());
+									else{
+										System.err.println("cannot resolve : "+currentPathString);
+										continue;
+									}
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
+#### Snippet
+```java
+			}
+		}catch(Exception e){
+	    	System.err.println("will use default classpath due to :"+e);
+		}
+		return classpaths;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+				//continue;
+			}
+			System.out.println(project);
+			long version = root.getLong(project);
+			String projectResultPath = resultsRootPath + "/" + project + "/" + version + ".json";
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+			PatchesGenerator patchesGenerator = new PatchesGenerator(decisions, spoon, new String[] {projectSourcePath});
+			String diff = patchesGenerator.getDiff();
+			System.out.println(diff);
+			((JSONObject) execution).put("diff", diff);
+			String patch = getChange(diff);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+			try {
+				double score = experiment.probabilityPatch(new File(projectSourcePath), 3, new FullTokenizer(), patch);
+				System.out.println(score);
+				if (Double.isInfinite(score)) {
+					((JSONObject) execution).put("score", Double.MAX_VALUE);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+			} catch (Exception e) {
+				diff = patchesGenerator.getDiff();
+				System.out.println(diff);
+				((JSONObject) execution).put("diff", diff);
+				patch = getChange(diff);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+				patch = getChange(diff);
+				e.printStackTrace();
+				System.out.println(patch);
+			}
 		}
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
 #### Snippet
 ```java
-	@Override
-	public void processingDone() {
-		System.out.println("AddImplicitCastChecker --> " + nbImplicitCast + " in " + (new Date().getTime() - start.getTime()) + "ms");
-	}
-
+					offsetLine = patchGenerator.getOffsetLine();
+				} else {
+					System.err.println("Big problem need ternary");
+				}
+			} else {
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/patchTemplate/VariableFinder.java`
-#### Snippet
-```java
-					CtStatement ctStatement = e.getStatements().get(i);
-					if (ctStatement.getPosition() == null) {
-						System.out.println(ctStatement);
-					}
-					if (ctStatement.getPosition() != null
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
-#### Snippet
-```java
-	@Override
-	public void processingDone() {
-		System.out.println("NotNullTracer in " + (new Date().getTime() - start.getTime()) + "ms");
-		try (FileWriter writer = new FileWriter("instrumentation-counter.txt")) {
-			writer.write("counterInstrumentation\tcounterCheckNull\tcounterCheckNotNull" + System.getProperty("line.separator"));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
 #### Snippet
 ```java
                 continue;
             }
             System.out.println("Multirun " + output.size() + "/" + nbIteration + " " + ((int)(output.size()/(double)nbIteration * 100)) + "%");
         }
-        output.setStart(initEndDate);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
-#### Snippet
-```java
-                final Process process = processBuilder.start();
-                // print the output to the current console
-                inheritIO(process.getInputStream(), System.out);
-                inheritIO(process.getErrorStream(), System.err);
-                // wait the end of the process
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
-#### Snippet
-```java
-                // print the output to the current console
-                inheritIO(process.getInputStream(), System.out);
-                inheritIO(process.getErrorStream(), System.err);
-                // wait the end of the process
-                process.waitFor();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
-#### Snippet
-```java
-        for (int i = 0; i < strategies.length; i++) {
-            Strategy strategy = strategies[i];
-            System.out.println(strategy);
-            DomSelector.strategy = strategy;
-            NPEOutput run = run(selector, tests);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
-#### Snippet
-```java
-
-	public static void main(String[] args) {
-		System.out.println("CONFIGURATION:");
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
-#### Snippet
-```java
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
-			System.out.println(arg);
-		}
-		System.out.println("END CONFIGURATION\n");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
-#### Snippet
-```java
-			System.out.println(arg);
-		}
-		System.out.println("END CONFIGURATION\n");
-		try {
-			initJSAP();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
-#### Snippet
-```java
-			}
-		} catch (NoSuchMethodException e) {
-			System.err.println("The project is not found");
-		} catch (Exception e) {
-			e.printStackTrace();
+        output.setEnd(new Date());
 ```
 
 ### SystemOutErr
@@ -6056,86 +5972,62 @@ in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
 #### Snippet
 ```java
-                continue;
-            }
-            System.out.println("Multirun " + output.size() + "/" + nbIteration + " " + ((int)(output.size()/(double)nbIteration * 100)) + "%");
-        }
-        output.setEnd(new Date());
+
+	public static void main(String[] args) {
+		System.out.println("CONFIGURATION:");
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/BlockCoverage.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
 #### Snippet
 ```java
-	@Override
-	public void processingDone() {
-		System.out.println("BlockCoverage in " + (new Date().getTime() - start.getTime()) + "ms");
-		try (FileWriter writer = new FileWriter("instrumentation-block-coverage.txt")) {
-			writer.write("counterInstrumentation\tcounterMethod\tcounterBlock" + System
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-			PatchesGenerator patchesGenerator = new PatchesGenerator(decisions, spoon, new String[] {projectSourcePath});
-			String diff = patchesGenerator.getDiff();
-			System.out.println(diff);
-			((JSONObject) execution).put("diff", diff);
-			String patch = getChange(diff);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-			try {
-				double score = experiment.probabilityPatch(new File(projectSourcePath), 3, new FullTokenizer(), patch);
-				System.out.println(score);
-				if (Double.isInfinite(score)) {
-					((JSONObject) execution).put("score", Double.MAX_VALUE);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-			} catch (Exception e) {
-				diff = patchesGenerator.getDiff();
-				System.out.println(diff);
-				((JSONObject) execution).put("diff", diff);
-				patch = getChange(diff);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-				patch = getChange(diff);
-				e.printStackTrace();
-				System.out.println(patch);
-			}
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			System.out.println(arg);
 		}
+		System.out.println("END CONFIGURATION\n");
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
 #### Snippet
 ```java
-				//continue;
+			System.out.println(arg);
+		}
+		System.out.println("END CONFIGURATION\n");
+		try {
+			initJSAP();
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
+#### Snippet
+```java
 			}
-			System.out.println(project);
-			long version = root.getLong(project);
-			String projectResultPath = resultsRootPath + "/" + project + "/" + version + ".json";
+		} catch (NoSuchMethodException e) {
+			System.err.println("The project is not found");
+		} catch (Exception e) {
+			e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/RemoveNullCheckProcessor.java`
+#### Snippet
+```java
+    @Override
+    public void processingDone() {
+        System.out.println("Remove " + count + " if null check");
+    }
+}
 ```
 
 ### SystemOutErr
@@ -6152,6 +6044,174 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssi
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+        for (int i = 0; i < strategies.length; i++) {
+            Strategy strategy = strategies[i];
+            System.out.println(strategy);
+            DomSelector.strategy = strategy;
+            NPEOutput run = run(selector, tests);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+                continue;
+            }
+            System.out.println("Multirun " + output.size() + "/" + nbIteration + " " + ((int)(output.size()/(double)nbIteration * 100)) + "%");
+        }
+        output.setStart(initEndDate);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+                final Process process = processBuilder.start();
+                // print the output to the current console
+                inheritIO(process.getInputStream(), System.out);
+                inheritIO(process.getErrorStream(), System.err);
+                // wait the end of the process
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+                // print the output to the current console
+                inheritIO(process.getInputStream(), System.out);
+                inheritIO(process.getErrorStream(), System.err);
+                // wait the end of the process
+                process.waitFor();
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+		JSAPResult jsapConfig = jsap.parse(args);
+		if (!jsapConfig.success()) {
+			System.err.println();
+			for (Iterator<?> errs = jsapConfig.getErrorMessageIterator(); errs.hasNext(); ) {
+				System.err.println("Error: " + errs.next());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+			System.err.println();
+			for (Iterator<?> errs = jsapConfig.getErrorMessageIterator(); errs.hasNext(); ) {
+				System.err.println("Error: " + errs.next());
+			}
+			showUsage();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+				continue;
+			}
+			System.out.println("Multirun " + output.size() + "/" + nbIteration + " " + ((int)(output.size()/(double)nbIteration * 100)) + "%");
+		}
+		output.setEnd(new Date());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+
+	private void showUsage() {
+		System.err.println();
+		System.err.println("Usage: java -jar npefix.jar");
+		System.err.println("                          " + jsap.getUsage());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+	private void showUsage() {
+		System.err.println();
+		System.err.println("Usage: java -jar npefix.jar");
+		System.err.println("                          " + jsap.getUsage());
+		System.err.println();
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+		System.err.println();
+		System.err.println("Usage: java -jar npefix.jar");
+		System.err.println("                          " + jsap.getUsage());
+		System.err.println();
+		System.err.println(jsap.getHelp());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+		System.err.println("Usage: java -jar npefix.jar");
+		System.err.println("                          " + jsap.getUsage());
+		System.err.println();
+		System.err.println(jsap.getHelp());
+	}
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+		System.err.println("                          " + jsap.getUsage());
+		System.err.println();
+		System.err.println(jsap.getHelp());
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/BlockCoverage.java`
+#### Snippet
+```java
+	@Override
+	public void processingDone() {
+		System.out.println("BlockCoverage in " + (new Date().getTime() - start.getTime()) + "ms");
+		try (FileWriter writer = new FileWriter("instrumentation-block-coverage.txt")) {
+			writer.write("counterInstrumentation\tcounterMethod\tcounterBlock" + System
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/NotNullTracer.java`
+#### Snippet
+```java
+	@Override
+	public void processingDone() {
+		System.out.println("NotNullTracer in " + (new Date().getTime() - start.getTime()) + "ms");
+		try (FileWriter writer = new FileWriter("instrumentation-counter.txt")) {
+			writer.write("counterInstrumentation\tcounterCheckNull\tcounterCheckNotNull" + System.getProperty("line.separator"));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
 #### Snippet
 ```java
@@ -6163,50 +6223,26 @@ in `src/main/java/fr/inria/spirals/npefix/resi/context/Decision.java`
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TernarySplitter.java`
+#### Snippet
+```java
+            return;
+        } else {
+            System.err.println(parent);
+            throw new RuntimeException("Other " + parent.getClass());
+        }
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/RemoveNullCheckProcessor.java`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TernarySplitter.java`
 #### Snippet
 ```java
     @Override
     public void processingDone() {
-        System.out.println("Remove " + count + " if null check");
+        System.out.println("TernarySplitter  in " + (new Date().getTime() - start.getTime()) + "ms");
     }
-}
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/CheckNotNull.java`
-#### Snippet
-```java
-			return getNotNullElements(((CtAssignment) notNullElement).getAssigned(), ctElement);
-		} else {
-			System.err.println(notNullElement);
-		}
-		return notNulls;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/CheckNotNull.java`
-#### Snippet
-```java
-			}
-		} else {
-			System.out.println(parent);
-		}
-		for (int i = 0; i < notNullElements.size(); i++) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/CheckNotNull.java`
-#### Snippet
-```java
-	@Override
-	public void processingDone() {
-		System.out.println("CheckNotNull  in " + (new Date().getTime() - start.getTime()) + "ms");
-	}
 
 ```
 
@@ -6215,7 +6251,7 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
 #### Snippet
 ```java
-        double executionTimeTransformed = runBench("commonsOkio", source, test, deps);
+        double executionTimeTransformed = runBench("commonsCodec", source, test, deps);
 
         System.out.println("Execution time normal " + executionTime);
         System.out.println("Execution time transformed " + executionTimeTransformed);
@@ -6243,7 +6279,7 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
         System.out.println("Execution time transformed " + executionTimeTransformed);
         System.out.println("Overhead " + (int)((executionTimeTransformed-executionTime)/executionTime * 100)  + "%");
     }
-}
+
 ```
 
 ### SystemOutErr
@@ -6287,7 +6323,7 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
 #### Snippet
 ```java
-        double executionTimeTransformed = runBench("commonsCodec", source, test, deps);
+        double executionTimeTransformed = runBench("commonsOkio", source, test, deps);
 
         System.out.println("Execution time normal " + executionTime);
         System.out.println("Execution time transformed " + executionTimeTransformed);
@@ -6315,7 +6351,55 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
         System.out.println("Execution time transformed " + executionTimeTransformed);
         System.out.println("Overhead " + (int)((executionTimeTransformed-executionTime)/executionTime * 100)  + "%");
     }
+}
+```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/CheckNotNull.java`
+#### Snippet
+```java
+	@Override
+	public void processingDone() {
+		System.out.println("CheckNotNull  in " + (new Date().getTime() - start.getTime()) + "ms");
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/CheckNotNull.java`
+#### Snippet
+```java
+			}
+		} else {
+			System.out.println(parent);
+		}
+		for (int i = 0; i < notNullElements.size(); i++) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/CheckNotNull.java`
+#### Snippet
+```java
+			return getNotNullElements(((CtAssignment) notNullElement).getAssigned(), ctElement);
+		} else {
+			System.err.println(notNullElement);
+		}
+		return notNulls;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/patchTemplate/VariableFinder.java`
+#### Snippet
+```java
+					CtStatement ctStatement = e.getStatements().get(i);
+					if (ctStatement.getPosition() == null) {
+						System.out.println(ctStatement);
+					}
+					if (ctStatement.getPosition() != null
 ```
 
 ### SystemOutErr
@@ -6368,30 +6452,6 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEDataset.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TernarySplitter.java`
-#### Snippet
-```java
-    @Override
-    public void processingDone() {
-        System.out.println("TernarySplitter  in " + (new Date().getTime() - start.getTime()) + "ms");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TernarySplitter.java`
-#### Snippet
-```java
-            return;
-        } else {
-            System.err.println(parent);
-            throw new RuntimeException("Other " + parent.getClass());
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/evaluation/java/fr/inria/spirals/npefix/resi/selector/AbstractSelectorEvaluation.java`
 #### Snippet
 ```java
@@ -6400,30 +6460,6 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/selector/AbstractSelectorEv
 		System.out.println(output);
 		Assert.assertTrue(output, nbFailing != results.size());
 	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/resi/context/TryContext.java`
-#### Snippet
-```java
-				this.types[i++] = classLoader.loadClass(str);
-			} catch (ClassNotFoundException e) {
-				System.out.println(e);
-				//throw new RuntimeException(e);
-			}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveInit.java`
-#### Snippet
-```java
-	@Override
-	public void processingDone() {
-		System.out.println("VarInit --> "+ nbVarInit + " in " + (new Date().getTime() - start.getTime()) + "ms");
-	}
-
 ```
 
 ### SystemOutErr
@@ -6440,110 +6476,74 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TryRegister.jav
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
 #### Snippet
 ```java
-		JUnitCore runner = new JUnitCore();
-		
-		MyTextListener listener = new MyTextListener(System.out);
-
-		runner.addListener(listener);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-			});
-		Result result = runner.run(classesArray);
-		System.out.println("IGNORED ("+result.getIgnoreCount()+" test"+(result.getIgnoreCount()>1?"s":"")+")\n");
-		
-		System.out.println("///////////////////////////  results  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-		System.out.println("IGNORED ("+result.getIgnoreCount()+" test"+(result.getIgnoreCount()>1?"s":"")+")\n");
-		
-		System.out.println("///////////////////////////  results  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-		if(eclipseTestReport!=null)
-			compareTests(eclipseTestReport);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/DecisionServer.java`
-#### Snippet
-```java
-
-			Selector selector = new ExplorerSelector(new Strat4(ReturnType.NULL), new Strat4(ReturnType.VAR), new Strat4(ReturnType.NEW), new Strat4(ReturnType.VOID));
-			System.out.println("Start selector " + selector);
-
-			startRMI(selector);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
-#### Snippet
-```java
-										currentPathString = currentPathString.replaceFirst("M2_REPO", getM2REPO());
-									else{
-										System.err.println("cannot resolve : "+currentPathString);
-										continue;
-									}
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
-#### Snippet
-```java
-			}
-		}catch(Exception e){
-	    	System.err.println("will use default classpath due to :"+e);
+		CtTypeReference type = candidate.getType();
+		if(type == null) {
+			System.out.println(parent);
+			return false;
 		}
-		return classpaths;
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/mains/TestRunnerMain.java`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
 #### Snippet
 ```java
-		// runs the test folder
-		ITestResult res = runner.runAllTestsInClasspath();
-		System.out.println(res.getNbRunTests());
-		System.out.println(res.getNbFailedTests());
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/mains/TestRunnerMain.java`
-#### Snippet
-```java
-		ITestResult res = runner.runAllTestsInClasspath();
-		System.out.println(res.getNbRunTests());
-		System.out.println(res.getNbFailedTests());
-
+	@Override
+	public void processingDone() {
+		System.out.println("AddImplicitCastChecker --> " + nbImplicitCast + " in " + (new Date().getTime() - start.getTime()) + "ms");
 	}
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/mains/TestFinderMain.java`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VariableFor.java`
 #### Snippet
 ```java
-		Class<?>[] tests = finder.findTestClasses();
-		for (Class<?> clazz : tests) {
-			System.out.println(clazz);;
-		}
+	@Override
+	public void processingDone() {
+		System.out.println("VariableFor in " + (new Date().getTime() - start.getTime()) + "ms");
+	}
 
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VariableFor.java`
+#### Snippet
+```java
+
+		if(element.getVariable().getDeclaration() == null) {
+			System.out.println(element.getVariable().getDeclaration());
+			return false;
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
+#### Snippet
+```java
+
+			selector.restartTest(lapse);
+			System.out.println(lapse);
+			System.exit(0);
+		} catch (Exception e) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+#### Snippet
+```java
+
+			spooner.spoon();
+			System.err.println("spoon done");
+		}catch(Throwable t){
+			t.printStackTrace();
 ```
 
 ### SystemOutErr
@@ -6609,30 +6609,6 @@ in `src/main/java/fr/inria/spirals/npefix/config/Config.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
-#### Snippet
-```java
-						if(line.startsWith("#"))continue;
-						String[] lineB = line.split(":",2);
-						String[] arguments = lineB[1].split("\\s");
-						targets.put(lineB[0],arguments);
-						options.add(lineB[0]);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
-#### Snippet
-```java
-		}
-
-		return diff.replaceAll("\n\\\\ No newline at end of file", "");
-	}
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 #### Snippet
@@ -6656,7 +6632,43 @@ in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 										System.err.println("cannot resolve : "+currentPathString);
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
+#### Snippet
+```java
+		}
+
+		return diff.replaceAll("\n\\\\ No newline at end of file", "");
+	}
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+#### Snippet
+```java
+						if(line.startsWith("#"))continue;
+						String[] lineB = line.split(":",2);
+						String[] arguments = lineB[1].split("\\s");
+						targets.put(lineB[0],arguments);
+						options.add(lineB[0]);
+```
+
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `spoon.processing` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ArrayRead.java`
+#### Snippet
+```java
+ * Encapsulate array access in our framework
+ */
+public class ArrayRead extends spoon.processing.AbstractProcessor<CtArrayRead> {
+	@Override
+	public boolean isToBeProcessed(CtArrayRead candidate) {
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `utils.sacha.interfaces` is unnecessary and can be removed
 in `src/main/java/utils/sacha/interfaces/IRunner.java`
@@ -6679,18 +6691,6 @@ in `src/main/java/utils/sacha/interfaces/IRunner.java`
 	utils.sacha.interfaces.ITestResult runAllTestsInClasspath();
 
 	/** dir must be valid source folder */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `spoon.processing` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ArrayRead.java`
-#### Snippet
-```java
- * Encapsulate array access in our framework
- */
-public class ArrayRead extends spoon.processing.AbstractProcessor<CtArrayRead> {
-	@Override
-	public boolean isToBeProcessed(CtArrayRead candidate) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6719,26 +6719,14 @@ in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `utils.sacha.finder.classes.impl` is unnecessary and can be removed
-in `src/main/java/utils/sacha/finder/classes/impl/ClasspathFinder.java`
+in `src/main/java/utils/sacha/finder/classes/impl/ClassloaderFinder.java`
 #### Snippet
 ```java
-		for (String root : roots) {
-			if(new File(root).isDirectory())
-				classes.addAll(utils.sacha.finder.classes.impl.SourceFolderFinder.getClassesLoc(new File(root), null));
+		for (URL url : urlClassloader.getURLs()) {
+			if(new File(url.getPath()).isDirectory())
+				classes.addAll(utils.sacha.finder.classes.impl.SourceFolderFinder.getClassesLoc(new File(url.getPath()), null));
 		}
-		return classes;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
-#### Snippet
-```java
-				}
-				Class<?> CL_class = classLoader.getClass();
-				while (CL_class != java.lang.ClassLoader.class) {
-					CL_class = CL_class.getSuperclass();
-				}
+		return classes.toArray(new String[0]);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6779,14 +6767,14 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/PaperProjects.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `utils.sacha.finder.classes.impl` is unnecessary and can be removed
-in `src/main/java/utils/sacha/finder/classes/impl/ClassloaderFinder.java`
+in `src/main/java/utils/sacha/finder/classes/impl/ClasspathFinder.java`
 #### Snippet
 ```java
-		for (URL url : urlClassloader.getURLs()) {
-			if(new File(url.getPath()).isDirectory())
-				classes.addAll(utils.sacha.finder.classes.impl.SourceFolderFinder.getClassesLoc(new File(url.getPath()), null));
+		for (String root : roots) {
+			if(new File(root).isDirectory())
+				classes.addAll(utils.sacha.finder.classes.impl.SourceFolderFinder.getClassesLoc(new File(root), null));
 		}
-		return classes.toArray(new String[0]);
+		return classes;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6811,6 +6799,18 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEFixTemplateEvaluation.ja
         spoon.Launcher spoon = new spoon.Launcher();
         spoon.addInputResource(new File(source).getAbsolutePath());
 		spoon.addInputResource(test);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
+#### Snippet
+```java
+				}
+				Class<?> CL_class = classLoader.getClass();
+				while (CL_class != java.lang.ClassLoader.class) {
+					CL_class = CL_class.getSuperclass();
+				}
 ```
 
 ## RuleId[ruleID=ComparatorMethodParameterNotUsed]
@@ -6865,50 +6865,86 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/DefaultRepairStrategy.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
+in `src/main/java/fr/inria/spirals/npefix/main/DecisionServer.java`
 #### Snippet
 ```java
-			System.err.println("spoon done");
-		}catch(Throwable t){
-			t.printStackTrace();
+			startRMI(selector);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
+in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
 #### Snippet
 ```java
-				lapse = getSelector().getCurrentLapse();
-				lapse.setOracle(new ExceptionOracle(e));
-				e.printStackTrace();
-				handler.cancel(true);
-			} catch (ExecutionException e) {
+			TestInfo.compare(runnedTests,importedTests);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
+in `src/main/java/utils/sacha/classloader/factory/ClassloaderFactory.java`
 #### Snippet
 ```java
-				lapse = getSelector().getCurrentLapse();
-				lapse.setOracle(new ExceptionOracle(e));
+				urls.add(new URL("file://"+classpathElement));
+			} catch (MalformedURLException e) {
 				e.printStackTrace();
-				handler.cancel(true);
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
+#### Snippet
+```java
+			addURL(new File(url).toURI().toURL());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
+#### Snippet
+```java
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+#### Snippet
+```java
+				((JSONObject) execution).put("diff", diff);
+				patch = getChange(diff);
+				e.printStackTrace();
+				System.out.println(patch);
 			}
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
 #### Snippet
 ```java
-		} catch (Throwable e) {
-			if (!(e instanceof NoMoreDecision)) {
-				e.printStackTrace();
-			}
-			throw  e;
+			fileWriter.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -6925,38 +6961,62 @@ in `src/main/java/fr/inria/spirals/npefix/patch/generator/PatchesGenerator.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
 #### Snippet
 ```java
-				}
-			} catch (OutOfMemoryError e) {
-				e.printStackTrace();
-				countError++;
-				continue;
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
 #### Snippet
 ```java
-					continue;
-				}
-				e.printStackTrace();
-				countError++;
-				continue;
+                }
+            } catch (OutOfMemoryError e) {
+                e.printStackTrace();
+                countError++;
+                continue;
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/classloader/factory/ClassloaderFactory.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
 #### Snippet
 ```java
-				urls.add(new URL("file://"+classpathElement));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
+                    continue;
+                }
+                e.printStackTrace();
+                countError++;
+                continue;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
+#### Snippet
+```java
+			System.err.println("The project is not found");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		System.exit(0);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
+#### Snippet
+```java
+		}catch(Throwable t){
+			nbError++;
+			t.printStackTrace();
+		}
+	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -7021,110 +7081,62 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/main/MainEvaluation.java`
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
 #### Snippet
 ```java
-			System.err.println("The project is not found");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.exit(0);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
-#### Snippet
-```java
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
-#### Snippet
-```java
-                }
-            } catch (OutOfMemoryError e) {
-                e.printStackTrace();
-                countError++;
-                continue;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
-#### Snippet
-```java
-                    continue;
-                }
-                e.printStackTrace();
-                countError++;
-                continue;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-				((JSONObject) execution).put("diff", diff);
-				patch = getChange(diff);
+				}
+			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
-				System.out.println(patch);
+				countError++;
+				continue;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/main/run/Main.java`
+#### Snippet
+```java
+					continue;
+				}
+				e.printStackTrace();
+				countError++;
+				continue;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/resi/selector/ExplorerSelector.java`
+#### Snippet
+```java
+		} catch (Throwable e) {
+			if (!(e instanceof NoMoreDecision)) {
+				e.printStackTrace();
 			}
+			throw  e;
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
 #### Snippet
 ```java
-			fileWriter.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+				lapse = getSelector().getCurrentLapse();
+				lapse.setOracle(new ExceptionOracle(e));
+				e.printStackTrace();
+				handler.cancel(true);
+			} catch (ExecutionException e) {
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
+in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
 #### Snippet
 ```java
-							}
-						}catch (Throwable t){
-							t.printStackTrace();
-							continue;
-						}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
-#### Snippet
-```java
-		}catch(Throwable t){
-			nbError++;
-			t.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/runner/main/TestRunnerMain.java`
-#### Snippet
-```java
-			TestInfo.compare(runnedTests,importedTests);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+				lapse = getSelector().getCurrentLapse();
+				lapse.setOracle(new ExceptionOracle(e));
+				e.printStackTrace();
+				handler.cancel(true);
+			}
 ```
 
 ### ThrowablePrintStackTrace
@@ -7153,36 +7165,12 @@ in `src/main/java/utils/sacha/runner/main/TestRunner.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/spirals/npefix/main/DecisionServer.java`
+in `src/main/java/fr/inria/spirals/npefix/main/spoon/MainSpoon.java`
 #### Snippet
 ```java
-			startRMI(selector);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
-#### Snippet
-```java
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			try {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
-#### Snippet
-```java
-			addURL(new File(url).toURI().toURL());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			System.err.println("spoon done");
+		}catch(Throwable t){
+			t.printStackTrace();
 		}
 	}
 ```
@@ -7223,6 +7211,18 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/NPEFixTemplateEvaluation.ja
 			if (tempBinFolder != null) {
 ```
 
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
+#### Snippet
+```java
+							}
+						}catch (Throwable t){
+							t.printStackTrace();
+							continue;
+						}
+```
+
 ## RuleId[ruleID=ReplaceNullCheck]
 ### ReplaceNullCheck
 'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
@@ -7250,18 +7250,6 @@ in `src/main/java/fr/inria/spirals/npefix/patch/sorter/algorithm/Algorithm.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractTokenizer()` of an abstract class should not be declared 'public'
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/tokenizer/AbstractTokenizer.java`
-#### Snippet
-```java
-
-
-	public AbstractTokenizer() {
-	}
-
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractSelectorEvaluation()` of an abstract class should not be declared 'public'
 in `src/evaluation/java/fr/inria/spirals/npefix/resi/selector/AbstractSelectorEvaluation.java`
 #### Snippet
@@ -7273,17 +7261,29 @@ in `src/evaluation/java/fr/inria/spirals/npefix/resi/selector/AbstractSelectorEv
 
 ```
 
-## RuleId[ruleID=Convert2Lambda]
-### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractTokenizer()` of an abstract class should not be declared 'public'
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/tokenizer/AbstractTokenizer.java`
 #### Snippet
 ```java
-			ExecutorService executor = Executors.newSingleThreadExecutor();
 
-			final Future<Result> handler = executor.submit(new Callable<Result>() {
-				@Override
-				public Result call() throws Exception {
+
+	public AbstractTokenizer() {
+	}
+
+```
+
+## RuleId[ruleID=Convert2Lambda]
+### Convert2Lambda
+Anonymous new Comparator\>() can be replaced with lambda
+in `src/main/java/utils/sacha/finder/processor/Processor.java`
+#### Snippet
+```java
+		}
+		
+		Collections.sort(classes, new Comparator<Class<?>>() {
+			public int compare(Class<?> o1, Class<?> o2) {
+				return o1.getName().compareTo(o2.getName());
 ```
 
 ### Convert2Lambda
@@ -7299,15 +7299,15 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator\>() can be replaced with lambda
-in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
+Anonymous new Callable() can be replaced with lambda
+in `src/main/java/fr/inria/spirals/npefix/main/ExecutionClient.java`
 #### Snippet
 ```java
-				}
-				Collections.sort(constructors,
-						new Comparator<Constructor<?>>() {
-							@Override
-							public int compare(Constructor<?> c1,
+			ExecutorService executor = Executors.newSingleThreadExecutor();
+
+			final Future<Result> handler = executor.submit(new Callable<Result>() {
+				@Override
+				public Result call() throws Exception {
 ```
 
 ### Convert2Lambda
@@ -7324,14 +7324,14 @@ in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
 
 ### Convert2Lambda
 Anonymous new Comparator\>() can be replaced with lambda
-in `src/main/java/utils/sacha/finder/processor/Processor.java`
+in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
 #### Snippet
 ```java
-		}
-		
-		Collections.sort(classes, new Comparator<Class<?>>() {
-			public int compare(Class<?> o1, Class<?> o2) {
-				return o1.getName().compareTo(o2.getName());
+				}
+				Collections.sort(constructors,
+						new Comparator<Constructor<?>>() {
+							@Override
+							public int compare(Constructor<?> c1,
 ```
 
 ## RuleId[ruleID=TestCaseWithConstructor]
@@ -7374,18 +7374,6 @@ in `src/main/java/fr/inria/spirals/npefix/config/Config.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `datasetRoot`
-in `src/main/java/fr/inria/spirals/npefix/config/Config.java`
-#### Snippet
-```java
-	public void setDatasetRoot(String datasetRoot) {
-		if (datasetRoot.charAt(datasetRoot.length() -1) != '/') {
-			datasetRoot += "/";
-		}
-		this.datasetRoot = datasetRoot;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `outputDirectory`
 in `src/main/java/fr/inria/spirals/npefix/config/Config.java`
 #### Snippet
@@ -7398,27 +7386,27 @@ in `src/main/java/fr/inria/spirals/npefix/config/Config.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `element`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
+Assignment to method parameter `datasetRoot`
+in `src/main/java/fr/inria/spirals/npefix/config/Config.java`
 #### Snippet
 ```java
-			variableAssignment.setPosition(element.getPosition());
-			parent.insertAfter(variableAssignment);
-			element = variableAssignment.getAssignment();
+	public void setDatasetRoot(String datasetRoot) {
+		if (datasetRoot.charAt(datasetRoot.length() -1) != '/') {
+			datasetRoot += "/";
 		}
-		if(element.getParent() instanceof CtAssignment) {
+		this.datasetRoot = datasetRoot;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `classpath`
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+Assignment to method parameter `name`
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
 #### Snippet
 ```java
-        this.complianceLevel = complianceLevel;
-        if(!File.pathSeparator.equals(classpath.charAt(classpath.length() - 1) + "")) {
-            classpath = classpath + File.pathSeparator;
-        }
 
+	private static String getClasspath(String name) {
+		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+		Class<NPEDataset> npeDatasetClass = NPEDataset.class;
+		try {
 ```
 
 ### AssignmentToMethodParameter
@@ -7434,15 +7422,135 @@ in `src/main/java/fr/inria/spirals/npefix/resi/strategies/Strat4.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
+Assignment to method parameter `target`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
+#### Snippet
+```java
+			while (target instanceof CtTargetedExpression &&
+					((CtTargetedExpression) target).getTarget() != null) {
+				target = ((CtTargetedExpression) target).getTarget();
+			}
+			CtElement ctElement = (CtElement) ((CtInvocation) target).getArguments().get(0);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
+#### Snippet
+```java
+			CtElement ctElement = (CtElement) ((CtInvocation) target).getArguments().get(0);
+			if(ctElement instanceof CtArrayAccess) {
+				target = getTargetInINPECheck(((CtArrayAccess) ctElement).getTarget());
+			}
+		}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `classpath`
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+        this.complianceLevel = complianceLevel;
+        if(!File.pathSeparator.equals(classpath.charAt(classpath.length() - 1) + "")) {
+            classpath = classpath + File.pathSeparator;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assigned`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
 #### Snippet
 ```java
 
-	private static String getClasspath(String name) {
-		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-		Class<NPEDataset> npeDatasetClass = NPEDataset.class;
+    public static CtExpression removeUnaryOperator(CtExpression assigned, boolean beforeStatement) {
+        assigned = assigned.clone();
+        List<CtUnaryOperator> elements = assigned.getElements(new AbstractFilter<CtUnaryOperator>(CtUnaryOperator.class) {
+            @Override
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `targetType`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
+#### Snippet
+```java
+                    return ctType;
+                } else {
+                    targetType = ((CtArrayTypeReference) targetType).getComponentType();
+                }
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `targetType`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
+#### Snippet
+```java
+                targetTypeName += "[]";
+            }
+            targetType = targetType.getFactory().Type().createReference(targetTypeName);
+
+            CtFieldReference<Object> ctfe = targetType.getFactory().Core().createFieldReference();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `projectName`
+in `src/evaluation/java/fr/inria/spirals/npefix/resi/selector/AbstractSelectorEvaluation.java`
+#### Snippet
+```java
+
+	public static String getClasspathProject(String projectName) {
+		projectName = Character.toUpperCase(projectName.charAt(0)) + projectName.substring(1);
+		Class<AbstractSelectorEvaluation> evaluationClass = AbstractSelectorEvaluation.class;
 		try {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `testFolder`
+in `src/main/java/utils/sacha/finder/main/Main.java`
+#### Snippet
+```java
+	protected static String checkFolder(String testFolder) {
+	if(testFolder.endsWith("/")||testFolder.endsWith("\\"))
+		testFolder=testFolder.substring(0, testFolder.length());
+	
+	File testSrcFolder = new File(testFolder);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `element`
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
+#### Snippet
+```java
+			variableAssignment.setPosition(element.getPosition());
+			parent.insertAfter(variableAssignment);
+			element = variableAssignment.getAssignment();
+		}
+		if(element.getParent() instanceof CtAssignment) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startIndex`
+in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStream.java`
+#### Snippet
+```java
+			if (source[startIndex] != target[i])
+				return false;
+			startIndex++;
+		}
+		return true;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startIndex`
+in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStream.java`
+#### Snippet
+```java
+			if (buffer[startIndex] == target)
+				return startIndex;
+			startIndex++;
+		}
+		return -1;
 ```
 
 ### AssignmentToMethodParameter
@@ -7517,115 +7625,19 @@ in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
 			} catch (ClassNotFoundException e) {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
-#### Snippet
-```java
-			while (target instanceof CtTargetedExpression &&
-					((CtTargetedExpression) target).getTarget() != null) {
-				target = ((CtTargetedExpression) target).getTarget();
-			}
-			CtElement ctElement = (CtElement) ((CtInvocation) target).getArguments().get(0);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/VarRetrieveAssign.java`
-#### Snippet
-```java
-			CtElement ctElement = (CtElement) ((CtInvocation) target).getArguments().get(0);
-			if(ctElement instanceof CtArrayAccess) {
-				target = getTargetInINPECheck(((CtArrayAccess) ctElement).getTarget());
-			}
-		}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assigned`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
-#### Snippet
-```java
-
-    public static CtExpression removeUnaryOperator(CtExpression assigned, boolean beforeStatement) {
-        assigned = assigned.clone();
-        List<CtUnaryOperator> elements = assigned.getElements(new AbstractFilter<CtUnaryOperator>(CtUnaryOperator.class) {
-            @Override
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `targetType`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
-#### Snippet
-```java
-                    return ctType;
-                } else {
-                    targetType = ((CtArrayTypeReference) targetType).getComponentType();
-                }
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `targetType`
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
-#### Snippet
-```java
-                targetTypeName += "[]";
-            }
-            targetType = targetType.getFactory().Type().createReference(targetTypeName);
-
-            CtFieldReference<Object> ctfe = targetType.getFactory().Core().createFieldReference();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
-in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStream.java`
-#### Snippet
-```java
-			if (source[startIndex] != target[i])
-				return false;
-			startIndex++;
-		}
-		return true;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
-in `src/main/java/utils/org/eclipse/core/internal/localstore/SafeChunkyInputStream.java`
-#### Snippet
-```java
-			if (buffer[startIndex] == target)
-				return startIndex;
-			startIndex++;
-		}
-		return -1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `projectName`
-in `src/evaluation/java/fr/inria/spirals/npefix/resi/selector/AbstractSelectorEvaluation.java`
-#### Snippet
-```java
-
-	public static String getClasspathProject(String projectName) {
-		projectName = Character.toUpperCase(projectName.charAt(0)) + projectName.substring(1);
-		Class<AbstractSelectorEvaluation> evaluationClass = AbstractSelectorEvaluation.class;
-		try {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `testFolder`
-in `src/main/java/utils/sacha/finder/main/Main.java`
-#### Snippet
-```java
-	protected static String checkFolder(String testFolder) {
-	if(testFolder.endsWith("/")||testFolder.endsWith("\\"))
-		testFolder=testFolder.substring(0, testFolder.length());
-	
-	File testSrcFolder = new File(testFolder);
-```
-
 ## RuleId[ruleID=UnnecessaryContinue]
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+#### Snippet
+```java
+                tests.add(aClass);
+            } catch (ClassNotFoundException e) {
+                continue;
+            }
+        }
+```
+
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
 in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
@@ -7640,7 +7652,7 @@ in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `src/main/java/fr/inria/spirals/npefix/main/all/Launcher.java`
+in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
 #### Snippet
 ```java
                 tests.add(aClass);
@@ -7662,18 +7674,6 @@ in `src/main/java/fr/inria/spirals/npefix/resi/strategies/AbstractStrategy.java`
 			}
 ```
 
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `src/evaluation/java/fr/inria/spirals/npefix/resi/BenchmarkPaper.java`
-#### Snippet
-```java
-                tests.add(aClass);
-            } catch (ClassNotFoundException e) {
-                continue;
-            }
-        }
-```
-
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -7689,14 +7689,14 @@ in `src/main/java/fr/inria/spirals/npefix/patchTemplate/template/ReplaceGlobal.j
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
+in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
 #### Snippet
 ```java
-			return patchesGenerator.getDiff();
-		} catch (Exception e) {
-			return null;
+			return new Strat4(ReturnType.NULL);
 		}
+		return null;
 	}
+
 ```
 
 ### ReturnNull
@@ -7725,18 +7725,6 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/IfSplitter.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/spirals/npefix/main/patch/SortPatch.java`
-#### Snippet
-```java
-			return new Strat4(ReturnType.NULL);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtility.java`
 #### Snippet
 ```java
@@ -7747,17 +7735,29 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/ProcessorUtilit
         CtExpression ctType;
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `output` is redundant
-in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
+### ReturnNull
+Return of `null`
+in `src/main/java/fr/inria/spirals/npefix/resi/context/Lapse.java`
 #### Snippet
 ```java
-		nbImplicitCast++;
+			return patchesGenerator.getDiff();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+```
 
-		CtStatement output = (CtStatement) parent;
-		CtLiteral<Integer> lineNumber = getFactory().Code().createLiteral(element.getPosition().getLine());
-		CtLiteral<Integer> sourceStart = getFactory().Code().createLiteral(element.getPosition().getSourceStart());
+## RuleId[ruleID=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `results` is redundant
+in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
+#### Snippet
+```java
+
+    protected NPEOutput runStrategy(Launcher launcher, Strategy...strategy) {
+        NPEOutput results = launcher.runStrategy(strategy);
+        return results;
+
 ```
 
 ### UnnecessaryLocalVariable
@@ -7773,15 +7773,15 @@ in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `results` is redundant
-in `src/evaluation/java/fr/inria/spirals/npefix/AbstractEvaluation.java`
+Local variable `output` is redundant
+in `src/main/java/fr/inria/spirals/npefix/transformer/processors/AddImplicitCastChecker.java`
 #### Snippet
 ```java
+		nbImplicitCast++;
 
-    protected NPEOutput runStrategy(Launcher launcher, Strategy...strategy) {
-        NPEOutput results = launcher.runStrategy(strategy);
-        return results;
-
+		CtStatement output = (CtStatement) parent;
+		CtLiteral<Integer> lineNumber = getFactory().Code().createLiteral(element.getPosition().getLine());
+		CtLiteral<Integer> sourceStart = getFactory().Code().createLiteral(element.getPosition().getSourceStart());
 ```
 
 ### UnnecessaryLocalVariable
@@ -7849,14 +7849,14 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/TernarySplitter
 ## RuleId[ruleID=UseBulkOperation]
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Collection.addAll()' call
-in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
+in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
 #### Snippet
 ```java
-		Tokens iTokens = new Tokens(tokenizer);
-		for (Token token :  tokens.subList(i, i1)) {
-			iTokens.add(token);
-		}
-		return iTokens;
+					if(tmp!=null && !tmp.isEmpty())
+						for (String entry : tmp.split(File.pathSeparator)) {
+							paths.add(entry);
+						}
+				}
 ```
 
 ### UseBulkOperation
@@ -7873,13 +7873,13 @@ in `src/main/java/fr/inria/spirals/npefix/transformer/processors/CheckNotNull.ja
 
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Collection.addAll()' call
-in `src/main/java/utils/sacha/classloader/enrich/EnrichableClassloader.java`
+in `src/main/java/fr/inria/spirals/npefix/patch/sorter/Tokens.java`
 #### Snippet
 ```java
-					if(tmp!=null && !tmp.isEmpty())
-						for (String entry : tmp.split(File.pathSeparator)) {
-							paths.add(entry);
-						}
-				}
+		Tokens iTokens = new Tokens(tokenizer);
+		for (Token token :  tokens.subList(i, i1)) {
+			iTokens.add(token);
+		}
+		return iTokens;
 ```
 
