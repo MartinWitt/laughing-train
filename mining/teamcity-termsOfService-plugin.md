@@ -55,99 +55,15 @@ public class TermsOfServiceLogger {
 
 ## RuleId[ruleID=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceConfig.java`
 #### Snippet
 ```java
-        String msg = "Configuration was loaded from " + myConfig.getMainConfig() + ", ";
-        if (!myAgreements.isEmpty()) {
-            msg += myAgreements.size() + " " + StringUtil.pluralize("agreement", myAgreements.size())+ " loaded";
-        } else {
-            msg += "no agreements were loaded";
-```
 
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getShortName() {
-            return StringUtil.notNullize(params.get("short-name"), "Terms of Service");
-        }
-
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-            String url = ((Element) agreementEl).getAttributeValue("url");
-
-            if (StringUtil.isEmptyOrSpaces(text)) {
-                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement text, the agreement is ignored.");
-                continue;
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-            }
-
-            if (StringUtil.isEmptyOrSpaces(url)) {
-                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement url, the agreement is ignored.");
-                continue;
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-            String contentFile = params.get("content-file");
-
-            if (StringUtil.isEmptyOrSpaces(title)) {
-                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing guest notice title, the guest notice is ignored.");
-                return;
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-            }
-
-            if (StringUtil.isEmptyOrSpaces(contentFile)) {
-                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing 'content-file' parameter for a guest notice, the guest notice is ignored.");
-                return;
-```
-
-### StaticCallOnSubclass
-Static method `parseInt()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-                    String guestNoticeContent = FileUtil.readText(guestNoticeFile, "UTF-8");
-                    String cookieName = params.getOrDefault("accepted-cookie-name", "guest-notice-accepted");
-                    int cookieDurationMinutes = StringUtil.parseInt(params.getOrDefault("accepted-cookie-max-age-days", "30"), 30);
-                    myGuestNotice = new GuestNoticeSettings(title, note, guestNoticeContent, cookieName, cookieDurationMinutes);
-                } catch (IOException e) {
-```
-
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            return "Agreement " + StringUtil.notNullize(params.get("short-name"), "Terms of Service") + " (id = " + id + ")";
-        }
-
+    private synchronized void extractDefaultConfig() {
+        FileUtil.createParentDirs(mySettingsFile);
+        FileUtil.copyResourceWithDist(getClass(), "/configDist/" + mySettingsFile.getName(), new File(myConfigDir, mySettingsFile.getName()));
+        FileUtil.copyResourceWithDist(getClass(), "/configDist/agreement.html", new File(myConfigDir, "agreement.html"));
 ```
 
 ### StaticCallOnSubclass
@@ -211,13 +127,49 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 ```
 
 ### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+            String url = ((Element) agreementEl).getAttributeValue("url");
+
+            if (StringUtil.isEmptyOrSpaces(text)) {
+                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement text, the agreement is ignored.");
+                continue;
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+            }
+
+            if (StringUtil.isEmptyOrSpaces(url)) {
+                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement url, the agreement is ignored.");
+                continue;
+```
+
+### StaticCallOnSubclass
+Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        String msg = "Configuration was loaded from " + myConfig.getMainConfig() + ", ";
+        if (!myAgreements.isEmpty()) {
+            msg += myAgreements.size() + " " + StringUtil.pluralize("agreement", myAgreements.size())+ " loaded";
+        } else {
+            msg += "no agreements were loaded";
+```
+
+### StaticCallOnSubclass
 Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
 ```java
         @Override
-        public String getFullName() {
-            return StringUtil.notNullize(params.get("full-name"), "Terms of Service");
+        public String toString() {
+            return "Agreement " + StringUtil.notNullize(params.get("short-name"), "Terms of Service") + " (id = " + id + ")";
         }
 
 ```
@@ -235,15 +187,63 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 ```
 
 ### StaticCallOnSubclass
-Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceConfig.java`
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
 ```java
+        @Override
+        public String getShortName() {
+            return StringUtil.notNullize(params.get("short-name"), "Terms of Service");
+        }
 
-    private synchronized void extractDefaultConfig() {
-        FileUtil.createParentDirs(mySettingsFile);
-        FileUtil.copyResourceWithDist(getClass(), "/configDist/" + mySettingsFile.getName(), new File(myConfigDir, mySettingsFile.getName()));
-        FileUtil.copyResourceWithDist(getClass(), "/configDist/agreement.html", new File(myConfigDir, "agreement.html"));
+```
+
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getFullName() {
+            return StringUtil.notNullize(params.get("full-name"), "Terms of Service");
+        }
+
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+            String contentFile = params.get("content-file");
+
+            if (StringUtil.isEmptyOrSpaces(title)) {
+                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing guest notice title, the guest notice is ignored.");
+                return;
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+            }
+
+            if (StringUtil.isEmptyOrSpaces(contentFile)) {
+                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing 'content-file' parameter for a guest notice, the guest notice is ignored.");
+                return;
+```
+
+### StaticCallOnSubclass
+Static method `parseInt()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+                    String guestNoticeContent = FileUtil.readText(guestNoticeFile, "UTF-8");
+                    String cookieName = params.getOrDefault("accepted-cookie-name", "guest-notice-accepted");
+                    int cookieDurationMinutes = StringUtil.parseInt(params.getOrDefault("accepted-cookie-max-age-days", "30"), 30);
+                    myGuestNotice = new GuestNoticeSettings(title, note, guestNoticeContent, cookieName, cookieDurationMinutes);
+                } catch (IOException e) {
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
