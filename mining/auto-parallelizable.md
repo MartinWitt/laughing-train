@@ -13,18 +13,6 @@ I found 19 bad smells with 3 repairable:
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-    @SuppressWarnings("checkstyle:RegexpSinglelineJava")
-    static void action(Params params) {
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 #### Snippet
 ```java
@@ -33,18 +21,6 @@ in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
         System.out.println("provider: "
                 + providerFactory
                         .gradleProperty("autoparallelizable-inject-test")
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-    static void action(Params params) {
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
 ```
 
 ### SystemOutErr
@@ -105,6 +81,30 @@ in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
         System.out.println("files: "
                 + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+    @SuppressWarnings("checkstyle:RegexpSinglelineJava")
+    static void action(Params params) {
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+    static void action(Params params) {
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
 ```
 
 ### SystemOutErr
