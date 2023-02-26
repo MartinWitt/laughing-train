@@ -41,7 +41,7 @@ in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/s
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-25-10-40-27.909.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-26-10-41-52.013.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -117,15 +117,15 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Sensor`
-in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
+Can generalize to `? extends ManagedChannelBuilderCustomizer`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
 #### Snippet
 ```java
-	}
-
-	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
-		return group
-				.reduce(new Accumulator(0, 0),
+	@ConditionalOnMissingBean
+	public ManagedChannelBuilder managedChannelBuilder(DaprBinderConfigurationProperties daprBinderProperties,
+			ObjectProvider<ManagedChannelBuilderCustomizer> managedChannelBuilderCustomizers) {
+		ManagedChannelBuilder builder = ManagedChannelBuilder.forAddress(daprBinderProperties.getDaprIp(), daprBinderProperties.getDaprPort());
+		DaprBinderConfigurationProperties.ManagedChannel managedChannelProperties = daprBinderProperties.getManagedChannel();
 ```
 
 ### BoundedWildcard
@@ -141,15 +141,15 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ManagedChannelBuilderCustomizer`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
+Can generalize to `? extends Sensor`
+in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
 #### Snippet
 ```java
-	@ConditionalOnMissingBean
-	public ManagedChannelBuilder managedChannelBuilder(DaprBinderConfigurationProperties daprBinderProperties,
-			ObjectProvider<ManagedChannelBuilderCustomizer> managedChannelBuilderCustomizers) {
-		ManagedChannelBuilder builder = ManagedChannelBuilder.forAddress(daprBinderProperties.getDaprIp(), daprBinderProperties.getDaprPort());
-		DaprBinderConfigurationProperties.ManagedChannel managedChannelProperties = daprBinderProperties.getManagedChannel();
+	}
+
+	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
+		return group
+				.reduce(new Accumulator(0, 0),
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
