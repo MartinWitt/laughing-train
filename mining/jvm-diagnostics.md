@@ -59,18 +59,6 @@ in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-    private static final class HotspotThreadAllocatedBytesAccessor implements ThreadAllocatedBytesAccessor {
-
-        private final com.sun.management.ThreadMXBean hotspotThreadImpl = loadThreadManagementBean();
-
-        boolean isEnabled() {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
 in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
 #### Snippet
@@ -90,6 +78,18 @@ in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.ja
 
         private final java.lang.management.ThreadMXBean threadManagementBean =
                 java.lang.management.ManagementFactory.getThreadMXBean();
+
+        boolean isEnabled() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+    private static final class HotspotThreadAllocatedBytesAccessor implements ThreadAllocatedBytesAccessor {
+
+        private final com.sun.management.ThreadMXBean hotspotThreadImpl = loadThreadManagementBean();
 
         boolean isEnabled() {
 ```
