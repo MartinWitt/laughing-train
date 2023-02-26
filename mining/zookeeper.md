@@ -1,7 +1,7 @@
 # zookeeper 
  
 # Bad smells
-I found 1909 bad smells with 195 repairable:
+I found 1908 bad smells with 195 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | PublicFieldAccessedInSynchronizedContext | 307 | false |
@@ -94,7 +94,6 @@ I found 1909 bad smells with 195 repairable:
 | UnnecessaryQualifierForThis | 1 | false |
 | IgnoreResultOfCall | 1 | false |
 | PointlessBitwiseExpression | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | IndexOfReplaceableByContains | 1 | false |
 | ManualArrayToCollectionCopy | 1 | false |
 | UseCompareMethod | 1 | false |
@@ -111,6 +110,18 @@ I found 1909 bad smells with 195 repairable:
 | RegExpSingleCharAlternation | 1 | false |
 | ThreadStartInConstruction | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[childs.size()\]'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        synchronized (node) {
+            Set<String> childs = node.getChildren();
+            children = childs.toArray(new String[childs.size()]);
+            len = (node.data == null ? 0 : node.data.length);
+        }
+```
+
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[childs.size()\]'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
@@ -133,18 +144,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
             children = childs.toArray(new String[childs.size()]);
         }
         if (children.length == 0) {
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[childs.size()\]'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-        synchronized (node) {
-            Set<String> childs = node.getChildren();
-            children = childs.toArray(new String[childs.size()]);
-            len = (node.data == null ? 0 : node.data.length);
-        }
 ```
 
 ## RuleId[ruleID=WrapperTypeMayBePrimitive]
@@ -338,30 +337,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSyn
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`leaderOffers.size() > 0` can be replaced with '!leaderOffers.isEmpty()'
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-        List<LeaderOffer> leaderOffers = toLeaderOffers(zooKeeper.getChildren(rootNodeName, false));
-
-        if (leaderOffers.size() > 0) {
-            return leaderOffers.get(0).getHostName();
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`listeners.size() > 0` can be replaced with '!listeners.isEmpty()'
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-
-        synchronized (listeners) {
-            if (listeners.size() > 0) {
-                for (LeaderElectionAware observer : listeners) {
-                    observer.onElectionEvent(eventType);
-```
-
-### SizeReplaceableByIsEmpty
 `stat.length() == 0` can be replaced with 'stat.isEmpty()'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/StatsTrack.java`
 #### Snippet
@@ -386,18 +361,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/JLineZNodeCompleter.java
 ```
 
 ### SizeReplaceableByIsEmpty
-`sample.labelNames.size() > 0` can be replaced with '!sample.labelNames.isEmpty()'
-in `zookeeper-metrics-providers/zookeeper-prometheus-metrics/src/main/java/org/apache/zookeeper/metrics/prometheus/PrometheusMetricsProvider.java`
-#### Snippet
-```java
-        StringBuilder keyBuilder = new StringBuilder();
-        keyBuilder.append(sample.name);
-        if (sample.labelNames.size() > 0) {
-            keyBuilder.append('{');
-            for (int i = 0; i < sample.labelNames.size(); ++i) {
-```
-
-### SizeReplaceableByIsEmpty
 `pathVsWatchers.size() == 0` can be replaced with 'pathVsWatchers.isEmpty()'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
 #### Snippet
@@ -419,30 +382,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
                 watcherExists = watchers.size() > 0;
             } else {
                 watcherExists = watchers.contains(watcherObj);
-```
-
-### SizeReplaceableByIsEmpty
-`pendingQueue.size() == 0` can be replaced with 'pendingQueue.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-            Packet packet;
-            synchronized (pendingQueue) {
-                if (pendingQueue.size() == 0) {
-                    throw new IOException("Nothing in the queue, but got " + replyHdr.getXid());
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`watchers.size() > 0` can be replaced with '!watchers.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-                for (Entry<EventType, Set<Watcher>> entry : materializedWatchers.entrySet()) {
-                    Set<Watcher> watchers = entry.getValue();
-                    if (watchers.size() > 0) {
-                        queueEvent(p.watchDeregistration.getClientPath(), err, watchers, entry.getKey());
-                        // ignore connectionloss when removing from local
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -506,39 +445,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathTrie.java`
+`pendingQueue.size() == 0` can be replaced with 'pendingQueue.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
-         Objects.requireNonNull(path, "Path cannot be null");
-
-         if (path.length() == 0) {
-             throw new IllegalArgumentException("Invalid path: " + path);
-         }
+            Packet packet;
+            synchronized (pendingQueue) {
+                if (pendingQueue.size() == 0) {
+                    throw new IOException("Nothing in the queue, but got " + replyHdr.getXid());
+                }
 ```
 
 ### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathTrie.java`
+`watchers.size() > 0` can be replaced with '!watchers.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
-         Objects.requireNonNull(path, "Path cannot be null");
-
-         if (path.length() == 0) {
-             throw new IllegalArgumentException("Invalid path: " + path);
-         }
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathTrie.java`
-#### Snippet
-```java
-         Objects.requireNonNull(path, "Path cannot be null");
-
-         if (path.length() == 0) {
-             throw new IllegalArgumentException("Invalid path: " + path);
-         }
+                for (Entry<EventType, Set<Watcher>> entry : materializedWatchers.entrySet()) {
+                    Set<Watcher> watchers = entry.getValue();
+                    if (watchers.size() > 0) {
+                        queueEvent(p.watchDeregistration.getClientPath(), err, watchers, entry.getKey());
+                        // ignore connectionloss when removing from local
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -551,6 +478,42 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/NettyUtils.java`
             return validInetAddresses.size() > 0 ? validInetAddresses.size() : DEFAULT_INET_ADDRESS_COUNT;
         } catch (SocketException ex) {
             LOG.warn("Failed to list all network interfaces, assuming 1", ex);
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathTrie.java`
+#### Snippet
+```java
+         Objects.requireNonNull(path, "Path cannot be null");
+
+         if (path.length() == 0) {
+             throw new IllegalArgumentException("Invalid path: " + path);
+         }
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathTrie.java`
+#### Snippet
+```java
+         Objects.requireNonNull(path, "Path cannot be null");
+
+         if (path.length() == 0) {
+             throw new IllegalArgumentException("Invalid path: " + path);
+         }
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathTrie.java`
+#### Snippet
+```java
+         Objects.requireNonNull(path, "Path cannot be null");
+
+         if (path.length() == 0) {
+             throw new IllegalArgumentException("Invalid path: " + path);
+         }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -578,18 +541,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`prop.length() == 0` can be replaced with 'prop.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-         */
-        public static ClientAuth fromPropertyValue(String prop) {
-            if (prop == null || prop.length() == 0) {
-                return NEED;
-            }
-```
-
-### SizeReplaceableByIsEmpty
 `propertyValue.length() == 0` can be replaced with 'propertyValue.isEmpty()'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/KeyStoreFileType.java`
 #### Snippet
@@ -602,14 +553,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/KeyStoreFileType.
 ```
 
 ### SizeReplaceableByIsEmpty
-`splits[i].length() > 0` can be replaced with '!splits\[i\].isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/StringUtils.java`
+`prop.length() == 0` can be replaced with 'prop.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
 #### Snippet
 ```java
-        for (int i = 0; i < splits.length; i++) {
-            splits[i] = splits[i].trim();
-            if (splits[i].length() > 0) {
-                results.add(splits[i]);
+         */
+        public static ClientAuth fromPropertyValue(String prop) {
+            if (prop == null || prop.length() == 0) {
+                return NEED;
             }
 ```
 
@@ -623,6 +574,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/StringUtils.java`
         return str == null || str.length() == 0;
     }
 
+```
+
+### SizeReplaceableByIsEmpty
+`splits[i].length() > 0` can be replaced with '!splits\[i\].isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/StringUtils.java`
+#### Snippet
+```java
+        for (int i = 0; i < splits.length; i++) {
+            splits[i] = splits[i].trim();
+            if (splits[i].length() > 0) {
+                results.add(splits[i]);
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -710,18 +673,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/PathParentI
 ```
 
 ### SizeReplaceableByIsEmpty
-`pendingTxns.size() == 0` can be replaced with 'pendingTxns.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java`
-#### Snippet
-```java
-     */
-    public void commit(long zxid) {
-        if (pendingTxns.size() == 0) {
-            LOG.warn("Committing " + Long.toHexString(zxid) + " without seeing txn");
-            return;
-```
-
-### SizeReplaceableByIsEmpty
 `pendingSyncs.size() == 0` can be replaced with 'pendingSyncs.isEmpty()'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java`
 #### Snippet
@@ -730,6 +681,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FollowerZo
     public synchronized void sync() {
         if (pendingSyncs.size() == 0) {
             LOG.warn("Not expecting a sync.");
+            return;
+```
+
+### SizeReplaceableByIsEmpty
+`pendingTxns.size() == 0` can be replaced with 'pendingTxns.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java`
+#### Snippet
+```java
+     */
+    public void commit(long zxid) {
+        if (pendingTxns.size() == 0) {
+            LOG.warn("Committing " + Long.toHexString(zxid) + " without seeing txn");
             return;
 ```
 
@@ -794,6 +757,54 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
 ```
 
 ### SizeReplaceableByIsEmpty
+`snapList.size() == 0` can be replaced with 'snapList.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileSnap.java`
+#### Snippet
+```java
+        // we should  give up
+        List<File> snapList = findNValidSnapshots(100);
+        if (snapList.size() == 0) {
+            return -1L;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`files.size() == 0` can be replaced with 'files.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileSnap.java`
+#### Snippet
+```java
+    public File findMostRecentSnapshot() {
+        List<File> files = findNValidSnapshots(1);
+        if (files.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`leaderOffers.size() > 0` can be replaced with '!leaderOffers.isEmpty()'
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
+#### Snippet
+```java
+        List<LeaderOffer> leaderOffers = toLeaderOffers(zooKeeper.getChildren(rootNodeName, false));
+
+        if (leaderOffers.size() > 0) {
+            return leaderOffers.get(0).getHostName();
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`listeners.size() > 0` can be replaced with '!listeners.isEmpty()'
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
+#### Snippet
+```java
+
+        synchronized (listeners) {
+            if (listeners.size() > 0) {
+                for (LeaderElectionAware observer : listeners) {
+                    observer.onElectionEvent(eventType);
+```
+
+### SizeReplaceableByIsEmpty
 `orderedChildren.size() == 0` can be replaced with 'orderedChildren.isEmpty()'
 in `zookeeper-recipes/zookeeper-recipes-queue/src/main/java/org/apache/zookeeper/recipes/queue/DistributedQueue.java`
 #### Snippet
@@ -830,27 +841,27 @@ in `zookeeper-recipes/zookeeper-recipes-queue/src/main/java/org/apache/zookeeper
 ```
 
 ### SizeReplaceableByIsEmpty
-`files.size() == 0` can be replaced with 'files.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileSnap.java`
+`sample.labelNames.size() > 0` can be replaced with '!sample.labelNames.isEmpty()'
+in `zookeeper-metrics-providers/zookeeper-prometheus-metrics/src/main/java/org/apache/zookeeper/metrics/prometheus/PrometheusMetricsProvider.java`
 #### Snippet
 ```java
-    public File findMostRecentSnapshot() {
-        List<File> files = findNValidSnapshots(1);
-        if (files.size() == 0) {
-            return null;
-        }
+        StringBuilder keyBuilder = new StringBuilder();
+        keyBuilder.append(sample.name);
+        if (sample.labelNames.size() > 0) {
+            keyBuilder.append('{');
+            for (int i = 0; i < sample.labelNames.size(); ++i) {
 ```
 
 ### SizeReplaceableByIsEmpty
-`snapList.size() == 0` can be replaced with 'snapList.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileSnap.java`
+`observerMasters.size() > 0` can be replaced with '!observerMasters.isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-        // we should  give up
-        List<File> snapList = findNValidSnapshots(100);
-        if (snapList.size() == 0) {
-            return -1L;
-        }
+
+    private boolean useObserverMasters() {
+        return getLearnerType() == LearnerType.OBSERVER && observerMasters.size() > 0;
+    }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -875,18 +886,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
             if (addrList.size() > 0 && electionAddrList.size() > 0) {
                 addrList.sort(Comparator.comparing(InetSocketAddress::getHostString));
                 electionAddrList.sort(Comparator.comparing(InetSocketAddress::getHostString));
-```
-
-### SizeReplaceableByIsEmpty
-`observerMasters.size() > 0` can be replaced with '!observerMasters.isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-
-    private boolean useObserverMasters() {
-        return getLearnerType() == LearnerType.OBSERVER && observerMasters.size() > 0;
-    }
-
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -949,7 +948,7 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/admin/Commands.ja
 
             if (!zkServer.isSerializeLastProcessedZxidEnabled()) {
                 response.setStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                LOG.warn("Snapshot command requires serializeLastProcessedZxidEnable flag is set to true");
+                LOG.warn("Restore command requires serializeLastProcessedZxidEnable flag is set to true");
 ```
 
 ### AccessStaticViaInstance
@@ -961,7 +960,7 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/admin/Commands.ja
 
             if (!zkServer.isSerializeLastProcessedZxidEnabled()) {
                 response.setStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                LOG.warn("Restore command requires serializeLastProcessedZxidEnable flag is set to true");
+                LOG.warn("Snapshot command requires serializeLastProcessedZxidEnable flag is set to true");
 ```
 
 ## RuleId[ruleID=UnnecessaryUnboxing]
@@ -1105,11 +1104,11 @@ self.getInitLimit() \* self.getTickTime(): integer multiplication implicitly cas
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
-                }
+                long start = Time.currentElapsedTime();
                 long cur = start;
                 long end = start + self.getInitLimit() * self.getTickTime();
-                while (waitingForNewEpoch && cur < end && !quitWaitForEpoch) {
-                    connectingFollowers.wait(end - cur);
+                while (!electionFinished && cur < end) {
+                    electingFollowers.wait(end - cur);
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -1129,84 +1128,11 @@ self.getInitLimit() \* self.getTickTime(): integer multiplication implicitly cas
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
-                long start = Time.currentElapsedTime();
+                }
                 long cur = start;
                 long end = start + self.getInitLimit() * self.getTickTime();
-                while (!electionFinished && cur < end) {
-                    electingFollowers.wait(end - cur);
-```
-
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`idx = idx - 1` could be simplified to 'idx -= 1'
-in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/ZNodeName.java`
-#### Snippet
-```java
-        } else {
-            if (idx > 0 && name.charAt(idx - 1) == '-') {
-                idx = idx - 1;
-            }
-            this.prefix = name.substring(0, idx);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`nextSid = nextSid | (id << 56)` could be simplified to 'nextSid \|= (id \<\< 56)'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SessionTrackerImpl.java`
-#### Snippet
-```java
-        long nextSid;
-        nextSid = (Time.currentElapsedTime() << 24) >>> 8;
-        nextSid = nextSid | (id << 56);
-        if (nextSid == EphemeralType.CONTAINER_EPHEMERAL_OWNER) {
-            ++nextSid;  // this is an unlikely edge case, but check it just in case
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`result[0] = result[0] + childResult[0]` could be simplified to 'result\[0\] += childResult\[0\]'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
-#### Snippet
-```java
-          printZnode(dataTree, name + (name.equals("/") ? "" : "/") + child, childBuilder,
-              level + 1, maxDepth);
-      result[0] = result[0] + childResult[0];
-      result[1] = result[1] + childResult[1];
-    }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`result[1] = result[1] + childResult[1]` could be simplified to 'result\[1\] += childResult\[1\]'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
-#### Snippet
-```java
-              level + 1, maxDepth);
-      result[0] = result[0] + childResult[0];
-      result[1] = result[1] + childResult[1];
-    }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`path = path + String.format(Locale.ENGLISH, "%010d", parentCVersion)` could be simplified to 'path += String.format(Locale.ENGLISH, "%010d", parentCVersion)'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-        int parentCVersion = parentRecord.stat.getCversion();
-        if (createMode.isSequential()) {
-            path = path + String.format(Locale.ENGLISH, "%010d", parentCVersion);
-        }
-        validatePath(path, request.sessionId);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`logSize = logSize * 1024` could be simplified to 'logSize \*= 1024'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
-#### Snippet
-```java
-
-            // Convert to bytes
-            logSize = logSize * 1024;
-            txnLogSizeLimit = logSize;
-        }
+                while (waitingForNewEpoch && cur < end && !quitWaitForEpoch) {
+                    connectingFollowers.wait(end - cur);
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1308,6 +1234,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxn.jav
 
 ### NestedAssignment
 Result of assignment expression used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/WorkerService.java`
+#### Snippet
+```java
+        for (ExecutorService worker : workers) {
+            boolean terminated = false;
+            while ((now = Time.currentElapsedTime()) <= endTime) {
+                try {
+                    terminated = worker.awaitTermination(endTime - now, TimeUnit.MILLISECONDS);
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxnFactory.java`
 #### Snippet
 ```java
@@ -1340,18 +1278,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxnFact
             while (!stopped && (accepted = acceptedQueue.poll()) != null) {
                 SelectionKey key = null;
                 try {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/WorkerService.java`
-#### Snippet
-```java
-        for (ExecutorService worker : workers) {
-            boolean terminated = false;
-            while ((now = Time.currentElapsedTime()) <= endTime) {
-                try {
-                    terminated = worker.awaitTermination(endTime - now, TimeUnit.MILLISECONDS);
 ```
 
 ### NestedAssignment
@@ -1419,9 +1345,9 @@ Result of assignment expression used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/metric/AvgMinMaxCounter.java`
 #### Snippet
 ```java
-    private void setMin(long value) {
+    private void setMax(long value) {
         long current;
-        while (value < (current = min.get()) && !min.compareAndSet(current, value)) {
+        while (value > (current = max.get()) && !max.compareAndSet(current, value)) {
             // no op
         }
 ```
@@ -1431,9 +1357,9 @@ Result of assignment expression used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/metric/AvgMinMaxCounter.java`
 #### Snippet
 ```java
-    private void setMax(long value) {
+    private void setMin(long value) {
         long current;
-        while (value > (current = max.get()) && !max.compareAndSet(current, value)) {
+        while (value < (current = min.get()) && !min.compareAndSet(current, value)) {
             // no op
         }
 ```
@@ -1464,18 +1390,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProc
 
 ### NestedAssignment
 Result of assignment expression used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/SnapStream.java`
-#### Snippet
-```java
-            int readlen = 0;
-            int l;
-            while (readlen < 5 && (l = raf.read(bytes, readlen, bytes.length - readlen)) >= 0) {
-                readlen += l;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
 #### Snippet
 ```java
@@ -1484,6 +1398,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
                             while ((n = recvqueue.poll(finalizeWait, TimeUnit.MILLISECONDS)) != null) {
                                 if (totalOrderPredicate(n.leader, n.zxid, n.peerEpoch, proposedLeader, proposedZxid, proposedEpoch)) {
                                     recvqueue.put(n);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/SnapStream.java`
+#### Snippet
+```java
+            int readlen = 0;
+            int l;
+            while (readlen < 5 && (l = raf.read(bytes, readlen, bytes.length - readlen)) >= 0) {
+                readlen += l;
+            }
 ```
 
 ### NestedAssignment
@@ -1510,77 +1436,90 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
                         MBeanRegistry.getInstance().register(p, jmxQuorumBean);
 ```
 
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`nextSid = nextSid | (id << 56)` could be simplified to 'nextSid \|= (id \<\< 56)'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SessionTrackerImpl.java`
+#### Snippet
+```java
+        long nextSid;
+        nextSid = (Time.currentElapsedTime() << 24) >>> 8;
+        nextSid = nextSid | (id << 56);
+        if (nextSid == EphemeralType.CONTAINER_EPHEMERAL_OWNER) {
+            ++nextSid;  // this is an unlikely edge case, but check it just in case
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`result[0] = result[0] + childResult[0]` could be simplified to 'result\[0\] += childResult\[0\]'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
+#### Snippet
+```java
+          printZnode(dataTree, name + (name.equals("/") ? "" : "/") + child, childBuilder,
+              level + 1, maxDepth);
+      result[0] = result[0] + childResult[0];
+      result[1] = result[1] + childResult[1];
+    }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`result[1] = result[1] + childResult[1]` could be simplified to 'result\[1\] += childResult\[1\]'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
+#### Snippet
+```java
+              level + 1, maxDepth);
+      result[0] = result[0] + childResult[0];
+      result[1] = result[1] + childResult[1];
+    }
+
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`path = path + String.format(Locale.ENGLISH, "%010d", parentCVersion)` could be simplified to 'path += String.format(Locale.ENGLISH, "%010d", parentCVersion)'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+        int parentCVersion = parentRecord.stat.getCversion();
+        if (createMode.isSequential()) {
+            path = path + String.format(Locale.ENGLISH, "%010d", parentCVersion);
+        }
+        validatePath(path, request.sessionId);
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`logSize = logSize * 1024` could be simplified to 'logSize \*= 1024'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
+#### Snippet
+```java
+
+            // Convert to bytes
+            logSize = logSize * 1024;
+            txnLogSizeLimit = logSize;
+        }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`idx = idx - 1` could be simplified to 'idx -= 1'
+in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/ZNodeName.java`
+#### Snippet
+```java
+        } else {
+            if (idx > 0 && name.charAt(idx - 1) == '-') {
+                idx = idx - 1;
+            }
+            this.prefix = name.substring(0, idx);
+```
+
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `id` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/WriteLock.java`
-#### Snippet
-```java
-
-    private final String dir;
-    private String id;
-    private ZNodeName idName;
-    private String ownerId;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `zooKeeper` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-    private static final Logger LOG = LoggerFactory.getLogger(LeaderElectionSupport.class);
-
-    private ZooKeeper zooKeeper;
-
-    private State state;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `state` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-    private ZooKeeper zooKeeper;
-
-    private State state;
-    private Set<LeaderElectionAware> listeners;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `listeners` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-
-    private State state;
-    private Set<LeaderElectionAware> listeners;
-
-    private String rootNodeName;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `rootNodeName` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-    private Set<LeaderElectionAware> listeners;
-
-    private String rootNodeName;
-    private LeaderOffer leaderOffer;
-    private String hostName;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `subject` is accessed in both synchronized and unsynchronized contexts
+Field `principal` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 #### Snippet
 ```java
-      MIN_TIME_BEFORE_RELOGIN_CONFIG_KEY, DEFAULT_MIN_TIME_BEFORE_RELOGIN);
+    private LoginContext login = null;
+    private String loginContextName = null;
+    private String principal = null;
 
-    private Subject subject = null;
-    private Thread t = null;
-    private boolean isKrbTicket = false;
+    // Initialize 'lastLogin' to do a login at first time
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1608,39 +1547,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `principal` is accessed in both synchronized and unsynchronized contexts
+Field `subject` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 #### Snippet
 ```java
-    private LoginContext login = null;
-    private String loginContextName = null;
-    private String principal = null;
+      MIN_TIME_BEFORE_RELOGIN_CONFIG_KEY, DEFAULT_MIN_TIME_BEFORE_RELOGIN);
 
-    // Initialize 'lastLogin' to do a login at first time
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `requestTimeout` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-     * then it is assumed that the response packet is lost.
-     */
-    private long requestTimeout;
-
-    ZKWatchManager getWatcherManager() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `xid` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-
-    // @VisibleForTesting
-    protected int xid = 1;
-
-    // @VisibleForTesting
+    private Subject subject = null;
+    private Thread t = null;
+    private boolean isKrbTicket = false;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1680,15 +1595,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/jmx/MBeanRegistry.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `saslState` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
+Field `xid` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
-    }
 
-    private SaslState saslState = SaslState.INITIAL;
+    // @VisibleForTesting
+    protected int xid = 1;
 
-    private boolean gotLastPacket = false;
+    // @VisibleForTesting
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `requestTimeout` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+     * then it is assumed that the response packet is lost.
+     */
+    private long requestTimeout;
+
+    ZKWatchManager getWatcherManager() {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1704,39 +1631,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClie
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentIndex` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
+Field `saslState` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
 #### Snippet
 ```java
-    private int lastIndex = -1;
+    }
 
-    private int currentIndex = -1;
+    private SaslState saslState = SaslState.INITIAL;
 
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `sourceOfRandomness` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
-#### Snippet
-```java
-    private List<InetSocketAddress> serverAddresses = new ArrayList<>(5);
-
-    private Random sourceOfRandomness;
-    private int lastIndex = -1;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `lastIndex` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
-#### Snippet
-```java
-
-    private Random sourceOfRandomness;
-    private int lastIndex = -1;
-
-    private int currentIndex = -1;
+    private boolean gotLastPacket = false;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1752,15 +1655,51 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvide
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `localAddress` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NettyServerCnxnFactory.java`
+Field `sourceOfRandomness` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
 #### Snippet
 ```java
-    private final ChannelGroup allChannels = new DefaultChannelGroup("zkServerCnxns", new DefaultEventExecutor());
-    private final Map<InetAddress, AtomicInteger> ipMap = new ConcurrentHashMap<>();
-    private InetSocketAddress localAddress;
-    private int maxClientCnxns = 60;
-    int listenBacklog = -1;
+    private List<InetSocketAddress> serverAddresses = new ArrayList<>(5);
+
+    private Random sourceOfRandomness;
+    private int lastIndex = -1;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `currentIndex` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
+#### Snippet
+```java
+    private int lastIndex = -1;
+
+    private int currentIndex = -1;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `lastIndex` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
+#### Snippet
+```java
+
+    private Random sourceOfRandomness;
+    private int lastIndex = -1;
+
+    private int currentIndex = -1;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `logLock` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZKDatabase.java`
+#### Snippet
+```java
+    public int commitLogCount;
+    protected Queue<Proposal> committedLog = new ArrayDeque<>();
+    protected ReentrantReadWriteLock logLock = new ReentrantReadWriteLock();
+    private volatile boolean initialized = false;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1788,15 +1727,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZKDatabase.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `logLock` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZKDatabase.java`
+Field `digestCalculator` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
 #### Snippet
 ```java
-    public int commitLogCount;
-    protected Queue<Proposal> committedLog = new ArrayDeque<>();
-    protected ReentrantReadWriteLock logLock = new ReentrantReadWriteLock();
-    private volatile boolean initialized = false;
+    private final RequestProcessor nextProcessor;
+    private final boolean digestEnabled;
+    private DigestCalculator digestCalculator;
 
+    ZooKeeperServer zks;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1812,15 +1751,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProces
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `digestCalculator` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+Field `localAddress` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NettyServerCnxnFactory.java`
 #### Snippet
 ```java
-    private final RequestProcessor nextProcessor;
-    private final boolean digestEnabled;
-    private DigestCalculator digestCalculator;
-
-    ZooKeeperServer zks;
+    private final ChannelGroup allChannels = new DefaultChannelGroup("zkServerCnxns", new DefaultEventExecutor());
+    private final Map<InetAddress, AtomicInteger> ipMap = new ConcurrentHashMap<>();
+    private InetSocketAddress localAddress;
+    private int maxClientCnxns = 60;
+    int listenBacklog = -1;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1836,6 +1775,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/ProviderRegi
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `numberOfElements` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/CircularBuffer.java`
+#### Snippet
+```java
+    private final int capacity;
+    private int oldest;
+    private AtomicInteger numberOfElements = new AtomicInteger();
+
+    @SuppressWarnings("unchecked")
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `txnLogFactory` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
 #### Snippet
@@ -1845,66 +1796,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.j
     private FileTxnSnapLog txnLogFactory = null;
     private ZKDatabase zkDb;
     private ResponseCache readResponseCache;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `zkDb` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-    protected SessionTracker sessionTracker;
-    private FileTxnSnapLog txnLogFactory = null;
-    private ZKDatabase zkDb;
-    private ResponseCache readResponseCache;
-    private ResponseCache getChildrenResponseCache;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `firstProcessor` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-    private final AtomicLong hzxid = new AtomicLong(0);
-    public static final Exception ok = new Exception("No prob");
-    protected RequestProcessor firstProcessor;
-    protected JvmPauseMonitor jvmPauseMonitor;
-    protected volatile State state = State.INITIAL;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `localSessionEnabled` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-    private static final int DEFAULT_GLOBAL_OUTSTANDING_LIMIT = 1000;
-
-    private boolean localSessionEnabled = false;
-    protected enum State {
-        INITIAL,
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `requestThrottler` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-        "Internally the throttler has a BlockingQueue so "
-        + "once the throttler is created and started, it is thread-safe")
-    private RequestThrottler requestThrottler;
-    public static final String SNAP_COUNT = "zookeeper.snapCount";
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `jvmPauseMonitor` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-    public static final Exception ok = new Exception("No prob");
-    protected RequestProcessor firstProcessor;
-    protected JvmPauseMonitor jvmPauseMonitor;
-    protected volatile State state = State.INITIAL;
-    private boolean isResponseCachingEnabled = true;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1920,15 +1811,63 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.j
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `numberOfElements` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/CircularBuffer.java`
+Field `zkDb` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
 #### Snippet
 ```java
-    private final int capacity;
-    private int oldest;
-    private AtomicInteger numberOfElements = new AtomicInteger();
+    protected SessionTracker sessionTracker;
+    private FileTxnSnapLog txnLogFactory = null;
+    private ZKDatabase zkDb;
+    private ResponseCache readResponseCache;
+    private ResponseCache getChildrenResponseCache;
+```
 
-    @SuppressWarnings("unchecked")
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `jvmPauseMonitor` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+    public static final Exception ok = new Exception("No prob");
+    protected RequestProcessor firstProcessor;
+    protected JvmPauseMonitor jvmPauseMonitor;
+    protected volatile State state = State.INITIAL;
+    private boolean isResponseCachingEnabled = true;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `requestThrottler` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+        "Internally the throttler has a BlockingQueue so "
+        + "once the throttler is created and started, it is thread-safe")
+    private RequestThrottler requestThrottler;
+    public static final String SNAP_COUNT = "zookeeper.snapCount";
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `localSessionEnabled` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+    private static final int DEFAULT_GLOBAL_OUTSTANDING_LIMIT = 1000;
+
+    private boolean localSessionEnabled = false;
+    protected enum State {
+        INITIAL,
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `firstProcessor` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+    private final AtomicLong hzxid = new AtomicLong(0);
+    public static final Exception ok = new Exception("No prob");
+    protected RequestProcessor firstProcessor;
+    protected JvmPauseMonitor jvmPauseMonitor;
+    protected volatile State state = State.INITIAL;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1944,18 +1883,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/admin/ReadAheadEn
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `upgradeableSessionTracker` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
-#### Snippet
-```java
-
-    public final QuorumPeer self;
-    protected UpgradeableSessionTracker upgradeableSessionTracker;
-
-    protected QuorumZooKeeperServer(FileTxnSnapLog logFactory, int tickTime, int minSessionTimeout,
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `prepRequestProcessor` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooKeeperServer.java`
 #### Snippet
@@ -1968,15 +1895,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooK
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `childWatches` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+Field `upgradeableSessionTracker` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
 #### Snippet
 ```java
-    private IWatchManager dataWatches;
 
-    private IWatchManager childWatches;
+    public final QuorumPeer self;
+    protected UpgradeableSessionTracker upgradeableSessionTracker;
 
-    /** cached total size of paths and data for all DataNodes */
+    protected QuorumZooKeeperServer(FileTxnSnapLog logFactory, int tickTime, int minSessionTimeout,
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1989,6 +1916,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
     private IWatchManager dataWatches;
 
     private IWatchManager childWatches;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `childWatches` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+    private IWatchManager dataWatches;
+
+    private IWatchManager childWatches;
+
+    /** cached total size of paths and data for all DataNodes */
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2016,18 +1955,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.ja
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `leaderOs` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.java`
-#### Snippet
-```java
-    LearnerSender sender = null;
-    protected InputArchive leaderIs;
-    protected OutputArchive leaderOs;
-    /** the protocol version of the leader */
-    protected int leaderProtocolVersion = 0x01;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `zk` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.java`
 #### Snippet
@@ -2037,18 +1964,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.ja
     LearnerZooKeeperServer zk;
 
     protected BufferedOutputStream bufferedOutput;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `leaderIs` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.java`
-#### Snippet
-```java
-
-    LearnerSender sender = null;
-    protected InputArchive leaderIs;
-    protected OutputArchive leaderOs;
-    /** the protocol version of the leader */
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2064,6 +1979,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.ja
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `leaderOs` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.java`
+#### Snippet
+```java
+    LearnerSender sender = null;
+    protected InputArchive leaderIs;
+    protected OutputArchive leaderOs;
+    /** the protocol version of the leader */
+    protected int leaderProtocolVersion = 0x01;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `leaderIs` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.java`
+#### Snippet
+```java
+
+    LearnerSender sender = null;
+    protected InputArchive leaderIs;
+    protected OutputArchive leaderOs;
+    /** the protocol version of the leader */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `syncRequestProcessorEnabled` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZooKeeperServer.java`
 #### Snippet
@@ -2076,99 +2015,63 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZo
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `queuedRequests` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+Field `threadCnt` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
 ```java
-     * Incoming requests.
+     * Counter to count worker threads
      */
-    protected LinkedBlockingQueue<Request> queuedRequests = new LinkedBlockingQueue<>();
+    private AtomicInteger threadCnt = new AtomicInteger(0);
 
-    /**
+    /*
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `ackLoggingFrequency` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+Field `sid` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
 ```java
-    // log ack latency if zxid is a multiple of ackLoggingFrequency. If <=0, disable logging.
-    private static final String ACK_LOGGING_FREQUENCY = "zookeeper.leader.ackLoggingFrequency";
-    private static int ackLoggingFrequency;
+    class RecvWorker extends ZooKeeperThread {
 
-    static {
+        Long sid;
+        Socket sock;
+        volatile boolean running = true;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `lastProposed` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+Field `serverSocket` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
 ```java
-    }
 
-    long lastProposed;
-
-    @Override
+        class ListenerHandler implements Runnable, Closeable {
+            private ServerSocket serverSocket;
+            private InetSocketAddress address;
+            private boolean portUnification;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `leaderStateSummary` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+Field `sid` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
 ```java
-    }
+    class SendWorker extends ZooKeeperThread {
 
-    StateSummary leaderStateSummary;
-
-    long epoch = -1;
+        Long sid;
+        Socket sock;
+        RecvWorker recvWorker;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `waitingForNewEpoch` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+Field `sock` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
 ```java
 
-    long epoch = -1;
-    boolean waitingForNewEpoch = true;
-
-    // when a reconfig occurs where the leader is removed or becomes an observer,
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `leaderStartTime` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-     * Timestamp when this leader started serving request (Quorum is running)
-     */
-    private long leaderStartTime;
-
-    public long getUptime() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `proposedPkts` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
-#### Snippet
-```java
-    private static final int PKTS_SIZE_LIMIT = 32 * 1024 * 1024;
-    private static volatile int pktsSizeLimit = Integer.getInteger("zookeeper.observerMaster.sizeLimit", PKTS_SIZE_LIMIT);
-    private ConcurrentLinkedQueue<QuorumPacket> proposedPkts = new ConcurrentLinkedQueue<>();
-    private ConcurrentLinkedQueue<QuorumPacket> committedPkts = new ConcurrentLinkedQueue<>();
-    private int pktsSize = 0;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `zks` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
-#### Snippet
-```java
-
-    private QuorumPeer self;
-    private FollowerZooKeeperServer zks;
-    private int port;
-
+        Long sid;
+        Socket sock;
+        RecvWorker recvWorker;
+        volatile boolean running = true;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2196,6 +2099,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMa
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `proposedPkts` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+#### Snippet
+```java
+    private static final int PKTS_SIZE_LIMIT = 32 * 1024 * 1024;
+    private static volatile int pktsSizeLimit = Integer.getInteger("zookeeper.observerMaster.sizeLimit", PKTS_SIZE_LIMIT);
+    private ConcurrentLinkedQueue<QuorumPacket> proposedPkts = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<QuorumPacket> committedPkts = new ConcurrentLinkedQueue<>();
+    private int pktsSize = 0;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `activeObservers` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
 #### Snippet
@@ -2205,6 +2120,90 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMa
     private Set<LearnerHandler> activeObservers = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     private final ConcurrentHashMap<LearnerHandler, LearnerHandlerBean> connectionBeans = new ConcurrentHashMap<>();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `zks` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+#### Snippet
+```java
+
+    private QuorumPeer self;
+    private FollowerZooKeeperServer zks;
+    private int port;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `queuedRequests` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+#### Snippet
+```java
+     * Incoming requests.
+     */
+    protected LinkedBlockingQueue<Request> queuedRequests = new LinkedBlockingQueue<>();
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `waitingForNewEpoch` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+
+    long epoch = -1;
+    boolean waitingForNewEpoch = true;
+
+    // when a reconfig occurs where the leader is removed or becomes an observer,
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `lastProposed` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    }
+
+    long lastProposed;
+
+    @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `ackLoggingFrequency` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    // log ack latency if zxid is a multiple of ackLoggingFrequency. If <=0, disable logging.
+    private static final String ACK_LOGGING_FREQUENCY = "zookeeper.leader.ackLoggingFrequency";
+    private static int ackLoggingFrequency;
+
+    static {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `leaderStateSummary` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    }
+
+    StateSummary leaderStateSummary;
+
+    long epoch = -1;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `leaderStartTime` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+     * Timestamp when this leader started serving request (Quorum is running)
+     */
+    private long leaderStartTime;
+
+    public long getUptime() {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2220,126 +2219,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSyn
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `sock` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-
-        Long sid;
-        Socket sock;
-        RecvWorker recvWorker;
-        volatile boolean running = true;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `sid` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-    class RecvWorker extends ZooKeeperThread {
-
-        Long sid;
-        Socket sock;
-        volatile boolean running = true;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `sid` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-    class SendWorker extends ZooKeeperThread {
-
-        Long sid;
-        Socket sock;
-        RecvWorker recvWorker;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `serverSocket` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-
-        class ListenerHandler implements Runnable, Closeable {
-            private ServerSocket serverSocket;
-            private InetSocketAddress address;
-            private boolean portUnification;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `threadCnt` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-     * Counter to count worker threads
-     */
-    private AtomicInteger threadCnt = new AtomicInteger(0);
-
-    /*
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `cnxnFactory` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ZooKeeperServerController.java`
-#### Snippet
-```java
-
-    private QuorumPeer quorumPeer;
-    private ControllableConnectionFactory cnxnFactory;
-
-    public ZooKeeperServerController(QuorumPeerConfig config) throws IOException {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `quorumPeer` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ZooKeeperServerController.java`
-#### Snippet
-```java
-    private static final long DEFAULT_DELAY_MS = 1000;
-
-    private QuorumPeer quorumPeer;
-    private ControllableConnectionFactory cnxnFactory;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `controller` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllerService.java`
-#### Snippet
-```java
-    private static final Logger LOG = LoggerFactory.getLogger(ControllerService.class);
-
-    private ZooKeeperServerController controller;
-    private CommandListener listener;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `listener` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllerService.java`
-#### Snippet
-```java
-
-    private ZooKeeperServerController controller;
-    private CommandListener listener;
-
-    protected QuorumPeerConfig config;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `client` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/CommandClient.java`
-#### Snippet
-```java
-    private final int hostPort;
-    private final String hostName;
-    private HttpClient client;
-    private boolean started = false;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `proposedZxid` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
 #### Snippet
@@ -2349,6 +2228,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
     long proposedZxid;
     long proposedEpoch;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `self` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+#### Snippet
+```java
+    }
+
+    QuorumPeer self;
+    Messenger messenger;
+    AtomicLong logicalclock = new AtomicLong(); /* Election instance */
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2388,15 +2279,63 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `self` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+Field `client` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/CommandClient.java`
 #### Snippet
 ```java
-    }
+    private final int hostPort;
+    private final String hostName;
+    private HttpClient client;
+    private boolean started = false;
 
-    QuorumPeer self;
-    Messenger messenger;
-    AtomicLong logicalclock = new AtomicLong(); /* Election instance */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `cnxnFactory` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ZooKeeperServerController.java`
+#### Snippet
+```java
+
+    private QuorumPeer quorumPeer;
+    private ControllableConnectionFactory cnxnFactory;
+
+    public ZooKeeperServerController(QuorumPeerConfig config) throws IOException {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `quorumPeer` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ZooKeeperServerController.java`
+#### Snippet
+```java
+    private static final long DEFAULT_DELAY_MS = 1000;
+
+    private QuorumPeer quorumPeer;
+    private ControllableConnectionFactory cnxnFactory;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `listener` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllerService.java`
+#### Snippet
+```java
+
+    private ZooKeeperServerController controller;
+    private CommandListener listener;
+
+    protected QuorumPeerConfig config;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `controller` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllerService.java`
+#### Snippet
+```java
+    private static final Logger LOG = LoggerFactory.getLogger(ControllerService.class);
+
+    private ZooKeeperServerController controller;
+    private CommandListener listener;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2436,51 +2375,63 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileS
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `cnxnFactory` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+Field `zooKeeper` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
 #### Snippet
 ```java
-    Election electionAlg;
+    private static final Logger LOG = LoggerFactory.getLogger(LeaderElectionSupport.class);
 
-    ServerCnxnFactory cnxnFactory;
-    ServerCnxnFactory secureCnxnFactory;
+    private ZooKeeper zooKeeper;
+
+    private State state;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `listeners` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
+#### Snippet
+```java
+
+    private State state;
+    private Set<LeaderElectionAware> listeners;
+
+    private String rootNodeName;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `rootNodeName` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
+#### Snippet
+```java
+    private Set<LeaderElectionAware> listeners;
+
+    private String rootNodeName;
+    private LeaderOffer leaderOffer;
+    private String hostName;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `state` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
+#### Snippet
+```java
+    private ZooKeeper zooKeeper;
+
+    private State state;
+    private Set<LeaderElectionAware> listeners;
 
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `observerMasterPort` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+Field `id` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/WriteLock.java`
 #### Snippet
 ```java
-    }
 
-    private int observerMasterPort;
-
-    public int getObserverMasterPort() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `configFilename` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-    }
-
-    private String configFilename = null;
-
-    public int getQuorumSize() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `jvmPauseMonitor` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-    private ZKDatabase zkDb;
-
-    private JvmPauseMonitor jvmPauseMonitor;
-
-    public static final class AddressTuple {
+    private final String dir;
+    private String id;
+    private ZNodeName idName;
+    private String ownerId;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2493,6 +2444,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
     private long myid;
 
     /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `zkDb` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+     * message from the leader
+     */
+    private ZKDatabase zkDb;
+
+    private JvmPauseMonitor jvmPauseMonitor;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2520,6 +2483,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `cnxnFactory` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+    Election electionAlg;
+
+    ServerCnxnFactory cnxnFactory;
+    ServerCnxnFactory secureCnxnFactory;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `observer` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
@@ -2529,42 +2504,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
     public Observer observer;
 
     protected Follower makeFollower(FileTxnSnapLog logFactory) throws IOException {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `secureCnxnFactory` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-
-    ServerCnxnFactory cnxnFactory;
-    ServerCnxnFactory secureCnxnFactory;
-
-    private FileTxnSnapLog logFactory = null;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `nextObserverMaster` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-    }
-
-    private int nextObserverMaster = 0;
-    private QuorumServer nextObserverMaster() {
-        if (nextObserverMaster >= observerMasters.size()) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `shuttingDownLE` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-    }
-
-    boolean shuttingDownLE = false;
-
-    @Override
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2580,6 +2519,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `nextObserverMaster` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+    }
+
+    private int nextObserverMaster = 0;
+    private QuorumServer nextObserverMaster() {
+        if (nextObserverMaster >= observerMasters.size()) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `secureCnxnFactory` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+
+    ServerCnxnFactory cnxnFactory;
+    ServerCnxnFactory secureCnxnFactory;
+
+    private FileTxnSnapLog logFactory = null;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `observerMasters` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
@@ -2589,18 +2552,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
     private ArrayList<QuorumServer> observerMasters = new ArrayList<>();
     private void updateObserverMasterList() {
         if (observerMasterPort <= 0) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `leader` is accessed in both synchronized and unsynchronized contexts
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-
-    public Follower follower;
-    public Leader leader;
-    public Observer observer;
-
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2616,15 +2567,63 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `zkDb` is accessed in both synchronized and unsynchronized contexts
+Field `shuttingDownLE` is accessed in both synchronized and unsynchronized contexts
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-     * message from the leader
-     */
+    }
+
+    boolean shuttingDownLE = false;
+
+    @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `leader` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+
+    public Follower follower;
+    public Leader leader;
+    public Observer observer;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `observerMasterPort` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+    }
+
+    private int observerMasterPort;
+
+    public int getObserverMasterPort() {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `jvmPauseMonitor` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
     private ZKDatabase zkDb;
 
     private JvmPauseMonitor jvmPauseMonitor;
+
+    public static final class AddressTuple {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `configFilename` is accessed in both synchronized and unsynchronized contexts
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+    }
+
+    private String configFilename = null;
+
+    public int getQuorumSize() {
 ```
 
 ## RuleId[ruleID=PointlessBitwiseExpression]
@@ -2638,19 +2637,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooDefs.java`
         int READ = 1 << 0;
 
         int WRITE = 1 << 1;
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-17-11-02-53.502.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
@@ -2764,18 +2750,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/Q
 
 ## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-        LeaderOffer newLeaderOffer = new LeaderOffer();
-        byte[] hostnameBytes;
-        synchronized (this) {
-            newLeaderOffer.setHostName(hostName);
-            hostnameBytes = hostName.getBytes();
-```
-
-### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 #### Snippet
@@ -2816,11 +2790,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/FileChangeWatcher.java`
 #### Snippet
 ```java
-    synchronized void waitForState(State desiredState) throws InterruptedException {
-        while (this.state != desiredState) {
-            this.wait();
-        }
+    private synchronized void setState(State newState) {
+        state = newState;
+        this.notifyAll();
     }
+
 ```
 
 ### SynchronizeOnThis
@@ -2828,11 +2802,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/FileChangeWatcher.java`
 #### Snippet
 ```java
-    private synchronized void setState(State newState) {
-        state = newState;
-        this.notifyAll();
+    synchronized void waitForState(State desiredState) throws InterruptedException {
+        while (this.state != desiredState) {
+            this.wait();
+        }
     }
-
 ```
 
 ### SynchronizeOnThis
@@ -2852,9 +2826,9 @@ Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/RequestThrottler.java`
 #### Snippet
 ```java
-    @SuppressFBWarnings(value = "NN_NAKED_NOTIFY", justification = "state change is in ZooKeeperServer.decInProgress() ")
-    public synchronized void throttleWake() {
-        this.notify();
+    synchronized void throttleSleep(int stallTime) throws InterruptedException {
+        ServerMetrics.getMetrics().REQUEST_THROTTLE_WAIT_COUNT.add(1);
+        this.wait(stallTime);
     }
 
 ```
@@ -2864,9 +2838,9 @@ Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/RequestThrottler.java`
 #### Snippet
 ```java
-    synchronized void throttleSleep(int stallTime) throws InterruptedException {
-        ServerMetrics.getMetrics().REQUEST_THROTTLE_WAIT_COUNT.add(1);
-        this.wait(stallTime);
+    @SuppressFBWarnings(value = "NN_NAKED_NOTIFY", justification = "state change is in ZooKeeperServer.decInProgress() ")
+    public synchronized void throttleWake() {
+        this.notify();
     }
 
 ```
@@ -2936,18 +2910,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedACLCache.java`
 #### Snippet
 ```java
-    public void serialize(OutputArchive oa) throws IOException {
-        Map<Long, List<ACL>> clonedLongKeyMap;
-        synchronized (this) {
-            clonedLongKeyMap = new HashMap<>(longKeyMap);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedACLCache.java`
-#### Snippet
-```java
         }
 
         synchronized (this) {
@@ -2956,15 +2918,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedA
 ```
 
 ### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedACLCache.java`
+#### Snippet
+```java
+    public void serialize(OutputArchive oa) throws IOException {
+        Map<Long, List<ACL>> clonedLongKeyMap;
+        synchronized (this) {
+            clonedLongKeyMap = new HashMap<>(longKeyMap);
+        }
+```
+
+### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/ProviderRegistry.java`
 #### Snippet
 ```java
-    //VisibleForTesting
-    public static void reset() {
+
+    public static void initialize() {
         synchronized (ProviderRegistry.class) {
-            initialized = false;
-            authenticationProviders.clear();
+            IPAuthenticationProvider ipp = new IPAuthenticationProvider();
+            authenticationProviders.put(ipp.getScheme(), ipp);
 ```
 
 ### SynchronizeOnThis
@@ -2984,23 +2958,11 @@ Lock operations on a class may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/ProviderRegistry.java`
 #### Snippet
 ```java
-
-    public static void initialize() {
+    //VisibleForTesting
+    public static void reset() {
         synchronized (ProviderRegistry.class) {
-            IPAuthenticationProvider ipp = new IPAuthenticationProvider();
-            authenticationProviders.put(ipp.getScheme(), ipp);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-        localSessionEnabled = sessionTracker.isLocalSessionsEnabled();
-
-        notifyAll();
-    }
-
+            initialized = false;
+            authenticationProviders.clear();
 ```
 
 ### SynchronizeOnThis
@@ -3065,14 +3027,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.j
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatcherCleaner.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
 #### Snippet
 ```java
-            }
+        localSessionEnabled = sessionTracker.isLocalSessionsEnabled();
 
-            synchronized (this) {
-                // Clean the dead watchers need to go through all the current
-                // watches, which is pretty heavy and may take a second if
+        notifyAll();
+    }
+
 ```
 
 ### SynchronizeOnThis
@@ -3089,6 +3051,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatcherClea
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatcherCleaner.java`
+#### Snippet
+```java
+            }
+
+            synchronized (this) {
+                // Clean the dead watchers need to go through all the current
+                // watches, which is pretty heavy and may take a second if
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchManager.java`
 #### Snippet
 ```java
@@ -3097,6 +3071,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchManage
         synchronized (this) {
             for (String localPath : pathParentIterator.asIterable()) {
                 Set<Watcher> thisWatchers = watchTable.get(localPath);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+#### Snippet
+```java
+    public void run() {
+        ServerSocket ss;
+        synchronized (this) {
+            ss = this.ss;
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+#### Snippet
+```java
+    @SuppressFBWarnings("NN_NAKED_NOTIFY")
+    private synchronized void wakeup() {
+        notifyAll();
+    }
+
 ```
 
 ### SynchronizeOnThis
@@ -3125,38 +3123,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProc
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
-#### Snippet
-```java
-    @SuppressFBWarnings("NN_NAKED_NOTIFY")
-    private synchronized void wakeup() {
-        notifyAll();
-    }
-
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
-    //commit and send some info
-    public void commitAndActivate(long zxid, long designatedLeader) {
+     */
+    public void commit(long zxid) {
         synchronized (this) {
             lastCommitted = zxid;
         }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-        p.request = request;
-
-        synchronized (this) {
-            p.addQuorumVerifier(self.getQuorumVerifier());
-
 ```
 
 ### SynchronizeOnThis
@@ -3200,22 +3174,22 @@ Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
-     */
-    public void commit(long zxid) {
+        p.request = request;
+
         synchronized (this) {
-            lastCommitted = zxid;
-        }
+            p.addQuorumVerifier(self.getQuorumVerifier());
+
 ```
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
-    public void run() {
-        ServerSocket ss;
+    //commit and send some info
+    public void commitAndActivate(long zxid, long designatedLeader) {
         synchronized (this) {
-            ss = this.ss;
+            lastCommitted = zxid;
         }
 ```
 
@@ -3245,6 +3219,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
+#### Snippet
+```java
+        LeaderOffer newLeaderOffer = new LeaderOffer();
+        byte[] hostnameBytes;
+        synchronized (this) {
+            newLeaderOffer.setHostName(hostName);
+            hostnameBytes = hostName.getBytes();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
@@ -3269,27 +3255,15 @@ public class SaslClientCallbackHandler implements CallbackHandler {
 ```
 
 ### UnusedAssignment
-Variable `subject` initializer `null` is redundant
+Variable `isKrbTicket` initializer `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 #### Snippet
 ```java
-      MIN_TIME_BEFORE_RELOGIN_CONFIG_KEY, DEFAULT_MIN_TIME_BEFORE_RELOGIN);
-
     private Subject subject = null;
     private Thread t = null;
     private boolean isKrbTicket = false;
-```
-
-### UnusedAssignment
-Variable `login` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
-#### Snippet
-```java
     private boolean isUsingTicketCache = false;
 
-    private LoginContext login = null;
-    private String loginContextName = null;
-    private String principal = null;
 ```
 
 ### UnusedAssignment
@@ -3305,15 +3279,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 ```
 
 ### UnusedAssignment
-Variable `isKrbTicket` initializer `false` is redundant
+Variable `login` initializer `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 #### Snippet
 ```java
+    private boolean isUsingTicketCache = false;
+
+    private LoginContext login = null;
+    private String loginContextName = null;
+    private String principal = null;
+```
+
+### UnusedAssignment
+Variable `subject` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
+#### Snippet
+```java
+      MIN_TIME_BEFORE_RELOGIN_CONFIG_KEY, DEFAULT_MIN_TIME_BEFORE_RELOGIN);
+
     private Subject subject = null;
     private Thread t = null;
     private boolean isKrbTicket = false;
-    private boolean isUsingTicketCache = false;
-
 ```
 
 ### UnusedAssignment
@@ -3326,30 +3312,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
         boolean watcherExists = true;
         if (pathVsWatchers == null || pathVsWatchers.size() == 0) {
             watcherExists = false;
-```
-
-### UnusedAssignment
-Variable `packet` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-        WatchRegistration watchRegistration,
-        WatchDeregistration watchDeregistration) {
-        Packet packet = null;
-
-        // Note that we do not generate the Xid for the packet yet. It is
-```
-
-### UnusedAssignment
-Variable `materializedWatchers` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-        // clients will be notified with 'Data/Child WatchRemoved' event type.
-        if (p.watchDeregistration != null) {
-            Map<EventType, Set<Watcher>> materializedWatchers = null;
-            try {
-                materializedWatchers = p.watchDeregistration.unregister(err);
 ```
 
 ### UnusedAssignment
@@ -3377,6 +3339,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/SetQuotaCommand.java
 ```
 
 ### UnusedAssignment
+Variable `packet` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+        WatchRegistration watchRegistration,
+        WatchDeregistration watchDeregistration) {
+        Packet packet = null;
+
+        // Note that we do not generate the Xid for the packet yet. It is
+```
+
+### UnusedAssignment
+Variable `materializedWatchers` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+        // clients will be notified with 'Data/Child WatchRemoved' event type.
+        if (p.watchDeregistration != null) {
+            Map<EventType, Set<Watcher>> materializedWatchers = null;
+            try {
+                materializedWatchers = p.watchDeregistration.unregister(err);
+```
+
+### UnusedAssignment
 Variable `timeoutTimerTask` initializer `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Shell.java`
 #### Snippet
@@ -3386,6 +3372,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Shell.java`
         ShellTimeoutTimerTask timeoutTimerTask = null;
         timedOut = new AtomicBoolean(false);
         completed = new AtomicBoolean(false);
+```
+
+### UnusedAssignment
+Variable `lastChange` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+
+    private ChangeRecord getRecordForPath(String path) throws KeeperException.NoNodeException {
+        ChangeRecord lastChange = null;
+        synchronized (zks.outstandingChanges) {
+            lastChange = zks.outstandingChangesForPath.get(path);
 ```
 
 ### UnusedAssignment
@@ -3413,15 +3411,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NettyServerCnxnFa
 ```
 
 ### UnusedAssignment
-Variable `lastChange` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+Variable `childLabels` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
 
-    private ChangeRecord getRecordForPath(String path) throws KeeperException.NoNodeException {
-        ChangeRecord lastChange = null;
-        synchronized (zks.outstandingChanges) {
-            lastChange = zks.outstandingChangesForPath.get(path);
+      void populateChildren(String path, DataTree dataTree, TreeInfo treeInfo, int currentDepth) throws Exception {
+        List<String> childLabels = null;
+        childLabels = dataTree.getChildren(path, null, null);
+
 ```
 
 ### UnusedAssignment
@@ -3461,15 +3459,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/FinalRequestProce
 ```
 
 ### UnusedAssignment
-Variable `childLabels` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+Variable `txn` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/SerializeUtils.java`
 #### Snippet
 ```java
-
-      void populateChildren(String path, DataTree dataTree, TreeInfo treeInfo, int currentDepth) throws Exception {
-        List<String> childLabels = null;
-        childLabels = dataTree.getChildren(path, null, null);
-
+        hdr.deserialize(ia, "hdr");
+        bais.mark(bais.available());
+        Record txn = null;
+        switch (hdr.getType()) {
+        case OpCode.createSession:
 ```
 
 ### UnusedAssignment
@@ -3482,18 +3480,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.j
     private static boolean closeSessionTxnEnabled = true;
     private volatile CountDownLatch restoreLatch;
 
-```
-
-### UnusedAssignment
-Variable `txn` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/SerializeUtils.java`
-#### Snippet
-```java
-        hdr.deserialize(ia, "hdr");
-        bais.mark(bais.available());
-        Record txn = null;
-        switch (hdr.getType()) {
-        case OpCode.createSession:
 ```
 
 ### UnusedAssignment
@@ -3552,54 +3538,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
             return;
         }
         String[] children = null;
-        DataNode nodeCopy;
-        synchronized (node) {
-```
-
-### UnusedAssignment
-Variable `children` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-    private void traverseNode(String path) {
-        DataNode node = getNode(path);
-        String[] children = null;
-        synchronized (node) {
-            Set<String> childs = node.getChildren();
-```
-
-### UnusedAssignment
-Variable `cloned` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            return new HashSet<>();
-        }
-        Set<String> cloned = null;
-        synchronized (retv) {
-            cloned = (HashSet<String>) retv.clone();
-```
-
-### UnusedAssignment
-Variable `bytes` initializer `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-        if (lastPrefix != null) {
-            // ok we have some match and need to update
-            long bytes = 0;
-            synchronized (node) {
-                bytes = (node.data == null ? 0 : -(node.data.length));
-```
-
-### UnusedAssignment
-Variable `children` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            return;
-        }
-        String[] children = null;
         int len = 0;
         synchronized (node) {
 ```
@@ -3617,27 +3555,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 ```
 
 ### UnusedAssignment
-Variable `record` initializer `null` is redundant
+Variable `children` initializer `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-                for (Txn subtxn : txns) {
-                    ByteBuffer bb = ByteBuffer.wrap(subtxn.getData());
-                    Record record = null;
-                    switch (subtxn.getType()) {
-                    case OpCode.create:
-```
-
-### UnusedAssignment
-Variable `data` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-    public byte[] getData(String path, Stat stat, Watcher watcher) throws KeeperException.NoNodeException {
-        DataNode n = nodes.get(path);
-        byte[] data = null;
-        if (n == null) {
-            throw new KeeperException.NoNodeException();
+            return;
+        }
+        String[] children = null;
+        DataNode nodeCopy;
+        synchronized (node) {
 ```
 
 ### UnusedAssignment
@@ -3653,51 +3579,63 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 ```
 
 ### UnusedAssignment
-Variable `shutdownMessage` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+Variable `record` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-            boolean tickSkip = true;
-            // If not null then shutdown this leader
-            String shutdownMessage = null;
-
-            while (true) {
+                for (Txn subtxn : txns) {
+                    ByteBuffer bb = ByteBuffer.wrap(subtxn.getData());
+                    Record record = null;
+                    switch (subtxn.getType()) {
+                    case OpCode.create:
 ```
 
 ### UnusedAssignment
-Variable `requestsToProcess` initializer `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+Variable `cloned` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-             * that will lead to a starvation of non-local committed requests.
-             */
-            int requestsToProcess = 0;
-            boolean commitIsWaiting = false;
-            do {
+            return new HashSet<>();
+        }
+        Set<String> cloned = null;
+        synchronized (retv) {
+            cloned = (HashSet<String>) retv.clone();
 ```
 
 ### UnusedAssignment
-Variable `commitIsWaiting` initializer `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+Variable `children` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-             */
-            int requestsToProcess = 0;
-            boolean commitIsWaiting = false;
-            do {
-                /*
+    private void traverseNode(String path) {
+        DataNode node = getNode(path);
+        String[] children = null;
+        synchronized (node) {
+            Set<String> childs = node.getChildren();
 ```
 
 ### UnusedAssignment
-Variable `ss` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
+Variable `bytes` initializer `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
+        if (lastPrefix != null) {
+            // ok we have some match and need to update
+            long bytes = 0;
+            synchronized (node) {
+                bytes = (node.data == null ? 0 : -(node.data.length));
+```
 
-            long peerLastZxid;
-            StateSummary ss = null;
-            long zxid = qp.getZxid();
-            long newEpoch = learnerMaster.getEpochToPropose(this.getSid(), lastAcceptedEpoch);
+### UnusedAssignment
+Variable `data` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+    public byte[] getData(String path, Stat stat, Watcher watcher) throws KeeperException.NoNodeException {
+        DataNode n = nodes.get(path);
+        byte[] data = null;
+        if (n == null) {
+            throw new KeeperException.NoNodeException();
 ```
 
 ### UnusedAssignment
@@ -3737,18 +3675,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxM
 ```
 
 ### UnusedAssignment
-Variable `din` initializer `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-     */
-    public void receiveConnection(final Socket sock) {
-        DataInputStream din = null;
-        try {
-            din = new DataInputStream(new BufferedInputStream(sock.getInputStream()));
-```
-
-### UnusedAssignment
 Variable `dout` initializer `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
@@ -3770,6 +3696,66 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxM
         DataInputStream din = null;
         LOG.debug("startConnection (myId:{} --> sid:{})", self.getMyId(), sid);
         try {
+```
+
+### UnusedAssignment
+Variable `din` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+     */
+    public void receiveConnection(final Socket sock) {
+        DataInputStream din = null;
+        try {
+            din = new DataInputStream(new BufferedInputStream(sock.getInputStream()));
+```
+
+### UnusedAssignment
+Variable `requestsToProcess` initializer `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+#### Snippet
+```java
+             * that will lead to a starvation of non-local committed requests.
+             */
+            int requestsToProcess = 0;
+            boolean commitIsWaiting = false;
+            do {
+```
+
+### UnusedAssignment
+Variable `commitIsWaiting` initializer `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+#### Snippet
+```java
+             */
+            int requestsToProcess = 0;
+            boolean commitIsWaiting = false;
+            do {
+                /*
+```
+
+### UnusedAssignment
+Variable `shutdownMessage` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+            boolean tickSkip = true;
+            // If not null then shutdown this leader
+            String shutdownMessage = null;
+
+            while (true) {
+```
+
+### UnusedAssignment
+Variable `ss` initializer `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
+#### Snippet
+```java
+
+            long peerLastZxid;
+            StateSummary ss = null;
+            long zxid = qp.getZxid();
+            long newEpoch = learnerMaster.getEpochToPropose(this.getSid(), lastAcceptedEpoch);
 ```
 
 ### UnusedAssignment
@@ -3809,27 +3795,15 @@ public class SetTraceMaskCommand extends AbstractFourLetterCommand {
 ```
 
 ### UnusedAssignment
-Variable `isValid` initializer `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/SnapStream.java`
-#### Snippet
-```java
-        }
-
-        boolean isValid = false;
-        switch (getStreamMode(file.getName())) {
-        case GZIP:
-```
-
-### UnusedAssignment
-Variable `wsThread` initializer `null` is redundant
+Variable `wrThread` initializer `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
 #### Snippet
 ```java
-        WorkerSender ws;
         WorkerReceiver wr;
         Thread wsThread = null;
         Thread wrThread = null;
 
+        /**
 ```
 
 ### UnusedAssignment
@@ -3845,15 +3819,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
 ```
 
 ### UnusedAssignment
-Variable `wrThread` initializer `null` is redundant
+Variable `wsThread` initializer `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
 #### Snippet
 ```java
+        WorkerSender ws;
         WorkerReceiver wr;
         Thread wsThread = null;
         Thread wrThread = null;
 
-        /**
 ```
 
 ### UnusedAssignment
@@ -3866,6 +3840,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
          */ byte[] configData = dummyData;
 
         /*
+```
+
+### UnusedAssignment
+Variable `isValid` initializer `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/SnapStream.java`
+#### Snippet
+```java
+        }
+
+        boolean isValid = false;
+        switch (getStreamMode(file.getName())) {
+        case GZIP:
 ```
 
 ### UnusedAssignment
@@ -3909,42 +3895,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxn.jav
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/CppGenerator.java`
-#### Snippet
-```java
-
-        try (FileWriter cc = new FileWriter(new File(outputDirectory, mName + ".cc"));
-             FileWriter hh = new FileWriter(new File(outputDirectory, mName + ".hh"));
-        ) {
-            hh.write("/**\n");
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/CGenerator.java`
-#### Snippet
-```java
-
-        try (FileWriter c = new FileWriter(new File(outputDirectory, mName + ".c"));
-             FileWriter h = new FileWriter(new File(outputDirectory, mName + ".h"));
-        ) {
-            h.write("/**\n");
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
-#### Snippet
-```java
-        }
-
-        try (FileWriter cs = new FileWriter(new File(outputDirectory, getName() + ".cs"));) {
-            cs.write("// File generated by hadoop record compiler. Do not edit.\n");
-            cs.write("/**\n");
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
 #### Snippet
 ```java
@@ -3979,67 +3929,43 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/embedded/ExitHand
 
 ```
 
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/CGenerator.java`
+#### Snippet
+```java
+
+        try (FileWriter c = new FileWriter(new File(outputDirectory, mName + ".c"));
+             FileWriter h = new FileWriter(new File(outputDirectory, mName + ".h"));
+        ) {
+            h.write("/**\n");
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/CppGenerator.java`
+#### Snippet
+```java
+
+        try (FileWriter cc = new FileWriter(new File(outputDirectory, mName + ".cc"));
+             FileWriter hh = new FileWriter(new File(outputDirectory, mName + ".hh"));
+        ) {
+            hh.write("/**\n");
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+#### Snippet
+```java
+        }
+
+        try (FileWriter cs = new FileWriter(new File(outputDirectory, getName() + ".cs"));) {
+            cs.write("// File generated by hadoop record compiler. Do not edit.\n");
+            cs.write("/**\n");
+```
+
 ## RuleId[ruleID=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Unnecessary empty string argument
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-
-    public String genJavaReadWrapper(String fname, String tag, boolean decl) {
-        StringBuilder ret = new StringBuilder("");
-        if (decl) {
-            ret.append("    java.util.TreeMap " + fname + ";\n");
-```
-
-### StringOperationCanBeSimplified
-Unnecessary empty string argument
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-
-    public String genCsharpReadWrapper(String fname, int tag, boolean decl) {
-        StringBuilder ret = new StringBuilder("");
-        if (decl) {
-            ret.append("    System.Collections.SortedDictionary<string,string> " + capitalize(fname) + ";\n");
-```
-
-### StringOperationCanBeSimplified
-Unnecessary empty string argument
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-
-    public String genJavaReadWrapper(String fname, String tag, boolean decl) {
-        StringBuilder ret = new StringBuilder("");
-        if (decl) {
-            ret.append("      java.util.List " + fname + ";\n");
-```
-
-### StringOperationCanBeSimplified
-Unnecessary empty string argument
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
-#### Snippet
-```java
-
-    public String genCsharpReadWrapper(String fname, String tag, boolean decl) {
-        StringBuilder ret = new StringBuilder("");
-        if (decl) {
-            ret.append("    " + getCsharpFQName(mFQName) + " " + fname + ";\n");
-```
-
-### StringOperationCanBeSimplified
-Unnecessary empty string argument
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
-#### Snippet
-```java
-
-    public String genJavaReadWrapper(String fname, String tag, boolean decl) {
-        StringBuilder ret = new StringBuilder("");
-        if (decl) {
-            ret.append("    " + getJavaFQName() + " " + fname + ";\n");
-```
-
 ### StringOperationCanBeSimplified
 Unnecessary empty string argument
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
@@ -4076,6 +4002,66 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
                 } else {
 ```
 
+### StringOperationCanBeSimplified
+Unnecessary empty string argument
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+
+    public String genCsharpReadWrapper(String fname, int tag, boolean decl) {
+        StringBuilder ret = new StringBuilder("");
+        if (decl) {
+            ret.append("    System.Collections.SortedDictionary<string,string> " + capitalize(fname) + ";\n");
+```
+
+### StringOperationCanBeSimplified
+Unnecessary empty string argument
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+
+    public String genJavaReadWrapper(String fname, String tag, boolean decl) {
+        StringBuilder ret = new StringBuilder("");
+        if (decl) {
+            ret.append("    java.util.TreeMap " + fname + ";\n");
+```
+
+### StringOperationCanBeSimplified
+Unnecessary empty string argument
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+
+    public String genJavaReadWrapper(String fname, String tag, boolean decl) {
+        StringBuilder ret = new StringBuilder("");
+        if (decl) {
+            ret.append("      java.util.List " + fname + ";\n");
+```
+
+### StringOperationCanBeSimplified
+Unnecessary empty string argument
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+#### Snippet
+```java
+
+    public String genJavaReadWrapper(String fname, String tag, boolean decl) {
+        StringBuilder ret = new StringBuilder("");
+        if (decl) {
+            ret.append("    " + getJavaFQName() + " " + fname + ";\n");
+```
+
+### StringOperationCanBeSimplified
+Unnecessary empty string argument
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+#### Snippet
+```java
+
+    public String genCsharpReadWrapper(String fname, String tag, boolean decl) {
+        StringBuilder ret = new StringBuilder("");
+        if (decl) {
+            ret.append("    " + getCsharpFQName(mFQName) + " " + fname + ";\n");
+```
+
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `start()` overrides synchronized method
@@ -4102,18 +4088,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/embedded/ZooKeepe
 ```
 
 ### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `reset()` overrides synchronized method
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
-#### Snippet
-```java
-
-        @Override
-        public void reset() {
-            throw new UnsupportedOperationException("reset");
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `mark()` overrides synchronized method
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
 #### Snippet
@@ -4122,6 +4096,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
         @Override
         public void mark(int readLimit) {
             throw new UnsupportedOperationException("mark");
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `reset()` overrides synchronized method
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
+#### Snippet
+```java
+
+        @Override
+        public void reset() {
+            throw new UnsupportedOperationException("reset");
         }
 ```
 
@@ -4272,42 +4258,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `state` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-        // later packet will be notified.
-        synchronized (outgoingQueue) {
-            if (!state.isAlive() || closing) {
-                conLossPacket(packet);
-            } else {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `state` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-
-        synchronized void changeZkState(ZooKeeper.States newState) throws IOException {
-            if (!state.isAlive() && newState == States.CONNECTING) {
-                throw new IOException(
-                        "Connection has already been closed and reconnection is not allowed");
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `state` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-            }
-            // It's safer to place state modification at the end.
-            state = newState;
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `xid` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
@@ -4341,6 +4291,42 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
         return xid++;
     }
 
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `state` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+
+        synchronized void changeZkState(ZooKeeper.States newState) throws IOException {
+            if (!state.isAlive() && newState == States.CONNECTING) {
+                throw new IOException(
+                        "Connection has already been closed and reconnection is not allowed");
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `state` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+            }
+            // It's safer to place state modification at the end.
+            state = newState;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `state` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+        // later packet will be notified.
+        synchronized (outgoingQueue) {
+            if (!state.isAlive() || closing) {
+                conLossPacket(packet);
+            } else {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -4492,6 +4478,114 @@ Non-private field `zks` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
 #### Snippet
 ```java
+
+    protected void addChangeRecord(ChangeRecord c) {
+        synchronized (zks.outstandingChanges) {
+            zks.outstandingChanges.add(c);
+            zks.outstandingChangesForPath.put(c.path, c);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+    protected void addChangeRecord(ChangeRecord c) {
+        synchronized (zks.outstandingChanges) {
+            zks.outstandingChanges.add(c);
+            zks.outstandingChangesForPath.put(c.path, c);
+            ServerMetrics.getMetrics().OUTSTANDING_CHANGES_QUEUED.add(1);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+        synchronized (zks.outstandingChanges) {
+            zks.outstandingChanges.add(c);
+            zks.outstandingChangesForPath.put(c.path, c);
+            ServerMetrics.getMetrics().OUTSTANDING_CHANGES_QUEUED.add(1);
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+
+    private ChangeRecord getOutstandingChange(String path) {
+        synchronized (zks.outstandingChanges) {
+            return zks.outstandingChangesForPath.get(path);
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+    private ChangeRecord getOutstandingChange(String path) {
+        synchronized (zks.outstandingChanges) {
+            return zks.outstandingChangesForPath.get(path);
+        }
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+            //zks.sessionTracker.checkSession(request.sessionId, request.getOwner());
+            long startTime = Time.currentElapsedTime();
+            synchronized (zks.outstandingChanges) {
+                // need to move getEphemerals into zks.outstandingChanges
+                // synchronized block, otherwise there will be a race
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+                // condition with the on flying deleteNode txn, and we'll
+                // delete the node again here, which is not correct
+                Set<String> es = zks.getZKDatabase().getEphemerals(request.sessionId);
+                for (ChangeRecord c : zks.outstandingChanges) {
+                    if (c.stat == null) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+                // delete the node again here, which is not correct
+                Set<String> es = zks.getZKDatabase().getEphemerals(request.sessionId);
+                for (ChangeRecord c : zks.outstandingChanges) {
+                    if (c.stat == null) {
+                        // Doing a delete
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+                    request.setTxn(new CloseSessionTxn(new ArrayList<String>(es)));
+                }
+                zks.sessionTracker.setSessionClosing(request.sessionId);
+            }
+            ServerMetrics.getMetrics().CLOSE_SESSION_PREP_TIME.add(Time.currentElapsedTime() - startTime);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `zks` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
      */
     void rollbackPendingChanges(long zxid, Map<String, ChangeRecord> pendingChangeRecords) {
         synchronized (zks.outstandingChanges) {
@@ -4564,78 +4658,6 @@ Non-private field `zks` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
 #### Snippet
 ```java
-            //zks.sessionTracker.checkSession(request.sessionId, request.getOwner());
-            long startTime = Time.currentElapsedTime();
-            synchronized (zks.outstandingChanges) {
-                // need to move getEphemerals into zks.outstandingChanges
-                // synchronized block, otherwise there will be a race
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-                // condition with the on flying deleteNode txn, and we'll
-                // delete the node again here, which is not correct
-                Set<String> es = zks.getZKDatabase().getEphemerals(request.sessionId);
-                for (ChangeRecord c : zks.outstandingChanges) {
-                    if (c.stat == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-                // delete the node again here, which is not correct
-                Set<String> es = zks.getZKDatabase().getEphemerals(request.sessionId);
-                for (ChangeRecord c : zks.outstandingChanges) {
-                    if (c.stat == null) {
-                        // Doing a delete
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-                    request.setTxn(new CloseSessionTxn(new ArrayList<String>(es)));
-                }
-                zks.sessionTracker.setSessionClosing(request.sessionId);
-            }
-            ServerMetrics.getMetrics().CLOSE_SESSION_PREP_TIME.add(Time.currentElapsedTime() - startTime);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-
-    private ChangeRecord getOutstandingChange(String path) {
-        synchronized (zks.outstandingChanges) {
-            return zks.outstandingChangesForPath.get(path);
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-    private ChangeRecord getOutstandingChange(String path) {
-        synchronized (zks.outstandingChanges) {
-            return zks.outstandingChangesForPath.get(path);
-        }
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
     private ChangeRecord getRecordForPath(String path) throws KeeperException.NoNodeException {
         ChangeRecord lastChange = null;
         synchronized (zks.outstandingChanges) {
@@ -4677,42 +4699,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProces
                     lastChange = new ChangeRecord(-1, path, n.stat, children.size(), zks.getZKDatabase().aclForNode(n));
 
                     if (digestEnabled) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-
-    protected void addChangeRecord(ChangeRecord c) {
-        synchronized (zks.outstandingChanges) {
-            zks.outstandingChanges.add(c);
-            zks.outstandingChangesForPath.put(c.path, c);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-    protected void addChangeRecord(ChangeRecord c) {
-        synchronized (zks.outstandingChanges) {
-            zks.outstandingChanges.add(c);
-            zks.outstandingChangesForPath.put(c.path, c);
-            ServerMetrics.getMetrics().OUTSTANDING_CHANGES_QUEUED.add(1);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `zks` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-        synchronized (zks.outstandingChanges) {
-            zks.outstandingChanges.add(c);
-            zks.outstandingChangesForPath.put(c.path, c);
-            ServerMetrics.getMetrics().OUTSTANDING_CHANGES_QUEUED.add(1);
-        }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -4760,6 +4746,42 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
         stat = new StatPersisted();
         stat.deserialize(archive, "statpersisted");
         archive.endRecord("node");
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `data` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
+#### Snippet
+```java
+    public synchronized void serialize(OutputArchive archive, String tag) throws IOException {
+        archive.startRecord(this, "node");
+        archive.writeBuffer(data, "data");
+        archive.writeLong(acl, "acl");
+        stat.serialize(archive, "statpersisted");
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `acl` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
+#### Snippet
+```java
+        archive.startRecord(this, "node");
+        archive.writeBuffer(data, "data");
+        archive.writeLong(acl, "acl");
+        stat.serialize(archive, "statpersisted");
+        archive.endRecord(this, "node");
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `stat` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
+#### Snippet
+```java
+        archive.writeBuffer(data, "data");
+        archive.writeLong(acl, "acl");
+        stat.serialize(archive, "statpersisted");
+        archive.endRecord(this, "node");
     }
 ```
 
@@ -4908,42 +4930,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `data` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
-#### Snippet
-```java
-    public synchronized void serialize(OutputArchive archive, String tag) throws IOException {
-        archive.startRecord(this, "node");
-        archive.writeBuffer(data, "data");
-        archive.writeLong(acl, "acl");
-        stat.serialize(archive, "statpersisted");
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `acl` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
-#### Snippet
-```java
-        archive.startRecord(this, "node");
-        archive.writeBuffer(data, "data");
-        archive.writeLong(acl, "acl");
-        stat.serialize(archive, "statpersisted");
-        archive.endRecord(this, "node");
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `stat` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
-#### Snippet
-```java
-        archive.writeBuffer(data, "data");
-        archive.writeLong(acl, "acl");
-        stat.serialize(archive, "statpersisted");
-        archive.endRecord(this, "node");
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `aclIndex` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedACLCache.java`
 #### Snippet
@@ -4968,6 +4954,222 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedA
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `maxLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getMaxLatency() {
+        return maxLatency;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `disconnectReason` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized void resetStats() {
+        disconnectReason = DisconnectReason.RESET_COMMAND;
+        packetsReceived.set(0);
+        packetsSent.set(0);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `minLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+        packetsReceived.set(0);
+        packetsSent.set(0);
+        minLatency = Long.MAX_VALUE;
+        maxLatency = 0;
+        lastOp = "NA";
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `maxLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+        packetsSent.set(0);
+        minLatency = Long.MAX_VALUE;
+        maxLatency = 0;
+        lastOp = "NA";
+        lastCxid = -1;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastOp` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+        minLatency = Long.MAX_VALUE;
+        maxLatency = 0;
+        lastOp = "NA";
+        lastCxid = -1;
+        lastZxid = -1;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastCxid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+        maxLatency = 0;
+        lastOp = "NA";
+        lastCxid = -1;
+        lastZxid = -1;
+        lastResponseTime = 0;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastZxid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+        lastOp = "NA";
+        lastCxid = -1;
+        lastZxid = -1;
+        lastResponseTime = 0;
+        lastLatency = 0;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastResponseTime` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+        lastCxid = -1;
+        lastZxid = -1;
+        lastResponseTime = 0;
+        lastLatency = 0;
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+        lastZxid = -1;
+        lastResponseTime = 0;
+        lastLatency = 0;
+
+        count = 0;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `count` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+        lastLatency = 0;
+
+        count = 0;
+        totalLatency = 0;
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `totalLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+        count = 0;
+        totalLatency = 0;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `count` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getAvgLatency() {
+        return count == 0 ? 0 : totalLatency / count;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `totalLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getAvgLatency() {
+        return count == 0 ? 0 : totalLatency / count;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `count` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getAvgLatency() {
+        return count == 0 ? 0 : totalLatency / count;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `minLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getMinLatency() {
+        return minLatency == Long.MAX_VALUE ? 0 : minLatency;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `minLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getMinLatency() {
+        return minLatency == Long.MAX_VALUE ? 0 : minLatency;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastOp` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized String getLastOperation() {
+        return lastOp;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastLatency` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getLastLatency() {
+        return lastLatency;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `lastResponseTime` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
 #### Snippet
@@ -4975,6 +5177,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
 
     public synchronized long getLastResponseTime() {
         return lastResponseTime;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastCxid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getLastCxid() {
+        return lastCxid;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastZxid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+
+    public synchronized long getLastZxid() {
+        return lastZxid;
     }
 
 ```
@@ -5112,282 +5338,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastZxid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getLastZxid() {
-        return lastZxid;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastOp` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized String getLastOperation() {
-        return lastOp;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastCxid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getLastCxid() {
-        return lastCxid;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `minLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getMinLatency() {
-        return minLatency == Long.MAX_VALUE ? 0 : minLatency;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `minLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getMinLatency() {
-        return minLatency == Long.MAX_VALUE ? 0 : minLatency;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `maxLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getMaxLatency() {
-        return maxLatency;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getLastLatency() {
-        return lastLatency;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `count` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getAvgLatency() {
-        return count == 0 ? 0 : totalLatency / count;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `totalLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getAvgLatency() {
-        return count == 0 ? 0 : totalLatency / count;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `count` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized long getAvgLatency() {
-        return count == 0 ? 0 : totalLatency / count;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `disconnectReason` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-    public synchronized void resetStats() {
-        disconnectReason = DisconnectReason.RESET_COMMAND;
-        packetsReceived.set(0);
-        packetsSent.set(0);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `minLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-        packetsReceived.set(0);
-        packetsSent.set(0);
-        minLatency = Long.MAX_VALUE;
-        maxLatency = 0;
-        lastOp = "NA";
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `maxLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-        packetsSent.set(0);
-        minLatency = Long.MAX_VALUE;
-        maxLatency = 0;
-        lastOp = "NA";
-        lastCxid = -1;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastOp` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-        minLatency = Long.MAX_VALUE;
-        maxLatency = 0;
-        lastOp = "NA";
-        lastCxid = -1;
-        lastZxid = -1;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastCxid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-        maxLatency = 0;
-        lastOp = "NA";
-        lastCxid = -1;
-        lastZxid = -1;
-        lastResponseTime = 0;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastZxid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-        lastOp = "NA";
-        lastCxid = -1;
-        lastZxid = -1;
-        lastResponseTime = 0;
-        lastLatency = 0;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastResponseTime` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-        lastCxid = -1;
-        lastZxid = -1;
-        lastResponseTime = 0;
-        lastLatency = 0;
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-        lastZxid = -1;
-        lastResponseTime = 0;
-        lastLatency = 0;
-
-        count = 0;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `count` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-        lastLatency = 0;
-
-        count = 0;
-        totalLatency = 0;
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `totalLatency` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-
-        count = 0;
-        totalLatency = 0;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `state` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-                    // processor chain. The state will be updated to RUNNING
-                    // after the setup.
-                    while (state == State.INITIAL) {
-                        wait(1000);
-                    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `firstProcessor` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-                    LOG.warn("Unexpected interruption", e);
-                }
-                if (firstProcessor == null || state != State.RUNNING) {
-                    throw new RuntimeException("Not started");
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `state` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-                    LOG.warn("Unexpected interruption", e);
-                }
-                if (firstProcessor == null || state != State.RUNNING) {
-                    throw new RuntimeException("Not started");
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `sessionTracker` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
 #### Snippet
@@ -5472,6 +5422,42 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.j
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `firstProcessor` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+                    LOG.warn("Unexpected interruption", e);
+                }
+                if (firstProcessor == null || state != State.RUNNING) {
+                    throw new RuntimeException("Not started");
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `state` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+                    LOG.warn("Unexpected interruption", e);
+                }
+                if (firstProcessor == null || state != State.RUNNING) {
+                    throw new RuntimeException("Not started");
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `state` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+                    // processor chain. The state will be updated to RUNNING
+                    // after the setup.
+                    while (state == State.INITIAL) {
+                        wait(1000);
+                    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `pendingSyncs` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java`
 #### Snippet
@@ -5508,6 +5494,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FollowerZo
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `prepRequestProcessor` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooKeeperServer.java`
+#### Snippet
+```java
+        containerManager = new ContainerManager(
+            getZKDatabase(),
+            prepRequestProcessor,
+            Integer.getInteger("znode.container.checkIntervalMs", (int) TimeUnit.MINUTES.toMillis(1)),
+            Integer.getInteger("znode.container.maxPerMinute", 10000),
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `upgradeableSessionTracker` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
 #### Snippet
@@ -5541,18 +5539,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooK
                 int timeout = upgradeableSessionTracker.upgradeSession(sessionId);
                 CreateSessionTxn txn = new CreateSessionTxn(timeout);
                 return new Request(null, sessionId, 0, OpCode.createSession, RequestRecord.fromRecord(txn), null);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `prepRequestProcessor` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooKeeperServer.java`
-#### Snippet
-```java
-        containerManager = new ContainerManager(
-            getZKDatabase(),
-            prepRequestProcessor,
-            Integer.getInteger("znode.container.checkIntervalMs", (int) TimeUnit.MINUTES.toMillis(1)),
-            Integer.getInteger("znode.container.maxPerMinute", 10000),
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -6144,30 +6130,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.ja
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `syncProcessor` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZooKeeperServer.java`
-#### Snippet
-```java
-        }
-        super.shutdown();
-        if (syncRequestProcessorEnabled && syncProcessor != null) {
-            syncProcessor.shutdown();
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `syncProcessor` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZooKeeperServer.java`
-#### Snippet
-```java
-        super.shutdown();
-        if (syncRequestProcessorEnabled && syncProcessor != null) {
-            syncProcessor.shutdown();
-        }
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `pendingSyncs` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZooKeeperServer.java`
 #### Snippet
@@ -6201,6 +6163,294 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZo
         commitProcessor.commit(r);
     }
 
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `syncProcessor` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZooKeeperServer.java`
+#### Snippet
+```java
+        }
+        super.shutdown();
+        if (syncRequestProcessorEnabled && syncProcessor != null) {
+            syncProcessor.shutdown();
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `syncProcessor` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZooKeeperServer.java`
+#### Snippet
+```java
+        super.shutdown();
+        if (syncRequestProcessorEnabled && syncProcessor != null) {
+            syncProcessor.shutdown();
+        }
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `dout` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+                return;
+            }
+            dout.writeInt(b.capacity());
+            dout.write(b.array());
+            dout.flush();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `dout` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            }
+            dout.writeInt(b.capacity());
+            dout.write(b.array());
+            dout.flush();
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `dout` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            dout.writeInt(b.capacity());
+            dout.write(b.array());
+            dout.flush();
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.recvWorker` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+
+        synchronized void setRecv(RecvWorker recvWorker) {
+            this.recvWorker = recvWorker;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `recvWorker` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+         */
+        synchronized RecvWorker getRecvWorker() {
+            return recvWorker;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `sid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+         */
+        synchronized boolean finish() {
+            LOG.debug("RecvWorker.finish called. sid: {}. myId: {}", sid, QuorumCnxManager.this.mySid);
+            if (!running) {
+                /*
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `running` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+        synchronized boolean finish() {
+            LOG.debug("RecvWorker.finish called. sid: {}. myId: {}", sid, QuorumCnxManager.this.mySid);
+            if (!running) {
+                /*
+                 * Avoids running finish() twice.
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `running` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+                 * Avoids running finish() twice.
+                 */
+                return running;
+            }
+            running = false;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `running` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+                return running;
+            }
+            running = false;
+
+            this.interrupt();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `running` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            this.interrupt();
+            threadCnt.decrementAndGet();
+            return running;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `sid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+
+        synchronized boolean finish() {
+            LOG.debug("Calling SendWorker.finish for {}", sid);
+
+            if (!running) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `running` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            LOG.debug("Calling SendWorker.finish for {}", sid);
+
+            if (!running) {
+                /*
+                 * Avoids running finish() twice.
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `running` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+                 * Avoids running finish() twice.
+                 */
+                return running;
+            }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `running` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            }
+
+            running = false;
+            closeSocket(sock);
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `sock` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+
+            running = false;
+            closeSocket(sock);
+
+            this.interrupt();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `recvWorker` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+
+            this.interrupt();
+            if (recvWorker != null) {
+                recvWorker.finish();
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `recvWorker` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            this.interrupt();
+            if (recvWorker != null) {
+                recvWorker.finish();
+            }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `sid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            }
+
+            LOG.debug("Removing entry from senderWorkerMap sid={}", sid);
+
+            senderWorkerMap.remove(sid, this);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `sid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            LOG.debug("Removing entry from senderWorkerMap sid={}", sid);
+
+            senderWorkerMap.remove(sid, this);
+            threadCnt.decrementAndGet();
+            return running;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `running` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+            senderWorkerMap.remove(sid, this);
+            threadCnt.decrementAndGet();
+            return running;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `ping` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+#### Snippet
+```java
+        thread.start();
+        pinger = Executors.newSingleThreadScheduledExecutor();
+        pinger.scheduleAtFixedRate(ping, self.tickTime / 2, self.tickTime / 2, TimeUnit.MILLISECONDS);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `stopped` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+#### Snippet
+```java
+        long startWaitTime = Time.currentElapsedTime();
+        synchronized (emptyPoolSync) {
+            while ((!stopped) && isProcessingRequest()) {
+                emptyPoolSync.wait();
+            }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -6240,15 +6490,303 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProc
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `stopped` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
+Non-private field `syncProcessor` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerZooKeeperServer.java`
 #### Snippet
 ```java
-        long startWaitTime = Time.currentElapsedTime();
-        synchronized (emptyPoolSync) {
-            while ((!stopped) && isProcessingRequest()) {
-                emptyPoolSync.wait();
+        }
+        try {
+            if (syncProcessor != null) {
+                syncProcessor.shutdown();
             }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `syncProcessor` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerZooKeeperServer.java`
+#### Snippet
+```java
+        try {
+            if (syncProcessor != null) {
+                syncProcessor.shutdown();
+            }
+        } catch (Exception e) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastProposed` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+
+            synchronized (this) {
+                lastProposed = zk.getZxid();
+            }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastCommitted` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+                     * */
+                    if (!tickSkip && !syncedAckSet.hasAllQuorums()
+                        && !(self.getQuorumVerifier().overrideQuorumDecision(getForwardingFollowers()) && self.getQuorumVerifier().revalidateOutstandingProp(this, new ArrayList<>(outstandingProposals.values()), lastCommitted))) {
+                        // Lost quorum of last committed and/or last proposed
+                        // config, set shutdown flag
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `electionFinished` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    public void waitForEpochAck(long id, StateSummary ss) throws IOException, InterruptedException {
+        synchronized (electingFollowers) {
+            if (electionFinished) {
+                return;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `leaderStateSummary` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+            }
+            if (ss.getCurrentEpoch() != -1) {
+                if (ss.isMoreRecentThan(leaderStateSummary)) {
+                    throw new IOException("Follower is ahead of the leader, leader summary: "
+                                          + leaderStateSummary.getCurrentEpoch()
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `leaderStateSummary` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+                if (ss.isMoreRecentThan(leaderStateSummary)) {
+                    throw new IOException("Follower is ahead of the leader, leader summary: "
+                                          + leaderStateSummary.getCurrentEpoch()
+                                          + " (current epoch), "
+                                          + leaderStateSummary.getLastZxid()
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `leaderStateSummary` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+                                          + leaderStateSummary.getCurrentEpoch()
+                                          + " (current epoch), "
+                                          + leaderStateSummary.getLastZxid()
+                                          + " (last zxid)");
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `electionFinished` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+            QuorumVerifier verifier = self.getQuorumVerifier();
+            if (electingFollowers.contains(self.getMyId()) && verifier.containsQuorum(electingFollowers)) {
+                electionFinished = true;
+                electingFollowers.notifyAll();
+            } else {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `electionFinished` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+                long cur = start;
+                long end = start + self.getInitLimit() * self.getTickTime();
+                while (!electionFinished && cur < end) {
+                    electingFollowers.wait(end - cur);
+                    cur = Time.currentElapsedTime();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `electionFinished` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+                    cur = Time.currentElapsedTime();
+                }
+                if (!electionFinished) {
+                    throw new InterruptedException("Timeout while waiting for epoch to be acked by quorum");
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastProposed` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    @Override
+    public synchronized long getLastProposed() {
+        return lastProposed;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastCommitted` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    public void commitAndActivate(long zxid, long designatedLeader) {
+        synchronized (this) {
+            lastCommitted = zxid;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `allowedToCommit` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    @Override
+    public synchronized void processAck(long sid, long zxid, SocketAddress followerAddr) {
+        if (!allowedToCommit) {
+            return; // last op committed was a leader change - from now on
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastCommitted` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+            return;
+        }
+        if (lastCommitted >= zxid) {
+            LOG.debug(
+                "proposal has already been committed, pzxid: 0x{} zxid: 0x{}",
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastCommitted` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+            LOG.debug(
+                "proposal has already been committed, pzxid: 0x{} zxid: 0x{}",
+                Long.toHexString(lastCommitted),
+                Long.toHexString(zxid));
+            // The proposal has already been committed
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `allowedToCommit` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+        if (hasCommitted && p.request != null && p.request.getHdr().getType() == OpCode.reconfig) {
+            long curZxid = zxid;
+            while (allowedToCommit && hasCommitted && p != null) {
+                curZxid++;
+                p = outstandingProposals.get(curZxid);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastCommitted` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    public void commit(long zxid) {
+        synchronized (this) {
+            lastCommitted = zxid;
+        }
+        QuorumPacket qp = new QuorumPacket(Leader.COMMIT, zxid, null, null);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastProposed` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+            LOG.debug("Proposing:: {}", request);
+
+            lastProposed = p.packet.getZxid();
+            outstandingProposals.put(lastProposed, p);
+            sendPacket(pp);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastProposed` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+
+            lastProposed = p.packet.getZxid();
+            outstandingProposals.put(lastProposed, p);
+            sendPacket(pp);
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastCommitted` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    private synchronized void startZkServer() {
+        // Update lastCommitted and Db's zxid to a value representing the new epoch
+        lastCommitted = zk.getZxid();
+        LOG.info("Have quorum of supporters, sids: [{}]; starting up and setting last processed zxid: 0x{}",
+                 newLeaderProposal.ackSetsToString(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `allowedToCommit` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+            if (designatedLeader != self.getMyId()) {
+                LOG.warn("This leader is not the designated leader, it will be initialized with allowedToCommit = false");
+                allowedToCommit = false;
+            }
+        } else {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastProposed` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+        // Queue up any outstanding requests enabling the receipt of
+        // new requests
+        if (lastProposed > lastSeenZxid) {
+            for (Proposal p : toBeApplied) {
+                if (p.packet.getZxid() <= lastSeenZxid) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastProposed` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+        }
+
+        return lastProposed;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lastProposed` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+            sendSync(r);
+        } else {
+            pendingSyncs.computeIfAbsent(lastProposed, k -> new ArrayList<>()).add(r);
+        }
+    }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -6297,30 +6835,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.jav
                 if (!quorumFormed) {
                     throw new InterruptedException("Timeout while waiting for NEWLEADER to be acked by quorum");
                 }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastProposed` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-            LOG.debug("Proposing:: {}", request);
-
-            lastProposed = p.packet.getZxid();
-            outstandingProposals.put(lastProposed, p);
-            sendPacket(pp);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastProposed` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-
-            lastProposed = p.packet.getZxid();
-            outstandingProposals.put(lastProposed, p);
-            sendPacket(pp);
-        }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -6468,315 +6982,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.jav
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `allowedToCommit` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+Non-private field `localSessionsEnabled` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSessionTracker.java`
 #### Snippet
 ```java
-    @Override
-    public synchronized void processAck(long sid, long zxid, SocketAddress followerAddr) {
-        if (!allowedToCommit) {
-            return; // last op committed was a leader change - from now on
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastCommitted` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-            return;
-        }
-        if (lastCommitted >= zxid) {
-            LOG.debug(
-                "proposal has already been committed, pzxid: 0x{} zxid: 0x{}",
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastCommitted` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-            LOG.debug(
-                "proposal has already been committed, pzxid: 0x{} zxid: 0x{}",
-                Long.toHexString(lastCommitted),
-                Long.toHexString(zxid));
-            // The proposal has already been committed
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `allowedToCommit` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-        if (hasCommitted && p.request != null && p.request.getHdr().getType() == OpCode.reconfig) {
-            long curZxid = zxid;
-            while (allowedToCommit && hasCommitted && p != null) {
-                curZxid++;
-                p = outstandingProposals.get(curZxid);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastProposed` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-            sendSync(r);
-        } else {
-            pendingSyncs.computeIfAbsent(lastProposed, k -> new ArrayList<>()).add(r);
-        }
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastCommitted` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-    private synchronized void startZkServer() {
-        // Update lastCommitted and Db's zxid to a value representing the new epoch
-        lastCommitted = zk.getZxid();
-        LOG.info("Have quorum of supporters, sids: [{}]; starting up and setting last processed zxid: 0x{}",
-                 newLeaderProposal.ackSetsToString(),
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `allowedToCommit` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-            if (designatedLeader != self.getMyId()) {
-                LOG.warn("This leader is not the designated leader, it will be initialized with allowedToCommit = false");
-                allowedToCommit = false;
-            }
-        } else {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastCommitted` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-    public void commitAndActivate(long zxid, long designatedLeader) {
-        synchronized (this) {
-            lastCommitted = zxid;
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastProposed` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-    @Override
-    public synchronized long getLastProposed() {
-        return lastProposed;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastProposed` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-
-            synchronized (this) {
-                lastProposed = zk.getZxid();
-            }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastCommitted` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-                     * */
-                    if (!tickSkip && !syncedAckSet.hasAllQuorums()
-                        && !(self.getQuorumVerifier().overrideQuorumDecision(getForwardingFollowers()) && self.getQuorumVerifier().revalidateOutstandingProp(this, new ArrayList<>(outstandingProposals.values()), lastCommitted))) {
-                        // Lost quorum of last committed and/or last proposed
-                        // config, set shutdown flag
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastCommitted` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-    public void commit(long zxid) {
-        synchronized (this) {
-            lastCommitted = zxid;
-        }
-        QuorumPacket qp = new QuorumPacket(Leader.COMMIT, zxid, null, null);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastProposed` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-        // Queue up any outstanding requests enabling the receipt of
-        // new requests
-        if (lastProposed > lastSeenZxid) {
-            for (Proposal p : toBeApplied) {
-                if (p.packet.getZxid() <= lastSeenZxid) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastProposed` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-        }
-
-        return lastProposed;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `electionFinished` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-    public void waitForEpochAck(long id, StateSummary ss) throws IOException, InterruptedException {
-        synchronized (electingFollowers) {
-            if (electionFinished) {
-                return;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `leaderStateSummary` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-            }
-            if (ss.getCurrentEpoch() != -1) {
-                if (ss.isMoreRecentThan(leaderStateSummary)) {
-                    throw new IOException("Follower is ahead of the leader, leader summary: "
-                                          + leaderStateSummary.getCurrentEpoch()
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `leaderStateSummary` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-                if (ss.isMoreRecentThan(leaderStateSummary)) {
-                    throw new IOException("Follower is ahead of the leader, leader summary: "
-                                          + leaderStateSummary.getCurrentEpoch()
-                                          + " (current epoch), "
-                                          + leaderStateSummary.getLastZxid()
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `leaderStateSummary` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-                                          + leaderStateSummary.getCurrentEpoch()
-                                          + " (current epoch), "
-                                          + leaderStateSummary.getLastZxid()
-                                          + " (last zxid)");
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `electionFinished` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-            QuorumVerifier verifier = self.getQuorumVerifier();
-            if (electingFollowers.contains(self.getMyId()) && verifier.containsQuorum(electingFollowers)) {
-                electionFinished = true;
-                electingFollowers.notifyAll();
-            } else {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `electionFinished` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-                long cur = start;
-                long end = start + self.getInitLimit() * self.getTickTime();
-                while (!electionFinished && cur < end) {
-                    electingFollowers.wait(end - cur);
-                    cur = Time.currentElapsedTime();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `electionFinished` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-                    cur = Time.currentElapsedTime();
-                }
-                if (!electionFinished) {
-                    throw new InterruptedException("Timeout while waiting for epoch to be acked by quorum");
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `ping` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
-#### Snippet
-```java
-        thread.start();
-        pinger = Executors.newSingleThreadScheduledExecutor();
-        pinger.scheduleAtFixedRate(ping, self.tickTime / 2, self.tickTime / 2, TimeUnit.MILLISECONDS);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `syncProcessor` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerZooKeeperServer.java`
-#### Snippet
-```java
-        }
-        try {
-            if (syncProcessor != null) {
-                syncProcessor.shutdown();
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `syncProcessor` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerZooKeeperServer.java`
-#### Snippet
-```java
-        try {
-            if (syncProcessor != null) {
-                syncProcessor.shutdown();
-            }
-        } catch (Exception e) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastZxid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
-#### Snippet
-```java
-        requestsReceived.set(0);
-
-        lastZxid = -1;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lastZxid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
-#### Snippet
-```java
-
-    public synchronized long getLastZxid() {
-        return lastZxid;
-    }
-
+        // to know there is a on flying createSession request because it might
+        // be upgraded by other server which owns the session before move.
+        if (localSessionsEnabled) {
+            removeLocalSession(sessionId);
+            finishedUpgrading(sessionId);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -6792,313 +7006,25 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderSess
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `sid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+Non-private field `lastZxid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
 #### Snippet
 ```java
 
-        synchronized boolean finish() {
-            LOG.debug("Calling SendWorker.finish for {}", sid);
-
-            if (!running) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `running` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            LOG.debug("Calling SendWorker.finish for {}", sid);
-
-            if (!running) {
-                /*
-                 * Avoids running finish() twice.
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `running` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-                 * Avoids running finish() twice.
-                 */
-                return running;
-            }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `running` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            }
-
-            running = false;
-            closeSocket(sock);
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sock` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-
-            running = false;
-            closeSocket(sock);
-
-            this.interrupt();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `recvWorker` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-
-            this.interrupt();
-            if (recvWorker != null) {
-                recvWorker.finish();
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `recvWorker` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            this.interrupt();
-            if (recvWorker != null) {
-                recvWorker.finish();
-            }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            }
-
-            LOG.debug("Removing entry from senderWorkerMap sid={}", sid);
-
-            senderWorkerMap.remove(sid, this);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            LOG.debug("Removing entry from senderWorkerMap sid={}", sid);
-
-            senderWorkerMap.remove(sid, this);
-            threadCnt.decrementAndGet();
-            return running;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `running` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            senderWorkerMap.remove(sid, this);
-            threadCnt.decrementAndGet();
-            return running;
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.recvWorker` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-
-        synchronized void setRecv(RecvWorker recvWorker) {
-            this.recvWorker = recvWorker;
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `dout` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-                return;
-            }
-            dout.writeInt(b.capacity());
-            dout.write(b.array());
-            dout.flush();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `dout` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            }
-            dout.writeInt(b.capacity());
-            dout.write(b.array());
-            dout.flush();
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `localSessionsEnabled` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSessionTracker.java`
-#### Snippet
-```java
-        // to know there is a on flying createSession request because it might
-        // be upgraded by other server which owns the session before move.
-        if (localSessionsEnabled) {
-            removeLocalSession(sessionId);
-            finishedUpgrading(sessionId);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `dout` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            dout.writeInt(b.capacity());
-            dout.write(b.array());
-            dout.flush();
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-         */
-        synchronized boolean finish() {
-            LOG.debug("RecvWorker.finish called. sid: {}. myId: {}", sid, QuorumCnxManager.this.mySid);
-            if (!running) {
-                /*
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `running` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-        synchronized boolean finish() {
-            LOG.debug("RecvWorker.finish called. sid: {}. myId: {}", sid, QuorumCnxManager.this.mySid);
-            if (!running) {
-                /*
-                 * Avoids running finish() twice.
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `running` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-                 * Avoids running finish() twice.
-                 */
-                return running;
-            }
-            running = false;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `running` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-                return running;
-            }
-            running = false;
-
-            this.interrupt();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `running` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-            this.interrupt();
-            threadCnt.decrementAndGet();
-            return running;
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `recvWorker` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-         */
-        synchronized RecvWorker getRecvWorker() {
-            return recvWorker;
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `proposedLeader` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
-#### Snippet
-```java
-            leader,
-            Long.toHexString(zxid),
-            proposedLeader,
-            Long.toHexString(proposedZxid));
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `proposedZxid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
-#### Snippet
-```java
-            Long.toHexString(zxid),
-            proposedLeader,
-            Long.toHexString(proposedZxid));
-
-        proposedLeader = leader;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `proposedLeader` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
-#### Snippet
-```java
-            Long.toHexString(proposedZxid));
-
-        proposedLeader = leader;
-        proposedZxid = zxid;
-        proposedEpoch = epoch;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `proposedZxid` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
-#### Snippet
-```java
-
-        proposedLeader = leader;
-        proposedZxid = zxid;
-        proposedEpoch = epoch;
+    public synchronized long getLastZxid() {
+        return lastZxid;
     }
+
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `proposedEpoch` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+Non-private field `lastZxid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
 #### Snippet
 ```java
-        proposedLeader = leader;
-        proposedZxid = zxid;
-        proposedEpoch = epoch;
+        requestsReceived.set(0);
+
+        lastZxid = -1;
     }
 
 ```
@@ -7264,6 +7190,66 @@ Non-private field `proposedLeader` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
 #### Snippet
 ```java
+            leader,
+            Long.toHexString(zxid),
+            proposedLeader,
+            Long.toHexString(proposedZxid));
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `proposedZxid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+#### Snippet
+```java
+            Long.toHexString(zxid),
+            proposedLeader,
+            Long.toHexString(proposedZxid));
+
+        proposedLeader = leader;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `proposedLeader` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+#### Snippet
+```java
+            Long.toHexString(proposedZxid));
+
+        proposedLeader = leader;
+        proposedZxid = zxid;
+        proposedEpoch = epoch;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `proposedZxid` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+#### Snippet
+```java
+
+        proposedLeader = leader;
+        proposedZxid = zxid;
+        proposedEpoch = epoch;
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `proposedEpoch` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+#### Snippet
+```java
+        proposedLeader = leader;
+        proposedZxid = zxid;
+        proposedEpoch = epoch;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `proposedLeader` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+#### Snippet
+```java
 
     public synchronized Vote getVote() {
         return new Vote(proposedLeader, proposedZxid, proposedEpoch);
@@ -7293,54 +7279,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
         return new Vote(proposedLeader, proposedZxid, proposedEpoch);
     }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logStream` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
-#### Snippet
-```java
-     */
-    public synchronized void close() throws IOException {
-        if (logStream != null) {
-            logStream.close();
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logStream` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
-#### Snippet
-```java
-    public synchronized void close() throws IOException {
-        if (logStream != null) {
-            logStream.close();
-        }
-        for (FileOutputStream log : streamsToFlush) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logFileWrite` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
-#### Snippet
-```java
-     */
-    public synchronized long getCurrentLogSize() {
-        if (logFileWrite != null) {
-            return logFileWrite.length();
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logFileWrite` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
-#### Snippet
-```java
-    public synchronized long getCurrentLogSize() {
-        if (logFileWrite != null) {
-            return logFileWrite.length();
-        }
-        return 0;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -7413,6 +7351,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
             logStream.flush();
         }
         for (FileOutputStream log : streamsToFlush) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `logFileWrite` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
+#### Snippet
+```java
+     */
+    public synchronized long getCurrentLogSize() {
+        if (logFileWrite != null) {
+            return logFileWrite.length();
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `logFileWrite` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
+#### Snippet
+```java
+    public synchronized long getCurrentLogSize() {
+        if (logFileWrite != null) {
+            return logFileWrite.length();
+        }
+        return 0;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -7656,6 +7618,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `logStream` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
+#### Snippet
+```java
+     */
+    public synchronized void close() throws IOException {
+        if (logStream != null) {
+            logStream.close();
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `logStream` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
+#### Snippet
+```java
+    public synchronized void close() throws IOException {
+        if (logStream != null) {
+            logStream.close();
+        }
+        for (FileOutputStream log : streamsToFlush) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `lastSnapshotInfo` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileSnap.java`
 #### Snippet
@@ -7668,15 +7654,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileS
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `shuttingDownLE` accessed in synchronized context
+Non-private field `adminServer` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-            LOG.warn("Restarting Leader Election");
-            getElectionAlg().shutdown();
-            shuttingDownLE = false;
-            startLeaderElection();
-        }
+        startServerCnxnFactory();
+        try {
+            adminServer.start();
+        } catch (AdminServerException e) {
+            LOG.warn("Problem starting AdminServer", e);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `leader` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+
+    protected synchronized void setLeader(Leader newLeader) {
+        leader = newLeader;
+    }
+
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -7752,75 +7750,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `observer` accessed in synchronized context
+Non-private field `shuttingDownLE` accessed in synchronized context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-
-    protected synchronized void setObserver(Observer newObserver) {
-        observer = newObserver;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `adminServer` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-        startServerCnxnFactory();
-        try {
-            adminServer.start();
-        } catch (AdminServerException e) {
-            LOG.warn("Problem starting AdminServer", e);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.electionAlg` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
+            LOG.warn("Restarting Leader Election");
+            getElectionAlg().shutdown();
+            shuttingDownLE = false;
+            startLeaderElection();
         }
-
-        this.electionAlg = createElectionAlgorithm(electionType);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `leader` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-
-    protected synchronized void setLeader(Leader newLeader) {
-        leader = newLeader;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `responder` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-
-    public synchronized void stopLeaderElection() {
-        responder.running = false;
-        responder.interrupt();
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `responder` accessed in synchronized context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-    public synchronized void stopLeaderElection() {
-        responder.running = false;
-        responder.interrupt();
-    }
-    public synchronized void startLeaderElection() {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -7855,6 +7793,42 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 
     protected synchronized void setFollower(Follower newFollower) {
         follower = newFollower;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `responder` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+
+    public synchronized void stopLeaderElection() {
+        responder.running = false;
+        responder.interrupt();
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `responder` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+    public synchronized void stopLeaderElection() {
+        responder.running = false;
+        responder.interrupt();
+    }
+    public synchronized void startLeaderElection() {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.electionAlg` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+        }
+
+        this.electionAlg = createElectionAlgorithm(electionType);
     }
 
 ```
@@ -7917,6 +7891,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
                 l.add(formatInetAddr((InetSocketAddress) follower.sock.getRemoteSocketAddress()));
             }
         }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `observer` accessed in synchronized context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+
+    protected synchronized void setObserver(Observer newObserver) {
+        observer = newObserver;
+    }
+
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -8004,6 +7990,67 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
         return electionAlg;
 ```
 
+## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'keyPassword'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java`
+#### Snippet
+```java
+    }
+
+    public static PrivateKey loadPrivateKey(String privateKey, Optional<String> keyPassword) throws IOException, GeneralSecurityException {
+        Matcher matcher = PRIVATE_KEY_PATTERN.matcher(privateKey);
+        if (!matcher.find()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'keyPassword'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java`
+#### Snippet
+```java
+    }
+
+    public static KeyStore loadKeyStore(File certificateChainFile, File privateKeyFile, Optional<String> keyPassword) throws IOException, GeneralSecurityException {
+        PrivateKey key = loadPrivateKey(privateKeyFile, keyPassword);
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'keyPassword'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java`
+#### Snippet
+```java
+    }
+
+    public static PrivateKey loadPrivateKey(File privateKeyFile, Optional<String> keyPassword) throws IOException, GeneralSecurityException {
+        String privateKey = new String(Files.readAllBytes(privateKeyFile.toPath()), US_ASCII);
+        return loadPrivateKey(privateKey, keyPassword);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'sequence'
+in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/ZNodeName.java`
+#### Snippet
+```java
+    private final String name;
+    private final String prefix;
+    private final Optional<Integer> sequence;
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'executorOptional'
+in `zookeeper-metrics-providers/zookeeper-prometheus-metrics/src/main/java/org/apache/zookeeper/metrics/prometheus/PrometheusMetricsProvider.java`
+#### Snippet
+```java
+    private int maxQueueSize = 1000000;
+    private long workerShutdownTimeoutMs = 1000;
+    private Optional<ExecutorService> executorOptional = Optional.empty();
+
+    @Override
+```
+
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
@@ -8029,90 +8076,17 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.ja
                           "Unexpected exception, retries exceeded. tries={}, remaining init limit={}, connecting to {}",
 ```
 
-## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'sequence'
-in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/ZNodeName.java`
-#### Snippet
-```java
-    private final String name;
-    private final String prefix;
-    private final Optional<Integer> sequence;
-
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'executorOptional'
-in `zookeeper-metrics-providers/zookeeper-prometheus-metrics/src/main/java/org/apache/zookeeper/metrics/prometheus/PrometheusMetricsProvider.java`
-#### Snippet
-```java
-    private int maxQueueSize = 1000000;
-    private long workerShutdownTimeoutMs = 1000;
-    private Optional<ExecutorService> executorOptional = Optional.empty();
-
-    @Override
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'keyPassword'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java`
-#### Snippet
-```java
-    }
-
-    public static PrivateKey loadPrivateKey(String privateKey, Optional<String> keyPassword) throws IOException, GeneralSecurityException {
-        Matcher matcher = PRIVATE_KEY_PATTERN.matcher(privateKey);
-        if (!matcher.find()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'keyPassword'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java`
-#### Snippet
-```java
-    }
-
-    public static PrivateKey loadPrivateKey(File privateKeyFile, Optional<String> keyPassword) throws IOException, GeneralSecurityException {
-        String privateKey = new String(Files.readAllBytes(privateKeyFile.toPath()), US_ASCII);
-        return loadPrivateKey(privateKey, keyPassword);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'keyPassword'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/util/PemReader.java`
-#### Snippet
-```java
-    }
-
-    public static KeyStore loadKeyStore(File certificateChainFile, File privateKeyFile, Optional<String> keyPassword) throws IOException, GeneralSecurityException {
-        PrivateKey key = loadPrivateKey(privateKeyFile, keyPassword);
-
-```
-
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ServerAdminClient.java`
 #### Snippet
 ```java
-            dump(host, port);
-        } else {
-            System.out.println("Unrecognized op: " + op);
-        }
-    }
-```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ServerAdminClient.java`
-#### Snippet
-```java
-            int rc = is.read(resBytes);
-            String retv = new String(resBytes, UTF_8);
-            System.out.println("rc=" + rc + " retv=" + retv);
-        } catch (IOException e) {
-            LOG.warn("Unexpected exception", e);
+    private static void usage() {
+        System.out.println("usage: java [-cp CLASSPATH] org.apache.zookeeper.ServerAdminClient "
+                           + "host port op (ruok|stat|dump|kill|gettracemask|settracemask) [arguments]");
+
 ```
 
 ### SystemOutErr
@@ -8144,11 +8118,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ServerAdminClient.java`
 #### Snippet
 ```java
-
-    private static void usage() {
-        System.out.println("usage: java [-cp CLASSPATH] org.apache.zookeeper.ServerAdminClient "
-                           + "host port op (ruok|stat|dump|kill|gettracemask|settracemask) [arguments]");
-
+            int rc = is.read(resBytes);
+            String retv = new String(resBytes, UTF_8);
+            System.out.println("rc=" + rc + " retv=" + retv);
+        } catch (IOException e) {
+            LOG.warn("Unexpected exception", e);
 ```
 
 ### SystemOutErr
@@ -8156,11 +8130,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ServerAdminClient.java`
 #### Snippet
 ```java
-            int rc = is.read(resBytes);
-            String retv = new String(resBytes, UTF_8);
-            System.out.println("rc=" + rc + " retv=" + retv);
-        } catch (IOException e) {
-            LOG.warn("Unexpected exception", e);
+            dump(host, port);
+        } else {
+            System.out.println("Unrecognized op: " + op);
+        }
+    }
 ```
 
 ### SystemOutErr
@@ -8185,6 +8159,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ServerAdminClient.java`
             System.out.println("rc=" + rc + " retv=0" + Long.toOctalString(retv));
         } catch (IOException e) {
             LOG.warn("Unexpected exception", e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ServerAdminClient.java`
+#### Snippet
+```java
+            int rc = is.read(resBytes);
+            String retv = new String(resBytes, UTF_8);
+            System.out.println("rc=" + rc + " retv=" + retv);
+        } catch (IOException e) {
+            LOG.warn("Unexpected exception", e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Version.java`
+#### Snippet
+```java
+
+    public static void printUsage() {
+        System.out.print("Usage:\tjava -cp ... org.apache.zookeeper.Version "
+                         + "[--full | --short | --revision],\n\tPrints --full version "
+                         + "info if no arg specified.");
 ```
 
 ### SystemOutErr
@@ -8225,74 +8223,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Version.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Version.java`
-#### Snippet
-```java
-
-    public static void printUsage() {
-        System.out.print("Usage:\tjava -cp ... org.apache.zookeeper.Version "
-                         + "[--full | --short | --revision],\n\tPrints --full version "
-                         + "info if no arg specified.");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 #### Snippet
 ```java
-                    }
-                } catch (NoSuchElementException e) {
-                    System.err.println("Error: no argument found for option " + opt);
-                    return false;
-                }
-```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
-#### Snippet
-```java
-        if (cl.getOption("secure") != null) {
-            System.setProperty(ZKClientConfig.SECURE_CLIENT, "true");
-            System.out.println("Secure connection is enabled");
-        }
+    public static void printMessage(String msg) {
+        System.out.println("\n" + msg);
+    }
 
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
-#### Snippet
-```java
-                    continue;
-                }
-                System.out.println(i + " - " + history.get(i));
-            }
-        } else if (cmd.equals("printwatches")) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
-#### Snippet
-```java
-        } else if (cmd.equals("printwatches")) {
-            if (args.length == 1) {
-                System.out.println("printwatches is " + (printWatches ? "on" : "off"));
-            } else {
-                printWatches = args[1].equals("on");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
-#### Snippet
-```java
-        // Below commands all need a live connection
-        if (zk == null || !zk.getState().isAlive()) {
-            System.out.println("Not connected");
-            return false;
-        }
 ```
 
 ### SystemOutErr
@@ -8344,27 +8282,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
+Uses of `System.err` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 #### Snippet
 ```java
-    public ZooKeeperMain(String[] args) throws IOException, InterruptedException {
-        cl.parseOptions(args);
-        System.out.println("Connecting to " + cl.getOption("server"));
-        connectToZK(cl.getOption("server"));
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
-#### Snippet
-```java
-
-    public static void printMessage(String msg) {
-        System.out.println("\n" + msg);
-    }
-
+                    }
+                } catch (NoSuchElementException e) {
+                    System.err.println("Error: no argument found for option " + opt);
+                    return false;
+                }
 ```
 
 ### SystemOutErr
@@ -8393,6 +8319,66 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
+#### Snippet
+```java
+                    continue;
+                }
+                System.out.println(i + " - " + history.get(i));
+            }
+        } else if (cmd.equals("printwatches")) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
+#### Snippet
+```java
+        } else if (cmd.equals("printwatches")) {
+            if (args.length == 1) {
+                System.out.println("printwatches is " + (printWatches ? "on" : "off"));
+            } else {
+                printWatches = args[1].equals("on");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
+#### Snippet
+```java
+        // Below commands all need a live connection
+        if (zk == null || !zk.getState().isAlive()) {
+            System.out.println("Not connected");
+            return false;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
+#### Snippet
+```java
+        if (cl.getOption("secure") != null) {
+            System.setProperty(ZKClientConfig.SECURE_CLIENT, "true");
+            System.out.println("Secure connection is enabled");
+        }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
+#### Snippet
+```java
+    public ZooKeeperMain(String[] args) throws IOException, InterruptedException {
+        cl.parseOptions(args);
+        System.out.println("Connecting to " + cl.getOption("server"));
+        connectToZK(cl.getOption("server"));
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/CliCommand.java`
 #### Snippet
 ```java
@@ -8416,14 +8402,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/CliCommand.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/DelQuotaCommand.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/AclParser.java`
 #### Snippet
 ```java
-        String quotaPath = Quotas.limitPath(path);
-        if (zk.exists(quotaPath, false) == null) {
-            System.out.println("Quota does not exist for " + path);
-            return true;
+                break;
+            default:
+                System.err.println("Unknown perm type: " + permString.charAt(i));
+            }
         }
 ```
 
@@ -8440,14 +8426,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/AclParser.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/AclParser.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/DelQuotaCommand.java`
 #### Snippet
 ```java
-                break;
-            default:
-                System.err.println("Unknown perm type: " + permString.charAt(i));
-            }
+        String quotaPath = Quotas.limitPath(path);
+        if (zk.exists(quotaPath, false) == null) {
+            System.out.println("Quota does not exist for " + path);
+            return true;
         }
 ```
 
@@ -8560,18 +8546,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServerMa
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
-#### Snippet
-```java
-    StringBuilder builder = new StringBuilder();
-    printZnode(dataTree, startingNode, builder, 0, maxDepth);
-    System.out.println(builder);
-  }
-
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
 #### Snippet
@@ -8592,6 +8566,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursive
     } catch (NumberFormatException e) {
       System.err.println(getUsage());
       System.exit(2);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
+#### Snippet
+```java
+    StringBuilder builder = new StringBuilder();
+    printZnode(dataTree, startingNode, builder, 0, maxDepth);
+    System.out.println(builder);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZKDatabase.java`
+#### Snippet
+```java
+                Time.currentWallTime());
+        } catch (NoNodeException e) {
+            System.out.println("configuration node missing - should not happen");
+        }
     }
 ```
 
@@ -8617,114 +8615,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/TraceFormatter.ja
             System.out.println(DateFormat.getDateTimeInstance(DateFormat.SHORT,
                     DateFormat.LONG).format(new Date(time))
                     + ": "
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-    private void printSnapshotJson(final DataTree dataTree) {
-        JsonStringEncoder encoder = JsonStringEncoder.getInstance();
-        System.out.printf(
-            "[1,0,{\"progname\":\"SnapshotFormatter.java\",\"progver\":\"0.01\",\"timestamp\":%d}",
-            System.currentTimeMillis());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-            System.currentTimeMillis());
-        printZnodeJson(dataTree, "/", encoder);
-        System.out.print("]");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-        }
-        if (args.length != i || snapshotFile == null) {
-            System.err.println("USAGE: SnapshotFormatter [-d|-json] snapshot_file");
-            System.err.println("       -d dump the data for each znode");
-            System.err.println("       -json dump znode info in json format");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-        if (args.length != i || snapshotFile == null) {
-            System.err.println("USAGE: SnapshotFormatter [-d|-json] snapshot_file");
-            System.err.println("       -d dump the data for each znode");
-            System.err.println("       -json dump znode info in json format");
-            ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-            System.err.println("USAGE: SnapshotFormatter [-d|-json] snapshot_file");
-            System.err.println("       -d dump the data for each znode");
-            System.err.println("       -json dump znode info in json format");
-            ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
-            return;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-        String error = ZKUtil.validateFileInput(snapshotFile);
-        if (null != error) {
-            System.err.println(error);
-            ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
-        }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-
-        if (dumpData && dumpJson) {
-            System.err.println("Cannot specify both data dump (-d) and json mode (-json) in same call");
-            ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-
-    private long printZnodeDetails(DataTree dataTree, boolean dumpData) {
-        System.out.println(String.format("ZNode Details (count=%d):", dataTree.getNodeCount()));
-
-        final long zxid = printZnode(dataTree, "/", dumpData);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-
-        final long zxid = printZnode(dataTree, "/", dumpData);
-        System.out.println("----");
-        return zxid;
-    }
 ```
 
 ### SystemOutErr
@@ -8804,6 +8694,30 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
 #### Snippet
 ```java
+    private void printSnapshotJson(final DataTree dataTree) {
+        JsonStringEncoder encoder = JsonStringEncoder.getInstance();
+        System.out.printf(
+            "[1,0,{\"progname\":\"SnapshotFormatter.java\",\"progver\":\"0.01\",\"timestamp\":%d}",
+            System.currentTimeMillis());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
+            System.currentTimeMillis());
+        printZnodeJson(dataTree, "/", encoder);
+        System.out.print("]");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
         DataTree.ZxidDigest targetZxidDigest = dataTree.getDigestFromLoadedSnapshot();
         if (targetZxidDigest != null) {
             System.out.println(String.format("Target zxid digest is: %s, %s",
@@ -8821,6 +8735,66 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter
         System.out.println(String.format("----%nLast zxid: 0x%s", Long.toHexString(Math.max(fileNameZxid, dtZxid))));
     }
 
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
+        }
+        if (args.length != i || snapshotFile == null) {
+            System.err.println("USAGE: SnapshotFormatter [-d|-json] snapshot_file");
+            System.err.println("       -d dump the data for each znode");
+            System.err.println("       -json dump znode info in json format");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
+        if (args.length != i || snapshotFile == null) {
+            System.err.println("USAGE: SnapshotFormatter [-d|-json] snapshot_file");
+            System.err.println("       -d dump the data for each znode");
+            System.err.println("       -json dump znode info in json format");
+            ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
+            System.err.println("USAGE: SnapshotFormatter [-d|-json] snapshot_file");
+            System.err.println("       -d dump the data for each znode");
+            System.err.println("       -json dump znode info in json format");
+            ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
+            return;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
+        String error = ZKUtil.validateFileInput(snapshotFile);
+        if (null != error) {
+            System.err.println(error);
+            ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
+        }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
+
+        if (dumpData && dumpJson) {
+            System.err.println("Cannot specify both data dump (-d) and json mode (-json) in same call");
+            ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
+        }
 ```
 
 ### SystemOutErr
@@ -8937,6 +8911,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter
 #### Snippet
 ```java
 
+    private long printZnodeDetails(DataTree dataTree, boolean dumpData) {
+        System.out.println(String.format("ZNode Details (count=%d):", dataTree.getNodeCount()));
+
+        final long zxid = printZnode(dataTree, "/", dumpData);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
+
+        final long zxid = printZnode(dataTree, "/", dumpData);
+        System.out.println("----");
+        return zxid;
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
+
     private void printSessionDetails(DataTree dataTree, Map<Long, Integer> sessions) {
         System.out.println("Session Details (sid, timeout, ephemeralCount):");
         for (Map.Entry<Long, Integer> e : sessions.entrySet()) {
@@ -8957,170 +8955,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZKDatabase.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-                Time.currentWallTime());
-        } catch (NoNodeException e) {
-            System.out.println("configuration node missing - should not happen");
+      if (leftNode != null && rightNode != null) {
+        if (debug) {
+          System.out.println(String.format("Comparing %s to %s", leftNode.label, rightNode.label));
         }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-            result = Integer.parseInt(number);
-            if (result < 3) {
-                System.err.println(COUNT_ERR_MSG);
-                printUsageThenExit();
-            }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-            }
-        } catch (NumberFormatException e) {
-            System.err.println("'" + number + "' can not be parsed to integer.");
-            printUsageThenExit();
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-
-            LOG.info(msg);
-            System.out.println(msg);
-
-            if (!f.delete()) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-
-            if (!f.delete()) {
-                System.err.println("Failed to remove " + f.getPath());
-            }
-        }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-        File file = new File(path);
-        if (!file.exists()) {
-            System.err.println("Path '" + file.getAbsolutePath() + "' does not exist. ");
-            printUsageThenExit();
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-
-    static void printUsage() {
-        System.out.println("Usage:");
-        System.out.println("PurgeTxnLog dataLogDir [snapDir] -n count");
-        System.out.println("\tdataLogDir -- path to the txn log directory");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-    static void printUsage() {
-        System.out.println("Usage:");
-        System.out.println("PurgeTxnLog dataLogDir [snapDir] -n count");
-        System.out.println("\tdataLogDir -- path to the txn log directory");
-        System.out.println("\tsnapDir -- path to the snapshot directory");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-        System.out.println("Usage:");
-        System.out.println("PurgeTxnLog dataLogDir [snapDir] -n count");
-        System.out.println("\tdataLogDir -- path to the txn log directory");
-        System.out.println("\tsnapDir -- path to the snapshot directory");
-        System.out.println("\tcount -- the number of old snaps/logs you want "
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-        System.out.println("PurgeTxnLog dataLogDir [snapDir] -n count");
-        System.out.println("\tdataLogDir -- path to the txn log directory");
-        System.out.println("\tsnapDir -- path to the snapshot directory");
-        System.out.println("\tcount -- the number of old snaps/logs you want "
-                           + "to keep, value should be greater than or equal to 3");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
-#### Snippet
-```java
-        System.out.println("\tdataLogDir -- path to the txn log directory");
-        System.out.println("\tsnapDir -- path to the snapshot directory");
-        System.out.println("\tcount -- the number of old snaps/logs you want "
-                           + "to keep, value should be greater than or equal to 3");
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/KerberosName.java`
-#### Snippet
-```java
-        int i = 0;
-        for (Rule r : rules) {
-            System.out.println(++i + " " + r);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/KerberosName.java`
-#### Snippet
-```java
-        for (String arg : args) {
-            KerberosName name = new KerberosName(arg);
-            System.out.println("Name: " + name + " to " + name.getShortName());
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-      parsedOptions = new DefaultParser().parse(options, args);
-    } catch (ParseException e) {
-      System.err.println(e.getMessage());
-      usage();
-      ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
+        int result = leftNode.label.compareTo(rightNode.label);
 ```
 
 ### SystemOutErr
@@ -9128,11 +8970,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-    boolean debug = parsedOptions.hasOption(debugOption);
-    boolean interactive = parsedOptions.hasOption(interactiveOption);
-    System.out.println("Successfully parsed options!");
-    TreeInfo leftTree = new TreeInfo(left);
-    TreeInfo rightTree = new TreeInfo(right);
+        if (result < 0) {
+          if (debug) {
+            System.out.println("left is less");
+          }
+          printLeftOnly(leftNode, byteThreshold, nodeThreshold, debug, interactive);
 ```
 
 ### SystemOutErr
@@ -9140,11 +8982,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-    TreeInfo rightTree = new TreeInfo(right);
-
-    System.out.println(leftTree.toString());
-    System.out.println(rightTree.toString());
-
+        } else if (result > 0) {
+          if (debug) {
+            System.out.println("right is less");
+          }
+          printRightOnly(rightNode, byteThreshold, nodeThreshold, debug, interactive);
 ```
 
 ### SystemOutErr
@@ -9152,47 +8994,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-
-    System.out.println(leftTree.toString());
-    System.out.println(rightTree.toString());
-
-    compareTrees(leftTree, rightTree, byteThreshold, nodeThreshold, debug, interactive);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-    if (Math.abs(rightNode.descendantSize - leftNode.descendantSize) > byteThreshold
-        || Math.abs(rightNode.descendantCount - leftNode.descendantCount) > nodeThreshold) {
-      System.out.println(String.format(
-          "Node %s found in both trees. Delta: %d bytes, %d descendants",
-          leftNode.label,
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-          rightNode.descendantCount - leftNode.descendantCount));
-    } else if (debug || interactive) {
-      System.out.println(String.format("Filtered node %s of left size %d, right size %d", leftNode.label, leftNode.descendantSize, rightNode.descendantSize));
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-    fileSnap.deserialize(dataTree, sessions, ia);
-    long end = System.nanoTime();
-    System.out.println(String.format("Deserialized snapshot in %s in %f seconds", file.getName(),
-        (((double) (end - beginning) / 1000000)) / 1000));
-    return dataTree;
+        } else {
+          if (debug) {
+            System.out.println("same");
+          }
+          printBoth(leftNode, rightNode, byteThreshold, nodeThreshold, debug, interactive);
 ```
 
 ### SystemOutErr
@@ -9205,6 +9011,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.
       System.out.println(String.format("Processed data tree in %f seconds",
           ((((double) end - beginning) / 1000000)) / 1000));
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+      builder.append(String.format("Node %s found only in left tree. ", node.label));
+      printNode(node, builder);
+      System.out.println(builder.toString());
+    } else if (debug || interactive) {
+      System.out.println(String.format("Filtered left node %s of size %d", node.label, node.descendantSize));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+      System.out.println(builder.toString());
+    } else if (debug || interactive) {
+      System.out.println(String.format("Filtered left node %s of size %d", node.label, node.descendantSize));
+    }
+  }
 ```
 
 ### SystemOutErr
@@ -9332,11 +9162,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-      if (leftNode != null && rightNode != null) {
-        if (debug) {
-          System.out.println(String.format("Comparing %s to %s", leftNode.label, rightNode.label));
-        }
-        int result = leftNode.label.compareTo(rightNode.label);
+
+  private static void printThresholdInfo(int byteThreshold, int nodeThreshold) {
+    System.out.println(String.format("Printing analysis for nodes difference larger than %d bytes or node count difference larger than %d.", byteThreshold, nodeThreshold));
+  }
+
 ```
 
 ### SystemOutErr
@@ -9344,11 +9174,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-        if (result < 0) {
-          if (debug) {
-            System.out.println("left is less");
-          }
-          printLeftOnly(leftNode, byteThreshold, nodeThreshold, debug, interactive);
+    if (Math.abs(rightNode.descendantSize - leftNode.descendantSize) > byteThreshold
+        || Math.abs(rightNode.descendantCount - leftNode.descendantCount) > nodeThreshold) {
+      System.out.println(String.format(
+          "Node %s found in both trees. Delta: %d bytes, %d descendants",
+          leftNode.label,
 ```
 
 ### SystemOutErr
@@ -9356,45 +9186,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-        } else if (result > 0) {
-          if (debug) {
-            System.out.println("right is less");
-          }
-          printRightOnly(rightNode, byteThreshold, nodeThreshold, debug, interactive);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-        } else {
-          if (debug) {
-            System.out.println("same");
-          }
-          printBoth(leftNode, rightNode, byteThreshold, nodeThreshold, debug, interactive);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-      builder.append(String.format("Node %s found only in left tree. ", node.label));
-      printNode(node, builder);
-      System.out.println(builder.toString());
+          rightNode.descendantCount - leftNode.descendantCount));
     } else if (debug || interactive) {
-      System.out.println(String.format("Filtered left node %s of size %d", node.label, node.descendantSize));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-      System.out.println(builder.toString());
-    } else if (debug || interactive) {
-      System.out.println(String.format("Filtered left node %s of size %d", node.label, node.descendantSize));
+      System.out.println(String.format("Filtered node %s of left size %d, right size %d", leftNode.label, leftNode.descendantSize, rightNode.descendantSize));
     }
   }
 ```
@@ -9405,10 +9199,10 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.
 #### Snippet
 ```java
 
-  private static void printThresholdInfo(int byteThreshold, int nodeThreshold) {
-    System.out.println(String.format("Printing analysis for nodes difference larger than %d bytes or node count difference larger than %d.", byteThreshold, nodeThreshold));
-  }
-
+    if (leftRoot == null && rightRoot == null) {
+      System.out.println(String.format("Path %s is neither found in left tree nor right tree.", path));
+    } else {
+      compareNodes(leftList, rightList, byteThreshold, nodeThreshold, debug, interactive);
 ```
 
 ### SystemOutErr
@@ -9436,15 +9230,207 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+      parsedOptions = new DefaultParser().parse(options, args);
+    } catch (ParseException e) {
+      System.err.println(e.getMessage());
+      usage();
+      ServiceUtils.requestSystemExit(ExitCode.INVALID_INVOCATION.getValue());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+    boolean debug = parsedOptions.hasOption(debugOption);
+    boolean interactive = parsedOptions.hasOption(interactiveOption);
+    System.out.println("Successfully parsed options!");
+    TreeInfo leftTree = new TreeInfo(left);
+    TreeInfo rightTree = new TreeInfo(right);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+    TreeInfo rightTree = new TreeInfo(right);
+
+    System.out.println(leftTree.toString());
+    System.out.println(rightTree.toString());
+
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
 
-    if (leftRoot == null && rightRoot == null) {
-      System.out.println(String.format("Path %s is neither found in left tree nor right tree.", path));
-    } else {
-      compareNodes(leftList, rightList, byteThreshold, nodeThreshold, debug, interactive);
+    System.out.println(leftTree.toString());
+    System.out.println(rightTree.toString());
+
+    compareTrees(leftTree, rightTree, byteThreshold, nodeThreshold, debug, interactive);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+    fileSnap.deserialize(dataTree, sessions, ia);
+    long end = System.nanoTime();
+    System.out.println(String.format("Deserialized snapshot in %s in %f seconds", file.getName(),
+        (((double) (end - beginning) / 1000000)) / 1000));
+    return dataTree;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+
+    static void printUsage() {
+        System.out.println("Usage:");
+        System.out.println("PurgeTxnLog dataLogDir [snapDir] -n count");
+        System.out.println("\tdataLogDir -- path to the txn log directory");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+    static void printUsage() {
+        System.out.println("Usage:");
+        System.out.println("PurgeTxnLog dataLogDir [snapDir] -n count");
+        System.out.println("\tdataLogDir -- path to the txn log directory");
+        System.out.println("\tsnapDir -- path to the snapshot directory");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+        System.out.println("Usage:");
+        System.out.println("PurgeTxnLog dataLogDir [snapDir] -n count");
+        System.out.println("\tdataLogDir -- path to the txn log directory");
+        System.out.println("\tsnapDir -- path to the snapshot directory");
+        System.out.println("\tcount -- the number of old snaps/logs you want "
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+        System.out.println("PurgeTxnLog dataLogDir [snapDir] -n count");
+        System.out.println("\tdataLogDir -- path to the txn log directory");
+        System.out.println("\tsnapDir -- path to the snapshot directory");
+        System.out.println("\tcount -- the number of old snaps/logs you want "
+                           + "to keep, value should be greater than or equal to 3");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+        System.out.println("\tdataLogDir -- path to the txn log directory");
+        System.out.println("\tsnapDir -- path to the snapshot directory");
+        System.out.println("\tcount -- the number of old snaps/logs you want "
+                           + "to keep, value should be greater than or equal to 3");
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+            result = Integer.parseInt(number);
+            if (result < 3) {
+                System.err.println(COUNT_ERR_MSG);
+                printUsageThenExit();
+            }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("'" + number + "' can not be parsed to integer.");
+            printUsageThenExit();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+
+            LOG.info(msg);
+            System.out.println(msg);
+
+            if (!f.delete()) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+
+            if (!f.delete()) {
+                System.err.println("Failed to remove " + f.getPath());
+            }
+        }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PurgeTxnLog.java`
+#### Snippet
+```java
+        File file = new File(path);
+        if (!file.exists()) {
+            System.err.println("Path '" + file.getAbsolutePath() + "' does not exist. ");
+            printUsageThenExit();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/KerberosName.java`
+#### Snippet
+```java
+        int i = 0;
+        for (Rule r : rules) {
+            System.out.println(++i + " " + r);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/KerberosName.java`
+#### Snippet
+```java
+        for (String arg : args) {
+            KerberosName name = new KerberosName(arg);
+            System.out.println("Name: " + name + " to " + name.getShortName());
+        }
+    }
 ```
 
 ### SystemOutErr
@@ -9457,6 +9443,54 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/DigestAuthen
             System.out.println(args[i] + "->" + generateDigest(args[i]));
         }
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
+#### Snippet
+```java
+        ExitCode rc = ExitCode.INVALID_INVOCATION;
+        if (args.length != 3) {
+            System.out.println("Usage: LogChopper zxid_to_chop_to txn_log_to_chop chopped_filename");
+            System.out.println("    this program will read the txn_log_to_chop file and copy all the transactions");
+            System.out.println("    from it up to (and including) the given zxid into chopped_filename.");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
+#### Snippet
+```java
+        if (args.length != 3) {
+            System.out.println("Usage: LogChopper zxid_to_chop_to txn_log_to_chop chopped_filename");
+            System.out.println("    this program will read the txn_log_to_chop file and copy all the transactions");
+            System.out.println("    from it up to (and including) the given zxid into chopped_filename.");
+            ServiceUtils.requestSystemExit(rc.getValue());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
+#### Snippet
+```java
+            System.out.println("Usage: LogChopper zxid_to_chop_to txn_log_to_chop chopped_filename");
+            System.out.println("    this program will read the txn_log_to_chop file and copy all the transactions");
+            System.out.println("    from it up to (and including) the given zxid into chopped_filename.");
+            ServiceUtils.requestSystemExit(rc.getValue());
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
+#### Snippet
+```java
+            }
+        } catch (Exception e) {
+            System.out.println("Got exception: " + e.getMessage());
+        }
+        ServiceUtils.requestSystemExit(rc.getValue());
 ```
 
 ### SystemOutErr
@@ -9568,54 +9602,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.j
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
-#### Snippet
-```java
-        ExitCode rc = ExitCode.INVALID_INVOCATION;
-        if (args.length != 3) {
-            System.out.println("Usage: LogChopper zxid_to_chop_to txn_log_to_chop chopped_filename");
-            System.out.println("    this program will read the txn_log_to_chop file and copy all the transactions");
-            System.out.println("    from it up to (and including) the given zxid into chopped_filename.");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
-#### Snippet
-```java
-        if (args.length != 3) {
-            System.out.println("Usage: LogChopper zxid_to_chop_to txn_log_to_chop chopped_filename");
-            System.out.println("    this program will read the txn_log_to_chop file and copy all the transactions");
-            System.out.println("    from it up to (and including) the given zxid into chopped_filename.");
-            ServiceUtils.requestSystemExit(rc.getValue());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
-#### Snippet
-```java
-            System.out.println("Usage: LogChopper zxid_to_chop_to txn_log_to_chop chopped_filename");
-            System.out.println("    this program will read the txn_log_to_chop file and copy all the transactions");
-            System.out.println("    from it up to (and including) the given zxid into chopped_filename.");
-            ServiceUtils.requestSystemExit(rc.getValue());
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
-#### Snippet
-```java
-            }
-        } catch (Exception e) {
-            System.out.println("Got exception: " + e.getMessage());
-        }
-        ServiceUtils.requestSystemExit(rc.getValue());
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerMain.java`
 #### Snippet
@@ -9692,11 +9678,59 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
 #### Snippet
 ```java
+            txnStr);
+        if (prefix != null && !"".equals(prefix.trim())) {
+            System.out.print(prefix + " - ");
+        }
+        if (txns.endsWith("\n")) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+        }
+        if (txns.endsWith("\n")) {
+            System.out.print(txns);
+        } else {
+            System.out.println(txns);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+            System.out.print(txns);
+        } else {
+            System.out.println(txns);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
     private boolean askForFix(Scanner scanner) throws TxnLogToolkitException {
         while (true) {
             System.out.print("Would you like to fix it (Yes/No/Abort) ? ");
             char answer = Character.toUpperCase(scanner.next().charAt(0));
             switch (answer) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+    private void printStat() {
+        if (recoveryMode) {
+            System.out.printf("Recovery file %s has been written with %d fixed CRC error(s)%n", recoveryLogFile, crcFixed);
+        }
+    }
 ```
 
 ### SystemOutErr
@@ -9736,18 +9770,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLo
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-            }
-        } catch (Exception e) {
-            System.out.println("Got exception: " + e.getMessage());
-        }
-    }
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
 #### Snippet
@@ -9776,119 +9798,23 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
 #### Snippet
 ```java
-    private void printStat() {
-        if (recoveryMode) {
-            System.out.printf("Recovery file %s has been written with %d fixed CRC error(s)%n", recoveryLogFile, crcFixed);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-            txnStr);
-        if (prefix != null && !"".equals(prefix.trim())) {
-            System.out.print(prefix + " - ");
-        }
-        if (txns.endsWith("\n")) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-        }
-        if (txns.endsWith("\n")) {
-            System.out.print(txns);
-        } else {
-            System.out.println(txns);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-            System.out.print(txns);
-        } else {
-            System.out.println(txns);
+            }
+        } catch (Exception e) {
+            System.out.println("Got exception: " + e.getMessage());
         }
     }
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
-#### Snippet
-```java
-    public JRecord(String name, ArrayList<JField> flist) {
-        super("struct " + name.substring(name.lastIndexOf('.') + 1),
-                name.replaceAll("\\.", "::"), getCsharpFQName(name), name, "Record", name, getCsharpFQName("IRecord"));
-        mFQName = name;
-        int idx = name.lastIndexOf('.');
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
-#### Snippet
-```java
-
-    public String getCppFQName() {
-        return mFQName.replaceAll("\\.", "::");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
-#### Snippet
-```java
-    public void genJavaCode(File outputDirectory) throws IOException {
-        String pkg = getJavaPackage();
-        String pkgpath = pkg.replaceAll("\\.", "/");
-        File pkgdir = new File(outputDirectory, pkgpath);
-        if (!pkgdir.exists()) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
-#### Snippet
-```java
-
-    public String getCppNameSpace() {
-        return mModule.replaceAll("\\.", "::");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
 #### Snippet
 ```java
-    public void genCppCode(FileWriter hh, FileWriter cc)
-            throws IOException {
-        String[] ns = getCppNameSpace().split("::");
-        for (int i = 0; i < ns.length; i++) {
-            hh.write("namespace " + ns[i] + " {\n");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-
-            // jute toString is horrible, remove unnecessary newlines
-            return sb.toString().replaceAll("\r*\n+", " ");
+            return null;
         }
+        return principalConfig.split("[/]");
+    }
 
 ```
 
@@ -9909,23 +9835,23 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
+
+            // jute toString is horrible, remove unnecessary newlines
+            return sb.toString().replaceAll("\r*\n+", " ");
+        }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
      */
     private static String makeThreadName(String suffix) {
         String name = Thread.currentThread().getName().replaceAll("-EventThread", "");
         return name + suffix;
     }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
-#### Snippet
-```java
-            return null;
-        }
-        return principalConfig.split("[/]");
-    }
-
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -10012,19 +9938,67 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/embedded/ZooKeepe
         }
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `KeeperException()` of an abstract class should not be declared 'public'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
 #### Snippet
 ```java
-    private String path;
 
-    public KeeperException(Code code) {
-        this.code = code;
+    public String getCppFQName() {
+        return mFQName.replaceAll("\\.", "::");
     }
+
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+#### Snippet
+```java
+
+    public String getCppNameSpace() {
+        return mModule.replaceAll("\\.", "::");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+#### Snippet
+```java
+    public void genJavaCode(File outputDirectory) throws IOException {
+        String pkg = getJavaPackage();
+        String pkgpath = pkg.replaceAll("\\.", "/");
+        File pkgdir = new File(outputDirectory, pkgpath);
+        if (!pkgdir.exists()) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+#### Snippet
+```java
+    public void genCppCode(FileWriter hh, FileWriter cc)
+            throws IOException {
+        String[] ns = getCppNameSpace().split("::");
+        for (int i = 0; i < ns.length; i++) {
+            hh.write("namespace " + ns[i] + " {\n");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+#### Snippet
+```java
+    public JRecord(String name, ArrayList<JField> flist) {
+        super("struct " + name.substring(name.lastIndexOf('.') + 1),
+                name.replaceAll("\\.", "::"), getCsharpFQName(name), name, "Record", name, getCsharpFQName("IRecord"));
+        mFQName = name;
+        int idx = name.lastIndexOf('.');
+```
+
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `CliCommand()` of an abstract class should not be declared 'public'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/CliCommand.java`
@@ -10038,14 +10012,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/CliCommand.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `X509Util()` of an abstract class should not be declared 'public'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+Constructor `KeeperException()` of an abstract class should not be declared 'public'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
 ```java
-    private FileChangeWatcher trustStoreFileWatcher;
+    private String path;
 
-    public X509Util() {
-        this(null);
+    public KeeperException(Code code) {
+        this.code = code;
     }
 ```
 
@@ -10059,6 +10033,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
     public X509Util(ZKConfig zkConfig) {
         this.zkConfig = zkConfig;
         keyStoreFileWatcher = trustStoreFileWatcher = null;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `X509Util()` of an abstract class should not be declared 'public'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private FileChangeWatcher trustStoreFileWatcher;
+
+    public X509Util() {
+        this(null);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -10184,18 +10170,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/jmx/ManagedUtil.java`
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `p`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.java`
-#### Snippet
-```java
-                break;
-            }
-            p = outgoingQueue.remove();
-        }
-        // TODO: maybe we should flush in the loop above every N packets/bytes?
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `buffer`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/JLineZNodeCompleter.java`
 #### Snippet
@@ -10205,6 +10179,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/JLineZNodeCompleter.java
         buffer = buffer.substring(0, cursor);
         String token = "";
         if (!buffer.endsWith(" ")) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `p`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.java`
+#### Snippet
+```java
+                break;
+            }
+            p = outgoingQueue.remove();
+        }
+        // TODO: maybe we should flush in the loop above every N packets/bytes?
 ```
 
 ### AssignmentToMethodParameter
@@ -10268,18 +10254,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/IOUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `keyStorePassword`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-        String keyStoreTypeProp) throws KeyManagerException {
-        if (keyStorePassword == null) {
-            keyStorePassword = "";
-        }
-        try {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `trustStorePassword`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
 #### Snippet
@@ -10287,6 +10261,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
         final boolean clientHostnameVerificationEnabled) throws TrustManagerException {
         if (trustStorePassword == null) {
             trustStorePassword = "";
+        }
+        try {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `keyStorePassword`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+        String keyStoreTypeProp) throws KeyManagerException {
+        if (keyStorePassword == null) {
+            keyStorePassword = "";
         }
         try {
 ```
@@ -10304,18 +10290,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DigestCalculator.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ByteBufferInputStream.java`
-#### Snippet
-```java
-        }
-        if (len > bb.remaining()) {
-            len = bb.remaining();
-        }
-        bb.get(b, off, len);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `n`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ByteBufferInputStream.java`
 #### Snippet
@@ -10328,15 +10302,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ByteBufferInputSt
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `passwd`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+Assignment to method parameter `len`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ByteBufferInputStream.java`
 #### Snippet
 ```java
-        if (passwd == null) {
-            // Possible since it's just deserialized from a packet on the wire.
-            passwd = new byte[0];
         }
-        long sessionId = sessionTracker.createSession(timeout);
+        if (len > bb.remaining()) {
+            len = bb.remaining();
+        }
+        bb.get(b, off, len);
 ```
 
 ### AssignmentToMethodParameter
@@ -10352,15 +10326,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/DigestAuthen
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `maxInProcessingDeadWatchers`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatcherCleaner.java`
+Assignment to method parameter `passwd`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
 #### Snippet
 ```java
-        int suggestedMaxInProcessingThreshold = watcherCleanThreshold * watcherCleanThreadsNum;
-        if (maxInProcessingDeadWatchers > 0 && maxInProcessingDeadWatchers < suggestedMaxInProcessingThreshold) {
-            maxInProcessingDeadWatchers = suggestedMaxInProcessingThreshold;
-            LOG.info(
-                "The maxInProcessingDeadWatchers config is smaller than the suggested one, change it to use {}",
+        if (passwd == null) {
+            // Possible since it's just deserialized from a packet on the wire.
+            passwd = new byte[0];
+        }
+        long sessionId = sessionTracker.createSession(timeout);
 ```
 
 ### AssignmentToMethodParameter
@@ -10388,27 +10362,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/RequestPathM
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+Assignment to method parameter `maxInProcessingDeadWatchers`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatcherCleaner.java`
 #### Snippet
 ```java
-    public void setCversionPzxid(String path, int newCversion, long zxid) throws KeeperException.NoNodeException {
-        if (path.endsWith("/")) {
-            path = path.substring(0, path.length() - 1);
-        }
-        DataNode node = nodes.get(path);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `newCversion`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-        synchronized (node) {
-            if (newCversion == -1) {
-                newCversion = node.stat.getCversion() + 1;
-            }
-            if (newCversion > node.stat.getCversion()) {
+        int suggestedMaxInProcessingThreshold = watcherCleanThreshold * watcherCleanThreadsNum;
+        if (maxInProcessingDeadWatchers > 0 && maxInProcessingDeadWatchers < suggestedMaxInProcessingThreshold) {
+            maxInProcessingDeadWatchers = suggestedMaxInProcessingThreshold;
+            LOG.info(
+                "The maxInProcessingDeadWatchers config is smaller than the suggested one, change it to use {}",
 ```
 
 ### AssignmentToMethodParameter
@@ -10433,6 +10395,54 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
                 parentCVersion++;
             }
             // There is possibility that we'll replay txns for a node which
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+    public void setCversionPzxid(String path, int newCversion, long zxid) throws KeeperException.NoNodeException {
+        if (path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+        DataNode node = nodes.get(path);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `newCversion`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        synchronized (node) {
+            if (newCversion == -1) {
+                newCversion = node.stat.getCversion() + 1;
+            }
+            if (newCversion > node.stat.getCversion()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `voteSet`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+#### Snippet
+```java
+        if (n.electionEpoch == logicalclock.get()) {
+            recvset.put(n.sid, new Vote(n.leader, n.zxid, n.electionEpoch, n.peerEpoch, n.state));
+            voteSet = getVoteTracker(recvset, new Vote(n.version, n.leader, n.zxid, n.electionEpoch, n.peerEpoch, n.state));
+            if (voteSet.hasAllQuorums() && checkLeader(recvset, n.leader, n.electionEpoch)) {
+                setPeerState(n.leader, voteSet);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `voteSet`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+#### Snippet
+```java
+         */
+        outofelection.put(n.sid, new Vote(n.version, n.leader, n.zxid, n.electionEpoch, n.peerEpoch, n.state));
+        voteSet = getVoteTracker(outofelection, new Vote(n.version, n.leader, n.zxid, n.electionEpoch, n.peerEpoch, n.state));
+
+        if (voteSet.hasAllQuorums() && checkLeader(outofelection, n.leader, n.electionEpoch)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -10484,30 +10494,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileP
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `voteSet`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
-#### Snippet
-```java
-        if (n.electionEpoch == logicalclock.get()) {
-            recvset.put(n.sid, new Vote(n.leader, n.zxid, n.electionEpoch, n.peerEpoch, n.state));
-            voteSet = getVoteTracker(recvset, new Vote(n.version, n.leader, n.zxid, n.electionEpoch, n.peerEpoch, n.state));
-            if (voteSet.hasAllQuorums() && checkLeader(recvset, n.leader, n.electionEpoch)) {
-                setPeerState(n.leader, voteSet);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `voteSet`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
-#### Snippet
-```java
-         */
-        outofelection.put(n.sid, new Vote(n.version, n.leader, n.zxid, n.electionEpoch, n.peerEpoch, n.state));
-        voteSet = getVoteTracker(outofelection, new Vote(n.version, n.leader, n.zxid, n.electionEpoch, n.peerEpoch, n.state));
-
-        if (voteSet.hasAllQuorums() && checkLeader(outofelection, n.leader, n.electionEpoch)) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `quorumConfig`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
@@ -10533,6 +10519,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.ja
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `pendingQueue`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNIO.java`
+#### Snippet
+```java
+                        && p.requestHeader.getType() != OpCode.ping
+                        && p.requestHeader.getType() != OpCode.auth) {
+                        synchronized (pendingQueue) {
+                            pendingQueue.add(p);
+                        }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on method parameter `p`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
@@ -10554,18 +10552,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
         synchronized (packet) {
             if (requestTimeout > 0) {
                 // Wait for request completion with timeout
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `pendingQueue`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNIO.java`
-#### Snippet
-```java
-                        && p.requestHeader.getType() != OpCode.ping
-                        && p.requestHeader.getType() != OpCode.auth) {
-                        synchronized (pendingQueue) {
-                            pendingQueue.add(p);
-                        }
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -10617,18 +10603,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `login`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperSaslServer.java`
-#### Snippet
-```java
-
-    private SaslServer createSaslServer(final Login login) {
-        synchronized (login) {
-            Subject subject = login.getSubject();
-            return SecurityUtils.createSaslServer(subject, "zookeeper", "zk-sasl-md5", login.callbackHandler, LOG);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `n`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
 #### Snippet
@@ -10638,6 +10612,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProces
                     synchronized (n) {
                         children = n.getChildren();
                     }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `login`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperSaslServer.java`
+#### Snippet
+```java
+
+    private SaslServer createSaslServer(final Login login) {
+        synchronized (login) {
+            Subject subject = login.getSubject();
+            return SecurityUtils.createSaslServer(subject, "zookeeper", "zk-sasl-md5", login.callbackHandler, LOG);
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -10705,18 +10691,6 @@ Synchronization on local variable `watchers`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchManagerOptimized.java`
 #### Snippet
 ```java
-            BitHashSet watchers = e.getValue();
-            // avoid race condition with add/remove
-            synchronized (watchers) {
-                for (Integer wbit : watchers) {
-                    Watcher w = watcherBitIdMap.get(wbit);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `watchers`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchManagerOptimized.java`
-#### Snippet
-```java
                 pwriter.println(e.getKey());
                 BitHashSet watchers = e.getValue();
                 synchronized (watchers) {
@@ -10749,15 +10723,87 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchManage
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `watchers`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchManagerOptimized.java`
+#### Snippet
+```java
+            BitHashSet watchers = e.getValue();
+            // avoid race condition with add/remove
+            synchronized (watchers) {
+                for (Integer wbit : watchers) {
+                    Watcher w = watcherBitIdMap.get(wbit);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `tmp`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+            Set<String> tmp = entry.getValue();
+            if (tmp != null) {
+                synchronized (tmp) {
+                    for (String path : tmp) {
+                        pwriter.println("\t" + path);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `n`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+            throw new KeeperException.NoNodeException();
+        }
+        synchronized (n) {
+            n.copyStat(stat);
+        }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `node`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-        String[] children = null;
-        DataNode nodeCopy;
-        synchronized (node) {
-            StatPersisted statCopy = new StatPersisted();
-            copyStatPersisted(node.stat, statCopy);
+            ia.readRecord(node, "node");
+            nodes.put(path, node);
+            synchronized (node) {
+                aclCache.addUsage(node.acl);
+            }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `parent`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+            throw new KeeperException.NoNodeException();
+        }
+        synchronized (parent) {
+            // Add the ACL to ACL cache first, to avoid the ACL not being
+            // created race condition during fuzzy snapshot sync.
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `list`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+                    ephemerals.put(ephemeralOwner, list);
+                }
+                synchronized (list) {
+                    list.add(path);
+                }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `n`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        }
+        byte[] lastdata = null;
+        synchronized (n) {
+            lastdata = n.data;
+            nodes.preChange(path, n);
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -10770,6 +10816,126 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
         synchronized (retv) {
             cloned = (HashSet<String>) retv.clone();
         }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `value`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        for (Map.Entry<String, DataNode> entry : nodes.entrySet()) {
+            DataNode value = entry.getValue();
+            synchronized (value) {
+                result += getNodeSize(entry.getKey(), value.data);
+            }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `n`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+            throw new KeeperException.NoNodeException();
+        }
+        synchronized (n) {
+            if (stat != null) {
+                n.copyStat(stat);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `n`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+            throw new KeeperException.NoNodeException();
+        }
+        synchronized (n) {
+            aclCache.removeUsage(n.acl);
+            nodes.preChange(path, n);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `node`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        String[] children = null;
+        int len = 0;
+        synchronized (node) {
+            Set<String> childs = node.getChildren();
+            children = childs.toArray(new String[childs.size()]);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `node`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        String[] children = null;
+        DataNode nodeCopy;
+        synchronized (node) {
+            StatPersisted statCopy = new StatPersisted();
+            copyStatPersisted(node.stat, statCopy);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `node`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+
+    public List<ACL> getACL(DataNode node) {
+        synchronized (node) {
+            return aclCache.convertLong(node.acl);
+        }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `statNode`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+            return;
+        }
+        synchronized (statNode) {
+            updatedStat = new StatsTrack(statNode.data);
+            updatedStat.setCount(updatedStat.getCount() + countDiff);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `node`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+            throw new KeeperException.NoNodeException(path);
+        }
+        synchronized (node) {
+            if (newCversion == -1) {
+                newCversion = node.stat.getCversion() + 1;
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `n`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        }
+        List<String> children;
+        synchronized (n) {
+            if (stat != null) {
+                n.copyStat(stat);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `node`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        DataNode node = getNode(path);
+        String[] children = null;
+        synchronized (node) {
+            Set<String> childs = node.getChildren();
+            children = childs.toArray(new String[childs.size()]);
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -10837,59 +11003,11 @@ Synchronization on local variable `node`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-        String[] children = null;
-        int len = 0;
-        synchronized (node) {
-            Set<String> childs = node.getChildren();
-            children = childs.toArray(new String[childs.size()]);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `node`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
             return;
         }
         synchronized (node) {
             nodes.preChange(statPath, node);
             node.data = strack.getStatsBytes();
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `statNode`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            return;
-        }
-        synchronized (statNode) {
-            updatedStat = new StatsTrack(statNode.data);
-            updatedStat.setCount(updatedStat.getCount() + countDiff);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `n`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-        }
-        List<String> children;
-        synchronized (n) {
-            if (stat != null) {
-                n.copyStat(stat);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `value`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-        for (Map.Entry<String, DataNode> entry : nodes.entrySet()) {
-            DataNode value = entry.getValue();
-            synchronized (value) {
-                result += getNodeSize(entry.getKey(), value.data);
-            }
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -10902,138 +11020,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
         synchronized (n) {
             n.copyStat(stat);
             if (watcher != null) {
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `node`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            throw new KeeperException.NoNodeException(path);
-        }
-        synchronized (node) {
-            if (newCversion == -1) {
-                newCversion = node.stat.getCversion() + 1;
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `n`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-        }
-        byte[] lastdata = null;
-        synchronized (n) {
-            lastdata = n.data;
-            nodes.preChange(path, n);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `node`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-        DataNode node = getNode(path);
-        String[] children = null;
-        synchronized (node) {
-            Set<String> childs = node.getChildren();
-            children = childs.toArray(new String[childs.size()]);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `tmp`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            Set<String> tmp = entry.getValue();
-            if (tmp != null) {
-                synchronized (tmp) {
-                    for (String path : tmp) {
-                        pwriter.println("\t" + path);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `node`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            ia.readRecord(node, "node");
-            nodes.put(path, node);
-            synchronized (node) {
-                aclCache.addUsage(node.acl);
-            }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `n`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            throw new KeeperException.NoNodeException();
-        }
-        synchronized (n) {
-            if (stat != null) {
-                n.copyStat(stat);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `n`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            throw new KeeperException.NoNodeException();
-        }
-        synchronized (n) {
-            aclCache.removeUsage(n.acl);
-            nodes.preChange(path, n);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `n`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            throw new KeeperException.NoNodeException();
-        }
-        synchronized (n) {
-            n.copyStat(stat);
-        }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `parent`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-            throw new KeeperException.NoNodeException();
-        }
-        synchronized (parent) {
-            // Add the ACL to ACL cache first, to avoid the ACL not being
-            // created race condition during fuzzy snapshot sync.
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `list`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-                    ephemerals.put(ephemeralOwner, list);
-                }
-                synchronized (list) {
-                    list.add(path);
-                }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `node`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-
-    public List<ACL> getACL(DataNode node) {
-        synchronized (node) {
-            return aclCache.convertLong(node.acl);
-        }
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -11063,90 +11049,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `zookeeper-jute/src/main/java/org/apache/jute/BinaryInputArchive.java`
-#### Snippet
-```java
-        int len = readInt(tag);
-        if (len == -1) {
-            return null;
-        }
-        return new BinaryIndex(len);
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-jute/src/main/java/org/apache/jute/BinaryInputArchive.java`
-#### Snippet
-```java
-        int len = readInt(tag);
-        if (len == -1) {
-            return null;
-        }
-        checkLength(len);
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-jute/src/main/java/org/apache/jute/BinaryInputArchive.java`
-#### Snippet
-```java
-        int len = in.readInt();
-        if (len == -1) {
-            return null;
-        }
-        checkLength(len);
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-jute/src/main/java/org/apache/jute/RecordWriter.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-jute/src/main/java/org/apache/jute/RecordReader.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/ZNodeName.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.warn("Number format exception for {}", seq, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/OpResult.java`
 #### Snippet
 ```java
@@ -11155,18 +11057,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/OpResult.java`
             return data == null ? null : Arrays.copyOf(data, data.length);
         }
         public Stat getStat() {
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKUtil.java`
-#### Snippet
-```java
-            return "'" + file.getAbsolutePath() + "' is a directory. it must be a file.";
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -11183,12 +11073,12 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/SaslServerPrincipal.java
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKUtil.java`
 #### Snippet
 ```java
-    SocketAddress getLocalSocketAddress() {
-        Channel copiedChanRef = channel;
-        return (copiedChanRef == null) ? null : copiedChanRef.localAddress();
+            return "'" + file.getAbsolutePath() + "' is a directory. it must be a file.";
+        }
+        return null;
     }
 
 ```
@@ -11201,6 +11091,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.ja
     SocketAddress getRemoteSocketAddress() {
         Channel copiedChanRef = channel;
         return (copiedChanRef == null) ? null : copiedChanRef.remoteAddress();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.java`
+#### Snippet
+```java
+    SocketAddress getLocalSocketAddress() {
+        Channel copiedChanRef = channel;
+        return (copiedChanRef == null) ? null : copiedChanRef.localAddress();
     }
 
 ```
@@ -11294,6 +11196,18 @@ Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
 #### Snippet
 ```java
+            } catch (Exception e) {
+                LOG.error("Exception while trying to create SASL client", e);
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
+#### Snippet
+```java
     private static String[] getComponents(String principalConfig) {
         if (principalConfig == null) {
             return null;
@@ -11303,14 +11217,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
 #### Snippet
 ```java
-            } catch (Exception e) {
-                LOG.error("Exception while trying to create SASL client", e);
-                return null;
-            }
+            return login.getLoginContextName();
         }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -11332,18 +11246,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClie
 ```java
         }
         // No event ready to emit yet.
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
-#### Snippet
-```java
-            return login.getLoginContextName();
-        }
         return null;
     }
 
@@ -11375,18 +11277,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private FileChangeWatcher newFileChangeWatcher(String fileLocation) throws IOException {
-        if (fileLocation == null || fileLocation.isEmpty()) {
-            return null;
-        }
-        final Path filePath = Paths.get(fileLocation).toAbsolutePath();
-```
-
-### ReturnNull
-Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/KeyStoreFileType.java`
 #### Snippet
 ```java
@@ -11395,6 +11285,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/KeyStoreFileType.
             return null;
         }
         return KeyStoreFileType.valueOf(propertyValue.toUpperCase());
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private FileChangeWatcher newFileChangeWatcher(String fileLocation) throws IOException {
+        if (fileLocation == null || fileLocation.isEmpty()) {
+            return null;
+        }
+        final Path filePath = Paths.get(fileLocation).toAbsolutePath();
 ```
 
 ### ReturnNull
@@ -11411,6 +11313,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/StringUtils.java`
 
 ### ReturnNull
 Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Shell.java`
+#### Snippet
+```java
+        // ulimit isn't supported on Windows
+        if (WINDOWS) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
 #### Snippet
 ```java
@@ -11419,42 +11345,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvide
             return null;
         }
         return serverAddresses.get(i);
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvider.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/Request.java`
-#### Snippet
-```java
-            return request.readBytes();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/Request.java`
-#### Snippet
-```java
-            return readRequestRecord(constructor);
-        } catch (IOException e) {
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -11483,14 +11373,26 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/ZKHostnameVerifie
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Shell.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/Request.java`
 #### Snippet
 ```java
-        // ulimit isn't supported on Windows
-        if (WINDOWS) {
+            return request.readBytes();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/Request.java`
+#### Snippet
+```java
+            return readRequestRecord(constructor);
+        } catch (IOException e) {
             return null;
         }
-
+    }
 ```
 
 ### ReturnNull
@@ -11531,18 +11433,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxn.jav
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxnFactory.java`
-#### Snippet
-```java
-
-    public static ByteBuffer getDirectBuffer() {
-        return directBufferBytes > 0 ? directBuffer.get() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ConnectionBean.java`
 #### Snippet
 ```java
@@ -11567,6 +11457,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ConnectionBean.ja
 
 ### ReturnNull
 Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxnFactory.java`
+#### Snippet
+```java
+
+    public static ByteBuffer getDirectBuffer() {
+        return directBufferBytes > 0 ? directBuffer.get() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DumbWatcher.java`
+#### Snippet
+```java
+    @Override
+    protected ServerStats serverStats() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DumbWatcher.java`
 #### Snippet
 ```java
@@ -11584,18 +11498,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DumbWatcher.java`
 ```java
     @Override
     public InetSocketAddress getRemoteSocketAddress() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DumbWatcher.java`
-#### Snippet
-```java
-    @Override
-    protected ServerStats serverStats() {
         return null;
     }
 
@@ -11699,14 +11601,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedACLCache.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NettyServerCnxn.java`
 #### Snippet
 ```java
-    public synchronized List<ACL> convertLong(Long longVal) {
-        if (longVal == null) {
+    public Certificate[] getClientCertificateChain() {
+        if (clientChain == null) {
             return null;
         }
-        if (longVal == OPEN_UNSAFE_ACL_ID) {
+        return Arrays.copyOf(clientChain, clientChain.length);
 ```
 
 ### ReturnNull
@@ -11723,14 +11625,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NettyServerCnxn.j
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NettyServerCnxn.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedACLCache.java`
 #### Snippet
 ```java
-    public Certificate[] getClientCertificateChain() {
-        if (clientChain == null) {
+    public synchronized List<ACL> convertLong(Long longVal) {
+        if (longVal == null) {
             return null;
         }
-        return Arrays.copyOf(clientChain, clientChain.length);
+        if (longVal == OPEN_UNSAFE_ACL_ID) {
 ```
 
 ### ReturnNull
@@ -11755,30 +11657,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/WrappedAuthe
             return null;
         }
         return (provider instanceof ServerAuthenticationProvider)
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-
-    public ResponseCache getReadResponseCache() {
-        return isResponseCachingEnabled ? readResponseCache : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-
-    public ResponseCache getGetChildrenResponseCache() {
-        return isResponseCachingEnabled ? getChildrenResponseCache : null;
-    }
-
 ```
 
 ### ReturnNull
@@ -11819,18 +11697,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/IPAuthentica
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/BitMap.java`
-#### Snippet
-```java
-            T value = bit2Value.get(bit);
-            if (value == null) {
-                return null;
-            }
-            value2Bit.remove(value);
-```
-
-### ReturnNull
-Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/OSMXBean.java`
 #### Snippet
 ```java
@@ -11843,14 +11709,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/OSMXBean.jav
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/AuthUtil.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/BitMap.java`
 #### Snippet
 ```java
-    public static String getUser(Id id) {
-        AuthenticationProvider provider = ProviderRegistry.getProvider(id.getScheme());
-        return provider == null ? null : provider.getUserName(id.getId());
-    }
-
+            T value = bit2Value.get(bit);
+            if (value == null) {
+                return null;
+            }
+            value2Bit.remove(value);
 ```
 
 ### ReturnNull
@@ -11879,6 +11745,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/AuthUtil.jav
 
 ### ReturnNull
 Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/AuthUtil.java`
+#### Snippet
+```java
+    public static String getUser(Id id) {
+        AuthenticationProvider provider = ProviderRegistry.getProvider(id.getScheme());
+        return provider == null ? null : provider.getUserName(id.getId());
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ConfigUtils.java`
 #### Snippet
 ```java
@@ -11887,42 +11765,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ConfigUtils.
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/CircularBuffer.java`
-#### Snippet
-```java
-        if (newSize < 0) {
-            numberOfElements.incrementAndGet();
-            return null;
-        }
-        T polled = buffer[oldest];
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/CircularBuffer.java`
-#### Snippet
-```java
-    public synchronized T peek() {
-        if (numberOfElements.get() <= 0) {
-            return null;
-        }
-        return buffer[oldest];
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/admin/PostCommand.java`
-#### Snippet
-```java
-    @Override
-    public CommandResponse runGet(ZooKeeperServer zkServer, Map<String, String> kwargs) {
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -11939,6 +11781,66 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/SerializeUti
 
 ### ReturnNull
 Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/CircularBuffer.java`
+#### Snippet
+```java
+    public synchronized T peek() {
+        if (numberOfElements.get() <= 0) {
+            return null;
+        }
+        return buffer[oldest];
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/CircularBuffer.java`
+#### Snippet
+```java
+        if (newSize < 0) {
+            numberOfElements.incrementAndGet();
+            return null;
+        }
+        T polled = buffer[oldest];
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/admin/PostCommand.java`
+#### Snippet
+```java
+    @Override
+    public CommandResponse runGet(ZooKeeperServer zkServer, Map<String, String> kwargs) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+
+    public ResponseCache getReadResponseCache() {
+        return isResponseCachingEnabled ? readResponseCache : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+
+    public ResponseCache getGetChildrenResponseCache() {
+        return isResponseCachingEnabled ? getChildrenResponseCache : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/admin/GetCommand.java`
 #### Snippet
 ```java
@@ -11951,11 +11853,11 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/admin/GetCommand.
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchesPathReport.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchesReport.java`
 #### Snippet
 ```java
-    public Set<Long> getSessions(String path) {
-        Set<Long> s = path2Ids.get(path);
+    public Set<String> getPaths(long sessionId) {
+        Set<String> s = id2paths.get(sessionId);
         return s != null ? Collections.unmodifiableSet(s) : null;
     }
 
@@ -11963,11 +11865,11 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchesPath
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchesReport.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchesPathReport.java`
 #### Snippet
 ```java
-    public Set<String> getPaths(long sessionId) {
-        Set<String> s = id2paths.get(sessionId);
+    public Set<Long> getSessions(String path) {
+        Set<Long> s = path2Ids.get(path);
         return s != null ? Collections.unmodifiableSet(s) : null;
     }
 
@@ -12006,6 +11908,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/watch/WatchManage
         if (watchers == null) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooKeeperServer.java`
+#### Snippet
+```java
+            final Leader leader = getLeader();
+            if (leader == null) {
+                return null;
+            }
+            return supplier.apply(leader);
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -12059,26 +11985,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooK
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
 
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooKeeperServer.java`
-#### Snippet
-```java
-            final Leader leader = getLeader();
-            if (leader == null) {
-                return null;
-            }
-            return supplier.apply(leader);
+        if (rootZookeeper.equals(lastPrefix) || lastPrefix.isEmpty()) {
+            return null;
+        } else {
+            return lastPrefix;
 ```
 
 ### ReturnNull
@@ -12091,18 +12005,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.j
         return om == null ? null : om.getNumActiveObservers();
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-
-        if (rootZookeeper.equals(lastPrefix) || lastPrefix.isEmpty()) {
-            return null;
-        } else {
-            return lastPrefix;
 ```
 
 ### ReturnNull
@@ -12131,7 +12033,7 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
 #### Snippet
 ```java
     @Override
@@ -12155,7 +12057,7 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMa
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
     @Override
@@ -12174,30 +12076,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/Q
     default String getOraclePath() {
         return null;
     };
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/Util.java`
-#### Snippet
-```java
-            if (ia.readByte("EOF") != 'B') {
-                LOG.error("Last transaction was partial.");
-                return null;
-            }
-            return bytes;
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/Util.java`
-#### Snippet
-```java
-        } catch (EOFException e) {
-        }
-        return null;
-    }
 
 ```
 
@@ -12239,6 +12117,138 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
 
 ### ReturnNull
 Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/Util.java`
+#### Snippet
+```java
+            if (ia.readByte("EOF") != 'B') {
+                LOG.error("Last transaction was partial.");
+                return null;
+            }
+            return bytes;
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/Util.java`
+#### Snippet
+```java
+        } catch (EOFException e) {
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-jute/src/main/java/org/apache/jute/RecordReader.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-jute/src/main/java/org/apache/jute/RecordWriter.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-jute/src/main/java/org/apache/jute/BinaryInputArchive.java`
+#### Snippet
+```java
+        int len = in.readInt();
+        if (len == -1) {
+            return null;
+        }
+        checkLength(len);
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-jute/src/main/java/org/apache/jute/BinaryInputArchive.java`
+#### Snippet
+```java
+        int len = readInt(tag);
+        if (len == -1) {
+            return null;
+        }
+        return new BinaryIndex(len);
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-jute/src/main/java/org/apache/jute/BinaryInputArchive.java`
+#### Snippet
+```java
+        int len = readInt(tag);
+        if (len == -1) {
+            return null;
+        }
+        checkLength(len);
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileSnap.java`
+#### Snippet
+```java
+        List<File> files = findNValidSnapshots(1);
+        if (files.size() == 0) {
+            return null;
+        }
+        return files.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/ZNodeName.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            LOG.warn("Number format exception for {}", seq, e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-recipes/zookeeper-recipes-queue/src/main/java/org/apache/zookeeper/recipes/queue/DistributedQueue.java`
+#### Snippet
+```java
+            return element();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `zookeeper-recipes/zookeeper-recipes-queue/src/main/java/org/apache/zookeeper/recipes/queue/DistributedQueue.java`
 #### Snippet
 ```java
@@ -12275,26 +12285,14 @@ in `zookeeper-recipes/zookeeper-recipes-queue/src/main/java/org/apache/zookeeper
 
 ### ReturnNull
 Return of `null`
-in `zookeeper-recipes/zookeeper-recipes-queue/src/main/java/org/apache/zookeeper/recipes/queue/DistributedQueue.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-            return element();
-        } catch (NoSuchElementException e) {
+        if (configFilename == null) {
+            LOG.warn("configFilename is null! This should only happen in tests.");
             return null;
         }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileSnap.java`
-#### Snippet
-```java
-        List<File> files = findNValidSnapshots(1);
-        if (files.size() == 0) {
-            return null;
-        }
-        return files.get(0);
+        return configFilename + QuorumPeerConfig.nextDynamicConfigFileSuffix;
 ```
 
 ### ReturnNull
@@ -12305,6 +12303,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
     public InetSocketAddress getClientAddress() {
         final AddressTuple addrs = myAddrs.get();
         return (addrs == null) ? null : addrs.clientAddr;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+            return observer.zk;
+        }
+        return null;
     }
 
 ```
@@ -12326,35 +12336,11 @@ Return of `null`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-            return observer.zk;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
             LOG.info("cannot validate request, observer masters not enabled");
         }
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-        if (configFilename == null) {
-            LOG.warn("configFilename is null! This should only happen in tests.");
-            return null;
-        }
-        return configFilename + QuorumPeerConfig.nextDynamicConfigFileSuffix;
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -12383,18 +12369,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/RequestPathM
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `getFunc` is redundant
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JType.java`
-#### Snippet
-```java
-
-    String genCsharpGetSet(String fname, int fIdx) {
-        String getFunc = "  public " + getCsharpType() + " " + capitalize(fname) + " { get; set; } ";
-        return getFunc;
-    }
-```
-
 ### UnnecessaryLocalVariable
 Local variable `serverPrincipal` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/SaslServerPrincipal.java`
@@ -12468,183 +12442,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/TxnLogProposalIte
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `ioe` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxnFactory.java`
+Local variable `clientCxnSocket` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 #### Snippet
 ```java
-            return serverCnxnFactory;
+            Constructor<?> clientCxnConstructor = Class.forName(clientCnxnSocketName)
+                                                       .getDeclaredConstructor(ZKClientConfig.class);
+            ClientCnxnSocket clientCxnSocket = (ClientCnxnSocket) clientCxnConstructor.newInstance(getClientConfig());
+            return clientCxnSocket;
         } catch (Exception e) {
-            IOException ioe = new IOException("Couldn't instantiate " + serverCnxnFactoryName, e);
-            throw ioe;
-        }
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public void setData(final String path, byte[] data, int version, StatCallback cb, Object ctx) {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public Stat setData(final String path, byte[] data, int version) throws KeeperException, InterruptedException {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public void delete(final String path, int version) throws InterruptedException, KeeperException {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public List<ACL> getACL(final String path, Stat stat) throws KeeperException, InterruptedException {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public Stat exists(final String path, Watcher watcher) throws KeeperException, InterruptedException {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public void exists(final String path, Watcher watcher, StatCallback cb, Object ctx) {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-        Object ctx) {
-        PathUtils.validatePath(path);
-        final String clientPath = path;
-        final String serverPath = prependChroot(clientPath);
-        WatchDeregistration wcb = new WatchDeregistration(clientPath, watcher, watcherType, local, getWatchManager());
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public List<String> getChildren(final String path, Watcher watcher) throws KeeperException, InterruptedException {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public byte[] getData(final String path, Watcher watcher, Stat stat) throws KeeperException, InterruptedException {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-        List<ACL> acl,
-        CreateMode createMode) throws KeeperException, InterruptedException {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath, createMode.isSequential());
-        EphemeralType.validateTTL(createMode, -1);
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public void sync(final String path, VoidCallback cb, Object ctx) {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public void delete(final String path, int version, VoidCallback cb, Object ctx) {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-    public int getAllChildrenNumber(final String path) throws KeeperException, InterruptedException {
-
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `clientPath` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
-#### Snippet
-```java
-     */
-    public Stat setACL(final String path, List<ACL> acl, int aclVersion) throws KeeperException, InterruptedException {
-        final String clientPath = path;
-        PathUtils.validatePath(clientPath);
-        validateACL(acl);
 ```
 
 ### UnnecessaryLocalVariable
@@ -12654,6 +12460,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 ```java
      */
     public void getData(final String path, Watcher watcher, DataCallback cb, Object ctx) {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public void sync(final String path, VoidCallback cb, Object ctx) {
         final String clientPath = path;
         PathUtils.validatePath(clientPath);
 
@@ -12676,8 +12494,20 @@ Local variable `clientPath` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 #### Snippet
 ```java
-    public void getAllChildrenNumber(final String path, AsyncCallback.AllChildrenNumberCallback cb, Object ctx) {
+     */
+    public void getACL(final String path, Stat stat, ACLCallback cb, Object ctx) {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
 
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public List<String> getChildren(final String path, Watcher watcher) throws KeeperException, InterruptedException {
         final String clientPath = path;
         PathUtils.validatePath(clientPath);
 
@@ -12701,7 +12531,31 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 #### Snippet
 ```java
      */
-    public void getACL(final String path, Stat stat, ACLCallback cb, Object ctx) {
+    public void delete(final String path, int version, VoidCallback cb, Object ctx) {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public void setData(final String path, byte[] data, int version, StatCallback cb, Object ctx) {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public void exists(final String path, Watcher watcher, StatCallback cb, Object ctx) {
         final String clientPath = path;
         PathUtils.validatePath(clientPath);
 
@@ -12720,15 +12574,99 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `clientCxnSocket` is redundant
+Local variable `clientPath` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 #### Snippet
 ```java
-            Constructor<?> clientCxnConstructor = Class.forName(clientCnxnSocketName)
-                                                       .getDeclaredConstructor(ZKClientConfig.class);
-            ClientCnxnSocket clientCxnSocket = (ClientCnxnSocket) clientCxnConstructor.newInstance(getClientConfig());
-            return clientCxnSocket;
+        boolean local) throws InterruptedException, KeeperException {
+        PathUtils.validatePath(path);
+        final String clientPath = path;
+        final String serverPath = prependChroot(clientPath);
+        WatchDeregistration wcb = new WatchDeregistration(clientPath, watcher, watcherType, local, getWatchManager());
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+    public void getAllChildrenNumber(final String path, AsyncCallback.AllChildrenNumberCallback cb, Object ctx) {
+
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+        List<ACL> acl,
+        CreateMode createMode) throws KeeperException, InterruptedException {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath, createMode.isSequential());
+        EphemeralType.validateTTL(createMode, -1);
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+        StringCallback cb,
+        Object ctx) {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath, createMode.isSequential());
+        EphemeralType.validateTTL(createMode, -1);
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+    public int getAllChildrenNumber(final String path) throws KeeperException, InterruptedException {
+
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public List<ACL> getACL(final String path, Stat stat) throws KeeperException, InterruptedException {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `ioe` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxnFactory.java`
+#### Snippet
+```java
+            return serverCnxnFactory;
         } catch (Exception e) {
+            IOException ioe = new IOException("Couldn't instantiate " + serverCnxnFactoryName, e);
+            throw ioe;
+        }
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public void delete(final String path, int version) throws InterruptedException, KeeperException {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
 ```
 
 ### UnnecessaryLocalVariable
@@ -12738,6 +12676,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 ```java
      */
     public void getChildren(final String path, Watcher watcher, Children2Callback cb, Object ctx) {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public Stat setData(final String path, byte[] data, int version) throws KeeperException, InterruptedException {
         final String clientPath = path;
         PathUtils.validatePath(clientPath);
 
@@ -12760,11 +12710,35 @@ Local variable `clientPath` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 #### Snippet
 ```java
-        boolean local) throws InterruptedException, KeeperException {
+        Object ctx) {
         PathUtils.validatePath(path);
         final String clientPath = path;
         final String serverPath = prependChroot(clientPath);
         WatchDeregistration wcb = new WatchDeregistration(clientPath, watcher, watcherType, local, getWatchManager());
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public byte[] getData(final String path, Watcher watcher, Stat stat) throws KeeperException, InterruptedException {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `clientPath` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
+#### Snippet
+```java
+     */
+    public Stat exists(final String path, Watcher watcher) throws KeeperException, InterruptedException {
+        final String clientPath = path;
+        PathUtils.validatePath(clientPath);
+
 ```
 
 ### UnnecessaryLocalVariable
@@ -12784,11 +12758,11 @@ Local variable `clientPath` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeper.java`
 #### Snippet
 ```java
-        StringCallback cb,
-        Object ctx) {
+     */
+    public Stat setACL(final String path, List<ACL> acl, int aclVersion) throws KeeperException, InterruptedException {
         final String clientPath = path;
-        PathUtils.validatePath(clientPath, createMode.isSequential());
-        EphemeralType.validateTTL(createMode, -1);
+        PathUtils.validatePath(clientPath);
+        validateACL(acl);
 ```
 
 ### UnnecessaryLocalVariable
@@ -12863,6 +12837,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/auth/SaslQ
                             LOG.debug("saslClient.evaluateChallenge(len={})", saslToken.length);
 ```
 
+### UnnecessaryLocalVariable
+Local variable `getFunc` is redundant
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JType.java`
+#### Snippet
+```java
+
+    String genCsharpGetSet(String fname, int fIdx) {
+        String getFunc = "  public " + getCsharpType() + " " + capitalize(fname) + " { get; set; } ";
+        return getFunc;
+    }
+```
+
 ## RuleId[ruleID=UseCompareMethod]
 ### UseCompareMethod
 Expression can be replaced with 'Long.compare'
@@ -12891,18 +12877,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxnFactory.java`
-#### Snippet
-```java
-                    long waitTime = cnxnExpiryQueue.getWaitTime();
-                    if (waitTime > 0) {
-                        Thread.sleep(waitTime);
-                        continue;
-                    }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SessionTrackerImpl.java`
 #### Snippet
 ```java
@@ -12911,6 +12885,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SessionTrackerImp
                     Thread.sleep(waitTime);
                     continue;
                 }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxnFactory.java`
+#### Snippet
+```java
+                    long waitTime = cnxnExpiryQueue.getWaitTime();
+                    if (waitTime > 0) {
+                        Thread.sleep(waitTime);
+                        continue;
+                    }
 ```
 
 ### BusyWait
@@ -12969,10 +12955,10 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/StandardTypeFileK
 #### Snippet
 ```java
     @Override
-    public KeyStore loadKeyStore() throws IOException, GeneralSecurityException {
-        try (InputStream inputStream = new FileInputStream(new File(keyStorePath))) {
-            KeyStore ks = keyStoreInstance();
-            ks.load(inputStream, passwordStringToCharArray(keyStorePassword));
+    public KeyStore loadTrustStore() throws IOException, GeneralSecurityException {
+        try (InputStream inputStream = new FileInputStream(new File(trustStorePath))) {
+            KeyStore ts = keyStoreInstance();
+            ts.load(inputStream, passwordStringToCharArray(trustStorePassword));
 ```
 
 ### RedundantFileCreation
@@ -12981,10 +12967,10 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/StandardTypeFileK
 #### Snippet
 ```java
     @Override
-    public KeyStore loadTrustStore() throws IOException, GeneralSecurityException {
-        try (InputStream inputStream = new FileInputStream(new File(trustStorePath))) {
-            KeyStore ts = keyStoreInstance();
-            ts.load(inputStream, passwordStringToCharArray(trustStorePassword));
+    public KeyStore loadKeyStore() throws IOException, GeneralSecurityException {
+        try (InputStream inputStream = new FileInputStream(new File(keyStorePath))) {
+            KeyStore ks = keyStoreInstance();
+            ks.load(inputStream, passwordStringToCharArray(keyStorePassword));
 ```
 
 ### RedundantFileCreation
@@ -13043,11 +13029,11 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 #### Snippet
 ```java
-        private List<String> cmdArgs = null;
         private String command = null;
         public static final Pattern ARGS_PATTERN = Pattern.compile("\\s*([^\"\']\\S*|\"[^\"]*\"|'[^']*')\\s*");
         public static final Pattern QUOTED_PATTERN = Pattern.compile("^([\'\"])(.*)(\\1)$");
 
+        public MyCommandOptions() {
 ```
 
 ### UnnecessaryStringEscape
@@ -13055,11 +13041,11 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 #### Snippet
 ```java
+        private List<String> cmdArgs = null;
         private String command = null;
         public static final Pattern ARGS_PATTERN = Pattern.compile("\\s*([^\"\']\\S*|\"[^\"]*\"|'[^']*')\\s*");
         public static final Pattern QUOTED_PATTERN = Pattern.compile("^([\'\"])(.*)(\\1)$");
 
-        public MyCommandOptions() {
 ```
 
 ## RuleId[ruleID=RedundantArrayCreation]
@@ -13153,42 +13139,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathUtils.java`
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
-#### Snippet
-```java
-
-    public String genJavaCompareTo(String fname, String other) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("    {\n");
-        sb.append("      byte[] my = " + fname + ";\n");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
-#### Snippet
-```java
-
-    public String genJavaCompareBytes() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("        {\n");
-        sb.append("           int i1 = org.apache.jute.Utils.readVInt(b1, s1);\n");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
-#### Snippet
-```java
-
-    public String genJavaSlurpBytes(String b, String s, String l) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("        {\n");
-        sb.append("           int i = org.apache.jute.Utils.readVInt(" + b + ", " + s + ");\n");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
@@ -13247,67 +13197,43 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHan
         sb.append(" tickOfNextAckDeadline:").append(tickOfNextAckDeadline());
 ```
 
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+#### Snippet
+```java
+
+    public String genJavaSlurpBytes(String b, String s, String l) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("        {\n");
+        sb.append("           int i = org.apache.jute.Utils.readVInt(" + b + ", " + s + ");\n");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+#### Snippet
+```java
+
+    public String genJavaCompareBytes() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("        {\n");
+        sb.append("           int i1 = org.apache.jute.Utils.readVInt(b1, s1);\n");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+#### Snippet
+```java
+
+    public String genJavaCompareTo(String fname, String other) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("    {\n");
+        sb.append("      byte[] my = " + fname + ";\n");
+```
+
 ## RuleId[ruleID=NonShortCircuitBoolean]
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removedWatcher |= removedDataWatcher`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
-#### Snippet
-```java
-            synchronized (existWatches) {
-                boolean removedDataWatcher = removeWatches(existWatches, watcher, clientPath, local, rc, dataWatchersToRem);
-                removedWatcher |= removedDataWatcher;
-            }
-            break;
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removedWatcher |= removedDataWatcher`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
-#### Snippet
-```java
-            synchronized (dataWatches) {
-                boolean removedDataWatcher = removeWatches(dataWatches, watcher, clientPath, local, rc, dataWatchersToRem);
-                removedWatcher |= removedDataWatcher;
-            }
-
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removedWatcher |= removedDataWatcher`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
-#### Snippet
-```java
-            synchronized (existWatches) {
-                boolean removedDataWatcher = removeWatches(existWatches, watcher, clientPath, local, rc, dataWatchersToRem);
-                removedWatcher |= removedDataWatcher;
-            }
-
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removedWatcher |= removedPersistentWatcher`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
-#### Snippet
-```java
-                boolean removedPersistentWatcher = removeWatches(persistentWatches,
-                        watcher, clientPath, local, rc, persistentWatchersToRem);
-                removedWatcher |= removedPersistentWatcher;
-            }
-
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removedWatcher |= removedPersistentRecursiveWatcher`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
-#### Snippet
-```java
-                boolean removedPersistentRecursiveWatcher = removeWatches(persistentRecursiveWatches,
-                        watcher, clientPath, local, rc, persistentWatchersToRem);
-                removedWatcher |= removedPersistentRecursiveWatcher;
-            }
-        }
-```
-
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `containsWatcher |= contains_temp`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
@@ -13417,6 +13343,66 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removedWatcher |= removedDataWatcher`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
+#### Snippet
+```java
+            synchronized (existWatches) {
+                boolean removedDataWatcher = removeWatches(existWatches, watcher, clientPath, local, rc, dataWatchersToRem);
+                removedWatcher |= removedDataWatcher;
+            }
+            break;
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removedWatcher |= removedDataWatcher`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
+#### Snippet
+```java
+            synchronized (dataWatches) {
+                boolean removedDataWatcher = removeWatches(dataWatches, watcher, clientPath, local, rc, dataWatchersToRem);
+                removedWatcher |= removedDataWatcher;
+            }
+
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removedWatcher |= removedDataWatcher`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
+#### Snippet
+```java
+            synchronized (existWatches) {
+                boolean removedDataWatcher = removeWatches(existWatches, watcher, clientPath, local, rc, dataWatchersToRem);
+                removedWatcher |= removedDataWatcher;
+            }
+
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removedWatcher |= removedPersistentWatcher`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
+#### Snippet
+```java
+                boolean removedPersistentWatcher = removeWatches(persistentWatches,
+                        watcher, clientPath, local, rc, persistentWatchersToRem);
+                removedWatcher |= removedPersistentWatcher;
+            }
+
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removedWatcher |= removedPersistentRecursiveWatcher`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
+#### Snippet
+```java
+                boolean removedPersistentRecursiveWatcher = removeWatches(persistentRecursiveWatches,
+                        watcher, clientPath, local, rc, persistentWatchersToRem);
+                removedWatcher |= removedPersistentRecursiveWatcher;
+            }
+        }
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `seenRwServerBefore |= !isRO`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
@@ -13479,18 +13465,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.j
 
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/auth/NullQuorumAuthLearner.java`
-#### Snippet
-```java
-    @Override
-    public void authenticate(Socket sock, String hostname) {
-        return; // simply return don't require auth
-    }
-
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSessionTracker.java`
 #### Snippet
 ```java
@@ -13511,6 +13485,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSes
                 return;
             } catch (UnknownSessionException e) {
                 // Check whether it's a global session. We can ignore those
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/auth/NullQuorumAuthLearner.java`
+#### Snippet
+```java
+    @Override
+    public void authenticate(Socket sock, String hostname) {
+        return; // simply return don't require auth
+    }
+
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -13540,18 +13526,6 @@ public abstract class MetricsProviderBootstrap {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Op`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/MultiOperationRecord.java`
-#### Snippet
-```java
-    }
-
-    public MultiOperationRecord(Iterable<Op> ops) throws IllegalArgumentException {
-        for (Op op : ops) {
-            setOrCheckOpKind(op.getKind());
-```
-
-### BoundedWildcard
 Can generalize to `? super Entry`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Environment.java`
 #### Snippet
@@ -13564,6 +13538,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Environment.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Op`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/MultiOperationRecord.java`
+#### Snippet
+```java
+    }
+
+    public MultiOperationRecord(Iterable<Op> ops) throws IllegalArgumentException {
+        for (Op op : ops) {
+            setOrCheckOpKind(op.getKind());
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/JLineZNodeCompleter.java`
 #### Snippet
@@ -13573,18 +13559,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/JLineZNodeCompleter.java
     private int completeCommand(String buffer, String token, List<String> candidates) {
         for (String cmd : ZooKeeperMain.getCommands()) {
             if (cmd.startsWith(token)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `zookeeper-metrics-providers/zookeeper-prometheus-metrics/src/main/java/org/apache/zookeeper/metrics/prometheus/PrometheusMetricsProvider.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void dump(BiConsumer<String, Object> sink) {
-        sampleGauges();
-        Enumeration<Collector.MetricFamilySamples> samplesFamilies = collectorRegistry.metricFamilySamples();
 ```
 
 ### BoundedWildcard
@@ -13609,6 +13583,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
     private void addTo(Set<Watcher> from, Set<Watcher> to) {
         if (from != null) {
             to.addAll(from);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
+#### Snippet
+```java
+    }
+
+    private boolean contains(String path, Watcher watcherObj, Map<String, Set<Watcher>> pathVsWatchers) {
+        boolean watcherExists = true;
+        if (pathVsWatchers == null || pathVsWatchers.size() == 0) {
 ```
 
 ### BoundedWildcard
@@ -13636,27 +13622,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Set`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKWatchManager.java`
+Can generalize to `? super String`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/CliCommand.java`
 #### Snippet
 ```java
+     * @param cmdMap
+     */
+    public void addToMap(Map<String, CliCommand> cmdMap) {
+        cmdMap.put(cmdStr, this);
     }
-
-    private boolean contains(String path, Watcher watcherObj, Map<String, Set<Watcher>> pathVsWatchers) {
-        boolean watcherExists = true;
-        if (pathVsWatchers == null || pathVsWatchers.size() == 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Watcher`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-        }
-
-        private void queueEvent(WatchedEvent event, Set<Watcher> materializedWatchers) {
-            if (event.getType() == EventType.None && sessionState == event.getState()) {
-                return;
 ```
 
 ### BoundedWildcard
@@ -13672,7 +13646,7 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? super CliCommand`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/CliCommand.java`
 #### Snippet
 ```java
@@ -13684,15 +13658,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/CliCommand.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CliCommand`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/CliCommand.java`
+Can generalize to `? extends Watcher`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
-     * @param cmdMap
-     */
-    public void addToMap(Map<String, CliCommand> cmdMap) {
-        cmdMap.put(cmdStr, this);
-    }
+        }
+
+        private void queueEvent(WatchedEvent event, Set<Watcher> materializedWatchers) {
+            if (event.getType() == EventType.None && sessionState == event.getState()) {
+                return;
 ```
 
 ### BoundedWildcard
@@ -13780,30 +13754,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-     * @param response a sink which collects the data.
-     */
-    public void dumpMonitorValues(BiConsumer<String, Object> response) {
-        ServerStats stats = serverStats();
-        response.accept("version", Version.getFullVersion());
-```
-
-### BoundedWildcard
-Can generalize to `? extends GcTimes`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/JvmPauseMonitor.java`
-#### Snippet
-```java
-    }
-
-    private String formatMessage(long extraSleepTime, Map<String, GcTimes> gcTimesAfterSleep, Map<String, GcTimes> gcTimesBeforeSleep) {
-
-        Set<String> gcBeanNames = new HashSet<>(gcTimesAfterSleep.keySet());
-```
-
-### BoundedWildcard
 Can generalize to `? super Long`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/SerializeUtils.java`
 #### Snippet
@@ -13825,6 +13775,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/SerializeUti
     public static void deserializeSnapshot(DataTree dt, InputArchive ia, Map<Long, Integer> sessions) throws IOException {
         int count = ia.readInt("count");
         while (count > 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends GcTimes`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/JvmPauseMonitor.java`
+#### Snippet
+```java
+    }
+
+    private String formatMessage(long extraSleepTime, Map<String, GcTimes> gcTimesAfterSleep, Map<String, GcTimes> gcTimesBeforeSleep) {
+
+        Set<String> gcBeanNames = new HashSet<>(gcTimesAfterSleep.keySet());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+     * @param response a sink which collects the data.
+     */
+    public void dumpMonitorValues(BiConsumer<String, Object> response) {
+        ServerStats stats = serverStats();
+        response.accept("version", Version.getFullVersion());
 ```
 
 ### BoundedWildcard
@@ -13864,18 +13838,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/RequestPathM
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
-#### Snippet
-```java
-
-    @Override
-    public void dumpMonitorValues(BiConsumer<String, Object> response) {
-        super.dumpMonitorValues(response);
-        response.accept("peer_state", self.getDetailedPeerState());
-```
-
-### BoundedWildcard
 Can generalize to `? super Leader`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooKeeperServer.java`
 #### Snippet
@@ -13897,6 +13859,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooK
     private org.apache.zookeeper.metrics.Gauge gaugeWithLeader(Function<Leader, Number> supplier) {
         return () -> {
             final Leader leader = getLeader();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
+#### Snippet
+```java
+
+    @Override
+    public void dumpMonitorValues(BiConsumer<String, Object> response) {
+        super.dumpMonitorValues(response);
+        response.accept("peer_state", self.getDetailedPeerState());
 ```
 
 ### BoundedWildcard
@@ -13924,15 +13898,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverZo
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSessionTracker.java`
+Can generalize to `? extends ByteBuffer`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
 ```java
-    private final ConcurrentMap<Long, Integer> globalSessionsWithTimeouts;
-
-    public LearnerSessionTracker(SessionExpirer expirer, ConcurrentMap<Long, Integer> sessionsWithTimeouts, int tickTime, long id, boolean localSessionsEnabled, ZooKeeperServerListener listener) {
-        this.expirer = expirer;
-        this.touchTable.set(new ConcurrentHashMap<>());
+     * {@link BlockingQueue#poll(long, java.util.concurrent.TimeUnit)}
+     */
+    private ByteBuffer pollSendQueue(final BlockingQueue<ByteBuffer> queue,
+          final long timeout, final TimeUnit unit) throws InterruptedException {
+       return queue.poll(timeout, unit);
 ```
 
 ### BoundedWildcard
@@ -13960,15 +13934,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxM
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+Can generalize to `? super Integer`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSessionTracker.java`
 #### Snippet
 ```java
-     * {@link BlockingQueue#poll(long, java.util.concurrent.TimeUnit)}
-     */
-    private ByteBuffer pollSendQueue(final BlockingQueue<ByteBuffer> queue,
-          final long timeout, final TimeUnit unit) throws InterruptedException {
-       return queue.poll(timeout, unit);
+    private final ConcurrentMap<Long, Integer> globalSessionsWithTimeouts;
+
+    public LearnerSessionTracker(SessionExpirer expirer, ConcurrentMap<Long, Integer> sessionsWithTimeouts, int tickTime, long id, boolean localSessionsEnabled, ZooKeeperServerListener listener) {
+        this.expirer = expirer;
+        this.touchTable.set(new ConcurrentHashMap<>());
 ```
 
 ### BoundedWildcard
@@ -13996,51 +13970,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetr
 ```
 
 ### BoundedWildcard
-Can generalize to `? super InetSocketAddress`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+Can generalize to `? super String`
+in `zookeeper-metrics-providers/zookeeper-prometheus-metrics/src/main/java/org/apache/zookeeper/metrics/prometheus/PrometheusMetricsProvider.java`
 #### Snippet
 ```java
-            + " and client_config is port or host:port";
-
-        private void initializeWithAddressString(String addressStr, Function<InetSocketAddress, InetAddress> getInetAddress) throws ConfigException {
-            LearnerType newType = null;
-            String[] serverClientParts = addressStr.split(";");
-```
-
-### BoundedWildcard
-Can generalize to `? extends InetAddress`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-            + " and client_config is port or host:port";
-
-        private void initializeWithAddressString(String addressStr, Function<InetSocketAddress, InetAddress> getInetAddress) throws ConfigException {
-            LearnerType newType = null;
-            String[] serverClientParts = addressStr.split(";");
-```
-
-### BoundedWildcard
-Can generalize to `? extends QuorumServer`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-    }
-
-    private void updateRemotePeerMXBeans(Map<Long, QuorumServer> newMembers) {
-        Set<Long> existingMembers = new HashSet<>(newMembers.keySet());
-        existingMembers.retainAll(jmxRemotePeerBean.keySet());
-```
-
-### BoundedWildcard
-Can generalize to `? extends InetSocketAddress`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-        }
-
-        private List<InetSocketAddress> excludedSpecialAddresses(List<InetSocketAddress> addrs) {
-            List<InetSocketAddress> included = new ArrayList<>();
-
+     */
+    @Override
+    public void dump(BiConsumer<String, Object> sink) {
+        sampleGauges();
+        Enumeration<Collector.MetricFamilySamples> samplesFamilies = collectorRegistry.metricFamilySamples();
 ```
 
 ### BoundedWildcard
@@ -14065,6 +14003,54 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
     private static InetSocketAddress getClientAddress(Map<Long, QuorumServer> quorumPeers, long myid, int clientPort) throws IOException {
         QuorumServer quorumServer = quorumPeers.get(myid);
         if (null == quorumServer) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends QuorumServer`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+    }
+
+    private void updateRemotePeerMXBeans(Map<Long, QuorumServer> newMembers) {
+        Set<Long> existingMembers = new HashSet<>(newMembers.keySet());
+        existingMembers.retainAll(jmxRemotePeerBean.keySet());
+```
+
+### BoundedWildcard
+Can generalize to `? super InetSocketAddress`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+            + " and client_config is port or host:port";
+
+        private void initializeWithAddressString(String addressStr, Function<InetSocketAddress, InetAddress> getInetAddress) throws ConfigException {
+            LearnerType newType = null;
+            String[] serverClientParts = addressStr.split(";");
+```
+
+### BoundedWildcard
+Can generalize to `? extends InetAddress`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+            + " and client_config is port or host:port";
+
+        private void initializeWithAddressString(String addressStr, Function<InetSocketAddress, InetAddress> getInetAddress) throws ConfigException {
+            LearnerType newType = null;
+            String[] serverClientParts = addressStr.split(";");
+```
+
+### BoundedWildcard
+Can generalize to `? extends InetSocketAddress`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+        }
+
+        private List<InetSocketAddress> excludedSpecialAddresses(List<InetSocketAddress> addrs) {
+            List<InetSocketAddress> included = new ArrayList<>();
+
 ```
 
 ## RuleId[ruleID=AnonymousHasLambdaAlternative]
@@ -14173,6 +14159,18 @@ Qualifier `super` is unnecessary in this context
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/QuorumOracleMaj.java`
 #### Snippet
 ```java
+    public boolean updateNeedOracle(List<LearnerHandler> forwardingFollowers) {
+        // Do we have the quorum
+        needOracle.set(forwardingFollowers.isEmpty() && super.getVotingMembers().size() == 2);
+        return needOracle.get();
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/QuorumOracleMaj.java`
+#### Snippet
+```java
         }
         QuorumOracleMaj qm = (QuorumOracleMaj) o;
         if (qm.getVersion() == super.getVersion()) {
@@ -14202,18 +14200,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/Q
         for (QuorumPeer.QuorumServer qs : super.getAllMembers().values()) {
             QuorumPeer.QuorumServer qso = qm.getAllMembers().get(qs.id);
             if (qso == null || !qs.equals(qso)) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/QuorumOracleMaj.java`
-#### Snippet
-```java
-    public boolean updateNeedOracle(List<LearnerHandler> forwardingFollowers) {
-        // Do we have the quorum
-        needOracle.set(forwardingFollowers.isEmpty() && super.getVotingMembers().size() == 2);
-        return needOracle.get();
-    }
 ```
 
 ## RuleId[ruleID=InfiniteLoopStatement]
@@ -14343,78 +14329,6 @@ Statement lambda can be replaced with expression lambda
 in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
 #### Snippet
 ```java
-            );
-
-            counters.values().forEach(metric -> {
-                metric.values().forEach(sink);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
-#### Snippet
-```java
-                metric.values().forEach(sink);
-            });
-            counterSets.values().forEach(metric -> {
-                metric.values().forEach(sink);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
-#### Snippet
-```java
-                metric.values().forEach(sink);
-            });
-            basicSummaries.values().forEach(metric -> {
-                metric.values().forEach(sink);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
-#### Snippet
-```java
-                metric.values().forEach(sink);
-            });
-            summaries.values().forEach(metric -> {
-                metric.values().forEach(sink);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
-#### Snippet
-```java
-                metric.values().forEach(sink);
-            });
-            basicSummarySets.values().forEach(metric -> {
-                metric.values().forEach(sink);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
-#### Snippet
-```java
-                metric.values().forEach(sink);
-            });
-            summarySets.values().forEach(metric -> {
-                metric.values().forEach(sink);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
-#### Snippet
-```java
 
         void reset() {
             counters.values().forEach(metric -> {
@@ -14479,6 +14393,78 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetr
             });
             summarySets.values().forEach(metric -> {
                 metric.reset();
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
+#### Snippet
+```java
+            );
+
+            counters.values().forEach(metric -> {
+                metric.values().forEach(sink);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
+#### Snippet
+```java
+                metric.values().forEach(sink);
+            });
+            counterSets.values().forEach(metric -> {
+                metric.values().forEach(sink);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
+#### Snippet
+```java
+                metric.values().forEach(sink);
+            });
+            basicSummaries.values().forEach(metric -> {
+                metric.values().forEach(sink);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
+#### Snippet
+```java
+                metric.values().forEach(sink);
+            });
+            summaries.values().forEach(metric -> {
+                metric.values().forEach(sink);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
+#### Snippet
+```java
+                metric.values().forEach(sink);
+            });
+            basicSummarySets.values().forEach(metric -> {
+                metric.values().forEach(sink);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/impl/DefaultMetricsProvider.java`
+#### Snippet
+```java
+                metric.values().forEach(sink);
+            });
+            summarySets.values().forEach(metric -> {
+                metric.values().forEach(sink);
             });
 ```
 
@@ -14618,30 +14604,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/auth/NullQ
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-public class JMap extends JCompType {
-
-    private static int level = 0;
-
-    private static String getLevel() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-public class JVector extends JCompType {
-
-    private static int level = 0;
-
-    private static String getId(String id) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/MultiOperationRecord.java`
 #### Snippet
@@ -14670,6 +14632,18 @@ Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.java`
 #### Snippet
 ```java
+
+        private SSLContext sslContext = null;
+        private SSLEngine sslEngine = null;
+        private String host;
+        private int port;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.java`
+#### Snippet
+```java
     private class ZKClientPipelineFactory extends ChannelInitializer<SocketChannel> {
 
         private SSLContext sslContext = null;
@@ -14679,14 +14653,62 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.ja
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxnSocketNetty.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
+#### Snippet
+```java
+    private LoginContext login = null;
+    private String loginContextName = null;
+    private String principal = null;
+
+    // Initialize 'lastLogin' to do a login at first time
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
+#### Snippet
+```java
+    private Thread t = null;
+    private boolean isKrbTicket = false;
+    private boolean isUsingTicketCache = false;
+
+    private LoginContext login = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
+#### Snippet
+```java
+    private Subject subject = null;
+    private Thread t = null;
+    private boolean isKrbTicket = false;
+    private boolean isUsingTicketCache = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 #### Snippet
 ```java
 
-        private SSLContext sslContext = null;
-        private SSLEngine sslEngine = null;
-        private String host;
-        private int port;
+    private LoginContext login = null;
+    private String loginContextName = null;
+    private String principal = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
+#### Snippet
+```java
+    private boolean isUsingTicketCache = false;
+
+    private LoginContext login = null;
+    private String loginContextName = null;
+    private String principal = null;
 ```
 
 ### RedundantFieldInitialization
@@ -14706,54 +14728,6 @@ Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 #### Snippet
 ```java
-    private boolean isUsingTicketCache = false;
-
-    private LoginContext login = null;
-    private String loginContextName = null;
-    private String principal = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
-#### Snippet
-```java
-    private Thread t = null;
-    private boolean isKrbTicket = false;
-    private boolean isUsingTicketCache = false;
-
-    private LoginContext login = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
-#### Snippet
-```java
-    private LoginContext login = null;
-    private String loginContextName = null;
-    private String principal = null;
-
-    // Initialize 'lastLogin' to do a login at first time
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
-#### Snippet
-```java
-
-    private LoginContext login = null;
-    private String loginContextName = null;
-    private String principal = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
-#### Snippet
-```java
 
     private Subject subject = null;
     private Thread t = null;
@@ -14762,15 +14736,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 #### Snippet
 ```java
-    private Subject subject = null;
-    private Thread t = null;
-    private boolean isKrbTicket = false;
-    private boolean isUsingTicketCache = false;
-
+        private Map<String, String> options = new HashMap<>();
+        private List<String> cmdArgs = null;
+        private String command = null;
+        public static final Pattern ARGS_PATTERN = Pattern.compile("\\s*([^\"\']\\S*|\"[^\"]*\"|'[^']*')\\s*");
+        public static final Pattern QUOTED_PATTERN = Pattern.compile("^([\'\"])(.*)(\\1)$");
 ```
 
 ### RedundantFieldInitialization
@@ -14810,27 +14784,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
-#### Snippet
-```java
-        private Map<String, String> options = new HashMap<>();
-        private List<String> cmdArgs = null;
-        private String command = null;
-        public static final Pattern ARGS_PATTERN = Pattern.compile("\\s*([^\"\']\\S*|\"[^\"]*\"|'[^']*')\\s*");
-        public static final Pattern QUOTED_PATTERN = Pattern.compile("^([\'\"])(.*)(\\1)$");
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
-     * operation)
-     */
-    private volatile boolean closing = false;
+        // Set to true if and only if constructor of ZooKeeperSaslClient
+        // throws a LoginException: see startConnect() below.
+        private boolean saslLoginFailed = false;
 
-    /**
+        private void startConnect(InetSocketAddress addr) throws IOException {
 ```
 
 ### RedundantFieldInitialization
@@ -14850,18 +14812,6 @@ Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
-        // Set to true if and only if constructor of ZooKeeperSaslClient
-        // throws a LoginException: see startConnect() below.
-        private boolean saslLoginFailed = false;
-
-        private void startConnect(InetSocketAddress addr) throws IOException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
 
         private volatile boolean wasKilled = false;
         private volatile boolean isRunning = false;
@@ -14874,11 +14824,11 @@ Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
 ```java
-     * then non-zero sessionId is fake, otherwise it is valid.
+     * operation)
      */
-    volatile boolean seenRwServerBefore = false;
+    private volatile boolean closing = false;
 
-    private final ZKClientConfig clientConfig;
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -14895,6 +14845,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+     * then non-zero sessionId is fake, otherwise it is valid.
+     */
+    volatile boolean seenRwServerBefore = false;
+
+    private final ZKClientConfig clientConfig;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
 #### Snippet
 ```java
@@ -14903,6 +14865,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClie
     private boolean gotLastPacket = false;
     /** informational message indicating the current configuration status */
     private final String configStatus;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
+#### Snippet
+```java
+
+    private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperSaslClient.class);
+    private Login login = null;
+    private SaslClient saslClient;
+    private boolean isSASLConfigured = true;
 ```
 
 ### RedundantFieldInitialization
@@ -14919,18 +14893,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClie
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
-#### Snippet
-```java
-
-    private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperSaslClient.class);
-    private Login login = null;
-    private SaslClient saslClient;
-    private boolean isSASLConfigured = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/compat/ProtocolManager.java`
 #### Snippet
 ```java
@@ -14939,6 +14901,18 @@ public final class ProtocolManager {
     private volatile Boolean isReadonlyAvailable = null;
 
     public boolean isReadonlyAvailable() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Shell.java`
+#### Snippet
+```java
+
+    /**Time after which the executing script would be timedout*/
+    protected long timeOutInterval = 0L;
+    /** If or not script timed out*/
+    private AtomicBoolean timedOut;
 ```
 
 ### RedundantFieldInitialization
@@ -14951,6 +14925,42 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/StaticHostProvide
     private boolean reconfigMode = false;
 
     private final List<InetSocketAddress> oldServers = new ArrayList<>(5);
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/RateLogger.java`
+#### Snippet
+```java
+    private String msg = null;
+    private long timestamp;
+    private int count = 0;
+    private String value = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/RateLogger.java`
+#### Snippet
+```java
+
+    private final Logger LOG;
+    private String msg = null;
+    private long timestamp;
+    private int count = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/RateLogger.java`
+#### Snippet
+```java
+    private long timestamp;
+    private int count = 0;
+    private String value = null;
+
+    public void flush() {
 ```
 
 ### RedundantFieldInitialization
@@ -14982,18 +14992,6 @@ Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/Request.java`
 #### Snippet
 ```java
-    private TxnDigest txnDigest;
-
-    private boolean isThrottledFlag = false;
-
-    public boolean isThrottled() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/Request.java`
-#### Snippet
-```java
      * If this is a create or close request for a local-only session.
      */
     private boolean isLocalSession = false;
@@ -15002,51 +15000,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/Request.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/RateLogger.java`
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/Request.java`
 #### Snippet
 ```java
+    private TxnDigest txnDigest;
 
-    private final Logger LOG;
-    private String msg = null;
-    private long timestamp;
-    private int count = 0;
-```
+    private boolean isThrottledFlag = false;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/RateLogger.java`
-#### Snippet
-```java
-    private long timestamp;
-    private int count = 0;
-    private String value = null;
-
-    public void flush() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/RateLogger.java`
-#### Snippet
-```java
-    private String msg = null;
-    private long timestamp;
-    private int count = 0;
-    private String value = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Shell.java`
-#### Snippet
-```java
-
-    /**Time after which the executing script would be timedout*/
-    protected long timeOutInterval = 0L;
-    /** If or not script timed out*/
-    private AtomicBoolean timedOut;
+    public boolean isThrottled() {
 ```
 
 ### RedundantFieldInitialization
@@ -15059,30 +15021,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NIOServerCnxnFact
         private volatile boolean reconfiguring = false;
 
         public AcceptThread(ServerSocketChannel ss, InetSocketAddress addr, Set<SelectorThread> selectorThreads) throws IOException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NettyServerCnxnFactory.java`
-#### Snippet
-```java
-
-    public static final String NETTY_ADVANCED_FLOW_CONTROL = "zookeeper.netty.advancedFlowControl.enabled";
-    private boolean advancedFlowControlEnabled = false;
-
-    private static final AttributeKey<NettyServerCnxn> CONNECTION_ATTRIBUTE = AttributeKey.valueOf("NettyServerCnxn");
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerConfig.java`
-#### Snippet
-```java
-
-    /** JVM Pause Monitor feature switch */
-    protected boolean jvmPauseMonitorToRun = false;
-    /** JVM Pause Monitor warn threshold in ms */
-    protected long jvmPauseWarnThresholdMs;
 ```
 
 ### RedundantFieldInitialization
@@ -15110,6 +15048,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProces
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerConfig.java`
+#### Snippet
+```java
+
+    /** JVM Pause Monitor feature switch */
+    protected boolean jvmPauseMonitorToRun = false;
+    /** JVM Pause Monitor warn threshold in ms */
+    protected long jvmPauseWarnThresholdMs;
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
 #### Snippet
@@ -15122,6 +15072,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataNode.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/NettyServerCnxnFactory.java`
+#### Snippet
+```java
+
+    public static final String NETTY_ADVANCED_FLOW_CONTROL = "zookeeper.netty.advancedFlowControl.enabled";
+    private boolean advancedFlowControlEnabled = false;
+
+    private static final AttributeKey<NettyServerCnxn> CONNECTION_ATTRIBUTE = AttributeKey.valueOf("NettyServerCnxn");
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedACLCache.java`
 #### Snippet
@@ -15131,6 +15093,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ReferenceCountedA
     long aclIndex = 0;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
+#### Snippet
+```java
+    abstract void setSessionTimeout(int sessionTimeout);
+
+    protected ZooKeeperSaslServer zooKeeperSaslServer = null;
+
+    public static class CloseRequestException extends IOException {
 ```
 
 ### RedundantFieldInitialization
@@ -15158,18 +15132,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
-#### Snippet
-```java
-    abstract void setSessionTimeout(int sessionTimeout);
-
-    protected ZooKeeperSaslServer zooKeeperSaslServer = null;
-
-    public static class CloseRequestException extends IOException {
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/ProviderRegistry.java`
 #### Snippet
@@ -15179,30 +15141,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/ProviderRegi
     private static boolean initialized = false;
     private static final Map<String, AuthenticationProvider> authenticationProviders = new HashMap<>();
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-    protected int listenBacklog = -1;
-    protected SessionTracker sessionTracker;
-    private FileTxnSnapLog txnLogFactory = null;
-    private ZKDatabase zkDb;
-    private ResponseCache readResponseCache;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-    private static final int DEFAULT_GLOBAL_OUTSTANDING_LIMIT = 1000;
-
-    private boolean localSessionEnabled = false;
-    protected enum State {
-        INITIAL,
 ```
 
 ### RedundantFieldInitialization
@@ -15235,6 +15173,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/BitHashSet.j
 #### Snippet
 ```java
 
+        return new Iterator<Integer>() {
+            int returnedCount = 0;
+            int bitIndex = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/BitHashSet.java`
+#### Snippet
+```java
+
     // To record how many elements in this set.
     private int elementCount = 0;
 
@@ -15255,26 +15205,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/BitHashSet.j
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/BitHashSet.java`
-#### Snippet
-```java
-
-        return new Iterator<Integer>() {
-            int returnedCount = 0;
-            int bitIndex = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/JvmPauseMonitor.java`
 #### Snippet
 ```java
+    public static final long INFO_THRESHOLD_DEFAULT = 1000;
 
     private long numGcWarnThresholdExceeded = 0;
     private long numGcInfoThresholdExceeded = 0;
     private long totalGcExtraSleepTime = 0;
-
 ```
 
 ### RedundantFieldInitialization
@@ -15294,11 +15232,35 @@ Field initialization to `0` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/JvmPauseMonitor.java`
 #### Snippet
 ```java
-    public static final long INFO_THRESHOLD_DEFAULT = 1000;
 
     private long numGcWarnThresholdExceeded = 0;
     private long numGcInfoThresholdExceeded = 0;
     private long totalGcExtraSleepTime = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+    protected int listenBacklog = -1;
+    protected SessionTracker sessionTracker;
+    private FileTxnSnapLog txnLogFactory = null;
+    private ZKDatabase zkDb;
+    private ResponseCache readResponseCache;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+    private static final int DEFAULT_GLOBAL_OUTSTANDING_LIMIT = 1000;
+
+    private boolean localSessionEnabled = false;
+    protected enum State {
+        INITIAL,
 ```
 
 ### RedundantFieldInitialization
@@ -15386,15 +15348,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ReadOnlyRe
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
 #### Snippet
 ```java
-    protected InetSocketAddress secureClientPortAddress;
-    protected boolean sslQuorum = false;
-    protected boolean shouldUsePortUnification = false;
-    protected int observerMasterPort;
-    protected boolean sslQuorumReloadCertFiles = false;
+    protected long serverId = UNSET_SERVERID;
+
+    protected QuorumVerifier quorumVerifier = null, lastSeenQuorumVerifier = null;
+    protected int snapRetainCount = 3;
+    protected int purgeInterval = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
+#### Snippet
+```java
+    protected long serverId = UNSET_SERVERID;
+
+    protected QuorumVerifier quorumVerifier = null, lastSeenQuorumVerifier = null;
+    protected int snapRetainCount = 3;
+    protected int purgeInterval = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -15402,11 +15376,11 @@ Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
 #### Snippet
 ```java
+     */
     protected boolean quorumServerRequireSasl = false;
     protected boolean quorumLearnerRequireSasl = false;
     protected boolean quorumEnableSasl = false;
     protected String quorumServicePrincipal = QuorumAuth.QUORUM_KERBEROS_SERVICE_PRINCIPAL_DEFAULT_VALUE;
-    protected String quorumLearnerLoginContext = QuorumAuth.QUORUM_LEARNER_SASL_LOGIN_CONTEXT_DFAULT_VALUE;
 ```
 
 ### RedundantFieldInitialization
@@ -15434,63 +15408,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
-#### Snippet
-```java
-     */
-    protected boolean quorumServerRequireSasl = false;
-    protected boolean quorumLearnerRequireSasl = false;
-    protected boolean quorumEnableSasl = false;
-    protected String quorumServicePrincipal = QuorumAuth.QUORUM_KERBEROS_SERVICE_PRINCIPAL_DEFAULT_VALUE;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
-#### Snippet
-```java
-    protected QuorumVerifier quorumVerifier = null, lastSeenQuorumVerifier = null;
-    protected int snapRetainCount = 3;
-    protected int purgeInterval = 0;
-    protected boolean syncEnabled = true;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
-#### Snippet
-```java
-     * Configurations for the quorumpeer-to-quorumpeer sasl authentication
-     */
-    protected boolean quorumServerRequireSasl = false;
-    protected boolean quorumLearnerRequireSasl = false;
-    protected boolean quorumEnableSasl = false;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
 #### Snippet
 ```java
-    protected File dataDir;
     protected File dataLogDir;
     protected String dynamicConfigFileStr = null;
     protected String configFileStr = null;
     protected int tickTime = ZooKeeperServer.DEFAULT_TICK_TIME;
+    protected int maxClientCnxns = 60;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
 #### Snippet
 ```java
-    protected long serverId = UNSET_SERVERID;
-
-    protected QuorumVerifier quorumVerifier = null, lastSeenQuorumVerifier = null;
-    protected int snapRetainCount = 3;
-    protected int purgeInterval = 0;
+    protected InetSocketAddress secureClientPortAddress;
+    protected boolean sslQuorum = false;
+    protected boolean shouldUsePortUnification = false;
+    protected int observerMasterPort;
+    protected boolean sslQuorumReloadCertFiles = false;
 ```
 
 ### RedundantFieldInitialization
@@ -15506,15 +15444,51 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
+#### Snippet
+```java
+    protected boolean quorumServerRequireSasl = false;
+    protected boolean quorumLearnerRequireSasl = false;
+    protected boolean quorumEnableSasl = false;
+    protected String quorumServicePrincipal = QuorumAuth.QUORUM_KERBEROS_SERVICE_PRINCIPAL_DEFAULT_VALUE;
+    protected String quorumLearnerLoginContext = QuorumAuth.QUORUM_LEARNER_SASL_LOGIN_CONTEXT_DFAULT_VALUE;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
+#### Snippet
+```java
+    protected String metricsProviderClassName = DefaultMetricsProvider.class.getName();
+    protected Properties metricsProviderConfiguration = new Properties();
+    protected boolean localSessionsEnabled = false;
+    protected boolean localSessionsUpgradingEnabled = false;
+    /** defaults to -1 if not set explicitly */
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
 #### Snippet
 ```java
+    protected File dataDir;
     protected File dataLogDir;
     protected String dynamicConfigFileStr = null;
     protected String configFileStr = null;
     protected int tickTime = ZooKeeperServer.DEFAULT_TICK_TIME;
-    protected int maxClientCnxns = 60;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
+#### Snippet
+```java
+    protected boolean shouldUsePortUnification = false;
+    protected int observerMasterPort;
+    protected boolean sslQuorumReloadCertFiles = false;
+    protected File dataDir;
+    protected File dataLogDir;
 ```
 
 ### RedundantFieldInitialization
@@ -15546,35 +15520,47 @@ Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
 #### Snippet
 ```java
-    protected boolean shouldUsePortUnification = false;
-    protected int observerMasterPort;
-    protected boolean sslQuorumReloadCertFiles = false;
-    protected File dataDir;
-    protected File dataLogDir;
+     * Configurations for the quorumpeer-to-quorumpeer sasl authentication
+     */
+    protected boolean quorumServerRequireSasl = false;
+    protected boolean quorumLearnerRequireSasl = false;
+    protected boolean quorumEnableSasl = false;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `0` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
 #### Snippet
 ```java
-    protected long serverId = UNSET_SERVERID;
-
     protected QuorumVerifier quorumVerifier = null, lastSeenQuorumVerifier = null;
     protected int snapRetainCount = 3;
     protected int purgeInterval = 0;
+    protected boolean syncEnabled = true;
+
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
 ```java
-    protected String metricsProviderClassName = DefaultMetricsProvider.class.getName();
-    protected Properties metricsProviderConfiguration = new Properties();
-    protected boolean localSessionsEnabled = false;
-    protected boolean localSessionsUpgradingEnabled = false;
-    /** defaults to -1 if not set explicitly */
+     */
+
+    volatile boolean shutdown = false;
+
+    /*
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+#### Snippet
+```java
+    private ConcurrentLinkedQueue<QuorumPacket> proposedPkts = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<QuorumPacket> committedPkts = new ConcurrentLinkedQueue<>();
+    private int pktsSize = 0;
+
+    private long lastProposedZxid;
 ```
 
 ### RedundantFieldInitialization
@@ -15590,15 +15576,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ReadOnlyZo
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
+    protected final Set<Long> connectingFollowers = new HashSet<>();
 
-    // the follower acceptor thread
-    volatile LearnerCnxAcceptor cnxAcceptor = null;
-
-    // list of all the learners, including followers and observers
+    private volatile boolean quitWaitForEpoch = false;
+    private volatile long timeStartWaitForEpoch = -1;
+    private volatile SyncedLearnerTracker voteSet;
 ```
 
 ### RedundantFieldInitialization
@@ -15626,27 +15612,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.jav
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
-    protected final Set<Long> connectingFollowers = new HashSet<>();
 
-    private volatile boolean quitWaitForEpoch = false;
-    private volatile long timeStartWaitForEpoch = -1;
-    private volatile SyncedLearnerTracker voteSet;
-```
+    // the follower acceptor thread
+    volatile LearnerCnxAcceptor cnxAcceptor = null;
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
-#### Snippet
-```java
-    private ConcurrentLinkedQueue<QuorumPacket> proposedPkts = new ConcurrentLinkedQueue<>();
-    private ConcurrentLinkedQueue<QuorumPacket> committedPkts = new ConcurrentLinkedQueue<>();
-    private int pktsSize = 0;
-
-    private long lastProposedZxid;
+    // list of all the learners, including followers and observers
 ```
 
 ### RedundantFieldInitialization
@@ -15659,6 +15633,54 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverRe
     boolean finished = false;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
+#### Snippet
+```java
+        private boolean started = false;
+        private long currentZxid = 0;
+        private long currentTime = 0;
+        private long nextZxid = 0;
+        private long nextTime = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
+#### Snippet
+```java
+     */
+    public static final String FORCE_SNAP_SYNC = "zookeeper.forceSnapshotSync";
+    private boolean forceSnapSync = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
+#### Snippet
+```java
+        private long currentTime = 0;
+        private long nextZxid = 0;
+        private long nextTime = 0;
+
+        public synchronized void start() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
+#### Snippet
+```java
+     * ZooKeeper server identifier of this learner
+     */
+    protected long sid = 0;
+
+    long getSid() {
 ```
 
 ### RedundantFieldInitialization
@@ -15686,15 +15708,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHan
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
+Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
 #### Snippet
 ```java
-     * ZooKeeper server identifier of this learner
+     * Keep track of whether we have started send packets thread
      */
-    protected long sid = 0;
+    private volatile boolean sendingThreadStarted = false;
 
-    long getSid() {
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -15714,71 +15736,11 @@ Field initialization to `0` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
 #### Snippet
 ```java
-        private long currentTime = 0;
-        private long nextZxid = 0;
-        private long nextTime = 0;
-
-        public synchronized void start() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
-#### Snippet
-```java
-     * Keep track of whether we have started send packets thread
-     */
-    private volatile boolean sendingThreadStarted = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
-#### Snippet
-```java
-        private boolean started = false;
-        private long currentZxid = 0;
-        private long currentTime = 0;
-        private long nextZxid = 0;
-        private long nextTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
-#### Snippet
-```java
 
         private boolean started = false;
         private long currentZxid = 0;
         private long currentTime = 0;
         private long nextZxid = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
-#### Snippet
-```java
-     */
-    public static final String FORCE_SNAP_SYNC = "zookeeper.forceSnapshotSync";
-    private boolean forceSnapSync = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-     */
-
-    volatile boolean shutdown = false;
-
-    /*
 ```
 
 ### RedundantFieldInitialization
@@ -15806,6 +15768,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/Q
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/command/SetTraceMaskCommand.java`
+#### Snippet
+```java
+public class SetTraceMaskCommand extends AbstractFourLetterCommand {
+
+    long trace = 0;
+    public SetTraceMaskCommand(PrintWriter pw, ServerCnxn serverCnxn, long trace) {
+        super(pw, serverCnxn);
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/command/FourLetterCommands.java`
 #### Snippet
@@ -15819,14 +15793,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/command/FourLette
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/command/SetTraceMaskCommand.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllableConnectionFactory.java`
 #### Snippet
 ```java
-public class SetTraceMaskCommand extends AbstractFourLetterCommand {
-
-    long trace = 0;
-    public SetTraceMaskCommand(PrintWriter pw, ServerCnxn serverCnxn, long trace) {
-        super(pw, serverCnxn);
+public class ControllableConnectionFactory extends NIOServerCnxnFactory {
+    private static final Logger LOG = LoggerFactory.getLogger(ControllableConnectionFactory.class);
+    private long responseDelayInMs = 0;
+    private long remainingRequestsToFail = 0;
+    private long remainingResponsesToHold = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -15854,39 +15828,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/Contro
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllableConnectionFactory.java`
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
 #### Snippet
 ```java
-public class ControllableConnectionFactory extends NIOServerCnxnFactory {
-    private static final Logger LOG = LoggerFactory.getLogger(ControllableConnectionFactory.class);
-    private long responseDelayInMs = 0;
-    private long remainingRequestsToFail = 0;
-    private long remainingResponsesToHold = 0;
+        WorkerReceiver wr;
+        Thread wsThread = null;
+        Thread wrThread = null;
+
+        /**
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllerService.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
 #### Snippet
 ```java
+        WorkerSender ws;
+        WorkerReceiver wr;
+        Thread wsThread = null;
+        Thread wrThread = null;
 
-    protected QuorumPeerConfig config;
-    private ServerCnxnFactory serverCnxnFactory = null;
-    protected QuorumPeer quorumPeer = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllerService.java`
-#### Snippet
-```java
-    protected QuorumPeerConfig config;
-    private ServerCnxnFactory serverCnxnFactory = null;
-    protected QuorumPeer quorumPeer = null;
-
-    /**
 ```
 
 ### RedundantFieldInitialization
@@ -15899,6 +15861,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/Comman
     private boolean started = false;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllerService.java`
+#### Snippet
+```java
+    protected QuorumPeerConfig config;
+    private ServerCnxnFactory serverCnxnFactory = null;
+    protected QuorumPeer quorumPeer = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/controller/ControllerService.java`
+#### Snippet
+```java
+
+    protected QuorumPeerConfig config;
+    private ServerCnxnFactory serverCnxnFactory = null;
+    protected QuorumPeer quorumPeer = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -15938,27 +15924,63 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/Q
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
 #### Snippet
 ```java
-        WorkerSender ws;
-        WorkerReceiver wr;
-        Thread wsThread = null;
-        Thread wrThread = null;
+    private File recoveryLogFile;
+    private FilePadding filePadding = new FilePadding();
+    private boolean force = false;
 
+    // chop mode
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+
+    private File txnLogFile;
+    private boolean recoveryMode = false;
+    private boolean verbose = false;
+    private FileInputStream txnFis;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+    private File txnLogFile;
+    private boolean recoveryMode = false;
+    private boolean verbose = false;
+    private FileInputStream txnFis;
+    private BinaryInputArchive logStream;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+
+    // Recovery mode
+    private int crcFixed = 0;
+    private FileOutputStream recoveryFos;
+    private BinaryOutputArchive recoveryOa;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
 #### Snippet
 ```java
-        WorkerReceiver wr;
-        Thread wsThread = null;
-        Thread wrThread = null;
+    long dbId;
+    private final Queue<FileOutputStream> streamsToFlush = new ArrayDeque<>();
+    File logFileWrite = null;
+    private FilePadding filePadding = new FilePadding();
 
-        /**
 ```
 
 ### RedundantFieldInitialization
@@ -15998,66 +16020,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
-#### Snippet
-```java
-    long dbId;
-    private final Queue<FileOutputStream> streamsToFlush = new ArrayDeque<>();
-    File logFileWrite = null;
-    private FilePadding filePadding = new FilePadding();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-
-    // Recovery mode
-    private int crcFixed = 0;
-    private FileOutputStream recoveryFos;
-    private BinaryOutputArchive recoveryOa;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-    private File recoveryLogFile;
-    private FilePadding filePadding = new FilePadding();
-    private boolean force = false;
-
-    // chop mode
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-
-    private File txnLogFile;
-    private boolean recoveryMode = false;
-    private boolean verbose = false;
-    private FileInputStream txnFis;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-    private File txnLogFile;
-    private boolean recoveryMode = false;
-    private boolean verbose = false;
-    private FileInputStream txnFis;
-    private BinaryInputArchive logStream;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileSnap.java`
 #### Snippet
@@ -16082,15 +16044,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileS
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+Field initialization to `0` is redundant
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 #### Snippet
 ```java
-     * (broadcast and fast leader election).
-     */
-    protected boolean quorumListenOnAllIPs = false;
+public class JMap extends JCompType {
 
-    /**
+    private static int level = 0;
+
+    private static String getLevel() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+public class JVector extends JCompType {
+
+    private static int level = 0;
+
+    private static String getId(String id) {
 ```
 
 ### RedundantFieldInitialization
@@ -16098,11 +16072,11 @@ Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-    ServerCnxnFactory secureCnxnFactory;
+        public MultipleAddresses electionAddr = new MultipleAddresses();
 
-    private FileTxnSnapLog logFactory = null;
+        public InetSocketAddress clientAddr = null;
 
-    private final QuorumStats quorumStats;
+        public long id;
 ```
 
 ### RedundantFieldInitialization
@@ -16118,27 +16092,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
+     * (broadcast and fast leader election).
+     */
+    protected boolean quorumListenOnAllIPs = false;
 
-    //last proposed quorum verifier
-    private QuorumVerifier lastSeenQuorumVerifier = null;
-
-    // Lock object that guard access to quorumVerifier and lastSeenQuorumVerifier.
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-    }
-
-    private int nextObserverMaster = 0;
-    private QuorumServer nextObserverMaster() {
-        if (nextObserverMaster >= observerMasters.size()) {
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -16158,11 +16120,11 @@ Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-    }
+    ServerCnxnFactory secureCnxnFactory;
 
-    private String configFilename = null;
+    private FileTxnSnapLog logFactory = null;
 
-    public int getQuorumSize() {
+    private final QuorumStats quorumStats;
 ```
 
 ### RedundantFieldInitialization
@@ -16194,11 +16156,35 @@ Field initialization to `null` is redundant
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
 #### Snippet
 ```java
-        public MultipleAddresses electionAddr = new MultipleAddresses();
 
-        public InetSocketAddress clientAddr = null;
+    //last proposed quorum verifier
+    private QuorumVerifier lastSeenQuorumVerifier = null;
 
-        public long id;
+    // Lock object that guard access to quorumVerifier and lastSeenQuorumVerifier.
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+    }
+
+    private int nextObserverMaster = 0;
+    private QuorumServer nextObserverMaster() {
+        if (nextObserverMaster >= observerMasters.size()) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+    }
+
+    private String configFilename = null;
+
+    public int getQuorumSize() {
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -16290,6 +16276,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/KerberosName
 
 ## RuleId[ruleID=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
+`StringBuffer sb` may be declared as 'StringBuilder'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ConfigUtils.java`
+#### Snippet
+```java
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        boolean first = true;
+        String version = "";
+```
+
+### StringBufferReplaceableByStringBuilder
 `StringBuffer fQName` may be declared as 'StringBuilder'
 in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
 #### Snippet
@@ -16313,31 +16311,7 @@ in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
             String capitalized = parts[i].substring(0, 1).toUpperCase() + parts[i].substring(1).toLowerCase();
 ```
 
-### StringBufferReplaceableByStringBuilder
-`StringBuffer sb` may be declared as 'StringBuilder'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ConfigUtils.java`
-#### Snippet
-```java
-            return "";
-        }
-        StringBuffer sb = new StringBuffer();
-        boolean first = true;
-        String version = "";
-```
-
 ## RuleId[ruleID=RedundantStringFormatCall]
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
-#### Snippet
-```java
-
-    private long printZnodeDetails(DataTree dataTree, boolean dumpData) {
-        System.out.println(String.format("ZNode Details (count=%d):", dataTree.getNodeCount()));
-
-        final long zxid = printZnode(dataTree, "/", dumpData);
-```
-
 ### RedundantStringFormatCall
 Redundant call to `format()`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
@@ -16379,6 +16353,18 @@ Redundant call to `format()`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
 #### Snippet
 ```java
+
+    private long printZnodeDetails(DataTree dataTree, boolean dumpData) {
+        System.out.println(String.format("ZNode Details (count=%d):", dataTree.getNodeCount()));
+
+        final long zxid = printZnode(dataTree, "/", dumpData);
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotFormatter.java`
+#### Snippet
+```java
         for (Map.Entry<Long, Integer> e : sessions.entrySet()) {
             long sid = e.getKey();
             System.out.println(String.format("%#016x, %d, %d", sid, e.getValue(), dataTree.getEphemerals(sid).size()));
@@ -16391,35 +16377,11 @@ Redundant call to `format()`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-    if (Math.abs(rightNode.descendantSize - leftNode.descendantSize) > byteThreshold
-        || Math.abs(rightNode.descendantCount - leftNode.descendantCount) > nodeThreshold) {
-      System.out.println(String.format(
-          "Node %s found in both trees. Delta: %d bytes, %d descendants",
-          leftNode.label,
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-          rightNode.descendantCount - leftNode.descendantCount));
-    } else if (debug || interactive) {
-      System.out.println(String.format("Filtered node %s of left size %d, right size %d", leftNode.label, leftNode.descendantSize, rightNode.descendantSize));
-    }
-  }
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-    fileSnap.deserialize(dataTree, sessions, ia);
-    long end = System.nanoTime();
-    System.out.println(String.format("Deserialized snapshot in %s in %f seconds", file.getName(),
-        (((double) (end - beginning) / 1000000)) / 1000));
-    return dataTree;
+      if (leftNode != null && rightNode != null) {
+        if (debug) {
+          System.out.println(String.format("Comparing %s to %s", leftNode.label, rightNode.label));
+        }
+        int result = leftNode.label.compareTo(rightNode.label);
 ```
 
 ### RedundantStringFormatCall
@@ -16432,6 +16394,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.
       System.out.println(String.format("Processed data tree in %f seconds",
           ((((double) end - beginning) / 1000000)) / 1000));
     }
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+      System.out.println(builder.toString());
+    } else if (debug || interactive) {
+      System.out.println(String.format("Filtered left node %s of size %d", node.label, node.descendantSize));
+    }
+  }
 ```
 
 ### RedundantStringFormatCall
@@ -16523,11 +16497,11 @@ Redundant call to `format()`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-      if (leftNode != null && rightNode != null) {
-        if (debug) {
-          System.out.println(String.format("Comparing %s to %s", leftNode.label, rightNode.label));
-        }
-        int result = leftNode.label.compareTo(rightNode.label);
+
+  private static void printThresholdInfo(int byteThreshold, int nodeThreshold) {
+    System.out.println(String.format("Printing analysis for nodes difference larger than %d bytes or node count difference larger than %d.", byteThreshold, nodeThreshold));
+  }
+
 ```
 
 ### RedundantStringFormatCall
@@ -16535,9 +16509,21 @@ Redundant call to `format()`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-      System.out.println(builder.toString());
+    if (Math.abs(rightNode.descendantSize - leftNode.descendantSize) > byteThreshold
+        || Math.abs(rightNode.descendantCount - leftNode.descendantCount) > nodeThreshold) {
+      System.out.println(String.format(
+          "Node %s found in both trees. Delta: %d bytes, %d descendants",
+          leftNode.label,
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+          rightNode.descendantCount - leftNode.descendantCount));
     } else if (debug || interactive) {
-      System.out.println(String.format("Filtered left node %s of size %d", node.label, node.descendantSize));
+      System.out.println(String.format("Filtered node %s of left size %d, right size %d", leftNode.label, leftNode.descendantSize, rightNode.descendantSize));
     }
   }
 ```
@@ -16548,10 +16534,10 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.
 #### Snippet
 ```java
 
-  private static void printThresholdInfo(int byteThreshold, int nodeThreshold) {
-    System.out.println(String.format("Printing analysis for nodes difference larger than %d bytes or node count difference larger than %d.", byteThreshold, nodeThreshold));
-  }
-
+    if (leftRoot == null && rightRoot == null) {
+      System.out.println(String.format("Path %s is neither found in left tree nor right tree.", path));
+    } else {
+      compareNodes(leftList, rightList, byteThreshold, nodeThreshold, debug, interactive);
 ```
 
 ### RedundantStringFormatCall
@@ -16571,11 +16557,11 @@ Redundant call to `format()`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-
-    if (leftRoot == null && rightRoot == null) {
-      System.out.println(String.format("Path %s is neither found in left tree nor right tree.", path));
-    } else {
-      compareNodes(leftList, rightList, byteThreshold, nodeThreshold, debug, interactive);
+    fileSnap.deserialize(dataTree, sessions, ia);
+    long end = System.nanoTime();
+    System.out.println(String.format("Deserialized snapshot in %s in %f seconds", file.getName(),
+        (((double) (end - beginning) / 1000000)) / 1000));
+    return dataTree;
 ```
 
 ### RedundantStringFormatCall
@@ -16693,10 +16679,10 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
 #### Snippet
 ```java
 
-        private static final long serialVersionUID = -8255690282104294178L;
+        private static final long serialVersionUID = -7854505709816442681L;
         private DisconnectReason reason;
 
-        public EndOfStreamException(String msg, DisconnectReason reason) {
+        public CloseRequestException(String msg, DisconnectReason reason) {
 ```
 
 ### NonFinalFieldOfException
@@ -16705,22 +16691,10 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerCnxn.java`
 #### Snippet
 ```java
 
-        private static final long serialVersionUID = -7854505709816442681L;
+        private static final long serialVersionUID = -8255690282104294178L;
         private DisconnectReason reason;
 
-        public CloseRequestException(String msg, DisconnectReason reason) {
-```
-
-### NonFinalFieldOfException
-Non-final field `exitCode` of exception class
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-
-        private static final long serialVersionUID = 1L;
-        private int exitCode;
-
-        TxnLogToolkitException(int exitCode, String message, Object... params) {
+        public EndOfStreamException(String msg, DisconnectReason reason) {
 ```
 
 ### NonFinalFieldOfException
@@ -16733,6 +16707,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLo
         private Options options;
 
         TxnLogToolkitParseException(Options options, int exitCode, String message, Object... params) {
+```
+
+### NonFinalFieldOfException
+Non-final field `exitCode` of exception class
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+
+        private static final long serialVersionUID = 1L;
+        private int exitCode;
+
+        TxnLogToolkitException(int exitCode, String message, Object... params) {
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -16753,10 +16739,10 @@ Allocation of zero length array
 in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
 #### Snippet
 ```java
-                sendSaslPacket(cnxn);
+                LOG.debug("ServerSaslResponseCallback(): saslToken server response: (length={})", usedata.length);
             } else {
-                byte[] emptyToken = new byte[0];
-                sendSaslPacket(emptyToken, cnxn);
+                usedata = new byte[0];
+                LOG.debug("ServerSaslResponseCallback(): using empty data[] as server response (length={})", usedata.length);
             }
 ```
 
@@ -16777,10 +16763,10 @@ Allocation of zero length array
 in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
 #### Snippet
 ```java
-                LOG.debug("ServerSaslResponseCallback(): saslToken server response: (length={})", usedata.length);
+                sendSaslPacket(cnxn);
             } else {
-                usedata = new byte[0];
-                LOG.debug("ServerSaslResponseCallback(): using empty data[] as server response (length={})", usedata.length);
+                byte[] emptyToken = new byte[0];
+                sendSaslPacket(emptyToken, cnxn);
             }
 ```
 
@@ -17410,6 +17396,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathUtils.java`
 ```
 
 ### ConstantValue
+Value `hostname` is always 'null'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/ZKHostnameVerifier.java`
+#### Snippet
+```java
+    private static String normaliseAddress(final String hostname) {
+        if (hostname == null) {
+            return hostname;
+        }
+        try {
+```
+
+### ConstantValue
 Condition `subjectAlts != null` is always `true`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/ZKHostnameVerifier.java`
 #### Snippet
@@ -17422,15 +17420,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/ZKHostnameVerifie
 ```
 
 ### ConstantValue
-Value `hostname` is always 'null'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/ZKHostnameVerifier.java`
+Condition `uniqacls == null` is always `false`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
 #### Snippet
 ```java
-    private static String normaliseAddress(final String hostname) {
-        if (hostname == null) {
-            return hostname;
+        // This resolves https://issues.apache.org/jira/browse/ZOOKEEPER-1877
+        List<ACL> uniqacls = removeDuplicates(acls);
+        if (uniqacls == null || uniqacls.size() == 0) {
+            throw new KeeperException.InvalidACLException(path);
         }
+```
+
+### ConstantValue
+Condition `getRecordForPath(path) != null` is always `true`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
+#### Snippet
+```java
+        validatePath(path, request.sessionId);
         try {
+            if (getRecordForPath(path) != null) {
+                throw new KeeperException.NodeExistsException(path);
+            }
 ```
 
 ### ConstantValue
@@ -17467,30 +17477,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProces
                 if (lastSeenQV instanceof QuorumMaj) {
                     request.qv = new QuorumMaj(nextServers);
                 } else {
-```
-
-### ConstantValue
-Condition `getRecordForPath(path) != null` is always `true`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-        validatePath(path, request.sessionId);
-        try {
-            if (getRecordForPath(path) != null) {
-                throw new KeeperException.NodeExistsException(path);
-            }
-```
-
-### ConstantValue
-Condition `uniqacls == null` is always `false`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProcessor.java`
-#### Snippet
-```java
-        // This resolves https://issues.apache.org/jira/browse/ZOOKEEPER-1877
-        List<ACL> uniqacls = removeDuplicates(acls);
-        if (uniqacls == null || uniqacls.size() == 0) {
-            throw new KeeperException.InvalidACLException(path);
-        }
 ```
 
 ### ConstantValue
@@ -17542,6 +17528,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.
 ```
 
 ### ConstantValue
+Condition `output != null` is always `true`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/OSMXBean.java`
+#### Snippet
+```java
+                }
+            } finally {
+                if (output != null) {
+                    output.close();
+                }
+```
+
+### ConstantValue
+Condition `output != null` is always `true`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/OSMXBean.java`
+#### Snippet
+```java
+                }
+            } finally {
+                if (output != null) {
+                    output.close();
+                }
+```
+
+### ConstantValue
 Value `enforceQuota` is always 'true'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
 #### Snippet
@@ -17551,30 +17561,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.j
             LOG.info("{} = {}, Quota Enforce enables", ENFORCE_QUOTA, enforceQuota);
         }
 
-```
-
-### ConstantValue
-Condition `output != null` is always `true`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/OSMXBean.java`
-#### Snippet
-```java
-                }
-            } finally {
-                if (output != null) {
-                    output.close();
-                }
-```
-
-### ConstantValue
-Condition `output != null` is always `true`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/OSMXBean.java`
-#### Snippet
-```java
-                }
-            } finally {
-                if (output != null) {
-                    output.close();
-                }
 ```
 
 ### ConstantValue
@@ -17599,6 +17585,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
         if (i < 0 || i >= filename.length()) {
             return null;
         }
+```
+
+### ConstantValue
+Value `sock` is always 'null'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+        } catch (X509Exception e) {
+            LOG.warn("Cannot open secure channel to {} at election address {}", sid, electionAddr, e);
+            closeSocket(sock);
+            return;
+        } catch (UnresolvedAddressException | IOException e) {
+```
+
+### ConstantValue
+Condition `lastSeenQV != null` is always `true`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
+#### Snippet
+```java
+                }
+            }
+            if (lastSeenQV != null
+                && lastProposedView.containsKey(sid)
+                && (!knownId
 ```
 
 ### ConstantValue
@@ -17638,30 +17648,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHan
 ```
 
 ### ConstantValue
-Condition `lastSeenQV != null` is always `true`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-                }
-            }
-            if (lastSeenQV != null
-                && lastProposedView.containsKey(sid)
-                && (!knownId
-```
-
-### ConstantValue
-Value `sock` is always 'null'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
-#### Snippet
-```java
-        } catch (X509Exception e) {
-            LOG.warn("Cannot open secure channel to {} at election address {}", sid, electionAddr, e);
-            closeSocket(sock);
-            return;
-        } catch (UnresolvedAddressException | IOException e) {
-```
-
-### ConstantValue
 Value `quorumRequireSasl` is always 'false'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/auth/SaslQuorumAuthLearner.java`
 #### Snippet
@@ -17686,15 +17672,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/auth/SaslQ
 ```
 
 ### ConstantValue
-Condition `fh == null` is always `false`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
+Condition `txn instanceof CreateTxn` is always `true`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
 #### Snippet
 ```java
-        FileHeader fh = readHeader(itr.logFile);
-        itr.close();
-        if (fh == null) {
-            throw new IOException("Unsupported Format.");
+            return txnData.toString();
         }
+        if (txn instanceof CreateTxn) {
+            CreateTxn createTxn = ((CreateTxn) txn);
+            txnData.append(createTxn.getPath() + "," + checkNullToEmpty(createTxn.getData()))
 ```
 
 ### ConstantValue
@@ -17710,27 +17696,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
 ```
 
 ### ConstantValue
-Condition `txn instanceof CreateTxn` is always `true`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+Condition `fh == null` is always `false`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnLog.java`
 #### Snippet
 ```java
-            return txnData.toString();
+        FileHeader fh = readHeader(itr.logFile);
+        itr.close();
+        if (fh == null) {
+            throw new IOException("Unsupported Format.");
         }
-        if (txn instanceof CreateTxn) {
-            CreateTxn createTxn = ((CreateTxn) txn);
-            txnData.append(createTxn.getPath() + "," + checkNullToEmpty(createTxn.getData()))
-```
-
-### ConstantValue
-Value `enableAuth` is always 'true'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
-#### Snippet
-```java
-            LOG.info("QuorumPeer communication is not secured! (SASL auth disabled)");
-        } else {
-            LOG.info("{} set to {}", QuorumAuth.QUORUM_SASL_AUTH_ENABLED, enableAuth);
-        }
-    }
 ```
 
 ### ConstantValue
@@ -17745,53 +17719,401 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 
 ```
 
+### ConstantValue
+Value `enableAuth` is always 'true'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer.java`
+#### Snippet
+```java
+            LOG.info("QuorumPeer communication is not secured! (SASL auth disabled)");
+        } else {
+            LOG.info("{} set to {}", QuorumAuth.QUORUM_SASL_AUTH_ENABLED, enableAuth);
+        }
+    }
+```
+
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("clientPath:" + clientPath);
+            sb.append(" serverPath:" + serverPath);
+            sb.append(" finished:" + finished);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+
+            sb.append("clientPath:" + clientPath);
+            sb.append(" serverPath:" + serverPath);
+            sb.append(" finished:" + finished);
+
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+            sb.append("clientPath:" + clientPath);
+            sb.append(" serverPath:" + serverPath);
+            sb.append(" finished:" + finished);
+
+            sb.append(" header:: " + requestHeader);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+            sb.append(" finished:" + finished);
+
+            sb.append(" header:: " + requestHeader);
+            sb.append(" replyHeader:: " + replyHeader);
+            sb.append(" request:: " + request);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+
+            sb.append(" header:: " + requestHeader);
+            sb.append(" replyHeader:: " + replyHeader);
+            sb.append(" request:: " + request);
+            sb.append(" response:: " + response);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+            sb.append(" header:: " + requestHeader);
+            sb.append(" replyHeader:: " + replyHeader);
+            sb.append(" request:: " + request);
+            sb.append(" response:: " + response);
+
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+#### Snippet
+```java
+            sb.append(" replyHeader:: " + replyHeader);
+            sb.append(" request:: " + request);
+            sb.append(" response:: " + response);
+
+            // jute toString is horrible, remove unnecessary newlines
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
+#### Snippet
+```java
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Latency min/avg/max: " + getMinLatency() + "/" + getAvgLatency() + "/" + getMaxLatency() + "\n");
+        sb.append("Received: " + getPacketsReceived() + "\n");
+        sb.append("Sent: " + getPacketsSent() + "\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
 #### Snippet
 ```java
         StringBuilder sb = new StringBuilder();
-        sb.append("    {\n");
-        sb.append("      byte[] my = " + fname + ";\n");
-        sb.append("      byte[] ur = " + other + ";\n");
-        sb.append("      ret = org.apache.jute.Utils.compareBytes(my,0,my.length,ur,0,ur.length);\n");
+        sb.append("Latency min/avg/max: " + getMinLatency() + "/" + getAvgLatency() + "/" + getMaxLatency() + "\n");
+        sb.append("Received: " + getPacketsReceived() + "\n");
+        sb.append("Sent: " + getPacketsSent() + "\n");
+        sb.append("Connections: " + getNumAliveClientConnections() + "\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
 #### Snippet
 ```java
-        sb.append("    {\n");
-        sb.append("      byte[] my = " + fname + ";\n");
-        sb.append("      byte[] ur = " + other + ";\n");
-        sb.append("      ret = org.apache.jute.Utils.compareBytes(my,0,my.length,ur,0,ur.length);\n");
-        sb.append("    }\n");
+        sb.append("Latency min/avg/max: " + getMinLatency() + "/" + getAvgLatency() + "/" + getMaxLatency() + "\n");
+        sb.append("Received: " + getPacketsReceived() + "\n");
+        sb.append("Sent: " + getPacketsSent() + "\n");
+        sb.append("Connections: " + getNumAliveClientConnections() + "\n");
+
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
 #### Snippet
 ```java
-        StringBuilder sb = new StringBuilder();
-        sb.append("        {\n");
-        sb.append("           int i = org.apache.jute.Utils.readVInt(" + b + ", " + s + ");\n");
-        sb.append("           int z = WritableUtils.getVIntSize(i);\n");
-        sb.append("           " + s + " += z+i; " + l + " -= (z+i);\n");
+        sb.append("Received: " + getPacketsReceived() + "\n");
+        sb.append("Sent: " + getPacketsSent() + "\n");
+        sb.append("Connections: " + getNumAliveClientConnections() + "\n");
+
+        if (provider != null) {
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
 #### Snippet
 ```java
-        sb.append("           int i = org.apache.jute.Utils.readVInt(" + b + ", " + s + ");\n");
-        sb.append("           int z = WritableUtils.getVIntSize(i);\n");
-        sb.append("           " + s + " += z+i; " + l + " -= (z+i);\n");
-        sb.append("        }\n");
+
+        if (provider != null) {
+            sb.append("Outstanding: " + getOutstandingRequests() + "\n");
+            sb.append("Zxid: 0x" + Long.toHexString(getLastProcessedZxid()) + "\n");
+        }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
+#### Snippet
+```java
+        if (provider != null) {
+            sb.append("Outstanding: " + getOutstandingRequests() + "\n");
+            sb.append("Zxid: 0x" + Long.toHexString(getLastProcessedZxid()) + "\n");
+        }
+        sb.append("Mode: " + getServerState() + "\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
+#### Snippet
+```java
+            sb.append("Zxid: 0x" + Long.toHexString(getLastProcessedZxid()) + "\n");
+        }
+        sb.append("Mode: " + getServerState() + "\n");
         return sb.toString();
+    }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
+#### Snippet
+```java
+    if (maxDepth == 0 || level <= maxDepth) {
+      String tab = String.join("", Collections.nCopies(level, "--"));
+      builder.append(tab + " " + name + "\n");
+      builder.append(tab + "   children: " + (result[0] - 1) + "\n");
+      builder.append(tab + "   data: " + result[1] + "\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
+#### Snippet
+```java
+      String tab = String.join("", Collections.nCopies(level, "--"));
+      builder.append(tab + " " + name + "\n");
+      builder.append(tab + "   children: " + (result[0] - 1) + "\n");
+      builder.append(tab + "   data: " + result[1] + "\n");
+      builder.append(childBuilder);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
+#### Snippet
+```java
+      builder.append(tab + " " + name + "\n");
+      builder.append(tab + "   children: " + (result[0] - 1) + "\n");
+      builder.append(tab + "   data: " + result[1] + "\n");
+      builder.append(childBuilder);
+    }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuffer.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ConfigUtils.java`
+#### Snippet
+```java
+            }
+            if (null != qs.clientAddr) {
+                sb.append(qs.clientAddr.getHostString() + ":" + qs.clientAddr.getPort());
+            }
+        }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringWriter.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/QuorumHierarchical.java`
+#### Snippet
+```java
+        }
+
+        sw.append("version=" + Long.toHexString(version));
+
+        return sw.toString();
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+        if (txn instanceof CreateTxn) {
+            CreateTxn createTxn = ((CreateTxn) txn);
+            txnData.append(createTxn.getPath() + "," + checkNullToEmpty(createTxn.getData()))
+                   .append("," + createTxn.getAcl() + "," + createTxn.getEphemeral())
+                   .append("," + createTxn.getParentCVersion());
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+        } else if (txn instanceof SetDataTxn) {
+            SetDataTxn setDataTxn = ((SetDataTxn) txn);
+            txnData.append(setDataTxn.getPath() + "," + checkNullToEmpty(setDataTxn.getData()))
+                   .append("," + setDataTxn.getVersion());
+        } else if (txn instanceof CreateContainerTxn) {
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+        } else if (txn instanceof CreateContainerTxn) {
+            CreateContainerTxn createContainerTxn = ((CreateContainerTxn) txn);
+            txnData.append(createContainerTxn.getPath() + "," + checkNullToEmpty(createContainerTxn.getData()))
+                   .append("," + createContainerTxn.getAcl() + "," + createContainerTxn.getParentCVersion());
+        } else if (txn instanceof CreateTTLTxn) {
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+        } else if (txn instanceof CreateTTLTxn) {
+            CreateTTLTxn createTTLTxn = ((CreateTTLTxn) txn);
+            txnData.append(createTTLTxn.getPath() + "," + checkNullToEmpty(createTTLTxn.getData()))
+                   .append("," + createTTLTxn.getAcl() + "," + createTTLTxn.getParentCVersion())
+                   .append("," + createTTLTxn.getTtl());
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+                Txn t = txnList.get(i);
+                if (i == 0) {
+                    txnData.append(Request.op2String(t.getType()) + ":" + checkNullToEmpty(t.getData()));
+                } else {
+                    txnData.append(";" + Request.op2String(t.getType()) + ":" + checkNullToEmpty(t.getData()));
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
+#### Snippet
+```java
+                    txnData.append(Request.op2String(t.getType()) + ":" + checkNullToEmpty(t.getData()));
+                } else {
+                    txnData.append(";" + Request.op2String(t.getType()) + ":" + checkNullToEmpty(t.getData()));
+                }
+            }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+        StringBuilder ret = new StringBuilder("    {\n");
+        incrLevel();
+        ret.append("      a_.StartMap(" + fname + ",\"" + tag + "\");\n");
+        ret.append("      java.util.Set " + getId("es") + " = " + fname + ".entrySet();\n");
+        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+        incrLevel();
+        ret.append("      a_.StartMap(" + fname + ",\"" + tag + "\");\n");
+        ret.append("      java.util.Set " + getId("es") + " = " + fname + ".entrySet();\n");
+        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
+        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+        ret.append("      a_.StartMap(" + fname + ",\"" + tag + "\");\n");
+        ret.append("      java.util.Set " + getId("es") + " = " + fname + ".entrySet();\n");
+        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
+        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
+        ret.append("        " + mKey.getCsharpWrapperType() + " " + getId("k") + " = (" + mKey.getCsharpWrapperType() + ") " + getId("me") + ".getKey();\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+        ret.append("      java.util.Set " + getId("es") + " = " + fname + ".entrySet();\n");
+        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
+        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
+        ret.append("        " + mKey.getCsharpWrapperType() + " " + getId("k") + " = (" + mKey.getCsharpWrapperType() + ") " + getId("me") + ".getKey();\n");
+        ret.append("        " + mValue.getCsharpWrapperType() + " " + getId("v") + " = (" + mValue.getCsharpWrapperType() + ") " + getId("me") + ".getValue();\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
+        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
+        ret.append("        " + mKey.getCsharpWrapperType() + " " + getId("k") + " = (" + mKey.getCsharpWrapperType() + ") " + getId("me") + ".getKey();\n");
+        ret.append("        " + mValue.getCsharpWrapperType() + " " + getId("v") + " = (" + mValue.getCsharpWrapperType() + ") " + getId("me") + ".getValue();\n");
+        ret.append(mKey.genCsharpWriteWrapper(getId("k"), getId("k")));
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
+        ret.append("        " + mKey.getCsharpWrapperType() + " " + getId("k") + " = (" + mKey.getCsharpWrapperType() + ") " + getId("me") + ".getKey();\n");
+        ret.append("        " + mValue.getCsharpWrapperType() + " " + getId("v") + " = (" + mValue.getCsharpWrapperType() + ") " + getId("me") + ".getValue();\n");
+        ret.append(mKey.genCsharpWriteWrapper(getId("k"), getId("k")));
+        ret.append(mValue.genCsharpWriteWrapper(getId("v"), getId("v")));
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
+#### Snippet
+```java
+        ret.append(mValue.genCsharpWriteWrapper(getId("v"), getId("v")));
+        ret.append("      }\n");
+        ret.append("      a_.EndMap(" + fname + ",\"" + tag + "\");\n");
+        ret.append("    }\n");
+        decrLevel();
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -17885,162 +18207,6 @@ in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 ```java
         StringBuilder ret = new StringBuilder("");
         if (decl) {
-            ret.append("    java.util.TreeMap " + fname + ";\n");
-        }
-        ret.append("    {\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append("    {\n");
-        incrLevel();
-        ret.append("      org.apache.jute.Index " + getId("midx") + " = a_.startMap(\"" + tag + "\");\n");
-        ret.append("      " + fname + "=new java.util.TreeMap();\n");
-        ret.append("      for (; !" + getId("midx") + ".done(); " + getId("midx") + ".incr()) {\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        incrLevel();
-        ret.append("      org.apache.jute.Index " + getId("midx") + " = a_.startMap(\"" + tag + "\");\n");
-        ret.append("      " + fname + "=new java.util.TreeMap();\n");
-        ret.append("      for (; !" + getId("midx") + ".done(); " + getId("midx") + ".incr()) {\n");
-        ret.append(mKey.genJavaReadWrapper(getId("k"), getId("k"), true));
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append("      org.apache.jute.Index " + getId("midx") + " = a_.startMap(\"" + tag + "\");\n");
-        ret.append("      " + fname + "=new java.util.TreeMap();\n");
-        ret.append("      for (; !" + getId("midx") + ".done(); " + getId("midx") + ".incr()) {\n");
-        ret.append(mKey.genJavaReadWrapper(getId("k"), getId("k"), true));
-        ret.append(mValue.genJavaReadWrapper(getId("v"), getId("v"), true));
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append(mKey.genJavaReadWrapper(getId("k"), getId("k"), true));
-        ret.append(mValue.genJavaReadWrapper(getId("v"), getId("v"), true));
-        ret.append("        " + fname + ".put(" + getId("k") + "," + getId("v") + ");\n");
-        ret.append("      }\n");
-        ret.append("    a_.endMap(\"" + tag + "\");\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append("        " + fname + ".put(" + getId("k") + "," + getId("v") + ");\n");
-        ret.append("      }\n");
-        ret.append("    a_.endMap(\"" + tag + "\");\n");
-        decrLevel();
-        ret.append("    }\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        StringBuilder ret = new StringBuilder("    {\n");
-        incrLevel();
-        ret.append("      a_.StartMap(" + fname + ",\"" + tag + "\");\n");
-        ret.append("      java.util.Set " + getId("es") + " = " + fname + ".entrySet();\n");
-        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        incrLevel();
-        ret.append("      a_.StartMap(" + fname + ",\"" + tag + "\");\n");
-        ret.append("      java.util.Set " + getId("es") + " = " + fname + ".entrySet();\n");
-        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
-        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append("      a_.StartMap(" + fname + ",\"" + tag + "\");\n");
-        ret.append("      java.util.Set " + getId("es") + " = " + fname + ".entrySet();\n");
-        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
-        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
-        ret.append("        " + mKey.getCsharpWrapperType() + " " + getId("k") + " = (" + mKey.getCsharpWrapperType() + ") " + getId("me") + ".getKey();\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append("      java.util.Set " + getId("es") + " = " + fname + ".entrySet();\n");
-        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
-        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
-        ret.append("        " + mKey.getCsharpWrapperType() + " " + getId("k") + " = (" + mKey.getCsharpWrapperType() + ") " + getId("me") + ".getKey();\n");
-        ret.append("        " + mValue.getCsharpWrapperType() + " " + getId("v") + " = (" + mValue.getCsharpWrapperType() + ") " + getId("me") + ".getValue();\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append("      for(java.util.Iterator " + getId("midx") + " = " + getId("es") + ".iterator(); " + getId("midx") + ".hasNext(); ) {\n");
-        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
-        ret.append("        " + mKey.getCsharpWrapperType() + " " + getId("k") + " = (" + mKey.getCsharpWrapperType() + ") " + getId("me") + ".getKey();\n");
-        ret.append("        " + mValue.getCsharpWrapperType() + " " + getId("v") + " = (" + mValue.getCsharpWrapperType() + ") " + getId("me") + ".getValue();\n");
-        ret.append(mKey.genCsharpWriteWrapper(getId("k"), getId("k")));
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append("        java.util.Map.Entry " + getId("me") + " = (java.util.Map.Entry) " + getId("midx") + ".next();\n");
-        ret.append("        " + mKey.getCsharpWrapperType() + " " + getId("k") + " = (" + mKey.getCsharpWrapperType() + ") " + getId("me") + ".getKey();\n");
-        ret.append("        " + mValue.getCsharpWrapperType() + " " + getId("v") + " = (" + mValue.getCsharpWrapperType() + ") " + getId("me") + ".getValue();\n");
-        ret.append(mKey.genCsharpWriteWrapper(getId("k"), getId("k")));
-        ret.append(mValue.genCsharpWriteWrapper(getId("v"), getId("v")));
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        ret.append(mValue.genCsharpWriteWrapper(getId("v"), getId("v")));
-        ret.append("      }\n");
-        ret.append("      a_.EndMap(" + fname + ",\"" + tag + "\");\n");
-        ret.append("    }\n");
-        decrLevel();
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
-#### Snippet
-```java
-        StringBuilder ret = new StringBuilder("");
-        if (decl) {
             ret.append("    System.Collections.SortedDictionary<string,string> " + capitalize(fname) + ";\n");
         }
         ret.append("    {\n");
@@ -18108,158 +18274,122 @@ in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-        StringBuilder ret = new StringBuilder("    {\n");
-        incrLevel();
-        ret.append("      a_.StartVector(" + capitalize(fname) + ",\"" + tag + "\");\n");
-        ret.append("      if (" + capitalize(fname) + "!= null) {");
-        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-        incrLevel();
-        ret.append("      a_.StartVector(" + capitalize(fname) + ",\"" + tag + "\");\n");
-        ret.append("      if (" + capitalize(fname) + "!= null) {");
-        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
-        ret.append("          for(int " + getId("vidx") + " = 0; " + getId("vidx") + "<" + getId("len") + "; " + getId("vidx") + "++) {\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-        ret.append("      a_.StartVector(" + capitalize(fname) + ",\"" + tag + "\");\n");
-        ret.append("      if (" + capitalize(fname) + "!= null) {");
-        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
-        ret.append("          for(int " + getId("vidx") + " = 0; " + getId("vidx") + "<" + getId("len") + "; " + getId("vidx") + "++) {\n");
-        ret.append("            " + mElement.getCsharpWrapperType() + " " + getId("e") + " = (" + mElement.getCsharpWrapperType() + ") " + capitalize(fname) + "[" + getId("vidx") + "];\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-        ret.append("      if (" + capitalize(fname) + "!= null) {");
-        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
-        ret.append("          for(int " + getId("vidx") + " = 0; " + getId("vidx") + "<" + getId("len") + "; " + getId("vidx") + "++) {\n");
-        ret.append("            " + mElement.getCsharpWrapperType() + " " + getId("e") + " = (" + mElement.getCsharpWrapperType() + ") " + capitalize(fname) + "[" + getId("vidx") + "];\n");
-        ret.append(mElement.genCsharpWriteWrapper(getId("e"), getId("e")));
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
-        ret.append("          for(int " + getId("vidx") + " = 0; " + getId("vidx") + "<" + getId("len") + "; " + getId("vidx") + "++) {\n");
-        ret.append("            " + mElement.getCsharpWrapperType() + " " + getId("e") + " = (" + mElement.getCsharpWrapperType() + ") " + capitalize(fname) + "[" + getId("vidx") + "];\n");
-        ret.append(mElement.genCsharpWriteWrapper(getId("e"), getId("e")));
-        ret.append("          }\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-        ret.append("          }\n");
-        ret.append("      }\n");
-        ret.append("      a_.EndVector(" + capitalize(fname) + ",\"" + tag + "\");\n");
-        ret.append("    }\n");
-        decrLevel();
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 #### Snippet
 ```java
         StringBuilder ret = new StringBuilder("");
         if (decl) {
-            ret.append("      java.util.List " + fname + ";\n");
+            ret.append("    java.util.TreeMap " + fname + ";\n");
         }
         ret.append("    {\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 #### Snippet
 ```java
         ret.append("    {\n");
         incrLevel();
-        ret.append("      Index " + getId("vidx") + " = a_.startVector(\"" + tag + "\");\n");
-        ret.append("      if (" + getId("vidx") + "!= null) {");
-        ret.append("          " + fname + "=new java.util.ArrayList<" + mElement.getJavaType() + ">();\n");
+        ret.append("      org.apache.jute.Index " + getId("midx") + " = a_.startMap(\"" + tag + "\");\n");
+        ret.append("      " + fname + "=new java.util.TreeMap();\n");
+        ret.append("      for (; !" + getId("midx") + ".done(); " + getId("midx") + ".incr()) {\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 #### Snippet
 ```java
         incrLevel();
-        ret.append("      Index " + getId("vidx") + " = a_.startVector(\"" + tag + "\");\n");
-        ret.append("      if (" + getId("vidx") + "!= null) {");
-        ret.append("          " + fname + "=new java.util.ArrayList<" + mElement.getJavaType() + ">();\n");
-        ret.append("          for (; !" + getId("vidx") + ".done(); " + getId("vidx") + ".incr()) {\n");
+        ret.append("      org.apache.jute.Index " + getId("midx") + " = a_.startMap(\"" + tag + "\");\n");
+        ret.append("      " + fname + "=new java.util.TreeMap();\n");
+        ret.append("      for (; !" + getId("midx") + ".done(); " + getId("midx") + ".incr()) {\n");
+        ret.append(mKey.genJavaReadWrapper(getId("k"), getId("k"), true));
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 #### Snippet
 ```java
-        ret.append("      Index " + getId("vidx") + " = a_.startVector(\"" + tag + "\");\n");
-        ret.append("      if (" + getId("vidx") + "!= null) {");
-        ret.append("          " + fname + "=new java.util.ArrayList<" + mElement.getJavaType() + ">();\n");
-        ret.append("          for (; !" + getId("vidx") + ".done(); " + getId("vidx") + ".incr()) {\n");
-        ret.append(mElement.genJavaReadWrapper(getId("e"), getId("e"), true));
+        ret.append("      org.apache.jute.Index " + getId("midx") + " = a_.startMap(\"" + tag + "\");\n");
+        ret.append("      " + fname + "=new java.util.TreeMap();\n");
+        ret.append("      for (; !" + getId("midx") + ".done(); " + getId("midx") + ".incr()) {\n");
+        ret.append(mKey.genJavaReadWrapper(getId("k"), getId("k"), true));
+        ret.append(mValue.genJavaReadWrapper(getId("v"), getId("v"), true));
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 #### Snippet
 ```java
-        ret.append("      if (" + getId("vidx") + "!= null) {");
-        ret.append("          " + fname + "=new java.util.ArrayList<" + mElement.getJavaType() + ">();\n");
-        ret.append("          for (; !" + getId("vidx") + ".done(); " + getId("vidx") + ".incr()) {\n");
-        ret.append(mElement.genJavaReadWrapper(getId("e"), getId("e"), true));
-        ret.append("            " + fname + ".add(" + getId("e") + ");\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
-#### Snippet
-```java
-        ret.append("          for (; !" + getId("vidx") + ".done(); " + getId("vidx") + ".incr()) {\n");
-        ret.append(mElement.genJavaReadWrapper(getId("e"), getId("e"), true));
-        ret.append("            " + fname + ".add(" + getId("e") + ");\n");
-        ret.append("          }\n");
+        ret.append(mKey.genJavaReadWrapper(getId("k"), getId("k"), true));
+        ret.append(mValue.genJavaReadWrapper(getId("v"), getId("v"), true));
+        ret.append("        " + fname + ".put(" + getId("k") + "," + getId("v") + ");\n");
         ret.append("      }\n");
+        ret.append("    a_.endMap(\"" + tag + "\");\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JMap.java`
 #### Snippet
 ```java
-        ret.append("          }\n");
+        ret.append("        " + fname + ".put(" + getId("k") + "," + getId("v") + ");\n");
         ret.append("      }\n");
-        ret.append("    a_.endVector(\"" + tag + "\");\n");
+        ret.append("    a_.endMap(\"" + tag + "\");\n");
         decrLevel();
         ret.append("    }\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+#### Snippet
+```java
+        StringBuilder sb = new StringBuilder();
+        sb.append("        {\n");
+        sb.append("           int i = org.apache.jute.Utils.readVInt(" + b + ", " + s + ");\n");
+        sb.append("           int z = WritableUtils.getVIntSize(i);\n");
+        sb.append("           " + s + " += z+i; " + l + " -= (z+i);\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+#### Snippet
+```java
+        sb.append("           int i = org.apache.jute.Utils.readVInt(" + b + ", " + s + ");\n");
+        sb.append("           int z = WritableUtils.getVIntSize(i);\n");
+        sb.append("           " + s + " += z+i; " + l + " -= (z+i);\n");
+        sb.append("        }\n");
+        return sb.toString();
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+#### Snippet
+```java
+        StringBuilder sb = new StringBuilder();
+        sb.append("    {\n");
+        sb.append("      byte[] my = " + fname + ";\n");
+        sb.append("      byte[] ur = " + other + ";\n");
+        sb.append("      ret = org.apache.jute.Utils.compareBytes(my,0,my.length,ur,0,ur.length);\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JBuffer.java`
+#### Snippet
+```java
+        sb.append("    {\n");
+        sb.append("      byte[] my = " + fname + ";\n");
+        sb.append("      byte[] ur = " + other + ";\n");
+        sb.append("      ret = org.apache.jute.Utils.compareBytes(my,0,my.length,ur,0,ur.length);\n");
+        sb.append("    }\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -18420,38 +18550,158 @@ in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        StringBuilder ret = new StringBuilder("    {\n");
+        incrLevel();
+        ret.append("      a_.StartVector(" + capitalize(fname) + ",\"" + tag + "\");\n");
+        ret.append("      if (" + capitalize(fname) + "!= null) {");
+        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        incrLevel();
+        ret.append("      a_.StartVector(" + capitalize(fname) + ",\"" + tag + "\");\n");
+        ret.append("      if (" + capitalize(fname) + "!= null) {");
+        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
+        ret.append("          for(int " + getId("vidx") + " = 0; " + getId("vidx") + "<" + getId("len") + "; " + getId("vidx") + "++) {\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        ret.append("      a_.StartVector(" + capitalize(fname) + ",\"" + tag + "\");\n");
+        ret.append("      if (" + capitalize(fname) + "!= null) {");
+        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
+        ret.append("          for(int " + getId("vidx") + " = 0; " + getId("vidx") + "<" + getId("len") + "; " + getId("vidx") + "++) {\n");
+        ret.append("            " + mElement.getCsharpWrapperType() + " " + getId("e") + " = (" + mElement.getCsharpWrapperType() + ") " + capitalize(fname) + "[" + getId("vidx") + "];\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        ret.append("      if (" + capitalize(fname) + "!= null) {");
+        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
+        ret.append("          for(int " + getId("vidx") + " = 0; " + getId("vidx") + "<" + getId("len") + "; " + getId("vidx") + "++) {\n");
+        ret.append("            " + mElement.getCsharpWrapperType() + " " + getId("e") + " = (" + mElement.getCsharpWrapperType() + ") " + capitalize(fname) + "[" + getId("vidx") + "];\n");
+        ret.append(mElement.genCsharpWriteWrapper(getId("e"), getId("e")));
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        ret.append("          int " + getId("len") + " = " + capitalize(fname) + ".Count;\n");
+        ret.append("          for(int " + getId("vidx") + " = 0; " + getId("vidx") + "<" + getId("len") + "; " + getId("vidx") + "++) {\n");
+        ret.append("            " + mElement.getCsharpWrapperType() + " " + getId("e") + " = (" + mElement.getCsharpWrapperType() + ") " + capitalize(fname) + "[" + getId("vidx") + "];\n");
+        ret.append(mElement.genCsharpWriteWrapper(getId("e"), getId("e")));
+        ret.append("          }\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        ret.append("          }\n");
+        ret.append("      }\n");
+        ret.append("      a_.EndVector(" + capitalize(fname) + ",\"" + tag + "\");\n");
+        ret.append("    }\n");
+        decrLevel();
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
 #### Snippet
 ```java
         StringBuilder ret = new StringBuilder("");
         if (decl) {
-            ret.append("    " + getCsharpFQName(mFQName) + " " + fname + ";\n");
+            ret.append("      java.util.List " + fname + ";\n");
         }
-        ret.append("    " + fname + "= new " + getCsharpFQName(mFQName) + "();\n");
+        ret.append("    {\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
 #### Snippet
 ```java
-            ret.append("    " + getCsharpFQName(mFQName) + " " + fname + ";\n");
-        }
-        ret.append("    " + fname + "= new " + getCsharpFQName(mFQName) + "();\n");
-        ret.append("    a_.ReadRecord(" + fname + ",\"" + tag + "\");\n");
-        return ret.toString();
+        ret.append("    {\n");
+        incrLevel();
+        ret.append("      Index " + getId("vidx") + " = a_.startVector(\"" + tag + "\");\n");
+        ret.append("      if (" + getId("vidx") + "!= null) {");
+        ret.append("          " + fname + "=new java.util.ArrayList<" + mElement.getJavaType() + ">();\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
 #### Snippet
 ```java
-        }
-        ret.append("    " + fname + "= new " + getCsharpFQName(mFQName) + "();\n");
-        ret.append("    a_.ReadRecord(" + fname + ",\"" + tag + "\");\n");
-        return ret.toString();
-    }
+        incrLevel();
+        ret.append("      Index " + getId("vidx") + " = a_.startVector(\"" + tag + "\");\n");
+        ret.append("      if (" + getId("vidx") + "!= null) {");
+        ret.append("          " + fname + "=new java.util.ArrayList<" + mElement.getJavaType() + ">();\n");
+        ret.append("          for (; !" + getId("vidx") + ".done(); " + getId("vidx") + ".incr()) {\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        ret.append("      Index " + getId("vidx") + " = a_.startVector(\"" + tag + "\");\n");
+        ret.append("      if (" + getId("vidx") + "!= null) {");
+        ret.append("          " + fname + "=new java.util.ArrayList<" + mElement.getJavaType() + ">();\n");
+        ret.append("          for (; !" + getId("vidx") + ".done(); " + getId("vidx") + ".incr()) {\n");
+        ret.append(mElement.genJavaReadWrapper(getId("e"), getId("e"), true));
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        ret.append("      if (" + getId("vidx") + "!= null) {");
+        ret.append("          " + fname + "=new java.util.ArrayList<" + mElement.getJavaType() + ">();\n");
+        ret.append("          for (; !" + getId("vidx") + ".done(); " + getId("vidx") + ".incr()) {\n");
+        ret.append(mElement.genJavaReadWrapper(getId("e"), getId("e"), true));
+        ret.append("            " + fname + ".add(" + getId("e") + ");\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        ret.append("          for (; !" + getId("vidx") + ".done(); " + getId("vidx") + ".incr()) {\n");
+        ret.append(mElement.genJavaReadWrapper(getId("e"), getId("e"), true));
+        ret.append("            " + fname + ".add(" + getId("e") + ");\n");
+        ret.append("          }\n");
+        ret.append("      }\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JVector.java`
+#### Snippet
+```java
+        ret.append("          }\n");
+        ret.append("      }\n");
+        ret.append("    a_.endVector(\"" + tag + "\");\n");
+        decrLevel();
+        ret.append("    }\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -18492,302 +18742,38 @@ in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
 #### Snippet
 ```java
-            StringBuilder sb = new StringBuilder();
-
-            sb.append("clientPath:" + clientPath);
-            sb.append(" serverPath:" + serverPath);
-            sb.append(" finished:" + finished);
+        StringBuilder ret = new StringBuilder("");
+        if (decl) {
+            ret.append("    " + getCsharpFQName(mFQName) + " " + fname + ";\n");
+        }
+        ret.append("    " + fname + "= new " + getCsharpFQName(mFQName) + "();\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
 #### Snippet
 ```java
-
-            sb.append("clientPath:" + clientPath);
-            sb.append(" serverPath:" + serverPath);
-            sb.append(" finished:" + finished);
-
+            ret.append("    " + getCsharpFQName(mFQName) + " " + fname + ";\n");
+        }
+        ret.append("    " + fname + "= new " + getCsharpFQName(mFQName) + "();\n");
+        ret.append("    a_.ReadRecord(" + fname + ",\"" + tag + "\");\n");
+        return ret.toString();
 ```
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
+in `zookeeper-jute/src/main/java/org/apache/jute/compiler/JRecord.java`
 #### Snippet
 ```java
-            sb.append("clientPath:" + clientPath);
-            sb.append(" serverPath:" + serverPath);
-            sb.append(" finished:" + finished);
-
-            sb.append(" header:: " + requestHeader);
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-            sb.append(" finished:" + finished);
-
-            sb.append(" header:: " + requestHeader);
-            sb.append(" replyHeader:: " + replyHeader);
-            sb.append(" request:: " + request);
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-
-            sb.append(" header:: " + requestHeader);
-            sb.append(" replyHeader:: " + replyHeader);
-            sb.append(" request:: " + request);
-            sb.append(" response:: " + response);
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-            sb.append(" header:: " + requestHeader);
-            sb.append(" replyHeader:: " + replyHeader);
-            sb.append(" request:: " + request);
-            sb.append(" response:: " + response);
-
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
-#### Snippet
-```java
-            sb.append(" replyHeader:: " + replyHeader);
-            sb.append(" request:: " + request);
-            sb.append(" response:: " + response);
-
-            // jute toString is horrible, remove unnecessary newlines
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
-#### Snippet
-```java
-    if (maxDepth == 0 || level <= maxDepth) {
-      String tab = String.join("", Collections.nCopies(level, "--"));
-      builder.append(tab + " " + name + "\n");
-      builder.append(tab + "   children: " + (result[0] - 1) + "\n");
-      builder.append(tab + "   data: " + result[1] + "\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
-#### Snippet
-```java
-      String tab = String.join("", Collections.nCopies(level, "--"));
-      builder.append(tab + " " + name + "\n");
-      builder.append(tab + "   children: " + (result[0] - 1) + "\n");
-      builder.append(tab + "   data: " + result[1] + "\n");
-      builder.append(childBuilder);
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotRecursiveSummary.java`
-#### Snippet
-```java
-      builder.append(tab + " " + name + "\n");
-      builder.append(tab + "   children: " + (result[0] - 1) + "\n");
-      builder.append(tab + "   data: " + result[1] + "\n");
-      builder.append(childBuilder);
+        }
+        ret.append("    " + fname + "= new " + getCsharpFQName(mFQName) + "();\n");
+        ret.append("    a_.ReadRecord(" + fname + ",\"" + tag + "\");\n");
+        return ret.toString();
     }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
-#### Snippet
-```java
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Latency min/avg/max: " + getMinLatency() + "/" + getAvgLatency() + "/" + getMaxLatency() + "\n");
-        sb.append("Received: " + getPacketsReceived() + "\n");
-        sb.append("Sent: " + getPacketsSent() + "\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
-#### Snippet
-```java
-        StringBuilder sb = new StringBuilder();
-        sb.append("Latency min/avg/max: " + getMinLatency() + "/" + getAvgLatency() + "/" + getMaxLatency() + "\n");
-        sb.append("Received: " + getPacketsReceived() + "\n");
-        sb.append("Sent: " + getPacketsSent() + "\n");
-        sb.append("Connections: " + getNumAliveClientConnections() + "\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
-#### Snippet
-```java
-        sb.append("Latency min/avg/max: " + getMinLatency() + "/" + getAvgLatency() + "/" + getMaxLatency() + "\n");
-        sb.append("Received: " + getPacketsReceived() + "\n");
-        sb.append("Sent: " + getPacketsSent() + "\n");
-        sb.append("Connections: " + getNumAliveClientConnections() + "\n");
-
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
-#### Snippet
-```java
-        sb.append("Received: " + getPacketsReceived() + "\n");
-        sb.append("Sent: " + getPacketsSent() + "\n");
-        sb.append("Connections: " + getNumAliveClientConnections() + "\n");
-
-        if (provider != null) {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
-#### Snippet
-```java
-
-        if (provider != null) {
-            sb.append("Outstanding: " + getOutstandingRequests() + "\n");
-            sb.append("Zxid: 0x" + Long.toHexString(getLastProcessedZxid()) + "\n");
-        }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
-#### Snippet
-```java
-        if (provider != null) {
-            sb.append("Outstanding: " + getOutstandingRequests() + "\n");
-            sb.append("Zxid: 0x" + Long.toHexString(getLastProcessedZxid()) + "\n");
-        }
-        sb.append("Mode: " + getServerState() + "\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ServerStats.java`
-#### Snippet
-```java
-            sb.append("Zxid: 0x" + Long.toHexString(getLastProcessedZxid()) + "\n");
-        }
-        sb.append("Mode: " + getServerState() + "\n");
-        return sb.toString();
-    }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuffer.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ConfigUtils.java`
-#### Snippet
-```java
-            }
-            if (null != qs.clientAddr) {
-                sb.append(qs.clientAddr.getHostString() + ":" + qs.clientAddr.getPort());
-            }
-        }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringWriter.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/QuorumHierarchical.java`
-#### Snippet
-```java
-        }
-
-        sw.append("version=" + Long.toHexString(version));
-
-        return sw.toString();
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-        if (txn instanceof CreateTxn) {
-            CreateTxn createTxn = ((CreateTxn) txn);
-            txnData.append(createTxn.getPath() + "," + checkNullToEmpty(createTxn.getData()))
-                   .append("," + createTxn.getAcl() + "," + createTxn.getEphemeral())
-                   .append("," + createTxn.getParentCVersion());
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-        } else if (txn instanceof SetDataTxn) {
-            SetDataTxn setDataTxn = ((SetDataTxn) txn);
-            txnData.append(setDataTxn.getPath() + "," + checkNullToEmpty(setDataTxn.getData()))
-                   .append("," + setDataTxn.getVersion());
-        } else if (txn instanceof CreateContainerTxn) {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-        } else if (txn instanceof CreateContainerTxn) {
-            CreateContainerTxn createContainerTxn = ((CreateContainerTxn) txn);
-            txnData.append(createContainerTxn.getPath() + "," + checkNullToEmpty(createContainerTxn.getData()))
-                   .append("," + createContainerTxn.getAcl() + "," + createContainerTxn.getParentCVersion());
-        } else if (txn instanceof CreateTTLTxn) {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-        } else if (txn instanceof CreateTTLTxn) {
-            CreateTTLTxn createTTLTxn = ((CreateTTLTxn) txn);
-            txnData.append(createTTLTxn.getPath() + "," + checkNullToEmpty(createTTLTxn.getData()))
-                   .append("," + createTTLTxn.getAcl() + "," + createTTLTxn.getParentCVersion())
-                   .append("," + createTTLTxn.getTtl());
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-                Txn t = txnList.get(i);
-                if (i == 0) {
-                    txnData.append(Request.op2String(t.getType()) + ":" + checkNullToEmpty(t.getData()));
-                } else {
-                    txnData.append(";" + Request.op2String(t.getType()) + ":" + checkNullToEmpty(t.getData()));
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
-#### Snippet
-```java
-                    txnData.append(Request.op2String(t.getType()) + ":" + checkNullToEmpty(t.getData()));
-                } else {
-                    txnData.append(";" + Request.op2String(t.getType()) + ":" + checkNullToEmpty(t.getData()));
-                }
-            }
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -18841,6 +18827,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.ja
 
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+#### Snippet
+```java
+    public void revalidateSession(QuorumPacket qp, LearnerHandler learnerHandler) throws IOException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(qp.getData());
+        DataInputStream dis = new DataInputStream(bis);
+        long id = dis.readLong();
+        int to = dis.readInt();
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
+#### Snippet
+```java
+    boolean revalidateLearnerSession(QuorumPacket qp) throws IOException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(qp.getData());
+        DataInputStream dis = new DataInputStream(bis);
+        long id = dis.readLong();
+        boolean valid = dis.readBoolean();
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
 #### Snippet
 ```java
@@ -18861,30 +18871,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.jav
         DataOutputStream dos = new DataOutputStream(bos);
         dos.writeLong(id);
         boolean valid = zk.checkIfValidGlobalSession(id, to);
-```
-
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
-#### Snippet
-```java
-    boolean revalidateLearnerSession(QuorumPacket qp) throws IOException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(qp.getData());
-        DataInputStream dis = new DataInputStream(bis);
-        long id = dis.readLong();
-        boolean valid = dis.readBoolean();
-```
-
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/ObserverMaster.java`
-#### Snippet
-```java
-    public void revalidateSession(QuorumPacket qp, LearnerHandler learnerHandler) throws IOException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(qp.getData());
-        DataInputStream dis = new DataInputStream(bis);
-        long id = dis.readLong();
-        int to = dis.readInt();
 ```
 
 ### IOResource
@@ -18916,11 +18902,11 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHan
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java`
 #### Snippet
 ```java
-        long deserializeResult = snapLog.deserialize(dt, sessions);
-        ServerMetrics.getMetrics().STARTUP_SNAP_LOAD_TIME.add(Time.currentElapsedTime() - snapLoadingStartTime);
+     */
+    public long getLastLoggedZxid() {
         FileTxnLog txnLog = new FileTxnLog(dataDir);
-        boolean trustEmptyDB;
-        File initFile = new File(dataDir.getParent(), "initialize");
+        return txnLog.getLastLoggedZxid();
+    }
 ```
 
 ### IOResource
@@ -18940,11 +18926,11 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java`
 #### Snippet
 ```java
-     */
-    public long getLastLoggedZxid() {
+        long deserializeResult = snapLog.deserialize(dt, sessions);
+        ServerMetrics.getMetrics().STARTUP_SNAP_LOAD_TIME.add(Time.currentElapsedTime() - snapLoadingStartTime);
         FileTxnLog txnLog = new FileTxnLog(dataDir);
-        return txnLog.getLastLoggedZxid();
-    }
+        boolean trustEmptyDB;
+        File initFile = new File(dataDir.getParent(), "initialize");
 ```
 
 ## RuleId[ruleID=RedundantOperationOnEmptyContainer]
@@ -19047,15 +19033,15 @@ public class Quotas {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ServerAdminClient` has only 'static' members, and lacks a 'private' constructor
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ServerAdminClient.java`
+Class `Environment` has only 'static' members, and lacks a 'private' constructor
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Environment.java`
 #### Snippet
 ```java
+ *
+ */
+public class Environment {
 
-@InterfaceAudience.Public
-public class ServerAdminClient {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ServerAdminClient.class);
+    public static final String JAAS_CONF_KEY = "java.security.auth.login.config";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19071,30 +19057,6 @@ public class ZooDefs {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ZKUtil` has only 'static' members, and lacks a 'private' constructor
-in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKUtil.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class ZKUtil {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ZKUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Environment` has only 'static' members, and lacks a 'private' constructor
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Environment.java`
-#### Snippet
-```java
- *
- */
-public class Environment {
-
-    public static final String JAAS_CONF_KEY = "java.security.auth.login.config";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SaslServerPrincipal` has only 'static' members, and lacks a 'private' constructor
 in `zookeeper-server/src/main/java/org/apache/zookeeper/SaslServerPrincipal.java`
 #### Snippet
@@ -19107,6 +19069,18 @@ public class SaslServerPrincipal {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ServerAdminClient` has only 'static' members, and lacks a 'private' constructor
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ServerAdminClient.java`
+#### Snippet
+```java
+
+@InterfaceAudience.Public
+public class ServerAdminClient {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ServerAdminClient.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ZookeeperBanner` has only 'static' members, and lacks a 'private' constructor
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZookeeperBanner.java`
 #### Snippet
@@ -19116,6 +19090,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZookeeperBanner.java`
 public class ZookeeperBanner {
 
     private static final String[] BANNER = {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ZKUtil` has only 'static' members, and lacks a 'private' constructor
+in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKUtil.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class ZKUtil {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ZKUtil.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19167,18 +19153,6 @@ public class ManagedUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SecurityUtils` has only 'static' members, and lacks a 'private' constructor
-in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
-#### Snippet
-```java
-import org.slf4j.Logger;
-
-public final class SecurityUtils {
-
-    public static final String QUORUM_HOSTNAME_PATTERN = "_HOST";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ZKAuditProvider` has only 'static' members, and lacks a 'private' constructor
 in `zookeeper-server/src/main/java/org/apache/zookeeper/audit/ZKAuditProvider.java`
 #### Snippet
@@ -19191,15 +19165,15 @@ public class ZKAuditProvider {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AuditHelper` has only 'static' members, and lacks a 'private' constructor
-in `zookeeper-server/src/main/java/org/apache/zookeeper/audit/AuditHelper.java`
+Class `SecurityUtils` has only 'static' members, and lacks a 'private' constructor
+in `zookeeper-server/src/main/java/org/apache/zookeeper/util/SecurityUtils.java`
 #### Snippet
 ```java
- * Helper class to decouple audit log code.
- */
-public final class AuditHelper {
-    private static final Logger LOG = LoggerFactory.getLogger(AuditHelper.class);
+import org.slf4j.Logger;
 
+public final class SecurityUtils {
+
+    public static final String QUORUM_HOSTNAME_PATTERN = "_HOST";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19212,6 +19186,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/FourLetterWordMai
 public class FourLetterWordMain {
 
     //in milliseconds, socket should connect/read within this period otherwise SocketTimeoutException
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AuditHelper` has only 'static' members, and lacks a 'private' constructor
+in `zookeeper-server/src/main/java/org/apache/zookeeper/audit/AuditHelper.java`
+#### Snippet
+```java
+ * Helper class to decouple audit log code.
+ */
+public final class AuditHelper {
+    private static final Logger LOG = LoggerFactory.getLogger(AuditHelper.class);
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19263,18 +19249,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/PathUtils.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Time` has only 'static' members, and lacks a 'private' constructor
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/Time.java`
-#### Snippet
-```java
-import java.util.Date;
-
-public class Time {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `NetUtils` has only 'static' members, and lacks a 'private' constructor
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/NetUtils.java`
 #### Snippet
@@ -19284,6 +19258,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/NetUtils.java`
 public class NetUtils {
 
     public static String formatInetAddr(InetSocketAddress addr) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Time` has only 'static' members, and lacks a 'private' constructor
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/Time.java`
+#### Snippet
+```java
+import java.util.Date;
+
+public class Time {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19359,18 +19345,6 @@ public class KerberosUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ZxidUtils` has only 'static' members, and lacks a 'private' constructor
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ZxidUtils.java`
-#### Snippet
-```java
-package org.apache.zookeeper.server.util;
-
-public class ZxidUtils {
-
-    public static long getEpochFromZxid(long zxid) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ConfigUtils` has only 'static' members, and lacks a 'private' constructor
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ConfigUtils.java`
 #### Snippet
@@ -19383,15 +19357,15 @@ public class ConfigUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LogChopper` has only 'static' members, and lacks a 'private' constructor
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
+Class `ZxidUtils` has only 'static' members, and lacks a 'private' constructor
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ZxidUtils.java`
 #### Snippet
 ```java
- */
-@InterfaceAudience.Public
-public class LogChopper {
+package org.apache.zookeeper.server.util;
 
-    public static void main(String[] args) {
+public class ZxidUtils {
+
+    public static long getEpochFromZxid(long zxid) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19404,6 +19378,18 @@ import org.slf4j.LoggerFactory;
 public class SerializeUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(SerializeUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LogChopper` has only 'static' members, and lacks a 'private' constructor
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/LogChopper.java`
+#### Snippet
+```java
+ */
+@InterfaceAudience.Public
+public class LogChopper {
+
+    public static void main(String[] args) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -19684,6 +19670,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/MultiResponse.java`
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/RemoveWatchesCommand.java`
+#### Snippet
+```java
+            wtype = WatcherType.Data;
+        } else if (cl.hasOption("a")) {
+            wtype = WatcherType.Any;
+        }
+        // whether to remove the watches locally
+```
+
+### DataFlowIssue
 Switch label `PING_XID` is unreachable
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 #### Snippet
@@ -19745,18 +19743,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `zookeeper-server/src/main/java/org/apache/zookeeper/cli/RemoveWatchesCommand.java`
-#### Snippet
-```java
-            wtype = WatcherType.Data;
-        } else if (cl.hasOption("a")) {
-            wtype = WatcherType.Any;
-        }
-        // whether to remove the watches locally
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/ZKConfig.java`
 #### Snippet
 ```java
@@ -19765,6 +19751,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/common/ZKConfig.java`
             configFile = (new VerifyingFileFactory.Builder(LOG).warnForRelativePath()
                                                                .failForNonExistingPath()
                                                                .build()).validate(configFile);
+```
+
+### DataFlowIssue
+Dereference of `committedLog.peek()` may produce `NullPointerException`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZKDatabase.java`
+#### Snippet
+```java
+            if (committedLog.size() > commitLogCount) {
+                committedLog.remove();
+                minCommittedLog = committedLog.peek().packet.getZxid();
+            }
+            if (committedLog.isEmpty()) {
 ```
 
 ### DataFlowIssue
@@ -19780,15 +19778,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/UnimplementedRequ
 ```
 
 ### DataFlowIssue
-Dereference of `committedLog.peek()` may produce `NullPointerException`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZKDatabase.java`
+Argument `rightNode` might be null
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-            if (committedLog.size() > commitLogCount) {
-                committedLog.remove();
-                minCommittedLog = committedLog.peek().packet.getZxid();
-            }
-            if (committedLog.isEmpty()) {
+        leftIndex++;
+      } else {
+        printRightOnly(rightNode, byteThreshold, nodeThreshold, debug, interactive);
+        rightIndex++;
+      }
 ```
 
 ### DataFlowIssue
@@ -19897,42 +19895,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/FinalRequestProce
                 rsp = new SetDataResponse(rc.stat);
                 err = Code.get(rc.err);
                 break;
-```
-
-### DataFlowIssue
-Argument `rightNode` might be null
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-        leftIndex++;
-      } else {
-        printRightOnly(rightNode, byteThreshold, nodeThreshold, debug, interactive);
-        rightIndex++;
-      }
-```
-
-### DataFlowIssue
-Condition `txn instanceof CreateSessionTxn` is redundant and can be replaced with a null check
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-
-        if (opCode == OpCode.createSession) {
-            if (hdr != null && txn instanceof CreateSessionTxn) {
-                CreateSessionTxn cst = (CreateSessionTxn) txn;
-                sessionTracker.commitSession(sessionId, cst.getTimeOut());
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-                } catch (RuntimeException e) {
-                    LOG.warn("Caught runtime exception from AuthenticationProvider: {}", scheme, e);
-                    authReturn = KeeperException.Code.AUTHFAILED;
-                }
-            }
 ```
 
 ### DataFlowIssue
@@ -20092,63 +20054,27 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/SerializeUti
 ```
 
 ### DataFlowIssue
-Switch label `Leader.PING` is unreachable
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+Condition `txn instanceof CreateSessionTxn` is redundant and can be replaced with a null check
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
 #### Snippet
 ```java
-    protected void processPacket(QuorumPacket qp) throws Exception {
-        switch (qp.getType()) {
-        case Leader.PING:
-            ping(qp);
-            break;
+
+        if (opCode == OpCode.createSession) {
+            if (hdr != null && txn instanceof CreateSessionTxn) {
+                CreateSessionTxn cst = (CreateSessionTxn) txn;
+                sessionTracker.commitSession(sessionId, cst.getTimeOut());
 ```
 
 ### DataFlowIssue
-Switch label `Leader.PROPOSAL` is unreachable
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+Variable is already assigned to this value
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
 #### Snippet
 ```java
-            ping(qp);
-            break;
-        case Leader.PROPOSAL:
-            ServerMetrics.getMetrics().LEARNER_PROPOSAL_RECEIVED_COUNT.add(1);
-            TxnLogEntry logEntry = SerializeUtils.deserializeTxn(qp.getData());
-```
-
-### DataFlowIssue
-Switch label `Leader.COMMIT` is unreachable
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
-#### Snippet
-```java
+                } catch (RuntimeException e) {
+                    LOG.warn("Caught runtime exception from AuthenticationProvider: {}", scheme, e);
+                    authReturn = KeeperException.Code.AUTHFAILED;
+                }
             }
-            break;
-        case Leader.COMMIT:
-            ServerMetrics.getMetrics().LEARNER_COMMIT_RECEIVED_COUNT.add(1);
-            fzk.commit(qp.getZxid());
-```
-
-### DataFlowIssue
-Switch label `Leader.COMMITANDACTIVATE` is unreachable
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
-#### Snippet
-```java
-            break;
-
-        case Leader.COMMITANDACTIVATE:
-            // get the new configuration from the request
-            Request request = fzk.pendingTxns.element();
-```
-
-### DataFlowIssue
-Switch label `Leader.UPTODATE` is unreachable
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
-#### Snippet
-```java
-            }
-            break;
-        case Leader.UPTODATE:
-            LOG.error("Received an UPTODATE message after Follower started");
-            break;
 ```
 
 ### DataFlowIssue
@@ -20161,30 +20087,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
             case OpCode.create:
                 CreateTxn createTxn = (CreateTxn) txn;
                 rc.path = createTxn.getPath();
-```
-
-### DataFlowIssue
-Switch label `Leader.REVALIDATE` is unreachable
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
-#### Snippet
-```java
-            LOG.error("Received an UPTODATE message after Follower started");
-            break;
-        case Leader.REVALIDATE:
-            if (om == null || !om.revalidateLearnerSession(qp)) {
-                revalidate(qp);
-```
-
-### DataFlowIssue
-Switch label `Leader.SYNC` is unreachable
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
-#### Snippet
-```java
-            }
-            break;
-        case Leader.SYNC:
-            fzk.sync();
-            break;
 ```
 
 ### DataFlowIssue
@@ -20329,6 +20231,90 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
             case OpCode.multi:
                 MultiTxn multiTxn = (MultiTxn) txn;
                 List<Txn> txns = multiTxn.getTxns();
+```
+
+### DataFlowIssue
+Switch label `Leader.PING` is unreachable
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+#### Snippet
+```java
+    protected void processPacket(QuorumPacket qp) throws Exception {
+        switch (qp.getType()) {
+        case Leader.PING:
+            ping(qp);
+            break;
+```
+
+### DataFlowIssue
+Switch label `Leader.PROPOSAL` is unreachable
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+#### Snippet
+```java
+            ping(qp);
+            break;
+        case Leader.PROPOSAL:
+            ServerMetrics.getMetrics().LEARNER_PROPOSAL_RECEIVED_COUNT.add(1);
+            TxnLogEntry logEntry = SerializeUtils.deserializeTxn(qp.getData());
+```
+
+### DataFlowIssue
+Switch label `Leader.COMMIT` is unreachable
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+#### Snippet
+```java
+            }
+            break;
+        case Leader.COMMIT:
+            ServerMetrics.getMetrics().LEARNER_COMMIT_RECEIVED_COUNT.add(1);
+            fzk.commit(qp.getZxid());
+```
+
+### DataFlowIssue
+Switch label `Leader.COMMITANDACTIVATE` is unreachable
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+#### Snippet
+```java
+            break;
+
+        case Leader.COMMITANDACTIVATE:
+            // get the new configuration from the request
+            Request request = fzk.pendingTxns.element();
+```
+
+### DataFlowIssue
+Switch label `Leader.UPTODATE` is unreachable
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+#### Snippet
+```java
+            }
+            break;
+        case Leader.UPTODATE:
+            LOG.error("Received an UPTODATE message after Follower started");
+            break;
+```
+
+### DataFlowIssue
+Switch label `Leader.REVALIDATE` is unreachable
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+#### Snippet
+```java
+            LOG.error("Received an UPTODATE message after Follower started");
+            break;
+        case Leader.REVALIDATE:
+            if (om == null || !om.revalidateLearnerSession(qp)) {
+                revalidate(qp);
+```
+
+### DataFlowIssue
+Switch label `Leader.SYNC` is unreachable
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Follower.java`
+#### Snippet
+```java
+            }
+            break;
+        case Leader.SYNC:
+            fzk.sync();
+            break;
 ```
 
 ### DataFlowIssue
@@ -20886,6 +20872,54 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Watcher.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'APIError' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int APIError = -100;
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'EphemeralOnLocalSession' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+
+        @Deprecated
+        int EphemeralOnLocalSession = -120;
+
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'NewConfigNoQuorum' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int NewConfigNoQuorum = -13;
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'NodeExists' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int NodeExists = -110;
+        /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#NOTEMPTY} instead
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'BadVersion' is still used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
@@ -20910,54 +20944,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'SystemError' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int SystemError = -1;
-        /**
-         * @deprecated deprecated in 3.1.0, use
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'CodeDeprecated' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-    @Deprecated
-    @InterfaceAudience.Public
-    public interface CodeDeprecated {
-
-        /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'Ok' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int Ok = 0;
-
-        /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DataInconsistency' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int DataInconsistency = -3;
-        /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#CONNECTIONLOSS}
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'NotEmpty' is still used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
@@ -20967,66 +20953,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
         int NotEmpty = -111;
         /**
          * @deprecated deprecated in 3.1.0, use {@link Code#SESSIONEXPIRED} instead
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'NodeExists' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int NodeExists = -110;
-        /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#NOTEMPTY} instead
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'NoAuth' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int NoAuth = -102;
-        /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#BADVERSION} instead
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'Unimplemented' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int Unimplemented = -6;
-        /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#OPERATIONTIMEOUT}
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'InvalidCallback' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int InvalidCallback = -113;
-        /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#INVALIDACL} instead
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'APIError' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int APIError = -100;
-
-        /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -21042,75 +20968,51 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'EphemeralOnLocalSession' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-
-        @Deprecated
-        int EphemeralOnLocalSession = -120;
-
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'OperationTimeout' is still used
+Deprecated member 'ConnectionLoss' is still used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
 ```java
          */
         @Deprecated
-        int OperationTimeout = -7;
+        int ConnectionLoss = -4;
         /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#BADARGUMENTS}
+         * @deprecated deprecated in 3.1.0, use {@link Code#MARSHALLINGERROR}
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'NewConfigNoQuorum' is still used
+Deprecated member 'InvalidCallback' is still used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
 ```java
          */
         @Deprecated
-        int NewConfigNoQuorum = -13;
-
+        int InvalidCallback = -113;
         /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#INVALIDACL} instead
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ReconfigInProgress' is still used
+Deprecated member 'SystemError' is still used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
 ```java
          */
         @Deprecated
-        int ReconfigInProgress = -14;
-
+        int SystemError = -1;
         /**
+         * @deprecated deprecated in 3.1.0, use
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'NoNode' is still used
+Deprecated member 'Ok' is still used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
 ```java
          */
         @Deprecated
-        int NoNode = -101;
-        /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#NOAUTH} instead
-```
+        int Ok = 0;
 
-### DeprecatedIsStillUsed
-Deprecated member 'RuntimeInconsistency' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int RuntimeInconsistency = -2;
         /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#DATAINCONSISTENCY}
 ```
 
 ### DeprecatedIsStillUsed
@@ -21126,39 +21028,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'NoChildrenForEphemerals' is still used
+Deprecated member 'ReconfigInProgress' is still used
 in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
 ```java
          */
         @Deprecated
-        int NoChildrenForEphemerals = -108;
-        /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#NODEEXISTS} instead
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'UnknownSession' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-
-        @Deprecated
-        int UnknownSession = -12;
+        int ReconfigInProgress = -14;
 
         /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ConnectionLoss' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        int ConnectionLoss = -4;
-        /**
-         * @deprecated deprecated in 3.1.0, use {@link Code#MARSHALLINGERROR}
 ```
 
 ### DeprecatedIsStillUsed
@@ -21174,15 +21052,111 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ENABLE_CLIENT_SASL_DEFAULT' is still used
-in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
+Deprecated member 'OperationTimeout' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public static final String ENABLE_CLIENT_SASL_DEFAULT = "true";
-    private volatile boolean initializedLogin = false;
+         */
+        @Deprecated
+        int OperationTimeout = -7;
+        /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#BADARGUMENTS}
+```
 
+### DeprecatedIsStillUsed
+Deprecated member 'DataInconsistency' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int DataInconsistency = -3;
+        /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#CONNECTIONLOSS}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'NoAuth' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int NoAuth = -102;
+        /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#BADVERSION} instead
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'NoNode' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int NoNode = -101;
+        /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#NOAUTH} instead
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'CodeDeprecated' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+    @Deprecated
+    @InterfaceAudience.Public
+    public interface CodeDeprecated {
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'RuntimeInconsistency' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int RuntimeInconsistency = -2;
+        /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#DATAINCONSISTENCY}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'Unimplemented' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int Unimplemented = -6;
+        /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#OPERATIONTIMEOUT}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'UnknownSession' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+
+        @Deprecated
+        int UnknownSession = -12;
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'NoChildrenForEphemerals' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/KeeperException.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        int NoChildrenForEphemerals = -108;
+        /**
+         * @deprecated deprecated in 3.1.0, use {@link Code#NODEEXISTS} instead
 ```
 
 ### DeprecatedIsStillUsed
@@ -21195,6 +21169,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClie
     public static final String ENABLE_CLIENT_SASL_KEY = "zookeeper.sasl.client";
     /**
      * @deprecated Use {@link ZKClientConfig#ENABLE_CLIENT_SASL_DEFAULT}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ENABLE_CLIENT_SASL_DEFAULT' is still used
+in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final String ENABLE_CLIENT_SASL_DEFAULT = "true";
+    private volatile boolean initializedLogin = false;
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -21260,18 +21246,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/RequestPathM
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
-#### Snippet
-```java
-
-        rootContext.registerGauge("quorum_size", () -> {
-            return self.getQuorumSize();
-        });
-    }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooKeeperServer.java`
 #### Snippet
 ```java
@@ -21296,6 +21270,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderZooK
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumZooKeeperServer.java`
+#### Snippet
+```java
+
+        rootContext.registerGauge("quorum_size", () -> {
+            return self.getQuorumSize();
+        });
+    }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.java`
 #### Snippet
 ```java
@@ -21308,18 +21294,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.ja
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
-#### Snippet
-```java
-
-    void closeSockAsync() {
-        final Thread closingThread = new Thread(() -> closeSockSync(), "CloseSocketThread(sid:" + this.sid);
-        closingThread.setDaemon(true);
-        closingThread.start();
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
 ```java
@@ -21328,6 +21302,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxM
     static final Supplier<Socket> DEFAULT_SOCKET_FACTORY = () -> new Socket();
     private static Supplier<Socket> SOCKET_FACTORY = DEFAULT_SOCKET_FACTORY;
     static void setSocketFactory(Supplier<Socket> factory) {
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandler.java`
+#### Snippet
+```java
+
+    void closeSockAsync() {
+        final Thread closingThread = new Thread(() -> closeSockSync(), "CloseSocketThread(sid:" + this.sid);
+        closingThread.setDaemon(true);
+        closingThread.start();
 ```
 
 ### Convert2MethodRef
@@ -21420,150 +21406,6 @@ Call to 'abstract' method `getConfigPrefix()` during object construction
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
 #### Snippet
 ```java
-    private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
-    private String sslOcspEnabledProperty = getConfigPrefix() + "ocsp";
-    private String sslClientAuthProperty = getConfigPrefix() + "clientAuth";
-    private String sslHandshakeDetectionTimeoutMillisProperty = getConfigPrefix() + "handshakeDetectionTimeoutMillis";
-
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
-    private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
-    private String sslKeystorePasswdPathProperty = getConfigPrefix() + "keyStore.passwordPath";
-    private String sslKeystoreTypeProperty = getConfigPrefix() + "keyStore.type";
-    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslEnabledProtocolsProperty = getConfigPrefix() + "enabledProtocols";
-    private String cipherSuitesProperty = getConfigPrefix() + "ciphersuites";
-    private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
-    private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
-    private String sslKeystorePasswdPathProperty = getConfigPrefix() + "keyStore.passwordPath";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslKeystorePasswdPathProperty = getConfigPrefix() + "keyStore.passwordPath";
-    private String sslKeystoreTypeProperty = getConfigPrefix() + "keyStore.type";
-    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
-    private String sslTruststorePasswdProperty = getConfigPrefix() + "trustStore.password";
-    private String sslTruststorePasswdPathProperty = getConfigPrefix() + "trustStore.passwordPath";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslTruststoreTypeProperty = getConfigPrefix() + "trustStore.type";
-    private String sslContextSupplierClassProperty = getConfigPrefix() + "context.supplier.class";
-    private String sslHostnameVerificationEnabledProperty = getConfigPrefix() + "hostnameVerification";
-    private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
-    private String sslOcspEnabledProperty = getConfigPrefix() + "ocsp";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslKeystoreTypeProperty = getConfigPrefix() + "keyStore.type";
-    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
-    private String sslTruststorePasswdProperty = getConfigPrefix() + "trustStore.password";
-    private String sslTruststorePasswdPathProperty = getConfigPrefix() + "trustStore.passwordPath";
-    private String sslTruststoreTypeProperty = getConfigPrefix() + "trustStore.type";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslHostnameVerificationEnabledProperty = getConfigPrefix() + "hostnameVerification";
-    private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
-    private String sslOcspEnabledProperty = getConfigPrefix() + "ocsp";
-    private String sslClientAuthProperty = getConfigPrefix() + "clientAuth";
-    private String sslHandshakeDetectionTimeoutMillisProperty = getConfigPrefix() + "handshakeDetectionTimeoutMillis";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
-    private String sslKeystorePasswdPathProperty = getConfigPrefix() + "keyStore.passwordPath";
-    private String sslKeystoreTypeProperty = getConfigPrefix() + "keyStore.type";
-    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
-    private String sslTruststorePasswdProperty = getConfigPrefix() + "trustStore.password";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-
-    private String sslProtocolProperty = getConfigPrefix() + "protocol";
-    private String sslEnabledProtocolsProperty = getConfigPrefix() + "enabledProtocols";
-    private String cipherSuitesProperty = getConfigPrefix() + "ciphersuites";
-    private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslProtocolProperty = getConfigPrefix() + "protocol";
-    private String sslEnabledProtocolsProperty = getConfigPrefix() + "enabledProtocols";
-    private String cipherSuitesProperty = getConfigPrefix() + "ciphersuites";
-    private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
-    private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
-    private String sslTruststorePasswdProperty = getConfigPrefix() + "trustStore.password";
-    private String sslTruststorePasswdPathProperty = getConfigPrefix() + "trustStore.passwordPath";
-    private String sslTruststoreTypeProperty = getConfigPrefix() + "trustStore.type";
-    private String sslContextSupplierClassProperty = getConfigPrefix() + "context.supplier.class";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
-    private String sslTruststorePasswdPathProperty = getConfigPrefix() + "trustStore.passwordPath";
-    private String sslTruststoreTypeProperty = getConfigPrefix() + "trustStore.type";
-    private String sslContextSupplierClassProperty = getConfigPrefix() + "context.supplier.class";
-    private String sslHostnameVerificationEnabledProperty = getConfigPrefix() + "hostnameVerification";
-    private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getConfigPrefix()` during object construction
-in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
-#### Snippet
-```java
     private String sslOcspEnabledProperty = getConfigPrefix() + "ocsp";
     private String sslClientAuthProperty = getConfigPrefix() + "clientAuth";
     private String sslHandshakeDetectionTimeoutMillisProperty = getConfigPrefix() + "handshakeDetectionTimeoutMillis";
@@ -21576,6 +21418,30 @@ Call to 'abstract' method `getConfigPrefix()` during object construction
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
 #### Snippet
 ```java
+    private String sslEnabledProtocolsProperty = getConfigPrefix() + "enabledProtocols";
+    private String cipherSuitesProperty = getConfigPrefix() + "ciphersuites";
+    private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
+    private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
+    private String sslKeystorePasswdPathProperty = getConfigPrefix() + "keyStore.passwordPath";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
+    private String sslTruststorePasswdProperty = getConfigPrefix() + "trustStore.password";
+    private String sslTruststorePasswdPathProperty = getConfigPrefix() + "trustStore.passwordPath";
+    private String sslTruststoreTypeProperty = getConfigPrefix() + "trustStore.type";
+    private String sslContextSupplierClassProperty = getConfigPrefix() + "context.supplier.class";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
     private String sslContextSupplierClassProperty = getConfigPrefix() + "context.supplier.class";
     private String sslHostnameVerificationEnabledProperty = getConfigPrefix() + "hostnameVerification";
     private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
@@ -21600,6 +21466,30 @@ Call to 'abstract' method `getConfigPrefix()` during object construction
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
 #### Snippet
 ```java
+    }
+
+    private String sslProtocolProperty = getConfigPrefix() + "protocol";
+    private String sslEnabledProtocolsProperty = getConfigPrefix() + "enabledProtocols";
+    private String cipherSuitesProperty = getConfigPrefix() + "ciphersuites";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslProtocolProperty = getConfigPrefix() + "protocol";
+    private String sslEnabledProtocolsProperty = getConfigPrefix() + "enabledProtocols";
+    private String cipherSuitesProperty = getConfigPrefix() + "ciphersuites";
+    private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
+    private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
     private String cipherSuitesProperty = getConfigPrefix() + "ciphersuites";
     private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
     private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
@@ -21612,11 +21502,107 @@ Call to 'abstract' method `getConfigPrefix()` during object construction
 in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
 #### Snippet
 ```java
-    }
+    private String sslKeystorePasswdPathProperty = getConfigPrefix() + "keyStore.passwordPath";
+    private String sslKeystoreTypeProperty = getConfigPrefix() + "keyStore.type";
+    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
+    private String sslTruststorePasswdProperty = getConfigPrefix() + "trustStore.password";
+    private String sslTruststorePasswdPathProperty = getConfigPrefix() + "trustStore.passwordPath";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
 
     private String sslProtocolProperty = getConfigPrefix() + "protocol";
     private String sslEnabledProtocolsProperty = getConfigPrefix() + "enabledProtocols";
     private String cipherSuitesProperty = getConfigPrefix() + "ciphersuites";
+    private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslHostnameVerificationEnabledProperty = getConfigPrefix() + "hostnameVerification";
+    private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
+    private String sslOcspEnabledProperty = getConfigPrefix() + "ocsp";
+    private String sslClientAuthProperty = getConfigPrefix() + "clientAuth";
+    private String sslHandshakeDetectionTimeoutMillisProperty = getConfigPrefix() + "handshakeDetectionTimeoutMillis";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslKeystoreLocationProperty = getConfigPrefix() + "keyStore.location";
+    private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
+    private String sslKeystorePasswdPathProperty = getConfigPrefix() + "keyStore.passwordPath";
+    private String sslKeystoreTypeProperty = getConfigPrefix() + "keyStore.type";
+    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
+    private String sslOcspEnabledProperty = getConfigPrefix() + "ocsp";
+    private String sslClientAuthProperty = getConfigPrefix() + "clientAuth";
+    private String sslHandshakeDetectionTimeoutMillisProperty = getConfigPrefix() + "handshakeDetectionTimeoutMillis";
+
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslKeystoreTypeProperty = getConfigPrefix() + "keyStore.type";
+    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
+    private String sslTruststorePasswdProperty = getConfigPrefix() + "trustStore.password";
+    private String sslTruststorePasswdPathProperty = getConfigPrefix() + "trustStore.passwordPath";
+    private String sslTruststoreTypeProperty = getConfigPrefix() + "trustStore.type";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslTruststoreTypeProperty = getConfigPrefix() + "trustStore.type";
+    private String sslContextSupplierClassProperty = getConfigPrefix() + "context.supplier.class";
+    private String sslHostnameVerificationEnabledProperty = getConfigPrefix() + "hostnameVerification";
+    private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
+    private String sslOcspEnabledProperty = getConfigPrefix() + "ocsp";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslTruststorePasswdPathProperty = getConfigPrefix() + "trustStore.passwordPath";
+    private String sslTruststoreTypeProperty = getConfigPrefix() + "trustStore.type";
+    private String sslContextSupplierClassProperty = getConfigPrefix() + "context.supplier.class";
+    private String sslHostnameVerificationEnabledProperty = getConfigPrefix() + "hostnameVerification";
+    private String sslCrlEnabledProperty = getConfigPrefix() + "crl";
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getConfigPrefix()` during object construction
+in `zookeeper-server/src/main/java/org/apache/zookeeper/common/X509Util.java`
+#### Snippet
+```java
+    private String sslKeystorePasswdProperty = getConfigPrefix() + "keyStore.password";
+    private String sslKeystorePasswdPathProperty = getConfigPrefix() + "keyStore.passwordPath";
+    private String sslKeystoreTypeProperty = getConfigPrefix() + "keyStore.type";
+    private String sslTruststoreLocationProperty = getConfigPrefix() + "trustStore.location";
+    private String sslTruststorePasswdProperty = getConfigPrefix() + "trustStore.password";
 ```
 
 ## RuleId[ruleID=MismatchedJavadocCode]
@@ -21780,14 +21766,26 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/PrepRequestProces
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/KerberosName.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
 #### Snippet
 ```java
-            }
-        }
-        throw new NoMatchingRule("No rules applied to " + toString());
-    }
+      builder.append(String.format("Node %s found only in left tree. ", node.label));
+      printNode(node, builder);
+      System.out.println(builder.toString());
+    } else if (debug || interactive) {
+      System.out.println(String.format("Filtered left node %s of size %d", node.label, node.descendantSize));
+```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+#### Snippet
+```java
+      builder.append(String.format("Node %s found only in right tree. ", node.label));
+      printNode(node, builder);
+      System.out.println(builder.toString());
+    } else if (debug || interactive) {
+      System.out.println(String.format("Filtered right node %s of size %d", node.label, node.descendantSize));
 ```
 
 ### UnnecessaryToStringCall
@@ -21816,38 +21814,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/auth/KerberosName.java`
 #### Snippet
 ```java
-      builder.append(String.format("Node %s found only in left tree. ", node.label));
-      printNode(node, builder);
-      System.out.println(builder.toString());
-    } else if (debug || interactive) {
-      System.out.println(String.format("Filtered left node %s of size %d", node.label, node.descendantSize));
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/SnapshotComparer.java`
-#### Snippet
-```java
-      builder.append(String.format("Node %s found only in right tree. ", node.label));
-      printNode(node, builder);
-      System.out.println(builder.toString());
-    } else if (debug || interactive) {
-      System.out.println(String.format("Filtered right node %s of size %d", node.label, node.descendantSize));
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
-#### Snippet
-```java
-                sessionTracker.commitSession(sessionId, cst.getTimeOut());
-            } else if (request == null || !request.isLocalSession()) {
-                LOG.warn("*****>>>>> Got {} {}",  txn.getClass(), txn.toString());
             }
-        } else if (opCode == OpCode.closeSession) {
+        }
+        throw new NoMatchingRule("No rules applied to " + toString());
+    }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -21888,6 +21862,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/JvmPauseMoni
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/ZooKeeperServer.java`
+#### Snippet
+```java
+                sessionTracker.commitSession(sessionId, cst.getTimeOut());
+            } else if (request == null || !request.isLocalSession()) {
+                LOG.warn("*****>>>>> Got {} {}",  txn.getClass(), txn.toString());
+            }
+        } else if (opCode == OpCode.closeSession) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderBean.java`
 #### Snippet
 ```java
@@ -21896,30 +21882,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LeaderBean
                 sb.append(handler.toString()).append("\n");
             }
         }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-                // the last-seen-quorumverifier of the leader, which we change below
-                try {
-                    LOG.debug(String.format("set lastSeenQuorumVerifier to currentQuorumVerifier (%s)", curQV.toString()));
-                    QuorumVerifier newQV = self.configFromString(curQV.toString());
-                    newQV.setVersion(zk.getZxid());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandlerBean.java`
-#### Snippet
-```java
-    @Override
-    public void terminateConnection() {
-        LOG.info("terminating learner handler connection on demand {}", toString());
-        learnerHandler.shutdown();
-    }
 ```
 
 ### UnnecessaryToStringCall
@@ -21944,6 +21906,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxM
                     LOG.debug("Initial message parsed by {}: {}", self.getMyId(), init.toString());
                 } catch (InitialMessage.InitialMessageException ex) {
                     LOG.error("Initial message parsing error!", ex);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+                // the last-seen-quorumverifier of the leader, which we change below
+                try {
+                    LOG.debug(String.format("set lastSeenQuorumVerifier to currentQuorumVerifier (%s)", curQV.toString()));
+                    QuorumVerifier newQV = self.configFromString(curQV.toString());
+                    newQV.setVersion(zk.getZxid());
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerHandlerBean.java`
+#### Snippet
+```java
+    @Override
+    public void terminateConnection() {
+        LOG.info("terminating learner handler connection on demand {}", toString());
+        learnerHandler.shutdown();
+    }
 ```
 
 ### UnnecessaryToStringCall
@@ -22025,11 +22011,11 @@ Nested `synchronized` statement
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-                Set<String> nodes = ephemerals.get(eowner);
-                if (nodes != null) {
-                    synchronized (nodes) {
-                        nodes.remove(path);
-                    }
+                    ephemerals.put(ephemeralOwner, list);
+                }
+                synchronized (list) {
+                    list.add(path);
+                }
 ```
 
 ### NestedSynchronizedStatement
@@ -22037,11 +22023,11 @@ Nested `synchronized` statement
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-                    ephemerals.put(ephemeralOwner, list);
-                }
-                synchronized (list) {
-                    list.add(path);
-                }
+                Set<String> nodes = ephemerals.get(eowner);
+                if (nodes != null) {
+                    synchronized (nodes) {
+                        nodes.remove(path);
+                    }
 ```
 
 ### NestedSynchronizedStatement
@@ -22059,30 +22045,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumPeer
 ## RuleId[ruleID=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `zookeeper-jute/src/main/java/org/apache/jute/ToStringOutputArchive.java`
-#### Snippet
-```java
-
-    public void endRecord(Record r, String tag) throws IOException {
-        if (tag == null || "".equals(tag)) {
-            stream.print("\n");
-            isFirst = true;
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `zookeeper-jute/src/main/java/org/apache/jute/ToStringOutputArchive.java`
-#### Snippet
-```java
-
-    public void startRecord(Record r, String tag) throws IOException {
-        if (tag != null && !"".equals(tag)) {
-            printCommaUnlessFirst();
-            stream.print("s{");
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
 #### Snippet
 ```java
@@ -22091,18 +22053,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
         if (!line.equals("")) {
             cl.parseCommand(line);
             addToHistory(commandCount, line);
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
-#### Snippet
-```java
-        WatcherOrBitSet processed = dataWatches.triggerWatch(path, EventType.NodeDeleted);
-        childWatches.triggerWatch(path, EventType.NodeDeleted, processed);
-        childWatches.triggerWatch("".equals(parentName) ? "/" : parentName, EventType.NodeChildrenChanged);
-    }
-
 ```
 
 ### StringEqualsEmptyString
@@ -22119,6 +22069,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
+#### Snippet
+```java
+        WatcherOrBitSet processed = dataWatches.triggerWatch(path, EventType.NodeDeleted);
+        childWatches.triggerWatch(path, EventType.NodeDeleted, processed);
+        childWatches.triggerWatch("".equals(parentName) ? "/" : parentName, EventType.NodeChildrenChanged);
+    }
+
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLogToolkit.java`
 #### Snippet
 ```java
@@ -22127,6 +22089,30 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/TxnLo
         if (prefix != null && !"".equals(prefix.trim())) {
             System.out.print(prefix + " - ");
         }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `zookeeper-jute/src/main/java/org/apache/jute/ToStringOutputArchive.java`
+#### Snippet
+```java
+
+    public void startRecord(Record r, String tag) throws IOException {
+        if (tag != null && !"".equals(tag)) {
+            printCommaUnlessFirst();
+            stream.print("s{");
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `zookeeper-jute/src/main/java/org/apache/jute/ToStringOutputArchive.java`
+#### Snippet
+```java
+
+    public void endRecord(Record r, String tag) throws IOException {
+        if (tag == null || "".equals(tag)) {
+            stream.print("\n");
+            isFirst = true;
 ```
 
 ## RuleId[ruleID=UnnecessaryBoxing]
@@ -22252,18 +22238,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/Q
 
 ## RuleId[ruleID=SynchronizeOnNonFinalField]
 ### SynchronizeOnNonFinalField
-Synchronization on a non-final field `listeners`
-in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
-#### Snippet
-```java
-        LOG.debug("Dispatching event: {}", eventType);
-
-        synchronized (listeners) {
-            if (listeners.size() > 0) {
-                for (LeaderElectionAware observer : listeners) {
-```
-
-### SynchronizeOnNonFinalField
 Synchronization on a non-final field `login`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/client/ZooKeeperSaslClient.java`
 #### Snippet
@@ -22292,11 +22266,11 @@ Synchronization on a non-final field `digestLog`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-     */
-    public List<ZxidDigest> getDigestLog() {
-        synchronized (digestLog) {
-            // Return a copy of current digest log
-            return new LinkedList<>(digestLog);
+        lastProcessedZxidDigest = zxidDigest;
+        if (zxidDigest.zxid % DIGEST_LOG_INTERVAL == 0) {
+            synchronized (digestLog) {
+                digestLog.add(zxidDigest);
+                if (digestLog.size() > DIGEST_LOG_LIMIT) {
 ```
 
 ### SynchronizeOnNonFinalField
@@ -22304,11 +22278,11 @@ Synchronization on a non-final field `digestLog`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 #### Snippet
 ```java
-        lastProcessedZxidDigest = zxidDigest;
-        if (zxidDigest.zxid % DIGEST_LOG_INTERVAL == 0) {
-            synchronized (digestLog) {
-                digestLog.add(zxidDigest);
-                if (digestLog.size() > DIGEST_LOG_LIMIT) {
+     */
+    public List<ZxidDigest> getDigestLog() {
+        synchronized (digestLog) {
+            // Return a copy of current digest log
+            return new LinkedList<>(digestLog);
 ```
 
 ### SynchronizeOnNonFinalField
@@ -22348,18 +22322,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Learner.ja
 ```
 
 ### SynchronizeOnNonFinalField
-Synchronization on a non-final field `newLeaderProposal.qvAcksetPairs`
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
-#### Snippet
-```java
-    public void waitForNewLeaderAck(long sid, long zxid) throws InterruptedException {
-
-        synchronized (newLeaderProposal.qvAcksetPairs) {
-
-            if (quorumFormed) {
-```
-
-### SynchronizeOnNonFinalField
 Synchronization on a non-final field `emptyPoolSync`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProcessor.java`
 #### Snippet
@@ -22384,6 +22346,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/CommitProc
 ```
 
 ### SynchronizeOnNonFinalField
+Synchronization on a non-final field `newLeaderProposal.qvAcksetPairs`
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/Leader.java`
+#### Snippet
+```java
+    public void waitForNewLeaderAck(long sid, long zxid) throws InterruptedException {
+
+        synchronized (newLeaderProposal.qvAcksetPairs) {
+
+            if (quorumFormed) {
+```
+
+### SynchronizeOnNonFinalField
 Synchronization on a non-final field `self`
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeaderElection.java`
 #### Snippet
@@ -22393,6 +22367,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/FastLeader
                                 synchronized (self) {
                                     try {
                                         rqv = self.configFromString(new String(b, UTF_8));
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `listeners`
+in `zookeeper-recipes/zookeeper-recipes-election/src/main/java/org/apache/zookeeper/recipes/leader/LeaderElectionSupport.java`
+#### Snippet
+```java
+        LOG.debug("Dispatching event: {}", eventType);
+
+        synchronized (listeners) {
+            if (listeners.size() > 0) {
+                for (LeaderElectionAware observer : listeners) {
 ```
 
 ### SynchronizeOnNonFinalField
@@ -22422,15 +22408,15 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ClientCnxn.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.zookeeper.recipes.lock` is unnecessary and can be removed
-in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/ZooKeeperOperation.java`
+Qualifier `org.apache.zookeeper` is unnecessary and can be removed
+in `zookeeper-server/src/main/java/org/apache/zookeeper/CreateMode.java`
 #### Snippet
 ```java
-/**
- * A callback object which can be used for implementing retry-able operations in the
- * {@link org.apache.zookeeper.recipes.lock.ProtocolSupport} class.
- *
- */
+     * a candidate to be deleted by the server at some point in the future.
+     * Given this property, you should be prepared to get
+     * {@link org.apache.zookeeper.KeeperException.NoNodeException}
+     * when creating children inside of this container node.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22458,14 +22444,14 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/ZKUtil.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.zookeeper` is unnecessary and can be removed
-in `zookeeper-server/src/main/java/org/apache/zookeeper/CreateMode.java`
+Qualifier `javax.security.auth.login` is unnecessary and can be removed
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
 #### Snippet
 ```java
-     * a candidate to be deleted by the server at some point in the future.
-     * Given this property, you should be prepared to get
-     * {@link org.apache.zookeeper.KeeperException.NoNodeException}
-     * when creating children inside of this container node.
+     * @param zkConfig
+     *            client or server configurations
+     * @throws javax.security.auth.login.LoginException
+     *             Thrown if authentication fails.
      */
 ```
 
@@ -22479,54 +22465,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
      * @throws javax.security.auth.login.LoginException on a failure
      */
     // c.f. HADOOP-6559
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.security.auth.login` is unnecessary and can be removed
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Login.java`
-#### Snippet
-```java
-     * @param zkConfig
-     *            client or server configurations
-     * @throws javax.security.auth.login.LoginException
-     *             Thrown if authentication fails.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Op.java`
-#### Snippet
-```java
-     * Constructs a create operation.  Arguments are as for the ZooKeeper method of the same name
-     * but adding an optional ttl
-     * @see ZooKeeper#create(String, byte[], java.util.List, CreateMode)
-     * @see CreateMode#fromFlag(int)
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Op.java`
-#### Snippet
-```java
-    /**
-     * Constructs a create operation.  Arguments are as for the ZooKeeper method of the same name.
-     * @see ZooKeeper#create(String, byte[], java.util.List, CreateMode)
-     * @see CreateMode#fromFlag(int)
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `zookeeper-server/src/main/java/org/apache/zookeeper/Op.java`
-#### Snippet
-```java
-    /**
-     * Constructs a create operation.  Arguments are as for the ZooKeeper method of the same name.
-     * @see ZooKeeper#create(String, byte[], java.util.List, CreateMode)
-     *
-     * @param path
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22570,11 +22508,47 @@ Qualifier `java.util` is unnecessary and can be removed
 in `zookeeper-server/src/main/java/org/apache/zookeeper/Op.java`
 #### Snippet
 ```java
+    /**
+     * Constructs a create operation.  Arguments are as for the ZooKeeper method of the same name.
+     * @see ZooKeeper#create(String, byte[], java.util.List, CreateMode)
+     *
+     * @param path
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Op.java`
+#### Snippet
+```java
      * Constructs a create operation.  Arguments are as for the ZooKeeper method of the same name
      * but adding an optional ttl
      * @see ZooKeeper#create(String, byte[], java.util.List, CreateMode)
      *
      * @param path
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Op.java`
+#### Snippet
+```java
+     * Constructs a create operation.  Arguments are as for the ZooKeeper method of the same name
+     * but adding an optional ttl
+     * @see ZooKeeper#create(String, byte[], java.util.List, CreateMode)
+     * @see CreateMode#fromFlag(int)
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `zookeeper-server/src/main/java/org/apache/zookeeper/Op.java`
+#### Snippet
+```java
+    /**
+     * Constructs a create operation.  Arguments are as for the ZooKeeper method of the same name.
+     * @see ZooKeeper#create(String, byte[], java.util.List, CreateMode)
+     * @see CreateMode#fromFlag(int)
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22594,7 +22568,7 @@ Qualifier `java.io` is unnecessary and can be removed
 in `zookeeper-server/src/main/java/org/apache/zookeeper/client/FourLetterWordMain.java`
 #### Snippet
 ```java
-     * @param cmd the 4letterword
+     * @param timeout in milliseconds, maximum time to wait while connecting/reading data
      * @return server response
      * @throws java.io.IOException
      * @throws SSLContextException
@@ -22606,7 +22580,7 @@ Qualifier `java.io` is unnecessary and can be removed
 in `zookeeper-server/src/main/java/org/apache/zookeeper/client/FourLetterWordMain.java`
 #### Snippet
 ```java
-     * @param timeout in milliseconds, maximum time to wait while connecting/reading data
+     * @param cmd the 4letterword
      * @return server response
      * @throws java.io.IOException
      * @throws SSLContextException
@@ -22722,18 +22696,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/DataTree.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSyncThrottler.java`
-#### Snippet
-```java
-     * @param maxConcurrentSyncs maximum concurrent number of syncs
-     * @param syncType either a snapshot sync or a txn-based diff sync
-     * @throws java.lang.IllegalArgumentException when <code>maxConcurrentSyncs</code>
-     *                                            is less than 1
-     */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxManager.java`
 #### Snippet
@@ -22758,6 +22720,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/QuorumCnxM
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/LearnerSyncThrottler.java`
+#### Snippet
+```java
+     * @param maxConcurrentSyncs maximum concurrent number of syncs
+     * @param syncType either a snapshot sync or a txn-based diff sync
+     * @throws java.lang.IllegalArgumentException when <code>maxConcurrentSyncs</code>
+     *                                            is less than 1
+     */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/MetricsProvider.java`
 #### Snippet
@@ -22767,6 +22741,18 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/metrics/MetricsProvider.
  * After the instantiation of the provider, the system will call {@link #configure(java.util.Properties) } in order to provide configuration,
  * and then when the system is ready to work it will call {@link #start() }.
  * <br>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.zookeeper.recipes.lock` is unnecessary and can be removed
+in `zookeeper-recipes/zookeeper-recipes-lock/src/main/java/org/apache/zookeeper/recipes/lock/ZooKeeperOperation.java`
+#### Snippet
+```java
+/**
+ * A callback object which can be used for implementing retry-able operations in the
+ * {@link org.apache.zookeeper.recipes.lock.ProtocolSupport} class.
+ *
+ */
 ```
 
 ## RuleId[ruleID=RegExpSingleCharAlternation]
@@ -22783,54 +22769,6 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/util/ConfigUtils.
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `zookeeper-jute/src/main/java/org/apache/jute/RecordWriter.java`
-#### Snippet
-```java
-                return (OutputArchive) factory.invoke(null, params);
-            } catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException ex) {
-                ex.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `zookeeper-jute/src/main/java/org/apache/jute/RecordWriter.java`
-#### Snippet
-```java
-                    BinaryOutputArchive.class.getDeclaredMethod("getArchive", OutputStream.class));
-        } catch (SecurityException | NoSuchMethodException ex) {
-            ex.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `zookeeper-jute/src/main/java/org/apache/jute/RecordReader.java`
-#### Snippet
-```java
-                return (InputArchive) factory.invoke(null, params);
-            } catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException ex) {
-                ex.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `zookeeper-jute/src/main/java/org/apache/jute/RecordReader.java`
-#### Snippet
-```java
-                    BinaryInputArchive.class.getDeclaredMethod("getArchive", InputStream.class));
-        } catch (SecurityException | NoSuchMethodException ex) {
-            ex.printStackTrace();
-        }
-    }
-```
-
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `zookeeper-server/src/main/java/org/apache/zookeeper/ZooKeeperMain.java`
@@ -22937,6 +22875,54 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/quorum/flexible/Q
                     e.printStackTrace();
                 }
             }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `zookeeper-jute/src/main/java/org/apache/jute/RecordReader.java`
+#### Snippet
+```java
+                return (InputArchive) factory.invoke(null, params);
+            } catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException ex) {
+                ex.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `zookeeper-jute/src/main/java/org/apache/jute/RecordReader.java`
+#### Snippet
+```java
+                    BinaryInputArchive.class.getDeclaredMethod("getArchive", InputStream.class));
+        } catch (SecurityException | NoSuchMethodException ex) {
+            ex.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `zookeeper-jute/src/main/java/org/apache/jute/RecordWriter.java`
+#### Snippet
+```java
+                    BinaryOutputArchive.class.getDeclaredMethod("getArchive", OutputStream.class));
+        } catch (SecurityException | NoSuchMethodException ex) {
+            ex.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `zookeeper-jute/src/main/java/org/apache/jute/RecordWriter.java`
+#### Snippet
+```java
+                return (OutputArchive) factory.invoke(null, params);
+            } catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException ex) {
+                ex.printStackTrace();
+            }
+        }
 ```
 
 ## RuleId[ruleID=Anonymous2MethodRef]
@@ -23068,8 +23054,8 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
 #### Snippet
 ```java
 
-    private void checkSnapDir() throws SnapDirContentCheckException {
-        File[] files = this.snapDir.listFiles(new FilenameFilter() {
+    private void checkLogDir() throws LogDirContentCheckException {
+        File[] files = this.dataDir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
 ```
@@ -23080,8 +23066,8 @@ in `zookeeper-server/src/main/java/org/apache/zookeeper/server/persistence/FileT
 #### Snippet
 ```java
 
-    private void checkLogDir() throws LogDirContentCheckException {
-        File[] files = this.dataDir.listFiles(new FilenameFilter() {
+    private void checkSnapDir() throws SnapDirContentCheckException {
+        File[] files = this.snapDir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
 ```
