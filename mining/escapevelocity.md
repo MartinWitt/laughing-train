@@ -32,11 +32,11 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-    if (c != ')') {
-      args.add(parsePrimary(/* nullAllowed= */ true));
-      while (c == ',') {
-        nextNonSpace();
-        args.add(parsePrimary(/* nullAllowed= */ true));
+    ImmutableList.Builder<ExpressionNode> builder = ImmutableList.builder();
+    builder.add(first);
+    while (c == ',') {
+      next();
+      builder.add(parsePrimary(false));
 ```
 
 ### WhileLoopSpinsOnField
@@ -44,11 +44,11 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-    ImmutableList.Builder<ExpressionNode> builder = ImmutableList.builder();
-    builder.add(first);
-    while (c == ',') {
-      next();
-      builder.add(parsePrimary(false));
+    if (c != ')') {
+      args.add(parsePrimary(/* nullAllowed= */ true));
+      while (c == ',') {
+        nextNonSpace();
+        args.add(parsePrimary(/* nullAllowed= */ true));
 ```
 
 ## RuleId[ruleID=MisspelledEquals]
@@ -106,18 +106,6 @@ Return of `null`
 in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 #### Snippet
 ```java
-      }
-      if (lhsValue == null || rhsValue == null) {
-        return null;
-      }
-      if (!(lhsValue instanceof Integer) || !(rhsValue instanceof Integer)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
-#### Snippet
-```java
           return lhsInt * rhsInt;
         case DIVIDE:
           return (rhsInt == 0) ? null : lhsInt / rhsInt;
@@ -135,6 +123,18 @@ in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
           return (rhsInt == 0) ? null : lhsInt % rhsInt;
         default:
           throw new AssertionError(op);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
+#### Snippet
+```java
+      }
+      if (lhsValue == null || rhsValue == null) {
+        return null;
+      }
+      if (!(lhsValue instanceof Integer) || !(rhsValue instanceof Integer)) {
 ```
 
 ### ReturnNull
@@ -165,18 +165,6 @@ in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Node`
-in `src/main/java/com/google/escapevelocity/SetSpacing.java`
-#### Snippet
-```java
-   * </pre>
-   */
-  static boolean shouldRemoveLastNodeBeforeSet(List<Node> nodes) {
-    if (nodes.isEmpty()) {
-      return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
 in `src/main/java/com/google/escapevelocity/Node.java`
 #### Snippet
 ```java
@@ -185,6 +173,18 @@ in `src/main/java/com/google/escapevelocity/Node.java`
     Cons(String resourceName, int lineNumber, ImmutableList<Node> nodes) {
       super(resourceName, lineNumber);
       this.nodes = nodes;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/java/com/google/escapevelocity/SetSpacing.java`
+#### Snippet
+```java
+   * </pre>
+   */
+  static boolean shouldRemoveLastNodeBeforeSet(List<Node> nodes) {
+    if (nodes.isEmpty()) {
+      return false;
 ```
 
 ### BoundedWildcard
@@ -224,15 +224,15 @@ in `src/main/java/com/google/escapevelocity/ReferenceNode.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExpressionNode`
+Can generalize to `? extends Map.Entry`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-    private final ImmutableList<ExpressionNode> elements;
-
-    ListLiteralNode(String resourceName, int lineNumber, ImmutableList<ExpressionNode> elements) {
+        String resourceName,
+        int lineNumber,
+        ImmutableList<Map.Entry<ExpressionNode, ExpressionNode>> entries) {
       super(resourceName, lineNumber);
-      this.elements = elements;
+      this.entries = entries;
 ```
 
 ### BoundedWildcard
@@ -248,15 +248,15 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map.Entry`
+Can generalize to `? extends ExpressionNode`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-        String resourceName,
-        int lineNumber,
-        ImmutableList<Map.Entry<ExpressionNode, ExpressionNode>> entries) {
+    private final ImmutableList<ExpressionNode> elements;
+
+    ListLiteralNode(String resourceName, int lineNumber, ImmutableList<ExpressionNode> elements) {
       super(resourceName, lineNumber);
-      this.entries = entries;
+      this.elements = elements;
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -273,6 +273,18 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `src/main/java/com/google/escapevelocity/Parser.java`
+#### Snippet
+```java
+      next();
+    }
+    Integer value = Ints.tryParse(sb.toString());
+    if (value == null) {
+      throw parseException("Invalid integer: " + sb);
+```
+
 ### UnstableApiUsage
 'closed(int, int)' is marked unstable with @Beta
 in `src/main/java/com/google/escapevelocity/Parser.java`
@@ -295,18 +307,6 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
               : ContiguousSet.closed(to, from).descendingSet();
       return new ForwardingSortedSet<Integer>() {
         @Override
-```
-
-### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `src/main/java/com/google/escapevelocity/Parser.java`
-#### Snippet
-```java
-      next();
-    }
-    Integer value = Ints.tryParse(sb.toString());
-    if (value == null) {
-      throw parseException("Invalid integer: " + sb);
 ```
 
 ## RuleId[ruleID=JavaReflectionMemberAccess]
