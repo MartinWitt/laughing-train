@@ -39,6 +39,18 @@ I found 115 bad smells with 21 repairable:
 ## RuleId[ruleID=IOResource]
 ### IOResource
 'InputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `services/minho-banner/src/main/java/org/apache/karaf/minho/banner/WelcomeBannerService.java`
+#### Snippet
+```java
+        }
+
+        if (WelcomeBannerService.class.getResourceAsStream("/banner.txt") != null) {
+            try {
+                log.info("\n" + readBanner(new InputStreamReader(WelcomeBannerService.class.getResourceAsStream("/banner.txt"))));
+```
+
+### IOResource
+'InputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `services/minho-config-json/src/main/java/org/apache/karaf/minho/config/json/JsonConfigLoaderService.java`
 #### Snippet
 ```java
@@ -85,18 +97,6 @@ in `services/minho-config-properties/src/main/java/org/apache/karaf/minho/config
             properties.load(PropertiesConfigLoaderService.class.getResourceAsStream("/minho.properties"));
 ```
 
-### IOResource
-'InputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `services/minho-banner/src/main/java/org/apache/karaf/minho/banner/WelcomeBannerService.java`
-#### Snippet
-```java
-        }
-
-        if (WelcomeBannerService.class.getResourceAsStream("/banner.txt") != null) {
-            try {
-                log.info("\n" + readBanner(new InputStreamReader(WelcomeBannerService.class.getResourceAsStream("/banner.txt"))));
-```
-
 ## RuleId[ruleID=Java8MapForEach]
 ### Java8MapForEach
 Can be replaced with 'Map.forEach()'
@@ -135,19 +135,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
 ```
 
-## RuleId[ruleID=ClassGetClass]
-### ClassGetClass
-'getClass()' is called on Class instance
-in `services/minho-http/src/main/java/org/apache/karaf/minho/web/jetty/JettyWebContainerService.java`
-#### Snippet
-```java
-
-    public ServletHolder addServlet(Class<? extends Servlet> servlet, String contextPath) throws Exception {
-        log.info("Adding servlet " + servlet.getClass().getName() + " with context " + contextPath);
-        return servlets.addServlet(servlet, contextPath);
-    }
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Argument `WelcomeBannerService.class.getResourceAsStream("/banner.txt")` might be null
@@ -173,19 +160,20 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
         workingFolder = Files.createTempDirectory("temp_" + name);
 ```
 
-## RuleId[ruleID=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+## RuleId[ruleID=ClassGetClass]
+### ClassGetClass
+'getClass()' is called on Class instance
 in `services/minho-http/src/main/java/org/apache/karaf/minho/web/jetty/JettyWebContainerService.java`
 #### Snippet
 ```java
 
-    private void addServlets(ServiceRegistry serviceRegistry) {
-        serviceRegistry.getAll().values().stream().forEach(service -> {
-            if (service instanceof Servlet) {
-                if (!service.properties().containsKey("contextPath")) {
+    public ServletHolder addServlet(Class<? extends Servlet> servlet, String contextPath) throws Exception {
+        log.info("Adding servlet " + servlet.getClass().getName() + " with context " + contextPath);
+        return servlets.addServlet(servlet, contextPath);
+    }
 ```
 
+## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `boot/src/main/java/org/apache/karaf/minho/boot/service/ClassLoaderService.java`
@@ -196,6 +184,18 @@ in `boot/src/main/java/org/apache/karaf/minho/boot/service/ClassLoaderService.ja
         configService.getProfiles().stream().forEach(profile -> {
             URLClassLoader profileClassLoader = new URLClassLoader(profile.getUrls().toArray(new URL[]{}), this.getClass().getClassLoader());
             profiles.put(profile.getName(), profileClassLoader);
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `services/minho-http/src/main/java/org/apache/karaf/minho/web/jetty/JettyWebContainerService.java`
+#### Snippet
+```java
+
+    private void addServlets(ServiceRegistry serviceRegistry) {
+        serviceRegistry.getAll().values().stream().forEach(service -> {
+            if (service instanceof Servlet) {
+                if (!service.properties().containsKey("contextPath")) {
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -238,6 +238,18 @@ in `boot/src/main/java/org/apache/karaf/minho/boot/Minho.java`
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `setSoTimeout()` overrides synchronized method
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public void setSoTimeout(int timeout) throws SocketException {
+            ss.setSoTimeout(timeout);
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `getReceiveBufferSize()` overrides synchronized method
 in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
 #### Snippet
@@ -270,18 +282,6 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerF
         @Override
         public void setReceiveBufferSize(int size) throws SocketException {
             ss.setReceiveBufferSize(size);
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `setSoTimeout()` overrides synchronized method
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public void setSoTimeout(int timeout) throws SocketException {
-            ss.setSoTimeout(timeout);
         }
 ```
 
@@ -377,18 +377,6 @@ Missorted modifiers `final static`
 in `services/minho-rest/src/main/java/org/apache/karaf/minho/rest/jersey/JerseyRestService.java`
 #### Snippet
 ```java
-
-    public final static String REST_PATH = "rest.path";
-    public final static String REST_PACKAGES = "rest.packages";
-
-    private String restPath;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `services/minho-rest/src/main/java/org/apache/karaf/minho/rest/jersey/JerseyRestService.java`
-#### Snippet
-```java
 public class JerseyRestService implements Service {
 
     public final static String REST_PATH = "rest.path";
@@ -398,50 +386,14 @@ public class JerseyRestService implements Service {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
-#### Snippet
-```java
-    private final static String START_LEVEL_PROPERTY = "startLevel";
-    private final static String BUNDLE_START_LEVEL_PROPERTY = "bundleStartLevel";
-    private final static String LOG_LEVEL_PROPERTY = "logLevel";
-    private final static String CACHE_PROPERTY = "cache";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
-#### Snippet
-```java
-public class OsgiModuleManagerService implements Service {
-
-    private final static String PREFIX = "osgi.";
-
-    private final static String STORAGE_PROPERTY = "storageDirectory";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
-#### Snippet
-```java
-    private final static String STORAGE_PROPERTY = "storageDirectory";
-    private final static String CLEAR_CACHE_PROPERTY = "clearCache";
-    private final static String START_LEVEL_PROPERTY = "startLevel";
-    private final static String BUNDLE_START_LEVEL_PROPERTY = "bundleStartLevel";
-    private final static String LOG_LEVEL_PROPERTY = "logLevel";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
+in `services/minho-rest/src/main/java/org/apache/karaf/minho/rest/jersey/JerseyRestService.java`
 #### Snippet
 ```java
 
-    private final static String STORAGE_PROPERTY = "storageDirectory";
-    private final static String CLEAR_CACHE_PROPERTY = "clearCache";
-    private final static String START_LEVEL_PROPERTY = "startLevel";
-    private final static String BUNDLE_START_LEVEL_PROPERTY = "bundleStartLevel";
+    public final static String REST_PATH = "rest.path";
+    public final static String REST_PACKAGES = "rest.packages";
+
+    private String restPath;
 ```
 
 ### MissortedModifiers
@@ -473,11 +425,59 @@ Missorted modifiers `final static`
 in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
 #### Snippet
 ```java
+    private final static String STORAGE_PROPERTY = "storageDirectory";
+    private final static String CLEAR_CACHE_PROPERTY = "clearCache";
+    private final static String START_LEVEL_PROPERTY = "startLevel";
+    private final static String BUNDLE_START_LEVEL_PROPERTY = "bundleStartLevel";
+    private final static String LOG_LEVEL_PROPERTY = "logLevel";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
+#### Snippet
+```java
+
+    private final static String STORAGE_PROPERTY = "storageDirectory";
+    private final static String CLEAR_CACHE_PROPERTY = "clearCache";
+    private final static String START_LEVEL_PROPERTY = "startLevel";
+    private final static String BUNDLE_START_LEVEL_PROPERTY = "bundleStartLevel";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
+#### Snippet
+```java
+    private final static String START_LEVEL_PROPERTY = "startLevel";
+    private final static String BUNDLE_START_LEVEL_PROPERTY = "bundleStartLevel";
+    private final static String LOG_LEVEL_PROPERTY = "logLevel";
+    private final static String CACHE_PROPERTY = "cache";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
+#### Snippet
+```java
     private final static String PREFIX = "osgi.";
 
     private final static String STORAGE_PROPERTY = "storageDirectory";
     private final static String CLEAR_CACHE_PROPERTY = "clearCache";
     private final static String START_LEVEL_PROPERTY = "startLevel";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
+#### Snippet
+```java
+public class OsgiModuleManagerService implements Service {
+
+    private final static String PREFIX = "osgi.";
+
+    private final static String STORAGE_PROPERTY = "storageDirectory";
 ```
 
 ## RuleId[ruleID=StringEqualsEmptyString]
@@ -645,19 +645,7 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerF
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
 #### Snippet
 ```java
-    public String getArtifactMetdataPath()
-    {
-        return m_group.replaceAll(GROUP_SEPARATOR, FILE_SEPARATOR)
-                + FILE_SEPARATOR
-                + m_artifact
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
-#### Snippet
-```java
-    public String getVersionMetadataPath( final String version )
+    public String getVersionLocalMetadataPath( final String version )
     {
         return m_group.replaceAll(GROUP_SEPARATOR, FILE_SEPARATOR)
                 + FILE_SEPARATOR
@@ -681,7 +669,7 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Par
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
 #### Snippet
 ```java
-    public String getVersionLocalMetadataPath( final String version )
+    public String getArtifactMetdataPath()
     {
         return m_group.replaceAll(GROUP_SEPARATOR, FILE_SEPARATOR)
                 + FILE_SEPARATOR
@@ -693,7 +681,7 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Par
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
 #### Snippet
 ```java
-    public String getArtifactLocalMetdataPath()
+    public String getVersionMetadataPath( final String version )
     {
         return m_group.replaceAll(GROUP_SEPARATOR, FILE_SEPARATOR)
                 + FILE_SEPARATOR
@@ -722,6 +710,18 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Par
             String ret = m_group.replaceAll(GROUP_SEPARATOR, FILE_SEPARATOR)
                     + FILE_SEPARATOR
                     + m_artifact
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
+#### Snippet
+```java
+    public String getArtifactLocalMetdataPath()
+    {
+        return m_group.replaceAll(GROUP_SEPARATOR, FILE_SEPARATOR)
+                + FILE_SEPARATOR
+                + m_artifact
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -798,6 +798,19 @@ import lombok.Getter;
 import lombok.Setter;
 ```
 
+## RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `services/minho-extractor/src/main/java/org/apache/karaf/minho/extractor/ExtractorService.java`
+#### Snippet
+```java
+                                } catch (Exception e) {
+                                    log.warning("Can't copy " + path.toAbsolutePath() + " to " + finalTarget);
+                                    e.printStackTrace();
+                                }
+                            });
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -833,19 +846,6 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
                                         while ((readCount = is.read(buffer)) >= 0) {
                                             os.write(buffer, 0, readCount);
                                         }
-```
-
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `services/minho-extractor/src/main/java/org/apache/karaf/minho/extractor/ExtractorService.java`
-#### Snippet
-```java
-                                } catch (Exception e) {
-                                    log.warning("Can't copy " + path.toAbsolutePath() + " to " + finalTarget);
-                                    e.printStackTrace();
-                                }
-                            });
 ```
 
 ## RuleId[ruleID=SuspiciousToArrayCall]
@@ -1130,18 +1130,6 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/MBeanServerFacto
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
-#### Snippet
-```java
-    private final static String CACHE_PROPERTY = "cache";
-
-    private Framework framework = null;
-
-    private final Map<String, String> store = new ConcurrentHashMap<>();
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
 #### Snippet
@@ -1163,6 +1151,18 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerF
     private boolean threaded = false;
     private boolean daemon = false;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `services/minho-osgi/src/main/java/org/apache/karaf/minho/osgi/OsgiModuleManagerService.java`
+#### Snippet
+```java
+    private final static String CACHE_PROPERTY = "cache";
+
+    private Framework framework = null;
+
+    private final Map<String, String> store = new ConcurrentHashMap<>();
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -1229,18 +1229,6 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `services/minho-classpath/src/main/java/org/apache/karaf/minho/classpathprotocolhandler/ClasspathURLStreamHandlerFactory.java`
-#### Snippet
-```java
-            return new ClasspathURLStreamHandler();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `boot/src/main/java/org/apache/karaf/minho/boot/service/ServiceRegistry.java`
 #### Snippet
 ```java
@@ -1249,6 +1237,18 @@ in `boot/src/main/java/org/apache/karaf/minho/boot/service/ServiceRegistry.java`
                             return null;
                         case 1:
                             return selected.iterator().next();
+```
+
+### ReturnNull
+Return of `null`
+in `services/minho-classpath/src/main/java/org/apache/karaf/minho/classpathprotocolhandler/ClasspathURLStreamHandlerFactory.java`
+#### Snippet
+```java
+            return new ClasspathURLStreamHandler();
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -1284,18 +1284,6 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerF
 ```java
 
         @Override
-        public void unbind(String s) throws RemoteException, NotBoundException, AccessException {
-        }
-
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.rmi.RemoteException', in the throws list already.
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
-#### Snippet
-```java
-
-        @Override
         public void rebind(String s, Remote remote) throws RemoteException, AccessException {
         }
 
@@ -1313,19 +1301,19 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerF
 
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `boot/src/main/java/org/apache/karaf/minho/boot/Main.java`
+### DuplicateThrows
+There is a more general exception, 'java.rmi.RemoteException', in the throws list already.
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
 #### Snippet
 ```java
-            });
-            System.out.println();
-            URLClassLoader classLoader = new URLClassLoader(urls.toArray(new URL[]{}));
-            Thread.currentThread().setContextClassLoader(classLoader);
-        } else {
+
+        @Override
+        public void unbind(String s) throws RemoteException, NotBoundException, AccessException {
+        }
+
 ```
 
+## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `boot/src/main/java/org/apache/karaf/minho/boot/service/ClassLoaderService.java`
@@ -1336,6 +1324,18 @@ in `boot/src/main/java/org/apache/karaf/minho/boot/service/ClassLoaderService.ja
             URLClassLoader profileClassLoader = new URLClassLoader(profile.getUrls().toArray(new URL[]{}), this.getClass().getClassLoader());
             profiles.put(profile.getName(), profileClassLoader);
         });
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `boot/src/main/java/org/apache/karaf/minho/boot/Main.java`
+#### Snippet
+```java
+            });
+            System.out.println();
+            URLClassLoader classLoader = new URLClassLoader(urls.toArray(new URL[]{}));
+            Thread.currentThread().setContextClassLoader(classLoader);
+        } else {
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -1401,18 +1401,6 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
-Value `minhoJar` is always 'false'
-in `boot/src/main/java/org/apache/karaf/minho/boot/Main.java`
-#### Snippet
-```java
-    public static final void main(String[] args) throws Exception {
-        boolean minhoJar = false;
-        minhoJar = (System.getenv("MINHO_JAR") != null) ? System.getenv("MINHO_JAR").equalsIgnoreCase("true") : minhoJar;
-        minhoJar = (System.getProperty("minho.jar") != null) ? System.getProperty("minho.jar").equalsIgnoreCase("true") : minhoJar;
-
-```
-
-### ConstantValue
 Condition `connectorServerFactory != null` is always `true`
 in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/JmxService.java`
 #### Snippet
@@ -1434,6 +1422,18 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/JmxService.java`
             if (mBeanServerFactory != null) {
                 try {
                     mBeanServerFactory.destroy();
+```
+
+### ConstantValue
+Value `minhoJar` is always 'false'
+in `boot/src/main/java/org/apache/karaf/minho/boot/Main.java`
+#### Snippet
+```java
+    public static final void main(String[] args) throws Exception {
+        boolean minhoJar = false;
+        minhoJar = (System.getenv("MINHO_JAR") != null) ? System.getenv("MINHO_JAR").equalsIgnoreCase("true") : minhoJar;
+        minhoJar = (System.getProperty("minho.jar") != null) ? System.getProperty("minho.jar").equalsIgnoreCase("true") : minhoJar;
+
 ```
 
 ### ConstantValue
