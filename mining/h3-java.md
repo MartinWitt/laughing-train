@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-24-11-30-15.628.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-27-14-46-19.667.html`
 #### Snippet
 ```java
               <td>0</td>
