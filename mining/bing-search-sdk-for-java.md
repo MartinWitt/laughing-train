@@ -56,157 +56,13 @@ in `samples/rest/BingVisualSearch.java`
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingImageSearchv7.java`
+in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
 #### Snippet
 ```java
-    public static void main (String[] args) {
-        if (subscriptionKey.length() != 32) {
-            System.out.println("Invalid Bing Search API subscription key!");
-            System.out.println("Please paste yours into the source code.");
-            System.exit(1);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingImageSearchv7.java`
-#### Snippet
-```java
-        if (subscriptionKey.length() != 32) {
-            System.out.println("Invalid Bing Search API subscription key!");
-            System.out.println("Please paste yours into the source code.");
-            System.exit(1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingImageSearchv7.java`
-#### Snippet
-```java
-
-        try {
-            System.out.println("Searching the Web for: " + searchTerm);
-
-            SearchResults result = SearchImages(searchTerm);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingImageSearchv7.java`
-#### Snippet
-```java
-            */
-
-            System.out.println("\nJSON Response:\n");
-            //parse the jseon
-            JsonParser parser = new JsonParser();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingImageSearchv7.java`
-#### Snippet
-```java
-            String resultURL = first_result.get("thumbnailUrl").getAsString();
-
-            System.out.println("\nThe total number of images found: "+ total +"\n");
-            System.out.println("\nThe thumbnail URL to the first image search URL: "+ resultURL +"\n");
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingImageSearchv7.java`
-#### Snippet
-```java
-
-            System.out.println("\nThe total number of images found: "+ total +"\n");
-            System.out.println("\nThe thumbnail URL to the first image search URL: "+ resultURL +"\n");
-
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingImageSearchv7.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace(System.out);
-            System.exit(1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingWebSearch.java`
-#### Snippet
-```java
-    public static void main(String[] args) {
-        try {
-            System.out.println("Searching the Web for: " + searchTerm);
-
-            SearchResults result = SearchWeb(searchTerm);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingWebSearch.java`
-#### Snippet
-```java
-            SearchResults result = SearchWeb(searchTerm);
-
-            System.out.println("\nRelevant HTTP Headers:\n");
-            for (String header : result.relevantHeaders.keySet())
-                System.out.println(header + ": " + result.relevantHeaders.get(header));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingWebSearch.java`
-#### Snippet
-```java
-            System.out.println("\nRelevant HTTP Headers:\n");
-            for (String header : result.relevantHeaders.keySet())
-                System.out.println(header + ": " + result.relevantHeaders.get(header));
-
-            System.out.println("\nJSON Response:\n");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingWebSearch.java`
-#### Snippet
-```java
-                System.out.println(header + ": " + result.relevantHeaders.get(header));
-
-            System.out.println("\nJSON Response:\n");
-            System.out.println(prettify(result.jsonResponse));
+            runSample(client);
         } catch (Exception e) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingWebSearch.java`
-#### Snippet
-```java
-
-            System.out.println("\nJSON Response:\n");
-            System.out.println(prettify(result.jsonResponse));
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingWebSearch.java`
-#### Snippet
-```java
-            System.out.println(prettify(result.jsonResponse));
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            System.exit(1);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 ```
 
@@ -315,18 +171,6 @@ in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
         } catch (Exception f) {
             System.out.println(f.getMessage());
             f.printStackTrace();
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
-#### Snippet
-```java
-            runSample(client);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         }
 ```
 
@@ -536,6 +380,162 @@ in `samples/sdk/WebSearchSample/BingWebSearchSample.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingImageSearchv7.java`
+#### Snippet
+```java
+    public static void main (String[] args) {
+        if (subscriptionKey.length() != 32) {
+            System.out.println("Invalid Bing Search API subscription key!");
+            System.out.println("Please paste yours into the source code.");
+            System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingWebSearch.java`
+#### Snippet
+```java
+    public static void main(String[] args) {
+        try {
+            System.out.println("Searching the Web for: " + searchTerm);
+
+            SearchResults result = SearchWeb(searchTerm);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingImageSearchv7.java`
+#### Snippet
+```java
+        if (subscriptionKey.length() != 32) {
+            System.out.println("Invalid Bing Search API subscription key!");
+            System.out.println("Please paste yours into the source code.");
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingWebSearch.java`
+#### Snippet
+```java
+            SearchResults result = SearchWeb(searchTerm);
+
+            System.out.println("\nRelevant HTTP Headers:\n");
+            for (String header : result.relevantHeaders.keySet())
+                System.out.println(header + ": " + result.relevantHeaders.get(header));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingImageSearchv7.java`
+#### Snippet
+```java
+
+        try {
+            System.out.println("Searching the Web for: " + searchTerm);
+
+            SearchResults result = SearchImages(searchTerm);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingWebSearch.java`
+#### Snippet
+```java
+            System.out.println("\nRelevant HTTP Headers:\n");
+            for (String header : result.relevantHeaders.keySet())
+                System.out.println(header + ": " + result.relevantHeaders.get(header));
+
+            System.out.println("\nJSON Response:\n");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingWebSearch.java`
+#### Snippet
+```java
+                System.out.println(header + ": " + result.relevantHeaders.get(header));
+
+            System.out.println("\nJSON Response:\n");
+            System.out.println(prettify(result.jsonResponse));
+        } catch (Exception e) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingWebSearch.java`
+#### Snippet
+```java
+
+            System.out.println("\nJSON Response:\n");
+            System.out.println(prettify(result.jsonResponse));
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingWebSearch.java`
+#### Snippet
+```java
+            System.out.println(prettify(result.jsonResponse));
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingImageSearchv7.java`
+#### Snippet
+```java
+            */
+
+            System.out.println("\nJSON Response:\n");
+            //parse the jseon
+            JsonParser parser = new JsonParser();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingImageSearchv7.java`
+#### Snippet
+```java
+            String resultURL = first_result.get("thumbnailUrl").getAsString();
+
+            System.out.println("\nThe total number of images found: "+ total +"\n");
+            System.out.println("\nThe thumbnail URL to the first image search URL: "+ resultURL +"\n");
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingImageSearchv7.java`
+#### Snippet
+```java
+
+            System.out.println("\nThe total number of images found: "+ total +"\n");
+            System.out.println("\nThe thumbnail URL to the first image search URL: "+ resultURL +"\n");
+
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingImageSearchv7.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace(System.out);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `samples/sdk/WebSearchSample/BingWebSearchSample.java`
 #### Snippet
 ```java
@@ -728,49 +728,13 @@ in `samples/sdk/AutoSuggestSample/BingAutoSuggestSample.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingVisualSearch.java`
+in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 #### Snippet
 ```java
-            String json = new Scanner(stream).useDelimiter("\\A").next();
-
-            System.out.println("\nJSON Response:\n");
-            System.out.println(prettify(json));
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingVisualSearch.java`
-#### Snippet
-```java
-
-            System.out.println("\nJSON Response:\n");
-            System.out.println(prettify(json));
-        }
-        catch (IOException e)
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingVisualSearch.java`
-#### Snippet
-```java
-        catch (IOException e)
-        {
-            e.printStackTrace(System.out);
-            System.exit(1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/rest/BingVisualSearch.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace(System.out);
-            System.exit(1);
+            runSample(client, customConfigId);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 ```
 
@@ -860,13 +824,49 @@ in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
+in `samples/rest/BingVisualSearch.java`
 #### Snippet
 ```java
-            runSample(client, customConfigId);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            String json = new Scanner(stream).useDelimiter("\\A").next();
+
+            System.out.println("\nJSON Response:\n");
+            System.out.println(prettify(json));
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingVisualSearch.java`
+#### Snippet
+```java
+
+            System.out.println("\nJSON Response:\n");
+            System.out.println(prettify(json));
+        }
+        catch (IOException e)
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingVisualSearch.java`
+#### Snippet
+```java
+        catch (IOException e)
+        {
+            e.printStackTrace(System.out);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/rest/BingVisualSearch.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace(System.out);
+            System.exit(1);
         }
 ```
 
@@ -880,102 +880,6 @@ in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
             System.out.println(f.getMessage());
             f.printStackTrace();
         }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-    // <searchWithFilter>
-    public static void searchWithFilter(VisualSearchClientImpl client){
-        System.out.println("Calling Bing Visual Search with image binary and insights token");
-        Gson gson = new Gson();
-        String imageUrl = "https:///photo-1512546148165-e50d714a565a?w=600&q=80";
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-                .withImageInfo(imageInfo)
-                .withKnowledgeRequest(knowledgeRequest);
-        System.out.println(gson.toJson(visualSearchRequest));
-        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, gson.toJson(visualSearchRequest),  new byte[0]);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-    // <visualSearchWithCropArea>
-    public static void searchWithCropArea(VisualSearchClientImpl client, byte[] imageBytes){
-        System.out.println("Calling Bing Visual Search with image binary, using crop area");
-        VisualSearchRequest visualSearchRequest;
-        ImageKnowledge visualSearchResults;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-        ImageInfo imageInfo = new ImageInfo().withCropArea(cropArea);
-        visualSearchRequest = new VisualSearchRequest().withImageInfo(imageInfo);
-        System.out.println(gson.toJson(visualSearchRequest));
-        visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, gson.toJson(visualSearchRequest), imageBytes);
-        PrintVisualSearchResults(visualSearchResults);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-
-
-        System.out.println("Search with an image insights token using crop area");
-        String imageInsightsToken = "bcid_113F29C079F18F385732D8046EC80145*ccid_oV/QcH95*mid_687689FAFA449B35BC11A1AE6CEAB6F9A9B53708*thid_R.113F29C079F18F385732D8046EC80145";
-        Gson gson = new Gson();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-                .withCropArea(cropArea);
-        VisualSearchRequest visualSearchRequest = new VisualSearchRequest().withImageInfo(imageInfo);
-        System.out.println(gson.toJson(visualSearchRequest));
-        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, gson.toJson(visualSearchRequest),  new byte[0]);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-
-    public static void searchUsingCropArea(VisualSearchClientImpl client){
-        System.out.println("Search with an url of dog image using crop area");
-        String visualSearchRequestJSON = "{\"imageInfo\":{\"url\":\"https://images.unsplash.com/photo-1512546148165-e50d714a565a?w=600&q=80\",\"cropArea\":{\"top\":0.1,\"bottom\":0.5,\"left\":0.1,\"right\":0.9}},\"knowledgeRequest\":{\"filters\":{\"site\":\"www.bing.com\"}}}";
-        System.out.println(visualSearchRequestJSON);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-        System.out.println("Search with an url of dog image using crop area");
-        String visualSearchRequestJSON = "{\"imageInfo\":{\"url\":\"https://images.unsplash.com/photo-1512546148165-e50d714a565a?w=600&q=80\",\"cropArea\":{\"top\":0.1,\"bottom\":0.5,\"left\":0.1,\"right\":0.9}},\"knowledgeRequest\":{\"filters\":{\"site\":\"www.bing.com\"}}}";
-        System.out.println(visualSearchRequestJSON);
-        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, visualSearchRequestJSON,  new byte[0]);
-        PrintVisualSearchResults(visualSearchResults);
 ```
 
 ### SystemOutErr
@@ -1067,299 +971,107 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
 #### Snippet
 ```java
+    // <searchWithFilter>
+    public static void searchWithFilter(VisualSearchClientImpl client){
+        System.out.println("Calling Bing Visual Search with image binary and insights token");
+        Gson gson = new Gson();
+        String imageUrl = "https:///photo-1512546148165-e50d714a565a?w=600&q=80";
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
+                .withImageInfo(imageInfo)
+                .withKnowledgeRequest(knowledgeRequest);
+        System.out.println(gson.toJson(visualSearchRequest));
+        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, gson.toJson(visualSearchRequest),  new byte[0]);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
+
+    public static void searchUsingCropArea(VisualSearchClientImpl client){
+        System.out.println("Search with an url of dog image using crop area");
+        String visualSearchRequestJSON = "{\"imageInfo\":{\"url\":\"https://images.unsplash.com/photo-1512546148165-e50d714a565a?w=600&q=80\",\"cropArea\":{\"top\":0.1,\"bottom\":0.5,\"left\":0.1,\"right\":0.9}},\"knowledgeRequest\":{\"filters\":{\"site\":\"www.bing.com\"}}}";
+        System.out.println(visualSearchRequestJSON);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
+        System.out.println("Search with an url of dog image using crop area");
+        String visualSearchRequestJSON = "{\"imageInfo\":{\"url\":\"https://images.unsplash.com/photo-1512546148165-e50d714a565a?w=600&q=80\",\"cropArea\":{\"top\":0.1,\"bottom\":0.5,\"left\":0.1,\"right\":0.9}},\"knowledgeRequest\":{\"filters\":{\"site\":\"www.bing.com\"}}}";
+        System.out.println(visualSearchRequestJSON);
+        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, visualSearchRequestJSON,  new byte[0]);
+        PrintVisualSearchResults(visualSearchResults);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
+
+
+        System.out.println("Search with an image insights token using crop area");
+        String imageInsightsToken = "bcid_113F29C079F18F385732D8046EC80145*ccid_oV/QcH95*mid_687689FAFA449B35BC11A1AE6CEAB6F9A9B53708*thid_R.113F29C079F18F385732D8046EC80145";
+        Gson gson = new Gson();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
+                .withCropArea(cropArea);
+        VisualSearchRequest visualSearchRequest = new VisualSearchRequest().withImageInfo(imageInfo);
+        System.out.println(gson.toJson(visualSearchRequest));
+        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, gson.toJson(visualSearchRequest),  new byte[0]);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
+    // <visualSearchWithCropArea>
+    public static void searchWithCropArea(VisualSearchClientImpl client, byte[] imageBytes){
+        System.out.println("Calling Bing Visual Search with image binary, using crop area");
+        VisualSearchRequest visualSearchRequest;
+        ImageKnowledge visualSearchResults;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
+        ImageInfo imageInfo = new ImageInfo().withCropArea(cropArea);
+        visualSearchRequest = new VisualSearchRequest().withImageInfo(imageInfo);
+        System.out.println(gson.toJson(visualSearchRequest));
+        visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, gson.toJson(visualSearchRequest), imageBytes);
+        PrintVisualSearchResults(visualSearchResults);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
     // <visualSearch>
     public static void visualSearch(VisualSearchClientImpl client, byte[] imageBytes){
         System.out.println("Calling Bing Visual Search with image binary");
         
         ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, null, imageBytes);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-            runSample(client);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-            if (videoResults.value().size() > 0) {
-                VideoObject firstVideoResult = videoResults.value().get(0);
-                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
-                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                VideoObject firstVideoResult = videoResults.value().get(0);
-                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
-                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
-                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
-                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
-                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
-                System.out.println("\n");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
-                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
-                System.out.println("\n");
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
-                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
-                System.out.println("\n");
-            } else {
-                System.out.println("Couldn't find video results!");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println("\n");
-            } else {
-                System.out.println("Couldn't find video results!");
-            }
-        } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-            }
-        } else {
-            System.out.println("Didn't see any video result data..");
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-            if (trendingResults.bannerTiles().size() > 0) {
-                TrendingVideosTile firstBannerTile = trendingResults.bannerTiles().get(0);
-                System.out.println(
-                        String.format("Banner tile count: {trendingResults.BannerTiles.Count}"));
-                System.out.println(
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println(
-                        String.format("Banner tile count: {trendingResults.BannerTiles.Count}"));
-                System.out.println(
-                        String.format("First banner tile text: {firstBannerTile.Query.Text}"));
-                System.out.println(
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println(
-                        String.format("First banner tile text: {firstBannerTile.Query.Text}"));
-                System.out.println(
-                        String.format("First banner tile url: {firstBannerTile.Query.WebSearchUrl}"));
-                System.out.println("\n");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println(
-                        String.format("First banner tile url: {firstBannerTile.Query.WebSearchUrl}"));
-                System.out.println("\n");
-            } else {
-                System.out.println("Couldn't find banner tiles!");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println("\n");
-            } else {
-                System.out.println("Couldn't find banner tiles!");
-            }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-            if (trendingResults.categories().size() > 0) {
-                TrendingVideosCategory firstCategory = trendingResults.categories().get(0);
-                System.out.println(
-                        String.format("Category count: %d", trendingResults.categories().size()));
-                System.out.println(
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                System.out.println(
-                        String.format("Category count: %d", trendingResults.categories().size()));
-                System.out.println(
-                        String.format("First category title: %s", firstCategory.title()));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                if (firstCategory.subcategories().size() > 0) {
-                    TrendingVideosSubcategory firstSubCategory = firstCategory.subcategories().get(0);
-                    System.out.println(
-                            String.format("SubCategory count: %d", firstCategory.subcategories().size()));
-                    System.out.println(
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                    System.out.println(
-                            String.format("SubCategory count: %d", firstCategory.subcategories().size()));
-                    System.out.println(
-                            String.format("First sub category title: %s", firstSubCategory.title()));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                    if (firstSubCategory.tiles().size() > 0) {
-                        TrendingVideosTile firstTile = firstSubCategory.tiles().get(0);
-                        System.out.println(
-                                String.format("Tile count: %d", firstSubCategory.tiles().size()));
-                        System.out.println(
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                        System.out.println(
-                                String.format("Tile count: %d", firstSubCategory.tiles().size()));
-                        System.out.println(
-                                String.format("First tile text: %s", firstTile.query().text()));
-                        System.out.println(
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                        System.out.println(
-                                String.format("First tile text: %s", firstTile.query().text()));
-                        System.out.println(
-                                String.format("First tile url: %s", firstTile.query().webSearchUrl()));
-                    } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                                String.format("First tile url: %s", firstTile.query().webSearchUrl()));
-                    } else {
-                        System.out.println("Couldn't find tiles!");
-                    }
-                } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                    }
-                } else {
-                    System.out.println("Couldn't find subcategories!");
-                }
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                }
-            } else {
-                System.out.println("Couldn't find categories!");
-            }
-        } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-            }
-        } else {
-            System.out.println("Didn't see any trending video data..");
-        }
-    }
 ```
 
 ### SystemOutErr
@@ -1588,6 +1300,294 @@ in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
             System.out.println(f.getMessage());
             f.printStackTrace();
         }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+            runSample(client);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+            if (trendingResults.bannerTiles().size() > 0) {
+                TrendingVideosTile firstBannerTile = trendingResults.bannerTiles().get(0);
+                System.out.println(
+                        String.format("Banner tile count: {trendingResults.BannerTiles.Count}"));
+                System.out.println(
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println(
+                        String.format("Banner tile count: {trendingResults.BannerTiles.Count}"));
+                System.out.println(
+                        String.format("First banner tile text: {firstBannerTile.Query.Text}"));
+                System.out.println(
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println(
+                        String.format("First banner tile text: {firstBannerTile.Query.Text}"));
+                System.out.println(
+                        String.format("First banner tile url: {firstBannerTile.Query.WebSearchUrl}"));
+                System.out.println("\n");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println(
+                        String.format("First banner tile url: {firstBannerTile.Query.WebSearchUrl}"));
+                System.out.println("\n");
+            } else {
+                System.out.println("Couldn't find banner tiles!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println("\n");
+            } else {
+                System.out.println("Couldn't find banner tiles!");
+            }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+            if (trendingResults.categories().size() > 0) {
+                TrendingVideosCategory firstCategory = trendingResults.categories().get(0);
+                System.out.println(
+                        String.format("Category count: %d", trendingResults.categories().size()));
+                System.out.println(
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println(
+                        String.format("Category count: %d", trendingResults.categories().size()));
+                System.out.println(
+                        String.format("First category title: %s", firstCategory.title()));
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                if (firstCategory.subcategories().size() > 0) {
+                    TrendingVideosSubcategory firstSubCategory = firstCategory.subcategories().get(0);
+                    System.out.println(
+                            String.format("SubCategory count: %d", firstCategory.subcategories().size()));
+                    System.out.println(
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                    System.out.println(
+                            String.format("SubCategory count: %d", firstCategory.subcategories().size()));
+                    System.out.println(
+                            String.format("First sub category title: %s", firstSubCategory.title()));
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                    if (firstSubCategory.tiles().size() > 0) {
+                        TrendingVideosTile firstTile = firstSubCategory.tiles().get(0);
+                        System.out.println(
+                                String.format("Tile count: %d", firstSubCategory.tiles().size()));
+                        System.out.println(
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                        System.out.println(
+                                String.format("Tile count: %d", firstSubCategory.tiles().size()));
+                        System.out.println(
+                                String.format("First tile text: %s", firstTile.query().text()));
+                        System.out.println(
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                        System.out.println(
+                                String.format("First tile text: %s", firstTile.query().text()));
+                        System.out.println(
+                                String.format("First tile url: %s", firstTile.query().webSearchUrl()));
+                    } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                                String.format("First tile url: %s", firstTile.query().webSearchUrl()));
+                    } else {
+                        System.out.println("Couldn't find tiles!");
+                    }
+                } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                    }
+                } else {
+                    System.out.println("Couldn't find subcategories!");
+                }
+            } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                }
+            } else {
+                System.out.println("Couldn't find categories!");
+            }
+        } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+            }
+        } else {
+            System.out.println("Didn't see any trending video data..");
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+            if (videoResults.value().size() > 0) {
+                VideoObject firstVideoResult = videoResults.value().get(0);
+                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
+                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                VideoObject firstVideoResult = videoResults.value().get(0);
+                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
+                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
+                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
+                System.out.println("\n");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
+                System.out.println("\n");
+            } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
+                System.out.println("\n");
+            } else {
+                System.out.println("Couldn't find video results!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                System.out.println("\n");
+            } else {
+                System.out.println("Couldn't find video results!");
+            }
+        } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+            }
+        } else {
+            System.out.println("Didn't see any video result data..");
+        }
+    }
 ```
 
 ### SystemOutErr
@@ -1835,6 +1835,138 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
 #### Snippet
 ```java
+                NewsArticle firstNewsResult = newsResults.value().get(0);
+
+                System.out.println(String.format("TotalEstimatedMatches value: %d", newsResults.totalEstimatedMatches()));
+                System.out.println(String.format("News result count: %d", newsResults.value().size()));
+                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+
+                System.out.println(String.format("TotalEstimatedMatches value: %d", newsResults.totalEstimatedMatches()));
+                System.out.println(String.format("News result count: %d", newsResults.value().size()));
+                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
+                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("TotalEstimatedMatches value: %d", newsResults.totalEstimatedMatches()));
+                System.out.println(String.format("News result count: %d", newsResults.value().size()));
+                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
+                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
+                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("News result count: %d", newsResults.value().size()));
+                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
+                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
+                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
+                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
+                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
+                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
+                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
+                System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
+                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
+                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
+                System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
+                System.out.println("\n");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
+                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
+                System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
+                System.out.println("\n");
+            } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
+                System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
+                System.out.println("\n");
+            } else {
+                System.out.println("Couldn't find news results!");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                System.out.println("\n");
+            } else {
+                System.out.println("Couldn't find news results!");
+            }
+        } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+            }
+        } else {
+            System.out.println("Didn't see any news result data..");
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+            runSample(client);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
             // of the first item in the list of news result list.
 
             System.out.println("Search news for query \"Quantum  Computing\" with market and count");
@@ -1988,138 +2120,6 @@ in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                NewsArticle firstNewsResult = newsResults.value().get(0);
-
-                System.out.println(String.format("TotalEstimatedMatches value: %d", newsResults.totalEstimatedMatches()));
-                System.out.println(String.format("News result count: %d", newsResults.value().size()));
-                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-
-                System.out.println(String.format("TotalEstimatedMatches value: %d", newsResults.totalEstimatedMatches()));
-                System.out.println(String.format("News result count: %d", newsResults.value().size()));
-                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
-                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("TotalEstimatedMatches value: %d", newsResults.totalEstimatedMatches()));
-                System.out.println(String.format("News result count: %d", newsResults.value().size()));
-                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
-                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
-                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("News result count: %d", newsResults.value().size()));
-                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
-                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
-                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
-                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("First news name: %s", firstNewsResult.name()));
-                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
-                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
-                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
-                System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("First news url: %s", firstNewsResult.url()));
-                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
-                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
-                System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
-                System.out.println("\n");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("First news description: %s", firstNewsResult.description()));
-                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
-                System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
-                System.out.println("\n");
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                System.out.println(String.format("First news published time: %s", firstNewsResult.datePublished()));
-                System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
-                System.out.println("\n");
-            } else {
-                System.out.println("Couldn't find news results!");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                System.out.println("\n");
-            } else {
-                System.out.println("Couldn't find news results!");
-            }
-        } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-            }
-        } else {
-            System.out.println("Didn't see any news result data..");
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-            runSample(client);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `samples/rest/BingEntitySearch.java`
 #### Snippet
 ```java
@@ -2219,6 +2219,18 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `samples/sdk/ImageSearchSample/BingImageSearchSample.java`
 #### Snippet
 ```java
+            runSample(client, searchTerm);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/ImageSearchSample/BingImageSearchSample.java`
+#### Snippet
+```java
             // This will search images for "canadian rockies" then print the first image result,
 
             System.out.println(String.format("Search images for query %s", searchTerm));
@@ -2300,18 +2312,6 @@ in `samples/sdk/ImageSearchSample/BingImageSearchSample.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/ImageSearchSample/BingImageSearchSample.java`
-#### Snippet
-```java
-            runSample(client, searchTerm);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `samples/rest/BingAutosuggest.java`
 #### Snippet
 ```java
@@ -2332,18 +2332,6 @@ in `samples/rest/BingAutosuggest.java`
             System.out.println (e);
         }
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/sdk/EntitySearchSample/BingEntitySearchSample.java`
-#### Snippet
-```java
-            runSample(client);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
 ```
 
 ### SystemOutErr
@@ -2730,6 +2718,18 @@ in `samples/sdk/EntitySearchSample/BingEntitySearchSample.java`
         }
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/sdk/EntitySearchSample/BingEntitySearchSample.java`
+#### Snippet
+```java
+            runSample(client);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+```
+
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -2740,18 +2740,6 @@ in `sdk/SpellCheck/src/main/java/com/microsoft/bing/spellcheck/models/ResponseBa
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = ResponseBase.class)
 @JsonTypeName("ResponseBase")
-@JsonSubTypes({
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `sdk/SpellCheck/src/main/java/com/microsoft/bing/spellcheck/models/Answer.java`
-#### Snippet
-```java
- * The Answer model.
- */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = Answer.class)
-@JsonTypeName("Answer")
 @JsonSubTypes({
 ```
 
@@ -2769,14 +2757,14 @@ public class WebWebGrouping {
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `sdk/SpellCheck/src/main/java/com/microsoft/bing/spellcheck/models/SpellCheck.java`
+in `sdk/SpellCheck/src/main/java/com/microsoft/bing/spellcheck/models/Answer.java`
 #### Snippet
 ```java
- * The SpellCheck model.
+ * The Answer model.
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = SpellCheck.class)
-@JsonTypeName("SpellCheck")
-public class SpellCheck extends Answer {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = Answer.class)
+@JsonTypeName("Answer")
+@JsonSubTypes({
 ```
 
 ### DefaultAnnotationParam
@@ -2789,6 +2777,18 @@ in `sdk/EntitySearch/src/main/java/com/microsoft/bing/entitysearch/models/Contra
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = ContractualRulesAttribution.class)
 @JsonTypeName("ContractualRules/Attribution")
 @JsonSubTypes({
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `sdk/SpellCheck/src/main/java/com/microsoft/bing/spellcheck/models/SpellCheck.java`
+#### Snippet
+```java
+ * The SpellCheck model.
+ */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = SpellCheck.class)
+@JsonTypeName("SpellCheck")
+public class SpellCheck extends Answer {
 ```
 
 ### DefaultAnnotationParam
@@ -2817,18 +2817,6 @@ in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/Res
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/WebPage.java`
-#### Snippet
-```java
- * Defines a webpage that is relevant to the query.
- */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = WebPage.class)
-@JsonTypeName("WebPage")
-public class WebPage extends CreativeWork {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/Thing.java`
 #### Snippet
 ```java
@@ -2837,6 +2825,18 @@ in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/Thi
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = Thing.class)
 @JsonTypeName("Thing")
 @JsonSubTypes({
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/WebPage.java`
+#### Snippet
+```java
+ * Defines a webpage that is relevant to the query.
+ */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = WebPage.class)
+@JsonTypeName("WebPage")
+public class WebPage extends CreativeWork {
 ```
 
 ### DefaultAnnotationParam
@@ -2985,18 +2985,6 @@ in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/Ans
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/CreativeWork.java`
-#### Snippet
-```java
- * The CreativeWork model.
- */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = CreativeWork.class)
-@JsonTypeName("CreativeWork")
-@JsonSubTypes({
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/SearchResultsAnswer.java`
 #### Snippet
 ```java
@@ -3004,6 +2992,18 @@ in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/Sea
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = SearchResultsAnswer.class)
 @JsonTypeName("SearchResultsAnswer")
+@JsonSubTypes({
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/models/CreativeWork.java`
+#### Snippet
+```java
+ * The CreativeWork model.
+ */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "_type", defaultImpl = CreativeWork.class)
+@JsonTypeName("CreativeWork")
 @JsonSubTypes({
 ```
 
@@ -3057,15 +3057,15 @@ public class ErrorResponse extends Response {
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `BingImageSearchv7` has only 'static' members, and lacks a 'private' constructor
-in `samples/rest/BingImageSearchv7.java`
+Class `BingSpellCheckSample` has only 'static' members, and lacks a 'private' constructor
+in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
 #### Snippet
 ```java
-import com.google.gson.JsonArray;
-
-public class BingImageSearchv7 {
-
-// ***********************************************
+ *  - Spell check "Bill Gatas" with market and mode settings and print out the flagged tokens and suggestions.
+ */
+public class BingSpellCheckSample {
+    /**
+     * Main function which runs the actual sample.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3081,15 +3081,15 @@ public class BingWebSearch {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `BingSpellCheckSample` has only 'static' members, and lacks a 'private' constructor
-in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
+Class `BingImageSearchv7` has only 'static' members, and lacks a 'private' constructor
+in `samples/rest/BingImageSearchv7.java`
 #### Snippet
 ```java
- *  - Spell check "Bill Gatas" with market and mode settings and print out the flagged tokens and suggestions.
- */
-public class BingSpellCheckSample {
-    /**
-     * Main function which runs the actual sample.
+import com.google.gson.JsonArray;
+
+public class BingImageSearchv7 {
+
+// ***********************************************
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3117,18 +3117,6 @@ public class BingAutoSuggestSample {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `BingVisualSearch` has only 'static' members, and lacks a 'private' constructor
-in `samples/rest/BingVisualSearch.java`
-#### Snippet
-```java
- *   java -cp .;lib\* BingVisualSearch
- */
-public class BingVisualSearch {
-
-    // Add your Bing Search V7 key endpoint to your environment variables.
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `BingCustomSearchSample` has only 'static' members, and lacks a 'private' constructor
 in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 #### Snippet
@@ -3138,6 +3126,18 @@ in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 public class BingCustomSearchSample {
 
     // <runSample>
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BingVisualSearch` has only 'static' members, and lacks a 'private' constructor
+in `samples/rest/BingVisualSearch.java`
+#### Snippet
+```java
+ *   java -cp .;lib\* BingVisualSearch
+ */
+public class BingVisualSearch {
+
+    // Add your Bing Search V7 key endpoint to your environment variables.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3810,11 +3810,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
 #### Snippet
 ```java
-        } catch (Exception f) {
-            System.out.println(f.getMessage());
-            f.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-        return false;
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -3822,11 +3822,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
 #### Snippet
 ```java
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+        } catch (Exception f) {
+            System.out.println(f.getMessage());
+            f.printStackTrace();
         }
-    }
+        return false;
 ```
 
 ### ThrowablePrintStackTrace
@@ -3882,11 +3882,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 #### Snippet
 ```java
-        } catch (Exception f) {
-            System.out.println(f.getMessage());
-            f.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-        return false;
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -3894,11 +3894,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 #### Snippet
 ```java
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+        } catch (Exception f) {
+            System.out.println(f.getMessage());
+            f.printStackTrace();
         }
-    }
+        return false;
 ```
 
 ### ThrowablePrintStackTrace
@@ -3930,6 +3930,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
+        } catch (Exception f) {
+            System.out.println(f.getMessage());
+            f.printStackTrace();
+        }
+        return false;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -3939,14 +3951,14 @@ in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
 #### Snippet
 ```java
-        } catch (Exception f) {
-            System.out.println(f.getMessage());
-            f.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-        return false;
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -3963,7 +3975,7 @@ in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+in `samples/sdk/ImageSearchSample/BingImageSearchSample.java`
 #### Snippet
 ```java
         } catch (Exception e) {
@@ -3987,30 +3999,6 @@ in `samples/sdk/ImageSearchSample/BingImageSearchSample.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `samples/sdk/ImageSearchSample/BingImageSearchSample.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `samples/sdk/EntitySearchSample/BingEntitySearchSample.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `samples/sdk/EntitySearchSample/BingEntitySearchSample.java`
 #### Snippet
 ```java
@@ -4019,6 +4007,18 @@ in `samples/sdk/EntitySearchSample/BingEntitySearchSample.java`
             f.printStackTrace();
         }
         return false;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `samples/sdk/EntitySearchSample/BingEntitySearchSample.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -4078,8 +4078,8 @@ in `sdk/CustomImageSearch/src/main/java/com/microsoft/bing/customimagesearch/imp
 #### Snippet
 ```java
      */
-    public Observable<Images> imageSearchAsync(String customConfig, String query, String acceptLanguage, String userAgent, String clientId, String clientIp, String location, ImageAspect aspect, ImageColor color, String countryCode, Integer count, Freshness freshness, Integer height, String id, ImageContent imageContent, ImageType imageType, ImageLicense license, String market, Long maxFileSize, Long maxHeight, Long maxWidth, Long minFileSize, Long minHeight, Long minWidth, Long offset, SafeSearch safeSearch, ImageSize size, String setLang, Integer width) {
-        return imageSearchWithServiceResponseAsync(customConfig, query, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, safeSearch, size, setLang, width).map(new Func1<ServiceResponse<Images>, Images>() {
+    public Observable<Images> imageSearchAsync(String customConfig, String query) {
+        return imageSearchWithServiceResponseAsync(customConfig, query).map(new Func1<ServiceResponse<Images>, Images>() {
             @Override
             public Images call(ServiceResponse<Images> response) {
 ```
@@ -4090,8 +4090,8 @@ in `sdk/CustomImageSearch/src/main/java/com/microsoft/bing/customimagesearch/imp
 #### Snippet
 ```java
      */
-    public Observable<Images> imageSearchAsync(String customConfig, String query) {
-        return imageSearchWithServiceResponseAsync(customConfig, query).map(new Func1<ServiceResponse<Images>, Images>() {
+    public Observable<Images> imageSearchAsync(String customConfig, String query, String acceptLanguage, String userAgent, String clientId, String clientIp, String location, ImageAspect aspect, ImageColor color, String countryCode, Integer count, Freshness freshness, Integer height, String id, ImageContent imageContent, ImageType imageType, ImageLicense license, String market, Long maxFileSize, Long maxHeight, Long maxWidth, Long minFileSize, Long minHeight, Long minWidth, Long offset, SafeSearch safeSearch, ImageSize size, String setLang, Integer width) {
+        return imageSearchWithServiceResponseAsync(customConfig, query, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, safeSearch, size, setLang, width).map(new Func1<ServiceResponse<Images>, Images>() {
             @Override
             public Images call(ServiceResponse<Images> response) {
 ```
@@ -4126,8 +4126,8 @@ in `sdk/SpellCheck/src/main/java/com/microsoft/bing/spellcheck/implementation/Sp
 #### Snippet
 ```java
      */
-    public Observable<SpellCheck> spellCheckerAsync(String text, String acceptLanguage, String pragma, String userAgent, String clientId, String clientIp, String location, ActionType actionType, String appName, String countryCode, String clientMachineName, String docId, String market, String sessionId, String setLang, String userId, Mode mode, String preContextText, String postContextText) {
-        return spellCheckerWithServiceResponseAsync(text, acceptLanguage, pragma, userAgent, clientId, clientIp, location, actionType, appName, countryCode, clientMachineName, docId, market, sessionId, setLang, userId, mode, preContextText, postContextText).map(new Func1<ServiceResponse<SpellCheck>, SpellCheck>() {
+    public Observable<SpellCheck> spellCheckerAsync(String text) {
+        return spellCheckerWithServiceResponseAsync(text).map(new Func1<ServiceResponse<SpellCheck>, SpellCheck>() {
             @Override
             public SpellCheck call(ServiceResponse<SpellCheck> response) {
 ```
@@ -4138,8 +4138,8 @@ in `sdk/SpellCheck/src/main/java/com/microsoft/bing/spellcheck/implementation/Sp
 #### Snippet
 ```java
      */
-    public Observable<SpellCheck> spellCheckerAsync(String text) {
-        return spellCheckerWithServiceResponseAsync(text).map(new Func1<ServiceResponse<SpellCheck>, SpellCheck>() {
+    public Observable<SpellCheck> spellCheckerAsync(String text, String acceptLanguage, String pragma, String userAgent, String clientId, String clientIp, String location, ActionType actionType, String appName, String countryCode, String clientMachineName, String docId, String market, String sessionId, String setLang, String userId, Mode mode, String preContextText, String postContextText) {
+        return spellCheckerWithServiceResponseAsync(text, acceptLanguage, pragma, userAgent, clientId, clientIp, location, actionType, appName, countryCode, clientMachineName, docId, market, sessionId, setLang, userId, mode, preContextText, postContextText).map(new Func1<ServiceResponse<SpellCheck>, SpellCheck>() {
             @Override
             public SpellCheck call(ServiceResponse<SpellCheck> response) {
 ```
@@ -4169,42 +4169,6 @@ in `sdk/AutoSuggest/src/main/java/com/microsoft/bing/autosuggest/implementation/
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Func1, TrendingTopics\>() can be replaced with method reference
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-     */
-    public Observable<TrendingTopics> trendingAsync() {
-        return trendingWithServiceResponseAsync().map(new Func1<ServiceResponse<TrendingTopics>, TrendingTopics>() {
-            @Override
-            public TrendingTopics call(ServiceResponse<TrendingTopics> response) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Func1, News\>() can be replaced with method reference
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-     */
-    public Observable<News> categoryAsync() {
-        return categoryWithServiceResponseAsync().map(new Func1<ServiceResponse<News>, News>() {
-            @Override
-            public News call(ServiceResponse<News> response) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Func1, News\>() can be replaced with method reference
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-     */
-    public Observable<News> categoryAsync(String acceptLanguage, String userAgent, String clientId, String clientIp, String location, String countryCode, String category, Integer count, Integer headlineCount, String market, Integer offset, Boolean originalImage, SafeSearch safeSearch, String setLang, Boolean textDecorations, TextFormat textFormat) {
-        return categoryWithServiceResponseAsync(acceptLanguage, userAgent, clientId, clientIp, location, countryCode, category, count, headlineCount, market, offset, originalImage, safeSearch, setLang, textDecorations, textFormat).map(new Func1<ServiceResponse<News>, News>() {
-            @Override
-            public News call(ServiceResponse<News> response) {
-```
-
-### Anonymous2MethodRef
 Anonymous new Func1, News\>() can be replaced with method reference
 in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
@@ -4229,6 +4193,18 @@ in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/Ne
 ```
 
 ### Anonymous2MethodRef
+Anonymous new Func1, News\>() can be replaced with method reference
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
+#### Snippet
+```java
+     */
+    public Observable<News> categoryAsync() {
+        return categoryWithServiceResponseAsync().map(new Func1<ServiceResponse<News>, News>() {
+            @Override
+            public News call(ServiceResponse<News> response) {
+```
+
+### Anonymous2MethodRef
 Anonymous new Func1, TrendingTopics\>() can be replaced with method reference
 in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
@@ -4241,15 +4217,27 @@ in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/Ne
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Func1, VideoDetails\>() can be replaced with method reference
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+Anonymous new Func1, News\>() can be replaced with method reference
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
      */
-    public Observable<VideoDetails> detailsAsync(String query) {
-        return detailsWithServiceResponseAsync(query).map(new Func1<ServiceResponse<VideoDetails>, VideoDetails>() {
+    public Observable<News> categoryAsync(String acceptLanguage, String userAgent, String clientId, String clientIp, String location, String countryCode, String category, Integer count, Integer headlineCount, String market, Integer offset, Boolean originalImage, SafeSearch safeSearch, String setLang, Boolean textDecorations, TextFormat textFormat) {
+        return categoryWithServiceResponseAsync(acceptLanguage, userAgent, clientId, clientIp, location, countryCode, category, count, headlineCount, market, offset, originalImage, safeSearch, setLang, textDecorations, textFormat).map(new Func1<ServiceResponse<News>, News>() {
             @Override
-            public VideoDetails call(ServiceResponse<VideoDetails> response) {
+            public News call(ServiceResponse<News> response) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Func1, TrendingTopics\>() can be replaced with method reference
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
+#### Snippet
+```java
+     */
+    public Observable<TrendingTopics> trendingAsync() {
+        return trendingWithServiceResponseAsync().map(new Func1<ServiceResponse<TrendingTopics>, TrendingTopics>() {
+            @Override
+            public TrendingTopics call(ServiceResponse<TrendingTopics> response) {
 ```
 
 ### Anonymous2MethodRef
@@ -4277,15 +4265,15 @@ in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Func1, TrendingVideos\>() can be replaced with method reference
+Anonymous new Func1, VideoDetails\>() can be replaced with method reference
 in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
 #### Snippet
 ```java
      */
-    public Observable<TrendingVideos> trendingAsync(String acceptLanguage, String userAgent, String clientId, String clientIp, String location, String countryCode, String market, SafeSearch safeSearch, String setLang, Boolean textDecorations, TextFormat textFormat) {
-        return trendingWithServiceResponseAsync(acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat).map(new Func1<ServiceResponse<TrendingVideos>, TrendingVideos>() {
+    public Observable<VideoDetails> detailsAsync(String query) {
+        return detailsWithServiceResponseAsync(query).map(new Func1<ServiceResponse<VideoDetails>, VideoDetails>() {
             @Override
-            public TrendingVideos call(ServiceResponse<TrendingVideos> response) {
+            public VideoDetails call(ServiceResponse<VideoDetails> response) {
 ```
 
 ### Anonymous2MethodRef
@@ -4313,6 +4301,18 @@ in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/
 ```
 
 ### Anonymous2MethodRef
+Anonymous new Func1, TrendingVideos\>() can be replaced with method reference
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+     */
+    public Observable<TrendingVideos> trendingAsync(String acceptLanguage, String userAgent, String clientId, String clientIp, String location, String countryCode, String market, SafeSearch safeSearch, String setLang, Boolean textDecorations, TextFormat textFormat) {
+        return trendingWithServiceResponseAsync(acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat).map(new Func1<ServiceResponse<TrendingVideos>, TrendingVideos>() {
+            @Override
+            public TrendingVideos call(ServiceResponse<TrendingVideos> response) {
+```
+
+### Anonymous2MethodRef
 Anonymous new Func1, SearchResponse\>() can be replaced with method reference
 in `sdk/EntitySearch/src/main/java/com/microsoft/bing/entitysearch/implementation/EntitiesImpl.java`
 #### Snippet
@@ -4337,27 +4337,15 @@ in `sdk/EntitySearch/src/main/java/com/microsoft/bing/entitysearch/implementatio
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Func1, SearchResponse\>() can be replaced with method reference
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+Anonymous new Func1, ImageInsights\>() can be replaced with method reference
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
      */
-    public Observable<SearchResponse> searchAsync(String query) {
-        return searchWithServiceResponseAsync(query).map(new Func1<ServiceResponse<SearchResponse>, SearchResponse>() {
+    public Observable<ImageInsights> detailsAsync(String query) {
+        return detailsWithServiceResponseAsync(query).map(new Func1<ServiceResponse<ImageInsights>, ImageInsights>() {
             @Override
-            public SearchResponse call(ServiceResponse<SearchResponse> response) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Func1, SearchResponse\>() can be replaced with method reference
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-     */
-    public Observable<SearchResponse> searchAsync(String query, String acceptLanguage, String pragma, String userAgent, String clientId, String clientIp, String location, Integer answerCount, String countryCode, Integer count, Freshness freshness, String market, Integer offset, List<AnswerType> promote, List<AnswerType> responseFilter, SafeSearch safeSearch, String setLang, Boolean textDecorations, TextFormat textFormat) {
-        return searchWithServiceResponseAsync(query, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promote, responseFilter, safeSearch, setLang, textDecorations, textFormat).map(new Func1<ServiceResponse<SearchResponse>, SearchResponse>() {
-            @Override
-            public SearchResponse call(ServiceResponse<SearchResponse> response) {
+            public ImageInsights call(ServiceResponse<ImageInsights> response) {
 ```
 
 ### Anonymous2MethodRef
@@ -4373,15 +4361,15 @@ in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Func1, TrendingImages\>() can be replaced with method reference
+Anonymous new Func1, ImageInsights\>() can be replaced with method reference
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
      */
-    public Observable<TrendingImages> trendingAsync(String acceptLanguage, String userAgent, String clientId, String clientIp, String location, String countryCode, String market, SafeSearch safeSearch, String setLang) {
-        return trendingWithServiceResponseAsync(acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang).map(new Func1<ServiceResponse<TrendingImages>, TrendingImages>() {
+    public Observable<ImageInsights> detailsAsync(String query, String acceptLanguage, String contentType, String userAgent, String clientId, String clientIp, String location, Double cropBottom, Double cropLeft, Double cropRight, Double cropTop, ImageCropType cropType, String countryCode, String id, String imageUrl, String insightsToken, List<ImageInsightModule> modules, String market, SafeSearch safeSearch, String setLang) {
+        return detailsWithServiceResponseAsync(query, acceptLanguage, contentType, userAgent, clientId, clientIp, location, cropBottom, cropLeft, cropRight, cropTop, cropType, countryCode, id, imageUrl, insightsToken, modules, market, safeSearch, setLang).map(new Func1<ServiceResponse<ImageInsights>, ImageInsights>() {
             @Override
-            public TrendingImages call(ServiceResponse<TrendingImages> response) {
+            public ImageInsights call(ServiceResponse<ImageInsights> response) {
 ```
 
 ### Anonymous2MethodRef
@@ -4409,36 +4397,48 @@ in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Func1, ImageInsights\>() can be replaced with method reference
+Anonymous new Func1, TrendingImages\>() can be replaced with method reference
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
      */
-    public Observable<ImageInsights> detailsAsync(String query) {
-        return detailsWithServiceResponseAsync(query).map(new Func1<ServiceResponse<ImageInsights>, ImageInsights>() {
+    public Observable<TrendingImages> trendingAsync(String acceptLanguage, String userAgent, String clientId, String clientIp, String location, String countryCode, String market, SafeSearch safeSearch, String setLang) {
+        return trendingWithServiceResponseAsync(acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang).map(new Func1<ServiceResponse<TrendingImages>, TrendingImages>() {
             @Override
-            public ImageInsights call(ServiceResponse<ImageInsights> response) {
+            public TrendingImages call(ServiceResponse<TrendingImages> response) {
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Func1, ImageInsights\>() can be replaced with method reference
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+Anonymous new Func1, SearchResponse\>() can be replaced with method reference
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
 #### Snippet
 ```java
      */
-    public Observable<ImageInsights> detailsAsync(String query, String acceptLanguage, String contentType, String userAgent, String clientId, String clientIp, String location, Double cropBottom, Double cropLeft, Double cropRight, Double cropTop, ImageCropType cropType, String countryCode, String id, String imageUrl, String insightsToken, List<ImageInsightModule> modules, String market, SafeSearch safeSearch, String setLang) {
-        return detailsWithServiceResponseAsync(query, acceptLanguage, contentType, userAgent, clientId, clientIp, location, cropBottom, cropLeft, cropRight, cropTop, cropType, countryCode, id, imageUrl, insightsToken, modules, market, safeSearch, setLang).map(new Func1<ServiceResponse<ImageInsights>, ImageInsights>() {
+    public Observable<SearchResponse> searchAsync(String query) {
+        return searchWithServiceResponseAsync(query).map(new Func1<ServiceResponse<SearchResponse>, SearchResponse>() {
             @Override
-            public ImageInsights call(ServiceResponse<ImageInsights> response) {
+            public SearchResponse call(ServiceResponse<SearchResponse> response) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Func1, SearchResponse\>() can be replaced with method reference
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+     */
+    public Observable<SearchResponse> searchAsync(String query, String acceptLanguage, String pragma, String userAgent, String clientId, String clientIp, String location, Integer answerCount, String countryCode, Integer count, Freshness freshness, String market, Integer offset, List<AnswerType> promote, List<AnswerType> responseFilter, SafeSearch safeSearch, String setLang, Boolean textDecorations, TextFormat textFormat) {
+        return searchWithServiceResponseAsync(query, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promote, responseFilter, safeSearch, setLang, textDecorations, textFormat).map(new Func1<ServiceResponse<SearchResponse>, SearchResponse>() {
+            @Override
+            public SearchResponse call(ServiceResponse<SearchResponse> response) {
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
 Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
-in `samples/rest/BingImageSearchv7.java`
+in `samples/rest/BingWebSearch.java`
 #### Snippet
 ```java
-        // extract Bing-related HTTP headers
+        // Extract Bing-related HTTP headers
         Map<String, List<String>> headers = connection.getHeaderFields();
         for (String header : headers.keySet()) {
             if (header == null) continue;      // may have null key
@@ -4447,10 +4447,10 @@ in `samples/rest/BingImageSearchv7.java`
 
 ### KeySetIterationMayUseEntrySet
 Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
-in `samples/rest/BingWebSearch.java`
+in `samples/rest/BingImageSearchv7.java`
 #### Snippet
 ```java
-        // Extract Bing-related HTTP headers
+        // extract Bing-related HTTP headers
         Map<String, List<String>> headers = connection.getHeaderFields();
         for (String header : headers.keySet()) {
             if (header == null) continue;      // may have null key
@@ -4482,18 +4482,6 @@ in `samples/rest/BingVideoSearch.java`
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
-in `samples/rest/BingCustomSearch.java`
-#### Snippet
-```java
-        // Extract Bing-related HTTP headers
-        Map<String, List<String>> headers = connection.getHeaderFields();
-        for (String header : headers.keySet()) {
-            if (header == null) continue;      // may have null key
-            if (header.startsWith("BingAPIs-") || header.startsWith("X-MSEdge-")) {
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `result.relevantHeaders.keySet()` may be replaced with 'entrySet()' iteration
 in `samples/rest/BingCustomSearch.java`
 #### Snippet
@@ -4503,6 +4491,18 @@ in `samples/rest/BingCustomSearch.java`
             for (String header : result.relevantHeaders.keySet())
                 System.out.println(header + ": " + result.relevantHeaders.get(header));
 
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
+in `samples/rest/BingCustomSearch.java`
+#### Snippet
+```java
+        // Extract Bing-related HTTP headers
+        Map<String, List<String>> headers = connection.getHeaderFields();
+        for (String header : headers.keySet()) {
+            if (header == null) continue;      // may have null key
+            if (header.startsWith("BingAPIs-") || header.startsWith("X-MSEdge-")) {
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -4737,6 +4737,18 @@ in `samples/sdk/AutoSuggestSample/BingAutoSuggestSample.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`webData.webPages().value().size() > 0` can be replaced with '!webData.webPages().value().isEmpty()'
+in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
+#### Snippet
+```java
+            SearchResponse webData = client.customInstances().search(customConfigId,"Xbox");
+    
+            if (webData != null && webData.webPages() != null && webData.webPages().value().size() > 0)
+            {
+                // find the first web page
+```
+
+### SizeReplaceableByIsEmpty
 `visualSearchResults.tags().size() > 0` can be replaced with '!visualSearchResults.tags().isEmpty()'
 in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
 #### Snippet
@@ -4761,27 +4773,27 @@ in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`webData.webPages().value().size() > 0` can be replaced with '!webData.webPages().value().isEmpty()'
-in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
-#### Snippet
-```java
-            SearchResponse webData = client.customInstances().search(customConfigId,"Xbox");
-    
-            if (webData != null && webData.webPages() != null && webData.webPages().value().size() > 0)
-            {
-                // find the first web page
-```
-
-### SizeReplaceableByIsEmpty
 `videoResults.value().size() > 0` can be replaced with '!videoResults.value().isEmpty()'
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-    public static void printVideoResults(Videos videoResults) {
-        if (videoResults != null && videoResults.value() != null) {
-            if (videoResults.value().size() > 0) {
-                VideoObject firstVideoResult = videoResults.value().get(0);
-                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
+            // This will search videos for "Bellevue Trailer" and then search for detail information of the first video.
+
+            if (videoResults != null && videoResults.value().size() > 0)
+            {
+                VideoObject firstVideo = videoResults.value().get(0);
+```
+
+### SizeReplaceableByIsEmpty
+`videoDetail.relatedVideos().value().size() > 0` can be replaced with '!videoDetail.relatedVideos().value().isEmpty()'
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+
+                            if (videoDetail.relatedVideos() != null && videoDetail.relatedVideos().value() != null &&
+                                    videoDetail.relatedVideos().value().size() > 0) {
+                                VideoObject firstRelatedVideo = videoDetail.relatedVideos().value().get(0);
+                                System.out.println(
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4837,35 +4849,11 @@ in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-            // This will search videos for "Bellevue Trailer" and then search for detail information of the first video.
-
-            if (videoResults != null && videoResults.value().size() > 0)
-            {
-                VideoObject firstVideo = videoResults.value().get(0);
-```
-
-### SizeReplaceableByIsEmpty
-`videoDetail.relatedVideos().value().size() > 0` can be replaced with '!videoDetail.relatedVideos().value().isEmpty()'
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-
-                            if (videoDetail.relatedVideos() != null && videoDetail.relatedVideos().value() != null &&
-                                    videoDetail.relatedVideos().value().size() > 0) {
-                                VideoObject firstRelatedVideo = videoDetail.relatedVideos().value().get(0);
-                                System.out.println(
-```
-
-### SizeReplaceableByIsEmpty
-`trendingTopics.value().size() > 0` can be replaced with '!trendingTopics.value().isEmpty()'
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-            TrendingTopics trendingTopics = client.news().trending();
-            if (trendingTopics != null) {
-                if (trendingTopics.value().size() > 0) {
-                    NewsTopic firstTopic = trendingTopics.value().get(0);
-
+    public static void printVideoResults(Videos videoResults) {
+        if (videoResults != null && videoResults.value() != null) {
+            if (videoResults.value().size() > 0) {
+                VideoObject firstVideoResult = videoResults.value().get(0);
+                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4877,6 +4865,18 @@ in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
         if (newsResults != null) {
             if (newsResults.value().size() > 0) {
                 NewsArticle firstNewsResult = newsResults.value().get(0);
+
+```
+
+### SizeReplaceableByIsEmpty
+`trendingTopics.value().size() > 0` can be replaced with '!trendingTopics.value().isEmpty()'
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+            TrendingTopics trendingTopics = client.news().trending();
+            if (trendingTopics != null) {
+                if (trendingTopics.value().size() > 0) {
+                    NewsTopic firstTopic = trendingTopics.value().get(0);
 
 ```
 
@@ -4970,11 +4970,11 @@ Allocation of zero length array
 in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
 #### Snippet
 ```java
-        VisualSearchRequest visualSearchRequest = new VisualSearchRequest().withImageInfo(imageInfo);
-        System.out.println(gson.toJson(visualSearchRequest));
-        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, gson.toJson(visualSearchRequest),  new byte[0]);
-
+        String visualSearchRequestJSON = "{\"imageInfo\":{\"url\":\"https://images.unsplash.com/photo-1512546148165-e50d714a565a?w=600&q=80\",\"cropArea\":{\"top\":0.1,\"bottom\":0.5,\"left\":0.1,\"right\":0.9}},\"knowledgeRequest\":{\"filters\":{\"site\":\"www.bing.com\"}}}";
+        System.out.println(visualSearchRequestJSON);
+        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, visualSearchRequestJSON,  new byte[0]);
         PrintVisualSearchResults(visualSearchResults);
+    }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4982,11 +4982,11 @@ Allocation of zero length array
 in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
 #### Snippet
 ```java
-        String visualSearchRequestJSON = "{\"imageInfo\":{\"url\":\"https://images.unsplash.com/photo-1512546148165-e50d714a565a?w=600&q=80\",\"cropArea\":{\"top\":0.1,\"bottom\":0.5,\"left\":0.1,\"right\":0.9}},\"knowledgeRequest\":{\"filters\":{\"site\":\"www.bing.com\"}}}";
-        System.out.println(visualSearchRequestJSON);
-        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, visualSearchRequestJSON,  new byte[0]);
+        VisualSearchRequest visualSearchRequest = new VisualSearchRequest().withImageInfo(imageInfo);
+        System.out.println(gson.toJson(visualSearchRequest));
+        ImageKnowledge visualSearchResults = client.images().visualSearch(null, null, null, null, null, null, null, null, null, gson.toJson(visualSearchRequest),  new byte[0]);
+
         PrintVisualSearchResults(visualSearchResults);
-    }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -5283,11 +5283,11 @@ Redundant call to `format()`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-            if (videoResults.value().size() > 0) {
-                VideoObject firstVideoResult = videoResults.value().get(0);
-                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
-                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+
+                System.out.println(
+                        String.format("Search detail for video id={firstVideo.VideoId}, name=%s", firstVideo.name()));
+                int maxTries = 2;
+                for (int i = 1; i <= 2; i++) {
 ```
 
 ### RedundantStringFormatCall
@@ -5295,11 +5295,11 @@ Redundant call to `format()`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-                VideoObject firstVideoResult = videoResults.value().get(0);
-                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
-                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
-                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
+                            if (videoDetail.videoResult() != null) {
+                                System.out.println(
+                                        String.format("Expected video id: %s", videoDetail.videoResult().videoId()));
+                                System.out.println(
+                                        String.format("Expected video name: %s", videoDetail.videoResult().name()));
 ```
 
 ### RedundantStringFormatCall
@@ -5307,11 +5307,11 @@ Redundant call to `format()`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
-                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
-                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
-                System.out.println("\n");
+                                        String.format("Expected video id: %s", videoDetail.videoResult().videoId()));
+                                System.out.println(
+                                        String.format("Expected video name: %s", videoDetail.videoResult().name()));
+                                System.out.println(
+                                        String.format("Expected video url: %s", videoDetail.videoResult().contentUrl()));
 ```
 
 ### RedundantStringFormatCall
@@ -5319,11 +5319,71 @@ Redundant call to `format()`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
-                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
-                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
-                System.out.println("\n");
-            } else {
+                                        String.format("Expected video name: %s", videoDetail.videoResult().name()));
+                                System.out.println(
+                                        String.format("Expected video url: %s", videoDetail.videoResult().contentUrl()));
+                            } else {
+                                System.out.println("Couldn't find expected video!");
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                                VideoObject firstRelatedVideo = videoDetail.relatedVideos().value().get(0);
+                                System.out.println(
+                                        String.format("Related video count: %d", videoDetail.relatedVideos().value().size()));
+                                System.out.println(
+                                        String.format("First related video id: %s", firstRelatedVideo.videoId()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                                        String.format("Related video count: %d", videoDetail.relatedVideos().value().size()));
+                                System.out.println(
+                                        String.format("First related video id: %s", firstRelatedVideo.videoId()));
+                                System.out.println(
+                                        String.format("First related video name: %s", firstRelatedVideo.name()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                                        String.format("First related video id: %s", firstRelatedVideo.videoId()));
+                                System.out.println(
+                                        String.format("First related video name: %s", firstRelatedVideo.name()));
+                                System.out.println(
+                                        String.format("First related video url: %s", firstRelatedVideo.contentUrl()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                                        String.format("First related video name: %s", firstRelatedVideo.name()));
+                                System.out.println(
+                                        String.format("First related video url: %s", firstRelatedVideo.contentUrl()));
+                            } else {
+                                System.out.println("Couldn't find any related video!");
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                    } catch (ErrorResponseException e) {
+                        System.out.println(
+                                String.format("Exception occurred, status code %s with reason %s.", e.response().code(), e.response().message()));
+
+                        if (e.response().code() == 429) {
 ```
 
 ### RedundantStringFormatCall
@@ -5451,11 +5511,11 @@ Redundant call to `format()`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-
-                System.out.println(
-                        String.format("Search detail for video id={firstVideo.VideoId}, name=%s", firstVideo.name()));
-                int maxTries = 2;
-                for (int i = 1; i <= 2; i++) {
+            if (videoResults.value().size() > 0) {
+                VideoObject firstVideoResult = videoResults.value().get(0);
+                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
+                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
 ```
 
 ### RedundantStringFormatCall
@@ -5463,11 +5523,11 @@ Redundant call to `format()`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-                            if (videoDetail.videoResult() != null) {
-                                System.out.println(
-                                        String.format("Expected video id: %s", videoDetail.videoResult().videoId()));
-                                System.out.println(
-                                        String.format("Expected video name: %s", videoDetail.videoResult().name()));
+                VideoObject firstVideoResult = videoResults.value().get(0);
+                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
+                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
 ```
 
 ### RedundantStringFormatCall
@@ -5475,11 +5535,11 @@ Redundant call to `format()`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-                                        String.format("Expected video id: %s", videoDetail.videoResult().videoId()));
-                                System.out.println(
-                                        String.format("Expected video name: %s", videoDetail.videoResult().name()));
-                                System.out.println(
-                                        String.format("Expected video url: %s", videoDetail.videoResult().contentUrl()));
+                System.out.println(String.format("Video result count: %d", videoResults.value().size()));
+                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
+                System.out.println("\n");
 ```
 
 ### RedundantStringFormatCall
@@ -5487,143 +5547,11 @@ Redundant call to `format()`
 in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
 #### Snippet
 ```java
-                                        String.format("Expected video name: %s", videoDetail.videoResult().name()));
-                                System.out.println(
-                                        String.format("Expected video url: %s", videoDetail.videoResult().contentUrl()));
-                            } else {
-                                System.out.println("Couldn't find expected video!");
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                                VideoObject firstRelatedVideo = videoDetail.relatedVideos().value().get(0);
-                                System.out.println(
-                                        String.format("Related video count: %d", videoDetail.relatedVideos().value().size()));
-                                System.out.println(
-                                        String.format("First related video id: %s", firstRelatedVideo.videoId()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                                        String.format("Related video count: %d", videoDetail.relatedVideos().value().size()));
-                                System.out.println(
-                                        String.format("First related video id: %s", firstRelatedVideo.videoId()));
-                                System.out.println(
-                                        String.format("First related video name: %s", firstRelatedVideo.name()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                                        String.format("First related video id: %s", firstRelatedVideo.videoId()));
-                                System.out.println(
-                                        String.format("First related video name: %s", firstRelatedVideo.name()));
-                                System.out.println(
-                                        String.format("First related video url: %s", firstRelatedVideo.contentUrl()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                                        String.format("First related video name: %s", firstRelatedVideo.name()));
-                                System.out.println(
-                                        String.format("First related video url: %s", firstRelatedVideo.contentUrl()));
-                            } else {
-                                System.out.println("Couldn't find any related video!");
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                    } catch (ErrorResponseException e) {
-                        System.out.println(
-                                String.format("Exception occurred, status code %s with reason %s.", e.response().code(), e.response().message()));
-
-                        if (e.response().code() == 429) {
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                    NewsTopic firstTopic = trendingTopics.value().get(0);
-
-                    System.out.println(String.format("Trending topics count: %s", trendingTopics.value().size()));
-                    System.out.println(String.format("First topic name: %s", firstTopic.name()));
-                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-
-                    System.out.println(String.format("Trending topics count: %s", trendingTopics.value().size()));
-                    System.out.println(String.format("First topic name: %s", firstTopic.name()));
-                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
-                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                    System.out.println(String.format("Trending topics count: %s", trendingTopics.value().size()));
-                    System.out.println(String.format("First topic name: %s", firstTopic.name()));
-                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
-                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
-                    System.out.println(String.format("First topic webSearchUrl: %s", firstTopic.webSearchUrl()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                    System.out.println(String.format("First topic name: %s", firstTopic.name()));
-                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
-                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
-                    System.out.println(String.format("First topic webSearchUrl: %s", firstTopic.webSearchUrl()));
-                    System.out.println(String.format("First topic newsSearchUrl: %s", firstTopic.newsSearchUrl()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
-                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
-                    System.out.println(String.format("First topic webSearchUrl: %s", firstTopic.webSearchUrl()));
-                    System.out.println(String.format("First topic newsSearchUrl: %s", firstTopic.newsSearchUrl()));
-                } else {
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
-#### Snippet
-```java
-                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
-                    System.out.println(String.format("First topic webSearchUrl: %s", firstTopic.webSearchUrl()));
-                    System.out.println(String.format("First topic newsSearchUrl: %s", firstTopic.newsSearchUrl()));
-                } else {
-                    System.out.println("Couldn't find news trending topics!");
+                System.out.println(String.format("First video id: %s", firstVideoResult.videoId()));
+                System.out.println(String.format("First video name: %s", firstVideoResult.name()));
+                System.out.println(String.format("First video url: %s", firstVideoResult.contentUrl()));
+                System.out.println("\n");
+            } else {
 ```
 
 ### RedundantStringFormatCall
@@ -5708,6 +5636,78 @@ in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
                 System.out.println(String.format("First news provider: %s", firstNewsResult.provider().get(0).name()));
                 System.out.println("\n");
             } else {
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                    NewsTopic firstTopic = trendingTopics.value().get(0);
+
+                    System.out.println(String.format("Trending topics count: %s", trendingTopics.value().size()));
+                    System.out.println(String.format("First topic name: %s", firstTopic.name()));
+                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+
+                    System.out.println(String.format("Trending topics count: %s", trendingTopics.value().size()));
+                    System.out.println(String.format("First topic name: %s", firstTopic.name()));
+                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
+                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                    System.out.println(String.format("Trending topics count: %s", trendingTopics.value().size()));
+                    System.out.println(String.format("First topic name: %s", firstTopic.name()));
+                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
+                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
+                    System.out.println(String.format("First topic webSearchUrl: %s", firstTopic.webSearchUrl()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                    System.out.println(String.format("First topic name: %s", firstTopic.name()));
+                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
+                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
+                    System.out.println(String.format("First topic webSearchUrl: %s", firstTopic.webSearchUrl()));
+                    System.out.println(String.format("First topic newsSearchUrl: %s", firstTopic.newsSearchUrl()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                    System.out.println(String.format("First topic query: %s", firstTopic.query().text()));
+                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
+                    System.out.println(String.format("First topic webSearchUrl: %s", firstTopic.webSearchUrl()));
+                    System.out.println(String.format("First topic newsSearchUrl: %s", firstTopic.newsSearchUrl()));
+                } else {
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `samples/sdk/NewsSearchSample/BingNewsSearchSample.java`
+#### Snippet
+```java
+                    System.out.println(String.format("First topic image url: %s", firstTopic.image().url()));
+                    System.out.println(String.format("First topic webSearchUrl: %s", firstTopic.webSearchUrl()));
+                    System.out.println(String.format("First topic newsSearchUrl: %s", firstTopic.newsSearchUrl()));
+                } else {
+                    System.out.println("Couldn't find news trending topics!");
 ```
 
 ### RedundantStringFormatCall
@@ -5833,13 +5833,15 @@ in `samples/rest/BingSpellCheck.java`
 
 ## RuleId[ruleID=WrongPackageStatement]
 ### WrongPackageStatement
-Package name 'com.microsoft.bing.samples' does not correspond to the file path 'rest'
-in `samples/rest/BingImageSearchv7.java`
+Package name 'com.microsoft.bing.samples' does not correspond to the file path 'sdk.SpellCheckSample'
+in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
 #### Snippet
 ```java
+ */
+
 package com.microsoft.bing.samples;
 
-// Copyright (c) Microsoft Corporation. All rights reserved.
+import com.microsoft.bing.spellcheck.models.Mode;
 ```
 
 ### WrongPackageStatement
@@ -5853,15 +5855,13 @@ package com.microsoft.bing.samples;
 ```
 
 ### WrongPackageStatement
-Package name 'com.microsoft.bing.samples' does not correspond to the file path 'sdk.SpellCheckSample'
-in `samples/sdk/SpellCheckSample/BingSpellCheckSample.java`
+Package name 'com.microsoft.bing.samples' does not correspond to the file path 'rest'
+in `samples/rest/BingImageSearchv7.java`
 #### Snippet
 ```java
- */
-
 package com.microsoft.bing.samples;
 
-import com.microsoft.bing.spellcheck.models.Mode;
+// Copyright (c) Microsoft Corporation. All rights reserved.
 ```
 
 ### WrongPackageStatement
@@ -5889,16 +5889,6 @@ import com.microsoft.bing.autosuggest.models.SearchAction;
 ```
 
 ### WrongPackageStatement
-Package name 'com.microsoft.bing.samples' does not correspond to the file path 'rest'
-in `samples/rest/BingVisualSearch.java`
-#### Snippet
-```java
-package com.microsoft.bing.samples;
-
-// Copyright (c) Microsoft Corporation. All rights reserved.
-```
-
-### WrongPackageStatement
 Package name 'com.microsoft.bing.samples' does not correspond to the file path 'sdk.CustomSearchSample'
 in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 #### Snippet
@@ -5908,6 +5898,16 @@ in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 package com.microsoft.bing.samples;
 import com.microsoft.bing.customsearch.models.SearchResponse;
 import com.microsoft.bing.customsearch.models.WebPage;
+```
+
+### WrongPackageStatement
+Package name 'com.microsoft.bing.samples' does not correspond to the file path 'rest'
+in `samples/rest/BingVisualSearch.java`
+#### Snippet
+```java
+package com.microsoft.bing.samples;
+
+// Copyright (c) Microsoft Corporation. All rights reserved.
 ```
 
 ### WrongPackageStatement
@@ -6079,18 +6079,6 @@ in `samples/sdk/AutoSuggestSample/BingAutoSuggestSample.java`
 
 ### UnusedAssignment
 Variable `request` initializer `null` is redundant
-in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
-#### Snippet
-```java
-                        @Override
-                        public Response intercept(Chain chain) throws IOException {
-                            Request request = null;
-                            Request original = chain.request();
-                            Request.Builder requestBuilder = original.newBuilder();
-```
-
-### UnusedAssignment
-Variable `request` initializer `null` is redundant
 in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
 #### Snippet
 ```java
@@ -6099,6 +6087,18 @@ in `samples/sdk/CustomSearchSample/BingCustomSearchSample.java`
                                 Request request = null;
                                 Request original = chain.request();
                                 Request.Builder requestBuilder = original.newBuilder();
+```
+
+### UnusedAssignment
+Variable `request` initializer `null` is redundant
+in `samples/sdk/VisualSearchSample/BingVisualSearchSample.java`
+#### Snippet
+```java
+                        @Override
+                        public Response intercept(Chain chain) throws IOException {
+                            Request request = null;
+                            Request original = chain.request();
+                            Request.Builder requestBuilder = original.newBuilder();
 ```
 
 ### UnusedAssignment
@@ -6304,18 +6304,6 @@ in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/implementa
         return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, customConfig, countryCode, count, market, offset, query, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
             .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
                 @Override
-```
-
-### ConstantValue
-Condition `i <= 2` is always `true`
-in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
-#### Snippet
-```java
-                        String.format("Search detail for video id={firstVideo.VideoId}, name=%s", firstVideo.name()));
-                int maxTries = 2;
-                for (int i = 1; i <= 2; i++) {
-                    try {
-                        VideoDetails videoDetail = client.videos().details("Bellevue Trailer", null, null, null, null, null, null, firstVideo.videoId(),modules,"en-us",null, null, null,null,null);
 ```
 
 ### ConstantValue
@@ -6640,6 +6628,18 @@ in `sdk/CustomImageSearch/src/main/java/com/microsoft/bing/customimagesearch/imp
         return service.imageSearch(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, customConfig, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
             .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
+```
+
+### ConstantValue
+Condition `i <= 2` is always `true`
+in `samples/sdk/VideoSearchSample/BingVideoSearchSample.java`
+#### Snippet
+```java
+                        String.format("Search detail for video id={firstVideo.VideoId}, name=%s", firstVideo.name()));
+                int maxTries = 2;
+                for (int i = 1; i <= 2; i++) {
+                    try {
+                        VideoDetails videoDetail = client.videos().details("Bellevue Trailer", null, null, null, null, null, null, firstVideo.videoId(),modules,"en-us",null, null, null,null,null);
 ```
 
 ### ConstantValue
@@ -7345,174 +7345,6 @@ in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/Ne
 ```java
         final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `userAgent` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `clientId` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `clientIp` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `location` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `countryCode` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `count` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `offset` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `safeSearch` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `setLang` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `since` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `sortBy` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `textDecorations` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `textFormat` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `acceptLanguage` is always 'null'
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
         return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, freshness, market, offset, originalImage, query, safeSearch, setLang, sortBy, textDecorations, textFormat, this.client.userAgent())
             .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<News>>>() {
                 @Override
@@ -7687,290 +7519,170 @@ in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/Ne
 ```
 
 ### ConstantValue
-Value `modules` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+Value `acceptLanguage` is always 'null'
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
         final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
-```
-
-### ConstantValue
-Value `acceptLanguage` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `userAgent` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `clientId` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `clientIp` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `location` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `countryCode` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
-Value `id` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+Value `count` is always 'null'
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
-Value `market` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+Value `offset` is always 'null'
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `resolution` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `safeSearch` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `setLang` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `since` is always 'null'
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `sortBy` is always 'null'
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `textDecorations` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
+        final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
 ### ConstantValue
 Value `textFormat` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
-        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `acceptLanguage` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
         final Boolean textDecorations = null;
         final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `userAgent` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `clientId` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `clientIp` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `location` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `countryCode` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `safeSearch` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `setLang` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `textDecorations` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `textFormat` is always 'null'
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, count, market, offset, safeSearch, setLang, since, sortBy, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingTopics>>>() {
                 @Override
 ```
 
@@ -8191,6 +7903,294 @@ in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/
 ```
 
 ### ConstantValue
+Value `acceptLanguage` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `userAgent` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `clientId` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `clientIp` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `location` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `countryCode` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `safeSearch` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `setLang` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `textDecorations` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `textFormat` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingVideos>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `modules` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+```
+
+### ConstantValue
+Value `acceptLanguage` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `userAgent` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `clientId` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `clientIp` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `location` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `countryCode` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `id` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `market` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `resolution` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `safeSearch` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `setLang` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `textDecorations` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `textFormat` is always 'null'
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
+        return service.details(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, id, modulesConverted, market, query, resolution, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<VideoDetails>>>() {
+                @Override
+```
+
+### ConstantValue
 Value `responseFilter` is always 'null'
 in `sdk/EntitySearch/src/main/java/com/microsoft/bing/entitysearch/implementation/EntitiesImpl.java`
 #### Snippet
@@ -8327,10 +8327,10 @@ Value `acceptLanguage` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
 ```
 
@@ -8339,10 +8339,10 @@ Value `userAgent` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
 ```
 
@@ -8351,10 +8351,10 @@ Value `clientId` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
 ```
 
@@ -8363,23 +8363,11 @@ Value `clientIp` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
-```
-
-### ConstantValue
-Value `promote` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
 ```
 
 ### ConstantValue
@@ -8387,46 +8375,10 @@ Value `location` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `responseFilter` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final Boolean textDecorations = null;
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-```
-
-### ConstantValue
-Value `aspect` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `color` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
 ```
 
@@ -8435,130 +8387,10 @@ Value `countryCode` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `count` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `freshness` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `height` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `id` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `imageContent` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `imageType` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `acceptLanguage` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `license` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `pragma` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `userAgent` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
 ```
 
@@ -8567,166 +8399,10 @@ Value `market` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `clientId` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `maxFileSize` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `clientIp` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `maxHeight` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `location` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `maxWidth` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `answerCount` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `minFileSize` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `countryCode` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `minHeight` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `count` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `minWidth` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `offset` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
 ```
 
@@ -8735,46 +8411,10 @@ Value `safeSearch` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `size` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `freshness` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `market` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
 ```
 
@@ -8783,46 +8423,10 @@ Value `setLang` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
+        final SafeSearch safeSearch = null;
         final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `offset` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `width` is always 'null'
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-        final String setLang = null;
-        final Integer width = null;
-        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `safeSearch` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
                 @Override
 ```
 
@@ -8839,18 +8443,6 @@ in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/
 ```
 
 ### ConstantValue
-Value `setLang` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
 Value `acceptLanguage` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
@@ -8863,18 +8455,6 @@ in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/
 ```
 
 ### ConstantValue
-Value `textDecorations` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
-                @Override
-```
-
-### ConstantValue
 Value `contentType` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
@@ -8883,18 +8463,6 @@ in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/
         String modulesConverted = this.client.serializerAdapter().serializeList(modules, CollectionFormat.CSV);
         return service.details(xBingApisSDK, acceptLanguage, contentType, userAgent, clientId, clientIp, location, cropBottom, cropLeft, cropRight, cropTop, cropType, countryCode, id, imageUrl, insightsToken, modulesConverted, market, query, safeSearch, setLang, this.client.userAgent())
             .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<ImageInsights>>>() {
-                @Override
-```
-
-### ConstantValue
-Value `textFormat` is always 'null'
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-        final TextFormat textFormat = null;
-        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
-        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
                 @Override
 ```
 
@@ -9095,10 +8663,10 @@ Value `acceptLanguage` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
 ```
 
@@ -9107,10 +8675,10 @@ Value `userAgent` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
 ```
 
@@ -9119,10 +8687,10 @@ Value `clientId` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
 ```
 
@@ -9131,10 +8699,10 @@ Value `clientIp` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
 ```
 
@@ -9143,10 +8711,34 @@ Value `location` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `aspect` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `color` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
 ```
 
@@ -9155,10 +8747,94 @@ Value `countryCode` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `count` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `freshness` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `height` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `id` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `imageContent` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `imageType` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `license` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
 ```
 
@@ -9167,10 +8843,94 @@ Value `market` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `maxFileSize` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `maxHeight` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `maxWidth` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `minFileSize` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `minHeight` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `minWidth` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `offset` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
 ```
 
@@ -9179,10 +8939,22 @@ Value `safeSearch` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `size` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
                 @Override
 ```
 
@@ -9191,26 +8963,242 @@ Value `setLang` is always 'null'
 in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
-        final SafeSearch safeSearch = null;
         final String setLang = null;
-        return service.trending(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, countryCode, market, safeSearch, setLang, this.client.userAgent())
-            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<TrendingImages>>>() {
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `width` is always 'null'
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+        final String setLang = null;
+        final Integer width = null;
+        return service.search(xBingApisSDK, acceptLanguage, userAgent, clientId, clientIp, location, aspect, color, countryCode, count, freshness, height, id, imageContent, imageType, license, market, maxFileSize, maxHeight, maxWidth, minFileSize, minHeight, minWidth, offset, query, safeSearch, size, setLang, width, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<Images>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `promote` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+```
+
+### ConstantValue
+Value `responseFilter` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final Boolean textDecorations = null;
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+```
+
+### ConstantValue
+Value `acceptLanguage` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `pragma` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `userAgent` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `clientId` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `clientIp` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `location` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `answerCount` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `countryCode` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `count` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `freshness` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `market` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `offset` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `safeSearch` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `setLang` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `textDecorations` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
+                @Override
+```
+
+### ConstantValue
+Value `textFormat` is always 'null'
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
+#### Snippet
+```java
+        final TextFormat textFormat = null;
+        String promoteConverted = this.client.serializerAdapter().serializeList(promote, CollectionFormat.CSV);String responseFilterConverted = this.client.serializerAdapter().serializeList(responseFilter, CollectionFormat.CSV);
+        return service.search(xBingApisSDK, acceptLanguage, pragma, userAgent, clientId, clientIp, location, answerCount, countryCode, count, freshness, market, offset, promoteConverted, query, responseFilterConverted, safeSearch, setLang, textDecorations, textFormat, this.client.userAgent())
+            .flatMap(new Func1<Response<ResponseBody>, Observable<ServiceResponse<SearchResponse>>>() {
                 @Override
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/implementation/CustomInstancesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<SearchResponse> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<SearchResponse, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<SearchResponse>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
 ### UnstableApiUsage
 'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/implementation/CustomInstancesImpl.java`
@@ -9225,6 +9213,18 @@ in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/implementa
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/implementation/CustomInstancesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<SearchResponse> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<SearchResponse, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<SearchResponse>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `sdk/CustomWebSearch/src/main/java/com/microsoft/bing/customsearch/implementation/CustomInstancesImpl.java`
 #### Snippet
 ```java
@@ -9296,18 +9296,6 @@ in `sdk/CustomImageSearch/src/main/java/com/microsoft/bing/customimagesearch/imp
 ```
 
 ### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/VisualSearch/src/main/java/com/microsoft/bing/visualsearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<ImageKnowledge> visualSearchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
-        return this.client.restClient().responseBuilderFactory().<ImageKnowledge, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<ImageKnowledge>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
 'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `sdk/VisualSearch/src/main/java/com/microsoft/bing/visualsearch/implementation/ImagesImpl.java`
 #### Snippet
@@ -9321,6 +9309,18 @@ in `sdk/VisualSearch/src/main/java/com/microsoft/bing/visualsearch/implementatio
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `sdk/VisualSearch/src/main/java/com/microsoft/bing/visualsearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<ImageKnowledge> visualSearchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
+        return this.client.restClient().responseBuilderFactory().<ImageKnowledge, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<ImageKnowledge>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `sdk/VisualSearch/src/main/java/com/microsoft/bing/visualsearch/implementation/ImagesImpl.java`
 #### Snippet
 ```java
@@ -9416,25 +9416,13 @@ in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/Ne
 ```
 
 ### UnstableApiUsage
-'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
-    private ServiceResponse<News> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<News, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<News>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<News> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<News, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<News>() { }.getType())
+    private ServiceResponse<TrendingTopics> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
+        return this.client.restClient().responseBuilderFactory().<TrendingTopics, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<TrendingTopics>() { }.getType())
                 .registerError(ErrorResponseException.class)
                 .build(response);
 ```
@@ -9459,6 +9447,18 @@ in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/Ne
     private ServiceResponse<TrendingTopics> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
         return this.client.restClient().responseBuilderFactory().<TrendingTopics, ErrorResponseException>newInstance(this.client.serializerAdapter())
                 .register(200, new TypeToken<TrendingTopics>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<News> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<News, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<News>() { }.getType())
                 .registerError(ErrorResponseException.class)
                 .build(response);
 ```
@@ -9488,7 +9488,7 @@ in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/Ne
 ```
 
 ### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
@@ -9500,25 +9500,13 @@ in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/Ne
 ```
 
 ### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
 in `sdk/NewsSearch/src/main/java/com/microsoft/bing/newssearch/implementation/NewsImpl.java`
 #### Snippet
 ```java
-    private ServiceResponse<TrendingTopics> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
-        return this.client.restClient().responseBuilderFactory().<TrendingTopics, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<TrendingTopics>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<TrendingVideos> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
-        return this.client.restClient().responseBuilderFactory().<TrendingVideos, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<TrendingVideos>() { }.getType())
+    private ServiceResponse<News> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<News, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<News>() { }.getType())
                 .registerError(ErrorResponseException.class)
                 .build(response);
 ```
@@ -9543,42 +9531,6 @@ in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/
     private ServiceResponse<TrendingVideos> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
         return this.client.restClient().responseBuilderFactory().<TrendingVideos, ErrorResponseException>newInstance(this.client.serializerAdapter())
                 .register(200, new TypeToken<TrendingVideos>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<Videos> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<Videos, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<Videos>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<Videos> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<Videos, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<Videos>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<Videos> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<Videos, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<Videos>() { }.getType())
                 .registerError(ErrorResponseException.class)
                 .build(response);
 ```
@@ -9615,6 +9567,66 @@ in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/
     private ServiceResponse<VideoDetails> detailsDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
         return this.client.restClient().responseBuilderFactory().<VideoDetails, ErrorResponseException>newInstance(this.client.serializerAdapter())
                 .register(200, new TypeToken<VideoDetails>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<Videos> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<Videos, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<Videos>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<Videos> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<Videos, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<Videos>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<TrendingVideos> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
+        return this.client.restClient().responseBuilderFactory().<TrendingVideos, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<TrendingVideos>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/VideoSearch/src/main/java/com/microsoft/bing/videosearch/implementation/VideosImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<Videos> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<Videos, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<Videos>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/EntitySearch/src/main/java/com/microsoft/bing/entitysearch/implementation/EntitiesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<SearchResponse> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<SearchResponse, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<SearchResponse>() { }.getType())
                 .registerError(ErrorResponseException.class)
                 .build(response);
 ```
@@ -9645,7 +9657,115 @@ in `sdk/EntitySearch/src/main/java/com/microsoft/bing/entitysearch/implementatio
 
 ### UnstableApiUsage
 'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/EntitySearch/src/main/java/com/microsoft/bing/entitysearch/implementation/EntitiesImpl.java`
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<TrendingImages> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
+        return this.client.restClient().responseBuilderFactory().<TrendingImages, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<TrendingImages>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<TrendingImages> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
+        return this.client.restClient().responseBuilderFactory().<TrendingImages, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<TrendingImages>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<TrendingImages> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
+        return this.client.restClient().responseBuilderFactory().<TrendingImages, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<TrendingImages>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<ImageInsights> detailsDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<ImageInsights, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<ImageInsights>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<ImageInsights> detailsDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<ImageInsights, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<ImageInsights>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<ImageInsights> detailsDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<ImageInsights, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<ImageInsights>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<Images> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<Images, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<Images>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<Images> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<Images, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<Images>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
+#### Snippet
+```java
+    private ServiceResponse<Images> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
+        return this.client.restClient().responseBuilderFactory().<Images, ErrorResponseException>newInstance(this.client.serializerAdapter())
+                .register(200, new TypeToken<Images>() { }.getType())
+                .registerError(ErrorResponseException.class)
+                .build(response);
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
 #### Snippet
 ```java
     private ServiceResponse<SearchResponse> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
@@ -9669,126 +9789,6 @@ in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/Webs
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<SearchResponse> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<SearchResponse, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<SearchResponse>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<TrendingImages> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
-        return this.client.restClient().responseBuilderFactory().<TrendingImages, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<TrendingImages>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<ImageInsights> detailsDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<ImageInsights, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<ImageInsights>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<ImageInsights> detailsDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<ImageInsights, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<ImageInsights>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<ImageInsights> detailsDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<ImageInsights, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<ImageInsights>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<TrendingImages> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
-        return this.client.restClient().responseBuilderFactory().<TrendingImages, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<TrendingImages>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<TrendingImages> trendingDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException {
-        return this.client.restClient().responseBuilderFactory().<TrendingImages, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<TrendingImages>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<Images> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<Images, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<Images>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'TypeToken()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<Images> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<Images, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<Images>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `sdk/ImageSearch/src/main/java/com/microsoft/bing/imagesearch/implementation/ImagesImpl.java`
-#### Snippet
-```java
-    private ServiceResponse<Images> searchDelegate(Response<ResponseBody> response) throws ErrorResponseException, IOException, IllegalArgumentException {
-        return this.client.restClient().responseBuilderFactory().<Images, ErrorResponseException>newInstance(this.client.serializerAdapter())
-                .register(200, new TypeToken<Images>() { }.getType())
-                .registerError(ErrorResponseException.class)
-                .build(response);
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `sdk/WebSearch/src/main/java/com/microsoft/bing/websearch/implementation/WebsImpl.java`
 #### Snippet
 ```java
