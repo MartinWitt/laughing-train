@@ -84,18 +84,6 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `NonOrderableSlsVersion` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
-#### Snippet
-```java
-@Value.Immutable
-@ImmutablesStyle
-public abstract class NonOrderableSlsVersion extends SlsVersion {
-
-    @JsonCreator
-```
-
-### AbstractClassNeverImplemented
 Abstract class `OrderableSlsVersion` has no concrete subclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
 #### Snippet
@@ -105,6 +93,18 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.jav
 public abstract class OrderableSlsVersion extends SlsVersion implements Comparable<OrderableSlsVersion> {
 
     private static final SlsVersionType[] ORDERED_VERSION_TYPES = {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SlsVersion` has no concrete subclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersion.java`
+#### Snippet
+```java
+import org.immutables.value.Value;
+
+public abstract class SlsVersion implements Serializable {
+
+    @JsonCreator
 ```
 
 ### AbstractClassNeverImplemented
@@ -120,42 +120,18 @@ public abstract class SlsVersionMatcher {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SlsVersion` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersion.java`
+Abstract class `NonOrderableSlsVersion` has no concrete subclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
 #### Snippet
 ```java
-import org.immutables.value.Value;
-
-public abstract class SlsVersion implements Serializable {
+@Value.Immutable
+@ImmutablesStyle
+public abstract class NonOrderableSlsVersion extends SlsVersion {
 
     @JsonCreator
 ```
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `check()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
-#### Snippet
-```java
-     * orderable one.
-     */
-    public static boolean check(String coordinate) {
-        return safeValueOf(coordinate).isPresent() && !OrderableSlsVersion.check(coordinate);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `valueOf()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
-#### Snippet
-```java
-
-    @JsonCreator
-    public static NonOrderableSlsVersion valueOf(String value) {
-        Optional<NonOrderableSlsVersion> optional = safeValueOf(value);
-        checkArgument(optional.isPresent(), "Not a non-orderable version: {value}", UnsafeArg.of("value", value));
-```
-
 ### MethodOverridesStaticMethod
 Method `valueOf()` tries to override a static method of a superclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
@@ -178,5 +154,29 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.jav
     public static boolean check(String coordinate) {
         return safeValueOf(coordinate).isPresent();
     }
+```
+
+### MethodOverridesStaticMethod
+Method `check()` tries to override a static method of a superclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
+#### Snippet
+```java
+     * orderable one.
+     */
+    public static boolean check(String coordinate) {
+        return safeValueOf(coordinate).isPresent() && !OrderableSlsVersion.check(coordinate);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `valueOf()` tries to override a static method of a superclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
+#### Snippet
+```java
+
+    @JsonCreator
+    public static NonOrderableSlsVersion valueOf(String value) {
+        Optional<NonOrderableSlsVersion> optional = safeValueOf(value);
+        checkArgument(optional.isPresent(), "Not a non-orderable version: {value}", UnsafeArg.of("value", value));
 ```
 
