@@ -163,30 +163,6 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
 #### Snippet
 ```java
-                                + "*before* this plugin is evaluated"));
-
-        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
-            project.getTasks().named("publish").configure(publish -> {
-                publish.dependsOn(sonatypeFinishingTask);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
-
-        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
-            project.getTasks().named("publish").configure(publish -> {
-                publish.dependsOn(sonatypeFinishingTask);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
 
     private void disableOtherPublicationsFromPublishingToSonatype() {
         project.getTasks().withType(PublishToMavenRepository.class).configureEach(publishTask -> {
@@ -216,5 +192,29 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
                 pom.developers(developers -> {
                     developers.developer(developer -> {
                         developer.getId().set("palantir");
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+                                + "*before* this plugin is evaluated"));
+
+        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
+            project.getTasks().named("publish").configure(publish -> {
+                publish.dependsOn(sonatypeFinishingTask);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+
+        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
+            project.getTasks().named("publish").configure(publish -> {
+                publish.dependsOn(sonatypeFinishingTask);
+            });
 ```
 
