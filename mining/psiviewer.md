@@ -331,15 +331,15 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field '_model' in a Serializable class
+Non-serializable field '_projectComponent' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
 ```java
-    private String _actionTitle;
-    private PsiViewerTree _tree;
-    private PsiViewerTreeModel _model;
-    private PsiElement _rootElement; // The root element of the tree
-    private PsiElement _selectedElement; // The currently selected element in the tree
+    private final EditorCaretMover _caretMover;
+    private final EditorPsiElementHighlighter _highlighter;
+    private final PsiViewerProjectService _projectComponent;
+    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
+            new PropertySheetHeaderRenderer(Helpers.getIcon(PsiViewerConstants.ICON_PSI),
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -355,15 +355,15 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field '_projectComponent' in a Serializable class
+Non-serializable field '_model' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
 ```java
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
-    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
-            new PropertySheetHeaderRenderer(Helpers.getIcon(PsiViewerConstants.ICON_PSI),
+    private String _actionTitle;
+    private PsiViewerTree _tree;
+    private PsiViewerTreeModel _model;
+    private PsiElement _rootElement; // The root element of the tree
+    private PsiElement _selectedElement; // The currently selected element in the tree
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -663,18 +663,6 @@ in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `idea.plugin.psiviewer.controller.project` is unnecessary and can be removed
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerToolWindowFactory.java`
-#### Snippet
-```java
-    @Override
-    public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        PsiViewerProjectService component = idea.plugin.psiviewer.controller.project.PsiViewerProjectService.getInstance(project);
-        ContentManager contentManager = toolWindow.getContentManager();
-        PsiViewerPanel panel = component.initToolWindow(toolWindow);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `idea.plugin.psiviewer.controller.project` is unnecessary and can be removed
 in `src/main/java/idea/plugin/psiviewer/view/EditorPsiElementHighlighter.java`
 #### Snippet
 ```java
@@ -683,6 +671,18 @@ in `src/main/java/idea/plugin/psiviewer/view/EditorPsiElementHighlighter.java`
         return idea.plugin.psiviewer.controller.project.PsiViewerProjectService.getInstance(_project).isHighlighted();
     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `idea.plugin.psiviewer.controller.project` is unnecessary and can be removed
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerToolWindowFactory.java`
+#### Snippet
+```java
+    @Override
+    public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+        PsiViewerProjectService component = idea.plugin.psiviewer.controller.project.PsiViewerProjectService.getInstance(project);
+        ContentManager contentManager = toolWindow.getContentManager();
+        PsiViewerPanel panel = component.initToolWindow(toolWindow);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -722,31 +722,6 @@ import idea.plugin.psiviewer.controller.actions.PropertyToggleAction;
 import idea.plugin.psiviewer.util.Helpers;
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
-#### Snippet
-```java
-    return (now.compareTo(myDateFormat.parse(cookieExpires))) <= 0;
-} catch (ParseException pe) {
-    pe.printStackTrace();
-    return false;
-}
-```
-
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -784,19 +759,32 @@ for (int i=1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
     Map cookie = new HashMap();
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
+## RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
-    private static final String PROJECT_NAME = "PSI";
 
-    private String myDescription = null;
-    private String myExtraInformation = "";
-    private String myAffectedVersion = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 ```
 
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+    return (now.compareTo(myDateFormat.parse(cookieExpires))) <= 0;
+} catch (ParseException pe) {
+    pe.printStackTrace();
+    return false;
+}
+```
+
+## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
@@ -810,15 +798,39 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+Field initialization to `null` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
-    private static final String TREE_SELECTION_CHANGED = "tree selection changed";
+    private static final String PROJECT_NAME = "PSI";
 
-    private boolean inSetSelectedElement = false;
+    private String myDescription = null;
+    private String myExtraInformation = "";
+    private String myAffectedVersion = null;
+```
 
-    private void setSelectedElement(PsiElement element, String reason)
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+        public boolean SHOW_PROPERTIES = true;
+        public int SPLIT_DIVIDER_POSITION = 300;
+        public boolean AUTOSCROLL_TO_SOURCE = false;
+        public boolean AUTOSCROLL_FROM_SOURCE = false;
+    }
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+    static class State {
+        public boolean HIGHLIGHT = false;
+        public boolean FILTER_WHITESPACE = false;
+        public boolean SHOW_PROPERTIES = true;
+        public int SPLIT_DIVIDER_POSITION = 300;
 ```
 
 ### RedundantFieldInitialization
@@ -838,35 +850,23 @@ Field initialization to `false` is redundant
 in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
 #### Snippet
 ```java
-    static class State {
-        public boolean HIGHLIGHT = false;
-        public boolean FILTER_WHITESPACE = false;
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-        public boolean AUTOSCROLL_TO_SOURCE = false;
-        public boolean AUTOSCROLL_FROM_SOURCE = false;
-    }
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
 
     static class State {
         public boolean HIGHLIGHT = false;
         public boolean FILTER_WHITESPACE = false;
         public boolean SHOW_PROPERTIES = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+    private static final String TREE_SELECTION_CHANGED = "tree selection changed";
+
+    private boolean inSetSelectedElement = false;
+
+    private void setSelectedElement(PsiElement element, String reason)
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -1084,11 +1084,11 @@ Allocation of zero length array
 in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
 #### Snippet
 ```java
-            LOG.debug("Introspector.getBeanInfo(" + targetClass + ") exception...");
-            LOG.debug(ex);
-            propertyDescriptors = new PropertyDescriptor[0];
-        }
-        return propertyDescriptors;
+        try
+        {
+            Object args[] = {};
+            getter.setAccessible(true);
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1096,11 +1096,11 @@ Allocation of zero length array
 in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
 #### Snippet
 ```java
-        try
-        {
-            Object args[] = {};
-            getter.setAccessible(true);
-
+            LOG.debug("Introspector.getBeanInfo(" + targetClass + ") exception...");
+            LOG.debug(ex);
+            propertyDescriptors = new PropertyDescriptor[0];
+        }
+        return propertyDescriptors;
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
