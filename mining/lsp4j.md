@@ -1,7 +1,7 @@
 # lsp4j 
  
 # Bad smells
-I found 188 bad smells with 35 repairable:
+I found 184 bad smells with 35 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 53 | false |
@@ -14,7 +14,6 @@ I found 188 bad smells with 35 repairable:
 | UNUSED_IMPORT | 5 | false |
 | AssignmentToMethodParameter | 5 | false |
 | UnnecessarySemicolon | 4 | false |
-| RedundantSuppression | 4 | false |
 | ZeroLengthArrayInitialization | 3 | false |
 | DataFlowIssue | 2 | false |
 | ClassNameSameAsAncestorName | 2 | false |
@@ -59,11 +58,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
 #### Snippet
 ```java
+public interface MessageConstants {
 	
 	public static String JSONRPC_VERSION = "2.0";
 	public static String CONTENT_LENGTH_HEADER = "Content-Length";
 	public static String CONTENT_TYPE_HEADER = "Content-Type";
-	public static String JSON_MIME_TYPE = "application/json";
 ```
 
 ### UnnecessaryModifier
@@ -71,35 +70,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
 #### Snippet
 ```java
+public interface MessageConstants {
 	
 	public static String JSONRPC_VERSION = "2.0";
 	public static String CONTENT_LENGTH_HEADER = "Content-Length";
 	public static String CONTENT_TYPE_HEADER = "Content-Type";
-	public static String JSON_MIME_TYPE = "application/json";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
-#### Snippet
-```java
-	public static String CONTENT_LENGTH_HEADER = "Content-Length";
-	public static String CONTENT_TYPE_HEADER = "Content-Type";
-	public static String JSON_MIME_TYPE = "application/json";
-	public static String CRLF = "\r\n";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
-#### Snippet
-```java
-	public static String CONTENT_LENGTH_HEADER = "Content-Length";
-	public static String CONTENT_TYPE_HEADER = "Content-Type";
-	public static String JSON_MIME_TYPE = "application/json";
-	public static String CRLF = "\r\n";
-
 ```
 
 ### UnnecessaryModifier
@@ -131,11 +106,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
 #### Snippet
 ```java
-public interface MessageConstants {
-	
 	public static String JSONRPC_VERSION = "2.0";
 	public static String CONTENT_LENGTH_HEADER = "Content-Length";
 	public static String CONTENT_TYPE_HEADER = "Content-Type";
+	public static String JSON_MIME_TYPE = "application/json";
+	public static String CRLF = "\r\n";
 ```
 
 ### UnnecessaryModifier
@@ -143,11 +118,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
 #### Snippet
 ```java
-public interface MessageConstants {
-	
 	public static String JSONRPC_VERSION = "2.0";
 	public static String CONTENT_LENGTH_HEADER = "Content-Length";
 	public static String CONTENT_TYPE_HEADER = "Content-Type";
+	public static String JSON_MIME_TYPE = "application/json";
+	public static String CRLF = "\r\n";
 ```
 
 ### UnnecessaryModifier
@@ -155,11 +130,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
 #### Snippet
 ```java
+	
 	public static String JSONRPC_VERSION = "2.0";
 	public static String CONTENT_LENGTH_HEADER = "Content-Length";
 	public static String CONTENT_TYPE_HEADER = "Content-Type";
 	public static String JSON_MIME_TYPE = "application/json";
-	public static String CRLF = "\r\n";
 ```
 
 ### UnnecessaryModifier
@@ -167,11 +142,35 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
 #### Snippet
 ```java
+	
 	public static String JSONRPC_VERSION = "2.0";
 	public static String CONTENT_LENGTH_HEADER = "Content-Length";
 	public static String CONTENT_TYPE_HEADER = "Content-Type";
 	public static String JSON_MIME_TYPE = "application/json";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
+#### Snippet
+```java
+	public static String CONTENT_LENGTH_HEADER = "Content-Length";
+	public static String CONTENT_TYPE_HEADER = "Content-Type";
+	public static String JSON_MIME_TYPE = "application/json";
 	public static String CRLF = "\r\n";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/MessageConstants.java`
+#### Snippet
+```java
+	public static String CONTENT_LENGTH_HEADER = "Content-Length";
+	public static String CONTENT_TYPE_HEADER = "Content-Type";
+	public static String JSON_MIME_TYPE = "application/json";
+	public static String CRLF = "\r\n";
+
 ```
 
 ### UnnecessaryModifier
@@ -517,34 +516,10 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/A
 #### Snippet
 ```java
 	}
-
-	protected static String getSegment(Class<?> clazz) {
-		JsonSegment jsonSegment = clazz.getAnnotation(JsonSegment.class);
-		return jsonSegment == null ? "" : jsonSegment.value() + "/";
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/AnnotationUtil.java`
-#### Snippet
-```java
-	}
 	
-	protected static String getMethodName(Method method, boolean useSegment, String segment, String value) {
-		String name = value != null && value.length() > 0 ? value : method.getName();
-		return useSegment ? segment + name : name;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/AnnotationUtil.java`
-#### Snippet
-```java
+	protected static MethodInfo createRequestInfo(Method method, String segment, JsonRequest jsonRequest) {
+		return createMethodInfo(method, jsonRequest.useSegment(), segment, jsonRequest.value());
 	}
-	
-	protected static MethodInfo createMethodInfo(Method method, String segment) {
-		if (!method.isSynthetic()) {
-			JsonRequest jsonRequest = method.getAnnotation(JsonRequest.class);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -565,10 +540,22 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/A
 #### Snippet
 ```java
 	}
-	
-	protected static MethodInfo createRequestInfo(Method method, String segment, JsonRequest jsonRequest) {
-		return createMethodInfo(method, jsonRequest.useSegment(), segment, jsonRequest.value());
+
+	protected static Type[] getParameterTypes(Method method) {
+		return Arrays.stream(method.getParameters()).map(t -> t.getParameterizedType()).toArray(Type[]::new);
 	}
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/AnnotationUtil.java`
+#### Snippet
+```java
+	}
+
+	protected static String getSegment(Class<?> clazz) {
+		JsonSegment jsonSegment = clazz.getAnnotation(JsonSegment.class);
+		return jsonSegment == null ? "" : jsonSegment.value() + "/";
 ```
 
 ### ProtectedMemberInFinalClass
@@ -589,25 +576,25 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/A
 #### Snippet
 ```java
 	}
+	
+	protected static MethodInfo createMethodInfo(Method method, String segment) {
+		if (!method.isSynthetic()) {
+			JsonRequest jsonRequest = method.getAnnotation(JsonRequest.class);
+```
 
-	protected static Type[] getParameterTypes(Method method) {
-		return Arrays.stream(method.getParameters()).map(t -> t.getParameterizedType()).toArray(Type[]::new);
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/AnnotationUtil.java`
+#### Snippet
+```java
 	}
+	
+	protected static String getMethodName(Method method, boolean useSegment, String segment, String value) {
+		String name = value != null && value.length() > 0 ? value : method.getName();
+		return useSegment ? segment + name : name;
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`array.size() == 0` can be replaced with 'array.isEmpty()'
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EitherTypeAdapter.java`
-#### Snippet
-```java
-			if (t.isJsonArray()) {
-				JsonArray array = t.getAsJsonArray();
-				if (array.size() == 0)
-					return resultIfEmpty;
-				for (JsonElement e : array) {
-```
-
 ### SizeReplaceableByIsEmpty
 `builder.length() != 0` can be replaced with '!builder.isEmpty()'
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EitherTypeAdapter.java`
@@ -618,6 +605,18 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapt
 				if (builder.length() != 0) {
 					builder.append(" | ");
 				}
+```
+
+### SizeReplaceableByIsEmpty
+`array.size() == 0` can be replaced with 'array.isEmpty()'
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EitherTypeAdapter.java`
+#### Snippet
+```java
+			if (t.isJsonArray()) {
+				JsonArray array = t.getAsJsonArray();
+				if (array.size() == 0)
+					return resultIfEmpty;
+				for (JsonElement e : array) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -637,7 +636,7 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/A
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
 #### Snippet
 ```java
-		}
+		JsonElement rawParams = JsonParser.parseReader(in);
 		if (method != null && parameterTypes.length == 0 && (
 				rawParams.isJsonArray() && rawParams.getAsJsonArray().size() == 0
 				|| rawParams.isJsonObject() && rawParams.getAsJsonObject().size() == 0)) {
@@ -661,7 +660,7 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapt
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
 #### Snippet
 ```java
-		JsonElement rawParams = JsonParser.parseReader(in);
+		}
 		if (method != null && parameterTypes.length == 0 && (
 				rawParams.isJsonArray() && rawParams.getAsJsonArray().size() == 0
 				|| rawParams.isJsonObject() && rawParams.getAsJsonObject().size() == 0)) {
@@ -852,15 +851,63 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/validation
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/DebugLauncher.java`
+#### Snippet
+```java
+	 *            - a function for plugging in additional message consumers
+	 */
+	public static <T> Launcher<T> createIoLauncher(Object localService, Class<T> remoteInterface, InputStream in,
+			OutputStream out, ExecutorService executorService, Function<MessageConsumer, MessageConsumer> wrapper) {
+		return new Builder<T>()
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/DebugLauncher.java`
+#### Snippet
+```java
+	 *            - a function for Gson configuration
+	 */
+	public static <T> Launcher<T> createIoLauncher(Object localService, Class<T> remoteInterface, InputStream in,
+			OutputStream out, ExecutorService executorService, Function<MessageConsumer, MessageConsumer> wrapper,
+			Consumer<GsonBuilder> configureGson) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/DebugLauncher.java`
+#### Snippet
+```java
+	 *            {@code null} to disable tracing
+	 */
+	public static <T> Launcher<T> createLauncher(Object localService, Class<T> remoteInterface, InputStream in,
+			OutputStream out, boolean validate, PrintWriter trace) {
+		return new Builder<T>()
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/DebugLauncher.java`
+#### Snippet
+```java
+	 *            - outputstream to send outgoing messages
+	 */
+	public static <T> Launcher<T> createLauncher(Object localService, Class<T> remoteInterface, InputStream in,
+			OutputStream out) {
+		return new Builder<T>()
+```
+
+### BoundedWildcard
 Can generalize to `? extends MessageIssue`
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/RemoteEndpoint.java`
 #### Snippet
 ```java
 	}
 	
-	protected void handleRequestIssues(RequestMessage requestMessage, List<MessageIssue> issues) {
-		ResponseError errorObject = new ResponseError();
-		if (issues.size() == 1) {
+	protected void logIssues(Message message, List<MessageIssue> issues) {
+		for (MessageIssue issue : issues) {
+			String logMessage = "Issue found in " + message.getClass().getSimpleName() + ": " + issue.getText();
 ```
 
 ### BoundedWildcard
@@ -894,69 +941,57 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/RemoteEndp
 ```java
 	}
 	
-	protected void logIssues(Message message, List<MessageIssue> issues) {
-		for (MessageIssue issue : issues) {
-			String logMessage = "Issue found in " + message.getClass().getSimpleName() + ": " + issue.getText();
+	protected void handleRequestIssues(RequestMessage requestMessage, List<MessageIssue> issues) {
+		ResponseError errorObject = new ResponseError();
+		if (issues.size() == 1) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Number`
-in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
+Can generalize to `? super CancelChecker`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/CompletableFutures.java`
 #### Snippet
 ```java
-	}
-
-	private void writeIntId(JsonWriter out, Either<String, Number> id) throws IOException {
-		if (id == null)
-			writeNullValue(out);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/DebugLauncher.java`
-#### Snippet
-```java
-	 *            - outputstream to send outgoing messages
+	 * @return a future
 	 */
-	public static <T> Launcher<T> createLauncher(Object localService, Class<T> remoteInterface, InputStream in,
-			OutputStream out) {
-		return new Builder<T>()
+	public static <R> CompletableFuture<R> computeAsync(Function<CancelChecker, R> code) {
+		CompletableFuture<CancelChecker> start = new CompletableFuture<>();
+		CompletableFuture<R> result = start.thenApplyAsync(code);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/DebugLauncher.java`
+Can generalize to `? extends R`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/CompletableFutures.java`
 #### Snippet
 ```java
-	 *            - a function for Gson configuration
+	 * @return a future
 	 */
-	public static <T> Launcher<T> createIoLauncher(Object localService, Class<T> remoteInterface, InputStream in,
-			OutputStream out, ExecutorService executorService, Function<MessageConsumer, MessageConsumer> wrapper,
-			Consumer<GsonBuilder> configureGson) {
+	public static <R> CompletableFuture<R> computeAsync(Function<CancelChecker, R> code) {
+		CompletableFuture<CancelChecker> start = new CompletableFuture<>();
+		CompletableFuture<R> result = start.thenApplyAsync(code);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/DebugLauncher.java`
+Can generalize to `? super CancelChecker`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/CompletableFutures.java`
 #### Snippet
 ```java
-	 *            {@code null} to disable tracing
+	 * @return a future
 	 */
-	public static <T> Launcher<T> createLauncher(Object localService, Class<T> remoteInterface, InputStream in,
-			OutputStream out, boolean validate, PrintWriter trace) {
-		return new Builder<T>()
+	public static <R> CompletableFuture<R> computeAsync(Executor executor, Function<CancelChecker, R> code) {
+		CompletableFuture<CancelChecker> start = new CompletableFuture<>();
+		CompletableFuture<R> result = start.thenApplyAsync(code, executor);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/DebugLauncher.java`
+Can generalize to `? extends R`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/CompletableFutures.java`
 #### Snippet
 ```java
-	 *            - a function for plugging in additional message consumers
+	 * @return a future
 	 */
-	public static <T> Launcher<T> createIoLauncher(Object localService, Class<T> remoteInterface, InputStream in,
-			OutputStream out, ExecutorService executorService, Function<MessageConsumer, MessageConsumer> wrapper) {
-		return new Builder<T>()
+	public static <R> CompletableFuture<R> computeAsync(Executor executor, Function<CancelChecker, R> code) {
+		CompletableFuture<CancelChecker> start = new CompletableFuture<>();
+		CompletableFuture<R> result = start.thenApplyAsync(code, executor);
 ```
 
 ### BoundedWildcard
@@ -972,51 +1007,15 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapt
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CancelChecker`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/CompletableFutures.java`
+Can generalize to `? extends Number`
+in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
 #### Snippet
 ```java
-	 * @return a future
-	 */
-	public static <R> CompletableFuture<R> computeAsync(Executor executor, Function<CancelChecker, R> code) {
-		CompletableFuture<CancelChecker> start = new CompletableFuture<>();
-		CompletableFuture<R> result = start.thenApplyAsync(code, executor);
-```
+	}
 
-### BoundedWildcard
-Can generalize to `? extends R`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/CompletableFutures.java`
-#### Snippet
-```java
-	 * @return a future
-	 */
-	public static <R> CompletableFuture<R> computeAsync(Executor executor, Function<CancelChecker, R> code) {
-		CompletableFuture<CancelChecker> start = new CompletableFuture<>();
-		CompletableFuture<R> result = start.thenApplyAsync(code, executor);
-```
-
-### BoundedWildcard
-Can generalize to `? super CancelChecker`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/CompletableFutures.java`
-#### Snippet
-```java
-	 * @return a future
-	 */
-	public static <R> CompletableFuture<R> computeAsync(Function<CancelChecker, R> code) {
-		CompletableFuture<CancelChecker> start = new CompletableFuture<>();
-		CompletableFuture<R> result = start.thenApplyAsync(code);
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/CompletableFutures.java`
-#### Snippet
-```java
-	 * @return a future
-	 */
-	public static <R> CompletableFuture<R> computeAsync(Function<CancelChecker, R> code) {
-		CompletableFuture<CancelChecker> start = new CompletableFuture<>();
-		CompletableFuture<R> result = start.thenApplyAsync(code);
+	private void writeIntId(JsonWriter out, Either<String, Number> id) throws IOException {
+		if (id == null)
+			writeNullValue(out);
 ```
 
 ### BoundedWildcard
@@ -1060,6 +1059,18 @@ Can generalize to `? extends T`
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/Launcher.java`
 #### Snippet
 ```java
+	 * @param wrapper - a function for plugging in additional message consumers
+	 */
+	static <T> Launcher<T> createIoLauncher(Object localService, Class<T> remoteInterface, InputStream in, OutputStream out,
+			ExecutorService executorService, Function<MessageConsumer, MessageConsumer> wrapper) {
+		return new Builder<T>()
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/Launcher.java`
+#### Snippet
+```java
 	 * @param trace - a writer to which incoming and outgoing messages are traced, or {@code null} to disable tracing
 	 */
 	static <T> Launcher<T> createLauncher(Object localService, Class<T> remoteInterface, InputStream in, OutputStream out,
@@ -1077,18 +1088,6 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/Launcher.j
 	static <T> Launcher<T> createLauncher(Object localService, Class<T> remoteInterface, InputStream in, OutputStream out) {
 		return new Builder<T>()
 				.setLocalService(localService)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/Launcher.java`
-#### Snippet
-```java
-	 * @param wrapper - a function for plugging in additional message consumers
-	 */
-	static <T> Launcher<T> createIoLauncher(Object localService, Class<T> remoteInterface, InputStream in, OutputStream out,
-			ExecutorService executorService, Function<MessageConsumer, MessageConsumer> wrapper) {
-		return new Builder<T>()
 ```
 
 ### BoundedWildcard
@@ -1114,55 +1113,6 @@ in `org.eclipse.lsp4j.websocket/src/main/java/org/eclipse/lsp4j/websocket/WebSoc
 	abstract protected void configure(Launcher.Builder<T> builder);
 	
 	/**
-```
-
-## RuleId[ruleID=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/adapters/DocumentSymbolResponseAdapter.java`
-#### Snippet
-```java
-
-@SuppressWarnings("deprecation")
-public class DocumentSymbolResponseAdapter implements TypeAdapterFactory {
-	
-	private static final TypeToken<Either<SymbolInformation, DocumentSymbol>> ELEMENT_TYPE
-```
-
-### RedundantSuppression
-Redundant suppression
-in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/adapters/WorkspaceSymbolResponseAdapter.java`
-#### Snippet
-```java
-
-@SuppressWarnings("deprecation")
-public class WorkspaceSymbolResponseAdapter implements TypeAdapterFactory {
-
-	private static final TypeToken<Either<List<? extends SymbolInformation>, List<? extends WorkspaceSymbol>>> EITHER_TYPE
-```
-
-### RedundantSuppression
-Redundant suppression
-in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/services/TextDocumentService.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation")
-@JsonSegment("textDocument")
-public interface TextDocumentService {
-	/**
-	 * The Completion request is sent from the client to the server to compute
-```
-
-### RedundantSuppression
-Redundant suppression
-in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/services/WorkspaceService.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation")
-@JsonSegment("workspace")
-public interface WorkspaceService {
-	/**
-	 * The workspace/executeCommand request is sent from the client to the
 ```
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
@@ -1222,11 +1172,11 @@ Qualifier `super` is unnecessary in this context
 in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
 #### Snippet
 ```java
-			return parseParams(in, method);
-		} else if ("response".equals(messageType) && success != null && success) {
-			return super.parseResult(in, Integer.toString(request_seq));
-		} else {
-			return JsonParser.parseReader(in);
+		} else if ("response".equals(messageType)) {
+			if (success != null && success) {
+				return super.parseResult(rawBody, Integer.toString(request_seq));
+			}
+			if (isNull(rawBody)) {
 ```
 
 ### UnnecessarySuperQualifier
@@ -1234,11 +1184,11 @@ Qualifier `super` is unnecessary in this context
 in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
 #### Snippet
 ```java
-		} else if ("response".equals(messageType)) {
-			if (success != null && success) {
-				return super.parseResult(rawBody, Integer.toString(request_seq));
-			}
-			if (isNull(rawBody)) {
+			return parseParams(in, method);
+		} else if ("response".equals(messageType) && success != null && success) {
+			return super.parseResult(in, Integer.toString(request_seq));
+		} else {
+			return JsonParser.parseReader(in);
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -1525,6 +1475,18 @@ tasks.withType(Javadoc) {
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/EndpointProxy.java`
+#### Snippet
+```java
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		args = args == null ? new Object[0] : args;
+		MethodInfo methodInfo = this.methodInfos.get(method.getName());
+		if (methodInfo != null) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `errorMessage`
 in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
 #### Snippet
@@ -1561,18 +1523,6 @@ in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debu
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/EndpointProxy.java`
-#### Snippet
-```java
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		args = args == null ? new Object[0] : args;
-		MethodInfo methodInfo = this.methodInfos.get(method.getName());
-		if (methodInfo != null) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `name`
 in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugEnumTypeAdapter.java`
 #### Snippet
@@ -1603,18 +1553,6 @@ Return of `null`
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/TupleTypeAdapters.java`
 #### Snippet
 ```java
-		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-			if (!TypeUtils.isTwoTuple(typeToken.getType())) {
-				return null;
-			}
-			return new TwoTypeAdapter(gson, typeToken);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/TupleTypeAdapters.java`
-#### Snippet
-```java
 			if (next == JsonToken.NULL) {
 				in.nextNull();
 				return null;
@@ -1624,14 +1562,14 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapt
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EnumTypeAdapter.java`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/TupleTypeAdapters.java`
 #### Snippet
 ```java
-			Class<?> rawType = typeToken.getRawType();
-			if (!Enum.class.isAssignableFrom(rawType) || rawType == Enum.class)
+		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+			if (!TypeUtils.isTwoTuple(typeToken.getType())) {
 				return null;
-			if (!rawType.isEnum())
-				rawType = rawType.getSuperclass();
+			}
+			return new TwoTypeAdapter(gson, typeToken);
 ```
 
 ### ReturnNull
@@ -1644,6 +1582,18 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapt
 			return null;
 		} else if (peek == JsonToken.NUMBER) {
 			return valueToConstant.get(in.nextInt());
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EnumTypeAdapter.java`
+#### Snippet
+```java
+			Class<?> rawType = typeToken.getRawType();
+			if (!Enum.class.isAssignableFrom(rawType) || rawType == Enum.class)
+				return null;
+			if (!rawType.isEnum())
+				rawType = rawType.getSuperclass();
 ```
 
 ### ReturnNull
@@ -1720,30 +1670,6 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/E
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EitherTypeAdapter.java`
-#### Snippet
-```java
-		if (next == JsonToken.NULL) {
-			in.nextNull();
-			return null;
-		}
-		return create(next, in);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EitherTypeAdapter.java`
-#### Snippet
-```java
-		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-			if (!TypeUtils.isEither(typeToken.getType())) {
-				return null;
-			}
-			return new EitherTypeAdapter(gson, typeToken);
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/IdentifiableMessage.java`
 #### Snippet
 ```java
@@ -1764,18 +1690,6 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/I
 		return null;
 	}
 	
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/adapters/ResourceOperationTypeAdapter.java`
-#### Snippet
-```java
-
-		if (!ResourceOperation.class.isAssignableFrom(type.getRawType())) {
-			return null;
-		}
-
 ```
 
 ### ReturnNull
@@ -1804,6 +1718,18 @@ in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debu
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/adapters/ResourceOperationTypeAdapter.java`
+#### Snippet
+```java
+
+		if (!ResourceOperation.class.isAssignableFrom(type.getRawType())) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/services/LanguageServer.java`
 #### Snippet
 ```java
@@ -1812,6 +1738,30 @@ in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/services/LanguageServer.ja
 		return null;
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EitherTypeAdapter.java`
+#### Snippet
+```java
+		if (next == JsonToken.NULL) {
+			in.nextNull();
+			return null;
+		}
+		return create(next, in);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/EitherTypeAdapter.java`
+#### Snippet
+```java
+		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+			if (!TypeUtils.isEither(typeToken.getType())) {
+				return null;
+			}
+			return new EitherTypeAdapter(gson, typeToken);
 ```
 
 ### ReturnNull
@@ -1876,6 +1826,54 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/C
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/Either.java`
+#### Snippet
+```java
+		if (right != null)
+			return right;
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/Either.java`
+#### Snippet
+```java
+			return mapRight.apply(getRight());
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/Either.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+	
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/Either.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/RemoteEndpoint.java`
 #### Snippet
 ```java
@@ -1900,98 +1898,26 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/RemoteEndp
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/Either.java`
-#### Snippet
-```java
-		if (right != null)
-			return right;
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/Either.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/Either.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-	
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/messages/Either.java`
-#### Snippet
-```java
-			return mapRight.apply(getRight());
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
+in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/adapters/WorkDoneProgressNotificationAdapter.java`
 #### Snippet
 ```java
 		if (in.peek() == JsonToken.NULL) {
 			in.nextNull();
 			return null;
 		}
-
+		
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
+in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/adapters/WorkDoneProgressNotificationAdapter.java`
 #### Snippet
 ```java
-		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-			if (!Message.class.isAssignableFrom(typeToken.getRawType()))
-				return null;
-			return (TypeAdapter<T>) new DebugMessageTypeAdapter(handler, gson);
-		}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
-#### Snippet
-```java
-			}
-			if (isNull(rawBody)) {
+			Class<?> rawType = typeToken.getRawType();
+			if (!WorkDoneProgressNotification.class.isAssignableFrom(rawType)) {
 				return null;
 			}
-			if (!(rawBody instanceof JsonElement)) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/EndpointProxy.java`
-#### Snippet
-```java
-			if (methodInfo.isNotification) {
-				delegate.notify(methodInfo.name, params);
-				return null;
-			}
-			return delegate.request(methodInfo.name, params);
+			return (TypeAdapter<T>) new WorkDoneProgressNotificationAdapter();
 ```
 
 ### ReturnNull
@@ -2004,6 +1930,18 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/E
 			return null;
 		}
 		if (args.length == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/services/EndpointProxy.java`
+#### Snippet
+```java
+			if (methodInfo.isNotification) {
+				delegate.notify(methodInfo.name, params);
+				return null;
+			}
+			return delegate.request(methodInfo.name, params);
 ```
 
 ### ReturnNull
@@ -2044,26 +1982,38 @@ in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapt
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/adapters/WorkDoneProgressNotificationAdapter.java`
+in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
+#### Snippet
+```java
+			}
+			if (isNull(rawBody)) {
+				return null;
+			}
+			if (!(rawBody instanceof JsonElement)) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
 #### Snippet
 ```java
 		if (in.peek() == JsonToken.NULL) {
 			in.nextNull();
 			return null;
 		}
-		
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lsp4j/src/main/java/org/eclipse/lsp4j/adapters/WorkDoneProgressNotificationAdapter.java`
+in `org.eclipse.lsp4j.jsonrpc.debug/src/main/java/org/eclipse/lsp4j/jsonrpc/debug/adapters/DebugMessageTypeAdapter.java`
 #### Snippet
 ```java
-			Class<?> rawType = typeToken.getRawType();
-			if (!WorkDoneProgressNotification.class.isAssignableFrom(rawType)) {
+		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+			if (!Message.class.isAssignableFrom(typeToken.getRawType()))
 				return null;
-			}
-			return (TypeAdapter<T>) new WorkDoneProgressNotificationAdapter();
+			return (TypeAdapter<T>) new DebugMessageTypeAdapter(handler, gson);
+		}
 ```
 
 ### ReturnNull
@@ -2095,59 +2045,11 @@ Return of `null`
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
 #### Snippet
 ```java
-	protected Object fromJson(JsonElement element, Type type) {
-		if (isNull(element)) {
-			return null;
-		}
-		if (isNullOrVoidType(type)) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
-#### Snippet
-```java
-		Object value = gson.fromJson(element, type);
-		if (isNull(value)) {
-			return null;
-		}
-		return value;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
-#### Snippet
-```java
 		if (in.peek() == JsonToken.NULL) {
 			in.nextNull();
 			return null;
 		}
 		
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
-#### Snippet
-```java
-	protected Object parseParams(Object params, String method) {
-		if (isNull(params)) {
-			return null;
-		}
-		if (!(params instanceof JsonElement)) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
-#### Snippet
-```java
-				rawParams.isJsonArray() && rawParams.getAsJsonArray().size() == 0
-				|| rawParams.isJsonObject() && rawParams.getAsJsonObject().size() == 0)) {
-			return null;
-		}
-		return rawParams;
 ```
 
 ### ReturnNull
@@ -2179,11 +2081,59 @@ Return of `null`
 in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
 #### Snippet
 ```java
+	protected Object fromJson(JsonElement element, Type type) {
+		if (isNull(element)) {
+			return null;
+		}
+		if (isNullOrVoidType(type)) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
+#### Snippet
+```java
+		Object value = gson.fromJson(element, type);
+		if (isNull(value)) {
+			return null;
+		}
+		return value;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
+#### Snippet
+```java
 		public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
 			if (!Message.class.isAssignableFrom(typeToken.getRawType()))
 				return null;
 			return (TypeAdapter<T>) new MessageTypeAdapter(handler, gson);
 		}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
+#### Snippet
+```java
+	protected Object parseParams(Object params, String method) {
+		if (isNull(params)) {
+			return null;
+		}
+		if (!(params instanceof JsonElement)) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lsp4j.jsonrpc/src/main/java/org/eclipse/lsp4j/jsonrpc/json/adapters/MessageTypeAdapter.java`
+#### Snippet
+```java
+				rawParams.isJsonArray() && rawParams.getAsJsonArray().size() == 0
+				|| rawParams.isJsonObject() && rawParams.getAsJsonObject().size() == 0)) {
+			return null;
+		}
+		return rawParams;
 ```
 
 ### ReturnNull
