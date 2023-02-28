@@ -62,18 +62,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `CheckSigningKeyTask` has no concrete subclass
-in `src/main/java/com/palantir/gradle/externalpublish/CheckSigningKeyTask.java`
-#### Snippet
-```java
-import org.gradle.api.tasks.TaskAction;
-
-public abstract class CheckSigningKeyTask extends DefaultTask {
-    @TaskAction
-    public final void checkSigningKey() {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `CheckVersionTask` has no concrete subclass
 in `src/main/java/com/palantir/gradle/externalpublish/CheckVersionTask.java`
 #### Snippet
@@ -85,7 +73,31 @@ public abstract class CheckVersionTask extends DefaultTask {
     public final void checkVersion() {
 ```
 
+### AbstractClassNeverImplemented
+Abstract class `CheckSigningKeyTask` has no concrete subclass
+in `src/main/java/com/palantir/gradle/externalpublish/CheckSigningKeyTask.java`
+#### Snippet
+```java
+import org.gradle.api.tasks.TaskAction;
+
+public abstract class CheckSigningKeyTask extends DefaultTask {
+    @TaskAction
+    public final void checkSigningKey() {
+```
+
 ## RuleId[ruleID=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
+#### Snippet
+```java
+            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
+            // the value from the task provider, which will fail if the task has not yet been created.
+            project.afterEvaluate(_ignored -> {
+                publication.artifact(project.getTasks().named("distTar"));
+            });
+```
+
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
@@ -95,18 +107,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.j
 
         project.getTasks().withType(Jar.class).named("jar").configure(jar -> {
             jar.getManifest().attributes(Collections.singletonMap("Implementation-Version", project.getVersion()));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
-#### Snippet
-```java
-        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
-
-        publishPluginsTask.configure(publishPlugins -> {
-            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
         });
 ```
 
@@ -136,26 +136,38 @@ in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvo
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
 #### Snippet
 ```java
-            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
-            // the value from the task provider, which will fail if the task has not yet been created.
-            project.afterEvaluate(_ignored -> {
-                publication.artifact(project.getTasks().named("distTar"));
-            });
+        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
+
+        publishPluginsTask.configure(publishPlugins -> {
+            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
+        });
 ```
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
 #### Snippet
 ```java
-                .configure(distTar -> distTar.setCompression(Compression.GZIP));
+                                + "*before* this plugin is evaluated"));
 
-        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
-            createStartScripts.doLast(new FixWindowsStartScripts());
-        });
+        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
+            project.getTasks().named("publish").configure(publish -> {
+                publish.dependsOn(sonatypeFinishingTask);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+
+        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
+            project.getTasks().named("publish").configure(publish -> {
+                publish.dependsOn(sonatypeFinishingTask);
+            });
 ```
 
 ### CodeBlock2Expr
@@ -196,25 +208,13 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
 #### Snippet
 ```java
-                                + "*before* this plugin is evaluated"));
+                .configure(distTar -> distTar.setCompression(Compression.GZIP));
 
-        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
-            project.getTasks().named("publish").configure(publish -> {
-                publish.dependsOn(sonatypeFinishingTask);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
-
-        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
-            project.getTasks().named("publish").configure(publish -> {
-                publish.dependsOn(sonatypeFinishingTask);
-            });
+        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
+            createStartScripts.doLast(new FixWindowsStartScripts());
+        });
 ```
 
