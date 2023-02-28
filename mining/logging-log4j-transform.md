@@ -78,7 +78,7 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationClassVisi
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-21-17-42-43.203.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-28-14-28-06.085.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -104,7 +104,7 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationCacheGene
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Path`
-in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/maven/LocationMojo.java`
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/LocationMojo.java`
 #### Snippet
 ```java
     }
