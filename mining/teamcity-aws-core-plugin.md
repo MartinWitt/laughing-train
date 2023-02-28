@@ -166,6 +166,18 @@ public final class AwsAssumeIamRoleParams {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `S3Util` has only 'static' members, and lacks a 'private' constructor
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/S3Util.java`
+#### Snippet
+```java
+ * @author vbedrosova
+ */
+public final class S3Util {
+  public static final int DEFAULT_S3_THREAD_POOL_SIZE = 10;
+  @NotNull
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AwsConnectionUtils` has only 'static' members, and lacks a 'private' constructor
 in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/AwsConnectionUtils.java`
 #### Snippet
@@ -175,18 +187,6 @@ import org.jetbrains.annotations.Nullable;
 public class AwsConnectionUtils {
   @NotNull
   public static AWSCredentialsProvider awsCredsProviderFromHolder(@NotNull final AwsCredentialsHolder credentialsHolder) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AWSRegions` has only 'static' members, and lacks a 'private' constructor
-in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/regions/AWSRegions.java`
-#### Snippet
-```java
- * @author vbedrosova
- */
-public final class AWSRegions {
-  private static final Map<String, String> REGION_NAMES_FOR_WEB;
-  private static final Map<String, String> CHINA_REGION_NAMES_FOR_WEB;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -202,6 +202,18 @@ public class StsClientBuilder {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `AWSRegions` has only 'static' members, and lacks a 'private' constructor
+in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/regions/AWSRegions.java`
+#### Snippet
+```java
+ * @author vbedrosova
+ */
+public final class AWSRegions {
+  private static final Map<String, String> REGION_NAMES_FOR_WEB;
+  private static final Map<String, String> CHINA_REGION_NAMES_FOR_WEB;
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ParamUtil` has only 'static' members, and lacks a 'private' constructor
 in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/ParamUtil.java`
 #### Snippet
@@ -211,18 +223,6 @@ import static jetbrains.buildServer.clouds.amazon.connector.utils.parameters.Aws
 public class ParamUtil {
 
   private final static Pattern validAwsSessionNamePattern = Pattern.compile(VALID_ROLE_SESSION_NAME_REGEX);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `S3Util` has only 'static' members, and lacks a 'private' constructor
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/S3Util.java`
-#### Snippet
-```java
- * @author vbedrosova
- */
-public final class S3Util {
-  public static final int DEFAULT_S3_THREAD_POOL_SIZE = 10;
-  @NotNull
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -492,11 +492,11 @@ Missorted modifiers `final static`
 in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/connectionId/AwsConnectionIdGenerator.java`
 #### Snippet
 ```java
-  public final static String ID_GENERATOR_TYPE = AwsConnectionProvider.TYPE;
-  public final static String AWS_CONNECTION_ID_PREFIX = "awsConnection";
   public final static int INITIAL_AWS_CONNECTION_ID = 0;
 
   private final static Logger LOG = Logger.getInstance(AwsConnectionIdGenerator.class.getName());
+
+
 ```
 
 ### MissortedModifiers
@@ -504,11 +504,11 @@ Missorted modifiers `final static`
 in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/connectionId/AwsConnectionIdGenerator.java`
 #### Snippet
 ```java
+  public final static String ID_GENERATOR_TYPE = AwsConnectionProvider.TYPE;
+  public final static String AWS_CONNECTION_ID_PREFIX = "awsConnection";
   public final static int INITIAL_AWS_CONNECTION_ID = 0;
 
   private final static Logger LOG = Logger.getInstance(AwsConnectionIdGenerator.class.getName());
-
-
 ```
 
 ### MissortedModifiers
@@ -743,43 +743,6 @@ import jetbrains.buildServer.serverSide.impl.ProjectFeatureDescriptorImpl;
 import jetbrains.buildServer.serverSide.oauth.aws.AwsConnectionProvider;
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `RecoverableException()` of an abstract class should not be declared 'public'
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/RecoverableException.java`
-#### Snippet
-```java
-  }
-
-  public RecoverableException(@NotNull String message, @NotNull Throwable cause) {
-    super(message, cause);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RecoverableException()` of an abstract class should not be declared 'public'
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/RecoverableException.java`
-#### Snippet
-```java
-
-public abstract class RecoverableException extends RuntimeException {
-  public RecoverableException(@NotNull String message) {
-    super(message);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseAwsConnectionController()` of an abstract class should not be declared 'public'
-in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/BaseAwsConnectionController.java`
-#### Snippet
-```java
-  private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
-  public BaseAwsConnectionController(@NotNull final String controllerPath,
-                                     @NotNull final SBuildServer server,
-                                     @NotNull final ProjectManager projectManager,
-```
-
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -803,6 +766,43 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
     myCredentialBuilders.forEach((type, builder) -> {
       defaultProperties.putAll(builder.getDefaultProperties());
     });
+```
+
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `RecoverableException()` of an abstract class should not be declared 'public'
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/RecoverableException.java`
+#### Snippet
+```java
+
+public abstract class RecoverableException extends RuntimeException {
+  public RecoverableException(@NotNull String message) {
+    super(message);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RecoverableException()` of an abstract class should not be declared 'public'
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/RecoverableException.java`
+#### Snippet
+```java
+  }
+
+  public RecoverableException(@NotNull String message, @NotNull Throwable cause) {
+    super(message, cause);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseAwsConnectionController()` of an abstract class should not be declared 'public'
+in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/BaseAwsConnectionController.java`
+#### Snippet
+```java
+  private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+  public BaseAwsConnectionController(@NotNull final String controllerPath,
+                                     @NotNull final SBuildServer server,
+                                     @NotNull final ProjectManager projectManager,
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -848,11 +848,11 @@ Field initialization to `false` is redundant
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/S3Util.java`
 #### Snippet
 ```java
-    private long myMultipartUploadThreshold = FIVE_MB;
     private int connectionTimeout;
     private boolean myShutdownClient = false;
     private boolean myPresignedMultipartUploadEnabled = false;
     private int myPresignedUrlMaxChunkSize = DEFAULT_PRESIGNED_URL_MAX_CHUNK_SIZE;
+    private int myNumberOfRetriesOnError = DEFAULT_NUMBER_OF_RETRIES_ON_ERROR;
 ```
 
 ### RedundantFieldInitialization
@@ -860,11 +860,11 @@ Field initialization to `false` is redundant
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/S3Util.java`
 #### Snippet
 ```java
+    private long myMultipartUploadThreshold = FIVE_MB;
     private int connectionTimeout;
     private boolean myShutdownClient = false;
     private boolean myPresignedMultipartUploadEnabled = false;
     private int myPresignedUrlMaxChunkSize = DEFAULT_PRESIGNED_URL_MAX_CHUNK_SIZE;
-    private int myNumberOfRetriesOnError = DEFAULT_NUMBER_OF_RETRIES_ON_ERROR;
 ```
 
 ### RedundantFieldInitialization
@@ -931,18 +931,6 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/con
 
 ### ReturnNull
 Return of `null`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/common/impl/AwsConnectionsHolderImpl.java`
-#### Snippet
-```java
-    Map<String, String> dataStorageValues = dataStorage.getValues();
-    if (dataStorageValues == null || !dataStorageValues.containsKey(key)) {
-      return null;
-    }
-    return dataStorageValues.get(key);
-```
-
-### ReturnNull
-Return of `null`
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/Retrier.java`
 #### Snippet
 ```java
@@ -951,6 +939,18 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/Retrie
       return null;
     });
   }
+```
+
+### ReturnNull
+Return of `null`
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/common/impl/AwsConnectionsHolderImpl.java`
+#### Snippet
+```java
+    Map<String, String> dataStorageValues = dataStorage.getValues();
+    if (dataStorageValues == null || !dataStorageValues.containsKey(key)) {
+      return null;
+    }
+    return dataStorageValues.get(key);
 ```
 
 ### ReturnNull
@@ -975,6 +975,18 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
           return null;
         }
       }
+```
+
+### ReturnNull
+Return of `null`
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/PathMappings.java`
+#### Snippet
+```java
+    String relativePath = FileUtil.getRelativePath(myBaseDir, f);
+
+    if (relativePath == null) return null;
+
+    relativePath = FileUtil.toSystemIndependentName(relativePath);
 ```
 
 ### ReturnNull
@@ -1039,14 +1051,14 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
 
 ### ReturnNull
 Return of `null`
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/PathMappings.java`
+in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsTestConnectionController.java`
 #### Snippet
 ```java
-    String relativePath = FileUtil.getRelativePath(myBaseDir, f);
-
-    if (relativePath == null) return null;
-
-    relativePath = FileUtil.toSystemIndependentName(relativePath);
+  @Override
+  protected ModelAndView doGet(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) {
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -1056,18 +1068,6 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/con
 ```java
     }
 
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsTestConnectionController.java`
-#### Snippet
-```java
-  @Override
-  protected ModelAndView doGet(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) {
     return null;
   }
 }
@@ -1135,18 +1135,6 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/N
 ```
 
 ### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `exception`
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
-#### Snippet
-```java
-        if (!thrownExceptions.compareAndSet(null, exception) && !thrownExceptions.compareAndSet(exception, exception)) {
-          thrownExceptions.get().addSuppressed(exception);
-          if (exception instanceof AbortRetriesException) {
-            retriesAborted.set(true);
-          }
-```
-
-### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
 #### Snippet
@@ -1170,7 +1158,31 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/R
             } else {
 ```
 
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `exception`
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
+#### Snippet
+```java
+        if (!thrownExceptions.compareAndSet(null, exception) && !thrownExceptions.compareAndSet(exception, exception)) {
+          thrownExceptions.get().addSuppressed(exception);
+          if (exception instanceof AbortRetriesException) {
+            retriesAborted.set(true);
+          }
+```
+
 ## RuleId[ruleID=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `EXCEPTION_BUILD_PROBLEM_TYPE` of exception class
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException.java`
+#### Snippet
+```java
+  @Used("CodeDeploy")
+  @NotNull
+  public static String EXCEPTION_BUILD_PROBLEM_TYPE = "AWS_EXCEPTION";
+  @NotNull
+  @Used("CodeDeploy")
+```
+
 ### NonFinalFieldOfException
 Non-final field `CLIENT_PROBLEM_TYPE` of exception class
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException.java`
@@ -1179,6 +1191,18 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException
   @Used("CodeDeploy")
   @NotNull
   public static String CLIENT_PROBLEM_TYPE = "AWS_CLIENT";
+  @Used("CodeDeploy")
+  @NotNull
+```
+
+### NonFinalFieldOfException
+Non-final field `SERVICE_PROBLEM_TYPE` of exception class
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException.java`
+#### Snippet
+```java
+  @Used("CodeDeploy")
+  @NotNull
+  public static String SERVICE_PROBLEM_TYPE = "AWS_SERVICE";
   @Used("CodeDeploy")
   @NotNull
 ```
@@ -1193,30 +1217,6 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException
   public static Map<String, String> PROBLEM_TYPES = CollectionsUtil.asMap(
     SERVICE_PROBLEM_TYPE, "Amazon service exception",
     CLIENT_PROBLEM_TYPE, "Amazon client exception",
-```
-
-### NonFinalFieldOfException
-Non-final field `EXCEPTION_BUILD_PROBLEM_TYPE` of exception class
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException.java`
-#### Snippet
-```java
-  @Used("CodeDeploy")
-  @NotNull
-  public static String EXCEPTION_BUILD_PROBLEM_TYPE = "AWS_EXCEPTION";
-  @NotNull
-  @Used("CodeDeploy")
-```
-
-### NonFinalFieldOfException
-Non-final field `SERVICE_PROBLEM_TYPE` of exception class
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException.java`
-#### Snippet
-```java
-  @Used("CodeDeploy")
-  @NotNull
-  public static String SERVICE_PROBLEM_TYPE = "AWS_SERVICE";
-  @Used("CodeDeploy")
-  @NotNull
 ```
 
 ## RuleId[ruleID=RedundantStringFormatCall]
