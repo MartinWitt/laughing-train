@@ -1,7 +1,7 @@
 # fhir-gateway 
  
 # Bad smells
-I found 44 bad smells with 6 repairable:
+I found 45 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 9 | false |
@@ -16,11 +16,24 @@ I found 44 bad smells with 6 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | MismatchedJavadocCode | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | ConstantValue | 1 | false |
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
+#### Snippet
+```java
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+public class JwtUtil {
+  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
+    Claim claim = jwt.getClaim(claimName);
+```
+
 ### UtilityClassWithoutPrivateConstructor
 Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
@@ -69,31 +82,7 @@ public class MainApp {
   public static void main(String[] args) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
-#### Snippet
-```java
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-public class JwtUtil {
-  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
-    Claim claim = jwt.getClaim(claimName);
-```
-
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
-#### Snippet
-```java
-  public GcpFhirClient(String gcpFhirStore, GoogleCredentials credentials) throws IOException {
-    // Remove trailing '/'s since proxy's base URL has no trailing '/'.
-    this.gcpFhirStore = gcpFhirStore.replaceAll("/+$", "");
-    this.credentials = credentials;
-
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
@@ -104,6 +93,18 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.ja
       String[] scopes = scopesClaim.strip().split("\\s+");
       return new SmartScopeChecker(
           SmartFhirScope.extractSmartFhirScopesFromTokens(Arrays.asList(scopes)),
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
+#### Snippet
+```java
+  public GcpFhirClient(String gcpFhirStore, GoogleCredentials credentials) throws IOException {
+    // Remove trailing '/'s since proxy's base URL has no trailing '/'.
+    this.gcpFhirStore = gcpFhirStore.replaceAll("/+$", "");
+    this.credentials = credentials;
+
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -257,18 +258,6 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
-#### Snippet
-```java
-    private final Set<String> deletedPatients = Sets.newHashSet();
-    private final List<ImmutableSet<String>> referencedPatients = Lists.newArrayList();
-    private boolean patientsToCreate = false;
-
-    public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
 #### Snippet
@@ -278,6 +267,18 @@ in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
   private static CapabilityPostProcessor instance = null;
 
   private final FhirContext fhirContext;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
+#### Snippet
+```java
+    private final Set<String> deletedPatients = Sets.newHashSet();
+    private final List<ImmutableSet<String>> referencedPatients = Lists.newArrayList();
+    private boolean patientsToCreate = false;
+
+    public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
 ```
 
 ### RedundantFieldInitialization
@@ -305,7 +306,32 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
   @Override
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-28-05-52-55.689.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
+#### Snippet
+```java
+  @Override
+  public String postProcess(HttpResponse response) {
+    return null;
+  }
+
+```
+
 ### ReturnNull
 Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
@@ -325,18 +351,6 @@ in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 ```java
           logger, "Error in building URI for resource " + uriString);
     }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
-#### Snippet
-```java
-  @Override
-  public String postProcess(HttpResponse response) {
     return null;
   }
 
