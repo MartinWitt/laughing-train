@@ -22,18 +22,6 @@ I found 36 bad smells with 3 repairable:
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
-#### Snippet
-```java
- * @since 3.3.0
- */
-@Mojo(name = "check-buildplan", threadSafe = true, requiresProject = true)
-public class CheckBuildPlanMojo extends AbstractMojo {
-    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
 #### Snippet
 ```java
@@ -44,19 +32,19 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
 
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
 #### Snippet
 ```java
- * A helper to get JDK version from a JDK toolchain.
+ * @since 3.3.0
  */
-class JdkToolchainUtil {
-    static String getJavaVersion(Toolchain toolchain) {
-        String version = "unknown";
+@Mojo(name = "check-buildplan", threadSafe = true, requiresProject = true)
+public class CheckBuildPlanMojo extends AbstractMojo {
+    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
 ```
 
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
@@ -67,6 +55,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 class PluginUtil {
     static boolean isSkip(MavenProject project) {
         return isSkip(project, "install") || isSkip(project, "deploy");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
+#### Snippet
+```java
+ * A helper to get JDK version from a JDK toolchain.
+ */
+class JdkToolchainUtil {
+    static String getJavaVersion(Toolchain toolchain) {
+        String version = "unknown";
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -212,30 +212,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 #### Snippet
 ```java
@@ -248,11 +224,35 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
+            log.warn("unable to open jar file " + file, e);
         }
-
         return null;
     }
 
@@ -268,18 +268,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-        @Override
-        public WorkspaceReader getWorkspaceReader() {
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -311,11 +299,23 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-            log.warn("unable to open jar file " + file, e);
         }
+
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+        @Override
+        public WorkspaceReader getWorkspaceReader() {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
