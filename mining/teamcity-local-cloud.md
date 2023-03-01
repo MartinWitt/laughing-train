@@ -34,30 +34,6 @@ Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 #### Snippet
 ```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-  private LocalCloudImage findImage(@NotNull final AgentDescription agentDescription) {
-    final String imageId = agentDescription.getConfigurationParameters().get(LocalCloudConstants.IMAGE_ID_PARAM_NAME);
-    return imageId == null ? null : findImageById(imageId);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
   public LocalCloudInstance findInstanceByAgent(@NotNull final AgentDescription agentDescription) {
     final LocalCloudImage image = findImage(agentDescription);
     if (image == null) return null;
@@ -82,6 +58,18 @@ Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 #### Snippet
 ```java
+  private LocalCloudImage findImage(@NotNull final AgentDescription agentDescription) {
+    final String imageId = agentDescription.getConfigurationParameters().get(LocalCloudConstants.IMAGE_ID_PARAM_NAME);
+    return imageId == null ? null : findImageById(imageId);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
   public String generateAgentName(@NotNull final AgentDescription agentDescription) {
     final LocalCloudImage image = findImage(agentDescription);
     if (image == null) return null;
@@ -99,6 +87,18 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
     if (instanceId == null) return null;
 
     return generateAgentName(image, instanceId);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
 ```
 
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
