@@ -187,18 +187,6 @@ Referencing subclass PredefinedConfiguration from superclass RecordingConfigurat
 in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
 #### Snippet
 ```java
-     * The profile configuration collects more events and is suitable for profiling an application.
-     */
-    public static final RecordingConfiguration PROFILE_CONFIGURATION = new PredefinedConfiguration("profile");
-
-
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass PredefinedConfiguration from superclass RecordingConfiguration initializer might lead to class loading deadlock
-in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
-#### Snippet
-```java
      * The default configuration is suitable for continuous recordings.
      */
     public static final RecordingConfiguration DEFAULT_CONFIGURATION = new PredefinedConfiguration("default");
@@ -206,19 +194,32 @@ in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
     /**
 ```
 
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final private`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass PredefinedConfiguration from superclass RecordingConfiguration initializer might lead to class loading deadlock
+in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
 #### Snippet
 ```java
+     * The profile configuration collects more events and is suitable for profiling an application.
+     */
+    public static final RecordingConfiguration PROFILE_CONFIGURATION = new PredefinedConfiguration("profile");
 
-    final private FlightRecorderConnection connection;
-    final private RecordingOptions recordingOptions;
-    final private RecordingConfiguration recordingConfiguration;
 
 ```
 
+## RuleId[ruleID=UnusedAssignment]
+### UnusedAssignment
+Variable `value` initializer `0L` is redundant
+in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
+#### Snippet
+```java
+         */
+        public Builder maxSize(String maxSize) throws IllegalArgumentException {
+            long value = 0L;
+            try {
+                String numVal = normalize(maxSize, Option.MAX_SIZE);
+```
+
+## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
@@ -244,6 +245,18 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final private`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+
+    final private FlightRecorderConnection connection;
+    final private RecordingOptions recordingOptions;
+    final private RecordingConfiguration recordingConfiguration;
+
+```
+
+### MissortedModifiers
 Missorted modifiers `final static`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
@@ -253,19 +266,6 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
     private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
 
     /**
-```
-
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `value` initializer `0L` is redundant
-in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
-#### Snippet
-```java
-         */
-        public Builder maxSize(String maxSize) throws IllegalArgumentException {
-            long value = 0L;
-            try {
-                String numVal = normalize(maxSize, Option.MAX_SIZE);
 ```
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
