@@ -29,18 +29,6 @@ I found 105 bad smells with 1 repairable:
 in `tracing-api/src/main/java/com/palantir/tracing/api/OpenSpan.java`
 #### Snippet
 ```java
-
-    /** Use this factory method to avoid {@link Builder} allocations in hot paths. */
-    public static OpenSpan of(String operation, String spanId, SpanType type, Optional<String> parentSpanId) {
-        return ImmutableOpenSpan.of(operation, getNowInMicroSeconds(), System.nanoTime(), parentSpanId, spanId, type);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parentSpanId'
-in `tracing-api/src/main/java/com/palantir/tracing/api/OpenSpan.java`
-#### Snippet
-```java
             String spanId,
             SpanType type,
             Optional<String> parentSpanId,
@@ -56,6 +44,18 @@ in `tracing-api/src/main/java/com/palantir/tracing/api/OpenSpan.java`
             SpanType type,
             Optional<String> parentSpanId,
             Optional<String> _originatingSpanId) {
+        return ImmutableOpenSpan.of(operation, getNowInMicroSeconds(), System.nanoTime(), parentSpanId, spanId, type);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parentSpanId'
+in `tracing-api/src/main/java/com/palantir/tracing/api/OpenSpan.java`
+#### Snippet
+```java
+
+    /** Use this factory method to avoid {@link Builder} allocations in hot paths. */
+    public static OpenSpan of(String operation, String spanId, SpanType type, Optional<String> parentSpanId) {
         return ImmutableOpenSpan.of(operation, getNowInMicroSeconds(), System.nanoTime(), parentSpanId, spanId, type);
     }
 ```
@@ -109,18 +109,6 @@ in `tracing-undertow/src/main/java/com/palantir/tracing/undertow/UndertowTracing
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'originalTrace'
-in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
-#### Snippet
-```java
-    private static final class TaggedCloseableTrace implements CloseableTrace {
-        private final Map<String, String> metadata;
-        private final Optional<Trace> originalTrace;
-
-        TaggedCloseableTrace(Optional<Trace> originalTrace, Map<String, String> metadata) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'originalTrace'
 in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
 #### Snippet
@@ -133,6 +121,18 @@ in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'originalTrace'
+in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
+#### Snippet
+```java
+    private static final class TaggedCloseableTrace implements CloseableTrace {
+        private final Map<String, String> metadata;
+        private final Optional<Trace> originalTrace;
+
+        TaggedCloseableTrace(Optional<Trace> originalTrace, Map<String, String> metadata) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'operation'
 in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
 #### Snippet
@@ -142,6 +142,18 @@ in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
     public DeferredTracer(@Safe Optional<String> operation) {
         this(operation.orElse(DEFAULT_OPERATION));
     }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parentSpanId'
+in `tracing/src/main/java/com/palantir/tracing/DetachedSpan.java`
+#### Snippet
+```java
+            Observability observability,
+            String traceId,
+            Optional<String> parentSpanId,
+            @Safe String operation,
+            SpanType type) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -163,18 +175,6 @@ in `tracing/src/main/java/com/palantir/tracing/DetachedSpan.java`
 ```java
             String traceId,
             Optional<String> forUserAgent,
-            Optional<String> parentSpanId,
-            @Safe String operation,
-            SpanType type) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parentSpanId'
-in `tracing/src/main/java/com/palantir/tracing/DetachedSpan.java`
-#### Snippet
-```java
-            Observability observability,
-            String traceId,
             Optional<String> parentSpanId,
             @Safe String operation,
             SpanType type) {
@@ -205,18 +205,6 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'forUserAgent'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-            Observability observability,
-            String traceId,
-            Optional<String> forUserAgent,
-            @Safe String operation,
-            String parentSpanId,
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'requestId'
 in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 #### Snippet
@@ -253,39 +241,15 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'openSpan'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-
-    private static <T> void completeSpanAndNotifyObservers(
-            Optional<OpenSpan> openSpan, TagTranslator<? super T> tag, T state, String traceId) {
-        //noinspection OptionalIsPresent - Avoid lambda allocation in hot paths
-        if (openSpan.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'requestId'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-     */
-    private static Trace createTrace(
-            Observability observability, String traceId, Optional<String> requestId, Optional<String> forUserAgent) {
-        checkArgument(!Strings.isNullOrEmpty(traceId), "traceId must be non-empty");
-        boolean observable = shouldObserve(observability);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'forUserAgent'
 in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 #### Snippet
 ```java
-     */
-    private static Trace createTrace(
-            Observability observability, String traceId, Optional<String> requestId, Optional<String> forUserAgent) {
-        checkArgument(!Strings.isNullOrEmpty(traceId), "traceId must be non-empty");
-        boolean observable = shouldObserve(observability);
+            Observability observability,
+            String traceId,
+            Optional<String> forUserAgent,
+            @Safe String operation,
+            SpanType type) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -298,54 +262,6 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
         private final Optional<String> parentSpanId;
 
         UnsampledDetachedSpan(TraceState traceState, Optional<String> parentSpanId) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parentSpanId'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-        @SuppressWarnings("ImmutablesBuilderMissingInitialization")
-        // OpenSpan#builder sets these
-        SampledDetachedSpan(String operation, SpanType type, TraceState traceState, Optional<String> parentSpanId) {
-            this.traceState = traceState;
-            this.openSpan = OpenSpan.of(operation, Tracers.randomId(), type, parentSpanId);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'forUserAgent'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-            Observability observability,
-            String traceId,
-            Optional<String> forUserAgent,
-            Optional<String> parentSpanId,
-            @Safe String operation,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parentSpanId'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-            String traceId,
-            Optional<String> forUserAgent,
-            Optional<String> parentSpanId,
-            @Safe String operation,
-            SpanType type) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'requestId'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-     * Creates a new trace, but does not set it as the current trace.
-     */
-    private static Trace createTrace(Observability observability, String traceId, Optional<String> requestId) {
-        return createTrace(observability, traceId, requestId, Optional.empty());
-    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -368,8 +284,92 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
             Observability observability,
             String traceId,
             Optional<String> forUserAgent,
+            Optional<String> parentSpanId,
+            @Safe String operation,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parentSpanId'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+            String traceId,
+            Optional<String> forUserAgent,
+            Optional<String> parentSpanId,
             @Safe String operation,
             SpanType type) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'forUserAgent'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+            Observability observability,
+            String traceId,
+            Optional<String> forUserAgent,
+            @Safe String operation,
+            String parentSpanId,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parentSpanId'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+        @SuppressWarnings("ImmutablesBuilderMissingInitialization")
+        // OpenSpan#builder sets these
+        SampledDetachedSpan(String operation, SpanType type, TraceState traceState, Optional<String> parentSpanId) {
+            this.traceState = traceState;
+            this.openSpan = OpenSpan.of(operation, Tracers.randomId(), type, parentSpanId);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'requestId'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+     */
+    private static Trace createTrace(
+            Observability observability, String traceId, Optional<String> requestId, Optional<String> forUserAgent) {
+        checkArgument(!Strings.isNullOrEmpty(traceId), "traceId must be non-empty");
+        boolean observable = shouldObserve(observability);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'forUserAgent'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+     */
+    private static Trace createTrace(
+            Observability observability, String traceId, Optional<String> requestId, Optional<String> forUserAgent) {
+        checkArgument(!Strings.isNullOrEmpty(traceId), "traceId must be non-empty");
+        boolean observable = shouldObserve(observability);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'requestId'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+     * Creates a new trace, but does not set it as the current trace.
+     */
+    private static Trace createTrace(Observability observability, String traceId, Optional<String> requestId) {
+        return createTrace(observability, traceId, requestId, Optional.empty());
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'openSpan'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+
+    private static <T> void completeSpanAndNotifyObservers(
+            Optional<OpenSpan> openSpan, TagTranslator<? super T> tag, T state, String traceId) {
+        //noinspection OptionalIsPresent - Avoid lambda allocation in hot paths
+        if (openSpan.isPresent()) {
 ```
 
 ## RuleId[ruleID=OptionalIsPresent]
@@ -518,18 +518,6 @@ in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
 ```java
      */
     @Deprecated
-    public static Runnable wrapWithNewTrace(Runnable delegate) {
-        return wrapWithNewTrace(DEFAULT_ROOT_SPAN_OPERATION, delegate);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'wrapWithNewTrace' is still used
-in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
-#### Snippet
-```java
-     */
-    @Deprecated
     public static <V> Callable<V> wrapWithNewTrace(Callable<V> delegate) {
         return wrapWithNewTrace(DEFAULT_ROOT_SPAN_OPERATION, delegate);
     }
@@ -544,6 +532,18 @@ in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
     @Deprecated
     public static Runnable wrapWithAlternateTraceId(String traceId, Runnable delegate) {
         return wrapWithAlternateTraceId(traceId, DEFAULT_ROOT_SPAN_OPERATION, delegate);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'wrapWithNewTrace' is still used
+in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Runnable wrapWithNewTrace(Runnable delegate) {
+        return wrapWithNewTrace(DEFAULT_ROOT_SPAN_OPERATION, delegate);
     }
 ```
 
@@ -624,18 +624,6 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/TestTracingExtension.j
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super CloseableHttpResponse`
-in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
-#### Snippet
-```java
-    }
-
-    public void runRequest(ClassicHttpRequest request, Consumer<CloseableHttpResponse> handler) {
-        try (CloseableHttpResponse response = makeRequest(request)) {
-            handler.accept(response);
-```
-
-### BoundedWildcard
 Can generalize to `? super Request`
 in `tracing-okhttp3/src/main/java/com/palantir/tracing/OkhttpTraceInterceptor2.java`
 #### Snippet
@@ -660,6 +648,30 @@ in `tracing-okhttp3/src/main/java/com/palantir/tracing/OkhttpTraceInterceptor2.j
 ```
 
 ### BoundedWildcard
+Can generalize to `? super CloseableHttpResponse`
+in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
+#### Snippet
+```java
+    }
+
+    public void runRequest(ClassicHttpRequest request, Consumer<CloseableHttpResponse> handler) {
+        try (CloseableHttpResponse response = makeRequest(request)) {
+            handler.accept(response);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Span`
+in `tracing-test-utils/src/main/java/com/palantir/tracing/api/Serialization.java`
+#### Snippet
+```java
+    }
+
+    public static void serialize(Path file, Collection<Span> allSpans) throws IOException {
+        Files.createDirectories(file.getParent());
+        try (OutputStream outputStream = Files.newOutputStream(file)) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Span`
 in `tracing-test-utils/src/main/java/com/palantir/tracing/TimeBounds.java`
 #### Snippet
@@ -673,14 +685,14 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/TimeBounds.java`
 
 ### BoundedWildcard
 Can generalize to `? extends Span`
-in `tracing-test-utils/src/main/java/com/palantir/tracing/api/Serialization.java`
+in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
 #### Snippet
 ```java
-    }
 
-    public static void serialize(Path file, Collection<Span> allSpans) throws IOException {
-        Files.createDirectories(file.getParent());
-        try (OutputStream outputStream = Files.newOutputStream(file)) {
+    /* Assumes list of spans to be ordered by startTimeMicros */
+    private static boolean containsOverlappingSpans(List<Span> spans) {
+        for (int i = 0; i < spans.size() - 1; i++) {
+            Span currentSpan = spans.get(i);
 ```
 
 ### BoundedWildcard
@@ -720,18 +732,6 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Span`
-in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
-#### Snippet
-```java
-
-    /* Assumes list of spans to be ordered by startTimeMicros */
-    private static boolean containsOverlappingSpans(List<Span> spans) {
-        for (int i = 0; i < spans.size() - 1; i++) {
-            Span currentSpan = spans.get(i);
-```
-
-### BoundedWildcard
 Can generalize to `? extends Trace`
 in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
 #### Snippet
@@ -741,6 +741,30 @@ in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
         TaggedCloseableTrace(Optional<Trace> originalTrace, Map<String, String> metadata) {
             this.metadata = metadata;
             this.originalTrace = originalTrace;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Trace`
+in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
+#### Snippet
+```java
+     * {@link #wrapWithNewTrace} calls.
+     */
+    private static void restoreTrace(Optional<Trace> trace) {
+        if (trace.isPresent()) {
+            Tracer.setTrace(trace.get());
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
+#### Snippet
+```java
+        private final Detached detached;
+
+        AnonymousTracingAwareCallable(Callable<V> delegate) {
+            this.delegate = delegate;
+            this.detached = DetachedSpan.detach();
 ```
 
 ### BoundedWildcard
@@ -772,35 +796,11 @@ Can generalize to `? extends V`
 in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
 #### Snippet
 ```java
-        private final Detached detached;
-
-        AnonymousTracingAwareCallable(Callable<V> delegate) {
-            this.delegate = delegate;
-            this.detached = DetachedSpan.detach();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
-#### Snippet
-```java
      */
     public static <V> Callable<V> wrapWithNewTrace(
             String operation, Observability observability, Callable<V> delegate) {
         return () -> {
             // clear the existing trace and keep it around for restoration when we're done
-```
-
-### BoundedWildcard
-Can generalize to `? extends Trace`
-in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
-#### Snippet
-```java
-     * {@link #wrapWithNewTrace} calls.
-     */
-    private static void restoreTrace(Optional<Trace> trace) {
-        if (trace.isPresent()) {
-            Tracer.setTrace(trace.get());
 ```
 
 ### BoundedWildcard
@@ -858,10 +858,10 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `tracing/src/main/java/com/palantir/tracing/TraceState.java`
 #### Snippet
 ```java
-    private final String traceId;
+    private final String requestId;
 
     @Nullable
-    private final String requestId;
+    private final String forUserAgent;
 
 ```
 
@@ -870,10 +870,10 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `tracing/src/main/java/com/palantir/tracing/TraceState.java`
 #### Snippet
 ```java
-    private final String requestId;
+    private final String traceId;
 
     @Nullable
-    private final String forUserAgent;
+    private final String requestId;
 
 ```
 
@@ -1079,69 +1079,9 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
 ```java
     }
 
-    public static Stream<Span> children(ImmutableGraph<Span> graph, Span parentSpan) {
-        return graph.incidentEdges(parentSpan).stream()
-                // we only care about incoming edges to the 'parentSpan', not outgoing ones
-```
-
-### UnstableApiUsage
-'incidentEdges(N)' is unstable because its signature references unstable class 'com.google.common.graph.EndpointPair' marked with @Beta
-in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
-#### Snippet
-```java
-
-    public static Stream<Span> children(ImmutableGraph<Span> graph, Span parentSpan) {
-        return graph.incidentEdges(parentSpan).stream()
-                // we only care about incoming edges to the 'parentSpan', not outgoing ones
-                .filter(pair -> pair.nodeV().equals(parentSpan))
-```
-
-### UnstableApiUsage
-'nodeV()' is declared in unstable class 'com.google.common.graph.EndpointPair' marked with @Beta
-in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
-#### Snippet
-```java
-        return graph.incidentEdges(parentSpan).stream()
-                // we only care about incoming edges to the 'parentSpan', not outgoing ones
-                .filter(pair -> pair.nodeV().equals(parentSpan))
-                .map(EndpointPair::nodeU)
-                .sorted(SpanComparator.INSTANCE);
-```
-
-### UnstableApiUsage
-'com.google.common.graph.EndpointPair' is marked unstable with @Beta
-in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
-#### Snippet
-```java
-                // we only care about incoming edges to the 'parentSpan', not outgoing ones
-                .filter(pair -> pair.nodeV().equals(parentSpan))
-                .map(EndpointPair::nodeU)
-                .sorted(SpanComparator.INSTANCE);
-    }
-```
-
-### UnstableApiUsage
-'nodeU()' is declared in unstable class 'com.google.common.graph.EndpointPair' marked with @Beta
-in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
-#### Snippet
-```java
-                // we only care about incoming edges to the 'parentSpan', not outgoing ones
-                .filter(pair -> pair.nodeV().equals(parentSpan))
-                .map(EndpointPair::nodeU)
-                .sorted(SpanComparator.INSTANCE);
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
-in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
-#### Snippet
-```java
-    @Value.Immutable
-    interface Result {
-        ImmutableGraph<Span> graph();
-
-        Span root();
+    private static List<Span> sortedChildren(ImmutableGraph<Span> graph, Span node) {
+        return children(graph, node)
+                .sorted(Comparator.comparingLong(Span::getStartTimeMicroSeconds))
 ```
 
 ### UnstableApiUsage
@@ -1257,6 +1197,18 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
 in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
 #### Snippet
 ```java
+    @Value.Immutable
+    interface Result {
+        ImmutableGraph<Span> graph();
+
+        Span root();
+```
+
+### UnstableApiUsage
+'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
+in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
+#### Snippet
+```java
     private SpanAnalyzer() {}
 
     private static Stream<Span> depthFirstTraversalOrderedByStartTime(ImmutableGraph<Span> graph, Span parentSpan) {
@@ -1271,9 +1223,57 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
 ```java
     }
 
-    private static List<Span> sortedChildren(ImmutableGraph<Span> graph, Span node) {
-        return children(graph, node)
-                .sorted(Comparator.comparingLong(Span::getStartTimeMicroSeconds))
+    public static Stream<Span> children(ImmutableGraph<Span> graph, Span parentSpan) {
+        return graph.incidentEdges(parentSpan).stream()
+                // we only care about incoming edges to the 'parentSpan', not outgoing ones
+```
+
+### UnstableApiUsage
+'incidentEdges(N)' is unstable because its signature references unstable class 'com.google.common.graph.EndpointPair' marked with @Beta
+in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
+#### Snippet
+```java
+
+    public static Stream<Span> children(ImmutableGraph<Span> graph, Span parentSpan) {
+        return graph.incidentEdges(parentSpan).stream()
+                // we only care about incoming edges to the 'parentSpan', not outgoing ones
+                .filter(pair -> pair.nodeV().equals(parentSpan))
+```
+
+### UnstableApiUsage
+'nodeV()' is declared in unstable class 'com.google.common.graph.EndpointPair' marked with @Beta
+in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
+#### Snippet
+```java
+        return graph.incidentEdges(parentSpan).stream()
+                // we only care about incoming edges to the 'parentSpan', not outgoing ones
+                .filter(pair -> pair.nodeV().equals(parentSpan))
+                .map(EndpointPair::nodeU)
+                .sorted(SpanComparator.INSTANCE);
+```
+
+### UnstableApiUsage
+'com.google.common.graph.EndpointPair' is marked unstable with @Beta
+in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
+#### Snippet
+```java
+                // we only care about incoming edges to the 'parentSpan', not outgoing ones
+                .filter(pair -> pair.nodeV().equals(parentSpan))
+                .map(EndpointPair::nodeU)
+                .sorted(SpanComparator.INSTANCE);
+    }
+```
+
+### UnstableApiUsage
+'nodeU()' is declared in unstable class 'com.google.common.graph.EndpointPair' marked with @Beta
+in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
+#### Snippet
+```java
+                // we only care about incoming edges to the 'parentSpan', not outgoing ones
+                .filter(pair -> pair.nodeV().equals(parentSpan))
+                .map(EndpointPair::nodeU)
+                .sorted(SpanComparator.INSTANCE);
+    }
 ```
 
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
