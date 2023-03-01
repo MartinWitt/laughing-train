@@ -127,11 +127,11 @@ Call to `Hashtable.get()` on properties object
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
-  public Release getRelease() {
-    Impl impl = getImpl();
-    Object releaseId = impl.detectedProperties.get(Detector.DETECTED_RELEASE);
-    if (releaseId == null) {
-      return null;
+
+  public String getOs() {
+    return (String) getImpl().detectedProperties.get(Detector.DETECTED_NAME);
+  }
+
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -140,8 +140,8 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
 
-  public String getOs() {
-    return (String) getImpl().detectedProperties.get(Detector.DETECTED_NAME);
+  public String getClassifier() {
+    return (String) getImpl().detectedProperties.get(Detector.DETECTED_CLASSIFIER);
   }
 
 ```
@@ -163,18 +163,6 @@ Call to `Hashtable.get()` on properties object
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
-
-  public String getArch() {
-    return (String) getImpl().detectedProperties.get(Detector.DETECTED_ARCH);
-  }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
-#### Snippet
-```java
      */
     public String getVersion() {
       return (String) impl.detectedProperties.get(Detector.DETECTED_RELEASE_VERSION);
@@ -187,9 +175,21 @@ Call to `Hashtable.get()` on properties object
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
+  public Release getRelease() {
+    Impl impl = getImpl();
+    Object releaseId = impl.detectedProperties.get(Detector.DETECTED_RELEASE);
+    if (releaseId == null) {
+      return null;
+```
 
-  public String getClassifier() {
-    return (String) getImpl().detectedProperties.get(Detector.DETECTED_CLASSIFIER);
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
+#### Snippet
+```java
+
+  public String getArch() {
+    return (String) getImpl().detectedProperties.get(Detector.DETECTED_ARCH);
   }
 
 ```
