@@ -75,11 +75,11 @@ in `src/main/java/org/apache/commons/fileupload2/MultipartStream.java`
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
+in `src/main/java/org/apache/commons/fileupload2/FileUpload.java`
 #### Snippet
 ```java
- * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload
- * #parseRequest(javax.servlet.http.HttpServletRequest)} to acquire a list
+ * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
+ * #parseRequest(RequestContext)} to acquire a list
  * of {@link org.apache.commons.fileupload2.FileItem FileItems} associated
  * with a given HTML widget.</p>
  *
@@ -87,11 +87,11 @@ in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileUpload.java`
+in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
 #### Snippet
 ```java
- * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
- * #parseRequest(RequestContext)} to acquire a list
+ * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload
+ * #parseRequest(javax.servlet.http.HttpServletRequest)} to acquire a list
  * of {@link org.apache.commons.fileupload2.FileItem FileItems} associated
  * with a given HTML widget.</p>
  *
@@ -107,30 +107,6 @@ in `src/main/java/org/apache/commons/fileupload2/servlet/ServletFileUpload.java`
  * org.apache.commons.fileupload2.FileItem}s associated with a given HTML
  * widget.</p>
  *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
-#### Snippet
-```java
- *
- * <p> After retrieving an instance of this class from a {@link
- * org.apache.commons.fileupload2.FileUpload FileUpload} instance (see
- * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload
- * #parseRequest(javax.servlet.http.HttpServletRequest)}), you may
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
-#### Snippet
-```java
- * #parseRequest(javax.servlet.http.HttpServletRequest)}), you may
- * either request all contents of the file at once using {@link #get()} or
- * request an {@link java.io.InputStream InputStream} with
- * {@link #getInputStream()} and process the file without attempting to load
- * it into memory, which may come handy with large files.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -182,6 +158,30 @@ in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
+#### Snippet
+```java
+ *
+ * <p> After retrieving an instance of this class from a {@link
+ * org.apache.commons.fileupload2.FileUpload FileUpload} instance (see
+ * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload
+ * #parseRequest(javax.servlet.http.HttpServletRequest)}), you may
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
+#### Snippet
+```java
+ * #parseRequest(javax.servlet.http.HttpServletRequest)}), you may
+ * either request all contents of the file at once using {@link #get()} or
+ * request an {@link java.io.InputStream InputStream} with
+ * {@link #getInputStream()} and process the file without attempting to load
+ * it into memory, which may come handy with large files.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
 #### Snippet
@@ -191,6 +191,18 @@ in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
      * @see #setRepository(java.io.File)
      *
      */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2.disk` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
+#### Snippet
+```java
+
+    /**
+     * Create a new {@link org.apache.commons.fileupload2.disk.DiskFileItem}
+     * instance from the supplied parameters and the local factory
+     * configuration.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -230,27 +242,15 @@ in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2.disk` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
-#### Snippet
-```java
-
-    /**
-     * Create a new {@link org.apache.commons.fileupload2.disk.DiskFileItem}
-     * instance from the supplied parameters and the local factory
-     * configuration.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
 #### Snippet
 ```java
 
     /**
-     * Returns an {@link java.io.InputStream InputStream} that can be
-     * used to retrieve the contents of the file.
-     *
+     * Creates and returns a {@link java.io.File File} representing a uniquely
+     * named temporary file in the configured repository path. The lifetime of
+     * the file is tied to the lifetime of the {@code FileItem} instance;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -258,35 +258,11 @@ Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
 #### Snippet
 ```java
-     * used to retrieve the contents of the file.
+     * same File each time.</b>
      *
-     * @return An {@link java.io.InputStream InputStream} that can be
-     *         used to retrieve the contents of the file.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
-#### Snippet
-```java
-
-    /**
-     * Returns an {@link java.io.OutputStream OutputStream} that can
-     * be used for storing the contents of the file.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
-#### Snippet
-```java
-     * be used for storing the contents of the file.
-     *
-     * @return An {@link java.io.OutputStream OutputStream} that can be used
-     *         for storing the contents of the file.
-     *
+     * @return The {@link java.io.File File} to be used for temporary storage.
+     */
+    protected File getTempFile() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -368,9 +344,9 @@ in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
 ```java
 
     /**
-     * Creates and returns a {@link java.io.File File} representing a uniquely
-     * named temporary file in the configured repository path. The lifetime of
-     * the file is tied to the lifetime of the {@code FileItem} instance;
+     * Returns an {@link java.io.InputStream InputStream} that can be
+     * used to retrieve the contents of the file.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -378,11 +354,35 @@ Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
 #### Snippet
 ```java
-     * same File each time.</b>
+     * used to retrieve the contents of the file.
      *
-     * @return The {@link java.io.File File} to be used for temporary storage.
-     */
-    protected File getTempFile() {
+     * @return An {@link java.io.InputStream InputStream} that can be
+     *         used to retrieve the contents of the file.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
+#### Snippet
+```java
+
+    /**
+     * Returns an {@link java.io.OutputStream OutputStream} that can
+     * be used for storing the contents of the file.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
+#### Snippet
+```java
+     * be used for storing the contents of the file.
+     *
+     * @return An {@link java.io.OutputStream OutputStream} that can be used
+     *         for storing the contents of the file.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -395,18 +395,6 @@ in `src/main/java/org/apache/commons/fileupload2/jaksrvlt/JakSrvltFileUpload.jav
  * org.apache.commons.fileupload2.FileItem}s associated with a given HTML
  * widget.</p>
  *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
-#### Snippet
-```java
-     *             stream is reached.
-     * @throws  IOException  if an I/O error occurs.
-     * @see        java.io.FilterInputStream#in
-     */
-    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -427,6 +415,18 @@ in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
 #### Snippet
 ```java
      * {@code b.length - off}
+     * @throws  IOException  if an I/O error occurs.
+     * @see        java.io.FilterInputStream#in
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
+#### Snippet
+```java
+     *             stream is reached.
      * @throws  IOException  if an I/O error occurs.
      * @see        java.io.FilterInputStream#in
      */
@@ -497,42 +497,6 @@ in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
-#### Snippet
-```java
-     * Whether names stored in the map should be converted to lower case.
-     */
-    private boolean lowerCaseNames = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
-#### Snippet
-```java
-     * Start of a token.
-     */
-    private int i1 = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
-#### Snippet
-```java
-     * String to be parsed.
-     */
-    private char[] chars = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
 #### Snippet
@@ -552,6 +516,42 @@ in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
      * Current position in the string.
      */
     private int pos = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
+#### Snippet
+```java
+     * String to be parsed.
+     */
+    private char[] chars = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
+#### Snippet
+```java
+     * Whether names stored in the map should be converted to lower case.
+     */
+    private boolean lowerCaseNames = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
+#### Snippet
+```java
+     * Start of a token.
+     */
+    private int i1 = 0;
 
     /**
 ```
@@ -579,19 +579,6 @@ in `src/main/java/org/apache/commons/fileupload2/pub/FileUploadIOException.java`
     public Throwable getCause() {
         return cause;
     }
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-09-08-40-16.410.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -653,6 +640,19 @@ in `src/main/java/org/apache/commons/fileupload2/FileUploadBase.java`
             return null;
         }
         final byte[] boundary;
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-01-06-12-50.281.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
