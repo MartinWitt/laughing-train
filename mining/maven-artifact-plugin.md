@@ -22,18 +22,6 @@ I found 36 bad smells with 3 repairable:
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-     * Artifacts to ignore, specified as <code>extension</code> or <code>classifier.extension</code>.
-     */
-    @Parameter(property = "buildinfo.ignore", defaultValue = "")
-    private Set<String> ignore;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
 #### Snippet
 ```java
@@ -42,6 +30,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo
 @Mojo(name = "check-buildplan", threadSafe = true, requiresProject = true)
 public class CheckBuildPlanMojo extends AbstractMojo {
     @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+     * Artifacts to ignore, specified as <code>extension</code> or <code>classifier.extension</code>.
+     */
+    @Parameter(property = "buildinfo.ignore", defaultValue = "")
+    private Set<String> ignore;
+
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -186,18 +186,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `javaVersion`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
-#### Snippet
-```java
-    private static String extractJavaMajorVersion(String javaVersion) {
-        if (javaVersion.startsWith("1.")) {
-            javaVersion = javaVersion.substring(2);
-        }
-        int index = javaVersion.indexOf('.'); // for example 8.0_202
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `prefix`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
 #### Snippet
@@ -207,6 +195,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
         prefix = prefix + i;
         File artifactFile = artifact.getFile();
         if (artifactFile.isDirectory()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `javaVersion`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+    private static String extractJavaMajorVersion(String javaVersion) {
+        if (javaVersion.startsWith("1.")) {
+            javaVersion = javaVersion.substring(2);
+        }
+        int index = javaVersion.indexOf('.'); // for example 8.0_202
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -251,8 +251,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-            log.warn("unable to open jar file " + file, e);
         }
+
         return null;
     }
 
@@ -263,8 +263,32 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
+        @Override
+        public WorkspaceReader getWorkspaceReader() {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
         }
 
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            log.warn("unable to open jar file " + file, e);
+        }
         return null;
     }
 
@@ -292,30 +316,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-        @Override
-        public WorkspaceReader getWorkspaceReader() {
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -428,19 +428,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         return "diffoscope " + relative(reference) + " " + relative(actual);
 ```
 
-## RuleId[ruleID=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
-#### Snippet
-```java
-            skip = project.getProperties().getProperty("maven." + id + ".skip");
-        }
-        return Boolean.valueOf(skip);
-    }
-
-```
-
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -464,5 +451,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         referenceDir.mkdirs();
 
         // download or create reference buildinfo
+```
+
+## RuleId[ruleID=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+#### Snippet
+```java
+            skip = project.getProperties().getProperty("maven." + id + ".skip");
+        }
+        return Boolean.valueOf(skip);
+    }
+
 ```
 
