@@ -54,18 +54,6 @@ StandardCharsets.UTF_8 can be used instead
 in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
 #### Snippet
 ```java
-            SecretKeySpec secret_key = new SecretKeySpec(secret, "HmacSHA256");
-            sha256_HMAC.init(secret_key);
-            bytes = sha256_HMAC.doFinal(message.getBytes(Constants.CHARSET_UTF_8));
-        } catch (Exception e) {
-            System.out.println("Error HmacSHA256 ===========" + e.getMessage());
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
-#### Snippet
-```java
 
             connection.setRequestProperty("Content-Length",
                     Integer.toString(urlParameters.getBytes(Constants.CHARSET_UTF_8).length));
@@ -83,6 +71,18 @@ in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Constants.CHARSET_UTF_8));
             StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
             String line;
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
+#### Snippet
+```java
+            SecretKeySpec secret_key = new SecretKeySpec(secret, "HmacSHA256");
+            sha256_HMAC.init(secret_key);
+            bytes = sha256_HMAC.doFinal(message.getBytes(Constants.CHARSET_UTF_8));
+        } catch (Exception e) {
+            System.out.println("Error HmacSHA256 ===========" + e.getMessage());
 ```
 
 ### CharsetObjectCanBeUsed
@@ -264,23 +264,11 @@ Method invocation `checkPermission` may produce `NullPointerException`
 in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
-        public FormValidation doCheckTargetCondition(@QueryParameter String value)
-                throws IOException, ServletException {
+        public ListBoxModel doFillResourceGroupItems(@AncestorInPath Item owner,
+                                                     @QueryParameter String azureCredentialsId) {
             Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
-            if (Util.isValidTargetCondition(value)) {
-                return FormValidation.ok();
-```
-
-### DataFlowIssue
-Method invocation `checkPermission` may produce `NullPointerException`
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
-#### Snippet
-```java
-        public FormValidation doCheckDeploymentId(@QueryParameter String value)
-                throws IOException, ServletException {
-            Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
-            if (Util.isValidDeploymentId(value)) {
-                return FormValidation.ok();
+            return listResourceGroupItems(owner, azureCredentialsId);
+        }
 ```
 
 ### DataFlowIssue
@@ -312,6 +300,18 @@ Method invocation `checkPermission` may produce `NullPointerException`
 in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
+        public FormValidation doCheckTargetCondition(@QueryParameter String value)
+                throws IOException, ServletException {
+            Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
+            if (Util.isValidTargetCondition(value)) {
+                return FormValidation.ok();
+```
+
+### DataFlowIssue
+Method invocation `checkPermission` may produce `NullPointerException`
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
+#### Snippet
+```java
                                                 @QueryParameter String resourceGroup,
                                                 @QueryParameter String iothubName) {
             Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
@@ -324,10 +324,10 @@ Method invocation `checkPermission` may produce `NullPointerException`
 in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
-        public ListBoxModel doFillResourceGroupItems(@AncestorInPath Item owner,
-                                                     @QueryParameter String azureCredentialsId) {
+        @POST
+        public ListBoxModel doFillAzureCredentialsIdItems(@AncestorInPath final Item owner) {
             Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
-            return listResourceGroupItems(owner, azureCredentialsId);
+            return listAzureCredentialsIdItems(owner);
         }
 ```
 
@@ -336,11 +336,11 @@ Method invocation `checkPermission` may produce `NullPointerException`
 in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
-        @POST
-        public ListBoxModel doFillAzureCredentialsIdItems(@AncestorInPath final Item owner) {
+        public FormValidation doCheckDeploymentId(@QueryParameter String value)
+                throws IOException, ServletException {
             Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
-            return listAzureCredentialsIdItems(owner);
-        }
+            if (Util.isValidDeploymentId(value)) {
+                return FormValidation.ok();
 ```
 
 ### DataFlowIssue
@@ -404,18 +404,6 @@ in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
 ```
 
 ### DataFlowIssue
-Method invocation `checkPermission` may produce `NullPointerException`
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
-#### Snippet
-```java
-                                               @QueryParameter String resourceGroup) {
-            if (StringUtils.isNotBlank(azureCredentialsId) && StringUtils.isNotBlank(resourceGroup)) {
-                Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
-                return listAcrNameItems(owner, azureCredentialsId, resourceGroup);
-            } else {
-```
-
-### DataFlowIssue
 Argument `credentialId` might be null
 in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
 #### Snippet
@@ -425,6 +413,18 @@ in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
                 StandardUsernamePasswordCredentials credential = CredentialsProvider.findCredentialById(credentialId, StandardUsernamePasswordCredentials.class, run);
                 if (credential != null) {
                     username = credential.getUsername();
+```
+
+### DataFlowIssue
+Method invocation `checkPermission` may produce `NullPointerException`
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
+#### Snippet
+```java
+                                               @QueryParameter String resourceGroup) {
+            if (StringUtils.isNotBlank(azureCredentialsId) && StringUtils.isNotBlank(resourceGroup)) {
+                Jenkins.getInstance().checkPermission(Jenkins.ADMINISTER);
+                return listAcrNameItems(owner, azureCredentialsId, resourceGroup);
+            } else {
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -604,18 +604,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
 #### Snippet
 ```java
-            return token;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
-#### Snippet
-```java
             return encode;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -633,6 +621,18 @@ in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
             e.printStackTrace();
             return null;
         } finally {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
+#### Snippet
+```java
+            return token;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -764,11 +764,11 @@ Return of `null`
 in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
 #### Snippet
 ```java
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
-    }
+        } finally {
+            if (connection != null) {
 ```
 
 ### ReturnNull
@@ -776,11 +776,11 @@ Return of `null`
 in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
 #### Snippet
 ```java
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return null;
-        } finally {
-            if (connection != null) {
+        }
+    }
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -859,6 +859,42 @@ in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 ```
 
 ### UnusedAssignment
+Variable `credentialId` initializer `null` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
+#### Snippet
+```java
+        try {
+            boolean isAcr = dockerRegistryType.equals(Constants.DOCKER_REGISTRY_TYPE_ACR);
+            String credentialId = null;
+            String url = "", username = "", password = "";
+
+```
+
+### UnusedAssignment
+Variable `writer` initializer `null` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
+#### Snippet
+```java
+
+    protected void writeEnvFile(String path, String url, String bypassModules) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(path, Constants.CHARSET_UTF_8);
+```
+
+### UnusedAssignment
+Variable `url` initializer `""` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
+#### Snippet
+```java
+            boolean isAcr = dockerRegistryType.equals(Constants.DOCKER_REGISTRY_TYPE_ACR);
+            String credentialId = null;
+            String url = "", username = "", password = "";
+
+            if (isAcr) {
+```
+
+### UnusedAssignment
 Variable `output` initializer `null` is redundant
 in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
 #### Snippet
@@ -880,41 +916,5 @@ in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
     private String rootPath = DescriptorImpl.defaultRootPath;
 
     protected BaseBuilder(String azureCredentialsId, String resourceGroup, String rootPath) {
-```
-
-### UnusedAssignment
-Variable `writer` initializer `null` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
-#### Snippet
-```java
-
-    protected void writeEnvFile(String path, String url, String bypassModules) {
-        PrintWriter writer = null;
-        try {
-            writer = new PrintWriter(path, Constants.CHARSET_UTF_8);
-```
-
-### UnusedAssignment
-Variable `credentialId` initializer `null` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
-#### Snippet
-```java
-        try {
-            boolean isAcr = dockerRegistryType.equals(Constants.DOCKER_REGISTRY_TYPE_ACR);
-            String credentialId = null;
-            String url = "", username = "", password = "";
-
-```
-
-### UnusedAssignment
-Variable `url` initializer `""` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
-#### Snippet
-```java
-            boolean isAcr = dockerRegistryType.equals(Constants.DOCKER_REGISTRY_TYPE_ACR);
-            String credentialId = null;
-            String url = "", username = "", password = "";
-
-            if (isAcr) {
 ```
 
