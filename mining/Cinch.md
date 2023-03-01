@@ -75,6 +75,30 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingWiring.java`
 ```
 
 ### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/com/palantir/ptoss/cinch/swing/Action.java`
+#### Snippet
+```java
+     * Inner utility class used to wire {@link Action} bindings.
+     */
+    static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(Action.class);
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/com/palantir/ptoss/cinch/core/CallOnUpdate.java`
+#### Snippet
+```java
+     * Utility class that performs the wiring for {@link CallOnUpdate} annotations.
+     */
+    static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(CallOnUpdate.class);
+
+```
+
+### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `src/main/java/com/palantir/ptoss/cinch/swing/OnClick.java`
 #### Snippet
@@ -111,26 +135,26 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/OnClick.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/com/palantir/ptoss/cinch/core/CallOnUpdate.java`
+Modifier `public` is redundant for interface members
+in `src/main/java/com/palantir/ptoss/cinch/swing/BoundSelection.java`
 #### Snippet
 ```java
-     * Utility class that performs the wiring for {@link CallOnUpdate} annotations.
+     * Inner utility class that performs the runtime wiring of all {@link BoundSelection} bindings.
      */
-    static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(CallOnUpdate.class);
+    public static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(BoundSelection.class);
 
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/com/palantir/ptoss/cinch/swing/Action.java`
+in `src/main/java/com/palantir/ptoss/cinch/swing/BoundSelection.java`
 #### Snippet
 ```java
-     * Inner utility class used to wire {@link Action} bindings.
+     * Inner utility class that performs the runtime wiring of all {@link BoundSelection} bindings.
      */
-    static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(Action.class);
+    public static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(BoundSelection.class);
 
 ```
 
@@ -155,6 +179,30 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/BoundExtent.java`
      */
     public static class Wiring implements BindingWiring {
         private static final Logger logger = LoggerFactory.getLogger(BoundExtent.class);
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/palantir/ptoss/cinch/swing/BoundLocation.java`
+#### Snippet
+```java
+     * @see Bindings#STANDARD_BINDINGS
+     */
+    public static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(BoundLocation.class);
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/com/palantir/ptoss/cinch/swing/BoundLocation.java`
+#### Snippet
+```java
+     * @see Bindings#STANDARD_BINDINGS
+     */
+    public static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(BoundLocation.class);
 
 ```
 
@@ -167,54 +215,6 @@ in `src/main/java/com/palantir/ptoss/cinch/core/Binding.java`
      */
     public <T extends Enum<?> & ModelUpdate> void update(T... changed);
 }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/palantir/ptoss/cinch/swing/BoundLocation.java`
-#### Snippet
-```java
-     * @see Bindings#STANDARD_BINDINGS
-     */
-    public static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(BoundLocation.class);
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/com/palantir/ptoss/cinch/swing/BoundLocation.java`
-#### Snippet
-```java
-     * @see Bindings#STANDARD_BINDINGS
-     */
-    public static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(BoundLocation.class);
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/palantir/ptoss/cinch/swing/BoundSelection.java`
-#### Snippet
-```java
-     * Inner utility class that performs the runtime wiring of all {@link BoundSelection} bindings.
-     */
-    public static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(BoundSelection.class);
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/com/palantir/ptoss/cinch/swing/BoundSelection.java`
-#### Snippet
-```java
-     * Inner utility class that performs the runtime wiring of all {@link BoundSelection} bindings.
-     */
-    public static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(BoundSelection.class);
 
 ```
 
@@ -235,18 +235,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
 #### Snippet
 ```java
-     * Enum to specify if normal or inverted comparisons should be used.
-     */
-    public enum Type { NORMAL, INVERTED };
-    /**
-     * The model boolean property to bind to.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
-#### Snippet
-```java
      * Inner utility class that performs the runtime wiring of all {@link VisibleIf} bindings.
      */
     public static class Wiring implements BindingWiring {
@@ -264,6 +252,18 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
     public static class Wiring implements BindingWiring {
         private static final Logger logger = LoggerFactory.getLogger(VisibleIf.class);
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
+#### Snippet
+```java
+     * Enum to specify if normal or inverted comparisons should be used.
+     */
+    public enum Type { NORMAL, INVERTED };
+    /**
+     * The model boolean property to bind to.
 ```
 
 ### UnnecessaryModifier
@@ -307,11 +307,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/palantir/ptoss/cinch/swing/Bound.java`
 #### Snippet
 ```java
-     * @see Bindings#STANDARD_BINDINGS
+     * Inner utility class to simplify figuring out how to display null values in controls.
      */
-    public static class Wiring implements BindingWiring {
-        static final Logger logger = LoggerFactory.getLogger(Bound.class);
-
+    public static class Utilities {
+        /**
+         * If the provided nullValue is null, empty, or just whitespace then the returned value
 ```
 
 ### UnnecessaryModifier
@@ -319,11 +319,11 @@ Modifier `static` is redundant for inner classes of interfaces
 in `src/main/java/com/palantir/ptoss/cinch/swing/Bound.java`
 #### Snippet
 ```java
-     * @see Bindings#STANDARD_BINDINGS
+     * Inner utility class to simplify figuring out how to display null values in controls.
      */
-    public static class Wiring implements BindingWiring {
-        static final Logger logger = LoggerFactory.getLogger(Bound.class);
-
+    public static class Utilities {
+        /**
+         * If the provided nullValue is null, empty, or just whitespace then the returned value
 ```
 
 ### UnnecessaryModifier
@@ -331,11 +331,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/palantir/ptoss/cinch/swing/Bound.java`
 #### Snippet
 ```java
-     * Inner utility class to simplify figuring out how to display null values in controls.
+     * @see Bindings#STANDARD_BINDINGS
      */
-    public static class Utilities {
-        /**
-         * If the provided nullValue is null, empty, or just whitespace then the returned value
+    public static class Wiring implements BindingWiring {
+        static final Logger logger = LoggerFactory.getLogger(Bound.class);
+
 ```
 
 ### UnnecessaryModifier
@@ -343,11 +343,11 @@ Modifier `static` is redundant for inner classes of interfaces
 in `src/main/java/com/palantir/ptoss/cinch/swing/Bound.java`
 #### Snippet
 ```java
-     * Inner utility class to simplify figuring out how to display null values in controls.
+     * @see Bindings#STANDARD_BINDINGS
      */
-    public static class Utilities {
-        /**
-         * If the provided nullValue is null, empty, or just whitespace then the returned value
+    public static class Wiring implements BindingWiring {
+        static final Logger logger = LoggerFactory.getLogger(Bound.class);
+
 ```
 
 ### UnnecessaryModifier
@@ -462,18 +462,6 @@ in `src/main/java/com/palantir/ptoss/util/Reflections.java`
 ```
 
 ### DataFlowIssue
-Dereference of `updateClasses` may produce `NullPointerException`
-in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
-#### Snippet
-```java
-        if (!isNullOrBlank(on)) {
-            final List<Class<?>> updateClasses = findModelUpdateClass(model);
-            for (Class<?> updateClass : updateClasses) {
-                try {
-                    onObject = (ModelUpdate)Reflections.evalEnum(updateClass, on);
-```
-
-### DataFlowIssue
 Method invocation `isEnum` may produce `NullPointerException`
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
@@ -483,6 +471,18 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
                 return input.isEnum();
             }
         };
+```
+
+### DataFlowIssue
+Dereference of `updateClasses` may produce `NullPointerException`
+in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
+#### Snippet
+```java
+        if (!isNullOrBlank(on)) {
+            final List<Class<?>> updateClasses = findModelUpdateClass(model);
+            for (Class<?> updateClass : updateClasses) {
+                try {
+                    onObject = (ModelUpdate)Reflections.evalEnum(updateClass, on);
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -554,6 +554,30 @@ Anonymous new Function() can be replaced with lambda
 in `src/main/java/com/palantir/ptoss/util/Reflections.java`
 #### Snippet
 ```java
+            }
+            final Method readMethod = method;
+            return new Function<F, T>() {
+                public T apply(F from) {
+                    try {
+```
+
+### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
+in `src/main/java/com/palantir/ptoss/util/Reflections.java`
+#### Snippet
+```java
+     * @see Modifier#isFinal(int)
+     */
+    public static final Predicate<Field> IS_FIELD_FINAL = new Predicate<Field>() {
+        public boolean apply(Field from) {
+            return isFieldFinal(from);
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/main/java/com/palantir/ptoss/util/Reflections.java`
+#### Snippet
+```java
      * @see Field#getName()
      */
     public static final Function<Field, String> FIELD_TO_NAME = new Function<Field, String>() {
@@ -574,27 +598,15 @@ in `src/main/java/com/palantir/ptoss/util/Reflections.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
-in `src/main/java/com/palantir/ptoss/util/Reflections.java`
+Anonymous new Predicate\>() can be replaced with lambda
+in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
 ```java
-     * @see Modifier#isFinal(int)
-     */
-    public static final Predicate<Field> IS_FIELD_FINAL = new Predicate<Field>() {
-        public boolean apply(Field from) {
-            return isFieldFinal(from);
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/main/java/com/palantir/ptoss/util/Reflections.java`
-#### Snippet
-```java
-            }
-            final Method readMethod = method;
-            return new Function<F, T>() {
-                public T apply(F from) {
-                    try {
+        List<Class<?>> classes = Reflections.getTypesOfTypeForClassHierarchy(
+                modelClass.getClass(), ModelUpdate.class);
+        Predicate<Class<?>> isEnum = new Predicate<Class<?>>() {
+            public boolean apply(final Class<?> input) {
+                return input.isEnum();
 ```
 
 ### Convert2Lambda
@@ -621,19 +633,19 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
                 return getFieldObject(from, BindableModel.class);
 ```
 
-### Convert2Lambda
-Anonymous new Predicate\>() can be replaced with lambda
+## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
 ```java
-        List<Class<?>> classes = Reflections.getTypesOfTypeForClassHierarchy(
-                modelClass.getClass(), ModelUpdate.class);
-        Predicate<Class<?>> isEnum = new Predicate<Class<?>>() {
-            public boolean apply(final Class<?> input) {
-                return input.isEnum();
+        // Get all fields marked @Bindable
+        List<Field> bindables = getAnnotatedFields(Bindable.class);
+        if (Iterables.any(bindables, Predicates.not(Reflections.IS_FIELD_FINAL))) {
+            throw new BindingException("all @Bindables have to be final");
+        }
 ```
 
-## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
@@ -675,11 +687,23 @@ Pseudo functional style code
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
 ```java
-        // Get all fields marked @Bindable
-        List<Field> bindables = getAnnotatedFields(Bindable.class);
-        if (Iterables.any(bindables, Predicates.not(Reflections.IS_FIELD_FINAL))) {
-            throw new BindingException("all @Bindables have to be final");
-        }
+        };
+        // Look for ModelUpdate classes in implemented interfaces
+        classes = Lists.newArrayList(Iterables.filter(classes, isEnum));
+        for (Class<?> iface : modelClass.getClass().getInterfaces()) {
+            classes.addAll(Lists.newArrayList(Iterables.filter(
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
+#### Snippet
+```java
+        classes = Lists.newArrayList(Iterables.filter(classes, isEnum));
+        for (Class<?> iface : modelClass.getClass().getInterfaces()) {
+            classes.addAll(Lists.newArrayList(Iterables.filter(
+                    Reflections.getTypesOfTypeForClassHierarchy(
+                    iface, ModelUpdate.class), isEnum)));
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -704,30 +728,6 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
         return ImmutableSet.copyOf(Iterables.transform(bindableModels.values(), f));
     }
 
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
-#### Snippet
-```java
-        };
-        // Look for ModelUpdate classes in implemented interfaces
-        classes = Lists.newArrayList(Iterables.filter(classes, isEnum));
-        for (Class<?> iface : modelClass.getClass().getInterfaces()) {
-            classes.addAll(Lists.newArrayList(Iterables.filter(
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
-#### Snippet
-```java
-        classes = Lists.newArrayList(Iterables.filter(classes, isEnum));
-        for (Class<?> iface : modelClass.getClass().getInterfaces()) {
-            classes.addAll(Lists.newArrayList(Iterables.filter(
-                    Reflections.getTypesOfTypeForClassHierarchy(
-                    iface, ModelUpdate.class), isEnum)));
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -810,11 +810,11 @@ Return of `null`
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
 ```java
-    public static List<Object> getOnObjects(String[] ons, BindableModel model) {
-        if (ons == null) {
+        Field field = bindableModels.get(key);
+        if (field == null) {
             return null;
         }
-        List<Object> onObjects = Lists.newArrayList();
+        return getFieldObject(field, BindableModel.class);
 ```
 
 ### ReturnNull
@@ -834,11 +834,11 @@ Return of `null`
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
 ```java
-        Field field = bindableModels.get(key);
-        if (field == null) {
+    public static List<Object> getOnObjects(String[] ons, BindableModel model) {
+        if (ons == null) {
             return null;
         }
-        return getFieldObject(field, BindableModel.class);
+        List<Object> onObjects = Lists.newArrayList();
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -884,9 +884,9 @@ Local variable `ofm` is redundant
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
 ```java
-     */
-    public ObjectFieldMethod getBindableMethod(String key) {
-        ObjectFieldMethod ofm = bindableMethods.get(key);
+    // TODO (regs) dead code?
+    public ObjectFieldMethod getBindableModelMethod(String key) {
+        ObjectFieldMethod ofm = bindableModelMethods.get(key);
         return ofm;
     }
 ```
@@ -896,9 +896,9 @@ Local variable `ofm` is redundant
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
 ```java
-    // TODO (regs) dead code?
-    public ObjectFieldMethod getBindableModelMethod(String key) {
-        ObjectFieldMethod ofm = bindableModelMethods.get(key);
+     */
+    public ObjectFieldMethod getBindableMethod(String key) {
+        ObjectFieldMethod ofm = bindableMethods.get(key);
         return ofm;
     }
 ```
@@ -942,6 +942,30 @@ in `src/main/java/com/palantir/ptoss/util/Reflections.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super PropertyDescriptor`
+in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
+#### Snippet
+```java
+    }
+
+    private Map<String, ObjectFieldMethod> indexBindableProperties(Function<PropertyDescriptor, Method> methodFn) throws IntrospectionException {
+        final Map<ObjectFieldMethod, String> getterOfms = Maps.newHashMap();
+        for (Field field : Sets.newHashSet(bindableModels.values())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ObjectFieldMethod`
+in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
+#### Snippet
+```java
+    }
+
+    private static Map<String, ObjectFieldMethod> indexMethods(List<ObjectFieldMethod> methods) throws IllegalArgumentException {
+        Map<String, ObjectFieldMethod> map = Maps.newHashMap();
+        Set<String> ambiguousNames = Sets.newHashSet();
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
@@ -975,30 +999,6 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
     private static <T> Map<String, T> dotIndex(Collection<T> items, Function<T, String> qualifierFn, Function<T, String> blindFn) {
         Set<String> ambiguousNames = Sets.newHashSet();
         Map<String, T> results = Maps.newHashMap();
-```
-
-### BoundedWildcard
-Can generalize to `? super PropertyDescriptor`
-in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
-#### Snippet
-```java
-    }
-
-    private Map<String, ObjectFieldMethod> indexBindableProperties(Function<PropertyDescriptor, Method> methodFn) throws IntrospectionException {
-        final Map<ObjectFieldMethod, String> getterOfms = Maps.newHashMap();
-        for (Field field : Sets.newHashSet(bindableModels.values())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ObjectFieldMethod`
-in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
-#### Snippet
-```java
-    }
-
-    private static Map<String, ObjectFieldMethod> indexMethods(List<ObjectFieldMethod> methods) throws IllegalArgumentException {
-        Map<String, ObjectFieldMethod> map = Maps.newHashMap();
-        Set<String> ambiguousNames = Sets.newHashSet();
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -1089,18 +1089,6 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/com/palantir/ptoss/cinch/swing/JToggleButtonWiringHarness.java`
-#### Snippet
-```java
-            public <T extends Enum<?> & ModelUpdate> void update(T... changed) {
-                try {
-                    button.setSelected(mutator.get().equals(Boolean.valueOf(booleanValue)));
-                } catch (Exception ex) {
-                    Wiring.logger.error("exception in JRadioButton binding", ex); //$NON-NLS-1$
-```
-
-### UnnecessaryBoxing
 Redundant boxing, `Boolean.parseBoolean()` call can be used instead
 in `src/main/java/com/palantir/ptoss/cinch/swing/JToggleButtonWiringHarness.java`
 #### Snippet
@@ -1110,5 +1098,17 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/JToggleButtonWiringHarness.java
         final boolean booleanValue = Boolean.valueOf(value);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/com/palantir/ptoss/cinch/swing/JToggleButtonWiringHarness.java`
+#### Snippet
+```java
+            public <T extends Enum<?> & ModelUpdate> void update(T... changed) {
+                try {
+                    button.setSelected(mutator.get().equals(Boolean.valueOf(booleanValue)));
+                } catch (Exception ex) {
+                    Wiring.logger.error("exception in JRadioButton binding", ex); //$NON-NLS-1$
 ```
 
