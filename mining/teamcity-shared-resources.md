@@ -101,78 +101,6 @@ in `server/src/jetbrains/buildServer/sharedResources/model/LockType.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-              myLocksCache.put(buildPromotion, locksToStore);
-              existsSet.add(buildPromotion.getId());
-              return null;
-            });
-          } else {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-          log.warn("Failed to store taken locks for build [" + buildPromotion + "]; Message is: " + e.getMessage());
-        }
-        return null;
-      });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-                              myLocksCache.invalidate(build.getBuildPromotion());
-                              existsSet.remove(build.getBuildPromotion().getId());
-                              return null;
-                            });
-                   return null;
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-                              return null;
-                            });
-                   return null;
-                 });
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-  private Map<String, String> validate(@NotNull final Map<String, String> params) {
-    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
-      return null;
-    } else {
-      return params;
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-    Resource resource = null;
-    if (isEmptyOrSpaces(resourceId)) {
-      return null;
-    }
-    if (ResourceType.QUOTED.equals(resourceType)) {
-```
-
-### ReturnNull
-Return of `null`
 in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 #### Snippet
 ```java
@@ -205,6 +133,78 @@ in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
+  private Map<String, String> validate(@NotNull final Map<String, String> params) {
+    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
+      return null;
+    } else {
+      return params;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
+    Resource resource = null;
+    if (isEmptyOrSpaces(resourceId)) {
+      return null;
+    }
+    if (ResourceType.QUOTED.equals(resourceType)) {
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
+#### Snippet
+```java
+                              myLocksCache.invalidate(build.getBuildPromotion());
+                              existsSet.remove(build.getBuildPromotion().getId());
+                              return null;
+                            });
+                   return null;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
+#### Snippet
+```java
+                              return null;
+                            });
+                   return null;
+                 });
+      }
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
+#### Snippet
+```java
+              myLocksCache.put(buildPromotion, locksToStore);
+              existsSet.add(buildPromotion.getId());
+              return null;
+            });
+          } else {
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
+#### Snippet
+```java
+          log.warn("Failed to store taken locks for build [" + buildPromotion + "]; Message is: " + e.getMessage());
+        }
+        return null;
+      });
+    }
 ```
 
 ### ReturnNull
@@ -333,18 +333,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends SharedResourcesFeature`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
-#### Snippet
-```java
-  @NotNull
-  @Override
-  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
-    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
-    features.stream()
-```
-
-### BoundedWildcard
 Can generalize to `? extends Lock`
 in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
 #### Snippet
@@ -354,6 +342,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.ja
   public Map<String, String> asBuildParameters(@NotNull final Collection<Lock> locks) {
     final Map<String, String> buildParams = new HashMap<>();
     for (Lock lock: locks) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SharedResourcesFeature`
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
+    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
+    features.stream()
 ```
 
 ### BoundedWildcard
@@ -378,6 +378,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspect
                                           @NotNull final Map<String, Lock> locks) {
     Map<String, String> result = new HashMap<>();
     resources.forEach(rc -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
+    return myLocks.stream()
+                  .collect(Collectors.toMap(Function.identity(), val -> ""));
 ```
 
 ### BoundedWildcard
@@ -414,18 +426,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesConte
   private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
                                                            @NotNull final Map<String, Lock> locks) {
     final Map<String, CustomResource> result = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
-    return myLocks.stream()
-                  .collect(Collectors.toMap(Function.identity(), val -> ""));
 ```
 
 ### BoundedWildcard
