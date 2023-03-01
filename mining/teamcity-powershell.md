@@ -123,18 +123,6 @@ in `powershell-server/src/main/java/jetbrains/buildServer/powershell/server/Powe
 ```
 
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
-#### Snippet
-```java
-    final String command = myCommands.getNativeCommand(info, getRunnerContext());
-    buildLogger.message("Command: " + command);
-    buildLogger.message("PowerShell arguments: " + StringUtil.join(args, ", "));
-    return new SimpleProgramCommandLine(env, workDir, command, args);
-  }
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
 #### Snippet
@@ -147,27 +135,15 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/servic
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
 #### Snippet
 ```java
-    final List<String> result = new ArrayList<>();
-    final String custom = runnerParams.get(key);
-    if (!StringUtil.isEmptyOrSpaces(custom)) {
-      List<String> lines;
-      if (Boolean.parseBoolean(sharedConfigParams.get(PARAM_ARGS_MULTILINE))) {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-      }
-      lines.stream().map(String::trim)
-              .filter(it -> !StringUtil.isEmptyOrSpaces(it))
-              .map(StringUtil::splitHonorQuotes)
-              .forEach(result::addAll);
+    final String command = myCommands.getNativeCommand(info, getRunnerContext());
+    buildLogger.message("Command: " + command);
+    buildLogger.message("PowerShell arguments: " + StringUtil.join(args, ", "));
+    return new SimpleProgramCommandLine(env, workDir, command, args);
+  }
 ```
 
 ### StaticCallOnSubclass
@@ -192,6 +168,30 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerS
       if (!StringUtil.isEmptyOrSpaces(minVersion)) {
         list.add("-Version");
         list.add(minVersion);
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
+#### Snippet
+```java
+    final List<String> result = new ArrayList<>();
+    final String custom = runnerParams.get(key);
+    if (!StringUtil.isEmptyOrSpaces(custom)) {
+      List<String> lines;
+      if (Boolean.parseBoolean(sharedConfigParams.get(PARAM_ARGS_MULTILINE))) {
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
+#### Snippet
+```java
+      }
+      lines.stream().map(String::trim)
+              .filter(it -> !StringUtil.isEmptyOrSpaces(it))
+              .map(StringUtil::splitHonorQuotes)
+              .forEach(result::addAll);
 ```
 
 ### StaticCallOnSubclass
@@ -358,11 +358,11 @@ Can generalize to `? super String`
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-   * @param key runner parameter key
-   */
-  private void addCustomArguments(@NotNull final List<String> args,
-                                  @NotNull final Map<String, String> runnerParams,
-                                  Map<String, String> sharedConfigParams,
+  }
+
+  private void addVersion(@NotNull final List<String> list,
+                          @NotNull final Map<String, String> runnerParams,
+                          @NotNull final PowerShellInfo info) {
 ```
 
 ### BoundedWildcard
@@ -370,11 +370,11 @@ Can generalize to `? super String`
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-  }
-
-  private void addVersion(@NotNull final List<String> list,
-                          @NotNull final Map<String, String> runnerParams,
-                          @NotNull final PowerShellInfo info) {
+   * @param key runner parameter key
+   */
+  private void addCustomArguments(@NotNull final List<String> args,
+                                  @NotNull final Map<String, String> runnerParams,
+                                  Map<String, String> sharedConfigParams,
 ```
 
 ### BoundedWildcard
