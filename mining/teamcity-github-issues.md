@@ -1,7 +1,7 @@
 # teamcity-github-issues 
  
 # Bad smells
-I found 16 bad smells with 4 repairable:
+I found 17 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryToStringCall | 4 | true |
@@ -9,6 +9,7 @@ I found 16 bad smells with 4 repairable:
 | StaticCallOnSubclass | 2 | false |
 | RedundantFieldInitialization | 1 | false |
 | RegExpSimplifiable | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | DoubleBraceInitialization | 1 | false |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
@@ -37,6 +38,19 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   private static final Pattern httpsPattern = Pattern.compile("http[s]?://github\\.com/(.*)/(.*)$");
 
   @NotNull
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-01-07-55-01.016.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
@@ -75,6 +89,19 @@ import com.intellij.openapi.util.text.StringUtil;
 import jetbrains.buildServer.issueTracker.BasicIssueFetcherAuthenticator;
 import jetbrains.buildServer.issueTracker.IssueFetcherAuthenticator;
 import jetbrains.buildServer.util.HTTPRequestBuilder;
+```
+
+## RuleId[ruleID=DoubleBraceInitialization]
+### DoubleBraceInitialization
+Double brace initialization
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
+#### Snippet
+```java
+  @Override
+  public Map<String, String> getDefaultProperties() {
+    return new HashMap<String, String>() {{
+      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
+      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -126,19 +153,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
       return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
 ```
 
-## RuleId[ruleID=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> getDefaultProperties() {
-    return new HashMap<String, String>() {{
-      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
-      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
-```
-
 ## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
 ### RegExpUnnecessaryNonCapturingGroup
 Unnecessary non-capturing group `(?:\\.git)`
@@ -154,15 +168,15 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super InvalidProperty`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
+Can generalize to `? extends List`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
 #### Snippet
 ```java
+  }
 
-
-    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
-                                       @NotNull final Map<String, String> map,
-                                       @NotNull final String propertyName,
+  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
+    return stream.flatMap(List::stream)
+                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
 ```
 
 ### BoundedWildcard
@@ -190,15 +204,15 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+Can generalize to `? super InvalidProperty`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
 #### Snippet
 ```java
-  }
 
-  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
-    return stream.flatMap(List::stream)
-                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
+
+    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
+                                       @NotNull final Map<String, String> map,
+                                       @NotNull final String propertyName,
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
