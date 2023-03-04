@@ -75,18 +75,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `PalantirCaExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
-#### Snippet
-```java
-import org.gradle.api.provider.Property;
-
-public abstract class PalantirCaExtension {
-    public abstract Property<LogLevel> getLogLevel();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
 #### Snippet
@@ -95,6 +83,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallatio
 @Value.Immutable
 abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
     protected abstract Provider<Directory> installationPathProvider();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `PalantirCaExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
+#### Snippet
+```java
+import org.gradle.api.provider.Property;
+
+public abstract class PalantirCaExtension {
+    public abstract Property<LogLevel> getLogLevel();
 
 ```
 
@@ -251,66 +251,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 #### Snippet
 ```java
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-        PathLock(Path path) throws IOException {
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-```
-
-### UnstableApiUsage
-'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-```
-
-### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-        @Override
-        public void close() throws IOException {
-            closer.close();
-        }
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
 
         PathLock(Path path) throws IOException {
             this.closer = Closer.create();
@@ -388,5 +328,65 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
                 closer.close();
                 throw t;
             }
+```
+
+### UnstableApiUsage
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+        @Override
+        public void close() throws IOException {
+            closer.close();
+        }
+    }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+```
+
+### UnstableApiUsage
+'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+        PathLock(Path path) throws IOException {
 ```
 
