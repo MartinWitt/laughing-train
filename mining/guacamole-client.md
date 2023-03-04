@@ -1,7 +1,7 @@
 # guacamole-client 
  
 # Bad smells
-I found 835 bad smells with 175 repairable:
+I found 836 bad smells with 175 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 221 | false |
@@ -54,15 +54,28 @@ I found 835 bad smells with 175 repairable:
 | UnnecessaryQualifierForThis | 1 | false |
 | FinalPrivateMethod | 1 | false |
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
+| EmptyMethod | 1 | false |
 | DuplicateThrows | 1 | false |
 | Java8MapForEach | 1 | false |
 | Convert2MethodRef | 1 | false |
-| NonSynchronizedMethodOverridesSynchronizedMethod | 1 | false |
 | RedundantCollectionOperation | 1 | false |
+| NonSynchronizedMethodOverridesSynchronizedMethod | 1 | false |
 | SamePackageImport | 1 | false |
 | Anonymous2MethodRef | 1 | false |
 | Java8MapApi | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[values.size()\]'
+in `guacamole/src/main/java/org/apache/guacamole/rest/APIRequest.java`
+#### Snippet
+```java
+
+            // Add parameters to map
+            this.parameters.put(name, values.toArray(new String[values.size()]));
+            
+        }
+```
+
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new ModeledConnection\[connections.size()\]'
 in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/RestrictedGuacamoleTunnelService.java`
@@ -72,18 +85,6 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
         // Sort connections in ascending order of usage
         ModeledConnection[] sortedConnections = connections.toArray(new ModeledConnection[connections.size()]);
         Arrays.sort(sortedConnections, new Comparator<ModeledConnection>() {
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[elements.size()\]'
-in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
-#### Snippet
-```java
-        GuacamoleInstruction instruction = new GuacamoleInstruction(
-                opcode,
-                elements.toArray(new String[elements.size()])
-        );
 
 ```
 
@@ -100,15 +101,15 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[values.size()\]'
-in `guacamole/src/main/java/org/apache/guacamole/rest/APIRequest.java`
+Call to `toArray()` with pre-sized array argument 'new String\[elements.size()\]'
+in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
 #### Snippet
 ```java
+        GuacamoleInstruction instruction = new GuacamoleInstruction(
+                opcode,
+                elements.toArray(new String[elements.size()])
+        );
 
-            // Add parameters to map
-            this.parameters.put(name, values.toArray(new String[values.size()]));
-            
-        }
 ```
 
 ## RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
@@ -144,375 +145,171 @@ in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FailoverGuacamo
 
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/AuthenticationProviderService.java`
+Modifier `static` is redundant for inner interfaces
+in `guacamole/src/main/java/org/apache/guacamole/rest/RequestSizeFilter.java`
 #### Snippet
 ```java
-     *     credentials are invalid or expired.
-     */
-    public UserContext updateUserContext(AuthenticationProvider authenticationProvider,
-            UserContext context, AuthenticatedUser authenticatedUser,
-            Credentials credentials) throws GuacamoleException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/AuthenticationProviderService.java`
-#### Snippet
-```java
-     *     credentials are invalid or expired.
-     */
-    public UserContext getUserContext(AuthenticationProvider authenticationProvider,
-            AuthenticatedUser authenticatedUser) throws GuacamoleException;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/AuthenticationProviderService.java`
-#### Snippet
-```java
-     *     If the an error occurs during decoration of the UserContext.
-     */
-    public UserContext decorateUserContext(AuthenticationProvider authenticationProvider,
-            UserContext context, AuthenticatedUser authenticatedUser,
-            Credentials credentials) throws GuacamoleException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/AuthenticationProviderService.java`
-#### Snippet
-```java
-     *     credentials are invalid or expired.
-     */
-    public AuthenticatedUser authenticateUser(AuthenticationProvider authenticationProvider,
-            Credentials credentials) throws GuacamoleException;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/GuacamoleTunnelService.java`
-#### Snippet
-```java
-     *     currently-active connections.
-     */
-    public Collection<ActiveConnectionRecord> getActiveConnections(Connection connection);
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public static @interface DoNotLimit {}
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/GuacamoleTunnelService.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenSessionMap.java`
 #### Snippet
 ```java
-     *     currently-active connections.
+     *         represents a currently logged in user, null otherwise.
      */
-    public Collection<ActiveConnectionRecord> getActiveConnections(ConnectionGroup connectionGroup);
+    public GuacamoleSession get(String authToken);
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/GuacamoleTunnelService.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenSessionMap.java`
 #### Snippet
 ```java
-     *     permission is denied.
+     * @param session The GuacamoleSession for the logged in user.
      */
-    public Collection<ActiveConnectionRecord> getActiveConnections(ModeledAuthenticatedUser user)
-            throws GuacamoleException;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/ShareKeyGenerator.java`
-#### Snippet
-```java
-     *     The new share key.
-     */
-    public String getShareKey();
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/SharedConnectionMap.java`
-#### Snippet
-```java
-     *     shared.
-     */
-    public void add(SharedConnectionDefinition definition);
-
+    public void put(String authToken, GuacamoleSession session);
+    
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/SharedConnectionMap.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenSessionMap.java`
 #### Snippet
 ```java
-     *     removed.
+     *         represents a currently logged in user, null otherwise.
      */
-    public SharedConnectionDefinition remove(String key);
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/SharedConnectionMap.java`
-#### Snippet
-```java
-     *     null if no such share key exists.
-     */
-    public SharedConnectionDefinition get(String key);
-
+    public GuacamoleSession remove(String authToken);
+    
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/security/SaltService.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenSessionMap.java`
 #### Snippet
 ```java
-     * @return a new salt for password encryption.
+     * any resources.
      */
-    public byte[] generateSalt();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/security/PasswordEncryptionService.java`
-#### Snippet
-```java
-     *     The generated password hash.
-     */
-    public byte[] createPasswordHash(String password, byte[] salt);
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/GuacamoleExceptionSupplier.java`
-#### Snippet
-```java
-     *    If an error occurs while attemping to calculate the return value.
-     */
-    public T get() throws GuacamoleException;
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleWriter.java`
-#### Snippet
-```java
-     *                            portion of the array specified.
-     */
-    public void write(char[] chunk, int off, int len) throws GuacamoleException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleWriter.java`
-#### Snippet
-```java
-     *                            instruction.
-     */
-    public void writeInstruction(GuacamoleInstruction instruction) throws GuacamoleException;
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleWriter.java`
-#### Snippet
-```java
-     *                            the specified array.
-     */
-    public void write(char[] chunk) throws GuacamoleException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleReader.java`
-#### Snippet
-```java
-     *                            parsed.
-     */
-    public GuacamoleInstruction readInstruction() throws GuacamoleException;
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleReader.java`
-#### Snippet
-```java
-     *                            stream.
-     */
-    public char[] read() throws GuacamoleException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleReader.java`
-#### Snippet
-```java
-     *                            available data.
-     */
-    public boolean available() throws GuacamoleException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
-#### Snippet
-```java
-     * @return true if this GuacamoleSocket is open, false otherwise.
-     */
-    public boolean isOpen();
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
-#### Snippet
-```java
-     *         Guacamole instruction stream.
-     */
-    public GuacamoleWriter getWriter();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
-#### Snippet
-```java
-     *         Guacamole instruction stream.
-     */
-    public GuacamoleReader getReader();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
-#### Snippet
-```java
-     * @throws GuacamoleException If an error occurs while releasing resources.
-     */
-    public void close() throws GuacamoleException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
-#### Snippet
-```java
-     *     not available.
-     */
-    public default String getProtocol() {
-        return null;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleTunnel.java`
-#### Snippet
-```java
-     * transmit the tunnel UUID.
-     */
-    static final String INTERNAL_DATA_OPCODE = "";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleTunnel.java`
-#### Snippet
-```java
-     * transmit the tunnel UUID.
-     */
-    static final String INTERNAL_DATA_OPCODE = "";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleProtocolCapability.java`
-#### Snippet
-```java
-     *     capability.
-     */
-    private GuacamoleProtocolCapability(GuacamoleProtocolVersion version) {
-        this.version = version;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleFilter.java`
-#### Snippet
-```java
-     *                            denied.
-     */
-    public GuacamoleInstruction filter(GuacamoleInstruction instruction) throws GuacamoleException;
+    public void shutdown();
     
 }
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleStatus.java`
+Modifier `static` is redundant for inner enums
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
 #### Snippet
 ```java
-     * @param guac_code The Guacamole protocol status code.
+     * All supported password encodings.
      */
-    private GuacamoleStatus(int http_code, int websocket_code, int guac_code) {
-        this.http_code = http_code;
-        this.websocket_code = websocket_code;
+    public static enum Encoding {
+
+        /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Identifiable.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/AuthTokenGenerator.java`
 #### Snippet
 ```java
-     *     null.
+     * @return A new auth token.
      */
-    public String getIdentifier();
+    public String getToken();
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelLoader.java`
+#### Snippet
+```java
+     *         without errors, false otherwise.
+     */
+    public boolean isSupported();
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelRequestType.java`
+#### Snippet
+```java
+     *     object.
+     */
+    private TunnelRequestType(String value, String name) {
+        PARAMETER_VALUE = value;
+        NAME = name;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultAttributeService.java`
+#### Snippet
+```java
+     *     admin UI for the current vault implementation.
+     */
+    public Collection<Form> getConnectionAttributes();
 
     /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultAttributeService.java`
+#### Snippet
+```java
+     *     the current vault implementation.
+     */
+    public Collection<Form> getUserAttributes();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultAttributeService.java`
+#### Snippet
+```java
+     *     preferences UI for the current vault implementation.
+     */
+    public Collection<Form> getUserPreferenceAttributes();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultAttributeService.java`
+#### Snippet
+```java
+     *     admin UI for the current vault implementation.
+     */
+    public Collection<Form> getConnectionGroupAttributes();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/totp/TOTPGenerator.java`
+#### Snippet
+```java
+         *     in bytes.
+         */
+        private Mode(String algorithmName, int recommendedKeyLength) {
+            this.algorithmName = algorithmName;
+            this.recommendedKeyLength = recommendedKeyLength;
 ```
 
 ### UnnecessaryModifier
@@ -525,6 +322,18 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Identifiable.java`
     public void setIdentifier(String identifier);
 
 }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Identifiable.java`
+#### Snippet
+```java
+     *     null.
+     */
+    public String getIdentifier();
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -556,18 +365,6 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionRecord.java`
 #### Snippet
 ```java
-     */
-    @Override
-    public default UUID getUUID() {
-        return null;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionRecord.java`
-#### Snippet
-```java
      *     was accessed directly.
      */
     public String getSharingProfileIdentifier();
@@ -588,15 +385,15 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionRecord.j
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/totp/TOTPGenerator.java`
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionRecord.java`
 #### Snippet
 ```java
-         *     in bytes.
-         */
-        private Mode(String algorithmName, int recommendedKeyLength) {
-            this.algorithmName = algorithmName;
-            this.recommendedKeyLength = recommendedKeyLength;
+     */
+    @Override
+    public default UUID getUUID() {
+        return null;
+    }
 ```
 
 ### UnnecessaryModifier
@@ -628,11 +425,11 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionGroup.java`
 #### Snippet
 ```java
-     *     If an error occurs while retrieving the identifiers.
      */
-    public Set<String> getConnectionIdentifiers() throws GuacamoleException;
 
-    /**
+    public Set<String> getConnectionGroupIdentifiers()
+            throws GuacamoleException;
+
 ```
 
 ### UnnecessaryModifier
@@ -652,18 +449,6 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionGroup.java`
 #### Snippet
 ```java
-     */
-
-    public Set<String> getConnectionGroupIdentifiers()
-            throws GuacamoleException;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionGroup.java`
-#### Snippet
-```java
      * @return the type of this connection.
      */
     public Type getType();
@@ -676,9 +461,9 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionGroup.java`
 #### Snippet
 ```java
-     * ConnectionGroup for this ConnectionGroup.
+     * @param type The type of this ConnectionGroup.
      */
-    public void setParentIdentifier(String parentIdentifier);
+    public void setType(Type type);
     
     /**
 ```
@@ -700,22 +485,22 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionGroup.java`
 #### Snippet
 ```java
-     * @param type The type of this ConnectionGroup.
+     *     If an error occurs while retrieving the identifiers.
      */
-    public void setType(Type type);
-    
+    public Set<String> getConnectionIdentifiers() throws GuacamoleException;
+
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/User.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionGroup.java`
 #### Snippet
 ```java
-     * @param password The password to set.
+     * ConnectionGroup for this ConnectionGroup.
      */
-    public void setPassword(String password);
-
+    public void setParentIdentifier(String parentIdentifier);
+    
     /**
 ```
 
@@ -727,6 +512,18 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/User.java`
      * @return A String which may (or may not) be the user's password.
      */
     public String getPassword();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/User.java`
+#### Snippet
+```java
+     * @param password The password to set.
+     */
+    public void setPassword(String password);
 
     /**
 ```
@@ -793,18 +590,6 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AuthenticatedUser.
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Shareable.java`
-#### Snippet
-```java
-     *     object is denied.
-     */
-    public UserCredentials getSharingCredentials(String identifier)
-            throws GuacamoleException;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityLog.java`
 #### Snippet
 ```java
@@ -841,12 +626,24 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityLog.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Shareable.java`
+#### Snippet
+```java
+     *     object is denied.
+     */
+    public UserCredentials getSharingCredentials(String identifier)
+            throws GuacamoleException;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
 #### Snippet
 ```java
-     *     information is not available.
+     *     still ongoing or if the end time is unknown.
      */
-    public String getRemoteHost();
+    public Date getEndDate();
 
     /**
 ```
@@ -868,59 +665,11 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
 #### Snippet
 ```java
-     *     The date and time the activity began.
+     *     information is not available.
      */
-    public Date getStartDate();
+    public String getRemoteHost();
 
     /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
-#### Snippet
-```java
-     *     record has no such identifier.
-     */
-    public default String getIdentifier() {
-        UUID uuid = getUUID();
-        return uuid != null ? uuid.toString() : null;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
-#### Snippet
-```java
-     *     activity.
-     */
-    public String getUsername();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
-#### Snippet
-```java
-     *     still ongoing or if the end time is unknown.
-     */
-    public Date getEndDate();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
-#### Snippet
-```java
-     *     A Map of logs related to this record.
-     */
-    public default Map<String, ActivityLog> getLogs() {
-        return Collections.emptyMap();
-    }
 ```
 
 ### UnnecessaryModifier
@@ -945,6 +694,54 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.jav
     public boolean isActive();
 
     /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
+#### Snippet
+```java
+     *     record has no such identifier.
+     */
+    public default String getIdentifier() {
+        UUID uuid = getUUID();
+        return uuid != null ? uuid.toString() : null;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
+#### Snippet
+```java
+     *     The date and time the activity began.
+     */
+    public Date getStartDate();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
+#### Snippet
+```java
+     *     activity.
+     */
+    public String getUsername();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
+#### Snippet
+```java
+     *     A Map of logs related to this record.
+     */
+    public default Map<String, ActivityLog> getLogs() {
+        return Collections.emptyMap();
+    }
 ```
 
 ### UnnecessaryModifier
@@ -976,9 +773,9 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Connection.java`
 #### Snippet
 ```java
-     * this Connection.
+     * @return The GuacamoleConfiguration associated with this Connection.
      */
-    public String getParentIdentifier();
+    public GuacamoleConfiguration getConfiguration();
 
     /**
 ```
@@ -1012,9 +809,9 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Connection.java`
 #### Snippet
 ```java
-     * @return The GuacamoleConfiguration associated with this Connection.
+     * ConnectionGroup for this Connection.
      */
-    public GuacamoleConfiguration getConfiguration();
+    public void setParentIdentifier(String parentIdentifier);
 
     /**
 ```
@@ -1024,9 +821,9 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Connection.java`
 #### Snippet
 ```java
-     * ConnectionGroup for this Connection.
+     * this Connection.
      */
-    public void setParentIdentifier(String parentIdentifier);
+    public String getParentIdentifier();
 
     /**
 ```
@@ -1062,30 +859,6 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/SharingProfile.jav
 ```java
      *     connection.
      */
-    public String getPrimaryConnectionIdentifier();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/SharingProfile.java`
-#### Snippet
-```java
-     *     key/value pairs.
-     */
-    public Map<String, String> getParameters();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/SharingProfile.java`
-#### Snippet
-```java
-     *     connection.
-     */
     public void setPrimaryConnectionIdentifier(String identifier);
 
     /**
@@ -1101,6 +874,30 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/SharingProfile.jav
     public void setParameters(Map<String, String> parameters);
 
 }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/SharingProfile.java`
+#### Snippet
+```java
+     *     connection.
+     */
+    public String getPrimaryConnectionIdentifier();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/SharingProfile.java`
+#### Snippet
+```java
+     *     key/value pairs.
+     */
+    public Map<String, String> getParameters();
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -1240,23 +1037,11 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
 #### Snippet
 ```java
-     *         or may not exist, and may turn out to not be a directory.
+     *         protocol is registered.
      */
-    public File getGuacamoleHome();
+    public ProtocolInfo getProtocol(String name);
 
     /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     *     If the connection information for guacd cannot be retrieved.
-     */
-    public GuacamoleProxyConfiguration getDefaultGuacamoleProxyConfiguration()
-            throws GuacamoleException;
-
 ```
 
 ### UnnecessaryModifier
@@ -1269,114 +1054,6 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.jav
     public Map<String, ProtocolInfo> getProtocols();
 
     /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     * Whether guacd requires SSL/TLS on connections.
-     */
-    public static final BooleanGuacamoleProperty GUACD_SSL = new BooleanGuacamoleProperty() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     * Whether guacd requires SSL/TLS on connections.
-     */
-    public static final BooleanGuacamoleProperty GUACD_SSL = new BooleanGuacamoleProperty() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     * Whether guacd requires SSL/TLS on connections.
-     */
-    public static final BooleanGuacamoleProperty GUACD_SSL = new BooleanGuacamoleProperty() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     *                            not specified.
-     */
-    public <Type> Type getRequiredProperty(GuacamoleProperty<Type> property)
-            throws GuacamoleException;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     *                            guacamole.properties.
-     */
-    public <Type> Type getProperty(GuacamoleProperty<Type> property,
-            Type defaultValue) throws GuacamoleException;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     * running.
-     */
-    public static final StringGuacamoleProperty GUACD_HOSTNAME = new StringGuacamoleProperty() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     * running.
-     */
-    public static final StringGuacamoleProperty GUACD_HOSTNAME = new StringGuacamoleProperty() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     * running.
-     */
-    public static final StringGuacamoleProperty GUACD_HOSTNAME = new StringGuacamoleProperty() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
-#### Snippet
-```java
-     *                            guacamole.properties.
-     */
-    public <Type> Type getProperty(GuacamoleProperty<Type> property)
-            throws GuacamoleException;
-
 ```
 
 ### UnnecessaryModifier
@@ -1432,11 +1109,179 @@ Modifier `public` is redundant for interface members
 in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
 #### Snippet
 ```java
-     *         protocol is registered.
+     * running.
      */
-    public ProtocolInfo getProtocol(String name);
+    public static final StringGuacamoleProperty GUACD_HOSTNAME = new StringGuacamoleProperty() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     * running.
+     */
+    public static final StringGuacamoleProperty GUACD_HOSTNAME = new StringGuacamoleProperty() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     * running.
+     */
+    public static final StringGuacamoleProperty GUACD_HOSTNAME = new StringGuacamoleProperty() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     *                            guacamole.properties.
+     */
+    public <Type> Type getProperty(GuacamoleProperty<Type> property)
+            throws GuacamoleException;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     *         or may not exist, and may turn out to not be a directory.
+     */
+    public File getGuacamoleHome();
 
     /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     * Whether guacd requires SSL/TLS on connections.
+     */
+    public static final BooleanGuacamoleProperty GUACD_SSL = new BooleanGuacamoleProperty() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     * Whether guacd requires SSL/TLS on connections.
+     */
+    public static final BooleanGuacamoleProperty GUACD_SSL = new BooleanGuacamoleProperty() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     * Whether guacd requires SSL/TLS on connections.
+     */
+    public static final BooleanGuacamoleProperty GUACD_SSL = new BooleanGuacamoleProperty() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     *     If the connection information for guacd cannot be retrieved.
+     */
+    public GuacamoleProxyConfiguration getDefaultGuacamoleProxyConfiguration()
+            throws GuacamoleException;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     *                            not specified.
+     */
+    public <Type> Type getRequiredProperty(GuacamoleProperty<Type> property)
+            throws GuacamoleException;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/Environment.java`
+#### Snippet
+```java
+     *                            guacamole.properties.
+     */
+    public <Type> Type getProperty(GuacamoleProperty<Type> property,
+            Type defaultValue) throws GuacamoleException;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/AuthenticationProviderService.java`
+#### Snippet
+```java
+     *     credentials are invalid or expired.
+     */
+    public UserContext updateUserContext(AuthenticationProvider authenticationProvider,
+            UserContext context, AuthenticatedUser authenticatedUser,
+            Credentials credentials) throws GuacamoleException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/AuthenticationProviderService.java`
+#### Snippet
+```java
+     *     credentials are invalid or expired.
+     */
+    public UserContext getUserContext(AuthenticationProvider authenticationProvider,
+            AuthenticatedUser authenticatedUser) throws GuacamoleException;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/AuthenticationProviderService.java`
+#### Snippet
+```java
+     *     If the an error occurs during decoration of the UserContext.
+     */
+    public UserContext decorateUserContext(AuthenticationProvider authenticationProvider,
+            UserContext context, AuthenticatedUser authenticatedUser,
+            Credentials credentials) throws GuacamoleException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/AuthenticationProviderService.java`
+#### Snippet
+```java
+     *     credentials are invalid or expired.
+     */
+    public AuthenticatedUser authenticateUser(AuthenticationProvider authenticationProvider,
+            Credentials credentials) throws GuacamoleException;
+
 ```
 
 ### UnnecessaryModifier
@@ -1449,6 +1294,126 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamolePro
     public static @interface PropertyValue {
 
         /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/GuacamoleTunnelService.java`
+#### Snippet
+```java
+     *     currently-active connections.
+     */
+    public Collection<ActiveConnectionRecord> getActiveConnections(Connection connection);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/GuacamoleTunnelService.java`
+#### Snippet
+```java
+     *     currently-active connections.
+     */
+    public Collection<ActiveConnectionRecord> getActiveConnections(ConnectionGroup connectionGroup);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/GuacamoleTunnelService.java`
+#### Snippet
+```java
+     *     permission is denied.
+     */
+    public Collection<ActiveConnectionRecord> getActiveConnections(ModeledAuthenticatedUser user)
+            throws GuacamoleException;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/ShareKeyGenerator.java`
+#### Snippet
+```java
+     *     The new share key.
+     */
+    public String getShareKey();
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/SharedConnectionMap.java`
+#### Snippet
+```java
+     *     removed.
+     */
+    public SharedConnectionDefinition remove(String key);
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/SharedConnectionMap.java`
+#### Snippet
+```java
+     *     shared.
+     */
+    public void add(SharedConnectionDefinition definition);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/SharedConnectionMap.java`
+#### Snippet
+```java
+     *     null if no such share key exists.
+     */
+    public SharedConnectionDefinition get(String key);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/security/SaltService.java`
+#### Snippet
+```java
+     * @return a new salt for password encryption.
+     */
+    public byte[] generateSalt();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/security/PasswordEncryptionService.java`
+#### Snippet
+```java
+     *     The generated password hash.
+     */
+    public byte[] createPasswordHash(String password, byte[] salt);
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/GuacamoleExceptionSupplier.java`
+#### Snippet
+```java
+     *    If an error occurs while attemping to calculate the return value.
+     */
+    public T get() throws GuacamoleException;
+
+}
 ```
 
 ### UnnecessaryModifier
@@ -1476,114 +1441,6 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenSessionMap.java`
-#### Snippet
-```java
-     * @param session The GuacamoleSession for the logged in user.
-     */
-    public void put(String authToken, GuacamoleSession session);
-    
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenSessionMap.java`
-#### Snippet
-```java
-     *         represents a currently logged in user, null otherwise.
-     */
-    public GuacamoleSession get(String authToken);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenSessionMap.java`
-#### Snippet
-```java
-     *         represents a currently logged in user, null otherwise.
-     */
-    public GuacamoleSession remove(String authToken);
-    
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenSessionMap.java`
-#### Snippet
-```java
-     * any resources.
-     */
-    public void shutdown();
-    
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/AuthTokenGenerator.java`
-#### Snippet
-```java
-     * @return A new auth token.
-     */
-    public String getToken();
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `guacamole/src/main/java/org/apache/guacamole/rest/RequestSizeFilter.java`
-#### Snippet
-```java
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public static @interface DoNotLimit {}
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
-#### Snippet
-```java
-     * All supported password encodings.
-     */
-    public static enum Encoding {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelLoader.java`
-#### Snippet
-```java
-     *         without errors, false otherwise.
-     */
-    public boolean isSupported();
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelRequestType.java`
-#### Snippet
-```java
-     *     object.
-     */
-    private TunnelRequestType(String value, String name) {
-        PARAMETER_VALUE = value;
-        NAME = name;
-```
-
-### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-mysql/src/main/java/org/apache/guacamole/auth/mysql/conf/MySQLDriver.java`
 #### Snippet
@@ -1597,50 +1454,194 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-mysql/src/main/ja
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultAttributeService.java`
+in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleWriter.java`
 #### Snippet
 ```java
-     *     the current vault implementation.
+     *                            portion of the array specified.
      */
-    public Collection<Form> getUserAttributes();
+    public void write(char[] chunk, int off, int len) throws GuacamoleException;
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultAttributeService.java`
+in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleWriter.java`
 #### Snippet
 ```java
-     *     admin UI for the current vault implementation.
+     *                            instruction.
      */
-    public Collection<Form> getConnectionGroupAttributes();
+    public void writeInstruction(GuacamoleInstruction instruction) throws GuacamoleException;
 
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultAttributeService.java`
-#### Snippet
-```java
-     *     preferences UI for the current vault implementation.
-     */
-    public Collection<Form> getUserPreferenceAttributes();
 }
-
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultAttributeService.java`
+in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleWriter.java`
 #### Snippet
 ```java
-     *     admin UI for the current vault implementation.
+     *                            the specified array.
      */
-    public Collection<Form> getConnectionAttributes();
+    public void write(char[] chunk) throws GuacamoleException;
 
     /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleReader.java`
+#### Snippet
+```java
+     *                            parsed.
+     */
+    public GuacamoleInstruction readInstruction() throws GuacamoleException;
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleReader.java`
+#### Snippet
+```java
+     *                            stream.
+     */
+    public char[] read() throws GuacamoleException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/io/GuacamoleReader.java`
+#### Snippet
+```java
+     *                            available data.
+     */
+    public boolean available() throws GuacamoleException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
+#### Snippet
+```java
+     *         Guacamole instruction stream.
+     */
+    public GuacamoleWriter getWriter();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
+#### Snippet
+```java
+     * @return true if this GuacamoleSocket is open, false otherwise.
+     */
+    public boolean isOpen();
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
+#### Snippet
+```java
+     * @throws GuacamoleException If an error occurs while releasing resources.
+     */
+    public void close() throws GuacamoleException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
+#### Snippet
+```java
+     *     not available.
+     */
+    public default String getProtocol() {
+        return null;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
+#### Snippet
+```java
+     *         Guacamole instruction stream.
+     */
+    public GuacamoleReader getReader();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleTunnel.java`
+#### Snippet
+```java
+     * transmit the tunnel UUID.
+     */
+    static final String INTERNAL_DATA_OPCODE = "";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleTunnel.java`
+#### Snippet
+```java
+     * transmit the tunnel UUID.
+     */
+    static final String INTERNAL_DATA_OPCODE = "";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleProtocolCapability.java`
+#### Snippet
+```java
+     *     capability.
+     */
+    private GuacamoleProtocolCapability(GuacamoleProtocolVersion version) {
+        this.version = version;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleFilter.java`
+#### Snippet
+```java
+     *                            denied.
+     */
+    public GuacamoleInstruction filter(GuacamoleInstruction instruction) throws GuacamoleException;
+    
+}
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleStatus.java`
+#### Snippet
+```java
+     * @param guac_code The Guacamole protocol status code.
+     */
+    private GuacamoleStatus(int http_code, int websocket_code, int guac_code) {
+        this.http_code = http_code;
+        this.websocket_code = websocket_code;
 ```
 
 ## RuleId[ruleID=MagicConstant]
@@ -1657,6 +1658,30 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
 ```
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of field `HEX_CHARS`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
+#### Snippet
+```java
+     * Lookup table of hex bytes characters by value.
+     */
+    private static final char HEX_CHARS[] = {
+        '0', '1', '2', '3', '4', '5', '6', '7',
+        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `buffer`
+in `guacamole/src/main/java/org/apache/guacamole/rest/patch/PatchRESTService.java`
+#### Snippet
+```java
+        try {
+
+            char buffer[] = new char[8192];
+            int length;
+
+```
+
 ### CStyleArrayDeclaration
 C-style array declaration of field `elements`
 in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleParser.java`
@@ -1693,30 +1718,6 @@ in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleParser
         int charsParsed = 0;
 ```
 
-### CStyleArrayDeclaration
-C-style array declaration of field `HEX_CHARS`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
-#### Snippet
-```java
-     * Lookup table of hex bytes characters by value.
-     */
-    private static final char HEX_CHARS[] = {
-        '0', '1', '2', '3', '4', '5', '6', '7',
-        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `buffer`
-in `guacamole/src/main/java/org/apache/guacamole/rest/patch/PatchRESTService.java`
-#### Snippet
-```java
-        try {
-
-            char buffer[] = new char[8192];
-            int length;
-
-```
-
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\:` in RegExp
@@ -1744,18 +1745,6 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/token/TokenFilter.java`
 
 ## RuleId[ruleID=LongLiteralsEndingWithLowercaseL]
 ### LongLiteralsEndingWithLowercaseL
-'long' literal `1000l` ends with lowercase 'l'
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelMap.java`
-#### Snippet
-```java
-        // Check for unused tunnels every few seconds
-        executor.scheduleAtFixedRate(
-            new TunnelTimeoutTask(TUNNEL_TIMEOUT * 1000l),
-            TUNNEL_TIMEOUT, TUNNEL_TIMEOUT, TimeUnit.SECONDS);
-
-```
-
-### LongLiteralsEndingWithLowercaseL
 'long' literal `60000l` ends with lowercase 'l'
 in `guacamole/src/main/java/org/apache/guacamole/rest/auth/HashTokenSessionMap.java`
 #### Snippet
@@ -1765,6 +1754,18 @@ in `guacamole/src/main/java/org/apache/guacamole/rest/auth/HashTokenSessionMap.j
         executor.scheduleAtFixedRate(new SessionEvictionTask(sessionTimeoutValue * 60000l), 1, 1, TimeUnit.MINUTES);
         
     }
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `1000l` ends with lowercase 'l'
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelMap.java`
+#### Snippet
+```java
+        // Check for unused tunnels every few seconds
+        executor.scheduleAtFixedRate(
+            new TunnelTimeoutTask(TUNNEL_TIMEOUT * 1000l),
+            TUNNEL_TIMEOUT, TUNNEL_TIMEOUT, TimeUnit.SECONDS);
+
 ```
 
 ## RuleId[ruleID=RedundantArrayCreation]
@@ -1846,6 +1847,18 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
+Abstract class `CachedVaultSecretService` has no concrete subclass
+in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/secret/CachedVaultSecretService.java`
+#### Snippet
+```java
+ * which is missing from the cache or has expired.
+ */
+public abstract class CachedVaultSecretService implements VaultSecretService {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AbstractActiveConnection` has no concrete subclass
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractActiveConnection.java`
 #### Snippet
@@ -1869,269 +1882,245 @@ public abstract class AbstractSharingProfile implements SharingProfile {
     /**
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `CachedVaultSecretService` has no concrete subclass
-in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/secret/CachedVaultSecretService.java`
-#### Snippet
-```java
- * which is missing from the cache or has expired.
- */
-public abstract class CachedVaultSecretService implements VaultSecretService {
-
-    /**
-```
-
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends ModelType`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledDirectoryObjectService.java`
+Can generalize to `? extends DecoratedUserContext`
+in `guacamole/src/main/java/org/apache/guacamole/GuacamoleSession.java`
+#### Snippet
+```java
+     *     The List of UserContexts to associate with this session.
+     */
+    public void setUserContexts(List<DecoratedUserContext> userContexts) {
+        this.access();
+        this.userContexts = userContexts;
+```
+
+### BoundedWildcard
+Can generalize to `? extends DecoratedUserContext`
+in `guacamole/src/main/java/org/apache/guacamole/GuacamoleSession.java`
+#### Snippet
+```java
+    public GuacamoleSession(ListenerService listenerService,
+            AuthenticatedUser authenticatedUser,
+            List<DecoratedUserContext> userContexts)
+            throws GuacamoleException {
+        this.lastAccessedTime = System.currentTimeMillis();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Form`
+in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryObjectTranslator.java`
+#### Snippet
+```java
+     *     the given schema.
+     */
+    public Map<String, String> filterAttributes(Collection<Form> schema,
+            Map<String, String> attributes) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends InternalRecordType`
+in `guacamole/src/main/java/org/apache/guacamole/rest/history/ActivityRecordSetResource.java`
+#### Snippet
+```java
+     *     The ActivityRecordSet whose records should be exposed.
+     */
+    public ActivityRecordSetResource(ActivityRecordSet<InternalRecordType> history) {
+        this.history = history;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends APISortPredicate`
+in `guacamole/src/main/java/org/apache/guacamole/rest/history/ActivityRecordSetResource.java`
 #### Snippet
 ```java
      */
-    protected Collection<InternalType> getObjectInstances(ModeledAuthenticatedUser currentUser,
-            Collection<ModelType> models) throws GuacamoleException {
+    private void applyCriteria(List<String> requiredContents,
+            List<APISortPredicate> sortPredicates) throws GuacamoleException {
 
-        // Create new collection of objects by manually converting each model
+        // Restrict to records which contain the specified strings
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArbitraryAttributeModel`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ArbitraryAttributeMap.java`
+Can generalize to `? extends APIPatch`
+in `guacamole/src/main/java/org/apache/guacamole/rest/identifier/RelatedObjectSetResource.java`
 #### Snippet
 ```java
-     *     the given collection of model objects.
      */
-    public static ArbitraryAttributeMap fromModelCollection(Collection<ArbitraryAttributeModel> models) {
-
-        // Add all name/value pairs from the given collection to the map
-```
-
-### BoundedWildcard
-Can generalize to `? extends ActivityRecordModel`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserService.java`
-#### Snippet
-```java
-     *     in the given list.
-     */
-    protected List<ActivityRecord> getObjectInstances(List<ActivityRecordModel> models) {
-
-        // Create new list of records by manually converting each model
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-     *     The Map to store all restricted attributes within.
-     */
-    private void putRestrictedAttributes(Map<String, String> attributes) {
-
-        // Set disabled attribute
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-     *     The Map to store all restricted attributes within.
-     */
-    private void putRestrictedAttributes(Map<String, String> attributes) {
-
-        // Set disabled attribute
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-     *     The Map to store all unrestricted attributes within.
-     */
-    private void putUnrestrictedAttributes(Map<String, String> attributes) {
-
-        // Set full name attribute
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-     *     The Map to store all unrestricted attributes within.
-     */
-    private void putUnrestrictedAttributes(Map<String, String> attributes) {
-
-        // Set full name attribute
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/usergroup/ModeledUserGroup.java`
-#### Snippet
-```java
-     *     The Map to store all restricted attributes within.
-     */
-    private void putRestrictedAttributes(Map<String, String> attributes) {
-
-        // Set disabled attribute
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/usergroup/ModeledUserGroup.java`
-#### Snippet
-```java
-     *     The Map to store all restricted attributes within.
-     */
-    private void putRestrictedAttributes(Map<String, String> attributes) {
-
-        // Set disabled attribute
-```
-
-### BoundedWildcard
-Can generalize to `? extends PermissionType`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ModeledPermissionService.java`
-#### Snippet
-```java
-    protected Collection<ModelType> getModelInstances(
-            ModeledPermissions<? extends EntityModel> targetEntity,
-            Collection<PermissionType> permissions) {
-
-        // Create new collection of models by manually converting each permission
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModelType`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ModeledPermissionService.java`
-#### Snippet
-```java
-     *     collection.
-     */
-    protected Set<PermissionType> getPermissionInstances(Collection<ModelType> models) {
-
-        // Create new collection of permissions by manually converting each model
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConnectionRecordModel`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ConnectionService.java`
-#### Snippet
-```java
-     *     in the given list.
-     */
-    protected List<ConnectionRecord> getObjectInstances(List<ConnectionRecordModel> models) {
-
-        // Create new list of records by manually converting each model
-```
-
-### BoundedWildcard
-Can generalize to `? extends ObjectPermission`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ModeledObjectPermissionService.java`
-#### Snippet
-```java
-    protected boolean canAlterPermissions(ModeledAuthenticatedUser user,
-            ModeledPermissions<? extends EntityModel> targetEntity,
-            Collection<ObjectPermission> permissions)
+    @PATCH
+    public void patchObjects(List<APIPatch<String>> patches)
             throws GuacamoleException {
 
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Future`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
+Can generalize to `? extends InternalType`
+in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryObjectResource.java`
 #### Snippet
 ```java
-    public Future<String> getSecret(
-            String notation,
-            @Nullable GuacamoleExceptionSupplier<Future<String>> fallbackFunction)
+     */
+    public DirectoryObjectResource(AuthenticatedUser authenticatedUser,
+            UserContext userContext, Class<InternalType> internalType,
+            Directory<InternalType> directory, InternalType object,
+            DirectoryObjectTranslator<InternalType, ExternalType> translator) {
+```
+
+### BoundedWildcard
+Can generalize to `? super InternalType`
+in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryObjectResource.java`
+#### Snippet
+```java
+            UserContext userContext, Class<InternalType> internalType,
+            Directory<InternalType> directory, InternalType object,
+            DirectoryObjectTranslator<InternalType, ExternalType> translator) {
+        this.authenticatedUser = authenticatedUser;
+        this.userContext = userContext;
+```
+
+### BoundedWildcard
+Can generalize to `? extends APIPatch`
+in `guacamole/src/main/java/org/apache/guacamole/rest/permission/PermissionSetResource.java`
+#### Snippet
+```java
+     */
+    @PATCH
+    public void patchPermissions(List<APIPatch<String>> patches)
             throws GuacamoleException {
-        validateCache();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmSecretService.java`
-#### Snippet
-```java
-     *     If configuration details in guacamole.properties cannot be parsed.
-     */
-    private void addRecordTokens(Map<String, Future<String>> tokens, String prefix,
-            KeeperRecord record) throws GuacamoleException {
 
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Future`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmSecretService.java`
+Can generalize to `? extends InternalType`
+in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryResource.java`
 #### Snippet
 ```java
-     *     If configuration details in guacamole.properties cannot be parsed.
      */
-    private void addRecordTokens(Map<String, Future<String>> tokens, String prefix,
-            KeeperRecord record) throws GuacamoleException {
+    public DirectoryResource(AuthenticatedUser authenticatedUser,
+            UserContext userContext, Class<InternalType> internalType,
+            Directory<InternalType> directory,
+            DirectoryObjectTranslator<InternalType, ExternalType> translator,
+```
+
+### BoundedWildcard
+Can generalize to `? extends APIPatch`
+in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryResource.java`
+#### Snippet
+```java
+     */
+    @PATCH
+    public void patchObjects(List<APIPatch<String>> patches)
+            throws GuacamoleException {
 
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends KeeperRecordField`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+Can generalize to `? extends ConnectionGroup`
+in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
 #### Snippet
 ```java
+     *     If an error occurs while retrieving the descendants.
      */
-    @SuppressWarnings("unchecked") // Manually verified with isAssignableFrom()
-    private <T extends KeeperRecordField> T getField(List<KeeperRecordField> fields,
-            Class<T> fieldClass, Pattern labelPattern) {
+    private void addConnectionGroupDescendants(Collection<ConnectionGroup> parents,
+            List<ObjectPermission.Type> permissions)
+        throws GuacamoleException {
+```
 
+### BoundedWildcard
+Can generalize to `? extends SharingProfile`
+in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
+#### Snippet
+```java
+     *     If an error occurs while adding the sharing profiles to the tree.
+     */
+    private void addSharingProfiles(Collection<SharingProfile> sharingProfiles)
+        throws GuacamoleException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Connection`
+in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
+#### Snippet
+```java
+     *     If an error occurs while adding the connection to the tree.
+     */
+    private void addConnections(Collection<Connection> connections)
+        throws GuacamoleException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConnectionGroup`
+in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
+#### Snippet
+```java
+     *     The connection groups to add to the tree.
+     */
+    private void addConnectionGroups(Collection<ConnectionGroup> connectionGroups) {
+
+        // Add each connection group to the tree
+```
+
+### BoundedWildcard
+Can generalize to `? extends Connection`
+in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
+#### Snippet
+```java
+     *     If an error occurs while retrieving the descendants.
+     */
+    private void addConnectionDescendants(Collection<Connection> connections,
+            List<ObjectPermission.Type> permissions)
+        throws GuacamoleException {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/InterceptedStreamMap.java`
 #### Snippet
 ```java
-     *     multiple values.
+     *     otherwise.
      */
-    private <T, R> R getSingleValue(List<T> values, Function<T, R> mapper) {
+    public boolean close(InterceptedStream<T> stream) {
 
-        T value = getSingleValue(values);
+        // Remove stream if present
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+Can generalize to `? extends T`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/InterceptedStreamMap.java`
 #### Snippet
 ```java
-     *     multiple values.
+     *     The stream to wait for.
      */
-    private <T, R> R getSingleValue(List<T> values, Function<T, R> mapper) {
+    public void waitFor(InterceptedStream<T> stream) {
 
-        T value = getSingleValue(values);
+        T underlyingStream = stream.getStream();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
+Can generalize to `? extends Resource`
+in `guacamole/src/main/java/org/apache/guacamole/extension/PatchResourceService.java`
 #### Snippet
 ```java
-     *     The file to produce an ActivityLog instance for.
+     *     mimetype "text/html".
      */
-    private void addActivityLog(Map<String, ActivityLog> logs, File file) {
-
-        ActivityLog log = getActivityLog(file);
+    public void addPatchResources(Collection<Resource> resources) {
+        for (Resource resource : resources)
+            addPatchResource(resource);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ActivityLog`
-in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
+Can generalize to `? super File`
+in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionClassLoader.java`
 #### Snippet
 ```java
-     *     The file to produce an ActivityLog instance for.
      */
-    private void addActivityLog(Map<String, ActivityLog> logs, File file) {
+    private static URL[] getExtensionURLs(File extension,
+            List<File> temporaryFiles) throws GuacamoleException {
 
-        ActivityLog log = getActivityLog(file);
+        try (JarFile extensionJar = new JarFile(extension)) {
 ```
 
 ### BoundedWildcard
@@ -2147,6 +2136,54 @@ in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Resource`
+in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionModule.java`
+#### Snippet
+```java
+     *     authentication halt the authentication process entirely.
+     */
+    private void loadExtensions(Collection<Resource> javaScriptResources,
+            Collection<Resource> cssResources,
+            Set<String> toleratedAuthProviders) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Resource`
+in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionModule.java`
+#### Snippet
+```java
+     */
+    private void loadExtensions(Collection<Resource> javaScriptResources,
+            Collection<Resource> cssResources,
+            Set<String> toleratedAuthProviders) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Connection`
+in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserData.java`
+#### Snippet
+```java
+     *     connection.
+     */
+    public void setConnections(Map<String, Connection> connections) {
+        this.connections = new ConcurrentHashMap<>(connections);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GuacamoleTunnel`
+in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/connection/ConnectionService.java`
+#### Snippet
+```java
+     *     The Collection of tunnels to close.
+     */
+    private void closeAll(Collection<GuacamoleTunnel> tunnels) {
+
+        for (GuacamoleTunnel tunnel : tunnels) {
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnectionGroup.java`
 #### Snippet
@@ -2168,6 +2205,30 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConn
     protected void addTokens(Map<String, String> tokens) throws GuacamoleException {
         tokens.putAll(getTokens());
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `guacamole/src/main/java/org/apache/guacamole/rest/permission/APIPermissionSet.java`
+#### Snippet
+```java
+     *     ObjectPermissionSet.
+     */
+    private void addObjectPermissions(Map<String, Set<ObjectPermission.Type>> permissions,
+            ObjectPermissionSet permSet) throws GuacamoleException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super SystemPermission.Type`
+in `guacamole/src/main/java/org/apache/guacamole/rest/permission/APIPermissionSet.java`
+#### Snippet
+```java
+     *     SystemPermissionSet.
+     */
+    private void addSystemPermissions(Set<SystemPermission.Type> permissions,
+            SystemPermissionSet permSet) throws GuacamoleException {
+
 ```
 
 ### BoundedWildcard
@@ -2303,18 +2364,6 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingUser
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Connection`
-in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserData.java`
-#### Snippet
-```java
-     *     connection.
-     */
-    public void setConnections(Map<String, Connection> connections) {
-        this.connections = new ConcurrentHashMap<>(connections);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Type`
 in `guacamole-ext/src/main/java/org/apache/guacamole/environment/LocalEnvironment.java`
 #### Snippet
@@ -2327,15 +2376,15 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/environment/LocalEnvironmen
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GuacamoleTunnel`
-in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/connection/ConnectionService.java`
+Can generalize to `? extends T`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamoleProperty.java`
 #### Snippet
 ```java
-     *     The Collection of tunnels to close.
+     *     with their corresponding enum constants.
      */
-    private void closeAll(Collection<GuacamoleTunnel> tunnels) {
+    private static <T extends Enum<T>> Map<String, T> getValueMapping(Class<T> enumClass) {
 
-        for (GuacamoleTunnel tunnel : tunnels) {
+        T[] values = enumClass.getEnumConstants();
 ```
 
 ### BoundedWildcard
@@ -2351,15 +2400,231 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamolePro
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamoleProperty.java`
+Can generalize to `? extends ModelType`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledDirectoryObjectService.java`
 #### Snippet
 ```java
-     *     with their corresponding enum constants.
      */
-    private static <T extends Enum<T>> Map<String, T> getValueMapping(Class<T> enumClass) {
+    protected Collection<InternalType> getObjectInstances(ModeledAuthenticatedUser currentUser,
+            Collection<ModelType> models) throws GuacamoleException {
 
-        T[] values = enumClass.getEnumConstants();
+        // Create new collection of objects by manually converting each model
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArbitraryAttributeModel`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ArbitraryAttributeMap.java`
+#### Snippet
+```java
+     *     the given collection of model objects.
+     */
+    public static ArbitraryAttributeMap fromModelCollection(Collection<ArbitraryAttributeModel> models) {
+
+        // Add all name/value pairs from the given collection to the map
+```
+
+### BoundedWildcard
+Can generalize to `? extends ActivityRecordModel`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserService.java`
+#### Snippet
+```java
+     *     in the given list.
+     */
+    protected List<ActivityRecord> getObjectInstances(List<ActivityRecordModel> models) {
+
+        // Create new list of records by manually converting each model
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/usergroup/ModeledUserGroup.java`
+#### Snippet
+```java
+     *     The Map to store all restricted attributes within.
+     */
+    private void putRestrictedAttributes(Map<String, String> attributes) {
+
+        // Set disabled attribute
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/usergroup/ModeledUserGroup.java`
+#### Snippet
+```java
+     *     The Map to store all restricted attributes within.
+     */
+    private void putRestrictedAttributes(Map<String, String> attributes) {
+
+        // Set disabled attribute
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+     *     The Map to store all unrestricted attributes within.
+     */
+    private void putUnrestrictedAttributes(Map<String, String> attributes) {
+
+        // Set full name attribute
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+     *     The Map to store all unrestricted attributes within.
+     */
+    private void putUnrestrictedAttributes(Map<String, String> attributes) {
+
+        // Set full name attribute
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+     *     The Map to store all restricted attributes within.
+     */
+    private void putRestrictedAttributes(Map<String, String> attributes) {
+
+        // Set disabled attribute
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+     *     The Map to store all restricted attributes within.
+     */
+    private void putRestrictedAttributes(Map<String, String> attributes) {
+
+        // Set disabled attribute
+```
+
+### BoundedWildcard
+Can generalize to `? extends PermissionType`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ModeledPermissionService.java`
+#### Snippet
+```java
+    protected Collection<ModelType> getModelInstances(
+            ModeledPermissions<? extends EntityModel> targetEntity,
+            Collection<PermissionType> permissions) {
+
+        // Create new collection of models by manually converting each permission
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModelType`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ModeledPermissionService.java`
+#### Snippet
+```java
+     *     collection.
+     */
+    protected Set<PermissionType> getPermissionInstances(Collection<ModelType> models) {
+
+        // Create new collection of permissions by manually converting each model
+```
+
+### BoundedWildcard
+Can generalize to `? extends ObjectPermission`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ModeledObjectPermissionService.java`
+#### Snippet
+```java
+    protected boolean canAlterPermissions(ModeledAuthenticatedUser user,
+            ModeledPermissions<? extends EntityModel> targetEntity,
+            Collection<ObjectPermission> permissions)
+            throws GuacamoleException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConnectionRecordModel`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ConnectionService.java`
+#### Snippet
+```java
+     *     in the given list.
+     */
+    protected List<ConnectionRecord> getObjectInstances(List<ConnectionRecordModel> models) {
+
+        // Create new list of records by manually converting each model
+```
+
+### BoundedWildcard
+Can generalize to `? extends Future`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
+#### Snippet
+```java
+    public Future<String> getSecret(
+            String notation,
+            @Nullable GuacamoleExceptionSupplier<Future<String>> fallbackFunction)
+            throws GuacamoleException {
+        validateCache();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmSecretService.java`
+#### Snippet
+```java
+     *     If configuration details in guacamole.properties cannot be parsed.
+     */
+    private void addRecordTokens(Map<String, Future<String>> tokens, String prefix,
+            KeeperRecord record) throws GuacamoleException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super Future`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmSecretService.java`
+#### Snippet
+```java
+     *     If configuration details in guacamole.properties cannot be parsed.
+     */
+    private void addRecordTokens(Map<String, Future<String>> tokens, String prefix,
+            KeeperRecord record) throws GuacamoleException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends KeeperRecordField`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unchecked") // Manually verified with isAssignableFrom()
+    private <T extends KeeperRecordField> T getField(List<KeeperRecordField> fields,
+            Class<T> fieldClass, Pattern labelPattern) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+     *     multiple values.
+     */
+    private <T, R> R getSingleValue(List<T> values, Function<T, R> mapper) {
+
+        T value = getSingleValue(values);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+     *     multiple values.
+     */
+    private <T, R> R getSingleValue(List<T> values, Function<T, R> mapper) {
+
+        T value = getSingleValue(values);
 ```
 
 ### BoundedWildcard
@@ -2387,27 +2652,27 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DecoratedUserContext`
-in `guacamole/src/main/java/org/apache/guacamole/GuacamoleSession.java`
+Can generalize to `? super String`
+in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
 #### Snippet
 ```java
-    public GuacamoleSession(ListenerService listenerService,
-            AuthenticatedUser authenticatedUser,
-            List<DecoratedUserContext> userContexts)
-            throws GuacamoleException {
-        this.lastAccessedTime = System.currentTimeMillis();
+     *     The file to produce an ActivityLog instance for.
+     */
+    private void addActivityLog(Map<String, ActivityLog> logs, File file) {
+
+        ActivityLog log = getActivityLog(file);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DecoratedUserContext`
-in `guacamole/src/main/java/org/apache/guacamole/GuacamoleSession.java`
+Can generalize to `? super ActivityLog`
+in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
 #### Snippet
 ```java
-     *     The List of UserContexts to associate with this session.
+     *     The file to produce an ActivityLog instance for.
      */
-    public void setUserContexts(List<DecoratedUserContext> userContexts) {
-        this.userContexts = userContexts;
-    }
+    private void addActivityLog(Map<String, ActivityLog> logs, File file) {
+
+        ActivityLog log = getActivityLog(file);
 ```
 
 ### BoundedWildcard
@@ -2446,274 +2711,10 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
         // Convert each entry to the corresponding Guacamole API object
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Form`
-in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryObjectTranslator.java`
-#### Snippet
-```java
-     *     the given schema.
-     */
-    public Map<String, String> filterAttributes(Collection<Form> schema,
-            Map<String, String> attributes) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends APISortPredicate`
-in `guacamole/src/main/java/org/apache/guacamole/rest/history/ActivityRecordSetResource.java`
-#### Snippet
-```java
-     */
-    private void applyCriteria(List<String> requiredContents,
-            List<APISortPredicate> sortPredicates) throws GuacamoleException {
-
-        // Restrict to records which contain the specified strings
-```
-
-### BoundedWildcard
-Can generalize to `? extends InternalRecordType`
-in `guacamole/src/main/java/org/apache/guacamole/rest/history/ActivityRecordSetResource.java`
-#### Snippet
-```java
-     *     The ActivityRecordSet whose records should be exposed.
-     */
-    public ActivityRecordSetResource(ActivityRecordSet<InternalRecordType> history) {
-        this.history = history;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends APIPatch`
-in `guacamole/src/main/java/org/apache/guacamole/rest/identifier/RelatedObjectSetResource.java`
-#### Snippet
-```java
-     */
-    @PATCH
-    public void patchObjects(List<APIPatch<String>> patches)
-            throws GuacamoleException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends InternalType`
-in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryObjectResource.java`
-#### Snippet
-```java
-     */
-    public DirectoryObjectResource(AuthenticatedUser authenticatedUser,
-            UserContext userContext, Class<InternalType> internalType,
-            Directory<InternalType> directory, InternalType object,
-            DirectoryObjectTranslator<InternalType, ExternalType> translator) {
-```
-
-### BoundedWildcard
-Can generalize to `? super InternalType`
-in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryObjectResource.java`
-#### Snippet
-```java
-            UserContext userContext, Class<InternalType> internalType,
-            Directory<InternalType> directory, InternalType object,
-            DirectoryObjectTranslator<InternalType, ExternalType> translator) {
-        this.authenticatedUser = authenticatedUser;
-        this.userContext = userContext;
-```
-
-### BoundedWildcard
-Can generalize to `? extends APIPatch`
-in `guacamole/src/main/java/org/apache/guacamole/rest/permission/PermissionSetResource.java`
-#### Snippet
-```java
-     */
-    @PATCH
-    public void patchPermissions(List<APIPatch<String>> patches)
-            throws GuacamoleException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends APIPatch`
-in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryResource.java`
-#### Snippet
-```java
-     */
-    @PATCH
-    public void patchObjects(List<APIPatch<String>> patches)
-            throws GuacamoleException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends InternalType`
-in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryResource.java`
-#### Snippet
-```java
-     */
-    public DirectoryResource(AuthenticatedUser authenticatedUser,
-            UserContext userContext, Class<InternalType> internalType,
-            Directory<InternalType> directory,
-            DirectoryObjectTranslator<InternalType, ExternalType> translator,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConnectionGroup`
-in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
-#### Snippet
-```java
-     *     If an error occurs while retrieving the descendants.
-     */
-    private void addConnectionGroupDescendants(Collection<ConnectionGroup> parents,
-            List<ObjectPermission.Type> permissions)
-        throws GuacamoleException {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SharingProfile`
-in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
-#### Snippet
-```java
-     *     If an error occurs while adding the sharing profiles to the tree.
-     */
-    private void addSharingProfiles(Collection<SharingProfile> sharingProfiles)
-        throws GuacamoleException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConnectionGroup`
-in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
-#### Snippet
-```java
-     *     The connection groups to add to the tree.
-     */
-    private void addConnectionGroups(Collection<ConnectionGroup> connectionGroups) {
-
-        // Add each connection group to the tree
-```
-
-### BoundedWildcard
-Can generalize to `? extends Connection`
-in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
-#### Snippet
-```java
-     *     If an error occurs while adding the connection to the tree.
-     */
-    private void addConnections(Collection<Connection> connections)
-        throws GuacamoleException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Connection`
-in `guacamole/src/main/java/org/apache/guacamole/rest/connectiongroup/ConnectionGroupTree.java`
-#### Snippet
-```java
-     *     If an error occurs while retrieving the descendants.
-     */
-    private void addConnectionDescendants(Collection<Connection> connections,
-            List<ObjectPermission.Type> permissions)
-        throws GuacamoleException {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/InterceptedStreamMap.java`
-#### Snippet
-```java
-     *     The stream to wait for.
-     */
-    public void waitFor(InterceptedStream<T> stream) {
-
-        T underlyingStream = stream.getStream();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/InterceptedStreamMap.java`
-#### Snippet
-```java
-     *     otherwise.
-     */
-    public boolean close(InterceptedStream<T> stream) {
-
-        // Remove stream if present
-```
-
-### BoundedWildcard
-Can generalize to `? extends Resource`
-in `guacamole/src/main/java/org/apache/guacamole/extension/PatchResourceService.java`
-#### Snippet
-```java
-     *     mimetype "text/html".
-     */
-    public void addPatchResources(Collection<Resource> resources) {
-        for (Resource resource : resources)
-            addPatchResource(resource);
-```
-
-### BoundedWildcard
-Can generalize to `? super SystemPermission.Type`
-in `guacamole/src/main/java/org/apache/guacamole/rest/permission/APIPermissionSet.java`
-#### Snippet
-```java
-     *     SystemPermissionSet.
-     */
-    private void addSystemPermissions(Set<SystemPermission.Type> permissions,
-            SystemPermissionSet permSet) throws GuacamoleException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `guacamole/src/main/java/org/apache/guacamole/rest/permission/APIPermissionSet.java`
-#### Snippet
-```java
-     *     ObjectPermissionSet.
-     */
-    private void addObjectPermissions(Map<String, Set<ObjectPermission.Type>> permissions,
-            ObjectPermissionSet permSet) throws GuacamoleException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super File`
-in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionClassLoader.java`
-#### Snippet
-```java
-     */
-    private static URL[] getExtensionURLs(File extension,
-            List<File> temporaryFiles) throws GuacamoleException {
-
-        try (JarFile extensionJar = new JarFile(extension)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Resource`
-in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionModule.java`
-#### Snippet
-```java
-     *     authentication halt the authentication process entirely.
-     */
-    private void loadExtensions(Collection<Resource> javaScriptResources,
-            Collection<Resource> cssResources,
-            Set<String> toleratedAuthProviders) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Resource`
-in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionModule.java`
-#### Snippet
-```java
-     */
-    private void loadExtensions(Collection<Resource> javaScriptResources,
-            Collection<Resource> cssResources,
-            Set<String> toleratedAuthProviders) {
-
-```
-
 ## RuleId[ruleID=AnonymousHasLambdaAlternative]
 ### AnonymousHasLambdaAlternative
 Anonymous new Thread() can be replaced with new Thread(() -\> {...})
-in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSocketTunnelEndpoint.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
 #### Snippet
 ```java
 
@@ -2721,6 +2722,30 @@ in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSo
         Thread readThread = new Thread() {
 
             @Override
+```
+
+### AnonymousHasLambdaAlternative
+Anonymous new Thread() can be replaced with new Thread(() -\> {...})
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/GuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+                }
+
+                Thread readThread = new Thread() {
+
+                    @Override
+```
+
+### AnonymousHasLambdaAlternative
+Anonymous new Thread() can be replaced with new Thread(() -\> {...})
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+                }
+
+                Thread readThread = new Thread() {
+
+                    @Override
 ```
 
 ### AnonymousHasLambdaAlternative
@@ -2761,19 +2786,7 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConne
 
 ### AnonymousHasLambdaAlternative
 Anonymous new Thread() can be replaced with new Thread(() -\> {...})
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-                }
-
-                Thread readThread = new Thread() {
-
-                    @Override
-```
-
-### AnonymousHasLambdaAlternative
-Anonymous new Thread() can be replaced with new Thread(() -\> {...})
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
+in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSocketTunnelEndpoint.java`
 #### Snippet
 ```java
 
@@ -2783,55 +2796,7 @@ in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/Guacamo
             @Override
 ```
 
-### AnonymousHasLambdaAlternative
-Anonymous new Thread() can be replaced with new Thread(() -\> {...})
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-                }
-
-                Thread readThread = new Thread() {
-
-                    @Override
-```
-
 ## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `getActiveConnections()` is identical to its super method
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/activeconnection/TrackedActiveConnection.java`
-#### Snippet
-```java
-
-    @Override
-    public int getActiveConnections() {
-        return 0;
-    }
-```
-
-### RedundantMethodOverride
-Method `getStatus()` is identical to its super method
-in `guacamole-common/src/main/java/org/apache/guacamole/GuacamoleConnectionClosedException.java`
-#### Snippet
-```java
-
-    @Override
-    public GuacamoleStatus getStatus() {
-        return GuacamoleStatus.SERVER_ERROR;
-    }
-```
-
-### RedundantMethodOverride
-Method `getStatus()` is identical to its super method
-in `guacamole-common/src/main/java/org/apache/guacamole/GuacamoleServerException.java`
-#### Snippet
-```java
-
-    @Override
-    public GuacamoleStatus getStatus() {
-        return GuacamoleStatus.SERVER_ERROR;
-    }
-```
-
 ### RedundantMethodOverride
 Method `getUUID()` is identical to its super method
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionRecord.java`
@@ -2880,7 +2845,79 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleUserC
     }
 ```
 
+### RedundantMethodOverride
+Method `getActiveConnections()` is identical to its super method
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/activeconnection/TrackedActiveConnection.java`
+#### Snippet
+```java
+
+    @Override
+    public int getActiveConnections() {
+        return 0;
+    }
+```
+
+### RedundantMethodOverride
+Method `getStatus()` is identical to its super method
+in `guacamole-common/src/main/java/org/apache/guacamole/GuacamoleConnectionClosedException.java`
+#### Snippet
+```java
+
+    @Override
+    public GuacamoleStatus getStatus() {
+        return GuacamoleStatus.SERVER_ERROR;
+    }
+```
+
+### RedundantMethodOverride
+Method `getStatus()` is identical to its super method
+in `guacamole-common/src/main/java/org/apache/guacamole/GuacamoleServerException.java`
+#### Snippet
+```java
+
+    @Override
+    public GuacamoleStatus getStatus() {
+        return GuacamoleStatus.SERVER_ERROR;
+    }
+```
+
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
+Class name `Configurator` is the same as one of its superclass' names
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/RestrictedGuacamoleWebSocketTunnelEndpoint.java`
+#### Snippet
+```java
+     * during the connection process.
+     */
+    public static class Configurator extends ServerEndpointConfig.Configurator {
+
+        /**
+```
+
+### ClassNameSameAsAncestorName
+Class name `AuthenticatedUser` is the same as one of its superclass' names
+in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/AuthenticatedUser.java`
+#### Snippet
+```java
+ * the JSON provided during authentication.
+ */
+public class AuthenticatedUser extends AbstractAuthenticatedUser {
+
+    /**
+```
+
+### ClassNameSameAsAncestorName
+Class name `UserContext` is the same as one of its superclass' names
+in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserContext.java`
+#### Snippet
+```java
+ * authentication.
+ */
+public class UserContext extends AbstractUserContext {
+
+    /**
+```
+
 ### ClassNameSameAsAncestorName
 Class name `RelatedObjectSet` is the same as one of its superclass' names
 in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/RelatedObjectSet.java`
@@ -2915,42 +2952,6 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
 public abstract class ObjectPermissionSet extends RestrictedObject
     implements org.apache.guacamole.net.auth.permission.ObjectPermissionSet {
 
-```
-
-### ClassNameSameAsAncestorName
-Class name `AuthenticatedUser` is the same as one of its superclass' names
-in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/AuthenticatedUser.java`
-#### Snippet
-```java
- * the JSON provided during authentication.
- */
-public class AuthenticatedUser extends AbstractAuthenticatedUser {
-
-    /**
-```
-
-### ClassNameSameAsAncestorName
-Class name `UserContext` is the same as one of its superclass' names
-in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserContext.java`
-#### Snippet
-```java
- * authentication.
- */
-public class UserContext extends AbstractUserContext {
-
-    /**
-```
-
-### ClassNameSameAsAncestorName
-Class name `Configurator` is the same as one of its superclass' names
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/RestrictedGuacamoleWebSocketTunnelEndpoint.java`
-#### Snippet
-```java
-     * during the connection process.
-     */
-    public static class Configurator extends ServerEndpointConfig.Configurator {
-
-        /**
 ```
 
 ### ClassNameSameAsAncestorName
@@ -3006,186 +3007,6 @@ import org.apache.guacamole.GuacamoleException;
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledObject.java`
-#### Snippet
-```java
-     */
-    public void init(ModeledAuthenticatedUser currentUser, ModelType model) {
-        super.init(currentUser);
-        setModel(model);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/DynamicallyAuthenticatedDataSource.java`
-#### Snippet
-```java
-                try {
-                    logger.debug("Creating new database connection for pool.");
-                    return super.getConnection(environment.getUsername(), environment.getPassword());
-                }
-                catch (GuacamoleException e) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/DynamicallyAuthenticatedDataSource.java`
-#### Snippet
-```java
-        // connections failing to pass sanity checks and never being returned
-        // to the pool.
-        super.forceCloseAll();
-
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserModel.java`
-#### Snippet
-```java
-    public UserModel(String identifier) {
-        super(EntityType.USER);
-        super.setIdentifier(identifier);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserRecordSet.java`
-#### Snippet
-```java
-     */
-    protected void init(ModeledAuthenticatedUser currentUser, String identifier) {
-        super.init(currentUser);
-        this.identifier = identifier;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/RelatedObjectSet.java`
-#### Snippet
-```java
-     */
-    public void init(ModeledAuthenticatedUser currentUser, ParentObjectType parent) {
-        super.init(currentUser);
-        this.parent = parent;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-    public void init(ModeledAuthenticatedUser currentUser, UserModel model,
-            boolean exposeRestrictedAttributes) {
-        super.init(currentUser, model);
-        this.exposeRestrictedAttributes = exposeRestrictedAttributes;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-    @Override
-    public Permissions getEffectivePermissions() throws GuacamoleException {
-        return super.getEffective();
-    }
-    
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/usergroup/ModeledUserGroup.java`
-#### Snippet
-```java
-    public void init(ModeledAuthenticatedUser currentUser, UserGroupModel model,
-            boolean exposeRestrictedAttributes) {
-        super.init(currentUser, model);
-        this.exposeRestrictedAttributes = exposeRestrictedAttributes;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ConnectionRecordSet.java`
-#### Snippet
-```java
-     */
-    protected void init(ModeledAuthenticatedUser currentUser, String identifier) {
-        super.init(currentUser);
-        this.identifier = identifier;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/SystemPermissionSet.java`
-#### Snippet
-```java
-            ModeledPermissions<? extends EntityModel> entity,
-            Set<String> effectiveGroups) {
-        super.init(currentUser);
-        this.entity = entity;
-        this.effectiveGroups = effectiveGroups;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectionGroup.java`
-#### Snippet
-```java
-
-        super();
-        super.setName(name);
-        super.setIdentifier(identifier);
-        super.setType(ConnectionGroup.Type.ORGANIZATIONAL);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectionGroup.java`
-#### Snippet
-```java
-        super();
-        super.setName(name);
-        super.setIdentifier(identifier);
-        super.setType(ConnectionGroup.Type.ORGANIZATIONAL);
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectionGroup.java`
-#### Snippet
-```java
-        super.setName(name);
-        super.setIdentifier(identifier);
-        super.setType(ConnectionGroup.Type.ORGANIZATIONAL);
-
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ObjectPermissionSet.java`
-#### Snippet
-```java
-            ModeledPermissions<? extends EntityModel> entity,
-            Set<String> effectiveGroups) {
-        super.init(currentUser);
-        this.entity = entity;
-        this.effectiveGroups = effectiveGroups;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectDirectory.java`
 #### Snippet
 ```java
@@ -3198,14 +3019,38 @@ in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/au
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/activeconnection/TrackedActiveConnection.java`
+in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectionGroup.java`
 #### Snippet
 ```java
-            boolean connectable) {
 
-        super.init(currentUser);
-        this.connectionRecord = activeConnectionRecord;
-        this.connectable      = connectable;
+        super();
+        super.setName(name);
+        super.setIdentifier(identifier);
+        super.setType(ConnectionGroup.Type.ORGANIZATIONAL);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectionGroup.java`
+#### Snippet
+```java
+        super();
+        super.setName(name);
+        super.setIdentifier(identifier);
+        super.setType(ConnectionGroup.Type.ORGANIZATIONAL);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectionGroup.java`
+#### Snippet
+```java
+        super.setName(name);
+        super.setIdentifier(identifier);
+        super.setType(ConnectionGroup.Type.ORGANIZATIONAL);
+
+    }
 ```
 
 ### UnnecessarySuperQualifier
@@ -3278,6 +3123,162 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleUser.
         super.setIdentifier(username);
     }
 
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/DynamicallyAuthenticatedDataSource.java`
+#### Snippet
+```java
+                try {
+                    logger.debug("Creating new database connection for pool.");
+                    return super.getConnection(environment.getUsername(), environment.getPassword());
+                }
+                catch (GuacamoleException e) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/DynamicallyAuthenticatedDataSource.java`
+#### Snippet
+```java
+        // connections failing to pass sanity checks and never being returned
+        // to the pool.
+        super.forceCloseAll();
+
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledObject.java`
+#### Snippet
+```java
+     */
+    public void init(ModeledAuthenticatedUser currentUser, ModelType model) {
+        super.init(currentUser);
+        setModel(model);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/RelatedObjectSet.java`
+#### Snippet
+```java
+     */
+    public void init(ModeledAuthenticatedUser currentUser, ParentObjectType parent) {
+        super.init(currentUser);
+        this.parent = parent;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserRecordSet.java`
+#### Snippet
+```java
+     */
+    protected void init(ModeledAuthenticatedUser currentUser, String identifier) {
+        super.init(currentUser);
+        this.identifier = identifier;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserModel.java`
+#### Snippet
+```java
+    public UserModel(String identifier) {
+        super(EntityType.USER);
+        super.setIdentifier(identifier);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+    public void init(ModeledAuthenticatedUser currentUser, UserModel model,
+            boolean exposeRestrictedAttributes) {
+        super.init(currentUser, model);
+        this.exposeRestrictedAttributes = exposeRestrictedAttributes;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+    @Override
+    public Permissions getEffectivePermissions() throws GuacamoleException {
+        return super.getEffective();
+    }
+    
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/usergroup/ModeledUserGroup.java`
+#### Snippet
+```java
+    public void init(ModeledAuthenticatedUser currentUser, UserGroupModel model,
+            boolean exposeRestrictedAttributes) {
+        super.init(currentUser, model);
+        this.exposeRestrictedAttributes = exposeRestrictedAttributes;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ConnectionRecordSet.java`
+#### Snippet
+```java
+     */
+    protected void init(ModeledAuthenticatedUser currentUser, String identifier) {
+        super.init(currentUser);
+        this.identifier = identifier;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/SystemPermissionSet.java`
+#### Snippet
+```java
+            ModeledPermissions<? extends EntityModel> entity,
+            Set<String> effectiveGroups) {
+        super.init(currentUser);
+        this.entity = entity;
+        this.effectiveGroups = effectiveGroups;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ObjectPermissionSet.java`
+#### Snippet
+```java
+            ModeledPermissions<? extends EntityModel> entity,
+            Set<String> effectiveGroups) {
+        super.init(currentUser);
+        this.entity = entity;
+        this.effectiveGroups = effectiveGroups;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/activeconnection/TrackedActiveConnection.java`
+#### Snippet
+```java
+            boolean connectable) {
+
+        super.init(currentUser);
+        this.connectionRecord = activeConnectionRecord;
+        this.connectable      = connectable;
 ```
 
 ### UnnecessarySuperQualifier
@@ -3548,6 +3549,114 @@ import org.apache.guacamole.net.auth.UserContext;
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
+in `guacamole/src/main/java/org/apache/guacamole/rest/patch/PatchRESTService.java`
+#### Snippet
+```java
+            int length;
+
+            while ((length = reader.read(buffer)) != -1) {
+                contents.append(buffer, 0, length);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `guacamole/src/main/java/org/apache/guacamole/resource/ResourceServlet.java`
+#### Snippet
+```java
+            // Write resource to response body
+            OutputStream output = response.getOutputStream();
+            while ((length = input.read(buffer)) != -1)
+                output.write(buffer, 0, length);
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
+#### Snippet
+```java
+
+                        // Attempt to read
+                        while ((readMessage = reader.read()) != null) {
+
+                            // Buffer message
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/GuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+
+                                // Attempt to read
+                                while ((readMessage = reader.read()) != null) {
+
+                                    // Buffer message
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+
+                    int num_read;
+                    while ((num_read = reader.read(buffer)) > 0)
+                        writer.write(buffer, 0, num_read);
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+
+                                // Attempt to read
+                                while ((readMessage = reader.read()) != null) {
+
+                                    // Buffer message
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `guacamole/src/main/java/org/apache/guacamole/extension/LanguageResourceService.java`
+#### Snippet
+```java
+                // Attempt to read language name from node
+                String languageName;
+                if (nameNode == null || (languageName = nameNode.textValue()) == null) {
+                    logger.warn("Root-level \"" + LANGUAGE_DISPLAY_NAME_KEY + "\" string missing or invalid in language \"{}\"", languageKey);
+                    languageName = languageKey;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionClassLoader.java`
+#### Snippet
+```java
+            try (OutputStream output = new FileOutputStream(dest)) {
+
+                while ((length = input.read(buffer)) > 0) {
+                    output.write(buffer, 0, length);
+                }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/conf/PrivateKeyGuacamoleProperty.java`
+#### Snippet
+```java
+                byte[] keyBuffer = new byte[1024];
+
+                for (int readBytes; (readBytes = keyStreamIn.read(keyBuffer)) != -1;)
+                    keyStreamOut.write(keyBuffer, 0, readBytes);
+
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/SharedObjectManager.java`
 #### Snippet
 ```java
@@ -3587,11 +3696,11 @@ Result of assignment expression used
 in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
 #### Snippet
 ```java
-                // Transfer data using buffer
-                while (tunnel.isOpen() &&
-                        (length = input.read(buffer, 0, buffer.length)) != -1)
-                    writer.write(buffer, 0, length);
+                        break;
 
+                } while (tunnel.isOpen() && (message = reader.read()) != null);
+
+                // Close tunnel immediately upon EOF
 ```
 
 ### NestedAssignment
@@ -3599,11 +3708,11 @@ Result of assignment expression used
 in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
 #### Snippet
 ```java
-                        break;
+                // Transfer data using buffer
+                while (tunnel.isOpen() &&
+                        (length = input.read(buffer, 0, buffer.length)) != -1)
+                    writer.write(buffer, 0, length);
 
-                } while (tunnel.isOpen() && (message = reader.read()) != null);
-
-                // Close tunnel immediately upon EOF
 ```
 
 ### NestedAssignment
@@ -3618,127 +3727,7 @@ in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSo
                             // Buffer message
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `guacamole/src/main/java/org/apache/guacamole/rest/patch/PatchRESTService.java`
-#### Snippet
-```java
-            int length;
-
-            while ((length = reader.read(buffer)) != -1) {
-                contents.append(buffer, 0, length);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `guacamole/src/main/java/org/apache/guacamole/resource/ResourceServlet.java`
-#### Snippet
-```java
-            // Write resource to response body
-            OutputStream output = response.getOutputStream();
-            while ((length = input.read(buffer)) != -1)
-                output.write(buffer, 0, length);
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-
-                                // Attempt to read
-                                while ((readMessage = reader.read()) != null) {
-
-                                    // Buffer message
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
-#### Snippet
-```java
-
-                        // Attempt to read
-                        while ((readMessage = reader.read()) != null) {
-
-                            // Buffer message
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-
-                                // Attempt to read
-                                while ((readMessage = reader.read()) != null) {
-
-                                    // Buffer message
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-
-                    int num_read;
-                    while ((num_read = reader.read(buffer)) > 0)
-                        writer.write(buffer, 0, num_read);
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `guacamole/src/main/java/org/apache/guacamole/extension/LanguageResourceService.java`
-#### Snippet
-```java
-                // Attempt to read language name from node
-                String languageName;
-                if (nameNode == null || (languageName = nameNode.textValue()) == null) {
-                    logger.warn("Root-level \"" + LANGUAGE_DISPLAY_NAME_KEY + "\" string missing or invalid in language \"{}\"", languageKey);
-                    languageName = languageKey;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionClassLoader.java`
-#### Snippet
-```java
-            try (OutputStream output = new FileOutputStream(dest)) {
-
-                while ((length = input.read(buffer)) > 0) {
-                    output.write(buffer, 0, length);
-                }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/conf/PrivateKeyGuacamoleProperty.java`
-#### Snippet
-```java
-                byte[] keyBuffer = new byte[1024];
-
-                for (int readBytes; (readBytes = keyStreamIn.read(keyBuffer)) != -1;)
-                    keyStreamOut.write(keyBuffer, 0, readBytes);
-
-```
-
 ## RuleId[ruleID=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-
-        return CompletableFuture.supplyAsync(() -> {
-            return new String(SecretsManager.downloadFile(file), StandardCharsets.UTF_8);
-        });
-
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleObjectPermissionSet.java`
@@ -3749,6 +3738,18 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleObjec
         types.forEach(type -> {
             identifiers.forEach(identifier -> permissions.add(new ObjectPermission(type, identifier)));
         });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+
+        return CompletableFuture.supplyAsync(() -> {
+            return new String(SecretsManager.downloadFile(file), StandardCharsets.UTF_8);
+        });
+
 ```
 
 ### CodeBlock2Expr
@@ -3764,30 +3765,6 @@ in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-saml/src/main/java/
 ```
 
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `matchUsernames` are queried, but never updated
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/JacksonLDAPConfiguration.java`
-#### Snippet
-```java
-    @JsonProperty("match-usernames")
-    @JsonFormat(with = ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    private List<Pattern> matchUsernames;
-    
-    /**
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `authProviders` are queried, but never updated
-in `guacamole/src/main/java/org/apache/guacamole/GuacamoleServletContextListener.java`
-#### Snippet
-```java
-     */
-    @Inject
-    private List<AuthenticationProvider> authProviders;
-
-    /**
-```
-
 ### MismatchedCollectionQueryUpdate
 Contents of collection `authProviders` are queried, but never updated
 in `guacamole/src/main/java/org/apache/guacamole/rest/auth/DecorationService.java`
@@ -3826,6 +3803,18 @@ in `guacamole/src/main/java/org/apache/guacamole/rest/auth/AuthenticationService
 
 ### MismatchedCollectionQueryUpdate
 Contents of collection `authProviders` are queried, but never updated
+in `guacamole/src/main/java/org/apache/guacamole/GuacamoleServletContextListener.java`
+#### Snippet
+```java
+     */
+    @Inject
+    private List<AuthenticationProvider> authProviders;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `authProviders` are queried, but never updated
 in `guacamole/src/main/java/org/apache/guacamole/rest/extension/ExtensionRESTService.java`
 #### Snippet
 ```java
@@ -3836,15 +3825,27 @@ in `guacamole/src/main/java/org/apache/guacamole/rest/extension/ExtensionRESTSer
     /**
 ```
 
+### MismatchedCollectionQueryUpdate
+Contents of collection `matchUsernames` are queried, but never updated
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/JacksonLDAPConfiguration.java`
+#### Snippet
+```java
+    @JsonProperty("match-usernames")
+    @JsonFormat(with = ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    private List<Pattern> matchUsernames;
+    
+    /**
+```
+
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `remote` is accessed in both synchronized and unsynchronized contexts
-in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSocketTunnelEndpoint.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
 #### Snippet
 ```java
      * non-null if tunnel is non-null.
      */
-    private RemoteEndpoint.Basic remote;
+    private RemoteEndpoint remote;
 
     /**
 ```
@@ -3862,18 +3863,6 @@ in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/Guacamo
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `remote` is accessed in both synchronized and unsynchronized contexts
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
-#### Snippet
-```java
-     * non-null if tunnel is non-null.
-     */
-    private RemoteEndpoint remote;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `outbound` is accessed in both synchronized and unsynchronized contexts
 in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
 #### Snippet
@@ -3885,223 +3874,32 @@ in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/Guacamo
             /**
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `remote` is accessed in both synchronized and unsynchronized contexts
+in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSocketTunnelEndpoint.java`
+#### Snippet
+```java
+     * non-null if tunnel is non-null.
+     */
+    private RemoteEndpoint.Basic remote;
+
+    /**
+```
+
+## RuleId[ruleID=EmptyMethod]
+### EmptyMethod
+The method is empty
+in `guacamole/src/main/java/org/apache/guacamole/rest/session/SessionResource.java`
+#### Snippet
+```java
+     */
+    @HEAD
+    public void checkValidity() {
+        // Do nothing
+    }
+```
+
 ## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserRecordSet.java`
-#### Snippet
-```java
-     * that are readable by the current user will be retrieved.
-     */
-    private String identifier = null;
-    
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-     * via getAttributes() or allowed to be set via setAttributes().
-     */
-    private boolean exposeRestrictedAttributes = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-     * user was retrieved from the database, this will be null.
-     */
-    private String password = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
-#### Snippet
-```java
-     * queried. If the user is new, this will be null.
-     */
-    private PasswordRecordModel passwordRecord = null;
-    
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/usergroup/ModeledUserGroup.java`
-#### Snippet
-```java
-     * via getAttributes() or allowed to be set via setAttributes().
-     */
-    private boolean exposeRestrictedAttributes = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledGuacamoleConfiguration.java`
-#### Snippet
-```java
-     * The manually-set parameter map, if any.
-     */
-    private Map<String, String> parameters = null;
-    
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ConnectionRecordSet.java`
-#### Snippet
-```java
-     * by the user making the request.
-     */
-    private String identifier = null;
-    
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledConnection.java`
-#### Snippet
-```java
-     * The manually-set GuacamoleConfiguration, if any.
-     */
-    private GuacamoleConfiguration config = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharingprofile/ModeledSharingProfile.java`
-#### Snippet
-```java
-     * The manually-set parameter map, if any.
-     */
-    private Map<String, String> parameters = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
-#### Snippet
-```java
-     * not be accessed without {@link #cacheLock} acquired appropriately.
-     */
-    private volatile long cacheTimestamp = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
-#### Snippet
-```java
-     * {@link #cacheLock} acquired appropriately.
-     */
-    private KeeperSecrets cachedSecrets = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
-#### Snippet
-```java
-     * future reads.
-     */
-    private int usedLength = 0;
-
-    @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleParser.java`
-#### Snippet
-```java
-     * The length of the current element, if known.
-     */
-    private int elementLength = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleParser.java`
-#### Snippet
-```java
-     * The number of elements currently parsed.
-     */
-    private int elementCount = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleInstruction.java`
-#### Snippet
-```java
-     * used by the Guacamole protocol.
-     */
-    private String protocolForm = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserData.java`
-#### Snippet
-```java
-     * expiration timestamp has been set.
-     */
-    private boolean singleUse = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserData.java`
-#### Snippet
-```java
-         * immediately upon use.
-         */
-        private boolean singleUse = false;
-
-        /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/ConfigurationService.java`
-#### Snippet
-```java
-     * this will be null.
-     */
-    private Collection<JacksonLDAPConfiguration> cachedConfigurations = null;
-    
-    /**
-```
-
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `guacamole/src/main/java/org/apache/guacamole/auth/file/AuthorizeTagHandler.java`
@@ -4167,9 +3965,9 @@ Field initialization to `null` is redundant
 in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
 #### Snippet
 ```java
-             * always be non-null if tunnel is non-null.
+             * the WebSocket has not yet been connected, this will be null.
              */
-            private WsOutbound outbound = null;
+            private GuacamoleTunnel tunnel = null;
 
             /**
 ```
@@ -4179,11 +3977,179 @@ Field initialization to `null` is redundant
 in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
 #### Snippet
 ```java
-             * the WebSocket has not yet been connected, this will be null.
+             * always be non-null if tunnel is non-null.
              */
-            private GuacamoleTunnel tunnel = null;
+            private WsOutbound outbound = null;
 
             /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserData.java`
+#### Snippet
+```java
+         * immediately upon use.
+         */
+        private boolean singleUse = false;
+
+        /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserData.java`
+#### Snippet
+```java
+     * expiration timestamp has been set.
+     */
+    private boolean singleUse = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserRecordSet.java`
+#### Snippet
+```java
+     * that are readable by the current user will be retrieved.
+     */
+    private String identifier = null;
+    
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+     * queried. If the user is new, this will be null.
+     */
+    private PasswordRecordModel passwordRecord = null;
+    
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+     * user was retrieved from the database, this will be null.
+     */
+    private String password = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+     * via getAttributes() or allowed to be set via setAttributes().
+     */
+    private boolean exposeRestrictedAttributes = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/usergroup/ModeledUserGroup.java`
+#### Snippet
+```java
+     * via getAttributes() or allowed to be set via setAttributes().
+     */
+    private boolean exposeRestrictedAttributes = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ConnectionRecordSet.java`
+#### Snippet
+```java
+     * by the user making the request.
+     */
+    private String identifier = null;
+    
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledGuacamoleConfiguration.java`
+#### Snippet
+```java
+     * The manually-set parameter map, if any.
+     */
+    private Map<String, String> parameters = null;
+    
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledConnection.java`
+#### Snippet
+```java
+     * The manually-set GuacamoleConfiguration, if any.
+     */
+    private GuacamoleConfiguration config = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharingprofile/ModeledSharingProfile.java`
+#### Snippet
+```java
+     * The manually-set parameter map, if any.
+     */
+    private Map<String, String> parameters = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
+#### Snippet
+```java
+     * {@link #cacheLock} acquired appropriately.
+     */
+    private KeeperSecrets cachedSecrets = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
+#### Snippet
+```java
+     * not be accessed without {@link #cacheLock} acquired appropriately.
+     */
+    private volatile long cacheTimestamp = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/ConfigurationService.java`
+#### Snippet
+```java
+     * this will be null.
+     */
+    private Collection<JacksonLDAPConfiguration> cachedConfigurations = null;
+    
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -4198,7 +4164,91 @@ in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-saml/src/main/java/
     /**
 ```
 
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
+#### Snippet
+```java
+     * future reads.
+     */
+    private int usedLength = 0;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleInstruction.java`
+#### Snippet
+```java
+     * used by the Guacamole protocol.
+     */
+    private String protocolForm = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleParser.java`
+#### Snippet
+```java
+     * The number of elements currently parsed.
+     */
+    private int elementCount = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleParser.java`
+#### Snippet
+```java
+     * The length of the current element, if known.
+     */
+    private int elementLength = 0;
+
+    /**
+```
+
 ## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/resources/html/shared-connection.html`
+#### Snippet
+```java
+<!-- The user sharing this connection (if any) -->
+<span class="jdbc-share-tag" ng-show="item.wrappedItem.attributes['jdbc-shared-by']"
+    translate="HOME.INFO_SHARED_BY"
+    translate-values="{USERNAME: item.wrappedItem.attributes['jdbc-shared-by']}"></span>
+
+```
+
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `extensions/guacamole-auth-totp/src/main/resources/templates/authenticationCodeField.html`
+#### Snippet
+```java
+    <div class="totp-enroll" ng-show="field.qrCode">
+
+        <p translate="TOTP.HELP_ENROLL_BARCODE"></p>
+
+        <!-- Barcode and key details -->
+```
+
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `extensions/guacamole-auth-totp/src/main/resources/templates/authenticationCodeField.html`
+#### Snippet
+```java
+        </table>
+
+        <p translate="TOTP.HELP_ENROLL_VERIFY"
+           translate-values="{ DIGITS : field.digits }"></p>
+
+```
+
 ### HtmlWrongAttributeValue
 Wrong attribute value
 in `extensions/guacamole-display-statistics/src/main/resources/templates/guacClientStatistics.html`
@@ -4249,38 +4299,13 @@ in `extensions/guacamole-display-statistics/src/main/resources/templates/guacCli
 
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/resources/html/shared-connection.html`
+in `guacamole/src/main/frontend/src/app/form/templates/passwordField.html`
 #### Snippet
 ```java
-<!-- The user sharing this connection (if any) -->
-<span class="jdbc-share-tag" ng-show="item.wrappedItem.attributes['jdbc-shared-by']"
-    translate="HOME.INFO_SHARED_BY"
-    translate-values="{USERNAME: item.wrappedItem.attributes['jdbc-shared-by']}"></span>
-
-```
-
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `extensions/guacamole-auth-totp/src/main/resources/templates/authenticationCodeField.html`
-#### Snippet
-```java
-    <div class="totp-enroll" ng-show="field.qrCode">
-
-        <p translate="TOTP.HELP_ENROLL_BARCODE"></p>
-
-        <!-- Barcode and key details -->
-```
-
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `extensions/guacamole-auth-totp/src/main/resources/templates/authenticationCodeField.html`
-#### Snippet
-```java
-        </table>
-
-        <p translate="TOTP.HELP_ENROLL_VERIFY"
-           translate-values="{ DIGITS : field.digits }"></p>
-
+<div class="password-field">
+    <input type="{{passwordInputType}}"
+           ng-disabled="disabled"
+           ng-attr-id="{{ fieldId }}"
 ```
 
 ### HtmlWrongAttributeValue
@@ -4297,13 +4322,14 @@ in `guacamole/src/main/frontend/src/app/form/templates/redirectField.html`
 
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `guacamole/src/main/frontend/src/app/form/templates/passwordField.html`
+in `guacamole/src/main/frontend/src/app/home/templates/connection.html`
 #### Snippet
 ```java
-<div class="password-field">
-    <input type="{{passwordInputType}}"
-           ng-disabled="disabled"
-           ng-attr-id="{{ fieldId }}"
+    <!-- Active user count -->
+    <span class="activeUserCount" ng-show="item.getActiveConnections()"
+        translate="HOME.INFO_ACTIVE_USER_COUNT"
+        translate-values="{USERS: item.getActiveConnections()}"></span>
+
 ```
 
 ### HtmlWrongAttributeValue
@@ -4356,18 +4382,6 @@ in `guacamole/src/main/frontend/src/index.html`
 
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `guacamole/src/main/frontend/src/app/home/templates/connection.html`
-#### Snippet
-```java
-    <!-- Active user count -->
-    <span class="activeUserCount" ng-show="item.getActiveConnections()"
-        translate="HOME.INFO_ACTIVE_USER_COUNT"
-        translate-values="{USERS: item.getActiveConnections()}"></span>
-
-```
-
-### HtmlWrongAttributeValue
-Wrong attribute value
 in `guacamole/src/main/frontend/src/app/login/templates/login.html`
 #### Snippet
 ```java
@@ -4392,6 +4406,18 @@ in `guacamole/src/main/frontend/src/app/login/templates/login.html`
 
 ### HtmlWrongAttributeValue
 Wrong attribute value
+in `guacamole/src/main/frontend/src/app/client/templates/guacFileTransfer.html`
+#### Snippet
+```java
+    <!-- Progress/status text -->
+    <div class="text"
+         translate="CLIENT.TEXT_FILE_TRANSFER_PROGRESS"
+         translate-values="{PROGRESS: getProgressValue(), UNIT: getProgressUnit()}"></div>
+
+```
+
+### HtmlWrongAttributeValue
+Wrong attribute value
 in `guacamole/src/main/frontend/src/app/client/templates/guacClientUserCount.html`
 #### Snippet
 ```java
@@ -4404,14 +4430,14 @@ in `guacamole/src/main/frontend/src/app/client/templates/guacClientUserCount.htm
 
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `guacamole/src/main/frontend/src/app/client/templates/guacFileTransfer.html`
+in `guacamole/src/main/frontend/src/app/manage/templates/manageConnection.html`
 #### Snippet
 ```java
-    <!-- Progress/status text -->
-    <div class="text"
-         translate="CLIENT.TEXT_FILE_TRANSFER_PROGRESS"
-         translate-values="{PROGRESS: getProgressValue(), UNIT: getProgressUnit()}"></div>
-
+                    <td class="start">{{wrapper.entry.startDate | date:historyDateFormat}}</td>
+                    <td class="duration"
+                        translate="{{wrapper.durationText}}"
+                        translate-values="{VALUE: wrapper.duration.value, UNIT: wrapper.duration.unit}"></td>
+                    <td class="remoteHost">{{wrapper.entry.remoteHost}}</td>
 ```
 
 ### HtmlWrongAttributeValue
@@ -4428,14 +4454,14 @@ in `guacamole/src/main/frontend/src/app/client/templates/client.html`
 
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `guacamole/src/main/frontend/src/app/manage/templates/manageConnection.html`
+in `guacamole/src/main/frontend/src/app/settings/templates/connection.html`
 #### Snippet
 ```java
-                    <td class="start">{{wrapper.entry.startDate | date:historyDateFormat}}</td>
-                    <td class="duration"
-                        translate="{{wrapper.durationText}}"
-                        translate-values="{VALUE: wrapper.duration.value, UNIT: wrapper.duration.unit}"></td>
-                    <td class="remoteHost">{{wrapper.entry.remoteHost}}</td>
+    <!-- Active user count -->
+    <span class="activeUserCount" ng-show="item.getActiveConnections()"
+        translate="SETTINGS_CONNECTIONS.INFO_ACTIVE_USER_COUNT"
+        translate-values="{USERS: item.getActiveConnections()}"></span>
+
 ```
 
 ### HtmlWrongAttributeValue
@@ -4460,18 +4486,6 @@ in `guacamole/src/main/frontend/src/app/settings/templates/settingsConnectionHis
                     <td translate="{{historyEntryWrapper.readableDurationText}}"
                         translate-values="{VALUE: historyEntryWrapper.readableDuration.value, UNIT: historyEntryWrapper.readableDuration.unit}"></td>
                     <td>{{historyEntryWrapper.entry.connectionName}}</td>
-```
-
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `guacamole/src/main/frontend/src/app/settings/templates/connection.html`
-#### Snippet
-```java
-    <!-- Active user count -->
-    <span class="activeUserCount" ng-show="item.getActiveConnections()"
-        translate="SETTINGS_CONNECTIONS.INFO_ACTIVE_USER_COUNT"
-        translate-values="{USERS: item.getActiveConnections()}"></span>
-
 ```
 
 ### HtmlWrongAttributeValue
@@ -4512,7 +4526,7 @@ in `guacamole/src/main/frontend/src/app/notification/templates/guacNotification.
 
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-25-07-30-23.005.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-04-18-12-35.629.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -4536,6 +4550,42 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionClassLoader.java`
+#### Snippet
+```java
+                        + "copied to temporary directory \"{}\".", extension, extensionTempLibDir);
+
+            return urls.toArray(new URL[0]);
+
+        }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/LocalEnvironment.java`
+#### Snippet
+```java
+            if (files == null) {
+                logger.error("Unable to read contents of \"{}\".", protocol_directory.getAbsolutePath());
+                files = new File[0];
+            }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/ObjectQueryService.java`
+#### Snippet
+```java
+        SearchRequest request = ldapService.getSearchRequest(config, baseDN, query);
+        if (attributes != null)
+            request.addAttributes(attributes.toArray(new String[0]));
+
+        // Produce list of all entries in the search result, automatically
+```
+
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `guacamole-common/src/main/java/org/apache/guacamole/protocol/ConfiguredGuacamoleSocket.java`
@@ -4572,55 +4622,7 @@ in `guacamole-common/src/main/java/org/apache/guacamole/protocol/ConfiguredGuaca
         
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/LocalEnvironment.java`
-#### Snippet
-```java
-            if (files == null) {
-                logger.error("Unable to read contents of \"{}\".", protocol_directory.getAbsolutePath());
-                files = new File[0];
-            }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/ObjectQueryService.java`
-#### Snippet
-```java
-        SearchRequest request = ldapService.getSearchRequest(config, baseDN, query);
-        if (attributes != null)
-            request.addAttributes(attributes.toArray(new String[0]));
-
-        // Produce list of all entries in the search result, automatically
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionClassLoader.java`
-#### Snippet
-```java
-                        + "copied to temporary directory \"{}\".", extension, extensionTempLibDir);
-
-            return urls.toArray(new URL[0]);
-
-        }
-```
-
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `user instanceof LDAPAuthenticatedUser` is always `true`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/connection/ConnectionService.java`
-#### Snippet
-```java
-                // Inject LDAP-specific tokens only if LDAP handled user
-                // authentication
-                if (user instanceof LDAPAuthenticatedUser)
-                    connection = new TokenInjectingConnection(connection, user.getTokens());
-
-```
-
 ### ConstantValue
 Condition `cipher == null` is always `false`
 in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/ticket/TicketValidationService.java`
@@ -4630,6 +4632,18 @@ in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/o
 
             if (cipher == null)
                 throw new GuacamoleServerException("Failed to initialize cipher object with private key.");
+
+```
+
+### ConstantValue
+Condition `user instanceof LDAPAuthenticatedUser` is always `true`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/connection/ConnectionService.java`
+#### Snippet
+```java
+                // Inject LDAP-specific tokens only if LDAP handled user
+                // authentication
+                if (user instanceof LDAPAuthenticatedUser)
+                    connection = new TokenInjectingConnection(connection, user.getTokens());
 
 ```
 
@@ -4648,15 +4662,15 @@ in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/ap
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `DEFAULT_MAX_GROUP_CONNECTIONS_PER_USER` may be 'static'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-postgresql/src/main/java/org/apache/guacamole/auth/postgresql/conf/PostgreSQLEnvironment.java`
+Field `OTHER_EXTENSIONS` may be 'static'
+in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionOrderProperty.java`
 #### Snippet
 ```java
-     * properties.
-     */
-    private final int DEFAULT_MAX_GROUP_CONNECTIONS_PER_USER = 1;
+         * explicitly listed.
+         */
+        private final String OTHER_EXTENSIONS = "*";
 
-    /**
+        /**
 ```
 
 ### FieldMayBeStatic
@@ -4672,25 +4686,13 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-postgresql/src/ma
 ```
 
 ### FieldMayBeStatic
-Field `DEFAULT_ABSOLUTE_MAX_CONNECTIONS` may be 'static'
+Field `DEFAULT_MAX_GROUP_CONNECTIONS_PER_USER` may be 'static'
 in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-postgresql/src/main/java/org/apache/guacamole/auth/postgresql/conf/PostgreSQLEnvironment.java`
 #### Snippet
 ```java
-     * allowed to the Guacamole server overall.
+     * properties.
      */
-    private final int DEFAULT_ABSOLUTE_MAX_CONNECTIONS = 0;
-
-    /**
-```
-
-### FieldMayBeStatic
-Field `DEFAULT_MAX_CONNECTIONS` may be 'static'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-postgresql/src/main/java/org/apache/guacamole/auth/postgresql/conf/PostgreSQLEnvironment.java`
-#### Snippet
-```java
-     * the values that should be used in the absence of the correct properties.
-     */
-    private final int DEFAULT_MAX_CONNECTIONS = 0;
+    private final int DEFAULT_MAX_GROUP_CONNECTIONS_PER_USER = 1;
 
     /**
 ```
@@ -4708,25 +4710,49 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-postgresql/src/ma
 ```
 
 ### FieldMayBeStatic
-Field `OTHER_EXTENSIONS` may be 'static'
-in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionOrderProperty.java`
+Field `DEFAULT_MAX_CONNECTIONS` may be 'static'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-postgresql/src/main/java/org/apache/guacamole/auth/postgresql/conf/PostgreSQLEnvironment.java`
 #### Snippet
 ```java
-         * explicitly listed.
-         */
-        private final String OTHER_EXTENSIONS = "*";
+     * the values that should be used in the absence of the correct properties.
+     */
+    private final int DEFAULT_MAX_CONNECTIONS = 0;
 
-        /**
+    /**
 ```
 
 ### FieldMayBeStatic
-Field `DEFAULT_MAX_CONNECTIONS` may be 'static'
+Field `DEFAULT_ABSOLUTE_MAX_CONNECTIONS` may be 'static'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-postgresql/src/main/java/org/apache/guacamole/auth/postgresql/conf/PostgreSQLEnvironment.java`
+#### Snippet
+```java
+     * allowed to the Guacamole server overall.
+     */
+    private final int DEFAULT_ABSOLUTE_MAX_CONNECTIONS = 0;
+
+    /**
+```
+
+### FieldMayBeStatic
+Field `DEFAULT_MAX_CONNECTIONS_PER_USER` may be 'static'
 in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-mysql/src/main/java/org/apache/guacamole/auth/mysql/conf/MySQLEnvironment.java`
 #### Snippet
 ```java
-     * allowed to any one connection.
+     * allowed per user to any one connection.
      */
-    private final int DEFAULT_MAX_CONNECTIONS = 0;
+    private final int DEFAULT_MAX_CONNECTIONS_PER_USER = 1;
+
+    /**
+```
+
+### FieldMayBeStatic
+Field `DEFAULT_ABSOLUTE_MAX_CONNECTIONS` may be 'static'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-mysql/src/main/java/org/apache/guacamole/auth/mysql/conf/MySQLEnvironment.java`
+#### Snippet
+```java
+     * allowed to the Guacamole server overall.
+     */
+    private final int DEFAULT_ABSOLUTE_MAX_CONNECTIONS = 0;
 
     /**
 ```
@@ -4744,13 +4770,13 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-mysql/src/main/ja
 ```
 
 ### FieldMayBeStatic
-Field `DEFAULT_ABSOLUTE_MAX_CONNECTIONS` may be 'static'
+Field `DEFAULT_MAX_CONNECTIONS` may be 'static'
 in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-mysql/src/main/java/org/apache/guacamole/auth/mysql/conf/MySQLEnvironment.java`
 #### Snippet
 ```java
-     * allowed to the Guacamole server overall.
+     * allowed to any one connection.
      */
-    private final int DEFAULT_ABSOLUTE_MAX_CONNECTIONS = 0;
+    private final int DEFAULT_MAX_CONNECTIONS = 0;
 
     /**
 ```
@@ -4767,27 +4793,27 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-mysql/src/main/ja
     /**
 ```
 
-### FieldMayBeStatic
-Field `DEFAULT_MAX_CONNECTIONS_PER_USER` may be 'static'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-mysql/src/main/java/org/apache/guacamole/auth/mysql/conf/MySQLEnvironment.java`
+## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `ProviderFactory` has only 'static' members, and lacks a 'private' constructor
+in `guacamole/src/main/java/org/apache/guacamole/extension/ProviderFactory.java`
 #### Snippet
 ```java
-     * allowed per user to any one connection.
-     */
-    private final int DEFAULT_MAX_CONNECTIONS_PER_USER = 1;
+ * with sufficient detail to allow debugging.
+ */
+class ProviderFactory {
 
     /**
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `KsmConfig` has only 'static' members, and lacks a 'private' constructor
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/conf/KsmConfig.java`
+Class `ListenerFactory` has only 'static' members, and lacks a 'private' constructor
+in `guacamole/src/main/java/org/apache/guacamole/extension/ListenerFactory.java`
 #### Snippet
 ```java
- * {@link KeyValueStorage} object.
+ * provider class.
  */
-public class KsmConfig {
+class ListenerFactory {
 
     /**
 ```
@@ -4817,91 +4843,30 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/form/Field.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ListenerFactory` has only 'static' members, and lacks a 'private' constructor
-in `guacamole/src/main/java/org/apache/guacamole/extension/ListenerFactory.java`
+Class `KsmConfig` has only 'static' members, and lacks a 'private' constructor
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/conf/KsmConfig.java`
 #### Snippet
 ```java
- * provider class.
+ * {@link KeyValueStorage} object.
  */
-class ListenerFactory {
+public class KsmConfig {
 
     /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProviderFactory` has only 'static' members, and lacks a 'private' constructor
-in `guacamole/src/main/java/org/apache/guacamole/extension/ProviderFactory.java`
-#### Snippet
-```java
- * with sufficient detail to allow debugging.
- */
-class ProviderFactory {
-
-    /**
-```
-
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionGroup.java`
-#### Snippet
-```java
-        BALANCING
-
-    };
-
-    /**
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecordSet.java`
-#### Snippet
-```java
-        START_DATE
-
-    };
-
-    /**
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/MemberAttributeType.java`
-#### Snippet
-```java
-     */
-    @PropertyValue("uid")
-    UID;
-
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-sqlserver/src/main/java/org/apache/guacamole/auth/sqlserver/conf/SQLServerDriver.java`
-#### Snippet
-```java
-     */
-    @PropertyValue("microsoft2005")
-    MICROSOFT_2005;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/RestrictedGuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-            throws GuacamoleException {
-        return tunnelRequestService.createTunnel(request);
-    };
-
-}
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Casting `e` to `GuacamoleException` will produce `ClassCastException` for any non-null value
+in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultConfigurationService.java`
+#### Snippet
+```java
+
+                    if (e.getCause() instanceof GuacamoleException)
+                        throw (GuacamoleException) e;
+
+                    throw new GuacamoleServerException(String.format("Property "
+```
+
 ### DataFlowIssue
 Argument `custom` might be null
 in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
@@ -4909,9 +4874,21 @@ in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apa
 ```java
 
         // Use password "private key" custom field as fallback ...
-        Password passwordField = getField(custom, Password.class, PASSPHRASE_LABEL_PATTERN);
+        Password passwordField = getField(custom, Password.class, PRIVATE_KEY_LABEL_PATTERN);
         if (passwordField != null)
-            return getSingleStringValue(passwordField.getValue());
+            return CompletableFuture.completedFuture(getSingleStringValue(passwordField.getValue()));
+```
+
+### DataFlowIssue
+Argument `custom` might be null
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+
+        // Use text "hostname" custom field as fallback ...
+        Text textField = getField(custom, Text.class, HOSTNAME_LABEL_PATTERN);
+        if (textField != null)
+            return getSingleStringValue(textField.getValue());
 ```
 
 ### DataFlowIssue
@@ -4945,9 +4922,9 @@ in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apa
 ```java
 
         // Use password "private key" custom field as fallback ...
-        Password passwordField = getField(custom, Password.class, PRIVATE_KEY_LABEL_PATTERN);
+        Password passwordField = getField(custom, Password.class, PASSPHRASE_LABEL_PATTERN);
         if (passwordField != null)
-            return CompletableFuture.completedFuture(getSingleStringValue(passwordField.getValue()));
+            return getSingleStringValue(passwordField.getValue());
 ```
 
 ### DataFlowIssue
@@ -4960,18 +4937,6 @@ in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apa
         return getField(data.getCustom(), fieldClass, labelPattern);
 
     }
-```
-
-### DataFlowIssue
-Argument `custom` might be null
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-
-        // Use text "hostname" custom field as fallback ...
-        Text textField = getField(custom, Text.class, HOSTNAME_LABEL_PATTERN);
-        if (textField != null)
-            return getSingleStringValue(textField.getValue());
 ```
 
 ### DataFlowIssue
@@ -4998,55 +4963,68 @@ in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guac
         }
 ```
 
-### DataFlowIssue
-Casting `e` to `GuacamoleException` will produce `ClassCastException` for any non-null value
-in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultConfigurationService.java`
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/RestrictedGuacamoleWebSocketTunnelServlet.java`
 #### Snippet
 ```java
+            throws GuacamoleException {
+        return tunnelRequestService.createTunnel(request);
+    };
 
-                    if (e.getCause() instanceof GuacamoleException)
-                        throw (GuacamoleException) e;
+}
+```
 
-                    throw new GuacamoleServerException(String.format("Property "
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionGroup.java`
+#### Snippet
+```java
+        BALANCING
+
+    };
+
+    /**
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecordSet.java`
+#### Snippet
+```java
+        START_DATE
+
+    };
+
+    /**
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-sqlserver/src/main/java/org/apache/guacamole/auth/sqlserver/conf/SQLServerDriver.java`
+#### Snippet
+```java
+     */
+    @PropertyValue("microsoft2005")
+    MICROSOFT_2005;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/MemberAttributeType.java`
+#### Snippet
+```java
+     */
+    @PropertyValue("uid")
+    UID;
+
+}
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
-in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
-#### Snippet
-```java
-        Map<String, ActivityLog> logs = new HashMap<>(super.getLogs());
-        if (recording.isDirectory()) {
-            Arrays.asList(recording.listFiles()).stream()
-                    .forEach((file) -> addActivityLog(logs, file));
-        }
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
-#### Snippet
-```java
-        if (recording.isDirectory()) {
-            Arrays.asList(recording.listFiles()).stream()
-                    .forEach((file) -> addActivityLog(logs, file));
-        }
-        else
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEachOrdered()'' can be replaced with 'forEach()'' (may change semantics)
-in `guacamole/src/main/java/org/apache/guacamole/GuacamoleServletContextListener.java`
-#### Snippet
-```java
-            // clean up ALL temporary files
-            if (temporaryFiles != null)
-                Lists.reverse(temporaryFiles).stream().forEachOrdered(this::deleteTemporaryFile);
-
-        }
-```
-
 ### SimplifyStreamApiCallChains
 '!Stream.anyMatch(x -\> !(...))' can be replaced with 'allMatch()'
 in `guacamole/src/main/java/org/apache/guacamole/GuacamoleSession.java`
@@ -5069,6 +5047,42 @@ in `guacamole/src/main/java/org/apache/guacamole/rest/auth/HashTokenSessionMap.j
         sessionMap.values().stream().forEach(GuacamoleSession::invalidate);
 
     }
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEachOrdered()'' can be replaced with 'forEach()'' (may change semantics)
+in `guacamole/src/main/java/org/apache/guacamole/GuacamoleServletContextListener.java`
+#### Snippet
+```java
+            // clean up ALL temporary files
+            if (temporaryFiles != null)
+                Lists.reverse(temporaryFiles).stream().forEachOrdered(this::deleteTemporaryFile);
+
+        }
+```
+
+### SimplifyStreamApiCallChains
+'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
+in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
+#### Snippet
+```java
+        Map<String, ActivityLog> logs = new HashMap<>(super.getLogs());
+        if (recording.isDirectory()) {
+            Arrays.asList(recording.listFiles()).stream()
+                    .forEach((file) -> addActivityLog(logs, file));
+        }
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
+#### Snippet
+```java
+        if (recording.isDirectory()) {
+            Arrays.asList(recording.listFiles()).stream()
+                    .forEach((file) -> addActivityLog(logs, file));
+        }
+        else
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
@@ -5121,18 +5135,6 @@ public interface TunnelCloseListener {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'AuthenticationSuccessListener' is still used
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/listener/AuthenticationSuccessListener.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface AuthenticationSuccessListener {
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'TunnelConnectListener' is still used
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/listener/TunnelConnectListener.java`
 #### Snippet
@@ -5142,6 +5144,18 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/listener/TunnelCo
 public interface TunnelConnectListener {
 
    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AuthenticationSuccessListener' is still used
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/listener/AuthenticationSuccessListener.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface AuthenticationSuccessListener {
+
+    /**
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -5155,19 +5169,6 @@ in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apa
                 superObject -> wrap(superObject)
                 ).collect(Collectors.toList());
 
-```
-
-## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `close()` overrides synchronized method
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelRequestService.java`
-#### Snippet
-```java
-
-            @Override
-            public void close() throws GuacamoleException {
-
-                // Notify listeners to allow close request to be vetoed
 ```
 
 ## RuleId[ruleID=RedundantCollectionOperation]
@@ -5185,87 +5186,51 @@ in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/au
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'translatableMessage' in a Serializable class
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/security/PasswordPolicyException.java`
-#### Snippet
-```java
-     * system, describes the policy violation that occurred.
-     */
-    private final TranslatableMessage translatableMessage;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'currentUser' in a Serializable class
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledGuacamoleConfiguration.java`
-#### Snippet
-```java
-     * permission settings.
-     */
-    private ModeledAuthenticatedUser currentUser;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'connectionService' in a Serializable class
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledGuacamoleConfiguration.java`
+Non-serializable field 'tunnelRequestService' in a Serializable class
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/http/RestrictedGuacamoleHTTPTunnelServlet.java`
 #### Snippet
 ```java
      */
     @Inject
-    private ConnectionService connectionService;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'connectionModel' in a Serializable class
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledGuacamoleConfiguration.java`
-#### Snippet
-```java
-     * connection associated with this configuration.
-     */
-    private ConnectionModel connectionModel;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'version' in a Serializable class
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleProtocolCapability.java`
-#### Snippet
-```java
-     * The minimum protocol version required to support this capability.
-     */
-    private final GuacamoleProtocolVersion version;
+    private TunnelRequestService tunnelRequestService;
     
     /**
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'tunnels' in a Serializable class
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+Non-serializable field 'tunnelRequestService' in a Serializable class
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/RestrictedGuacamoleWebSocketTunnelServlet.java`
 #### Snippet
 ```java
-     * session token.
      */
-    private final GuacamoleHTTPTunnelMap tunnels = new GuacamoleHTTPTunnelMap();
-
-    /**
+    @Inject
+    private TunnelRequestService tunnelRequestService;
+ 
+    @Override
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'encoder' in a Serializable class
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+Non-serializable field 'tunnelRequestService' in a Serializable class
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/RestrictedGuacamoleWebSocketTunnelServlet.java`
 #### Snippet
 ```java
-     * strings.
      */
-    private final Base64.Encoder encoder = Base64.getEncoder();
+    @Inject
+    private TunnelRequestService tunnelRequestService;
+ 
+    @Override
+```
 
-    /**
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'tunnelRequestService' in a Serializable class
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/RestrictedGuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+     */
+    @Inject
+    private TunnelRequestService tunnelRequestService;
+ 
+    @Override
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -5277,18 +5242,6 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/credentials/Guacam
      */
     private final CredentialsInfo credentialsInfo;
     
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleSessionClosedException.java`
-#### Snippet
-```java
-     * occurred.
-     */
-    private final TranslatableMessage translatableMessage;
-
     /**
 ```
 
@@ -5342,31 +5295,31 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleServerBusyException.java`
-#### Snippet
-```java
-     * occurred.
-     */
-    private final TranslatableMessage translatableMessage;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleUpstreamException.java`
-#### Snippet
-```java
-     * occurred.
-     */
-    private final TranslatableMessage translatableMessage;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'translatableMessage' in a Serializable class
 in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleClientOverrunException.java`
+#### Snippet
+```java
+     * occurred.
+     */
+    private final TranslatableMessage translatableMessage;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'translatableMessage' in a Serializable class
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleSessionClosedException.java`
+#### Snippet
+```java
+     * occurred.
+     */
+    private final TranslatableMessage translatableMessage;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'translatableMessage' in a Serializable class
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleServerBusyException.java`
 #### Snippet
 ```java
      * occurred.
@@ -5402,7 +5355,7 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleConnectionClosedException.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleUpstreamException.java`
 #### Snippet
 ```java
      * occurred.
@@ -5426,7 +5379,7 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleClientBadTypeException.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleConnectionClosedException.java`
 #### Snippet
 ```java
      * occurred.
@@ -5438,7 +5391,7 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleClientTooManyException.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleClientBadTypeException.java`
 #### Snippet
 ```java
      * occurred.
@@ -5474,7 +5427,7 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleSessionTimeoutException.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleResourceConflictException.java`
 #### Snippet
 ```java
      * occurred.
@@ -5486,7 +5439,7 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleResourceConflictException.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleClientTooManyException.java`
 #### Snippet
 ```java
      * occurred.
@@ -5510,19 +5463,7 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleInvalidCredentialsException.java`
-#### Snippet
-```java
-     * occurred.
-     */
-    private final TranslatableMessage translatableMessage;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleUpstreamNotFoundException.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleSessionTimeoutException.java`
 #### Snippet
 ```java
      * occurred.
@@ -5546,6 +5487,42 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleCredentialsException.java`
+#### Snippet
+```java
+     * occurred.
+     */
+    private final TranslatableMessage translatableMessage;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'translatableMessage' in a Serializable class
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleUpstreamNotFoundException.java`
+#### Snippet
+```java
+     * occurred.
+     */
+    private final TranslatableMessage translatableMessage;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'translatableMessage' in a Serializable class
+in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleInvalidCredentialsException.java`
+#### Snippet
+```java
+     * occurred.
+     */
+    private final TranslatableMessage translatableMessage;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'translatableMessage' in a Serializable class
 in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleResourceClosedException.java`
 #### Snippet
 ```java
@@ -5558,10 +5535,10 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'translatableMessage' in a Serializable class
-in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacamoleCredentialsException.java`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/security/PasswordPolicyException.java`
 #### Snippet
 ```java
-     * occurred.
+     * system, describes the policy violation that occurred.
      */
     private final TranslatableMessage translatableMessage;
 
@@ -5569,51 +5546,88 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/language/TranslatableGuacam
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'tunnelRequestService' in a Serializable class
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/http/RestrictedGuacamoleHTTPTunnelServlet.java`
+Non-serializable field 'connectionModel' in a Serializable class
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledGuacamoleConfiguration.java`
+#### Snippet
+```java
+     * connection associated with this configuration.
+     */
+    private ConnectionModel connectionModel;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'connectionService' in a Serializable class
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledGuacamoleConfiguration.java`
 #### Snippet
 ```java
      */
     @Inject
-    private TunnelRequestService tunnelRequestService;
+    private ConnectionService connectionService;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'currentUser' in a Serializable class
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ModeledGuacamoleConfiguration.java`
+#### Snippet
+```java
+     * permission settings.
+     */
+    private ModeledAuthenticatedUser currentUser;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'version' in a Serializable class
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleProtocolCapability.java`
+#### Snippet
+```java
+     * The minimum protocol version required to support this capability.
+     */
+    private final GuacamoleProtocolVersion version;
     
     /**
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'tunnelRequestService' in a Serializable class
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/RestrictedGuacamoleWebSocketTunnelServlet.java`
+Non-serializable field 'encoder' in a Serializable class
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
 #### Snippet
 ```java
+     * strings.
      */
-    @Inject
-    private TunnelRequestService tunnelRequestService;
- 
-    @Override
+    private final Base64.Encoder encoder = Base64.getEncoder();
+
+    /**
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'tunnelRequestService' in a Serializable class
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/RestrictedGuacamoleWebSocketTunnelServlet.java`
+Non-serializable field 'tunnels' in a Serializable class
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
 #### Snippet
 ```java
+     * session token.
      */
-    @Inject
-    private TunnelRequestService tunnelRequestService;
- 
-    @Override
+    private final GuacamoleHTTPTunnelMap tunnels = new GuacamoleHTTPTunnelMap();
+
+    /**
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'tunnelRequestService' in a Serializable class
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/RestrictedGuacamoleWebSocketTunnelServlet.java`
+## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `close()` overrides synchronized method
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelRequestService.java`
 #### Snippet
 ```java
-     */
-    @Inject
-    private TunnelRequestService tunnelRequestService;
- 
-    @Override
+
+            @Override
+            public void close() throws GuacamoleException {
+
+                // Notify listeners to allow close request to be vetoed
 ```
 
 ## RuleId[ruleID=CatchMayIgnoreException]
@@ -5752,18 +5766,6 @@ in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/WebSock
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/group/UserGroupService.java`
-#### Snippet
-```java
-            if (userEntries.size() != 1)
-                logger.warn("user DN \"{}\" does not return unique value "
-                        + "and will be ignored", userDN.toString());
-            else {
-                // determine unique identifier for user
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/SignedDuoCookie.java`
 #### Snippet
 ```java
@@ -5772,6 +5774,18 @@ in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/ap
         this.signature = sign(key, type.getPrefix() + "|" + cookie.toString());
 
     }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/group/UserGroupService.java`
+#### Snippet
+```java
+            if (userEntries.size() != 1)
+                logger.warn("user DN \"{}\" does not return unique value "
+                        + "and will be ignored", userDN.toString());
+            else {
+                // determine unique identifier for user
 ```
 
 ### UnnecessaryToStringCall
@@ -5814,13 +5828,13 @@ in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/ap
 ## RuleId[ruleID=SynchronizeOnNonFinalField]
 ### SynchronizeOnNonFinalField
 Synchronization on a non-final field `remote`
-in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSocketTunnelEndpoint.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
 #### Snippet
 ```java
         // connection has changed, and synchronization need only be performed
         // in context of the new remote.
         synchronized (remote) {
-            remote.sendText(instruction);
+            remote.sendString(instruction);
         }
 ```
 
@@ -5837,18 +5851,6 @@ in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/Guacamo
 ```
 
 ### SynchronizeOnNonFinalField
-Synchronization on a non-final field `remote`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
-#### Snippet
-```java
-        // connection has changed, and synchronization need only be performed
-        // in context of the new remote.
-        synchronized (remote) {
-            remote.sendString(instruction);
-        }
-```
-
-### SynchronizeOnNonFinalField
 Synchronization on a non-final field `outbound`
 in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
 #### Snippet
@@ -5860,7 +5862,151 @@ in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/Guacamo
                 }
 ```
 
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `remote`
+in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSocketTunnelEndpoint.java`
+#### Snippet
+```java
+        // connection has changed, and synchronization need only be performed
+        // in context of the new remote.
+        synchronized (remote) {
+            remote.sendText(instruction);
+        }
+```
+
 ## RuleId[ruleID=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
+#### Snippet
+```java
+                    try {
+                        MessageDigest digest = MessageDigest.getInstance("MD5");
+                        String hashedPassword = getHexString(digest.digest(password.getBytes("UTF-8")));
+                        return hashedPassword.equals(this.password.toUpperCase());
+                    }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
+#### Snippet
+```java
+                    try {
+                        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                        String hashedPassword = getHexString(digest.digest(password.getBytes("UTF-8")));
+                        return hashedPassword.equals(this.password.toUpperCase());
+                    }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenRESTService.java`
+#### Snippet
+```java
+                    String basicBase64 = authorization.substring(6);
+                    String basicCredentials = new String(
+                            BaseEncoding.base64().decode(basicBase64), "UTF-8");
+
+                    // Pull username/password from auth data
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `guacamole/src/main/java/org/apache/guacamole/rest/patch/PatchRESTService.java`
+#### Snippet
+```java
+
+        // Read entire resource into StringBuilder one chunk at a time
+        Reader reader = new InputStreamReader(resource.asStream(), "UTF-8");
+        try {
+
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+
+        try {
+            byte[] message = Integer.toString(guacamoleStatusCode).getBytes("UTF-8");
+            outbound.close(webSocketCode, ByteBuffer.wrap(message));
+        }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/DuoCookie.java`
+#### Snippet
+```java
+
+            // Encode resulting cookie string with base64
+            return BaseEncoding.base64().encode(data.getBytes("UTF-8"));
+
+        }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/DuoCookie.java`
+#### Snippet
+```java
+        String data;
+        try {
+            data = new String(BaseEncoding.base64().decode(str), "UTF-8");
+        }
+
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/SignedDuoCookie.java`
+#### Snippet
+```java
+            // Attempt to sign UTF-8 bytes of provided data
+            Mac mac = Mac.getInstance(SIGNATURE_ALGORITHM);
+            mac.init(new SecretKeySpec(key.getBytes("UTF-8"), SIGNATURE_ALGORITHM));
+
+            // Return signature as hex
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/SignedDuoCookie.java`
+#### Snippet
+```java
+
+            // Return signature as hex
+            return BaseEncoding.base16().lowerCase().encode(mac.doFinal(data.getBytes("UTF-8")));
+
+        }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/ticket/TicketValidationService.java`
+#### Snippet
+```java
+            final byte[] pass64 = BaseEncoding.base64().decode(encryptedPassword);
+            final byte[] cipherData = cipher.doFinal(pass64);
+            return new String(cipherData, Charset.forName("UTF-8"));
+
+        }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserDataService.java`
+#### Snippet
+```java
+
+            // Convert from UTF-8
+            json = new String(receivedJSON, "UTF-8");
+
+        }
+```
+
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/security/SHA256PasswordEncryptionService.java`
@@ -5926,18 +6072,6 @@ StandardCharsets.UTF_8 can be used instead
 in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
 #### Snippet
 ```java
-            // Get input reader for HTTP stream
-            Reader input = new InputStreamReader(
-                    request.getInputStream(), "UTF-8");
-
-            // Transfer data from input stream to tunnel output, ensuring
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
-#### Snippet
-```java
             // Get writer for response
             Writer out = new BufferedWriter(new OutputStreamWriter(
                     response.getOutputStream(), "UTF-8"));
@@ -5947,134 +6081,14 @@ in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTun
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserDataService.java`
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
 #### Snippet
 ```java
+            // Get input reader for HTTP stream
+            Reader input = new InputStreamReader(
+                    request.getInputStream(), "UTF-8");
 
-            // Convert from UTF-8
-            json = new String(receivedJSON, "UTF-8");
-
-        }
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/DuoCookie.java`
-#### Snippet
-```java
-
-            // Encode resulting cookie string with base64
-            return BaseEncoding.base64().encode(data.getBytes("UTF-8"));
-
-        }
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/DuoCookie.java`
-#### Snippet
-```java
-        String data;
-        try {
-            data = new String(BaseEncoding.base64().decode(str), "UTF-8");
-        }
-
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/SignedDuoCookie.java`
-#### Snippet
-```java
-            // Attempt to sign UTF-8 bytes of provided data
-            Mac mac = Mac.getInstance(SIGNATURE_ALGORITHM);
-            mac.init(new SecretKeySpec(key.getBytes("UTF-8"), SIGNATURE_ALGORITHM));
-
-            // Return signature as hex
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/SignedDuoCookie.java`
-#### Snippet
-```java
-
-            // Return signature as hex
-            return BaseEncoding.base16().lowerCase().encode(mac.doFinal(data.getBytes("UTF-8")));
-
-        }
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
-#### Snippet
-```java
-                    try {
-                        MessageDigest digest = MessageDigest.getInstance("MD5");
-                        String hashedPassword = getHexString(digest.digest(password.getBytes("UTF-8")));
-                        return hashedPassword.equals(this.password.toUpperCase());
-                    }
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
-#### Snippet
-```java
-                    try {
-                        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                        String hashedPassword = getHexString(digest.digest(password.getBytes("UTF-8")));
-                        return hashedPassword.equals(this.password.toUpperCase());
-                    }
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenRESTService.java`
-#### Snippet
-```java
-                    String basicBase64 = authorization.substring(6);
-                    String basicCredentials = new String(
-                            BaseEncoding.base64().decode(basicBase64), "UTF-8");
-
-                    // Pull username/password from auth data
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `guacamole/src/main/java/org/apache/guacamole/rest/patch/PatchRESTService.java`
-#### Snippet
-```java
-
-        // Read entire resource into StringBuilder one chunk at a time
-        Reader reader = new InputStreamReader(resource.asStream(), "UTF-8");
-        try {
-
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-
-        try {
-            byte[] message = Integer.toString(guacamoleStatusCode).getBytes("UTF-8");
-            outbound.close(webSocketCode, ByteBuffer.wrap(message));
-        }
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/ticket/TicketValidationService.java`
-#### Snippet
-```java
-            final byte[] pass64 = BaseEncoding.base64().decode(encryptedPassword);
-            final byte[] cipherData = cipher.doFinal(pass64);
-            return new String(cipherData, Charset.forName("UTF-8"));
-
-        }
+            // Transfer data from input stream to tunnel output, ensuring
 ```
 
 ## RuleId[ruleID=KotlinMavenPluginPhase]
@@ -6129,123 +6143,27 @@ in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleProtoc
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.net.auth` is unnecessary and can be removed
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUserContext.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `guacamole/src/main/java/org/apache/guacamole/SystemEnvironmentGuacamoleProperties.java`
 #### Snippet
 ```java
+ * environment variables. The name of the environment variable corresponding to
+ * any particular property is determined using
+ * {@link TokenName#canonicalize(java.lang.String)}.
  */
-public class ModeledUserContext extends RestrictedObject
-    implements org.apache.guacamole.net.auth.UserContext {
-
-    /**
+public class SystemEnvironmentGuacamoleProperties implements GuacamoleProperties {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleConfiguration.java`
-#### Snippet
-```java
-     * <p>If this value is unavailable or remains unset, it is still possible
-     * to join an established connection using
-     * {@link #setConnectionID(java.lang.String)}, however protocol-specific
-     * responses like the "required" and "argv" instructions might not be
-     * possible to handle correctly if the underlying protocol is not made
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+Qualifier `org.apache.guacamole.protocol` is unnecessary and can be removed
+in `guacamole/src/main/java/org/apache/guacamole/net/auth/Connectable.java`
 #### Snippet
 ```java
      *
-     * @deprecated
-     *     This function has been deprecated in favor of {@link #deregisterTunnel(java.lang.String)},
-     *     which decouples identification of HTTP tunnel sessions from the
-     *     tunnel UUID.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
-#### Snippet
-```java
-    /**
-     * Returns the tunnel associated with the given tunnel-specific session
-     * token, if it has been registered with {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}
-     * and not yet deregistered with {@link #deregisterTunnel(java.lang.String)}.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.net` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
-#### Snippet
-```java
-    /**
-     * Returns the tunnel associated with the given tunnel-specific session
-     * token, if it has been registered with {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}
-     * and not yet deregistered with {@link #deregisterTunnel(java.lang.String)}.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
-#### Snippet
-```java
-     * Returns the tunnel associated with the given tunnel-specific session
-     * token, if it has been registered with {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}
-     * and not yet deregistered with {@link #deregisterTunnel(java.lang.String)}.
-     *
-     * @param tunnelSessionToken
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
-#### Snippet
-```java
-     * session token such that future read/write requests to that tunnel will
-     * be rejected. Each HTTP tunnel must be associated with a session token
-     * unique to that tunnel via a call {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}.
-     * 
-     * @param tunnelSessionToken
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.net` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
-#### Snippet
-```java
-     * session token such that future read/write requests to that tunnel will
-     * be rejected. Each HTTP tunnel must be associated with a session token
-     * unique to that tunnel via a call {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}.
-     * 
-     * @param tunnelSessionToken
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
-#### Snippet
-```java
-     *
-     * @deprecated
-     *     This function has been deprecated in favor of {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)},
-     *     which decouples identification of HTTP tunnel sessions from the
-     *     tunnel UUID.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.net` is unnecessary and can be removed
-in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
-#### Snippet
-```java
-     *
-     * @deprecated
-     *     This function has been deprecated in favor of {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)},
-     *     which decouples identification of HTTP tunnel sessions from the
-     *     tunnel UUID.
+     * <p>A default implementation which invokes the old, deprecated
+     * {@link #connect(org.apache.guacamole.protocol.GuacamoleClientInformation)}
+     * is provided solely for compatibility with extensions which implement only
+     * the old version of this function. This default implementation is useful
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6313,6 +6231,18 @@ Qualifier `java.util` is unnecessary and can be removed
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnectionGroup.java`
 #### Snippet
 ```java
+ * tokens already supplied. If not supplying a static set of tokens at
+ * construction time, implementations should override either
+ * {@link #addTokens(java.util.Map)} or {@link #getTokens()} to provide tokens
+ * dynamically.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnectionGroup.java`
+#### Snippet
+```java
     /**
      * Wraps the given ConnectionGroup such that the additional parameter
      * tokens added by {@link #addTokens(java.util.Map)} or returned by
@@ -6334,14 +6264,38 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConn
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnectionGroup.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnection.java`
 #### Snippet
 ```java
- * tokens already supplied. If not supplying a static set of tokens at
- * construction time, implementations should override either
- * {@link #addTokens(java.util.Map)} or {@link #getTokens()} to provide tokens
- * dynamically.
+     * provided when this instance of TokenInjectingConnection was created. If
+     * the values of existing tokens need to be considered, implementations
+     * should override {@link #addTokens(java.util.Map)} instead.
+     *
+     * @return
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnection.java`
+#### Snippet
+```java
+ * underlying Connection, adding a given set of parameter tokens to the tokens
+ * already supplied. If not supplying a static set of tokens at construction
+ * time, implementations should override either {@link #addTokens(java.util.Map)}
+ * or {@link #getTokens()} to provide tokens dynamically.
  */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnection.java`
+#### Snippet
+```java
+    /**
+     * Wraps the given Connection such that the additional parameter tokens
+     * added by {@link #addTokens(java.util.Map)} or returned by
+     * {@link #getTokens()} are included with each invocation of connect().
+     * Any additional tokens which have the same name as existing tokens will
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6405,39 +6359,15 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DelegatingConnecti
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnection.java`
+Qualifier `org.apache.guacamole.net.auth` is unnecessary, and can be replaced with an import
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnectionRecordSet.java`
 #### Snippet
 ```java
-    /**
-     * Wraps the given Connection such that the additional parameter tokens
-     * added by {@link #addTokens(java.util.Map)} or returned by
-     * {@link #getTokens()} are included with each invocation of connect().
-     * Any additional tokens which have the same name as existing tokens will
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnection.java`
-#### Snippet
-```java
- * underlying Connection, adding a given set of parameter tokens to the tokens
- * already supplied. If not supplying a static set of tokens at construction
- * time, implementations should override either {@link #addTokens(java.util.Map)}
- * or {@link #getTokens()} to provide tokens dynamically.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnection.java`
-#### Snippet
-```java
-     * provided when this instance of TokenInjectingConnection was created. If
-     * the values of existing tokens need to be considered, implementations
-     * should override {@link #addTokens(java.util.Map)} instead.
-     *
-     * @return
+    @Override
+    public org.apache.guacamole.net.auth.ConnectionRecordSet limit(int limit)
+            throws GuacamoleException {
+        return this;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6447,7 +6377,7 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConne
 ```java
 
     @Override
-    public org.apache.guacamole.net.auth.ConnectionRecordSet contains(String value)
+    public org.apache.guacamole.net.auth.ConnectionRecordSet sort(SortableProperty property, boolean desc)
             throws GuacamoleException {
         return this;
 ```
@@ -6471,45 +6401,9 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConne
 ```java
 
     @Override
-    public org.apache.guacamole.net.auth.ConnectionRecordSet sort(SortableProperty property, boolean desc)
+    public org.apache.guacamole.net.auth.ConnectionRecordSet contains(String value)
             throws GuacamoleException {
         return this;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.net.auth` is unnecessary, and can be replaced with an import
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnectionRecordSet.java`
-#### Snippet
-```java
-
-    @Override
-    public org.apache.guacamole.net.auth.ConnectionRecordSet limit(int limit)
-            throws GuacamoleException {
-        return this;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.protocol` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnection.java`
-#### Snippet
-```java
-    /**
-     * The tokens which should apply strictly to the next call to
-     * {@link #connect(org.apache.guacamole.protocol.GuacamoleClientInformation)}.
-     * This storage is intended as a temporary bridge allowing the old version
-     * of connect() to be overridden while still resulting in the same behavior
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.protocol` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnection.java`
-#### Snippet
-```java
-     * function will always be the full configuration to be used to establish
-     * the connection, as provided when this SimpleConnection was created or via
-     * {@link #setConfiguration(org.apache.guacamole.protocol.GuacamoleConfiguration)}.
-     *
-     * @return
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6529,11 +6423,83 @@ Qualifier `org.apache.guacamole.protocol` is unnecessary and can be removed
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnection.java`
 #### Snippet
 ```java
+    /**
+     * The tokens which should apply strictly to the next call to
+     * {@link #connect(org.apache.guacamole.protocol.GuacamoleClientInformation)}.
+     * This storage is intended as a temporary bridge allowing the old version
+     * of connect() to be overridden while still resulting in the same behavior
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.guacamole.protocol` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnection.java`
+#### Snippet
+```java
      * be set before the SimpleConnection may be used. Parameter tokens within
      * the GuacamoleConfiguration eventually supplied with
      * {@link #setConfiguration(org.apache.guacamole.protocol.GuacamoleConfiguration)}
      * will not be interpreted.
      */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.guacamole.protocol` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnection.java`
+#### Snippet
+```java
+     * function will always be the full configuration to be used to establish
+     * the connection, as provided when this SimpleConnection was created or via
+     * {@link #setConfiguration(org.apache.guacamole.protocol.GuacamoleConfiguration)}.
+     *
+     * @return
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleDirectory.java`
+#### Snippet
+```java
+     * created to store the given objects. If the objects are already available
+     * in Map form, it is more efficient to use the
+     * {@link #SimpleDirectory(java.util.Map)} constructor.
+     *
+     * @param objects
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleDirectory.java`
+#### Snippet
+```java
+     * objects. Note that a new Map will be created to store the given objects.
+     * If the objects are already available in Map form, it is more efficient
+     * to use the {@link #SimpleDirectory(java.util.Map)} constructor.
+     *
+     * @param objects
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/ApplicationShutdownEvent.java`
+#### Snippet
+```java
+ * down, including the authentication/authorization portion of extensions. Any
+ * installed extensions are still loaded (such that they may receive this event
+ * via {@link Listener#handleEvent(java.lang.Object)}, but their authentication
+ * providers will have been shut down via {@link AuthenticationProvider#shutdown()},
+ * and resources from user sessions will have been closed and released via
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.guacamole.net.auth` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/AuthenticationFailureEvent.java`
+#### Snippet
+```java
+     * if the failure is caused by every AuthenticationProvider passively
+     * refusing to authenticate the user but without explicitly rejecting the
+     * user (returning null for calls to {@link AuthenticationProvider#authenticateUser(org.apache.guacamole.net.auth.Credentials)}).
+     */
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6565,59 +6531,11 @@ Qualifier `org.apache.guacamole.net.auth` is unnecessary and can be removed
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/AuthenticationFailureEvent.java`
 #### Snippet
 ```java
-     * if the failure is caused by every AuthenticationProvider passively
-     * refusing to authenticate the user but without explicitly rejecting the
-     * user (returning null for calls to {@link AuthenticationProvider#authenticateUser(org.apache.guacamole.net.auth.Credentials)}).
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.net.auth` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/AuthenticationFailureEvent.java`
-#### Snippet
-```java
      * the failure is caused by every AuthenticationProvider passively refusing
      * to authenticate the user but without explicitly rejecting the user
      * (returning null for calls to {@link AuthenticationProvider#authenticateUser(org.apache.guacamole.net.auth.Credentials)}).
      */
     private final Throwable failure;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/event/ApplicationShutdownEvent.java`
-#### Snippet
-```java
- * down, including the authentication/authorization portion of extensions. Any
- * installed extensions are still loaded (such that they may receive this event
- * via {@link Listener#handleEvent(java.lang.Object)}, but their authentication
- * providers will have been shut down via {@link AuthenticationProvider#shutdown()},
- * and resources from user sessions will have been closed and released via
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleDirectory.java`
-#### Snippet
-```java
-     * created to store the given objects. If the objects are already available
-     * in Map form, it is more efficient to use the
-     * {@link #SimpleDirectory(java.util.Map)} constructor.
-     *
-     * @param objects
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleDirectory.java`
-#### Snippet
-```java
-     * objects. Note that a new Map will be created to store the given objects.
-     * If the objects are already available in Map form, it is more efficient
-     * to use the {@link #SimpleDirectory(java.util.Map)} constructor.
-     *
-     * @param objects
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6685,18 +6603,6 @@ Qualifier `org.apache.guacamole.net.auth` is unnecessary and can be removed
 in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingUserContext.java`
 #### Snippet
 ```java
-     * Adds tokens to an in-progress call to connect() for the given
-     * Connection. If not overridden, this function will add the tokens
-     * returned by {@link #getTokens(org.apache.guacamole.net.auth.Connection)}.
-     *
-     * @param connection
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.net.auth` is unnecessary and can be removed
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingUserContext.java`
-#### Snippet
-```java
      * TokenInjectingUserContext was created. If the values of existing tokens
      * need to be considered, implementations should override
      * {@link #addTokens(org.apache.guacamole.net.auth.ConnectionGroup, java.util.Map)}
@@ -6714,6 +6620,18 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingUser
      * {@link #addTokens(org.apache.guacamole.net.auth.ConnectionGroup, java.util.Map)}
      * instead.
      *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.guacamole.net.auth` is unnecessary and can be removed
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingUserContext.java`
+#### Snippet
+```java
+     * Adds tokens to an in-progress call to connect() for the given
+     * Connection. If not overridden, this function will add the tokens
+     * returned by {@link #getTokens(org.apache.guacamole.net.auth.Connection)}.
+     *
+     * @param connection
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6765,27 +6683,123 @@ public class LocalEnvironment implements Environment {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `guacamole/src/main/java/org/apache/guacamole/SystemEnvironmentGuacamoleProperties.java`
+Qualifier `org.apache.guacamole.net.auth` is unnecessary and can be removed
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUserContext.java`
 #### Snippet
 ```java
- * environment variables. The name of the environment variable corresponding to
- * any particular property is determined using
- * {@link TokenName#canonicalize(java.lang.String)}.
  */
-public class SystemEnvironmentGuacamoleProperties implements GuacamoleProperties {
+public class ModeledUserContext extends RestrictedObject
+    implements org.apache.guacamole.net.auth.UserContext {
+
+    /**
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.guacamole.protocol` is unnecessary and can be removed
-in `guacamole/src/main/java/org/apache/guacamole/net/auth/Connectable.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleConfiguration.java`
+#### Snippet
+```java
+     * <p>If this value is unavailable or remains unset, it is still possible
+     * to join an established connection using
+     * {@link #setConnectionID(java.lang.String)}, however protocol-specific
+     * responses like the "required" and "argv" instructions might not be
+     * possible to handle correctly if the underlying protocol is not made
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+#### Snippet
+```java
+    /**
+     * Returns the tunnel associated with the given tunnel-specific session
+     * token, if it has been registered with {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}
+     * and not yet deregistered with {@link #deregisterTunnel(java.lang.String)}.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.guacamole.net` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+#### Snippet
+```java
+    /**
+     * Returns the tunnel associated with the given tunnel-specific session
+     * token, if it has been registered with {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}
+     * and not yet deregistered with {@link #deregisterTunnel(java.lang.String)}.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+#### Snippet
+```java
+     * Returns the tunnel associated with the given tunnel-specific session
+     * token, if it has been registered with {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}
+     * and not yet deregistered with {@link #deregisterTunnel(java.lang.String)}.
+     *
+     * @param tunnelSessionToken
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
 #### Snippet
 ```java
      *
-     * <p>A default implementation which invokes the old, deprecated
-     * {@link #connect(org.apache.guacamole.protocol.GuacamoleClientInformation)}
-     * is provided solely for compatibility with extensions which implement only
-     * the old version of this function. This default implementation is useful
+     * @deprecated
+     *     This function has been deprecated in favor of {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)},
+     *     which decouples identification of HTTP tunnel sessions from the
+     *     tunnel UUID.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.guacamole.net` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+#### Snippet
+```java
+     *
+     * @deprecated
+     *     This function has been deprecated in favor of {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)},
+     *     which decouples identification of HTTP tunnel sessions from the
+     *     tunnel UUID.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+#### Snippet
+```java
+     * session token such that future read/write requests to that tunnel will
+     * be rejected. Each HTTP tunnel must be associated with a session token
+     * unique to that tunnel via a call {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}.
+     * 
+     * @param tunnelSessionToken
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.guacamole.net` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+#### Snippet
+```java
+     * session token such that future read/write requests to that tunnel will
+     * be rejected. Each HTTP tunnel must be associated with a session token
+     * unique to that tunnel via a call {@link #registerTunnel(java.lang.String, org.apache.guacamole.net.GuacamoleTunnel)}.
+     * 
+     * @param tunnelSessionToken
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `guacamole-common/src/main/java/org/apache/guacamole/servlet/GuacamoleHTTPTunnelServlet.java`
+#### Snippet
+```java
+     *
+     * @deprecated
+     *     This function has been deprecated in favor of {@link #deregisterTunnel(java.lang.String)},
+     *     which decouples identification of HTTP tunnel sessions from the
+     *     tunnel UUID.
 ```
 
 ## RuleId[ruleID=SamePackageImport]
@@ -6802,234 +6816,6 @@ import org.apache.guacamole.properties.GuacamoleProperty;
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `InjectedAuthenticationProvider()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/InjectedAuthenticationProvider.java`
-#### Snippet
-```java
-     *     If the Injector cannot be created due to an error.
-     */
-    public InjectedAuthenticationProvider(JDBCInjectorProvider injectorProvider,
-            Class<? extends AuthenticationProviderService> authProviderServiceClass)
-        throws GuacamoleException {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ChildObjectModel()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ChildObjectModel.java`
-#### Snippet
-```java
-     * Creates a new, empty object.
-     */
-    public ChildObjectModel() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `JDBCEnvironment()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/JDBCEnvironment.java`
-#### Snippet
-```java
-     * read properties from the file system.
-     */
-    public JDBCEnvironment() {
-        super(LocalEnvironment.getInstance());
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EntityModel()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/EntityModel.java`
-#### Snippet
-```java
-     *     The type to assign to the new entity.
-     */
-    public EntityModel(EntityType type) {
-        this.type = type;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EntityModel()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/EntityModel.java`
-#### Snippet
-```java
-     * Creates a new, empty entity.
-     */
-    public EntityModel() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ObjectModel()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ObjectModel.java`
-#### Snippet
-```java
-     * Creates a new, empty object.
-     */
-    public ObjectModel() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RemoteAuthenticatedUser()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/RemoteAuthenticatedUser.java`
-#### Snippet
-```java
-     *     including groups inherited through membership in other groups.
-     */
-    public RemoteAuthenticatedUser(AuthenticationProvider authenticationProvider,
-            Credentials credentials, Set<String> effectiveGroups) {
-        this.authenticationProvider = authenticationProvider;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RelatedObjectSet()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/RelatedObjectSet.java`
-#### Snippet
-```java
-     * initialized by a call to init().
-     */
-    public RelatedObjectSet() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ObjectPermissionSet()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ObjectPermissionSet.java`
-#### Snippet
-```java
-     * necessary to read and modify this set will be missing.
-     */
-    public ObjectPermissionSet() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `KsmDirectory()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectory.java`
-#### Snippet
-```java
-     *    The directory to delegate to.
-     */
-    public KsmDirectory(Directory<ObjectType> directory) {
-        super(directory);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractGuacamoleTunnel()` of an abstract class should not be declared 'public'
-in `guacamole-common/src/main/java/org/apache/guacamole/net/AbstractGuacamoleTunnel.java`
-#### Snippet
-```java
-     * GuacamoleSocket.
-     */
-    public AbstractGuacamoleTunnel() {
-        readerLock = new ReentrantLock();
-        writerLock = new ReentrantLock();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SSOAuthenticationProvider()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-base/src/main/java/org/apache/guacamole/auth/sso/SSOAuthenticationProvider.java`
-#### Snippet
-```java
-     *     injector.
-     */
-    public SSOAuthenticationProvider(
-            Class<? extends SSOAuthenticationProviderService> authService,
-            Class<? extends SSOResource> ssoResource,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SSOAuthenticationProvider()` of an abstract class should not be declared 'public'
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-base/src/main/java/org/apache/guacamole/auth/sso/SSOAuthenticationProvider.java`
-#### Snippet
-```java
-     *     injector.
-     */
-    public SSOAuthenticationProvider(
-            Class<? extends SSOAuthenticationProviderService> authService,
-            Class<? extends SSOResource> ssoResource,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `DecoratingActivityRecordSet()` of an abstract class should not be declared 'public'
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DecoratingActivityRecordSet.java`
-#### Snippet
-```java
-     *     The ActivityRecordSet whose records are being decorated.
-     */
-    public DecoratingActivityRecordSet(ActivityRecordSet<RecordType> recordSet) {
-        super(recordSet);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `DecoratingDirectory()` of an abstract class should not be declared 'public'
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DecoratingDirectory.java`
-#### Snippet
-```java
-     *     The Directory whose objects are being decorated.
-     */
-    public DecoratingDirectory(Directory<ObjectType> directory) {
-        super(directory);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractActivityLog()` of an abstract class should not be declared 'public'
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractActivityLog.java`
-#### Snippet
-```java
-     *     A human-readable message that describes this log.
-     */
-    public AbstractActivityLog(Type type, TranslatableMessage description) {
-        this.type = type;
-        this.description = description;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EnumGuacamoleProperty()` of an abstract class should not be declared 'public'
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamoleProperty.java`
-#### Snippet
-```java
-     *     constants.
-     */
-    public EnumGuacamoleProperty(Map<String, T> valueMapping) {
-        this.valueMapping = valueMapping;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EnumGuacamoleProperty()` of an abstract class should not be declared 'public'
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamoleProperty.java`
-#### Snippet
-```java
-     *     this property.
-     */
-    public EnumGuacamoleProperty(Class<T> enumClass) {
-        this(getValueMapping(enumClass));
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EnumGuacamoleProperty()` of an abstract class should not be declared 'public'
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamoleProperty.java`
-#### Snippet
-```java
-     *     {@code additional} is not even.
-     */
-    public EnumGuacamoleProperty(String key, T value, Object... additional)
-            throws IllegalArgumentException {
-        this(mapOf(key, value, additional));
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `ActivityRecordSetResource()` of an abstract class should not be declared 'public'
 in `guacamole/src/main/java/org/apache/guacamole/rest/history/ActivityRecordSetResource.java`
@@ -7103,6 +6889,30 @@ in `guacamole/src/main/java/org/apache/guacamole/resource/AbstractResource.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `SSOAuthenticationProvider()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-base/src/main/java/org/apache/guacamole/auth/sso/SSOAuthenticationProvider.java`
+#### Snippet
+```java
+     *     injector.
+     */
+    public SSOAuthenticationProvider(
+            Class<? extends SSOAuthenticationProviderService> authService,
+            Class<? extends SSOResource> ssoResource,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SSOAuthenticationProvider()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-base/src/main/java/org/apache/guacamole/auth/sso/SSOAuthenticationProvider.java`
+#### Snippet
+```java
+     *     injector.
+     */
+    public SSOAuthenticationProvider(
+            Class<? extends SSOAuthenticationProviderService> authService,
+            Class<? extends SSOResource> ssoResource,
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `VaultAuthenticationProviderModule()` of an abstract class should not be declared 'public'
 in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/VaultAuthenticationProviderModule.java`
 #### Snippet
@@ -7112,6 +6922,210 @@ in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/ap
     public VaultAuthenticationProviderModule() throws GuacamoleException {
         this.environment = LocalEnvironment.getInstance();
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `DecoratingActivityRecordSet()` of an abstract class should not be declared 'public'
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DecoratingActivityRecordSet.java`
+#### Snippet
+```java
+     *     The ActivityRecordSet whose records are being decorated.
+     */
+    public DecoratingActivityRecordSet(ActivityRecordSet<RecordType> recordSet) {
+        super(recordSet);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractActivityLog()` of an abstract class should not be declared 'public'
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractActivityLog.java`
+#### Snippet
+```java
+     *     A human-readable message that describes this log.
+     */
+    public AbstractActivityLog(Type type, TranslatableMessage description) {
+        this.type = type;
+        this.description = description;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `DecoratingDirectory()` of an abstract class should not be declared 'public'
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DecoratingDirectory.java`
+#### Snippet
+```java
+     *     The Directory whose objects are being decorated.
+     */
+    public DecoratingDirectory(Directory<ObjectType> directory) {
+        super(directory);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `InjectedAuthenticationProvider()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/InjectedAuthenticationProvider.java`
+#### Snippet
+```java
+     *     If the Injector cannot be created due to an error.
+     */
+    public InjectedAuthenticationProvider(JDBCInjectorProvider injectorProvider,
+            Class<? extends AuthenticationProviderService> authProviderServiceClass)
+        throws GuacamoleException {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `JDBCEnvironment()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/JDBCEnvironment.java`
+#### Snippet
+```java
+     * read properties from the file system.
+     */
+    public JDBCEnvironment() {
+        super(LocalEnvironment.getInstance());
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ChildObjectModel()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ChildObjectModel.java`
+#### Snippet
+```java
+     * Creates a new, empty object.
+     */
+    public ChildObjectModel() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EntityModel()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/EntityModel.java`
+#### Snippet
+```java
+     *     The type to assign to the new entity.
+     */
+    public EntityModel(EntityType type) {
+        this.type = type;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EntityModel()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/EntityModel.java`
+#### Snippet
+```java
+     * Creates a new, empty entity.
+     */
+    public EntityModel() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ObjectModel()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ObjectModel.java`
+#### Snippet
+```java
+     * Creates a new, empty object.
+     */
+    public ObjectModel() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RelatedObjectSet()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/RelatedObjectSet.java`
+#### Snippet
+```java
+     * initialized by a call to init().
+     */
+    public RelatedObjectSet() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EnumGuacamoleProperty()` of an abstract class should not be declared 'public'
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamoleProperty.java`
+#### Snippet
+```java
+     *     {@code additional} is not even.
+     */
+    public EnumGuacamoleProperty(String key, T value, Object... additional)
+            throws IllegalArgumentException {
+        this(mapOf(key, value, additional));
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EnumGuacamoleProperty()` of an abstract class should not be declared 'public'
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamoleProperty.java`
+#### Snippet
+```java
+     *     this property.
+     */
+    public EnumGuacamoleProperty(Class<T> enumClass) {
+        this(getValueMapping(enumClass));
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EnumGuacamoleProperty()` of an abstract class should not be declared 'public'
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamoleProperty.java`
+#### Snippet
+```java
+     *     constants.
+     */
+    public EnumGuacamoleProperty(Map<String, T> valueMapping) {
+        this.valueMapping = valueMapping;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RemoteAuthenticatedUser()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/RemoteAuthenticatedUser.java`
+#### Snippet
+```java
+     *     including groups inherited through membership in other groups.
+     */
+    public RemoteAuthenticatedUser(AuthenticationProvider authenticationProvider,
+            Credentials credentials, Set<String> effectiveGroups) {
+        this.authenticationProvider = authenticationProvider;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ObjectPermissionSet()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/permission/ObjectPermissionSet.java`
+#### Snippet
+```java
+     * necessary to read and modify this set will be missing.
+     */
+    public ObjectPermissionSet() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `KsmDirectory()` of an abstract class should not be declared 'public'
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectory.java`
+#### Snippet
+```java
+     *    The directory to delegate to.
+     */
+    public KsmDirectory(Directory<ObjectType> directory) {
+        super(directory);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractGuacamoleTunnel()` of an abstract class should not be declared 'public'
+in `guacamole-common/src/main/java/org/apache/guacamole/net/AbstractGuacamoleTunnel.java`
+#### Snippet
+```java
+     * GuacamoleSocket.
+     */
+    public AbstractGuacamoleTunnel() {
+        readerLock = new ReentrantLock();
+        writerLock = new ReentrantLock();
 ```
 
 ## RuleId[ruleID=Anonymous2MethodRef]
@@ -7142,30 +7156,6 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
 
 ## RuleId[ruleID=Convert2Lambda]
 ### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/RestrictedGuacamoleTunnelService.java`
-#### Snippet
-```java
-        // Sort connections in ascending order of usage
-        ModeledConnection[] sortedConnections = connections.toArray(new ModeledConnection[connections.size()]);
-        Arrays.sort(sortedConnections, new Comparator<ModeledConnection>() {
-
-            @Override
-```
-
-### Convert2Lambda
-Anonymous new FilenameFilter() can be replaced with lambda
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/LocalEnvironment.java`
-#### Snippet
-```java
-            // Get all JSON files
-            File[] files = protocol_directory.listFiles(
-                new FilenameFilter() {
-
-                    @Override
-```
-
-### Convert2Lambda
 Anonymous new FilenameFilter() can be replaced with lambda
 in `guacamole/src/main/java/org/apache/guacamole/extension/DirectoryClassLoader.java`
 #### Snippet
@@ -7189,151 +7179,31 @@ in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionModule.java`
             @Override
 ```
 
+### Convert2Lambda
+Anonymous new FilenameFilter() can be replaced with lambda
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/LocalEnvironment.java`
+#### Snippet
+```java
+            // Get all JSON files
+            File[] files = protocol_directory.listFiles(
+                new FilenameFilter() {
+
+                    @Override
+```
+
+### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/RestrictedGuacamoleTunnelService.java`
+#### Snippet
+```java
+        // Sort connections in ascending order of usage
+        ModeledConnection[] sortedConnections = connections.toArray(new ModeledConnection[connections.size()]);
+        Arrays.sort(sortedConnections, new Comparator<ModeledConnection>() {
+
+            @Override
+```
+
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `parentIdentifier`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledChildDirectoryObject.java`
-#### Snippet
-```java
-        if (parentIdentifier != null
-                && parentIdentifier.equals(RootConnectionGroup.IDENTIFIER))
-            parentIdentifier = null;
-
-        getModel().setParentIdentifier(parentIdentifier);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `identifiers`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledDirectoryObjectService.java`
-#### Snippet
-```java
-
-        // Ignore invalid identifiers
-        identifiers = filterIdentifiers(identifiers);
-
-        // Do not query if no identifiers given
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectoryService.java`
-#### Snippet
-```java
-                // Unwrap the existing user
-                if (user instanceof KsmUser)
-                    user = ((KsmUser) user).getUnderlyingUser();
-
-                // Process attribute values before saving
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `connectionGroup`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectoryService.java`
-#### Snippet
-```java
-                // Unwrap the existing ConnectionGroup
-                if (connectionGroup instanceof KsmConnectionGroup)
-                    connectionGroup = ((KsmConnectionGroup) connectionGroup).getUnderlyingConnectionGroup();
-
-                // Process attribute values before saving
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `attributes`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/conf/KsmAttributeService.java`
-#### Snippet
-```java
-
-            // Remove the attribute from the map so it won't be updated
-            attributes = new HashMap<>(attributes);
-            attributes.remove(KsmAttributeService.KSM_CONFIGURATION_ATTRIBUTE);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `attributes`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/conf/KsmAttributeService.java`
-#### Snippet
-```java
-                // Make a copy of the existing attributes, modifying just the value for
-                // KSM_CONFIGURATION_ATTRIBUTE
-                attributes = new HashMap<>(attributes);
-                attributes.put(
-                        KsmAttributeService.KSM_CONFIGURATION_ATTRIBUTE, base64EncodedJson);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FilteredGuacamoleWriter.java`
-#### Snippet
-```java
-            int parsed;
-            while ((parsed = parser.append(chunk, offset, length)) != 0) {
-                offset += parsed;
-                length -= parsed;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FilteredGuacamoleWriter.java`
-#### Snippet
-```java
-            while ((parsed = parser.append(chunk, offset, length)) != 0) {
-                offset += parsed;
-                length -= parsed;
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `attributes`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/user/TOTPUser.java`
-#### Snippet
-```java
-
-        // Create independent, mutable copy of attributes
-        attributes = new HashMap<>(attributes);
-
-        // Do not allow TOTP secret to be directly manipulated
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `tokens`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/AbstractGuacamoleTunnelService.java`
-#### Snippet
-```java
-
-            // Include history record UUID as token
-            tokens = new HashMap<>(tokens);
-            tokens.put("HISTORY_UUID", activeConnection.getUUID().toString());
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `tokens`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnectionGroup.java`
-#### Snippet
-```java
-
-        // Apply provided tokens over those given to connect()
-        tokens = new HashMap<>(tokens);
-        addTokens(tokens);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `tokens`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnection.java`
-#### Snippet
-```java
-
-        // Apply provided tokens over those given to connect()
-        tokens = new HashMap<>(tokens);
-        addTokens(tokens);
-
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `token`
 in `guacamole/src/main/java/org/apache/guacamole/rest/auth/TokenRESTService.java`
@@ -7406,6 +7276,150 @@ in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryView.ja
 
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `attributes`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/user/TOTPUser.java`
+#### Snippet
+```java
+
+        // Create independent, mutable copy of attributes
+        attributes = new HashMap<>(attributes);
+
+        // Do not allow TOTP secret to be directly manipulated
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `tokens`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnectionGroup.java`
+#### Snippet
+```java
+
+        // Apply provided tokens over those given to connect()
+        tokens = new HashMap<>(tokens);
+        addTokens(tokens);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `tokens`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/TokenInjectingConnection.java`
+#### Snippet
+```java
+
+        // Apply provided tokens over those given to connect()
+        tokens = new HashMap<>(tokens);
+        addTokens(tokens);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parentIdentifier`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledChildDirectoryObject.java`
+#### Snippet
+```java
+        if (parentIdentifier != null
+                && parentIdentifier.equals(RootConnectionGroup.IDENTIFIER))
+            parentIdentifier = null;
+
+        getModel().setParentIdentifier(parentIdentifier);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `identifiers`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledDirectoryObjectService.java`
+#### Snippet
+```java
+
+        // Ignore invalid identifiers
+        identifiers = filterIdentifiers(identifiers);
+
+        // Do not query if no identifiers given
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `tokens`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/tunnel/AbstractGuacamoleTunnelService.java`
+#### Snippet
+```java
+
+            // Include history record UUID as token
+            tokens = new HashMap<>(tokens);
+            tokens.put("HISTORY_UUID", activeConnection.getUUID().toString());
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `attributes`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/conf/KsmAttributeService.java`
+#### Snippet
+```java
+
+            // Remove the attribute from the map so it won't be updated
+            attributes = new HashMap<>(attributes);
+            attributes.remove(KsmAttributeService.KSM_CONFIGURATION_ATTRIBUTE);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `attributes`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/conf/KsmAttributeService.java`
+#### Snippet
+```java
+                // Make a copy of the existing attributes, modifying just the value for
+                // KSM_CONFIGURATION_ATTRIBUTE
+                attributes = new HashMap<>(attributes);
+                attributes.put(
+                        KsmAttributeService.KSM_CONFIGURATION_ATTRIBUTE, base64EncodedJson);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `user`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectoryService.java`
+#### Snippet
+```java
+                // Unwrap the existing user
+                if (user instanceof KsmUser)
+                    user = ((KsmUser) user).getUnderlyingUser();
+
+                // Process attribute values before saving
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `connectionGroup`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectoryService.java`
+#### Snippet
+```java
+                // Unwrap the existing ConnectionGroup
+                if (connectionGroup instanceof KsmConnectionGroup)
+                    connectionGroup = ((KsmConnectionGroup) connectionGroup).getUnderlyingConnectionGroup();
+
+                // Process attribute values before saving
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FilteredGuacamoleWriter.java`
+#### Snippet
+```java
+            int parsed;
+            while ((parsed = parser.append(chunk, offset, length)) != 0) {
+                offset += parsed;
+                length -= parsed;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FilteredGuacamoleWriter.java`
+#### Snippet
+```java
+            while ((parsed = parser.append(chunk, offset, length)) != 0) {
+                offset += parsed;
+                length -= parsed;
+            }
+
+```
+
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on method parameter `stream`
@@ -7434,59 +7448,11 @@ in `guacamole/src/main/java/org/apache/guacamole/tunnel/InterceptedStreamMap.jav
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/JDBCAuthenticationProviderService.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/UserMappingTagHandler.java`
 #### Snippet
 ```java
-        // connection sharing links
-        if (authenticatedUser instanceof SharedAuthenticatedUser)
-            return null;
+            return new AuthorizeTagHandler(user_mapping);
 
-        // Set semantic flags based on context
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledActivityRecord.java`
-#### Snippet
-```java
-        Integer id = model.getRecordID();
-        if (id == null)
-            return null;
-
-        return id.toString();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledActivityRecord.java`
-#### Snippet
-```java
-        Integer id = model.getRecordID();
-        if (id == null)
-            return null;
-
-        // Convert record ID to a name UUID in the given namespace
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledActivityRecordSet.java`
-#### Snippet
-```java
-
-        if (records.isEmpty())
-            return null;
-
-        if (records.size() == 1)
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledActivityRecordSet.java`
-#### Snippet
-```java
-                + "not be possible and may indicate a bug or database "
-                + "corruption.", identifier);
         return null;
 
     }
@@ -7494,95 +7460,11 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledDirectoryObjectService.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/ConnectionTagHandler.java`
 #### Snippet
 ```java
-        // If no such object, return null
-        if (objects.isEmpty())
-            return null;
+            return new ProtocolTagHandler(config);
 
-        // The object collection will have exactly one element unless the
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUserContext.java`
-#### Snippet
-```java
-    @Override
-    public Object getResource() throws GuacamoleException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/HashSharedConnectionMap.java`
-#### Snippet
-```java
-        // There are no null share keys
-        if (key == null)
-            return null;
-
-        // Update the last access time and return the SharedConnectionDefinition
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/HashSharedConnectionMap.java`
-#### Snippet
-```java
-        // There are no null share keys
-        if (key == null)
-            return null;
-
-        // Attempt to retrieve only if non-null
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/HashSharedConnectionMap.java`
-#### Snippet
-```java
-        SharedConnectionDefinition definition = connectionMap.remove(key);
-        if (definition == null)
-            return null;
-
-        // Close all associated tunnels and disallow further sharing
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/ConnectionSharingService.java`
-#### Snippet
-```java
-        String shareKey = getShareKey(credentials);
-        if (shareKey == null || connectionMap.get(shareKey) == null)
-            return null;
-
-        // Return temporary in-memory user
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/ConnectionSharingService.java`
-#### Snippet
-```java
-        HttpServletRequest request = credentials.getRequest();
-        if (request == null)
-            return null;
-
-        // Retrieve the share key from the request
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/user/SharedUser.java`
-#### Snippet
-```java
-
-        // History is not recorded for shared users
         return null;
 
     }
@@ -7590,71 +7472,35 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/user/SharedUser.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/TokenParamProvider.java`
 #### Snippet
 ```java
-    @Override
-    public String getPassword() {
+
+        if (parameter.getAnnotation(TokenParam.class) == null)
+            return null;
+
+        return (request) -> authenticationService.getAuthenticationToken(request);
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/AuthorizeTagHandler.java`
+#### Snippet
+```java
+        }
+
         return null;
+
     }
-
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserService.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
 #### Snippet
 ```java
-        UserModel userModel = userMapper.selectOne(username);
-        if (userModel == null)
-            return null;
-
-        // Verify provided password is correct
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserService.java`
-#### Snippet
-```java
-        byte[] hash = encryptionService.createPasswordHash(password, userModel.getPasswordSalt());
-        if (!Arrays.equals(hash, userModel.getPasswordHash()))
-            return null;
-
-        // Create corresponding user object, set up cyclic reference
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserService.java`
-#### Snippet
-```java
-        UserModel userModel = userMapper.selectOne(authenticatedUser.getIdentifier());
-        if (userModel == null)
-            return null;
-
-        // Create corresponding user object, set up cyclic reference
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/connection/SharedConnectionDirectory.java`
-#### Snippet
-```java
-        // Allow access only to registered share keys
-        if (!shareKeys.contains(identifier))
-            return null;
-
-        // Retrieve the connection definition associated with that share key,
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/connection/SharedConnectionDirectory.java`
-#### Snippet
-```java
-        if (connectionDefinition == null) {
-            shareKeys.remove(identifier);
+        if (!userMappingFile.exists()) {
+            logger.debug("User mapping file \"{}\" does not exist and will not be read.", userMappingFile);
             return null;
         }
 
@@ -7662,91 +7508,139 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
 #### Snippet
 ```java
-        Date validUntil = getModel().getValidUntil();
-        if (validUntil == null)
-            return null;
-
-        // Convert to end-of-day within defined time zone
+                logger.error("Unable to create XML parser for reading \"{}\": {}", USER_MAPPING_FILENAME, e.getMessage());
+                logger.debug("An instance of SAXParser could not be created.", e);
+                return null;
+            }
+            catch (SAXException e) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
 #### Snippet
 ```java
-        java.util.Date parsedDate = DateField.parse(dateString);
-        if (parsedDate == null)
-            return null;
+                logger.error("Unable to create XML parser for reading \"{}\": {}", USER_MAPPING_FILENAME, e.getMessage());
+                logger.debug("An instance of SAXParser could not be created.", e);
+                return null;
+            }
 
-        // Convert to SQL Date
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
 #### Snippet
 ```java
-        Date validFrom = getModel().getValidFrom();
-        if (validFrom == null)
-            return null;
+                logger.warn("Unable to read user mapping file \"{}\": {}", userMappingFile, e.getMessage());
+                logger.debug("Error reading user mapping file.", e);
+                return null;
+            }
 
-        // Convert to midnight within defined time zone
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
 #### Snippet
 ```java
-        Time end = getModel().getAccessWindowEnd();
-        if (end == null)
-            return null;
+                logger.warn("User mapping file \"{}\" is not valid: {}", userMappingFile, e.getMessage());
+                logger.debug("Error parsing user mapping file.", e);
+                return null;
+            }
 
-        // Return within defined time zone, current day
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
 #### Snippet
 ```java
-        Time start = getModel().getAccessWindowStart();
-        if (start == null)
+        UserMapping userMapping = getUserMapping();
+        if (userMapping == null)
             return null;
 
-        // Return within defined time zone, current day
+        // Validate and return info for given user and pass
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
 #### Snippet
 ```java
-        java.util.Date parsedDate = TimeField.parse(timeString);
-        if (parsedDate == null)
-            return null;
 
-        // Convert to SQL Time 
+        // Unauthorized
+        return null;
+
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ConnectionModel.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/APIRequest.java`
 #### Snippet
 ```java
-        Integer id = getObjectID();
-        if (id == null)
+        String[] values = getParameterValues(name);
+        if (values == null)
             return null;
 
-        // Otherwise, the identifier is the ID as a string
+        // Otherwise, return first value
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/connection/SharedConnection.java`
+in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
+#### Snippet
+```java
+        // If null byte array given, return null
+        if (bytes == null)
+            return null;
+
+        // Create string builder for holding the hex representation,
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/DecorationService.java`
+#### Snippet
+```java
+        Iterator<AuthenticationProvider> current = authProviders.iterator();
+        if (!current.hasNext())
+            return null;
+
+        // Use first AuthenticationProvider to produce the root-level
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/HashTokenSessionMap.java`
+#### Snippet
+```java
+        // There are no null auth tokens
+        if (authToken == null)
+            return null;
+
+        // Return the GuacamoleSession having the given auth token (NOTE: We
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/HashTokenSessionMap.java`
+#### Snippet
+```java
+        // There are no null auth tokens
+        if (authToken == null)
+            return null;
+
+        // Attempt to retrieve only if non-null
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/rest/user/APIUserWrapper.java`
 #### Snippet
 ```java
     @Override
@@ -7758,179 +7652,71 @@ in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/jav
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharingprofile/SharingProfileModel.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/auth/AuthenticationService.java`
 #### Snippet
 ```java
-        Integer id = getObjectID();
-        if (id == null)
-            return null;
+            return token;
 
-        // Otherwise, the identifier is the ID as a string
+        return null;
+
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connectiongroup/ConnectionGroupModel.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/extension/ExtensionRESTService.java`
 #### Snippet
 ```java
-        Integer id = getObjectID();
-        if (id == null)
-            return null;
 
-        // Otherwise, the identifier is the ID as a string
+        // No such AuthenticationProvider found
+        return null;
+
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connectiongroup/RootConnectionGroup.java`
+in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryView.java`
+#### Snippet
+```java
+        // originally-specified subset
+        if (!identifiers.contains(identifier))
+            return null;
+
+        // Delegate to underlying directory
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/rest/connection/APIConnectionWrapper.java`
 #### Snippet
 ```java
     @Override
-    public String getParentIdentifier() {
+    public Date getLastActive() {
         return null;
     }
-
+    
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectionGroup.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/OutputStreamInterceptingFilter.java`
 #### Snippet
 ```java
-        if (connectionIdentifiers.add(identifier))
-            return identifier;
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/activeconnection/ActiveConnectionService.java`
-#### Snippet
-```java
-        // If no such object, return null
-        if (objects.isEmpty())
+            logger.warn("Received base64 data for intercepted stream was invalid.");
+            logger.debug("Decoding base64 data for intercepted stream failed.", e);
             return null;
-
-        // The object collection will have exactly one element unless the
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectoryService.java`
-#### Snippet
-```java
-                // Do not process the user further if it does not exist
-                if (object == null)
-                    return null;
-
-                // Sanitize values when a user is fetched from the directory
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectoryService.java`
-#### Snippet
-```java
-                // Do not process the ConnectionGroup further if it does not exist
-                if (object == null)
-                    return null;
-
-                // Sanitize values when a ConnectionGroup is fetched from the directory
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
-#### Snippet
-```java
-                        + "cannot be used to locate individual secrets.",
-                        username, domain);
-                return null;
-            }
+        }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
-#### Snippet
-```java
-                        + "multiple Keeper records and cannot be used to "
-                        + "locate individual secrets.", hostname);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
-#### Snippet
-```java
-                        + "Keeper records and cannot be used to locate "
-                        + "individual secrets.", domain);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/utility/QCParser.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/OutputStreamInterceptingFilter.java`
 #### Snippet
 ```java
 
-        if (config == null)
-            return null;
-
-        String protocol = config.getProtocol();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmSecretService.java`
-#### Snippet
-```java
-        // If user-specific KSM config is disabled globally or for the given
-        // connectable, return null to indicate that no user config exists
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/conf/KsmAttributeService.java`
-#### Snippet
-```java
-        // If the configuration value is empty, expose a null value
-        else
-            return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
-#### Snippet
-```java
-     */
-    public default String getProtocol() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-            return value;
-
+        // Instruction was handled purely internally
         return null;
 
     }
@@ -7938,11 +7724,11 @@ in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelRequestType.java`
 #### Snippet
 ```java
-            return value;
 
+        // No such type
         return null;
 
     }
@@ -7950,11 +7736,11 @@ in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/UserTunnel.java`
 #### Snippet
 ```java
-            return getSingleStringValue(hiddenField.getValue());
 
+        // No active connection associated with this tunnel
         return null;
 
     }
@@ -7962,107 +7748,71 @@ in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelRequest.java`
 #### Snippet
 ```java
-            // Ignore ambiguous fields
-            if (foundField != null)
-                return null;
-
-            // Tentative match found - we can use this as long as no other
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-            return getSingleStringValue(hiddenField.getValue());
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-            return getSingleStringValue(hiddenField.getValue());
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-            return getSingleStringValue(hiddenField.getValue());
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-        List<KeeperFile> files = record.getFiles();
-        if (files == null)
-            return null;
-
-        KeeperFile foundFile = null;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-            // Ignore ambiguous fields
-            if (foundFile != null)
-                return null;
-
-            foundFile = file;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-
-        if (values == null || values.size() != 1)
-            return null;
-
-        return values.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
-#### Snippet
-```java
-        T value = getSingleValue(values);
+        String value = getParameter(name);
         if (value == null)
             return null;
 
-        return mapper.apply(value);
+        // Attempt to parse as an integer
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/WebSocketTunnelRequest.java`
 #### Snippet
 ```java
-            return getSingleStringValue(hiddenField.getValue());
+        List<String> values = getParameterValues(name);
+        if (values == null || values.isEmpty())
+            return null;
 
+        // Return first parameter value arbitrarily
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/http/HTTPTunnelRequest.java`
+#### Snippet
+```java
+            return values.get(0);
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/RestrictedGuacamoleWebSocketTunnelEndpoint.java`
+#### Snippet
+```java
+        TunnelRequest tunnelRequest = (TunnelRequest) userProperties.get(TUNNEL_REQUEST_PROPERTY);
+        if (tunnelRequest == null)
+            return null;
+
+        // Get tunnel request service
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/RestrictedGuacamoleWebSocketTunnelEndpoint.java`
+#### Snippet
+```java
+        TunnelRequestService tunnelRequestService = (TunnelRequestService) userProperties.get(TUNNEL_REQUEST_SERVICE_PROPERTY);
+        if (tunnelRequestService == null)
+            return null;
+
+        // Create and return tunnel
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/RestrictedGuacamoleWebSocketCreator.java`
+#### Snippet
+```java
+
+        // Invalid protocol
         return null;
 
     }
@@ -8070,91 +7820,43 @@ in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FilteredGuacamoleReader.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/WebSocketTunnelRequest.java`
 #### Snippet
 ```java
-            GuacamoleInstruction unfilteredInstruction = reader.readInstruction();
-            if (unfilteredInstruction == null)
-                return null;
-
-            // Apply filter
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FilteredGuacamoleReader.java`
-#### Snippet
-```java
-        GuacamoleInstruction filteredInstruction = readInstruction();
-        if (filteredInstruction == null)
+        String[] values = handshakeParameters.get(name);
+        if (values == null)
             return null;
 
-        return filteredInstruction.toString().toCharArray();
+        return Arrays.asList(values);
 ```
 
 ### ReturnNull
 Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleProtocolVersion.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/WebSocketTunnelRequest.java`
 #### Snippet
 ```java
-        Matcher versionMatcher = VERSION_PATTERN.matcher(version);
-        if (!versionMatcher.matches())
+        List<String> values = getParameterValues(name);
+        if (values == null || values.isEmpty())
             return null;
 
-        // Parse version number from version string
+        // Return first parameter value arbitrarily
 ```
 
 ### ReturnNull
 Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/InterceptedStreamMap.java`
 #### Snippet
 ```java
-        // If EOF, return EOF
-        if (instructionBuffer == null)
+        InterceptedStream<T> stream = streams.remove(index);
+        if (stream == null)
             return null;
 
-        // Start of element
+        // Close stream if it exists
 ```
 
 ### ReturnNull
 Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
-#### Snippet
-```java
-                int numRead = input.read(buffer, usedLength, buffer.length - usedLength);
-                if (numRead == -1)
-                    return null;
-
-                // Update used length
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleParser.java`
-#### Snippet
-```java
-        // No instruction to return if not yet complete
-        if (state != State.COMPLETE)
-            return null;
-        
-        // Reset for next instruction.
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleStatus.java`
-#### Snippet
-```java
-
-        // No such status found
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSocketTunnelEndpoint.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
 #### Snippet
 ```java
                     }
@@ -8166,47 +7868,23 @@ in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSo
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-openid/src/main/java/org/apache/guacamole/auth/openid/token/TokenValidationService.java`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/GuacamoleWebSocketTunnelServlet.java`
 #### Snippet
 ```java
+                            }
 
-        // Could not retrieve username from JWT
-        return null;
-    }
+                            return null;
 
+                        }
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-openid/src/main/java/org/apache/guacamole/auth/openid/token/TokenValidationService.java`
+in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
-#### Snippet
-```java
-        }
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
-#### Snippet
-```java
-            logger.warn("Ignoring file \"{}\" relevant to connection history "
-                    + "record as it cannot be read.", file);
+                    + "authentication provider could not be loaded. Please "
+                    + "check for errors earlier in the logs.");
             return null;
         }
 
@@ -8214,14 +7892,362 @@ in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guac
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
+in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
 #### Snippet
 ```java
-        if (logType == null) {
-            logger.warn("Recording/log type of \"{}\" cannot be determined.", file);
+            if (isFailureTolerated()) {
+                warnAuthProviderSkipped(e);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
+#### Snippet
+```java
+                    + "relevant authentication provider could not be loaded. "
+                    + "Please check for errors earlier in the logs.");
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
+#### Snippet
+```java
+                    + "authentication provider could not be loaded. Please "
+                    + "check for errors earlier in the logs.");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
+#### Snippet
+```java
+        if (authProvider == null) {
+            logger.warn("The authentication system could not be loaded. Please check for errors earlier in the logs.");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
+#### Snippet
+```java
+                    + "relevant authentication provider could not be loaded. "
+                    + "Please check for errors earlier in the logs.");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
+#### Snippet
+```java
+            if (isFailureTolerated()) {
+                warnAuthProviderSkipped(e);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+        
+        // Otherwise, fail
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
+#### Snippet
+```java
+                            }
+
+                            return null;
+
+                        }
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/properties/StringSetProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
+        if (values == null)
+            return null;
+
+        // Split string into a set of individual values
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionOrderProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
+        if (value == null)
+            return null;
+
+        // Split string into a set of individual values
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/DuoAuthenticationProvider.java`
+#### Snippet
+```java
+        // User has been verified, and authentication should be allowed to
+        // continue
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/extension/LanguageResourceService.java`
+#### Snippet
+```java
+        Matcher languageKeyMatcher = LANGUAGE_KEY_PATTERN.matcher(path);
+        if (!languageKeyMatcher.matches())
+            return null;
+
+        // Return parsed key
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole/src/main/java/org/apache/guacamole/extension/LanguageResourceService.java`
+#### Snippet
+```java
+        InputStream stream = resource.asStream();
+        if (stream == null)
+            return null;
+
+        // Parse JSON tree
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/SignedDuoCookie.java`
+#### Snippet
+```java
+
+            // No such cookie type exists
+            return null;
+
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/conf/LdapNameGuacamoleProperty.java`
+#### Snippet
+```java
+        // Consider null/empty values to be empty
+        if (value == null || value.isEmpty())
+            return null;
+
+        // Parse provided value as an LDAP DN
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/group/LDAPGroupParser.java`
+#### Snippet
+```java
+        // Reject null/empty group names
+        if (casGroup == null || casGroup.isEmpty())
+            return null;
+
+        // Parse group as an LDAP DN
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/group/LDAPGroupParser.java`
+#### Snippet
+```java
+            logger.debug("CAS group \"{}\" has been rejected as it is not a "
+                    + "valid LDAP DN.", casGroup, e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/group/LDAPGroupParser.java`
+#### Snippet
+```java
+        // Reject any group that is not beneath the base DN
+        if (baseDn != null && !group.startsWith(baseDn))
+            return null;
+
+        // If a specific name attribute is defined, restrict to groups that
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/group/LDAPGroupParser.java`
+#### Snippet
+```java
+        Rdn last = group.getRdn(group.size() - 1);
+        if (nameAttribute != null && !nameAttribute.equalsIgnoreCase(last.getType()))
+            return null;
+
+        // The group name is the string value of the final attribute in the DN
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/conf/PrivateKeyGuacamoleProperty.java`
+#### Snippet
+```java
+
+        if (value == null || value.isEmpty())
+            return null;
+
+        FileInputStream keyStreamIn = null;
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/ticket/TicketValidationService.java`
+#### Snippet
+```java
+        if (encryptedPassword == null || encryptedPassword.isEmpty()) {
+            logger.warn("No or empty encrypted password, no password will be available.");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/ticket/TicketValidationService.java`
+#### Snippet
+```java
+        if (clearpassKey == null) {
+            logger.debug("No private key available to decrypt password.");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+#### Snippet
+```java
+        // Do not reveal TOTP mode unless enrollment is in progress
+        if (key == null)
+            return null;
+
+        return confService.getMode();
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+#### Snippet
+```java
+        // Do not reveal code issuer unless enrollment is in progress
+        if (key == null)
+            return null;
+
+        return confService.getIssuer();
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+#### Snippet
+```java
+        // Do not reveal TOTP mode unless enrollment is in progress
+        if (key == null)
+            return null;
+
+        return key.getUsername();
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+#### Snippet
+```java
+        // Do not reveal code size unless enrollment is in progress
+        if (key == null)
+            return null;
+
+        return confService.getDigits();
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+#### Snippet
+```java
+        // Do not generate a key URI if no key is being exposed
+        if (key == null)
+            return null;
+
+        // Format "otpauth" URL (see https://github.com/google/google-authenticator/wiki/Key-Uri-Format)
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+#### Snippet
+```java
+        // Do not reveal TOTP mode unless enrollment is in progress
+        if (key == null)
+            return null;
+
+        return BASE32.encode(key.getSecret());
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+#### Snippet
+```java
+        URI keyURI = getKeyUri();
+        if (keyURI == null)
+            return null;
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+#### Snippet
+```java
+        // Do not reveal code period unless enrollment is in progress
+        if (key == null)
+            return null;
+
+        return confService.getPeriod();
 ```
 
 ### ReturnNull
@@ -8250,11 +8276,23 @@ in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/
 
 ### ReturnNull
 Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionRecord.java`
+in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultConfigurationService.java`
 #### Snippet
 ```java
-    @Override
-    public default UUID getUUID() {
+                    String secretName = super.getProperty(name);
+                    if (secretName == null)
+                        return null;
+
+                    return secretService.getValue(secretName).get();
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/QuickConnectionGroup.java`
+#### Snippet
+```java
+        if (connectionIdentifiers.add(identifier))
+            return identifier;
         return null;
     }
 
@@ -8262,107 +8300,11 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionRecord.j
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-openid/src/main/java/org/apache/guacamole/auth/openid/token/TokenValidationService.java`
 #### Snippet
 ```java
-        // Do not reveal code size unless enrollment is in progress
-        if (key == null)
-            return null;
 
-        return confService.getDigits();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
-#### Snippet
-```java
-        // Do not reveal TOTP mode unless enrollment is in progress
-        if (key == null)
-            return null;
-
-        return BASE32.encode(key.getSecret());
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
-#### Snippet
-```java
-        // Do not reveal code issuer unless enrollment is in progress
-        if (key == null)
-            return null;
-
-        return confService.getIssuer();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
-#### Snippet
-```java
-        // Do not reveal code period unless enrollment is in progress
-        if (key == null)
-            return null;
-
-        return confService.getPeriod();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
-#### Snippet
-```java
-        // Do not reveal TOTP mode unless enrollment is in progress
-        if (key == null)
-            return null;
-
-        return confService.getMode();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
-#### Snippet
-```java
-        // Do not reveal TOTP mode unless enrollment is in progress
-        if (key == null)
-            return null;
-
-        return key.getUsername();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
-#### Snippet
-```java
-        // Do not generate a key URI if no key is being exposed
-        if (key == null)
-            return null;
-
-        // Format "otpauth" URL (see https://github.com/google/google-authenticator/wiki/Key-Uri-Format)
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-totp/src/main/java/org/apache/guacamole/auth/totp/form/AuthenticationCodeField.java`
-#### Snippet
-```java
-        URI keyURI = getKeyUri();
-        if (keyURI == null)
-            return null;
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractUserContext.java`
-#### Snippet
-```java
-    @Override
-    public Object getResource() throws GuacamoleException {
+        // Could not retrieve username from JWT
         return null;
     }
 
@@ -8370,398 +8312,26 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractUserContex
 
 ### ReturnNull
 Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractUser.java`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-openid/src/main/java/org/apache/guacamole/auth/openid/token/TokenValidationService.java`
 #### Snippet
 ```java
-    @Override
-    public Date getLastActive() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractAuthenticationProvider.java`
-#### Snippet
-```java
-    @Override
-    public Object getResource() throws GuacamoleException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractAuthenticationProvider.java`
-#### Snippet
-```java
-    public AuthenticatedUser authenticateUser(Credentials credentials)
-            throws GuacamoleException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractAuthenticationProvider.java`
-#### Snippet
-```java
-    public UserContext getUserContext(AuthenticatedUser authenticatedUser)
-            throws GuacamoleException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
-#### Snippet
-```java
-    public default String getIdentifier() {
-        UUID uuid = getUUID();
-        return uuid != null ? uuid.toString() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
-#### Snippet
-```java
-     */
-    public default UUID getUUID() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DecoratingActivityRecordSet.java`
-#### Snippet
-```java
-            return decorate(record);
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Directory.java`
-#### Snippet
-```java
-            }
-
-            return null;
-
         }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DecoratingDirectory.java`
-#### Snippet
-```java
-            return decorate(object);
 
         return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleAuthenticationProvider.java`
-#### Snippet
-```java
-        // Return as unauthorized if not authorized to retrieve configs
-        if (configs == null)
-            return null;
-
-        // Return user context restricted to authorized configs
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleAuthenticationProvider.java`
-#### Snippet
-```java
-        // Return as unauthorized if not authorized to retrieve configs
-        if (configs == null)
-            return null;
-
-        return new SimpleAuthenticatedUser(credentials, configs);
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnection.java`
-#### Snippet
-```java
-    @Override
-    public Date getLastActive() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/TimeZoneField.java`
-#### Snippet
-```java
-        // Return null if no time zone provided
-        if (timeZone == null || timeZone.isEmpty())
-            return null;
-
-        // Otherwise, assume time zone is valid
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/xml/DocumentHandler.java`
-#### Snippet
-```java
-        // If no state, return null
-        if (stack.isEmpty())
-            return null;
-
-        return stack.getLast();
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/DateField.java`
-#### Snippet
-```java
-    public static String format(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(DateField.FORMAT);
-        return date == null ? null : dateFormat.format(date);
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/DateField.java`
+in `extensions/guacamole-auth-quickconnect/src/main/java/org/apache/guacamole/auth/quickconnect/utility/QCParser.java`
 #### Snippet
 ```java
-        // Return null if no date provided
-        if (dateString == null || dateString.isEmpty())
+
+        if (config == null)
             return null;
 
-        // Parse date according to format
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/LanguageField.java`
-#### Snippet
-```java
-        // Return null if no language is provided
-        if (language == null || language.isEmpty())
-            return null;
-
-        // Otherwise, assume language is already a valid language ID
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleUserContext.java`
-#### Snippet
-```java
-    @Override
-    public Object getResource() throws GuacamoleException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/TextField.java`
-#### Snippet
-```java
-        // Return null if no value provided
-        if (str == null || str.isEmpty())
-            return null;
-
-        // Otherwise, return string unmodified
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/NumericField.java`
-#### Snippet
-```java
-        // Return null if no value provided
-        if (str == null || str.isEmpty())
-            return null;
-
-        // Parse as integer
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/NumericField.java`
-#### Snippet
-```java
-        // Return null if no value provided
-        if (i == null)
-            return null;
-
-        // Convert to string
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/TimeField.java`
-#### Snippet
-```java
-    public static String format(Date time) {
-        DateFormat timeFormat = new SimpleDateFormat(TimeField.FORMAT);
-        return time == null ? null : timeFormat.format(time);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/form/TimeField.java`
-#### Snippet
-```java
-        // Return null if no time provided
-        if (timeString == null || timeString.isEmpty())
-            return null;
-
-        // Parse time according to format
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/URIGuacamoleProperty.java`
-#### Snippet
-```java
-        // If nothing is provided, just return null.
-        if (value == null)
-            return null;
-        
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/TimeZoneGuacamoleProperty.java`
-#### Snippet
-```java
-        // Nothing in, nothing out
-        if (value == null || value.isEmpty())
-            return null;
-        
-        // Attempt to return the TimeZone of the provided string value.
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/LongGuacamoleProperty.java`
-#### Snippet
-```java
-        // If no property provided, return null.
-        if (value == null)
-            return null;
-
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/PropertiesGuacamoleProperties.java`
-#### Snippet
-```java
-        String value = properties.getProperty(name);
-        if (value == null)
-            return null;
-
-        return value.trim();
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/FileGuacamoleProperty.java`
-#### Snippet
-```java
-        // If no property provided, return null.
-        if (value == null)
-            return null;
-
-        return new File(value);
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/StringListProperty.java`
-#### Snippet
-```java
-        // If no property provided, return null.
-        if (values == null)
-            return null;
-
-        // Split string into a list of individual values
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/StringListProperty.java`
-#### Snippet
-```java
-        List<String> stringValues = Arrays.asList(DELIMITER_PATTERN.split(values));
-        if (stringValues.isEmpty())
-            return null;
-
-        return stringValues;
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/BooleanGuacamoleProperty.java`
-#### Snippet
-```java
-        // If no property provided, return null.
-        if (value == null)
-            return null;
-
-        // If "true", return true
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/ByteArrayProperty.java`
-#### Snippet
-```java
-        // If no property provided, return null.
-        if (value == null)
-            return null;
-
-        // Return value parsed from hex
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/properties/IntegerGuacamoleProperty.java`
-#### Snippet
-```java
-        // If no property provided, return null.
-        if (value == null)
-            return null;
-
-        try {
+        String protocol = config.getProtocol();
 ```
 
 ### ReturnNull
@@ -8790,23 +8360,11 @@ in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/
 
 ### ReturnNull
 Return of `null`
-in `guacamole-ext/src/main/java/org/apache/guacamole/environment/LocalEnvironment.java`
-#### Snippet
-```java
-
-        // No such property
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserDataConnection.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ConnectionRecord.java`
 #### Snippet
 ```java
     @Override
-    public Date getLastActive() {
+    public default UUID getUUID() {
         return null;
     }
 
@@ -8814,26 +8372,14 @@ in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/StringListProperty.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractUserContext.java`
 #### Snippet
 ```java
-        // If no property provided, return null.
-        if (values == null)
-            return null;
+    @Override
+    public Object getResource() throws GuacamoleException {
+        return null;
+    }
 
-        // Split string into a list of individual values
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/StringListProperty.java`
-#### Snippet
-```java
-        List<String> stringValues = Arrays.asList(DELIMITER_PATTERN.split(values));
-        if (stringValues.isEmpty())
-            return null;
-
-        return stringValues;
 ```
 
 ### ReturnNull
@@ -8970,6 +8516,30 @@ in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/
 
 ### ReturnNull
 Return of `null`
+in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/user/UserDataConnection.java`
+#### Snippet
+```java
+    @Override
+    public Date getLastActive() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractUser.java`
+#### Snippet
+```java
+    @Override
+    public Date getLastActive() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
 in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/connection/ConnectionService.java`
 #### Snippet
 ```java
@@ -8982,14 +8552,458 @@ in `extensions/guacamole-auth-json/src/main/java/org/apache/guacamole/auth/json/
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/LdapDnGuacamoleProperty.java`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractAuthenticationProvider.java`
 #### Snippet
 ```java
+    @Override
+    public Object getResource() throws GuacamoleException {
+        return null;
+    }
 
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractAuthenticationProvider.java`
+#### Snippet
+```java
+    public AuthenticatedUser authenticateUser(Credentials credentials)
+            throws GuacamoleException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/AbstractAuthenticationProvider.java`
+#### Snippet
+```java
+    public UserContext getUserContext(AuthenticatedUser authenticatedUser)
+            throws GuacamoleException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DecoratingActivityRecordSet.java`
+#### Snippet
+```java
+            return decorate(record);
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
+#### Snippet
+```java
+     */
+    public default UUID getUUID() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/ActivityRecord.java`
+#### Snippet
+```java
+    public default String getIdentifier() {
+        UUID uuid = getUUID();
+        return uuid != null ? uuid.toString() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/Directory.java`
+#### Snippet
+```java
+            }
+
+            return null;
+
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/DecoratingDirectory.java`
+#### Snippet
+```java
+            return decorate(object);
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleConnection.java`
+#### Snippet
+```java
+    @Override
+    public Date getLastActive() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleAuthenticationProvider.java`
+#### Snippet
+```java
+        // Return as unauthorized if not authorized to retrieve configs
+        if (configs == null)
+            return null;
+
+        return new SimpleAuthenticatedUser(credentials, configs);
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleAuthenticationProvider.java`
+#### Snippet
+```java
+        // Return as unauthorized if not authorized to retrieve configs
+        if (configs == null)
+            return null;
+
+        // Return user context restricted to authorized configs
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/DateField.java`
+#### Snippet
+```java
+    public static String format(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat(DateField.FORMAT);
+        return date == null ? null : dateFormat.format(date);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/DateField.java`
+#### Snippet
+```java
+        // Return null if no date provided
+        if (dateString == null || dateString.isEmpty())
+            return null;
+
+        // Parse date according to format
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/TimeZoneField.java`
+#### Snippet
+```java
+        // Return null if no time zone provided
+        if (timeZone == null || timeZone.isEmpty())
+            return null;
+
+        // Otherwise, assume time zone is valid
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/xml/DocumentHandler.java`
+#### Snippet
+```java
+        // If no state, return null
+        if (stack.isEmpty())
+            return null;
+
+        return stack.getLast();
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/net/auth/simple/SimpleUserContext.java`
+#### Snippet
+```java
+    @Override
+    public Object getResource() throws GuacamoleException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/LanguageField.java`
+#### Snippet
+```java
+        // Return null if no language is provided
+        if (language == null || language.isEmpty())
+            return null;
+
+        // Otherwise, assume language is already a valid language ID
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/TimeField.java`
+#### Snippet
+```java
+    public static String format(Date time) {
+        DateFormat timeFormat = new SimpleDateFormat(TimeField.FORMAT);
+        return time == null ? null : timeFormat.format(time);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/TimeField.java`
+#### Snippet
+```java
+        // Return null if no time provided
+        if (timeString == null || timeString.isEmpty())
+            return null;
+
+        // Parse time according to format
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/NumericField.java`
+#### Snippet
+```java
+        // Return null if no value provided
+        if (str == null || str.isEmpty())
+            return null;
+
+        // Parse as integer
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/NumericField.java`
+#### Snippet
+```java
+        // Return null if no value provided
+        if (i == null)
+            return null;
+
+        // Convert to string
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/form/TextField.java`
+#### Snippet
+```java
+        // Return null if no value provided
+        if (str == null || str.isEmpty())
+            return null;
+
+        // Otherwise, return string unmodified
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/URIGuacamoleProperty.java`
+#### Snippet
+```java
+        // If nothing is provided, just return null.
+        if (value == null)
+            return null;
+        
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/StringListProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
+        if (values == null)
+            return null;
+
+        // Split string into a list of individual values
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/StringListProperty.java`
+#### Snippet
+```java
+        List<String> stringValues = Arrays.asList(DELIMITER_PATTERN.split(values));
+        if (stringValues.isEmpty())
+            return null;
+
+        return stringValues;
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/FileGuacamoleProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
+        if (value == null)
+            return null;
+
+        return new File(value);
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/PropertiesGuacamoleProperties.java`
+#### Snippet
+```java
+        String value = properties.getProperty(name);
+        if (value == null)
+            return null;
+
+        return value.trim();
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/IntegerGuacamoleProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
         if (value == null)
             return null;
 
         try {
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/LongGuacamoleProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
+        if (value == null)
+            return null;
+
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/TimeZoneGuacamoleProperty.java`
+#### Snippet
+```java
+        // Nothing in, nothing out
+        if (value == null || value.isEmpty())
+            return null;
+        
+        // Attempt to return the TimeZone of the provided string value.
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/BooleanGuacamoleProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
+        if (value == null)
+            return null;
+
+        // If "true", return true
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/properties/ByteArrayProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
+        if (value == null)
+            return null;
+
+        // Return value parsed from hex
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledActivityRecord.java`
+#### Snippet
+```java
+        Integer id = model.getRecordID();
+        if (id == null)
+            return null;
+
+        return id.toString();
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledActivityRecord.java`
+#### Snippet
+```java
+        Integer id = model.getRecordID();
+        if (id == null)
+            return null;
+
+        // Convert record ID to a name UUID in the given namespace
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/JDBCAuthenticationProviderService.java`
+#### Snippet
+```java
+        // connection sharing links
+        if (authenticatedUser instanceof SharedAuthenticatedUser)
+            return null;
+
+        // Set semantic flags based on context
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledActivityRecordSet.java`
+#### Snippet
+```java
+
+        if (records.isEmpty())
+            return null;
+
+        if (records.size() == 1)
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledActivityRecordSet.java`
+#### Snippet
+```java
+                + "not be possible and may indicate a bug or database "
+                + "corruption.", identifier);
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-ext/src/main/java/org/apache/guacamole/environment/LocalEnvironment.java`
+#### Snippet
+```java
+
+        // No such property
+        return null;
+
+    }
 ```
 
 ### ReturnNull
@@ -9006,11 +9020,23 @@ in `guacamole-ext/src/main/java/org/apache/guacamole/properties/EnumGuacamolePro
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/base/ModeledDirectoryObjectService.java`
+#### Snippet
+```java
+        // If no such object, return null
+        if (objects.isEmpty())
+            return null;
+
+        // The object collection will have exactly one element unless the
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUserContext.java`
 #### Snippet
 ```java
     @Override
-    public String getSearchBindDN() {
+    public Object getResource() throws GuacamoleException {
         return null;
     }
 
@@ -9018,11 +9044,83 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/ConnectionSharingService.java`
+#### Snippet
+```java
+        String shareKey = getShareKey(credentials);
+        if (shareKey == null || connectionMap.get(shareKey) == null)
+            return null;
+
+        // Return temporary in-memory user
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/ConnectionSharingService.java`
+#### Snippet
+```java
+        HttpServletRequest request = credentials.getRequest();
+        if (request == null)
+            return null;
+
+        // Retrieve the share key from the request
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/HashSharedConnectionMap.java`
+#### Snippet
+```java
+        // There are no null share keys
+        if (key == null)
+            return null;
+
+        // Attempt to retrieve only if non-null
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/HashSharedConnectionMap.java`
+#### Snippet
+```java
+        SharedConnectionDefinition definition = connectionMap.remove(key);
+        if (definition == null)
+            return null;
+
+        // Close all associated tunnels and disallow further sharing
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/HashSharedConnectionMap.java`
+#### Snippet
+```java
+        // There are no null share keys
+        if (key == null)
+            return null;
+
+        // Update the last access time and return the SharedConnectionDefinition
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/user/SharedUser.java`
+#### Snippet
+```java
+
+        // History is not recorded for shared users
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/user/SharedUser.java`
 #### Snippet
 ```java
     @Override
-    public String appliesTo(String username) {
+    public String getPassword() {
         return null;
     }
 
@@ -9030,11 +9128,155 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/connection/SharedConnectionDirectory.java`
+#### Snippet
+```java
+        // Allow access only to registered share keys
+        if (!shareKeys.contains(identifier))
+            return null;
+
+        // Retrieve the connection definition associated with that share key,
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/connection/SharedConnectionDirectory.java`
+#### Snippet
+```java
+        if (connectionDefinition == null) {
+            shareKeys.remove(identifier);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserService.java`
+#### Snippet
+```java
+        UserModel userModel = userMapper.selectOne(authenticatedUser.getIdentifier());
+        if (userModel == null)
+            return null;
+
+        // Create corresponding user object, set up cyclic reference
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserService.java`
+#### Snippet
+```java
+        UserModel userModel = userMapper.selectOne(username);
+        if (userModel == null)
+            return null;
+
+        // Verify provided password is correct
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/UserService.java`
+#### Snippet
+```java
+        byte[] hash = encryptionService.createPasswordHash(password, userModel.getPasswordSalt());
+        if (!Arrays.equals(hash, userModel.getPasswordHash()))
+            return null;
+
+        // Create corresponding user object, set up cyclic reference
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+        Time end = getModel().getAccessWindowEnd();
+        if (end == null)
+            return null;
+
+        // Return within defined time zone, current day
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+        Time start = getModel().getAccessWindowStart();
+        if (start == null)
+            return null;
+
+        // Return within defined time zone, current day
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+        java.util.Date parsedDate = DateField.parse(dateString);
+        if (parsedDate == null)
+            return null;
+
+        // Convert to SQL Date
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+        java.util.Date parsedDate = TimeField.parse(timeString);
+        if (parsedDate == null)
+            return null;
+
+        // Convert to SQL Time 
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+        Date validUntil = getModel().getValidUntil();
+        if (validUntil == null)
+            return null;
+
+        // Convert to end-of-day within defined time zone
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/user/ModeledUser.java`
+#### Snippet
+```java
+        Date validFrom = getModel().getValidFrom();
+        if (validFrom == null)
+            return null;
+
+        // Convert to midnight within defined time zone
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connection/ConnectionModel.java`
+#### Snippet
+```java
+        Integer id = getObjectID();
+        if (id == null)
+            return null;
+
+        // Otherwise, the identifier is the ID as a string
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharing/connection/SharedConnection.java`
 #### Snippet
 ```java
     @Override
-    public String getSearchBindPassword() {
+    public Date getLastActive() {
         return null;
     }
 
@@ -9042,11 +9284,23 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/sharingprofile/SharingProfileModel.java`
+#### Snippet
+```java
+        Integer id = getObjectID();
+        if (id == null)
+            return null;
+
+        // Otherwise, the identifier is the ID as a string
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connectiongroup/RootConnectionGroup.java`
 #### Snippet
 ```java
     @Override
-    public Dn getGroupBaseDN() {
+    public String getParentIdentifier() {
         return null;
     }
 
@@ -9054,22 +9308,106 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/connectiongroup/ConnectionGroupModel.java`
 #### Snippet
 ```java
-    @Override
-    public Dn getConfigurationBaseDN() {
-        return null;
+        Integer id = getObjectID();
+        if (id == null)
+            return null;
+
+        // Otherwise, the identifier is the ID as a string
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-jdbc/modules/guacamole-auth-jdbc-base/src/main/java/org/apache/guacamole/auth/jdbc/activeconnection/ActiveConnectionService.java`
+#### Snippet
+```java
+        // If no such object, return null
+        if (objects.isEmpty())
+            return null;
+
+        // The object collection will have exactly one element unless the
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/StringListProperty.java`
+#### Snippet
+```java
+        // If no property provided, return null.
+        if (values == null)
+            return null;
+
+        // Split string into a list of individual values
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/StringListProperty.java`
+#### Snippet
+```java
+        List<String> stringValues = Arrays.asList(DELIMITER_PATTERN.split(values));
+        if (stringValues.isEmpty())
+            return null;
+
+        return stringValues;
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/conf/KsmAttributeService.java`
+#### Snippet
+```java
+        // If the configuration value is empty, expose a null value
+        else
+            return null;
+
     }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
+#### Snippet
+```java
+                        + "cannot be used to locate individual secrets.",
+                        username, domain);
+                return null;
+            }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/LdapFilterGuacamoleProperty.java`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
 #### Snippet
 ```java
-        // No value provided, so return null.
+                        + "Keeper records and cannot be used to locate "
+                        + "individual secrets.", domain);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmClient.java`
+#### Snippet
+```java
+                        + "multiple Keeper records and cannot be used to "
+                        + "locate individual secrets.", hostname);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/LdapDnGuacamoleProperty.java`
+#### Snippet
+```java
+
         if (value == null)
             return null;
 
@@ -9078,50 +9416,26 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/LDAPConnectionService.java`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectoryService.java`
 #### Snippet
 ```java
-            logger.debug("Bind attempt with LDAP server as user \"{}\" failed.",
-                    bindUser, e);
-            return null;
-        }
+                // Do not process the ConnectionGroup further if it does not exist
+                if (object == null)
+                    return null;
 
+                // Sanitize values when a ConnectionGroup is fetched from the directory
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/LDAPConnectionService.java`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/user/KsmDirectoryService.java`
 #### Snippet
 ```java
-                    e.getMessage());
-            logger.debug("Unable to bind to LDAP server.", e);
-            return null;
-        }
+                // Do not process the user further if it does not exist
+                if (object == null)
+                    return null;
 
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/LDAPConnectionService.java`
-#### Snippet
-```java
-            logger.debug("Cannot bind using invalid DN.", e);
-            ldapConnection.close();
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/AuthenticationProviderService.java`
-#### Snippet
-```java
-        }
-
-        return null;
-
-    }
+                // Sanitize values when a user is fetched from the directory
 ```
 
 ### ReturnNull
@@ -9165,6 +9479,18 @@ Return of `null`
 in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/AuthenticationProviderService.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/AuthenticationProviderService.java`
+#### Snippet
+```java
         if (configs.isEmpty()) {
             logger.info("Skipping LDAP authentication as no LDAP servers are configured.");
             return null;
@@ -9182,6 +9508,150 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
         return null;
 
     }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/LDAPConnectionService.java`
+#### Snippet
+```java
+            logger.debug("Bind attempt with LDAP server as user \"{}\" failed.",
+                    bindUser, e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/LDAPConnectionService.java`
+#### Snippet
+```java
+                    e.getMessage());
+            logger.debug("Unable to bind to LDAP server.", e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/LDAPConnectionService.java`
+#### Snippet
+```java
+            logger.debug("Cannot bind using invalid DN.", e);
+            ldapConnection.close();
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/LdapFilterGuacamoleProperty.java`
+#### Snippet
+```java
+        // No value provided, so return null.
+        if (value == null)
+            return null;
+
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmSecretService.java`
+#### Snippet
+```java
+        // If user-specific KSM config is disabled globally or for the given
+        // connectable, return null to indicate that no user config exists
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String getSearchBindDN() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String getSearchBindPassword() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public Dn getGroupBaseDN() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public Dn getConfigurationBaseDN() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/DefaultLDAPConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public String appliesTo(String username) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/group/UserGroupService.java`
+#### Snippet
+```java
+            }
+            catch (LdapInvalidAttributeValueException e) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/group/UserGroupService.java`
+#### Snippet
+```java
+            logger.debug("User group \"{}\" is missing a name attribute "
+                    + "and will be ignored.", entry.getDn().toString());
+            return null;
+
+        });
 ```
 
 ### ReturnNull
@@ -9218,54 +9688,6 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/DuoAuthenticationProvider.java`
-#### Snippet
-```java
-        // User has been verified, and authentication should be allowed to
-        // continue
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/group/UserGroupService.java`
-#### Snippet
-```java
-            }
-            catch (LdapInvalidAttributeValueException e) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/group/UserGroupService.java`
-#### Snippet
-```java
-            logger.debug("User group \"{}\" is missing a name attribute "
-                    + "and will be ignored.", entry.getDn().toString());
-            return null;
-
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-duo/src/main/java/org/apache/guacamole/auth/duo/api/SignedDuoCookie.java`
-#### Snippet
-```java
-
-            // No such cookie type exists
-            return null;
-
-        }
 ```
 
 ### ReturnNull
@@ -9330,6 +9752,150 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 
 ### ReturnNull
 Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            return getSingleStringValue(hiddenField.getValue());
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            return getSingleStringValue(hiddenField.getValue());
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            // Ignore ambiguous fields
+            if (foundField != null)
+                return null;
+
+            // Tentative match found - we can use this as long as no other
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+
+        if (values == null || values.size() != 1)
+            return null;
+
+        return values.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            return getSingleStringValue(hiddenField.getValue());
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            return getSingleStringValue(hiddenField.getValue());
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+        T value = getSingleValue(values);
+        if (value == null)
+            return null;
+
+        return mapper.apply(value);
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            return value;
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+        List<KeeperFile> files = record.getFiles();
+        if (files == null)
+            return null;
+
+        KeeperFile foundFile = null;
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            // Ignore ambiguous fields
+            if (foundFile != null)
+                return null;
+
+            foundFile = file;
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            return getSingleStringValue(hiddenField.getValue());
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/guacamole-vault/modules/guacamole-vault-ksm/src/main/java/org/apache/guacamole/vault/ksm/secret/KsmRecordService.java`
+#### Snippet
+```java
+            return value;
+
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/conf/JacksonLDAPConfiguration.java`
 #### Snippet
 ```java
@@ -9342,602 +9908,14 @@ in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/
 
 ### ReturnNull
 Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/ConnectionTagHandler.java`
+in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-saml/src/main/java/org/apache/guacamole/auth/saml/AuthenticationProviderService.java`
 #### Snippet
 ```java
-            return new ProtocolTagHandler(config);
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/UserMappingTagHandler.java`
-#### Snippet
-```java
-            return new AuthorizeTagHandler(user_mapping);
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/AuthorizeTagHandler.java`
-#### Snippet
-```java
-        }
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/TokenParamProvider.java`
-#### Snippet
-```java
-
-        if (parameter.getAnnotation(TokenParam.class) == null)
+        HttpServletRequest request = credentials.getRequest();
+        if (request == null)
             return null;
 
-        return (request) -> authenticationService.getAuthenticationToken(request);
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
-#### Snippet
-```java
-        if (!userMappingFile.exists()) {
-            logger.debug("User mapping file \"{}\" does not exist and will not be read.", userMappingFile);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
-#### Snippet
-```java
-                logger.error("Unable to create XML parser for reading \"{}\": {}", USER_MAPPING_FILENAME, e.getMessage());
-                logger.debug("An instance of SAXParser could not be created.", e);
-                return null;
-            }
-            catch (SAXException e) {
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
-#### Snippet
-```java
-                logger.error("Unable to create XML parser for reading \"{}\": {}", USER_MAPPING_FILENAME, e.getMessage());
-                logger.debug("An instance of SAXParser could not be created.", e);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
-#### Snippet
-```java
-                logger.warn("Unable to read user mapping file \"{}\": {}", userMappingFile, e.getMessage());
-                logger.debug("Error reading user mapping file.", e);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
-#### Snippet
-```java
-                logger.warn("User mapping file \"{}\" is not valid: {}", userMappingFile, e.getMessage());
-                logger.debug("Error parsing user mapping file.", e);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
-#### Snippet
-```java
-        UserMapping userMapping = getUserMapping();
-        if (userMapping == null)
-            return null;
-
-        // Validate and return info for given user and pass
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/FileAuthenticationProvider.java`
-#### Snippet
-```java
-
-        // Unauthorized
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/APIRequest.java`
-#### Snippet
-```java
-        String[] values = getParameterValues(name);
-        if (values == null)
-            return null;
-
-        // Otherwise, return first value
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/auth/file/Authorization.java`
-#### Snippet
-```java
-        // If null byte array given, return null
-        if (bytes == null)
-            return null;
-
-        // Create string builder for holding the hex representation,
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/DecorationService.java`
-#### Snippet
-```java
-        Iterator<AuthenticationProvider> current = authProviders.iterator();
-        if (!current.hasNext())
-            return null;
-
-        // Use first AuthenticationProvider to produce the root-level
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/HashTokenSessionMap.java`
-#### Snippet
-```java
-        // There are no null auth tokens
-        if (authToken == null)
-            return null;
-
-        // Attempt to retrieve only if non-null
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/HashTokenSessionMap.java`
-#### Snippet
-```java
-        // There are no null auth tokens
-        if (authToken == null)
-            return null;
-
-        // Update the last access time and return the GuacamoleSession
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/ObjectQueryService.java`
-#### Snippet
-```java
-
-        // No identifier attribute is present on the entry
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/user/APIUserWrapper.java`
-#### Snippet
-```java
-    @Override
-    public Date getLastActive() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/auth/AuthenticationService.java`
-#### Snippet
-```java
-            return token;
-
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/extension/ExtensionRESTService.java`
-#### Snippet
-```java
-
-        // No such AuthenticationProvider found
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/directory/DirectoryView.java`
-#### Snippet
-```java
-        // originally-specified subset
-        if (!identifiers.contains(identifier))
-            return null;
-
-        // Delegate to underlying directory
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/rest/connection/APIConnectionWrapper.java`
-#### Snippet
-```java
-    @Override
-    public Date getLastActive() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelRequestType.java`
-#### Snippet
-```java
-
-        // No such type
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/UserTunnel.java`
-#### Snippet
-```java
-
-        // No active connection associated with this tunnel
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/OutputStreamInterceptingFilter.java`
-#### Snippet
-```java
-            logger.warn("Received base64 data for intercepted stream was invalid.");
-            logger.debug("Decoding base64 data for intercepted stream failed.", e);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/OutputStreamInterceptingFilter.java`
-#### Snippet
-```java
-
-        // Instruction was handled purely internally
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/http/HTTPTunnelRequest.java`
-#### Snippet
-```java
-            return values.get(0);
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/WebSocketTunnelRequest.java`
-#### Snippet
-```java
-        List<String> values = getParameterValues(name);
-        if (values == null || values.isEmpty())
-            return null;
-
-        // Return first parameter value arbitrarily
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/TunnelRequest.java`
-#### Snippet
-```java
-        String value = getParameter(name);
-        if (value == null)
-            return null;
-
-        // Attempt to parse as an integer
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/RestrictedGuacamoleWebSocketTunnelEndpoint.java`
-#### Snippet
-```java
-        TunnelRequest tunnelRequest = (TunnelRequest) userProperties.get(TUNNEL_REQUEST_PROPERTY);
-        if (tunnelRequest == null)
-            return null;
-
-        // Get tunnel request service
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/RestrictedGuacamoleWebSocketTunnelEndpoint.java`
-#### Snippet
-```java
-        TunnelRequestService tunnelRequestService = (TunnelRequestService) userProperties.get(TUNNEL_REQUEST_SERVICE_PROPERTY);
-        if (tunnelRequestService == null)
-            return null;
-
-        // Create and return tunnel
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/WebSocketTunnelRequest.java`
-#### Snippet
-```java
-        List<String> values = getParameterValues(name);
-        if (values == null || values.isEmpty())
-            return null;
-
-        // Return first parameter value arbitrarily
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/WebSocketTunnelRequest.java`
-#### Snippet
-```java
-        String[] values = handshakeParameters.get(name);
-        if (values == null)
-            return null;
-
-        return Arrays.asList(values);
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/RestrictedGuacamoleWebSocketCreator.java`
-#### Snippet
-```java
-
-        // Invalid protocol
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/InterceptedStreamMap.java`
-#### Snippet
-```java
-        InterceptedStream<T> stream = streams.remove(index);
-        if (stream == null)
-            return null;
-
-        // Close stream if it exists
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty8/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-                            }
-
-                            return null;
-
-                        }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/jetty9/GuacamoleWebSocketTunnelListener.java`
-#### Snippet
-```java
-                    }
-
-                    return null;
-
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
-#### Snippet
-```java
-        if (authProvider == null) {
-            logger.warn("The authentication system could not be loaded. Please check for errors earlier in the logs.");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
-#### Snippet
-```java
-                    + "authentication provider could not be loaded. Please "
-                    + "check for errors earlier in the logs.");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
-#### Snippet
-```java
-                    + "relevant authentication provider could not be loaded. "
-                    + "Please check for errors earlier in the logs.");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
-#### Snippet
-```java
-            if (isFailureTolerated()) {
-                warnAuthProviderSkipped(e);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
-#### Snippet
-```java
-                    + "relevant authentication provider could not be loaded. "
-                    + "Please check for errors earlier in the logs.");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
-#### Snippet
-```java
-                    + "authentication provider could not be loaded. Please "
-                    + "check for errors earlier in the logs.");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/AuthenticationProviderFacade.java`
-#### Snippet
-```java
-            if (isFailureTolerated()) {
-                warnAuthProviderSkipped(e);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-        
-        // Otherwise, fail
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/tunnel/websocket/tomcat/GuacamoleWebSocketTunnelServlet.java`
-#### Snippet
-```java
-                            }
-
-                            return null;
-
-                        }
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/properties/StringSetProperty.java`
-#### Snippet
-```java
-        // If no property provided, return null.
-        if (values == null)
-            return null;
-
-        // Split string into a set of individual values
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/ExtensionOrderProperty.java`
-#### Snippet
-```java
-        // If no property provided, return null.
-        if (value == null)
-            return null;
-
-        // Split string into a set of individual values
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/LanguageResourceService.java`
-#### Snippet
-```java
-        Matcher languageKeyMatcher = LANGUAGE_KEY_PATTERN.matcher(path);
-        if (!languageKeyMatcher.matches())
-            return null;
-
-        // Return parsed key
-```
-
-### ReturnNull
-Return of `null`
-in `guacamole/src/main/java/org/apache/guacamole/extension/LanguageResourceService.java`
-#### Snippet
-```java
-        InputStream stream = resource.asStream();
-        if (stream == null)
-            return null;
-
-        // Parse JSON tree
+        // Use established SAML identity if already provided by the SAML IdP
 ```
 
 ### ReturnNull
@@ -9966,47 +9944,23 @@ in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-saml/src/main/java/
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-saml/src/main/java/org/apache/guacamole/auth/saml/AuthenticationProviderService.java`
+in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
 #### Snippet
 ```java
-        HttpServletRequest request = credentials.getRequest();
-        if (request == null)
-            return null;
+        }
 
-        // Use established SAML identity if already provided by the SAML IdP
+        return null;
+
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/conf/LdapNameGuacamoleProperty.java`
+in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
 #### Snippet
 ```java
-        // Consider null/empty values to be empty
-        if (value == null || value.isEmpty())
-            return null;
-
-        // Parse provided value as an LDAP DN
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/group/LDAPGroupParser.java`
-#### Snippet
-```java
-        // Reject null/empty group names
-        if (casGroup == null || casGroup.isEmpty())
-            return null;
-
-        // Parse group as an LDAP DN
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/group/LDAPGroupParser.java`
-#### Snippet
-```java
-            logger.debug("CAS group \"{}\" has been rejected as it is not a "
-                    + "valid LDAP DN.", casGroup, e);
+            logger.warn("Ignoring file \"{}\" relevant to connection history "
+                    + "record as it cannot be read.", file);
             return null;
         }
 
@@ -10014,59 +9968,11 @@ in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/o
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/group/LDAPGroupParser.java`
+in `extensions/guacamole-history-recording-storage/src/main/java/org/apache/guacamole/history/connection/HistoryConnectionRecord.java`
 #### Snippet
 ```java
-        // Reject any group that is not beneath the base DN
-        if (baseDn != null && !group.startsWith(baseDn))
-            return null;
-
-        // If a specific name attribute is defined, restrict to groups that
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/group/LDAPGroupParser.java`
-#### Snippet
-```java
-        Rdn last = group.getRdn(group.size() - 1);
-        if (nameAttribute != null && !nameAttribute.equalsIgnoreCase(last.getType()))
-            return null;
-
-        // The group name is the string value of the final attribute in the DN
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/conf/PrivateKeyGuacamoleProperty.java`
-#### Snippet
-```java
-
-        if (value == null || value.isEmpty())
-            return null;
-
-        FileInputStream keyStreamIn = null;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-vault/modules/guacamole-vault-base/src/main/java/org/apache/guacamole/vault/conf/VaultConfigurationService.java`
-#### Snippet
-```java
-                    String secretName = super.getProperty(name);
-                    if (secretName == null)
-                        return null;
-
-                    return secretService.getValue(secretName).get();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/ticket/TicketValidationService.java`
-#### Snippet
-```java
-        if (encryptedPassword == null || encryptedPassword.isEmpty()) {
-            logger.warn("No or empty encrypted password, no password will be available.");
+        if (logType == null) {
+            logger.warn("Recording/log type of \"{}\" cannot be determined.", file);
             return null;
         }
 
@@ -10074,53 +9980,125 @@ in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/o
 
 ### ReturnNull
 Return of `null`
-in `extensions/guacamole-auth-sso/modules/guacamole-auth-sso-cas/src/main/java/org/apache/guacamole/auth/cas/ticket/TicketValidationService.java`
+in `extensions/guacamole-auth-ldap/src/main/java/org/apache/guacamole/auth/ldap/ObjectQueryService.java`
 #### Snippet
 ```java
-        if (clearpassKey == null) {
-            logger.debug("No private key available to decrypt password.");
-            return null;
-        }
+
+        // No identifier attribute is present on the entry
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-common/src/main/java/org/apache/guacamole/net/GuacamoleSocket.java`
+#### Snippet
+```java
+     */
+    public default String getProtocol() {
+        return null;
+    }
 
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `instruction` is redundant
+### ReturnNull
+Return of `null`
 in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
 #### Snippet
 ```java
+                int numRead = input.read(buffer, usedLength, buffer.length - usedLength);
+                if (numRead == -1)
+                    return null;
 
-        // Create instruction
-        GuacamoleInstruction instruction = new GuacamoleInstruction(
-                opcode,
-                elements.toArray(new String[elements.size()])
+                // Update used length
 ```
 
-### UnnecessaryLocalVariable
-Local variable `tunnel` is redundant
-in `doc/guacamole-example/src/main/java/org/apache/guacamole/net/example/DummyGuacamoleTunnelServlet.java`
+### ReturnNull
+Return of `null`
+in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
+#### Snippet
+```java
+        // If EOF, return EOF
+        if (instructionBuffer == null)
+            return null;
+
+        // Start of element
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FilteredGuacamoleReader.java`
+#### Snippet
+```java
+            GuacamoleInstruction unfilteredInstruction = reader.readInstruction();
+            if (unfilteredInstruction == null)
+                return null;
+
+            // Apply filter
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/FilteredGuacamoleReader.java`
+#### Snippet
+```java
+        GuacamoleInstruction filteredInstruction = readInstruction();
+        if (filteredInstruction == null)
+            return null;
+
+        return filteredInstruction.toString().toCharArray();
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleProtocolVersion.java`
+#### Snippet
+```java
+        Matcher versionMatcher = VERSION_PATTERN.matcher(version);
+        if (!versionMatcher.matches())
+            return null;
+
+        // Parse version number from version string
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleParser.java`
+#### Snippet
+```java
+        // No instruction to return if not yet complete
+        if (state != State.COMPLETE)
+            return null;
+        
+        // Reset for next instruction.
+```
+
+### ReturnNull
+Return of `null`
+in `guacamole-common/src/main/java/org/apache/guacamole/protocol/GuacamoleStatus.java`
 #### Snippet
 ```java
 
-        // Create tunnel from now-configured socket
-        GuacamoleTunnel tunnel = new SimpleGuacamoleTunnel(socket);
-        return tunnel;
+        // No such status found
+        return null;
 
+    }
 ```
 
-### UnnecessaryLocalVariable
-Local variable `injector` is redundant
-in `guacamole/src/main/java/org/apache/guacamole/GuacamoleServletContextListener.java`
+### ReturnNull
+Return of `null`
+in `guacamole-common/src/main/java/org/apache/guacamole/websocket/GuacamoleWebSocketTunnelEndpoint.java`
 #### Snippet
 ```java
+                    }
 
-            // Create new injector if necessary
-            Injector injector = Guice.createInjector(Stage.PRODUCTION,
-                new EnvironmentModule(environment),
-                new LogModule(environment),
+                    return null;
+
+                }
 ```
 
+## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `updatedUser` is redundant
 in `guacamole/src/main/java/org/apache/guacamole/rest/auth/AuthenticationService.java`
@@ -10146,6 +10124,18 @@ in `guacamole/src/main/java/org/apache/guacamole/rest/auth/AuthenticationService
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `injector` is redundant
+in `guacamole/src/main/java/org/apache/guacamole/GuacamoleServletContextListener.java`
+#### Snippet
+```java
+
+            // Create new injector if necessary
+            Injector injector = Guice.createInjector(Stage.PRODUCTION,
+                new EnvironmentModule(environment),
+                new LogModule(environment),
+```
+
+### UnnecessaryLocalVariable
 Local variable `tree` is redundant
 in `guacamole/src/main/java/org/apache/guacamole/extension/LanguageResourceService.java`
 #### Snippet
@@ -10155,5 +10145,29 @@ in `guacamole/src/main/java/org/apache/guacamole/extension/LanguageResourceServi
             JsonNode tree = mapper.readTree(stream);
             return tree;
         }
+```
+
+### UnnecessaryLocalVariable
+Local variable `tunnel` is redundant
+in `doc/guacamole-example/src/main/java/org/apache/guacamole/net/example/DummyGuacamoleTunnelServlet.java`
+#### Snippet
+```java
+
+        // Create tunnel from now-configured socket
+        GuacamoleTunnel tunnel = new SimpleGuacamoleTunnel(socket);
+        return tunnel;
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `instruction` is redundant
+in `guacamole-common/src/main/java/org/apache/guacamole/io/ReaderGuacamoleReader.java`
+#### Snippet
+```java
+
+        // Create instruction
+        GuacamoleInstruction instruction = new GuacamoleInstruction(
+                opcode,
+                elements.toArray(new String[elements.size()])
 ```
 
