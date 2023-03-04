@@ -172,42 +172,6 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMet
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
-#### Snippet
-```java
-            paramsWithHeader.stream()
-                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_HEADER))
-                    .forEach(param -> {
-                        poetWriter.writeIndentedLine(
-                                "'%s': %s,",
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
-#### Snippet
-```java
-            paramsWithHeader.stream()
-                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_QUERY))
-                    .forEach(param -> {
-                        poetWriter.writeIndentedLine(
-                                "'%s': %s,",
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
-#### Snippet
-```java
-            paramsWithHeader.stream()
-                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_PATH))
-                    .forEach(param -> {
-                        poetWriter.writeIndentedLine("'%s': %s,", param.paramName(), param.pythonParamName());
-                    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSetup.java`
 #### Snippet
 ```java
@@ -242,6 +206,42 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSet
             });
 ```
 
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
+#### Snippet
+```java
+            paramsWithHeader.stream()
+                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_HEADER))
+                    .forEach(param -> {
+                        poetWriter.writeIndentedLine(
+                                "'%s': %s,",
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
+#### Snippet
+```java
+            paramsWithHeader.stream()
+                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_QUERY))
+                    .forEach(param -> {
+                        poetWriter.writeIndentedLine(
+                                "'%s': %s,",
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
+#### Snippet
+```java
+            paramsWithHeader.stream()
+                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_PATH))
+                    .forEach(param -> {
+                        poetWriter.writeIndentedLine("'%s': %s,", param.paramName(), param.pythonParamName());
+                    });
+```
+
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
@@ -253,6 +253,30 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
                 .pythonPackage(PythonPackage.of(config.pythonicPackageName().get()))
                 .fileName("py.typed")
                 .build();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+        PythonSetup.Builder builder = PythonSetup.builder()
+                .pythonPackage(rootPackage)
+                .putOptions("name", config.packageName().get())
+                .putOptions("version", config.packageVersion().get())
+                .putOptions("python_requires", ">=3.8")
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+                .pythonPackage(rootPackage)
+                .putOptions("name", config.packageName().get())
+                .putOptions("version", config.packageVersion().get())
+                .putOptions("python_requires", ">=3.8")
+                .putRawOptions("package_data", "{\"\": [\"py.typed\"]}")
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -289,30 +313,6 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
                                 "__version__ = \"%s\"", config.packageVersion().get()))
                         .build()));
         return builder.build();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
-        PythonSetup.Builder builder = PythonSetup.builder()
-                .pythonPackage(rootPackage)
-                .putOptions("name", config.packageName().get())
-                .putOptions("version", config.packageVersion().get())
-                .putOptions("python_requires", ">=3.8")
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
-                .pythonPackage(rootPackage)
-                .putOptions("name", config.packageName().get())
-                .putOptions("version", config.packageVersion().get())
-                .putOptions("python_requires", ">=3.8")
-                .putRawOptions("package_data", "{\"\": [\"py.typed\"]}")
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
