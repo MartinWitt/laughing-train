@@ -30,7 +30,7 @@ public class MiningPrinter {
         List<RuleId> ruleIds = config.getRules().keySet().stream()
                 .map(QodanaRules::getRuleId)
                 .distinct()
-                .sorted(Comparator.comparing(RuleId::ruleID))
+                .sorted(Comparator.comparing(RuleId::id))
                 .collect(Collectors.toList());
         long fixableRules =
                 results.stream().filter(v -> ruleIds.contains(v.ruleID())).count();
@@ -43,7 +43,7 @@ public class MiningPrinter {
             sb.append("## ").append(groupedResult.getKey()).append("\n");
             for (AnalyzerResult result : groupedResult.getValue()) {
                 sb.append("### ")
-                        .append(result.ruleID().ruleID())
+                        .append(result.ruleID().id())
                         .append("\n")
                         .append(result.messageMarkdown())
                         .append("\n")
@@ -79,7 +79,7 @@ public class MiningPrinter {
     }
 
     private String generateTableLine(Collection<RuleId> ruleIds, Entry<RuleId, ? extends List<AnalyzerResult>> result) {
-        return "| " + result.getKey().ruleID() + " | " + result.getValue().size() + " | "
+        return "| " + result.getKey().id() + " | " + result.getValue().size() + " | "
                 + result.getValue().stream().anyMatch(v -> ruleIds.contains(v.ruleID())) + " |\n";
     }
 }
