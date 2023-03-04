@@ -14,10 +14,22 @@ I found 42 bad smells with 2 repairable:
 | UnnecessarySuperQualifier | 1 | false |
 | BusyWait | 1 | false |
 | UNUSED_IMPORT | 1 | false |
-| DialogTitleCapitalization | 1 | false |
 | NestedAssignment | 1 | false |
+| DialogTitleCapitalization | 1 | false |
 | UnusedAssignment | 1 | false |
 ## RuleId[ruleID=IOResource]
+### IOResource
+'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
+#### Snippet
+```java
+    msg.setPid(pid);
+    msg.setPorts(ports);
+    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
+    stream.writeObject(msg);
+    System.err.println("[attachme] Successfully notified attachme listener");
+```
+
 ### IOResource
 'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `agent/src/main/java/EchoServer.java`
@@ -67,18 +79,6 @@ in `agent/src/main/java/EchoServer.java`
 ```
 
 ### IOResource
-'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
-#### Snippet
-```java
-    msg.setPid(pid);
-    msg.setPorts(ports);
-    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
-    stream.writeObject(msg);
-    System.err.println("[attachme] Successfully notified attachme listener");
-```
-
-### IOResource
 'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
 #### Snippet
@@ -91,6 +91,18 @@ in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
 ```
 
 ## RuleId[ruleID=SystemOutErr]
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
+#### Snippet
+```java
+    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
+    stream.writeObject(msg);
+    System.err.println("[attachme] Successfully notified attachme listener");
+  }
+
+```
+
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `agent/src/main/java/EchoServer.java`
@@ -129,42 +141,6 @@ in `agent/src/main/java/EchoServer.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
-#### Snippet
-```java
-    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
-    stream.writeObject(msg);
-    System.err.println("[attachme] Successfully notified attachme listener");
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
-#### Snippet
-```java
-      @Override
-      public void error(String str) {
-        System.out.println(str);
-      }
-    };
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
-#### Snippet
-```java
-      @Override
-      public void info(String str) {
-        System.out.println(str);
-      }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 #### Snippet
 ```java
@@ -185,6 +161,30 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
       System.err.println("[attachme] Command " + command + " could not find open ports");
     }
     return ans;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+#### Snippet
+```java
+      @Override
+      public void info(String str) {
+        System.out.println(str);
+      }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+#### Snippet
+```java
+      @Override
+      public void error(String str) {
+        System.out.println(str);
+      }
+    };
 ```
 
 ### SystemOutErr
@@ -375,18 +375,6 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
 ## RuleId[ruleID=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
-#### Snippet
-```java
-      return;
-    }
-    RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
-    AttachmeDebugger.attach(project, config, msg.getPid());
-  }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
 in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
 #### Snippet
 ```java
@@ -395,6 +383,18 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
     portField.setText(s.getPort() + "");
   }
 
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
+#### Snippet
+```java
+      return;
+    }
+    RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
+    AttachmeDebugger.attach(project, config, msg.getPid());
+  }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -495,19 +495,6 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
   }
 ```
 
-## RuleId[ruleID=DialogTitleCapitalization]
-### DialogTitleCapitalization
-String 'Attachme debugger registry' is not properly capitalized. It should have title capitalization
-in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
-#### Snippet
-```java
-  @Override
-  public String getDisplayName() {
-    return "Attachme debugger registry";
-  }
-
-```
-
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -519,6 +506,19 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
       while ((line = script.readLine()) != null) {
         parser.apply(line).ifPresent(ans::add);
       }
+```
+
+## RuleId[ruleID=DialogTitleCapitalization]
+### DialogTitleCapitalization
+String 'Attachme debugger registry' is not properly capitalized. It should have title capitalization
+in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
+#### Snippet
+```java
+  @Override
+  public String getDisplayName() {
+    return "Attachme debugger registry";
+  }
+
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
