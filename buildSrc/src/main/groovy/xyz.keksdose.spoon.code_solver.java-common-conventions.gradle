@@ -31,6 +31,7 @@ testing {
     }
 }
 
+
 spotless {
 	format 'misc', {
 		// define the files to apply `misc` to
@@ -79,4 +80,8 @@ test {
 }
 compileTestJava {
 	options.encoding = 'UTF-8'
+	dependsOn("jandex")
+}
+jar {
+		dependsOn("jandex")
 }

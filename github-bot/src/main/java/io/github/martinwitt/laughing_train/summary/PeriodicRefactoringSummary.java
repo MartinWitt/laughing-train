@@ -54,7 +54,7 @@ public class PeriodicRefactoringSummary {
                 }
 
                 summary.append("| ")
-                        .append(entry.getKey().ruleID())
+                        .append(entry.getKey().id())
                         .append(" | ")
                         .append(entry.getValue().size())
                         .append(" |\n");
@@ -65,7 +65,7 @@ public class PeriodicRefactoringSummary {
 
     private Map<RuleId, List<BadSmell>> getFixableBadSmells(Set<String> ruleIDs, String commitHash) {
         return badSmellRepository.findByCommitHash(commitHash).stream()
-                .filter(v -> ruleIDs.contains(v.ruleID().ruleID()))
+                .filter(v -> ruleIDs.contains(v.ruleID().id()))
                 .collect(Collectors.groupingBy(BadSmell::ruleID));
     }
 
@@ -74,7 +74,7 @@ public class PeriodicRefactoringSummary {
     }
 
     private Set<String> getNameOfAllRules() {
-        return getAllRules().stream().map(v -> v.getRuleId().ruleID()).collect(Collectors.toSet());
+        return getAllRules().stream().map(v -> v.getRuleId().id()).collect(Collectors.toSet());
     }
 
     private List<AnalyzerRule> getAllRules() {
