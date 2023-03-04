@@ -9,7 +9,7 @@ class RuleIdTest {
     @Test
     void testRuleIDCorrect() {
         assertThat(new RuleId("ruleID")).isNotNull();
-        assertThat(new RuleId("ruleID")).extracting(v -> v.ruleID()).isEqualTo("ruleID");
+        assertThat(new RuleId("ruleID")).extracting(v -> v.id()).isEqualTo("ruleID");
     }
 
     @Test

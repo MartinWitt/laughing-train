@@ -21,7 +21,7 @@ public class BadSmell implements AnalyzerResult {
 
     public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
         this.position = result.position();
-        this.ruleID = result.ruleID().ruleID();
+        this.ruleID = result.ruleID().id();
         this.filePath = result.filePath();
         this.message = result.message();
         this.messageMarkdown = result.messageMarkdown();
@@ -38,7 +38,7 @@ public class BadSmell implements AnalyzerResult {
                 .formatted(
                         result.getAnalyzer(),
                         projectName,
-                        result.ruleID().ruleID(),
+                        result.ruleID().id(),
                         commitHash,
                         positionToString(result.position()));
     }

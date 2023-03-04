@@ -25,7 +25,7 @@ public class BadSmellGraphQLDto {
         this.name = badSmell.getAnalyzer();
         this.messageMarkdown = badSmell.messageMarkdown();
         this.snippet = badSmell.snippet();
-        this.ruleID = badSmell.ruleID().ruleID();
+        this.ruleID = badSmell.ruleID().id();
         this.commitHashes = List.of(badSmell.getCommitHash());
         this.filePath = badSmell.filePath();
         this.position = badSmell.position();

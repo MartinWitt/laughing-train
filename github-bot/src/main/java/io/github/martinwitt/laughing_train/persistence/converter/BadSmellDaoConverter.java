@@ -13,7 +13,7 @@ public class BadSmellDaoConverter implements DaoConverter<BadSmell, BadSmellDao>
         BadSmellDao dao = new BadSmellDao();
         dao.setAnalyzer(entity.getAnalyzer());
         dao.setIdentifier(entity.getIdentifier());
-        dao.setRuleID(entity.ruleID().ruleID());
+        dao.setRuleID(entity.ruleID().id());
         dao.setFilePath(entity.filePath());
         dao.setMessage(entity.message());
         dao.setMessageMarkdown(entity.messageMarkdown());
