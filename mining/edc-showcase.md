@@ -72,18 +72,6 @@ in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnecto
 ```
 
 ### ConstantValue
-Value `result` is always 'null'
-in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiController.java`
-#### Snippet
-```java
-        var result = queryResponse.getOffers();
-
-        return Response.ok(result).build();
-    }
-}
-```
-
-### ConstantValue
 Value `commit` is always 'null'
 in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/IdentityHubDataseedingExtension.java`
 #### Snippet
@@ -96,6 +84,18 @@ in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/data
 ```
 
 ### ConstantValue
+Value `result` is always 'null'
+in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiController.java`
+#### Snippet
+```java
+        var result = queryResponse.getOffers();
+
+        return Response.ok(result).build();
+    }
+}
+```
+
+### ConstantValue
 Value `cdef` is always 'null'
 in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
 #### Snippet
@@ -104,6 +104,30 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
                 .build();
         contractDefinitionStore.save(cdef);
     }
+
+```
+
+### ConstantValue
+Value `nodesFile` is always 'null'
+in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
+#### Snippet
+```java
+
+        var nodesFile = context.getSetting(NODES_FILE_SETTING, "nodes.json");
+        monitor.info("Using FCC Node directory file " + nodesFile);
+
+        //generate+save assets
+```
+
+### ConstantValue
+Value `nodesFile` is always 'null'
+in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
+#### Snippet
+```java
+
+        // populate node directory
+        var nodes = readNodesFromJson(nodesFile);
+        nodes.forEach(nodeDirectory::insert);
 
 ```
 
@@ -225,30 +249,6 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
         return List.of(new AssetEntry(asset1, dataAddress1), new AssetEntry(asset2, dataAddress2), new AssetEntry(asset3, dataAddress3), new AssetEntry(asset4, dataAddress4), new AssetEntry(asset5, dataAddress5));
     }
 }
-```
-
-### ConstantValue
-Value `nodesFile` is always 'null'
-in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
-#### Snippet
-```java
-
-        var nodesFile = context.getSetting(NODES_FILE_SETTING, "nodes.json");
-        monitor.info("Using FCC Node directory file " + nodesFile);
-
-        //generate+save assets
-```
-
-### ConstantValue
-Value `nodesFile` is always 'null'
-in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
-#### Snippet
-```java
-
-        // populate node directory
-        var nodes = readNodesFromJson(nodesFile);
-        nodes.forEach(nodeDirectory::insert);
-
 ```
 
 ## RuleId[ruleID=RedundantSemicolon]
