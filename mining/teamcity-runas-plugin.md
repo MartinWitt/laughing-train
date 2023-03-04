@@ -1,34 +1,35 @@
 # teamcity-runas-plugin 
  
 # Bad smells
-I found 100 bad smells with 19 repairable:
+I found 101 bad smells with 19 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | StaticCallOnSubclass | 26 | false |
 | BoundedWildcard | 12 | false |
-| UNUSED_IMPORT | 9 | false |
 | SizeReplaceableByIsEmpty | 9 | true |
+| UNUSED_IMPORT | 9 | false |
 | UtilityClassWithoutPrivateConstructor | 5 | true |
-| DynamicRegexReplaceableByCompiledPattern | 5 | false |
 | MissortedModifiers | 5 | false |
+| DynamicRegexReplaceableByCompiledPattern | 5 | false |
 | UnnecessaryModifier | 4 | true |
 | DoubleBraceInitialization | 4 | false |
 | ConstantValue | 3 | false |
 | EnumSwitchStatementWhichMissesCases | 2 | false |
 | ReturnNull | 2 | false |
 | ZeroLengthArrayInitialization | 2 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | DataFlowIssue | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
 | NonShortCircuitBoolean | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
-| UnusedAssignment | 1 | false |
 | NullableProblems | 1 | false |
-| UseBulkOperation | 1 | false |
 | RedundantSuppression | 1 | false |
 | UtilityClassWithPublicConstructor | 1 | false |
+| UnnecessaryFullyQualifiedName | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
+| UnusedAssignment | 1 | false |
+| UseBulkOperation | 1 | false |
 ## RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
 ### EnumSwitchStatementWhichMissesCases
 `switch (myEnvironment.getOperationSystem()) { case Windows: setupBuilder = myRunAsWind...` statement on enum type 'jetbrains.buildServer.runAs.agent.OperationSystem' misses case 'Other'
@@ -188,67 +189,6 @@ public class LogUtils {
 
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsArgumentConverter.java`
-#### Snippet
-```java
-  @Override
-  public String convert(@NotNull final String arg) {
-    return "\"" + StringUtil.unquoteString(arg).replace("\"", "\"\"") + "\"";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
-#### Snippet
-```java
-  @Override
-  public String convert(@NotNull final String arg) {
-    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
-#### Snippet
-```java
-  @Override
-  public String convert(@NotNull final String arg) {
-    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
-#### Snippet
-```java
-    }
-
-    final String[] entries = aclString.split(";");
-    for (String aclEntryStr: entries) {
-      final Matcher aclMatch = OutAccessPattern.matcher(aclEntryStr);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
-#### Snippet
-```java
-      }
-
-      for (String pathItem: antPatternsStr.split(",")) {
-          final File path = new File(pathItem.trim());
-          accessControlEntries.add(new AccessControlEntry(path, account, permissions, scope));
-```
-
 ## RuleId[ruleID=StaticCallOnSubclass]
 ### StaticCallOnSubclass
 Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
@@ -347,27 +287,15 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CryptographicSer
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CommandLineExecutorImpl.java`
 #### Snippet
 ```java
-
-    userName = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.USER));
-    if(StringUtil.isEmptyOrSpaces(userName)) {
-      if(trowException) {
-        throw new BuildStartException("RunAs user must be defined for \"" + profileName + "\"");
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-
-    password = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.PASSWORD), myProfileParametersService.tryGetProperty(profileName, Constants.CONFIG_PASSWORD));
-    if(StringUtil.isEmptyOrSpaces(password)) {
-      if(trowException) {
-        throw new BuildStartException("RunAs password must be defined for \"" + profileName + "\"");
+            resultStr.append("out: ");
+            for (String line : outLines) {
+              if (!StringUtil.isEmpty(line)) {
+                resultStr.append(line);
+              }
 ```
 
 ### StaticCallOnSubclass
@@ -399,42 +327,6 @@ Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.t
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
 #### Snippet
 ```java
-  private String tryGetFirstNotEmpty(String ... values) {
-    for(String value: values) {
-      if(!StringUtil.isEmptyOrSpaces(value)) {
-        return value;
-      }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
-
-    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
-      return null;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
-
-    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
-      return null;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
 
     String additionalArgs = tryGetFirstNotEmpty(getParam(profileName, Constants.ADDITIONAL_ARGS, isPredefined));
     if(StringUtil.isEmptyOrSpaces(additionalArgs)) {
@@ -443,15 +335,63 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsS
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CommandLineExecutorImpl.java`
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
 #### Snippet
 ```java
-            resultStr.append("out: ");
-            for (String line : outLines) {
-              if (!StringUtil.isEmpty(line)) {
-                resultStr.append(line);
-              }
+    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
+
+    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
+      return null;
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
+
+    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
+      return null;
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+
+    userName = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.USER));
+    if(StringUtil.isEmptyOrSpaces(userName)) {
+      if(trowException) {
+        throw new BuildStartException("RunAs user must be defined for \"" + profileName + "\"");
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+
+    password = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.PASSWORD), myProfileParametersService.tryGetProperty(profileName, Constants.CONFIG_PASSWORD));
+    if(StringUtil.isEmptyOrSpaces(password)) {
+      if(trowException) {
+        throw new BuildStartException("RunAs password must be defined for \"" + profileName + "\"");
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+  private String tryGetFirstNotEmpty(String ... values) {
+    for(String value: values) {
+      if(!StringUtil.isEmptyOrSpaces(value)) {
+        return value;
+      }
 ```
 
 ### StaticCallOnSubclass
@@ -487,6 +427,18 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessS
     final String chmodPermissionsStr = StringUtil.join("", chmodPermissions);
     if(StringUtil.isEmptyOrSpaces(chmodPermissionsStr)) {
       return null;
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ParameterUtils.java`
+#### Snippet
+```java
+public class ParameterUtils {
+  public static boolean parseBoolean(@Nullable final String boolStr, final boolean defaultValue) {
+    if(StringUtil.isEmptyOrSpaces(boolStr)) {
+      return defaultValue;
     }
 ```
 
@@ -540,18 +492,6 @@ in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeEx
 
 ### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ParameterUtils.java`
-#### Snippet
-```java
-public class ParameterUtils {
-  public static boolean parseBoolean(@Nullable final String boolStr, final boolean defaultValue) {
-    if(StringUtil.isEmptyOrSpaces(boolStr)) {
-      return defaultValue;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProviderImpl.java`
 #### Snippet
 ```java
@@ -560,19 +500,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlLis
     if (!StringUtil.isEmptyOrSpaces(agentAclStr)) {
       for (AccessControlEntry ace : myFileAccessParser.parse(agentAclStr)) {
         aceList.add(ace);
-```
-
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.agent` is unnecessary, and can be replaced with an import
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsToolProvider.java`
-#### Snippet
-```java
-    @NotNull final ToolProvidersRegistry toolProvidersRegistry) {
-
-    toolProvidersRegistry.registerToolProvider(new jetbrains.buildServer.agent.ToolProvider() {
-      @Override
-      public boolean supports(@NotNull final String toolName) {
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -586,115 +513,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesE
         if (res.getExitCode() != 0) {
           LOG.warn("RunAs is not supported");
           return;
-```
-
-## RuleId[ruleID=UNUSED_IMPORT]
-### UNUSED_IMPORT
-Unused import `import java.util.HashMap;`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlList.java`
-#### Snippet
-```java
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-```
-
-### UNUSED_IMPORT
-Unused import `import java.util.LinkedHashSet;`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlList.java`
-#### Snippet
-```java
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-
-public class AccessControlList implements Iterable<AccessControlEntry> {
-```
-
-### UNUSED_IMPORT
-Unused import `import org.jetbrains.annotations.Nullable;`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProvider.java`
-#### Snippet
-```java
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-public interface AccessControlListProvider {
-```
-
-### UNUSED_IMPORT
-Unused import `import java.util.ArrayList;`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlResourceImpl.java`
-#### Snippet
-```java
-package jetbrains.buildServer.runAs.agent;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-```
-
-### UNUSED_IMPORT
-Unused import `import java.util.HashMap;`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlResourceImpl.java`
-#### Snippet
-```java
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import jetbrains.buildServer.dotNet.buildRunner.agent.CommandLineExecutionContext;
-```
-
-### UNUSED_IMPORT
-Unused import `import java.util.List;`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlResourceImpl.java`
-#### Snippet
-```java
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import jetbrains.buildServer.dotNet.buildRunner.agent.CommandLineExecutionContext;
-import org.jetbrains.annotations.NotNull;
-```
-
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.ExecResult;`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessService.java`
-#### Snippet
-```java
-package jetbrains.buildServer.runAs.agent;
-
-import jetbrains.buildServer.ExecResult;
-import org.jetbrains.annotations.NotNull;
-
-```
-
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.dotNet.buildRunner.agent.RunnerParametersService;`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsSetupBuilder.java`
-#### Snippet
-```java
-import jetbrains.buildServer.dotNet.buildRunner.agent.CommandLineSetup;
-import jetbrains.buildServer.dotNet.buildRunner.agent.CommandLineSetupBuilder;
-import jetbrains.buildServer.dotNet.buildRunner.agent.RunnerParametersService;
-import org.jetbrains.annotations.NotNull;
-
-```
-
-### UNUSED_IMPORT
-Unused import `import java.util.Collection;`
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsBean.java`
-#### Snippet
-```java
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import jetbrains.buildServer.runAs.common.Constants;
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -736,44 +554,7 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessS
 
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-    final EnumSet<AccessPermissions> permissions = entry.getPermissions();
-    if(permissions.size() == 0) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-      final ExecResult result = myCommandLineExecutor.runProcess(icaclsCommandLineSetup, EXECUTION_TIMEOUT_SECONDS);
-      if(result == null ) {
-        return null;
-      }
-
-```
-
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`newAcl.size() == 0` can be replaced with 'newAcl.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ScopedFileAccessService.java`
-#### Snippet
-```java
-    }
-
-    if(newAcl.size() == 0) {
-      return Collections.emptyList();
-    }
-```
-
 ### SizeReplaceableByIsEmpty
 `line.length() == 0` can be replaced with 'line.isEmpty()'
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ConfigurationImpl.java`
@@ -784,6 +565,18 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ConfigurationImp
           if(line.length() == 0) {
             continue;
           }
+```
+
+### SizeReplaceableByIsEmpty
+`newAcl.size() == 0` can be replaced with 'newAcl.isEmpty()'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ScopedFileAccessService.java`
+#### Snippet
+```java
+    }
+
+    if(newAcl.size() == 0) {
+      return Collections.emptyList();
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -870,31 +663,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsSettingsG
     }
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
-#### Snippet
-```java
-      public <T> T[] toArray(@NotNull final T[] a) {
-        //noinspection unchecked
-        return (T[])new String[0];
-      }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
-#### Snippet
-```java
-      @Override
-      public Object[] toArray() {
-        return new Object[0];
-      }
-
-```
-
 ## RuleId[ruleID=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `hasError |= !result.isSuccessful() || (result.getValue() != null && !result.getValue())`
@@ -906,55 +674,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ScopedFileAccess
       hasError |= !result.isSuccessful() || (result.getValue() != null && !result.getValue());
     }
 
-```
-
-## RuleId[ruleID=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlAccount.java`
-#### Snippet
-```java
-    return LogUtils.toString(
-      "Account",
-      new LinkedHashMap<String, Object>() {{
-      this.put("Type", myTargetType);
-      this.put("UserName", myUserName);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Result.java`
-#### Snippet
-```java
-    return LogUtils.toString(
-      "Result",
-      new LinkedHashMap<String, Object>() {{
-        this.put("Context", myContext);
-        this.put("IsSuccessful", myIsSuccessful);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentials.java`
-#### Snippet
-```java
-    return LogUtils.toString(
-      "UserCredentials",
-      new HashMap<String, Object>() {{
-        this.put("Profile", myProfile);
-        this.put("User", myUser);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlEntry.java`
-#### Snippet
-```java
-    return LogUtils.toString(
-      "ACE",
-      new LinkedHashMap<String, Object>() {{
-        this.put("File", myFile);
-        this.put("Account", myAccount);
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -1115,44 +834,7 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpe
     myUserCredentialsService = userCredentialsService;
 ```
 
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `username` initializer `null` is redundant
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-
-    final AccessControlAccount account = entry.getAccount();
-    String username = null;
-    switch (account.getTargetType()) {
-      case User:
-```
-
 ## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-
-  private void protectProperty(
-    final @NotNull AgentRunningBuild runningBuild,
-    final String propertyValue) {
-    if (myIsHidingOfPropertyIsNotSupported) {
-```
-
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
@@ -1172,9 +854,33 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesE
 ```java
     }
 
+    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
+      try {
+        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
     private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
       try {
         myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+
+  private void protectProperty(
+    final @NotNull AgentRunningBuild runningBuild,
+    final String propertyValue) {
+    if (myIsHidingOfPropertyIsNotSupported) {
 ```
 
 ### MissortedModifiers
@@ -1200,6 +906,340 @@ public class Result<TContext, TValue> {
   @NotNull private final boolean myIsSuccessful;
   @NotNull private TContext myContext;
   @Nullable private TValue myValue;
+```
+
+## RuleId[ruleID=RedundantSuppression]
+### RedundantSuppression
+Redundant suppression
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Constants.java`
+#### Snippet
+```java
+public class Constants {
+    @SuppressWarnings("SpellCheckingInspection")
+    public static final String ICACLS_TOOL_NAME = "ICACLS";
+    public static final String CHMOD_TOOL_NAME = "chmod";
+    public static final String SU_TOOL_NAME = "su";
+```
+
+## RuleId[ruleID=UtilityClassWithPublicConstructor]
+### UtilityClassWithPublicConstructor
+Class `RunAsToolProvider` has only 'static' members, and a 'public' constructor
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsToolProvider.java`
+#### Snippet
+```java
+import org.jetbrains.annotations.NotNull;
+
+public class RunAsToolProvider {
+  static final String BIN_PATH = "bin";
+
+```
+
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsArgumentConverter.java`
+#### Snippet
+```java
+  @Override
+  public String convert(@NotNull final String arg) {
+    return "\"" + StringUtil.unquoteString(arg).replace("\"", "\"\"") + "\"";
+  }
+}
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
+#### Snippet
+```java
+    }
+
+    final String[] entries = aclString.split(";");
+    for (String aclEntryStr: entries) {
+      final Matcher aclMatch = OutAccessPattern.matcher(aclEntryStr);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
+#### Snippet
+```java
+      }
+
+      for (String pathItem: antPatternsStr.split(",")) {
+          final File path = new File(pathItem.trim());
+          accessControlEntries.add(new AccessControlEntry(path, account, permissions, scope));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
+#### Snippet
+```java
+  @Override
+  public String convert(@NotNull final String arg) {
+    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
+  }
+}
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
+#### Snippet
+```java
+  @Override
+  public String convert(@NotNull final String arg) {
+    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
+  }
+}
+```
+
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.buildServer.agent` is unnecessary, and can be replaced with an import
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsToolProvider.java`
+#### Snippet
+```java
+    @NotNull final ToolProvidersRegistry toolProvidersRegistry) {
+
+    toolProvidersRegistry.registerToolProvider(new jetbrains.buildServer.agent.ToolProvider() {
+      @Override
+      public boolean supports(@NotNull final String toolName) {
+```
+
+## RuleId[ruleID=UNUSED_IMPORT]
+### UNUSED_IMPORT
+Unused import `import java.util.HashMap;`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlList.java`
+#### Snippet
+```java
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+```
+
+### UNUSED_IMPORT
+Unused import `import java.util.LinkedHashSet;`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlList.java`
+#### Snippet
+```java
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+
+public class AccessControlList implements Iterable<AccessControlEntry> {
+```
+
+### UNUSED_IMPORT
+Unused import `import org.jetbrains.annotations.Nullable;`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProvider.java`
+#### Snippet
+```java
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public interface AccessControlListProvider {
+```
+
+### UNUSED_IMPORT
+Unused import `import java.util.ArrayList;`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlResourceImpl.java`
+#### Snippet
+```java
+package jetbrains.buildServer.runAs.agent;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+```
+
+### UNUSED_IMPORT
+Unused import `import java.util.HashMap;`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlResourceImpl.java`
+#### Snippet
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import jetbrains.buildServer.dotNet.buildRunner.agent.CommandLineExecutionContext;
+```
+
+### UNUSED_IMPORT
+Unused import `import java.util.List;`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlResourceImpl.java`
+#### Snippet
+```java
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import jetbrains.buildServer.dotNet.buildRunner.agent.CommandLineExecutionContext;
+import org.jetbrains.annotations.NotNull;
+```
+
+### UNUSED_IMPORT
+Unused import `import jetbrains.buildServer.ExecResult;`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessService.java`
+#### Snippet
+```java
+package jetbrains.buildServer.runAs.agent;
+
+import jetbrains.buildServer.ExecResult;
+import org.jetbrains.annotations.NotNull;
+
+```
+
+### UNUSED_IMPORT
+Unused import `import jetbrains.buildServer.dotNet.buildRunner.agent.RunnerParametersService;`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsSetupBuilder.java`
+#### Snippet
+```java
+import jetbrains.buildServer.dotNet.buildRunner.agent.CommandLineSetup;
+import jetbrains.buildServer.dotNet.buildRunner.agent.CommandLineSetupBuilder;
+import jetbrains.buildServer.dotNet.buildRunner.agent.RunnerParametersService;
+import org.jetbrains.annotations.NotNull;
+
+```
+
+### UNUSED_IMPORT
+Unused import `import java.util.Collection;`
+in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsBean.java`
+#### Snippet
+```java
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import jetbrains.buildServer.runAs.common.Constants;
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-04-20-11-11.681.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[ruleID=ReturnNull]
+### ReturnNull
+Return of `null`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
+#### Snippet
+```java
+    final EnumSet<AccessPermissions> permissions = entry.getPermissions();
+    if(permissions.size() == 0) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
+#### Snippet
+```java
+      final ExecResult result = myCommandLineExecutor.runProcess(icaclsCommandLineSetup, EXECUTION_TIMEOUT_SECONDS);
+      if(result == null ) {
+        return null;
+      }
+
+```
+
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
+#### Snippet
+```java
+      @Override
+      public Object[] toArray() {
+        return new Object[0];
+      }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
+#### Snippet
+```java
+      public <T> T[] toArray(@NotNull final T[] a) {
+        //noinspection unchecked
+        return (T[])new String[0];
+      }
+
+```
+
+## RuleId[ruleID=DoubleBraceInitialization]
+### DoubleBraceInitialization
+Double brace initialization
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlAccount.java`
+#### Snippet
+```java
+    return LogUtils.toString(
+      "Account",
+      new LinkedHashMap<String, Object>() {{
+      this.put("Type", myTargetType);
+      this.put("UserName", myUserName);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Result.java`
+#### Snippet
+```java
+    return LogUtils.toString(
+      "Result",
+      new LinkedHashMap<String, Object>() {{
+        this.put("Context", myContext);
+        this.put("IsSuccessful", myIsSuccessful);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentials.java`
+#### Snippet
+```java
+    return LogUtils.toString(
+      "UserCredentials",
+      new HashMap<String, Object>() {{
+        this.put("Profile", myProfile);
+        this.put("User", myUser);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlEntry.java`
+#### Snippet
+```java
+    return LogUtils.toString(
+      "ACE",
+      new LinkedHashMap<String, Object>() {{
+        this.put("File", myFile);
+        this.put("Account", myAccount);
+```
+
+## RuleId[ruleID=UnusedAssignment]
+### UnusedAssignment
+Variable `username` initializer `null` is redundant
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
+#### Snippet
+```java
+
+    final AccessControlAccount account = entry.getAccount();
+    String username = null;
+    switch (account.getTargetType()) {
+      case User:
 ```
 
 ## RuleId[ruleID=UseBulkOperation]
@@ -1250,31 +1290,5 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesE
       if (addPasswordMethod == null) {
         onHidingOfPropertyIsNotSupportedMessage();
         return;
-```
-
-## RuleId[ruleID=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Constants.java`
-#### Snippet
-```java
-public class Constants {
-    @SuppressWarnings("SpellCheckingInspection")
-    public static final String ICACLS_TOOL_NAME = "ICACLS";
-    public static final String CHMOD_TOOL_NAME = "chmod";
-    public static final String SU_TOOL_NAME = "su";
-```
-
-## RuleId[ruleID=UtilityClassWithPublicConstructor]
-### UtilityClassWithPublicConstructor
-Class `RunAsToolProvider` has only 'static' members, and a 'public' constructor
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsToolProvider.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.NotNull;
-
-public class RunAsToolProvider {
-  static final String BIN_PATH = "bin";
-
 ```
 
