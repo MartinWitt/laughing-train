@@ -5,11 +5,11 @@ import java.io.Serializable;
 /**
  * This is the id of a rule. It is used to identify rules of a static analyzer.
  */
-public record RuleId(String ruleID) implements Serializable {
+public record RuleId(String id) implements Serializable {
 
     public RuleId {
-        if (ruleID == null || ruleID.isBlank()) {
-            throw new IllegalArgumentException("ruleID must not be blank");
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("id must not be blank");
         }
     }
 }

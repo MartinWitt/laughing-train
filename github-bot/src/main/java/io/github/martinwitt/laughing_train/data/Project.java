@@ -19,7 +19,8 @@ public record Project(String name, String url, File folder, String sourceFolder,
         if (split.length == 2) {
             return split[0] + "/" + split[1];
         }
-        return split[split.length - 2] + "/" + split[split.length - 1];
+        // TODO: this is a hack, but it works for now
+        return split[split.length - 2] + "/" + split[split.length - 1].replace(".git", "");
     }
     /**
      * Executes the given command in the project folder and deletes the folder afterwards
