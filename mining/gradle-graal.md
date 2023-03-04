@@ -201,30 +201,6 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends RegularFile`
-in `src/main/java/com/palantir/gradle/graal/ExtractGraalTask.java`
-#### Snippet
-```java
-    }
-
-    public final void setInputArchive(Provider<RegularFile> value) {
-        this.inputArchive.set(value);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
-#### Snippet
-```java
-     * @throws IOException If any problem while creating output directory
-     */
-    protected final void configureArgs(List<String> args) throws IOException {
-        args.add("-cp");
-        args.add(generateClasspathArgument());
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 #### Snippet
@@ -245,6 +221,30 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 
     public final void setClasspath(Provider<Configuration> provider) {
         classpath.set(provider);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
+#### Snippet
+```java
+     * @throws IOException If any problem while creating output directory
+     */
+    protected final void configureArgs(List<String> args) throws IOException {
+        args.add("-cp");
+        args.add(generateClasspathArgument());
+```
+
+### BoundedWildcard
+Can generalize to `? extends RegularFile`
+in `src/main/java/com/palantir/gradle/graal/ExtractGraalTask.java`
+#### Snippet
+```java
+    }
+
+    public final void setInputArchive(Provider<RegularFile> value) {
+        this.inputArchive.set(value);
     }
 ```
 
