@@ -77,10 +77,10 @@ test {
     testLogging {
         exceptionFormat = 'full'
     }
-		dependsOn("jandex")
 }
 compileTestJava {
 	options.encoding = 'UTF-8'
+	dependsOn("jandex")
 }
 jar {
 		dependsOn("jandex")
