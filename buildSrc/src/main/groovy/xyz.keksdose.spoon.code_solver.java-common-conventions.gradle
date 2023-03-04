@@ -80,5 +80,7 @@ test {
 }
 compileTestJava {
 	options.encoding = 'UTF-8'
-	dependsOn(jandex)
+}
+jar {
+		dependsOn("jandex")
 }
