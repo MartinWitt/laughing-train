@@ -18,7 +18,7 @@ public class BadSmellRepositoryImpl implements BadSmellRepository, PanacheMongoR
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     public List<BadSmell> findByRuleID(RuleId ruleID) {
-        return find("ruleID", ruleID.ruleID()).stream()
+        return find("ruleID", ruleID.id()).stream()
                 .map(badSmellConverter::convertToEntity)
                 .toList();
     }
