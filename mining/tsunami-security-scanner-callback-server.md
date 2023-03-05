@@ -10,7 +10,7 @@ I found 32 bad smells with 0 repairable:
 | InstanceofCatchParameter | 2 | false |
 | ReplaceAssignmentWithOperatorAssignment | 2 | false |
 | UnstableTypeUsedInSignature | 2 | false |
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `questionDomain`
 in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
@@ -59,7 +59,7 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsR
 
 ```
 
-## RuleId[ruleID=InstanceofCatchParameter]
+## RuleId[id=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
 in `server/src/main/java/com/google/tsunami/callbackserver/server/common/HttpHandler.java`
@@ -84,7 +84,7 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/common/HttpHan
       } else {
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `questionDomain = questionDomain + "."` could be simplified to 'questionDomain += "."'
 in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
@@ -109,19 +109,7 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsR
 
 ```
 
-## RuleId[ruleID=UnstableTypeUsedInSignature]
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.net.HostAndPort'
-in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
-#### Snippet
-```java
-   * @return an interaction hostname with the given CBID.
-   */
-  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
-    return String.format("%s.%s", cbid, hostAndPort);
-  }
-```
-
+## RuleId[id=UnstableTypeUsedInSignature]
 ### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.net.HostAndPort'
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
@@ -134,7 +122,19 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.
   }
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.net.HostAndPort'
+in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
+#### Snippet
+```java
+   * @return an interaction hostname with the given CBID.
+   */
+  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
+    return String.format("%s.%s", cbid, hostAndPort);
+  }
+```
+
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `InMemoryStorageConfig` has no concrete subclass
 in `common/src/main/java/com/google/tsunami/callbackserver/common/config/InMemoryStorageConfig.java`
@@ -208,6 +208,18 @@ public abstract class RecordingServerConfig {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `StorageConfig` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/callbackserver/common/config/StorageConfig.java`
+#### Snippet
+```java
+/** Data model for the interaction storage configuration. */
+@AutoValue
+public abstract class StorageConfig {
+  public abstract Optional<InMemoryStorageConfig> inMemoryStorageConfig();
+  public abstract Optional<RedisStorageConfig> redisStorageConfig();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `HttpRecordingServerConfig` has no concrete subclass
 in `common/src/main/java/com/google/tsunami/callbackserver/common/config/HttpRecordingServerConfig.java`
 #### Snippet
@@ -231,19 +243,7 @@ public abstract class CommonConfig {
   public abstract String externalIp();
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `StorageConfig` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/callbackserver/common/config/StorageConfig.java`
-#### Snippet
-```java
-/** Data model for the interaction storage configuration. */
-@AutoValue
-public abstract class StorageConfig {
-  public abstract Optional<InMemoryStorageConfig> inMemoryStorageConfig();
-  public abstract Optional<RedisStorageConfig> redisStorageConfig();
-```
-
-## RuleId[ruleID=UnstableApiUsage]
+## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
 'newReader(java.io.File, java.nio.charset.Charset)' is marked unstable with @Beta
 in `common/src/main/java/com/google/tsunami/callbackserver/common/config/TcsConfig.java`
@@ -357,10 +357,10 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsR
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an interaction hostname with the given CBID.
+   * @return an HTTP interaction URL with the given CBID.
    */
-  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
-    return String.format("%s.%s", cbid, hostAndPort);
+  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
+    return String.format("http://%s/%s", hostAndPort, cbid);
   }
 ```
 
@@ -369,10 +369,10 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an HTTP interaction URL with the given CBID.
+   * @return an interaction hostname with the given CBID.
    */
-  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
-    return String.format("http://%s/%s", hostAndPort, cbid);
+  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
+    return String.format("%s.%s", cbid, hostAndPort);
   }
 ```
 
