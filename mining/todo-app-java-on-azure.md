@@ -6,7 +6,7 @@ I found 2 bad smells with 1 repairable:
 | --- | --- | --- |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | OptionalGetWithoutIsPresent | 1 | false |
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `TodoApplication` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/microsoft/azure/sample/TodoApplication.java`
@@ -19,7 +19,7 @@ public class TodoApplication {
     public static void main(String[] args) {
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
+## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `src/main/java/com/microsoft/azure/sample/controller/TodoListController.java`
