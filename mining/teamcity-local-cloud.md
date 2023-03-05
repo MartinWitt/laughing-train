@@ -9,13 +9,13 @@ I found 26 bad smells with 3 repairable:
 | UNUSED_IMPORT | 2 | false |
 | DoubleBraceInitialization | 2 | false |
 | WrapperTypeMayBePrimitive | 1 | false |
-| ProtectedMemberInFinalClass | 1 | true |
 | SizeReplaceableByIsEmpty | 1 | true |
+| ProtectedMemberInFinalClass | 1 | true |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | Convert2Lambda | 1 | false |
-## RuleId[ruleID=WrapperTypeMayBePrimitive]
+## RuleId[id=WrapperTypeMayBePrimitive]
 ### WrapperTypeMayBePrimitive
 Type may be primitive
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
@@ -28,7 +28,31 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
           } catch (NumberFormatException e) {
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+  public String generateAgentName(@NotNull final AgentDescription agentDescription) {
+    final LocalCloudImage image = findImage(agentDescription);
+    if (image == null) return null;
+
+    final String instanceId = findInstanceId(agentDescription);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+
+    final String instanceId = findInstanceId(agentDescription);
+    if (instanceId == null) return null;
+
+    return generateAgentName(image, instanceId);
+```
+
 ### ReturnNull
 Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
@@ -70,30 +94,6 @@ Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 #### Snippet
 ```java
-  public String generateAgentName(@NotNull final AgentDescription agentDescription) {
-    final LocalCloudImage image = findImage(agentDescription);
-    if (image == null) return null;
-
-    final String instanceId = findInstanceId(agentDescription);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-
-    final String instanceId = findInstanceId(agentDescription);
-    if (instanceId == null) return null;
-
-    return generateAgentName(image, instanceId);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
       }
     }
     return null;
@@ -101,20 +101,7 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 
 ```
 
-## RuleId[ruleID=ProtectedMemberInFinalClass]
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-    new WaitFor(STATUS_WAITING_TIMEOUT) {
-      @Override
-      protected boolean condition() {
-        return myStatus == status;
-      }
-```
-
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `images.trim().length() == 0` can be replaced with 'images.trim().isEmpty()'
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
@@ -127,7 +114,20 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
       return;
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
+#### Snippet
+```java
+    new WaitFor(STATUS_WAITING_TIMEOUT) {
+      @Override
+      protected boolean condition() {
+        return myStatus == status;
+      }
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `jetbrains.buildServer.clouds.local` is unnecessary and can be removed
 in `src/jetbrains/buildServer/clouds/local/LocalCloudImage.java`
@@ -140,7 +140,7 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudImage.java`
   @Nullable private final CloudErrorInfo myErrorInfo;
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import jetbrains.buildServer.clouds.*;`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
@@ -165,19 +165,7 @@ import jetbrains.buildServer.serverSide.agentPools.AgentPool;
 import org.jetbrains.annotations.NotNull;
 ```
 
-## RuleId[ruleID=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
-
-          private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
-            Collections.addAll(this, "work", "temp", "system", "contrib");
-          }};
-```
-
+## RuleId[id=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
@@ -190,7 +178,19 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
           }};
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### DoubleBraceInitialization
+Double brace initialization
+in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
+#### Snippet
+```java
+        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
+
+          private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
+            Collections.addAll(this, "work", "temp", "system", "contrib");
+          }};
+```
+
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `LocalCloudInstance()` of an abstract class should not be declared 'public'
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
@@ -203,7 +203,7 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
     myBaseDir = createBaseDir(); // can set status to ERROR, so must be after "myStatus = ..." line
 ```
 
-## RuleId[ruleID=MismatchedCollectionQueryUpdate]
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `env` are updated, but never queried
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
@@ -216,7 +216,7 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
     env.put("JAVA_HOME", System.getProperty("java.home"));
 ```
 
-## RuleId[ruleID=Convert2Lambda]
+## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new FilenameFilter() can be replaced with lambda
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
@@ -229,7 +229,7 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
           public boolean accept(File dir, String name) {
 ```
 
-## RuleId[ruleID=UseOfPropertiesAsHashtable]
+## RuleId[id=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
