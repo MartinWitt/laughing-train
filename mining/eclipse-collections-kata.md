@@ -11,7 +11,7 @@ I found 38 bad smells with 1 repairable:
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `company-kata/src/main/java/org/eclipse/collections/companykata/Company.java`
@@ -36,10 +36,10 @@ in `pet-kata/src/main/java/org/eclipse/collections/petkata/PetType.java`
 }
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
+## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-04-22-48-46.424.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-05-16-41-38.494.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -49,7 +49,7 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-04-22-48-46.424.
           </tbody>
 ```
 
-## RuleId[ruleID=FieldMayBeStatic]
+## RuleId[id=FieldMayBeStatic]
 ### FieldMayBeStatic
 Field `trueValue` may be 'static'
 in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
@@ -146,7 +146,7 @@ class MinMaxPrimitivesBoxed
     private final Byte minbyteValue = Byte.MIN_VALUE;
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `objectMapper` is redundant
 in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/ObjectMapperUtils.java`
@@ -159,7 +159,7 @@ in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/ObjectMapperU
         return objectMapper;
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `company-kata/src/main/java/org/eclipse/collections/companykata/Company.java`
@@ -172,7 +172,7 @@ in `company-kata/src/main/java/org/eclipse/collections/companykata/Company.java`
     public Company(String name)
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import org.eclipse.collections.api.RichIterable;`
 in `candy-kata/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
@@ -449,7 +449,7 @@ import org.eclipse.collections.impl.utility.ArrayIterate;
 public enum PetType
 ```
 
-## RuleId[ruleID=Convert2MethodRef]
+## RuleId[id=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
