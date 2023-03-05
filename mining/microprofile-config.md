@@ -44,18 +44,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/converters/convertToNu
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `Thread.currentThread().getContextClassLoader().getResource(originalFile)` might be null
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/base/AbstractTest.java`
-#### Snippet
-```java
-
-    public static void addFile(ResourceContainer<?> archive, String originalFile, String targetFile) {
-        archive.addAsResource(new UrlAsset(Thread.currentThread().getContextClassLoader().getResource(originalFile)),
-                targetFile);
-    }
-```
-
-### DataFlowIssue
 Argument `Thread.currentThread().getContextClassLoader().getResource("internal/" + originalPath)` might be null
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/base/AbstractTest.java`
 #### Snippet
@@ -64,6 +52,18 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/base/AbstractTest.java
         archive.addAsResource(
                 new UrlAsset(Thread.currentThread().getContextClassLoader().getResource("internal/" + originalPath)),
                 originalPath);
+    }
+```
+
+### DataFlowIssue
+Argument `Thread.currentThread().getContextClassLoader().getResource(originalFile)` might be null
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/base/AbstractTest.java`
+#### Snippet
+```java
+
+    public static void addFile(ResourceContainer<?> archive, String originalFile, String targetFile) {
+        archive.addAsResource(new UrlAsset(Thread.currentThread().getContextClassLoader().getResource(originalFile)),
+                targetFile);
     }
 ```
 
@@ -99,102 +99,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
     @Test
-    public void testOptionalLocalDateListLookupProgrammatically() {
-        Optional<List<LocalDate>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.localdatevalues",
-                        LocalDate.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                LocalDate.parse("2017-12-24"),
-                LocalDate.parse("2017-11-29")));
-        Optional<List<LocalDate>> optionalSingle =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.localdatevalue",
-                        LocalDate.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Pizza[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalCustomTypeArrayLookupProgrammatically() {
-        Optional<Pizza[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.array.pizza",
-                Pizza[].class);
-        Assert.assertTrue(optionalValue.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Pizza[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                new Pizza("chicken", "medium"),
-                new Pizza("pepperoni", "small")});
-        Optional<Pizza[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.converter.pizza",
-                Pizza[].class);
-        Assert.assertTrue(optionalSingle.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains array `LocalDate[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalLocalDateArrayLookupProgrammatically() {
-        Optional<LocalDate[]> optionalValue =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.localdatevalues",
-                        LocalDate[].class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `LocalDate[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                LocalDate.parse("2017-12-24"),
-                LocalDate.parse("2017-11-29")});
-        Optional<LocalDate[]> optionalSingle =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.localdatevalue",
-                        LocalDate[].class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalBooleanListLookupProgrammatically() {
-        Optional<List<Boolean>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.booleanvalues",
-                        Boolean.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(value.size(), 3);
-        Assert.assertEquals(value, Arrays.asList(true, false, true));
-        Optional<List<Boolean>> optionalSingle =
-                config.getOptionalValues("tck.config.test.javaconfig.configvalue.boolean.true",
-                        Boolean.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
     public void testOptionalDoubleListLookupProgrammatically() {
         Optional<List<Double>> optionalValues =
                 config.getOptionalValues("tck.config.test.javaconfig.converter.doublevalues",
@@ -211,30 +115,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
         Optional<List<Double>> optionalSingle =
                 config.getOptionalValues("tck.config.test.javaconfig.converter.doublevalue",
                         Double.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalStringListLookupProgrammatically() {
-        Optional<List<String>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.stringvalues",
-                        String.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(values.size(), 4);
-        Assert.assertEquals(values, Arrays.asList("microservice", "microprofile", "m,f", "microservice"));
-        Optional<List<String>> optionalSingle = config.getOptionalValues("tck.config.test.javaconfig.configvalue.key1",
-                String.class);
-        Assert.assertTrue(optionalSingle.isPresent());
 ```
 
 ### OptionalContainsCollection
@@ -262,51 +142,15 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 ```
 
 ### OptionalContainsCollection
-'Optional' contains array `Long[]`
+'Optional' contains collection `List`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
     @Test
-    public void testOptionalLongArrayLookupProgrammatically() {
-        Optional<Long[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.longvalues",
-                Long[].class);
-        Assert.assertTrue(optionalValue.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Long[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Long[]{1234567890L, 1999999999L});
-        Optional<Long[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.converter.longvalue",
-                Long[].class);
-        Assert.assertTrue(optionalSingle.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains array `LocalTime[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalLocalTimeArrayLookupProgrammatically() {
-        Optional<LocalTime[]> optionalValue =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.localtimevalues",
-                        LocalTime[].class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `LocalTime[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                LocalTime.parse("10:37"),
-                LocalTime.parse("11:44")});
-        Optional<LocalTime[]> optionalSingle =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.localtimevalue",
-                        LocalTime[].class);
+    public void testOptionalLocalDateListLookupProgrammatically() {
+        Optional<List<LocalDate>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.localdatevalues",
+                        LocalDate.class);
 ```
 
 ### OptionalContainsCollection
@@ -314,47 +158,11 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
-    @Test
-    public void testOptionalFloatListLookupProgrammatically() {
-        Optional<List<Float>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.floatvalues",
-                        Float.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(values.size(), 2);
-        Assert.assertEquals(values, Arrays.asList(12.34f, 99.99f));
-        Optional<List<Float>> optionalSingle =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.floatvalue",
-                        Float.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalLongListLookupProgrammatically() {
-        Optional<List<Long>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.longvalues",
-                        Long.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(values.size(), 2);
-        Assert.assertEquals(values, Arrays.asList(1234567890L, 1999999999L));
-        Optional<List<Long>> optionalSingle = config.getOptionalValues("tck.config.test.javaconfig.converter.longvalue",
-                Long.class);
-        Assert.assertTrue(optionalSingle.isPresent());
+                LocalDate.parse("2017-12-24"),
+                LocalDate.parse("2017-11-29")));
+        Optional<List<LocalDate>> optionalSingle =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.localdatevalue",
+                        LocalDate.class);
 ```
 
 ### OptionalContainsCollection
@@ -387,10 +195,10 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
     @Test
-    public void testOptionalDurationListLookupProgrammatically() {
-        Optional<List<Duration>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.durationvalues",
-                        Duration.class);
+    public void testOptionalBooleanListLookupProgrammatically() {
+        Optional<List<Boolean>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.booleanvalues",
+                        Boolean.class);
 ```
 
 ### OptionalContainsCollection
@@ -398,107 +206,11 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
-                Duration.parse("PT15M"),
-                Duration.parse("PT20M")));
-        Optional<List<Duration>> optionalSingle =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.durationvalue",
-                        Duration.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `String[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalStringArrayLookupProgrammatically() {
-        Optional<String[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.stringvalues",
-                String[].class);
-        Assert.assertTrue(optionalValue.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains array `String[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(value.length, 4);
-        Assert.assertEquals(value, new String[]{"microservice", "microprofile", "m,f", "microservice"});
-        Optional<String[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.configvalue.key1",
-                String[].class);
-        Assert.assertTrue(optionalSingle.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalOffsetDateTimeListLookupProgrammatically() {
-        Optional<List<OffsetDateTime>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.offsetdatetimevalues",
-                        OffsetDateTime.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                OffsetDateTime.parse("2007-12-03T10:15:30+01:00"),
-                OffsetDateTime.parse("2007-12-03T10:15:30+02:00")));
-        Optional<List<OffsetDateTime>> optionalSingle =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.offsetdatetimevalue",
-                        OffsetDateTime.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Double[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalDoubleArrayLookupProgrammatically() {
-        Optional<Double[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.doublevalues",
-                Double[].class);
-        Assert.assertTrue(optionalValue.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Double[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Double[]{12.34d, 99.9999d});
-        Optional<Double[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.converter.doublevalue",
-                Double[].class);
-        Assert.assertTrue(optionalSingle.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains array `OffsetDateTime[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalOffsetDateTimeArrayLookupProgrammatically() {
-        Optional<OffsetDateTime[]> optionalValue =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.offsetdatetimevalues",
-                        OffsetDateTime[].class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `OffsetDateTime[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                OffsetDateTime.parse("2007-12-03T10:15:30+01:00"),
-                OffsetDateTime.parse("2007-12-03T10:15:30+02:00")});
-        Optional<OffsetDateTime[]> optionalSingle =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.offsetdatetimevalue",
-                        OffsetDateTime[].class);
+        Assert.assertEquals(value.size(), 3);
+        Assert.assertEquals(value, Arrays.asList(true, false, true));
+        Optional<List<Boolean>> optionalSingle =
+                config.getOptionalValues("tck.config.test.javaconfig.configvalue.boolean.true",
+                        Boolean.class);
 ```
 
 ### OptionalContainsCollection
@@ -526,6 +238,30 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 ```
 
 ### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalStringListLookupProgrammatically() {
+        Optional<List<String>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.stringvalues",
+                        String.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(values.size(), 4);
+        Assert.assertEquals(values, Arrays.asList("microservice", "microprofile", "m,f", "microservice"));
+        Optional<List<String>> optionalSingle = config.getOptionalValues("tck.config.test.javaconfig.configvalue.key1",
+                String.class);
+        Assert.assertTrue(optionalSingle.isPresent());
+```
+
+### OptionalContainsCollection
 'Optional' contains array `Boolean[]`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
@@ -547,6 +283,30 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
         Optional<Boolean[]> optionalSingle =
                 config.getOptionalValue("tck.config.test.javaconfig.configvalue.boolean.true",
                         Boolean[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `String[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalStringArrayLookupProgrammatically() {
+        Optional<String[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.stringvalues",
+                String[].class);
+        Assert.assertTrue(optionalValue.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains array `String[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(value.length, 4);
+        Assert.assertEquals(value, new String[]{"microservice", "microprofile", "m,f", "microservice"});
+        Optional<String[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.configvalue.key1",
+                String[].class);
+        Assert.assertTrue(optionalSingle.isPresent());
 ```
 
 ### OptionalContainsCollection
@@ -579,6 +339,78 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
     @Test
+    public void testOptionalOffsetTimeListLookupProgrammatically() {
+        Optional<List<OffsetTime>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.offsettimevalues",
+                        OffsetTime.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                OffsetTime.parse("13:45:30.123456789+02:00"),
+                OffsetTime.parse("13:45:30.123456789+03:00")));
+        Optional<List<OffsetTime>> optionalSingle =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.offsettimevalue",
+                        OffsetTime.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `OffsetDateTime[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalOffsetDateTimeArrayLookupProgrammatically() {
+        Optional<OffsetDateTime[]> optionalValue =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.offsetdatetimevalues",
+                        OffsetDateTime[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `OffsetDateTime[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                OffsetDateTime.parse("2007-12-03T10:15:30+01:00"),
+                OffsetDateTime.parse("2007-12-03T10:15:30+02:00")});
+        Optional<OffsetDateTime[]> optionalSingle =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.offsetdatetimevalue",
+                        OffsetDateTime[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalUriListLookupProgrammatically() {
+        Optional<List<URI>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.urlvalues", URI.class);
+        Assert.assertTrue(optionalValues.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                URI.create("http://openliberty.io"),
+                URI.create("http://microprofile.io")));
+        Optional<List<URI>> optionalSingle =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.urlvalue", URI.class);
+        Assert.assertTrue(optionalSingle.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
     public void testOptionalIntegerListLookupProgrammatically() {
         Optional<List<Integer>> optionalValues =
                 config.getOptionalValues("tck.config.test.javaconfig.converter.integervalues",
@@ -595,30 +427,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
         Optional<List<Integer>> optionalSingle =
                 config.getOptionalValues("tck.config.test.javaconfig.converter.integervalue",
                         Integer.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Instant[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalInstantArrayLookupProgrammatically() {
-        Optional<Instant[]> optionalValue =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.instantvalues",
-                        Instant[].class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Instant[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                Instant.parse("2015-06-02T21:34:33.616Z"),
-                Instant.parse("2017-06-02T21:34:33.616Z")});
-        Optional<Instant[]> optionalSingle =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.instantvalue",
-                        Instant[].class);
 ```
 
 ### OptionalContainsCollection
@@ -642,54 +450,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
         assertURLListEquals(values, expectedValue);
         Optional<List<URL>> optionalSingle =
                 config.getOptionalValues("tck.config.test.javaconfig.converter.urlvalue", URL.class);
-        Assert.assertTrue(optionalSingle.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalLocalTimeListLookupProgrammatically() {
-        Optional<List<LocalTime>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.localtimevalues",
-                        LocalTime.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                LocalTime.parse("10:37"),
-                LocalTime.parse("11:44")));
-        Optional<List<LocalTime>> optionalSingle =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.localtimevalue",
-                        LocalTime.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Float[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalFloatArrayLookupProgrammatically() {
-        Optional<Float[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.floatvalues",
-                Float[].class);
-        Assert.assertTrue(optionalValue.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains array `Float[]`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Float[]{12.34f, 99.99f});
-        Optional<Float[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.converter.floatvalue",
-                Float[].class);
         Assert.assertTrue(optionalSingle.isPresent());
 ```
 
@@ -742,51 +502,171 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `List`
+'Optional' contains array `Double[]`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
     @Test
-    public void testOptionalOffsetTimeListLookupProgrammatically() {
-        Optional<List<OffsetTime>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.offsettimevalues",
-                        OffsetTime.class);
+    public void testOptionalDoubleArrayLookupProgrammatically() {
+        Optional<Double[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.doublevalues",
+                Double[].class);
+        Assert.assertTrue(optionalValue.isPresent());
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `List`
+'Optional' contains array `Double[]`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
-                OffsetTime.parse("13:45:30.123456789+02:00"),
-                OffsetTime.parse("13:45:30.123456789+03:00")));
-        Optional<List<OffsetTime>> optionalSingle =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.offsettimevalue",
-                        OffsetTime.class);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testOptionalUriListLookupProgrammatically() {
-        Optional<List<URI>> optionalValues =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.urlvalues", URI.class);
-        Assert.assertTrue(optionalValues.isPresent());
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                URI.create("http://openliberty.io"),
-                URI.create("http://microprofile.io")));
-        Optional<List<URI>> optionalSingle =
-                config.getOptionalValues("tck.config.test.javaconfig.converter.urlvalue", URI.class);
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Double[]{12.34d, 99.9999d});
+        Optional<Double[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.converter.doublevalue",
+                Double[].class);
         Assert.assertTrue(optionalSingle.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalLocalTimeListLookupProgrammatically() {
+        Optional<List<LocalTime>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.localtimevalues",
+                        LocalTime.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                LocalTime.parse("10:37"),
+                LocalTime.parse("11:44")));
+        Optional<List<LocalTime>> optionalSingle =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.localtimevalue",
+                        LocalTime.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalLongListLookupProgrammatically() {
+        Optional<List<Long>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.longvalues",
+                        Long.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(values.size(), 2);
+        Assert.assertEquals(values, Arrays.asList(1234567890L, 1999999999L));
+        Optional<List<Long>> optionalSingle = config.getOptionalValues("tck.config.test.javaconfig.converter.longvalue",
+                Long.class);
+        Assert.assertTrue(optionalSingle.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Float[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalFloatArrayLookupProgrammatically() {
+        Optional<Float[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.floatvalues",
+                Float[].class);
+        Assert.assertTrue(optionalValue.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Float[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Float[]{12.34f, 99.99f});
+        Optional<Float[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.converter.floatvalue",
+                Float[].class);
+        Assert.assertTrue(optionalSingle.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Duration[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalDurationArrayLookupProgrammatically() {
+        Optional<Duration[]> optionalValue =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.durationvalues",
+                        Duration[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Duration[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                Duration.parse("PT15M"),
+                Duration.parse("PT20M")});
+        Optional<Duration[]> optionalSingle =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.durationvalue",
+                        Duration[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalFloatListLookupProgrammatically() {
+        Optional<List<Float>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.floatvalues",
+                        Float.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(values.size(), 2);
+        Assert.assertEquals(values, Arrays.asList(12.34f, 99.99f));
+        Optional<List<Float>> optionalSingle =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.floatvalue",
+                        Float.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Instant[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalInstantArrayLookupProgrammatically() {
+        Optional<Instant[]> optionalValue =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.instantvalues",
+                        Instant[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Instant[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                Instant.parse("2015-06-02T21:34:33.616Z"),
+                Instant.parse("2017-06-02T21:34:33.616Z")});
+        Optional<Instant[]> optionalSingle =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.instantvalue",
+                        Instant[].class);
 ```
 
 ### OptionalContainsCollection
@@ -814,6 +694,54 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 ```
 
 ### OptionalContainsCollection
+'Optional' contains array `LocalTime[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalLocalTimeArrayLookupProgrammatically() {
+        Optional<LocalTime[]> optionalValue =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.localtimevalues",
+                        LocalTime[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `LocalTime[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                LocalTime.parse("10:37"),
+                LocalTime.parse("11:44")});
+        Optional<LocalTime[]> optionalSingle =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.localtimevalue",
+                        LocalTime[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalDurationListLookupProgrammatically() {
+        Optional<List<Duration>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.durationvalues",
+                        Duration.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                Duration.parse("PT15M"),
+                Duration.parse("PT20M")));
+        Optional<List<Duration>> optionalSingle =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.durationvalue",
+                        Duration.class);
+```
+
+### OptionalContainsCollection
 'Optional' contains collection `List`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
@@ -838,27 +766,99 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 ```
 
 ### OptionalContainsCollection
-'Optional' contains array `Duration[]`
+'Optional' contains array `LocalDate[]`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
     @Test
-    public void testOptionalDurationArrayLookupProgrammatically() {
-        Optional<Duration[]> optionalValue =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.durationvalues",
-                        Duration[].class);
+    public void testOptionalLocalDateArrayLookupProgrammatically() {
+        Optional<LocalDate[]> optionalValue =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.localdatevalues",
+                        LocalDate[].class);
 ```
 
 ### OptionalContainsCollection
-'Optional' contains array `Duration[]`
+'Optional' contains array `LocalDate[]`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
-                Duration.parse("PT15M"),
-                Duration.parse("PT20M")});
-        Optional<Duration[]> optionalSingle =
-                config.getOptionalValue("tck.config.test.javaconfig.converter.durationvalue",
-                        Duration[].class);
+                LocalDate.parse("2017-12-24"),
+                LocalDate.parse("2017-11-29")});
+        Optional<LocalDate[]> optionalSingle =
+                config.getOptionalValue("tck.config.test.javaconfig.converter.localdatevalue",
+                        LocalDate[].class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Long[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalLongArrayLookupProgrammatically() {
+        Optional<Long[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.longvalues",
+                Long[].class);
+        Assert.assertTrue(optionalValue.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Long[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Long[]{1234567890L, 1999999999L});
+        Optional<Long[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.converter.longvalue",
+                Long[].class);
+        Assert.assertTrue(optionalSingle.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalOffsetDateTimeListLookupProgrammatically() {
+        Optional<List<OffsetDateTime>> optionalValues =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.offsetdatetimevalues",
+                        OffsetDateTime.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                OffsetDateTime.parse("2007-12-03T10:15:30+01:00"),
+                OffsetDateTime.parse("2007-12-03T10:15:30+02:00")));
+        Optional<List<OffsetDateTime>> optionalSingle =
+                config.getOptionalValues("tck.config.test.javaconfig.converter.offsetdatetimevalue",
+                        OffsetDateTime.class);
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Pizza[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testOptionalCustomTypeArrayLookupProgrammatically() {
+        Optional<Pizza[]> optionalValue = config.getOptionalValue("tck.config.test.javaconfig.converter.array.pizza",
+                Pizza[].class);
+        Assert.assertTrue(optionalValue.isPresent());
+```
+
+### OptionalContainsCollection
+'Optional' contains array `Pizza[]`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                new Pizza("chicken", "medium"),
+                new Pizza("pepperoni", "small")});
+        Optional<Pizza[]> optionalSingle = config.getOptionalValue("tck.config.test.javaconfig.converter.pizza",
+                Pizza[].class);
+        Assert.assertTrue(optionalSingle.isPresent());
 ```
 
 ## RuleId[id=Convert2MethodRef]
@@ -867,11 +867,23 @@ Lambda can be replaced with method reference
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
-    public void testDonaldConversionWithLambdaConverter() {
-        Config newConfig = ConfigProviderResolver.instance().getBuilder().addDefaultSources()
+        Config config1 = ConfigProviderResolver.instance().getBuilder().addDefaultSources()
+                .withConverter(Donald.class, 101, (s) -> Donald.iLikeDonald(s.toUpperCase()))
                 .withConverter(Donald.class, 100, (s) -> Donald.iLikeDonald(s))
                 .build();
-        Donald donald = newConfig.getValue("tck.config.test.javaconfig.converter.donaldname", Donald.class);
+        Config config2 = ConfigProviderResolver.instance().getBuilder().addDefaultSources()
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+                .build();
+        Config config2 = ConfigProviderResolver.instance().getBuilder().addDefaultSources()
+                .withConverter(Donald.class, 100, (s) -> Donald.iLikeDonald(s))
+                .withConverter(Donald.class, 101, (s) -> Donald.iLikeDonald(s.toUpperCase()))
+                .build();
 ```
 
 ### Convert2MethodRef
@@ -915,23 +927,11 @@ Lambda can be replaced with method reference
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
-        Config config1 = ConfigProviderResolver.instance().getBuilder().addDefaultSources()
-                .withConverter(Donald.class, 101, (s) -> Donald.iLikeDonald(s.toUpperCase()))
+    public void testDonaldConversionWithLambdaConverter() {
+        Config newConfig = ConfigProviderResolver.instance().getBuilder().addDefaultSources()
                 .withConverter(Donald.class, 100, (s) -> Donald.iLikeDonald(s))
                 .build();
-        Config config2 = ConfigProviderResolver.instance().getBuilder().addDefaultSources()
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-                .build();
-        Config config2 = ConfigProviderResolver.instance().getBuilder().addDefaultSources()
-                .withConverter(Donald.class, 100, (s) -> Donald.iLikeDonald(s))
-                .withConverter(Donald.class, 101, (s) -> Donald.iLikeDonald(s.toUpperCase()))
-                .build();
+        Donald donald = newConfig.getValue("tck.config.test.javaconfig.converter.donaldname", Donald.class);
 ```
 
 ## RuleId[id=FinalPrivateMethod]
@@ -1096,6 +1096,18 @@ public class ConvertedNullValueBrokenInjectionTest extends Arquillian {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `private @Inject`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConfigSourceTest.java`
+#### Snippet
+```java
+public class CustomConfigSourceTest extends Arquillian {
+
+    private @Inject Config config;
+
+    @Deployment
+```
+
+### MissortedModifiers
 Missorted modifiers `private @Inject @ConfigProperty(name = "tck.config.test.javaconfig.converter.implicit.charSequenceParse.yearmonth")`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ParseConverterInjection.java`
 #### Snippet
@@ -1125,18 +1137,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/CDIPropertyNameMatchin
 #### Snippet
 ```java
 public class CDIPropertyNameMatchingTest extends Arquillian {
-
-    private @Inject Config config;
-
-    @Deployment
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Inject`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConfigSourceTest.java`
-#### Snippet
-```java
-public class CustomConfigSourceTest extends Arquillian {
 
     private @Inject Config config;
 
@@ -1180,6 +1180,18 @@ public class CdiOptionalInjectionTest extends Arquillian {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `private @Inject @ConfigProperty(name = "partial.pizza", defaultValue = "medium:chicken")`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/converters/convertToNull/ConvertedNullValueTest.java`
+#### Snippet
+```java
+    public static class MyBean {
+
+        private @Inject @ConfigProperty(name = "partial.pizza", defaultValue = "medium:chicken") Optional<Pizza> myPizza;
+
+        public Pizza getPizza() {
+```
+
+### MissortedModifiers
 Missorted modifiers `private @Inject`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/converters/convertToNull/ConvertedNullValueTest.java`
 #### Snippet
@@ -1204,15 +1216,15 @@ public class ConvertedNullValueTest extends Arquillian {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private @Inject @ConfigProperty(name = "partial.pizza", defaultValue = "medium:chicken")`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/converters/convertToNull/ConvertedNullValueTest.java`
+Missorted modifiers `private @Inject`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.java`
 #### Snippet
 ```java
-    public static class MyBean {
 
-        private @Inject @ConfigProperty(name = "partial.pizza", defaultValue = "medium:chicken") Optional<Pizza> myPizza;
+    private @Inject Config config;
+    private @Inject ParseConverterInjection parserConverterInjection;
 
-        public Pizza getPizza() {
+    @Test
 ```
 
 ### MissortedModifiers
@@ -1225,18 +1237,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.
     private @Inject Config config;
     private @Inject ParseConverterInjection parserConverterInjection;
 
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Inject`
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.java`
-#### Snippet
-```java
-
-    private @Inject Config config;
-    private @Inject ParseConverterInjection parserConverterInjection;
-
-    @Test
 ```
 
 ### MissortedModifiers
@@ -1302,49 +1302,13 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.jav
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for field 'optionalIntProperty'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
-#### Snippet
-```java
-    @Inject
-    @ConfigProperty(name = "my.optional.int.property")
-    private OptionalInt optionalIntProperty;
-    @Inject
-    @ConfigProperty(name = "my.notexisting.property")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for field 'optionalNotExistingLongProperty'
+`OptionalInt` used as type for field 'optionalNotExistingIntProperty'
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
 #### Snippet
 ```java
     @Inject
     @ConfigProperty(name = "my.notexisting.property")
-    private OptionalLong optionalNotExistingLongProperty;
-
-    @Inject
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'intProperty'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
-#### Snippet
-```java
-    @Inject
-    @ConfigProperty(name = "my.optional.int.property")
-    private Optional<Integer> intProperty;
-
-    @Inject
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'notexistingProperty'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
-#### Snippet
-```java
-    @Inject
-    @ConfigProperty(name = "my.notexisting.property")
-    private Optional<Integer> notexistingProperty;
+    private OptionalInt optionalNotExistingIntProperty;
 
     @Inject
 ```
@@ -1362,18 +1326,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.jav
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for field 'optionalNotExistingDoubleProperty'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
-#### Snippet
-```java
-    @Inject
-    @ConfigProperty(name = "my.notexisting.property")
-    private OptionalDouble optionalNotExistingDoubleProperty;
-
-    @Inject
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'stringValue'
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
 #### Snippet
@@ -1386,25 +1338,13 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.jav
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for field 'optionalLongProperty'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
-#### Snippet
-```java
-    @Inject
-    @ConfigProperty(name = "my.optional.long.property")
-    private OptionalLong optionalLongProperty;
-    @Inject
-    @ConfigProperty(name = "my.notexisting.property")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for field 'optionalNotExistingIntProperty'
+`OptionalLong` used as type for field 'optionalNotExistingLongProperty'
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
 #### Snippet
 ```java
     @Inject
     @ConfigProperty(name = "my.notexisting.property")
-    private OptionalInt optionalNotExistingIntProperty;
+    private OptionalLong optionalNotExistingLongProperty;
 
     @Inject
 ```
@@ -1422,6 +1362,66 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.jav
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`OptionalDouble` used as type for field 'optionalNotExistingDoubleProperty'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
+#### Snippet
+```java
+    @Inject
+    @ConfigProperty(name = "my.notexisting.property")
+    private OptionalDouble optionalNotExistingDoubleProperty;
+
+    @Inject
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for field 'optionalLongProperty'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
+#### Snippet
+```java
+    @Inject
+    @ConfigProperty(name = "my.optional.long.property")
+    private OptionalLong optionalLongProperty;
+    @Inject
+    @ConfigProperty(name = "my.notexisting.property")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for field 'optionalIntProperty'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
+#### Snippet
+```java
+    @Inject
+    @ConfigProperty(name = "my.optional.int.property")
+    private OptionalInt optionalIntProperty;
+    @Inject
+    @ConfigProperty(name = "my.notexisting.property")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'notexistingProperty'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
+#### Snippet
+```java
+    @Inject
+    @ConfigProperty(name = "my.notexisting.property")
+    private Optional<Integer> notexistingProperty;
+
+    @Inject
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'intProperty'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/OptionalValuesBean.java`
+#### Snippet
+```java
+    @Inject
+    @ConfigProperty(name = "my.optional.int.property")
+    private Optional<Integer> intProperty;
+
+    @Inject
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'myPizza'
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/converters/convertToNull/ConvertedNullValueTest.java`
 #### Snippet
@@ -1434,25 +1434,13 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/converters/convertToNu
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for field 'badExpansionInt'
+`OptionalDouble` used as type for field 'badExpansionDouble'
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/CDIPropertyExpressionsTest.java`
 #### Snippet
 ```java
         @Inject
         @ConfigProperty(name = "bad.property.expression.prop")
-        OptionalInt badExpansionInt;
-        @Inject
-        @ConfigProperty(name = "bad.property.expression.prop")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'badExpansion'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CDIPropertyExpressionsTest.java`
-#### Snippet
-```java
-        @Inject
-        @ConfigProperty(name = "bad.property.expression.prop")
-        Optional<String> badExpansion;
+        OptionalDouble badExpansionDouble;
         @Inject
         @ConfigProperty(name = "bad.property.expression.prop")
 ```
@@ -1470,13 +1458,25 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/CDIPropertyExpressions
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for field 'badExpansionDouble'
+`Optional` used as type for field 'badExpansion'
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/CDIPropertyExpressionsTest.java`
 #### Snippet
 ```java
         @Inject
         @ConfigProperty(name = "bad.property.expression.prop")
-        OptionalDouble badExpansionDouble;
+        Optional<String> badExpansion;
+        @Inject
+        @ConfigProperty(name = "bad.property.expression.prop")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for field 'badExpansionInt'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CDIPropertyExpressionsTest.java`
+#### Snippet
+```java
+        @Inject
+        @ConfigProperty(name = "bad.property.expression.prop")
+        OptionalInt badExpansionInt;
         @Inject
         @ConfigProperty(name = "bad.property.expression.prop")
 ```
@@ -1494,30 +1494,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConfigPropertiesTest.j
 ```
 
 ## RuleId[id=AssertBetweenInconvertibleTypes]
-### AssertBetweenInconvertibleTypes
-`assertEquals()` between objects of inconvertible types 'Integer\[\]' and 'int\[\]'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    public void testintArrayInjection() {
-        Assert.assertEquals(converterBean.getMyintArray().length, 2);
-        Assert.assertEquals(converterBean.getMyIntegerArray(), new int[]{1234, 9999});
-        Assert.assertEquals(converterBean.getMySingleintArray().length, 1);
-        Assert.assertEquals(converterBean.getMySingleIntegerArray(), new int[]{1234});
-```
-
-### AssertBetweenInconvertibleTypes
-`assertEquals()` between objects of inconvertible types 'Integer\[\]' and 'int\[\]'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(converterBean.getMyIntegerArray(), new int[]{1234, 9999});
-        Assert.assertEquals(converterBean.getMySingleintArray().length, 1);
-        Assert.assertEquals(converterBean.getMySingleIntegerArray(), new int[]{1234});
-    }
-
-```
-
 ### AssertBetweenInconvertibleTypes
 `assertEquals()` between objects of inconvertible types 'long\[\]' and 'Long\[\]'
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
@@ -1538,54 +1514,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
         Assert.assertNotNull(single);
         Assert.assertEquals(single.length, 1);
         Assert.assertEquals(single, new Long[]{1234567890L});
-    }
-
-```
-
-### AssertBetweenInconvertibleTypes
-`assertEquals()` between objects of inconvertible types 'int\[\]' and 'Integer\[\]'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertNotNull(value);
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Integer[]{1234, 9999});
-        int[] single = config.getConverter(int[].class).get().convert("1234");
-        Assert.assertNotNull(single);
-```
-
-### AssertBetweenInconvertibleTypes
-`assertEquals()` between objects of inconvertible types 'int\[\]' and 'Integer\[\]'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-        Assert.assertEquals(single, new Integer[]{1234});
-    }
-
-```
-
-### AssertBetweenInconvertibleTypes
-`assertEquals()` between objects of inconvertible types 'float\[\]' and 'Float\[\]'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertNotNull(value);
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Float[]{12.34f, 99.99f});
-        float[] single = config.getConverter(float[].class).get().convert("12.34");
-        Assert.assertNotNull(single);
-```
-
-### AssertBetweenInconvertibleTypes
-`assertEquals()` between objects of inconvertible types 'float\[\]' and 'Float\[\]'
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-        Assert.assertEquals(single, new Float[]{12.34f});
     }
 
 ```
@@ -1638,7 +1566,103 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 
 ```
 
+### AssertBetweenInconvertibleTypes
+`assertEquals()` between objects of inconvertible types 'float\[\]' and 'Float\[\]'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Float[]{12.34f, 99.99f});
+        float[] single = config.getConverter(float[].class).get().convert("12.34");
+        Assert.assertNotNull(single);
+```
+
+### AssertBetweenInconvertibleTypes
+`assertEquals()` between objects of inconvertible types 'float\[\]' and 'Float\[\]'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+        Assert.assertEquals(single, new Float[]{12.34f});
+    }
+
+```
+
+### AssertBetweenInconvertibleTypes
+`assertEquals()` between objects of inconvertible types 'int\[\]' and 'Integer\[\]'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Integer[]{1234, 9999});
+        int[] single = config.getConverter(int[].class).get().convert("1234");
+        Assert.assertNotNull(single);
+```
+
+### AssertBetweenInconvertibleTypes
+`assertEquals()` between objects of inconvertible types 'int\[\]' and 'Integer\[\]'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+        Assert.assertEquals(single, new Integer[]{1234});
+    }
+
+```
+
+### AssertBetweenInconvertibleTypes
+`assertEquals()` between objects of inconvertible types 'Integer\[\]' and 'int\[\]'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    public void testintArrayInjection() {
+        Assert.assertEquals(converterBean.getMyintArray().length, 2);
+        Assert.assertEquals(converterBean.getMyIntegerArray(), new int[]{1234, 9999});
+        Assert.assertEquals(converterBean.getMySingleintArray().length, 1);
+        Assert.assertEquals(converterBean.getMySingleIntegerArray(), new int[]{1234});
+```
+
+### AssertBetweenInconvertibleTypes
+`assertEquals()` between objects of inconvertible types 'Integer\[\]' and 'int\[\]'
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(converterBean.getMyIntegerArray(), new int[]{1234, 9999});
+        Assert.assertEquals(converterBean.getMySingleintArray().length, 1);
+        Assert.assertEquals(converterBean.getMySingleIntegerArray(), new int[]{1234});
+    }
+
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigBuilder.java`
+#### Snippet
+```java
+ * @author <a href="mailto:emijiang@uk.ibm.com">Emily Jiang</a>
+ */
+@org.osgi.annotation.versioning.ProviderType
+public interface ConfigBuilder {
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/config/spi/Converter.java`
+#### Snippet
+```java
+ * <li>{@code double}, {@code Double}, and {@code OptionalDouble} accepting (at minimum) all values accepted by the
+ * {@link Double#parseDouble(String)} method</li>
+ * <li>{@code java.lang.Class} based on the result of {@link java.lang.Class#forName}</li>
+ * </ul>
+ *
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/eclipse/microprofile/config/inject/package-info.java`
@@ -1652,27 +1676,15 @@ package org.eclipse.microprofile.config.inject;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigSourceProvider.java`
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/config/spi/package-info.java`
 #### Snippet
 ```java
-public interface ConfigSourceProvider {
-    /**
-     * Return the {@link ConfigSource} instances that are provided by this provider. The {@link java.lang.Iterable
-     * Iterable} contains a fixed number of {@linkplain ConfigSource configuration sources}, determined at application
-     * start time, and the config sources themselves may be static or dynamic. An empty {@link java.lang.Iterable
-```
+ *
+ */
+@org.osgi.annotation.versioning.Version("3.0")
+package org.eclipse.microprofile.config.spi;
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigSourceProvider.java`
-#### Snippet
-```java
-     * Return the {@link ConfigSource} instances that are provided by this provider. The {@link java.lang.Iterable
-     * Iterable} contains a fixed number of {@linkplain ConfigSource configuration sources}, determined at application
-     * start time, and the config sources themselves may be static or dynamic. An empty {@link java.lang.Iterable
-     * Iterable} may be returned if no sources are to be provided.
-     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1680,11 +1692,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/config/Config.java`
 #### Snippet
 ```java
-     * <p>
-     * The returned sources will be sorted by descending ordinal value and name, which can be iterated in a thread-safe
-     * manner. The {@link java.lang.Iterable Iterable} contains a fixed number of {@linkplain ConfigSource configuration
-     * sources}, determined at application start time, and the config sources themselves may be static or dynamic.
-     * 
+     * @return The resolved property values as an {@code Optional} wrapping a list of the requested type
+     *
+     * @throws java.lang.IllegalArgumentException
+     *             if the property cannot be converted to the specified type
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1704,11 +1716,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/config/Config.java`
 #### Snippet
 ```java
-     * @return The resolved property values as an {@code Optional} wrapping a list of the requested type
-     *
-     * @throws java.lang.IllegalArgumentException
-     *             if the property cannot be converted to the specified type
-     */
+     * <p>
+     * The returned sources will be sorted by descending ordinal value and name, which can be iterated in a thread-safe
+     * manner. The {@link java.lang.Iterable Iterable} contains a fixed number of {@linkplain ConfigSource configuration
+     * sources}, determined at application start time, and the config sources themselves may be static or dynamic.
+     * 
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1736,27 +1748,39 @@ public interface Config {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/config/spi/package-info.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigSourceProvider.java`
 #### Snippet
 ```java
- *
- */
-@org.osgi.annotation.versioning.Version("3.0")
-package org.eclipse.microprofile.config.spi;
-
+public interface ConfigSourceProvider {
+    /**
+     * Return the {@link ConfigSource} instances that are provided by this provider. The {@link java.lang.Iterable
+     * Iterable} contains a fixed number of {@linkplain ConfigSource configuration sources}, determined at application
+     * start time, and the config sources themselves may be static or dynamic. An empty {@link java.lang.Iterable
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigBuilder.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigSourceProvider.java`
 #### Snippet
 ```java
- * @author <a href="mailto:emijiang@uk.ibm.com">Emily Jiang</a>
- */
-@org.osgi.annotation.versioning.ProviderType
-public interface ConfigBuilder {
-    /**
+     * Return the {@link ConfigSource} instances that are provided by this provider. The {@link java.lang.Iterable
+     * Iterable} contains a fixed number of {@linkplain ConfigSource configuration sources}, determined at application
+     * start time, and the config sources themselves may be static or dynamic. An empty {@link java.lang.Iterable
+     * Iterable} may be returned if no sources are to be provided.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigProviderResolver.java`
+#### Snippet
+```java
+ * This class is not intended to be used by end-users.
+ * <p>
+ * The implementation of this class should register itself via the {@link java.util.ServiceLoader} mechanism.
+ *
+ * @author <a href="mailto:struberg@apache.org">Mark Struberg</a>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1772,18 +1796,6 @@ package org.eclipse.microprofile.config;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/config/spi/Converter.java`
-#### Snippet
-```java
- * <li>{@code double}, {@code Double}, and {@code OptionalDouble} accepting (at minimum) all values accepted by the
- * {@link Double#parseDouble(String)} method</li>
- * <li>{@code java.lang.Class} based on the result of {@link java.lang.Class#forName}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.microprofile.config.spi` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigSource.java`
 #### Snippet
@@ -1793,18 +1805,6 @@ in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigSource.java`
  * Configuration sources may also be added by defining {@link org.eclipse.microprofile.config.spi.ConfigSourceProvider}
  * classes which are discoverable in this manner.
  *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigProviderResolver.java`
-#### Snippet
-```java
- * This class is not intended to be used by end-users.
- * <p>
- * The implementation of this class should register itself via the {@link java.util.ServiceLoader} mechanism.
- *
- * @author <a href="mailto:struberg@apache.org">Mark Struberg</a>
 ```
 
 ## RuleId[id=ThrowablePrintStackTrace]
@@ -1983,7 +1983,7 @@ in `api/src/main/java/org/eclipse/microprofile/config/spi/ConfigProviderResolver
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-05-01-44-27.422.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-05-07-02-32.589.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2093,6 +2093,18 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/profile/ProdProfileTes
 
 ### UnnecessaryLocalVariable
 Local variable `war` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConfigSourceTest.java`
+#### Snippet
+```java
+        addFile(testJar, "META-INF/microprofile-config.properties");
+
+        WebArchive war = ShrinkWrap
+                .create(WebArchive.class, "customConfigSourceTest.war")
+                .addAsLibrary(testJar);
+```
+
+### UnnecessaryLocalVariable
+Local variable `war` is redundant
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/profile/ConfigPropertyFileProfileTest.java`
 #### Snippet
 ```java
@@ -2124,30 +2136,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/CDIPropertyNameMatchin
 
         WebArchive war = ShrinkWrap
                 .create(WebArchive.class, "CDIPropertyNameMatchingTest.war")
-                .addAsLibrary(testJar);
-```
-
-### UnnecessaryLocalVariable
-Local variable `war` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConfigSourceTest.java`
-#### Snippet
-```java
-        addFile(testJar, "META-INF/microprofile-config.properties");
-
-        WebArchive war = ShrinkWrap
-                .create(WebArchive.class, "customConfigSourceTest.war")
-                .addAsLibrary(testJar);
-```
-
-### UnnecessaryLocalVariable
-Local variable `war` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/configsources/DefaultConfigSourceOrdinalTest.java`
-#### Snippet
-```java
-                .as(JavaArchive.class);
-
-        WebArchive war = ShrinkWrap
-                .create(WebArchive.class, "DefaultConfigSourceOrdinalTest.war")
                 .addAsLibrary(testJar);
 ```
 
@@ -2185,6 +2173,18 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/profile/InvalidConfigP
         WebArchive war = ShrinkWrap
                 .create(WebArchive.class, "InvalidConfigProfileTest.war")
                 .addClasses(InvalidConfigProfileTest.class, ProfilePropertyBean.class)
+```
+
+### UnnecessaryLocalVariable
+Local variable `war` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/configsources/DefaultConfigSourceOrdinalTest.java`
+#### Snippet
+```java
+                .as(JavaArchive.class);
+
+        WebArchive war = ShrinkWrap
+                .create(WebArchive.class, "DefaultConfigSourceOrdinalTest.war")
+                .addAsLibrary(testJar);
 ```
 
 ### UnnecessaryLocalVariable
@@ -2280,54 +2280,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValues
 #### Snippet
 ```java
     @Test
-    public void testDoubleCommaStringGetOptionalValues() {
-        Assert.assertEquals(config.getOptionalValue("double.comma.string", String.class).get(), ",,");
-        assertConfigurationNotPresentForOptionalMultiple("double.comma.string");
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
-#### Snippet
-```java
-    @Test
-    public void testFooCommaStringGetOptionalValues() {
-        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String.class).get(), "foo,");
-        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String[].class).get(), new String[]{"foo"});
-        Assert.assertEquals(config.getOptionalValues("foo.comma.string", String.class).get(), Arrays.asList("foo"));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
-#### Snippet
-```java
-    public void testFooCommaStringGetOptionalValues() {
-        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String.class).get(), "foo,");
-        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String[].class).get(), new String[]{"foo"});
-        Assert.assertEquals(config.getOptionalValues("foo.comma.string", String.class).get(), Arrays.asList("foo"));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
-#### Snippet
-```java
-        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String.class).get(), "foo,");
-        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String[].class).get(), new String[]{"foo"});
-        Assert.assertEquals(config.getOptionalValues("foo.comma.string", String.class).get(), Arrays.asList("foo"));
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
-#### Snippet
-```java
-    @Test
     public void testFooBarStringGetOptionalValues() {
         Assert.assertEquals(config.getOptionalValue("foo.bar.string", String.class).get(), "foo,bar");
         Assert.assertEquals(config.getOptionalValue("foo.bar.string", String[].class).get(),
@@ -2364,6 +2316,54 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValues
 #### Snippet
 ```java
     @Test
+    public void testSpaceStringGetOptionalValue() {
+        Assert.assertEquals(config.getOptionalValue("space.string", String.class).get(), " ");
+        Assert.assertEquals(config.getOptionalValue("space.string", String[].class).get(), new String[]{" "});
+        Assert.assertEquals(config.getOptionalValues("space.string", String.class).get(), Arrays.asList(" "));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
+#### Snippet
+```java
+    public void testSpaceStringGetOptionalValue() {
+        Assert.assertEquals(config.getOptionalValue("space.string", String.class).get(), " ");
+        Assert.assertEquals(config.getOptionalValue("space.string", String[].class).get(), new String[]{" "});
+        Assert.assertEquals(config.getOptionalValues("space.string", String.class).get(), Arrays.asList(" "));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
+#### Snippet
+```java
+        Assert.assertEquals(config.getOptionalValue("space.string", String.class).get(), " ");
+        Assert.assertEquals(config.getOptionalValue("space.string", String[].class).get(), new String[]{" "});
+        Assert.assertEquals(config.getOptionalValues("space.string", String.class).get(), Arrays.asList(" "));
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
+#### Snippet
+```java
+    @Test
+    public void testDoubleCommaStringGetOptionalValues() {
+        Assert.assertEquals(config.getOptionalValue("double.comma.string", String.class).get(), ",,");
+        assertConfigurationNotPresentForOptionalMultiple("double.comma.string");
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
+#### Snippet
+```java
+    @Test
     public void testBackslashCommaStringGetOptionalValue() {
         Assert.assertEquals(config.getOptionalValue("backslash.comma.string", String.class).get(), "\\,");
     }
@@ -2388,21 +2388,9 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValues
 #### Snippet
 ```java
     @Test
-    public void testSpaceStringGetOptionalValue() {
-        Assert.assertEquals(config.getOptionalValue("space.string", String.class).get(), " ");
-        Assert.assertEquals(config.getOptionalValue("space.string", String[].class).get(), new String[]{" "});
-        Assert.assertEquals(config.getOptionalValues("space.string", String.class).get(), Arrays.asList(" "));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
-#### Snippet
-```java
-    public void testSpaceStringGetOptionalValue() {
-        Assert.assertEquals(config.getOptionalValue("space.string", String.class).get(), " ");
-        Assert.assertEquals(config.getOptionalValue("space.string", String[].class).get(), new String[]{" "});
-        Assert.assertEquals(config.getOptionalValues("space.string", String.class).get(), Arrays.asList(" "));
+    public void testBackslashCommaStringGetOptionalValueAsArrayOrList() {
+        Assert.assertEquals(config.getOptionalValue("backslash.comma.string", String[].class).get(), new String[]{","});
+        Assert.assertEquals(config.getOptionalValues("backslash.comma.string", String.class).get(), Arrays.asList(","));
     }
 ```
 
@@ -2411,9 +2399,45 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValues
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
 #### Snippet
 ```java
-        Assert.assertEquals(config.getOptionalValue("space.string", String.class).get(), " ");
-        Assert.assertEquals(config.getOptionalValue("space.string", String[].class).get(), new String[]{" "});
-        Assert.assertEquals(config.getOptionalValues("space.string", String.class).get(), Arrays.asList(" "));
+    public void testBackslashCommaStringGetOptionalValueAsArrayOrList() {
+        Assert.assertEquals(config.getOptionalValue("backslash.comma.string", String[].class).get(), new String[]{","});
+        Assert.assertEquals(config.getOptionalValues("backslash.comma.string", String.class).get(), Arrays.asList(","));
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
+#### Snippet
+```java
+    @Test
+    public void testFooCommaStringGetOptionalValues() {
+        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String.class).get(), "foo,");
+        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String[].class).get(), new String[]{"foo"});
+        Assert.assertEquals(config.getOptionalValues("foo.comma.string", String.class).get(), Arrays.asList("foo"));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
+#### Snippet
+```java
+    public void testFooCommaStringGetOptionalValues() {
+        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String.class).get(), "foo,");
+        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String[].class).get(), new String[]{"foo"});
+        Assert.assertEquals(config.getOptionalValues("foo.comma.string", String.class).get(), Arrays.asList("foo"));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
+#### Snippet
+```java
+        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String.class).get(), "foo,");
+        Assert.assertEquals(config.getOptionalValue("foo.comma.string", String[].class).get(), new String[]{"foo"});
+        Assert.assertEquals(config.getOptionalValues("foo.comma.string", String.class).get(), Arrays.asList("foo"));
     }
 
 ```
@@ -2452,150 +2476,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValues
         Assert.assertEquals(config.getOptionalValues("comma.bar.string", String.class).get(), Arrays.asList("bar"));
     }
 
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
-#### Snippet
-```java
-    @Test
-    public void testBackslashCommaStringGetOptionalValueAsArrayOrList() {
-        Assert.assertEquals(config.getOptionalValue("backslash.comma.string", String[].class).get(), new String[]{","});
-        Assert.assertEquals(config.getOptionalValues("backslash.comma.string", String.class).get(), Arrays.asList(","));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/emptyvalue/EmptyValuesTestProgrammaticLookup.java`
-#### Snippet
-```java
-    public void testBackslashCommaStringGetOptionalValueAsArrayOrList() {
-        Assert.assertEquals(config.getOptionalValue("backslash.comma.string", String[].class).get(), new String[]{","});
-        Assert.assertEquals(config.getOptionalValues("backslash.comma.string", String.class).get(), Arrays.asList(","));
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetLongConverter() {
-        Long value = config.getConverter(Long.class).get().convert("1");
-        Assert.assertEquals(value, Long.valueOf(999));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetIntPrimitiveConverter() {
-        int value = config.getConverter(int.class).get().convert("1");
-        Assert.assertEquals(value, 999);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetCharacterConverter() {
-        Character value = config.getConverter(Character.class).get().convert("c");
-        Assert.assertEquals(value, Character.valueOf('r'));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetBooleanConverter() {
-        Boolean value = config.getConverter(Boolean.class).get().convert("false");
-        Assert.assertEquals(value, Boolean.TRUE);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetDoubleConverter() {
-        Double value = config.getConverter(Double.class).get().convert("1.0");
-        Assert.assertEquals(value, new Double(999.9));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetLongPrimitiveConverter() {
-        long value = config.getConverter(long.class).get().convert("1");
-        Assert.assertEquals(value, 999);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetIntegerConverter() {
-        Integer value = config.getConverter(Integer.class).get().convert("1");
-        Assert.assertEquals(value, Integer.valueOf(999));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetDoublePrimitiveConverter() {
-        double value = config.getConverter(double.class).get().convert("1.0");
-        Assert.assertEquals(value, 999.9);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetCharPrimitiveConverter() {
-        char value = config.getConverter(char.class).get().convert("c");
-        Assert.assertEquals(value, 'r');
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetBooleanPrimitiveConverter() {
-        boolean value = config.getConverter(boolean.class).get().convert("false");
-        Assert.assertTrue(value);
-    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2624,14 +2504,122 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ClassConverterTest.jav
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
 #### Snippet
 ```java
     @Test
-    public void testGetImplicitConverterSquenceValueOfBeforeParseConverter() {
-        ConvTestSequenceValueOfBeforeParse value = config.getConverter(ConvTestSequenceValueOfBeforeParse.class).get()
-                .convert("valueOfBeforeParse");
-        Assert.assertNotNull(value);
+    public void testGetIntegerConverter() {
+        Integer value = config.getConverter(Integer.class).get().convert("1");
+        Assert.assertEquals(value, Integer.valueOf(999));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetDoubleConverter() {
+        Double value = config.getConverter(Double.class).get().convert("1.0");
+        Assert.assertEquals(value, new Double(999.9));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetLongConverter() {
+        Long value = config.getConverter(Long.class).get().convert("1");
+        Assert.assertEquals(value, Long.valueOf(999));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetBooleanPrimitiveConverter() {
+        boolean value = config.getConverter(boolean.class).get().convert("false");
+        Assert.assertTrue(value);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetCharacterConverter() {
+        Character value = config.getConverter(Character.class).get().convert("c");
+        Assert.assertEquals(value, Character.valueOf('r'));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetCharPrimitiveConverter() {
+        char value = config.getConverter(char.class).get().convert("c");
+        Assert.assertEquals(value, 'r');
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetDoublePrimitiveConverter() {
+        double value = config.getConverter(double.class).get().convert("1.0");
+        Assert.assertEquals(value, 999.9);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetLongPrimitiveConverter() {
+        long value = config.getConverter(long.class).get().convert("1");
+        Assert.assertEquals(value, 999);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetBooleanConverter() {
+        Boolean value = config.getConverter(Boolean.class).get().convert("false");
+        Assert.assertEquals(value, Boolean.TRUE);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/CustomConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetIntPrimitiveConverter() {
+        int value = config.getConverter(int.class).get().convert("1");
+        Assert.assertEquals(value, 999);
+    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2640,10 +2628,10 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.
 #### Snippet
 ```java
     @Test
-    public void testGetImplicitConverterStringCtConverter() {
-        ConvTestTypeWStringCt value = config.getConverter(ConvTestTypeWStringCt.class).get().convert("stringCt");
+    public void testGetImplicitConverterStringValueOfConverter() {
+        ConvTestTypeWStringValueOf value = config.getConverter(ConvTestTypeWStringValueOf.class).get()
+                .convert("stringValueOf");
         Assert.assertNotNull(value);
-        Assert.assertEquals(value.getVal(), "stringCt");
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2687,11 +2675,11 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.java`
 #### Snippet
 ```java
-    @Test
-    public void testGetImplicitConverterCharSequenceParseJavaTimeConverter() {
-        YearMonth value = config.getConverter(YearMonth.class).get().convert("2017-12");
+    public void testGetImplicitConverterSquenceParseBeforeConstructorConverter() {
+        ConvTestSequenceParseBeforeConstructor value =
+                config.getConverter(ConvTestSequenceParseBeforeConstructor.class).get()
+                        .convert("parseBeforeConstructor");
         Assert.assertNotNull(value);
-        Assert.assertEquals(value, YearMonth.parse("2017-12"));
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2699,11 +2687,23 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.java`
 #### Snippet
 ```java
-    public void testGetImplicitConverterSquenceParseBeforeConstructorConverter() {
-        ConvTestSequenceParseBeforeConstructor value =
-                config.getConverter(ConvTestSequenceParseBeforeConstructor.class).get()
-                        .convert("parseBeforeConstructor");
+    @Test
+    public void testGetImplicitConverterSquenceValueOfBeforeParseConverter() {
+        ConvTestSequenceValueOfBeforeParse value = config.getConverter(ConvTestSequenceValueOfBeforeParse.class).get()
+                .convert("valueOfBeforeParse");
         Assert.assertNotNull(value);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetImplicitConverterStringCtConverter() {
+        ConvTestTypeWStringCt value = config.getConverter(ConvTestTypeWStringCt.class).get().convert("stringCt");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value.getVal(), "stringCt");
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2724,10 +2724,154 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ImplicitConverterTest.
 #### Snippet
 ```java
     @Test
-    public void testGetImplicitConverterStringValueOfConverter() {
-        ConvTestTypeWStringValueOf value = config.getConverter(ConvTestTypeWStringValueOf.class).get()
-                .convert("stringValueOf");
+    public void testGetImplicitConverterCharSequenceParseJavaTimeConverter() {
+        YearMonth value = config.getConverter(YearMonth.class).get().convert("2017-12");
         Assert.assertNotNull(value);
+        Assert.assertEquals(value, YearMonth.parse("2017-12"));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetDurationConverter_Broken() {
+        config.getConverter(Duration.class).get().convert("alfasdf");
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetFloatConverter_Broken() {
+        config.getConverter(Float.class).get().convert("alfasdf");
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetDoubleConverter_Broken() {
+        config.getConverter(Double.class).get().convert("alfasdf");
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetDoubleConverter() {
+        Double value = config.getConverter(Double.class).get().convert("12.34");
+        Assert.assertEquals(value, new Double(12.34d));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetLongConverter() {
+        Long value = config.getConverter(Long.class).get().convert("1234567890");
+        Assert.assertEquals(value, Long.valueOf(1234567890));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetByteConverter_Broken() {
+        config.getConverter(Byte.class).get().convert("xxx");
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetFloatConverter() {
+        Float value = config.getConverter(Float.class).get().convert("12.34");
+        Assert.assertEquals(value, new Float(12.34f));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetfloatConverter() {
+        float value = config.getConverter(float.class).get().convert("12.34");
+        Assert.assertEquals(value, 12.34f);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetshortConverter() {
+        short value = config.getConverter(short.class).get().convert("1234");
+        Assert.assertEquals(value, (short) 1234);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetCustomConverter() {
+        Assert.assertEquals(config.getConverter(Duck.class).get().convert("Hannelore").getName(), "Hannelore");
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetByteConverter() {
+        Byte value = config.getConverter(Byte.class).get().convert("123");
+        Assert.assertEquals(value, Byte.valueOf((byte) 123));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetcharConverter() {
+        char value = config.getConverter(char.class).get().convert("c");
+        Assert.assertEquals(value, 'c');
+    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2747,11 +2891,47 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
-    public void testGetConverterSerialization() {
-        Converter<Duck> original = config.getConverter(Duck.class).get();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try (ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream)) {
+    @Test
+    public void testGetOffsetTimeConverter() {
+        OffsetTime value = config.getConverter(OffsetTime.class).get().convert("13:45:30.123456789+02:00");
+        OffsetTime parsed = OffsetTime.parse("13:45:30.123456789+02:00");
+        Assert.assertEquals(value, parsed);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetLocalDateConverter() {
+        LocalDate value = config.getConverter(LocalDate.class).get().convert("2017-12-24");
+        Assert.assertEquals(value, LocalDate.parse("2017-12-24"));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetLocalDateTimeConverter() {
+        LocalDateTime value = config.getConverter(LocalDateTime.class).get().convert("2017-12-24T10:25:30");
+        Assert.assertEquals(value, LocalDateTime.parse("2017-12-24T10:25:30"));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetlongConverter() {
+        long primitiveValue = config.getConverter(long.class).get().convert("1234567890");
+        Assert.assertEquals(primitiveValue, 1234567890L);
+    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2760,8 +2940,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetLongConverter_Broken() {
-        config.getConverter(Long.class).get().convert("alfasdf");
+    public void testGetOffsetDateTimeConverter_Broken() {
+        config.getConverter(OffsetDateTime.class).get().convert("alfasdf");
     }
 
 ```
@@ -2772,9 +2952,9 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
     @Test
-    public void testGetIntegerConverter() {
-        Integer value = config.getConverter(Integer.class).get().convert("1234");
-        Assert.assertEquals(value, Integer.valueOf(1234));
+    public void testGetdoubleConverter() {
+        double value = config.getConverter(double.class).get().convert("12.34");
+        Assert.assertEquals(value, 12.34d);
     }
 ```
 
@@ -2808,166 +2988,10 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
     @Test
-    public void testGetbyteConverter() {
-        byte value = config.getConverter(byte.class).get().convert("123");
-        Assert.assertEquals(value, (byte) 123);
+    public void testGetIntegerConverter() {
+        Integer value = config.getConverter(Integer.class).get().convert("1234");
+        Assert.assertEquals(value, Integer.valueOf(1234));
     }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetLocalDateTimeConverter_Broken() {
-        config.getConverter(LocalDateTime.class).get().convert("alfasdf");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetInstantConverter() {
-        Instant value = config.getConverter(Instant.class).get().convert("2015-06-02T21:34:33.616Z");
-        Assert.assertEquals(value, Instant.parse("2015-06-02T21:34:33.616Z"));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-                .withConverter(Donald.class, 100, (s) -> Donald.iLikeDonald(s))
-                .build();
-        Donald donald = newConfig.getConverter(Donald.class).get().convert("Duck");
-        Assert.assertNotNull(donald);
-        Assert.assertEquals(donald.getName(), "Duck");
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-                .build();
-
-        Donald donald = config1.getConverter(Donald.class).get().convert("Duck");
-        Assert.assertNotNull(donald);
-        Assert.assertEquals(donald.getName(), "DUCK",
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(donald.getName(), "DUCK",
-                "The converter with the highest priority (using upper case) must be used.");
-        donald = config2.getConverter(Donald.class).get().convert("Duck");
-        Assert.assertNotNull(donald);
-        Assert.assertEquals(donald.getName(), "DUCK",
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetfloatConverter() {
-        float value = config.getConverter(float.class).get().convert("12.34");
-        Assert.assertEquals(value, 12.34f);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetOffsetTimeConverter_Broken() {
-        config.getConverter(OffsetTime.class).get().convert("alfasdf");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetLocalDateConverter_Broken() {
-        config.getConverter(LocalDate.class).get().convert("alfasdf");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetlongConverter() {
-        long primitiveValue = config.getConverter(long.class).get().convert("1234567890");
-        Assert.assertEquals(primitiveValue, 1234567890L);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetFloatConverter() {
-        Float value = config.getConverter(Float.class).get().convert("12.34");
-        Assert.assertEquals(value, new Float(12.34f));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetIntConverter() {
-        int value = config.getConverter(int.class).get().convert("1234");
-        Assert.assertEquals(value, 1234);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetCustomConverter() {
-        Assert.assertEquals(config.getConverter(Duck.class).get().convert("Hannelore").getName(), "Hannelore");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetIntegerConverter_Broken() {
-        config.getConverter(Integer.class).get().convert("xxx");
-    }
-
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2987,21 +3011,9 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
-    @Test
-    public void testGetURIConverter() {
-        URI uri = config.getConverter(URI.class).get().convert("http://microprofile.io");
-        Assert.assertEquals(uri, URI.create("http://microprofile.io"));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetLocalTimeConverter_Broken() {
-        config.getConverter(LocalTime.class).get().convert("alfasdf");
+    public void testGetShortConverter_Broken() {
+        config.getConverter(Short.class).get().convert("xxx");
     }
 
 ```
@@ -3012,190 +3024,10 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetDoubleConverter_Broken() {
-        config.getConverter(Double.class).get().convert("alfasdf");
+    public void testGetIntegerConverter_Broken() {
+        config.getConverter(Integer.class).get().convert("xxx");
     }
 
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetURIConverterBroken() throws Exception {
-        config.getConverter(URI.class).get().convert("space is an illegal uri character");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetZoneOffsetConverter() {
-        ZoneOffset value = config.getConverter(ZoneOffset.class).get().convert("+02:00");
-        ZoneOffset parsed = ZoneOffset.of("+02:00");
-        Assert.assertEquals(value, parsed);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetLocalTimeConverter() {
-        LocalTime value = config.getConverter(LocalTime.class).get().convert("10:37");
-        Assert.assertEquals(value, LocalTime.parse("10:37"));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetURLConverter() throws MalformedURLException, URISyntaxException {
-        URL url = config.getConverter(URL.class).get().convert("http://microprofile.io");
-        Assert.assertTrue(urlEquals(url, new URL("http://microprofile.io")));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetshortConverter() {
-        short value = config.getConverter(short.class).get().convert("1234");
-        Assert.assertEquals(value, (short) 1234);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetInstantConverter_Broken() {
-        config.getConverter(Instant.class).get().convert("alfasdf");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetOffsetDateTimeConverter() {
-        OffsetDateTime value = config.getConverter(OffsetDateTime.class).get().convert("2007-12-03T10:15:30+01:00");
-        Assert.assertEquals(value, OffsetDateTime.parse("2007-12-03T10:15:30+01:00"));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetFloatConverter_Broken() {
-        config.getConverter(Float.class).get().convert("alfasdf");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetLocalDateConverter() {
-        LocalDate value = config.getConverter(LocalDate.class).get().convert("2017-12-24");
-        Assert.assertEquals(value, LocalDate.parse("2017-12-24"));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetOffsetDateTimeConverter_Broken() {
-        config.getConverter(OffsetDateTime.class).get().convert("alfasdf");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetDurationCoverter() {
-        Duration value = config.getConverter(Duration.class).get().convert("PT15M");
-        Assert.assertEquals(value, Duration.parse("PT15M"));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetOffsetTimeConverter() {
-        OffsetTime value = config.getConverter(OffsetTime.class).get().convert("13:45:30.123456789+02:00");
-        OffsetTime parsed = OffsetTime.parse("13:45:30.123456789+02:00");
-        Assert.assertEquals(value, parsed);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetShortConverter() {
-        Short value = config.getConverter(Short.class).get().convert("1234");
-        Assert.assertEquals(value, Short.valueOf((short) 1234));
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetZoneOffsetConverter_Broken() {
-        config.getConverter(ZoneOffset.class).get().convert("alfasdf");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetLongConverter() {
-        Long value = config.getConverter(Long.class).get().convert("1234567890");
-        Assert.assertEquals(value, Long.valueOf(1234567890));
-    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3228,8 +3060,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetShortConverter_Broken() {
-        config.getConverter(Short.class).get().convert("xxx");
+    public void testGetInstantConverter_Broken() {
+        config.getConverter(Instant.class).get().convert("alfasdf");
     }
 
 ```
@@ -3240,10 +3072,178 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
     @Test
-    public void testGetdoubleConverter() {
-        double value = config.getConverter(double.class).get().convert("12.34");
-        Assert.assertEquals(value, 12.34d);
+    public void testGetShortConverter() {
+        Short value = config.getConverter(Short.class).get().convert("1234");
+        Assert.assertEquals(value, Short.valueOf((short) 1234));
     }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetIntConverter() {
+        int value = config.getConverter(int.class).get().convert("1234");
+        Assert.assertEquals(value, 1234);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+                .build();
+
+        Donald donald = config1.getConverter(Donald.class).get().convert("Duck");
+        Assert.assertNotNull(donald);
+        Assert.assertEquals(donald.getName(), "DUCK",
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(donald.getName(), "DUCK",
+                "The converter with the highest priority (using upper case) must be used.");
+        donald = config2.getConverter(Donald.class).get().convert("Duck");
+        Assert.assertNotNull(donald);
+        Assert.assertEquals(donald.getName(), "DUCK",
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetURIConverter() {
+        URI uri = config.getConverter(URI.class).get().convert("http://microprofile.io");
+        Assert.assertEquals(uri, URI.create("http://microprofile.io"));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetLocalTimeConverter_Broken() {
+        config.getConverter(LocalTime.class).get().convert("alfasdf");
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetLocalDateConverter_Broken() {
+        config.getConverter(LocalDate.class).get().convert("alfasdf");
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetLocalTimeConverter() {
+        LocalTime value = config.getConverter(LocalTime.class).get().convert("10:37");
+        Assert.assertEquals(value, LocalTime.parse("10:37"));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetInstantConverter() {
+        Instant value = config.getConverter(Instant.class).get().convert("2015-06-02T21:34:33.616Z");
+        Assert.assertEquals(value, Instant.parse("2015-06-02T21:34:33.616Z"));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetZoneOffsetConverter() {
+        ZoneOffset value = config.getConverter(ZoneOffset.class).get().convert("+02:00");
+        ZoneOffset parsed = ZoneOffset.of("+02:00");
+        Assert.assertEquals(value, parsed);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetLongConverter_Broken() {
+        config.getConverter(Long.class).get().convert("alfasdf");
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetURLConverter() throws MalformedURLException, URISyntaxException {
+        URL url = config.getConverter(URL.class).get().convert("http://microprofile.io");
+        Assert.assertTrue(urlEquals(url, new URL("http://microprofile.io")));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetOffsetDateTimeConverter() {
+        OffsetDateTime value = config.getConverter(OffsetDateTime.class).get().convert("2007-12-03T10:15:30+01:00");
+        Assert.assertEquals(value, OffsetDateTime.parse("2007-12-03T10:15:30+01:00"));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetDurationCoverter() {
+        Duration value = config.getConverter(Duration.class).get().convert("PT15M");
+        Assert.assertEquals(value, Duration.parse("PT15M"));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetLocalDateTimeConverter_Broken() {
+        config.getConverter(LocalDateTime.class).get().convert("alfasdf");
+    }
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3263,22 +3263,10 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetDurationConverter_Broken() {
-        config.getConverter(Duration.class).get().convert("alfasdf");
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
-#### Snippet
-```java
     @Test
-    public void testGetByteConverter() {
-        Byte value = config.getConverter(Byte.class).get().convert("123");
-        Assert.assertEquals(value, Byte.valueOf((byte) 123));
+    public void testGetbyteConverter() {
+        byte value = config.getConverter(byte.class).get().convert("123");
+        Assert.assertEquals(value, (byte) 123);
     }
 ```
 
@@ -3288,8 +3276,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testGetByteConverter_Broken() {
-        config.getConverter(Byte.class).get().convert("xxx");
+    public void testGetURIConverterBroken() throws Exception {
+        config.getConverter(URI.class).get().convert("space is an illegal uri character");
     }
 
 ```
@@ -3299,11 +3287,11 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
-    @Test
-    public void testGetcharConverter() {
-        char value = config.getConverter(char.class).get().convert("c");
-        Assert.assertEquals(value, 'c');
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetZoneOffsetConverter_Broken() {
+        config.getConverter(ZoneOffset.class).get().convert("alfasdf");
     }
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3311,11 +3299,11 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
-    @Test
-    public void testGetLocalDateTimeConverter() {
-        LocalDateTime value = config.getConverter(LocalDateTime.class).get().convert("2017-12-24T10:25:30");
-        Assert.assertEquals(value, LocalDateTime.parse("2017-12-24T10:25:30"));
-    }
+    @SuppressWarnings("unchecked")
+    public void testGetConverterSerialization() {
+        Converter<Duck> original = config.getConverter(Duck.class).get();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try (ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream)) {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3323,11 +3311,23 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
 #### Snippet
 ```java
-    @Test
-    public void testGetDoubleConverter() {
-        Double value = config.getConverter(Double.class).get().convert("12.34");
-        Assert.assertEquals(value, new Double(12.34d));
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetOffsetTimeConverter_Broken() {
+        config.getConverter(OffsetTime.class).get().convert("alfasdf");
     }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ConverterTest.java`
+#### Snippet
+```java
+                .withConverter(Donald.class, 100, (s) -> Donald.iLikeDonald(s))
+                .build();
+        Donald donald = newConfig.getConverter(Donald.class).get().convert("Duck");
+        Assert.assertNotNull(donald);
+        Assert.assertEquals(donald.getName(), "Duck");
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3336,32 +3336,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
     @Test
-    public void testGetLocalDateArrayConverter() {
-        LocalDate[] value = config.getConverter(LocalDate[].class).get().convert("2017-12-24,2017-11-29");
-        Assert.assertNotNull(value);
-        Assert.assertEquals(value.length, 2);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                LocalDate.parse("2017-12-24"),
-                LocalDate.parse("2017-11-29")});
-        LocalDate[] single = config.getConverter(LocalDate[].class).get().convert("2017-12-24");
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetDoubleArrayConverter() {
-        Double[] value = config.getConverter(Double[].class).get().convert("12.34,99.9999");
+    public void testGetFloatArrayConverter() {
+        Float[] value = config.getConverter(Float[].class).get().convert("12.34,99.99");
         Assert.assertNotNull(value);
         Assert.assertEquals(value.length, 2);
 ```
@@ -3372,8 +3348,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
         Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Double[]{12.34d, 99.9999d});
-        Double[] single = config.getConverter(Double[].class).get().convert("12.34");
+        Assert.assertEquals(value, new Float[]{12.34f, 99.99f});
+        Float[] single = config.getConverter(Float[].class).get().convert("12.34");
         Assert.assertNotNull(single);
         Assert.assertEquals(single.length, 1);
 ```
@@ -3408,6 +3384,54 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
     @Test
+    public void testGetOffsetDateTimeArrayConverter() {
+        OffsetDateTime[] value = config.getConverter(OffsetDateTime[].class).get()
+                .convert("2007-12-03T10:15:30+01:00,2007-12-03T10:15:30+02:00");
+        Assert.assertNotNull(value);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                OffsetDateTime.parse("2007-12-03T10:15:30+02:00")});
+        OffsetDateTime[] single =
+                config.getConverter(OffsetDateTime[].class).get().convert("2007-12-03T10:15:30+01:00");
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    public void testGetStringArrayConverter() {
+        String[] value =
+                config.getConverter(String[].class).get().convert("microservice,microprofile,m\\,f,microservice");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value.length, 4);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(value.length, 4);
+        Assert.assertEquals(value, new String[]{"microservice", "microprofile", "m,f", "microservice"});
+        String[] single = config.getConverter(String[].class).get().convert("value1");
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
     public void testGetUriArrayConverter() {
         URI[] value = config.getConverter(URI[].class).get()
                 .convert("http://microprofile.io,http://openliberty.io,http://microprofile.io");
@@ -3422,6 +3446,126 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
                 URI.create("http://openliberty.io"),
                 URI.create("http://microprofile.io")});
         URI[] single = config.getConverter(URI[].class).get().convert("http://microprofile.io");
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetUrlArrayConverter() throws MalformedURLException, URISyntaxException {
+        URL[] value = config.getConverter(URL[].class).get()
+                .convert("http://microprofile.io,http://openliberty.io,http://microprofile.io");
+        Assert.assertNotNull(value);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                new URL("http://microprofile.io")};
+        assertURLArrayEquals(value, expectedValue);
+        URL[] single = config.getConverter(URL[].class).get().convert("http://microprofile.io");
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetdoubleArrayConverter() {
+        double[] value = config.getConverter(double[].class).get().convert("12.34,99.9999");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value.length, 2);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Double[]{12.34d, 99.9999d});
+        double[] single = config.getConverter(double[].class).get().convert("12.34");
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetIntegerArrayConverter() {
+        Integer[] value = config.getConverter(Integer[].class).get().convert("1234,9999");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value.length, 2);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Integer[]{1234, 9999});
+        Integer[] single = config.getConverter(Integer[].class).get().convert("1234");
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetCustomTypeArrayConverter() {
+        Pizza[] value = config.getConverter(Pizza[].class).get()
+                .convert("large:cheese\\,mushroom,medium:chicken,small:pepperoni");
+        Assert.assertNotNull(value);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+                new Pizza("chicken", "medium"),
+                new Pizza("pepperoni", "small")});
+        Pizza[] single = config.getConverter(Pizza[].class).get().convert("large:cheese\\,mushroom");
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetlongArrayCoverter() {
+        long[] value = config.getConverter(long[].class).get().convert("1234567890,1999999999");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value.length, 2);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Long[]{1234567890L, 1999999999L});
+        long[] single = config.getConverter(long[].class).get().convert("1234567890");
         Assert.assertNotNull(single);
         Assert.assertEquals(single.length, 1);
 ```
@@ -3455,9 +3599,9 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
-    @Test
-    public void testGetlongArrayCoverter() {
-        long[] value = config.getConverter(long[].class).get().convert("1234567890,1999999999");
+    public void testGetLocalDateTimeArrayConverter() {
+        LocalDateTime[] value =
+                config.getConverter(LocalDateTime[].class).get().convert("2017-12-24T10:25:30,2017-12-24T10:25:33");
         Assert.assertNotNull(value);
         Assert.assertEquals(value.length, 2);
 ```
@@ -3467,9 +3611,9 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Long[]{1234567890L, 1999999999L});
-        long[] single = config.getConverter(long[].class).get().convert("1234567890");
+                LocalDateTime.parse("2017-12-24T10:25:30"),
+                LocalDateTime.parse("2017-12-24T10:25:33")});
+        LocalDateTime[] single = config.getConverter(LocalDateTime[].class).get().convert("2017-12-24T10:25:30");
         Assert.assertNotNull(single);
         Assert.assertEquals(single.length, 1);
 ```
@@ -3528,8 +3672,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
     @Test
-    public void testGetdoubleArrayConverter() {
-        double[] value = config.getConverter(double[].class).get().convert("12.34,99.9999");
+    public void testGetLongArrayCoverter() {
+        Long[] value = config.getConverter(Long[].class).get().convert("1234567890,1999999999");
         Assert.assertNotNull(value);
         Assert.assertEquals(value.length, 2);
 ```
@@ -3540,80 +3684,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
         Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Double[]{12.34d, 99.9999d});
-        double[] single = config.getConverter(double[].class).get().convert("12.34");
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetUrlArrayConverter() throws MalformedURLException, URISyntaxException {
-        URL[] value = config.getConverter(URL[].class).get()
-                .convert("http://microprofile.io,http://openliberty.io,http://microprofile.io");
-        Assert.assertNotNull(value);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                new URL("http://microprofile.io")};
-        assertURLArrayEquals(value, expectedValue);
-        URL[] single = config.getConverter(URL[].class).get().convert("http://microprofile.io");
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetOffsetDateTimeArrayConverter() {
-        OffsetDateTime[] value = config.getConverter(OffsetDateTime[].class).get()
-                .convert("2007-12-03T10:15:30+01:00,2007-12-03T10:15:30+02:00");
-        Assert.assertNotNull(value);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                OffsetDateTime.parse("2007-12-03T10:15:30+02:00")});
-        OffsetDateTime[] single =
-                config.getConverter(OffsetDateTime[].class).get().convert("2007-12-03T10:15:30+01:00");
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetCustomTypeArrayConverter() {
-        Pizza[] value = config.getConverter(Pizza[].class).get()
-                .convert("large:cheese\\,mushroom,medium:chicken,small:pepperoni");
-        Assert.assertNotNull(value);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                new Pizza("chicken", "medium"),
-                new Pizza("pepperoni", "small")});
-        Pizza[] single = config.getConverter(Pizza[].class).get().convert("large:cheese\\,mushroom");
+        Assert.assertEquals(value, new Long[]{1234567890L, 1999999999L});
+        Long[] single = config.getConverter(Long[].class).get().convert("1234567890");
         Assert.assertNotNull(single);
         Assert.assertEquals(single.length, 1);
 ```
@@ -3638,30 +3710,6 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
                 Instant.parse("2015-06-02T21:34:33.616Z"),
                 Instant.parse("2017-06-02T21:34:33.616Z")});
         Instant[] single = config.getConverter(Instant[].class).get().convert("2015-06-02T21:34:33.616Z");
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    public void testGetStringArrayConverter() {
-        String[] value =
-                config.getConverter(String[].class).get().convert("microservice,microprofile,m\\,f,microservice");
-        Assert.assertNotNull(value);
-        Assert.assertEquals(value.length, 4);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(value.length, 4);
-        Assert.assertEquals(value, new String[]{"microservice", "microprofile", "m,f", "microservice"});
-        String[] single = config.getConverter(String[].class).get().convert("value1");
         Assert.assertNotNull(single);
         Assert.assertEquals(single.length, 1);
 ```
@@ -3696,8 +3744,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
     @Test
-    public void testGetLongArrayCoverter() {
-        Long[] value = config.getConverter(Long[].class).get().convert("1234567890,1999999999");
+    public void testGetLocalDateArrayConverter() {
+        LocalDate[] value = config.getConverter(LocalDate[].class).get().convert("2017-12-24,2017-11-29");
         Assert.assertNotNull(value);
         Assert.assertEquals(value.length, 2);
 ```
@@ -3707,81 +3755,9 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
 #### Snippet
 ```java
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Long[]{1234567890L, 1999999999L});
-        Long[] single = config.getConverter(Long[].class).get().convert("1234567890");
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    public void testGetLocalDateTimeArrayConverter() {
-        LocalDateTime[] value =
-                config.getConverter(LocalDateTime[].class).get().convert("2017-12-24T10:25:30,2017-12-24T10:25:33");
-        Assert.assertNotNull(value);
-        Assert.assertEquals(value.length, 2);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-                LocalDateTime.parse("2017-12-24T10:25:30"),
-                LocalDateTime.parse("2017-12-24T10:25:33")});
-        LocalDateTime[] single = config.getConverter(LocalDateTime[].class).get().convert("2017-12-24T10:25:30");
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetIntArrayConverter() {
-        int[] value = config.getConverter(int[].class).get().convert("1234,9999");
-        Assert.assertNotNull(value);
-        Assert.assertEquals(value.length, 2);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Integer[]{1234, 9999});
-        int[] single = config.getConverter(int[].class).get().convert("1234");
-        Assert.assertNotNull(single);
-        Assert.assertEquals(single.length, 1);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-    @Test
-    public void testGetIntegerArrayConverter() {
-        Integer[] value = config.getConverter(Integer[].class).get().convert("1234,9999");
-        Assert.assertNotNull(value);
-        Assert.assertEquals(value.length, 2);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Integer[]{1234, 9999});
-        Integer[] single = config.getConverter(Integer[].class).get().convert("1234");
+                LocalDate.parse("2017-12-24"),
+                LocalDate.parse("2017-11-29")});
+        LocalDate[] single = config.getConverter(LocalDate[].class).get().convert("2017-12-24");
         Assert.assertNotNull(single);
         Assert.assertEquals(single.length, 1);
 ```
@@ -3816,8 +3792,8 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
     @Test
-    public void testGetFloatArrayConverter() {
-        Float[] value = config.getConverter(Float[].class).get().convert("12.34,99.99");
+    public void testGetIntArrayConverter() {
+        int[] value = config.getConverter(int[].class).get().convert("1234,9999");
         Assert.assertNotNull(value);
         Assert.assertEquals(value.length, 2);
 ```
@@ -3828,8 +3804,32 @@ in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.jav
 #### Snippet
 ```java
         Assert.assertEquals(value.length, 2);
-        Assert.assertEquals(value, new Float[]{12.34f, 99.99f});
-        Float[] single = config.getConverter(Float[].class).get().convert("12.34");
+        Assert.assertEquals(value, new Integer[]{1234, 9999});
+        int[] single = config.getConverter(int[].class).get().convert("1234");
+        Assert.assertNotNull(single);
+        Assert.assertEquals(single.length, 1);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+    @Test
+    public void testGetDoubleArrayConverter() {
+        Double[] value = config.getConverter(Double[].class).get().convert("12.34,99.9999");
+        Assert.assertNotNull(value);
+        Assert.assertEquals(value.length, 2);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `tck/src/main/java/org/eclipse/microprofile/config/tck/ArrayConverterTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(value.length, 2);
+        Assert.assertEquals(value, new Double[]{12.34d, 99.9999d});
+        Double[] single = config.getConverter(Double[].class).get().convert("12.34");
         Assert.assertNotNull(single);
         Assert.assertEquals(single.length, 1);
 ```
