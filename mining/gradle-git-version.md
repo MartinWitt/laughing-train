@@ -12,11 +12,11 @@ I found 23 bad smells with 3 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | DataFlowIssue | 1 | false |
 | NestedAssignment | 1 | false |
-| AbstractClassNeverImplemented | 1 | false |
 | BoundedWildcard | 1 | false |
+| AbstractClassNeverImplemented | 1 | false |
 | UnusedAssignment | 1 | false |
 | CodeBlock2Expr | 1 | true |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
@@ -29,7 +29,7 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
     VersionDetailsImpl(File gitDir, GitVersionArgs args) throws IOException {
 ```
 
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
@@ -42,7 +42,43 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
         });
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            log.debug("Cannot compute version details", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
+#### Snippet
+```java
+    public String describe(String prefix) {
+        if (!gitCommandExists()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
+#### Snippet
+```java
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git describe failed", e);
+            return null;
+        }
+    }
+```
+
 ### ReturnNull
 Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
@@ -72,8 +108,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
-        if (ref == null) {
+        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
+        if (objectId == null) {
             return null;
         }
 
@@ -84,8 +120,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
-        if (objectId == null) {
+        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
+        if (ref == null) {
             return null;
         }
 
@@ -117,30 +153,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
-#### Snippet
-```java
-    public String describe(String prefix) {
-        if (!gitCommandExists()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
-#### Snippet
-```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git describe failed", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
 #### Snippet
 ```java
@@ -151,19 +163,7 @@ in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
     }
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            log.debug("Cannot compute version details", e);
-            return null;
-        }
-    }
-```
-
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `versionDetails` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
@@ -188,7 +188,7 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
                 .getVersion();
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionArgs.java`
@@ -201,7 +201,7 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionArgs.java`
                 prefix,
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `getVersion` may produce `NullPointerException`
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
@@ -214,7 +214,7 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
     }
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
@@ -227,20 +227,7 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
             builder.append(System.getProperty("line.separator"));
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `GitVersionCacheService` has no concrete subclass
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public abstract class GitVersionCacheService implements BuildService<BuildServiceParameters.None> {
-
-    private static final Logger log = LoggerFactory.getLogger(GitVersionCacheService.class);
-```
-
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
@@ -253,7 +240,20 @@ in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
             ObjectId objectId,
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `GitVersionCacheService` has no concrete subclass
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public abstract class GitVersionCacheService implements BuildService<BuildServiceParameters.None> {
+
+    private static final Logger log = LoggerFactory.getLogger(GitVersionCacheService.class);
+```
+
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `line` initializer `null` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
@@ -266,7 +266,7 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
             builder.append(line);
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
+## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/gitversion/TimingVersionDetails.java`
@@ -279,7 +279,7 @@ in `src/main/java/com/palantir/gradle/gitversion/TimingVersionDetails.java`
                             return method.invoke(versionDetails, args);
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `!isTag2Annotated` is always `true` when reached
 in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
