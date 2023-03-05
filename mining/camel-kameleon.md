@@ -1,7 +1,7 @@
 # camel-kameleon 
  
 # Bad smells
-I found 23 bad smells with 3 repairable:
+I found 24 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | OptionalGetWithoutIsPresent | 5 | false |
@@ -13,10 +13,11 @@ I found 23 bad smells with 3 repairable:
 | DataFlowIssue | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
-| InnerClassMayBeStatic | 1 | true |
 | SamePackageImport | 1 | false |
 | Convert2MethodRef | 1 | false |
-## RuleId[ruleID=SystemOutErr]
+| HtmlWrongAttributeValue | 1 | false |
+| InnerClassMayBeStatic | 1 | true |
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/camel/kameleon/generator/RestDslGeneratorService.java`
@@ -41,7 +42,7 @@ in `src/main/java/org/apache/camel/kameleon/generator/RestDslGeneratorService.ja
         OasDocument document = (OasDocument) Library.readDocument(node);
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
@@ -54,7 +55,7 @@ in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.ja
                         List.of(e.getValue().getMetadata().getLabels().get("camel.apache.org/kamelet.type")),
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `inputStream` might be null
 in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
@@ -67,7 +68,7 @@ in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
                 ObjectMapper objectMapper = new ObjectMapper();
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;`
 in `src/main/java/org/apache/camel/kameleon/component/SpringBootComponentService.java`
@@ -80,7 +81,20 @@ import org.apache.camel.kameleon.model.CamelComponent;
 import org.apache.camel.springboot.catalog.SpringBootRuntimeProvider;
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
+## RuleId[id=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
+#### Snippet
+```java
+        KameletsCatalog catalog = new KameletsCatalog();
+        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
+                .map(e -> new KameletComponent(
+                        e.getValue().getMetadata().getName(),
+                        e.getValue().getSpec().getDefinition().getTitle(),
+```
+
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
@@ -117,33 +131,7 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
     }
 ```
 
-## RuleId[ruleID=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
-#### Snippet
-```java
-        KameletsCatalog catalog = new KameletsCatalog();
-        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
-                .map(e -> new KameletComponent(
-                        e.getValue().getMetadata().getName(),
-                        e.getValue().getSpec().getDefinition().getTitle(),
-```
-
-## RuleId[ruleID=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `WarmupRequest` may be 'static'
-in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
-#### Snippet
-```java
-    }
-
-    public class WarmupRequest {
-        public String type;
-        public String version;
-```
-
-## RuleId[ruleID=SamePackageImport]
+## RuleId[id=SamePackageImport]
 ### SamePackageImport
 Unnecessary import from the same package `import org.apache.camel.kameleon.model.CamelType;`
 in `src/main/java/org/apache/camel/kameleon/model/KameleonConfiguration.java`
@@ -156,19 +144,7 @@ import org.apache.camel.kameleon.model.CamelType;
 public class KameleonConfiguration {
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
-#### Snippet
-```java
-    }
-
-    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
-        this.name = name;
-        this.title = title;
-```
-
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
@@ -181,7 +157,58 @@ in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
+#### Snippet
+```java
+    }
+
+    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
+        this.name = name;
+        this.title = title;
+```
+
+## RuleId[id=Convert2MethodRef]
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
+#### Snippet
+```java
+        try {
+            JsonArray componentArray = componentResource.components(type, version);
+            List<String> componentList = componentArray.stream().map(o -> o.toString()).collect(Collectors.toList());
+            String components = componentList.stream().limit(5).collect(Collectors.joining(","));
+            projectGeneratorService.generate(type, version, "org.apache.camel.kameleon", "demo", "0.0.1", javaVersion, components);
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-05-02-06-34.333.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[id=InnerClassMayBeStatic]
+### InnerClassMayBeStatic
+Inner class `WarmupRequest` may be 'static'
+in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
+#### Snippet
+```java
+    }
+
+    public class WarmupRequest {
+        public String type;
+        public String version;
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
@@ -192,30 +219,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
         Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
         Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
         if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-            }
-        } else {
-            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
-            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
-            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-        } else {
-            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
-            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
-            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
-            String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -242,20 +245,31 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
         Properties properties = new Properties();
 ```
 
-## RuleId[ruleID=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-        try {
-            JsonArray componentArray = componentResource.components(type, version);
-            List<String> componentList = componentArray.stream().map(o -> o.toString()).collect(Collectors.toList());
-            String components = componentList.stream().limit(5).collect(Collectors.joining(","));
-            projectGeneratorService.generate(type, version, "org.apache.camel.kameleon", "demo", "0.0.1", javaVersion, components);
+            }
+        } else {
+            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
+            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
+            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
 ```
 
-## RuleId[ruleID=ComparatorResultComparison]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+        } else {
+            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
+            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
+            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
+            String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
+```
+
+## RuleId[id=ComparatorResultComparison]
 ### ComparatorResultComparison
 Comparison of compare method result with specific constant
 in `src/main/java/org/apache/camel/kameleon/component/ClassicComponentService.java`
