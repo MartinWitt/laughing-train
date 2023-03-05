@@ -5,7 +5,7 @@ I found 6 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 6 | false |
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/com/palantir/ri/ResourceIdentifier.java`
