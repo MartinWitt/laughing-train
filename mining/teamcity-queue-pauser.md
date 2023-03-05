@@ -8,7 +8,7 @@ I found 6 bad smells with 1 repairable:
 | RedundantFieldInitialization | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | DoubleBraceInitialization | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `server/src/jetbrains/buildServer/queueManager/server/FreeSpaceQueuePauser.java`
@@ -21,7 +21,7 @@ in `server/src/jetbrains/buildServer/queueManager/server/FreeSpaceQueuePauser.ja
   public FreeSpaceQueuePauser(@NotNull final EventDispatcher<BuildServerListener> dispatcher,
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `server/src/jetbrains/buildServer/queueManager/server/QueueStateController.java`
@@ -58,7 +58,7 @@ in `server/src/jetbrains/buildServer/queueManager/server/QueuePausePrecondition.
 }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `MessageViewer` has only 'static' members, and lacks a 'private' constructor
 in `server/src/jetbrains/buildServer/queueManager/server/MessageViewer.java`
@@ -71,7 +71,7 @@ public class MessageViewer {
   private static final Map<Actor, String> DEFAULT_MESSAGES = new HashMap<Actor, String>() {{
 ```
 
-## RuleId[ruleID=DoubleBraceInitialization]
+## RuleId[id=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
 in `server/src/jetbrains/buildServer/queueManager/server/MessageViewer.java`
