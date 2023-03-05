@@ -8,7 +8,7 @@ I found 14 bad smells with 0 repairable:
 | MethodOverridesStaticMethod | 4 | false |
 | OptionalUsedAsFieldOrParameterType | 3 | false |
 | SimplifyOptionalCallChains | 3 | false |
-## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for parameter 'major'
 in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
@@ -45,7 +45,7 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
 
 ```
 
-## RuleId[ruleID=SimplifyOptionalCallChains]
+## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
 in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
@@ -82,7 +82,7 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
             log.info(
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `OrderableSlsVersion` has no concrete subclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
@@ -93,18 +93,6 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.jav
 public abstract class OrderableSlsVersion extends SlsVersion implements Comparable<OrderableSlsVersion> {
 
     private static final SlsVersionType[] ORDERED_VERSION_TYPES = {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SlsVersion` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersion.java`
-#### Snippet
-```java
-import org.immutables.value.Value;
-
-public abstract class SlsVersion implements Serializable {
-
-    @JsonCreator
 ```
 
 ### AbstractClassNeverImplemented
@@ -120,6 +108,18 @@ public abstract class SlsVersionMatcher {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `SlsVersion` has no concrete subclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersion.java`
+#### Snippet
+```java
+import org.immutables.value.Value;
+
+public abstract class SlsVersion implements Serializable {
+
+    @JsonCreator
+```
+
+### AbstractClassNeverImplemented
 Abstract class `NonOrderableSlsVersion` has no concrete subclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
 #### Snippet
@@ -131,19 +131,7 @@ public abstract class NonOrderableSlsVersion extends SlsVersion {
     @JsonCreator
 ```
 
-## RuleId[ruleID=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `valueOf()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
-#### Snippet
-```java
-
-    @JsonCreator
-    public static OrderableSlsVersion valueOf(String value) {
-        Optional<OrderableSlsVersion> optional = safeValueOf(value);
-        checkArgument(optional.isPresent(), "Not an orderable version: {value}", UnsafeArg.of("value", value));
-```
-
+## RuleId[id=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
 Method `check()` tries to override a static method of a superclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
@@ -154,6 +142,18 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.jav
     public static boolean check(String coordinate) {
         return safeValueOf(coordinate).isPresent();
     }
+```
+
+### MethodOverridesStaticMethod
+Method `valueOf()` tries to override a static method of a superclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
+#### Snippet
+```java
+
+    @JsonCreator
+    public static OrderableSlsVersion valueOf(String value) {
+        Optional<OrderableSlsVersion> optional = safeValueOf(value);
+        checkArgument(optional.isPresent(), "Not an orderable version: {value}", UnsafeArg.of("value", value));
 ```
 
 ### MethodOverridesStaticMethod
