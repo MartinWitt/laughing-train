@@ -14,7 +14,7 @@ I found 30 bad smells with 4 repairable:
 | BoundedWildcard | 1 | false |
 | CodeBlock2Expr | 1 | true |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
@@ -27,7 +27,7 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
     public TermsOfServiceManagerImpl(@NotNull TermsOfServiceConfig config,
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/AcceptTermsOfServiceController.java`
@@ -40,7 +40,7 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Acc
 
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `TermsOfServiceLogger` has only 'static' members, and lacks a 'private' constructor
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceLogger.java`
@@ -53,7 +53,7 @@ public class TermsOfServiceLogger {
 }
 ```
 
-## RuleId[ruleID=StaticCallOnSubclass]
+## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
 Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceConfig.java`
@@ -64,6 +64,18 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
         FileUtil.createParentDirs(mySettingsFile);
         FileUtil.copyResourceWithDist(getClass(), "/configDist/" + mySettingsFile.getName(), new File(myConfigDir, mySettingsFile.getName()));
         FileUtil.copyResourceWithDist(getClass(), "/configDist/agreement.html", new File(myConfigDir, "agreement.html"));
+```
+
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getFullName() {
+            return StringUtil.notNullize(params.get("full-name"), "Terms of Service");
+        }
+
 ```
 
 ### StaticCallOnSubclass
@@ -115,42 +127,6 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 ```
 
 ### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getNewVersionNote() {
-            return StringUtil.notNullize(params.get("new-version-note"),
-                    "We've updated the " + getShortName() + " agreement. " +
-                    "Review the terms and click \"I agree\" when you're ready to continue using TeamCity.");
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-            String url = ((Element) agreementEl).getAttributeValue("url");
-
-            if (StringUtil.isEmptyOrSpaces(text)) {
-                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement text, the agreement is ignored.");
-                continue;
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-            }
-
-            if (StringUtil.isEmptyOrSpaces(url)) {
-                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement url, the agreement is ignored.");
-                continue;
-```
-
-### StaticCallOnSubclass
 Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
@@ -160,54 +136,6 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
             msg += myAgreements.size() + " " + StringUtil.pluralize("agreement", myAgreements.size())+ " loaded";
         } else {
             msg += "no agreements were loaded";
-```
-
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            return "Agreement " + StringUtil.notNullize(params.get("short-name"), "Terms of Service") + " (id = " + id + ")";
-        }
-
-```
-
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getNewUserNote() {
-            return StringUtil.notNullize(params.get("new-user-note"),
-                    "You have to accept the " + getShortName() + " agreement before you can continue to use TeamCity. " +
-                    "Review the terms and click \"I agree\" when you're ready to proceed.");
-```
-
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getShortName() {
-            return StringUtil.notNullize(params.get("short-name"), "Terms of Service");
-        }
-
-```
-
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getFullName() {
-            return StringUtil.notNullize(params.get("full-name"), "Terms of Service");
-        }
-
 ```
 
 ### StaticCallOnSubclass
@@ -246,7 +174,79 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
                 } catch (IOException e) {
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getNewVersionNote() {
+            return StringUtil.notNullize(params.get("new-version-note"),
+                    "We've updated the " + getShortName() + " agreement. " +
+                    "Review the terms and click \"I agree\" when you're ready to continue using TeamCity.");
+```
+
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            return "Agreement " + StringUtil.notNullize(params.get("short-name"), "Terms of Service") + " (id = " + id + ")";
+        }
+
+```
+
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getShortName() {
+            return StringUtil.notNullize(params.get("short-name"), "Terms of Service");
+        }
+
+```
+
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getNewUserNote() {
+            return StringUtil.notNullize(params.get("new-user-note"),
+                    "You have to accept the " + getShortName() + " agreement before you can continue to use TeamCity. " +
+                    "Review the terms and click \"I agree\" when you're ready to proceed.");
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+            String url = ((Element) agreementEl).getAttributeValue("url");
+
+            if (StringUtil.isEmptyOrSpaces(text)) {
+                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement text, the agreement is ignored.");
+                continue;
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+            }
+
+            if (StringUtil.isEmptyOrSpaces(url)) {
+                TermsOfServiceLogger.LOGGER.warn("Broken configuration: missing external agreement url, the agreement is ignored.");
+                continue;
+```
+
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `myGuestNotice` might be null
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
@@ -271,7 +271,7 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
             }
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import jetbrains.buildServer.controllers.login.RememberUrl;`
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/AcceptTermsOfServiceController.java`
@@ -320,7 +320,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 ```
 
-## RuleId[ruleID=InnerClassMayBeStatic]
+## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `GuestNoticeSettings` may be 'static'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
@@ -345,7 +345,7 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
         private final String url;
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super Element`
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceConfig.java`
@@ -358,7 +358,7 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
     }
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
+## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceUserProfileExtension.java`
@@ -371,7 +371,7 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
         });
 ```
 
-## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `onChangeListener` is accessed in both synchronized and unsynchronized contexts
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceConfig.java`
