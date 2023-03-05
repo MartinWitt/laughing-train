@@ -45,6 +45,18 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
+#### Snippet
+```java
+            return identity.getWhen().toInstant();
+        } catch (IOException | RuntimeException ignored) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
 ```java
@@ -81,14 +93,14 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-            return identity.getWhen().toInstant();
-        } catch (IOException | RuntimeException ignored) {
+        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
+        if (objectId == null) {
             return null;
         }
-    }
+
 ```
 
 ### ReturnNull
@@ -98,18 +110,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 ```java
         if (isRepoEmpty()) {
             log.debug("Repository is empty");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
-        if (objectId == null) {
             return null;
         }
 
@@ -132,10 +132,10 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        String gitHashFull = getGitHashFull();
-        if (gitHashFull == null) {
-            return null;
-        }
+
+        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
+        return match.matches() ? match.group(1) : null;
+    }
 
 ```
 
@@ -144,10 +144,10 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-
-        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
-    }
+        String gitHashFull = getGitHashFull();
+        if (gitHashFull == null) {
+            return null;
+        }
 
 ```
 
