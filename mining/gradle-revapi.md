@@ -17,7 +17,7 @@ I found 26 bad smells with 3 repairable:
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/com/palantir/gradle/revapi/CheckWhitelist.java`
@@ -30,7 +30,7 @@ in `src/main/java/com/palantir/gradle/revapi/CheckWhitelist.java`
 
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/com/palantir/gradle/revapi/GitVersionUtils.java`
@@ -43,7 +43,7 @@ in `src/main/java/com/palantir/gradle/revapi/GitVersionUtils.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `parentDoesNotExist` is redundant
 in `src/main/java/com/palantir/gradle/revapi/GitVersionUtils.java`
@@ -56,7 +56,7 @@ in `src/main/java/com/palantir/gradle/revapi/GitVersionUtils.java`
     }
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
@@ -129,7 +129,7 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
                 jarsToReportBreaks.getFiles().stream().map(File::getName).collect(Collectors.joining("\", \""))));
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
+## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
@@ -142,7 +142,7 @@ in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
                         T value = delegate.get();
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `dependsOn` may produce `NullPointerException`
 in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
@@ -155,7 +155,7 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
         project.getTasks().register(ACCEPT_ALL_BREAKS_TASK_NAME, RevapiAcceptAllBreaksTask.class, task -> {
 ```
 
-## RuleId[ruleID=InfiniteRecursion]
+## RuleId[id=InfiniteRecursion]
 ### InfiniteRecursion
 Method `justification()` recurses infinitely, and can only end by throwing an exception
 in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
@@ -168,7 +168,7 @@ in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
             return this;
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends FileCollection`
 in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
@@ -217,7 +217,7 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
         return GradleUtils.memoisedProvider(
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `AnalysisResult` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/AnalysisResult.java`
@@ -231,18 +231,6 @@ public abstract class AnalysisResult {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AnalysisResults` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/AnalysisResults.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutableAnalysisResults.class)
-public abstract class AnalysisResults {
-    private static final ObjectMapper OBJECT_MAPPER =
-            new ObjectMapper().enable(JsonReadFeature.ALLOW_TRAILING_COMMA.mappedFeature());
-```
-
-### AbstractClassNeverImplemented
 Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
 #### Snippet
@@ -252,6 +240,18 @@ in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.jav
 abstract class PerProjectAcceptedBreaks {
     @JsonValue
     @Value.NaturalOrder
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AnalysisResults` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/AnalysisResults.java`
+#### Snippet
+```java
+@ImmutableStyle
+@JsonDeserialize(as = ImmutableAnalysisResults.class)
+public abstract class AnalysisResults {
+    private static final ObjectMapper OBJECT_MAPPER =
+            new ObjectMapper().enable(JsonReadFeature.ALLOW_TRAILING_COMMA.mappedFeature());
 ```
 
 ### AbstractClassNeverImplemented
@@ -278,7 +278,7 @@ public abstract class GradleRevapiConfig {
     protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
 ```
 
-## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
 in `src/main/java/com/palantir/gradle/revapi/PreviousVersionResolutionHelpers.java`
@@ -291,7 +291,7 @@ in `src/main/java/com/palantir/gradle/revapi/PreviousVersionResolutionHelpers.ja
         }
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
+## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
@@ -316,7 +316,7 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
         });
 ```
 
-## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `savedValue` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
@@ -329,7 +329,7 @@ in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
         MemoizingSupplier(Supplier<T> delegate) {
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `src/main/java/com/palantir/gradle/revapi/ConfigManager.java`
