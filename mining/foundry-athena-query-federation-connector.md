@@ -9,7 +9,7 @@ I found 7 bad smells with 0 repairable:
 | ReturnNull | 1 | false |
 | AbstractClassNeverImplemented | 1 | false |
 | BoundedWildcard | 1 | false |
-## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for parameter 'maxNumStreamingRetries'
 in `foundry-athena-query-federation-connector/src/main/java/com/palantir/foundry/athena/connector/FoundryAthenaClients.java`
@@ -22,7 +22,7 @@ in `foundry-athena-query-federation-connector/src/main/java/com/palantir/foundry
                         .from(ServicesConfigBlockDefaults.INSTANCE)
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `foundry-athena-query-federation-connector/src/main/java/com/palantir/foundry/athena/connector/S3Spiller.java`
@@ -35,7 +35,7 @@ in `foundry-athena-query-federation-connector/src/main/java/com/palantir/foundry
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.joda.time` is unnecessary, and can be replaced with an import
 in `foundry-athena-query-federation-connector/src/main/java/com/palantir/foundry/athena/connector/FilterValueConverter.java`
@@ -72,7 +72,7 @@ in `foundry-athena-query-federation-connector/src/main/java/com/palantir/foundry
         } else if (value instanceof LocalDate) {
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `FoundryAthenaObjectMapper` has no concrete subclass
 in `foundry-athena-query-federation-connector/src/main/java/com/palantir/foundry/athena/connector/FoundryAthenaObjectMapper.java`
@@ -85,7 +85,7 @@ abstract class FoundryAthenaObjectMapper {
     private static final ObjectMapper OBJECT_MAPPER = ObjectMappers.newClientObjectMapper();
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
 in `foundry-athena-query-federation-connector/src/main/java/com/palantir/foundry/athena/connector/FoundryAuthProvider.java`
