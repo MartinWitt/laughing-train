@@ -5,7 +5,7 @@ I found 2 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | GroovyUnusedAssignment | 2 | false |
-## RuleId[ruleID=GroovyUnusedAssignment]
+## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
 in `Minecraft/build.gradle`
