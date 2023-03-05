@@ -10,10 +10,10 @@ I found 9 bad smells with 1 repairable:
 | ExceptionNameDoesntEndWithException | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | ConstantValue | 1 | false |
-## RuleId[ruleID=HtmlWrongAttributeValue]
+## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-28-16-08-07.982.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-05-03-06-05.605.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -23,7 +23,7 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-28-16-08-07.982.
           </tbody>
 ```
 
-## RuleId[ruleID=ExceptionNameDoesntEndWithException]
+## RuleId[id=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
 Exception class name `NoInsertionFound` does not end with 'Exception'
 in `src/main/java/fil/iagl/opl/cocospoon/insert/NoInsertionFound.java`
@@ -36,7 +36,7 @@ public class NoInsertionFound extends Exception {
 }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `_Instrumenting` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/instrumenting/_Instrumenting.java`
@@ -49,7 +49,7 @@ public class _Instrumenting {
   public static String CURRENT_DIR;
 ```
 
-## RuleId[ruleID=NonShortCircuitBoolean]
+## RuleId[id=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `isInsideForInit &= !statement.getElements(new ContainsSameElementFilter(candidate)).isEmpty()`
 in `src/main/java/fil/iagl/opl/cocospoon/processors/WatcherProcessor.java`
@@ -74,7 +74,7 @@ in `src/main/java/fil/iagl/opl/cocospoon/processors/WatcherProcessor.java`
 					break;
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import java.io.File;`
 in `src/main/java/instrumenting/_Instrumenting.java`
@@ -111,7 +111,7 @@ import java.util.HashMap;
 import java.util.Map;
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `isInsideWhileExpression` is always `false`
 in `src/main/java/fil/iagl/opl/cocospoon/processors/WatcherProcessor.java`
