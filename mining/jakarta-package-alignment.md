@@ -6,7 +6,7 @@ I found 3 bad smells with 1 repairable:
 | --- | --- | --- |
 | BoundedWildcard | 2 | false |
 | CodeBlock2Expr | 1 | true |
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
 in `jakarta-package-alignment-mappings/src/main/java/com/palantir/gradle/jakartapackagealignment/VersionMappings.java`
@@ -31,7 +31,7 @@ in `jakarta-package-alignment-mappings/src/main/java/com/palantir/gradle/jakarta
             throw new IllegalArgumentException("duplicate key: " + key);
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
+## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `jakarta-package-alignment/src/main/java/com/palantir/gradle/jakartapackagealignment/JakartaPackageAlignmentPlugin.java`
