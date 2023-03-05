@@ -5,7 +5,7 @@ I found 1 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | GroovyUnusedAssignment | 1 | false |
-## RuleId[ruleID=GroovyUnusedAssignment]
+## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
 in `server/build.gradle`
