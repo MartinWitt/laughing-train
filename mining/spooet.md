@@ -13,7 +13,19 @@ I found 16 bad smells with 3 repairable:
 | ThrowablePrintStackTrace | 1 | false |
 | ConstantValue | 1 | false |
 | MethodOverridesStaticMethod | 1 | false |
-## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
+in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
+#### Snippet
+```java
+		}
+
+		return result.toArray(new Modifier[result.size()]);
+	}
+
+```
+
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new TypeName\[bounds.size()\]'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
@@ -38,19 +50,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 		throw new UnsupportedOperationException();
 ```
 
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
-in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
-#### Snippet
-```java
-		}
-
-		return result.toArray(new Modifier[result.size()]);
-	}
-
-```
-
-## RuleId[ruleID=RedundantImplements]
+## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `CtVisitor`
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
@@ -63,16 +63,16 @@ public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, Prett
 	private Stack<Context> contexts = new Stack<>();
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
 #### Snippet
 ```java
-	@Override
-	public Map<Integer, Integer> getLineNumberMapping() {
-		return null;
-	}
+	public String toString() {
+		if (type == null) {
+			return null;
+		}
 
 ```
 
@@ -102,29 +102,17 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
-#### Snippet
-```java
-	public String toString() {
-		if (type == null) {
-			return null;
-		}
-
-```
-
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
-		String result = "null";
-		if (defaultExpression !=null) {
-			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
-		}
-		field.initializer(result);
+	@Override
+	public Map<Integer, Integer> getLineNumberMapping() {
+		return null;
+	}
+
 ```
 
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
@@ -137,7 +125,19 @@ in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
 
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+		String result = "null";
+		if (defaultExpression !=null) {
+			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
+		}
+		field.initializer(result);
+```
+
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import spoon.reflect.visitor.DefaultJavaPrettyPrinter;`
 in `src/main/java/spoon/PoetLauncher.java`
@@ -150,7 +150,7 @@ import spoon.reflect.visitor.JavaPoetPrettyPrinter;
 import spoon.reflect.visitor.PrettyPrinter;
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
@@ -163,7 +163,7 @@ in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
 		return writer.toString();
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `bounds.isEmpty()` is always `false`
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
@@ -176,7 +176,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 				}
 ```
 
-## RuleId[ruleID=MethodOverridesStaticMethod]
+## RuleId[id=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
 Method `main()` tries to override a static method of a superclass
 in `src/main/java/spoon/PoetLauncher.java`
@@ -189,7 +189,7 @@ public class PoetLauncher extends Launcher {
 		launcher.setArgs(args);
 ```
 
-## RuleId[ruleID=ObsoleteCollection]
+## RuleId[id=ObsoleteCollection]
 ### ObsoleteCollection
 Obsolete collection type `Stack` used
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
