@@ -17,7 +17,7 @@ I found 26 bad smells with 7 repairable:
 | ZeroLengthArrayInitialization | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | ConstantValue | 1 | false |
-## RuleId[ruleID=EmptyMethod]
+## RuleId[id=EmptyMethod]
 ### EmptyMethod
 The method is empty
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
@@ -30,7 +30,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
   }
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
@@ -43,7 +43,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
   private int myErrorsCount, myWarningsCount;
 ```
 
-## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[split.size()\]'
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
@@ -56,7 +56,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
 
 ```
 
-## RuleId[ruleID=CharsetObjectCanBeUsed]
+## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
@@ -69,7 +69,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
     try {
 ```
 
-## RuleId[ruleID=RegExpSimplifiable]
+## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[\\d]` can be simplified to '\\d'
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopVisualStudioSearch.java`
@@ -82,7 +82,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopVisualStudioSearch.ja
   @NotNull
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `files.size() == 0` can be replaced with 'files.isEmpty()'
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
@@ -119,7 +119,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
         } else {
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `ArtifactsUtil` has only 'static' members, and lacks a 'private' constructor
 in `fxcop-common/src/jetbrains/buildServer/fxcop/common/ArtifactsUtil.java`
@@ -144,7 +144,31 @@ public class FxCopRequirementsUtil {
   public static List<Requirement> getFxCopRequirements(final Map<String, String> runParameters) {
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+      case MEMBER:
+      case ACCESSOR:
+        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
+      default:
+        return "_unknown_/_unknown_";
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+        }
+
+        reportPath = reportPath.replace('/', '|').replace("\\", "|");
+        if (reportPath.startsWith("|")) {
+          reportPath = reportPath.substring(1);
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
@@ -181,31 +205,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-        }
-
-        reportPath = reportPath.replace('/', '|').replace("\\", "|");
-        if (reportPath.startsWith("|")) {
-          reportPath = reportPath.substring(1);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-      case MEMBER:
-      case ACCESSOR:
-        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
-      default:
-        return "_unknown_/_unknown_";
-```
-
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
@@ -218,7 +218,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
 }
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
@@ -231,7 +231,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
         // Java 9
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
 in `fxcop-server/src/jetbrains/buildServer/fxcop/server/FxCopRunTypePropertiesProcessor.java`
@@ -256,7 +256,7 @@ in `fxcop-server/src/jetbrains/buildServer/fxcop/server/FxCopRunTypePropertiesPr
       properties.put(key, myDefaultParameters.get(key));
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `fxcopBinary == null` is always `false`
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopRegistrySearch.java`
@@ -269,7 +269,7 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopRegistrySearch.java`
       return Collections.emptyList();
 ```
 
-## RuleId[ruleID=ObsoleteCollection]
+## RuleId[id=ObsoleteCollection]
 ### ObsoleteCollection
 Obsolete collection type `Vector` used
 in `fxcop-server/src/jetbrains/buildServer/fxcop/server/FxCopRunTypePropertiesProcessor.java`
