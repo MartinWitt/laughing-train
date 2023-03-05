@@ -10,7 +10,7 @@ I found 23 bad smells with 1 repairable:
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | UnnecessarySemicolon | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
@@ -203,7 +203,7 @@ in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/cl
                             result3.getDataProductId(), result3.getMetadataSchemasList()));
 ```
 
-## RuleId[ruleID=DefaultAnnotationParam]
+## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/DataProductEntity.java`
@@ -228,7 +228,7 @@ in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mo
 
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
@@ -253,7 +253,7 @@ in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/cl
             throw e;
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `DataCatalogApiServiceApplication` has only 'static' members, and lacks a 'private' constructor
 in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/DataCatalogApiServiceApplication.java`
@@ -266,7 +266,7 @@ public class DataCatalogApiServiceApplication {
     public static void main(String[] args) {
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
+## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
@@ -279,7 +279,7 @@ import io.grpc.StatusRuntimeException;;
 public class DataCatalogAPIClient {
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.airavata.datacatalog.api.model` is unnecessary and can be removed
 in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
