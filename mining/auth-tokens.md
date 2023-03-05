@@ -9,31 +9,7 @@ I found 15 bad smells with 0 repairable:
 | AbstractClassNeverImplemented | 3 | false |
 | OptionalIsPresent | 2 | false |
 | BoundedWildcard | 2 | false |
-## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parsedJwt'
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
-#### Snippet
-```java
-    /** Writes to both the MDC and ContainerRequestContext. */
-    static void recordUnverifiedJwt(
-            ContainerRequestContext requestContext, Optional<UnverifiedJsonWebToken> parsedJwt) {
-        if (parsedJwt.isPresent()) {
-            UnverifiedJsonWebToken jwt = parsedJwt.get();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
-#### Snippet
-```java
-    }
-
-    private static void setUnverifiedContext(ContainerRequestContext requestContext, Key key, Optional<String> value) {
-        if (value.isPresent()) {
-            setUnverifiedContext(requestContext, key, value.get());
-```
-
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'parsedJwt'
 in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
@@ -58,19 +34,31 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utili
             setUnverifiedContext(requestContext, key, value.get());
 ```
 
-## RuleId[ruleID=OptionalIsPresent]
-### OptionalIsPresent
-Can be replaced with single expression in functional style
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parsedJwt'
 in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
 #### Snippet
 ```java
+    /** Writes to both the MDC and ContainerRequestContext. */
+    static void recordUnverifiedJwt(
+            ContainerRequestContext requestContext, Optional<UnverifiedJsonWebToken> parsedJwt) {
+        if (parsedJwt.isPresent()) {
+            UnverifiedJsonWebToken jwt = parsedJwt.get();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+#### Snippet
+```java
+    }
 
     private static void setUnverifiedContext(ContainerRequestContext requestContext, Key key, Optional<String> value) {
         if (value.isPresent()) {
             setUnverifiedContext(requestContext, key, value.get());
-        }
 ```
 
+## RuleId[id=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
 in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
@@ -83,19 +71,19 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utili
         }
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends UnverifiedJsonWebToken`
+### OptionalIsPresent
+Can be replaced with single expression in functional style
 in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
 #### Snippet
 ```java
-    /** Writes to both the MDC and ContainerRequestContext. */
-    static void recordUnverifiedJwt(
-            ContainerRequestContext requestContext, Optional<UnverifiedJsonWebToken> parsedJwt) {
-        if (parsedJwt.isPresent()) {
-            UnverifiedJsonWebToken jwt = parsedJwt.get();
+
+    private static void setUnverifiedContext(ContainerRequestContext requestContext, Key key, Optional<String> value) {
+        if (value.isPresent()) {
+            setUnverifiedContext(requestContext, key, value.get());
+        }
 ```
 
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends UnverifiedJsonWebToken`
 in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
@@ -108,7 +96,31 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utili
             UnverifiedJsonWebToken jwt = parsedJwt.get();
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+### BoundedWildcard
+Can generalize to `? extends UnverifiedJsonWebToken`
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+#### Snippet
+```java
+    /** Writes to both the MDC and ContainerRequestContext. */
+    static void recordUnverifiedJwt(
+            ContainerRequestContext requestContext, Optional<UnverifiedJsonWebToken> parsedJwt) {
+        if (parsedJwt.isPresent()) {
+            UnverifiedJsonWebToken jwt = parsedJwt.get();
+```
+
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `AuthHeader` has no concrete subclass
+in `auth-tokens/src/main/java/com/palantir/tokens/auth/AuthHeader.java`
+#### Snippet
+```java
+// NOTE: no @JsonSerialize/@JsonDeserialize because auth headers are for use in @HeaderParam
+// see: https://jersey.java.net/apidocs/latest/jersey/javax/ws/rs/HeaderParam.html
+public abstract class AuthHeader {
+
+    @Value.Parameter
+```
+
 ### AbstractClassNeverImplemented
 Abstract class `BearerToken` has no concrete subclass
 in `auth-tokens/src/main/java/com/palantir/tokens/auth/BearerToken.java`
@@ -133,22 +145,10 @@ public abstract class UnverifiedJsonWebToken {
     private static final ObjectReader READER = new ObjectMapper()
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `AuthHeader` has no concrete subclass
-in `auth-tokens/src/main/java/com/palantir/tokens/auth/AuthHeader.java`
-#### Snippet
-```java
-// NOTE: no @JsonSerialize/@JsonDeserialize because auth headers are for use in @HeaderParam
-// see: https://jersey.java.net/apidocs/latest/jersey/javax/ws/rs/HeaderParam.html
-public abstract class AuthHeader {
-
-    @Value.Parameter
-```
-
-## RuleId[ruleID=OptionalContainsCollection]
+## RuleId[id=OptionalContainsCollection]
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BearerTokenLoggingFeature.java`
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BearerTokenLoggingFeature.java`
 #### Snippet
 ```java
                 .collect(Collectors.toList());
@@ -160,7 +160,7 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Beare
 
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BearerTokenLoggingFeature.java`
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BearerTokenLoggingFeature.java`
 #### Snippet
 ```java
         }
@@ -172,7 +172,7 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Beare
 
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BearerTokenLoggingFeature.java`
+in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BearerTokenLoggingFeature.java`
 #### Snippet
 ```java
                 .collect(Collectors.toList());
@@ -184,7 +184,7 @@ in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BearerTokenLo
 
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BearerTokenLoggingFeature.java`
+in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BearerTokenLoggingFeature.java`
 #### Snippet
 ```java
         }
