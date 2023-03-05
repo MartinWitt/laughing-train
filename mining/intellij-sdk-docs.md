@@ -30,19 +30,7 @@ I found 94 bad smells with 24 repairable:
 | AssignmentToMethodParameter | 1 | false |
 | RedundantImplements | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
-## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new FoldingDescriptor\[descriptors.size()\]'
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
-#### Snippet
-```java
-      }
-    }
-    return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
-  }
-
-```
-
+## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new ResolveResult\[results.size()\]'
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleReference.java`
@@ -55,7 +43,19 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 
 ```
 
-## RuleId[ruleID=MarkedForRemoval]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new FoldingDescriptor\[descriptors.size()\]'
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
+#### Snippet
+```java
+      }
+    }
+    return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
+  }
+
+```
+
+## RuleId[id=MarkedForRemoval]
 ### MarkedForRemoval
 'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
 in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
@@ -93,18 +93,6 @@ import org.jetbrains.annotations.NotNull;
 ```
 
 ### MarkedForRemoval
-'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
-in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
-#### Snippet
-```java
-  //  Legacy code, awaiting refactoring of AbstractProjectViewPSIPane#createBuilder
-  @Override
-  protected BaseProjectTreeBuilder createBuilder(@NotNull DefaultTreeModel treeModel) {
-    return null;
-  }
-```
-
-### MarkedForRemoval
 'com.intellij.ide.util.treeView.AbstractTreeUpdater' is deprecated and marked for removal
 in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
 #### Snippet
@@ -128,7 +116,19 @@ in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/Imag
   }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### MarkedForRemoval
+'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
+in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
+#### Snippet
+```java
+  //  Legacy code, awaiting refactoring of AbstractProjectViewPSIPane#createBuilder
+  @Override
+  protected BaseProjectTreeBuilder createBuilder(@NotNull DefaultTreeModel treeModel) {
+    return null;
+  }
+```
+
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `SdkIcons` has only 'static' members, and lacks a 'private' constructor
 in `code_samples/module/src/main/java/icons/SdkIcons.java`
@@ -261,7 +261,7 @@ public class SimplePsiImplUtil {
   public static String getKey(SimpleProperty element) {
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `getClass().getResource("/toolWindow/Calendar-icon.png")` might be null
 in `code_samples/tool_window/src/main/java/org/intellij/sdk/toolWindow/MyToolWindow.java`
@@ -344,6 +344,30 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
       FileEditorManager.getInstance(project).getSelectedTextEditor().getCaretModel().moveCaretRelatively(2, 0, false, false, false);
     });
   }
+```
+
+### DataFlowIssue
+Method invocation `replace` may produce `NullPointerException`
+in `code_samples/comparing_string_references_inspection/src/main/java/org/intellij/sdk/codeInspection/ComparingStringReferencesInspection.java`
+#### Snippet
+```java
+              (PsiMethodCallExpression) factory.createExpressionFromText("a.equals(b)", null);
+
+      equalsCall.getMethodExpression().getQualifierExpression().replace(lExpr);
+      equalsCall.getArgumentList().getExpressions()[0].replace(rExpr);
+
+```
+
+### DataFlowIssue
+Method invocation `replace` may produce `NullPointerException`
+in `code_samples/comparing_string_references_inspection/src/main/java/org/intellij/sdk/codeInspection/ComparingStringReferencesInspection.java`
+#### Snippet
+```java
+      if (opSign == JavaTokenType.NE) {
+        PsiPrefixExpression negation = (PsiPrefixExpression) factory.createExpressionFromText("!a", null);
+        negation.getOperand().replace(result);
+        result.replace(negation);
+      }
 ```
 
 ### DataFlowIssue
@@ -454,31 +478,19 @@ in `code_samples/conditional_operator_intention/src/main/java/org/intellij/sdk/i
     // Replace the entire original statement with the new IF
 ```
 
-### DataFlowIssue
-Method invocation `replace` may produce `NullPointerException`
-in `code_samples/comparing_string_references_inspection/src/main/java/org/intellij/sdk/codeInspection/ComparingStringReferencesInspection.java`
+## RuleId[id=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_CMAP_A`
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
 ```java
-              (PsiMethodCallExpression) factory.createExpressionFromText("a.equals(b)", null);
 
-      equalsCall.getMethodExpression().getQualifierExpression().replace(lExpr);
-      equalsCall.getArgumentList().getExpressions()[0].replace(rExpr);
-
+  /* The ZZ_CMAP_A table has 320 entries */
+  static final char ZZ_CMAP_A[] = zzUnpackCMap(
+    "\11\0\1\4\1\2\1\1\1\5\1\3\22\0\1\7\1\10\1\0\1\10\26\0\1\11\2\0\1\11\36\0\1"+
+    "\6\50\0\1\1\242\0\2\1\26\0");
 ```
 
-### DataFlowIssue
-Method invocation `replace` may produce `NullPointerException`
-in `code_samples/comparing_string_references_inspection/src/main/java/org/intellij/sdk/codeInspection/ComparingStringReferencesInspection.java`
-#### Snippet
-```java
-      if (opSign == JavaTokenType.NE) {
-        PsiPrefixExpression negation = (PsiPrefixExpression) factory.createExpressionFromText("!a", null);
-        negation.getOperand().replace(result);
-        result.replace(negation);
-      }
-```
-
-## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
 C-style array declaration of field `ZZ_CMAP_Z`
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
@@ -488,6 +500,18 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
   /* The ZZ_CMAP_Z table has 272 entries */
   static final char ZZ_CMAP_Z[] = zzUnpackCMap(
     "\1\0\1\100\1\200\u010d\100");
+
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_CMAP_Y`
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+
+  /* The ZZ_CMAP_Y table has 192 entries */
+  static final char ZZ_CMAP_Y[] = zzUnpackCMap(
+    "\1\0\1\1\1\2\175\3\1\4\77\3");
 
 ```
 
@@ -503,31 +527,7 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
   };
 ```
 
-### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_A`
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-
-  /* The ZZ_CMAP_A table has 320 entries */
-  static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\4\1\2\1\1\1\5\1\3\22\0\1\7\1\10\1\0\1\10\26\0\1\11\2\0\1\11\36\0\1"+
-    "\6\50\0\1\1\242\0\2\1\26\0");
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_Y`
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-
-  /* The ZZ_CMAP_Y table has 192 entries */
-  static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\1\1\1\2\175\3\1\4\77\3");
-
-```
-
-## RuleId[ruleID=DuplicateBranchesInSwitch]
+## RuleId[id=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
@@ -600,7 +600,7 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
             zzScanError(ZZ_NO_MATCH);
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `text.length() > 0` can be replaced with '!text.isEmpty()'
 in `code_samples/live_templates/src/main/java/org/intellij/sdk/liveTemplates/TitleCaseMacro.java`
@@ -637,7 +637,7 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
                 .create(property).withIcon(SimpleIcons.FILE)
 ```
 
-## RuleId[ruleID=NonShortCircuitBoolean]
+## RuleId[id=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `modified |= mySettingsComponent.getIdeaUserStatus() != settings.ideaStatus`
 in `code_samples/settings/src/main/java/org/intellij/sdk/settings/AppSettingsConfigurable.java`
@@ -650,7 +650,7 @@ in `code_samples/settings/src/main/java/org/intellij/sdk/settings/AppSettingsCon
   }
 ```
 
-## RuleId[ruleID=RedundantEscapeInRegexReplacement]
+## RuleId[id=RedundantEscapeInRegexReplacement]
 ### RedundantEscapeInRegexReplacement
 Redundant escape of 'n'
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
@@ -663,7 +663,7 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
     return retTxt;
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `code_samples/editor_basics/src/main/java/org/intellij/sdk/editor/EditorAreaIllustration.java`
@@ -702,18 +702,6 @@ in `code_samples/action_basics/src/main/java/org/intellij/sdk/action/PopupDialog
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/LibrariesAction.java`
-#### Snippet
-```java
-      String fileAndLibs;
-      if (jars.length() > 0) {
-        fileAndLibs = virtualFile.getName() + ": " + jars.toString();
-      } else {
-        fileAndLibs = "None";
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/ShowSourceRootsActions.java`
 #### Snippet
 ```java
@@ -724,7 +712,19 @@ in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/Show
     );
 ```
 
-## RuleId[ruleID=MissortedModifiers]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/LibrariesAction.java`
+#### Snippet
+```java
+      String fileAndLibs;
+      if (jars.length() > 0) {
+        fileAndLibs = virtualFile.getName() + ": " + jars.toString();
+      } else {
+        fileAndLibs = "None";
+```
+
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `code_samples/max_opened_projects/src/main/java/org/intellij/sdk/maxOpenProjects/ProjectCountingService.java`
@@ -737,7 +737,7 @@ in `code_samples/max_opened_projects/src/main/java/org/intellij/sdk/maxOpenProje
   /**
 ```
 
-## RuleId[ruleID=RedundantSuppression]
+## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/parser/SimpleParser.java`
@@ -750,7 +750,7 @@ public class SimpleParser implements PsiParser, LightPsiParser {
   public ASTNode parse(IElementType t, PsiBuilder b) {
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
+## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `createWizardSteps()` only delegates to its super method
 in `code_samples/module/src/main/java/org/intellij/sdk/module/DemoModuleType.java`
@@ -763,31 +763,7 @@ in `code_samples/module/src/main/java/org/intellij/sdk/module/DemoModuleType.jav
                                                         @NotNull ModulesProvider modulesProvider) {
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
-#### Snippet
-```java
-      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
-      // like it has LF embedded in it and embedded " to escaped "
-      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
-    }
-    return retTxt;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
-#### Snippet
-```java
-      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
-      // like it has LF embedded in it and embedded " to escaped "
-      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
-    }
-    return retTxt;
-```
-
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleUtil.java`
@@ -802,14 +778,26 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleCreatePropertyQuickFix.java`
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
 #### Snippet
 ```java
-      }
-      // IMPORTANT: change spaces to escaped spaces or the new node will only have the first word for the key
-      SimpleProperty property = SimpleElementFactory.createProperty(project, key.replaceAll(" ", "\\\\ "), "");
-      simpleFile.getNode().addChild(property.getNode());
-      ((Navigatable) property.getLastChild().getNavigationElement()).navigate(true);
+      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
+      // like it has LF embedded in it and embedded " to escaped "
+      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
+    }
+    return retTxt;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
+#### Snippet
+```java
+      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
+      // like it has LF embedded in it and embedded " to escaped "
+      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
+    }
+    return retTxt;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -824,7 +812,19 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
       return null;
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleCreatePropertyQuickFix.java`
+#### Snippet
+```java
+      }
+      // IMPORTANT: change spaces to escaped spaces or the new node will only have the first word for the key
+      SimpleProperty property = SimpleElementFactory.createProperty(project, key.replaceAll(" ", "\\\\ "), "");
+      simpleFile.getNode().addChild(property.getNode());
+      ((Navigatable) property.getLastChild().getNavigationElement()).navigate(true);
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.swing` is unnecessary, and can be replaced with an import
 in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
@@ -854,11 +854,11 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
 ```java
-
-  /** the input device */
-  private java.io.Reader zzReader;
-
-  /** the current state of the DFA */
+   * @param   in  the java.io.Reader to read input from.
+   */
+  SimpleLexer(java.io.Reader in) {
+    this.zzReader = in;
+  }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -878,14 +878,14 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
 ```java
-   * @param   in  the java.io.Reader to read input from.
-   */
-  SimpleLexer(java.io.Reader in) {
-    this.zzReader = in;
-  }
+
+  /** the input device */
+  private java.io.Reader zzReader;
+
+  /** the current state of the DFA */
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
@@ -934,7 +934,7 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
     zzAtBOL = true;
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectNode.java`
@@ -947,7 +947,7 @@ in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/Imag
   }
 ```
 
-## RuleId[ruleID=DialogTitleCapitalization]
+## RuleId[id=DialogTitleCapitalization]
 ### DialogTitleCapitalization
 The sentence capitalization is provided where title capitalization is required
 in `code_samples/action_basics/src/main/java/org/intellij/sdk/action/PopupDialogAction.java`
@@ -960,7 +960,7 @@ in `code_samples/action_basics/src/main/java/org/intellij/sdk/action/PopupDialog
     Navigatable nav = event.getData(CommonDataKeys.NAVIGATABLE);
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `SimpleNamedElementImpl()` of an abstract class should not be declared 'public'
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/impl/SimpleNamedElementImpl.java`
@@ -973,7 +973,7 @@ public abstract class SimpleNamedElementImpl extends ASTWrapperPsiElement implem
   }
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `code_samples/settings/src/main/java/org/intellij/sdk/settings/AppSettingsState.java`
@@ -998,7 +998,7 @@ in `code_samples/max_opened_projects/src/main/java/org/intellij/sdk/maxOpenProje
   public void incrProjectCount() {
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `b`
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/parser/SimpleParser.java`
@@ -1011,7 +1011,7 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/p
     r = parse_root_(t, b);
 ```
 
-## RuleId[ruleID=RedundantImplements]
+## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `IntentionAction`
 in `code_samples/conditional_operator_intention/src/main/java/org/intellij/sdk/intention/ConditionalOperatorConverter.java`
@@ -1024,7 +1024,7 @@ public class ConditionalOperatorConverter extends PsiElementBaseIntentionAction 
   /**
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
@@ -1085,7 +1085,7 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
   }
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `zzTransL` is redundant
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
@@ -1110,7 +1110,7 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
 
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleStructureViewElement.java`
@@ -1123,31 +1123,7 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
     return EMPTY_ARRAY;
 ```
 
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-The value `zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result)` assigned to `offset` is never used
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-    int [] result = new int[21];
-    int offset = 0;
-    offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
-    return result;
-  }
-```
-
-### UnusedAssignment
-The value `zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result)` assigned to `offset` is never used
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-    int [] result = new int[21];
-    int offset = 0;
-    offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
-    return result;
-  }
-```
-
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 The value `zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result)` assigned to `offset` is never used
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
@@ -1168,6 +1144,30 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
     int [] result = new int[21];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
+    return result;
+  }
+```
+
+### UnusedAssignment
+The value `zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result)` assigned to `offset` is never used
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+    int [] result = new int[21];
+    int offset = 0;
+    offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
+    return result;
+  }
+```
+
+### UnusedAssignment
+The value `zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result)` assigned to `offset` is never used
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+    int [] result = new int[21];
+    int offset = 0;
+    offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
   }
 ```
