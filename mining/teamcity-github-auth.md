@@ -5,7 +5,7 @@ I found 1 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 1 | false |
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends PropertyKey`
 in `src/main/java/org/jetbrains/teamcity/githubauth/TeamCityCoreFacade.java`
