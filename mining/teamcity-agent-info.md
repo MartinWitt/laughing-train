@@ -7,19 +7,7 @@ I found 5 bad smells with 2 repairable:
 | ReturnNull | 2 | false |
 | UnnecessaryToStringCall | 2 | true |
 | Convert2Lambda | 1 | false |
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
@@ -32,7 +20,19 @@ in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
@@ -57,7 +57,7 @@ in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
     }
 ```
 
-## RuleId[ruleID=Convert2Lambda]
+## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
