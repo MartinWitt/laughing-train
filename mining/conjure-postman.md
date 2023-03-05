@@ -7,13 +7,13 @@ I found 16 bad smells with 2 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 7 | false |
 | AbstractClassNeverImplemented | 2 | false |
 | EmptyMethod | 1 | false |
-| ReturnNull | 1 | false |
 | RegExpSimplifiable | 1 | false |
+| ReturnNull | 1 | false |
 | CallToStringConcatCanBeReplacedByOperator | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
 | OptionalContainsCollection | 1 | false |
-## RuleId[ruleID=EmptyMethod]
+## RuleId[id=EmptyMethod]
 ### EmptyMethod
 All implementations of this method are empty
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/api/PostmanItem.java`
@@ -26,20 +26,7 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/api/PostmanI
     @JsonProperty
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
-#### Snippet
-```java
-            public JsonNode visitUnion(UnionDefinition value) {
-                if (value.getUnion().isEmpty()) {
-                    return null;
-                } else {
-                    if (seenTypeStack.contains(value.getTypeName())) {
-```
-
-## RuleId[ruleID=RegExpSimplifiable]
+## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[\"]` can be simplified to '"'
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
@@ -52,7 +39,20 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
         return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
 ```
 
-## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
+## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
+#### Snippet
+```java
+            public JsonNode visitUnion(UnionDefinition value) {
+                if (value.getUnion().isEmpty()) {
+                    return null;
+                } else {
+                    if (seenTypeStack.contains(value.getTypeName())) {
+```
+
+## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanCollectionGenerator.java`
@@ -65,7 +65,7 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanColle
         }
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `docs.size() > 0` can be replaced with '!docs.isEmpty()'
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
@@ -78,7 +78,7 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanReque
 
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/writer/PostmanCollectionFileWriter.java`
@@ -93,30 +93,6 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/writer/Postm
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
-#### Snippet
-```java
-                .resolve(endpointDefinition.getHttpPath().get())
-                .toString();
-        return path.replaceAll("\\{", ":").replaceAll("}", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
-#### Snippet
-```java
-                .resolve(endpointDefinition.getHttpPath().get())
-                .toString();
-        return path.replaceAll("\\{", ":").replaceAll("}", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanCollectionGenerator.java`
 #### Snippet
 ```java
@@ -125,6 +101,30 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanColle
         String formattedApiBaseName = formattedApiBaseVariable.replaceAll("[{}]", "");
         config.apiPath()
                 .ifPresent(apiPath -> collection.addVariable(PostmanVariable.builder()
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
+#### Snippet
+```java
+                .resolve(endpointDefinition.getHttpPath().get())
+                .toString();
+        return path.replaceAll("\\{", ":").replaceAll("}", "");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
+#### Snippet
+```java
+                .resolve(endpointDefinition.getHttpPath().get())
+                .toString();
+        return path.replaceAll("\\{", ":").replaceAll("}", "");
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -163,7 +163,7 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
         return wrapped;
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/ConjurePostmanCli.java`
@@ -176,7 +176,7 @@ in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/ConjurePostma
     }
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `UuidProvider` has no concrete subclass
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/UuidProvider.java`
@@ -201,7 +201,7 @@ public abstract class CliConfiguration {
     public static final String PRODUCT_DESCRIPTION = "productDescription";
 ```
 
-## RuleId[ruleID=OptionalContainsCollection]
+## RuleId[id=OptionalContainsCollection]
 ### OptionalContainsCollection
 'Optional' contains collection `List`>
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/api/PostmanAuth.java`
