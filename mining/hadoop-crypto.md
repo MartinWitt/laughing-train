@@ -130,18 +130,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 ```
 
 ### RedundantMethodOverride
-Method `close()` only delegates to its super method
-in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
-#### Snippet
-```java
-
-    @Override
-    public void close() throws IOException {
-        super.close();
-    }
-```
-
-### RedundantMethodOverride
 Method `seek()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
 #### Snippet
@@ -150,6 +138,18 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
     @Override
     public void seek(long offset) throws IOException {
         super.seek(offset);
+    }
+```
+
+### RedundantMethodOverride
+Method `close()` only delegates to its super method
+in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+#### Snippet
+```java
+
+    @Override
+    public void close() throws IOException {
+        super.close();
     }
 ```
 
@@ -229,18 +229,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'SymmetricKeySerializerV3' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
-#### Snippet
-```java
- */
-@Deprecated
-enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
-    INSTANCE;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'DEPRECATED_CIPHER_ALGORITHM_KEY' is still used
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
 #### Snippet
@@ -250,6 +238,18 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
     public static final String DEPRECATED_CIPHER_ALGORITHM_KEY = "fs.cipher";
 
     public static final String CIPHER_ALGORITHM_KEY = "fs.efs.cipher";
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SymmetricKeySerializerV3' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
+#### Snippet
+```java
+ */
+@Deprecated
+enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
+    INSTANCE;
+
 ```
 
 ### DeprecatedIsStillUsed
