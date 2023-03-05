@@ -14,7 +14,7 @@ I found 16 bad smells with 3 repairable:
 | SizeReplaceableByIsEmpty | 1 | true |
 | NonFinalFieldOfException | 1 | false |
 | NestedAssignment | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
@@ -27,10 +27,10 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
   /** Read all bytes from <code>in</code> and write them to <code>out</code>. */
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
+## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-28-00-07-25.788.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-05-03-01-18.705.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -40,7 +40,7 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-28-00-07-25.788.
           </tbody>
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `loop.size() > 0` can be replaced with '!loop.isEmpty()'
 in `src/main/java/com/uber/h3core/H3Core.java`
@@ -53,19 +53,7 @@ in `src/main/java/com/uber/h3core/H3Core.java`
           loop.add(loop.get(0));
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-    checkResolution(childRes);
-
-    long result = h3Api.cellToCenterChild(h3, childRes);
-
-    return result;
-```
-
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `out` is redundant
 in `src/main/java/com/uber/h3core/H3Core.java`
@@ -78,7 +66,19 @@ in `src/main/java/com/uber/h3core/H3Core.java`
   }
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+    checkResolution(childRes);
+
+    long result = h3Api.cellToCenterChild(h3, childRes);
+
+    return result;
+```
+
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `src/main/java/com/uber/h3core/H3Core.java`
@@ -103,7 +103,7 @@ in `src/main/java/com/uber/h3core/H3Core.java`
       holeSizes = new int[holes.size()];
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
+## RuleId[id=NonFinalFieldOfException]
 ### NonFinalFieldOfException
 Non-final field `code` of exception class
 in `src/main/java/com/uber/h3core/exceptions/H3Exception.java`
@@ -116,7 +116,20 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
-## RuleId[ruleID=FinalStaticMethod]
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+
+    int read;
+    while ((read = in.read(buf)) != -1) {
+      out.write(buf, 0, read);
+    }
+```
+
+## RuleId[id=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
@@ -141,32 +154,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
     // https://developer.android.com/reference/java/lang/System.html
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
-```
-
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException Invalid resolution
-   */
-  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
-    checkResolution(res);
-
-```
-
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends LatLng`
 in `src/main/java/com/uber/h3core/H3Core.java`
@@ -179,7 +167,19 @@ in `src/main/java/com/uber/h3core/H3Core.java`
 
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException Invalid resolution
+   */
+  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
+    checkResolution(res);
+
+```
+
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.setReadable()` is ignored
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
