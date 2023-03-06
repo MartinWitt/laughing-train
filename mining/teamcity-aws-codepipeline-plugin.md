@@ -9,32 +9,7 @@ I found 11 bad smells with 3 repairable:
 | SizeReplaceableByIsEmpty | 1 | true |
 | DataFlowIssue | 1 | false |
 | BoundedWildcard | 1 | false |
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`jobs.size() > 0` can be replaced with '!jobs.isEmpty()'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
-#### Snippet
-```java
-        final List<Job> jobs = codePipelineClient.pollForJobs(request).getJobs();
-
-        if (jobs.size() > 0) {
-          if (jobs.size() > 1) {
-            LOG.warn(msgForBt("Received " + jobs.size() + ", but only one was expected. Will process only the first job", context.getBuildType()));
-```
-
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `CodePipelineUtil` has only 'static' members, and lacks a 'private' constructor
-in `aws-codepipeline-common/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineUtil.java`
-#### Snippet
-```java
- * @author vbedrosova
- */
-public final class CodePipelineUtil {
-  @NotNull
-  public static String printStrings(@NotNull Collection<String> strings) {
-```
-
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `ParametersValidator` has only 'static' members, and lacks a 'private' constructor
 in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
@@ -47,17 +22,54 @@ public class ParametersValidator {
   public static Map<String, String> validateSettings(@NotNull Map<String, String> params, boolean acceptReferences) {
 ```
 
-## RuleId[ruleID=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
+### UtilityClassWithoutPrivateConstructor
+Class `CodePipelineUtil` has only 'static' members, and lacks a 'private' constructor
+in `aws-codepipeline-common/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineUtil.java`
 #### Snippet
 ```java
+ * @author vbedrosova
+ */
+public final class CodePipelineUtil {
+  @NotNull
+  public static String printStrings(@NotNull Collection<String> strings) {
+```
 
-    final String details = e.getDetails();
-    if (StringUtil.isNotEmpty(details)) {
-      LOG.error(details);
-      build.getBuildLogger().error(details);
+## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`jobs.size() > 0` can be replaced with '!jobs.isEmpty()'
+in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
+#### Snippet
+```java
+        final List<Job> jobs = codePipelineClient.pollForJobs(request).getJobs();
+
+        if (jobs.size() > 0) {
+          if (jobs.size() > 1) {
+            LOG.warn(msgForBt("Received " + jobs.size() + ", but only one was expected. Will process only the first job", context.getBuildType()));
+```
+
+## RuleId[id=StaticCallOnSubclass]
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
+#### Snippet
+```java
+    final AWSException awse = new AWSException(e);
+    final String details = awse.getDetails();
+    if (StringUtil.isNotEmpty(details)) LOG.error(details);
+    LOG.error(awse.getMessage(), awse);
+
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
+#### Snippet
+```java
+    final Map<String, String> invalids = new HashMap<String, String>(AWSCommonParams.validate(params, acceptReferences));
+
+    if (StringUtil.isEmptyOrSpaces(CodePipelineUtil.getActionToken(params))) {
+      invalids.put(CodePipelineConstants.ACTION_TOKEN_PARAM, CodePipelineConstants.ACTION_TOKEN_LABEL + " parameter must not be empty");
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -85,6 +97,18 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
 ```
 
 ### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
+#### Snippet
+```java
+
+    final String details = e.getDetails();
+    if (StringUtil.isNotEmpty(details)) {
+      LOG.error(details);
+      build.getBuildLogger().error(details);
+```
+
+### StaticCallOnSubclass
 Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
 in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
 #### Snippet
@@ -96,31 +120,7 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
       FileUtil.copy(artifactFile, dest);
 ```
 
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
-#### Snippet
-```java
-    final AWSException awse = new AWSException(e);
-    final String details = awse.getDetails();
-    if (StringUtil.isNotEmpty(details)) LOG.error(details);
-    LOG.error(awse.getMessage(), awse);
-
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
-#### Snippet
-```java
-    final Map<String, String> invalids = new HashMap<String, String>(AWSCommonParams.validate(params, acceptReferences));
-
-    if (StringUtil.isEmptyOrSpaces(CodePipelineUtil.getActionToken(params))) {
-      invalids.put(CodePipelineConstants.ACTION_TOKEN_PARAM, CodePipelineConstants.ACTION_TOKEN_LABEL + " parameter must not be empty");
-    }
-```
-
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `AWSCommonParams.getRegionName(params)` might be null
 in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
@@ -133,7 +133,7 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
 
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super AgentLifeCycleListener`
 in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
