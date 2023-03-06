@@ -96,18 +96,6 @@ public abstract class OrderableSlsVersion extends SlsVersion implements Comparab
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SlsVersionMatcher` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
-#### Snippet
-```java
-@Value.Immutable
-@ImmutablesStyle
-public abstract class SlsVersionMatcher {
-
-    private static final SafeLogger log = SafeLoggerFactory.get(SlsVersionMatcher.class);
-```
-
-### AbstractClassNeverImplemented
 Abstract class `SlsVersion` has no concrete subclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersion.java`
 #### Snippet
@@ -117,6 +105,18 @@ import org.immutables.value.Value;
 public abstract class SlsVersion implements Serializable {
 
     @JsonCreator
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SlsVersionMatcher` has no concrete subclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
+#### Snippet
+```java
+@Value.Immutable
+@ImmutablesStyle
+public abstract class SlsVersionMatcher {
+
+    private static final SafeLogger log = SafeLoggerFactory.get(SlsVersionMatcher.class);
 ```
 
 ### AbstractClassNeverImplemented
@@ -133,18 +133,6 @@ public abstract class NonOrderableSlsVersion extends SlsVersion {
 
 ## RuleId[id=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
-Method `check()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
-#### Snippet
-```java
-
-    /** Returns true iff the given coordinate has a version which can be parsed into a valid orderable SLS version. */
-    public static boolean check(String coordinate) {
-        return safeValueOf(coordinate).isPresent();
-    }
-```
-
-### MethodOverridesStaticMethod
 Method `valueOf()` tries to override a static method of a superclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
 #### Snippet
@@ -154,6 +142,18 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.jav
     public static OrderableSlsVersion valueOf(String value) {
         Optional<OrderableSlsVersion> optional = safeValueOf(value);
         checkArgument(optional.isPresent(), "Not an orderable version: {value}", UnsafeArg.of("value", value));
+```
+
+### MethodOverridesStaticMethod
+Method `check()` tries to override a static method of a superclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
+#### Snippet
+```java
+
+    /** Returns true iff the given coordinate has a version which can be parsed into a valid orderable SLS version. */
+    public static boolean check(String coordinate) {
+        return safeValueOf(coordinate).isPresent();
+    }
 ```
 
 ### MethodOverridesStaticMethod
