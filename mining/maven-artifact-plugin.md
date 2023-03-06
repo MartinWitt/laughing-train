@@ -19,7 +19,7 @@ I found 36 bad smells with 3 repairable:
 | UseOfPropertiesAsHashtable | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryBoxing | 1 | false |
-## RuleId[ruleID=DefaultAnnotationParam]
+## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
@@ -44,19 +44,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
 
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
-#### Snippet
-```java
- * Plugin utility to detect if install or deploy is skipped in a build.
- */
-class PluginUtil {
-    static boolean isSkip(MavenProject project) {
-        return isSkip(project, "install") || isSkip(project, "deploy");
-```
-
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
@@ -69,7 +57,19 @@ class JdkToolchainUtil {
         String version = "unknown";
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### UtilityClassWithoutPrivateConstructor
+Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+#### Snippet
+```java
+ * Plugin utility to detect if install or deploy is skipped in a build.
+ */
+class PluginUtil {
+    static boolean isSkip(MavenProject project) {
+        return isSkip(project, "install") || isSkip(project, "deploy");
+```
+
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
@@ -82,7 +82,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
                 new OutputStreamWriter(new FileOutputStream(buildcompare), StandardCharsets.UTF_8)))) {
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.aether.resolution` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
@@ -95,7 +95,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
                 throw new ArtifactNotFoundException("Artifact not found " + artifact, artifact);
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `last` might be null
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
@@ -120,7 +120,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
                         }
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `prefix = prefix + i` could be simplified to 'prefix += i'
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
@@ -133,7 +133,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
         if (artifactFile.isDirectory()) {
 ```
 
-## RuleId[ruleID=MismatchedCollectionQueryUpdate]
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `reactorProjects` are queried, but never updated
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
@@ -158,7 +158,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
     @Component
 ```
 
-## RuleId[ruleID=UnnecessaryCallToStringValueOf]
+## RuleId[id=UnnecessaryCallToStringValueOf]
 ### UnnecessaryCallToStringValueOf
 Unnecessary `String.valueOf()` call
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
@@ -171,7 +171,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 
 ```
 
-## RuleId[ruleID=UseOfPropertiesAsHashtable]
+## RuleId[id=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
@@ -184,19 +184,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo
             return result;
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `prefix`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
-#### Snippet
-```java
-
-    private void printArtifact(String prefix, int i, Artifact artifact) throws MojoExecutionException {
-        prefix = prefix + i;
-        File artifactFile = artifact.getFile();
-        if (artifactFile.isDirectory()) {
-```
-
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `javaVersion`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
@@ -209,7 +197,19 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
         int index = javaVersion.indexOf('.'); // for example 8.0_202
 ```
 
-## RuleId[ruleID=ReturnNull]
+### AssignmentToMethodParameter
+Assignment to method parameter `prefix`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+
+    private void printArtifact(String prefix, int i, Artifact artifact) throws MojoExecutionException {
+        prefix = prefix + i;
+        File artifactFile = artifact.getFile();
+        if (artifactFile.isDirectory()) {
+```
+
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
@@ -251,18 +251,6 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
         @Override
         public WorkspaceReader getWorkspaceReader() {
             return null;
@@ -277,18 +265,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 ```java
         }
 
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-            log.warn("unable to open jar file " + file, e);
-        }
         return null;
     }
 
@@ -320,6 +296,30 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            log.warn("unable to open jar file " + file, e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
 #### Snippet
 ```java
@@ -330,7 +330,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
 
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `artifactHandler.getExtension().length() > 0` can be replaced with '!artifactHandler.getExtension().isEmpty()'
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
@@ -343,7 +343,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
         }
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `version == null` is always `false`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
@@ -428,7 +428,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         return "diffoscope " + relative(reference) + " " + relative(actual);
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
@@ -453,7 +453,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         // download or create reference buildinfo
 ```
 
-## RuleId[ruleID=UnnecessaryBoxing]
+## RuleId[id=UnnecessaryBoxing]
 ### UnnecessaryBoxing
 Redundant boxing, `Boolean.parseBoolean()` call can be used instead
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
