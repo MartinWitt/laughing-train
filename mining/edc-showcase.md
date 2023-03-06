@@ -8,7 +8,7 @@ I found 21 bad smells with 0 repairable:
 | UNUSED_IMPORT | 2 | false |
 | CommentedOutCode | 1 | false |
 | RedundantSemicolon | 1 | false |
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import java.util.HashMap;`
 in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnector/iam/did/credentials/IdentityHubCredentialsVerifier.java`
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 /**
 ```
 
-## RuleId[ruleID=CommentedOutCode]
+## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (18 lines)
 in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnector/iam/did/credentials/IdentityHubCredentialsVerifier.java`
@@ -46,7 +46,7 @@ in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnecto
 //        var query = ObjectQuery.Builder.newInstance().context("ION Demo").type("RegistrationCredentials").build();
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `didUrl == null` is always `true`
 in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnector/iam/did/credentials/DemoCredentialsVerifierExtension.java`
@@ -57,18 +57,6 @@ in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnecto
         if (didUrl == null) {
             throw new EdcException(format("The DID Url setting '(%s)' was null!", DID_URL_SETTING));
         }
-```
-
-### ConstantValue
-Value `monitor` is always 'null'
-in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiExtension.java`
-#### Snippet
-```java
-        var monitor = context.getMonitor();
-
-        var controller = new FederatedCatalogApiController(monitor, catalogQueryEngine);
-        webService.registerResource("data", controller);
-
 ```
 
 ### ConstantValue
@@ -84,6 +72,18 @@ in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/data
 ```
 
 ### ConstantValue
+Value `monitor` is always 'null'
+in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiExtension.java`
+#### Snippet
+```java
+        var monitor = context.getMonitor();
+
+        var controller = new FederatedCatalogApiController(monitor, catalogQueryEngine);
+        webService.registerResource("data", controller);
+
+```
+
+### ConstantValue
 Value `result` is always 'null'
 in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiController.java`
 #### Snippet
@@ -93,18 +93,6 @@ in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnecto
         return Response.ok(result).build();
     }
 }
-```
-
-### ConstantValue
-Value `cdef` is always 'null'
-in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
-#### Snippet
-```java
-                .selectorExpression(AssetSelectorExpression.Builder.newInstance().whenEquals(Asset.PROPERTY_ID, asset.getId()).build())
-                .build();
-        contractDefinitionStore.save(cdef);
-    }
-
 ```
 
 ### ConstantValue
@@ -128,6 +116,18 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
         // populate node directory
         var nodes = readNodesFromJson(nodesFile);
         nodes.forEach(nodeDirectory::insert);
+
+```
+
+### ConstantValue
+Value `cdef` is always 'null'
+in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
+#### Snippet
+```java
+                .selectorExpression(AssetSelectorExpression.Builder.newInstance().whenEquals(Asset.PROPERTY_ID, asset.getId()).build())
+                .build();
+        contractDefinitionStore.save(cdef);
+    }
 
 ```
 
@@ -251,7 +251,7 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
 }
 ```
 
-## RuleId[ruleID=RedundantSemicolon]
+## RuleId[id=RedundantSemicolon]
 ### RedundantSemicolon
 Redundant semicolon
 in `extensions/transfer-azure-s3/build.gradle.kts`
