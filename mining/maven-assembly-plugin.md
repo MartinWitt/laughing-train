@@ -1,7 +1,7 @@
 # maven-assembly-plugin 
  
 # Bad smells
-I found 126 bad smells with 27 repairable:
+I found 127 bad smells with 27 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | SizeReplaceableByIsEmpty | 15 | true |
@@ -31,6 +31,7 @@ I found 126 bad smells with 27 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | Anonymous2MethodRef | 1 | false |
 | Java8MapApi | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | StringBufferReplaceableByStringBuilder | 1 | false |
 ## RuleId[id=RedundantLengthCheck]
 ### RedundantLengthCheck
@@ -209,6 +210,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java
 
 ### SizeReplaceableByIsEmpty
 `leftover.length() > 0` can be replaced with '!leftover.isEmpty()'
+in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfSpringHandler.java`
+#### Snippet
+```java
+        }
+
+        return leftover != null && leftover.length() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`leftover.length() > 0` can be replaced with '!leftover.isEmpty()'
 in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfServicesHandler.java`
 #### Snippet
 ```java
@@ -229,18 +242,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/ProjectUtils.java`
         if ( classifier != null && classifier.length() == 0 )
         {
             classifier = null;
-```
-
-### SizeReplaceableByIsEmpty
-`leftover.length() > 0` can be replaced with '!leftover.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfSpringHandler.java`
-#### Snippet
-```java
-        }
-
-        return leftover != null && leftover.length() > 0;
-    }
-
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -328,18 +329,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedArc
 ```
 
 ### SizeReplaceableByIsEmpty
-`interpolationState.asList().size() > 0` can be replaced with '!interpolationState.asList().isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/interpolation/AssemblyInterpolator.java`
-#### Snippet
-```java
-    public static void checkErrors( AssemblyId assemblyId, InterpolationState interpolationState, Logger logger )
-    {
-        if ( interpolationState.asList() != null && interpolationState.asList().size() > 0 && logger.isDebugEnabled() )
-        {
-            final StringBuilder sb = new StringBuilder();
-```
-
-### SizeReplaceableByIsEmpty
 `outputLocation.length() > 0` can be replaced with '!outputLocation.isEmpty()'
 in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddArtifactTask.java`
 #### Snippet
@@ -349,6 +338,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddArtifactTask
         if ( ( outputLocation.length() > 0 ) && !outputLocation.endsWith( "/" ) )
         {
             outputLocation += "/";
+```
+
+### SizeReplaceableByIsEmpty
+`interpolationState.asList().size() > 0` can be replaced with '!interpolationState.asList().isEmpty()'
+in `src/main/java/org/apache/maven/plugins/assembly/interpolation/AssemblyInterpolator.java`
+#### Snippet
+```java
+    public static void checkErrors( AssemblyId assemblyId, InterpolationState interpolationState, Logger logger )
+    {
+        if ( interpolationState.asList() != null && interpolationState.asList().size() > 0 && logger.isDebugEnabled() )
+        {
+            final StringBuilder sb = new StringBuilder();
 ```
 
 ## RuleId[id=TrivialStringConcatenation]
@@ -370,11 +371,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
 #### Snippet
 ```java
-            {
-                buffer.append( '[' ).append( counter++ ).append( "] " );
-                buffer.append( content.toString() );
+                error.printStackTrace( pw );
 
-                if ( it.hasNext() )
+                buffer.append( sw.toString() );
+            }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -382,11 +383,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
 #### Snippet
 ```java
-                error.printStackTrace( pw );
+            {
+                buffer.append( '[' ).append( counter++ ).append( "] " );
+                buffer.append( content.toString() );
 
-                buffer.append( sw.toString() );
-            }
-
+                if ( it.hasNext() )
 ```
 
 ### UnnecessaryToStringCall
@@ -439,18 +440,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregati
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
-#### Snippet
-```java
-    }
-
-    public static Set<MavenProject> filterProjects( final Set<MavenProject> projects, final List<String> includes,
-                                                    final List<String> excludes, final boolean actTransitively,
-                                                    final Logger logger )
-```
-
-### BoundedWildcard
 Can generalize to `? extends ArtifactFilter`
 in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
 #### Snippet
@@ -460,6 +449,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
     public static void reportFilteringStatistics( final Collection<ArtifactFilter> filters, final Logger logger )
     {
         for ( final ArtifactFilter f : filters )
+```
+
+### BoundedWildcard
+Can generalize to `? extends MavenProject`
+in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
+#### Snippet
+```java
+    }
+
+    public static Set<MavenProject> filterProjects( final Set<MavenProject> projects, final List<String> includes,
+                                                    final List<String> excludes, final boolean actTransitively,
+                                                    final Logger logger )
 ```
 
 ### BoundedWildcard
@@ -488,14 +489,14 @@ in `src/main/java/org/apache/maven/plugins/assembly/artifact/ResolutionManagemen
 
 ### BoundedWildcard
 Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/ModuleSetAssemblyPhase.java`
 #### Snippet
 ```java
     }
 
-    public static void select( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer include,
-                               MavenProjectConsumer excluded )
+    private List<MavenProject> validateModuleVersions( Set<MavenProject> moduleProjects )
     {
+        List<MavenProject> result = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -517,9 +518,9 @@ in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java
 ```java
     }
 
-    public static void select( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer consumer )
+    public static void select( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer include,
+                               MavenProjectConsumer excluded )
     {
-        for ( MavenProject project : source )
 ```
 
 ### BoundedWildcard
@@ -535,15 +536,15 @@ in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GroupVersionAlignment`
-in `src/main/java/org/apache/maven/plugins/assembly/repository/DefaultRepositoryAssembler.java`
+Can generalize to `? extends MavenProject`
+in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
 #### Snippet
 ```java
     }
 
-    private void setAlignment( Artifact artifact, Map<String, GroupVersionAlignment> groupVersionAlignments )
+    public static void select( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer consumer )
     {
-        GroupVersionAlignment alignment = groupVersionAlignments.get( artifact.getGroupId() );
+        for ( MavenProject project : source )
 ```
 
 ### BoundedWildcard
@@ -563,23 +564,23 @@ Can generalize to `? extends GroupVersionAlignment`
 in `src/main/java/org/apache/maven/plugins/assembly/repository/DefaultRepositoryAssembler.java`
 #### Snippet
 ```java
+    }
+
+    private void setAlignment( Artifact artifact, Map<String, GroupVersionAlignment> groupVersionAlignments )
+    {
+        GroupVersionAlignment alignment = groupVersionAlignments.get( artifact.getGroupId() );
+```
+
+### BoundedWildcard
+Can generalize to `? extends GroupVersionAlignment`
+in `src/main/java/org/apache/maven/plugins/assembly/repository/DefaultRepositoryAssembler.java`
+#### Snippet
+```java
 
     // CHECKSTYLE_OFF: LineLength
     protected Map<String, GroupVersionAlignment> createGroupVersionAlignments( List<GroupVersionAlignment> versionAlignments )
     // CHECKSTYLE_ON: LineLength
     {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/ModuleSetAssemblyPhase.java`
-#### Snippet
-```java
-    }
-
-    private List<MavenProject> validateModuleVersions( Set<MavenProject> moduleProjects )
-    {
-        List<MavenProject> result = new ArrayList<>();
 ```
 
 ## RuleId[id=MissortedModifiers]
@@ -658,6 +659,42 @@ in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.j
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `commandLinePropertiesInterpolator` accessed in synchronized context
+in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+#### Snippet
+```java
+    public synchronized FixedStringSearchInterpolator getCommandLinePropsInterpolator()
+    {
+        if ( commandLinePropertiesInterpolator == null )
+        {
+            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.commandLinePropertiesInterpolator` accessed in synchronized context
+in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+#### Snippet
+```java
+        if ( commandLinePropertiesInterpolator == null )
+        {
+            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
+        }
+        return commandLinePropertiesInterpolator;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `commandLinePropertiesInterpolator` accessed in synchronized context
+in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+#### Snippet
+```java
+            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
+        }
+        return commandLinePropertiesInterpolator;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `rootInterpolator` accessed in synchronized context
 in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
 #### Snippet
@@ -725,42 +762,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.j
             this.mainProjectInterpolator = mainProjectInterpolator( getProject() );
         }
         return mainProjectInterpolator;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `commandLinePropertiesInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-    public synchronized FixedStringSearchInterpolator getCommandLinePropsInterpolator()
-    {
-        if ( commandLinePropertiesInterpolator == null )
-        {
-            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.commandLinePropertiesInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-        if ( commandLinePropertiesInterpolator == null )
-        {
-            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
-        }
-        return commandLinePropertiesInterpolator;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `commandLinePropertiesInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
-        }
-        return commandLinePropertiesInterpolator;
     }
 
 ```
@@ -992,7 +993,7 @@ in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregati
 ## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
-in `src/it/projects/file-sets/multimodule-win-lineEndings/verify.groovy`
+in `src/it/projects/file-sets/multimodule-unix-lineEndings/verify.groovy`
 #### Snippet
 ```java
 FileReader reader = new FileReader( f );
@@ -1004,7 +1005,7 @@ while( ( read = reader.read( cbuf ) ) > -1 )
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `src/it/projects/file-sets/multimodule-unix-lineEndings/verify.groovy`
+in `src/it/projects/file-sets/multimodule-win-lineEndings/verify.groovy`
 #### Snippet
 ```java
 FileReader reader = new FileReader( f );
@@ -1104,6 +1105,18 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
 #### Snippet
 ```java
+    private boolean slashRSeen = false;
+
+    private boolean slashNSeen = false;
+
+    private boolean injectSlashN = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
+#### Snippet
+```java
     private boolean slashNSeen = false;
 
     private boolean injectSlashN = false;
@@ -1133,18 +1146,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputSt
     private boolean eofSeen = false;
 
     WindowsLineFeedInputStream( InputStream in, boolean ensureLineFeedAtEndOfFile )
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
-#### Snippet
-```java
-    private boolean slashRSeen = false;
-
-    private boolean slashNSeen = false;
-
-    private boolean injectSlashN = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1328,6 +1329,19 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchi
 
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-06-10-12-21.302.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -1343,35 +1357,11 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/ManifestCreationFinalizer.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/filter/ComponentsXmlArchiverFileFilter.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
 #### Snippet
 ```java
-                LOGGER.debug( "Ignoring missing assembly descriptor with ID '" + spec
-                    + "' per configuration.\nLocator output was:\n\n" + locator.getMessageHolder().render() );
+            {
+                LOGGER.debug( "Ignoring missing assembly descriptor: '" + descriptor + "' per configuration." );
                 return null;
             }
             else
@@ -1394,11 +1384,35 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
 #### Snippet
 ```java
-            {
-                LOGGER.debug( "Ignoring missing assembly descriptor: '" + descriptor + "' per configuration." );
+                LOGGER.debug( "Ignoring missing assembly descriptor with ID '" + spec
+                    + "' per configuration.\nLocator output was:\n\n" + locator.getMessageHolder().render() );
                 return null;
             }
             else
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/assembly/filter/ComponentsXmlArchiverFileFilter.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/ManifestCreationFinalizer.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -1517,18 +1531,6 @@ Allocation of zero length array
 in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
 #### Snippet
 ```java
-        if ( !selectors.isEmpty() )
-        {
-            this.selectors = selectors.toArray( new FileSelector[0] );
-        }
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
-#### Snippet
-```java
             dfs.setCaseSensitive( fs.isCaseSensitive() );
             dfs.setDirectory( fs.getDirectory() );
             dfs.setExcludes( newEx.toArray( new String[0] ) );
@@ -1546,6 +1548,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyPro
             dfs.setIncludes( newIn.toArray( new String[0] ) );
             dfs.setIncludingEmptyDirectories( fs.isIncludingEmptyDirectories() );
             dfs.setPrefix( fs.getPrefix() );
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
+#### Snippet
+```java
+        if ( !selectors.isEmpty() )
+        {
+            this.selectors = selectors.toArray( new FileSelector[0] );
+        }
+    }
 ```
 
 ## RuleId[id=UnusedAssignment]
