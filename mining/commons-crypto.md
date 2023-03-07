@@ -27,8 +27,8 @@ I found 116 bad smells with 5 repairable:
 | NegativeIntConstantInLongContext | 1 | false |
 | RedundantFieldInitialization | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
-| ZeroLengthArrayInitialization | 1 | false |
 | SynchronizeOnThis | 1 | false |
+| ZeroLengthArrayInitialization | 1 | false |
 ## RuleId[id=Finalize]
 ### Finalize
 'finalize()' should not be overridden
@@ -81,18 +81,6 @@ public class AES {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `OpenSslJna` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
- * Provides access to package protected class objects and a {@link #main(String[])} method that prints version information.
- */
-public final class OpenSslJna {
-
-    private final static String KEY_DEBUG = Crypto.CONF_PREFIX + "debug";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Crypto` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/crypto/Crypto.java`
 #### Snippet
@@ -102,6 +90,18 @@ in `src/main/java/org/apache/commons/crypto/Crypto.java`
 public final class Crypto {
 
     private static class ComponentPropertiesHolder {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OpenSslJna` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
+#### Snippet
+```java
+ * Provides access to package protected class objects and a {@link #main(String[])} method that prints version information.
+ */
+public final class OpenSslJna {
+
+    private final static String KEY_DEBUG = Crypto.CONF_PREFIX + "debug";
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -158,6 +158,18 @@ in `src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java`
 
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
+Missorted modifiers `static abstract`
+in `src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java`
+#### Snippet
+```java
+     * getClassByName. {@link #getClassByNameOrNull(String)}.
+     */
+    private static abstract class NegativeCacheSentinel {
+        // noop
+    }
+```
+
+### MissortedModifiers
 Missorted modifiers `synchronized public`
 in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
 #### Snippet
@@ -183,18 +195,6 @@ in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
-public final class OpenSslJna {
-
-    private final static String KEY_DEBUG = Crypto.CONF_PREFIX + "debug";
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `src/main/java/org/apache/commons/crypto/OsInfo.java`
 #### Snippet
 ```java
@@ -206,15 +206,15 @@ final class OsInfo {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static abstract`
-in `src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java`
+Missorted modifiers `final static`
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
 #### Snippet
 ```java
-     * getClassByName. {@link #getClassByNameOrNull(String)}.
-     */
-    private static abstract class NegativeCacheSentinel {
-        // noop
-    }
+public final class OpenSslJna {
+
+    private final static String KEY_DEBUG = Crypto.CONF_PREFIX + "debug";
+
+    /**
 ```
 
 ## RuleId[id=NegativeIntConstantInLongContext]
@@ -510,42 +510,6 @@ in `src/main/java/org/apache/commons/crypto/stream/PositionedCryptoInputStream.j
 
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
-        if (initialisationError != null) {
-            info("initialisationError(): %s", initialisationError);
-            System.err.flush(); // helpful for stack traces to not mix in other output.
-            throw initialisationError; // propagate to make error obvious
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
-    private static void info(final String format, final Object... args) {
-        // TODO Find a better way to do this later.
-        System.out.println(String.format(format, args));
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
-        // TODO Find a better way to do this later.
-        if (Boolean.getBoolean(KEY_DEBUG)) {
-            System.out.println(String.format(Objects.toString(format), args));
-        }
-    }
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/crypto/cipher/OpenSslGaloisCounterMode.java`
 #### Snippet
@@ -558,18 +522,6 @@ in `src/main/java/org/apache/commons/crypto/cipher/OpenSslGaloisCounterMode.java
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/crypto/Crypto.java`
-#### Snippet
-```java
-    private static void info(final String format, final Object... args) {
-        if (!quiet) { // suppress output for testing
-          System.out.println(String.format(format, args));
-        }
-    }
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/crypto/utils/Utils.java`
 #### Snippet
@@ -579,6 +531,18 @@ in `src/main/java/org/apache/commons/crypto/utils/Utils.java`
               System.err.println("Could not load '" + SYSTEM_PROPERTIES_FILE + "' from classpath: " + ex.toString());
           }
           return defaultedProps;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/crypto/Crypto.java`
+#### Snippet
+```java
+    private static void info(final String format, final Object... args) {
+        if (!quiet) { // suppress output for testing
+          System.out.println(String.format(format, args));
+        }
+    }
 ```
 
 ### SystemOutErr
@@ -641,19 +605,43 @@ in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
         }
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/crypto/OsInfo.java`
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
 #### Snippet
 ```java
-            return "AIX";
+        if (initialisationError != null) {
+            info("initialisationError(): %s", initialisationError);
+            System.err.flush(); // helpful for stack traces to not mix in other output.
+            throw initialisationError; // propagate to make error obvious
         }
-        return osName.replaceAll("\\W", "");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
+#### Snippet
+```java
+    private static void info(final String format, final Object... args) {
+        // TODO Find a better way to do this later.
+        System.out.println(String.format(format, args));
     }
 
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
+#### Snippet
+```java
+        // TODO Find a better way to do this later.
+        if (Boolean.getBoolean(KEY_DEBUG)) {
+            System.out.println(String.format(Objects.toString(format), args));
+        }
+    }
+```
+
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/commons/crypto/OsInfo.java`
@@ -666,22 +654,22 @@ in `src/main/java/org/apache/commons/crypto/OsInfo.java`
 
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/crypto/OsInfo.java`
+#### Snippet
+```java
+            return "AIX";
+        }
+        return osName.replaceAll("\\W", "");
+    }
+
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.crypto.stream.output` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/output/ChannelOutput.java`
-#### Snippet
-```java
-    /**
-     * Constructs a
-     * {@link org.apache.commons.crypto.stream.output.ChannelOutput}.
-     *
-     * @param channel the WritableByteChannel object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.output` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/output/ChannelOutput.java`
+in `src/main/java/org/apache/commons/crypto/stream/output/StreamOutput.java`
 #### Snippet
 ```java
     /**
@@ -701,42 +689,6 @@ in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
      * {@link org.apache.commons.crypto.stream.input.Input#read(long, byte[], int, int)}
      * . Reads up to {@code len} bytes of data from the input stream into
      * an array of bytes. An attempt is made to read as many as {@code len}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#seek(long)}. Closes
-     * this input and releases any system resources associated with the under
-     * layer input.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#seek(long)}. Seeks to
-     * the given offset from the start of the stream. The next read() will be
-     * from that location.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#read(ByteBuffer)}.
-     * Reads a sequence of bytes from input into the given buffer.
-     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -758,66 +710,6 @@ in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
 ```java
     /**
      * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#skip(long)}. Skips
-     * over and discards {@code n} bytes of data from this input stream.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
-#### Snippet
-```java
-
-    /**
-     * Overrides {@link java.lang.AutoCloseable#close()}. Closes the OS stream.
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#seek(long)}. Seeks to
-     * the given offset from the start of the stream. The next read() will be
-     * from that location.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
-#### Snippet
-```java
-    /**
-     * Constructs the
-     * {@link org.apache.commons.crypto.stream.input.ChannelInput}.
-     *
-     * @param channel the ReadableByteChannel object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#skip(long)}. Skips
-     * over and discards {@code n} bytes of data from this input stream.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
      * {@link org.apache.commons.crypto.stream.input.Input#read(ByteBuffer)}.
      * Reads a sequence of bytes from input into the given buffer.
      *
@@ -825,7 +717,19 @@ in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
+in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
+#### Snippet
+```java
+    /**
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.input.Input#skip(long)}. Skips
+     * over and discards {@code n} bytes of data from this input stream.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
 #### Snippet
 ```java
     /**
@@ -837,62 +741,14 @@ in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
+in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
 #### Snippet
 ```java
     /**
      * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#read(long, byte[], int, int)}
-     * . Reads up to {@code len} bytes of data from the input stream into
-     * an array of bytes. An attempt is made to read as many as {@code len}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.output` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/output/StreamOutput.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
-     * {@link org.apache.commons.crypto.stream.output.Output#write(ByteBuffer)}.
-     * Writes a sequence of bytes to this output from the given buffer.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCryptoRandom.java`
-#### Snippet
-```java
-
-    /**
-     * Overrides {@link java.lang.AutoCloseable#close()}. Closes OpenSSL context
-     * if native enabled.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.channels` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
-     * {@link java.nio.channels.WritableByteChannel#write(ByteBuffer)}. Writes a
-     * sequence of bytes to this channel from the given buffer.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
-#### Snippet
-```java
-
-    /**
-     * Overrides the {@link java.io.OutputStream#write(byte[])}. Writes the
-     * specified byte to this output stream.
-     *
+     * {@link org.apache.commons.crypto.stream.input.Input#seek(long)}. Seeks to
+     * the given offset from the start of the stream. The next read() will be
+     * from that location.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -908,62 +764,26 @@ in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/random/OpenSslCryptoRandom.java`
-#### Snippet
-```java
-
-    /**
-     * Overrides {@link java.lang.AutoCloseable#close()}.
-     * Does nothing.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/random/JavaCryptoRandom.java`
-#### Snippet
-```java
-
-    /**
-     * Overrides {@link java.lang.AutoCloseable#close()}. For {@link JavaCryptoRandom}, we don't need to recycle resource.
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.random` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java`
-#### Snippet
-```java
-     * The value of the CLASSES_KEY needs to be the full name of a
-     * class that implements the
-     * {@link org.apache.commons.crypto.random.CryptoRandom CryptoRandom} interface
-     * The internal classes are listed in the enum
-     * {@link RandomProvider RandomProvider}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.cipher` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
-#### Snippet
-```java
-     * The value of CLASSES_KEY needs to be the full name of a
-     * class that implements the
-     * {@link org.apache.commons.crypto.cipher.CryptoCipher CryptoCipher} interface
-     * The internal classes are listed in the enum
-     * {@link CipherProvider CipherProvider}
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
+in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
 #### Snippet
 ```java
 
     /**
-     * Overrides the {@link java.io.InputStream#skip(long)}. Skips over and
-     * discards {@code n} bytes of data from this input stream.
+     * Overrides the {@link java.io.OutputStream#write(byte[])}. Writes the
+     * specified byte to this output stream.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.channels` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
+#### Snippet
+```java
+    /**
+     * Overrides the
+     * {@link java.nio.channels.WritableByteChannel#write(ByteBuffer)}. Writes a
+     * sequence of bytes to this channel from the given buffer.
      *
 ```
 
@@ -1003,7 +823,199 @@ in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
      *
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
+#### Snippet
+```java
+
+    /**
+     * Overrides the {@link java.io.InputStream#skip(long)}. Skips over and
+     * discards {@code n} bytes of data from this input stream.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/random/JavaCryptoRandom.java`
+#### Snippet
+```java
+
+    /**
+     * Overrides {@link java.lang.AutoCloseable#close()}. For {@link JavaCryptoRandom}, we don't need to recycle resource.
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
+#### Snippet
+```java
+
+    /**
+     * Overrides {@link java.lang.AutoCloseable#close()}. Closes the OS stream.
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.cipher` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
+#### Snippet
+```java
+     * The value of CLASSES_KEY needs to be the full name of a
+     * class that implements the
+     * {@link org.apache.commons.crypto.cipher.CryptoCipher CryptoCipher} interface
+     * The internal classes are listed in the enum
+     * {@link CipherProvider CipherProvider}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.random` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java`
+#### Snippet
+```java
+     * The value of the CLASSES_KEY needs to be the full name of a
+     * class that implements the
+     * {@link org.apache.commons.crypto.random.CryptoRandom CryptoRandom} interface
+     * The internal classes are listed in the enum
+     * {@link RandomProvider RandomProvider}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/random/OpenSslCryptoRandom.java`
+#### Snippet
+```java
+
+    /**
+     * Overrides {@link java.lang.AutoCloseable#close()}.
+     * Does nothing.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCryptoRandom.java`
+#### Snippet
+```java
+
+    /**
+     * Overrides {@link java.lang.AutoCloseable#close()}. Closes OpenSSL context
+     * if native enabled.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
+#### Snippet
+```java
+    /**
+     * Constructs the
+     * {@link org.apache.commons.crypto.stream.input.ChannelInput}.
+     *
+     * @param channel the ReadableByteChannel object.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
+#### Snippet
+```java
+    /**
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.input.Input#read(long, byte[], int, int)}
+     * . Reads up to {@code len} bytes of data from the input stream into
+     * an array of bytes. An attempt is made to read as many as {@code len}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
+#### Snippet
+```java
+    /**
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.input.Input#seek(long)}. Closes
+     * this input and releases any system resources associated with the under
+     * layer input.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
+#### Snippet
+```java
+    /**
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.input.Input#skip(long)}. Skips
+     * over and discards {@code n} bytes of data from this input stream.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
+#### Snippet
+```java
+    /**
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.input.Input#seek(long)}. Seeks to
+     * the given offset from the start of the stream. The next read() will be
+     * from that location.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
+#### Snippet
+```java
+    /**
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.input.Input#read(ByteBuffer)}.
+     * Reads a sequence of bytes from input into the given buffer.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.output` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/output/ChannelOutput.java`
+#### Snippet
+```java
+    /**
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.output.Output#write(ByteBuffer)}.
+     * Writes a sequence of bytes to this output from the given buffer.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.crypto.stream.output` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/output/ChannelOutput.java`
+#### Snippet
+```java
+    /**
+     * Constructs a
+     * {@link org.apache.commons.crypto.stream.output.ChannelOutput}.
+     *
+     * @param channel the WritableByteChannel object.
+```
+
 ## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
+#### Snippet
+```java
+    public int read() throws IOException {
+        int n;
+        while ((n = read(oneByteBuf, 0, 1)) == 0) { //NOPMD
+            /* no op */
+        }
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `src/main/java/org/apache/commons/crypto/stream/PositionedCryptoInputStream.java`
@@ -1025,18 +1037,6 @@ in `src/main/java/org/apache/commons/crypto/stream/PositionedCryptoInputStream.j
         ByteBuffer buf;
         while ((buf = byteBufferPool.poll()) != null) {
             CryptoInputStream.freeDirectBuffer(buf);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
-#### Snippet
-```java
-    public int read() throws IOException {
-        int n;
-        while ((n = read(oneByteBuf, 0, 1)) == 0) { //NOPMD
-            /* no op */
         }
 ```
 
@@ -1128,18 +1128,6 @@ in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `counter`
-in `src/main/java/org/apache/commons/crypto/stream/CtrCryptoInputStream.java`
-#### Snippet
-```java
-            if (j++ < 8) { // Big-endian, and long is 8 bytes length
-                sum += (byte) counter & 0xff;
-                counter >>>= 8;
-            }
-            IV[i] = (byte) sum;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `n`
 in `src/main/java/org/apache/commons/crypto/stream/CtrCryptoInputStream.java`
 #### Snippet
@@ -1151,10 +1139,22 @@ in `src/main/java/org/apache/commons/crypto/stream/CtrCryptoInputStream.java`
         if (skipped < 0) {
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `counter`
+in `src/main/java/org/apache/commons/crypto/stream/CtrCryptoInputStream.java`
+#### Snippet
+```java
+            if (j++ < 8) { // Big-endian, and long is 8 bytes length
+                sum += (byte) counter & 0xff;
+                counter >>>= 8;
+            }
+            IV[i] = (byte) sum;
+```
+
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-06-14-20-15.116.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-07-17-38-58.005.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1164,17 +1164,78 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-06-14-20-15.116.
           </tbody>
 ```
 
+## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
+#### Snippet
+```java
+    private static final String CLASSES_DEFAULT =
+            CipherProvider.OPENSSL.getClassName()
+            .concat(",")
+            .concat(CipherProvider.JCE.getClassName());
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
+#### Snippet
+```java
+            CipherProvider.OPENSSL.getClassName()
+            .concat(",")
+            .concat(CipherProvider.JCE.getClassName());
+
+    /**
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java`
+#### Snippet
+```java
+    private static final String CLASSES_DEFAULT =
+        RandomProvider.OPENSSL.getClassName()
+        .concat(",")
+        .concat(RandomProvider.JAVA.getClassName());
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java`
+#### Snippet
+```java
+        RandomProvider.OPENSSL.getClassName()
+        .concat(",")
+        .concat(RandomProvider.JAVA.getClassName());
+
+    /**
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/crypto/jna/OpenSsl11XNativeJna.java`
+in `src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java`
 #### Snippet
 ```java
-    @Override
-    public PointerByReference _RAND_SSLeay() {
-        return null; // Not available
-    }
+                // Leave a marker that the class isn't found
+                map.put(name, new WeakReference<>(NEGATIVE_CACHE_SENTINEL));
+                return null;
+            }
+            // two putters can race here, but they'll put the same class
+```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java`
+#### Snippet
+```java
+        }
+        if (clazz == NEGATIVE_CACHE_SENTINEL) {
+            return null; // not found
+        }
+        // cache hit
 ```
 
 ### ReturnNull
@@ -1215,88 +1276,14 @@ in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java`
+in `src/main/java/org/apache/commons/crypto/jna/OpenSsl11XNativeJna.java`
 #### Snippet
 ```java
-                // Leave a marker that the class isn't found
-                map.put(name, new WeakReference<>(NEGATIVE_CACHE_SENTINEL));
-                return null;
-            }
-            // two putters can race here, but they'll put the same class
-```
+    @Override
+    public PointerByReference _RAND_SSLeay() {
+        return null; // Not available
+    }
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java`
-#### Snippet
-```java
-        }
-        if (clazz == NEGATIVE_CACHE_SENTINEL) {
-            return null; // not found
-        }
-        // cache hit
-```
-
-## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java`
-#### Snippet
-```java
-    private static final String CLASSES_DEFAULT =
-        RandomProvider.OPENSSL.getClassName()
-        .concat(",")
-        .concat(RandomProvider.JAVA.getClassName());
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java`
-#### Snippet
-```java
-        RandomProvider.OPENSSL.getClassName()
-        .concat(",")
-        .concat(RandomProvider.JAVA.getClassName());
-
-    /**
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
-#### Snippet
-```java
-    private static final String CLASSES_DEFAULT =
-            CipherProvider.OPENSSL.getClassName()
-            .concat(",")
-            .concat(CipherProvider.JCE.getClassName());
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
-#### Snippet
-```java
-            CipherProvider.OPENSSL.getClassName()
-            .concat(",")
-            .concat(CipherProvider.JCE.getClassName());
-
-    /**
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
-#### Snippet
-```java
-                final String SUN_CLASS = "sun.nio.ch.DirectBuffer";
-                final Class<?>[] interfaces = buffer.getClass().getInterfaces();
-                final Object[] EMPTY_OBJECT_ARRAY = {};
-
-                for (final Class<?> clazz : interfaces) {
 ```
 
 ## RuleId[id=SynchronizeOnThis]
@@ -1313,30 +1300,6 @@ in `src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCryptoRandom.java`
 ```
 
 ## RuleId[id=RedundantStringFormatCall]
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
-    private static void info(final String format, final Object... args) {
-        // TODO Find a better way to do this later.
-        System.out.println(String.format(format, args));
-    }
-
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
-        // TODO Find a better way to do this later.
-        if (Boolean.getBoolean(KEY_DEBUG)) {
-            System.out.println(String.format(Objects.toString(format), args));
-        }
-    }
-```
-
 ### RedundantStringFormatCall
 Redundant call to `format()`
 in `src/main/java/org/apache/commons/crypto/Crypto.java`
@@ -1361,19 +1324,44 @@ in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
                 ((Throwable) args[0]).printStackTrace(System.out);
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `n` initializer `0` is redundant
-in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
 #### Snippet
 ```java
-    synchronized public void nextBytes(final byte[] bytes) {
-        int off = 0;
-        int n = 0;
-        while (off < bytes.length) {
-            fillReservoir(0);
+    private static void info(final String format, final Object... args) {
+        // TODO Find a better way to do this later.
+        System.out.println(String.format(format, args));
+    }
+
 ```
 
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
+#### Snippet
+```java
+        // TODO Find a better way to do this later.
+        if (Boolean.getBoolean(KEY_DEBUG)) {
+            System.out.println(String.format(Objects.toString(format), args));
+        }
+    }
+```
+
+## RuleId[id=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
+#### Snippet
+```java
+                final String SUN_CLASS = "sun.nio.ch.DirectBuffer";
+                final Class<?>[] interfaces = buffer.getClass().getInterfaces();
+                final Object[] EMPTY_OBJECT_ARRAY = {};
+
+                for (final Class<?> clazz : interfaces) {
+```
+
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `versionFunction` initializer `null` is redundant
 in `src/main/java/org/apache/commons/crypto/jna/OpenSslNativeJna.java`
@@ -1386,7 +1374,43 @@ in `src/main/java/org/apache/commons/crypto/jna/OpenSslNativeJna.java`
             versionFunction = crypto.getFunction("SSLeay");
 ```
 
+### UnusedAssignment
+Variable `n` initializer `0` is redundant
+in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
+#### Snippet
+```java
+    synchronized public void nextBytes(final byte[] bytes) {
+        int off = 0;
+        int n = 0;
+        while (off < bytes.length) {
+            fillReservoir(0);
+```
+
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
+#### Snippet
+```java
+            } catch (final Exception e) {
+                lastException = e;
+                errorMessage.append("{" + klass + "}");
+            }
+        }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
+#### Snippet
+```java
+            return cipher;
+        }
+        errorMessage.append(" is not available or transformation " + transformation + " is not supported.");
+        throw new GeneralSecurityException(errorMessage.toString(), lastException);
+    }
+```
+
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
 in `src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java`
@@ -1421,29 +1445,5 @@ in `src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java`
                 errorMessage.append("CryptoRandom: [" + klassName + "] failed with " + e.getMessage());
             }
         }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
-#### Snippet
-```java
-            } catch (final Exception e) {
-                lastException = e;
-                errorMessage.append("{" + klass + "}");
-            }
-        }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java`
-#### Snippet
-```java
-            return cipher;
-        }
-        errorMessage.append(" is not available or transformation " + transformation + " is not supported.");
-        throw new GeneralSecurityException(errorMessage.toString(), lastException);
-    }
 ```
 
