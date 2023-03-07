@@ -20,6 +20,18 @@ project.ext.archivesBaseName = 'google-services'
 
 ### GroovyUnusedAssignment
 Assignment is not used
+in `oss-licenses-plugin/build.gradle`
+#### Snippet
+```java
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `google-services-plugin/build.gradle`
 #### Snippet
 ```java
@@ -47,18 +59,6 @@ Assignment is not used
 in `google-services-plugin/build.gradle`
 #### Snippet
 ```java
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `oss-licenses-plugin/build.gradle`
-#### Snippet
-```java
-apply plugin: 'java'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
