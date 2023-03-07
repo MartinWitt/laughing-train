@@ -130,14 +130,14 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 ```
 
 ### RedundantMethodOverride
-Method `seek()` only delegates to its super method
+Method `read()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
 #### Snippet
 ```java
 
     @Override
-    public void seek(long offset) throws IOException {
-        super.seek(offset);
+    public int read(byte[] bytes, int off, int len) throws IOException {
+        return super.read(bytes, off, len);
     }
 ```
 
@@ -154,14 +154,14 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 ```
 
 ### RedundantMethodOverride
-Method `read()` only delegates to its super method
+Method `seek()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
 #### Snippet
 ```java
 
     @Override
-    public int read(byte[] bytes, int off, int len) throws IOException {
-        return super.read(bytes, off, len);
+    public void seek(long offset) throws IOException {
+        super.seek(offset);
     }
 ```
 
@@ -229,18 +229,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DEPRECATED_CIPHER_ALGORITHM_KEY' is still used
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final String DEPRECATED_CIPHER_ALGORITHM_KEY = "fs.cipher";
-
-    public static final String CIPHER_ALGORITHM_KEY = "fs.efs.cipher";
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'SymmetricKeySerializerV3' is still used
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
 #### Snippet
@@ -250,6 +238,18 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricK
 enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
     INSTANCE;
 
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEPRECATED_CIPHER_ALGORITHM_KEY' is still used
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final String DEPRECATED_CIPHER_ALGORITHM_KEY = "fs.cipher";
+
+    public static final String CIPHER_ALGORITHM_KEY = "fs.efs.cipher";
 ```
 
 ### DeprecatedIsStillUsed
