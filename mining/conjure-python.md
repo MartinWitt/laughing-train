@@ -16,7 +16,7 @@ I found 39 bad smells with 10 repairable:
 | ZeroLengthArrayInitialization | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | BoundedWildcard | 1 | false |
-## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'docs'
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/EnumSnippet.java`
@@ -29,7 +29,7 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/EnumSnipp
         }
 ```
 
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `conjure-python/src/main/java/com/palantir/conjure/python/cli/ConjurePythonCli.java`
@@ -42,7 +42,7 @@ in `conjure-python/src/main/java/com/palantir/conjure/python/cli/ConjurePythonCl
 
 ```
 
-## RuleId[ruleID=CharsetObjectCanBeUsed]
+## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/DefaultPythonFileWriter.java`
@@ -55,7 +55,7 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/DefaultPythonF
                 writer.emit(file);
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `imports.size() > 0` can be replaced with '!imports.isEmpty()'
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonFile.java`
@@ -68,7 +68,7 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonFil
             }
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
@@ -81,7 +81,7 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEnd
             poetWriter.writeIndentedLine("_path = _path.format(**_path_params)");
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/PythonFileWriter.java`
@@ -94,7 +94,7 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/PythonFileWrit
     }
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `conjure-python/src/main/java/com/palantir/conjure/python/cli/ConjurePythonCli.java`
@@ -107,7 +107,7 @@ in `conjure-python/src/main/java/com/palantir/conjure/python/cli/ConjurePythonCl
         }
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends PackageNameProcessor`
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/processors/packagename/CompoundPackageNameProcessor.java`
@@ -120,7 +120,7 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/processors/pac
     }
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `CliConfiguration` has no concrete subclass
 in `conjure-python/src/main/java/com/palantir/conjure/python/cli/CliConfiguration.java`
@@ -145,7 +145,7 @@ public abstract class BuildConfiguration {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(new YAMLFactory());
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
+## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMetaYaml.java`
@@ -167,42 +167,6 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMet
             poetWriter.writeIndentedLine("- python");
             installDependencies().forEach(dependency -> {
                 poetWriter.writeIndentedLine("- %s", dependency);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSetup.java`
-#### Snippet
-```java
-            poetWriter.increaseIndent();
-
-            options().forEach((key, value) -> {
-                poetWriter.writeIndentedLine("%s='%s',", key, value);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSetup.java`
-#### Snippet
-```java
-                poetWriter.writeIndentedLine("%s='%s',", key, value);
-            });
-            rawOptions().forEach((key, value) -> {
-                poetWriter.writeIndentedLine("%s=%s,", key, value);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSetup.java`
-#### Snippet
-```java
-            poetWriter.writeIndentedLine("install_requires=[");
-            poetWriter.increaseIndent();
-            installDependencies().forEach(dependency -> {
-                poetWriter.writeIndentedLine("'%s',", dependency);
             });
 ```
 
@@ -242,43 +206,43 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEnd
                     });
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSetup.java`
 #### Snippet
 ```java
-    private PythonFile buildPyTypedFile() {
-        return PythonFile.builder()
-                .pythonPackage(PythonPackage.of(config.pythonicPackageName().get()))
-                .fileName("py.typed")
-                .build();
+            poetWriter.increaseIndent();
+
+            options().forEach((key, value) -> {
+                poetWriter.writeIndentedLine("%s='%s',", key, value);
+            });
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSetup.java`
 #### Snippet
 ```java
-        PythonSetup.Builder builder = PythonSetup.builder()
-                .pythonPackage(rootPackage)
-                .putOptions("name", config.packageName().get())
-                .putOptions("version", config.packageVersion().get())
-                .putOptions("python_requires", ">=3.8")
+                poetWriter.writeIndentedLine("%s='%s',", key, value);
+            });
+            rawOptions().forEach((key, value) -> {
+                poetWriter.writeIndentedLine("%s=%s,", key, value);
+            });
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSetup.java`
 #### Snippet
 ```java
-                .pythonPackage(rootPackage)
-                .putOptions("name", config.packageName().get())
-                .putOptions("version", config.packageVersion().get())
-                .putOptions("python_requires", ">=3.8")
-                .putRawOptions("package_data", "{\"\": [\"py.typed\"]}")
+            poetWriter.writeIndentedLine("install_requires=[");
+            poetWriter.increaseIndent();
+            installDependencies().forEach(dependency -> {
+                poetWriter.writeIndentedLine("'%s',", dependency);
+            });
 ```
 
+## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
@@ -308,6 +272,18 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
 #### Snippet
 ```java
+    private PythonFile buildPyTypedFile() {
+        return PythonFile.builder()
+                .pythonPackage(PythonPackage.of(config.pythonicPackageName().get()))
+                .fileName("py.typed")
+                .build();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
                         .pythonPackage(rootPackage)
                         .text(String.format(
                                 "__version__ = \"%s\"", config.packageVersion().get()))
@@ -315,7 +291,31 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
         return builder.build();
 ```
 
-## RuleId[ruleID=UnstableApiUsage]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+        PythonSetup.Builder builder = PythonSetup.builder()
+                .pythonPackage(rootPackage)
+                .putOptions("name", config.packageName().get())
+                .putOptions("version", config.packageVersion().get())
+                .putOptions("python_requires", ">=3.8")
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+                .pythonPackage(rootPackage)
+                .putOptions("name", config.packageName().get())
+                .putOptions("version", config.packageVersion().get())
+                .putOptions("python_requires", ">=3.8")
+                .putRawOptions("package_data", "{\"\": [\"py.typed\"]}")
+```
+
+## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
 'com.google.common.graph.MutableGraph' is marked unstable with @Beta
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/PythonAliasTopologicalSorter.java`
