@@ -1,7 +1,7 @@
 # fhir-access-proxy 
  
 # Bad smells
-I found 45 bad smells with 6 repairable:
+I found 44 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 9 | false |
@@ -15,37 +15,12 @@ I found 45 bad smells with 6 repairable:
 | ReplaceNullCheck | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | RegExpRedundantEscape | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | MismatchedJavadocCode | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | ConstantValue | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
-#### Snippet
-```java
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-public class JwtUtil {
-  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
-    Claim claim = jwt.getClaim(claimName);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
-#### Snippet
-```java
-import org.slf4j.Logger;
-
-public class ExceptionUtil {
-
-  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
-```
-
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
@@ -56,6 +31,18 @@ import org.apache.http.entity.ContentType;
 public class ProxyConstants {
 
   // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
+#### Snippet
+```java
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+public class JwtUtil {
+  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
+    Claim claim = jwt.getClaim(claimName);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -71,6 +58,18 @@ public class MainApp {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
+#### Snippet
+```java
+import org.slf4j.Logger;
+
+public class ExceptionUtil {
+
+  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
 #### Snippet
@@ -82,19 +81,7 @@ public class FhirUtil {
   private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
-#### Snippet
-```java
-  public GcpFhirClient(String gcpFhirStore, GoogleCredentials credentials) throws IOException {
-    // Remove trailing '/'s since proxy's base URL has no trailing '/'.
-    this.gcpFhirStore = gcpFhirStore.replaceAll("/+$", "");
-    this.credentials = credentials;
-
-```
-
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
@@ -107,7 +94,19 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.ja
           SmartFhirScope.extractSmartFhirScopesFromTokens(Arrays.asList(scopes)),
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
+#### Snippet
+```java
+  public GcpFhirClient(String gcpFhirStore, GoogleCredentials credentials) throws IOException {
+    // Remove trailing '/'s since proxy's base URL has no trailing '/'.
+    this.gcpFhirStore = gcpFhirStore.replaceAll("/+$", "");
+    this.credentials = credentials;
+
+```
+
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `getTokenValue` may produce `NullPointerException`
 in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
@@ -192,7 +191,7 @@ in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
       //   https://github.com/google/fhir-access-proxy/issues/67
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
@@ -205,7 +204,7 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
       if (fhirStoreUrl.charAt(numMatched) == c) {
 ```
 
-## RuleId[ruleID=ReplaceNullCheck]
+## RuleId[id=ReplaceNullCheck]
 ### ReplaceNullCheck
 'if' statement can be replaced with call to 'Objects.requireNonNullElseGet()'
 in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
@@ -218,7 +217,7 @@ in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
     } else {
 ```
 
-## RuleId[ruleID=MismatchedCollectionQueryUpdate]
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `accessCheckerFactories` are queried, but never updated
 in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
@@ -231,7 +230,7 @@ in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
   static boolean isDevMode() {
 ```
 
-## RuleId[ruleID=RegExpRedundantEscape]
+## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
@@ -244,19 +243,7 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
   private static final String ALL_RESOURCE_PERMISSIONS_WILDCARD = "*";
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
-#### Snippet
-```java
-          + "header containing a JWT access token. This token must have been issued by the "
-          + "authorization server defined by the configured TOKEN_ISSUER.";
-  private static CapabilityPostProcessor instance = null;
-
-  private final FhirContext fhirContext;
-```
-
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
@@ -267,6 +254,18 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
   private AllowedQueriesConfig config = null;
 
   AllowedQueriesChecker(String configFile) throws IOException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
+#### Snippet
+```java
+          + "header containing a JWT access token. This token must have been issued by the "
+          + "authorization server defined by the configured TOKEN_ISSUER.";
+  private static CapabilityPostProcessor instance = null;
+
+  private final FhirContext fhirContext;
 ```
 
 ### RedundantFieldInitialization
@@ -293,20 +292,7 @@ public final class PatientFinderImp implements PatientFinder {
   private static final String PATCH_OP_REPLACE = "replace";
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-26-09-08-52.279.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[ruleID=MismatchedJavadocCode]
+## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
@@ -319,7 +305,7 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
   @Override
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
@@ -334,11 +320,35 @@ in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.j
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
 #### Snippet
 ```java
+    IBaseResource resource = jsonParser.parseResource(requestContent);
+    if (!(resource instanceof Bundle)) {
+      return null;
     }
-    // We should never get here, this is to keep the IDE happy!
+    return (Bundle) resource;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
+#### Snippet
+```java
+  public static String getIdOrNull(RequestDetailsReader requestDetails) {
+    if (requestDetails.getId() == null) {
+      return null;
+    }
+    return requestDetails.getId().getIdPart();
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
+#### Snippet
+```java
+          logger, "Error in building URI for resource " + uriString);
+    }
     return null;
   }
 
@@ -358,38 +368,14 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
-          logger, "Error in building URI for resource " + uriString);
     }
+    // We should never get here, this is to keep the IDE happy!
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
-#### Snippet
-```java
-  public static String getIdOrNull(RequestDetailsReader requestDetails) {
-    if (requestDetails.getId() == null) {
-      return null;
-    }
-    return requestDetails.getId().getIdPart();
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
-#### Snippet
-```java
-    IBaseResource resource = jsonParser.parseResource(requestContent);
-    if (!(resource instanceof Bundle)) {
-      return null;
-    }
-    return (Bundle) resource;
 ```
 
 ### ReturnNull
@@ -409,18 +395,6 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-          e,
-          ForbiddenOperationException.class);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
     }
     // It should never reach here!
     return null;
@@ -428,7 +402,19 @@ in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
+#### Snippet
+```java
+          e,
+          ForbiddenOperationException.class);
+      return null;
+    }
+  }
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `builder` is redundant
 in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
@@ -441,7 +427,7 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
               + path
 ```
 
-## RuleId[ruleID=SetReplaceableByEnumSet]
+## RuleId[id=SetReplaceableByEnumSet]
 ### SetReplaceableByEnumSet
 `HashSet<>` can be replaced with 'EnumSet'
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
@@ -454,7 +440,7 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
       permissions.addAll(List.of(Permission.values()));
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
@@ -503,7 +489,7 @@ in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
     this.fhirContext = fhirContext;
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Result of `SIGN_ALGORITHM.equals("RS256")` is always 'true'
 in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
@@ -516,7 +502,7 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
     final String keyAlgorithm = "RSA";
 ```
 
-## RuleId[ruleID=UnstableApiUsage]
+## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
 'com.google.common.io.Resources' is marked unstable with @Beta
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
@@ -565,7 +551,7 @@ in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
       ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `ResourceType.fromCode()` is ignored
 in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
