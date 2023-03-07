@@ -10,7 +10,7 @@ I found 13 bad smells with 0 repairable:
 | AssignmentToMethodParameter | 1 | false |
 | CallToStringConcatCanBeReplacedByOperator | 1 | false |
 | NonShortCircuitBoolean | 1 | false |
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `outputFile`
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
@@ -23,19 +23,7 @@ in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spri
 							outputFile.lastIndexOf("."))
 ```
 
-## RuleId[ruleID=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
-#### Snippet
-```java
-		File parent = new File(outputFile).getParentFile();
-		if (!parent.exists()) {
-			System.out.println(
-					"No parent directory [" + parent + "] found. Will not generate the configuration properties file");
-			return;
-```
-
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
@@ -96,7 +84,19 @@ in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spri
 
 ```
 
-## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
+#### Snippet
+```java
+		File parent = new File(outputFile).getParentFile();
+		if (!parent.exists()) {
+			System.out.println(
+					"No parent directory [" + parent + "] found. Will not generate the configuration properties file");
+			return;
+```
+
+## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
@@ -109,7 +109,7 @@ in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spri
 		}
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
@@ -134,7 +134,7 @@ in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spri
 		File parent = new File(outputFile).getParentFile();
 ```
 
-## RuleId[ruleID=NonShortCircuitBoolean]
+## RuleId[id=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `"db".equals(letters) | "jms".equals(letters) | "b2c".equals(letters)`
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
@@ -147,19 +147,7 @@ in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spri
 			}
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
-#### Snippet
-```java
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-				return false;
-```
-
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
@@ -170,5 +158,17 @@ in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spri
 				e.printStackTrace();
 			}
 			System.out.println("Successfully stored the output Markdown file!");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
+#### Snippet
+```java
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+				return false;
 ```
 
