@@ -6,7 +6,7 @@ I found 8 bad smells with 0 repairable:
 | --- | --- | --- |
 | RegExpSimplifiable | 6 | false |
 | RegExpRedundantNestedCharacterClass | 2 | false |
-## RuleId[ruleID=RegExpSimplifiable]
+## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
 in `test/jaxp/javax/xml/jaxp/unittest/stream/XMLStreamReaderTest/XMLSchema.xsd`
@@ -29,30 +29,6 @@ in `test/jaxp/javax/xml/jaxp/unittest/stream/XMLStreamReaderTest/XMLSchema.xsd`
       <xs:pattern value="[\i-[:]][\c-[:]]*" id="NCName.pattern">
         <xs:annotation>
           <xs:documentation
-```
-
-### RegExpSimplifiable
-`{0,1}` can be simplified to '?'
-in `test/jaxp/javax/xml/jaxp/unittest/validation/Bug6773084.xsd`
-#### Snippet
-```java
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:pattern value="[A-Z]{0,1}"/>
-            </xs:restriction>
-        </xs:simpleType>
-```
-
-### RegExpSimplifiable
-`[-]` can be simplified to '-'
-in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/Bug6970890_1.xsd`
-#### Snippet
-```java
-<xsd:simpleType name="Regex">
-       <xsd:restriction base="xsd:string">
-           <xsd:pattern value="[-]"/>
-       </xsd:restriction>
-</xsd:simpleType>
 ```
 
 ### RegExpSimplifiable
@@ -68,6 +44,30 @@ in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/Bug6970890.xsd`
 ```
 
 ### RegExpSimplifiable
+`[-]` can be simplified to '-'
+in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/Bug6970890_1.xsd`
+#### Snippet
+```java
+<xsd:simpleType name="Regex">
+       <xsd:restriction base="xsd:string">
+           <xsd:pattern value="[-]"/>
+       </xsd:restriction>
+</xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`{0,1}` can be simplified to '?'
+in `test/jaxp/javax/xml/jaxp/unittest/validation/Bug6773084.xsd`
+#### Snippet
+```java
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="[A-Z]{0,1}"/>
+            </xs:restriction>
+        </xs:simpleType>
+```
+
+### RegExpSimplifiable
 `[\w]` can be simplified to '\\w'
 in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/reZ003.xsd`
 #### Snippet
@@ -79,7 +79,7 @@ in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/reZ003.xsd`
  </xs:simpleType>
 ```
 
-## RuleId[ruleID=RegExpRedundantNestedCharacterClass]
+## RuleId[id=RegExpRedundantNestedCharacterClass]
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
 in `test/jaxp/javax/xml/jaxp/unittest/stream/XMLStreamReaderTest/XMLSchema.xsd`
