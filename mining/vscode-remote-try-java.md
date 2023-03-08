@@ -6,7 +6,7 @@ I found 2 bad smells with 1 repairable:
 | --- | --- | --- |
 | SystemOutErr | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/mycompany/app/App.java`
@@ -19,7 +19,7 @@ public class App {
 }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `App` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/mycompany/app/App.java`
