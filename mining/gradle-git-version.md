@@ -1,34 +1,18 @@
 # gradle-git-version 
  
 # Bad smells
-I found 23 bad smells with 3 repairable:
+I found 20 bad smells with 5 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 10 | false |
-| UnnecessaryLocalVariable | 2 | true |
-| ConstantValue | 2 | false |
-| RedundantFieldInitialization | 1 | false |
+| ReturnNull | 8 | false |
+| UnnecessaryLocalVariable | 4 | true |
+| DataFlowIssue | 2 | false |
 | SystemOutErr | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
-| DataFlowIssue | 1 | false |
 | NestedAssignment | 1 | false |
-| BoundedWildcard | 1 | false |
 | AbstractClassNeverImplemented | 1 | false |
 | UnusedAssignment | 1 | false |
 | CodeBlock2Expr | 1 | true |
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-    private final Git git;
-    private final GitVersionArgs args;
-    private volatile String maybeCachedDescription = null;
-
-    VersionDetailsImpl(File gitDir, GitVersionArgs args) throws IOException {
-```
-
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
@@ -43,90 +27,6 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
 ```
 
 ## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
-#### Snippet
-```java
-            return identity.getWhen().toInstant();
-        } catch (IOException | RuntimeException ignored) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            log.debug("Cannot compute version details", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
-#### Snippet
-```java
-    public String describe(String prefix) {
-        if (!gitCommandExists()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
-#### Snippet
-```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git describe failed", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
-        if (objectId == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        if (isRepoEmpty()) {
-            log.debug("Repository is empty");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
-        if (ref == null) {
-            return null;
-        }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
@@ -153,17 +53,101 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
-        } catch (IOException | RuntimeException e) {
-            log.debug("JGit describe failed", e);
+            String branch = runGitCmd("branch", "--show-current");
+            if (branch.isEmpty()) {
+                return null;
+            }
+            return branch;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git branch --show-current failed", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git rev-parse HEAD failed", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git command {} failed.\n", command, e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git describe failed", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git status --porcelain failed", e);
             return null;
         }
     }
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `nativeGitDescribe` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+    private String expensiveComputeRawDescription() {
+
+        String nativeGitDescribe = nativeGitInvoker.describe(args.getPrefix());
+
+        return nativeGitDescribe;
+```
+
+### UnnecessaryLocalVariable
+Local variable `processedDescription` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+    private String description() {
+        String rawDescription = expensiveComputeRawDescription();
+        String processedDescription =
+                rawDescription == null ? null : rawDescription.replaceFirst("^" + args.getPrefix(), "");
+        return processedDescription;
+```
+
 ### UnnecessaryLocalVariable
 Local variable `versionDetails` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
@@ -203,21 +187,33 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionArgs.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `getVersion` may produce `NullPointerException`
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+Argument `description()` might be null
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        String gitVersion = versionDetailsMap
-                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
-                .getVersion();
-        return gitVersion;
+        }
+
+        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
+        Preconditions.checkState(match.matches(), "Cannot get commit distance for description: '%s'", description());
+        return Integer.parseInt(match.group(2));
+```
+
+### DataFlowIssue
+Argument `description()` might be null
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+        }
+
+        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
+        return match.matches() ? match.group(1) : null;
     }
 ```
 
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
         StringBuilder builder = new StringBuilder();
@@ -225,19 +221,6 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
         while ((line = reader.readLine()) != null) {
             builder.append(line);
             builder.append(System.getProperty("line.separator"));
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
-#### Snippet
-```java
-
-    private static void updateCommitHashMap(
-            Map<String, RefWithTagName> map,
-            RefWithTagNameComparator comparator,
-            ObjectId objectId,
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -256,7 +239,7 @@ public abstract class GitVersionCacheService implements BuildService<BuildServic
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `line` initializer `null` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
 
@@ -277,30 +260,5 @@ in `src/main/java/com/palantir/gradle/gitversion/TimingVersionDetails.java`
                     return timer.record(method.getName(), () -> {
                         try {
                             return method.invoke(versionDetails, args);
-```
-
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `!isTag2Annotated` is always `true` when reached
-in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
-#### Snippet
-```java
-
-        // Both tags are unannotated, compare names
-        if (!isTag1Annotated && !isTag2Annotated) {
-            return tag1.getRef().getName().compareTo(tag2.getRef().getName());
-        }
-```
-
-### ConstantValue
-Value `isTag2Annotated` is always 'false'
-in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
-#### Snippet
-```java
-
-        // Both tags are unannotated, compare names
-        if (!isTag1Annotated && !isTag2Annotated) {
-            return tag1.getRef().getName().compareTo(tag2.getRef().getName());
-        }
 ```
 
