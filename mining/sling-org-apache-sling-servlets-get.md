@@ -1,7 +1,7 @@
 # sling-org-apache-sling-servlets-get 
  
 # Bad smells
-I found 40 bad smells with 4 repairable:
+I found 39 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DataFlowIssue | 8 | false |
@@ -18,7 +18,6 @@ I found 40 bad smells with 4 repairable:
 | CStyleArrayDeclaration | 1 | false |
 | Java8MapApi | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
@@ -26,7 +25,7 @@ I found 40 bad smells with 4 repairable:
 | BoundedWildcard | 1 | false |
 | MissortedModifiers | 1 | false |
 | UnusedAssignment | 1 | false |
-## RuleId[ruleID=UnnecessaryUnboxing]
+## RuleId[id=UnnecessaryUnboxing]
 ### UnnecessaryUnboxing
 Unnecessary unboxing
 in `src/main/java/org/apache/sling/servlets/get/impl/RedirectServlet.java`
@@ -39,7 +38,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/RedirectServlet.java`
                     return status;
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.sling.servlets.get.impl` is unnecessary and can be removed
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
@@ -52,7 +51,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
  * {@link PlainTextRenderer}.
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `r.adaptTo(String[].class)` might be null
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
@@ -63,6 +62,42 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
             render(pw, r, r.adaptTo(String[].class));
             printEpilog(pw, isIncluded);
         } else {
+```
+
+### DataFlowIssue
+Method invocation `getJSONObject` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
+#### Snippet
+```java
+                            .withIndent(tidy ? INDENT_SPACES : 0)
+                            .withArraysForChildren(harray);
+                    resp.getWriter().write(renderer.prettyPrint(traversor.getJSONObject(), opt));
+                } else {
+                    // If no rendering options, use the plain toString() method, for
+```
+
+### DataFlowIssue
+Method invocation `getJSONObject` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
+#### Snippet
+```java
+                    StringWriter writer = new StringWriter();
+                    try (JsonGenerator json = Json.createGenerator(writer)){
+                        json.write(traversor.getJSONObject());
+                    }
+                    resp.getWriter().write(writer.toString());
+```
+
+### DataFlowIssue
+Method invocation `getWorkspace` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
+#### Snippet
+```java
+        
+        try {
+        	VersionManager vm = req.getResourceResolver().adaptTo(Session.class).getWorkspace().getVersionManager();
+            resp.getWriter().write(renderer.prettyPrint(getJsonObject(req.getResource(), vm), opt));
+        } catch (Exception e) {
 ```
 
 ### DataFlowIssue
@@ -113,43 +148,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
                 Range currentRange = ranges.next();
 ```
 
-### DataFlowIssue
-Method invocation `getJSONObject` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
-#### Snippet
-```java
-                            .withIndent(tidy ? INDENT_SPACES : 0)
-                            .withArraysForChildren(harray);
-                    resp.getWriter().write(renderer.prettyPrint(traversor.getJSONObject(), opt));
-                } else {
-                    // If no rendering options, use the plain toString() method, for
-```
-
-### DataFlowIssue
-Method invocation `getJSONObject` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
-#### Snippet
-```java
-                    StringWriter writer = new StringWriter();
-                    try (JsonGenerator json = Json.createGenerator(writer)){
-                        json.write(traversor.getJSONObject());
-                    }
-                    resp.getWriter().write(writer.toString());
-```
-
-### DataFlowIssue
-Method invocation `getWorkspace` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
-#### Snippet
-```java
-        
-        try {
-        	VersionManager vm = req.getResourceResolver().adaptTo(Session.class).getWorkspace().getVersionManager();
-            resp.getWriter().write(renderer.prettyPrint(getJsonObject(req.getResource(), vm), opt));
-        } catch (Exception e) {
-```
-
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import javax.json.JsonException;`
 in `src/main/java/org/apache/sling/servlets/get/impl/SlingInfoServlet.java`
@@ -174,7 +173,7 @@ import java.io.IOException;
 import java.io.InputStream;
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
@@ -187,17 +186,17 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
             }
 ```
 
-## RuleId[ruleID=StringOperationCanBeSimplified]
+## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+Call to `toString()` is redundant
+in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
 #### Snippet
 ```java
-                    if (dashPos < rangeDefinition.length() - 1)
-                        currentRange.end = Long.parseLong(rangeDefinition.substring(
-                            dashPos + 1, rangeDefinition.length()));
-                    else
-                        currentRange.end = fileLength - 1;
+                }
+                indent(sb, newindent);
+                sb.append(quote(o.toString()));
+                sb.append(": ");
+                sb.append(valueToString(v,
 ```
 
 ### StringOperationCanBeSimplified
@@ -213,18 +212,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java
 ```
 
 ### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
+Unnecessary string length argument
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
 ```java
-                }
-                indent(sb, newindent);
-                sb.append(quote(o.toString()));
-                sb.append(": ");
-                sb.append(valueToString(v,
+                    if (dashPos < rangeDefinition.length() - 1)
+                        currentRange.end = Long.parseLong(rangeDefinition.substring(
+                            dashPos + 1, rangeDefinition.length()));
+                    else
+                        currentRange.end = fileLength - 1;
 ```
 
-## RuleId[ruleID=WhileCanBeForeach]
+## RuleId[id=WhileCanBeForeach]
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/PlainTextRenderer.java`
@@ -249,7 +248,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java
             createProperty(obj, prop.getKey(), prop.getValue());
 ```
 
-## RuleId[ruleID=CStyleArrayDeclaration]
+## RuleId[id=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
 C-style array declaration of local variable `buffer`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
@@ -262,7 +261,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
         while (position < start) {
 ```
 
-## RuleId[ruleID=Java8MapApi]
+## RuleId[id=Java8MapApi]
 ### Java8MapApi
 Can be replaced with single 'Map.computeIfAbsent' method call
 in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java`
@@ -275,7 +274,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java
                 childTree = new ArrayList<>();
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `currentLevel`
 in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java`
@@ -300,7 +299,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
     }
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
+## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'renderer' in a Serializable class
 in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
@@ -313,7 +312,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
     @Activate
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
@@ -374,20 +373,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-23-19-40-52.794.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `childrenArray.size() > 0` can be replaced with '!childrenArray.isEmpty()'
 in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
@@ -412,7 +398,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
         }
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
@@ -425,7 +411,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
 
 ```
 
-## RuleId[ruleID=CopyConstructorMissesField]
+## RuleId[id=CopyConstructorMissesField]
 ### CopyConstructorMissesField
 Copy constructor does not copy fields 'childrenKey' and 'childNameKey'
 in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
@@ -438,7 +424,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
             this.indentIsPositive = opt.indentIsPositive;
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/PlainTextRenderer.java`
@@ -451,7 +437,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/PlainTextRenderer.j
     }
 ```
 
-## RuleId[ruleID=InnerClassMayBeStatic]
+## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `Range` may be 'static'
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
@@ -464,7 +450,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
         public long start;
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Range`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
@@ -477,7 +463,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
         String contentType = resource.getResourceMetadata().getContentType();
 ```
 
-## RuleId[ruleID=MissortedModifiers]
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `static public`
 in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
@@ -490,7 +476,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
         private boolean indentIsPositive;
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `maxRecursionLevels` initializer `0` is redundant
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
@@ -503,7 +489,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
             maxRecursionLevels = getMaxRecursionLevel(req);
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Value `targetPath` is always 'null'
 in `src/main/java/org/apache/sling/servlets/get/impl/RedirectServlet.java`
