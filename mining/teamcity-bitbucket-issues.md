@@ -7,7 +7,7 @@ I found 6 bad smells with 0 repairable:
 | BoundedWildcard | 4 | false |
 | RedundantFieldInitialization | 1 | false |
 | DoubleBraceInitialization | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/auth/BitBucketAuthenticator.java`
@@ -20,7 +20,7 @@ public class BitBucketAuthenticator implements IssueFetcherAuthenticator {
   public BitBucketAuthenticator(@NotNull final Map<String, String > properties) {
 ```
 
-## RuleId[ruleID=DoubleBraceInitialization]
+## RuleId[id=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
 in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueProviderType.java`
@@ -33,17 +33,17 @@ in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTra
       put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends SBuildType`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
+Can generalize to `? super InvalidProperty`
+in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueProvider.java`
 #### Snippet
 ```java
-  }
+    }
 
-  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
-  }
+    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
+                                       @NotNull final Map<String, String> map,
+                                       @NotNull final String propertyName,
 ```
 
 ### BoundedWildcard
@@ -71,14 +71,14 @@ in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTra
 ```
 
 ### BoundedWildcard
-Can generalize to `? super InvalidProperty`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueProvider.java`
+Can generalize to `? extends SBuildType`
+in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
 #### Snippet
 ```java
-    }
+  }
 
-    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
-                                       @NotNull final Map<String, String> map,
-                                       @NotNull final String propertyName,
+  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
+    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
+  }
 ```
 
