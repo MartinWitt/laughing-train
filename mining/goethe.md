@@ -6,7 +6,7 @@ I found 4 bad smells with 0 repairable:
 | --- | --- | --- |
 | SystemOutErr | 3 | false |
 | ZeroLengthArrayInitialization | 1 | false |
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `goethe/src/main/java/com/palantir/goethe/GoetheMain.java`
@@ -43,7 +43,7 @@ in `goethe/src/main/java/com/palantir/goethe/GoetheMain.java`
         }
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `goethe/src/main/java/com/palantir/goethe/Goethe.java`
