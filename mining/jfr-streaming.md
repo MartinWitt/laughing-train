@@ -17,19 +17,7 @@ I found 22 bad smells with 2 repairable:
 | UnusedAssignment | 1 | false |
 | MethodOverridesStaticMethod | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
-#### Snippet
-```java
-
-    private byte[] buffer;
-    private int index = 0;
-    private boolean EOF = false;
-    // There is a recording id and an id you get from the recording for the stream.
-```
-
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
@@ -42,7 +30,19 @@ in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
     // streamId is the id for the stream.
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
+#### Snippet
+```java
+
+    private byte[] buffer;
+    private int index = 0;
+    private boolean EOF = false;
+    // There is a recording id and an id you get from the recording for the stream.
+```
+
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `arg`
 in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
@@ -55,7 +55,7 @@ in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
 
 ```
 
-## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
+## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
@@ -80,7 +80,7 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
         String  msg = illegalStateFormat.format(args);
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `configurationName.trim().length() > 0` can be replaced with '!configurationName.trim().isEmpty()'
 in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
@@ -93,7 +93,7 @@ in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
             String[] argTypes = new String[]{long.class.getName(), String.class.getName()};
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `msg` is redundant
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
@@ -106,7 +106,7 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
     }
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `core/src/main/java/com/microsoft/jfr/FlightRecorderConnection.java`
@@ -143,7 +143,7 @@ in `core/src/main/java/com/microsoft/jfr/dcmd/FlightRecorderDiagnosticCommandCon
 
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
+## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
@@ -156,7 +156,7 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
 
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
@@ -181,7 +181,7 @@ in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
 
 ```
 
-## RuleId[ruleID=StaticInitializerReferencesSubClass]
+## RuleId[id=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
 Referencing subclass PredefinedConfiguration from superclass RecordingConfiguration initializer might lead to class loading deadlock
 in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
@@ -206,7 +206,7 @@ in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
 
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `value` initializer `0L` is redundant
 in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
@@ -219,7 +219,31 @@ in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
                 String numVal = normalize(maxSize, Option.MAX_SIZE);
 ```
 
-## RuleId[ruleID=MissortedModifiers]
+## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+    // {0} is the state the code is trying to transition to.
+    // {1} are the states that the instance could be in for a valid transition.
+    private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+
+    final private FlightRecorderConnection connection;
+    final private RecordingOptions recordingOptions;
+    final private RecordingConfiguration recordingConfiguration;
+
+```
+
 ### MissortedModifiers
 Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
@@ -244,31 +268,7 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
     private volatile long id = -1;
 ```
 
-### MissortedModifiers
-Missorted modifiers `final private`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-
-    final private FlightRecorderConnection connection;
-    final private RecordingOptions recordingOptions;
-    final private RecordingConfiguration recordingConfiguration;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-    // {0} is the state the code is trying to transition to.
-    // {1} are the states that the instance could be in for a valid transition.
-    private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
-
-    /**
-```
-
-## RuleId[ruleID=MethodOverridesStaticMethod]
+## RuleId[id=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
 Method `connect()` tries to override a static method of a superclass
 in `core/src/main/java/com/microsoft/jfr/dcmd/FlightRecorderDiagnosticCommandConnection.java`
@@ -281,7 +281,7 @@ in `core/src/main/java/com/microsoft/jfr/dcmd/FlightRecorderDiagnosticCommandCon
         Objects.requireNonNull(mBeanServerConnection);
 ```
 
-## RuleId[ruleID=UnnecessaryCallToStringValueOf]
+## RuleId[id=UnnecessaryCallToStringValueOf]
 ### UnnecessaryCallToStringValueOf
 Unnecessary `Long.toString()` call
 in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
