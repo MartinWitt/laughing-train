@@ -75,18 +75,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
-#### Snippet
-```java
-
-@Value.Immutable
-abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
-    protected abstract Provider<Directory> installationPathProvider();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `JdkExtension` has no concrete subclass
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkExtension.java`
 #### Snippet
@@ -96,18 +84,6 @@ import org.gradle.api.provider.Property;
 public abstract class JdkExtension {
     // Not called `version` to avoid being interfered with by `Project#setVersion`!
     public abstract Property<String> getJdkVersion();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JdkDistributionExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDistributionExtension.java`
-#### Snippet
-```java
-import org.gradle.api.provider.Property;
-
-public abstract class JdkDistributionExtension {
-    public abstract Property<String> getBaseUrl();
-}
 ```
 
 ### AbstractClassNeverImplemented
@@ -134,19 +110,31 @@ public abstract class JdksExtension {
     private final LazilyConfiguredMapping<JavaLanguageVersion, JdkExtension, Project> jdks;
 ```
 
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains array `byte[]`
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
+### AbstractClassNeverImplemented
+Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
 #### Snippet
 ```java
-    }
 
-    private Optional<byte[]> linuxSystemCertificates() {
-        List<Path> possibleCaCertificatePaths = List.of(
-                // Ubuntu/debian
+@Value.Immutable
+abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
+    protected abstract Provider<Directory> installationPathProvider();
+
 ```
 
+### AbstractClassNeverImplemented
+Abstract class `JdkDistributionExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDistributionExtension.java`
+#### Snippet
+```java
+import org.gradle.api.provider.Property;
+
+public abstract class JdkDistributionExtension {
+    public abstract Property<String> getBaseUrl();
+}
+```
+
+## RuleId[id=OptionalContainsCollection]
 ### OptionalContainsCollection
 'Optional' contains array `byte[]`
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
@@ -159,29 +147,16 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
 
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `PalantirCaExtension()` of an abstract class should not be declared 'public'
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
 #### Snippet
 ```java
-    public abstract Property<LogLevel> getLogLevel();
-
-    public PalantirCaExtension() {
-        getLogLevel().set(LogLevel.INFO);
     }
-```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `JdksExtension()` of an abstract class should not be declared 'public'
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
-#### Snippet
-```java
-    protected abstract ObjectFactory getObjectFactory();
-
-    public JdksExtension() {
-        this.jdkDistributions =
-                new LazilyConfiguredMapping<>(() -> getObjectFactory().newInstance(JdkDistributionExtension.class));
+    private Optional<byte[]> linuxSystemCertificates() {
+        List<Path> possibleCaCertificatePaths = List.of(
+                // Ubuntu/debian
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -211,18 +186,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
-#### Snippet
-```java
-            ivy.patternLayout(patternLayout -> patternLayout.artifact("[module].[ext]"));
-            ivy.metadataSources(MetadataSources::artifact);
-            ivy.content(repositoryContentDescriptor -> {
-                repositoryContentDescriptor.includeGroup(jdkGroup);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
 #### Snippet
 ```java
@@ -231,6 +194,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
         caCerts().forEach((alias, caCert) -> {
             stringBuilder.append(alias).append(": ").append(caCert).append('\n');
         });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
+#### Snippet
+```java
+            ivy.patternLayout(patternLayout -> patternLayout.artifact("[module].[ext]"));
+            ivy.metadataSources(MetadataSources::artifact);
+            ivy.content(repositoryContentDescriptor -> {
+                repositoryContentDescriptor.includeGroup(jdkGroup);
+            });
 ```
 
 ### CodeBlock2Expr
@@ -245,7 +220,68 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
             });
 ```
 
+## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `PalantirCaExtension()` of an abstract class should not be declared 'public'
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
+#### Snippet
+```java
+    public abstract Property<LogLevel> getLogLevel();
+
+    public PalantirCaExtension() {
+        getLogLevel().set(LogLevel.INFO);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `JdksExtension()` of an abstract class should not be declared 'public'
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
+#### Snippet
+```java
+    protected abstract ObjectFactory getObjectFactory();
+
+    public JdksExtension() {
+        this.jdkDistributions =
+                new LazilyConfiguredMapping<>(() -> getObjectFactory().newInstance(JdkDistributionExtension.class));
+```
+
 ## RuleId[id=UnstableApiUsage]
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+```
+
+### UnstableApiUsage
+'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+```
+
 ### UnstableApiUsage
 'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
@@ -340,42 +376,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
                 closer.close();
                 throw t;
             }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-```
-
-### UnstableApiUsage
-'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
 ```
 
 ### UnstableApiUsage
