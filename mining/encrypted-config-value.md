@@ -10,7 +10,7 @@ I found 18 bad smells with 2 repairable:
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryLocalVariable | 1 | true |
 | BoundedWildcard | 1 | false |
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/crypto/EncryptConfigValueCommand.java`
@@ -47,7 +47,7 @@ in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/
     }
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `fieldBuilder.length() > 0` can be replaced with '!fieldBuilder.isEmpty()'
 in `encrypted-config-value/src/main/java/com/palantir/config/crypto/util/StringSubstitutionException.java`
@@ -60,7 +60,7 @@ in `encrypted-config-value/src/main/java/com/palantir/config/crypto/util/StringS
         }
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `privatePath` is redundant
 in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyFileUtils.java`
@@ -73,7 +73,7 @@ in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyFileUtils
     }
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
 in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesKeyPair.java`
@@ -134,7 +134,7 @@ in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/ae
 
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends JsonNode`
 in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/crypto/SubstitutingConfigurationFactory.java`
@@ -147,29 +147,29 @@ in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/
         this.substitutor = substitutor;
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `KeyWithType` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyWithType.java`
+Abstract class `AesEncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesEncryptedValue.java`
+#### Snippet
+```java
+@JsonDeserialize(as = ImmutableAesEncryptedValue.class)
+@JsonSerialize(as = AesEncryptedValue.class)
+public abstract class AesEncryptedValue extends EncryptedValue {
+    public enum Mode {
+        GCM,
+```
+
+### AbstractClassNeverImplemented
+Abstract class `KeyPairFiles` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPairFiles.java`
 #### Snippet
 ```java
  */
 @Value.Immutable
-public abstract class KeyWithType {
+public abstract class KeyPairFiles {
 
-    public abstract KeyType getType();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `EncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
-#### Snippet
-```java
-})
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-public abstract class EncryptedValue {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String PREFIX = "enc:";
+    public abstract Path encryptionKeyFile();
 ```
 
 ### AbstractClassNeverImplemented
@@ -209,26 +209,26 @@ public abstract class RsaEncryptedValue extends EncryptedValue {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AesEncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesEncryptedValue.java`
-#### Snippet
-```java
-@JsonDeserialize(as = ImmutableAesEncryptedValue.class)
-@JsonSerialize(as = AesEncryptedValue.class)
-public abstract class AesEncryptedValue extends EncryptedValue {
-    public enum Mode {
-        GCM,
-```
-
-### AbstractClassNeverImplemented
-Abstract class `KeyPairFiles` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPairFiles.java`
+Abstract class `KeyWithType` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyWithType.java`
 #### Snippet
 ```java
  */
 @Value.Immutable
-public abstract class KeyPairFiles {
+public abstract class KeyWithType {
 
-    public abstract Path encryptionKeyFile();
+    public abstract KeyType getType();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `EncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
+#### Snippet
+```java
+})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
+public abstract class EncryptedValue {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final String PREFIX = "enc:";
 ```
 
