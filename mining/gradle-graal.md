@@ -14,7 +14,7 @@ I found 31 bad smells with 2 repairable:
 | DataFlowIssue | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | NonProtectedConstructorInAbstractClass | 1 | true |
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
@@ -51,7 +51,7 @@ in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
 
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
@@ -160,7 +160,7 @@ in `src/main/java/com/palantir/gradle/graal/DownloadGraalTask.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.gradle.api.provider` is unnecessary and can be removed
 in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
@@ -173,7 +173,7 @@ in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
     public final Provider<String> getOutputName() {
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Dereference of `subDirectories` may produce `NullPointerException`
 in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
@@ -186,7 +186,7 @@ in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
         }
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
@@ -199,7 +199,19 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
             spec.setArgs(cmdArgs);
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends RegularFile`
+in `src/main/java/com/palantir/gradle/graal/ExtractGraalTask.java`
+#### Snippet
+```java
+    }
+
+    public final void setInputArchive(Provider<RegularFile> value) {
+        this.inputArchive.set(value);
+    }
+```
+
 ### BoundedWildcard
 Can generalize to `? extends List`
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
@@ -209,18 +221,6 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 
     public final void setOptions(Provider<List<String>> options) {
         this.options.set(options);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Configuration`
-in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
-#### Snippet
-```java
-    }
-
-    public final void setClasspath(Provider<Configuration> provider) {
-        classpath.set(provider);
     }
 ```
 
@@ -237,18 +237,18 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RegularFile`
-in `src/main/java/com/palantir/gradle/graal/ExtractGraalTask.java`
+Can generalize to `? extends Configuration`
+in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 #### Snippet
 ```java
     }
 
-    public final void setInputArchive(Provider<RegularFile> value) {
-        this.inputArchive.set(value);
+    public final void setClasspath(Provider<Configuration> provider) {
+        classpath.set(provider);
     }
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `BaseGraalCompileTask()` of an abstract class should not be declared 'public'
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
@@ -261,7 +261,7 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
         this.outputFile.set(getProject()
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `searchedVsEdition == null` is always `false`
 in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
@@ -298,7 +298,7 @@ in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
         }
 ```
 
-## RuleId[ruleID=RegExpRedundantEscape]
+## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\]` in RegExp
 in `src/main/java/com/palantir/gradle/graal/DownloadGraalTask.java`
@@ -371,7 +371,7 @@ in `src/main/java/com/palantir/gradle/graal/DownloadGraalTask.java`
     }
 ```
 
-## RuleId[ruleID=UnnecessaryBoxing]
+## RuleId[id=UnnecessaryBoxing]
 ### UnnecessaryBoxing
 Redundant boxing, `Integer.parseInt()` call can be used instead
 in `src/main/java/com/palantir/gradle/graal/GraalVersionUtil.java`
