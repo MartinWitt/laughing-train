@@ -25,54 +25,6 @@ in `integ-test/src/main/java/integtest/DoIt.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-    static void action(Params params) {
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-        System.out.println("files: "
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-        System.out.println("files: "
-                + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-        System.out.println("files: "
-                + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 #### Snippet
 ```java
@@ -143,6 +95,54 @@ in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
     }
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+    static void action(Params params) {
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+        System.out.println("files: "
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+        System.out.println("files: "
+                + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+        System.out.println("files: "
+                + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
+    }
+```
+
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
 Static method `get()` declared in class 'com.squareup.javapoet.TypeName' but referenced via subclass 'com.squareup.javapoet.ClassName'
@@ -158,18 +158,6 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `DoItTask` has no concrete subclass
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-@AutoParallelizable
-public final class DoIt {
-    public abstract static class DoItTask extends DoItTaskImpl {
-        public DoItTask() {
-            setDescription("lol");
-```
-
-### AbstractClassNeverImplemented
 Abstract class `DoItInjectedParameterTask` has no concrete subclass
 in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 #### Snippet
@@ -178,6 +166,18 @@ in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 public final class DoItInjectedParameter {
     public abstract static class DoItInjectedParameterTask extends DoItInjectedParameterTaskImpl {
         public DoItInjectedParameterTask() {
+            setDescription("lol");
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DoItTask` has no concrete subclass
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+@AutoParallelizable
+public final class DoIt {
+    public abstract static class DoItTask extends DoItTaskImpl {
+        public DoItTask() {
             setDescription("lol");
 ```
 
@@ -196,18 +196,6 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `DoItTask()` of an abstract class should not be declared 'public'
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-public final class DoIt {
-    public abstract static class DoItTask extends DoItTaskImpl {
-        public DoItTask() {
-            setDescription("lol");
-        }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `DoItInjectedParameterTask()` of an abstract class should not be declared 'public'
 in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 #### Snippet
@@ -215,6 +203,18 @@ in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 public final class DoItInjectedParameter {
     public abstract static class DoItInjectedParameterTask extends DoItInjectedParameterTaskImpl {
         public DoItInjectedParameterTask() {
+            setDescription("lol");
+        }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `DoItTask()` of an abstract class should not be declared 'public'
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+public final class DoIt {
+    public abstract static class DoItTask extends DoItTaskImpl {
+        public DoItTask() {
             setDescription("lol");
         }
 ```
