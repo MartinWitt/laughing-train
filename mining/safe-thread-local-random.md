@@ -5,7 +5,7 @@ I found 2 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | NonSynchronizedMethodOverridesSynchronizedMethod | 2 | false |
-## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+## RuleId[id=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `nextGaussian()` overrides synchronized method
 in `safe-thread-local-random/src/main/java/com/palantir/random/SafeThreadLocalRandom.java`
