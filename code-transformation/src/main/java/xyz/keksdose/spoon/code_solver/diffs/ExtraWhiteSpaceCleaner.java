@@ -18,7 +18,7 @@ public class ExtraWhiteSpaceCleaner implements GitDiffCleaner {
             if (delta instanceof ChangeDelta<String> changeDelta) {
                 content = content.lines()
                         .map(v -> changeIfMatches(changeDelta, v, gitLineChange))
-                        .collect(Collectors.joining("\n"));
+                        .collect(Collectors.joining("\n", "", "\n"));
                 break;
             }
         }
