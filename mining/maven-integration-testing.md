@@ -1,7 +1,7 @@
 # maven-integration-testing 
  
 # Bad smells
-I found 377 bad smells with 87 repairable:
+I found 376 bad smells with 87 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | IgnoreResultOfCall | 100 | false |
@@ -43,7 +43,6 @@ I found 377 bad smells with 87 repairable:
 | RedundantFieldInitialization | 1 | false |
 | AssignmentToMethodParameter | 1 | false |
 | RedundantImplements | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | SynchronizeOnThis | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
@@ -89,42 +88,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `SomeClass` has only 'static' members, and lacks a 'private' constructor
-in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/dep-a/src/main/java/org/apache/maven/plugin/coreit/SomeClass.java`
-#### Snippet
-```java
- *
- */
-public class SomeClass
-{
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Premain` has only 'static' members, and lacks a 'private' constructor
-in `core-it-support/core-it-javaagent/src/main/java/org/apache/maven/coreits/javaagent/mng5669/Premain.java`
-#### Snippet
-```java
- *
- */
-public class Premain
-{
-    public static void premain( String agentArgs, Instrumentation inst )
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClassA` has only 'static' members, and lacks a 'private' constructor
-in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/dep-a/src/main/java/org/apache/maven/plugin/coreit/ClassA.java`
-#### Snippet
-```java
- *
- */
-public class ClassA
-{
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AnsiSupport` has only 'static' members, and lacks a 'private' constructor
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AnsiSupport.java`
 #### Snippet
@@ -149,6 +112,30 @@ class PropertiesUtil
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `SomeClass` has only 'static' members, and lacks a 'private' constructor
+in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/dep-a/src/main/java/org/apache/maven/plugin/coreit/SomeClass.java`
+#### Snippet
+```java
+ *
+ */
+public class SomeClass
+{
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ClassA` has only 'static' members, and lacks a 'private' constructor
+in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/dep-a/src/main/java/org/apache/maven/plugin/coreit/ClassA.java`
+#### Snippet
+```java
+ *
+ */
+public class ClassA
+{
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ClassB` has only 'static' members, and lacks a 'private' constructor
 in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/dep-b/src/main/java/org/apache/maven/plugin/coreit/ClassB.java`
 #### Snippet
@@ -156,18 +143,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/dep-b/src/main/
  *
  */
 public class ClassB
-{
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SomeClass` has only 'static' members, and lacks a 'private' constructor
-in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/dep-b/src/main/java/org/apache/maven/plugin/coreit/SomeClass.java`
-#### Snippet
-```java
- *
- */
-public class SomeClass
 {
 
 ```
@@ -185,13 +160,13 @@ class PropertyUtil
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PropertiesUtil` has only 'static' members, and lacks a 'private' constructor
-in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin-class-loader/src/main/java/org/apache/maven/plugin/coreit/PropertiesUtil.java`
+Class `SomeClass` has only 'static' members, and lacks a 'private' constructor
+in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/dep-b/src/main/java/org/apache/maven/plugin/coreit/SomeClass.java`
 #### Snippet
 ```java
  *
  */
-class PropertiesUtil
+public class SomeClass
 {
 
 ```
@@ -204,6 +179,30 @@ in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org
  *
  */
 class ExpressionUtil
+{
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Premain` has only 'static' members, and lacks a 'private' constructor
+in `core-it-support/core-it-javaagent/src/main/java/org/apache/maven/coreits/javaagent/mng5669/Premain.java`
+#### Snippet
+```java
+ *
+ */
+public class Premain
+{
+    public static void premain( String agentArgs, Instrumentation inst )
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PropertiesUtil` has only 'static' members, and lacks a 'private' constructor
+in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin-class-loader/src/main/java/org/apache/maven/plugin/coreit/PropertiesUtil.java`
+#### Snippet
+```java
+ *
+ */
+class PropertiesUtil
 {
 
 ```
@@ -247,79 +246,79 @@ in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apac
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
 #### Snippet
 ```java
-        {
-            throw new MojoExecutionException( "Unexpected result, final name of executed project is "
-                + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME + "\')." );
-        }
-
+                throw new MojoExecutionException(
+                    "Unexpected result, final name of executed project " + executedProject + " is "
+                        + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME
+                        + "\')." );
+            }
 ```
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
 #### Snippet
 ```java
-        {
-            throw new MojoExecutionException( "Unexpected result, final name of executed project is "
-                + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME + "\')." );
-        }
-
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalMojo.java`
-#### Snippet
-```java
-        {
-            throw new MojoExecutionException( "Unexpected result, final name of executed project is "
-                + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME + "\')." );
-        }
-
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleMojo.java`
-#### Snippet
-```java
-        if ( project.getBuild().getFinalName().equals( TouchMojo.FINAL_NAME ) )
-        {
-            throw new MojoExecutionException( "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME
-                + "\')." );
+                    "Unexpected result, final name of executed project " + executedProject + " is "
+                        + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME
+                        + "\')." );
+            }
         }
 ```
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
 #### Snippet
 ```java
         {
-            throw new MojoExecutionException( "Unexpected result, final name of executed project is "
-                + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME + "\')." );
-        }
-
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleMojo.java`
-#### Snippet
-```java
-        {
-            throw new MojoExecutionException( "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME
-                + "\')." );
+            throw new MojoExecutionException(
+                "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME + "\')." );
         }
     }
 ```
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleMojo.java`
+#### Snippet
+```java
+        {
+            throw new MojoExecutionException( "Unexpected result, final name of executed project is "
+                + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME + "\')." );
+        }
+
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
+#### Snippet
+```java
+        {
+            throw new MojoExecutionException(
+                "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME + "\')." );
+        }
+    }
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleMojo.java`
+#### Snippet
+```java
+        {
+            throw new MojoExecutionException( "Unexpected result, final name of executed project is "
+                + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME + "\')." );
+        }
+
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleMojo.java`
 #### Snippet
 ```java
         if ( project.getBuild().getFinalName().equals( TouchMojo.FINAL_NAME ) )
@@ -331,7 +330,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apach
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleMojo.java`
 #### Snippet
 ```java
         {
@@ -367,54 +366,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apach
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
-#### Snippet
-```java
-                throw new MojoExecutionException(
-                    "Unexpected result, final name of executed project " + executedProject + " is "
-                        + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME
-                        + "\')." );
-            }
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
-#### Snippet
-```java
-                    "Unexpected result, final name of executed project " + executedProject + " is "
-                        + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME
-                        + "\')." );
-            }
-        }
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
-#### Snippet
-```java
-        {
-            throw new MojoExecutionException(
-                "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME + "\')." );
-        }
-    }
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
-#### Snippet
-```java
-        {
-            throw new MojoExecutionException(
-                "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME + "\')." );
-        }
-    }
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
 in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleAggregatorMojo.java`
 #### Snippet
 ```java
@@ -457,6 +408,54 @@ in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apach
         {
             throw new MojoExecutionException(
                 "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME + "\')." );
+        }
+    }
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalMojo.java`
+#### Snippet
+```java
+        {
+            throw new MojoExecutionException( "Unexpected result, final name of executed project is "
+                + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME + "\')." );
+        }
+
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalMojo.java`
+#### Snippet
+```java
+        {
+            throw new MojoExecutionException( "Unexpected result, final name of executed project is "
+                + executedProject.getBuild().getFinalName() + " (should be \'" + TouchMojo.FINAL_NAME + "\')." );
+        }
+
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalMojo.java`
+#### Snippet
+```java
+        if ( project.getBuild().getFinalName().equals( TouchMojo.FINAL_NAME ) )
+        {
+            throw new MojoExecutionException( "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME
+                + "\')." );
+        }
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalMojo.java`
+#### Snippet
+```java
+        {
+            throw new MojoExecutionException( "forked project was polluted. (should NOT be \'" + TouchMojo.FINAL_NAME
+                + "\')." );
         }
     }
 ```
@@ -649,6 +648,54 @@ in `core-it-support/core-it-plugins/maven-it-plugin-artifact/src/main/java/org/a
 ```
 
 ### SizeReplaceableByIsEmpty
+`message.length() > 0` can be replaced with '!message.isEmpty()'
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/ResourcesMojo.java`
+#### Snippet
+```java
+            outputFile.getParentFile().mkdirs();
+
+            if ( message != null && message.length() > 0 )
+            {
+                getLog().info( "[MAVEN-CORE-IT-LOG]   " + message );
+```
+
+### SizeReplaceableByIsEmpty
+`expressionList.length() > 0` can be replaced with '!expressionList.isEmpty()'
+in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/EvalMojo.java`
+#### Snippet
+```java
+        Properties expressionProperties = new Properties();
+
+        if ( expressionList != null && expressionList.length() > 0 )
+        {
+            expressions = expressionList.split( "," );
+```
+
+### SizeReplaceableByIsEmpty
+`result.length() > 0` can be replaced with '!result.isEmpty()'
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+#### Snippet
+```java
+            for ( int i = 0; i < significantPathLevels && file != null; i++ )
+            {
+                if ( result.length() > 0 )
+                {
+                    // NOTE: Always use forward slash here to ease platform-independent testing
+```
+
+### SizeReplaceableByIsEmpty
+`version.length() > 0` can be replaced with '!version.isEmpty()'
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
+
+            // NOTE: If the version looks like "${...}" it has been configured from an undefined expression
+            if ( version != null && version.length() > 0 && !version.startsWith( "${" ) )
+            {
+                mavenVersion = new DefaultArtifactVersion( version );
+```
+
+### SizeReplaceableByIsEmpty
 `settings.length() > 0` can be replaced with '!settings.isEmpty()'
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
 #### Snippet
@@ -673,42 +720,6 @@ in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMa
 ```
 
 ### SizeReplaceableByIsEmpty
-`version.length() > 0` can be replaced with '!version.isEmpty()'
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-
-            // NOTE: If the version looks like "${...}" it has been configured from an undefined expression
-            if ( version != null && version.length() > 0 && !version.startsWith( "${" ) )
-            {
-                mavenVersion = new DefaultArtifactVersion( version );
-```
-
-### SizeReplaceableByIsEmpty
-`expressionList.length() > 0` can be replaced with '!expressionList.isEmpty()'
-in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/EvalMojo.java`
-#### Snippet
-```java
-        Properties expressionProperties = new Properties();
-
-        if ( expressionList != null && expressionList.length() > 0 )
-        {
-            expressions = expressionList.split( "," );
-```
-
-### SizeReplaceableByIsEmpty
-`message.length() > 0` can be replaced with '!message.isEmpty()'
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/ResourcesMojo.java`
-#### Snippet
-```java
-            outputFile.getParentFile().mkdirs();
-
-            if ( message != null && message.length() > 0 )
-            {
-                getLog().info( "[MAVEN-CORE-IT-LOG]   " + message );
-```
-
-### SizeReplaceableByIsEmpty
 `expression.length() > 0` can be replaced with '!expression.isEmpty()'
 in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/ExpressionUtil.java`
 #### Snippet
@@ -718,18 +729,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org
         if ( expression != null && expression.length() > 0 )
         {
             List segments = Arrays.asList( expression.split( "/", 0 ) );
-```
-
-### SizeReplaceableByIsEmpty
-`result.length() > 0` can be replaced with '!result.isEmpty()'
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
-#### Snippet
-```java
-            for ( int i = 0; i < significantPathLevels && file != null; i++ )
-            {
-                if ( result.length() > 0 )
-                {
-                    // NOTE: Always use forward slash here to ease platform-independent testing
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -806,31 +805,6 @@ in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMa
         catch ( BrokenMavenVersionException e )
 ```
 
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/ResolveOneDependencyMojo.java`
-#### Snippet
-```java
-                    if ( file == null )
-                    {
-                        getLog().info( " RESOLVE-ONE-DEPENDENCY " + a.toString() + " $ NO-FILE" );
-                    }
-                    else
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/ResolveOneDependencyMojo.java`
-#### Snippet
-```java
-                    else
-                    {
-                        getLog().info( " RESOLVE-ONE-DEPENDENCY " + a.toString() + " $ " + file.getAbsolutePath() );
-                    }
-                    return;
-```
-
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -880,19 +854,32 @@ in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin
                     {
 ```
 
-## RuleId[id=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `UnsupportedMavenVersionException` may be 'static'
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/ResolveOneDependencyMojo.java`
 #### Snippet
 ```java
-    }
-
-    private class UnsupportedMavenVersionException
-            extends TestAbortedException
-    {
+                    if ( file == null )
+                    {
+                        getLog().info( " RESOLVE-ONE-DEPENDENCY " + a.toString() + " $ NO-FILE" );
+                    }
+                    else
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/ResolveOneDependencyMojo.java`
+#### Snippet
+```java
+                    else
+                    {
+                        getLog().info( " RESOLVE-ONE-DEPENDENCY " + a.toString() + " $ " + file.getAbsolutePath() );
+                    }
+                    return;
+```
+
+## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `BrokenMavenVersionException` may be 'static'
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
@@ -902,6 +889,18 @@ in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMa
 
     private class BrokenMavenVersionException
         extends RuntimeException
+    {
+```
+
+### InnerClassMayBeStatic
+Inner class `UnsupportedMavenVersionException` may be 'static'
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
+    }
+
+    private class UnsupportedMavenVersionException
+            extends TestAbortedException
     {
 ```
 
@@ -946,38 +945,38 @@ in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apache/maven/plugin/coreit/CopyPomMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-toolchain/src/main/java/org/apache/maven/plugin/coreit/FindToolMojo.java`
 #### Snippet
 ```java
-            if ( !dir.exists() )
-            {
-                dir.mkdirs();
-            }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-context-passing/src/main/java/org/apache/maven/plugin/coreit/CatchMojo.java`
-#### Snippet
-```java
-        if ( !outDir.exists() )
+        try
         {
-            outDir.mkdirs();
-        }
-
+            outputFile.getParentFile().mkdirs();
+            out = new FileOutputStream( outputFile );
+            properties.store( out, "MAVEN-CORE-IT-LOG" );
 ```
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apache/maven/plugin/coreit/CoreItTouchMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-surefire-plugin/src/main/java/org/apache/maven/plugin/coreit/TestMojo.java`
 #### Snippet
 ```java
-             if ( !dir.exists() )
-             {
-                 dir.mkdirs();
-             }
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
 
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-surefire-plugin/src/main/java/org/apache/maven/plugin/coreit/TestMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
 ```
 
 ### IgnoreResultOfCall
@@ -994,7 +993,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-artifact/src/main/java/org/a
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/TestCompileMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-jar-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
 #### Snippet
 ```java
         try
@@ -1006,151 +1005,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-pl
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/TestCompileMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-uses-properties/src/main/java/org/apache/maven/plugin/coreit/UsesPropertiesMojo.java`
-#### Snippet
-```java
-        {
-            File file = new File( basedir, "target/project.properties" );
-            file.getParentFile().mkdirs();
-            FileOutputStream fos = new FileOutputStream( file );
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/CompileMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/CompileMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-javadoc-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-javadoc-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
-#### Snippet
-```java
-        try
-        {
-            file.getParentFile().mkdirs();
-
-            writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" ) );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/AddPluginArtifactMetadataMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/AddPluginArtifactMetadataMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-packaging/src/main/java/org/apache/maven/plugin/coreit/PackagingMojo.java`
-#### Snippet
-```java
-        try
-        {
-            jarFile.getParentFile().mkdirs();
-            jarFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-packaging/src/main/java/org/apache/maven/plugin/coreit/PackagingMojo.java`
-#### Snippet
-```java
-        {
-            jarFile.getParentFile().mkdirs();
-            jarFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/DescriptorMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/DescriptorMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-jar-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
 #### Snippet
 ```java
         {
@@ -1174,19 +1029,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-artifact/src/main/java/org/a
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-packaging/src/main/java/org/apache/maven/plugin/coreit/AppendMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-
-            getLog().info( "[MAVEN-CORE-IT-LOG]   " + message );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/UpdateRegistryMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-rar-plugin/src/main/java/org/apache/maven/plugin/coreit/RarMojo.java`
 #### Snippet
 ```java
         try
@@ -1198,7 +1041,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plug
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/UpdateRegistryMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-rar-plugin/src/main/java/org/apache/maven/plugin/coreit/RarMojo.java`
 #### Snippet
 ```java
         {
@@ -1210,7 +1053,19 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plug
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-jar-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/apache/maven/its/plugins/SerializeMojo.java`
+#### Snippet
+```java
+        try
+        {
+            file.getParentFile().mkdirs();
+            writer = new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" );
+            s.setOutput( writer );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-clean-plugin/src/main/java/org/apache/maven/plugin/coreit/CleanMojo.java`
 #### Snippet
 ```java
         try
@@ -1222,7 +1077,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-jar-plugin/
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-jar-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-clean-plugin/src/main/java/org/apache/maven/plugin/coreit/CleanMojo.java`
 #### Snippet
 ```java
         {
@@ -1234,43 +1089,43 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-jar-plugin/
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-no-default-comp/src/main/java/org/apache/maven/plugin/coreit/ItMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-log-file/src/main/java/org/apache/maven/plugin/coreit/AbstractLogMojo.java`
 #### Snippet
 ```java
         try
         {
-            outputFile.getParentFile().mkdirs();
-            try ( FileOutputStream os = new FileOutputStream( outputFile ) )
+            file.getParentFile().mkdirs();
+            OutputStream out = new FileOutputStream( file, true );
+            try
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-log-file/src/main/java/org/apache/maven/plugin/coreit/AbstractLogMojo.java`
+#### Snippet
+```java
+             * NOTE: Intentionally don't delete the file but create a new empty one to check the plugin was executed.
+             */
+            file.getParentFile().mkdirs();
+            OutputStream out = new FileOutputStream( file );
+            try
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apache/maven/plugin/coreit/CopyPomMojo.java`
+#### Snippet
+```java
+            if ( !dir.exists() )
             {
+                dir.mkdirs();
+            }
+
 ```
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ejb-plugin/src/main/java/org/apache/maven/plugin/coreit/EjbMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ejb-plugin/src/main/java/org/apache/maven/plugin/coreit/EjbMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-setter/src/main/java/org/apache/maven/plugin/coreit/CoreItMojoWithSetters.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apache/maven/plugin/coreit/CoreItTouchMojo.java`
 #### Snippet
 ```java
              if ( !dir.exists() )
@@ -1282,7 +1137,31 @@ in `core-it-support/core-it-plugins/maven-it-plugin-setter/src/main/java/org/apa
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-source-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
+#### Snippet
+```java
+            if ( !dir.exists() )
+            {
+                dir.mkdirs();
+            }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
+#### Snippet
+```java
+
+            File touch = new File( dir, file );
+            touch.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-deploy-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
 #### Snippet
 ```java
         try
@@ -1294,7 +1173,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-source-plug
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-source-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-deploy-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
 #### Snippet
 ```java
         {
@@ -1306,7 +1185,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-source-plug
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-rar-plugin/src/main/java/org/apache/maven/plugin/coreit/RarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/src/main/java/org/apache/maven/plugin/coreit/WarMojo.java`
 #### Snippet
 ```java
         try
@@ -1318,7 +1197,31 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-rar-plugin/
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-rar-plugin/src/main/java/org/apache/maven/plugin/coreit/RarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/src/main/java/org/apache/maven/plugin/coreit/WarMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/TestResourcesMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/TestResourcesMojo.java`
 #### Snippet
 ```java
         {
@@ -1342,7 +1245,55 @@ in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-11/src/main/jav
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/src/main/java/org/apache/maven/plugin/coreit/WarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-toolchain/src/main/java/org/apache/maven/plugin/coreit/CoreItMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            out = new FileOutputStream( outputFile );
+            properties.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/ResourcesMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+
+            if ( message != null && message.length() > 0 )
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/ResourcesMojo.java`
+#### Snippet
+```java
+            else
+            {
+                outputFile.createNewFile();
+            }
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/PropertiesUtil.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            os = new FileOutputStream( outputFile );
+            props.store( os, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ejb-plugin/src/main/java/org/apache/maven/plugin/coreit/EjbMojo.java`
 #### Snippet
 ```java
         try
@@ -1354,7 +1305,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/src/main/java/org/apache/maven/plugin/coreit/WarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ejb-plugin/src/main/java/org/apache/maven/plugin/coreit/EjbMojo.java`
 #### Snippet
 ```java
         {
@@ -1366,108 +1317,24 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/apache/maven/its/plugins/SerializeMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-optional-mojos/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
 #### Snippet
 ```java
         try
         {
-            file.getParentFile().mkdirs();
-            writer = new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" );
-            s.setOutput( writer );
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-settings/src/main/java/org/apache/maven/plugin/coreit/SettingsReadItMojo.java`
-#### Snippet
-```java
-        if ( dumpFile.exists() )
-        {
-            dumpFile.delete();
-        }
-        dumpFile.getParentFile().mkdirs();
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-settings/src/main/java/org/apache/maven/plugin/coreit/SettingsReadItMojo.java`
-#### Snippet
-```java
-            dumpFile.delete();
-        }
-        dumpFile.getParentFile().mkdirs();
-        try ( FileWriter fw = new FileWriter( dumpFile ) )
-        {
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-no-project/src/main/java/org/apache/maven/plugin/coreit/NoProjectMojo.java`
-#### Snippet
-```java
-             if ( !dir.exists() )
-             {
-                 dir.mkdirs();
-             }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/ListMojo.java`
-#### Snippet
-```java
-        try
-        {
-            reportsFile.getParentFile().mkdirs();
-            out = new FileOutputStream( reportsFile );
-            reportProperties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/InfoReport.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            out = new FileOutputStream( outputFile );
-            props.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-singleton-component/src/main/java/org/apache/maven/plugin/coreit/ItMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            try ( FileOutputStream os = new FileOutputStream( outputFile ) )
-            {
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
-#### Snippet
-```java
-        try
-        {
-            f.getParentFile().mkdirs();
-            f.createNewFile();
+            touchFile.getParentFile().mkdirs();
+            touchFile.createNewFile();
         }
 ```
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-optional-mojos/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
 #### Snippet
 ```java
         {
-            f.getParentFile().mkdirs();
-            f.createNewFile();
+            touchFile.getParentFile().mkdirs();
+            touchFile.createNewFile();
         }
         catch ( IOException e )
 ```
@@ -1482,6 +1349,30 @@ in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers
             new File( "target" ).mkdirs();
 
             try ( OutputStream os = new FileOutputStream( "target/wagon.properties" ) )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
+#### Snippet
+```java
+        try
+        {
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
+#### Snippet
+```java
+        {
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+        }
+        catch ( IOException e )
 ```
 
 ### IgnoreResultOfCall
@@ -1522,43 +1413,19 @@ in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-context-passing/src/main/java/org/apache/maven/plugin/coreit/CatchMojo.java`
 #### Snippet
 ```java
-            if ( !dir.exists() )
-            {
-                dir.mkdirs();
-            }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
-#### Snippet
-```java
-
-            File touch = new File( dir, file );
-            touch.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/PropertiesUtil.java`
-#### Snippet
-```java
-        try
+        if ( !outDir.exists() )
         {
-            outputFile.getParentFile().mkdirs();
-            os = new FileOutputStream( outputFile );
-            props.store( os, "MAVEN-CORE-IT-LOG" );
+            outDir.mkdirs();
+        }
+
 ```
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/EarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-source-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
 #### Snippet
 ```java
         try
@@ -1570,7 +1437,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/EarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-source-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
 #### Snippet
 ```java
         {
@@ -1578,66 +1445,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/
              outputFile.createNewFile();
         }
         catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/GenerateApplicationXmlMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/GenerateApplicationXmlMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/SiteMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/SiteMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-optional-mojos/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
-#### Snippet
-```java
-        try
-        {
-            touchFile.getParentFile().mkdirs();
-            touchFile.createNewFile();
-        }
 ```
 
 ### IgnoreResultOfCall
@@ -1662,450 +1469,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-all/src/main/java/org/apache
                 touchFile.createNewFile();
             }
             catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-optional-mojos/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
-#### Snippet
-```java
-        {
-            touchFile.getParentFile().mkdirs();
-            touchFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/AttachDescriptorMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/AttachDescriptorMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-toolchain/src/main/java/org/apache/maven/plugin/coreit/FindToolMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            out = new FileOutputStream( outputFile );
-            properties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-deploy-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-deploy-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-toolchain/src/main/java/org/apache/maven/plugin/coreit/CoreItMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            out = new FileOutputStream( outputFile );
-            properties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-project/src/main/java/org/apache/maven/plugin/coreit/AbstractPomMojo.java`
-#### Snippet
-```java
-        try
-        {
-            file.getParentFile().mkdirs();
-
-            try ( FileOutputStream os = new FileOutputStream( file ) )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-surefire-plugin/src/main/java/org/apache/maven/plugin/coreit/TestMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-surefire-plugin/src/main/java/org/apache/maven/plugin/coreit/TestMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-install-plugin/src/main/java/org/apache/maven/plugin/coreit/InstallMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-install-plugin/src/main/java/org/apache/maven/plugin/coreit/InstallMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            out = new FileOutputStream( outputFile );
-            componentProperties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/DumpRepoLayoutsMojo.java`
-#### Snippet
-```java
-        try
-        {
-            layoutsFile.getParentFile().mkdirs();
-            out = new FileOutputStream( layoutsFile );
-            layoutProperties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org/apache/maven/plugin/coreit/DumpAuthMojo.java`
-#### Snippet
-```java
-        try
-        {
-            propertiesFile.getParentFile().mkdirs();
-            out = new FileOutputStream( propertiesFile );
-            authProperties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckThreadSafetyMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            out = new FileOutputStream( outputFile );
-            componentProperties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `Object.toString()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckThreadSafetyMojo.java`
-#### Snippet
-```java
-                            for ( Object o : map.values() )
-                            {
-                                o.toString();
-                            }
-                            for ( Object aList : list )
-```
-
-### IgnoreResultOfCall
-Result of `Object.toString()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckThreadSafetyMojo.java`
-#### Snippet
-```java
-                            for ( Object aList : list )
-                            {
-                                aList.toString();
-                            }
-                        }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org/apache/maven/plugin/coreit/LookupWagonMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            out = new FileOutputStream( outputFile );
-            loaderProperties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org/apache/maven/plugin/coreit/DumpVersionMojo.java`
-#### Snippet
-```java
-        try
-        {
-            propertiesFile.getParentFile().mkdirs();
-            out = new FileOutputStream( propertiesFile );
-            wagonProperties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
-#### Snippet
-```java
-             if ( !dir.exists() )
-             {
-                 dir.mkdirs();
-             }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-online/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-online/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
-#### Snippet
-```java
-        {
-            outputFile.getParentFile().mkdirs();
-            outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/TestResourcesMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/TestResourcesMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/ResourcesMojo.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-
-            if ( message != null && message.length() > 0 )
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/ResourcesMojo.java`
-#### Snippet
-```java
-            else
-            {
-                outputFile.createNewFile();
-            }
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-component/src/main/java/org/apache/maven/coreit/component/DefaultStatefulSingleton.java`
-#### Snippet
-```java
-        throws IOException
-    {
-        propertiesFile.getParentFile().mkdirs();
-
-        try ( FileOutputStream os = new FileOutputStream( propertiesFile ) )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org/apache/maven/plugin/coreit/LoadResourceMojo.java`
-#### Snippet
-```java
-        try
-        {
-            wagonClassLoaderOutput.getParentFile().mkdirs();
-            out = new FileOutputStream( wagonClassLoaderOutput );
-            loaderProperties.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-log-file/src/main/java/org/apache/maven/plugin/coreit/AbstractLogMojo.java`
-#### Snippet
-```java
-        try
-        {
-            file.getParentFile().mkdirs();
-            OutputStream out = new FileOutputStream( file, true );
-            try
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-log-file/src/main/java/org/apache/maven/plugin/coreit/AbstractLogMojo.java`
-#### Snippet
-```java
-             * NOTE: Intentionally don't delete the file but create a new empty one to check the plugin was executed.
-             */
-            file.getParentFile().mkdirs();
-            OutputStream out = new FileOutputStream( file );
-            try
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-clean-plugin/src/main/java/org/apache/maven/plugin/coreit/CleanMojo.java`
-#### Snippet
-```java
-        try
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-clean-plugin/src/main/java/org/apache/maven/plugin/coreit/CleanMojo.java`
-#### Snippet
-```java
-        {
-             outputFile.getParentFile().mkdirs();
-             outputFile.createNewFile();
-        }
-        catch ( IOException e )
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
-#### Snippet
-```java
-        try
-        {
-            file.getParentFile().mkdirs();
-            out = new FileOutputStream( file );
-            props.store( out, "MAVEN-CORE-IT-LOG" );
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin-class-loader/src/main/java/org/apache/maven/plugin/coreit/PropertiesUtil.java`
-#### Snippet
-```java
-        try
-        {
-            outputFile.getParentFile().mkdirs();
-            out = new FileOutputStream( outputFile );
-            props.store( out, "MAVEN-CORE-IT-LOG" );
 ```
 
 ### IgnoreResultOfCall
@@ -2142,6 +1505,642 @@ in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/ma
             file.getParentFile().mkdirs();
 
             writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" ) );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/CompileMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/CompileMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
+#### Snippet
+```java
+        try
+        {
+            file.getParentFile().mkdirs();
+            out = new FileOutputStream( file );
+            props.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/TestCompileMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/TestCompileMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-singleton-component/src/main/java/org/apache/maven/plugin/coreit/ItMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            try ( FileOutputStream os = new FileOutputStream( outputFile ) )
+            {
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-component/src/main/java/org/apache/maven/coreit/component/DefaultStatefulSingleton.java`
+#### Snippet
+```java
+        throws IOException
+    {
+        propertiesFile.getParentFile().mkdirs();
+
+        try ( FileOutputStream os = new FileOutputStream( propertiesFile ) )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/ListMojo.java`
+#### Snippet
+```java
+        try
+        {
+            reportsFile.getParentFile().mkdirs();
+            out = new FileOutputStream( reportsFile );
+            reportProperties.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/InfoReport.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            out = new FileOutputStream( outputFile );
+            props.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
+#### Snippet
+```java
+             if ( !dir.exists() )
+             {
+                 dir.mkdirs();
+             }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/SiteMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/SiteMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/AttachDescriptorMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/AttachDescriptorMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-install-plugin/src/main/java/org/apache/maven/plugin/coreit/InstallMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-install-plugin/src/main/java/org/apache/maven/plugin/coreit/InstallMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/DescriptorMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/DescriptorMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/UpdateRegistryMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/UpdateRegistryMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/AddPluginArtifactMetadataMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/AddPluginArtifactMetadataMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-uses-properties/src/main/java/org/apache/maven/plugin/coreit/UsesPropertiesMojo.java`
+#### Snippet
+```java
+        {
+            File file = new File( basedir, "target/project.properties" );
+            file.getParentFile().mkdirs();
+            FileOutputStream fos = new FileOutputStream( file );
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-packaging/src/main/java/org/apache/maven/plugin/coreit/PackagingMojo.java`
+#### Snippet
+```java
+        try
+        {
+            jarFile.getParentFile().mkdirs();
+            jarFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-packaging/src/main/java/org/apache/maven/plugin/coreit/PackagingMojo.java`
+#### Snippet
+```java
+        {
+            jarFile.getParentFile().mkdirs();
+            jarFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-settings/src/main/java/org/apache/maven/plugin/coreit/SettingsReadItMojo.java`
+#### Snippet
+```java
+        if ( dumpFile.exists() )
+        {
+            dumpFile.delete();
+        }
+        dumpFile.getParentFile().mkdirs();
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-settings/src/main/java/org/apache/maven/plugin/coreit/SettingsReadItMojo.java`
+#### Snippet
+```java
+            dumpFile.delete();
+        }
+        dumpFile.getParentFile().mkdirs();
+        try ( FileWriter fw = new FileWriter( dumpFile ) )
+        {
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-packaging/src/main/java/org/apache/maven/plugin/coreit/AppendMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+
+            getLog().info( "[MAVEN-CORE-IT-LOG]   " + message );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-no-project/src/main/java/org/apache/maven/plugin/coreit/NoProjectMojo.java`
+#### Snippet
+```java
+             if ( !dir.exists() )
+             {
+                 dir.mkdirs();
+             }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org/apache/maven/plugin/coreit/DumpVersionMojo.java`
+#### Snippet
+```java
+        try
+        {
+            propertiesFile.getParentFile().mkdirs();
+            out = new FileOutputStream( propertiesFile );
+            wagonProperties.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-no-default-comp/src/main/java/org/apache/maven/plugin/coreit/ItMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            try ( FileOutputStream os = new FileOutputStream( outputFile ) )
+            {
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org/apache/maven/plugin/coreit/DumpAuthMojo.java`
+#### Snippet
+```java
+        try
+        {
+            propertiesFile.getParentFile().mkdirs();
+            out = new FileOutputStream( propertiesFile );
+            authProperties.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org/apache/maven/plugin/coreit/LookupWagonMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            out = new FileOutputStream( outputFile );
+            loaderProperties.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-online/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-online/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
+#### Snippet
+```java
+        {
+            outputFile.getParentFile().mkdirs();
+            outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+#### Snippet
+```java
+        try
+        {
+            file.getParentFile().mkdirs();
+
+            writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" ) );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-project/src/main/java/org/apache/maven/plugin/coreit/AbstractPomMojo.java`
+#### Snippet
+```java
+        try
+        {
+            file.getParentFile().mkdirs();
+
+            try ( FileOutputStream os = new FileOutputStream( file ) )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-javadoc-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-javadoc-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/EarMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/GenerateApplicationXmlMojo.java`
+#### Snippet
+```java
+        try
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/EarMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/GenerateApplicationXmlMojo.java`
+#### Snippet
+```java
+        {
+             outputFile.getParentFile().mkdirs();
+             outputFile.createNewFile();
+        }
+        catch ( IOException e )
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-setter/src/main/java/org/apache/maven/plugin/coreit/CoreItMojoWithSetters.java`
+#### Snippet
+```java
+             if ( !dir.exists() )
+             {
+                 dir.mkdirs();
+             }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-uses-wagon/src/main/java/org/apache/maven/plugin/coreit/LoadResourceMojo.java`
+#### Snippet
+```java
+        try
+        {
+            wagonClassLoaderOutput.getParentFile().mkdirs();
+            out = new FileOutputStream( wagonClassLoaderOutput );
+            loaderProperties.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            out = new FileOutputStream( outputFile );
+            componentProperties.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/DumpRepoLayoutsMojo.java`
+#### Snippet
+```java
+        try
+        {
+            layoutsFile.getParentFile().mkdirs();
+            out = new FileOutputStream( layoutsFile );
+            layoutProperties.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin-class-loader/src/main/java/org/apache/maven/plugin/coreit/PropertiesUtil.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            out = new FileOutputStream( outputFile );
+            props.store( out, "MAVEN-CORE-IT-LOG" );
+```
+
+### IgnoreResultOfCall
+Result of `Object.toString()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckThreadSafetyMojo.java`
+#### Snippet
+```java
+                            for ( Object o : map.values() )
+                            {
+                                o.toString();
+                            }
+                            for ( Object aList : list )
+```
+
+### IgnoreResultOfCall
+Result of `Object.toString()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckThreadSafetyMojo.java`
+#### Snippet
+```java
+                            for ( Object aList : list )
+                            {
+                                aList.toString();
+                            }
+                        }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckThreadSafetyMojo.java`
+#### Snippet
+```java
+        try
+        {
+            outputFile.getParentFile().mkdirs();
+            out = new FileOutputStream( outputFile );
+            componentProperties.store( out, "MAVEN-CORE-IT-LOG" );
 ```
 
 ## RuleId[id=EqualsHashCodeCalledOnUrl]
@@ -2196,79 +2195,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-artifact/src/main/java/org/a
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/TestCompileMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/CompileMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-javadoc-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
-#### Snippet
-```java
-        throws MojoExecutionException
-    {
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            return;
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/AddPluginArtifactMetadataMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/DescriptorMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/UpdateRegistryMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-surefire-plugin/src/main/java/org/apache/maven/plugin/coreit/TestMojo.java`
 #### Snippet
 ```java
         getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
@@ -2292,30 +2219,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-jar-plugin/
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ejb-plugin/src/main/java/org/apache/maven/plugin/coreit/EjbMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-source-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
 in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-rar-plugin/src/main/java/org/apache/maven/plugin/coreit/RarMojo.java`
 #### Snippet
 ```java
@@ -2328,7 +2231,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-rar-plugin/
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/src/main/java/org/apache/maven/plugin/coreit/WarMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-clean-plugin/src/main/java/org/apache/maven/plugin/coreit/CleanMojo.java`
 #### Snippet
 ```java
         getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
@@ -2336,90 +2239,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/
         if ( pathname == null || pathname.length() <= 0 )
         {
             throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/InfoReport.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + infoFile );
-
-        if ( infoFile == null || infoFile.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/EarMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/GenerateApplicationXmlMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/SiteMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/AttachDescriptorMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-            String version = System.getProperty( "maven.version", "" );
-
-            if ( version.length() <= 0 || version.startsWith( "${" ) )
-            {
-                try
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -2436,19 +2255,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-deploy-plug
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-surefire-plugin/src/main/java/org/apache/maven/plugin/coreit/TestMojo.java`
-#### Snippet
-```java
-        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
-
-        if ( pathname == null || pathname.length() <= 0 )
-        {
-            throw new MojoFailureException( "Path name for output file has not been specified" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-install-plugin/src/main/java/org/apache/maven/plugin/coreit/InstallMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-war-plugin/src/main/java/org/apache/maven/plugin/coreit/WarMojo.java`
 #### Snippet
 ```java
         getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
@@ -2484,7 +2291,139 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-p
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-clean-plugin/src/main/java/org/apache/maven/plugin/coreit/CleanMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ejb-plugin/src/main/java/org/apache/maven/plugin/coreit/EjbMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-source-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+#### Snippet
+```java
+        throws MojoExecutionException
+    {
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            return;
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+#### Snippet
+```java
+        throws MojoExecutionException
+    {
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            return;
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+#### Snippet
+```java
+        throws MojoExecutionException
+    {
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            return;
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/CompileMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-compiler-plugin/src/main/java/org/apache/maven/plugin/coreit/TestCompileMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
+            String version = System.getProperty( "maven.version", "" );
+
+            if ( version.length() <= 0 || version.startsWith( "${" ) )
+            {
+                try
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/InfoReport.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + infoFile );
+
+        if ( infoFile == null || infoFile.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/SiteMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/AttachDescriptorMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-install-plugin/src/main/java/org/apache/maven/plugin/coreit/InstallMojo.java`
 #### Snippet
 ```java
         getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
@@ -2508,7 +2447,55 @@ in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-site-plugin/src/main/java/org/apache/maven/plugin/coreit/DeployMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/DescriptorMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/UpdateRegistryMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-plugin-plugin/src/main/java/org/apache/maven/plugin/coreit/AddPluginArtifactMetadataMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
 #### Snippet
 ```java
         throws MojoExecutionException
@@ -2520,26 +2507,38 @@ in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/ma
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-javadoc-plugin/src/main/java/org/apache/maven/plugin/coreit/JarMojo.java`
 #### Snippet
 ```java
-        throws MojoExecutionException
-    {
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
         if ( pathname == null || pathname.length() <= 0 )
         {
-            return;
+            throw new MojoFailureException( "Path name for output file has not been specified" );
 ```
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/EarMojo.java`
 #### Snippet
 ```java
-        throws MojoExecutionException
-    {
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
         if ( pathname == null || pathname.length() <= 0 )
         {
-            return;
+            throw new MojoFailureException( "Path name for output file has not been specified" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-ear-plugin/src/main/java/org/apache/maven/plugin/coreit/GenerateApplicationXmlMojo.java`
+#### Snippet
+```java
+        getLog().info( "[MAVEN-CORE-IT-LOG] Using output file path: " + pathname );
+
+        if ( pathname == null || pathname.length() <= 0 )
+        {
+            throw new MojoFailureException( "Path name for output file has not been specified" );
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -2606,26 +2605,14 @@ in `core-it-support/maven-it-plugin-bootstrap/src/main/java/org/apache/maven/its
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/apache/maven/its/plugins/SerializeMojo.java`
 #### Snippet
 ```java
+        {
             file.getParentFile().mkdirs();
+            writer = new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" );
+            s.setOutput( writer );
 
-            writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" ) );
-
-            if ( artifacts != null )
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-plugins/maven-it-plugin-packaging/src/main/java/org/apache/maven/plugin/coreit/AppendMojo.java`
-#### Snippet
-```java
-
-            try ( OutputStreamWriter writer = new OutputStreamWriter( new FileOutputStream( outputFile, true ),
-                                                                      "UTF-8" ) )
-            {
-                writer.write( message );
 ```
 
 ### CharsetObjectCanBeUsed
@@ -2642,138 +2629,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-11/src/main/jav
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/apache/maven/its/plugins/SerializeMojo.java`
-#### Snippet
-```java
-        {
-            file.getParentFile().mkdirs();
-            writer = new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" );
-            s.setOutput( writer );
-
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/ssh/external/ScpExternalWagon.java`
-#### Snippet
-```java
-            if ( resName.endsWith( ".sha1" ) )
-            {
-                is = new ByteArrayInputStream( "c96e29be962f9d8123b584b8f51d66b347d268d4".getBytes( "UTF-8" ) );
-            }
-            else if ( resName.endsWith( ".md5" ) )
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/ssh/external/ScpExternalWagon.java`
-#### Snippet
-```java
-            else if ( resName.endsWith( ".md5" ) )
-            {
-                is = new ByteArrayInputStream( "d2b637ab8965308490bc6482c860dfc5".getBytes( "UTF-8" ) );
-            }
-            else
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/ssh/external/ScpExternalWagon.java`
-#### Snippet
-```java
-            else
-            {
-                is = new ByteArrayInputStream( "<metadata />".getBytes( "UTF-8" ) );
-            }
-            inputData.setInputStream( is );
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
-#### Snippet
-```java
-            if ( resName.endsWith( ".sha1" ) )
-            {
-                is = new ByteArrayInputStream( "c96e29be962f9d8123b584b8f51d66b347d268d4".getBytes( "UTF-8" ) );
-            }
-            else if ( resName.endsWith( ".md5" ) )
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
-#### Snippet
-```java
-            else if ( resName.endsWith( ".md5" ) )
-            {
-                is = new ByteArrayInputStream( "d2b637ab8965308490bc6482c860dfc5".getBytes( "UTF-8" ) );
-            }
-            else
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
-#### Snippet
-```java
-            else
-            {
-                is = new ByteArrayInputStream( "<metadata />".getBytes( "UTF-8" ) );
-            }
-            inputData.setInputStream( is );
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItWagon.java`
-#### Snippet
-```java
-            if ( resName.endsWith( ".sha1" ) )
-            {
-                is = new ByteArrayInputStream( "c96e29be962f9d8123b584b8f51d66b347d268d4".getBytes( "UTF-8" ) );
-            }
-            else if ( resName.endsWith( ".md5" ) )
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItWagon.java`
-#### Snippet
-```java
-            else if ( resName.endsWith( ".md5" ) )
-            {
-                is = new ByteArrayInputStream( "d2b637ab8965308490bc6482c860dfc5".getBytes( "UTF-8" ) );
-            }
-            else
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItWagon.java`
-#### Snippet
-```java
-            else
-            {
-                is = new ByteArrayInputStream( "<metadata />".getBytes( "UTF-8" ) );
-            }
-            inputData.setInputStream( is );
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
-#### Snippet
-```java
-
-             // NOTE: Using append mode to track execution count
-             OutputStreamWriter w = new OutputStreamWriter( new FileOutputStream( touch, true ), "UTF-8" );
-
-             w.write( file );
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
 in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-plugin/src/main/java/org/apache/maven/plugin/coreit/ResourcesMojo.java`
 #### Snippet
 ```java
@@ -2782,6 +2637,126 @@ in `core-it-support/core-it-plugins/maven-it-plugin-core-stubs/maven-resources-p
                                                                           "UTF-8" ) )
                 {
                     writer.write( message );
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/ssh/external/ScpExternalWagon.java`
+#### Snippet
+```java
+            if ( resName.endsWith( ".sha1" ) )
+            {
+                is = new ByteArrayInputStream( "c96e29be962f9d8123b584b8f51d66b347d268d4".getBytes( "UTF-8" ) );
+            }
+            else if ( resName.endsWith( ".md5" ) )
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/ssh/external/ScpExternalWagon.java`
+#### Snippet
+```java
+            else if ( resName.endsWith( ".md5" ) )
+            {
+                is = new ByteArrayInputStream( "d2b637ab8965308490bc6482c860dfc5".getBytes( "UTF-8" ) );
+            }
+            else
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/ssh/external/ScpExternalWagon.java`
+#### Snippet
+```java
+            else
+            {
+                is = new ByteArrayInputStream( "<metadata />".getBytes( "UTF-8" ) );
+            }
+            inputData.setInputStream( is );
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
+#### Snippet
+```java
+            if ( resName.endsWith( ".sha1" ) )
+            {
+                is = new ByteArrayInputStream( "c96e29be962f9d8123b584b8f51d66b347d268d4".getBytes( "UTF-8" ) );
+            }
+            else if ( resName.endsWith( ".md5" ) )
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
+#### Snippet
+```java
+            else if ( resName.endsWith( ".md5" ) )
+            {
+                is = new ByteArrayInputStream( "d2b637ab8965308490bc6482c860dfc5".getBytes( "UTF-8" ) );
+            }
+            else
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItHttpWagon.java`
+#### Snippet
+```java
+            else
+            {
+                is = new ByteArrayInputStream( "<metadata />".getBytes( "UTF-8" ) );
+            }
+            inputData.setInputStream( is );
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItWagon.java`
+#### Snippet
+```java
+            if ( resName.endsWith( ".sha1" ) )
+            {
+                is = new ByteArrayInputStream( "c96e29be962f9d8123b584b8f51d66b347d268d4".getBytes( "UTF-8" ) );
+            }
+            else if ( resName.endsWith( ".md5" ) )
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItWagon.java`
+#### Snippet
+```java
+            else if ( resName.endsWith( ".md5" ) )
+            {
+                is = new ByteArrayInputStream( "d2b637ab8965308490bc6482c860dfc5".getBytes( "UTF-8" ) );
+            }
+            else
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-wagon/src/main/java/org/apache/maven/wagon/providers/coreit/CoreItWagon.java`
+#### Snippet
+```java
+            else
+            {
+                is = new ByteArrayInputStream( "<metadata />".getBytes( "UTF-8" ) );
+            }
+            inputData.setInputStream( is );
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+#### Snippet
+```java
+            file.getParentFile().mkdirs();
+
+            writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" ) );
+
+            if ( classPath != null )
 ```
 
 ### CharsetObjectCanBeUsed
@@ -2798,14 +2773,38 @@ in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/ma
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/TouchMojo.java`
+#### Snippet
+```java
+
+             // NOTE: Using append mode to track execution count
+             OutputStreamWriter w = new OutputStreamWriter( new FileOutputStream( touch, true ), "UTF-8" );
+
+             w.write( file );
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-plugins/maven-it-plugin-packaging/src/main/java/org/apache/maven/plugin/coreit/AppendMojo.java`
+#### Snippet
+```java
+
+            try ( OutputStreamWriter writer = new OutputStreamWriter( new FileOutputStream( outputFile, true ),
+                                                                      "UTF-8" ) )
+            {
+                writer.write( message );
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
 #### Snippet
 ```java
             file.getParentFile().mkdirs();
 
             writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( file ), "UTF-8" ) );
 
-            if ( classPath != null )
+            if ( artifacts != null )
 ```
 
 ## RuleId[id=MissingDeprecatedAnnotation]
@@ -2815,8 +2814,8 @@ in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/
 #### Snippet
 ```java
      */
-    @Parameter( defaultValue = "${project.artifact}", readonly = true )
-    private Artifact deprecatedBeanReadOnly;
+    @Parameter( defaultValue = "${project.artifact}" )
+    private Artifact deprecatedBean;
 
     /**
 ```
@@ -2827,8 +2826,8 @@ in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/
 #### Snippet
 ```java
      */
-    @Parameter( defaultValue = "${project.artifact}" )
-    private Artifact deprecatedBean;
+    @Parameter( defaultValue = "${project.artifact}", readonly = true )
+    private Artifact deprecatedBeanReadOnly;
 
     /**
 ```
@@ -2849,30 +2848,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-plugin-dependency/src/main/j
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AggregateTestMojo.java`
-#### Snippet
-```java
-        if ( filename != null )
-        {
-            result = result.replaceAll( "@artifactId@", project.getArtifactId() );
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-        {
-            String version = System.getProperty( "java.version" );
-            version = version.replaceAll( "[_-]", "." );
-            Matcher matcher = Pattern.compile( "(?s).*?(([0-9]+\\.[0-9]+)(\\.[0-9]+)?).*" ).matcher( version );
-            if ( matcher.matches() )
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AggregateTestMojo.java`
 #### Snippet
 ```java
@@ -2880,6 +2855,18 @@ in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/ma
         {
             result = result.replaceAll( "@artifactId@", project.getArtifactId() );
         }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+#### Snippet
+```java
+            {
+                // helps to distinguished forked executions of the same mojo
+                pathname = pathname.replaceAll( "@idx@", String.valueOf( nextCounter() ) );
+            }
 
 ```
 
@@ -2897,29 +2884,29 @@ in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
 #### Snippet
 ```java
-            {
-                // helps to distinguished forked executions of the same mojo
-                pathname = pathname.replaceAll( "@idx@", String.valueOf( nextCounter() ) );
-            }
+        {
+            String version = System.getProperty( "java.version" );
+            version = version.replaceAll( "[_-]", "." );
+            Matcher matcher = Pattern.compile( "(?s).*?(([0-9]+\\.[0-9]+)(\\.[0-9]+)?).*" ).matcher( version );
+            if ( matcher.matches() )
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AggregateTestMojo.java`
+#### Snippet
+```java
+        if ( filename != null )
+        {
+            result = result.replaceAll( "@artifactId@", project.getArtifactId() );
+        }
 
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.objectweb.asm` is unnecessary and can be removed
-in `core-it-support/core-it-javaagent/src/main/java/org/apache/maven/coreits/javaagent/mng5669/Premain.java`
-#### Snippet
-```java
-        extends ClassVisitor
-    {
-        DefaultModelReaderVisitor( int api, org.objectweb.asm.ClassVisitor cv )
-        {
-            super( api, cv );
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.its.plugins.plexuslifecycle` is unnecessary and can be removed
 in `core-it-support/core-it-plugins/maven-it-plugin-plexus-lifecycle/src/main/java/org/apache/maven/its/plugins/plexuslifecycle/DefaultFakeComponent.java`
@@ -2930,6 +2917,546 @@ in `core-it-support/core-it-plugins/maven-it-plugin-plexus-lifecycle/src/main/ja
 @Component ( role = org.apache.maven.its.plugins.plexuslifecycle.FakeComponent.class )
 public class DefaultFakeComponent
     implements FakeComponent, Contextualizable, Disposable, LogEnabled
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * An array parameter of component type {@link java.lang.String}.
+     */
+    @Parameter( property = "config.stringParams" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.io.File}.
+     */
+    @Parameter( property = "config.fileParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.List}.
+     */
+    @Parameter( property = "config.listParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Set}.
+     */
+    @Parameter( property = "config.setParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * An array parameter of component type {@link java.io.File}.
+     */
+    @Parameter( property = "config.fileParams" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.String}.
+     */
+    @Parameter( property = "config.stringParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Map}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * An array parameter of component type {@link java.lang.String}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.List}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.io.File}.
+     */
+    @Parameter( property = "config.fileParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Properties}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * An array parameter of component type {@link java.io.File}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.String}.
+     */
+    @Parameter( property = "config.stringParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Set}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.String}.
+     */
+    @Parameter( property = "config.stringParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Map}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.List}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * An array parameter of component type {@link java.lang.String}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.io.File}.
+     */
+    @Parameter( property = "config.fileParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Set}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * An array parameter of component type {@link java.io.File}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Properties}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Set}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.String}.
+     */
+    @Parameter( property = "config.stringParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.List}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Character}.
+     */
+    @Parameter( property = "config.characterParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Long}.
+     */
+    @Parameter( property = "config.longParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Byte}.
+     */
+    @Parameter( property = "config.byteParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Integer#TYPE}.
+     */
+    @Parameter( property = "config.primitiveIntegerParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * An array parameter of component type {@link java.io.File}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Double}.
+     */
+    @Parameter( property = "config.doubleParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Properties}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.util.Date}.
+     */
+    @Parameter( property = "config.dateParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A collection parameter of type {@link java.util.Map}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.net.URI} (requires Maven 3.x).
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * An array parameter of component type {@link java.lang.String}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.net.URL}.
+     */
+    @Parameter( property = "config.urlParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Short}.
+     */
+    @Parameter( property = "config.shortParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.coreit` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A complex parameter of type {@link org.apache.maven.plugin.coreit.Bean}.
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Integer}.
+     */
+    @Parameter( property = "config.integerParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Boolean}.
+     */
+    @Parameter( property = "config.booleanParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Float}.
+     */
+    @Parameter( property = "config.floatParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.lang.Boolean#TYPE}.
+     */
+    @Parameter( property = "config.primitiveBooleanParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
+#### Snippet
+```java
+
+    /**
+     * A simple parameter of type {@link java.io.File}.
+     */
+    @Parameter( property = "config.fileParam" )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.component.configurator` is unnecessary, and can be replaced with an import
+in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomComponentConfigurator.java`
+#### Snippet
+```java
+ * @author Benjamin Bentmann
+ */
+@Component ( role = org.codehaus.plexus.component.configurator.ComponentConfigurator.class, hint = "coreit" )
+public class CustomComponentConfigurator
+    extends AbstractComponentConfigurator
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2969,558 +3496,6 @@ public class CoreItWagon
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Set}.
-     */
-    @Parameter( property = "config.setParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.List}.
-     */
-    @Parameter( property = "config.listParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.String}.
-     */
-    @Parameter( property = "config.stringParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * An array parameter of component type {@link java.io.File}.
-     */
-    @Parameter( property = "config.fileParams" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.io.File}.
-     */
-    @Parameter( property = "config.fileParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CliConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * An array parameter of component type {@link java.lang.String}.
-     */
-    @Parameter( property = "config.stringParams" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * An array parameter of component type {@link java.lang.String}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Set}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.List}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * An array parameter of component type {@link java.io.File}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.io.File}.
-     */
-    @Parameter( property = "config.fileParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.String}.
-     */
-    @Parameter( property = "config.stringParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Properties}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/AppendConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Map}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.String}.
-     */
-    @Parameter( property = "config.stringParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.coreit` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A complex parameter of type {@link org.apache.maven.plugin.coreit.Bean}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Boolean}.
-     */
-    @Parameter( property = "config.booleanParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Integer#TYPE}.
-     */
-    @Parameter( property = "config.primitiveIntegerParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Float}.
-     */
-    @Parameter( property = "config.floatParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.util.Date}.
-     */
-    @Parameter( property = "config.dateParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.net.URI} (requires Maven 3.x).
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Short}.
-     */
-    @Parameter( property = "config.shortParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Double}.
-     */
-    @Parameter( property = "config.doubleParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.io.File}.
-     */
-    @Parameter( property = "config.fileParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Map}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.List}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Byte}.
-     */
-    @Parameter( property = "config.byteParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Integer}.
-     */
-    @Parameter( property = "config.integerParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * An array parameter of component type {@link java.io.File}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Character}.
-     */
-    @Parameter( property = "config.characterParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Set}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * An array parameter of component type {@link java.lang.String}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Boolean#TYPE}.
-     */
-    @Parameter( property = "config.primitiveBooleanParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.Long}.
-     */
-    @Parameter( property = "config.longParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.net.URL}.
-     */
-    @Parameter( property = "config.urlParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/ConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Properties}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Properties}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.List}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.lang.String}.
-     */
-    @Parameter( property = "config.stringParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A simple parameter of type {@link java.io.File}.
-     */
-    @Parameter( property = "config.fileParam" )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Map}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * An array parameter of component type {@link java.io.File}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.component.configurator` is unnecessary, and can be replaced with an import
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomComponentConfigurator.java`
-#### Snippet
-```java
- * @author Benjamin Bentmann
- */
-@Component ( role = org.codehaus.plexus.component.configurator.ComponentConfigurator.class, hint = "coreit" )
-public class CustomComponentConfigurator
-    extends AbstractComponentConfigurator
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * A collection parameter of type {@link java.util.Set}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core-it-support/core-it-plugins/maven-it-plugin-configuration/src/main/java/org/apache/maven/plugin/coreit/CustomConfigMojo.java`
-#### Snippet
-```java
-
-    /**
-     * An array parameter of component type {@link java.lang.String}.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-    public static void assertTrue( String message, boolean test )
-    {
-        org.junit.jupiter.api.Assertions.assertTrue( test, message );
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
 #### Snippet
@@ -3528,42 +3503,6 @@ in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMa
     public static void assertEquals( String message, Object o1, Object o2 )
     {
         org.junit.jupiter.api.Assertions.assertEquals( o1, o2, message );
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-    public static void assertNotEquals( String message, Object o1, Object o2 )
-    {
-        org.junit.jupiter.api.Assertions.assertNotEquals( o1, o2, message );
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-    public static void assertNull( String message, Object o )
-    {
-        org.junit.jupiter.api.Assertions.assertNull( o, message );
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-    public static void fail( String message )
-    {
-        org.junit.jupiter.api.Assertions.fail( message );
     }
 
 ```
@@ -3585,11 +3524,84 @@ Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an im
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
 #### Snippet
 ```java
+    public static void assertNotEquals( String message, Object o1, Object o2 )
+    {
+        org.junit.jupiter.api.Assertions.assertNotEquals( o1, o2, message );
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
+    public static void fail( String message )
+    {
+        org.junit.jupiter.api.Assertions.fail( message );
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
     public static void assertFalse( String message, boolean test )
     {
         org.junit.jupiter.api.Assertions.assertFalse( test, message );
     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
+    public static void assertTrue( String message, boolean test )
+    {
+        org.junit.jupiter.api.Assertions.assertTrue( test, message );
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
+    public static void assertNull( String message, Object o )
+    {
+        org.junit.jupiter.api.Assertions.assertNull( o, message );
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.objectweb.asm` is unnecessary and can be removed
+in `core-it-support/core-it-javaagent/src/main/java/org/apache/maven/coreits/javaagent/mng5669/Premain.java`
+#### Snippet
+```java
+        extends ClassVisitor
+    {
+        DefaultModelReaderVisitor( int api, org.objectweb.asm.ClassVisitor cv )
+        {
+            super( api, cv );
+```
+
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apache/maven/plugin/coreit/CopyPomMojo.java`
+#### Snippet
+```java
+            int read = -1;
+            byte[] buf = new byte[4 * 1024];
+            while ( ( read = in.read( buf ) ) > -1 )
+            {
+                out.write( buf, 0, read );
 ```
 
 ## RuleId[id=ThrowablePrintStackTrace]
@@ -3617,32 +3629,7 @@ in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMa
             }
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apache/maven/plugin/coreit/CopyPomMojo.java`
-#### Snippet
-```java
-            int read = -1;
-            byte[] buf = new byte[4 * 1024];
-            while ( ( read = in.read( buf ) ) > -1 )
-            {
-                out.write( buf, 0, read );
-```
-
 ## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `pluginArtifacts` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apache/maven/plugin/coreit/CoreItTouchMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter( defaultValue = "${plugin.artifactMap}", required = true )
-    private Map<String, Artifact> pluginArtifacts;
-
-    /**
-```
-
 ### MismatchedCollectionQueryUpdate
 Contents of collection `artifacts` are queried, but never updated
 in `core-it-support/core-it-plugins/maven-it-plugin-artifact/src/main/java/org/apache/maven/plugin/coreit/InstallArtifactsMojo.java`
@@ -3656,8 +3643,32 @@ in `core-it-support/core-it-plugins/maven-it-plugin-artifact/src/main/java/org/a
 ```
 
 ### MismatchedCollectionQueryUpdate
+Contents of collection `pluginArtifacts` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-touch/src/main/java/org/apache/maven/plugin/coreit/CoreItTouchMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter( defaultValue = "${plugin.artifactMap}", required = true )
+    private Map<String, Artifact> pluginArtifacts;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `pluginArtifacts` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/InjectMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter( defaultValue = "${plugin.artifacts}", readonly = true )
+    private Collection pluginArtifacts;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
 Contents of collection `reactorProjects` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AggregateTestMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AggregateTestMojo.java`
 #### Snippet
 ```java
      */
@@ -3669,24 +3680,24 @@ in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/ma
 
 ### MismatchedCollectionQueryUpdate
 Contents of collection `properties` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-uses-properties/src/main/java/org/apache/maven/plugin/coreit/UsesPropertiesMojo.java`
+in `core-it-support/core-it-plugins/maven-it-plugin-project-interpolation/src/main/java/org/apache/maven/plugin/coreit/PropertyInterpolationVerifierMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter( defaultValue = "${project.properties}" )
+    @Parameter( property = "clsldr.pluginClassLoaderOutput" )
     private Properties properties;
 
     public void execute()
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `reports` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/ListMojo.java`
+Contents of collection `componentList` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-singleton-component/src/main/java/org/apache/maven/plugin/coreit/ItMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter( defaultValue = "${reports}", required = true, readonly = true )
-    private List<?> reports;
+    @Component
+    private List<TestComponent> componentList;
 
     /**
 ```
@@ -3704,18 +3715,6 @@ in `core-it-support/core-it-plugins/maven-it-plugin-singleton-component/src/main
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `componentList` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-singleton-component/src/main/java/org/apache/maven/plugin/coreit/ItMojo.java`
-#### Snippet
-```java
-     */
-    @Component
-    private List<TestComponent> componentList;
-
-    /**
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `reports` are queried, but never updated
 in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/GenerateMojo.java`
 #### Snippet
@@ -3728,15 +3727,63 @@ in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apach
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `properties` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-project-interpolation/src/main/java/org/apache/maven/plugin/coreit/PropertyInterpolationVerifierMojo.java`
+Contents of collection `reports` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apache/maven/plugin/coreit/ListMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter( property = "clsldr.pluginClassLoaderOutput" )
+    @Parameter( defaultValue = "${reports}", required = true, readonly = true )
+    private List<?> reports;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `reactorProjects` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter( defaultValue = "${reactorProjects}" )
+    private List<MavenProject> reactorProjects;
+
+    public void execute()
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `reactorProjects` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleAggregatorMojo.java`
+#### Snippet
+```java
+
+    @Parameter( defaultValue = "${reactorProjects}" )
+    private List reactorProjects;
+
+    public void execute()
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `properties` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-uses-properties/src/main/java/org/apache/maven/plugin/coreit/UsesPropertiesMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter( defaultValue = "${project.properties}" )
     private Properties properties;
 
     public void execute()
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `reactorProjects` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-collection/src/main/java/org/apache/maven/plugin/coreit/AggregateTestMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter( defaultValue = "${reactorProjects}", readonly = true )
+    private List<MavenProject> reactorProjects;
+
+    /**
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -3788,49 +3835,13 @@ in `core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/j
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `reactorProjects` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkGoalAggregatorMojo.java`
+Contents of collection `components` are queried, but never updated
+in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin-class-loader/src/main/java/org/apache/maven/plugin/coreit/InstanceofMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter( defaultValue = "${reactorProjects}" )
-    private List<MavenProject> reactorProjects;
-
-    public void execute()
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `reactorProjects` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-fork/src/main/java/org/apache/maven/plugin/coreit/ForkLifecycleAggregatorMojo.java`
-#### Snippet
-```java
-
-    @Parameter( defaultValue = "${reactorProjects}" )
-    private List reactorProjects;
-
-    public void execute()
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `reactorProjects` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AggregateTestMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter( defaultValue = "${reactorProjects}", readonly = true )
-    private List<MavenProject> reactorProjects;
-
-    /**
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `pluginArtifacts` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/InjectMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter( defaultValue = "${plugin.artifacts}", readonly = true )
-    private Collection pluginArtifacts;
+    @Component
+    private List<TestComponent> components;
 
     /**
 ```
@@ -3847,19 +3858,79 @@ in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin
     /**
 ```
 
-### MismatchedCollectionQueryUpdate
-Contents of collection `components` are queried, but never updated
-in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin-class-loader/src/main/java/org/apache/maven/plugin/coreit/InstanceofMojo.java`
+## RuleId[id=UseOfPropertiesAsHashtable]
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
 #### Snippet
 ```java
-     */
-    @Component
-    private List<TestComponent> components;
-
-    /**
+                || ( obj instanceof File ) )
+            {
+                props.put( key, obj.toString() );
+            }
+            else if ( obj instanceof Collection )
 ```
 
-## RuleId[id=UseOfPropertiesAsHashtable]
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
+#### Snippet
+```java
+            {
+                Collection coll = (Collection) obj;
+                props.put( key, Integer.toString( coll.size() ) );
+                int index = 0;
+                for ( Iterator it = coll.iterator(); it.hasNext(); index++ )
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
+#### Snippet
+```java
+            {
+                Map map = (Map) obj;
+                props.put( key, Integer.toString( map.size() ) );
+                int index = 0;
+                for ( Iterator it = map.entrySet().iterator(); it.hasNext(); index++ )
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
+#### Snippet
+```java
+            {
+                int length = Array.getLength( obj );
+                props.put( key, Integer.toString( length ) );
+                for ( int index = 0; index < length; index++ )
+                {
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
+#### Snippet
+```java
+                    if ( value != null )
+                    {
+                        props.put( key + ".value", value );
+                    }
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
+#### Snippet
+```java
+                    Object[] children = (Object[]) getChildren.invoke( obj, NO_ARGS );
+
+                    props.put( key + ".children", Integer.toString( children.length ) );
+
+                    Map indices = new HashMap();
+```
+
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
@@ -3942,78 +4013,6 @@ in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMa
                 verifier.getSystemProperties().put( "maven.compiler.release", "8" );
             }
         }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
-#### Snippet
-```java
-                || ( obj instanceof File ) )
-            {
-                props.put( key, obj.toString() );
-            }
-            else if ( obj instanceof Collection )
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
-#### Snippet
-```java
-            {
-                Collection coll = (Collection) obj;
-                props.put( key, Integer.toString( coll.size() ) );
-                int index = 0;
-                for ( Iterator it = coll.iterator(); it.hasNext(); index++ )
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
-#### Snippet
-```java
-            {
-                Map map = (Map) obj;
-                props.put( key, Integer.toString( map.size() ) );
-                int index = 0;
-                for ( Iterator it = map.entrySet().iterator(); it.hasNext(); index++ )
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
-#### Snippet
-```java
-            {
-                int length = Array.getLength( obj );
-                props.put( key, Integer.toString( length ) );
-                for ( int index = 0; index < length; index++ )
-                {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
-#### Snippet
-```java
-                    if ( value != null )
-                    {
-                        props.put( key + ".value", value );
-                    }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `core-it-support/core-it-plugins/maven-it-plugin-expression/src/main/java/org/apache/maven/plugin/coreit/PropertyUtil.java`
-#### Snippet
-```java
-                    Object[] children = (Object[]) getChildren.invoke( obj, NO_ARGS );
-
-                    props.put( key + ".children", Integer.toString( children.length ) );
-
-                    Map indices = new HashMap();
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -4212,68 +4211,7 @@ public class CoreItToolchain
 
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-08-22-08-07.712.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `core-it-support/core-it-toolchain/src/main/java/org/apache/maven/coreit/toolchain/CoreItToolchainFactory.java`
-#### Snippet
-```java
-        if ( model == null )
-        {
-            return null;
-        }
-        return new CoreItToolchain( model );
-```
-
-### ReturnNull
-Return of `null`
-in `core-it-support/core-it-toolchain/src/main/java/org/apache/maven/coreit/toolchain/CoreItToolchainFactory.java`
-#### Snippet
-```java
-    public ToolchainPrivate createDefaultToolchain()
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core-it-support/core-it-plugins/mng5958-extension/src/main/java/org/apache/maven/its/mng5958/AbstractLifecycleMapping.java`
-#### Snippet
-```java
-            return lifecycleMapping.getPhases();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core-it-support/core-it-plugins/mng5958-extension/src/main/java/org/apache/maven/its/mng5958/AbstractLifecycleMapping.java`
-#### Snippet
-```java
-    public List<String> getOptionalMojos( String lifecycle )
-    {
-        return null;
-    }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/codehaus/plexus/util/xml/pull/MXSerializer.java`
@@ -4291,7 +4229,7 @@ Return of `null`
 in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/codehaus/plexus/util/xml/pull/MXSerializer.java`
 #### Snippet
 ```java
-    public String getNamespace()
+    public String getName()
     {
         return null;
     }
@@ -4303,7 +4241,7 @@ Return of `null`
 in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/codehaus/plexus/util/xml/pull/MXSerializer.java`
 #### Snippet
 ```java
-    public String getName()
+    public XmlSerializer attribute( String namespace, String name, String value )
     {
         return null;
     }
@@ -4339,18 +4277,6 @@ Return of `null`
 in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/codehaus/plexus/util/xml/pull/MXSerializer.java`
 #### Snippet
 ```java
-    public Object getProperty( String name )
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/codehaus/plexus/util/xml/pull/MXSerializer.java`
-#### Snippet
-```java
     public String getPrefix( String namespace, boolean generatePrefix )
     {
         return null;
@@ -4363,8 +4289,44 @@ Return of `null`
 in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/codehaus/plexus/util/xml/pull/MXSerializer.java`
 #### Snippet
 ```java
-    public XmlSerializer attribute( String namespace, String name, String value )
+    public Object getProperty( String name )
     {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core-it-support/core-it-plugins/maven-it-plugin-plexus-utils-new/src/main/java/org/codehaus/plexus/util/xml/pull/MXSerializer.java`
+#### Snippet
+```java
+    public String getNamespace()
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core-it-support/core-it-plugins/mng5958-extension/src/main/java/org/apache/maven/its/mng5958/AbstractLifecycleMapping.java`
+#### Snippet
+```java
+    public List<String> getOptionalMojos( String lifecycle )
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core-it-support/core-it-plugins/mng5958-extension/src/main/java/org/apache/maven/its/mng5958/AbstractLifecycleMapping.java`
+#### Snippet
+```java
+            return lifecycleMapping.getPhases();
+        }
         return null;
     }
 
@@ -4382,6 +4344,30 @@ in `core-it-support/core-it-plugins/maven-it-plugin-site/src/main/java/org/apach
 
 ```
 
+### ReturnNull
+Return of `null`
+in `core-it-support/core-it-toolchain/src/main/java/org/apache/maven/coreit/toolchain/CoreItToolchainFactory.java`
+#### Snippet
+```java
+    public ToolchainPrivate createDefaultToolchain()
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core-it-support/core-it-toolchain/src/main/java/org/apache/maven/coreit/toolchain/CoreItToolchainFactory.java`
+#### Snippet
+```java
+        if ( model == null )
+        {
+            return null;
+        }
+        return new CoreItToolchain( model );
+```
+
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
@@ -4395,44 +4381,7 @@ in `core-it-support/core-it-plugins/maven-it-plugin-class-loader/maven-it-plugin
         Properties loaderProperties = new Properties();
 ```
 
-## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
-#### Snippet
-```java
-        String key = getClass().getName();
-
-        synchronized ( System.class )
-        {
-            counter = Integer.getInteger( key, 0 );
-```
-
 ## RuleId[id=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `mavenVersion` of exception class
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-    {
-        @SuppressWarnings( "checkstyle:visibilitymodifier" )
-        public ArtifactVersion mavenVersion;
-
-        @SuppressWarnings( "checkstyle:visibilitymodifier" )
-```
-
-### NonFinalFieldOfException
-Non-final field `javaVersion` of exception class
-in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
-#### Snippet
-```java
-    {
-        @SuppressWarnings( "checkstyle:visibilitymodifier" )
-        public ArtifactVersion javaVersion;
-
-        @SuppressWarnings( "checkstyle:visibilitymodifier" )
-```
-
 ### NonFinalFieldOfException
 Non-final field `supportedRange` of exception class
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
@@ -4458,6 +4407,30 @@ in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMa
 ```
 
 ### NonFinalFieldOfException
+Non-final field `supportedRange` of exception class
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
+
+        @SuppressWarnings( "checkstyle:visibilitymodifier" )
+        public VersionRange supportedRange;
+
+        private UnsupportedMavenVersionException( ArtifactVersion mavenVersion, VersionRange supportedRange )
+```
+
+### NonFinalFieldOfException
+Non-final field `javaVersion` of exception class
+in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
+#### Snippet
+```java
+    {
+        @SuppressWarnings( "checkstyle:visibilitymodifier" )
+        public ArtifactVersion javaVersion;
+
+        @SuppressWarnings( "checkstyle:visibilitymodifier" )
+```
+
+### NonFinalFieldOfException
 Non-final field `mavenVersion` of exception class
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
 #### Snippet
@@ -4470,15 +4443,28 @@ in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMa
 ```
 
 ### NonFinalFieldOfException
-Non-final field `supportedRange` of exception class
+Non-final field `mavenVersion` of exception class
 in `core-it-support/maven-it-helper/src/main/java/org/apache/maven/it/AbstractMavenIntegrationTestCase.java`
 #### Snippet
 ```java
+    {
+        @SuppressWarnings( "checkstyle:visibilitymodifier" )
+        public ArtifactVersion mavenVersion;
 
         @SuppressWarnings( "checkstyle:visibilitymodifier" )
-        public VersionRange supportedRange;
+```
 
-        private UnsupportedMavenVersionException( ArtifactVersion mavenVersion, VersionRange supportedRange )
+## RuleId[id=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `core-it-support/core-it-plugins/maven-it-plugin-dependency-resolution/src/main/java/org/apache/maven/plugin/coreit/AbstractDependencyMojo.java`
+#### Snippet
+```java
+        String key = getClass().getName();
+
+        synchronized ( System.class )
+        {
+            counter = Integer.getInteger( key, 0 );
 ```
 
 ## RuleId[id=UnusedAssignment]
