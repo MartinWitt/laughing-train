@@ -8,7 +8,7 @@ I found 12 bad smells with 0 repairable:
 | NullableProblems | 2 | false |
 | ClassNameSameAsAncestorName | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
-## RuleId[ruleID=ClassNameSameAsAncestorName]
+## RuleId[id=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
 Class name `Assertions` is the same as one of its superclass' names
 in `preconditions-assertj/src/main/java/com/palantir/logsafe/testing/Assertions.java`
@@ -21,7 +21,7 @@ public class Assertions extends org.assertj.core.api.Assertions {
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.logging.log4j` is unnecessary, and can be replaced with an import
 in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
@@ -118,7 +118,7 @@ in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerG
                         .addStatement(
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
+## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'hasArgs' is still used
 in `preconditions-assertj/src/main/java/com/palantir/logsafe/testing/LoggableExceptionAssert.java`
@@ -131,7 +131,7 @@ in `preconditions-assertj/src/main/java/com/palantir/logsafe/testing/LoggableExc
     }
 ```
 
-## RuleId[ruleID=NullableProblems]
+## RuleId[id=NullableProblems]
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `safe-logging/src/main/java/com/palantir/logsafe/Arg.java`
