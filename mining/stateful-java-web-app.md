@@ -6,23 +6,10 @@ I found 8 bad smells with 1 repairable:
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 2 | false |
 | WrongPackageStatement | 2 | false |
-| RedundantFieldInitialization | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
+| RedundantFieldInitialization | 1 | false |
 | StringBufferReplaceableByStringBuilder | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
-#### Snippet
-```java
-    public static final Logger LOG = LogManager.getLogger(com.microsoft.webapp.samples.PageVisits.class);
-
-    private int pageViews = 0;
-
-    /**
-```
-
 ## RuleId[id=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
 Iteration over `env.keySet()` may be replaced with 'entrySet()' iteration
@@ -34,6 +21,19 @@ in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
         for (String envName : env.keySet()) {
             if (envName.startsWith("WEBSITE")) {
                 buffer.append(String.format("%s = %s%n",
+```
+
+## RuleId[id=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
+#### Snippet
+```java
+    public static final Logger LOG = LogManager.getLogger(com.microsoft.webapp.samples.PageVisits.class);
+
+    private int pageViews = 0;
+
+    /**
 ```
 
 ## RuleId[id=StringBufferReplaceableByStringBuilder]
@@ -57,9 +57,9 @@ in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
 ```java
     }
 
-    private void readObject(java.io.ObjectInputStream in)
-            throws IOException, ClassNotFoundException {
-
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+        LOG.info("=========================================");
+        LOG.info("Writing out Page Visit into output stream");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -69,9 +69,9 @@ in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
 ```java
     }
 
-    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-        LOG.info("=========================================");
-        LOG.info("Writing out Page Visit into output stream");
+    private void readObject(java.io.ObjectInputStream in)
+            throws IOException, ClassNotFoundException {
+
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -90,7 +90,7 @@ in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
 ## RuleId[id=WrongPackageStatement]
 ### WrongPackageStatement
 Package name 'com.microsoft.webapp.samples' does not correspond to the file path 'main.java.com.microsoft.webapp.samples'
-in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
+in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
 #### Snippet
 ```java
  */
@@ -102,7 +102,7 @@ import java.io.IOException;
 
 ### WrongPackageStatement
 Package name 'com.microsoft.webapp.samples' does not correspond to the file path 'main.java.com.microsoft.webapp.samples'
-in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
+in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
 #### Snippet
 ```java
  */
