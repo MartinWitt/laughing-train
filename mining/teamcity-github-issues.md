@@ -13,7 +13,7 @@ I found 16 bad smells with 4 repairable:
 | DoubleBraceInitialization | 1 | false |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
 | RedundantSuppression | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/auth/GitHubAuthenticator.java`
@@ -26,7 +26,7 @@ public class GitHubAuthenticator implements IssueFetcherAuthenticator {
   public GitHubAuthenticator(@NotNull final Map<String, String> properties) {
 ```
 
-## RuleId[ruleID=RegExpSimplifiable]
+## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[s]` can be simplified to 's'
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
@@ -39,7 +39,7 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   @NotNull
 ```
 
-## RuleId[ruleID=StaticCallOnSubclass]
+## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
 Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
@@ -64,7 +64,7 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
         // oauth token
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import jetbrains.buildServer.issueTracker.BasicIssueFetcherAuthenticator;`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/auth/GitHubAuthenticator.java`
@@ -77,7 +77,20 @@ import jetbrains.buildServer.issueTracker.IssueFetcherAuthenticator;
 import jetbrains.buildServer.util.HTTPRequestBuilder;
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=DoubleBraceInitialization]
+### DoubleBraceInitialization
+Double brace initialization
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
+#### Snippet
+```java
+  @Override
+  public Map<String, String> getDefaultProperties() {
+    return new HashMap<String, String>() {{
+      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
+      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
+```
+
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
@@ -126,20 +139,7 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
       return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
 ```
 
-## RuleId[ruleID=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> getDefaultProperties() {
-    return new HashMap<String, String>() {{
-      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
-      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
-```
-
-## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
+## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
 ### RegExpUnnecessaryNonCapturingGroup
 Unnecessary non-capturing group `(?:\\.git)`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
@@ -152,7 +152,7 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   /* Matches github http and https urls of format https://github.com/owner/repo.git */
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends SBuildType`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
@@ -162,6 +162,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
   private Set<String> getPathsFromInstances(@NotNull final List<SBuildType> buildTypes) {
     return extractFetchUrls(buildTypes.stream().map(SBuildType::getVcsRootInstances));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SBuildType`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+  }
+
+  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
+    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
   }
 ```
 
@@ -178,18 +190,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SBuildType`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-  }
-
-  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? super InvalidProperty`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
 #### Snippet
@@ -201,7 +201,7 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
                                        @NotNull final String propertyName,
 ```
 
-## RuleId[ruleID=RedundantSuppression]
+## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
