@@ -46,6 +46,8 @@ public class DiffCleaner {
             CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
             oldTreeIter.reset(reader, getLastCommit(git));
             String shortPath = getRelativeRepoPath(change, git);
+            String lineEnding = detectLineSeparator(Files.readString(
+                    change.getAffectedType().getPosition().getFile().toPath()));
             Path filePath = path.resolve(shortPath);
             CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
             var fakeCommit = createFakeCommit(git, shortPath);
@@ -68,14 +70,13 @@ public class DiffCleaner {
                         if (change.getModes().contains(DiffCleanModes.NO_WHITESPACE_ADD)) {
                             Files.writeString(
                                     filePath,
-                                    new ExtraWhiteSpaceCleaner().clean(Files.readString(filePath), lineChange, change));
+                                    new ExtraWhiteSpaceCleaner()
+                                            .clean(Files.readString(filePath), lineChange, change, lineEnding));
                         }
-                        // call diffcleaner
                     }
                 }
             }
             git.reset().setRef("HEAD~1").call();
-            System.out.println(Files.readString(filePath));
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("could not clean because not a git repo");
         }
@@ -115,5 +116,32 @@ public class DiffCleaner {
     private RevTree createFakeCommit(Git git, String shortPath) throws NoFilepatternException, GitAPIException {
         git.add().addFilepattern(shortPath).call();
         return git.commit().setSign(false).setMessage("fake commit").call().getTree();
+    }
+
+    private static final String CR = "\r";
+    private static final String CRLF = "\r\n";
+    private static final String LF = "\n";
+
+    /**
+     * Detect line separator used in origin code
+     * @return character sequence used as line separator in `text`
+     */
+    private String detectLineSeparator(String text) {
+        if (text != null) {
+            int len = text.length();
+            for (int i = 0; i < len; i++) {
+                char c = text.charAt(i);
+                if (c == '\n') {
+                    return LF;
+                } else if (c == '\r') {
+                    i++;
+                    if (i < len && text.charAt(i) == '\n') {
+                        return CRLF;
+                    }
+                    return CR;
+                }
+            }
+        }
+        return System.getProperty("line.separator");
     }
 }

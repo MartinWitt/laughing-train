@@ -13,5 +13,5 @@ public interface GitDiffCleaner {
      * @param change  the change
      * @return the cleaned content
      */
-    String clean(String content, GitLineChange gitLineChange, Change change);
+    String clean(String content, GitLineChange gitLineChange, Change change, String lineEnding);
 }
