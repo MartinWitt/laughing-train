@@ -88,18 +88,6 @@ public abstract class CheckSigningKeyTask extends DefaultTask {
 ## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
-#### Snippet
-```java
-        project.getPluginManager().apply(JavaLibraryPlugin.class);
-
-        project.getTasks().withType(Jar.class).named("jar").configure(jar -> {
-            jar.getManifest().attributes(Collections.singletonMap("Implementation-Version", project.getVersion()));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
 #### Snippet
 ```java
@@ -112,14 +100,26 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
 #### Snippet
 ```java
-        TaskProvider<?> checkSigningKeyTask = rootProject
-                .getTasks()
-                .register("checkSigningKey", CheckSigningKeyTask.class, checkSigningKey -> {
-                    checkSigningKey.onlyIf(_ignored -> !EnvironmentVariables.isFork(rootProject));
-                });
+        project.getPluginManager().apply(JavaLibraryPlugin.class);
+
+        project.getTasks().withType(Jar.class).named("jar").configure(jar -> {
+            jar.getManifest().attributes(Collections.singletonMap("Implementation-Version", project.getVersion()));
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+#### Snippet
+```java
+            public void execute(Task _ignored) {
+                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
+                        () -> {
+                            task.getLogger().lifecycle("Printing output to avoid hitting Circle context deadline");
+                        },
 ```
 
 ### CodeBlock2Expr
@@ -144,18 +144,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
                 pom.licenses(licenses -> {
                     licenses.license(license -> {
                         license.getName().set("The Apache License, Version 2.0");
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
-#### Snippet
-```java
-            public void execute(Task _ignored) {
-                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
-                        () -> {
-                            task.getLogger().lifecycle("Printing output to avoid hitting Circle context deadline");
-                        },
 ```
 
 ### CodeBlock2Expr
@@ -204,6 +192,18 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
         project.getTasks().withType(PublishToMavenRepository.class).configureEach(publishTask -> {
             publishTask.onlyIf(_ignored -> {
                 if (publishTask.getRepository().getName().equals("sonatype")) {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
+#### Snippet
+```java
+        TaskProvider<?> checkSigningKeyTask = rootProject
+                .getTasks()
+                .register("checkSigningKey", CheckSigningKeyTask.class, checkSigningKey -> {
+                    checkSigningKey.onlyIf(_ignored -> !EnvironmentVariables.isFork(rootProject));
+                });
 ```
 
 ### CodeBlock2Expr
