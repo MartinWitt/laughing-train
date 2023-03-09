@@ -19,7 +19,7 @@ I found 42 bad smells with 4 repairable:
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
 | MissortedModifiers | 1 | false |
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/jetbrains/jetCheck/Iteration.java`
@@ -32,19 +32,7 @@ in `src/main/java/org/jetbrains/jetCheck/Iteration.java`
       try {
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `PropertyChecker` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
- */
-@SuppressWarnings("WeakerAccess")
-public class PropertyChecker {
-  static final int DEFAULT_MAX_SIZE_HINT = 100;
-
-```
-
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `DataSerializer` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/jetbrains/jetCheck/DataSerializer.java`
@@ -57,7 +45,19 @@ class DataSerializer {
   private static int readINT(ByteArrayInputStream record) {
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
+### UtilityClassWithoutPrivateConstructor
+Class `PropertyChecker` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+ */
+@SuppressWarnings("WeakerAccess")
+public class PropertyChecker {
+  static final int DEFAULT_MAX_SIZE_HINT = 100;
+
+```
+
+## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'rechecking' is still used
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
@@ -67,6 +67,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     @Deprecated
     public Parameters rechecking(@NotNull String serializedData) {
       return DataSerializer.deserializeInto(serializedData, this);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'recheckingIteration' is still used
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Parameters recheckingIteration(long seed, int sizeHint) {
+      return withForcedIterationCount(1).withSeed(seed).withSizeHint(whatever -> sizeHint);
     }
 ```
 
@@ -82,19 +94,7 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
         System.err.println("withSeed ignored, because 'rechecking' is used");
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'recheckingIteration' is still used
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Parameters recheckingIteration(long seed, int sizeHint) {
-      return withForcedIterationCount(1).withSeed(seed).withSizeHint(whatever -> sizeHint);
-    }
-```
-
-## RuleId[ruleID=Convert2MethodRef]
+## RuleId[id=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `src/main/java/org/jetbrains/jetCheck/IntDistribution.java`
@@ -107,7 +107,7 @@ in `src/main/java/org/jetbrains/jetCheck/IntDistribution.java`
       int value = r.nextInt(sum);
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/org/jetbrains/jetCheck/StatusNotifier.java`
@@ -120,19 +120,7 @@ in `src/main/java/org/jetbrains/jetCheck/StatusNotifier.java`
   <T> void shrinkAttempt(PropertyFailure<T> failure, Iteration<T> iteration, StructureNode data) {
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `step`
-in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
-#### Snippet
-```java
-      }
-
-      step = step.onFailure();
-    }
-    return processDelayedCombinations(combinatorial);
-```
-
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `val`
 in `src/main/java/org/jetbrains/jetCheck/DataSerializer.java`
@@ -155,6 +143,18 @@ in `src/main/java/org/jetbrains/jetCheck/DataSerializer.java`
         val >>>= 7;
       }
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `step`
+in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
+#### Snippet
+```java
+      }
+
+      step = step.onFailure();
+    }
+    return processDelayedCombinations(combinatorial);
 ```
 
 ### AssignmentToMethodParameter
@@ -181,7 +181,7 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
       if (childShrink != null) return wrapChildShrink(index, childShrink);
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
+## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'failure' in a Serializable class
 in `src/main/java/org/jetbrains/jetCheck/PropertyFalsified.java`
@@ -194,7 +194,7 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyFalsified.java`
 
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/CounterExampleImpl.java`
@@ -224,6 +224,18 @@ Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
 ```java
+    return distribution.isValidValue(value)
+            ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
+            : fail == null ? null : fail.get();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
+#### Snippet
+```java
       minValue = Math.max(minValue, distribution.getMin());
     }
     return tryInt(minValue, () -> null, this::tryNegation);
@@ -243,44 +255,7 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
     return tryInt(divided, () -> divisionLoop(divided), null);
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
-#### Snippet
-```java
-    return distribution.isValidValue(value)
-            ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
-            : fail == null ? null : fail.get();
-  }
-
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-22-15-02-24.626.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[ruleID=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `CannotRestoreValue` does not end with 'Exception'
-in `src/main/java/org/jetbrains/jetCheck/CannotRestoreValue.java`
-#### Snippet
-```java
- * @author peter
- */
-class CannotRestoreValue extends RuntimeException {
-  CannotRestoreValue() {
-  }
-```
-
+## RuleId[id=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
 Exception class name `WrongDataStructure` does not end with 'Exception'
 in `src/main/java/org/jetbrains/jetCheck/GenerativeDataStructure.java`
@@ -293,7 +268,32 @@ class WrongDataStructure extends IllegalStateException {
     super("You're calling methods on wrong environment, confusing nested lambda arguments?");
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### ExceptionNameDoesntEndWithException
+Exception class name `CannotRestoreValue` does not end with 'Exception'
+in `src/main/java/org/jetbrains/jetCheck/CannotRestoreValue.java`
+#### Snippet
+```java
+ * @author peter
+ */
+class CannotRestoreValue extends RuntimeException {
+  CannotRestoreValue() {
+  }
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-22-38-28.929.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `s.length() > 0` can be replaced with '!s.isEmpty()'
 in `src/main/java/org/jetbrains/jetCheck/Generator.java`
@@ -306,7 +306,7 @@ in `src/main/java/org/jetbrains/jetCheck/Generator.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
@@ -319,7 +319,31 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
     };
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super Random`
+in `src/main/java/org/jetbrains/jetCheck/BoundedIntDistribution.java`
+#### Snippet
+```java
+  private final ToIntFunction<Random> producer;
+
+  BoundedIntDistribution(int min, int max, ToIntFunction<Random> producer) {
+    if (min > max) throw new IllegalArgumentException(min + ">" + max);
+    this.min = min;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CustomizedNode`
+in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
+#### Snippet
+```java
+
+  @Nullable
+  private ShrinkStep processDelayedCombinations(List<CustomizedNode> delayed) {
+    Collections.sort(delayed);
+
+```
+
 ### BoundedWildcard
 Can generalize to `? super StructureNode`
 in `src/main/java/org/jetbrains/jetCheck/ShrinkStep.java`
@@ -357,30 +381,6 @@ in `src/main/java/org/jetbrains/jetCheck/ShrinkStep.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Random`
-in `src/main/java/org/jetbrains/jetCheck/BoundedIntDistribution.java`
-#### Snippet
-```java
-  private final ToIntFunction<Random> producer;
-
-  BoundedIntDistribution(int min, int max, ToIntFunction<Random> producer) {
-    if (min > max) throw new IllegalArgumentException(min + ">" + max);
-    this.min = min;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CustomizedNode`
-in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
-#### Snippet
-```java
-
-  @Nullable
-  private ShrinkStep processDelayedCombinations(List<CustomizedNode> delayed) {
-    Collections.sort(delayed);
-
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 #### Snippet
@@ -405,18 +405,6 @@ in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StructureNode`
-in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
-#### Snippet
-```java
-
-  @Nullable
-  private ShrinkStep tryReplacing(List<StructureNode> candidates, int index) {
-    if (index < candidates.size()) {
-      StructureNode replacement = candidates.get(index);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ShrinkStep`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
@@ -426,6 +414,18 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
   private ShrinkStep tryInt(int value, @NotNull Supplier<ShrinkStep> success, @Nullable Supplier<ShrinkStep> fail) {
     return distribution.isValidValue(value)
             ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
+```
+
+### BoundedWildcard
+Can generalize to `? extends StructureNode`
+in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
+#### Snippet
+```java
+
+  @Nullable
+  private ShrinkStep tryReplacing(List<StructureNode> candidates, int index) {
+    if (index < candidates.size()) {
+      StructureNode replacement = candidates.get(index);
 ```
 
 ### BoundedWildcard
@@ -452,7 +452,7 @@ in `src/main/java/org/jetbrains/jetCheck/Generator.java`
   }
 ```
 
-## RuleId[ruleID=MissortedModifiers]
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `static abstract`
 in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
@@ -465,7 +465,19 @@ in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
     public boolean equals(Object obj) {
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
+### ConstantValue
+Value `serializedData` is always 'null'
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+      }
+
+      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
+    }
+
+```
+
 ### ConstantValue
 Value `silent` is always 'false'
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
@@ -474,6 +486,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     public Parameters printGeneratedValues() {
       if (silent) throw new IllegalStateException("'printGeneratedValues' is incompatible with 'silent'");
       return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, true, printData);
+    }
+
+```
+
+### ConstantValue
+Value `serializedData` is always 'null'
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+      }
+
+      return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
 ```
@@ -510,30 +534,6 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     public Parameters printRawData() {
       if (silent) throw new IllegalStateException("'printRawData' is incompatible with 'silent'");
       return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, true);
-    }
-
-```
-
-### ConstantValue
-Value `serializedData` is always 'null'
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-      }
-
-      return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
-    }
-
-```
-
-### ConstantValue
-Value `serializedData` is always 'null'
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-      }
-
-      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
 ```
