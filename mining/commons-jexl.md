@@ -6,37 +6,36 @@ I found 482 bad smells with 24 repairable:
 | --- | --- | --- |
 | ReturnNull | 118 | false |
 | RedundantFieldInitialization | 66 | false |
-| ConstantValue | 45 | false |
+| ConstantValue | 44 | false |
 | DataFlowIssue | 33 | false |
 | UnnecessaryFullyQualifiedName | 26 | false |
 | ExceptionNameDoesntEndWithException | 17 | false |
 | ZeroLengthArrayInitialization | 15 | false |
 | ConditionCoveredByFurtherCondition | 15 | false |
 | PublicFieldAccessedInSynchronizedContext | 14 | false |
-| NestedAssignment | 10 | false |
+| NestedAssignment | 9 | false |
 | NonFinalFieldOfException | 9 | false |
 | SynchronizeOnThis | 8 | false |
 | UnnecessaryToStringCall | 8 | true |
 | BoundedWildcard | 7 | false |
 | ProtectedMemberInFinalClass | 7 | true |
 | ClassNameSameAsAncestorName | 6 | false |
+| FieldAccessedSynchronizedAndUnsynchronized | 6 | false |
 | EmptyMethod | 6 | false |
 | UnnecessarySuperQualifier | 5 | false |
 | NonProtectedConstructorInAbstractClass | 5 | true |
 | StringEquality | 4 | false |
 | NonShortCircuitBoolean | 4 | false |
-| AssignmentToMethodParameter | 4 | false |
 | UnnecessaryQualifierForThis | 3 | false |
 | RedundantMethodOverride | 3 | false |
 | IOResource | 3 | false |
 | DeprecatedIsStillUsed | 3 | false |
 | AssignmentToForLoopParameter | 3 | false |
 | StringEqualsEmptyString | 3 | false |
+| AssignmentToMethodParameter | 3 | false |
 | JavaLangInvokeHandleSignature | 2 | false |
 | CommentedOutCode | 2 | false |
 | RegExpSimplifiable | 2 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 2 | false |
-| UnusedAssignment | 2 | false |
 | UtilityClassWithoutPrivateConstructor | 2 | true |
 | TypeParameterHidesVisibleType | 2 | false |
 | SystemOutErr | 2 | false |
@@ -46,16 +45,29 @@ I found 482 bad smells with 24 repairable:
 | UnnecessaryUnboxing | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | EqualsAndHashcode | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | CallToStringConcatCanBeReplacedByOperator | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ArrayEquality | 1 | false |
 | NullArgumentToVariableArgMethod | 1 | false |
+| UnusedAssignment | 1 | false |
 | MismatchedJavadocCode | 1 | false |
 | RedundantSuppression | 1 | false |
 | UnnecessaryContinue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | RedundantFileCreation | 1 | false |
-## RuleId[ruleID=StringEquality]
+## RuleId[id=StringEquality]
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
+#### Snippet
+```java
+            } else {
+                final String actual = sandbox.write(clazz, null);
+                if (actual != JexlSandbox.NULL) {
+                    return uberspect.getPropertySet(resolvers, obj, null, arg);
+                }
+```
+
 ### StringEquality
 String values are compared using `!=`, not 'equals()'
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
@@ -85,18 +97,6 @@ String values are compared using `!=`, not 'equals()'
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
 #### Snippet
 ```java
-            } else {
-                final String actual = sandbox.write(clazz, null);
-                if (actual != JexlSandbox.NULL) {
-                    return uberspect.getPropertySet(resolvers, obj, null, arg);
-                }
-```
-
-### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
-#### Snippet
-```java
             final Class<?> clazz = (obj instanceof Class) ? (Class<?>) obj : obj.getClass();
             final String actual = sandbox.execute(clazz, method);
             if (actual != null && actual != JexlSandbox.NULL) {
@@ -104,20 +104,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspe
             }
 ```
 
-## RuleId[ruleID=UnnecessaryStringEscape]
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
-#### Snippet
-```java
-                continue;
-             case '\'':
-                retval.append("//\'");
-                continue;
-             case '/':
-```
-
-## RuleId[ruleID=JavaLangInvokeHandleSignature]
+## RuleId[id=JavaLangInvokeHandleSignature]
 ### JavaLangInvokeHandleSignature
 Cannot resolve method 'getModule'
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassTool.java`
@@ -142,7 +129,20 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassTool.java
                         isExported = LOOKUP.findVirtual(modulec, "isExported", MethodType.methodType(boolean.class, String.class));
 ```
 
-## RuleId[ruleID=CommentedOutCode]
+## RuleId[id=UnnecessaryStringEscape]
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
+#### Snippet
+```java
+                continue;
+             case '\'':
+                retval.append("//\'");
+                continue;
+             case '/':
+```
+
+## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (4 lines)
 in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
@@ -167,7 +167,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
        // }
 ```
 
-## RuleId[ruleID=UnnecessaryQualifierForThis]
+## RuleId[id=UnnecessaryQualifierForThis]
 ### UnnecessaryQualifierForThis
 Qualifier `Interpreter` on 'this' is unnecessary in this context
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
@@ -204,7 +204,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
             return r;
 ```
 
-## RuleId[ruleID=RegExpSimplifiable]
+## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[\\s]` can be simplified to '\\s'
 in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
@@ -229,7 +229,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
     /**
 ```
 
-## RuleId[ruleID=NonShortCircuitBoolean]
+## RuleId[id=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `invoke &= name == null || ctorClass.getName().equals(name)`
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/ConstructorMethod.java`
@@ -240,18 +240,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/ConstructorMet
                 invoke &= name == null || ctorClass.getName().equals(name);
                 if (invoke) {
                     return ctor.newInstance(args);
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `cancelled.get() | Thread.currentThread().isInterrupted()`
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-     */
-    protected boolean isCancelled() {
-        return cancelled.get() | Thread.currentThread().isInterrupted();
-    }
-
 ```
 
 ### NonShortCircuitBoolean
@@ -267,6 +255,18 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `cancelled.get() | Thread.currentThread().isInterrupted()`
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+     */
+    protected boolean isCancelled() {
+        return cancelled.get() | Thread.currentThread().isInterrupted();
+    }
+
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `cacheable &= !isavar`
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
@@ -278,55 +278,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
         } else if (functor instanceof ASTIdentifierAccess) {
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/EnumerationIterator.java`
-#### Snippet
-```java
-     * @param enumer  The Enumeration to wrap.
-     */
-    public EnumerationIterator(final Enumeration<T> enumer) {
-        enumeration = enumer;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
-#### Snippet
-```java
-     * @return the permissions map
-     */
-    Permissions parse(Set<String> wildcards, Map<String, Permissions.NoJexlPackage> packages, final String... srcs) {
-        if (srcs == null || srcs.length == 0) {
-            return Permissions.UNRESTRICTED;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
-#### Snippet
-```java
-     * @return the permissions map
-     */
-    Permissions parse(Set<String> wildcards, Map<String, Permissions.NoJexlPackage> packages, final String... srcs) {
-        if (srcs == null || srcs.length == 0) {
-            return Permissions.UNRESTRICTED;
-```
-
-### BoundedWildcard
-Can generalize to `? super Permissions.NoJexlPackage`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
-#### Snippet
-```java
-     * @return the permissions map
-     */
-    Permissions parse(Set<String> wildcards, Map<String, Permissions.NoJexlPackage> packages, final String... srcs) {
-        if (srcs == null || srcs.length == 0) {
-            return Permissions.UNRESTRICTED;
-```
-
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
@@ -352,6 +304,42 @@ in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
+#### Snippet
+```java
+     * @return the permissions map
+     */
+    synchronized Permissions parse(Set<String> wildcards, Map<String, Permissions.NoJexlPackage> packages, final String... srcs) {
+        if (srcs == null || srcs.length == 0) {
+            return Permissions.UNRESTRICTED;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
+#### Snippet
+```java
+     * @return the permissions map
+     */
+    synchronized Permissions parse(Set<String> wildcards, Map<String, Permissions.NoJexlPackage> packages, final String... srcs) {
+        if (srcs == null || srcs.length == 0) {
+            return Permissions.UNRESTRICTED;
+```
+
+### BoundedWildcard
+Can generalize to `? super Permissions.NoJexlPackage`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
+#### Snippet
+```java
+     * @return the permissions map
+     */
+    synchronized Permissions parse(Set<String> wildcards, Map<String, Permissions.NoJexlPackage> packages, final String... srcs) {
+        if (srcs == null || srcs.length == 0) {
+            return Permissions.UNRESTRICTED;
+```
+
+### BoundedWildcard
 Can generalize to `? extends NoJexlPackage`
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/Permissions.java`
 #### Snippet
@@ -363,7 +351,19 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/Permissions.ja
         this.packages = nojexl;
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/EnumerationIterator.java`
+#### Snippet
+```java
+     * @param enumer  The Enumeration to wrap.
+     */
+    public EnumerationIterator(final Enumeration<T> enumer) {
+        enumeration = enumer;
+    }
+```
+
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `JexlParser` has no concrete subclass
 in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
@@ -376,7 +376,7 @@ public abstract class JexlParser extends StringParser {
      * The associated controller.
 ```
 
-## RuleId[ruleID=UnnecessaryUnboxing]
+## RuleId[id=UnnecessaryUnboxing]
 ### UnnecessaryUnboxing
 Unnecessary unboxing
 in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
@@ -389,31 +389,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
 
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `copy()` is identical to its super method
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-
-        @Override
-        protected Names copy() {
-            return this;
-        }
-```
-
-### RedundantMethodOverride
-Method `copy()` is identical to its super method
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-
-        @Override
-        protected Names copy() {
-            return this;
-        }
-```
-
+## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `jjtClose()` is identical to its super method
 in `src/main/java/org/apache/commons/jexl3/parser/JexlLexicalNode.java`
@@ -426,29 +402,41 @@ in `src/main/java/org/apache/commons/jexl3/parser/JexlLexicalNode.java`
     }
 ```
 
-## RuleId[ruleID=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `ArrayBuilder` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
+### RedundantMethodOverride
+Method `copy()` is identical to its super method
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
 #### Snippet
 ```java
- * Helper class to create typed arrays.
- */
-public class ArrayBuilder implements JexlArithmetic.ArrayBuilder {
-    /** The number of primitive types. */
-    private static final int PRIMITIVE_SIZE = 8;
+
+        @Override
+        protected Names copy() {
+            return this;
+        }
 ```
 
-### ClassNameSameAsAncestorName
-Class name `Callable` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/jexl3/internal/Script.java`
+### RedundantMethodOverride
+Method `copy()` is identical to its super method
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
 #### Snippet
 ```java
-     * Implements the Future and Callable interfaces to help delegation.
-     */
-    public class Callable implements java.util.concurrent.Callable<Object> {
-        /** The actual interpreter. */
-        protected final Interpreter interpreter;
+
+        @Override
+        protected Names copy() {
+            return this;
+        }
+```
+
+## RuleId[id=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
+Class name `MapBuilder` is the same as one of its superclass' names
+in `src/main/java/org/apache/commons/jexl3/internal/MapBuilder.java`
+#### Snippet
+```java
+ * Helper class to create map literals.
+ */
+public class MapBuilder implements JexlArithmetic.MapBuilder {
+    /** The map being created. */
+    protected final Map<Object, Object> map;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -464,15 +452,15 @@ public class SetBuilder implements JexlArithmetic.SetBuilder {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `Funcall` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+Class name `ArrayBuilder` is the same as one of its superclass' names
+in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
 #### Snippet
 ```java
-     * Cached function call.
-     */
-    protected static class Funcall implements JexlNode.Funcall {
-        /** Whether narrow should be applied to arguments. */
-        protected final boolean narrow;
+ * Helper class to create typed arrays.
+ */
+public class ArrayBuilder implements JexlArithmetic.ArrayBuilder {
+    /** The number of primitive types. */
+    private static final int PRIMITIVE_SIZE = 8;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -488,18 +476,42 @@ in `src/main/java/org/apache/commons/jexl3/JxltEngine.java`
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `MapBuilder` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/jexl3/internal/MapBuilder.java`
+Class name `Callable` is the same as one of its superclass' names
+in `src/main/java/org/apache/commons/jexl3/internal/Script.java`
 #### Snippet
 ```java
- * Helper class to create map literals.
- */
-public class MapBuilder implements JexlArithmetic.MapBuilder {
-    /** The map being created. */
-    protected final Map<Object, Object> map;
+     * Implements the Future and Callable interfaces to help delegation.
+     */
+    public class Callable implements java.util.concurrent.Callable<Object> {
+        /** The actual interpreter. */
+        protected final Interpreter interpreter;
 ```
 
-## RuleId[ruleID=UnnecessarySuperQualifier]
+### ClassNameSameAsAncestorName
+Class name `Funcall` is the same as one of its superclass' names
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+     * Cached function call.
+     */
+    protected static class Funcall implements JexlNode.Funcall {
+        /** Whether narrow should be applied to arguments. */
+        protected final boolean narrow;
+```
+
+## RuleId[id=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
+#### Snippet
+```java
+            @Override
+            protected boolean removeEldestEntry(final Map.Entry<K, V> eldest) {
+                return super.size() > cacheSize;
+            }
+        };
+```
+
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/commons/jexl3/internal/LexicalFrame.java`
@@ -514,14 +526,14 @@ in `src/main/java/org/apache/commons/jexl3/internal/LexicalFrame.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateDebugger.java`
 #### Snippet
 ```java
-            @Override
-            protected boolean removeEldestEntry(final Map.Entry<K, V> eldest) {
-                return super.size() > cacheSize;
-            }
-        };
+        builder.append(expr.isImmediate() ? '$' : '#');
+        builder.append('{');
+        super.accept(expr.node, data);
+        builder.append('}');
+        return data;
 ```
 
 ### UnnecessarySuperQualifier
@@ -548,19 +560,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateDebugger.java`
     }
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateDebugger.java`
-#### Snippet
-```java
-        builder.append(expr.isImmediate() ? '$' : '#');
-        builder.append('{');
-        super.accept(expr.node, data);
-        builder.append('}');
-        return data;
-```
-
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/MethodKey.java`
@@ -583,30 +583,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/MethodKey.java
         if (args != null && (size = args.length) > 0) {
             this.params = new Class<?>[size];
             for (int p = 0; p < size; ++p) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/jexl3/scripting/Main.java`
-#### Snippet
-```java
-            String line;
-            System.out.print("> ");
-            while(null != (line=console.readLine())){
-                try {
-                    final Object value = engine.eval(line);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-        int cl = 1;
-        try {
-            while ((line = reader.readLine()) != null) {
-                if (cl < froml || cl > tol) {
-                    buffer.append(line).append('\n');
 ```
 
 ### NestedAssignment
@@ -623,14 +599,26 @@ in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/commons/jexl3/internal/FqcnResolver.java`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
 #### Snippet
 ```java
-    String getQualifiedName(final String name) {
-        String fqcn;
-        if (parent != null && (fqcn = parent.getQualifiedName(name)) != null) {
-            return  fqcn;
-        }
+                boolean eol = false;
+                try {
+                    while ((c = reader.read()) >= 0) {
+                        if (eol) {// && (c != '\n' && c != '\r')) {
+                            reader.reset();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/jexl3/scripting/Main.java`
+#### Snippet
+```java
+            String line;
+            System.out.print("> ");
+            while(null != (line=console.readLine())){
+                try {
+                    final Object value = engine.eval(line);
 ```
 
 ### NestedAssignment
@@ -647,6 +635,18 @@ in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+        int cl = 1;
+        try {
+            while ((line = reader.readLine()) != null) {
+                if (cl < froml || cl > tol) {
+                    buffer.append(line).append('\n');
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
 #### Snippet
 ```java
@@ -659,29 +659,17 @@ in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+in `src/main/java/org/apache/commons/jexl3/internal/FqcnResolver.java`
 #### Snippet
 ```java
-                boolean eol = false;
-                try {
-                    while ((c = reader.read()) >= 0) {
-                        if (eol) {// && (c != '\n' && c != '\r')) {
-                            reader.reset();
+    String getQualifiedName(final String name) {
+        String fqcn;
+        if (parent != null && (fqcn = parent.getQualifiedName(name)) != null) {
+            return  fqcn;
+        }
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
-#### Snippet
-```java
-                    setContextVariable(propertyNode, name, right);
-                } else {
-                    final Object self = actual = context.get(ant.toString());
-                    final JexlNode pnode = propertyNode;
-                    final Consumer<Object> assign = r -> setContextVariable(pnode, name, r);
-```
-
-## RuleId[ruleID=MismatchedCollectionQueryUpdate]
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `ASSIGN_NODES` are queried, but never updated
 in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
@@ -694,19 +682,7 @@ in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
             ASTAssignment.class,
 ```
 
-## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `literal` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/jexl3/parser/NumberParser.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-    /** The type literal value. */
-    private Number literal = null;
-    /** The expected class. */
-    private Class<? extends Number> clazz = null;
-```
-
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `ENGINE` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
@@ -719,7 +695,67 @@ in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
     /**
 ```
 
-## RuleId[ruleID=EmptyMethod]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `wildcards` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
+#### Snippet
+```java
+    private Map<String, Permissions.NoJexlPackage> packages;
+    /** The set of wildcard imports. */
+    private Set<String> wildcards;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `size` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
+#### Snippet
+```java
+    private String src;
+    /** The source size. */
+    private int size;
+    /** The @NoJexl execution-time map. */
+    private Map<String, Permissions.NoJexlPackage> packages;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `src` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
+#### Snippet
+```java
+public class PermissionsParser {
+    /** The source. */
+    private String src;
+    /** The source size. */
+    private int size;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `packages` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PermissionsParser.java`
+#### Snippet
+```java
+    private int size;
+    /** The @NoJexl execution-time map. */
+    private Map<String, Permissions.NoJexlPackage> packages;
+    /** The set of wildcard imports. */
+    private Set<String> wildcards;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `literal` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/jexl3/parser/NumberParser.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+    /** The type literal value. */
+    private Number literal = null;
+    /** The expected class. */
+    private Class<? extends Number> clazz = null;
+```
+
+## RuleId[id=EmptyMethod]
 ### EmptyMethod
 Empty method overrides empty method
 in `src/main/java/org/apache/commons/jexl3/parser/JexlLexicalNode.java`
@@ -792,29 +828,17 @@ in `src/main/java/org/apache/commons/jexl3/parser/SimpleNode.java`
     }
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTRegexLiteral.java`
 #### Snippet
 ```java
+    /** The actual literal value; the inherited 'value' member may host a cached getter. */
 
-    /** The intended class array. */
-    protected Class<?> commonClass = null;
-    /** Whether the array stores numbers. */
-    protected boolean isNumber = true;
-```
+    private Pattern literal = null;
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
-#### Snippet
-```java
-    protected final Object[] untyped;
-    /** Number of added items. */
-    protected int added = 0;
-
-    /**
+    ASTRegexLiteral(final int id) {
 ```
 
 ### RedundantFieldInitialization
@@ -843,6 +867,66 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/IndexedType.ja
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/JexlLexicalNode.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+    /** The local lexical scope, local information about let/const. */
+    private LexicalScope lexicalScope = null;
+
+    public JexlLexicalNode(final int id) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
+#### Snippet
+```java
+     * The soft reference to the cache map.
+     */
+    private SoftReference<Map<K, V>> ref = null;
+    /**
+     * The cache r/w lock.
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+     */
+    public static class Info extends JexlInfo {
+        JexlNode node = null;
+
+        /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTMapLiteral.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+    /** Whether this array is constant or not. */
+    private boolean constant = false;
+
+    ASTMapLiteral(final int id) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 202112111533L;
+    /** The pragmas. */
+    private Map<String, Object> pragmas = null;
+    /** Features. */
+    private transient JexlFeatures features = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
 #### Snippet
 ```java
@@ -867,26 +951,14 @@ in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 202112111533L;
-    /** The pragmas. */
-    private Map<String, Object> pragmas = null;
-    /** Features. */
-    private transient JexlFeatures features = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
 #### Snippet
 ```java
-     * The number of nested loops.
+     * The list of pragma declarations.
      */
-    protected int loopCount = 0;
+    protected Map<String, Object> pragmas = null;
     /**
-     * Stack of parsing loop counts.
+     * The known namespaces.
 ```
 
 ### RedundantFieldInitialization
@@ -894,11 +966,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
 #### Snippet
 ```java
-     * as an offset in the registers array used during evaluation.</p>
+     * The current lexical block.
      */
-    protected Scope scope = null;
+    protected LexicalUnit block = null;
     /**
-     * When parsing inner functions/lambda, need to stack the scope (sic).
+     * Stack of lexical blocks.
 ```
 
 ### RedundantFieldInitialization
@@ -930,18 +1002,6 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
 #### Snippet
 ```java
-     * The current lexical block.
-     */
-    protected LexicalUnit block = null;
-    /**
-     * Stack of lexical blocks.
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
-#### Snippet
-```java
      * The basic source info.
      */
     protected JexlInfo info = null;
@@ -954,59 +1014,71 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
 #### Snippet
 ```java
-     * The list of pragma declarations.
+     * as an offset in the registers array used during evaluation.</p>
      */
-    protected Map<String, Object> pragmas = null;
+    protected Scope scope = null;
     /**
-     * The known namespaces.
+     * When parsing inner functions/lambda, need to stack the scope (sic).
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTStringLiteral.java`
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
 #### Snippet
 ```java
-    private static final long serialVersionUID = 1L;
-    /** The actual literal value; the inherited 'value' member may host a cached getter. */
-    private String literal = null;
+     * The number of nested loops.
+     */
+    protected int loopCount = 0;
+    /**
+     * Stack of parsing loop counts.
+```
 
-    ASTStringLiteral(final int id) {
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
+#### Snippet
+```java
+    protected final Object[] untyped;
+    /** Number of added items. */
+    protected int added = 0;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTQualifiedIdentifier.java`
+in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
+#### Snippet
+```java
+
+    /** The intended class array. */
+    protected Class<?> commonClass = null;
+    /** Whether the array stores numbers. */
+    protected boolean isNumber = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifier.java`
+#### Snippet
+```java
+    protected String name = null;
+    protected int symbol = -1;
+    protected int flags = 0;
+
+    /** The redefined variable flag. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifier.java`
 #### Snippet
 ```java
      */
     private static final long serialVersionUID = 1L;
     protected String name = null;
-
-    ASTQualifiedIdentifier(final int id) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTRegexLiteral.java`
-#### Snippet
-```java
-    /** The actual literal value; the inherited 'value' member may host a cached getter. */
-
-    private Pattern literal = null;
-
-    ASTRegexLiteral(final int id) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTSetLiteral.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-    /** Whether this set is constant or not. */
-    private boolean constant = false;
-
-    ASTSetLiteral(final int id) {
+    protected int symbol = -1;
+    protected int flags = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -1023,74 +1095,146 @@ in `src/main/java/org/apache/commons/jexl3/JexlOptions.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/LexicalFrame.java`
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
 #### Snippet
 ```java
-     * The stack of values in the lexical frame.
-     */
-    private Deque<Object> stack = null;
+
+    /** The sandbox. */
+    private JexlSandbox sandbox = null;
+
+    /** The Log to which all JexlEngine messages will be logged. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+#### Snippet
+```java
+
+    /** The {@link JexlUberspect} resolver strategy. */
+    private JexlUberspect.ResolverStrategy strategy = null;
+
+    /** The set of permissions. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+#### Snippet
+```java
+
+    /** The {@link JexlArithmetic} instance. */
+    private JexlArithmetic arithmetic = null;
+
+    /** The cache size. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+#### Snippet
+```java
+
+    /** The Log to which all JexlEngine messages will be logged. */
+    private Log logger = null;
+
+    /** Whether error messages will carry debugging information. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+#### Snippet
+```java
+
+    /** Whether interrupt throws JexlException.Cancel. */
+    private Boolean cancellable = null;
+
+    /** The options. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+#### Snippet
+```java
+
+    /** Whether error messages will carry debugging information. */
+    private Boolean debug = null;
+
+    /** Whether interrupt throws JexlException.Cancel. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+#### Snippet
+```java
+
+    /** The JexlUberspect instance. */
+    private JexlUberspect uberspect = null;
+
+    /** The {@link JexlUberspect} resolver strategy. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+#### Snippet
+```java
+
+    /** The features. */
+    private JexlFeatures features = null;
 
     /**
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
+in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
 #### Snippet
 ```java
-     * The soft reference to the cache map.
-     */
-    private SoftReference<Map<K, V>> ref = null;
-    /**
-     * The cache r/w lock.
+
+    /** The class loader. */
+    private ClassLoader loader = null;
+
+    /** The features. */
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
 #### Snippet
 ```java
-     * during evaluation.
-     */
-    private Map<String, Integer> namedVariables = null;
-    /**
-     * The map of local captured variables to parent scope variables, ie closure.
+         * The node that started the collect.
+         */
+        private JexlNode root = null;
+        /**
+         * Whether constant array-access is considered equivalent to dot-access;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
 #### Snippet
 ```java
-     * The map of local captured variables to parent scope variables, ie closure.
+     * The default jxlt engine.
      */
-    private Map<Integer, Integer> capturedVariables = null;
+    protected volatile TemplateEngine jxlt = null;
     /**
-     * Let symbols.
+     * Collect all or only dot references.
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
+in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
 #### Snippet
 ```java
-     * Let symbols.
+     * <p>A single soft-reference JEXL engine and JexlUberspect is shared by all instances of JexlScriptEngine.</p>
      */
-    private LexicalScope lexicalVariables = null;
+    private static Reference<JexlEngine> ENGINE = null;
 
     /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTJxltLiteral.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-    /** The actual literal value; the inherited 'value' member may host a cached template expression. */
-    private String literal = null;
-
-    ASTJxltLiteral(final int id) {
 ```
 
 ### RedundantFieldInitialization
@@ -1155,110 +1299,206 @@ in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTStringLiteral.java`
 #### Snippet
 ```java
+    private static final long serialVersionUID = 1L;
+    /** The actual literal value; the inherited 'value' member may host a cached getter. */
+    private String literal = null;
 
-    /** The class loader. */
-    private ClassLoader loader = null;
-
-    /** The features. */
+    ASTStringLiteral(final int id) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/parser/NumberParser.java`
 #### Snippet
 ```java
-
-    /** The Log to which all JexlEngine messages will be logged. */
-    private Log logger = null;
-
-    /** Whether error messages will carry debugging information. */
+    private static final long serialVersionUID = 1L;
+    /** The type literal value. */
+    private Number literal = null;
+    /** The expected class. */
+    private Class<? extends Number> clazz = null;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/parser/NumberParser.java`
 #### Snippet
 ```java
-
-    /** The JexlUberspect instance. */
-    private JexlUberspect uberspect = null;
-
-    /** The {@link JexlUberspect} resolver strategy. */
+    private Number literal = null;
+    /** The expected class. */
+    private Class<? extends Number> clazz = null;
+    /** JEXL locale-neutral big decimal format. */
+    static final DecimalFormat BIGDF = new DecimalFormat("0.0b", new DecimalFormatSymbols(Locale.ENGLISH));
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
 #### Snippet
 ```java
-
-    /** Whether error messages will carry debugging information. */
-    private Boolean debug = null;
-
-    /** Whether interrupt throws JexlException.Cancel. */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
-#### Snippet
-```java
-
-    /** The features. */
-    private JexlFeatures features = null;
+     * Let symbols.
+     */
+    private LexicalScope lexicalVariables = null;
 
     /**
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
 #### Snippet
 ```java
-
-    /** Whether interrupt throws JexlException.Cancel. */
-    private Boolean cancellable = null;
-
-    /** The options. */
+     * The map of local captured variables to parent scope variables, ie closure.
+     */
+    private Map<Integer, Integer> capturedVariables = null;
+    /**
+     * Let symbols.
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
 #### Snippet
 ```java
-
-    /** The sandbox. */
-    private JexlSandbox sandbox = null;
-
-    /** The Log to which all JexlEngine messages will be logged. */
+     * during evaluation.
+     */
+    private Map<String, Integer> namedVariables = null;
+    /**
+     * The map of local captured variables to parent scope variables, ie closure.
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/internal/LexicalFrame.java`
 #### Snippet
 ```java
+     * The stack of values in the lexical frame.
+     */
+    private Deque<Object> stack = null;
 
-    /** The {@link JexlArithmetic} instance. */
-    private JexlArithmetic arithmetic = null;
-
-    /** The cache size. */
+    /**
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/JexlBuilder.java`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTAnnotation.java`
 #### Snippet
 ```java
+     */
+    private static final long serialVersionUID = 1L;
+    private String name = null;
 
-    /** The {@link JexlUberspect} resolver strategy. */
-    private JexlUberspect.ResolverStrategy strategy = null;
+    ASTAnnotation(final int id) {
+```
 
-    /** The set of permissions. */
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
+#### Snippet
+```java
+     */
+    private static final long serialVersionUID = 1L;
+    private String name = null;
+    private Integer identifier = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+    private String name = null;
+    private Integer identifier = null;
+
+    ASTIdentifierAccess(final int id) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTSetLiteral.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+    /** Whether this set is constant or not. */
+    private boolean constant = false;
+
+    ASTSetLiteral(final int id) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTQualifiedIdentifier.java`
+#### Snippet
+```java
+     */
+    private static final long serialVersionUID = 1L;
+    protected String name = null;
+
+    ASTQualifiedIdentifier(final int id) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTJxltLiteral.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+    /** The actual literal value; the inherited 'value' member may host a cached template expression. */
+    private String literal = null;
+
+    ASTJxltLiteral(final int id) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/jexl3/parser/ASTArrayLiteral.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+    /** Whether this array is constant or not. */
+    private boolean constant = false;
+
+    ASTArrayLiteral(final int id) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+        JexlMethod vm = null;
+        /** The method invocation target. */
+        Object target = null;
+        /** The actual arguments. */
+        Object[] argv = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+        Object target = null;
+        /** The actual arguments. */
+        Object[] argv = null;
+        /** The cacheable funcall if any. */
+        Funcall funcall = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+        boolean narrow = false;
+        /** The method to call. */
+        JexlMethod vm = null;
+        /** The method invocation target. */
+        Object target = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1278,83 +1518,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
 #### Snippet
 ```java
-        JexlMethod vm = null;
-        /** The method invocation target. */
-        Object target = null;
-        /** The actual arguments. */
-        Object[] argv = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-        Object target = null;
-        /** The actual arguments. */
-        Object[] argv = null;
-        /** The cacheable funcall if any. */
-        Funcall funcall = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
         Object[] argv = null;
         /** The cacheable funcall if any. */
         Funcall funcall = null;
 
         /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-        boolean narrow = false;
-        /** The method to call. */
-        JexlMethod vm = null;
-        /** The method invocation target. */
-        Object target = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifier.java`
-#### Snippet
-```java
-     */
-    private static final long serialVersionUID = 1L;
-    protected String name = null;
-    protected int symbol = -1;
-    protected int flags = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifier.java`
-#### Snippet
-```java
-    protected String name = null;
-    protected int symbol = -1;
-    protected int flags = 0;
-
-    /** The redefined variable flag. */
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTArrayLiteral.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-    /** Whether this array is constant or not. */
-    private boolean constant = false;
-
-    ASTArrayLiteral(final int id) {
 ```
 
 ### RedundantFieldInitialization
@@ -1394,159 +1562,15 @@ in `src/main/java/org/apache/commons/jexl3/internal/LexicalScope.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTMapLiteral.java`
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
 ```java
-    private static final long serialVersionUID = 1L;
-    /** Whether this array is constant or not. */
-    private boolean constant = false;
-
-    ASTMapLiteral(final int id) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTAnnotation.java`
-#### Snippet
-```java
-     */
-    private static final long serialVersionUID = 1L;
-    private String name = null;
-
-    ASTAnnotation(final int id) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-    static class BlockSet extends Names {
-        /** The set of controlled names. */
-        private Set<String> names = null;
-
-        @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-    static class AllowSet extends Names {
-        /** The map of controlled names and aliases. */
-        private Map<String, String> names = null;
-
-        @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-    private String name = null;
-    private Integer identifier = null;
-
-    ASTIdentifierAccess(final int id) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
-#### Snippet
-```java
-     */
-    private static final long serialVersionUID = 1L;
-    private String name = null;
-    private Integer identifier = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/NumberParser.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-    /** The type literal value. */
-    private Number literal = null;
-    /** The expected class. */
-    private Class<? extends Number> clazz = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/NumberParser.java`
-#### Snippet
-```java
-    private Number literal = null;
-    /** The expected class. */
-    private Class<? extends Number> clazz = null;
-    /** JEXL locale-neutral big decimal format. */
-    static final DecimalFormat BIGDF = new DecimalFormat("0.0b", new DecimalFormatSymbols(Locale.ENGLISH));
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/JexlLexicalNode.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-    /** The local lexical scope, local information about let/const. */
-    private LexicalScope lexicalScope = null;
-
-    public JexlLexicalNode(final int id) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-     */
-    public static class Info extends JexlInfo {
-        JexlNode node = null;
-
-        /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
-#### Snippet
-```java
-     * <p>A single soft-reference JEXL engine and JexlUberspect is shared by all instances of JexlScriptEngine.</p>
-     */
-    private static Reference<JexlEngine> ENGINE = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-     * The default jxlt engine.
-     */
-    protected volatile TemplateEngine jxlt = null;
-    /**
-     * Collect all or only dot references.
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-         * The node that started the collect.
-         */
-        private JexlNode root = null;
-        /**
-         * Whether constant array-access is considered equivalent to dot-access;
+public class Interpreter extends InterpreterBase {
+    /** Frame height. */
+    protected int fp = 0;
+    /** Symbol values. */
+    protected final Frame frame;
 ```
 
 ### RedundantFieldInitialization
@@ -1574,18 +1598,30 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
 #### Snippet
 ```java
-public class Interpreter extends InterpreterBase {
-    /** Frame height. */
-    protected int fp = 0;
-    /** Symbol values. */
-    protected final Frame frame;
+    static class AllowSet extends Names {
+        /** The map of controlled names and aliases. */
+        private Map<String, String> names = null;
+
+        @Override
 ```
 
-## RuleId[ruleID=EqualsAndHashcode]
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
+#### Snippet
+```java
+    static class BlockSet extends Names {
+        /** The set of controlled names. */
+        private Set<String> names = null;
+
+        @Override
+```
+
+## RuleId[id=EqualsAndHashcode]
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/Permissions.java`
@@ -1598,20 +1634,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/Permissions.ja
         protected Map<String, NoJexlClass> nojexl;
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-01-17-42-07.892.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
+## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
 in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
@@ -1624,7 +1647,7 @@ in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
 
 ```
 
-## RuleId[ruleID=ExceptionNameDoesntEndWithException]
+## RuleId[id=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
 Exception class name `Operator` does not end with 'Exception'
 in `src/main/java/org/apache/commons/jexl3/JexlException.java`
@@ -1634,126 +1657,6 @@ in `src/main/java/org/apache/commons/jexl3/JexlException.java`
      */
     public static class Operator extends JexlException {
         private static final long serialVersionUID = 20210606124100L;
-        /**
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Parsing` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static class Parsing extends JexlException {
-        private static final long serialVersionUID = 20210606123902L;
-        /**
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Return` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static class Return extends JexlException {
-        private static final long serialVersionUID = 20210606124102L;
-
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Continue` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static class Continue extends JexlException {
-        private static final long serialVersionUID = 20210606124104L;
-        /**
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Assignment` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static class Assignment extends Parsing {
-        private static final long serialVersionUID = 20210606123905L;
-        /**
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Cancel` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static class Cancel extends JexlException {
-        /**
-         *
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Ambiguous` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static class Ambiguous extends Parsing {
-        private static final long serialVersionUID = 20210606123903L;
-        /** The mark at which ambiguity might stop and recover. */
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `TryFailed` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static class TryFailed extends JexlException {
-        private static final long serialVersionUID = 20210606124105L;
-        /**
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Feature` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static class Feature extends Parsing {
-        private static final long serialVersionUID = 20210606123906L;
-        /** The feature code. */
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Tokenization` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static class Tokenization extends JexlException {
-        private static final long serialVersionUID = 20210606123901L;
-        /**
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Annotation` does not end with 'Exception'
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     * @since 3.1
-     */
-    public static class Annotation extends JexlException {
-        private static final long serialVersionUID = 20210606124101L;
         /**
 ```
 
@@ -1770,14 +1673,26 @@ in `src/main/java/org/apache/commons/jexl3/JexlException.java`
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `Method` does not end with 'Exception'
+Exception class name `Tokenization` does not end with 'Exception'
 in `src/main/java/org/apache/commons/jexl3/JexlException.java`
 #### Snippet
 ```java
      * @since 3.0
      */
-    public static class Method extends JexlException {
-        private static final long serialVersionUID = 20210606123909L;
+    public static class Tokenization extends JexlException {
+        private static final long serialVersionUID = 20210606123901L;
+        /**
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `TryFailed` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static class TryFailed extends JexlException {
+        private static final long serialVersionUID = 20210606124105L;
         /**
 ```
 
@@ -1794,6 +1709,30 @@ in `src/main/java/org/apache/commons/jexl3/JexlException.java`
 ```
 
 ### ExceptionNameDoesntEndWithException
+Exception class name `Parsing` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static class Parsing extends JexlException {
+        private static final long serialVersionUID = 20210606123902L;
+        /**
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `Method` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static class Method extends JexlException {
+        private static final long serialVersionUID = 20210606123909L;
+        /**
+```
+
+### ExceptionNameDoesntEndWithException
 Exception class name `Property` does not end with 'Exception'
 in `src/main/java/org/apache/commons/jexl3/JexlException.java`
 #### Snippet
@@ -1802,6 +1741,18 @@ in `src/main/java/org/apache/commons/jexl3/JexlException.java`
      */
     public static class Property extends JexlException {
         private static final long serialVersionUID = 20210606123908L;
+        /**
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `Assignment` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static class Assignment extends Parsing {
+        private static final long serialVersionUID = 20210606123905L;
         /**
 ```
 
@@ -1818,6 +1769,78 @@ in `src/main/java/org/apache/commons/jexl3/JexlException.java`
 ```
 
 ### ExceptionNameDoesntEndWithException
+Exception class name `Cancel` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static class Cancel extends JexlException {
+        private static final long serialVersionUID = 7735706658499597964L;
+        /**
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `Annotation` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.1
+     */
+    public static class Annotation extends JexlException {
+        private static final long serialVersionUID = 20210606124101L;
+        /**
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `Continue` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static class Continue extends JexlException {
+        private static final long serialVersionUID = 20210606124104L;
+        /**
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `Feature` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static class Feature extends Parsing {
+        private static final long serialVersionUID = 20210606123906L;
+        /** The feature code. */
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `Ambiguous` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static class Ambiguous extends Parsing {
+        private static final long serialVersionUID = 20210606123903L;
+        /** The mark at which ambiguity might stop and recover. */
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `Return` does not end with 'Exception'
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static class Return extends JexlException {
+        private static final long serialVersionUID = 20210606124102L;
+
+```
+
+### ExceptionNameDoesntEndWithException
 Exception class name `NullOperand` does not end with 'Exception'
 in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
 #### Snippet
@@ -1825,11 +1848,24 @@ in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
 
     /** Marker class for null operand exceptions. */
     public static class NullOperand extends ArithmeticException {
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 4720876194840764770L;
     }
 ```
 
-## RuleId[ruleID=ArrayEquality]
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-18-14-07.319.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[id=ArrayEquality]
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/org/apache/commons/jexl3/internal/Frame.java`
@@ -1842,116 +1878,31 @@ in `src/main/java/org/apache/commons/jexl3/internal/Frame.java`
                 }
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `after` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/ParseException.java`
+## RuleId[id=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
 #### Snippet
 ```java
-     * Last correct input before error occurs.
-     */
-    private String after = "";
-    /**
-     * Error line.
+        TemplateEngine e = jxlt;
+        if (e == null) {
+            synchronized(this) {
+                e = jxlt;
+                if (e == null) {
 ```
 
-### NonFinalFieldOfException
-Non-final field `line` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/ParseException.java`
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
 #### Snippet
 ```java
-     * Error line.
-     */
-    private int line = -1;
-    /**
-     * Error column.
+        JexlEngine engine = ENGINE != null? ENGINE.get() : null;
+        if (engine == null) {
+            synchronized (JexlScriptEngineFactory.class) {
+                engine = ENGINE != null? ENGINE.get() : null;
+                if (engine == null) {
 ```
 
-### NonFinalFieldOfException
-Non-final field `column` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/ParseException.java`
-#### Snippet
-```java
-     * Error column.
-     */
-    private int column = -1;
-
-    /**
-```
-
-### NonFinalFieldOfException
-Non-final field `line` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
-#### Snippet
-```java
-     * Error line.
-     */
-    private int line;
-    /**
-     * Error column.
-```
-
-### NonFinalFieldOfException
-Non-final field `column` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
-#### Snippet
-```java
-     * Error column.
-     */
-    private int column;
-
-    /**
-```
-
-### NonFinalFieldOfException
-Non-final field `after` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
-#### Snippet
-```java
-     * Last correct input before error occurs.
-     */
-    private String after;
-    /**
-     * Whether eof was reached whilst expecting more input.
-```
-
-### NonFinalFieldOfException
-Non-final field `eof` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
-#### Snippet
-```java
-     * Whether eof was reached whilst expecting more input.
-     */
-    private boolean eof;
-    /**
-     * Error line.
-```
-
-### NonFinalFieldOfException
-Non-final field `current` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
-#### Snippet
-```java
-     * The current character.
-     */
-    private char current;
-    /**
-     * Last correct input before error occurs.
-```
-
-### NonFinalFieldOfException
-Non-final field `state` of exception class
-in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unused") // not read currently
-    private int state;
-    /**
-     * The current character.
-```
-
-## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/jexl3/internal/Script.java`
@@ -1986,30 +1937,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
             synchronized (this) {
                 if (functors == null) {
                     functors = new HashMap<>();
-```
-
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
-#### Snippet
-```java
-        JexlEngine engine = ENGINE != null? ENGINE.get() : null;
-        if (engine == null) {
-            synchronized (JexlScriptEngineFactory.class) {
-                engine = ENGINE != null? ENGINE.get() : null;
-                if (engine == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-        TemplateEngine e = jxlt;
-        if (e == null) {
-            synchronized(this) {
-                e = jxlt;
-                if (e == null) {
 ```
 
 ### SynchronizeOnThis
@@ -2048,19 +1975,116 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
                         for (final Object functor : functors.values()) {
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
+## RuleId[id=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `after` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
 #### Snippet
 ```java
-    public Object create(final boolean extended) {
-        if (untyped == null) {
-            return new Object[0];
-        }
-        if (extended) {
+     * Last correct input before error occurs.
+     */
+    private String after;
+    /**
+     * Whether eof was reached whilst expecting more input.
 ```
 
+### NonFinalFieldOfException
+Non-final field `line` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
+#### Snippet
+```java
+     * Error line.
+     */
+    private int line;
+    /**
+     * Error column.
+```
+
+### NonFinalFieldOfException
+Non-final field `column` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
+#### Snippet
+```java
+     * Error column.
+     */
+    private int column;
+
+    /**
+```
+
+### NonFinalFieldOfException
+Non-final field `current` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
+#### Snippet
+```java
+     * The current character.
+     */
+    private char current;
+    /**
+     * Last correct input before error occurs.
+```
+
+### NonFinalFieldOfException
+Non-final field `eof` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
+#### Snippet
+```java
+     * Whether eof was reached whilst expecting more input.
+     */
+    private boolean eof;
+    /**
+     * Error line.
+```
+
+### NonFinalFieldOfException
+Non-final field `state` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unused") // not read currently
+    private int state;
+    /**
+     * The current character.
+```
+
+### NonFinalFieldOfException
+Non-final field `after` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/ParseException.java`
+#### Snippet
+```java
+     * Last correct input before error occurs.
+     */
+    private String after = "";
+    /**
+     * Error line.
+```
+
+### NonFinalFieldOfException
+Non-final field `column` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/ParseException.java`
+#### Snippet
+```java
+     * Error column.
+     */
+    private int column = -1;
+
+    /**
+```
+
+### NonFinalFieldOfException
+Non-final field `line` of exception class
+in `src/main/java/org/apache/commons/jexl3/parser/ParseException.java`
+#### Snippet
+```java
+     * Error line.
+     */
+    private int line = -1;
+    /**
+     * Error column.
+```
+
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/Introspector.java`
@@ -2099,38 +2123,74 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/Introspector.j
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
 #### Snippet
 ```java
-     */
-    String[] getFieldNames() {
-        return fieldCache.keySet().toArray(new String[0]);
+    public Object create(final boolean extended) {
+        if (untyped == null) {
+            return new Object[0];
+        }
+        if (extended) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+        CompositeExpression(final int[] counters, final List<TemplateExpression> list, final TemplateExpression src) {
+            super(src);
+            this.exprs = list.toArray(new TemplateExpression[0]);
+            this.meta = (counters[ExpressionType.DEFERRED.getIndex()] > 0 ? 2 : 0)
+                    | (counters[ExpressionType.IMMEDIATE.getIndex()] > 0 ? 1 : 0);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
+#### Snippet
+```java
+            }
+        }
+        source = blocks.toArray(new Block[0]);
+        exprs = uexprs.toArray(new TemplateExpression[0]);
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
+#### Snippet
+```java
+        }
+        source = blocks.toArray(new Block[0]);
+        exprs = uexprs.toArray(new TemplateExpression[0]);
     }
 
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
 #### Snippet
 ```java
-     */
-    String[] getMethodNames() {
-        return byName.keySet().toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
-#### Snippet
-```java
-                    end += 1;
                 }
-                final Method[] lmn = lm.subList(start, end).toArray(new Method[0]);
-                cache.byName.put(name, lmn);
-                start = end;
+            }
+            xthrow.setStackTrace(stackJexl.toArray(new StackTraceElement[0]));
+        }
+        return xthrow;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
+#### Snippet
+```java
+            }
+        }
+        return locals.toArray(new String[0]);
+    }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -2159,30 +2219,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
-#### Snippet
-```java
-            }
-        }
-        return locals.toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-                }
-            }
-            xthrow.setStackTrace(stackJexl.toArray(new StackTraceElement[0]));
-        }
-        return xthrow;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/main/java/org/apache/commons/jexl3/internal/TemplateDebugger.java`
 #### Snippet
 ```java
@@ -2195,41 +2231,41 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateDebugger.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
 #### Snippet
 ```java
-            }
-        }
-        source = blocks.toArray(new Block[0]);
-        exprs = uexprs.toArray(new TemplateExpression[0]);
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
-#### Snippet
-```java
-        }
-        source = blocks.toArray(new Block[0]);
-        exprs = uexprs.toArray(new TemplateExpression[0]);
+     */
+    String[] getMethodNames() {
+        return byName.keySet().toArray(new String[0]);
     }
 
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
 #### Snippet
 ```java
-        CompositeExpression(final int[] counters, final List<TemplateExpression> list, final TemplateExpression src) {
-            super(src);
-            this.exprs = list.toArray(new TemplateExpression[0]);
-            this.meta = (counters[ExpressionType.DEFERRED.getIndex()] > 0 ? 2 : 0)
-                    | (counters[ExpressionType.IMMEDIATE.getIndex()] > 0 ? 1 : 0);
+                    end += 1;
+                }
+                final Method[] lmn = lm.subList(start, end).toArray(new Method[0]);
+                cache.byName.put(name, lmn);
+                start = end;
 ```
 
-## RuleId[ruleID=NullArgumentToVariableArgMethod]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+#### Snippet
+```java
+     */
+    String[] getFieldNames() {
+        return fieldCache.keySet().toArray(new String[0]);
+    }
+
+```
+
+## RuleId[id=NullArgumentToVariableArgMethod]
 ### NullArgumentToVariableArgMethod
 Confusing argument `null`, unclear if a varargs or non-varargs call is desired
 in `src/main/java/org/apache/commons/jexl3/introspection/JexlPermissions.java`
@@ -2242,7 +2278,7 @@ in `src/main/java/org/apache/commons/jexl3/introspection/JexlPermissions.java`
      * A restricted singleton.
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `node` initializer `null` is redundant
 in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
@@ -2255,19 +2291,69 @@ in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
         /**
 ```
 
-### UnusedAssignment
-The value `context.get(ant.toString())` assigned to `actual` is never used
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `this instanceof ASTReference` is always `true`
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
 #### Snippet
 ```java
-                    setContextVariable(propertyNode, name, right);
-                } else {
-                    final Object self = actual = context.get(ant.toString());
-                    final JexlNode pnode = propertyNode;
-                    final Consumer<Object> assign = r -> setContextVariable(pnode, name, r);
+     */
+    public boolean isSafeLhs(final boolean safe) {
+        if (this instanceof ASTReference) {
+            return jjtGetChild(0).isSafeLhs(safe);
+        }
 ```
 
-## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `walk instanceof ASTIdentifier || walk instanceof ASTIdentifierAccess ...` is always `true`
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+        JexlNode walk = this;
+        do {
+            if (walk instanceof ASTIdentifier
+                || walk instanceof ASTIdentifierAccess
+                || walk instanceof ASTArrayAccess) {
+                return true;
+            }
+```
+
+### ConstantValue
+Condition `walk instanceof ASTArrayAccess` is always `true`
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+            if (walk instanceof ASTIdentifier
+                || walk instanceof ASTIdentifierAccess
+                || walk instanceof ASTArrayAccess) {
+                return true;
+            }
+```
+
+### ConstantValue
+Condition `child instanceof ASTMapEntry` is always `false` when reached
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+            for (int n = 0; n < jjtGetNumChildren(); ++n) {
+                final JexlNode child = jjtGetChild(n);
+                if ((child instanceof ASTReference) || (child instanceof ASTMapEntry)) {
+                    final boolean is = child.isConstant(true);
+                    if (!is) {
+```
+
+### ConstantValue
+Value `child` is always 'null'
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+            for (int n = 0; n < jjtGetNumChildren(); ++n) {
+                final JexlNode child = jjtGetChild(n);
+                if ((child instanceof ASTReference) || (child instanceof ASTMapEntry)) {
+                    final boolean is = child.isConstant(true);
+                    if (!is) {
+```
+
 ### ConstantValue
 Condition `untyped == null` is always `false`
 in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
@@ -2278,6 +2364,78 @@ in `src/main/java/org/apache/commons/jexl3/internal/ArrayBuilder.java`
         if (untyped == null) {
             return new Object[0];
         }
+```
+
+### ConstantValue
+Condition `type == BlockType.VERBATIM` is always `true`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+                    strb.append(line.subSequence(prefixLen, line.length()));
+                }
+            } else if (type == BlockType.VERBATIM) {
+                // switch to directive if necessary
+                prefixLen = startsWith(line, prefix);
+```
+
+### ConstantValue
+Condition `node instanceof ASTFunctionNode` is always `true`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
+#### Snippet
+```java
+    private static void collectPrintScope(final JexlNode node, final Map<Integer, JexlNode.Info> minfo) {
+        final int nc = node.jjtGetNumChildren();
+        if (node instanceof ASTFunctionNode && nc == 2) {
+            // 0 must be the prefix jexl:
+            final ASTIdentifier nameNode = (ASTIdentifier) node.jjtGetChild(0);
+```
+
+### ConstantValue
+Condition `parent instanceof ASTFunctionNode` is always `false` when reached
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+        if (node instanceof ASTIdentifier) {
+            final JexlNode parent = node.jjtGetParent();
+            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
+                // skip identifiers for methods and functions
+                collector.collect(null);
+```
+
+### ConstantValue
+Value `parent` is always 'null'
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+        if (node instanceof ASTIdentifier) {
+            final JexlNode parent = node.jjtGetParent();
+            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
+                // skip identifiers for methods and functions
+                collector.collect(null);
+```
+
+### ConstantValue
+Condition `parent instanceof ASTFunctionNode` is always `false` when reached
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+        } else if (node instanceof ASTIdentifierAccess) {
+            final JexlNode parent = node.jjtGetParent();
+            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
+                // skip identifiers for methods and functions
+                collector.collect(null);
+```
+
+### ConstantValue
+Value `parent` is always 'null'
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+        } else if (node instanceof ASTIdentifierAccess) {
+            final JexlNode parent = node.jjtGetParent();
+            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
+                // skip identifiers for methods and functions
+                collector.collect(null);
 ```
 
 ### ConstantValue
@@ -2585,176 +2743,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/Engine32.java`
 ```
 
 ### ConstantValue
-Condition `cmp != null` is always `true`
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-            try {
-                Method cmp = arithmeticClass.getDeclaredMethod("compare", Object.class, Object.class, String.class);
-               if (cmp != null && cmp.getDeclaringClass() != JexlArithmetic.class) {
-                   return true;
-               }
-```
-
-### ConstantValue
-Condition `node instanceof ASTFunctionNode` is always `true`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
-#### Snippet
-```java
-    private static void collectPrintScope(final JexlNode node, final Map<Integer, JexlNode.Info> minfo) {
-        final int nc = node.jjtGetNumChildren();
-        if (node instanceof ASTFunctionNode && nc == 2) {
-            // 0 must be the prefix jexl:
-            final ASTIdentifier nameNode = (ASTIdentifier) node.jjtGetChild(0);
-```
-
-### ConstantValue
-Condition `child instanceof ASTMapEntry` is always `false` when reached
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-            for (int n = 0; n < jjtGetNumChildren(); ++n) {
-                final JexlNode child = jjtGetChild(n);
-                if ((child instanceof ASTReference) || (child instanceof ASTMapEntry)) {
-                    final boolean is = child.isConstant(true);
-                    if (!is) {
-```
-
-### ConstantValue
-Value `child` is always 'null'
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-            for (int n = 0; n < jjtGetNumChildren(); ++n) {
-                final JexlNode child = jjtGetChild(n);
-                if ((child instanceof ASTReference) || (child instanceof ASTMapEntry)) {
-                    final boolean is = child.isConstant(true);
-                    if (!is) {
-```
-
-### ConstantValue
-Condition `walk instanceof ASTIdentifier || walk instanceof ASTIdentifierAccess ...` is always `true`
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-        JexlNode walk = this;
-        do {
-            if (walk instanceof ASTIdentifier
-                || walk instanceof ASTIdentifierAccess
-                || walk instanceof ASTArrayAccess) {
-                return true;
-            }
-```
-
-### ConstantValue
-Condition `walk instanceof ASTArrayAccess` is always `true`
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-            if (walk instanceof ASTIdentifier
-                || walk instanceof ASTIdentifierAccess
-                || walk instanceof ASTArrayAccess) {
-                return true;
-            }
-```
-
-### ConstantValue
-Condition `this instanceof ASTReference` is always `true`
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-     */
-    public boolean isSafeLhs(final boolean safe) {
-        if (this instanceof ASTReference) {
-            return jjtGetChild(0).isSafeLhs(safe);
-        }
-```
-
-### ConstantValue
-Condition `parent instanceof ASTFunctionNode` is always `false` when reached
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-        if (node instanceof ASTIdentifier) {
-            final JexlNode parent = node.jjtGetParent();
-            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
-                // skip identifiers for methods and functions
-                collector.collect(null);
-```
-
-### ConstantValue
-Value `parent` is always 'null'
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-        if (node instanceof ASTIdentifier) {
-            final JexlNode parent = node.jjtGetParent();
-            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
-                // skip identifiers for methods and functions
-                collector.collect(null);
-```
-
-### ConstantValue
-Condition `parent instanceof ASTFunctionNode` is always `false` when reached
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-        } else if (node instanceof ASTIdentifierAccess) {
-            final JexlNode parent = node.jjtGetParent();
-            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
-                // skip identifiers for methods and functions
-                collector.collect(null);
-```
-
-### ConstantValue
-Value `parent` is always 'null'
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-        } else if (node instanceof ASTIdentifierAccess) {
-            final JexlNode parent = node.jjtGetParent();
-            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
-                // skip identifiers for methods and functions
-                collector.collect(null);
-```
-
-### ConstantValue
-Condition `type == BlockType.VERBATIM` is always `true`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
-#### Snippet
-```java
-                    strb.append(line.subSequence(prefixLen, line.length()));
-                }
-            } else if (type == BlockType.VERBATIM) {
-                // switch to directive if necessary
-                prefixLen = startsWith(line, prefix);
-```
-
-### ConstantValue
-Condition `!(left instanceof ASTReference)` is always `false`
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
-#### Snippet
-```java
-                }
-            }
-        } else if (!(left instanceof ASTReference)) {
-            throw new JexlException(left, "illegal assignment form 0");
-        }
-```
-
-### ConstantValue
-Condition `left instanceof ASTReference` is always `true`
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
-#### Snippet
-```java
-                }
-            }
-        } else if (!(left instanceof ASTReference)) {
-            throw new JexlException(left, "illegal assignment form 0");
-        }
-```
-
-### ConstantValue
 Condition `init instanceof ASTVar` is always `false`
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
@@ -2814,7 +2802,31 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
             }
 ```
 
-## RuleId[ruleID=IOResource]
+### ConstantValue
+Condition `!(left instanceof ASTReference)` is always `false`
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+#### Snippet
+```java
+                }
+            }
+        } else if (!(left instanceof ASTReference)) {
+            throw new JexlException(left, "illegal assignment form 0");
+        }
+```
+
+### ConstantValue
+Condition `left instanceof ASTReference` is always `true`
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+#### Snippet
+```java
+                }
+            }
+        } else if (!(left instanceof ASTReference)) {
+            throw new JexlException(left, "illegal assignment form 0");
+        }
+```
+
+## RuleId[id=IOResource]
 ### IOResource
 'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
@@ -2829,18 +2841,6 @@ in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
 
 ### IOResource
 'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-     */
-    public static String sliceSource(final String src, final int froml, final int fromc, final int tol, final int toc) {
-        final BufferedReader reader = new BufferedReader(new StringReader(src));
-        final StringBuilder buffer = new StringBuilder();
-        String line;
-```
-
-### IOResource
-'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
 #### Snippet
 ```java
@@ -2851,19 +2851,19 @@ in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
         try {
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ClassTool` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassTool.java`
+### IOResource
+'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
 #### Snippet
 ```java
- * Utility for Java9+ backport in Java8 of class and module related methods.
- */
-class ClassTool {
-    /** The Class.getModule() method. */
-    private static final MethodHandle GET_MODULE;
+     */
+    public static String sliceSource(final String src, final int froml, final int fromc, final int tol, final int toc) {
+        final BufferedReader reader = new BufferedReader(new StringReader(src));
+        final StringBuilder buffer = new StringBuilder();
+        String line;
 ```
 
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/jexl3/scripting/Main.java`
@@ -2876,233 +2876,29 @@ public class Main {
     /**
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Condition `node.jjtGetParent() instanceof ASTMulNode` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+### UtilityClassWithoutPrivateConstructor
+Class `ClassTool` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassTool.java`
 #### Snippet
 ```java
-    protected Object additiveNode(final JexlNode node, final String op, final Object data) {
-        // need parenthesis if not in operator precedence order
-        final boolean paren = node.jjtGetParent() instanceof ASTMulNode
-                || node.jjtGetParent() instanceof ASTDivNode
-                || node.jjtGetParent() instanceof ASTModNode;
+ * Utility for Java9+ backport in Java8 of class and module related methods.
+ */
+class ClassTool {
+    /** The Class.getModule() method. */
+    private static final MethodHandle GET_MODULE;
 ```
 
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Condition `node.jjtGetParent() instanceof ASTDivNode` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+Condition `jjtGetParent() instanceof ASTReference` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
 #### Snippet
 ```java
-        // need parenthesis if not in operator precedence order
-        final boolean paren = node.jjtGetParent() instanceof ASTMulNode
-                || node.jjtGetParent() instanceof ASTDivNode
-                || node.jjtGetParent() instanceof ASTModNode;
-        final int num = node.jjtGetNumChildren();
-```
-
-### DataFlowIssue
-Condition `node.jjtGetParent() instanceof ASTModNode` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
-#### Snippet
-```java
-        final boolean paren = node.jjtGetParent() instanceof ASTMulNode
-                || node.jjtGetParent() instanceof ASTDivNode
-                || node.jjtGetParent() instanceof ASTModNode;
-        final int num = node.jjtGetNumChildren();
-        if (paren) {
-```
-
-### DataFlowIssue
-Condition `child instanceof ASTAssignment` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
-#### Snippet
-```java
-                builder.append(", ");
-                final JexlNode child = node.jjtGetChild(i);
-                if (child instanceof ASTAssignment) {
-                    final ASTAssignment assign = (ASTAssignment) child;
-                    final int nc = assign.jjtGetNumChildren();
-```
-
-### DataFlowIssue
-Condition `parent instanceof ASTAssignment` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
-#### Snippet
-```java
-            final boolean expr = isLambdaExpr(lambda);
-            named = node.jjtGetChild(0) instanceof ASTVar;
-            final boolean assigned = parent instanceof ASTAssignment || named;
-            if (assigned && !expr) {
-                builder.append("function");
-```
-
-### DataFlowIssue
-Condition `child instanceof ASTIfStatement` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
-#### Snippet
-```java
-        return child instanceof ASTJexlScript
-                || child instanceof ASTBlock
-                || child instanceof ASTIfStatement
-                || child instanceof ASTForeachStatement
-                || child instanceof ASTWhileStatement
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
-#### Snippet
-```java
-                    builder.append(", ");
-                } else {
-                    first = true;
-                }
-                accept(node.jjtGetChild(i), data);
-```
-
-### DataFlowIssue
-Condition `identifier.jjtGetParent() instanceof ASTReference` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-            if (!context.has(name)) {
-                // not defined, ignore in some cases...
-                final boolean ignore = identifier.jjtGetParent() instanceof ASTReference
-                        || (isSafe() && (symbol >= 0 || identifier.jjtGetParent() instanceof ASTAssignment));
-                if (!ignore) {
-```
-
-### DataFlowIssue
-Condition `identifier.jjtGetParent() instanceof ASTAssignment` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-                // not defined, ignore in some cases...
-                final boolean ignore = identifier.jjtGetParent() instanceof ASTReference
-                        || (isSafe() && (symbol >= 0 || identifier.jjtGetParent() instanceof ASTAssignment));
-                if (!ignore) {
-                    return undefinedVariable(identifier, name); // undefined
-```
-
-### DataFlowIssue
-Condition `node instanceof ASTArrayAccess` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-     */
-    protected String stringifyProperty(final JexlNode node) {
-        if (node instanceof ASTArrayAccess) {
-            return "[" + stringifyPropertyValue(node.jjtGetChild(0)) + "]";
+            return first.isGlobalVar();
         }
-```
-
-### DataFlowIssue
-Condition `node.jjtGetParent() instanceof ASTArrayAccess` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-    protected void setAttribute(final Object object, final Object attribute, final Object value, final JexlNode node) {
-        cancelCheck(node);
-        final JexlOperator operator = node != null && node.jjtGetParent() instanceof ASTArrayAccess
-                                      ? JexlOperator.ARRAY_SET : JexlOperator.PROPERTY_SET;
-        final Object result = operators.tryOverload(node, operator, object, attribute, value);
-```
-
-### DataFlowIssue
-Condition `node.jjtGetParent() instanceof ASTArrayAccess` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
+        if (jjtGetParent() instanceof ASTReference) {
+            return true;
         }
-        cancelCheck(node);
-        final JexlOperator operator = node != null && node.jjtGetParent() instanceof ASTArrayAccess
-                ? JexlOperator.ARRAY_GET : JexlOperator.PROPERTY_GET;
-        final Object result = operators.tryOverload(node, operator, object, attribute);
-```
-
-### DataFlowIssue
-Condition `child instanceof ASTReference` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/parser/ASTArrayLiteral.java`
-#### Snippet
-```java
-        for (int c = 0; c < jjtGetNumChildren() && constant; ++c) {
-            final JexlNode child = jjtGetChild(c);
-            if (child instanceof ASTReference) {
-                constant = child.isConstant(true);
-            } else if (!child.isConstant()) {
-```
-
-### DataFlowIssue
-Method invocation `isConstant` will produce `NullPointerException`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTArrayLiteral.java`
-#### Snippet
-```java
-            if (child instanceof ASTReference) {
-                constant = child.isConstant(true);
-            } else if (!child.isConstant()) {
-                constant = false;
-            }
-```
-
-### DataFlowIssue
-Condition `identifier.jjtGetParent() instanceof ASTAssignment` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Engine32.java`
-#### Snippet
-```java
-            final boolean ignore = (ii.isSafe()
-                    && (symbol >= 0
-                    || identifier.jjtGetParent() instanceof ASTAssignment))
-                    || (identifier.jjtGetParent() instanceof ASTReference);
-            if (!ignore) {
-```
-
-### DataFlowIssue
-Condition `identifier.jjtGetParent() instanceof ASTReference` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Engine32.java`
-#### Snippet
-```java
-                    && (symbol >= 0
-                    || identifier.jjtGetParent() instanceof ASTAssignment))
-                    || (identifier.jjtGetParent() instanceof ASTReference);
-            if (!ignore) {
-                return ii.unsolvableVariable(identifier, name, true); // undefined
-```
-
-### DataFlowIssue
-Condition `child instanceof ASTFunctionNode` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateDebugger.java`
-#### Snippet
-```java
-     */
-    private TemplateExpression getPrintStatement(final JexlNode child) {
-        if (exprs != null && child instanceof ASTFunctionNode) {
-            final ASTFunctionNode node = (ASTFunctionNode) child;
-            final ASTIdentifier ns = (ASTIdentifier) node.jjtGetChild(0);
-```
-
-### DataFlowIssue
-Condition `child instanceof ASTMapEntry` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/parser/ASTMapLiteral.java`
-#### Snippet
-```java
-        for (int c = 0; c < jjtGetNumChildren() && constant; ++c) {
-            final JexlNode child = jjtGetChild(c);
-            if (child instanceof ASTMapEntry) {
-                constant = child.isConstant(true);
-            } else if (!child.isConstant()) {
-```
-
-### DataFlowIssue
-Method invocation `isConstant` will produce `NullPointerException`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTMapLiteral.java`
-#### Snippet
-```java
-            if (child instanceof ASTMapEntry) {
-                constant = child.isConstant(true);
-            } else if (!child.isConstant()) {
-                constant = false;
-            }
 ```
 
 ### DataFlowIssue
@@ -3130,27 +2926,27 @@ in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
 ```
 
 ### DataFlowIssue
-Condition `jjtGetParent() instanceof ASTReference` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+Condition `child instanceof ASTMapEntry` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/parser/ASTMapLiteral.java`
 #### Snippet
 ```java
-            return first.isGlobalVar();
-        }
-        if (jjtGetParent() instanceof ASTReference) {
-            return true;
-        }
+        for (int c = 0; c < jjtGetNumChildren() && constant; ++c) {
+            final JexlNode child = jjtGetChild(c);
+            if (child instanceof ASTMapEntry) {
+                constant = child.isConstant(true);
+            } else if (!child.isConstant()) {
 ```
 
 ### DataFlowIssue
-Method invocation `getInfo` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateInterpreter.java`
+Method invocation `isConstant` will produce `NullPointerException`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTMapLiteral.java`
 #### Snippet
 ```java
-            printComposite((TemplateEngine.CompositeExpression) expr);
-        } else {
-            doPrint(expr.getInfo(), expr.evaluate(this));
-        }
-    }
+            if (child instanceof ASTMapEntry) {
+                constant = child.isConstant(true);
+            } else if (!child.isConstant()) {
+                constant = false;
+            }
 ```
 
 ### DataFlowIssue
@@ -3190,6 +2986,222 @@ in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+                    builder.append(", ");
+                } else {
+                    first = true;
+                }
+                accept(node.jjtGetChild(i), data);
+```
+
+### DataFlowIssue
+Condition `parent instanceof ASTAssignment` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+            final boolean expr = isLambdaExpr(lambda);
+            named = node.jjtGetChild(0) instanceof ASTVar;
+            final boolean assigned = parent instanceof ASTAssignment || named;
+            if (assigned && !expr) {
+                builder.append("function");
+```
+
+### DataFlowIssue
+Condition `child instanceof ASTAssignment` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+                builder.append(", ");
+                final JexlNode child = node.jjtGetChild(i);
+                if (child instanceof ASTAssignment) {
+                    final ASTAssignment assign = (ASTAssignment) child;
+                    final int nc = assign.jjtGetNumChildren();
+```
+
+### DataFlowIssue
+Condition `child instanceof ASTIfStatement` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+        return child instanceof ASTJexlScript
+                || child instanceof ASTBlock
+                || child instanceof ASTIfStatement
+                || child instanceof ASTForeachStatement
+                || child instanceof ASTWhileStatement
+```
+
+### DataFlowIssue
+Condition `node.jjtGetParent() instanceof ASTMulNode` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+    protected Object additiveNode(final JexlNode node, final String op, final Object data) {
+        // need parenthesis if not in operator precedence order
+        final boolean paren = node.jjtGetParent() instanceof ASTMulNode
+                || node.jjtGetParent() instanceof ASTDivNode
+                || node.jjtGetParent() instanceof ASTModNode;
+```
+
+### DataFlowIssue
+Condition `node.jjtGetParent() instanceof ASTDivNode` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+        // need parenthesis if not in operator precedence order
+        final boolean paren = node.jjtGetParent() instanceof ASTMulNode
+                || node.jjtGetParent() instanceof ASTDivNode
+                || node.jjtGetParent() instanceof ASTModNode;
+        final int num = node.jjtGetNumChildren();
+```
+
+### DataFlowIssue
+Condition `node.jjtGetParent() instanceof ASTModNode` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+        final boolean paren = node.jjtGetParent() instanceof ASTMulNode
+                || node.jjtGetParent() instanceof ASTDivNode
+                || node.jjtGetParent() instanceof ASTModNode;
+        final int num = node.jjtGetNumChildren();
+        if (paren) {
+```
+
+### DataFlowIssue
+Method invocation `getInfo` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateInterpreter.java`
+#### Snippet
+```java
+            printComposite((TemplateEngine.CompositeExpression) expr);
+        } else {
+            doPrint(expr.getInfo(), expr.evaluate(this));
+        }
+    }
+```
+
+### DataFlowIssue
+Condition `child instanceof ASTReference` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/parser/ASTArrayLiteral.java`
+#### Snippet
+```java
+        for (int c = 0; c < jjtGetNumChildren() && constant; ++c) {
+            final JexlNode child = jjtGetChild(c);
+            if (child instanceof ASTReference) {
+                constant = child.isConstant(true);
+            } else if (!child.isConstant()) {
+```
+
+### DataFlowIssue
+Method invocation `isConstant` will produce `NullPointerException`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTArrayLiteral.java`
+#### Snippet
+```java
+            if (child instanceof ASTReference) {
+                constant = child.isConstant(true);
+            } else if (!child.isConstant()) {
+                constant = false;
+            }
+```
+
+### DataFlowIssue
+Condition `node.jjtGetParent() instanceof ASTArrayAccess` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+        }
+        cancelCheck(node);
+        final JexlOperator operator = node != null && node.jjtGetParent() instanceof ASTArrayAccess
+                ? JexlOperator.ARRAY_GET : JexlOperator.PROPERTY_GET;
+        final Object result = operators.tryOverload(node, operator, object, attribute);
+```
+
+### DataFlowIssue
+Condition `node instanceof ASTArrayAccess` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+     */
+    protected String stringifyProperty(final JexlNode node) {
+        if (node instanceof ASTArrayAccess) {
+            return "[" + stringifyPropertyValue(node.jjtGetChild(0)) + "]";
+        }
+```
+
+### DataFlowIssue
+Condition `node.jjtGetParent() instanceof ASTArrayAccess` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+    protected void setAttribute(final Object object, final Object attribute, final Object value, final JexlNode node) {
+        cancelCheck(node);
+        final JexlOperator operator = node != null && node.jjtGetParent() instanceof ASTArrayAccess
+                                      ? JexlOperator.ARRAY_SET : JexlOperator.PROPERTY_SET;
+        final Object result = operators.tryOverload(node, operator, object, attribute, value);
+```
+
+### DataFlowIssue
+Condition `identifier.jjtGetParent() instanceof ASTReference` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+            if (!context.has(name)) {
+                // not defined, ignore in some cases...
+                final boolean ignore = identifier.jjtGetParent() instanceof ASTReference
+                        || (isSafe() && (symbol >= 0 || identifier.jjtGetParent() instanceof ASTAssignment));
+                if (!ignore) {
+```
+
+### DataFlowIssue
+Condition `identifier.jjtGetParent() instanceof ASTAssignment` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+                // not defined, ignore in some cases...
+                final boolean ignore = identifier.jjtGetParent() instanceof ASTReference
+                        || (isSafe() && (symbol >= 0 || identifier.jjtGetParent() instanceof ASTAssignment));
+                if (!ignore) {
+                    return undefinedVariable(identifier, name); // undefined
+```
+
+### DataFlowIssue
+Condition `child instanceof ASTFunctionNode` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateDebugger.java`
+#### Snippet
+```java
+     */
+    private TemplateExpression getPrintStatement(final JexlNode child) {
+        if (exprs != null && child instanceof ASTFunctionNode) {
+            final ASTFunctionNode node = (ASTFunctionNode) child;
+            final ASTIdentifier ns = (ASTIdentifier) node.jjtGetChild(0);
+```
+
+### DataFlowIssue
+Condition `identifier.jjtGetParent() instanceof ASTAssignment` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Engine32.java`
+#### Snippet
+```java
+            final boolean ignore = (ii.isSafe()
+                    && (symbol >= 0
+                    || identifier.jjtGetParent() instanceof ASTAssignment))
+                    || (identifier.jjtGetParent() instanceof ASTReference);
+            if (!ignore) {
+```
+
+### DataFlowIssue
+Condition `identifier.jjtGetParent() instanceof ASTReference` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Engine32.java`
+#### Snippet
+```java
+                    && (symbol >= 0
+                    || identifier.jjtGetParent() instanceof ASTAssignment))
+                    || (identifier.jjtGetParent() instanceof ASTReference);
+            if (!ignore) {
+                return ii.unsolvableVariable(identifier, name, true); // undefined
+```
+
+### DataFlowIssue
 Condition `child instanceof ASTExtendedLiteral` is redundant and can be replaced with a null check
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
@@ -3199,18 +3211,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
             if (child instanceof ASTExtendedLiteral) {
                 extended = true;
             } else {
-```
-
-### DataFlowIssue
-Condition `propertyNode instanceof ASTArrayAccess` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
-#### Snippet
-```java
-            // property of an object ?
-            property = evalIdentifier(propertyId);
-        } else if (propertyNode instanceof ASTArrayAccess) {
-            // can have multiple nodes - either an expression, integer literal or reference
-            final int numChildren = propertyNode.jjtGetNumChildren() - 1;
 ```
 
 ### DataFlowIssue
@@ -3273,7 +3273,19 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
             if (object != null) {
 ```
 
-## RuleId[ruleID=TypeParameterHidesVisibleType]
+### DataFlowIssue
+Condition `propertyNode instanceof ASTArrayAccess` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+#### Snippet
+```java
+            // property of an object ?
+            property = evalIdentifier(propertyId);
+        } else if (propertyNode instanceof ASTArrayAccess) {
+            // can have multiple nodes - either an expression, integer literal or reference
+            final int numChildren = propertyNode.jjtGetNumChildren() - 1;
+```
+
+## RuleId[id=TypeParameterHidesVisibleType]
 ### TypeParameterHidesVisibleType
 Type parameter `K` hides type parameter 'K'
 in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
@@ -3298,7 +3310,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
             /**
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
+## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'processPragma' is still used
 in `src/main/java/org/apache/commons/jexl3/JexlContext.java`
@@ -3335,7 +3347,7 @@ in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
         /**
 ```
 
-## RuleId[ruleID=MismatchedJavadocCode]
+## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
 in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
@@ -3348,41 +3360,17 @@ in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
     protected Number asLongNumber(final Object value) {
 ```
 
-## RuleId[ruleID=ProtectedMemberInFinalClass]
+## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
 #### Snippet
 ```java
-     * @since 3.2
+     * @return the list of blocks
      */
-    protected JexlSandbox(final boolean ab, final boolean inh, final Map<String, Permissions> map) {
-        allow = ab;
-        inherit = inh;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    protected JexlSandbox(final boolean ab, final Map<String, Permissions> map) {
-        this(ab, false, map);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    protected JexlSandbox(final Map<String, Permissions> map) {
-        this(true, false, map);
-    }
+    protected List<Block> readTemplate(final String prefix, final Reader source) {
+        final ArrayList<Block> blocks = new ArrayList<>();
+        final BufferedReader reader;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -3414,18 +3402,6 @@ Class member declared `protected` in 'final' class
 in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
 #### Snippet
 ```java
-     * @return the list of blocks
-     */
-    protected List<Block> readTemplate(final String prefix, final Reader source) {
-        final ArrayList<Block> blocks = new ArrayList<>();
-        final BufferedReader reader;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
-#### Snippet
-```java
          * @param prefix the line prefix (immediate or deferred)
          */
         protected void toString(final StringBuilder strb, final String prefix) {
@@ -3433,7 +3409,43 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
                 strb.append(body);
 ```
 
-## RuleId[ruleID=AssignmentToForLoopParameter]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    protected JexlSandbox(final boolean ab, final boolean inh, final Map<String, Permissions> map) {
+        allow = ab;
+        inherit = inh;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    protected JexlSandbox(final Map<String, Permissions> map) {
+        this(true, false, map);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    protected JexlSandbox(final boolean ab, final Map<String, Permissions> map) {
+        this(ab, false, map);
+    }
+```
+
+## RuleId[id=AssignmentToForLoopParameter]
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `column`
 in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
@@ -3470,7 +3482,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
                 }
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/jexl3/parser/SimpleNode.java`
@@ -3481,66 +3493,6 @@ in `src/main/java/org/apache/commons/jexl3/parser/SimpleNode.java`
         return prefix + toString();
     }
 
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/jexl3/JexlInfo.java`
-#### Snippet
-```java
-            sb.append(dbg.end());
-            sb.append("]: '");
-            sb.append(dbg.toString());
-            sb.append("'");
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-        final StringBuilder msg = new StringBuilder();
-        if (info != null) {
-            msg.append(info.toString());
-        } else {
-            msg.append("?:");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/jexl3/JexlException.java`
-#### Snippet
-```java
-        final StringBuilder msg = new StringBuilder();
-        if (info != null) {
-            msg.append(info.toString());
-        } else {
-            msg.append("?:");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
-#### Snippet
-```java
-        public StringBuilder asString(final StringBuilder strb) {
-            if (value != null) {
-                strb.append(value.toString());
-            }
-            return strb;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
-#### Snippet
-```java
-                value = expr.evaluate(interpreter);
-                if (value != null) {
-                    strb.append(value.toString());
-                }
-            }
 ```
 
 ### UnnecessaryToStringCall
@@ -3560,6 +3512,30 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
 #### Snippet
 ```java
+                value = expr.evaluate(interpreter);
+                if (value != null) {
+                    strb.append(value.toString());
+                }
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+        public StringBuilder asString(final StringBuilder strb) {
+            if (value != null) {
+                strb.append(value.toString());
+            }
+            return strb;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
             if (source != this) {
                 strb.append(" /*= ");
                 strb.append(source.toString());
@@ -3567,7 +3543,43 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
             }
 ```
 
-## RuleId[ruleID=StringEqualsEmptyString]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+        final StringBuilder msg = new StringBuilder();
+        if (info != null) {
+            msg.append(info.toString());
+        } else {
+            msg.append("?:");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/jexl3/JexlException.java`
+#### Snippet
+```java
+        final StringBuilder msg = new StringBuilder();
+        if (info != null) {
+            msg.append(info.toString());
+        } else {
+            msg.append("?:");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/jexl3/JexlInfo.java`
+#### Snippet
+```java
+            sb.append(dbg.end());
+            sb.append("]: '");
+            sb.append(dbg.toString());
+            sb.append("'");
+        }
+```
+
+## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
@@ -3585,9 +3597,9 @@ in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
 in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
 #### Snippet
 ```java
-    public String execute(final String clazz, final String name) {
+    public String execute(final Class<?> clazz, final String name) {
         final String m = get(clazz).execute().get(name);
-        return "".equals(name) && m != null? clazz : m;
+        return "".equals(name) && m != null? clazz.getName() : m;
     }
 
 ```
@@ -3597,14 +3609,38 @@ in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
 in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
 #### Snippet
 ```java
-    public String execute(final Class<?> clazz, final String name) {
+    public String execute(final String clazz, final String name) {
         final String m = get(clazz).execute().get(name);
-        return "".equals(name) && m != null? clazz.getName() : m;
+        return "".equals(name) && m != null? clazz : m;
     }
 
 ```
 
-## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+## RuleId[id=PublicFieldAccessedInSynchronizedContext]
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `jxlt` accessed in synchronized context
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+        if (e == null) {
+            synchronized(this) {
+                e = jxlt;
+                if (e == null) {
+                    e = new TemplateEngine(this, true, 0, '$', '#');
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `jxlt` accessed in synchronized context
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+                if (e == null) {
+                    e = new TemplateEngine(this, true, 0, '$', '#');
+                    jxlt = e;
+                }
+            }
+```
+
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `result` accessed in synchronized context
 in `src/main/java/org/apache/commons/jexl3/internal/Script.java`
@@ -3702,30 +3738,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `jxlt` accessed in synchronized context
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-        if (e == null) {
-            synchronized(this) {
-                e = jxlt;
-                if (e == null) {
-                    e = new TemplateEngine(this, true, 0, '$', '#');
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `jxlt` accessed in synchronized context
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-                if (e == null) {
-                    e = new TemplateEngine(this, true, 0, '$', '#');
-                    jxlt = e;
-                }
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `functors` accessed in synchronized context
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
@@ -3773,7 +3785,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
                 }
 ```
 
-## RuleId[ruleID=RedundantSuppression]
+## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
 in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
@@ -3786,7 +3798,7 @@ in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
         final long ay = Math.abs(y);
 ```
 
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/jexl3/scripting/Main.java`
@@ -3811,7 +3823,79 @@ in `src/main/java/org/apache/commons/jexl3/scripting/Main.java`
                 try {
 ```
 
-## RuleId[ruleID=ConditionCoveredByFurtherCondition]
+## RuleId[id=ConditionCoveredByFurtherCondition]
+### ConditionCoveredByFurtherCondition
+Condition 'rsibling instanceof ASTMethodNode' covered by subsequent condition 'rsibling instanceof ASTFunctionNode'
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+        if (rhs >= 0 && rhs < nsiblings) {
+            JexlNode rsibling = parent.jjtGetChild(rhs);
+            if (rsibling instanceof ASTMethodNode || rsibling instanceof ASTFunctionNode) {
+                rsibling = rsibling.jjtGetChild(0);
+            }
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'walk instanceof ASTIdentifier' covered by subsequent condition 'walk instanceof ASTArrayAccess'
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+        JexlNode walk = this;
+        do {
+            if (walk instanceof ASTIdentifier
+                || walk instanceof ASTIdentifierAccess
+                || walk instanceof ASTArrayAccess) {
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'walk instanceof ASTIdentifierAccess' covered by subsequent condition 'walk instanceof ASTArrayAccess'
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+        do {
+            if (walk instanceof ASTIdentifier
+                || walk instanceof ASTIdentifierAccess
+                || walk instanceof ASTArrayAccess) {
+                return true;
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'child instanceof ASTReference' covered by subsequent condition 'child instanceof ASTMapEntry'
+in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
+#### Snippet
+```java
+            for (int n = 0; n < jjtGetNumChildren(); ++n) {
+                final JexlNode child = jjtGetChild(n);
+                if ((child instanceof ASTReference) || (child instanceof ASTMapEntry)) {
+                    final boolean is = child.isConstant(true);
+                    if (!is) {
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'parent instanceof ASTMethodNode' covered by subsequent condition 'parent instanceof ASTFunctionNode'
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+        if (node instanceof ASTIdentifier) {
+            final JexlNode parent = node.jjtGetParent();
+            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
+                // skip identifiers for methods and functions
+                collector.collect(null);
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'parent instanceof ASTMethodNode' covered by subsequent condition 'parent instanceof ASTFunctionNode'
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+        } else if (node instanceof ASTIdentifierAccess) {
+            final JexlNode parent = node.jjtGetParent();
+            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
+                // skip identifiers for methods and functions
+                collector.collect(null);
+```
+
 ### ConditionCoveredByFurtherCondition
 Condition 'child instanceof ASTJexlScript' covered by subsequent condition 'child instanceof ASTIfStatement'
 in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
@@ -3920,79 +4004,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Engine32.java`
             }
 ```
 
-### ConditionCoveredByFurtherCondition
-Condition 'child instanceof ASTReference' covered by subsequent condition 'child instanceof ASTMapEntry'
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-            for (int n = 0; n < jjtGetNumChildren(); ++n) {
-                final JexlNode child = jjtGetChild(n);
-                if ((child instanceof ASTReference) || (child instanceof ASTMapEntry)) {
-                    final boolean is = child.isConstant(true);
-                    if (!is) {
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'walk instanceof ASTIdentifier' covered by subsequent condition 'walk instanceof ASTArrayAccess'
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-        JexlNode walk = this;
-        do {
-            if (walk instanceof ASTIdentifier
-                || walk instanceof ASTIdentifierAccess
-                || walk instanceof ASTArrayAccess) {
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'walk instanceof ASTIdentifierAccess' covered by subsequent condition 'walk instanceof ASTArrayAccess'
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-        do {
-            if (walk instanceof ASTIdentifier
-                || walk instanceof ASTIdentifierAccess
-                || walk instanceof ASTArrayAccess) {
-                return true;
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'rsibling instanceof ASTMethodNode' covered by subsequent condition 'rsibling instanceof ASTFunctionNode'
-in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
-#### Snippet
-```java
-        if (rhs >= 0 && rhs < nsiblings) {
-            JexlNode rsibling = parent.jjtGetChild(rhs);
-            if (rsibling instanceof ASTMethodNode || rsibling instanceof ASTFunctionNode) {
-                rsibling = rsibling.jjtGetChild(0);
-            }
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'parent instanceof ASTMethodNode' covered by subsequent condition 'parent instanceof ASTFunctionNode'
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-        if (node instanceof ASTIdentifier) {
-            final JexlNode parent = node.jjtGetParent();
-            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
-                // skip identifiers for methods and functions
-                collector.collect(null);
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'parent instanceof ASTMethodNode' covered by subsequent condition 'parent instanceof ASTFunctionNode'
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-        } else if (node instanceof ASTIdentifierAccess) {
-            final JexlNode parent = node.jjtGetParent();
-            if (parent instanceof ASTMethodNode || parent instanceof ASTFunctionNode) {
-                // skip identifiers for methods and functions
-                collector.collect(null);
-```
-
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
@@ -4017,17 +4029,17 @@ in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
         } else {
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlUberspect.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
 #### Snippet
 ```java
-     * <p>
-     * Seeks a JexlPropertyGet apropos to an expression like <code>bar.woogie</code>.</p>
-     * See {@link ResolverStrategy#apply(JexlOperator, java.lang.Object) }
-     *
-     * @param resolvers  the list of property resolvers to try
+     */
+    public <K, V> Map<K, V> createCache(final int cacheSize) {
+        return new java.util.LinkedHashMap<K, V>(cacheSize, LOAD_FACTOR, true) {
+            /**
+             * Serial version UID.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4043,135 +4055,15 @@ in `src/main/java/org/apache/commons/jexl3/introspection/JexlUberspect.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlUberspect.java`
 #### Snippet
 ```java
-     */
-    public <K, V> Map<K, V> createCache(final int cacheSize) {
-        return new java.util.LinkedHashMap<K, V>(cacheSize, LOAD_FACTOR, true) {
-            /**
-             * Serial version UID.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jexl3` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-     * Creates a JexlArithmetic instance.
-     * Called by options(...) method when another instance of the same class of arithmetic is required.
-     * @see #options(org.apache.commons.jexl3.JexlEngine.Options)
+     * <p>
+     * Seeks a JexlPropertyGet apropos to an expression like <code>bar.woogie</code>.</p>
+     * See {@link ResolverStrategy#apply(JexlOperator, java.lang.Object) }
      *
-     * @param astrict     whether this arithmetic is lenient or strict
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-        }
-        // use arithmetic / pattern matching ?
-        if (container instanceof java.util.regex.Pattern) {
-            return ((java.util.regex.Pattern) container).matcher(value.toString()).matches();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-        // use arithmetic / pattern matching ?
-        if (container instanceof java.util.regex.Pattern) {
-            return ((java.util.regex.Pattern) container).matcher(value.toString()).matches();
-        }
-        if (container instanceof CharSequence) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jexl3.internal` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-        if ((lfrom >= Integer.MIN_VALUE && lfrom <= Integer.MAX_VALUE)
-                && (lto >= Integer.MIN_VALUE && lto <= Integer.MAX_VALUE)) {
-            return org.apache.commons.jexl3.internal.IntegerRange.create((int) lfrom, (int) lto);
-        }
-        return org.apache.commons.jexl3.internal.LongRange.create(lfrom, lto);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jexl3.internal` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-            return org.apache.commons.jexl3.internal.IntegerRange.create((int) lfrom, (int) lto);
-        }
-        return org.apache.commons.jexl3.internal.LongRange.create(lfrom, lto);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.math` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-    /**
-     * Apply options to this arithmetic which eventually may create another instance.
-     * @see #createWithOptions(boolean, java.math.MathContext, int)
-     *
-     * @param context the context that may extend {@link JexlContext.OptionsHandle} to use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jexl3.internal.introspection` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-    private static Object arrayWrap(final Object container) {
-        return container.getClass().isArray()
-                ? new org.apache.commons.jexl3.internal.introspection.ArrayListWrapper(container)
-                : container;
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.math` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-    /**
-     * Apply options to this arithmetic which eventually may create another instance.
-     * @see #createWithOptions(boolean, java.math.MathContext, int)
-     *
-     * @param options the {@link JexlEngine.Options} to use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.math` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-    /**
-     * Apply options to this arithmetic which eventually may create another instance.
-     * @see #createWithOptions(boolean, java.math.MathContext, int)
-     *
-     * @param options the {@link JexlEngine.Options} to use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/jexl3/internal/LexicalScope.java`
-#### Snippet
-```java
-     * @param cleanSymbol a (optional, may be null) functor to call for each cleaned symbol
-     */
-    public final void clearSymbols(final java.util.function.IntConsumer cleanSymbol) {
-        // undefine symbols getting out of scope
-        if (cleanSymbol != null) {
+     * @param resolvers  the list of property resolvers to try
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4223,6 +4115,162 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateInterpreter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+        }
+        // use arithmetic / pattern matching ?
+        if (container instanceof java.util.regex.Pattern) {
+            return ((java.util.regex.Pattern) container).matcher(value.toString()).matches();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+        // use arithmetic / pattern matching ?
+        if (container instanceof java.util.regex.Pattern) {
+            return ((java.util.regex.Pattern) container).matcher(value.toString()).matches();
+        }
+        if (container instanceof CharSequence) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.math` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+    /**
+     * Apply options to this arithmetic which eventually may create another instance.
+     * @see #createWithOptions(boolean, java.math.MathContext, int)
+     *
+     * @param options the {@link JexlEngine.Options} to use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.math` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+    /**
+     * Apply options to this arithmetic which eventually may create another instance.
+     * @see #createWithOptions(boolean, java.math.MathContext, int)
+     *
+     * @param options the {@link JexlEngine.Options} to use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jexl3.internal.introspection` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+    private static Object arrayWrap(final Object container) {
+        return container.getClass().isArray()
+                ? new org.apache.commons.jexl3.internal.introspection.ArrayListWrapper(container)
+                : container;
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.math` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+    /**
+     * Apply options to this arithmetic which eventually may create another instance.
+     * @see #createWithOptions(boolean, java.math.MathContext, int)
+     *
+     * @param context the context that may extend {@link JexlContext.OptionsHandle} to use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jexl3` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+     * Creates a JexlArithmetic instance.
+     * Called by options(...) method when another instance of the same class of arithmetic is required.
+     * @see #options(org.apache.commons.jexl3.JexlEngine.Options)
+     *
+     * @param astrict     whether this arithmetic is lenient or strict
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jexl3.internal` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+        if ((lfrom >= Integer.MIN_VALUE && lfrom <= Integer.MAX_VALUE)
+                && (lto >= Integer.MIN_VALUE && lto <= Integer.MAX_VALUE)) {
+            return org.apache.commons.jexl3.internal.IntegerRange.create((int) lfrom, (int) lto);
+        }
+        return org.apache.commons.jexl3.internal.LongRange.create(lfrom, lto);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jexl3.internal` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+            return org.apache.commons.jexl3.internal.IntegerRange.create((int) lfrom, (int) lto);
+        }
+        return org.apache.commons.jexl3.internal.LongRange.create(lfrom, lto);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/Uberspect.java`
+#### Snippet
+```java
+     * @param key MethodKey of the method being searched for
+     *
+     * @return a {@link java.lang.reflect.Method}
+     *         or null if no unambiguous method could be found through introspection.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/Uberspect.java`
+#### Snippet
+```java
+     * @param c   Class in which the field search is taking place
+     * @param key Name of the field being searched for
+     * @return a {@link java.lang.reflect.Field} or null if it does not exist or is not accessible
+     */
+    public final Field getField(final Class<?> c, final String key) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/Uberspect.java`
+#### Snippet
+```java
+     * @param params An array of Objects (not Classes) that describe the parameters
+     *
+     * @return a {@link java.lang.reflect.Method}
+     *         or null if no unambiguous method could be found through introspection.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/jexl3/internal/LexicalScope.java`
+#### Snippet
+```java
+     * @param cleanSymbol a (optional, may be null) functor to call for each cleaned symbol
+     */
+    public final void clearSymbols(final java.util.function.IntConsumer cleanSymbol) {
+        // undefine symbols getting out of scope
+        if (cleanSymbol != null) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
 #### Snippet
@@ -4271,42 +4319,6 @@ in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/Uberspect.java`
-#### Snippet
-```java
-     * @param params An array of Objects (not Classes) that describe the parameters
-     *
-     * @return a {@link java.lang.reflect.Method}
-     *         or null if no unambiguous method could be found through introspection.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/Uberspect.java`
-#### Snippet
-```java
-     * @param c   Class in which the field search is taking place
-     * @param key Name of the field being searched for
-     * @return a {@link java.lang.reflect.Field} or null if it does not exist or is not accessible
-     */
-    public final Field getField(final Class<?> c, final String key) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/Uberspect.java`
-#### Snippet
-```java
-     * @param key MethodKey of the method being searched for
-     *
-     * @return a {@link java.lang.reflect.Method}
-     *         or null if no unambiguous method could be found through introspection.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
@@ -4330,7 +4342,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
     /**
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `JexlLexicalNode()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/commons/jexl3/parser/JexlLexicalNode.java`
@@ -4362,8 +4374,8 @@ in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
 ```java
     }
 
-    public JexlNode(final int id) {
-        super(id);
+    public JexlNode(final Parser p, final int id) {
+        super(p, id);
     }
 ```
 
@@ -4374,8 +4386,8 @@ in `src/main/java/org/apache/commons/jexl3/parser/JexlNode.java`
 ```java
     }
 
-    public JexlNode(final Parser p, final int id) {
-        super(p, id);
+    public JexlNode(final int id) {
+        super(id);
     }
 ```
 
@@ -4391,17 +4403,17 @@ in `src/main/java/org/apache/commons/jexl3/internal/IntegerRange.java`
         max = to;
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `symbol`
-in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
+Assignment to method parameter `args`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/MethodExecutor.java`
 #### Snippet
 ```java
-                    int cs = blockScope.getCaptureDeclaration(symbol);
-                    if (cs >= 0) {
-                        symbol = cs;
-                    }
-                    if (unitScope != null) {
+    public Object invoke(final Object o, Object... args) throws IllegalAccessException, InvocationTargetException {
+        if (vaClass != null && args != null) {
+            args = handleVarArg(args);
+        }
+        if (method.getDeclaringClass() == ArrayListWrapper.class && o.getClass().isArray()) {
 ```
 
 ### AssignmentToMethodParameter
@@ -4417,18 +4429,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/MethodExecutor.java`
-#### Snippet
-```java
-    public Object invoke(final Object o, Object... args) throws IllegalAccessException, InvocationTargetException {
-        if (vaClass != null && args != null) {
-            args = handleVarArg(args);
-        }
-        if (method.getDeclaringClass() == ArrayListWrapper.class && o.getClass().isArray()) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `node`
 in `src/main/java/org/apache/commons/jexl3/internal/Engine32.java`
 #### Snippet
@@ -4440,7 +4440,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/Engine32.java`
         return false;
 ```
 
-## RuleId[ruleID=UnnecessaryContinue]
+## RuleId[id=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
 in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
@@ -4453,7 +4453,7 @@ in `src/main/java/org/apache/commons/jexl3/parser/TokenMgrException.java`
         }
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/ConstructorMethod.java`
@@ -4464,6 +4464,18 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/ConstructorMet
             return null;
         }
         final Constructor<?> ctor = is.getConstructor(clazz, new MethodKey(className, args));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/FieldGetExecutor.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+    /**
 ```
 
 ### ReturnNull
@@ -4504,218 +4516,14 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/ListGetExecuto
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertyGetExecutor.java`
-#### Snippet
-```java
-    public static PropertyGetExecutor discover(final Introspector is, final Class<?> clazz, final String property) {
-        final java.lang.reflect.Method method = discoverGet(is, "get", clazz, property);
-        return method == null? null : new PropertyGetExecutor(clazz, method, property);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertyGetExecutor.java`
-#### Snippet
-```java
-                                                final String property) {
-        if (property == null || property.isEmpty()) {
-            return null;
-        }
-        //  this is gross and linear, but it keeps it straightforward.
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertyGetExecutor.java`
-#### Snippet
-```java
-    @Override
-    public Object invoke(final Object o) throws IllegalAccessException, InvocationTargetException {
-        return method == null ? null : method.invoke(o, (Object[]) null);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/StringParser.java`
-#### Snippet
-```java
-    public static String escapeString(final String str, final char delim) {
-        if (str == null) {
-            return null;
-        }
-        final int length = str.length();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
-#### Snippet
-```java
-     */
-    public String[] getCapturedVariables() {
-        return scope != null? scope.getCapturedVariables() : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
-#### Snippet
-```java
-     */
-    public String[] getSymbols() {
-        return scope != null? scope.getSymbols() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
-#### Snippet
-```java
-     */
-    public String[] getLocalVariables() {
-        return scope != null? scope.getLocalVariables() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
-#### Snippet
-```java
-     */
-    public String[] getParameters() {
-        return scope != null? scope.getParameters() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
-#### Snippet
-```java
-     */
-    public Frame createFrame(final Frame caller, final Object... values) {
-        return scope != null? scope.createFrame(caller, values) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/MethodKey.java`
-#### Snippet
-```java
-        final Deque<T> applicables = getApplicables(methods, args);
-        if (applicables.isEmpty()) {
-            return null;
-        }
-        if (applicables.size() == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/ListSetExecutor.java`
 #### Snippet
 ```java
             }
         }
         return null;
     }
-}
-```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/OperatorController.java`
-#### Snippet
-```java
-    @Override
-    protected JexlOperator visitNode(final JexlNode node, final Object data) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/JexlInfo.java`
-#### Snippet
-```java
-     */
-    public static JexlInfo from(final JexlScript script) {
-        return script instanceof Script? ((Script) script).getInfo() :  null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/JexlInfo.java`
-#### Snippet
-```java
-     */
-    public Detail getDetail() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlUberspect.java`
-#### Snippet
-```java
-            return Class.forName(className, false, getClassLoader());
-        } catch (final ClassNotFoundException xignore) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/DuckGetExecutor.java`
-#### Snippet
-```java
-    public Object invoke(final Object obj) throws IllegalAccessException, InvocationTargetException {
-        final Object[] args = {property};
-        return method == null ? null : method.invoke(obj, args);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/DuckGetExecutor.java`
-#### Snippet
-```java
-    public static DuckGetExecutor discover(final Introspector is, final Class<?> clazz, final Object identifier) {
-        final java.lang.reflect.Method method = is.getMethod(clazz, "get", identifier);
-        return method == null? null : new DuckGetExecutor(clazz, method, identifier);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/Introspector.java`
-#### Snippet
-```java
-    public Method[] getMethods(final Class<?> c, final String methodName) {
-        if (c == null) {
-            return null;
-        }
-        final ClassMap classMap = getMap(c);
 ```
 
 ### ReturnNull
@@ -4780,55 +4588,79 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/Introspector.j
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/FieldGetExecutor.java`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/Introspector.java`
 #### Snippet
 ```java
-            }
+    public Method[] getMethods(final Class<?> c, final String methodName) {
+        if (c == null) {
+            return null;
         }
-        return null;
-    }
-    /**
+        final ClassMap classMap = getMap(c);
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
+in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
+        try {
+            final Map<K, V> map = ref != null ? ref.get() : null;
+            return map != null ? map.get(key) : null;
+        } finally {
+            lock.readLock().unlock();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertyGetExecutor.java`
 #### Snippet
 ```java
-            className = null;
-        }
-        return className != null && className != JexlSandbox.NULL ? uberspect.getConstructor(className, args) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
+    @Override
+    public Object invoke(final Object o) throws IllegalAccessException, InvocationTargetException {
+        return method == null ? null : method.invoke(o, (Object[]) null);
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertyGetExecutor.java`
+#### Snippet
+```java
+                                                final String property) {
+        if (property == null || property.isEmpty()) {
+            return null;
+        }
+        //  this is gross and linear, but it keeps it straightforward.
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertyGetExecutor.java`
+#### Snippet
+```java
+    public static PropertyGetExecutor discover(final Introspector is, final Class<?> clazz, final String property) {
+        final java.lang.reflect.Method method = discoverGet(is, "get", clazz, property);
+        return method == null? null : new PropertyGetExecutor(clazz, method, property);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/BooleanGetExecutor.java`
+#### Snippet
+```java
+    @Override
+    public Object invoke(final Object obj) throws IllegalAccessException, InvocationTargetException {
+        return method == null ? null : method.invoke(obj, (Object[]) null);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/BooleanGetExecutor.java`
 #### Snippet
 ```java
             }
@@ -4836,6 +4668,18 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspe
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlUberspect.java`
+#### Snippet
+```java
+            return Class.forName(className, false, getClassLoader());
+        } catch (final ClassNotFoundException xignore) {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -4844,8 +4688,8 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/AbstractExecut
 #### Snippet
 ```java
      */
-    static String castString(final Object arg) {
-        return arg instanceof CharSequence || arg instanceof Integer ? arg.toString() : null;
+    static Integer castInteger(final Object arg) {
+        return arg instanceof Number? ((Number) arg).intValue() : null;
     }
 
 ```
@@ -4868,43 +4712,43 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/AbstractExecut
 #### Snippet
 ```java
      */
-    static Integer castInteger(final Object arg) {
-        return arg instanceof Number? ((Number) arg).intValue() : null;
+    static String castString(final Object arg) {
+        return arg instanceof CharSequence || arg instanceof Integer ? arg.toString() : null;
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/SoftCache.java`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/DuckGetExecutor.java`
 #### Snippet
 ```java
-        try {
-            final Map<K, V> map = ref != null ? ref.get() : null;
-            return map != null ? map.get(key) : null;
-        } finally {
-            lock.readLock().unlock();
+    public static DuckGetExecutor discover(final Introspector is, final Class<?> clazz, final Object identifier) {
+        final java.lang.reflect.Method method = is.getMethod(clazz, "get", identifier);
+        return method == null? null : new DuckGetExecutor(clazz, method, identifier);
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/DuckGetExecutor.java`
 #### Snippet
 ```java
-        // We looked this up before and failed.
-        if (cacheEntry == CACHE_MISS) {
-            return null;
-        }
-        if (cacheEntry == null) {
+    public Object invoke(final Object obj) throws IllegalAccessException, InvocationTargetException {
+        final Object[] args = {property};
+        return method == null ? null : method.invoke(obj, args);
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+in `src/main/java/org/apache/commons/jexl3/parser/OperatorController.java`
 #### Snippet
 ```java
-            return lm.clone();
-        }
+    @Override
+    protected JexlOperator visitNode(final JexlNode node, final Object data) {
         return null;
     }
 
@@ -4912,55 +4756,79 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
 #### Snippet
 ```java
-        } catch (final Exception xio) {
-            // this really can't make an error...
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
-#### Snippet
-```java
-    public Frame createFrame(final Frame frame, final Object...args) {
-        if (namedVariables == null) {
-            return null;
-        }
-        final Object[] arguments = new Object[namedVariables.size()];
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/ObjectContext.java`
-#### Snippet
-```java
-            return object;
-        }
-        return null;
+     */
+    public String[] getCapturedVariables() {
+        return scope != null? scope.getCapturedVariables() : null;
     }
 }
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/ObjectContext.java`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
+#### Snippet
+```java
+     */
+    public String[] getParameters() {
+        return scope != null? scope.getParameters() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
+#### Snippet
+```java
+     */
+    public String[] getLocalVariables() {
+        return scope != null? scope.getLocalVariables() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
+#### Snippet
+```java
+     */
+    public String[] getSymbols() {
+        return scope != null? scope.getSymbols() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTJexlScript.java`
+#### Snippet
+```java
+     */
+    public Frame createFrame(final Frame caller, final Object... values) {
+        return scope != null? scope.createFrame(caller, values) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/MethodKey.java`
+#### Snippet
+```java
+        final Deque<T> applicables = getApplicables(methods, args);
+        if (applicables.isEmpty()) {
+            return null;
+        }
+        if (applicables.size() == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/FieldSetExecutor.java`
 #### Snippet
 ```java
             }
@@ -4972,26 +4840,14 @@ in `src/main/java/org/apache/commons/jexl3/ObjectContext.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+in `src/main/java/org/apache/commons/jexl3/parser/StringParser.java`
 #### Snippet
 ```java
-            walk = walk.jjtGetParent();
+    public static String escapeString(final String str, final char delim) {
+        if (str == null) {
+            return null;
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
-#### Snippet
-```java
-            accept(node.jjtGetChild(0), data); // zut
-        }
-        return null;
-    }
-
+        final int length = str.length();
 ```
 
 ### ReturnNull
@@ -5004,6 +4860,174 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/MapSetExecutor
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/parser/JexlParser.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+        /** @return the info */
+        JexlInfo getInfo() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+            // evaluate immediate as constant
+            final Object value = evaluate(interpreter);
+            return value != null ? new ConstantExpression(value, source) : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+                    }
+                } catch (final IOException xio) {
+                    return null;
+                }
+                return strb.length() > 0 ? strb : null;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+                    return null;
+                }
+                return strb.length() > 0 ? strb : null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+                        logger.warn(xuel.getMessage(), xuel.getCause());
+                    }
+                    return null;
+                }
+                throw xuel;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+#### Snippet
+```java
+                        logger.warn(xuel.getMessage(), xuel.getCause());
+                    }
+                    return null;
+                }
+                throw xuel;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/ScriptVisitor.java`
+#### Snippet
+```java
+            return ((Script) jscript).getScript().jjtAccept(this, data);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/ScriptVisitor.java`
+#### Snippet
+```java
+            return ((Script) jscript).getScript().jjtAccept(this, data);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
+#### Snippet
+```java
+                        jexl.logger.warn(xuel.getMessage(), xuel.getCause());
+                    }
+                    return null;
+                }
+                throw xuel;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
+#### Snippet
+```java
+            walk = walk.jjtGetParent();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifier.java`
+#### Snippet
+```java
+
+    public String getNamespace() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngineFactory.java`
+#### Snippet
+```java
+                 */
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertySetExecutor.java`
+#### Snippet
+```java
+                        // because the setter method is overloaded for different parameter type,
+                        // return null here to report the ambiguity.
+                        return null;
+                    }
+                    candidate = method;
 ```
 
 ### ReturnNull
@@ -5032,18 +5056,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertySetExe
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/PropertySetExecutor.java`
-#### Snippet
-```java
-                        // because the setter method is overloaded for different parameter type,
-                        // return null here to report the ambiguity.
-                        return null;
-                    }
-                    candidate = method;
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/MapGetExecutor.java`
 #### Snippet
 ```java
@@ -5056,10 +5068,22 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/MapGetExecutor
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
 #### Snippet
 ```java
-            logger.debug(JexlException.methodError(node, method, args));
+                    logger.warn(xjexl.getMessage(), xjexl.getCause());
+                }
+                return null;
+            }
+            throw xjexl.clean();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
+#### Snippet
+```java
+            return "";
         }
         return null;
     }
@@ -5068,60 +5092,156 @@ in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
 #### Snippet
 ```java
-            logger.debug(JexlException.propertyError(node, property, undef));
-        }
-        return null;
-    }
-
+                    logger.warn(xjexl.getMessage(), xjexl.getCause());
+                }
+                return null;
+            }
+            throw xjexl.clean();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
 #### Snippet
 ```java
-            logger.debug(JexlException.operatorError(node, operator.getOperatorSymbol()), cause);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-            logger.debug(JexlException.variableError(node, var, issue));
-        }
-        return null;
-    }
-    /**
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
-#### Snippet
-```java
-        final boolean safe = (node instanceof ASTIdentifierAccess) && ((ASTIdentifierAccess) node).isSafe();
-        if (safe) {
+                return new PrintWriter(out, true);
+            }
             return null;
         }
-        final String attrStr = attribute != null ? attribute.toString() : null;
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
 #### Snippet
 ```java
-            logger.debug(JexlException.annotationError(node, annotation), cause);
+                return new PrintWriter(error, true);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+            accept(node.jjtGetChild(0), data); // zut
         }
         return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Debugger.java`
+#### Snippet
+```java
+            walk = walk.jjtGetParent();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Scope.java`
+#### Snippet
+```java
+    public Frame createFrame(final Frame frame, final Object...args) {
+        if (namedVariables == null) {
+            return null;
+        }
+        final Object[] arguments = new Object[namedVariables.size()];
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateInterpreter.java`
+#### Snippet
+```java
+                    if (argv != null && argv.length > 0 && argv[0] instanceof Number) {
+                        print(((Number) argv[0]).intValue());
+                        return null;
+                    }
+                }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/TemplateInterpreter.java`
+#### Snippet
+```java
+                            }
+                            include(script, argv);
+                            return null;
+                        }
+                    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
+#### Snippet
+```java
+                    }
+                    if (val == 0) {
+                        return null;
+                    }
+                } // any non numeric, NaN
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
+#### Snippet
+```java
+                } // any non numeric, NaN
+                else if (c < '0' || c > '9') {
+                    return null;
+                }
+                val *= 10;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
+#### Snippet
+```java
+            return val;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/DuckSetExecutor.java`
+#### Snippet
+```java
+            method = is.getMethod(clazz, "put", makeArgs(key, value));
+        }
+        return method == null? null : new DuckSetExecutor(clazz, method, key, value);
     }
 
 ```
@@ -5140,23 +5260,23 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/MethodExecutor
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngineFactory.java`
+in `src/main/java/org/apache/commons/jexl3/JexlInfo.java`
 #### Snippet
 ```java
-                 */
-            default:
-                return null;
-        }
+     */
+    public static JexlInfo from(final JexlScript script) {
+        return script instanceof Script? ((Script) script).getInfo() :  null;
     }
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifier.java`
+in `src/main/java/org/apache/commons/jexl3/JexlInfo.java`
 #### Snippet
 ```java
-
-    public String getNamespace() {
+     */
+    public Detail getDetail() {
         return null;
     }
 
@@ -5164,10 +5284,10 @@ in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifier.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/ScriptVisitor.java`
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
 #### Snippet
 ```java
-            return ((Script) jscript).getScript().jjtAccept(this, data);
+            return ((Collection<?>) left).contains(value);
         }
         return null;
     }
@@ -5176,12 +5296,24 @@ in `src/main/java/org/apache/commons/jexl3/internal/ScriptVisitor.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/ScriptVisitor.java`
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
 #### Snippet
 ```java
-            return ((Script) jscript).getScript().jjtAccept(this, data);
+            return (toString(left)).startsWith(toString(right));
         }
         return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+#### Snippet
+```java
+                || value instanceof Byte
+                        ? (Number) value
+                        : null;
     }
 
 ```
@@ -5227,30 +5359,6 @@ Return of `null`
 in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
 #### Snippet
 ```java
-            return (toString(left)).startsWith(toString(right));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
-                || value instanceof Byte
-                        ? (Number) value
-                        : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
-#### Snippet
-```java
     public Object positivize(final Object val) {
         if (val == null) {
             return null;
@@ -5260,10 +5368,142 @@ in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/JexlArithmetic.java`
+in `src/main/java/org/apache/commons/jexl3/ObjectContext.java`
 #### Snippet
 ```java
-            return ((Collection<?>) left).contains(value);
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/ObjectContext.java`
+#### Snippet
+```java
+            return object;
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+        final boolean safe = (node instanceof ASTIdentifierAccess) && ((ASTIdentifierAccess) node).isSafe();
+        if (safe) {
+            return null;
+        }
+        final String attrStr = attribute != null ? attribute.toString() : null;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+            logger.debug(JexlException.annotationError(node, annotation), cause);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+            logger.debug(JexlException.propertyError(node, property, undef));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+            logger.debug(JexlException.variableError(node, var, issue));
+        }
+        return null;
+    }
+    /**
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+            logger.debug(JexlException.operatorError(node, operator.getOperatorSymbol()), cause);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/InterpreterBase.java`
+#### Snippet
+```java
+            logger.debug(JexlException.methodError(node, method, args));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
+#### Snippet
+```java
+            className = null;
+        }
+        return className != null && className != JexlSandbox.NULL ? uberspect.getConstructor(className, args) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/SandboxUberspect.java`
+#### Snippet
+```java
+            }
         }
         return null;
     }
@@ -5279,270 +5519,6 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateDebugger.java`
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/BooleanGetExecutor.java`
-#### Snippet
-```java
-    @Override
-    public Object invoke(final Object obj) throws IllegalAccessException, InvocationTargetException {
-        return method == null ? null : method.invoke(obj, (Object[]) null);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/BooleanGetExecutor.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-        public String get(final String name) {
-            // if name is null and contained in set, explicit null aka NULL
-            return names != null && !names.contains(name) ? name : name != null? null : NULL;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-            return Class.forName(cname);
-        } catch(final Exception xany) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
-#### Snippet
-```java
-        @Override
-        public String get(final String name) {
-            return name == null? NULL : null;
-        }
-    };
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/FieldSetExecutor.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/ListSetExecutor.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/introspection/DuckSetExecutor.java`
-#### Snippet
-```java
-            method = is.getMethod(clazz, "put", makeArgs(key, value));
-        }
-        return method == null? null : new DuckSetExecutor(clazz, method, key, value);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
-#### Snippet
-```java
-                    }
-                    if (val == 0) {
-                        return null;
-                    }
-                } // any non numeric, NaN
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
-#### Snippet
-```java
-                } // any non numeric, NaN
-                else if (c < '0' || c > '9') {
-                    return null;
-                }
-                val *= 10;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/parser/ASTIdentifierAccess.java`
-#### Snippet
-```java
-            return val;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
-#### Snippet
-```java
-                        jexl.logger.warn(xuel.getMessage(), xuel.getCause());
-                    }
-                    return null;
-                }
-                throw xuel;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateScript.java`
-#### Snippet
-```java
-            walk = walk.jjtGetParent();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
-#### Snippet
-```java
-                return new PrintWriter(error, true);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/scripting/JexlScriptEngine.java`
-#### Snippet
-```java
-                return new PrintWriter(out, true);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateInterpreter.java`
-#### Snippet
-```java
-                    if (argv != null && argv.length > 0 && argv[0] instanceof Number) {
-                        print(((Number) argv[0]).intValue());
-                        return null;
-                    }
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateInterpreter.java`
-#### Snippet
-```java
-                            }
-                            include(script, argv);
-                            return null;
-                        }
-                    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-            return "";
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-                    logger.warn(xjexl.getMessage(), xjexl.getCause());
-                }
-                return null;
-            }
-            throw xjexl.clean();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Engine.java`
-#### Snippet
-```java
-                    logger.warn(xjexl.getMessage(), xjexl.getCause());
-                }
-                return null;
-            }
-            throw xjexl.clean();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
-#### Snippet
-```java
-        @Override
-        public Object resolveNamespace(final String name) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
-#### Snippet
-```java
-        @Override
-        public Object get(final String name) {
-            return null;
-        }
 
 ```
 
@@ -5608,59 +5584,11 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/Uberspect.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
 #### Snippet
 ```java
-                        logger.warn(xuel.getMessage(), xuel.getCause());
-                    }
-                    return null;
-                }
-                throw xuel;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
-#### Snippet
-```java
-                        logger.warn(xuel.getMessage(), xuel.getCause());
-                    }
-                    return null;
-                }
-                throw xuel;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
-#### Snippet
-```java
-                    }
-                } catch (final IOException xio) {
-                    return null;
-                }
-                return strb.length() > 0 ? strb : null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
-#### Snippet
-```java
-                    return null;
-                }
-                return strb.length() > 0 ? strb : null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
-#### Snippet
-```java
-        /** @return the info */
-        JexlInfo getInfo() {
+        @Override
+        public Object get(final String name) {
             return null;
         }
 
@@ -5668,14 +5596,74 @@ in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/TemplateEngine.java`
+in `src/main/java/org/apache/commons/jexl3/JexlEngine.java`
 #### Snippet
 ```java
-            // evaluate immediate as constant
-            final Object value = evaluate(interpreter);
-            return value != null ? new ConstantExpression(value, source) : null;
+        @Override
+        public Object resolveNamespace(final String name) {
+            return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+#### Snippet
+```java
+        // We looked this up before and failed.
+        if (cacheEntry == CACHE_MISS) {
+            return null;
+        }
+        if (cacheEntry == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+#### Snippet
+```java
+        } catch (final Exception xio) {
+            // this really can't make an error...
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/introspection/ClassMap.java`
+#### Snippet
+```java
+            return lm.clone();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+#### Snippet
+```java
+    @Override
+    protected Object visit(final ASTNullLiteral node, final Object data) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+#### Snippet
+```java
+            return tp.evaluate(context, frame, options);
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -5707,20 +5695,8 @@ Return of `null`
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
 ```java
-            cause = xjxlt;
         }
-        return node.isSafe() ? null : unsolvableProperty(node, src, true, cause);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
-#### Snippet
-```java
-            return tp.evaluate(context, frame, options);
-        }
+        frame.set(symbol, null);
         return null;
     }
 
@@ -5731,23 +5707,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
 ```java
-        final int numChildren = script.jjtGetNumChildren();
-        if (numChildren == 0) {
-            return null;
+            putThreadInterpreter(tinter);
         }
-        block = new LexicalFrame(frame, block).defineArgs();
-```
+        return null;
+    }
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
-#### Snippet
-```java
-    protected Object visit(final ASTIdentifierAccess node, final Object data) {
-        if (data == null) {
-            return null;
-        }
-        final Object id = evalIdentifier(node);
 ```
 
 ### ReturnNull
@@ -5791,6 +5755,30 @@ Return of `null`
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
 ```java
+            // make sure there is a value to iterate upon
+            if (iterableValue == null) {
+                return null;
+            }
+            /* last child node is the statement to execute */
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+#### Snippet
+```java
+                    : uberspect.getIterator(iterableValue);
+            if (itemsIterator == null) {
+                return null;
+            }
+            int cnt = 0;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+#### Snippet
+```java
         } else {
             // safe lhs
             return null;
@@ -5815,9 +5803,9 @@ Return of `null`
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
 ```java
+            cause = xjxlt;
         }
-        frame.set(symbol, null);
-        return null;
+        return node.isSafe() ? null : unsolvableProperty(node, src, true, cause);
     }
 
 ```
@@ -5827,50 +5815,62 @@ Return of `null`
 in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
 #### Snippet
 ```java
-    @Override
-    protected Object visit(final ASTNullLiteral node, final Object data) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
-#### Snippet
-```java
-            putThreadInterpreter(tinter);
+    protected Object visit(final ASTIdentifierAccess node, final Object data) {
+        if (data == null) {
+            return null;
         }
-        return null;
+        final Object id = evalIdentifier(node);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+#### Snippet
+```java
+        final int numChildren = script.jjtGetNumChildren();
+        if (numChildren == 0) {
+            return null;
+        }
+        block = new LexicalFrame(frame, block).defineArgs();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
+#### Snippet
+```java
+        @Override
+        public String get(final String name) {
+            return name == null? NULL : null;
+        }
+    };
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
+#### Snippet
+```java
+        public String get(final String name) {
+            // if name is null and contained in set, explicit null aka NULL
+            return names != null && !names.contains(name) ? name : name != null? null : NULL;
+        }
     }
-
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
+in `src/main/java/org/apache/commons/jexl3/introspection/JexlSandbox.java`
 #### Snippet
 ```java
-            // make sure there is a value to iterate upon
-            if (iterableValue == null) {
-                return null;
-            }
-            /* last child node is the statement to execute */
+            return Class.forName(cname);
+        } catch(final Exception xany) {
+            return null;
+        }
+    }
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/jexl3/internal/Interpreter.java`
-#### Snippet
-```java
-                    : uberspect.getIterator(iterableValue);
-            if (itemsIterator == null) {
-                return null;
-            }
-            int cnt = 0;
-```
-
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `container` is redundant
 in `src/main/java/org/apache/commons/jexl3/internal/introspection/IndexedType.java`
@@ -5883,7 +5883,7 @@ in `src/main/java/org/apache/commons/jexl3/internal/introspection/IndexedType.ja
             final Method[] getters = is.getMethods(object.getClass(), "get" + base);
 ```
 
-## RuleId[ruleID=RedundantFileCreation]
+## RuleId[id=RedundantFileCreation]
 ### RedundantFileCreation
 `new File` is redundant
 in `src/main/java/org/apache/commons/jexl3/scripting/Main.java`
