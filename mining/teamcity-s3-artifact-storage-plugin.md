@@ -24,8 +24,8 @@ I found 107 bad smells with 12 repairable:
 | UNUSED_IMPORT | 1 | false |
 | SuspiciousToArrayCall | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
-| ZeroLengthArrayInitialization | 1 | false |
 | FuseStreamOperations | 1 | false |
+| ZeroLengthArrayInitialization | 1 | false |
 | RedundantSuppression | 1 | false |
 ## RuleId[id=IOResource]
 ### IOResource
@@ -42,15 +42,27 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
 
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/PresignedUrlsProviderClient.java`
+#### Snippet
+```java
+  void startMultipartUpload(@NotNull MultipartUploadStartRequestDto multipartUploadStart);
+
+  static class MisconfigurationException extends RuntimeException {
+    public MisconfigurationException(@NotNull final Throwable cause) {
+      super(cause);
+```
+
+### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/errors/HttpResponseErrorHandler.java`
 #### Snippet
 ```java
 
   @NotNull
-  public HttpClientUtil.HttpErrorCodeException handle(@NotNull ResponseAdapter responseWrapper);
-
-  @NotNull
+  public default String name() {
+    return getClass().getName();
+  }
 ```
 
 ### UnnecessaryModifier
@@ -96,36 +108,12 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/err
 ```java
 
   @NotNull
-  public default String name() {
-    return getClass().getName();
-  }
-```
+  public HttpClientUtil.HttpErrorCodeException handle(@NotNull ResponseAdapter responseWrapper);
 
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/PresignedUrlsProviderClient.java`
-#### Snippet
-```java
-  void startMultipartUpload(@NotNull MultipartUploadStartRequestDto multipartUploadStart);
-
-  static class MisconfigurationException extends RuntimeException {
-    public MisconfigurationException(@NotNull final Throwable cause) {
-      super(cause);
+  @NotNull
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `PresignedUrlRequestSerializer` has only 'static' members, and lacks a 'private' constructor
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/transport/PresignedUrlRequestSerializer.java`
-#### Snippet
-```java
- * Created by Evgeniy Koshkin (evgeniy.koshkin@jetbrains.com) on 21.07.17.
- */
-public class PresignedUrlRequestSerializer {
-  @NotNull
-  public static final String UPLOAD_SUCCESSFUL = "s3-multipart-upload-successful";
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `CloudFrontConstants` has only 'static' members, and lacks a 'private' constructor
 in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/cloudfront/CloudFrontConstants.java`
@@ -150,6 +138,18 @@ public class S3Constants {
   public static final String S3_ADDRESS = "s3.amazonaws.com";
 ```
 
+### UtilityClassWithoutPrivateConstructor
+Class `PresignedUrlRequestSerializer` has only 'static' members, and lacks a 'private' constructor
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/transport/PresignedUrlRequestSerializer.java`
+#### Snippet
+```java
+ * Created by Evgeniy Koshkin (evgeniy.koshkin@jetbrains.com) on 21.07.17.
+ */
+public class PresignedUrlRequestSerializer {
+  @NotNull
+  public static final String UPLOAD_SUCCESSFUL = "s3-multipart-upload-successful";
+```
+
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -166,14 +166,110 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
 Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/S3ArtifactContentProvider.java`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/cloudfront/CloudFrontPresignedUrlProviderImpl.java`
 #### Snippet
 ```java
-      final AWSException awsException = new AWSException(t);
-      final String details = awsException.getDetails();
-      if (StringUtil.isNotEmpty(details)) {
-        final String message = awsException.getMessage() + details;
-        LOG.warn(message);
+
+      String encodedObjectKey = SdkHttpUtils.urlEncode(objectKey, true);
+      if (jetbrains.buildServer.util.StringUtil.isNotEmpty(domain) && StringUtil.isNotEmpty(publicKeyId)) {
+        String resourcePath = SignerUtils.generateResourcePath(SignerUtils.Protocol.https, domain, encodedObjectKey);
+
+```
+
+### StaticCallOnSubclass
+Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/util/LowLevelS3Client.java`
+#### Snippet
+```java
+  private String parseEtags(@NotNull final HttpResponseAdapter response) {
+    final String eTags = response.getHeader("ETag");
+    if (!StringUtil.isEmpty(eTags)) {
+      return StringUtil.unquoteString(eTags);
+    } else {
+```
+
+### StaticCallOnSubclass
+Static method `unquoteString()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/util/LowLevelS3Client.java`
+#### Snippet
+```java
+    final String eTags = response.getHeader("ETag");
+    if (!StringUtil.isEmpty(eTags)) {
+      return StringUtil.unquoteString(eTags);
+    } else {
+      throw new FileUploadFailedException("Response does not contain etags", true);
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/settings/CloudFrontPropertiesProcessor.java`
+#### Snippet
+```java
+    final ArrayList<InvalidProperty> invalids = new ArrayList<>();
+
+    if (StringUtil.isEmptyOrSpaces(S3Util.getCloudFrontUploadDistribution(params))) {
+      invalids.add(new InvalidProperty(S3_CLOUDFRONT_UPLOAD_DISTRIBUTION, "CloudFront distribution for upload should not be empty"));
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/settings/CloudFrontPropertiesProcessor.java`
+#### Snippet
+```java
+    }
+
+    if (StringUtil.isEmptyOrSpaces(S3Util.getCloudFrontDownloadDistribution(params))) {
+      invalids.add(new InvalidProperty(S3_CLOUDFRONT_DOWNLOAD_DISTRIBUTION, "CloudFront distribution for download should not be empty"));
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/errors/HttpResponseAdapter.java`
+#### Snippet
+```java
+  public String getHeader(@NotNull final String header) {
+    final String responseHeader = myDelegate.getHeader(header);
+    if (StringUtil.isEmpty(responseHeader)) {
+      return null;
+    } else {
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `s3-artifact-storage-agent/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3ArtifactsPublisher.java`
+#### Snippet
+```java
+    final List<String> pathSegments = new ArrayList<>();
+    final String prefix = build.getArtifactStorageSettings().getOrDefault(S3Constants.S3_PATH_PREFIX_SETTING, "");
+    if (!StringUtil.isEmptyOrSpaces(prefix)) {
+      pathSegments.add(prefix);
+    }
+```
+
+### StaticCallOnSubclass
+Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/cleanup/S3CleanupExtension.java`
+#### Snippet
+```java
+
+      if (errorNum.get() > 0) {
+        CLEANUP.warn("Failed to remove [" + errorNum + "] S3 " + StringUtil.pluralize("object", errorNum.get()) + suffix);
+        cleanupContext.onBuildCleanupError(this, build, "Failed to remove some S3 objects.");
+      }
+```
+
+### StaticCallOnSubclass
+Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/cleanup/S3CleanupExtension.java`
+#### Snippet
+```java
+      }
+
+      CLEANUP.info(() -> "Removed [" + succeededNum + "] S3 " + StringUtil.pluralize("object", succeededNum.get()) + suffix);
+
+      myHelper.removeFromArtifactList(build, pathsToDelete);
 ```
 
 ### StaticCallOnSubclass
@@ -249,123 +345,15 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `s3-artifact-storage-agent/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3ArtifactsPublisher.java`
-#### Snippet
-```java
-    final List<String> pathSegments = new ArrayList<>();
-    final String prefix = build.getArtifactStorageSettings().getOrDefault(S3Constants.S3_PATH_PREFIX_SETTING, "");
-    if (!StringUtil.isEmptyOrSpaces(prefix)) {
-      pathSegments.add(prefix);
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/settings/CloudFrontPropertiesProcessor.java`
-#### Snippet
-```java
-    final ArrayList<InvalidProperty> invalids = new ArrayList<>();
-
-    if (StringUtil.isEmptyOrSpaces(S3Util.getCloudFrontUploadDistribution(params))) {
-      invalids.add(new InvalidProperty(S3_CLOUDFRONT_UPLOAD_DISTRIBUTION, "CloudFront distribution for upload should not be empty"));
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/settings/CloudFrontPropertiesProcessor.java`
-#### Snippet
-```java
-    }
-
-    if (StringUtil.isEmptyOrSpaces(S3Util.getCloudFrontDownloadDistribution(params))) {
-      invalids.add(new InvalidProperty(S3_CLOUDFRONT_DOWNLOAD_DISTRIBUTION, "CloudFront distribution for download should not be empty"));
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3RegularFileUploader.java`
-#### Snippet
-```java
-      final String details = awsException.getDetails();
-
-      if (StringUtil.isNotEmpty(details)) {
-        final String message = awsException.getMessage() + details;
-        LOG.warn(message);
-```
-
-### StaticCallOnSubclass
-Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/cleanup/S3CleanupExtension.java`
-#### Snippet
-```java
-
-      if (errorNum.get() > 0) {
-        CLEANUP.warn("Failed to remove [" + errorNum + "] S3 " + StringUtil.pluralize("object", errorNum.get()) + suffix);
-        cleanupContext.onBuildCleanupError(this, build, "Failed to remove some S3 objects.");
-      }
-```
-
-### StaticCallOnSubclass
-Static method `pluralize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/cleanup/S3CleanupExtension.java`
-#### Snippet
-```java
-      }
-
-      CLEANUP.info(() -> "Removed [" + succeededNum + "] S3 " + StringUtil.pluralize("object", succeededNum.get()) + suffix);
-
-      myHelper.removeFromArtifactList(build, pathsToDelete);
-```
-
-### StaticCallOnSubclass
 Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/errors/HttpResponseAdapter.java`
-#### Snippet
-```java
-  public String getHeader(@NotNull final String header) {
-    final String responseHeader = myDelegate.getHeader(header);
-    if (StringUtil.isEmpty(responseHeader)) {
-      return null;
-    } else {
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/cloudfront/CloudFrontPresignedUrlProviderImpl.java`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/TeamCityServerPresignedUrlsProviderClient.java`
 #### Snippet
 ```java
 
-      String encodedObjectKey = SdkHttpUtils.urlEncode(objectKey, true);
-      if (jetbrains.buildServer.util.StringUtil.isNotEmpty(domain) && StringUtil.isNotEmpty(publicKeyId)) {
-        String resourcePath = SignerUtils.generateResourcePath(SignerUtils.Protocol.https, domain, encodedObjectKey);
-
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/util/LowLevelS3Client.java`
-#### Snippet
-```java
-  private String parseEtags(@NotNull final HttpResponseAdapter response) {
-    final String eTags = response.getHeader("ETag");
-    if (!StringUtil.isEmpty(eTags)) {
-      return StringUtil.unquoteString(eTags);
-    } else {
-```
-
-### StaticCallOnSubclass
-Static method `unquoteString()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/util/LowLevelS3Client.java`
-#### Snippet
-```java
-    final String eTags = response.getHeader("ETag");
-    if (!StringUtil.isEmpty(eTags)) {
-      return StringUtil.unquoteString(eTags);
-    } else {
-      throw new FileUploadFailedException("Response does not contain etags", true);
+    final String response = HttpClientUtil.executeAndReleaseConnection(post, myErrorHandler).get().getResponse();
+    if (StringUtil.isEmpty(response)) {
+      throw new IllegalStateException("Response body is empty");
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -381,27 +369,39 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/TeamCityServerPresignedUrlsProviderClient.java`
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/S3ArtifactContentProvider.java`
 #### Snippet
 ```java
-
-    final String response = HttpClientUtil.executeAndReleaseConnection(post, myErrorHandler).get().getResponse();
-    if (StringUtil.isEmpty(response)) {
-      throw new IllegalStateException("Response body is empty");
-    }
+      final AWSException awsException = new AWSException(t);
+      final String details = awsException.getDetails();
+      if (StringUtil.isNotEmpty(details)) {
+        final String message = awsException.getMessage() + details;
+        LOG.warn(message);
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3RegularFileUploader.java`
+#### Snippet
+```java
+      final String details = awsException.getDetails();
+
+      if (StringUtil.isNotEmpty(details)) {
+        final String message = awsException.getMessage() + details;
+        LOG.warn(message);
+```
+
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java`
 #### Snippet
 ```java
-  @NotNull
-  private static Pair<Long, String> parseMultipartUploadByteSetting(@Nullable String value) {
-    if (StringUtil.isEmpty(value)) {
-      return Pair.create(null, null);
-    }
+    final String strValue = configurationParameters.get(parameterName);
+    try {
+      if (StringUtil.isNotEmpty(strValue)) {
+        final int intValue = Integer.parseInt(strValue);
+        if (intValue >= 0) {
 ```
 
 ### StaticCallOnSubclass
@@ -429,15 +429,15 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java
 ```
 
 ### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java`
 #### Snippet
 ```java
-    final String strValue = configurationParameters.get(parameterName);
-    try {
-      if (StringUtil.isNotEmpty(strValue)) {
-        final int intValue = Integer.parseInt(strValue);
-        if (intValue >= 0) {
+  @NotNull
+  private static Pair<Long, String> parseMultipartUploadByteSetting(@Nullable String value) {
+    if (StringUtil.isEmpty(value)) {
+      return Pair.create(null, null);
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -478,15 +478,15 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-`null` is assigned to a variable that is annotated with @NotNull
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/ListBucketsResourceFetcher.java`
+Argument `S3Util.getBucketName(sslSettings)` might be null
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/filestorage/GuardedS3PresignedUrlProvider.java`
 #### Snippet
 ```java
-    @Used("xml-serialization")
-    public BucketDto() {
-      this.name = null;
-    }
-
+  public S3Settings settings(@NotNull final Map<String, String> rawSettings, @NotNull Map<String, String> projectSettings) {
+    final Map<String, String> sslSettings = ParamUtil.putSslValues(myServerPaths, rawSettings);
+    final Map<String, String> correctedSettings = S3RegionCorrector.correctRegion(S3Util.getBucketName(sslSettings), sslSettings);
+    return myDelegate.settings(correctedSettings, projectSettings);
+  }
 ```
 
 ### DataFlowIssue
@@ -502,6 +502,18 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/ListBuckets
 ```
 
 ### DataFlowIssue
+`null` is assigned to a variable that is annotated with @NotNull
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/ListBucketsResourceFetcher.java`
+#### Snippet
+```java
+    @Used("xml-serialization")
+    public BucketDto() {
+      this.name = null;
+    }
+
+```
+
+### DataFlowIssue
 Condition `e instanceof AmazonServiceException` is redundant and can be replaced with a null check
 in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/web/S3PreSignedUrlController.java`
 #### Snippet
@@ -511,18 +523,6 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
     if (e instanceof AmazonServiceException) {
       header = S3Constants.ErrorSource.S3.name();
     } else if (e instanceof SdkBaseException) {
-```
-
-### DataFlowIssue
-Argument `S3Util.getBucketName(sslSettings)` might be null
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/filestorage/GuardedS3PresignedUrlProvider.java`
-#### Snippet
-```java
-  public S3Settings settings(@NotNull final Map<String, String> rawSettings, @NotNull Map<String, String> projectSettings) {
-    final Map<String, String> sslSettings = ParamUtil.putSslValues(myServerPaths, rawSettings);
-    final Map<String, String> correctedSettings = S3RegionCorrector.correctRegion(S3Util.getBucketName(sslSettings), sslSettings);
-    return myDelegate.settings(correctedSettings, projectSettings);
-  }
 ```
 
 ### DataFlowIssue
@@ -563,6 +563,19 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
       allOfTerminateOnFailure(myEtags).get();
 ```
 
+## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `S3FileUploader()` of an abstract class should not be declared 'public'
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3FileUploader.java`
+#### Snippet
+```java
+  protected final S3Configuration myS3Configuration;
+
+  public S3FileUploader(@NotNull final S3Configuration s3Configuration,
+                        @NotNull final S3UploadLogger logger) {
+    myS3Configuration = s3Configuration;
+```
+
 ## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -590,18 +603,6 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'getCloudFrontDistribution' is still used
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/cloudfront/CloudFrontSettings.java`
-#### Snippet
-```java
-  @Deprecated
-  @NotNull
-  String getCloudFrontDistribution();
-
-  @Nullable
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'S3_CLOUDFRONT_DISTRIBUTION' is still used
 in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/cloudfront/CloudFrontConstants.java`
 #### Snippet
@@ -613,30 +614,29 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/cloudfront/
   public static final String S3_CLOUDFRONT_UPLOAD_DISTRIBUTION = "storage.s3.cloudfront.upload.distribution";
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `S3FileUploader()` of an abstract class should not be declared 'public'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3FileUploader.java`
+### DeprecatedIsStillUsed
+Deprecated member 'getCloudFrontDistribution' is still used
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/cloudfront/CloudFrontSettings.java`
 #### Snippet
 ```java
-  protected final S3Configuration myS3Configuration;
+  @Deprecated
+  @NotNull
+  String getCloudFrontDistribution();
 
-  public S3FileUploader(@NotNull final S3Configuration s3Configuration,
-                        @NotNull final S3UploadLogger logger) {
-    myS3Configuration = s3Configuration;
+  @Nullable
 ```
 
 ## RuleId[id=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/transport/PresignedUrlListRequestDto.java`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/util/LowLevelS3Client.java`
 #### Snippet
 ```java
-  @NotNull
-  public static PresignedUrlListRequestDto forObjectKeys(@NotNull final Collection<String> objectKeys) {
-    return new PresignedUrlListRequestDto(objectKeys.stream().map(objectKey -> PresignedUrlRequestDto.from(objectKey)).collect(Collectors.toSet()), false);
+      .executeAndReleaseConnection(requestBuilder, myErrorHandler, myExecutorService)
+      .thenApply(response -> {
+        return parseEtags(response);
+      });
   }
-
 ```
 
 ### Convert2MethodRef
@@ -665,18 +665,6 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/util/LowLevelS3Client.java`
-#### Snippet
-```java
-      .executeAndReleaseConnection(requestBuilder, myErrorHandler, myExecutorService)
-      .thenApply(response -> {
-        return parseEtags(response);
-      });
-  }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3SignedUrlFileUploader.java`
 #### Snippet
 ```java
@@ -685,6 +673,18 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
       LOGGER.debug("Publishing [" + filesToUpload.keySet().stream().map(f -> f.getName()).collect(Collectors.joining(",")) + "] to S3");
       normalizedObjectPaths.entrySet()
                            .stream()
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/transport/PresignedUrlListRequestDto.java`
+#### Snippet
+```java
+  @NotNull
+  public static PresignedUrlListRequestDto forObjectKeys(@NotNull final Collection<String> objectKeys) {
+    return new PresignedUrlListRequestDto(objectKeys.stream().map(objectKey -> PresignedUrlRequestDto.from(objectKey)).collect(Collectors.toSet()), false);
+  }
+
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -752,30 +752,6 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
 
 ### ReturnNull
 Return of `null`
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/web/S3StoragePropertiesUtil.java`
-#### Snippet
-```java
-  private static String toUnixLineFeeds(@Nullable final String str) {
-    if (str == null) {
-      return null;
-    }
-    return str.replace("\r", "");
-```
-
-### ReturnNull
-Return of `null`
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3PresignedUpload.java`
-#### Snippet
-```java
-      if (!myFile.exists()) {
-        myProgressListener.onFileUploadFailed("File does not exist", false);
-        return null;
-      }
-      myRemainingBytes.set(myFile.length());
-```
-
-### ReturnNull
-Return of `null`
 in `s3-artifact-storage-agent/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3ArtifactsPublisher.java`
 #### Snippet
 ```java
@@ -784,18 +760,6 @@ in `s3-artifact-storage-agent/src/main/java/jetbrains/buildServer/artifacts/s3/p
             return null;
           }
         }, fileUploadInfo -> {
-```
-
-### ReturnNull
-Return of `null`
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3PresignedMultipartUpload.java`
-#### Snippet
-```java
-        failure.completeExceptionally(ex);
-        cancelAll(futures);
-        return null;
-      });
-    }
 ```
 
 ### ReturnNull
@@ -872,14 +836,38 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
 
 ### ReturnNull
 Return of `null`
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3PresignedUrlProviderImpl.java`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3PresignedUpload.java`
 #### Snippet
 ```java
-        client.abortMultipartUpload(new AbortMultipartUploadRequest(settings.getBucketName(), objectKey, uploadId));
+      if (!myFile.exists()) {
+        myProgressListener.onFileUploadFailed("File does not exist", false);
+        return null;
       }
+      myRemainingBytes.set(myFile.length());
+```
+
+### ReturnNull
+Return of `null`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3PresignedMultipartUpload.java`
+#### Snippet
+```java
+        failure.completeExceptionally(ex);
+        cancelAll(futures);
+        return null;
+      });
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/web/S3StoragePropertiesUtil.java`
+#### Snippet
+```java
+  private static String toUnixLineFeeds(@Nullable final String str) {
+    if (str == null) {
       return null;
-    }, settings);
-  }
+    }
+    return str.replace("\r", "");
 ```
 
 ### ReturnNull
@@ -906,17 +894,16 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
   }
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/TeamCityServerPresignedUrlsProviderClient.java`
+### ReturnNull
+Return of `null`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3PresignedUrlProviderImpl.java`
 #### Snippet
 ```java
-          Part[] parts = parameters.stream()
-                                   .map(entry -> new StringPart(entry.getFirst(), entry.getSecond()))
-                                   .collect(Collectors.toList()).toArray(new Part[0]);
-          return new MultipartRequestEntity(parts, new HttpMethodParams());
-        }
+        client.abortMultipartUpload(new AbortMultipartUploadRequest(settings.getBucketName(), objectKey, uploadId));
+      }
+      return null;
+    }, settings);
+  }
 ```
 
 ## RuleId[id=FuseStreamOperations]
@@ -932,17 +919,30 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
         }
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/transport/PresignedUrlListRequestDto.java`
+## RuleId[id=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/TeamCityServerPresignedUrlsProviderClient.java`
 #### Snippet
 ```java
+          Part[] parts = parameters.stream()
+                                   .map(entry -> new StringPart(entry.getFirst(), entry.getSecond()))
+                                   .collect(Collectors.toList()).toArray(new Part[0]);
+          return new MultipartRequestEntity(parts, new HttpMethodParams());
+        }
+```
 
-  @NotNull
-  public static PresignedUrlListRequestDto forObjectKeysWithDigests(@NotNull final Collection<Pair<String, String>> keysWithDigests) {
-    return new PresignedUrlListRequestDto(keysWithDigests.stream()
-                                                         .map(pair -> PresignedUrlRequestDto.from(pair.getFirst(), pair.getSecond()))
+## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends UploadStatistics`
+in `s3-artifact-storage-agent/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3ArtifactsPublisher.java`
+#### Snippet
+```java
+  }
+
+  private void logStatisticsForEach(@NotNull FlowLogger logger, @NotNull Collection<UploadStatistics> statistics) {
+    for (UploadStatistics stat : statistics) {
+      final Map<String, Duration> timings = stat.getAdditionalTimings();
 ```
 
 ### BoundedWildcard
@@ -955,18 +955,6 @@ in `s3-artifact-storage-agent/src/main/java/jetbrains/buildServer/artifacts/s3/p
   public StatisticsLogger.SummaryStatistics getSummaryStatistics(@NotNull Collection<UploadStatistics> statistics) {
     Duration totalDuration = Duration.ofMillis(0);
     int fileCount = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends UploadStatistics`
-in `s3-artifact-storage-agent/src/main/java/jetbrains/buildServer/artifacts/s3/publish/S3ArtifactsPublisher.java`
-#### Snippet
-```java
-  }
-
-  private void logStatisticsForEach(@NotNull FlowLogger logger, @NotNull Collection<UploadStatistics> statistics) {
-    for (UploadStatistics stat : statistics) {
-      final Map<String, Duration> timings = stat.getAdditionalTimings();
 ```
 
 ### BoundedWildcard
@@ -1017,41 +1005,16 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
       return future.get();
 ```
 
-## RuleId[id=NonExceptionNameEndsWithException]
-### NonExceptionNameEndsWithException
-Non-exception class name `FileUploadFailedException` ends with 'Exception'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/exceptions/FileUploadFailedException.java`
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/transport/PresignedUrlListRequestDto.java`
 #### Snippet
 ```java
-import org.jetbrains.annotations.NotNull;
 
-public class FileUploadFailedException extends RecoverableException {
-  private final boolean myRecoverable;
-
-```
-
-### NonExceptionNameEndsWithException
-Non-exception class name `HttpErrorCodeException` ends with 'Exception'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/util/HttpClientUtil.java`
-#### Snippet
-```java
-  }
-
-  public static class HttpErrorCodeException extends RecoverableException {
-    private final int myResponseCode;
-    @Nullable
-```
-
-### NonExceptionNameEndsWithException
-Non-exception class name `FetchFailedException` ends with 'Exception'
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/PresignedUrlsProviderClient.java`
-#### Snippet
-```java
-  }
-
-  class FetchFailedException extends RecoverableException {
-    private final boolean myIsRecoverable;
-
+  @NotNull
+  public static PresignedUrlListRequestDto forObjectKeysWithDigests(@NotNull final Collection<Pair<String, String>> keysWithDigests) {
+    return new PresignedUrlListRequestDto(keysWithDigests.stream()
+                                                         .map(pair -> PresignedUrlRequestDto.from(pair.getFirst(), pair.getSecond()))
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -1065,30 +1028,6 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
               String publicKeyId = null;
               String keyGroupId = null;
               try {
-```
-
-### UnusedAssignment
-Variable `correctRegion` initializer `extractCorrectedRegion(awsException)` is redundant
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java`
-#### Snippet
-```java
-      return withCorrectedClient.run(s3Client);
-    } catch (AmazonS3Exception awsException) {
-      final String correctRegion = extractCorrectedRegion(awsException);
-      if (correctRegion != null) {
-        LOGGER.debug("Running operation with corrected S3 region [" + correctRegion + "]", awsException);
-```
-
-### UnusedAssignment
-Variable `correctedSettings` initializer `new HashMap<>(settings)` is redundant
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java`
-#### Snippet
-```java
-      if (correctRegion != null) {
-        LOGGER.debug("Running operation with corrected S3 region [" + correctRegion + "]", awsException);
-        final HashMap<String, String> correctedSettings = new HashMap<>(settings);
-        correctedSettings.put(REGION_NAME_PARAM, correctRegion);
-        return withS3ClientShuttingDownImmediately(correctedSettings, withCorrectedClient);
 ```
 
 ### UnusedAssignment
@@ -1139,17 +1078,78 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java
       if (isTAException) {
 ```
 
+### UnusedAssignment
+Variable `correctRegion` initializer `extractCorrectedRegion(awsException)` is redundant
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java`
+#### Snippet
+```java
+      return withCorrectedClient.run(s3Client);
+    } catch (AmazonS3Exception awsException) {
+      final String correctRegion = extractCorrectedRegion(awsException);
+      if (correctRegion != null) {
+        LOGGER.debug("Running operation with corrected S3 region [" + correctRegion + "]", awsException);
+```
+
+### UnusedAssignment
+Variable `correctedSettings` initializer `new HashMap<>(settings)` is redundant
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/S3Util.java`
+#### Snippet
+```java
+      if (correctRegion != null) {
+        LOGGER.debug("Running operation with corrected S3 region [" + correctRegion + "]", awsException);
+        final HashMap<String, String> correctedSettings = new HashMap<>(settings);
+        correctedSettings.put(REGION_NAME_PARAM, correctRegion);
+        return withS3ClientShuttingDownImmediately(correctedSettings, withCorrectedClient);
+```
+
+## RuleId[id=NonExceptionNameEndsWithException]
+### NonExceptionNameEndsWithException
+Non-exception class name `FileUploadFailedException` ends with 'Exception'
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/exceptions/FileUploadFailedException.java`
+#### Snippet
+```java
+import org.jetbrains.annotations.NotNull;
+
+public class FileUploadFailedException extends RecoverableException {
+  private final boolean myRecoverable;
+
+```
+
+### NonExceptionNameEndsWithException
+Non-exception class name `FetchFailedException` ends with 'Exception'
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/PresignedUrlsProviderClient.java`
+#### Snippet
+```java
+  }
+
+  class FetchFailedException extends RecoverableException {
+    private final boolean myIsRecoverable;
+
+```
+
+### NonExceptionNameEndsWithException
+Non-exception class name `HttpErrorCodeException` ends with 'Exception'
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/util/HttpClientUtil.java`
+#### Snippet
+```java
+  }
+
+  public static class HttpErrorCodeException extends RecoverableException {
+    private final int myResponseCode;
+    @Nullable
+```
+
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/S3ArtifactContentProvider.java`
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/web/S3SettingsController.java`
 #### Snippet
 ```java
-public class S3ArtifactContentProvider implements ArtifactContentProvider {
+public class S3SettingsController extends BaseFormXmlController {
 
-  private final static Logger LOG = Logger.getInstance(S3ArtifactContentProvider.class.getName());
-  private final ServerPaths myServerPaths;
-
+  private final static Logger LOG = Logger.getInstance(S3SettingsController.class.getName());
+  private static final String FAILED_TO_PROCESS_REQUEST_FORMAT = "Failed to process '%s' request: ";
+  private final Map<String, S3ClientResourceFetcher> myHandlers = new HashMap<>();
 ```
 
 ### MissortedModifiers
@@ -1166,14 +1166,14 @@ public class S3ArtifactDownloadProcessor implements ArtifactDownloadProcessor {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/web/S3SettingsController.java`
+in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/S3ArtifactContentProvider.java`
 #### Snippet
 ```java
-public class S3SettingsController extends BaseFormXmlController {
+public class S3ArtifactContentProvider implements ArtifactContentProvider {
 
-  private final static Logger LOG = Logger.getInstance(S3SettingsController.class.getName());
-  private static final String FAILED_TO_PROCESS_REQUEST_FORMAT = "Failed to process '%s' request: ";
-  private final Map<String, S3ClientResourceFetcher> myHandlers = new HashMap<>();
+  private final static Logger LOG = Logger.getInstance(S3ArtifactContentProvider.class.getName());
+  private final ServerPaths myServerPaths;
+
 ```
 
 ## RuleId[id=ConstantValue]
@@ -1187,18 +1187,6 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
           if (e instanceof AmazonClientException && e.getMessage().startsWith("Failed to parse XML document with handler class")) {
             messageBuilder.append(" invalid response. Ensure that the credentials in S3 storage profile are correct.");
           } else {
-```
-
-### ConstantValue
-Condition `e instanceof HttpClientUtil.HttpErrorCodeException` is always `false`
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3PresignedUpload.java`
-#### Snippet
-```java
-                               throw new AbortRetriesException(e);
-                             }
-                             if (e instanceof HttpClientUtil.HttpErrorCodeException) {
-                               if (!isRecoverable(e)) {
-                                 return;
 ```
 
 ### ConstantValue
@@ -1223,6 +1211,18 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
     return (e instanceof HttpClientUtil.HttpErrorCodeException) && (((HttpClientUtil.HttpErrorCodeException)e).isRecoverable());
   }
 }
+```
+
+### ConstantValue
+Condition `e instanceof HttpClientUtil.HttpErrorCodeException` is always `false`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3PresignedUpload.java`
+#### Snippet
+```java
+                               throw new AbortRetriesException(e);
+                             }
+                             if (e instanceof HttpClientUtil.HttpErrorCodeException) {
+                               if (!isRecoverable(e)) {
+                                 return;
 ```
 
 ### ConstantValue
@@ -1262,18 +1262,6 @@ in `s3-artifact-storage-server/src/main/java/jetbrains/buildServer/artifacts/s3/
 ```
 
 ### ConstantValue
-Condition `th instanceof FileUploadFailedException` is always `false`
-in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3SignedUrlFileUploader.java`
-#### Snippet
-```java
-        LOGGER.info("Publishing is interrupted " + th.getMessage(), th);
-      } else {
-        if (th instanceof FileUploadFailedException) {
-          throw th;
-        }
-```
-
-### ConstantValue
 Condition `errorCodeException != null` is always `false`
 in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3SignedUrlFileUploader.java`
 #### Snippet
@@ -1295,6 +1283,18 @@ in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/pre
     if (errorCodeException != null && errorCodeException.isUploadInterrupted()) {
       return true;
     }
+```
+
+### ConstantValue
+Condition `th instanceof FileUploadFailedException` is always `false`
+in `teamcity-s3-sdk/src/main/java/jetbrains/buildServer/artifacts/s3/publish/presigned/upload/S3SignedUrlFileUploader.java`
+#### Snippet
+```java
+        LOGGER.info("Publishing is interrupted " + th.getMessage(), th);
+      } else {
+        if (th instanceof FileUploadFailedException) {
+          throw th;
+        }
 ```
 
 ### ConstantValue
