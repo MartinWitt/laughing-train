@@ -1,7 +1,7 @@
 # fhir-access-proxy 
  
 # Bad smells
-I found 44 bad smells with 6 repairable:
+I found 45 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 9 | false |
@@ -16,6 +16,7 @@ I found 44 bad smells with 6 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | MismatchedJavadocCode | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | ConstantValue | 1 | false |
@@ -58,18 +59,6 @@ public class MainApp {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
-#### Snippet
-```java
-import org.slf4j.Logger;
-
-public class ExceptionUtil {
-
-  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
 #### Snippet
@@ -79,6 +68,18 @@ import org.slf4j.LoggerFactory;
 public class FhirUtil {
 
   private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
+#### Snippet
+```java
+import org.slf4j.Logger;
+
+public class ExceptionUtil {
+
+  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -305,6 +306,19 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
   @Override
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-20-28-54.826.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -320,14 +334,14 @@ in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.j
 
 ### ReturnNull
 Return of `null`
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
+in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 #### Snippet
 ```java
-    IBaseResource resource = jsonParser.parseResource(requestContent);
-    if (!(resource instanceof Bundle)) {
-      return null;
+          logger, "Error in building URI for resource " + uriString);
     }
-    return (Bundle) resource;
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -344,11 +358,23 @@ in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
 #### Snippet
 ```java
-          logger, "Error in building URI for resource " + uriString);
+    IBaseResource resource = jsonParser.parseResource(requestContent);
+    if (!(resource instanceof Bundle)) {
+      return null;
     }
+    return (Bundle) resource;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+    }
+    // We should never get here, this is to keep the IDE happy!
     return null;
   }
 
@@ -368,11 +394,11 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
     }
-    // We should never get here, this is to keep the IDE happy!
+    // It should never reach here!
     return null;
   }
 
@@ -388,18 +414,6 @@ in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
       return null;
     }
     Map<String, String[]> queryParams = requestDetails.getParameters();
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-    }
-    // It should never reach here!
-    return null;
-  }
-
 ```
 
 ### ReturnNull
