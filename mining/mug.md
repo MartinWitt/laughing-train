@@ -94,22 +94,10 @@ in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
 #### Snippet
 ```java
 
-  /** Corresponds to all characters. */
-  static CharPredicate ANY = new CharPredicate() {
+  /** Corresponds to no characters. */
+  static CharPredicate NONE = new CharPredicate() {
     @Override public boolean test(char c) {
-      return true;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
-#### Snippet
-```java
-
-  /** Equivalent to the {@code [a-zA-Z0-9_]} character class. */
-  static CharPredicate WORD = ALPHA .orRange('0', '9').or('_');
-
-  /** Corresponds to the ASCII characters. */
+      return false;
 ```
 
 ### UnnecessaryModifier
@@ -130,10 +118,10 @@ in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
 #### Snippet
 ```java
 
+  /** Equivalent to the {@code [a-zA-Z0-9_]} character class. */
+  static CharPredicate WORD = ALPHA .orRange('0', '9').or('_');
+
   /** Corresponds to the ASCII characters. */
-  static CharPredicate ASCII = new CharPredicate() {
-    @Override public boolean test(char c) {
-      return c <= '\u007f';
 ```
 
 ### UnnecessaryModifier
@@ -142,10 +130,22 @@ in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
 #### Snippet
 ```java
 
-  /** Corresponds to no characters. */
-  static CharPredicate NONE = new CharPredicate() {
+  /** Corresponds to all characters. */
+  static CharPredicate ANY = new CharPredicate() {
     @Override public boolean test(char c) {
-      return false;
+      return true;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
+#### Snippet
+```java
+
+  /** Corresponds to the ASCII characters. */
+  static CharPredicate ASCII = new CharPredicate() {
+    @Override public boolean test(char c) {
+      return c <= '\u007f';
 ```
 
 ### UnnecessaryModifier
@@ -204,7 +204,7 @@ in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/MoreValues.java`
 #### Snippet
 ```java
    */
-  public static ListValue listValueOf(@Nullable Struct... values) {
+  public static ListValue listValueOf(@Nullable String... values) {
     return stream(values).map(MoreValues::nullableValueOf).collect(toListValue());
   }
 
@@ -216,7 +216,7 @@ in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/MoreValues.java`
 #### Snippet
 ```java
    */
-  public static ListValue listValueOf(@Nullable String... values) {
+  public static ListValue listValueOf(@Nullable Struct... values) {
     return stream(values).map(MoreValues::nullableValueOf).collect(toListValue());
   }
 
@@ -342,8 +342,8 @@ in `mug/src/main/java/com/google/mu/util/Selections.java`
 ```java
 
     @Override
-    public Optional<Set<Object>> limited() {
-      return Optional.of(emptySet());
+    public Optional<Set<T>> limited() {
+      return Optional.of(choices);
     }
 ```
 
@@ -354,8 +354,8 @@ in `mug/src/main/java/com/google/mu/util/Selections.java`
 ```java
 
     @Override
-    public Optional<Set<T>> limited() {
-      return Optional.of(choices);
+    public Optional<Set<Object>> limited() {
+      return Optional.of(emptySet());
     }
 ```
 
@@ -409,18 +409,6 @@ public interface BiComparator<K, V> {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'Cases' is still used
-in `mug/src/main/java/com/google/mu/util/stream/Cases.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class Cases {
-  /**
-   * A collector that collects the only element from the input,
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'mapBoth' is still used
 in `mug/src/main/java/com/google/mu/util/Optionals.java`
 #### Snippet
@@ -442,6 +430,18 @@ in `mug/src/main/java/com/google/mu/util/Optionals.java`
   public static <A, B, R, E extends Throwable> Optional<R> flatMapBoth(
       Optional<A> left, Optional<B> right,
       CheckedBiFunction<? super A, ? super B, ? extends Optional<R>, E> mapper)
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'Cases' is still used
+in `mug/src/main/java/com/google/mu/util/stream/Cases.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class Cases {
+  /**
+   * A collector that collects the only element from the input,
 ```
 
 ### DeprecatedIsStillUsed
@@ -641,18 +641,6 @@ in `mug/src/main/java/com/google/mu/util/Funnel.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `mug/src/main/java/com/google/mu/util/StringFormat.java`
-#### Snippet
-```java
-  }
-
-  private <R> Optional<R> parseAndCollect(String input, Collector<? super String, ?, R> collector) {
-    return parse(input).map(values -> values.stream().map(Substring.Match::toString).collect(collector));
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends E`
 in `mug/src/main/java/com/google/mu/function/CheckedIntConsumer.java`
 #### Snippet
@@ -666,38 +654,14 @@ in `mug/src/main/java/com/google/mu/function/CheckedIntConsumer.java`
 
 ### BoundedWildcard
 Can generalize to `? extends R`
-in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
+in `mug/src/main/java/com/google/mu/util/StringFormat.java`
 #### Snippet
 ```java
-   */
-  @Nullable
-  private static <R extends Comparable<R>> R low(Range<R> range, DiscreteDomain<R> domain) {
-    if (range.hasLowerBound()) {
-      return range.lowerBoundType() == BoundType.CLOSED
-```
+  }
 
-### BoundedWildcard
-Can generalize to `? extends R`
-in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
-#### Snippet
-```java
-   */
-  @Nullable
-  private static <R extends Comparable<R>> R high(Range<R> range, DiscreteDomain<R> domain) {
-    if (range.hasUpperBound()) {
-      return range.upperBoundType() == BoundType.CLOSED
-```
-
-### BoundedWildcard
-Can generalize to `? super Q`
-in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
-#### Snippet
-```java
-     * @param <Q> the logical search key type of the returned {@link Table}.
-     */
-    public final <Q> Table<Q, C> by(Function<Q, ? extends K> keyFunction) {
-      checkNotNull(keyFunction);
-      Table<K, C> underlying = this;
+  private <R> Optional<R> parseAndCollect(String input, Collector<? super String, ?, R> collector) {
+    return parse(input).map(values -> values.stream().map(Substring.Match::toString).collect(collector));
+  }
 ```
 
 ### BoundedWildcard
@@ -713,6 +677,54 @@ in `mug/src/main/java/com/google/mu/util/concurrent/Utils.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Q`
+in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
+#### Snippet
+```java
+     * @param <Q> the logical search key type of the returned {@link Table}.
+     */
+    public final <Q> Table<Q, C> by(Function<Q, ? extends K> keyFunction) {
+      checkNotNull(keyFunction);
+      Table<K, C> underlying = this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
+#### Snippet
+```java
+   */
+  @Nullable
+  private static <R extends Comparable<R>> R high(Range<R> range, DiscreteDomain<R> domain) {
+    if (range.hasUpperBound()) {
+      return range.upperBoundType() == BoundType.CLOSED
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
+#### Snippet
+```java
+   */
+  @Nullable
+  private static <R extends Comparable<R>> R low(Range<R> range, DiscreteDomain<R> domain) {
+    if (range.hasLowerBound()) {
+      return range.lowerBoundType() == BoundType.CLOSED
+```
+
+### BoundedWildcard
+Can generalize to `? extends E`
+in `mug/src/main/java/com/google/mu/function/CheckedLongConsumer.java`
+#### Snippet
+```java
+   * For example: {@code out::writeLong.andThen(logger::logLong).accept(123L)}.
+   */
+  default CheckedLongConsumer<E> andThen(CheckedLongConsumer<E> that) {
+    requireNonNull(that);
+    return input -> {
+```
+
+### BoundedWildcard
 Can generalize to `? extends E`
 in `mug/src/main/java/com/google/mu/util/Maybe.java`
 #### Snippet
@@ -722,6 +734,18 @@ in `mug/src/main/java/com/google/mu/util/Maybe.java`
       CheckedFunction<? super F, ? extends T, E> function) {
     requireNonNull(function);
     return from -> maybe(()->function.apply(from));
+```
+
+### BoundedWildcard
+Can generalize to `? extends E`
+in `mug/src/main/java/com/google/mu/util/Maybe.java`
+#### Snippet
+```java
+
+  private static <E extends Throwable> Optional<E> unwrapFutureException(
+      Class<E> causeType, Throwable exception) {
+    for (Throwable e = exception; ; e = e.getCause()) {
+      if (causeType.isInstance(e)) {
 ```
 
 ### BoundedWildcard
@@ -741,11 +765,11 @@ Can generalize to `? extends E`
 in `mug/src/main/java/com/google/mu/util/Maybe.java`
 #### Snippet
 ```java
-
-  private static <E extends Throwable> Optional<E> unwrapFutureException(
-      Class<E> causeType, Throwable exception) {
-    for (Throwable e = exception; ; e = e.getCause()) {
-      if (causeType.isInstance(e)) {
+   */
+  public static <T, E extends Throwable> Maybe<T, E> maybe(
+      CheckedSupplier<? extends T, ? extends E> supplier, Class<E> exceptionType) {
+    requireNonNull(supplier);
+    requireNonNull(exceptionType);
 ```
 
 ### BoundedWildcard
@@ -761,18 +785,6 @@ in `mug/src/main/java/com/google/mu/util/Maybe.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends E`
-in `mug/src/main/java/com/google/mu/util/Maybe.java`
-#### Snippet
-```java
-   */
-  public static <T, E extends Throwable> Maybe<T, E> maybe(
-      CheckedSupplier<? extends T, ? extends E> supplier, Class<E> exceptionType) {
-    requireNonNull(supplier);
-    requireNonNull(exceptionType);
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `mug/src/main/java/com/google/mu/util/stream/MoreStreams.java`
 #### Snippet
@@ -785,87 +797,15 @@ in `mug/src/main/java/com/google/mu/util/stream/MoreStreams.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends E`
-in `mug/src/main/java/com/google/mu/function/CheckedLongConsumer.java`
-#### Snippet
-```java
-   * For example: {@code out::writeLong.andThen(logger::logLong).accept(123L)}.
-   */
-  default CheckedLongConsumer<E> andThen(CheckedLongConsumer<E> that) {
-    requireNonNull(that);
-    return input -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FixedSizeCollector`
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
-#### Snippet
-```java
-  }
-
-  private static <T, R> Collector<T, ?, R> switching(List<FixedSizeCollector<T, ?, R>> cases) {
-    if (cases.size() == 1) {
-      return cases.get(0);
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 #### Snippet
 ```java
-  public static <E, A1, A2, T, F> Collector<E, ?, Both<T, F>> partitioningBy(
-      Predicate<? super E> predicate,
-      Collector<E, A1, T> downstreamIfTrue,
-      Collector<E, A2, F> downstreamIfFalse) {
-    requireNonNull(predicate);
-```
-
-### BoundedWildcard
-Can generalize to `? extends F`
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
-#### Snippet
-```java
-      Predicate<? super E> predicate,
-      Collector<E, A1, T> downstreamIfTrue,
-      Collector<E, A2, F> downstreamIfFalse) {
-    requireNonNull(predicate);
-    Supplier<A1> factory1 = downstreamIfTrue.supplier();
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
-#### Snippet
-```java
+   * @throws NullPointerException if {@code optional} is null.
    */
-  public static <K, V, R> Collector<Map<K, V>, ?, R> flatteningMaps(
-      BiCollector<K, V, R> downstream) {
-    return flatMapping(BiStream::from, downstream);
+  public static <T> BiOptional<T, T> from(Optional<T> optional) {
+    return optional.isPresent() ? of(optional.get(), optional.get()) : empty();
   }
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
-#### Snippet
-```java
-   */
-  public static <K, V, R> Collector<Map<K, V>, ?, R> flatteningMaps(
-      BiCollector<K, V, R> downstream) {
-    return flatMapping(BiStream::from, downstream);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
-#### Snippet
-```java
-   */
-  public static <T, R> Collector<T, ?, R> allMax(
-      Comparator<? super T> comparator, Collector<? super T, ?, R> downstream) {
-    requireNonNull(comparator);
-    requireNonNull(downstream);
 ```
 
 ### BoundedWildcard
@@ -905,18 +845,6 @@ in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `mug/src/main/java/com/google/mu/util/BiOptional.java`
-#### Snippet
-```java
-   * @throws NullPointerException if {@code optional} is null.
-   */
-  public static <T> BiOptional<T, T> from(Optional<T> optional) {
-    return optional.isPresent() ? of(optional.get(), optional.get()) : empty();
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? super Occurrence`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
@@ -941,15 +869,75 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
+Can generalize to `? extends FixedSizeCollector`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
 #### Snippet
 ```java
-     * <p>{@code clock} is used to measure time.
-     */
-    public final <T extends Delay<?>> List<T> timed(List<T> list, Clock clock) {
-      Instant until = clock.instant().plus(duration());
-      requireNonNull(list);
+  }
+
+  private static <T, R> Collector<T, ?, R> switching(List<FixedSizeCollector<T, ?, R>> cases) {
+    if (cases.size() == 1) {
+      return cases.get(0);
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+#### Snippet
+```java
+   */
+  public static <K, V, R> Collector<Map<K, V>, ?, R> flatteningMaps(
+      BiCollector<K, V, R> downstream) {
+    return flatMapping(BiStream::from, downstream);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+#### Snippet
+```java
+   */
+  public static <K, V, R> Collector<Map<K, V>, ?, R> flatteningMaps(
+      BiCollector<K, V, R> downstream) {
+    return flatMapping(BiStream::from, downstream);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+#### Snippet
+```java
+   */
+  public static <T, R> Collector<T, ?, R> allMax(
+      Comparator<? super T> comparator, Collector<? super T, ?, R> downstream) {
+    requireNonNull(comparator);
+    requireNonNull(downstream);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+#### Snippet
+```java
+  public static <E, A1, A2, T, F> Collector<E, ?, Both<T, F>> partitioningBy(
+      Predicate<? super E> predicate,
+      Collector<E, A1, T> downstreamIfTrue,
+      Collector<E, A2, F> downstreamIfFalse) {
+    requireNonNull(predicate);
+```
+
+### BoundedWildcard
+Can generalize to `? extends F`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+#### Snippet
+```java
+      Predicate<? super E> predicate,
+      Collector<E, A1, T> downstreamIfTrue,
+      Collector<E, A2, F> downstreamIfFalse) {
+    requireNonNull(predicate);
+    Supplier<A1> factory1 = downstreamIfTrue.supplier();
 ```
 
 ### BoundedWildcard
@@ -962,6 +950,18 @@ in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
       Predicate<T> condition, List<? extends Delay<? super T>> delays) {
     return new ForReturnValue<>(this, condition, delays);
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
+#### Snippet
+```java
+     * <p>{@code clock} is used to measure time.
+     */
+    public final <T extends Delay<?>> List<T> timed(List<T> list, Clock clock) {
+      Instant until = clock.instant().plus(duration());
+      requireNonNull(list);
 ```
 
 ### BoundedWildcard
@@ -989,6 +989,30 @@ in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super V1`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+   */
+  public static <K, V1, V> BiCollector<K, V1, ImmutableMap<K, V>> toImmutableMap(
+      Collector<V1, ?, V> valueCollector) {
+    return BiCollectors.collectingAndThen(
+        BiCollectors.groupingBy(identity(), valueCollector),
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+   */
+  public static <K, V1, V> BiCollector<K, V1, ImmutableMap<K, V>> toImmutableMap(
+      Collector<V1, ?, V> valueCollector) {
+    return BiCollectors.collectingAndThen(
+        BiCollectors.groupingBy(identity(), valueCollector),
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
 #### Snippet
@@ -1018,150 +1042,6 @@ in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
 #### Snippet
 ```java
       @Override
-      public <E> Collector<E, ?, ImmutableMultiset<K>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableMultiset.toImmutableMultiset(
-            toKey, input -> countFunction.applyAsInt(toValue.apply(input)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableMultiset<K>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableMultiset.toImmutableMultiset(
-            toKey, input -> countFunction.applyAsInt(toValue.apply(input)));
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableMultiset<K>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableMultiset.toImmutableMultiset(
-            toKey, input -> countFunction.applyAsInt(toValue.apply(input)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableMultiset<K>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableMultiset.toImmutableMultiset(
-            toKey, input -> countFunction.applyAsInt(toValue.apply(input)));
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue, valueMerger);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue, valueMerger);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue, valueMerger);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue, valueMerger);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-      @Override
       public <E> Collector<E, ?, ImmutableMap<K, V>> collectorOf(
           Function<E, K> toKey, Function<E, V> toValue) {
         return ImmutableMap.toImmutableMap(toKey, toValue, valueMerger);
@@ -1202,6 +1082,54 @@ in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
           Function<E, K> toKey, Function<E, V> toValue) {
         return ImmutableMap.toImmutableMap(toKey, toValue, valueMerger);
       }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableMultiset<K>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableMultiset.toImmutableMultiset(
+            toKey, input -> countFunction.applyAsInt(toValue.apply(input)));
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableMultiset<K>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableMultiset.toImmutableMultiset(
+            toKey, input -> countFunction.applyAsInt(toValue.apply(input)));
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableMultiset<K>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableMultiset.toImmutableMultiset(
+            toKey, input -> countFunction.applyAsInt(toValue.apply(input)));
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableMultiset<K>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableMultiset.toImmutableMultiset(
+            toKey, input -> countFunction.applyAsInt(toValue.apply(input)));
 ```
 
 ### BoundedWildcard
@@ -1221,6 +1149,54 @@ Can generalize to `? super E`
 in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
 #### Snippet
 ```java
+      @Override
+      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
     return new BiCollector<K, V, M>() {
       @Override
       public <E> Collector<E, ?, M> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
@@ -1265,15 +1241,39 @@ in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V1`
+Can generalize to `? super E`
 in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
 #### Snippet
 ```java
-   */
-  public static <K, V1, V> BiCollector<K, V1, ImmutableMap<K, V>> toImmutableMap(
-      Collector<V1, ?, V> valueCollector) {
-    return BiCollectors.collectingAndThen(
-        BiCollectors.groupingBy(identity(), valueCollector),
+      @Override
+      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue, valueMerger);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue, valueMerger);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue, valueMerger);
+      }
 ```
 
 ### BoundedWildcard
@@ -1281,11 +1281,11 @@ Can generalize to `? extends V`
 in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
 #### Snippet
 ```java
-   */
-  public static <K, V1, V> BiCollector<K, V1, ImmutableMap<K, V>> toImmutableMap(
-      Collector<V1, ?, V> valueCollector) {
-    return BiCollectors.collectingAndThen(
-        BiCollectors.groupingBy(identity(), valueCollector),
+      @Override
+      public <E> Collector<E, ?, ImmutableSortedMap<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return ImmutableSortedMap.toImmutableSortedMap(comparator, toKey, toValue, valueMerger);
+      }
 ```
 
 ### BoundedWildcard
@@ -1294,9 +1294,9 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
 ```java
       @Override
-      public <E> Collector<E, ?, Map<K, V>> collectorOf(
+      public <E> Collector<E, ?, DoubleSummaryStatistics> collectorOf(
           Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.toMap(toKey, toValue, valueMerger);
+        return Collectors.summarizingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
       }
 ```
 
@@ -1306,9 +1306,9 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
 ```java
       @Override
-      public <E> Collector<E, ?, Map<K, V>> collectorOf(
+      public <E> Collector<E, ?, DoubleSummaryStatistics> collectorOf(
           Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.toMap(toKey, toValue, valueMerger);
+        return Collectors.summarizingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
       }
 ```
 
@@ -1318,9 +1318,9 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
 ```java
       @Override
-      public <E> Collector<E, ?, Map<K, V>> collectorOf(
+      public <E> Collector<E, ?, DoubleSummaryStatistics> collectorOf(
           Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.toMap(toKey, toValue, valueMerger);
+        return Collectors.summarizingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
       }
 ```
 
@@ -1330,9 +1330,9 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
 ```java
       @Override
-      public <E> Collector<E, ?, Map<K, V>> collectorOf(
+      public <E> Collector<E, ?, DoubleSummaryStatistics> collectorOf(
           Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.toMap(toKey, toValue, valueMerger);
+        return Collectors.summarizingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
       }
 ```
 
@@ -1341,11 +1341,11 @@ Can generalize to `? super E`
 in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
 ```java
-    requireNonNull(downstream);
-    return new BiCollector<K, V, R>() {
-      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.mapping(
-            e -> mapper.apply(toKey.apply(e), toValue.apply(e)),
+      @Override
+      public <E> Collector<E, ?, IntSummaryStatistics> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summarizingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
+      }
 ```
 
 ### BoundedWildcard
@@ -1353,11 +1353,11 @@ Can generalize to `? extends K`
 in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
 ```java
-    requireNonNull(downstream);
-    return new BiCollector<K, V, R>() {
-      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.mapping(
-            e -> mapper.apply(toKey.apply(e), toValue.apply(e)),
+      @Override
+      public <E> Collector<E, ?, IntSummaryStatistics> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summarizingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
+      }
 ```
 
 ### BoundedWildcard
@@ -1365,11 +1365,11 @@ Can generalize to `? super E`
 in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
 ```java
-    requireNonNull(downstream);
-    return new BiCollector<K, V, R>() {
-      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.mapping(
-            e -> mapper.apply(toKey.apply(e), toValue.apply(e)),
+      @Override
+      public <E> Collector<E, ?, IntSummaryStatistics> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summarizingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
+      }
 ```
 
 ### BoundedWildcard
@@ -1377,11 +1377,59 @@ Can generalize to `? extends V`
 in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
 ```java
-    requireNonNull(downstream);
-    return new BiCollector<K, V, R>() {
-      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.mapping(
-            e -> mapper.apply(toKey.apply(e), toValue.apply(e)),
+      @Override
+      public <E> Collector<E, ?, IntSummaryStatistics> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summarizingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Long> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Long> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Long> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Long> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
 ```
 
 ### BoundedWildcard
@@ -1429,102 +1477,6 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
     return new BiCollector<K, V, R>() {
       @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
         return Java9Collectors.flatMapping(e -> flattener.apply(toKey.apply(e), toValue.apply(e)), downstream);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-    requireNonNull(downstream);
-    return new BiCollector<K, V, R>() {
-      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.mapping(e -> mapper.apply(toKey.apply(e), toValue.apply(e)), downstream);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-    requireNonNull(downstream);
-    return new BiCollector<K, V, R>() {
-      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.mapping(e -> mapper.apply(toKey.apply(e), toValue.apply(e)), downstream);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-    requireNonNull(downstream);
-    return new BiCollector<K, V, R>() {
-      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.mapping(e -> mapper.apply(toKey.apply(e), toValue.apply(e)), downstream);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-    requireNonNull(downstream);
-    return new BiCollector<K, V, R>() {
-      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.mapping(e -> mapper.apply(toKey.apply(e), toValue.apply(e)), downstream);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, LongSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, LongSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, LongSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, LongSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
       }
 ```
 
@@ -1584,222 +1536,6 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
       @Override
       public <E> Collector<E, ?, Double> collectorOf(
           Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.averagingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Double> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.averagingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Double> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.averagingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Double> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.averagingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Long> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Long> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Long> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Long> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super V1`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-   * <p>Entries are collected in encounter order.
-   */
-  public static <K, V1, V> BiCollector<K, V1, Map<K, V>> toMap(Collector<V1, ?, V> valueCollector) {
-    requireNonNull(valueCollector);
-    return new BiCollector<K, V1, Map<K, V>>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-   * <p>Entries are collected in encounter order.
-   */
-  public static <K, V1, V> BiCollector<K, V1, Map<K, V>> toMap(Collector<V1, ?, V> valueCollector) {
-    requireNonNull(valueCollector);
-    return new BiCollector<K, V1, Map<K, V>>() {
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-    return new BiCollector<K, V, M>() {
-      @Override public <E> Collector<E, ?, M> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return MoreCollectors.toMap(toKey, toValue, mapSupplier);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-    return new BiCollector<K, V, M>() {
-      @Override public <E> Collector<E, ?, M> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return MoreCollectors.toMap(toKey, toValue, mapSupplier);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-    return new BiCollector<K, V, M>() {
-      @Override public <E> Collector<E, ?, M> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return MoreCollectors.toMap(toKey, toValue, mapSupplier);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-    return new BiCollector<K, V, M>() {
-      @Override public <E> Collector<E, ?, M> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return MoreCollectors.toMap(toKey, toValue, mapSupplier);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiStream<G, R>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return BiStream.groupingBy(
-            e -> classifier.apply(toKey.apply(e), toValue.apply(e)),
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiStream<G, R>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return BiStream.groupingBy(
-            e -> classifier.apply(toKey.apply(e), toValue.apply(e)),
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiStream<G, R>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return BiStream.groupingBy(
-            e -> classifier.apply(toKey.apply(e), toValue.apply(e)),
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiStream<G, R>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return BiStream.groupingBy(
-            e -> classifier.apply(toKey.apply(e), toValue.apply(e)),
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Double> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
         return Collectors.summingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
       }
 ```
@@ -1837,342 +1573,6 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
       public <E> Collector<E, ?, Double> collectorOf(
           Function<E, K> toKey, Function<E, V> toValue) {
         return Collectors.summingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.collectingAndThen(
-            Collectors.mapping(
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.collectingAndThen(
-            Collectors.mapping(
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.collectingAndThen(
-            Collectors.mapping(
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.collectingAndThen(
-            Collectors.mapping(
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Double> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.averagingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Double> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.averagingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Double> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.averagingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Double> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.averagingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, DoubleSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, DoubleSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, DoubleSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, DoubleSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Integer> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Integer> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Integer> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, Integer> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.collectingAndThen(
-            Collectors.maxBy((e1, e2) -> comparator.compare(toKey.apply(e1), toValue.apply(e1), toKey.apply(e2), toValue.apply(e2))),
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.collectingAndThen(
-            Collectors.maxBy((e1, e2) -> comparator.compare(toKey.apply(e1), toValue.apply(e1), toKey.apply(e2), toValue.apply(e2))),
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.collectingAndThen(
-            Collectors.maxBy((e1, e2) -> comparator.compare(toKey.apply(e1), toValue.apply(e1), toKey.apply(e2), toValue.apply(e2))),
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.collectingAndThen(
-            Collectors.maxBy((e1, e2) -> comparator.compare(toKey.apply(e1), toValue.apply(e1), toKey.apply(e2), toValue.apply(e2))),
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, IntSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, IntSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, IntSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, IntSummaryStatistics> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return Collectors.summarizingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiStream<G, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return BiStream.groupingBy(toKey.andThen(classifier), toValue, groupReducer);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiStream<G, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return BiStream.groupingBy(toKey.andThen(classifier), toValue, groupReducer);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiStream<G, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return BiStream.groupingBy(toKey.andThen(classifier), toValue, groupReducer);
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-      @Override
-      public <E> Collector<E, ?, BiStream<G, V>> collectorOf(
-          Function<E, K> toKey, Function<E, V> toValue) {
-        return BiStream.groupingBy(toKey.andThen(classifier), toValue, groupReducer);
       }
 ```
 
@@ -2225,6 +1625,606 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super V1`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+   * <p>Entries are collected in encounter order.
+   */
+  public static <K, V1, V> BiCollector<K, V1, Map<K, V>> toMap(Collector<V1, ?, V> valueCollector) {
+    requireNonNull(valueCollector);
+    return new BiCollector<K, V1, Map<K, V>>() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+   * <p>Entries are collected in encounter order.
+   */
+  public static <K, V1, V> BiCollector<K, V1, Map<K, V>> toMap(Collector<V1, ?, V> valueCollector) {
+    requireNonNull(valueCollector);
+    return new BiCollector<K, V1, Map<K, V>>() {
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiStream<G, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return BiStream.groupingBy(toKey.andThen(classifier), toValue, groupReducer);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiStream<G, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return BiStream.groupingBy(toKey.andThen(classifier), toValue, groupReducer);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiStream<G, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return BiStream.groupingBy(toKey.andThen(classifier), toValue, groupReducer);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiStream<G, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return BiStream.groupingBy(toKey.andThen(classifier), toValue, groupReducer);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Double> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.averagingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Double> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.averagingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Double> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.averagingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Double> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.averagingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiStream<G, R>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return BiStream.groupingBy(
+            e -> classifier.apply(toKey.apply(e), toValue.apply(e)),
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiStream<G, R>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return BiStream.groupingBy(
+            e -> classifier.apply(toKey.apply(e), toValue.apply(e)),
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiStream<G, R>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return BiStream.groupingBy(
+            e -> classifier.apply(toKey.apply(e), toValue.apply(e)),
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiStream<G, R>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return BiStream.groupingBy(
+            e -> classifier.apply(toKey.apply(e), toValue.apply(e)),
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.collectingAndThen(
+            Collectors.maxBy((e1, e2) -> comparator.compare(toKey.apply(e1), toValue.apply(e1), toKey.apply(e2), toValue.apply(e2))),
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.collectingAndThen(
+            Collectors.maxBy((e1, e2) -> comparator.compare(toKey.apply(e1), toValue.apply(e1), toKey.apply(e2), toValue.apply(e2))),
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.collectingAndThen(
+            Collectors.maxBy((e1, e2) -> comparator.compare(toKey.apply(e1), toValue.apply(e1), toKey.apply(e2), toValue.apply(e2))),
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.collectingAndThen(
+            Collectors.maxBy((e1, e2) -> comparator.compare(toKey.apply(e1), toValue.apply(e1), toKey.apply(e2), toValue.apply(e2))),
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, LongSummaryStatistics> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summarizingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, LongSummaryStatistics> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summarizingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, LongSummaryStatistics> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summarizingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, LongSummaryStatistics> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summarizingLong(e -> mapper.applyAsLong(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Integer> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Integer> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Integer> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Integer> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.summingInt(e -> mapper.applyAsInt(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    requireNonNull(downstream);
+    return new BiCollector<K, V, R>() {
+      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.mapping(
+            e -> mapper.apply(toKey.apply(e), toValue.apply(e)),
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    requireNonNull(downstream);
+    return new BiCollector<K, V, R>() {
+      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.mapping(
+            e -> mapper.apply(toKey.apply(e), toValue.apply(e)),
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    requireNonNull(downstream);
+    return new BiCollector<K, V, R>() {
+      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.mapping(
+            e -> mapper.apply(toKey.apply(e), toValue.apply(e)),
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    requireNonNull(downstream);
+    return new BiCollector<K, V, R>() {
+      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.mapping(
+            e -> mapper.apply(toKey.apply(e), toValue.apply(e)),
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Double> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.averagingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Double> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.averagingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Double> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.averagingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Double> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.averagingDouble(e -> mapper.applyAsDouble(toKey.apply(e), toValue.apply(e)));
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.collectingAndThen(
+            Collectors.mapping(
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.collectingAndThen(
+            Collectors.mapping(
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.collectingAndThen(
+            Collectors.mapping(
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, BiOptional<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.collectingAndThen(
+            Collectors.mapping(
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    return new BiCollector<K, V, M>() {
+      @Override public <E> Collector<E, ?, M> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return MoreCollectors.toMap(toKey, toValue, mapSupplier);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    return new BiCollector<K, V, M>() {
+      @Override public <E> Collector<E, ?, M> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return MoreCollectors.toMap(toKey, toValue, mapSupplier);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    return new BiCollector<K, V, M>() {
+      @Override public <E> Collector<E, ?, M> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return MoreCollectors.toMap(toKey, toValue, mapSupplier);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    return new BiCollector<K, V, M>() {
+      @Override public <E> Collector<E, ?, M> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return MoreCollectors.toMap(toKey, toValue, mapSupplier);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    requireNonNull(downstream);
+    return new BiCollector<K, V, R>() {
+      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.mapping(e -> mapper.apply(toKey.apply(e), toValue.apply(e)), downstream);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    requireNonNull(downstream);
+    return new BiCollector<K, V, R>() {
+      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.mapping(e -> mapper.apply(toKey.apply(e), toValue.apply(e)), downstream);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    requireNonNull(downstream);
+    return new BiCollector<K, V, R>() {
+      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.mapping(e -> mapper.apply(toKey.apply(e), toValue.apply(e)), downstream);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+    requireNonNull(downstream);
+    return new BiCollector<K, V, R>() {
+      @Override public <E> Collector<E, ?, R> collectorOf(Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.mapping(e -> mapper.apply(toKey.apply(e), toValue.apply(e)), downstream);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Map<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.toMap(toKey, toValue, valueMerger);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Map<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.toMap(toKey, toValue, valueMerger);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Map<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.toMap(toKey, toValue, valueMerger);
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+      @Override
+      public <E> Collector<E, ?, Map<K, V>> collectorOf(
+          Function<E, K> toKey, Function<E, V> toValue) {
+        return Collectors.toMap(toKey, toValue, valueMerger);
+      }
+```
+
+### BoundedWildcard
 Can generalize to `? extends A`
 in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
@@ -2237,26 +2237,26 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends R`
+in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
+#### Snippet
+```java
+
+  private <A, R> BiStream<K, R> groupConsecutiveByKeys(
+      Collector<? super V, A, R> groupCollector) {
+    return groupConsecutiveByKeys(groupCollector.supplier(), groupCollector.accumulator())
+        .mapValues(groupCollector.finisher());
+```
+
+### BoundedWildcard
 Can generalize to `? extends V`
 in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
 ```java
    */
   public static <K, V> BiStream<K, V> biStream(
-      Function<? super V, ? extends K> toKey, Stream<V> values) {
-    return new GenericEntryStream<>(values, toKey, identity());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
-#### Snippet
-```java
-   */
-  public static <K, V> BiStream<K, V> biStream(
-      Collection<K> keys, Function<? super K, ? extends V> toValue) {
-    return new GenericEntryStream<>(keys.stream(), identity(), toValue);
+      Function<? super V, ? extends K> toKey, Collection<V> values) {
+    return new GenericEntryStream<>(values.stream(), toKey, identity());
   }
 ```
 
@@ -2273,39 +2273,15 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
+Can generalize to `? super T`
 in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
 ```java
-   */
-  public static <K, V> BiStream<K, V> biStream(
-      Function<? super V, ? extends K> toKey, Collection<V> values) {
-    return new GenericEntryStream<>(values.stream(), toKey, identity());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
-#### Snippet
-```java
-
-  private <A, R> BiStream<K, R> groupConsecutiveByKeys(
-      Collector<? super V, A, R> groupCollector) {
-    return groupConsecutiveByKeys(groupCollector.supplier(), groupCollector.accumulator())
-        .mapValues(groupCollector.finisher());
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
-#### Snippet
-```java
-   * @since 3.0
-   */
-  public static <L, R> Collector<L, ?, BiStream<L, R>> crossJoining(Stream<R> right) {
-    requireNonNull(right);
-    return collectingAndThen(
+  public static <T, K, V> Collector<T, ?, BiStream<K, V>> groupingByEach(
+      Function<? super T, ? extends Stream<? extends K>> keysFunction,
+      Collector<T, ?, V> groupCollector) {
+    requireNonNull(keysFunction);
+    return Java9Collectors.flatMapping(
 ```
 
 ### BoundedWildcard
@@ -2321,15 +2297,15 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
+Can generalize to `? extends K`
 in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
 ```java
-  public static <T, K, V> Collector<T, ?, BiStream<K, V>> groupingByEach(
-      Function<? super T, ? extends Stream<? extends K>> keysFunction,
-      Collector<T, ?, V> groupCollector) {
-    requireNonNull(keysFunction);
-    return Java9Collectors.flatMapping(
+   */
+  public static <K, V> BiStream<K, V> biStream(
+      Collection<K> keys, Function<? super K, ? extends V> toValue) {
+    return new GenericEntryStream<>(keys.stream(), identity(), toValue);
+  }
 ```
 
 ### BoundedWildcard
@@ -2357,6 +2333,18 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends R`
+in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
+#### Snippet
+```java
+   * @since 3.0
+   */
+  public static <L, R> Collector<L, ?, BiStream<L, R>> crossJoining(Stream<R> right) {
+    requireNonNull(right);
+    return collectingAndThen(
+```
+
+### BoundedWildcard
 Can generalize to `? extends K`
 in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
@@ -2377,6 +2365,18 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
   /** Returns a {@code BiStream} of the entries in {@code map}. */
   public static <K, V> BiStream<K, V> from(Map<K, V> map) {
     return from(map.entrySet());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
+#### Snippet
+```java
+   */
+  public static <K, V> BiStream<K, V> biStream(
+      Function<? super V, ? extends K> toKey, Stream<V> values) {
+    return new GenericEntryStream<>(values, toKey, identity());
   }
 ```
 
@@ -2481,13 +2481,13 @@ in `mug/src/main/java/com/google/mu/util/Optionals.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'optional'
+`Optional` used as type for parameter 'optional'
 in `mug/src/main/java/com/google/mu/util/Optionals.java`
 #### Snippet
 ```java
    */
-  public static <E extends Throwable> Premise ifPresent(
-      OptionalLong optional, CheckedLongConsumer<E> consumer) throws E {
+  public static <T, E extends Throwable> Premise ifPresent(
+      Optional<T> optional, CheckedConsumer<? super T, E> consumer) throws E {
     requireNonNull(optional);
     requireNonNull(consumer);
 ```
@@ -2514,54 +2514,6 @@ in `mug/src/main/java/com/google/mu/util/Optionals.java`
       Optional<A> left, Optional<B> right,
       CheckedBiFunction<? super A, ? super B, ? extends Optional<R>, E> mapper)
       throws E {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'left'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <A, B, E extends Throwable> Premise ifPresent(
-      Optional<A> left, Optional<B> right, CheckedBiConsumer<? super A, ? super B, E> consumer)
-      throws E {
-    requireNonNull(left);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`**used as type for parameter 'right'**
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <A, B, E extends Throwable> Premise ifPresent(
-      Optional<A> left, Optional<B> right, CheckedBiConsumer<? super A, ? super B, E> consumer)
-      throws E {
-    requireNonNull(left);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'a'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   * @since 5.7
-   */
-  public static <A, B> BiOptional<A, B> both(Optional<? extends A> a, Optional<? extends B> b) {
-    requireNonNull(a);
-    requireNonNull(b);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'b'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   * @since 5.7
-   */
-  public static <A, B> BiOptional<A, B> both(Optional<? extends A> a, Optional<? extends B> b) {
-    requireNonNull(a);
-    requireNonNull(b);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2589,18 +2541,6 @@ in `mug/src/main/java/com/google/mu/util/Optionals.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <T, E extends Throwable> Premise ifPresent(
-      Optional<T> optional, CheckedConsumer<? super T, E> consumer) throws E {
-    requireNonNull(optional);
-    requireNonNull(consumer);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for parameter 'optional'
 in `mug/src/main/java/com/google/mu/util/Optionals.java`
 #### Snippet
@@ -2613,26 +2553,74 @@ in `mug/src/main/java/com/google/mu/util/Optionals.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'a'
-in `mug/src/main/java/com/google/mu/util/BiOptional.java`
+`OptionalLong` used as type for parameter 'optional'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
 #### Snippet
 ```java
-  /** @deprecated Use {@link Optionals#both} instead. */
-  @Deprecated
-  public static <A, B> BiOptional<A, B> both(Optional<A> a, Optional<B> b) {
-    return Optionals.both(a, b);
-  }
+   */
+  public static <E extends Throwable> Premise ifPresent(
+      OptionalLong optional, CheckedLongConsumer<E> consumer) throws E {
+    requireNonNull(optional);
+    requireNonNull(consumer);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`**used as type for parameter 'b'**
+`Optional` used as type for parameter 'a'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   * @since 5.7
+   */
+  public static <A, B> BiOptional<A, B> both(Optional<? extends A> a, Optional<? extends B> b) {
+    requireNonNull(a);
+    requireNonNull(b);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'b'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   * @since 5.7
+   */
+  public static <A, B> BiOptional<A, B> both(Optional<? extends A> a, Optional<? extends B> b) {
+    requireNonNull(a);
+    requireNonNull(b);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'left'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <A, B, E extends Throwable> Premise ifPresent(
+      Optional<A> left, Optional<B> right, CheckedBiConsumer<? super A, ? super B, E> consumer)
+      throws E {
+    requireNonNull(left);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`**used as type for parameter 'right'**
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <A, B, E extends Throwable> Premise ifPresent(
+      Optional<A> left, Optional<B> right, CheckedBiConsumer<? super A, ? super B, E> consumer)
+      throws E {
+    requireNonNull(left);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
 in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 #### Snippet
 ```java
-  /** @deprecated Use {@link Optionals#both} instead. */
-  @Deprecated
-  public static <A, B> BiOptional<A, B> both(Optional<A> a, Optional<B> b) {
-    return Optionals.both(a, b);
+   * @throws NullPointerException if {@code optional} is null.
+   */
+  public static <T> BiOptional<T, T> from(Optional<T> optional) {
+    return optional.isPresent() ? of(optional.get(), optional.get()) : empty();
   }
 ```
 
@@ -2661,14 +2649,26 @@ in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
+`Optional` used as type for parameter 'a'
 in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 #### Snippet
 ```java
-   * @throws NullPointerException if {@code optional} is null.
-   */
-  public static <T> BiOptional<T, T> from(Optional<T> optional) {
-    return optional.isPresent() ? of(optional.get(), optional.get()) : empty();
+  /** @deprecated Use {@link Optionals#both} instead. */
+  @Deprecated
+  public static <A, B> BiOptional<A, B> both(Optional<A> a, Optional<B> b) {
+    return Optionals.both(a, b);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`**used as type for parameter 'b'**
+in `mug/src/main/java/com/google/mu/util/BiOptional.java`
+#### Snippet
+```java
+  /** @deprecated Use {@link Optionals#both} instead. */
+  @Deprecated
+  public static <A, B> BiOptional<A, B> both(Optional<A> a, Optional<B> b) {
+    return Optionals.both(a, b);
   }
 ```
 
@@ -2714,10 +2714,10 @@ Unnecessary unboxing
 in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
 #### Snippet
 ```java
-    return inRangeInclusive(0, array.length - 1)
+    return inRangeInclusive(0, list.size() - 1)
         .by(target -> {
-          int intValue = target.intValue();
-          return (l, i, h) -> Integer.compare(intValue, array[i]);
+          double v = target.doubleValue();
+          return (l, i, h) -> DoubleMath.fuzzyCompare(v, list.get(i), tolerance);
         });
 ```
 
@@ -2726,10 +2726,10 @@ Unnecessary unboxing
 in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
 #### Snippet
 ```java
-    return inRangeInclusive(0, list.size() - 1)
+    return inRangeInclusive(0, array.length - 1)
         .by(target -> {
-          double v = target.doubleValue();
-          return (l, i, h) -> DoubleMath.fuzzyCompare(v, list.get(i), tolerance);
+          int intValue = target.intValue();
+          return (l, i, h) -> Integer.compare(intValue, array[i]);
         });
 ```
 
@@ -2912,6 +2912,18 @@ Field initialization to `0` is redundant
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
+        } else {
+          return MoreStreams.whileNotNull(new Supplier<Match>() {
+            private int next = 0;
+            private int g = 1;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
       return MoreStreams.whileNotNull(
           new Supplier<Match>() {
             int next = 0;
@@ -2932,14 +2944,14 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `mug/src/main/java/com/google/mu/util/Substring.java`
+Field initialization to `false` is redundant
+in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
 ```java
-        } else {
-          return MoreStreams.whileNotNull(new Supplier<Match>() {
-            private int next = 0;
-            private int g = 1;
+      private K previousKey;
+      private A currentRun = null;
+      private boolean hasRunResult = false;
+      private R runResult;
 
 ```
 
@@ -2955,18 +2967,6 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
       private R runResult;
 ```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
-#### Snippet
-```java
-      private K previousKey;
-      private A currentRun = null;
-      private boolean hasRunResult = false;
-      private R runResult;
-
-```
-
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `string`
@@ -2978,18 +2978,6 @@ in `mug/src/main/java/com/google/mu/util/Selection.java`
       string = string.trim();
       requireNonNull(elementParser);
       if (string.equals("*")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fromIndex`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-              return match;
-            }
-            fromIndex = match.backtrackFrom(fromIndex);
-          }
-          return null;
 ```
 
 ### AssignmentToMethodParameter
@@ -3028,6 +3016,18 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
           return null;
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `fromIndex`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+              return match;
+            }
+            fromIndex = match.backtrackFrom(fromIndex);
+          }
+          return null;
+```
+
 ## RuleId[id=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
@@ -3056,7 +3056,7 @@ in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-06-29-40.828.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-23-23-18.036.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3168,11 +3168,11 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/stream/MoreStreams.java`
 #### Snippet
 ```java
-      Spliterator<F> from, Function<? super Spliterator<F>, ? extends T> wrapper) {
-    Spliterator<F> it = from.trySplit();
-    return it == null ? null : wrapper.apply(it);
-  }
-
+          }
+          @Override public Spliterator<T> trySplit() {
+            return null;
+          }
+        },
 ```
 
 ### ReturnNull
@@ -3180,11 +3180,11 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/stream/MoreStreams.java`
 #### Snippet
 ```java
-          }
-          @Override public Spliterator<T> trySplit() {
-            return null;
-          }
-        },
+      Spliterator<F> from, Function<? super Spliterator<F>, ? extends T> wrapper) {
+    Spliterator<F> it = from.trySplit();
+    return it == null ? null : wrapper.apply(it);
+  }
+
 ```
 
 ### ReturnNull
@@ -3196,6 +3196,90 @@ in `mug/src/main/java/com/google/mu/util/graph/ShortestPath.java`
       Stream<? extends F> stream, Function<? super F, ? extends T> mapper) {
     return stream == null ? null : stream.map(mapper);
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+      @Override Match match(String input, int fromIndex, int endIndex) {
+        int index = input.lastIndexOf(character, endIndex - 1);
+        return index >= fromIndex ? Match.nonBacktrackable(input, index, 1) : null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+    @Override Match match(String s, int fromIndex) {
+      requireNonNull(s);
+      return null;
+    }
+    @Override public String toString() {
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+          }
+        }
+        return len == 0 ? null : Match.suffix(input, len);
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+                return result;
+              } else {
+                return null;
+              }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+        Match left = open.match(input, fromIndex);
+        if (left == null) {
+          return null;
+        }
+        Match right = close.match(input, left.endIndex);
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+        Match right = close.match(input, left.endIndex);
+        if (right == null) {
+          return null;
+        }
+        int startIndex = left.endIndex;
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+          return Match.backtrackable(1, input, start, matcher.end(group) - start);
+        }
+        return null;
+      }
 
 ```
 
@@ -3228,107 +3312,11 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-        return index >= fromIndex
-            ? Match.nonBacktrackable(input, index, str.length())
-            : null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
                 }
               }
               return null;
             }
           });
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-      @Override Match match(String input, int fromIndex) {
-        int index = input.indexOf(character, fromIndex);
-        return index >= 0 ? Match.backtrackable(1, input, index, 1) : null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-      @Override Match match(String input, int fromIndex) {
-        int index = input.indexOf(str, fromIndex);
-        return index >= fromIndex ? Match.backtrackable(1, input, index, str.length()) : null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-            @Override public Match get() {
-              if (nextIndex > end) {
-                return null;
-              }
-              Match match = match(input, nextIndex);
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-              Match match = match(input, nextIndex);
-              if (match == null) {
-                return null;
-              }
-              if (match.endIndex == end) { // We've consumed the entire string.
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-      return index >= fromIndex && input.endsWith(suffix)
-          ? Match.suffix(input, suffix.length())
-          : null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-          }
-        }
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-      return input.startsWith(prefix, fromIndex)
-          ? Match.nonBacktrackable(input, fromIndex, prefix.length())
-          : null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -3352,7 +3340,7 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
           if (next == null) {
             return null;
           }
-          return new Match(
+          // Keep the repetitionStartIndex strictly increasing to avoid the next iteration
 ```
 
 ### ReturnNull
@@ -3360,22 +3348,10 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-          }
-        }
-        return null;
+      @Override Match match(String input, int fromIndex) {
+        int index = input.indexOf(character, fromIndex);
+        return index >= 0 ? Match.backtrackable(1, input, index, 1) : null;
       }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-        @Override Match match(String input, int fromIndex) {
-          Match match = base.match(input, fromIndex);
-          return match == null ? null : match.toEnd();
-        }
 
 ```
 
@@ -3396,45 +3372,9 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-          }
-        }
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-                return result;
-              } else {
-                return null;
-              }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-          return Match.backtrackable(1, input, start, matcher.end(group) - start);
-        }
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
       @Override Match match(String input, int fromIndex) {
-        Match match = delimiter.match(input, fromIndex);
-        return match == null ? null : match.following();
+        int index = input.indexOf(str, fromIndex);
+        return index >= fromIndex ? Match.backtrackable(1, input, index, str.length()) : null;
       }
 
 ```
@@ -3444,23 +3384,11 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-      @Override Match match(String input, int fromIndex, int endIndex) {
-        int index = input.lastIndexOf(character, endIndex - 1);
-        return index >= fromIndex ? Match.nonBacktrackable(input, index, 1) : null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
+            i = min(match.endIndex - 1, i - 1);
           }
+          return null;
         }
-        return len == 0 ? null : Match.nonBacktrackable(input, fromIndex, len);
-      }
-
+      };
 ```
 
 ### ReturnNull
@@ -3480,10 +3408,22 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-            fromIndex = match.backtrackFrom(fromIndex);
+      return input.startsWith(prefix, fromIndex)
+          ? Match.nonBacktrackable(input, fromIndex, prefix.length())
+          : null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
           }
-          return null;
         }
+        return null;
+      }
 
 ```
 
@@ -3516,54 +3456,6 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-          Match preceding = base.match(input, fromIndex);
-          if (preceding == null) {
-            return null;
-          }
-          Match next = following.match(input, preceding.endIndex);
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-          Match next = following.match(input, preceding.endIndex);
-          if (next == null) {
-            return null;
-          }
-          // Keep the repetitionStartIndex strictly increasing to avoid the next iteration
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-    @Override Match match(String s, int fromIndex) {
-      requireNonNull(s);
-      return null;
-    }
-    @Override public String toString() {
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
-            i = min(match.endIndex - 1, i - 1);
-          }
-          return null;
-        }
-      };
-```
-
-### ReturnNull
-Return of `null`
-in `mug/src/main/java/com/google/mu/util/Substring.java`
-#### Snippet
-```java
             fromIndex = match.backtrackFrom(fromIndex);
           }
           return null;
@@ -3576,11 +3468,47 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-      return new Pattern() {
         @Override Match match(String input, int fromIndex) {
-          return base.match(input, fromIndex) == null ? BEGINNING.match(input, fromIndex) : null;
+          Match m = original.match(input, fromIndex);
+          return m == null ? null : m.skip(fromBeginning, fromEnd);
         }
-        @Override public String toString() {
+
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+      @Override Match match(String input, int fromIndex) {
+        Match match = delimiter.match(input, fromIndex);
+        return match == null ? null : match.following();
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+          }
+        }
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+      return index >= fromIndex && input.endsWith(suffix)
+          ? Match.suffix(input, suffix.length())
+          : null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -3589,8 +3517,8 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
         @Override Match match(String input, int fromIndex) {
-          Match m = original.match(input, fromIndex);
-          return m == null ? null : m.skip(fromBeginning, fromEnd);
+          Match match = base.match(input, fromIndex);
+          return match == null ? null : match.toEnd();
         }
 
 ```
@@ -3612,6 +3540,30 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
+          Match preceding = base.match(input, fromIndex);
+          if (preceding == null) {
+            return null;
+          }
+          Match next = following.match(input, preceding.endIndex);
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+          Match next = following.match(input, preceding.endIndex);
+          if (next == null) {
+            return null;
+          }
+          return new Match(
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
         @Override Match match(String input, int fromIndex) {
           Match m = base.match(input, fromIndex);
           return m == null ? null : m.limit(maxChars);
@@ -3624,9 +3576,21 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
+            fromIndex = match.backtrackFrom(fromIndex);
+          }
+          return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
           }
         }
-        return len == 0 ? null : Match.suffix(input, len);
+        return len == 0 ? null : Match.nonBacktrackable(input, fromIndex, len);
       }
 
 ```
@@ -3636,11 +3600,11 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-        Match left = open.match(input, fromIndex);
-        if (left == null) {
-          return null;
-        }
-        Match right = close.match(input, left.endIndex);
+        return index >= fromIndex
+            ? Match.nonBacktrackable(input, index, str.length())
+            : null;
+      }
+
 ```
 
 ### ReturnNull
@@ -3648,11 +3612,47 @@ Return of `null`
 in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-        Match right = close.match(input, left.endIndex);
-        if (right == null) {
-          return null;
+          }
         }
-        int startIndex = left.endIndex;
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+      return new Pattern() {
+        @Override Match match(String input, int fromIndex) {
+          return base.match(input, fromIndex) == null ? BEGINNING.match(input, fromIndex) : null;
+        }
+        @Override public String toString() {
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+            @Override public Match get() {
+              if (nextIndex > end) {
+                return null;
+              }
+              Match match = match(input, nextIndex);
+```
+
+### ReturnNull
+Return of `null`
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+              Match match = match(input, nextIndex);
+              if (match == null) {
+                return null;
+              }
+              if (match.endIndex == end) { // We've consumed the entire string.
 ```
 
 ### ReturnNull
@@ -3701,7 +3701,7 @@ in `mug/src/main/java/com/google/mu/util/stream/Java9Collectors.java`
         collector.finisher(),
         collector.characteristics().toArray(new Characteristics[0]));
   }
-
+}
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3713,7 +3713,7 @@ in `mug/src/main/java/com/google/mu/util/stream/Java9Collectors.java`
         collector.finisher(),
         collector.characteristics().toArray(new Characteristics[0]));
   }
-}
+
 ```
 
 ## RuleId[id=CastConflictsWithInstanceof]
