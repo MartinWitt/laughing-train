@@ -10,6 +10,7 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.PositionScanner;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.diffs.DiffCleanModes;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -50,9 +51,10 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
                     type.getTopLevelType(),
                     new Change(
                             UNNECESSARY_TO_STRING_CALL,
-                            fromMarkdown("Remove redudant `toString()` call in `%s`".formatted(oldInvocation)),
+                            fromMarkdown("Remove redundant `toString()` call in `%s`".formatted(oldInvocation)),
                             type.getTopLevelType(),
-                            result));
+                            result,
+                            List.of(DiffCleanModes.NO_WHITESPACE_ADD)));
         }
     }
     /**

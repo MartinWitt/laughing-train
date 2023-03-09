@@ -1,9 +1,11 @@
 package xyz.keksdose.spoon.code_solver.history;
 
+import java.util.List;
 import java.util.Objects;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.diffs.DiffCleanModes;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class Change {
@@ -13,6 +15,7 @@ public class Change {
     private CtType<?> affectedType;
     private BadSmell badsmell = BadSmell.emptyRule();
     private AnalyzerResult analyzerResult;
+    private List<DiffCleanModes> modes = List.of();
 
     public Change(String text, String issue, CtType<?> affectedType) {
         this.text = MarkdownString.fromRaw(text);
@@ -30,6 +33,24 @@ public class Change {
     public Change(BadSmell badSmell, MarkdownString text, CtType<?> affectedType, AnalyzerResult analyzerResult) {
         this(badSmell, text, affectedType);
         this.analyzerResult = analyzerResult;
+    }
+
+    public Change(
+            BadSmell badSmell,
+            MarkdownString text,
+            CtType<?> affectedType,
+            AnalyzerResult analyzerResult,
+            List<DiffCleanModes> modes) {
+        this(badSmell, text, affectedType);
+        this.analyzerResult = analyzerResult;
+        this.modes = modes;
+    }
+
+    /**
+     * @return the modes
+     */
+    public List<DiffCleanModes> getModes() {
+        return modes;
     }
 
     public MarkdownString getChangeText() {

@@ -43,6 +43,7 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
+import xyz.keksdose.spoon.code_solver.diffs.DiffCleaner;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
@@ -71,6 +72,9 @@ public class RefactorService {
 
     @Inject
     ProjectConfigService projectConfigService;
+
+    @Inject
+    DiffCleaner diffCleaner;
 
     public Uni<String> refactor(Collection<? extends BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
@@ -130,6 +134,7 @@ public class RefactorService {
             TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
             transformationEngine.setChangeListener(listener);
             Changelog log = transformationEngine.applyToGivenPath(refactorPath);
+            log.getChanges().forEach(change -> diffCleaner.clean(success.project().folder().toPath(), change));
             try {
                 GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
                 GHRepository repository = createForkIfMissing(success, github);
