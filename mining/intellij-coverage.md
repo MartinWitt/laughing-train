@@ -1,7 +1,7 @@
 # intellij-coverage 
  
 # Bad smells
-I found 363 bad smells with 50 repairable:
+I found 361 bad smells with 50 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 50 | false |
@@ -12,11 +12,11 @@ I found 363 bad smells with 50 repairable:
 | AssignmentToMethodParameter | 24 | false |
 | ThrowablePrintStackTrace | 14 | false |
 | MissortedModifiers | 12 | false |
-| AssignmentToStaticFieldFromInstanceMethod | 10 | false |
 | NonShortCircuitBoolean | 10 | false |
 | SizeReplaceableByIsEmpty | 9 | true |
 | DynamicRegexReplaceableByCompiledPattern | 9 | false |
 | NonProtectedConstructorInAbstractClass | 9 | true |
+| AssignmentToStaticFieldFromInstanceMethod | 8 | false |
 | UnnecessarySuperQualifier | 7 | false |
 | EmptyMethod | 7 | false |
 | NestedAssignment | 6 | false |
@@ -68,18 +68,6 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `RawReportLoader` has only 'static' members, and lacks a 'private' constructor
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/offline/RawReportLoader.java`
-#### Snippet
-```java
-import java.io.IOException;
-
-public class RawReportLoader {
-  public static void load(File file, ProjectData projectData) throws IOException {
-    final RawProjectData rawProjectData = RawHitsReport.load(file);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ClassNameUtil` has only 'static' members, and lacks a 'private' constructor
 in `util/src/com/intellij/rt/coverage/util/ClassNameUtil.java`
 #### Snippet
@@ -89,6 +77,18 @@ in `util/src/com/intellij/rt/coverage/util/ClassNameUtil.java`
 public class ClassNameUtil {
   public static final String CLASS_FILE_SUFFIX = ".class";
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RawReportLoader` has only 'static' members, and lacks a 'private' constructor
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/offline/RawReportLoader.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+public class RawReportLoader {
+  public static void load(File file, ProjectData projectData) throws IOException {
+    final RawProjectData rawProjectData = RawHitsReport.load(file);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -128,18 +128,6 @@ public class StringsPool {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RawHitsReport` has only 'static' members, and lacks a 'private' constructor
-in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
-#### Snippet
-```java
- * On load, this information could be applied to a ProjectData with already analysed classes.
- */
-public class RawHitsReport {
-  private static final int MAGIC = 284996684;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ApacheCollectionsTests` has only 'static' members, and lacks a 'private' constructor
 in `benchmarks/jmh/com/intellij/rt/coverage/jmh/ApacheCollectionsTests.java`
 #### Snippet
@@ -152,6 +140,18 @@ public final class ApacheCollectionsTests {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `RawHitsReport` has only 'static' members, and lacks a 'private' constructor
+in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
+#### Snippet
+```java
+ * On load, this information could be applied to a ProjectData with already analysed classes.
+ */
+public class RawHitsReport {
+  private static final int MAGIC = 284996684;
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ArrayUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/com/intellij/rt/coverage/util/ArrayUtil.java`
 #### Snippet
@@ -161,18 +161,6 @@ package com.intellij.rt.coverage.util;
 public class ArrayUtil {
 
   public static <T> T safeLoad(T[] array, int index) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ErrorReporter` has only 'static' members, and lacks a 'private' constructor
-in `common/src/com/intellij/rt/coverage/util/ErrorReporter.java`
-#### Snippet
-```java
- * Use this reporter for the cases when exception occurs within coverage engine
- */
-public class ErrorReporter {
-  private final static String ERROR_FILE = "coverage-error.log";
-  private final static SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -200,6 +188,18 @@ public class FileUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ErrorReporter` has only 'static' members, and lacks a 'private' constructor
+in `common/src/com/intellij/rt/coverage/util/ErrorReporter.java`
+#### Snippet
+```java
+ * Use this reporter for the cases when exception occurs within coverage engine
+ */
+public class ErrorReporter {
+  private final static String ERROR_FILE = "coverage-error.log";
+  private final static SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `FilterUtils` has only 'static' members, and lacks a 'private' constructor
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/FilterUtils.java`
 #### Snippet
@@ -213,7 +213,7 @@ public class FilterUtils {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
+in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
 #### Snippet
 ```java
 import com.intellij.rt.coverage.report.ArgParseException;
@@ -225,7 +225,7 @@ public class Main {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
+in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
 #### Snippet
 ```java
 import com.intellij.rt.coverage.report.ArgParseException;
@@ -320,18 +320,6 @@ public class InstrumentationUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ProjectDataLoader` has only 'static' members, and lacks a 'private' constructor
-in `instrumentation/src/com/intellij/rt/coverage/util/ProjectDataLoader.java`
-#### Snippet
-```java
- * @since 05-May-2009
- */
-public class ProjectDataLoader {
-  public static final int REPORT_VERSION = 1;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `UnloadedUtil` has only 'static' members, and lacks a 'private' constructor
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/UnloadedUtil.java`
 #### Snippet
@@ -365,6 +353,18 @@ import java.io.IOException;
 public class StandaloneTestDiscoveryFileReader {
   public static void main(String[] args) throws IOException {
     TestDiscoveryProtocolUtil.readFile(new File(args[0]), new SimpleDecodingTestDiscoveryProtocolReader() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProjectDataLoader` has only 'static' members, and lacks a 'private' constructor
+in `instrumentation/src/com/intellij/rt/coverage/util/ProjectDataLoader.java`
+#### Snippet
+```java
+ * @since 05-May-2009
+ */
+public class ProjectDataLoader {
+  public static final int REPORT_VERSION = 1;
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -428,18 +428,6 @@ public class Main {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TestTrackingIOUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/com/intellij/rt/coverage/util/TestTrackingIOUtil.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class TestTrackingIOUtil {
-  public static void saveTestResults(File tracesDirectory, String name, Map<Object, boolean[]> trace) throws IOException {
-    final File traceFile = new File(tracesDirectory, name + ".tr");
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CondyUtils` has only 'static' members, and lacks a 'private' constructor
 in `java7-utils/src/com/intellij/rt/coverage/util/CondyUtils.java`
 #### Snippet
@@ -449,6 +437,18 @@ in `java7-utils/src/com/intellij/rt/coverage/util/CondyUtils.java`
 public class CondyUtils {
   public static int[] getHitsMask(MethodHandles.Lookup lookup, String name, Class<?> clazz, String className) {
     return ProjectData.getHitsMask(className);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TestTrackingIOUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/com/intellij/rt/coverage/util/TestTrackingIOUtil.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class TestTrackingIOUtil {
+  public static void saveTestResults(File tracesDirectory, String name, Map<Object, boolean[]> trace) throws IOException {
+    final File traceFile = new File(tracesDirectory, name + ".tr");
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -482,11 +482,11 @@ Assignment to static field `ourSendTime` from instance context
 in `test-discovery/src/com/intellij/rt/coverage/data/SingleTrFileDiscoveryProtocolDataListener.java`
 #### Snippet
 ```java
-      writeTestFinished(myStream, className, methodName, classToVisitedMethods, classToMethodNames, openedFiles);
+      finish(myStream);
     } finally {
-      Long diff = ourSendTime += System.nanoTime() - s;
+      ourSendTime += System.nanoTime() - s;
+      myStream.close();
     }
-  }
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -494,11 +494,11 @@ Assignment to static field `ourSendTime` from instance context
 in `test-discovery/src/com/intellij/rt/coverage/data/SingleTrFileDiscoveryProtocolDataListener.java`
 #### Snippet
 ```java
-      finish(myStream);
+      writeTestFinished(myStream, className, methodName, classToVisitedMethods, classToMethodNames, openedFiles);
     } finally {
-      ourSendTime += System.nanoTime() - s;
-      myStream.close();
+      Long diff = ourSendTime += System.nanoTime() - s;
     }
+  }
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -509,18 +509,6 @@ in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
       final boolean calculateHitsCount = OptionsUtil.CALCULATE_HITS_COUNT;
       try {
         OptionsUtil.NEW_BRANCH_COVERAGE_ENABLED = true;
-        OptionsUtil.IGNORE_PRIVATE_CONSTRUCTOR_OF_UTIL_CLASS = true;
-        OptionsUtil.CALCULATE_HITS_COUNT = false;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `OptionsUtil.IGNORE_PRIVATE_CONSTRUCTOR_OF_UTIL_CLASS` from instance context
-in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
-#### Snippet
-```java
-      try {
-        OptionsUtil.NEW_BRANCH_COVERAGE_ENABLED = true;
-        OptionsUtil.IGNORE_PRIVATE_CONSTRUCTOR_OF_UTIL_CLASS = true;
         OptionsUtil.CALCULATE_HITS_COUNT = false;
         new InstrumentationVisitor(root, outputRoot).visitFiles();
 ```
@@ -530,8 +518,8 @@ Assignment to static field `OptionsUtil.CALCULATE_HITS_COUNT` from instance cont
 in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
 #### Snippet
 ```java
+      try {
         OptionsUtil.NEW_BRANCH_COVERAGE_ENABLED = true;
-        OptionsUtil.IGNORE_PRIVATE_CONSTRUCTOR_OF_UTIL_CLASS = true;
         OptionsUtil.CALCULATE_HITS_COUNT = false;
         new InstrumentationVisitor(root, outputRoot).visitFiles();
       } finally {
@@ -545,18 +533,6 @@ in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
         new InstrumentationVisitor(root, outputRoot).visitFiles();
       } finally {
         OptionsUtil.NEW_BRANCH_COVERAGE_ENABLED = newBranchCoverage;
-        OptionsUtil.IGNORE_PRIVATE_CONSTRUCTOR_OF_UTIL_CLASS = ignorePrivateConstructor;
-        OptionsUtil.CALCULATE_HITS_COUNT = calculateHitsCount;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `OptionsUtil.IGNORE_PRIVATE_CONSTRUCTOR_OF_UTIL_CLASS` from instance context
-in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
-#### Snippet
-```java
-      } finally {
-        OptionsUtil.NEW_BRANCH_COVERAGE_ENABLED = newBranchCoverage;
-        OptionsUtil.IGNORE_PRIVATE_CONSTRUCTOR_OF_UTIL_CLASS = ignorePrivateConstructor;
         OptionsUtil.CALCULATE_HITS_COUNT = calculateHitsCount;
       }
 ```
@@ -566,8 +542,8 @@ Assignment to static field `OptionsUtil.CALCULATE_HITS_COUNT` from instance cont
 in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
 #### Snippet
 ```java
+      } finally {
         OptionsUtil.NEW_BRANCH_COVERAGE_ENABLED = newBranchCoverage;
-        OptionsUtil.IGNORE_PRIVATE_CONSTRUCTOR_OF_UTIL_CLASS = ignorePrivateConstructor;
         OptionsUtil.CALCULATE_HITS_COUNT = calculateHitsCount;
       }
     }
@@ -784,6 +760,30 @@ in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 
 ## RuleId[id=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `myIsKotlinClass |= KotlinUtils.KOTLIN_METADATA.equals(descriptor)`
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
+#### Snippet
+```java
+  @Override
+  public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
+    myIsKotlinClass |= KotlinUtils.KOTLIN_METADATA.equals(descriptor);
+    return super.visitAnnotation(descriptor, visible);
+  }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `myAllMethodsStatic &= (access & Opcodes.ACC_STATIC) != 0`
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
+#### Snippet
+```java
+      return new EmptyConstructorVisitor(mv);
+    }
+    myAllMethodsStatic &= (access & Opcodes.ACC_STATIC) != 0;
+    return mv;
+  }
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `myIsKotlinObject |= name != null && name.endsWith("$Companion")`
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
 #### Snippet
@@ -806,30 +806,6 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFi
         && "INSTANCE".equals(name)
         && myName.equals(Type.getType(descriptor).getInternalName());
     return super.visitField(access, name, descriptor, signature, value);
-  }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `myIsKotlinClass |= KotlinUtils.KOTLIN_METADATA.equals(descriptor)`
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
-#### Snippet
-```java
-  @Override
-  public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
-    myIsKotlinClass |= KotlinUtils.KOTLIN_METADATA.equals(descriptor);
-    return super.visitAnnotation(descriptor, visible);
-  }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `myAllMethodsStatic &= (access & Opcodes.ACC_STATIC) != 0`
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
-#### Snippet
-```java
-      return new EmptyConstructorVisitor(mv);
-    }
-    myAllMethodsStatic &= (access & Opcodes.ACC_STATIC) != 0;
-    return mv;
   }
 ```
 
@@ -911,9 +887,9 @@ Assignment to for-loop parameter `i`
 in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 #### Snippet
 ```java
-      if (fileInfoLine.startsWith("+ ")) {
-        idAndName = fileInfoLine.substring(2);
-        path = fileLines[++i];
+      if (fileName.startsWith("+ ")) {
+        idAndName = fileName.substring(2);
+        path = fileNameIdx[++i];
       }
       int idx = idAndName.indexOf(" ");
 ```
@@ -923,9 +899,9 @@ Assignment to for-loop parameter `i`
 in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 #### Snippet
 ```java
-      if (fileName.startsWith("+ ")) {
-        idAndName = fileName.substring(2);
-        path = fileNameIdx[++i];
+      if (fileInfoLine.startsWith("+ ")) {
+        idAndName = fileInfoLine.substring(2);
+        path = fileLines[++i];
       }
       int idx = idAndName.indexOf(" ");
 ```
@@ -1004,18 +980,6 @@ in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassPathEntry`
-in `src/com/intellij/rt/coverage/util/classFinder/ClassFinder.java`
-#### Snippet
-```java
-  }
-
-  private void collectClassloaderEntries(final Set<ClassPathEntry> result) {
-    for (Object myClassloader : myClassloaders) {
-      URLClassLoader cl = (URLClassLoader) myClassloader;
-```
-
-### BoundedWildcard
 Can generalize to `? extends ClassMetadata`
 in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProtocolDataListener.java`
 #### Snippet
@@ -1028,15 +992,15 @@ in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProtocolDataLi
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassData`
-in `instrumentation/src/com/intellij/rt/coverage/util/ProjectDataLoader.java`
+Can generalize to `? super ClassPathEntry`
+in `src/com/intellij/rt/coverage/util/classFinder/ClassFinder.java`
 #### Snippet
 ```java
   }
 
-  private static String expand(DataInputStream in, final TIntObjectHashMap<ClassData> dict) throws IOException {
-    return CoverageIOUtil.processWithDictionary(CoverageIOUtil.readUTFFast(in), new CoverageIOUtil.Consumer() {
-      protected String consume(String type) {
+  private void collectClassloaderEntries(final Set<ClassPathEntry> result) {
+    for (Object myClassloader : myClassloaders) {
+      URLClassLoader cl = (URLClassLoader) myClassloader;
 ```
 
 ### BoundedWildcard
@@ -1064,87 +1028,39 @@ in `reporter/src/com/intellij/rt/coverage/aggregate/GroupPatternFilter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
-#### Snippet
-```java
-
-
-  public Instrumentator(List<File> roots, List<File> outputRoots, Filters filters) {
-    myRoots = roots;
-    myOutputRoots = outputRoots;
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
-#### Snippet
-```java
-
-
-  public Instrumentator(List<File> roots, List<File> outputRoots, Filters filters) {
-    myRoots = roots;
-    myOutputRoots = outputRoots;
-```
-
-### BoundedWildcard
 Can generalize to `? extends ClassData`
-in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
+in `instrumentation/src/com/intellij/rt/coverage/util/ProjectDataLoader.java`
 #### Snippet
 ```java
   }
 
-  public static void doSaveSourceMap(Map<String, String> classNameToFile, File sourceMapFile, Map<String, ClassData> classes) throws IOException {
-    final HashMap<String, String> sources = new HashMap<String, String>(classNameToFile);
-    for (ClassData classData : classes.values()) {
+  private static String expand(DataInputStream in, final TIntObjectHashMap<ClassData> dict) throws IOException {
+    return CoverageIOUtil.processWithDictionary(CoverageIOUtil.readUTFFast(in), new CoverageIOUtil.Consumer() {
+      protected String consume(String type) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
+Can generalize to `? extends LineData`
+in `java6-utils/src/com/intellij/rt/coverage/report/XMLCoverageReport.java`
 #### Snippet
 ```java
   }
 
-  private static void saveDictionary(DataOutputStream os, TObjectIntHashMap<String> dict, Map<String, ClassData> classes) throws IOException {
-    int i = 0;
-    for (String className : classes.keySet()) {
+  private void writeFile(String fileName, List<LineData> lines, Map<LineData, Counter> lineCounters) throws XMLStreamException {
+    myOut.writeStartElement(SOURCEFILE_TAG);
+    myOut.writeAttribute(NAME_TAG, fileName);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
+Can generalize to `? extends Counter`
+in `java6-utils/src/com/intellij/rt/coverage/report/XMLCoverageReport.java`
 #### Snippet
 ```java
   }
 
-  private static void saveData(DataOutputStream os, final TObjectIntHashMap<String> dict, Map<String, ClassData> classes) throws IOException {
-    for (ClassData o : classes.values()) {
-      o.save(os, new DictionaryLookup() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassData`
-in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
-#### Snippet
-```java
-  }
-
-  private static void saveData(DataOutputStream os, final TObjectIntHashMap<String> dict, Map<String, ClassData> classes) throws IOException {
-    for (ClassData o : classes.values()) {
-      o.save(os, new DictionaryLookup() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassData`
-in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
-#### Snippet
-```java
-  }
-
-  public static Map<String, String> loadSourceMapFromFile(Map<String, ClassData> classes, File sourceMapFile) throws IOException {
-    DataInputStream in = null;
-    try {
+  private void writeFile(String fileName, List<LineData> lines, Map<LineData, Counter> lineCounters) throws XMLStreamException {
+    myOut.writeStartElement(SOURCEFILE_TAG);
+    myOut.writeAttribute(NAME_TAG, fileName);
 ```
 
 ### BoundedWildcard
@@ -1184,6 +1100,66 @@ in `java6-utils/src/com/intellij/rt/coverage/report/XMLCoverageReport.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ClassData`
+in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
+#### Snippet
+```java
+  }
+
+  public static void doSaveSourceMap(Map<String, String> classNameToFile, File sourceMapFile, Map<String, ClassData> classes) throws IOException {
+    final HashMap<String, String> sources = new HashMap<String, String>(classNameToFile);
+    for (ClassData classData : classes.values()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
+#### Snippet
+```java
+  }
+
+  private static void saveDictionary(DataOutputStream os, TObjectIntHashMap<String> dict, Map<String, ClassData> classes) throws IOException {
+    int i = 0;
+    for (String className : classes.keySet()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassData`
+in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
+#### Snippet
+```java
+  }
+
+  public static Map<String, String> loadSourceMapFromFile(Map<String, ClassData> classes, File sourceMapFile) throws IOException {
+    DataInputStream in = null;
+    try {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
+#### Snippet
+```java
+  }
+
+  private static void saveData(DataOutputStream os, final TObjectIntHashMap<String> dict, Map<String, ClassData> classes) throws IOException {
+    for (ClassData o : classes.values()) {
+      o.save(os, new DictionaryLookup() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassData`
+in `instrumentation/src/com/intellij/rt/coverage/util/CoverageReport.java`
+#### Snippet
+```java
+  }
+
+  private static void saveData(DataOutputStream os, final TObjectIntHashMap<String> dict, Map<String, ClassData> classes) throws IOException {
+    for (ClassData o : classes.values()) {
+      o.save(os, new DictionaryLookup() {
+```
+
+### BoundedWildcard
 Can generalize to `? super Counter`
 in `java6-utils/src/com/intellij/rt/coverage/report/XMLCoverageReport.java`
 #### Snippet
@@ -1196,27 +1172,27 @@ in `java6-utils/src/com/intellij/rt/coverage/report/XMLCoverageReport.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LineData`
-in `java6-utils/src/com/intellij/rt/coverage/report/XMLCoverageReport.java`
+Can generalize to `? extends File`
+in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
 #### Snippet
 ```java
-  }
 
-  private void writeFile(String fileName, List<LineData> lines, Map<LineData, Counter> lineCounters) throws XMLStreamException {
-    myOut.writeStartElement(SOURCEFILE_TAG);
-    myOut.writeAttribute(NAME_TAG, fileName);
+
+  public Instrumentator(List<File> roots, List<File> outputRoots, Filters filters) {
+    myRoots = roots;
+    myOutputRoots = outputRoots;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Counter`
-in `java6-utils/src/com/intellij/rt/coverage/report/XMLCoverageReport.java`
+Can generalize to `? extends File`
+in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
 #### Snippet
 ```java
-  }
 
-  private void writeFile(String fileName, List<LineData> lines, Map<LineData, Counter> lineCounters) throws XMLStreamException {
-    myOut.writeStartElement(SOURCEFILE_TAG);
-    myOut.writeAttribute(NAME_TAG, fileName);
+
+  public Instrumentator(List<File> roots, List<File> outputRoots, Filters filters) {
+    myRoots = roots;
+    myOutputRoots = outputRoots;
 ```
 
 ### BoundedWildcard
@@ -1232,18 +1208,6 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/util/LinesUtil.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RuleViolation`
-in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
-#### Snippet
-```java
-  }
-
-  private static void saveViolations(List<RuleViolation> violations, File outputFile) throws IOException {
-    final JSONObject jsonViolations = new JSONObject();
-    for (RuleViolation ruleViolation : violations) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Rule`
 in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
 #### Snippet
@@ -1253,6 +1217,18 @@ in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
   public Verifier(List<Rule> rules) {
     myRules = rules;
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends RuleViolation`
+in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
+#### Snippet
+```java
+  }
+
+  private static void saveViolations(List<RuleViolation> violations, File outputFile) throws IOException {
+    final JSONObject jsonViolations = new JSONObject();
+    for (RuleViolation ruleViolation : violations) {
 ```
 
 ### BoundedWildcard
@@ -1425,18 +1401,6 @@ in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static abstract`
-in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
-#### Snippet
-```java
-  private static final Pattern TYPE_PATTERN = Pattern.compile("L[^;]*;");
-
-  public static abstract class Consumer {
-    protected abstract String consume(String str);
-  }
-```
-
-### MissortedModifiers
 Missorted modifiers `final static`
 in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
 #### Snippet
@@ -1446,6 +1410,18 @@ in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
   private final static ThreadLocalCachedValue<byte[]> ioBuffer = new ThreadLocalCachedValue<byte[]>() {
     @Override
     protected byte[] create() {
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
+#### Snippet
+```java
+  private static final Pattern TYPE_PATTERN = Pattern.compile("L[^;]*;");
+
+  public static abstract class Consumer {
+    protected abstract String consume(String str);
+  }
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
@@ -1650,6 +1626,18 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `common/src/com/intellij/rt/coverage/util/ErrorReporter.java`
 #### Snippet
 ```java
+
+  public static synchronized void logError(final String message) {
+    System.err.println(message);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `common/src/com/intellij/rt/coverage/util/ErrorReporter.java`
+#### Snippet
+```java
       StringBuffer buf = prepareMessage(message);
 
       System.err.println(buf);
@@ -1670,18 +1658,6 @@ in `common/src/com/intellij/rt/coverage/util/ErrorReporter.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `common/src/com/intellij/rt/coverage/util/ErrorReporter.java`
-#### Snippet
-```java
-
-  public static synchronized void logError(final String message) {
-    System.err.println(message);
-  }
-
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `common/src/com/intellij/rt/coverage/util/ErrorReporter.java`
 #### Snippet
@@ -1695,7 +1671,7 @@ in `common/src/com/intellij/rt/coverage/util/ErrorReporter.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
+in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
 #### Snippet
 ```java
 
@@ -1707,7 +1683,7 @@ in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
+in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
 #### Snippet
 ```java
 
@@ -1719,31 +1695,31 @@ in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
+in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
 #### Snippet
 ```java
       }
 
       System.err.println();
-      System.err.println(InstrumentatorArgs.getHelpString());
+      System.err.println(AggregatorArgs.getHelpString());
       System.exit(1);
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
+in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
 #### Snippet
 ```java
 
       System.err.println();
-      System.err.println(InstrumentatorArgs.getHelpString());
+      System.err.println(AggregatorArgs.getHelpString());
       System.exit(1);
     }
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
+in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
 #### Snippet
 ```java
 
@@ -1755,7 +1731,7 @@ in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
+in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
 #### Snippet
 ```java
 
@@ -1767,24 +1743,24 @@ in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
+in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
 #### Snippet
 ```java
       }
 
       System.err.println();
-      System.err.println(AggregatorArgs.getHelpString());
+      System.err.println(InstrumentatorArgs.getHelpString());
       System.exit(1);
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/aggregate/Main.java`
+in `reporter/src/com/intellij/rt/coverage/instrument/Main.java`
 #### Snippet
 ```java
 
       System.err.println();
-      System.err.println(AggregatorArgs.getHelpString());
+      System.err.println(InstrumentatorArgs.getHelpString());
       System.exit(1);
     }
 ```
@@ -1795,7 +1771,7 @@ in `benchmarks/jmh/com/intellij/rt/coverage/jmh/CoverageAgentBenchmark.java`
 #### Snippet
 ```java
   @Benchmark
-  public void apacheCollectionsTestCoverage() throws Exception {
+  public void jodaTimeTestCoverage() throws Exception {
     PrintStream original = System.out;
     try {
       System.setOut(new PrintStream(new NullOutputStream()));
@@ -1807,7 +1783,7 @@ in `benchmarks/jmh/com/intellij/rt/coverage/jmh/CoverageAgentBenchmark.java`
 #### Snippet
 ```java
   @Benchmark
-  public void jodaTimeTestCoverage() throws Exception {
+  public void apacheCollectionsTestCoverage() throws Exception {
     PrintStream original = System.out;
     try {
       System.setOut(new PrintStream(new NullOutputStream()));
@@ -1962,18 +1938,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `test-discovery/src/com/intellij/rt/coverage/data/api/StandaloneTestDiscoveryFileReader.java`
 #### Snippet
 ```java
-
-      protected void processClassMetadataData(ClassMetadata metadata) {
-        System.out.println("Class Metadata entry: " + metadata.getFqn());
-      }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `test-discovery/src/com/intellij/rt/coverage/data/api/StandaloneTestDiscoveryFileReader.java`
-#### Snippet
-```java
       @Override
       protected void processData(String testClassName, String testMethodName, String className, String methodName) {
         System.out.println(testClassName + "." + testMethodName + " uses " + className + "." + methodName);
@@ -1995,38 +1959,14 @@ in `test-discovery/src/com/intellij/rt/coverage/data/api/StandaloneTestDiscovery
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscoveryPremain.java`
-#### Snippet
-```java
-  private static void addOpenCloseTransformer(Instrumentation instrumentation) throws UnmodifiableClassException {
-    if (!Boolean.parseBoolean(System.getProperty(TestDiscoveryProjectData.TRACK_FILES, "true"))) {
-      System.out.println("Tracking for opened/closed files disabled by '" + TestDiscoveryProjectData.TRACK_FILES + "' system property");
-      return;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscoveryPremain.java`
+in `test-discovery/src/com/intellij/rt/coverage/data/api/StandaloneTestDiscoveryFileReader.java`
 #### Snippet
 ```java
 
-    if (System.getProperty(TestDiscoveryProjectData.AFFECTED_ROOTS) == null) {
-      System.out.println("Tracking for opened/closed files disabled due to undefined '" + TestDiscoveryProjectData.AFFECTED_ROOTS + "' system property");
-      return;
-    }
-```
+      protected void processClassMetadataData(ClassMetadata metadata) {
+        System.out.println("Class Metadata entry: " + metadata.getFqn());
+      }
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscoveryPremain.java`
-#### Snippet
-```java
-
-  private void performPremain(Instrumentation instrumentation) throws Exception {
-    System.out.println("---- IntelliJ IDEA Test Discovery ---- ");
-
-    // separated by ;
 ```
 
 ### SystemOutErr
@@ -2075,6 +2015,42 @@ in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscovery
         System.err.println(ex.getDescription());
         System.exit(1);
       }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscoveryPremain.java`
+#### Snippet
+```java
+  private static void addOpenCloseTransformer(Instrumentation instrumentation) throws UnmodifiableClassException {
+    if (!Boolean.parseBoolean(System.getProperty(TestDiscoveryProjectData.TRACK_FILES, "true"))) {
+      System.out.println("Tracking for opened/closed files disabled by '" + TestDiscoveryProjectData.TRACK_FILES + "' system property");
+      return;
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscoveryPremain.java`
+#### Snippet
+```java
+
+    if (System.getProperty(TestDiscoveryProjectData.AFFECTED_ROOTS) == null) {
+      System.out.println("Tracking for opened/closed files disabled due to undefined '" + TestDiscoveryProjectData.AFFECTED_ROOTS + "' system property");
+      return;
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscoveryPremain.java`
+#### Snippet
+```java
+
+  private void performPremain(Instrumentation instrumentation) throws Exception {
+    System.out.println("---- IntelliJ IDEA Test Discovery ---- ");
+
+    // separated by ;
 ```
 
 ### SystemOutErr
@@ -2167,11 +2143,11 @@ in `reporter/src/com/intellij/rt/coverage/report/Main.java`
 in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 #### Snippet
 ```java
-    final int lineInfoEnd = debug.indexOf(SECTION_SEPARATOR, lineInfoStart);
-    final String lineInfo = debug.substring(lineInfoStart, lineInfoEnd);
-    final String[] lines = lineInfo.split("\n");
-    int fileId = 1;
-    for (String line : lines) {
+      fileSection = fileSection.substring(0, fileSection.length() - 1);
+    }
+    return fileSection.split("\n");
+  }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2179,11 +2155,11 @@ in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 #### Snippet
 ```java
-      fileSection = fileSection.substring(0, fileSection.length() - 1);
-    }
-    return fileSection.split("\n");
-  }
-
+    final int lineInfoEnd = debug.indexOf(SECTION_SEPARATOR, lineInfoStart);
+    final String lineInfo = debug.substring(lineInfoStart, lineInfoEnd);
+    final String[] lines = lineInfo.split("\n");
+    int fileId = 1;
+    for (String line : lines) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2215,11 +2191,11 @@ in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/instrumentation/So
 in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
 #### Snippet
 ```java
+  private static String[] split(String key) {
+    String affected = System.getProperty(key);
+    return affected == null ? new String[]{} : affected.split(";");
+  }
 
-  private int[] fileToInts(String file) {
-    String[] split = file.split("/");
-    int[] result = new int[split.length];
-    for (int i = 0; i < split.length; i++) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2227,11 +2203,11 @@ in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.ja
 in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
 #### Snippet
 ```java
-  private static String[] split(String key) {
-    String affected = System.getProperty(key);
-    return affected == null ? new String[]{} : affected.split(";");
-  }
 
+  private int[] fileToInts(String file) {
+    String[] split = file.split("/");
+    int[] result = new int[split.length];
+    for (int i = 0; i < split.length; i++) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2247,18 +2223,6 @@ in `reporter/src/com/intellij/rt/coverage/instrument/Instrumentator.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscoveryPremain.java`
-#### Snippet
-```java
-    System.out.println("Patterns from " + key);
-    List<Pattern> patterns = new ArrayList<Pattern>(1);
-    for (String s : property.split(";")) {
-      try {
-        patterns.add(Pattern.compile(s));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/lines/KotlinInlineFilter.java`
 #### Snippet
@@ -2268,6 +2232,18 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/lines/K
         lineData.setMethodSignature(lineData.getMethodSignature().replace(UNKNOWN_DESC, DEFAULT_DESC));
         return true;
       }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/main/TestDiscoveryPremain.java`
+#### Snippet
+```java
+    System.out.println("Patterns from " + key);
+    List<Pattern> patterns = new ArrayList<Pattern>(1);
+    for (String s : property.split(";")) {
+      try {
+        patterns.add(Pattern.compile(s));
 ```
 
 ## RuleId[id=UnnecessarySuperQualifier]
@@ -2399,7 +2375,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
 #### Snippet
 ```java
-      myDataListener.testsFinished();
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -2423,7 +2399,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
 #### Snippet
 ```java
-      }
+      myDataListener.testsFinished();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -2447,7 +2423,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `junit4-test-discovery-launcher/src/org/junit/runner/JUnitLauncher.java`
 #### Snippet
 ```java
-        testStarted.invoke(data, className, methodName);
+        testEnded.invoke(data, className, methodName);
       } catch (Throwable t) {
         t.printStackTrace();
       }
@@ -2459,7 +2435,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `junit4-test-discovery-launcher/src/org/junit/runner/JUnitLauncher.java`
 #### Snippet
 ```java
-        testEnded.invoke(data, className, methodName);
+        testStarted.invoke(data, className, methodName);
       } catch (Throwable t) {
         t.printStackTrace();
       }
@@ -2504,30 +2480,6 @@ in `benchmarks/jmh/com/intellij/rt/coverage/jmh/TestDiscoveryListener.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/report/Main.java`
-#### Snippet
-```java
-          fail = true;
-          System.err.println("XML generation failed.");
-          e.printStackTrace();
-        }
-      }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `reporter/src/com/intellij/rt/coverage/report/Main.java`
-#### Snippet
-```java
-          fail = true;
-          System.err.println("HTML generation failed.");
-          e.printStackTrace();
-        }
-      }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `test-discovery/src/com/intellij/rt/coverage/data/SocketTestDiscoveryProtocolDataListener.java`
 #### Snippet
 ```java
@@ -2562,19 +2514,31 @@ in `test-discovery/src/com/intellij/rt/coverage/data/SocketTestDiscoveryProtocol
   }
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `reporter/src/com/intellij/rt/coverage/report/Main.java`
 #### Snippet
 ```java
-  public static String processRelative(String fileName) {
-    int idx;
-    while ((idx = fileName.indexOf("..")) > -1) {
-      final String rest = fileName.substring(idx + "..".length());
-      String start = fileName.substring(0, idx);
+          fail = true;
+          System.err.println("XML generation failed.");
+          e.printStackTrace();
+        }
+      }
 ```
 
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `reporter/src/com/intellij/rt/coverage/report/Main.java`
+#### Snippet
+```java
+          fail = true;
+          System.err.println("HTML generation failed.");
+          e.printStackTrace();
+        }
+      }
+```
+
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
@@ -2597,6 +2561,18 @@ in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
         loaderClassReaders.put(className, classReader = new ClassReader(is));
       } finally {
         if (is != null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
+#### Snippet
+```java
+  public static String processRelative(String fileName) {
+    int idx;
+    while ((idx = fileName.indexOf("..")) > -1) {
+      final String rest = fileName.substring(idx + "..".length());
+      String start = fileName.substring(0, idx);
 ```
 
 ### NestedAssignment
@@ -2661,18 +2637,6 @@ in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.jav
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BranchesFilter()` of an abstract class should not be declared 'public'
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/BranchesFilter.java`
-#### Snippet
-```java
-  protected BranchDataContainer myBranchData;
-
-  public BranchesFilter() {
-    super(Opcodes.API_VERSION);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `ClassEntry()` of an abstract class should not be declared 'public'
 in `src/com/intellij/rt/coverage/util/classFinder/ClassEntry.java`
 #### Snippet
@@ -2681,6 +2645,18 @@ in `src/com/intellij/rt/coverage/util/classFinder/ClassEntry.java`
 
   public ClassEntry(final String className) {
     myClassName = className;
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BranchesFilter()` of an abstract class should not be declared 'public'
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/BranchesFilter.java`
+#### Snippet
+```java
+  protected BranchDataContainer myBranchData;
+
+  public BranchesFilter() {
+    super(Opcodes.API_VERSION);
   }
 ```
 
@@ -2892,54 +2868,6 @@ in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.jav
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
-#### Snippet
-```java
-  private boolean myAllMethodsStatic = true;
-  private boolean myIsKotlinObject = false;
-  private boolean myIsKotlinClass = false;
-  private boolean myConstructorIsEmpty = true;
-  private List<Integer> myConstructorLines;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
-#### Snippet
-```java
-  //    ATHROW
-  private class EmptyConstructorVisitor extends MethodVisitor {
-    private boolean myALoadVisited = false;
-    private boolean myInvokeSpecialVisited = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
-#### Snippet
-```java
-  private class EmptyConstructorVisitor extends MethodVisitor {
-    private boolean myALoadVisited = false;
-    private boolean myInvokeSpecialVisited = false;
-
-    public EmptyConstructorVisitor(MethodVisitor methodVisitor) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
-#### Snippet
-```java
-  private boolean myIsAbstractClass;
-  private boolean myAllMethodsStatic = true;
-  private boolean myIsKotlinObject = false;
-  private boolean myIsKotlinClass = false;
-  private boolean myConstructorIsEmpty = true;
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/KotlinValueClassFilter.java`
 #### Snippet
@@ -2961,6 +2889,54 @@ class ClassLengthAnalyser extends ClassVisitor {
   private int myHits = 0;
 
   public ClassLengthAnalyser() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
+#### Snippet
+```java
+  private class EmptyConstructorVisitor extends MethodVisitor {
+    private boolean myALoadVisited = false;
+    private boolean myInvokeSpecialVisited = false;
+
+    public EmptyConstructorVisitor(MethodVisitor methodVisitor) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
+#### Snippet
+```java
+  //    ATHROW
+  private class EmptyConstructorVisitor extends MethodVisitor {
+    private boolean myALoadVisited = false;
+    private boolean myInvokeSpecialVisited = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
+#### Snippet
+```java
+  private boolean myIsAbstractClass;
+  private boolean myAllMethodsStatic = true;
+  private boolean myIsKotlinObject = false;
+  private boolean myIsKotlinClass = false;
+  private boolean myConstructorIsEmpty = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFilter/PrivateConstructorOfUtilClassFilter.java`
+#### Snippet
+```java
+  private boolean myAllMethodsStatic = true;
+  private boolean myIsKotlinObject = false;
+  private boolean myIsKotlinClass = false;
+  private boolean myConstructorIsEmpty = true;
+  private List<Integer> myConstructorLines;
 ```
 
 ### RedundantFieldInitialization
@@ -2988,18 +2964,6 @@ public class KotlinWhenStringFilter extends BranchesFilter {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/KotlinWhenMappingExceptionFilter.java`
-#### Snippet
-```java
-  private Label myCurrentLabel = null;
-  private int myCurrentLine;
-  private int myState = 0;
-  private Label myJumpLabel;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/KotlinWhenMappingExceptionFilter.java`
 #### Snippet
@@ -3009,6 +2973,18 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branche
   private Label myCurrentLabel = null;
   private int myCurrentLine;
   private int myState = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/KotlinWhenMappingExceptionFilter.java`
+#### Snippet
+```java
+  private Label myCurrentLabel = null;
+  private int myCurrentLine;
+  private int myState = 0;
+  private Label myJumpLabel;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3060,30 +3036,6 @@ public class SwitchInstructions {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/data/BranchDataContainer.java`
-#### Snippet
-```java
-  private final Instrumenter myContext;
-
-  private int myNextId = 0;
-
-  private Label myLastFalseJump;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
-#### Snippet
-```java
-  private final Instrumenter myContext;
-
-  private int myState = 0;
-  private boolean myHasInstructions;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
 #### Snippet
@@ -3112,30 +3064,6 @@ Field initialization to `false` is redundant
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
 #### Snippet
 ```java
-  private boolean myLoadCoroutinesSuspendedVisited = false;
-  private boolean myLoadStateLabelVisited = false;
-  private boolean mySuspendCallVisited = false;
-  private int myCoroutinesSuspendedIndex = -1;
-  private int myLine = -1;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
-#### Snippet
-```java
-public abstract class KotlinCoroutinesFilter extends MethodVisitor {
-  private boolean myGetCoroutinesSuspendedVisited = false;
-  private boolean myStoreCoroutinesSuspendedVisited = false;
-  private boolean myLoadCoroutinesSuspendedVisited = false;
-  private boolean myLoadStateLabelVisited = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
-#### Snippet
-```java
  */
 public abstract class KotlinCoroutinesFilter extends MethodVisitor {
   private boolean myGetCoroutinesSuspendedVisited = false;
@@ -3148,11 +3076,59 @@ Field initialization to `false` is redundant
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
 #### Snippet
 ```java
+  private boolean myLoadCoroutinesSuspendedVisited = false;
+  private boolean myLoadStateLabelVisited = false;
+  private boolean mySuspendCallVisited = false;
+  private int myCoroutinesSuspendedIndex = -1;
+  private int myLine = -1;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
+#### Snippet
+```java
+  private final Instrumenter myContext;
+
+  private int myState = 0;
+  private boolean myHasInstructions;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
+#### Snippet
+```java
   private boolean myGetCoroutinesSuspendedVisited = false;
   private boolean myStoreCoroutinesSuspendedVisited = false;
   private boolean myLoadCoroutinesSuspendedVisited = false;
   private boolean myLoadStateLabelVisited = false;
   private boolean mySuspendCallVisited = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/KotlinCoroutinesFilter.java`
+#### Snippet
+```java
+public abstract class KotlinCoroutinesFilter extends MethodVisitor {
+  private boolean myGetCoroutinesSuspendedVisited = false;
+  private boolean myStoreCoroutinesSuspendedVisited = false;
+  private boolean myLoadCoroutinesSuspendedVisited = false;
+  private boolean myLoadStateLabelVisited = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/data/BranchDataContainer.java`
+#### Snippet
+```java
+  private final Instrumenter myContext;
+
+  private int myNextId = 0;
+
+  private Label myLastFalseJump;
 ```
 
 ### RedundantFieldInitialization
@@ -3169,18 +3145,6 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/lines/C
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/BooleanInvertFilter.java`
-#### Snippet
-```java
-  private Label myTrueLabel;
-  private Label myFalseLabel;
-  private int myState = 0;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/Instrumenter.java`
 #### Snippet
 ```java
@@ -3189,6 +3153,18 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/Instrumenter.ja
   private int myIgnoreSection = 0;
 
   public Instrumenter(final ProjectData projectData, ClassVisitor classVisitor, String className, boolean shouldSaveSource) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/BooleanInvertFilter.java`
+#### Snippet
+```java
+  private Label myTrueLabel;
+  private Label myFalseLabel;
+  private int myState = 0;
+
+
 ```
 
 ### RedundantFieldInitialization
@@ -3205,18 +3181,6 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/LineInstrumente
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/BranchesEnumerator.java`
-#### Snippet
-```java
-
-  protected int myCurrentLine;
-  private boolean myHasExecutableLines = false;
-
-  public BranchesEnumerator(BranchesInstrumenter instrumenter, BranchDataContainer branchData, MethodVisitor mv,
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/InstructionsEnumerator.java`
 #### Snippet
 ```java
@@ -3225,6 +3189,18 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/InstructionsEnu
   private boolean myHasInstructions = false;
 
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/BranchesEnumerator.java`
+#### Snippet
+```java
+
+  protected int myCurrentLine;
+  private boolean myHasExecutableLines = false;
+
+  public BranchesEnumerator(BranchesInstrumenter instrumenter, BranchDataContainer branchData, MethodVisitor mv,
 ```
 
 ### RedundantFieldInitialization
@@ -3264,18 +3240,6 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/MethodFiltering
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/com/intellij/rt/coverage/data/LineData.java`
-#### Snippet
-```java
-
-  private int myId = -1;
-  private int myHits = 0;
-
-  private byte myStatus = -1;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/com/intellij/rt/coverage/data/LineData.java`
 #### Snippet
@@ -3285,6 +3249,18 @@ in `src/com/intellij/rt/coverage/data/LineData.java`
   private String myUniqueTestName = null;
   private boolean myMayBeUnique = true;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/com/intellij/rt/coverage/data/LineData.java`
+#### Snippet
+```java
+
+  private int myId = -1;
+  private int myHits = 0;
+
+  private byte myStatus = -1;
 ```
 
 ### RedundantFieldInitialization
@@ -3325,13 +3301,13 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/lines/K
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/KotlinOpenMemberWithDefaultArgsFilter.java`
+in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
 #### Snippet
 ```java
- */
-public class KotlinOpenMemberWithDefaultArgsFilter extends BranchesFilter {
-  private int myState = 0;
 
+    public static class Counter {
+      public long missed = 0;
+      public long covered = 0;
 
 ```
 
@@ -3349,13 +3325,13 @@ in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/branches/KotlinOpenMemberWithDefaultArgsFilter.java`
 #### Snippet
 ```java
+ */
+public class KotlinOpenMemberWithDefaultArgsFilter extends BranchesFilter {
+  private int myState = 0;
 
-    public static class Counter {
-      public long missed = 0;
-      public long covered = 0;
 
 ```
 
@@ -3397,27 +3373,27 @@ in `util/src/com/intellij/rt/coverage/util/ClassNameUtil.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
-in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
+Assignment to method parameter `type`
+in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
 #### Snippet
 ```java
-      final int endIndex = start.lastIndexOf('/');
-      if (endIndex > -1) {
-        fileName = start.substring(0, endIndex) + rest;
-      } else {
-        fileName = rest.startsWith("/") ? rest.substring(1) : rest;
+        }
+      }
+      type = classReader.getSuperName();
+      classReader = getOrLoadClassReader(type);
+    }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
-in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
+Assignment to method parameter `classReader`
+in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
 #### Snippet
 ```java
-        fileName = start.substring(0, endIndex) + rest;
-      } else {
-        fileName = rest.startsWith("/") ? rest.substring(1) : rest;
       }
+      type = classReader.getSuperName();
+      classReader = getOrLoadClassReader(type);
     }
+    return false;
 ```
 
 ### AssignmentToMethodParameter
@@ -3445,30 +3421,6 @@ in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
-#### Snippet
-```java
-        }
-      }
-      type = classReader.getSuperName();
-      classReader = getOrLoadClassReader(type);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `classReader`
-in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
-#### Snippet
-```java
-      }
-      type = classReader.getSuperName();
-      classReader = getOrLoadClassReader(type);
-    }
-    return false;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `mv`
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/testTracking/TestTrackingClassDataMode.java`
 #### Snippet
@@ -3478,6 +3430,30 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/testTracking/Te
     mv = super.createInstrumentingVisitor(mv, enumerator, access, name, desc);
     return createMethodTransformer(mv, enumerator, access, name, desc);
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fileName`
+in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
+#### Snippet
+```java
+      final int endIndex = start.lastIndexOf('/');
+      if (endIndex > -1) {
+        fileName = start.substring(0, endIndex) + rest;
+      } else {
+        fileName = rest.startsWith("/") ? rest.substring(1) : rest;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fileName`
+in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
+#### Snippet
+```java
+        fileName = start.substring(0, endIndex) + rest;
+      } else {
+        fileName = rest.startsWith("/") ? rest.substring(1) : rest;
+      }
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -3688,6 +3664,18 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
+#### Snippet
+```java
+      return JAVA_LANG_OBJECT;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 #### Snippet
 ```java
@@ -3700,11 +3688,47 @@ in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 
 ### ReturnNull
 Return of `null`
-in `util/src/com/intellij/rt/coverage/instrumentation/ClassWriterImpl.java`
+in `common/src/com/intellij/rt/coverage/util/ThreadLocalCachedValue.java`
 #### Snippet
 ```java
-      return JAVA_LANG_OBJECT;
+
+  private static <T> T dereference(SoftReference<T> ref) {
+    return ref == null ? null : ref.get();
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/com/intellij/rt/coverage/util/StringsPool.java`
+#### Snippet
+```java
+
+  public static String getFromPool(String value) {
+    if (value == null) return null;
+    if (value.length() == 0) return EMPTY;
+
+```
+
+### ReturnNull
+Return of `null`
+in `reporter/src/com/intellij/rt/coverage/report/DirectorySourceCodeProvider.java`
+#### Snippet
+```java
+      return FileUtils.readAll(file);
+    } catch (IOException e) {
+      return null;
     }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `util/src/com/intellij/rt/coverage/instrumentation/AbstractIntellijClassfileTransformer.java`
+#### Snippet
+```java
+
+  protected InclusionPattern getInclusionPattern() {
     return null;
   }
 
@@ -3776,58 +3800,10 @@ in `util/src/com/intellij/rt/coverage/instrumentation/AbstractIntellijClassfileT
 #### Snippet
 ```java
 
-  protected InclusionPattern getInclusionPattern() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `util/src/com/intellij/rt/coverage/instrumentation/AbstractIntellijClassfileTransformer.java`
-#### Snippet
-```java
-
     final ClassVisitor cv = createClassVisitor(className, loader, cr, cw);
     if (cv == null) return null;
     cr.accept(cv, ClassReader.EXPAND_FRAMES);
     return cw.toByteArray();
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/com/intellij/rt/coverage/util/ThreadLocalCachedValue.java`
-#### Snippet
-```java
-
-  private static <T> T dereference(SoftReference<T> ref) {
-    return ref == null ? null : ref.get();
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/com/intellij/rt/coverage/util/StringsPool.java`
-#### Snippet
-```java
-
-  public static String getFromPool(String value) {
-    if (value == null) return null;
-    if (value.length() == 0) return EMPTY;
-
-```
-
-### ReturnNull
-Return of `null`
-in `reporter/src/com/intellij/rt/coverage/report/DirectorySourceCodeProvider.java`
-#### Snippet
-```java
-      return FileUtils.readAll(file);
-    } catch (IOException e) {
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -3844,24 +3820,24 @@ in `benchmarks/jmh/com/intellij/rt/coverage/jmh/ApacheCollectionsTests.java`
 
 ### ReturnNull
 Return of `null`
-in `src/com/intellij/rt/coverage/util/classFinder/ClassPathEntry.java`
-#### Snippet
-```java
-      return myZipProcessor;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/com/intellij/rt/coverage/util/ArrayUtil.java`
 #### Snippet
 ```java
 
   public static <T> T safeLoad(T[] array, int index) {
     return array != null && 0 <= index && index < array.length ? array[index] : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/com/intellij/rt/coverage/util/classFinder/ClassPathEntry.java`
+#### Snippet
+```java
+      return myZipProcessor;
+    }
+    return null;
   }
 
 ```
@@ -3908,9 +3884,9 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/data/BranchData
 #### Snippet
 ```java
 
-  public Jump getJump(Label jump) {
-    if (myJumps == null) return null;
-    return myJumps.get(jump);
+  public Switch getSwitch(Label label) {
+    if (mySwitches == null) return null;
+    return mySwitches.get(label);
   }
 ```
 
@@ -3920,9 +3896,9 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/data/BranchData
 #### Snippet
 ```java
 
-  public Switch getSwitch(Label label) {
-    if (mySwitches == null) return null;
-    return mySwitches.get(label);
+  public Jump getJump(Label jump) {
+    if (myJumps == null) return null;
+    return myJumps.get(jump);
   }
 ```
 
@@ -3940,18 +3916,6 @@ in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/instrumentation/In
 
 ### ReturnNull
 Return of `null`
-in `src/com/intellij/rt/coverage/util/LineMapper.java`
-#### Snippet
-```java
-    final T[] oldLines = getLines(sourceClassData);
-    if (linesMap == null) return oldLines;
-    if (sourceClassData == targetClassData && oldLines == null) return null;
-    try {
-      final T[] sourceLines = getSourceLinesArray(linesMap, sourceClassData, targetClassData);
-```
-
-### ReturnNull
-Return of `null`
 in `benchmarks/jmh/com/intellij/rt/coverage/jmh/TraceFileProfiler.java`
 #### Snippet
 ```java
@@ -3960,30 +3924,6 @@ public class TraceFileProfiler implements InternalProfiler {
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/Instrumenter.java`
-#### Snippet
-```java
-  protected LineData getOrCreateLineData(int line, String name, String desc) {
-    if (line > myMaxLineNumber) myMaxLineNumber = line;
-    if (isIgnoreSection() && !KotlinUtils.isKotlinClass(this)) return null;
-    //create lines again if class was loaded again by another class loader; may be myLinesArray should be cleared
-    if (myLines == null) myLines = new TIntObjectHashMap<LineData>();
-```
-
-### ReturnNull
-Return of `null`
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/Instrumenter.java`
-#### Snippet
-```java
-                                   final String[] exceptions) {
-    final MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
-    if (mv == null) return null;
-    if (!shouldInstrumentMethod(access, name, desc, signature, exceptions)) return mv;
-    myProcess = true;
 ```
 
 ### ReturnNull
@@ -4008,6 +3948,42 @@ in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.ja
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/com/intellij/rt/coverage/util/LineMapper.java`
+#### Snippet
+```java
+    final T[] oldLines = getLines(sourceClassData);
+    if (linesMap == null) return oldLines;
+    if (sourceClassData == targetClassData && oldLines == null) return null;
+    try {
+      final T[] sourceLines = getSourceLinesArray(linesMap, sourceClassData, targetClassData);
+```
+
+### ReturnNull
+Return of `null`
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/Instrumenter.java`
+#### Snippet
+```java
+  protected LineData getOrCreateLineData(int line, String name, String desc) {
+    if (line > myMaxLineNumber) myMaxLineNumber = line;
+    if (isIgnoreSection() && !KotlinUtils.isKotlinClass(this)) return null;
+    //create lines again if class was loaded again by another class loader; may be myLinesArray should be cleared
+    if (myLines == null) myLines = new TIntObjectHashMap<LineData>();
+```
+
+### ReturnNull
+Return of `null`
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/Instrumenter.java`
+#### Snippet
+```java
+                                   final String[] exceptions) {
+    final MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
+    if (mv == null) return null;
+    if (!shouldInstrumentMethod(access, name, desc, signature, exceptions)) return mv;
+    myProcess = true;
 ```
 
 ### ReturnNull
@@ -4048,18 +4024,6 @@ in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/instrumentation/Te
 
 ### ReturnNull
 Return of `null`
-in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/instrumentation/OpenCloseFileTransformer.java`
-#### Snippet
-```java
-      });
-    } catch (ClassNotFoundException e) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `instrumentation/src/com/intellij/rt/coverage/instrumentation/MethodFilteringVisitor.java`
 #### Snippet
 ```java
@@ -4072,14 +4036,26 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/MethodFiltering
 
 ### ReturnNull
 Return of `null`
+in `test-discovery/src/com/intellij/rt/coverage/testDiscovery/instrumentation/OpenCloseFileTransformer.java`
+#### Snippet
+```java
+      });
+    } catch (ClassNotFoundException e) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `src/com/intellij/rt/coverage/data/LineData.java`
 #### Snippet
 ```java
 
-  public JumpData[] getJumps() {
+  public BranchData getBranchData() {
     if (myJumpsAndSwitches == null) return null;
-    return getOrCreateJumpsAndSwitches().getJumps();
-  }
+    int total = 0;
+    int covered = 0;
 ```
 
 ### ReturnNull
@@ -4100,22 +4076,10 @@ in `src/com/intellij/rt/coverage/data/LineData.java`
 #### Snippet
 ```java
 
-  public BranchData getBranchData() {
+  public JumpData[] getJumps() {
     if (myJumpsAndSwitches == null) return null;
-    int total = 0;
-    int covered = 0;
-```
-
-### ReturnNull
-Return of `null`
-in `src/com/intellij/rt/coverage/data/ClassData.java`
-#### Snippet
-```java
-  @SuppressWarnings("unused")
-  public Integer getStatus(String methodSignature) {
-    if (myStatus == null) return null;
-    Integer methodStatus = myStatus.get(methodSignature);
-    if (methodStatus == null) {
+    return getOrCreateJumpsAndSwitches().getJumps();
+  }
 ```
 
 ### ReturnNull
@@ -4128,6 +4092,18 @@ in `src/com/intellij/rt/coverage/data/instructions/InstructionsUtil.java`
       if (classInstructions == null) return null;
       return classInstructions.getlines();
     }
+```
+
+### ReturnNull
+Return of `null`
+in `src/com/intellij/rt/coverage/data/ClassData.java`
+#### Snippet
+```java
+  @SuppressWarnings("unused")
+  public Integer getStatus(String methodSignature) {
+    if (myStatus == null) return null;
+    Integer methodStatus = myStatus.get(methodSignature);
+    if (methodStatus == null) {
 ```
 
 ### ReturnNull
@@ -4168,78 +4144,6 @@ in `benchmarks/jmh/com/intellij/rt/coverage/jmh/TestDiscoveryListener.java`
 
 ### ReturnNull
 Return of `null`
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      ErrorReporter.reportError("Error in class data loading: " + className, e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      ErrorReporter.reportError("Error in class data access: " + className, e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-        return myClassData;
-      }
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      ErrorReporter.reportError("Error in class data access: " + className, e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
-#### Snippet
-```java
-  private static String readString(DataInput stream) throws IOException {
-    int length = stream.readInt();
-    if (length == -1) return null;
-
-    char[] chars = new char[length];
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
-#### Snippet
-```java
-      }
-      ErrorReporter.reportError("Failed to lock with file lock: " + lock.myLock.getAbsolutePath());
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
 #### Snippet
 ```java
@@ -4272,6 +4176,78 @@ in `reporter/src/com/intellij/rt/coverage/verify/Verifier.java`
           if (total.equals(BigDecimal.ZERO)) return null;
           return covered.divide(total, 6, RoundingMode.HALF_UP);
         }
+```
+
+### ReturnNull
+Return of `null`
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      ErrorReporter.reportError("Error in class data loading: " + className, e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      ErrorReporter.reportError("Error in class data access: " + className, e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      ErrorReporter.reportError("Error in class data access: " + className, e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
+        return myClassData;
+      }
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
+#### Snippet
+```java
+      }
+      ErrorReporter.reportError("Failed to lock with file lock: " + lock.myLock.getAbsolutePath());
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
+#### Snippet
+```java
+  private static String readString(DataInput stream) throws IOException {
+    int length = stream.readInt();
+    if (length == -1) return null;
+
+    char[] chars = new char[length];
 ```
 
 ### ReturnNull
@@ -4373,18 +4349,6 @@ in `offline-runtime/src/com/intellij/rt/coverage/offline/RawProjectInit.java`
 ```
 
 ### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-  public void addLineMaps(String className, FileMapData[] fileDatas) {
-    if (myLinesMap == null) {
-      synchronized (FileMapData.class) {
-        if (myLinesMap == null) {
-          myLinesMap = new ConcurrentHashMap<String, FileMapData[]>();
-```
-
-### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `src/com/intellij/rt/coverage/data/ProjectData.java`
 #### Snippet
@@ -4394,6 +4358,18 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
       synchronized (this) {
         instructions = myInstructions;
         if (instructions == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
+  public void addLineMaps(String className, FileMapData[] fileDatas) {
+    if (myLinesMap == null) {
+      synchronized (FileMapData.class) {
+        if (myLinesMap == null) {
+          myLinesMap = new ConcurrentHashMap<String, FileMapData[]>();
 ```
 
 ### SynchronizeOnThis
