@@ -1,7 +1,7 @@
 # sling-org-apache-sling-servlets-get 
  
 # Bad smells
-I found 39 bad smells with 4 repairable:
+I found 40 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DataFlowIssue | 8 | false |
@@ -18,6 +18,7 @@ I found 39 bad smells with 4 repairable:
 | CStyleArrayDeclaration | 1 | false |
 | Java8MapApi | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
@@ -113,6 +114,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ```
 
 ### DataFlowIssue
+Argument `resourceInputStream` might be null
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+#### Snippet
+```java
+            InputStream resourceInputStream = resource.adaptTo(InputStream.class);
+
+            try (InputStream istream = new BufferedInputStream(resourceInputStream,
+                    IO_BUFFER_SIZE)) {
+                Range currentRange = ranges.next();
+```
+
+### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
@@ -134,18 +147,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
             resource = request.getResourceResolver().getResource(actualResourcePath);
             if (resource == null) {
                 log.warn("Path {} does not exist",actualResourcePath);
-```
-
-### DataFlowIssue
-Argument `resourceInputStream` might be null
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
-#### Snippet
-```java
-            InputStream resourceInputStream = resource.adaptTo(InputStream.class);
-
-            try (InputStream istream = new BufferedInputStream(resourceInputStream,
-                    IO_BUFFER_SIZE)) {
-                Range currentRange = ranges.next();
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -276,18 +277,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `currentLevel`
-in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java`
-#### Snippet
-```java
-        while (!currentQueue.isEmpty() || !nextQueue.isEmpty()) {
-            if (currentQueue.isEmpty()) {
-                currentLevel++;
-                currentQueue = nextQueue;
-                nextQueue = new LinkedList<>();
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `response`
 in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
 #### Snippet
@@ -297,6 +286,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
         response = new HeadServletResponse(response);
         doGet(request, response);
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentLevel`
+in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java`
+#### Snippet
+```java
+        while (!currentQueue.isEmpty() || !nextQueue.isEmpty()) {
+            if (currentQueue.isEmpty()) {
+                currentLevel++;
+                currentQueue = nextQueue;
+                nextQueue = new LinkedList<>();
 ```
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
@@ -371,6 +372,19 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
                 return null;
             }
 
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-01-47-12.990.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
