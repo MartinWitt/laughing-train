@@ -4,13 +4,15 @@ import com.github.difflib.DiffUtils;
 import com.github.difflib.patch.AbstractDelta;
 import com.github.difflib.patch.ChangeDelta;
 import com.github.difflib.patch.Patch;
+import com.google.errorprone.annotations.Var;
+
 import java.util.stream.Collectors;
 import xyz.keksdose.spoon.code_solver.history.Change;
 
 public class ExtraWhiteSpaceCleaner implements GitDiffCleaner {
 
     @Override
-    public String clean(String content, GitLineChange gitLineChange, Change change) {
+    public String clean(@Var String content, GitLineChange gitLineChange, Change change) {
         Patch<String> patch = DiffUtils.diffInline(gitLineChange.oldContent(), gitLineChange.newContent());
         for (AbstractDelta<String> delta : patch.getDeltas()) {
             if (delta instanceof ChangeDelta<String> changeDelta) {

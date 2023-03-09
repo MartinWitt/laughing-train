@@ -73,8 +73,11 @@ public class RefactorService {
     @Inject
     ProjectConfigService projectConfigService;
 
-    @Inject
     DiffCleaner diffCleaner;
+
+    public RefactorService() {
+        diffCleaner = new DiffCleaner();
+    }
 
     public Uni<String> refactor(Collection<? extends BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
@@ -134,7 +137,9 @@ public class RefactorService {
             TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
             transformationEngine.setChangeListener(listener);
             Changelog log = transformationEngine.applyToGivenPath(refactorPath);
-            log.getChanges().forEach(change -> diffCleaner.clean(success.project().folder().toPath(), change));
+            log.getChanges()
+                    .forEach(change ->
+                            diffCleaner.clean(success.project().folder().toPath(), change));
             try {
                 GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
                 GHRepository repository = createForkIfMissing(success, github);
