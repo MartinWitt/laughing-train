@@ -8,8 +8,8 @@ I found 23 bad smells with 1 repairable:
 | DefaultAnnotationParam | 2 | false |
 | ReturnNull | 2 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | UnnecessarySemicolon | 1 | false |
+| UnnecessaryFullyQualifiedName | 1 | false |
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
@@ -266,19 +266,6 @@ public class DataCatalogApiServiceApplication {
     public static void main(String[] args) {
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.airavata.datacatalog.api.model` is unnecessary and can be removed
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
-#### Snippet
-```java
-/**
- * Map to/from
- * {@link org.apache.airavata.datacatalog.api.model.DataProductEntity}
- * <-> {@link org.apache.airavata.datacatalog.api.DataProduct}
- */
-```
-
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -290,5 +277,18 @@ import io.grpc.Status;
 import io.grpc.StatusRuntimeException;;
 
 public class DataCatalogAPIClient {
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.airavata.datacatalog.api.model` is unnecessary and can be removed
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
+#### Snippet
+```java
+/**
+ * Map to/from
+ * {@link org.apache.airavata.datacatalog.api.model.DataProductEntity}
+ * <-> {@link org.apache.airavata.datacatalog.api.DataProduct}
+ */
 ```
 
