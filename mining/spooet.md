@@ -15,18 +15,6 @@ I found 16 bad smells with 3 repairable:
 | MethodOverridesStaticMethod | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
-in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
-#### Snippet
-```java
-		}
-
-		return result.toArray(new Modifier[result.size()]);
-	}
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new TypeName\[bounds.size()\]'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
@@ -50,6 +38,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 		throw new UnsupportedOperationException();
 ```
 
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
+in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
+#### Snippet
+```java
+		}
+
+		return result.toArray(new Modifier[result.size()]);
+	}
+
+```
+
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `CtVisitor`
@@ -64,18 +64,6 @@ public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, Prett
 ```
 
 ## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
-#### Snippet
-```java
-	public String toString() {
-		if (type == null) {
-			return null;
-		}
-
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
@@ -112,19 +100,19 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
+### ReturnNull
+Return of `null`
+in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
 #### Snippet
 ```java
-		defaultJavaPrettyPrinter.scan(element);
-		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
-		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
-	}
+	public String toString() {
+		if (type == null) {
+			return null;
+		}
 
 ```
 
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
@@ -135,6 +123,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
 		}
 		field.initializer(result);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
+#### Snippet
+```java
+		defaultJavaPrettyPrinter.scan(element);
+		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
+		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
+	}
+
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
