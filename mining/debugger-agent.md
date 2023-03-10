@@ -32,15 +32,15 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `CaptureAgent` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+Class `CaptureStorage` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 #### Snippet
 ```java
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "CallToPrintStackTrace", "rawtypes"})
-public final class CaptureAgent {
-  private static Instrumentation ourInstrumentation;
-  private static final Set<Class> mySkipped = new HashSet<Class>();
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
+public final class CaptureStorage {
+  public static final String GENERATED_INSERT_METHOD_POSTFIX = "$$$capture";
+  private static final ReferenceQueue KEY_REFERENCE_QUEUE = new ReferenceQueue();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -56,15 +56,15 @@ public class CollectionBreakpointStorage {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CaptureStorage` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
+Class `CaptureAgent` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
 #### Snippet
 ```java
 
-@SuppressWarnings("UseOfSystemOutOrSystemErr")
-public final class CaptureStorage {
-  public static final String GENERATED_INSERT_METHOD_POSTFIX = "$$$capture";
-  private static final ReferenceQueue KEY_REFERENCE_QUEUE = new ReferenceQueue();
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "CallToPrintStackTrace", "rawtypes"})
+public final class CaptureAgent {
+  private static Instrumentation ourInstrumentation;
+  private static final Set<Class> mySkipped = new HashSet<Class>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -97,6 +97,18 @@ public class DebuggerAgent {
 in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
 #### Snippet
 ```java
+                             String methodDisplayName) {
+      keyProvider.loadKey(mv, isStatic, argumentTypes, methodDisplayName, this);
+      mv.visitMethodInsn(Opcodes.INVOKESTATIC, CaptureStorage.class.getName().replaceAll("\\.", "/"), storageMethodName,
+                         "(Ljava/lang/Object;)V", false);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+#### Snippet
+```java
       InstrumentPoint point = addPoint((String)entry.getKey(), (String)entry.getValue());
       if (point != null) {
         classNames.add(point.myClassName.replaceAll("/", "\\."));
@@ -114,18 +126,6 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
                 FileOutputStream stream = new FileOutputStream("instrumented_" + className.replaceAll("/", "_") + ".class");
                 try {
                   stream.write(bytes);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
-#### Snippet
-```java
-                             String methodDisplayName) {
-      keyProvider.loadKey(mv, isStatic, argumentTypes, methodDisplayName, this);
-      mv.visitMethodInsn(Opcodes.INVOKESTATIC, CaptureStorage.class.getName().replaceAll("\\.", "/"), storageMethodName,
-                         "(Ljava/lang/Object;)V", false);
-    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -184,11 +184,11 @@ Field initialization to `0` is redundant
 in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
-
-    private class CaptureFieldsMethodVisitor extends MethodVisitor {
+      private int myCollectionCopyVar;
+      private int myShouldCaptureVar;
       private int myAdditionalStackSpace = 0;
+      private int myNumberOfAdditionalLocalVars = 0;
 
-      private CaptureFieldsMethodVisitor(int api, MethodVisitor methodVisitor) {
 ```
 
 ### RedundantFieldInitialization
@@ -196,11 +196,11 @@ Field initialization to `0` is redundant
 in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
-      private int myCollectionCopyVar;
-      private int myShouldCaptureVar;
-      private int myAdditionalStackSpace = 0;
-      private int myNumberOfAdditionalLocalVars = 0;
 
+    private class CaptureFieldsMethodVisitor extends MethodVisitor {
+      private int myAdditionalStackSpace = 0;
+
+      private CaptureFieldsMethodVisitor(int api, MethodVisitor methodVisitor) {
 ```
 
 ### RedundantFieldInitialization
@@ -255,30 +255,6 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
-#### Snippet
-```java
-      return addPoint(false, propertyValue);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 #### Snippet
 ```java
@@ -303,14 +279,50 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+#### Snippet
+```java
+      return addPoint(false, propertyValue);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+#### Snippet
+```java
+        }
+      }
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
-    @Override
-    public Object setValue(Object value) {
+                            byte[] classfileBuffer) {
+      if (className == null) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
+#### Snippet
+```java
+        }
+      }
       return null;
     }
-
+  }
 ```
 
 ### ReturnNull
@@ -342,23 +354,11 @@ Return of `null`
 in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
-                            byte[] classfileBuffer) {
-      if (className == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
-#### Snippet
-```java
-        }
-      }
+    @Override
+    public Object setValue(Object value) {
       return null;
     }
-  }
+
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
