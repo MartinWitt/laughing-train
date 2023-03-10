@@ -7,7 +7,7 @@ I found 5 bad smells with 0 repairable:
 | FieldAccessedSynchronizedAndUnsynchronized | 3 | false |
 | StaticPseudoFunctionalStyleMethod | 1 | false |
 | DataFlowIssue | 1 | false |
-## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
+## RuleId[id=StaticPseudoFunctionalStyleMethod]
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
 in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationProcessor.java`
@@ -20,7 +20,7 @@ in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationPr
                                 typeElement.getTypeParameters().isEmpty()
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `methodFieldName` might be null
 in `proxy-processor/src/main/java/com/palantir/proxy/processor/Methods.java`
@@ -33,7 +33,19 @@ in `proxy-processor/src/main/java/com/palantir/proxy/processor/Methods.java`
             initializers.add(CodeBlock.builder()
 ```
 
-## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `elements` is accessed in both synchronized and unsynchronized contexts
+in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationProcessor.java`
+#### Snippet
+```java
+    private Messager messager;
+    private Filer filer;
+    private Elements elements;
+
+    @Override
+```
+
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `messager` is accessed in both synchronized and unsynchronized contexts
 in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationProcessor.java`
@@ -56,17 +68,5 @@ in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationPr
     private Filer filer;
     private Elements elements;
 
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `elements` is accessed in both synchronized and unsynchronized contexts
-in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationProcessor.java`
-#### Snippet
-```java
-    private Messager messager;
-    private Filer filer;
-    private Elements elements;
-
-    @Override
 ```
 
