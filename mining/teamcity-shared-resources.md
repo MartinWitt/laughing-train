@@ -14,7 +14,7 @@ I found 52 bad smells with 2 repairable:
 | DoubleBraceInitialization | 1 | false |
 | CStyleArrayDeclaration | 1 | false |
 | MissortedModifiers | 1 | false |
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `server/src/jetbrains/buildServer/sharedResources/model/resources/ResourceType.java`
@@ -231,7 +231,7 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
 }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `ResourceFactory` has only 'static' members, and lacks a 'private' constructor
 in `server/src/jetbrains/buildServer/sharedResources/model/resources/ResourceFactory.java`
@@ -256,7 +256,7 @@ public class SharedResourcesPluginConstants {
   /**
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `jetbrains.buildServer.sharedResources.server` is unnecessary and can be removed
 in `server/src/jetbrains/buildServer/sharedResources/server/BuildFeatureParametersProvider.java`
@@ -281,7 +281,7 @@ in `server/src/jetbrains/buildServer/sharedResources/server/feature/Locks.java`
  *
 ```
 
-## RuleId[ruleID=DoubleBraceInitialization]
+## RuleId[id=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
 in `server/src/jetbrains/buildServer/sharedResources/server/health/InvalidLocksReport.java`
@@ -294,7 +294,7 @@ in `server/src/jetbrains/buildServer/sharedResources/server/health/InvalidLocksR
           put("build_type", type);
 ```
 
-## RuleId[ruleID=SuspiciousMethodCalls]
+## RuleId[id=SuspiciousMethodCalls]
 ### SuspiciousMethodCalls
 'Map\>' may not contain keys of type ''
 in `server/src/jetbrains/buildServer/sharedResources/server/runtime/ResourceAffinity.java`
@@ -331,31 +331,7 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
         result.put(rc, tl);
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
-#### Snippet
-```java
-  @NotNull
-  @Override
-  public Map<String, String> asBuildParameters(@NotNull final Collection<Lock> locks) {
-    final Map<String, String> buildParams = new HashMap<>();
-    for (Lock lock: locks) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SharedResourcesFeature`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
-#### Snippet
-```java
-  @NotNull
-  @Override
-  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
-    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
-    features.stream()
-```
-
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Resource`
 in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspector.java`
@@ -382,14 +358,26 @@ in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspect
 
 ### BoundedWildcard
 Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
 #### Snippet
 ```java
-
   @NotNull
-  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
-    return myLocks.stream()
-                  .collect(Collectors.toMap(Function.identity(), val -> ""));
+  @Override
+  public Map<String, String> asBuildParameters(@NotNull final Collection<Lock> locks) {
+    final Map<String, String> buildParams = new HashMap<>();
+    for (Lock lock: locks) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SharedResourcesFeature`
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
+    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
+    features.stream()
 ```
 
 ### BoundedWildcard
@@ -429,6 +417,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesConte
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
+    return myLocks.stream()
+                  .collect(Collectors.toMap(Function.identity(), val -> ""));
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`
 in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.java`
 #### Snippet
@@ -465,18 +465,6 @@ in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TakenLock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
-#### Snippet
-```java
-
-  private String getNextAvailableValue(@NotNull final CustomResource resource,
-                                       @NotNull final Map<Resource, TakenLock> takenLocks,
-                                       @NotNull final BuildPromotion promotion,
-                                       @NotNull final DistributionDataAccessor accessor) {
-```
-
-### BoundedWildcard
 Can generalize to `? super Map`
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
 #### Snippet
@@ -486,6 +474,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgent
                                  @NotNull final AtomicReference<Map<Resource, TakenLock>> takenLocks) {
     if (takenLocks.get() == null) {
       takenLocks.set(myTakenLocks.collectTakenLocks(runningBuilds, canBeStarted.keySet()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends TakenLock`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
+#### Snippet
+```java
+
+  private String getNextAvailableValue(@NotNull final CustomResource resource,
+                                       @NotNull final Map<Resource, TakenLock> takenLocks,
+                                       @NotNull final BuildPromotion promotion,
+                                       @NotNull final DistributionDataAccessor accessor) {
 ```
 
 ### BoundedWildcard
@@ -524,7 +524,7 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
                                                    @NotNull final String projectId,
 ```
 
-## RuleId[ruleID=CStyleArrayDeclaration]
+## RuleId[id=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
 C-style array declaration of local variable `c`
 in `server/src/jetbrains/buildServer/sharedResources/server/report/UsedResourcesSerializer.java`
@@ -537,7 +537,7 @@ in `server/src/jetbrains/buildServer/sharedResources/server/report/UsedResources
       return new String(c);
 ```
 
-## RuleId[ruleID=MissortedModifiers]
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
 in `server/src/jetbrains/buildServer/sharedResources/server/analysis/ResourceUsageAnalyzer.java`
@@ -550,7 +550,7 @@ in `server/src/jetbrains/buildServer/sharedResources/server/analysis/ResourceUsa
     lookupScope.addAll(project.getBuildTypes());
 ```
 
-## RuleId[ruleID=StringEqualsEmptyString]
+## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
@@ -599,7 +599,7 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
               if (reservedValue != null) {
 ```
 
-## RuleId[ruleID=RedundantSuppression]
+## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
