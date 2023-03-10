@@ -29,6 +29,18 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
+				e.printStackTrace();
+			}
+			System.out.println("Successfully stored the output Markdown file!");
+		}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
+#### Snippet
+```java
 		void generate(String outputFile, String inclusionPattern, String date) {
 			try {
 				System.out.println("Parsing all configuration metadata");
@@ -70,18 +82,6 @@ in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spri
 					System.out.println("Will not update the table, since no configuration properties were found!");
 					return;
 				}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
-#### Snippet
-```java
-				e.printStackTrace();
-			}
-			System.out.println("Successfully stored the output Markdown file!");
-		}
-
 ```
 
 ### SystemOutErr
