@@ -180,54 +180,6 @@ Method invocation `get` may produce `NullPointerException`
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
 #### Snippet
 ```java
-            public void onFailure(Call call, IOException exception) {
-                try {
-                    call.request().tag(Tags.EntireSpan.class).get().complete();
-                } finally {
-                    callback.onFailure(call, exception);
-```
-
-### DataFlowIssue
-Method invocation `attemptSpan` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-    @Override
-    public void enqueue(Callback callback) {
-        DetachedSpan attemptSpan = request().tag(Tags.AttemptSpan.class).attemptSpan();
-        DetachedSpan concurrencyLimiterSpan = attemptSpan.childDetachedSpan(limiter.spanName());
-        ListenableFuture<Limiter.Listener> limiterListener = limiter.acquire();
-```
-
-### DataFlowIssue
-Method invocation `setLimiterListener` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-        DetachedSpan concurrencyLimiterSpan = attemptSpan.childDetachedSpan(limiter.spanName());
-        ListenableFuture<Limiter.Listener> limiterListener = limiter.acquire();
-        request().tag(ConcurrencyLimiterListener.class).setLimiterListener(limiterListener);
-        Futures.addCallback(
-                limiterListener,
-```
-
-### DataFlowIssue
-Method invocation `setDispatcherSpan` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-                        concurrencyLimiterSpan.complete();
-                        DetachedSpan dispatcherSpan = attemptSpan.childDetachedSpan("OkHttp: dispatcher");
-                        request().tag(Tags.SettableDispatcherSpan.class).setDispatcherSpan(dispatcherSpan);
-                        enqueueClosingEntireSpan(callback);
-                    }
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     call.request().tag(Tags.EntireSpan.class).get().complete();
@@ -257,6 +209,54 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttp
         return previousAttempt.nextAttempt(entireSpan);
     }
 
+```
+
+### DataFlowIssue
+Method invocation `attemptSpan` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+    @Override
+    public void enqueue(Callback callback) {
+        DetachedSpan attemptSpan = request().tag(Tags.AttemptSpan.class).attemptSpan();
+        DetachedSpan concurrencyLimiterSpan = attemptSpan.childDetachedSpan(limiter.spanName());
+        ListenableFuture<Limiter.Listener> limiterListener = limiter.acquire();
+```
+
+### DataFlowIssue
+Method invocation `setLimiterListener` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+        DetachedSpan concurrencyLimiterSpan = attemptSpan.childDetachedSpan(limiter.spanName());
+        ListenableFuture<Limiter.Listener> limiterListener = limiter.acquire();
+        request().tag(ConcurrencyLimiterListener.class).setLimiterListener(limiterListener);
+        Futures.addCallback(
+                limiterListener,
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+            public void onFailure(Call call, IOException exception) {
+                try {
+                    call.request().tag(Tags.EntireSpan.class).get().complete();
+                } finally {
+                    callback.onFailure(call, exception);
+```
+
+### DataFlowIssue
+Method invocation `setDispatcherSpan` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+                        concurrencyLimiterSpan.complete();
+                        DetachedSpan dispatcherSpan = attemptSpan.childDetachedSpan("OkHttp: dispatcher");
+                        request().tag(Tags.SettableDispatcherSpan.class).setDispatcherSpan(dispatcherSpan);
+                        enqueueClosingEntireSpan(callback);
+                    }
 ```
 
 ### DataFlowIssue
@@ -325,18 +325,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
 #### Snippet
 ```java
-        // skip trailing space chars before comma or semicolon.
-        // (compatibility with RFC 1779)
-        for (; pos < length && chars[pos] == ' '; pos++) {}
-
-        return new String(chars, beg, end - beg);
-```
-
-### EmptyStatementBody
-`for` statement has empty body
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
-#### Snippet
-```java
                 // skip trailing space chars before comma or semicolon.
                 // (compatibility with RFC 1779)
                 for (; pos < length && chars[pos] == ' '; pos++) {}
@@ -354,6 +342,18 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
             if (chars[pos] == ',' || chars[pos] == ';') {
             } else if (chars[pos] != '+') {
                 throw new IllegalStateException("Malformed DN: " + dn);
+```
+
+### EmptyStatementBody
+`for` statement has empty body
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
+#### Snippet
+```java
+        // skip trailing space chars before comma or semicolon.
+        // (compatibility with RFC 1779)
+        for (; pos < length && chars[pos] == ' '; pos++) {}
+
+        return new String(chars, beg, end - beg);
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -407,18 +407,6 @@ in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/H
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'RefreshableProxyInvocationHandler' is still used
-in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/RefreshableProxyInvocationHandler.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class RefreshableProxyInvocationHandler<R, T> extends AbstractInvocationHandler {
-
-    private final Refreshable<R> refreshable;
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'Refreshable' is still used
 in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/Refreshable.java`
 #### Snippet
@@ -428,6 +416,18 @@ in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/Ref
 public final class Refreshable<T> {
 
     private final AtomicReference<T> value;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'RefreshableProxyInvocationHandler' is still used
+in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/RefreshableProxyInvocationHandler.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class RefreshableProxyInvocationHandler<R, T> extends AbstractInvocationHandler {
+
+    private final Refreshable<R> refreshable;
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -569,27 +569,15 @@ in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServer
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Certificate`
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+Can generalize to `? extends BackoffStrategy`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpClient.java`
 #### Snippet
 ```java
-
-    private static void addCertificatesToKeystore(
-            KeyStore keyStore, String certificateEntryNamePrefix, List<Certificate> certificates)
-            throws KeyStoreException {
-        int certIndex = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/QosExceptionResponseMapper.java`
-#### Snippet
-```java
-    }
-
-    private static Optional<QosException> map308(Function<String, String> headerFn) {
-        String locationHeader = headerFn.apply(HttpHeaders.LOCATION);
-        if (locationHeader == null) {
+    RemotingOkHttpClient(
+            OkHttpClient delegate,
+            Supplier<BackoffStrategy> backoffStrategy,
+            NodeSelectionStrategy nodeSelectionStrategy,
+            UrlSelector urls,
 ```
 
 ### BoundedWildcard
@@ -629,15 +617,27 @@ in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/QosExcep
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BackoffStrategy`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpClient.java`
+Can generalize to `? super String`
+in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/QosExceptionResponseMapper.java`
 #### Snippet
 ```java
-    RemotingOkHttpClient(
-            OkHttpClient delegate,
-            Supplier<BackoffStrategy> backoffStrategy,
-            NodeSelectionStrategy nodeSelectionStrategy,
-            UrlSelector urls,
+    }
+
+    private static Optional<QosException> map308(Function<String, String> headerFn) {
+        String locationHeader = headerFn.apply(HttpHeaders.LOCATION);
+        if (locationHeader == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Certificate`
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+
+    private static void addCertificatesToKeystore(
+            KeyStore keyStore, String certificateEntryNamePrefix, List<Certificate> certificates)
+            throws KeyStoreException {
+        int certIndex = 0;
 ```
 
 ### BoundedWildcard
@@ -650,6 +650,30 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
         CoerceNullCollectionsConverter(Converter<ResponseBody, ?> responseBodyConverter, Type type) {
             this.responseBodyConverter = responseBodyConverter;
             this.type = type;
+```
+
+### BoundedWildcard
+Can generalize to `? extends SimpleLimiter`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+#### Snippet
+```java
+        private final LeakDetector<Limiter.Listener> leakDetector = new LeakDetector<>(Limiter.Listener.class);
+
+        DefaultConcurrencyLimiter(Key limiterKey, Supplier<SimpleLimiter<Void>> limiterFactory) {
+            this.limiterKey = limiterKey;
+            this.limiterFactory = limiterFactory;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Limiter.Listener`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+#### Snippet
+```java
+        }
+
+        private void addSlowAcquireMarker(ListenableFuture<Limiter.Listener> future) {
+            long start = System.nanoTime();
+            Futures.addCallback(
 ```
 
 ### BoundedWildcard
@@ -677,18 +701,6 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Optional`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.java`
-#### Snippet
-```java
-
-    @VisibleForTesting
-    LeakDetector(Class<T> resourceType, Consumer<Optional<RuntimeException>> subscriber) {
-        this.resourceType = resourceType;
-        this.subscriber = subscriber;
-```
-
-### BoundedWildcard
 Can generalize to `? extends RuntimeException`
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.java`
 #### Snippet
@@ -701,27 +713,15 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SimpleLimiter`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+Can generalize to `? super Optional`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.java`
 #### Snippet
 ```java
-        private final LeakDetector<Limiter.Listener> leakDetector = new LeakDetector<>(Limiter.Listener.class);
 
-        DefaultConcurrencyLimiter(Key limiterKey, Supplier<SimpleLimiter<Void>> limiterFactory) {
-            this.limiterKey = limiterKey;
-            this.limiterFactory = limiterFactory;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Limiter.Listener`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
-#### Snippet
-```java
-        }
-
-        private void addSlowAcquireMarker(ListenableFuture<Limiter.Listener> future) {
-            long start = System.nanoTime();
-            Futures.addCallback(
+    @VisibleForTesting
+    LeakDetector(Class<T> resourceType, Consumer<Optional<RuntimeException>> subscriber) {
+        this.resourceType = resourceType;
+        this.subscriber = subscriber;
 ```
 
 ### BoundedWildcard
@@ -758,18 +758,6 @@ in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientCo
     private static Optional<HostAndPort> meshProxy(Optional<ProxyConfiguration> proxy) {
         if (proxy.isPresent() && proxy.get().type() == ProxyConfiguration.Type.MESH) {
             return Optional.of(HostAndPort.fromString(proxy.get().hostAndPort().get()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-        private final CallAdapter<R, T> delegate;
-
-        private QosExceptionThrowingCallAdapter(CallAdapter<R, T> delegate) {
-            this.delegate = delegate;
-        }
 ```
 
 ### BoundedWildcard
@@ -821,6 +809,18 @@ in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/Ref
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+        private final CallAdapter<R, T> delegate;
+
+        private QosExceptionThrowingCallAdapter(CallAdapter<R, T> delegate) {
+            this.delegate = delegate;
+        }
+```
+
+### BoundedWildcard
 Can generalize to `? extends ClientConfiguration`
 in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/JaxRsClient.java`
 #### Snippet
@@ -859,15 +859,15 @@ public abstract class TrustContext {
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'password'
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+`Optional` used as type for parameter 'previousCall'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpClient.java`
 #### Snippet
 ```java
-     *     the provided password.
-     */
-    static KeyStore loadKeyStore(String storeType, Path path, Optional<String> password) {
-        try {
-            KeyStore keyStore = KeyStore.getInstance(storeType);
+
+    RemotingOkHttpCall newCallWithMutableState(
+            Request request, BackoffStrategy backoffStrategy, int maxNumRelocations, Optional<Call> previousCall) {
+        return new RemotingOkHttpCall(
+                getDelegate().newCall(request),
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -883,15 +883,51 @@ in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'previousCall'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpClient.java`
+`Optional` used as type for parameter 'password'
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+     *     the provided password.
+     */
+    static KeyStore loadKeyStore(String storeType, Path path, Optional<String> password) {
+        try {
+            KeyStore keyStore = KeyStore.getInstance(storeType);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'allocationStackTrace'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
 #### Snippet
 ```java
 
-    RemotingOkHttpCall newCallWithMutableState(
-            Request request, BackoffStrategy backoffStrategy, int maxNumRelocations, Optional<Call> previousCall) {
-        return new RemotingOkHttpCall(
-                getDelegate().newCall(request),
+        private QueuedRequest(
+                SettableFuture<Limiter.Listener> future, Optional<RuntimeException> allocationStackTrace) {
+            this.future = future;
+            this.allocationStackTrace = allocationStackTrace;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'allocationStackTrace'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+#### Snippet
+```java
+    private static final class QueuedRequest {
+        private final SettableFuture<Limiter.Listener> future;
+        private final Optional<RuntimeException> allocationStackTrace;
+
+        private QueuedRequest(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'allocationStackTrace'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+#### Snippet
+```java
+        }
+
+        private Limiter.Listener wrap(Limiter.Listener listener, Optional<RuntimeException> allocationStackTrace) {
+            Limiter.Listener result = new Limiter.Listener() {
+                @Override
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -904,18 +940,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.j
         LeakDetectingReference(T referent, Optional<RuntimeException> stackTrace) {
             super(referent);
             this.stackTrace = stackTrace;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'stackTrace'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.java`
-#### Snippet
-```java
-
-    private static final class LeakDetectingReference<T> extends WeakReference<T> {
-        private final Optional<RuntimeException> stackTrace;
-
-        LeakDetectingReference(T referent, Optional<RuntimeException> stackTrace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -943,39 +967,15 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.j
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationStackTrace'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+`Optional` used as type for field 'stackTrace'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.java`
 #### Snippet
 ```java
 
-        private QueuedRequest(
-                SettableFuture<Limiter.Listener> future, Optional<RuntimeException> allocationStackTrace) {
-            this.future = future;
-            this.allocationStackTrace = allocationStackTrace;
-```
+    private static final class LeakDetectingReference<T> extends WeakReference<T> {
+        private final Optional<RuntimeException> stackTrace;
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationStackTrace'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
-#### Snippet
-```java
-        }
-
-        private Limiter.Listener wrap(Limiter.Listener listener, Optional<RuntimeException> allocationStackTrace) {
-            Limiter.Listener result = new Limiter.Listener() {
-                @Override
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'allocationStackTrace'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
-#### Snippet
-```java
-    private static final class QueuedRequest {
-        private final SettableFuture<Limiter.Listener> future;
-        private final Optional<RuntimeException> allocationStackTrace;
-
-        private QueuedRequest(
+        LeakDetectingReference(T referent, Optional<RuntimeException> stackTrace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -991,18 +991,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttp
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'previous'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-    private final ClientConfiguration.RetryOnSocketException retryOnSocketException;
-    // Previous call in the chain if this is a retry request
-    private final Optional<Call> previous;
-
-    private final int maxNumRelocations;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'backoff'
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
 #### Snippet
@@ -1012,6 +1000,18 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttp
     private boolean shouldRetry(IOException exception, Optional<Duration> backoff) {
         if (retryOnSocketException == ClientConfiguration.RetryOnSocketException.DANGEROUS_DISABLED) {
             return false;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'previous'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+    private final ClientConfiguration.RetryOnSocketException retryOnSocketException;
+    // Previous call in the chain if this is a retry request
+    private final Optional<Call> previous;
+
+    private final int maxNumRelocations;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1077,18 +1077,6 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 
 ## RuleId[id=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
-Class name `HostEventCallback` is the same as one of its superclass' names
-in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/HostEventsSink.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    interface HostEventCallback extends com.palantir.conjure.java.client.config.HostEventsSink.HostEventCallback {
-
-        @Override
-```
-
-### ClassNameSameAsAncestorName
 Class name `HostEventsSink` is the same as one of its superclass' names
 in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/HostEventsSink.java`
 #### Snippet
@@ -1098,6 +1086,18 @@ in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/H
 public interface HostEventsSink extends com.palantir.conjure.java.client.config.HostEventsSink {
     @Override
     void record(String serviceName, String hostname, int port, int statusCode, long micros);
+```
+
+### ClassNameSameAsAncestorName
+Class name `HostEventCallback` is the same as one of its superclass' names
+in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/HostEventsSink.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    interface HostEventCallback extends com.palantir.conjure.java.client.config.HostEventsSink.HostEventCallback {
+
+        @Override
 ```
 
 ## RuleId[id=OptionalAssignedToNull]
@@ -1200,18 +1200,6 @@ in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/je
 ```
 
 ### SimplifyOptionalCallChains
-Optional chain can be simplified
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/QosErrorDecoder.java`
-#### Snippet
-```java
-                        header -> Optional.ofNullable(response.headers().get(header))
-                                .map(Collection::stream)
-                                .orElseGet(Stream::empty))
-                .map(Function.identity());
-        return exception.orElseGet(() -> delegate.decode(methodKey, response));
-```
-
-### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
 in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
 #### Snippet
@@ -1221,6 +1209,18 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
         if (!maybeContentType.isPresent()) {
             if (requestBodyContent.length == 0) {
                 return Optional.empty();
+```
+
+### SimplifyOptionalCallChains
+Optional chain can be simplified
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/QosErrorDecoder.java`
+#### Snippet
+```java
+                        header -> Optional.ofNullable(response.headers().get(header))
+                                .map(Collection::stream)
+                                .orElseGet(Stream::empty))
+                .map(Function.identity());
+        return exception.orElseGet(() -> delegate.decode(methodKey, response));
 ```
 
 ### SimplifyOptionalCallChains
@@ -1324,6 +1324,18 @@ Can be replaced with 'isEmpty()'
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
 #### Snippet
 ```java
+
+                Optional<Duration> nonAdvertizedBackoff = backoffStrategy.nextBackoff();
+                if (!nonAdvertizedBackoff.isPresent()) {
+                    callback.onFailure(
+                            call,
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
                 Optional<HttpUrl> redirectTo = urls.redirectTo(
                         request().url(), exception.getRedirectTo().toString());
                 if (!redirectTo.isPresent()) {
@@ -1351,18 +1363,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttp
                 // Redirect to the "next" URL, whichever that may be, after backing off.
                 Optional<HttpUrl> redirectTo = urls.redirectToNext(request().url());
                 if (!redirectTo.isPresent()) {
-                    callback.onFailure(
-                            call,
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-                Optional<Duration> nonAdvertizedBackoff = backoffStrategy.nextBackoff();
-                if (!nonAdvertizedBackoff.isPresent()) {
                     callback.onFailure(
                             call,
 ```
@@ -1409,11 +1409,11 @@ Qualifier `com.google.common.base` is unnecessary, and can be replaced with an i
 in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalParamConverterProvider.java`
 #### Snippet
 ```java
-    public <T> ParamConverter<T> getConverter(
-            final Class<T> rawType, final Type genericType, final Annotation[] annotations) {
-        if (com.google.common.base.Optional.class.equals(rawType)) {
-            final List<ClassTypePair> ctps = ReflectionHelper.getTypeArgumentAndClass(genericType);
-            final ClassTypePair ctp = (ctps.size() == 1) ? ctps.get(0) : null;
+                    @Override
+                    public T fromString(final String value) {
+                        return rawType.cast(com.google.common.base.Optional.fromNullable(value));
+                    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1421,11 +1421,11 @@ Qualifier `com.google.common.base` is unnecessary, and can be replaced with an i
 in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalParamConverterProvider.java`
 #### Snippet
 ```java
-                    @Override
-                    public T fromString(final String value) {
-                        return rawType.cast(com.google.common.base.Optional.fromNullable(value));
-                    }
-
+    public <T> ParamConverter<T> getConverter(
+            final Class<T> rawType, final Type genericType, final Annotation[] annotations) {
+        if (com.google.common.base.Optional.class.equals(rawType)) {
+            final List<ClassTypePair> ctps = ReflectionHelper.getTypeArgumentAndClass(genericType);
+            final ClassTypePair ctp = (ctps.size() == 1) ? ctps.get(0) : null;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1482,10 +1482,22 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
 #### Snippet
 ```java
     @Override
-    public long getSize(
-            com.google.common.base.Optional<?> _entity,
+    public boolean isWriteable(Class<?> type, Type _genericType, Annotation[] _annotations, MediaType _mediaType) {
+        return com.google.common.base.Optional.class.isAssignableFrom(type);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalMessageBodyWriter.java`
+#### Snippet
+```java
+    @Override
+    public void writeTo(
+            com.google.common.base.Optional<?> entity,
             Class<?> _type,
-            Type _genericType,
+            Type genericType,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1506,22 +1518,10 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
 #### Snippet
 ```java
     @Override
-    public void writeTo(
-            com.google.common.base.Optional<?> entity,
+    public long getSize(
+            com.google.common.base.Optional<?> _entity,
             Class<?> _type,
-            Type genericType,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalMessageBodyWriter.java`
-#### Snippet
-```java
-    @Override
-    public boolean isWriteable(Class<?> type, Type _genericType, Annotation[] _annotations, MediaType _mediaType) {
-        return com.google.common.base.Optional.class.isAssignableFrom(type);
-    }
-
+            Type _genericType,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1541,35 +1541,23 @@ Qualifier `com.google.common.base` is unnecessary, and can be replaced with an i
 in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalMessageBodyWriter.java`
 #### Snippet
 ```java
-    @Override
-    public boolean isWriteable(Class<?> type, Type _genericType, Annotation[] _annotations, MediaType _mediaType) {
-        return com.google.common.base.Optional.class.isAssignableFrom(type);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalMessageBodyWriter.java`
-#### Snippet
-```java
-    @Override
-    public void writeTo(
-            com.google.common.base.Optional<?> entity,
-            Class<?> _type,
-            Type genericType,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalMessageBodyWriter.java`
-#### Snippet
-```java
 @Provider
 @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 public final class GuavaOptionalMessageBodyWriter implements MessageBodyWriter<com.google.common.base.Optional<?>> {
 
     @Inject
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalMessageBodyWriter.java`
+#### Snippet
+```java
+    @Override
+    public boolean isWriteable(Class<?> type, Type _genericType, Annotation[] _annotations, MediaType _mediaType) {
+        return com.google.common.base.Optional.class.isAssignableFrom(type);
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1585,15 +1573,15 @@ in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/je
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `feign.codec` is unnecessary, and can be replaced with an import
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalMessageBodyWriter.java`
 #### Snippet
 ```java
-
-    /** Implements exception handling equivalent dialogue decoders. */
-    static final class RemoteExceptionDecoder implements feign.codec.ErrorDecoder {
-
-        private final ConjureRuntime runtime;
+    @Override
+    public void writeTo(
+            com.google.common.base.Optional<?> entity,
+            Class<?> _type,
+            Type genericType,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1609,15 +1597,15 @@ final class DialogueFeignClient implements feign.Client {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalParamConverterProvider.java`
+Qualifier `feign.codec` is unnecessary, and can be replaced with an import
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
 #### Snippet
 ```java
-    public <T> ParamConverter<T> getConverter(
-            final Class<T> rawType, final Type genericType, final Annotation[] annotations) {
-        if (com.google.common.base.Optional.class.equals(rawType)) {
-            final List<ClassTypePair> ctps = ReflectionHelper.getTypeArgumentAndClass(genericType);
-            final ClassTypePair ctp = (ctps.size() == 1) ? ctps.get(0) : null;
+
+    /** Implements exception handling equivalent dialogue decoders. */
+    static final class RemoteExceptionDecoder implements feign.codec.ErrorDecoder {
+
+        private final ConjureRuntime runtime;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1642,6 +1630,18 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
                         return rawType.cast(com.google.common.base.Optional.fromNullable(value));
                     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/GuavaOptionalParamConverterProvider.java`
+#### Snippet
+```java
+    public <T> ParamConverter<T> getConverter(
+            final Class<T> rawType, final Type genericType, final Annotation[] annotations) {
+        if (com.google.common.base.Optional.class.equals(rawType)) {
+            final List<ClassTypePair> ctps = ReflectionHelper.getTypeArgumentAndClass(genericType);
+            final ClassTypePair ctp = (ctps.size() == 1) ? ctps.get(0) : null;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1705,6 +1705,18 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `okhttp3` is unnecessary and can be removed
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpClient.java`
+#### Snippet
+```java
+
+/**
+ * An {@link OkHttpClient} that executes {@link okhttp3.Call}s as {@link RemotingOkHttpCall}s in order to retry a class
+ * of retryable error states.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
 in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaEmptyOptionalExpander.java`
 #### Snippet
@@ -1742,18 +1754,6 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `okhttp3` is unnecessary and can be removed
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpClient.java`
-#### Snippet
-```java
-
-/**
- * An {@link OkHttpClient} that executes {@link okhttp3.Call}s as {@link RemotingOkHttpCall}s in order to retry a class
- * of retryable error states.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `okhttp3` is unnecessary and can be removed
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
 #### Snippet
 ```java
@@ -1762,18 +1762,6 @@ import okio.Timeout;
 /** A forwarding/delegating {@link okhttp3.Call}. Sub-classes should override individual methods. */
 @SuppressWarnings({"checkstyle:noclone", "checkstyle:superclone"})
 abstract class ForwardingCall implements Call {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `okhttp3` is unnecessary, and can be replaced with an import
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/Retrofit2ClientBuilder.java`
-#### Snippet
-```java
-
-    public <T> T build(Class<T> serviceClass, UserAgent userAgent) {
-        okhttp3.OkHttpClient client = OkHttpClients.create(
-                config,
-                userAgent,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1786,6 +1774,18 @@ import okhttp3.WebSocketListener;
 /** A forwarding/delegating {@link okhttp3.OkHttpClient}. Sub-classes should override individual methods. */
 class ForwardingOkHttpClient extends OkHttpClient {
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `okhttp3` is unnecessary, and can be replaced with an import
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/Retrofit2ClientBuilder.java`
+#### Snippet
+```java
+
+    public <T> T build(Class<T> serviceClass, UserAgent userAgent) {
+        okhttp3.OkHttpClient client = OkHttpClients.create(
+                config,
+                userAgent,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1807,7 +1807,7 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 ```java
     }
 
-    enum Java8OptionalDoubleStringConverter implements Converter<java.util.OptionalDouble, String> {
+    enum Java8OptionalLongStringConverter implements Converter<java.util.OptionalLong, String> {
         INSTANCE;
 
 ```
@@ -1819,9 +1819,21 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 ```java
 
         @Override
-        public String convert(java.util.OptionalInt value) throws IOException {
-            return value.isPresent() ? Integer.toString(value.getAsInt()) : null;
+        public String convert(java.util.OptionalDouble value) throws IOException {
+            return value.isPresent() ? Double.toString(value.getAsDouble()) : null;
         }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
+#### Snippet
+```java
+ * A retrofit2 {@link Converter} that converts {@code Optional<?>} retrofit {@link Path}, {@link Query} and
+ * {@link Header} parameters into the string representation of the wrapped object, or null if the optional is empty.
+ * Handles both {@link java.util.Optional Java8 Optional} and {@link com.google.common.base.Optional Guava Optional}.
+ */
+public final class OptionalObjectToStringConverterFactory extends Converter.Factory {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1865,47 +1877,35 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
 #### Snippet
 ```java
-
-        @Override
-        public String convert(java.util.OptionalDouble value) throws IOException {
-            return value.isPresent() ? Double.toString(value.getAsDouble()) : null;
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
-#### Snippet
-```java
-    }
-
-    enum Java8OptionalLongStringConverter implements Converter<java.util.OptionalLong, String> {
-        INSTANCE;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
-#### Snippet
-```java
- * A retrofit2 {@link Converter} that converts {@code Optional<?>} retrofit {@link Path}, {@link Query} and
- * {@link Header} parameters into the string representation of the wrapped object, or null if the optional is empty.
- * Handles both {@link java.util.Optional Java8 Optional} and {@link com.google.common.base.Optional Guava Optional}.
- */
-public final class OptionalObjectToStringConverterFactory extends Converter.Factory {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
-#### Snippet
-```java
     }
 
     enum Java8OptionalIntStringConverter implements Converter<java.util.OptionalInt, String> {
         INSTANCE;
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
+#### Snippet
+```java
+    }
+
+    enum Java8OptionalDoubleStringConverter implements Converter<java.util.OptionalDouble, String> {
+        INSTANCE;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public String convert(java.util.OptionalInt value) throws IOException {
+            return value.isPresent() ? Integer.toString(value.getAsInt()) : null;
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1969,6 +1969,42 @@ in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactor
 ```
 
 ## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`res = res & 0x1F` could be simplified to 'res \&= 0x1F'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
+#### Snippet
+```java
+            if (res <= 223) { // two bytes: C0-DF
+                count = 1;
+                res = res & 0x1F;
+            } else if (res <= 239) { // three bytes: E0-EF
+                count = 2;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`res = res & 0x0F` could be simplified to 'res \&= 0x0F'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
+#### Snippet
+```java
+            } else if (res <= 239) { // three bytes: E0-EF
+                count = 2;
+                res = res & 0x0F;
+            } else { // four bytes: F0-F7
+                count = 3;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`res = res & 0x07` could be simplified to 'res \&= 0x07'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
+#### Snippet
+```java
+            } else { // four bytes: F0-F7
+                count = 3;
+                res = res & 0x07;
+            }
+
+```
+
 ### ReplaceAssignmentWithOperatorAssignment
 `b1 = b1 - '0'` could be simplified to 'b1 -= '0''
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
@@ -2039,42 +2075,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
             b2 = b2 - 55; // 55 = 'A' - 10
         } else {
             throw new IllegalStateException("Malformed DN: " + dn);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`res = res & 0x1F` could be simplified to 'res \&= 0x1F'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
-#### Snippet
-```java
-            if (res <= 223) { // two bytes: C0-DF
-                count = 1;
-                res = res & 0x1F;
-            } else if (res <= 239) { // three bytes: E0-EF
-                count = 2;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`res = res & 0x0F` could be simplified to 'res \&= 0x0F'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
-#### Snippet
-```java
-            } else if (res <= 239) { // three bytes: E0-EF
-                count = 2;
-                res = res & 0x0F;
-            } else { // four bytes: F0-F7
-                count = 3;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`res = res & 0x07` could be simplified to 'res \&= 0x07'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
-#### Snippet
-```java
-            } else { // four bytes: F0-F7
-                count = 3;
-                res = res & 0x07;
-            }
-
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -2231,18 +2231,6 @@ Assignment to method parameter `hostname`
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/Okhttp39HostnameVerifier.java`
 #### Snippet
 ```java
-    /** Returns true if {@code certificate} matches {@code hostname}. */
-    private boolean verifyHostname(String hostname, X509Certificate certificate) {
-        hostname = hostname.toLowerCase(Locale.US);
-        boolean hasDns = false;
-        List<String> altNames = getSubjectAltNames(certificate, ALT_DNS_NAME);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `hostname`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/Okhttp39HostnameVerifier.java`
-#### Snippet
-```java
         //   www.android.com. matches www.android.com
         if (!hostname.endsWith(".")) {
             hostname += '.';
@@ -2272,6 +2260,18 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/Okhttp39Hostna
         pattern = pattern.toLowerCase(Locale.US);
         // hostname and pattern are now in lower case -- domain names are case-insensitive.
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `hostname`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/Okhttp39HostnameVerifier.java`
+#### Snippet
+```java
+    /** Returns true if {@code certificate} matches {@code hostname}. */
+    private boolean verifyHostname(String hostname, X509Certificate certificate) {
+        hostname = hostname.toLowerCase(Locale.US);
+        boolean hasDns = false;
+        List<String> altNames = getSubjectAltNames(certificate, ALT_DNS_NAME);
 ```
 
 ## RuleId[id=InstanceofCatchParameter]
@@ -2305,11 +2305,11 @@ Return of `null`
 in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/BearerTokenParamConverterProvider.java`
 #### Snippet
 ```java
-                    (hasAnnotation(annotations, Nullable.class) ? nullableParamConverter : nonNullParamConverter);
-        }
-        return null;
-    }
-
+            if (value == null) {
+                if (nullable) {
+                    return null;
+                }
+                throw UnauthorizedException.missingCredentials();
 ```
 
 ### ReturnNull
@@ -2317,11 +2317,11 @@ Return of `null`
 in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/BearerTokenParamConverterProvider.java`
 #### Snippet
 ```java
-            if (value == null) {
-                if (nullable) {
-                    return null;
-                }
-                throw UnauthorizedException.missingCredentials();
+                    (hasAnnotation(annotations, Nullable.class) ? nullableParamConverter : nonNullParamConverter);
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -2332,6 +2332,18 @@ in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/je
     public <T> ParamConverter<T> getConverter(
             final Class<T> rawType, final Type _genericType, final Annotation[] _annotations) {
         return OffsetDateTime.class.equals(rawType) ? (ParamConverter<T>) paramConverter : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleParamConverterProvider.java`
+#### Snippet
+```java
+    public <T> ParamConverter<T> getConverter(
+            final Class<T> rawType, final Type _genericType, final Annotation[] _annotations) {
+        return OptionalDouble.class.equals(rawType) ? (ParamConverter<T>) paramConverter : null;
     }
 
 ```
@@ -2350,14 +2362,14 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 
 ### ReturnNull
 Return of `null`
-in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleParamConverterProvider.java`
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/AuthHeaderParamConverterProvider.java`
 #### Snippet
 ```java
-    public <T> ParamConverter<T> getConverter(
-            final Class<T> rawType, final Type _genericType, final Annotation[] _annotations) {
-        return OptionalDouble.class.equals(rawType) ? (ParamConverter<T>) paramConverter : null;
-    }
-
+            if (value == null) {
+                if (nullable) {
+                    return null;
+                }
+                throw UnauthorizedException.missingCredentials();
 ```
 
 ### ReturnNull
@@ -2370,18 +2382,6 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/AuthHeaderParamConverterProvider.java`
-#### Snippet
-```java
-            if (value == null) {
-                if (nullable) {
-                    return null;
-                }
-                throw UnauthorizedException.missingCredentials();
 ```
 
 ### ReturnNull
@@ -2410,24 +2410,24 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
 
 ### ReturnNull
 Return of `null`
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/Java8NullOptionalLongExpander.java`
-#### Snippet
-```java
-        checkArgument(value instanceof OptionalLong, "Value must be an OptionalLong. Was: %s", value.getClass());
-        OptionalLong optional = (OptionalLong) value;
-        return optional.isPresent() ? Long.toString(optional.getAsLong()) : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
 in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalParamConverterProvider.java`
 #### Snippet
 ```java
         }
 
         return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/Java8NullOptionalLongExpander.java`
+#### Snippet
+```java
+        checkArgument(value instanceof OptionalLong, "Value must be an OptionalLong. Was: %s", value.getClass());
+        OptionalLong optional = (OptionalLong) value;
+        return optional.isPresent() ? Long.toString(optional.getAsLong()) : null;
     }
 }
 ```
@@ -2590,18 +2590,6 @@ in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/je
 
 ### ReturnNull
 Return of `null`
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
 #### Snippet
 ```java
@@ -2650,12 +2638,12 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
 
 ### ReturnNull
 Return of `null`
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
 #### Snippet
 ```java
-        @Override
-        public String convert(java.util.OptionalLong value) throws IOException {
-            return value.isPresent() ? Long.toString(value.getAsLong()) : null;
+            }
+
+            return null;
         }
     }
 ```
@@ -2666,8 +2654,8 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 #### Snippet
 ```java
         @Override
-        public String convert(java.util.OptionalInt value) throws IOException {
-            return value.isPresent() ? Integer.toString(value.getAsInt()) : null;
+        public String convert(java.util.OptionalLong value) throws IOException {
+            return value.isPresent() ? Long.toString(value.getAsLong()) : null;
         }
     }
 ```
@@ -2698,12 +2686,12 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 
 ### ReturnNull
 Return of `null`
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/AsyncSerializableErrorCallAdapterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
 #### Snippet
 ```java
-            return new CompletableFutureBodyCallAdapter<>(innerType);
-        } else {
-            return null;
+        @Override
+        public String convert(java.util.OptionalInt value) throws IOException {
+            return value.isPresent() ? Integer.toString(value.getAsInt()) : null;
         }
     }
 ```
@@ -2730,6 +2718,18 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/AsyncSerializableErrorCallAdapterFactory.java`
+#### Snippet
+```java
+            return new CompletableFutureBodyCallAdapter<>(innerType);
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -2856,18 +2856,6 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
-#### Snippet
-```java
-            String certPemFileString =
-                    privateKeyFilePath.equals(certFilePath) ? keyPemFileString : readFileAsString(certFilePath);
-            certificates = getCertificatesFromString(certPemFileString).toArray(new Certificate[0]);
-        } catch (IOException | GeneralSecurityException e) {
-            throw new RuntimeException(
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/InputStreamDelegateDecoder.java`
 #### Snippet
 ```java
@@ -2880,14 +2868,14 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactories.java`
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
 #### Snippet
 ```java
-    public static SSLContext createSslContext(Map<String, PemX509Certificate> trustCertificatesByAlias) {
-        TrustManager[] trustManagers = createTrustManagers(trustCertificatesByAlias);
-        return createSslContext(trustManagers, new KeyManager[] {});
-    }
-
+            String certPemFileString =
+                    privateKeyFilePath.equals(certFilePath) ? keyPemFileString : readFileAsString(certFilePath);
+            certificates = getCertificatesFromString(certPemFileString).toArray(new Certificate[0]);
+        } catch (IOException | GeneralSecurityException e) {
+            throw new RuntimeException(
 ```
 
 ### ZeroLengthArrayInitialization
@@ -2898,6 +2886,18 @@ in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactor
             Map<String, PemX509Certificate> trustCertificatesByAlias, Provider provider) {
         TrustManager[] trustManagers = createTrustManagers(trustCertificatesByAlias);
         return createSslContext(trustManagers, new KeyManager[] {}, provider);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactories.java`
+#### Snippet
+```java
+    public static SSLContext createSslContext(Map<String, PemX509Certificate> trustCertificatesByAlias) {
+        TrustManager[] trustManagers = createTrustManagers(trustCertificatesByAlias);
+        return createSslContext(trustManagers, new KeyManager[] {});
     }
 
 ```
@@ -2967,6 +2967,18 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemoteExceptio
 
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
+#### Snippet
+```java
+        public Integer length() {
+            return response.getFirstHeader(HttpHeaders.CONTENT_LENGTH)
+                    .map(Ints::tryParse)
+                    .orElse(null);
+        }
+```
+
+### UnstableApiUsage
 'asMap(com.google.common.collect.Multimap)' is marked unstable with @Beta
 in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
 #### Snippet
@@ -2979,15 +2991,15 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 ```
 
 ### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
+'tryAcquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DeprecationWarningInterceptor.java`
 #### Snippet
 ```java
-        public Integer length() {
-            return response.getFirstHeader(HttpHeaders.CONTENT_LENGTH)
-                    .map(Ints::tryParse)
-                    .orElse(null);
-        }
+            clientMetrics.deprecations(serviceClassName).mark();
+
+            if (loggingRateLimiter.tryAcquire(1)) {
+                log.warn(
+                        "Using a deprecated endpoint when connecting to service",
 ```
 
 ### UnstableApiUsage
@@ -3024,17 +3036,5 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DeprecationWar
     private final RateLimiter loggingRateLimiter = RateLimiter.create(1.0 / 60.0);
     private final ClientMetrics clientMetrics;
     private final String serviceClassName;
-```
-
-### UnstableApiUsage
-'tryAcquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DeprecationWarningInterceptor.java`
-#### Snippet
-```java
-            clientMetrics.deprecations(serviceClassName).mark();
-
-            if (loggingRateLimiter.tryAcquire(1)) {
-                log.warn(
-                        "Using a deprecated endpoint when connecting to service",
 ```
 
