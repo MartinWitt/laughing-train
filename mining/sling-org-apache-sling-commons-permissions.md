@@ -5,7 +5,7 @@ I found 2 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryModifier | 2 | true |
-## RuleId[ruleID=UnnecessaryModifier]
+## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/sling/commons/permissions/PermissionsService.java`
