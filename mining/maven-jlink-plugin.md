@@ -9,7 +9,7 @@ I found 9 bad smells with 1 repairable:
 | GroovyUnusedAssignment | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | TrivialStringConcatenation | 1 | false |
-## RuleId[ruleID=GroovyUnusedAssignment]
+## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
 in `src/it/projects/MJLINK-40_includeLocales/verify.groovy`
@@ -22,7 +22,7 @@ in `src/it/projects/MJLINK-40_includeLocales/verify.groovy`
         {
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `tcs.size() > 0` can be replaced with '!tcs.isEmpty()'
 in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkMojo.java`
@@ -35,7 +35,7 @@ in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkMojo.java`
                     tc = tcs.get( 0 );
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkToolchainExecutor.java`
@@ -60,7 +60,7 @@ in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkMojo.java`
         {
 ```
 
-## RuleId[ruleID=TrivialStringConcatenation]
+## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `src/main/java/org/apache/maven/plugins/jlink/JLinkMojo.java`
@@ -73,7 +73,7 @@ in `src/main/java/org/apache/maven/plugins/jlink/JLinkMojo.java`
         if ( launcher != null )
 ```
 
-## RuleId[ruleID=MismatchedCollectionQueryUpdate]
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `modulePaths` are updated, but never queried
 in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkExecutor.java`
