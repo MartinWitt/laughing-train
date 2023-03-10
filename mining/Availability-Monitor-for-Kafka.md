@@ -1,7 +1,7 @@
 # Availability-Monitor-for-Kafka 
  
 # Bad smells
-I found 189 bad smells with 21 repairable:
+I found 188 bad smells with 21 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 44 | false |
@@ -48,7 +48,6 @@ I found 189 bad smells with 21 repairable:
 | InfiniteLoopStatement | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | EqualsAndHashcode | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | StringBufferReplaceableByStringBuilder | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
@@ -95,6 +94,42 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
 #### Snippet
 ```java
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
     public static final String DEFAULT_REGISTRATION_ROOT = "/services";
     public static final String SERVICE_NAME = "kattool";
     public static final long DEFAULT_ELAPSED_TIME = 60000;
@@ -157,42 +192,6 @@ public interface Constants {
     public static final String DEFAULT_REGISTRATION_ROOT = "/services";
     public static final String SERVICE_NAME = "kattool";
     public static final long DEFAULT_ELAPSED_TIME = 60000;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
 ```
 
 ## RuleId[id=FieldMayBeStatic]
@@ -372,18 +371,6 @@ in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/com/microsoft/kafkaavailability/threads/LeaderInfoThread.java`
-#### Snippet
-```java
-        this.m_phaser = phaser;
-        this.m_threadSleepTime = threadSleepTime;
-        //this.m_phaser.register(); //Registers/Add a new unArrived party to this phaser.
-        //CommonUtils.dumpPhaserState("After registration of LeaderInfoThread", phaser);
-    }
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `src/main/java/com/microsoft/kafkaavailability/threads/LeaderInfoThread.java`
 #### Snippet
@@ -393,6 +380,18 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/LeaderInfoThread.java`
             //phaser.arriveAndAwaitAdvance();
             //m_phaser.arriveAndDeregister();
             //CommonUtils.dumpPhaserState("After arrival of LeaderInfoThread", m_phaser);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/com/microsoft/kafkaavailability/threads/LeaderInfoThread.java`
+#### Snippet
+```java
+        this.m_phaser = phaser;
+        this.m_threadSleepTime = threadSleepTime;
+        //this.m_phaser.register(); //Registers/Add a new unArrived party to this phaser.
+        //CommonUtils.dumpPhaserState("After registration of LeaderInfoThread", phaser);
+    }
 ```
 
 ### CommentedOutCode
@@ -470,32 +469,7 @@ in `src/main/java/com/microsoft/kafkaavailability/reporters/ScheduledReporterCol
                if(allReporters.containsKey(name)) {
 ```
 
-## RuleId[id=RegExpSimplifiable]
-### RegExpSimplifiable
-`[\\s]` can be simplified to '\\s'
-in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdClient.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(StatsdClient.class);
-
-    private static final Pattern WHITESPACE = Pattern.compile("[\\s]+");
-
-    public static enum StatType { COUNTER, TIMER, GAUGE }
-```
-
 ## RuleId[id=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/main/java/com/microsoft/kafkaavailability/Consumer.java`
-#### Snippet
-```java
-                try {
-                    Thread.sleep(NEW_LEADER_PAUSE_MS);
-                } catch (InterruptedException ie) {
-                }
-            }
-```
-
 ### CatchMayIgnoreException
 Empty `catch` block
 in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
@@ -522,6 +496,18 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
+in `src/main/java/com/microsoft/kafkaavailability/Consumer.java`
+#### Snippet
+```java
+                try {
+                    Thread.sleep(NEW_LEADER_PAUSE_MS);
+                } catch (InterruptedException ie) {
+                }
+            }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
 in `src/main/java/com/microsoft/kafkaavailability/App.java`
 #### Snippet
 ```java
@@ -542,6 +528,19 @@ in `src/main/java/com/microsoft/kafkaavailability/App.java`
             } catch (IllegalStateException exception) {
             }
         }
+```
+
+## RuleId[id=RegExpSimplifiable]
+### RegExpSimplifiable
+`[\\s]` can be simplified to '\\s'
+in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdClient.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(StatsdClient.class);
+
+    private static final Pattern WHITESPACE = Pattern.compile("[\\s]+");
+
+    public static enum StatType { COUNTER, TIMER, GAUGE }
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -607,18 +606,6 @@ in `src/main/java/com/microsoft/kafkaavailability/Consumer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TopicMetadata`
-in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
-#### Snippet
-```java
-    }
-
-    public List<TopicMetadata> filterWhitelistTopics(List<TopicMetadata> topicMetadataList,
-                                                     HashSet<String> whiteListTopics) {
-        ArrayList<TopicMetadata> filteredTopics = new ArrayList<TopicMetadata>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends MetaDataManagerProperties`
 in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
 #### Snippet
@@ -628,6 +615,18 @@ in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
     public MetaDataManager(CuratorFramework curatorFramework, IPropertiesManager<MetaDataManagerProperties> propManager)
     {
         m_mDProps = propManager.getProperties();
+```
+
+### BoundedWildcard
+Can generalize to `? extends TopicMetadata`
+in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
+#### Snippet
+```java
+    }
+
+    public List<TopicMetadata> filterWhitelistTopics(List<TopicMetadata> topicMetadataList,
+                                                     HashSet<String> whiteListTopics) {
+        ArrayList<TopicMetadata> filteredTopics = new ArrayList<TopicMetadata>();
 ```
 
 ### BoundedWildcard
@@ -694,14 +693,14 @@ public class LeaderInfoThread implements Callable<Long> {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `src/main/java/com/microsoft/kafkaavailability/threads/JobManager.java`
+in `src/main/java/com/microsoft/kafkaavailability/module/ModuleScanner.java`
 #### Snippet
 ```java
 
-public class JobManager implements Callable<Long> {
-    final static Logger m_logger = LoggerFactory.getLogger(JobManager.class);
-    protected long timeout;
-    protected TimeUnit timeUnit;
+public class ModuleScanner {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ModuleScanner.class);
+
+    /**
 ```
 
 ### MissortedModifiers
@@ -718,6 +717,18 @@ public class ProducerThread implements Callable<Long> {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `src/main/java/com/microsoft/kafkaavailability/threads/JobManager.java`
+#### Snippet
+```java
+
+public class JobManager implements Callable<Long> {
+    final static Logger m_logger = LoggerFactory.getLogger(JobManager.class);
+    protected long timeout;
+    protected TimeUnit timeUnit;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `src/main/java/com/microsoft/kafkaavailability/threads/HeartBeat.java`
 #### Snippet
 ```java
@@ -726,18 +737,6 @@ public class HeartBeat {
     private final static Logger LOGGER = LoggerFactory.getLogger(HeartBeat.class);
 
     private final ScheduledReporterCollector scheduledReporterCollector;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/microsoft/kafkaavailability/module/ModuleScanner.java`
-#### Snippet
-```java
-
-public class ModuleScanner {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ModuleScanner.class);
-
-    /**
 ```
 
 ### MissortedModifiers
@@ -766,6 +765,18 @@ public class Producer implements IProducer {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+public class ConsumerThread implements Callable<Long> {
+
+    final static Logger m_logger = LoggerFactory.getLogger(ConsumerThread.class);
+
+    private final ScheduledReporterCollector reporterCollector;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `src/main/java/com/microsoft/kafkaavailability/module/MonitorTasksModule.java`
 #### Snippet
 ```java
@@ -778,14 +789,14 @@ public class MonitorTasksModule extends AbstractModule {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
 #### Snippet
 ```java
-public class ConsumerThread implements Callable<Long> {
+public class MetaDataManager implements IMetaDataManager
+{
+    final static Logger m_logger = LoggerFactory.getLogger(MetaDataManager.class);
+    private CuratorFramework client;
 
-    final static Logger m_logger = LoggerFactory.getLogger(ConsumerThread.class);
-
-    private final ScheduledReporterCollector reporterCollector;
 ```
 
 ### MissortedModifiers
@@ -802,18 +813,6 @@ public class AppModule extends AbstractModule {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `src/main/java/com/microsoft/kafkaavailability/KafkaUtils.java`
-#### Snippet
-```java
-    public static final int DEFAULT_NUM_OF_PARTITION = 1;
-    public static final int DEFAULT_REPLICATION = 3;
-    final static Logger m_logger = LoggerFactory.getLogger(KafkaUtils.class);
-
-    static int sessionTimeOutInMs = 15 * 1000; // 15 secs
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `src/main/java/com/microsoft/kafkaavailability/threads/HeartBeatThread.java`
 #### Snippet
 ```java
@@ -826,6 +825,18 @@ public class HeartBeatThread implements Runnable {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `src/main/java/com/microsoft/kafkaavailability/KafkaUtils.java`
+#### Snippet
+```java
+    public static final int DEFAULT_NUM_OF_PARTITION = 1;
+    public static final int DEFAULT_REPLICATION = 3;
+    final static Logger m_logger = LoggerFactory.getLogger(KafkaUtils.class);
+
+    static int sessionTimeOutInMs = 15 * 1000; // 15 secs
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerPartitionThread.java`
 #### Snippet
 ```java
@@ -834,18 +845,6 @@ public class ConsumerPartitionThread implements Callable<Long> {
     final static Logger m_logger = LoggerFactory.getLogger(ConsumerPartitionThread.class);
     private CuratorFramework m_curatorFramework;
     private TopicMetadata m_TopicMetadata;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
-#### Snippet
-```java
-public class MetaDataManager implements IMetaDataManager
-{
-    final static Logger m_logger = LoggerFactory.getLogger(MetaDataManager.class);
-    private CuratorFramework client;
-
 ```
 
 ### MissortedModifiers
@@ -913,18 +912,6 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/LeaderInfoThread.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/com/microsoft/kafkaavailability/discovery/ServiceUtil.java`
-#### Snippet
-```java
-                }
-
-                Integer port = Integer.valueOf(Integer.parseInt(service.substring(index + 1)));
-                serviceMap.put(service.substring(0, index), port);
-            }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
 in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
 #### Snippet
 ```java
@@ -933,6 +920,18 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
         return Long.valueOf(elapsedTime);
     }
 
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/com/microsoft/kafkaavailability/discovery/ServiceUtil.java`
+#### Snippet
+```java
+                }
+
+                Integer port = Integer.valueOf(Integer.parseInt(service.substring(index + 1)));
+                serviceMap.put(service.substring(0, index), port);
+            }
 ```
 
 ### UnnecessaryBoxing
@@ -1112,11 +1111,11 @@ Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
 in `src/main/java/com/microsoft/kafkaavailability/IMetaDataManager.java`
 #### Snippet
 ```java
-{
     List<String> getBrokerList(boolean addPort) throws MetaDataManagerException;
     List<kafka.javaapi.TopicMetadata> getMetaDataFromAllBrokers();
     List<kafka.javaapi.TopicMetadata> getAllTopicPartition();
     void createTopicIfNotExist(String topicName, int partitions, int replicationFactor);
+    void createCanaryTopics();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1124,11 +1123,11 @@ Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
 in `src/main/java/com/microsoft/kafkaavailability/IMetaDataManager.java`
 #### Snippet
 ```java
+{
     List<String> getBrokerList(boolean addPort) throws MetaDataManagerException;
     List<kafka.javaapi.TopicMetadata> getMetaDataFromAllBrokers();
     List<kafka.javaapi.TopicMetadata> getAllTopicPartition();
     void createTopicIfNotExist(String topicName, int partitions, int replicationFactor);
-    void createCanaryTopics();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1188,6 +1187,90 @@ in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
                 .loadKeyMaterial(trustStore, keyStorePassword.toCharArray())
                 .setSecureRandom(new java.security.SecureRandom())
                 .build();
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+
+        //This is full list of topics
+        List<kafka.javaapi.TopicMetadata> totalTopicMetadata = metaDataManager.getAllTopicPartition();
+        List<kafka.javaapi.TopicMetadata> allTopicMetadata = new ArrayList<kafka.javaapi.TopicMetadata>();
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+        //This is full list of topics
+        List<kafka.javaapi.TopicMetadata> totalTopicMetadata = metaDataManager.getAllTopicPartition();
+        List<kafka.javaapi.TopicMetadata> allTopicMetadata = new ArrayList<kafka.javaapi.TopicMetadata>();
+
+        String sep = ", ";
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+        //This is full list of topics
+        List<kafka.javaapi.TopicMetadata> totalTopicMetadata = metaDataManager.getAllTopicPartition();
+        List<kafka.javaapi.TopicMetadata> allTopicMetadata = new ArrayList<kafka.javaapi.TopicMetadata>();
+
+        String sep = ", ";
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+        StringBuilder rString = new StringBuilder();
+
+        for (kafka.javaapi.TopicMetadata topic : totalTopicMetadata) {
+            //Log the server/topic mapping to know which topic is getting  by which instance of KAT-List<String>
+            int topicIndex = totalTopicMetadata.indexOf(topic);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+        int consumerFailCount = 0;
+
+        for (kafka.javaapi.TopicMetadata topic : allTopicMetadata) {
+            numPartitionsConsumers += topic.partitionsMetadata().size();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+            }
+        }
+        for (kafka.javaapi.TopicMetadata item : allTopicMetadata) {
+            boolean isTopicAvailable = true;
+            m_logger.info("Reading from Topic: {};", item.topic());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+            Map<Integer, Future<Long>> response = new HashMap<Integer, Future<Long>>();
+
+            for (kafka.javaapi.PartitionMetadata part : item.partitionsMetadata()) {
+                m_logger.debug("Reading from Topic: {}; Partition: {};", item.topic(), part.partitionId());
 
 ```
 
@@ -1336,138 +1419,6 @@ in `src/main/java/com/microsoft/kafkaavailability/Consumer.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-
-        //This is full list of topics
-        List<kafka.javaapi.TopicMetadata> totalTopicMetadata = metaDataManager.getAllTopicPartition();
-        List<kafka.javaapi.TopicMetadata> allTopicMetadata = new ArrayList<kafka.javaapi.TopicMetadata>();
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-        //This is full list of topics
-        List<kafka.javaapi.TopicMetadata> totalTopicMetadata = metaDataManager.getAllTopicPartition();
-        List<kafka.javaapi.TopicMetadata> allTopicMetadata = new ArrayList<kafka.javaapi.TopicMetadata>();
-
-        String sep = ", ";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-        //This is full list of topics
-        List<kafka.javaapi.TopicMetadata> totalTopicMetadata = metaDataManager.getAllTopicPartition();
-        List<kafka.javaapi.TopicMetadata> allTopicMetadata = new ArrayList<kafka.javaapi.TopicMetadata>();
-
-        String sep = ", ";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-        StringBuilder rString = new StringBuilder();
-
-        for (kafka.javaapi.TopicMetadata topic : totalTopicMetadata) {
-            //Log the server/topic mapping to know which topic is getting  by which instance of KAT-List<String>
-            int topicIndex = totalTopicMetadata.indexOf(topic);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-        int consumerFailCount = 0;
-
-        for (kafka.javaapi.TopicMetadata topic : allTopicMetadata) {
-            numPartitionsConsumers += topic.partitionsMetadata().size();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-            }
-        }
-        for (kafka.javaapi.TopicMetadata item : allTopicMetadata) {
-            boolean isTopicAvailable = true;
-            m_logger.info("Reading from Topic: {};", item.topic());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-            Map<Integer, Future<Long>> response = new HashMap<Integer, Future<Long>>();
-
-            for (kafka.javaapi.PartitionMetadata part : item.partitionsMetadata()) {
-                m_logger.debug("Reading from Topic: {}; Partition: {};", item.topic(), part.partitionId());
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary and can be removed
-in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
-#### Snippet
-```java
-     * @return Deduped topic metadata
-     */
-    public List<kafka.javaapi.TopicMetadata> getAllTopicPartition()
-    {
-        List<kafka.javaapi.TopicMetadata> topicMetadataList = getMetaDataFromAllBrokers();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary and can be removed
-in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
-#### Snippet
-```java
-    public List<kafka.javaapi.TopicMetadata> getAllTopicPartition()
-    {
-        List<kafka.javaapi.TopicMetadata> topicMetadataList = getMetaDataFromAllBrokers();
-        HashSet<TopicPartition> exploredTopicPartition = new HashSet<TopicPartition>();
-        List<kafka.javaapi.TopicMetadata> ret = new ArrayList<TopicMetadata>();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary and can be removed
-in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
-#### Snippet
-```java
-        List<kafka.javaapi.TopicMetadata> topicMetadataList = getMetaDataFromAllBrokers();
-        HashSet<TopicPartition> exploredTopicPartition = new HashSet<TopicPartition>();
-        List<kafka.javaapi.TopicMetadata> ret = new ArrayList<TopicMetadata>();
-
-        // Filter any white list topics
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `kafka.javaapi` is unnecessary and can be removed
-in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
-#### Snippet
-```java
-                                JavaConversions.asScalaBuffer(pml).toList(),
-                                item.errorCode());
-                ret.add(new kafka.javaapi.TopicMetadata(tm));
-            }
-        }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `kafka.javaapi` is unnecessary and can be removed
 in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
 #### Snippet
@@ -1525,6 +1476,54 @@ in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
                 for (kafka.cluster.Broker replica : part.isr())
                 {
                     isr += " " + replica.host();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary and can be removed
+in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
+#### Snippet
+```java
+     * @return Deduped topic metadata
+     */
+    public List<kafka.javaapi.TopicMetadata> getAllTopicPartition()
+    {
+        List<kafka.javaapi.TopicMetadata> topicMetadataList = getMetaDataFromAllBrokers();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary and can be removed
+in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
+#### Snippet
+```java
+    public List<kafka.javaapi.TopicMetadata> getAllTopicPartition()
+    {
+        List<kafka.javaapi.TopicMetadata> topicMetadataList = getMetaDataFromAllBrokers();
+        HashSet<TopicPartition> exploredTopicPartition = new HashSet<TopicPartition>();
+        List<kafka.javaapi.TopicMetadata> ret = new ArrayList<TopicMetadata>();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary and can be removed
+in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
+#### Snippet
+```java
+        List<kafka.javaapi.TopicMetadata> topicMetadataList = getMetaDataFromAllBrokers();
+        HashSet<TopicPartition> exploredTopicPartition = new HashSet<TopicPartition>();
+        List<kafka.javaapi.TopicMetadata> ret = new ArrayList<TopicMetadata>();
+
+        // Filter any white list topics
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `kafka.javaapi` is unnecessary and can be removed
+in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
+#### Snippet
+```java
+                                JavaConversions.asScalaBuffer(pml).toList(),
+                                item.errorCode());
+                ret.add(new kafka.javaapi.TopicMetadata(tm));
+            }
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1773,6 +1772,18 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
+`elapsedTime = elapsedTime + sleepDuration` could be simplified to 'elapsedTime += sleepDuration'
+in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.java`
+#### Snippet
+```java
+                try {
+                    Thread.currentThread().sleep(sleepDuration);
+                    elapsedTime = elapsedTime + sleepDuration;
+                } catch (InterruptedException ie) {
+                    m_logger.error(ie.getMessage(), ie);
+```
+
+### ReplaceAssignmentWithOperatorAssignment
 `gtmIPStatusTryCount = gtmIPStatusTryCount + tryCount` could be simplified to 'gtmIPStatusTryCount += tryCount'
 in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.java`
 #### Snippet
@@ -1794,18 +1805,6 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.jav
                 gtmIPStatusFailCount = gtmIPStatusFailCount + failCount;
             }
             if (reportAvailability && !gtmList.isEmpty()) {
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`elapsedTime = elapsedTime + sleepDuration` could be simplified to 'elapsedTime += sleepDuration'
-in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.java`
-#### Snippet
-```java
-                try {
-                    Thread.currentThread().sleep(sleepDuration);
-                    elapsedTime = elapsedTime + sleepDuration;
-                } catch (InterruptedException ie) {
-                    m_logger.error(ie.getMessage(), ie);
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -1908,19 +1907,6 @@ public class MetricNameEncoded {
     public String tag;
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-09-02-26.825.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -1959,19 +1945,6 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/JobManager.java`
             } else {
 ```
 
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer response` may be declared as 'StringBuilder'
-in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
-#### Snippet
-```java
-                        new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                while ((inputLine = in.readLine()) != null) {
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `data` is redundant
@@ -1995,6 +1968,19 @@ in `src/main/java/com/microsoft/kafkaavailability/discovery/CommonUtils.java`
         long waitTime = ((long) Math.pow(2, retryCount) * waitInterval);
 
         return waitTime;
+```
+
+## RuleId[id=StringBufferReplaceableByStringBuilder]
+### StringBufferReplaceableByStringBuilder
+`StringBuffer response` may be declared as 'StringBuilder'
+in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
+#### Snippet
+```java
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
 ```
 
 ## RuleId[id=BusyWait]
@@ -2084,6 +2070,18 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
 ```
 
 ### UnusedAssignment
+Variable `elapsedTime` initializer `0L` is redundant
+in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.java`
+#### Snippet
+```java
+    public Long call() throws Exception {
+        int sleepDuration = 1000;
+        long elapsedTime = 0L;
+        do {
+            long lStartTime = System.currentTimeMillis();
+```
+
+### UnusedAssignment
 Variable `authority` initializer `null` is redundant
 in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.java`
 #### Snippet
@@ -2097,14 +2095,14 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.jav
 
 ### UnusedAssignment
 Variable `elapsedTime` initializer `0L` is redundant
-in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.java`
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
 #### Snippet
 ```java
     public Long call() throws Exception {
         int sleepDuration = 1000;
         long elapsedTime = 0L;
-        do {
-            long lStartTime = System.currentTimeMillis();
+        long lStartTime = System.currentTimeMillis();
+        MetricRegistry metrics;
 ```
 
 ### UnusedAssignment
@@ -2117,18 +2115,6 @@ in `src/main/java/com/microsoft/kafkaavailability/Consumer.java`
             boolean goToSleep = false;
             PartitionMetadata metadata = findLeader(m_replicaBrokers, a_port, a_topic, a_partition);
             if (metadata == null) {
-```
-
-### UnusedAssignment
-Variable `elapsedTime` initializer `0L` is redundant
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-    public Long call() throws Exception {
-        int sleepDuration = 1000;
-        long elapsedTime = 0L;
-        long lStartTime = System.currentTimeMillis();
-        MetricRegistry metrics;
 ```
 
 ### UnusedAssignment
