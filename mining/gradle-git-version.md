@@ -56,20 +56,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
-            String branch = runGitCmd("branch", "--show-current");
-            if (branch.isEmpty()) {
-                return null;
-            }
-            return branch;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
         } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git branch --show-current failed", e);
+            log.debug("Native git describe failed", e);
             return null;
         }
     }
@@ -105,7 +93,7 @@ in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
         } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git describe failed", e);
+            log.debug("Native git status --porcelain failed", e);
             return null;
         }
     }
@@ -116,38 +104,26 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
+            String branch = runGitCmd("branch", "--show-current");
+            if (branch.isEmpty()) {
+                return null;
+            }
+            return branch;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
         } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git status --porcelain failed", e);
+            log.debug("Native git branch --show-current failed", e);
             return null;
         }
     }
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `nativeGitDescribe` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-    private String expensiveComputeRawDescription() {
-
-        String nativeGitDescribe = nativeGitInvoker.describe(args.getPrefix());
-
-        return nativeGitDescribe;
-```
-
-### UnnecessaryLocalVariable
-Local variable `processedDescription` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-    private String description() {
-        String rawDescription = expensiveComputeRawDescription();
-        String processedDescription =
-                rawDescription == null ? null : rawDescription.replaceFirst("^" + args.getPrefix(), "");
-        return processedDescription;
-```
-
 ### UnnecessaryLocalVariable
 Local variable `versionDetails` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
@@ -172,6 +148,30 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
                 .getVersion();
 ```
 
+### UnnecessaryLocalVariable
+Local variable `nativeGitDescribe` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+    private String expensiveComputeRawDescription() {
+
+        String nativeGitDescribe = nativeGitInvoker.describe(args.getPrefix());
+
+        return nativeGitDescribe;
+```
+
+### UnnecessaryLocalVariable
+Local variable `processedDescription` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+    private String description() {
+        String rawDescription = expensiveComputeRawDescription();
+        String processedDescription =
+                rawDescription == null ? null : rawDescription.replaceFirst("^" + args.getPrefix(), "");
+        return processedDescription;
+```
+
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -194,8 +194,8 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
         }
 
         Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        Preconditions.checkState(match.matches(), "Cannot get commit distance for description: '%s'", description());
-        return Integer.parseInt(match.group(2));
+        return match.matches() ? match.group(1) : null;
+    }
 ```
 
 ### DataFlowIssue
@@ -206,8 +206,8 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
         }
 
         Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
-    }
+        Preconditions.checkState(match.matches(), "Cannot get commit distance for description: '%s'", description());
+        return Integer.parseInt(match.group(2));
 ```
 
 ## RuleId[id=NestedAssignment]
