@@ -6,7 +6,7 @@ I found 2 bad smells with 1 repairable:
 | --- | --- | --- |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | ConstantValue | 1 | false |
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `Usages` has only 'static' members, and lacks a 'private' constructor
 in `src/usages/Usages.java`
@@ -19,7 +19,7 @@ public final class Usages {
     Hash.Strategy<String> strategy = new Hash.Strategy<String>() {
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `IntLists.EMPTY_LIST != null` is always `true`
 in `src/usages/Usages.java`
