@@ -15,6 +15,18 @@ I found 16 bad smells with 3 repairable:
 | MethodOverridesStaticMethod | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
+in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
+#### Snippet
+```java
+		}
+
+		return result.toArray(new Modifier[result.size()]);
+	}
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new TypeName\[bounds.size()\]'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
@@ -38,18 +50,6 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 		throw new UnsupportedOperationException();
 ```
 
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
-in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
-#### Snippet
-```java
-		}
-
-		return result.toArray(new Modifier[result.size()]);
-	}
-
-```
-
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `CtVisitor`
@@ -66,11 +66,23 @@ public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, Prett
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
+#### Snippet
+```java
+	public String toString() {
+		if (type == null) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printPackageInfo(CtPackage ctPackage) {
+	public String printModuleInfo(CtModule ctModule) {
 		return null;
 	}
 
@@ -94,37 +106,13 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printModuleInfo(CtModule ctModule) {
+	public String printPackageInfo(CtPackage ctPackage) {
 		return null;
 	}
 
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
-#### Snippet
-```java
-	public String toString() {
-		if (type == null) {
-			return null;
-		}
-
-```
-
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-		String result = "null";
-		if (defaultExpression !=null) {
-			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
-		}
-		field.initializer(result);
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
@@ -135,6 +123,18 @@ in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
 		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
 	}
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+		String result = "null";
+		if (defaultExpression !=null) {
+			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
+		}
+		field.initializer(result);
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
