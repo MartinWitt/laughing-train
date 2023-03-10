@@ -32,18 +32,6 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `CollectionBreakpointInstrumentor` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
-#### Snippet
-```java
-
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "CallToPrintStackTrace", "rawtypes"})
-public class CollectionBreakpointInstrumentor {
-  private static final String OBJECT_TYPE = "Ljava/lang/Object;";
-  private static final String STRING_TYPE = "Ljava/lang/String;";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `DebuggerAgent` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/intellij/rt/debugger/agent/DebuggerAgent.java`
 #### Snippet
@@ -56,15 +44,15 @@ public class DebuggerAgent {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CaptureAgent` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+Class `CollectionBreakpointInstrumentor` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "CallToPrintStackTrace", "rawtypes"})
-public final class CaptureAgent {
-  private static Instrumentation ourInstrumentation;
-  private static final Set<Class> mySkipped = new HashSet<Class>();
+public class CollectionBreakpointInstrumentor {
+  private static final String OBJECT_TYPE = "Ljava/lang/Object;";
+  private static final String STRING_TYPE = "Ljava/lang/String;";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -91,6 +79,18 @@ public class CollectionBreakpointStorage {
   private static final ConcurrentMap<CollectionWrapper, CollectionHistory> COLLECTION_MODIFICATIONS_STORAGE;
 ```
 
+### UtilityClassWithoutPrivateConstructor
+Class `CaptureAgent` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+#### Snippet
+```java
+
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "CallToPrintStackTrace", "rawtypes"})
+public final class CaptureAgent {
+  private static Instrumentation ourInstrumentation;
+  private static final Set<Class> mySkipped = new HashSet<Class>();
+```
+
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -109,10 +109,10 @@ in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumento
 in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
 #### Snippet
 ```java
-                             String methodDisplayName) {
-      keyProvider.loadKey(mv, isStatic, argumentTypes, methodDisplayName, this);
-      mv.visitMethodInsn(Opcodes.INVOKESTATIC, CaptureStorage.class.getName().replaceAll("\\.", "/"), storageMethodName,
-                         "(Ljava/lang/Object;)V", false);
+      InstrumentPoint point = addPoint((String)entry.getKey(), (String)entry.getValue());
+      if (point != null) {
+        classNames.add(point.myClassName.replaceAll("/", "\\."));
+      }
     }
 ```
 
@@ -121,10 +121,10 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
 in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
 #### Snippet
 ```java
-      InstrumentPoint point = addPoint((String)entry.getKey(), (String)entry.getValue());
-      if (point != null) {
-        classNames.add(point.myClassName.replaceAll("/", "\\."));
-      }
+                             String methodDisplayName) {
+      keyProvider.loadKey(mv, isStatic, argumentTypes, methodDisplayName, this);
+      mv.visitMethodInsn(Opcodes.INVOKESTATIC, CaptureStorage.class.getName().replaceAll("\\.", "/"), storageMethodName,
+                         "(Ljava/lang/Object;)V", false);
     }
 ```
 
@@ -258,6 +258,18 @@ Return of `null`
 in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
+    @Override
+    public Object setValue(Object value) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
+#### Snippet
+```java
     try {
       if (!shouldCapture) {
         return null;
@@ -274,18 +286,6 @@ in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumento
     }
     return null;
   }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
-#### Snippet
-```java
-    @Override
-    public Object setValue(Object value) {
-      return null;
-    }
 
 ```
 
@@ -315,30 +315,6 @@ in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumento
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
-#### Snippet
-```java
-      return addPoint(false, propertyValue);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 #### Snippet
 ```java
@@ -359,6 +335,30 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
       return null;
     }
     List<StackTraceElement> stackTrace = getStackTrace(stack, limit);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+#### Snippet
+```java
+      return addPoint(false, propertyValue);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+#### Snippet
+```java
+        }
+      }
+      return null;
+    }
+  }
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
