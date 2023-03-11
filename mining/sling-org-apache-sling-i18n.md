@@ -21,8 +21,8 @@ I found 55 bad smells with 9 repairable:
 | ObsoleteCollection | 1 | false |
 | RedundantFieldInitialization | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
-| UnusedAssignment | 1 | false |
 | MissortedModifiers | 1 | false |
+| UnusedAssignment | 1 | false |
 | ConstantValue | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -31,7 +31,7 @@ in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
 #### Snippet
 ```java
         synchronized ( this.providers ) {
-            this.providers.remove(ServiceUtil.getComparableForServiceRanking(props, Order.ASCENDING));
+            this.providers.put(ServiceUtil.getComparableForServiceRanking(props, Order.ASCENDING), provider);
             this.sortedProviders = this.providers.values().toArray(new ResourceBundleProvider[this.providers.size()]);
         }
     }
@@ -43,7 +43,7 @@ in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
 #### Snippet
 ```java
         synchronized ( this.providers ) {
-            this.providers.put(ServiceUtil.getComparableForServiceRanking(props, Order.ASCENDING), provider);
+            this.providers.remove(ServiceUtil.getComparableForServiceRanking(props, Order.ASCENDING));
             this.sortedProviders = this.providers.values().toArray(new ResourceBundleProvider[this.providers.size()]);
         }
     }
@@ -77,90 +77,6 @@ in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/sling/i18n/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("2.2.1")
-package org.apache.sling.i18n;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `javax.servlet` is unnecessary and can be removed
 in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
 #### Snippet
@@ -168,6 +84,78 @@ in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
 
     /**
      * @see javax.servlet.Filter#destroy()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     @Override
 ```
@@ -196,6 +184,18 @@ in `src/main/java/org/apache/sling/i18n/DefaultLocaleResolver.java`
     public List<Locale> resolveLocale(final HttpServletRequest request) {
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/sling/i18n/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("2.2.1")
+package org.apache.sling.i18n;
+
+```
+
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'LocaleResolver' is still used
@@ -222,20 +222,19 @@ in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
     /** job names of scheduled jobs for reloading individual bundles */
 ```
 
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
+## RuleId[id=Convert2Lambda]
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
 in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
 #### Snippet
 ```java
-
-    private void registerResourceBundle(Key key, JcrResourceBundle resourceBundle) {
-        Dictionary<String, Object> serviceProps = new Hashtable<>();
-        if (key.baseName != null) {
-            serviceProps.put("baseName", key.baseName);
+        }
+        options.name("ResourceBundleProvider: reload all resource bundles");
+        scheduler.schedule(new Runnable() {
+            @Override
+            public void run() {
 ```
 
-## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
@@ -248,16 +247,17 @@ in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
             public void run() {
 ```
 
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
+## RuleId[id=ObsoleteCollection]
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
 in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
 #### Snippet
 ```java
-        }
-        options.name("ResourceBundleProvider: reload all resource bundles");
-        scheduler.schedule(new Runnable() {
-            @Override
-            public void run() {
+
+    private void registerResourceBundle(Key key, JcrResourceBundle resourceBundle) {
+        Dictionary<String, Object> serviceProps = new Hashtable<>();
+        if (key.baseName != null) {
+            serviceProps.put("baseName", key.baseName);
 ```
 
 ## RuleId[id=RedundantArrayCreation]
@@ -299,6 +299,42 @@ in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `localeString`
+in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
+#### Snippet
+```java
+        }
+        // support BCP 47 compliant strings as well (using a different separator "-" instead of "_")
+        localeString = localeString.replaceAll("-", "_");
+
+        // check language and country
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `locale`
+in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
+#### Snippet
+```java
+    private ResourceBundle getResourceBundleInternal(ResourceResolver optionalResolver, final String baseName, Locale locale, final boolean overwriteCache) {
+        if (locale == null) {
+            locale = defaultLocale;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `optionalResolver`
+in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
+#### Snippet
+```java
+                        if ( optionalResolver == null ) {
+                            localResolver = createResourceResolver();
+                            optionalResolver = localResolver;
+                        }
+
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `request`
 in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
@@ -347,79 +383,7 @@ in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
 
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `localeString`
-in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
-#### Snippet
-```java
-        }
-        // support BCP 47 compliant strings as well (using a different separator "-" instead of "_")
-        localeString = localeString.replaceAll("-", "_");
-
-        // check language and country
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `locale`
-in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
-#### Snippet
-```java
-    private ResourceBundle getResourceBundleInternal(ResourceResolver optionalResolver, final String baseName, Locale locale, final boolean overwriteCache) {
-        if (locale == null) {
-            locale = defaultLocale;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `optionalResolver`
-in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
-#### Snippet
-```java
-                        if ( optionalResolver == null ) {
-                            localResolver = createResourceResolver();
-                            optionalResolver = localResolver;
-                        }
-
-```
-
 ## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
@@ -430,6 +394,42 @@ in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -493,28 +493,41 @@ in `src/main/java/org/apache/sling/i18n/impl/PotentialLanguageRootCheck.java`
                         || language.equals(localeStringLower)
 ```
 
+## RuleId[id=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+#### Snippet
+```java
+    private final Map<Object, ResourceBundleProvider> providers = new TreeMap<>();
+
+    private volatile ResourceBundleProvider[] sortedProviders = new ResourceBundleProvider[0];
+
+    private final ResourceBundleProvider combinedProvider = new CombinedBundleProvider();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/sling/i18n/impl/PotentialLanguageRootCheck.java`
+#### Snippet
+```java
+                        || language.equals(localeRFC4646StringLower)) {
+                    // basename might be a multivalue (see https://issues.apache.org/jira/browse/SLING-4547)
+                    String[] baseNames = properties.get(JcrResourceBundle.PROP_BASENAME, new String[]{});
+                    if (baseName == null || Arrays.asList(baseNames).contains(baseName)) {
+                        match = true;
+```
+
 ## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
+in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
 #### Snippet
 ```java
-    @Override
-    public void init(FilterConfig filterConfig) {
-        synchronized(this) {
-            initCount++;
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
-#### Snippet
-```java
-    @Override
-    public void destroy() {
-        synchronized(this) {
-            initCount--;
+        ServiceRegistration<ResourceBundle> serviceReg = bundleContext.registerService(ResourceBundle.class,
+                resourceBundle, serviceProps);
+        synchronized (this) {
+            bundleServiceRegistrations.put(key, serviceReg);
         }
 ```
 
@@ -544,39 +557,26 @@ in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
-#### Snippet
-```java
-        ServiceRegistration<ResourceBundle> serviceReg = bundleContext.registerService(ResourceBundle.class,
-                resourceBundle, serviceProps);
-        synchronized (this) {
-            bundleServiceRegistrations.put(key, serviceReg);
-        }
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
 #### Snippet
 ```java
-    private final Map<Object, ResourceBundleProvider> providers = new TreeMap<>();
-
-    private volatile ResourceBundleProvider[] sortedProviders = new ResourceBundleProvider[0];
-
-    private final ResourceBundleProvider combinedProvider = new CombinedBundleProvider();
+    @Override
+    public void destroy() {
+        synchronized(this) {
+            initCount--;
+        }
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/sling/i18n/impl/PotentialLanguageRootCheck.java`
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
 #### Snippet
 ```java
-                        || language.equals(localeRFC4646StringLower)) {
-                    // basename might be a multivalue (see https://issues.apache.org/jira/browse/SLING-4547)
-                    String[] baseNames = properties.get(JcrResourceBundle.PROP_BASENAME, new String[]{});
-                    if (baseName == null || Arrays.asList(baseNames).contains(baseName)) {
-                        match = true;
+    @Override
+    public void init(FilterConfig filterConfig) {
+        synchronized(this) {
+            initCount++;
+        }
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -618,15 +618,27 @@ in `src/main/java/org/apache/sling/i18n/impl/LocatorPathsVisitor.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends LocatorPaths`
+in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundle.java`
+#### Snippet
+```java
+            final Locale locale, 
+            final String baseName,
+            final Collection<LocatorPaths> locatorPaths,
+            final PathFilter filter) {
+        final Set<String> paths = new LinkedHashSet<>();
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundle.java`
 #### Snippet
 ```java
-    }
-
-    private void loadJsonDictionary(Resource resource, final Map<String, Object> targetDictionary) {
-        log.info("Loading json dictionary: {}", resource.getPath());
-
+     * Depth-first traversal of a resource tree
+     */
+    private void scanForSlingMessages(final Resource rsrc, final Map<String, Object> targetDictionary) {
+        final ValueMap vm = rsrc.adaptTo(ValueMap.class);
+        if ( vm != null ) {
 ```
 
 ### BoundedWildcard
@@ -646,36 +658,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundle.java`
 #### Snippet
 ```java
-     * Depth-first traversal of a resource tree
-     */
-    private void scanForSlingMessages(final Resource rsrc, final Map<String, Object> targetDictionary) {
-        final ValueMap vm = rsrc.adaptTo(ValueMap.class);
-        if ( vm != null ) {
-```
+    }
 
-### BoundedWildcard
-Can generalize to `? extends LocatorPaths`
-in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundle.java`
-#### Snippet
-```java
-            final Locale locale, 
-            final String baseName,
-            final Collection<LocatorPaths> locatorPaths,
-            final PathFilter filter) {
-        final Set<String> paths = new LinkedHashSet<>();
-```
+    private void loadJsonDictionary(Resource resource, final Map<String, Object> targetDictionary) {
+        log.info("Loading json dictionary: {}", resource.getPath());
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `serviceRegistration` initializer `null` is redundant
-in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
-#### Snippet
-```java
-
-    private void unregisterResourceBundle(Key key) {
-        ServiceRegistration<ResourceBundle> serviceRegistration = null;
-        synchronized (this) {
-            serviceRegistration = bundleServiceRegistrations.remove(key);
 ```
 
 ## RuleId[id=MissortedModifiers]
@@ -689,6 +676,19 @@ in `src/main/java/org/apache/sling/i18n/impl/I18NFilter.java`
     private final static Logger LOG = LoggerFactory.getLogger(I18NFilter.class.getName());
 
     private final DefaultLocaleResolver DEFAULT_LOCALE_RESOLVER = new DefaultLocaleResolver();
+```
+
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `serviceRegistration` initializer `null` is redundant
+in `src/main/java/org/apache/sling/i18n/impl/JcrResourceBundleProvider.java`
+#### Snippet
+```java
+
+    private void unregisterResourceBundle(Key key) {
+        ServiceRegistration<ResourceBundle> serviceRegistration = null;
+        synchronized (this) {
+            serviceRegistration = bundleServiceRegistrations.remove(key);
 ```
 
 ## RuleId[id=ConstantValue]
