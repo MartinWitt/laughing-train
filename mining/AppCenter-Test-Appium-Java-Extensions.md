@@ -36,6 +36,18 @@ in `src/main/java/com/microsoft/appcenter/appium/ShortIdentifier.java`
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+
+    private static void WarnServiceAndBuilerNotSupportedInXTC() {
+        System.out.println("Warning: Using AppiumDriverLocalService or AppiumServiceBuilder in Xamarin Test Cloud is not supported");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/microsoft/appcenter/appium/StdOutEventReporter.java`
 #### Snippet
 ```java
@@ -80,18 +92,6 @@ in `src/main/java/com/microsoft/appcenter/appium/StdOutEventReporter.java`
                 System.out.println(event.getType().name());
                 break;
         }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-
-    private static void WarnServiceAndBuilerNotSupportedInXTC() {
-        System.out.println("Warning: Using AppiumDriverLocalService or AppiumServiceBuilder in Xamarin Test Cloud is not supported");
-    }
-
 ```
 
 ## RuleId[id=FieldMayBeStatic]
@@ -176,8 +176,8 @@ in `src/main/java/com/microsoft/appcenter/appium/MemoryEventReporter.java`
 #### Snippet
 ```java
 
-    public String[] getIds() {
-        return java8.util.stream.StreamSupport.stream(events).map(Event::getId).toArray(String[]::new);
+    public boolean hasId(String id) {
+        return java8.util.stream.StreamSupport.stream(events).anyMatch(report -> report.getId().equals(id));
     }
 
 ```
@@ -188,46 +188,130 @@ in `src/main/java/com/microsoft/appcenter/appium/MemoryEventReporter.java`
 #### Snippet
 ```java
 
-    public boolean hasId(String id) {
-        return java8.util.stream.StreamSupport.stream(events).anyMatch(report -> report.getId().equals(id));
+    public String[] getIds() {
+        return java8.util.stream.StreamSupport.stream(events).map(Event::getId).toArray(String[]::new);
     }
 
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java8.util.function` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/appcenter/appium/DriverHelper.java`
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
-
-class DriverHelper {
-    static <X> X getScreenshotToWorkspace(Object result, OutputType<X> outputType, java8.util.function.Consumer<Path> reporter) {
-        if (result instanceof String) {
-            String base64EncodedPng = (String) result;
+     * @param httpClientFactory http client factory
+     * @param desiredCapabilities desired capabilities for the session
+     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.appium.java_client.ios` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/appcenter/appium/EnhancedIOSDriver.java`
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
-import java.util.List;
-
-public class EnhancedIOSDriver<T extends WebElement> extends io.appium.java_client.ios.IOSDriver<WebElement> implements LabellingDriver {
-
-    protected final EventReporter eventReporter;
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+     *                            {@link org.openqa.selenium.WebElement}
+     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
+     *                            {@link io.appium.java_client.MobileElement}
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.appium.java_client.android` is unnecessary, and can be replaced with an import
-in `src/main/java/com/microsoft/appcenter/appium/EnhancedAndroidDriver.java`
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
-import java.util.List;
+     * @param httpClientFactory http client factory
+     * @param desiredCapabilities desired capabilities for the session
+     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+```
 
-public class EnhancedAndroidDriver<T extends WebElement> extends io.appium.java_client.android.AndroidDriver<WebElement> implements LabellingDriver {
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+     *                            {@link org.openqa.selenium.WebElement}
+     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
+     *                            {@link io.appium.java_client.MobileElement}
+```
 
-    protected final EventReporter eventReporter;
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     * @param httpClientFactory http client factory
+     * @param desiredCapabilities desired capabilities for the session
+     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+     *                            {@link org.openqa.selenium.WebElement}
+     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
+     *                            {@link io.appium.java_client.MobileElement}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     * Create enhanced iOS driver, use in place of {@link io.appium.java_client.ios.IOSDriver#IOSDriver(URL, Capabilities)}
+     * @param desiredCapabilities desired capabilities for the session
+     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+     *                            {@link org.openqa.selenium.WebElement}
+     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
+     *                            {@link io.appium.java_client.MobileElement}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     * @param httpClientFactory http client factory
+     * @param desiredCapabilities desired capabilities for the session
+     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+     *                            {@link org.openqa.selenium.WebElement}
+     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
+     *                            {@link io.appium.java_client.MobileElement}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -283,7 +367,31 @@ Qualifier `org.openqa.selenium` is unnecessary and can be removed
 in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
-     * @param httpClientFactory http client factory
+     * @param desiredCapabilities desired capabilities for the session
+     * @return enhanced Android driver
+     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     *                            Instances of the defined type will be returned via findElement* and findElements*.
+     *                            Warning (!!!). Allowed types:
+     *                            {@link org.openqa.selenium.WebElement}
+     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
+     *                            {@link io.appium.java_client.MobileElement}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.openqa.selenium` is unnecessary and can be removed
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     * Create enhanced android driver, use in place of {@link io.appium.java_client.android.AndroidDriver#AndroidDriver(URL, Capabilities)}
      * @param desiredCapabilities desired capabilities for the session
      * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
      *                            Instances of the defined type will be returned via findElement* and findElements*.
@@ -355,127 +463,7 @@ Qualifier `org.openqa.selenium` is unnecessary and can be removed
 in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
-     * @param httpClientFactory http client factory
-     * @param desiredCapabilities desired capabilities for the session
-     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-     *                            {@link org.openqa.selenium.WebElement}
-     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
-     *                            {@link io.appium.java_client.MobileElement}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     * Create enhanced android driver, use in place of {@link io.appium.java_client.android.AndroidDriver#AndroidDriver(URL, Capabilities)}
-     * @param desiredCapabilities desired capabilities for the session
-     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-     *                            {@link org.openqa.selenium.WebElement}
-     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
-     *                            {@link io.appium.java_client.MobileElement}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
      * @param builder service builder.  Warning: not supported in Xamarin test cloud.
-     * @param desiredCapabilities desired capabilities for the session
-     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-     *                            {@link org.openqa.selenium.WebElement}
-     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
-     *                            {@link io.appium.java_client.MobileElement}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     * @param desiredCapabilities desired capabilities for the session
-     * @return enhanced Android driver
-     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-     *                            {@link org.openqa.selenium.WebElement}
-     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
-     *                            {@link io.appium.java_client.MobileElement}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     * Create enhanced iOS driver, use in place of {@link io.appium.java_client.ios.IOSDriver#IOSDriver(URL, Capabilities)}
-     * @param desiredCapabilities desired capabilities for the session
-     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-     *                            {@link org.openqa.selenium.WebElement}
-     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
-     *                            {@link io.appium.java_client.MobileElement}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     * @param httpClientFactory http client factory
      * @param desiredCapabilities desired capabilities for the session
      * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
      *                            Instances of the defined type will be returned via findElement* and findElements*.
@@ -571,30 +559,6 @@ Qualifier `org.openqa.selenium` is unnecessary and can be removed
 in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
-     * @param httpClientFactory http client factory
-     * @param desiredCapabilities desired capabilities for the session
-     * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     *                            Instances of the defined type will be returned via findElement* and findElements*.
-     *                            Warning (!!!). Allowed types:
-     *                            {@link org.openqa.selenium.WebElement}
-     *                            {@link org.openqa.selenium.remote.RemoteWebElement}
-     *                            {@link io.appium.java_client.MobileElement}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.openqa.selenium` is unnecessary and can be removed
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
      * @param desiredCapabilities desired capabilities for the session
      * @return enhanced Android driver
      * @param <T>                 the required type of class which implement {@link org.openqa.selenium.WebElement}.
@@ -612,6 +576,42 @@ in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
      *                            {@link org.openqa.selenium.WebElement}
      *                            {@link org.openqa.selenium.remote.RemoteWebElement}
      *                            {@link io.appium.java_client.MobileElement}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.appium.java_client.ios` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/appcenter/appium/EnhancedIOSDriver.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class EnhancedIOSDriver<T extends WebElement> extends io.appium.java_client.ios.IOSDriver<WebElement> implements LabellingDriver {
+
+    protected final EventReporter eventReporter;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.appium.java_client.android` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/appcenter/appium/EnhancedAndroidDriver.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class EnhancedAndroidDriver<T extends WebElement> extends io.appium.java_client.android.AndroidDriver<WebElement> implements LabellingDriver {
+
+    protected final EventReporter eventReporter;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java8.util.function` is unnecessary, and can be replaced with an import
+in `src/main/java/com/microsoft/appcenter/appium/DriverHelper.java`
+#### Snippet
+```java
+
+class DriverHelper {
+    static <X> X getScreenshotToWorkspace(Object result, OutputType<X> outputType, java8.util.function.Consumer<Path> reporter) {
+        if (result instanceof String) {
+            String base64EncodedPng = (String) result;
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -678,43 +678,6 @@ in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
     void reportJunit(EventType eventType, Description description, Throwable throwable) {
 ```
 
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
-#### Snippet
-```java
-
-    private Set<String> usedIds = new HashSet<>();
-    private Description lastDescription = null;
-    private int labelCounter = 0;
-    private int screenshotCounter = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
-#### Snippet
-```java
-    private Description lastDescription = null;
-    private int labelCounter = 0;
-    private int screenshotCounter = 0;
-    private final Pattern paramsFinder = Pattern.compile("\\[(\\d+?)\\]");
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
-#### Snippet
-```java
-    private Set<String> usedIds = new HashSet<>();
-    private Description lastDescription = null;
-    private int labelCounter = 0;
-    private int screenshotCounter = 0;
-    private final Pattern paramsFinder = Pattern.compile("\\[(\\d+?)\\]");
-```
-
 ## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
@@ -738,6 +701,43 @@ version = ext.packageVersion
 archivesBaseName = ext.projectId
 description = ext.projectDescription
 java.sourceCompatibility = JavaVersion.VERSION_1_8
+```
+
+## RuleId[id=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
+#### Snippet
+```java
+    private Description lastDescription = null;
+    private int labelCounter = 0;
+    private int screenshotCounter = 0;
+    private final Pattern paramsFinder = Pattern.compile("\\[(\\d+?)\\]");
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
+#### Snippet
+```java
+
+    private Set<String> usedIds = new HashSet<>();
+    private Description lastDescription = null;
+    private int labelCounter = 0;
+    private int screenshotCounter = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
+#### Snippet
+```java
+    private Set<String> usedIds = new HashSet<>();
+    private Description lastDescription = null;
+    private int labelCounter = 0;
+    private int screenshotCounter = 0;
+    private final Pattern paramsFinder = Pattern.compile("\\[(\\d+?)\\]");
 ```
 
 ## RuleId[id=ReturnNull]
