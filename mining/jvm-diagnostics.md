@@ -20,30 +20,89 @@ in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.ja
     }
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `getThreadAllocatedBytes` may produce `NullPointerException`
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
 in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
 #### Snippet
 ```java
-        @Override
-        public long getAllocatedBytes(long threadId) {
-            return hotspotThreadImpl.getThreadAllocatedBytes(threadId);
-        }
+    private static final class HotspotThreadUserTimeAccessor implements ThreadUserTimeAccessor {
+
+        private final java.lang.management.ThreadMXBean threadManagementBean =
+                java.lang.management.ManagementFactory.getThreadMXBean();
 
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+
+        private final java.lang.management.ThreadMXBean threadManagementBean =
+                java.lang.management.ManagementFactory.getThreadMXBean();
+
+        boolean isEnabled() {
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
 in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
 #### Snippet
 ```java
-    private static final class HotspotThreadAllocatedBytesAccessor implements ThreadAllocatedBytesAccessor {
+        }
 
-        private final com.sun.management.ThreadMXBean hotspotThreadImpl = loadThreadManagementBean();
+        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+```
 
-        boolean isEnabled() {
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+
+        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+                    ? (com.sun.management.ThreadMXBean) threadBean
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+
+        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+                    ? (com.sun.management.ThreadMXBean) threadBean
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+                    ? (com.sun.management.ThreadMXBean) threadBean
+                    : null;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+                    ? (com.sun.management.ThreadMXBean) threadBean
+                    : null;
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -75,82 +134,23 @@ Qualifier `com.sun.management` is unnecessary, and can be replaced with an impor
 in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
 #### Snippet
 ```java
-        }
+    private static final class HotspotThreadAllocatedBytesAccessor implements ThreadAllocatedBytesAccessor {
 
-        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-
-        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-                    ? (com.sun.management.ThreadMXBean) threadBean
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-
-        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-                    ? (com.sun.management.ThreadMXBean) threadBean
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-                    ? (com.sun.management.ThreadMXBean) threadBean
-                    : null;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-                    ? (com.sun.management.ThreadMXBean) threadBean
-                    : null;
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-    private static final class HotspotThreadUserTimeAccessor implements ThreadUserTimeAccessor {
-
-        private final java.lang.management.ThreadMXBean threadManagementBean =
-                java.lang.management.ManagementFactory.getThreadMXBean();
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-
-        private final java.lang.management.ThreadMXBean threadManagementBean =
-                java.lang.management.ManagementFactory.getThreadMXBean();
+        private final com.sun.management.ThreadMXBean hotspotThreadImpl = loadThreadManagementBean();
 
         boolean isEnabled() {
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getThreadAllocatedBytes` may produce `NullPointerException`
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+        @Override
+        public long getAllocatedBytes(long threadId) {
+            return hotspotThreadImpl.getThreadAllocatedBytes(threadId);
+        }
+
 ```
 
