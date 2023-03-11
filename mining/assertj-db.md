@@ -28,11 +28,11 @@ I found 314 bad smells with 6 repairable:
 in `src/main/java/org/assertj/db/output/AbstractOutputter.java`
 #### Snippet
 ```java
-  public E toStream(OutputStream outputStream) {
     String output = getOutput(outputType);
-    PrintStream printStream = new PrintStream(outputStream);
-    printStream.print(output);
-    return myself;
+    try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
+      PrintStream printStream = new PrintStream(fileOutputStream);
+      printStream.print(output);
+    } catch (IOException e) {
 ```
 
 ### IOResource
@@ -40,11 +40,11 @@ in `src/main/java/org/assertj/db/output/AbstractOutputter.java`
 in `src/main/java/org/assertj/db/output/AbstractOutputter.java`
 #### Snippet
 ```java
+  public E toStream(OutputStream outputStream) {
     String output = getOutput(outputType);
-    try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
-      PrintStream printStream = new PrintStream(fileOutputStream);
-      printStream.print(output);
-    } catch (IOException e) {
+    PrintStream printStream = new PrintStream(outputStream);
+    printStream.print(output);
+    return myself;
 ```
 
 ## RuleId[id=SystemOutErr]
@@ -321,11 +321,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/assertj/db/type/lettercase/CaseConversions.java`
 #### Snippet
 ```java
-  },
-  /**
-   * Upper conversion of the case of a {@link java.lang.String}.
-   */
-  UPPER {
+
+/**
+ * Conversions of the case of a {@link java.lang.String}.
+ * @author Régis Pouiller
+ * @since 1.1.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -333,11 +333,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/assertj/db/type/lettercase/CaseConversions.java`
 #### Snippet
 ```java
-
-/**
- * Conversions of the case of a {@link java.lang.String}.
- * @author Régis Pouiller
- * @since 1.1.0
+  },
+  /**
+   * Upper conversion of the case of a {@link java.lang.String}.
+   */
+  UPPER {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -406,18 +406,6 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnContent.java`
 #### Snippet
 ```java
    * @return {@code this} assertion object.
-   * @throws AssertionError If the column are not containing the date values in parameter.
-   * @see org.assertj.db.api.AbstractColumnAssert#containsValues(org.assertj.db.type.DateValue...)
-   */
-  T containsValues(DateValue... expected);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnContent.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
    * @throws AssertionError If the column are not containing the time values in parameter.
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(org.assertj.db.type.TimeValue...)
    */
@@ -434,6 +422,66 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnContent.java`
    * @see org.assertj.db.api.AbstractColumnAssert#containsValues(java.util.UUID...)
    */
   T containsValues(UUID... expected);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnContent.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the column are not containing the date values in parameter.
+   * @see org.assertj.db.api.AbstractColumnAssert#containsValues(org.assertj.db.type.DateValue...)
+   */
+  T containsValues(DateValue... expected);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
+#### Snippet
+```java
+
+  /**
+   * The conversion of the case of a {@link java.lang.String}.
+   */
+  private final CaseConversion conversion;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
+#### Snippet
+```java
+  /**
+   * Returns a instance of a letter case.
+   * @param conversion The conversion of the case of a {@link java.lang.String}.
+   * @param comparison The comparison on {@link java.lang.String} which consider the case.
+   * @return An instance of a letter case.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
+#### Snippet
+```java
+   * Returns a instance of a letter case.
+   * @param conversion The conversion of the case of a {@link java.lang.String}.
+   * @param comparison The comparison on {@link java.lang.String} which consider the case.
+   * @return An instance of a letter case.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
+#### Snippet
+```java
+
+  /**
+   * The comparison on {@link java.lang.String} which consider the case.
+   */
+  private final CaseComparison comparison;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -458,54 +506,6 @@ in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
    * @param comparison The comparison on {@link java.lang.String} which consider the case.
    */
   private LetterCase(CaseConversion conversion, CaseComparison comparison) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
-#### Snippet
-```java
-
-  /**
-   * The comparison on {@link java.lang.String} which consider the case.
-   */
-  private final CaseComparison comparison;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
-#### Snippet
-```java
-  /**
-   * Returns a instance of a letter case.
-   * @param conversion The conversion of the case of a {@link java.lang.String}.
-   * @param comparison The comparison on {@link java.lang.String} which consider the case.
-   * @return An instance of a letter case.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
-#### Snippet
-```java
-   * Returns a instance of a letter case.
-   * @param conversion The conversion of the case of a {@link java.lang.String}.
-   * @param comparison The comparison on {@link java.lang.String} which consider the case.
-   * @return An instance of a letter case.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/type/lettercase/LetterCase.java`
-#### Snippet
-```java
-
-  /**
-   * The conversion of the case of a {@link java.lang.String}.
-   */
-  private final CaseConversion conversion;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -554,6 +554,66 @@ in `src/main/java/org/assertj/db/navigation/ToChanges.java`
  * @param <CHS> The class of a assertion on changes (an sub-class of {@link org.assertj.db.navigation.element.ChangesElement}).
  */
 public interface ToChanges<CHS extends ChangesElement> extends Navigation {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.global` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
+#### Snippet
+```java
+ * Position with point (start point and end point) during navigation.
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
+#### Snippet
+```java
+ * Position with point (start point and end point) during navigation.
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.global` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
+#### Snippet
+```java
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
+#### Snippet
+```java
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
+#### Snippet
+```java
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+ *
+ * @author Régis Pouiller
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -653,66 +713,6 @@ public interface ToValueFromRow<V extends ValueElement> extends Navigation {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.global` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
-#### Snippet
-```java
- * Position with point (start point and end point) during navigation.
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
-#### Snippet
-```java
- * Position with point (start point and end point) during navigation.
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.global` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
-#### Snippet
-```java
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
-#### Snippet
-```java
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithPoints.java`
-#### Snippet
-```java
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
- * @author Régis Pouiller
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.navigation.element` is unnecessary and can be removed
 in `src/main/java/org/assertj/db/navigation/ToValueFromColumn.java`
 #### Snippet
@@ -741,18 +741,6 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/assertj/db/type/lettercase/CaseComparisons.java`
 #### Snippet
 ```java
-
-  /**
-   * Comparison on {@link java.lang.String} which ignore the case.
-   */
-  IGNORE {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/type/lettercase/CaseComparisons.java`
-#### Snippet
-```java
   },
   /**
    * Comparison on {@link java.lang.String} which strictly consider the case.
@@ -773,6 +761,30 @@ in `src/main/java/org/assertj/db/type/lettercase/CaseComparisons.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/type/lettercase/CaseComparisons.java`
+#### Snippet
+```java
+
+  /**
+   * Comparison on {@link java.lang.String} which ignore the case.
+   */
+  IGNORE {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/AbstractAssertWithValues.java`
+#### Snippet
+```java
+
+/**
+ * Base class for all values from a {@link org.assertj.db.type.Change} assertions.
+ *
+ * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.error` is unnecessary and can be removed
 in `src/main/java/org/assertj/db/error/ShouldExist.java`
 #### Snippet
@@ -790,10 +802,34 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnChangeType.java`
 #### Snippet
 ```java
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the change is not a deletion.
-   * @see org.assertj.db.type.ChangeType#DELETION
-   * @see org.assertj.db.api.ChangeAssert#isDeletion()
+   * @throws AssertionError If the type of the change is not a creation.
+   * @see org.assertj.db.type.ChangeType#CREATION
+   * @see org.assertj.db.api.ChangeAssert#isCreation()
    */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnChangeType.java`
+#### Snippet
+```java
+/**
+ * Defines the assertion methods on the type of a change (creation, modification or deletion of a row).
+ * <p>The different type of changes are enumerated in {@link org.assertj.db.type.ChangeType}.</p>
+ *
+ * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnChangeType.java`
+#### Snippet
+```java
+   * @see #isModification()
+   * @see #isDeletion()
+   * @see org.assertj.db.api.ChangeAssert#isOfType(org.assertj.db.type.ChangeType)
+   */
+  T isOfType(ChangeType expected);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -814,34 +850,10 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnChangeType.java`
 #### Snippet
 ```java
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the change is not a creation.
-   * @see org.assertj.db.type.ChangeType#CREATION
-   * @see org.assertj.db.api.ChangeAssert#isCreation()
+   * @throws AssertionError If the type of the change is not a deletion.
+   * @see org.assertj.db.type.ChangeType#DELETION
+   * @see org.assertj.db.api.ChangeAssert#isDeletion()
    */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnChangeType.java`
-#### Snippet
-```java
-   * @see #isModification()
-   * @see #isDeletion()
-   * @see org.assertj.db.api.ChangeAssert#isOfType(org.assertj.db.type.ChangeType)
-   */
-  T isOfType(ChangeType expected);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnChangeType.java`
-#### Snippet
-```java
-/**
- * Defines the assertion methods on the type of a change (creation, modification or deletion of a row).
- * <p>The different type of changes are enumerated in {@link org.assertj.db.type.ChangeType}.</p>
- *
- * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -857,159 +869,63 @@ in `src/main/java/org/assertj/db/output/TableOutputter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+Qualifier `org.assertj.db.global` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/Position.java`
 #### Snippet
 ```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is not time.
-   * @see org.assertj.db.type.ValueType#TIME
-   * @see org.assertj.db.api.AbstractValueAssert#isTime()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isTime()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is not date.
-   * @see org.assertj.db.type.ValueType#DATE
-   * @see org.assertj.db.api.AbstractValueAssert#isDate()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isDate()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is not UUID.
-   * @see org.assertj.db.type.ValueType#UUID
-   * @see org.assertj.db.api.AbstractValueAssert#isUUID()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isUUID()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is not array of bytes.
-   * @see org.assertj.db.type.ValueType#BYTES
-   * @see org.assertj.db.api.AbstractValueAssert#isBytes()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBytes()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is different to the type in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isOfType(org.assertj.db.type.ValueType)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isOfType(org.assertj.db.type.ValueType)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @throws AssertionError If the type of the value is different to the type in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isOfType(org.assertj.db.type.ValueType)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isOfType(org.assertj.db.type.ValueType)
-   */
-  T isOfType(ValueType expected);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is different to all the types in parameters.
-   * @see org.assertj.db.api.AbstractValueAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @throws AssertionError If the type of the value is different to all the types in parameters.
-   * @see org.assertj.db.api.AbstractValueAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
-   */
-  T isOfAnyTypeIn(ValueType... expected);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-/**
- * Defines the assertion methods on the type of a value.
- * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
+ * Position during navigation.
  *
- * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/Position.java`
+#### Snippet
+```java
+ * Position during navigation.
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.global` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/Position.java`
+#### Snippet
+```java
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/Position.java`
+#### Snippet
+```java
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+in `src/main/java/org/assertj/db/navigation/Position.java`
 #### Snippet
 ```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is not boolean.
-   * @see org.assertj.db.type.ValueType#BOOLEAN
-   * @see org.assertj.db.api.AbstractValueAssert#isBoolean()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBoolean()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is not number.
-   * @see org.assertj.db.type.ValueType#NUMBER
-   * @see org.assertj.db.api.AbstractValueAssert#isNumber()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isNumber()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is not date/time.
-   * @see org.assertj.db.type.ValueType#DATE_TIME
-   * @see org.assertj.db.api.AbstractValueAssert#isDateTime()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isDateTime()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the value is not text.
-   * @see org.assertj.db.type.ValueType#TEXT
-   * @see org.assertj.db.api.AbstractValueAssert#isText()
-   * @see org.assertj.db.api.AbstractAssertWithValues#isText()
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
+ *
+ * @author Régis Pouiller
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1061,87 +977,159 @@ public interface OriginWithColumnsAndRowsFromChange<CHS extends ChangesElement, 
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.global` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/Position.java`
-#### Snippet
-```java
- * Position during navigation.
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/Position.java`
-#### Snippet
-```java
- * Position during navigation.
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.global` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/Position.java`
-#### Snippet
-```java
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/Position.java`
-#### Snippet
-```java
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/AbstractAssertWithValues.java`
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
 #### Snippet
 ```java
-
-/**
- * Base class for all values from a {@link org.assertj.db.type.Change} assertions.
- *
- * @param <E> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/Position.java`
-#### Snippet
-```java
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <D> The class of the database element on which is the next position (an sub-class of {@link org.assertj.db.type.DbElement}).
- *
- * @author Régis Pouiller
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.exception` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-   * @param expected Expected values for comparison.
-   * @return A representation of the values.
-   * @throws org.assertj.db.exception.AssertJDBException If the length of the two arrays are different.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is different to the type in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isOfType(org.assertj.db.type.ValueType)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isOfType(org.assertj.db.type.ValueType)
    */
-  public static Object[] getRepresentationsFromValuesInFrontOfExpected(Value[] values, Object[] expected) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @throws AssertionError If the type of the value is different to the type in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isOfType(org.assertj.db.type.ValueType)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isOfType(org.assertj.db.type.ValueType)
+   */
+  T isOfType(ValueType expected);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not UUID.
+   * @see org.assertj.db.type.ValueType#UUID
+   * @see org.assertj.db.api.AbstractValueAssert#isUUID()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isUUID()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not time.
+   * @see org.assertj.db.type.ValueType#TIME
+   * @see org.assertj.db.api.AbstractValueAssert#isTime()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isTime()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not date.
+   * @see org.assertj.db.type.ValueType#DATE
+   * @see org.assertj.db.api.AbstractValueAssert#isDate()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isDate()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is different to all the types in parameters.
+   * @see org.assertj.db.api.AbstractValueAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @throws AssertionError If the type of the value is different to all the types in parameters.
+   * @see org.assertj.db.api.AbstractValueAssert#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isOfAnyTypeIn(org.assertj.db.type.ValueType...)
+   */
+  T isOfAnyTypeIn(ValueType... expected);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not number.
+   * @see org.assertj.db.type.ValueType#NUMBER
+   * @see org.assertj.db.api.AbstractValueAssert#isNumber()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNumber()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not text.
+   * @see org.assertj.db.type.ValueType#TEXT
+   * @see org.assertj.db.api.AbstractValueAssert#isText()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isText()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+/**
+ * Defines the assertion methods on the type of a value.
+ * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
+ *
+ * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not array of bytes.
+   * @see org.assertj.db.type.ValueType#BYTES
+   * @see org.assertj.db.api.AbstractValueAssert#isBytes()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBytes()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not date/time.
+   * @see org.assertj.db.type.ValueType#DATE_TIME
+   * @see org.assertj.db.api.AbstractValueAssert#isDateTime()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isDateTime()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the value is not boolean.
+   * @see org.assertj.db.type.ValueType#BOOLEAN
+   * @see org.assertj.db.api.AbstractValueAssert#isBoolean()
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBoolean()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1165,7 +1153,7 @@ in `src/main/java/org/assertj/db/error/ShouldBeEqualWithStartPoint.java`
   /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeEqualWithStartPoint}</code>.
    *
-   * @param actual The actual value in the failed assertion.
+   * @return the created {@code ErrorMessageFactory}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1177,19 +1165,7 @@ in `src/main/java/org/assertj/db/error/ShouldBeEqualWithStartPoint.java`
   /**
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeEqualWithStartPoint}</code>.
    *
-   * @return the created {@code ErrorMessageFactory}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation.element` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/ToChange.java`
-#### Snippet
-```java
- * @author Régis Pouiller
- *
- * @param <CH> The class of a assertion on a change (an sub-class of {@link org.assertj.db.navigation.element.ChangeElement}).
- */
-public interface ToChange<CH extends ChangeElement> extends Navigation {
+   * @param actual The actual value in the failed assertion.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1214,6 +1190,30 @@ in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnColumnType.java
  * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
  *
  * @author Régis Pouiller
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.exception` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+   * @param expected Expected values for comparison.
+   * @return A representation of the values.
+   * @throws org.assertj.db.exception.AssertJDBException If the length of the two arrays are different.
+   */
+  public static Object[] getRepresentationsFromValuesInFrontOfExpected(Value[] values, Object[] expected) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation.element` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/ToChange.java`
+#### Snippet
+```java
+ * @author Régis Pouiller
+ *
+ * @param <CH> The class of a assertion on a change (an sub-class of {@link org.assertj.db.navigation.element.ChangeElement}).
+ */
+public interface ToChange<CH extends ChangeElement> extends Navigation {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1253,18 +1253,6 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnPrimaryKey.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnDataType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError                 If the type of data is not table or if the table have a different name.
-   * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
-   */
-  public static <A extends AbstractAssert<?>> A isOnTable(A assertion, WritableAssertionInfo info, Change change,
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
 in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnDataType.java`
 #### Snippet
@@ -1274,6 +1262,18 @@ in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnDataType.java`
  * <p>The different type of data are enumerated in {@link org.assertj.db.type.DataType}.</p>
  *
  * @author Régis Pouiller
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnDataType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError                 If the type of data is not table or if the table have a different name.
+   * @throws java.lang.NullPointerException If the name in parameter is {@code null}.
+   */
+  public static <A extends AbstractAssert<?>> A isOnTable(A assertion, WritableAssertionInfo info, Change change,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1301,87 +1301,51 @@ in `src/main/java/org/assertj/db/error/ShouldBeValueClassWithEndPoint.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/ToRow.java`
+Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/output/AbstractOutputterWithOrigin.java`
 #### Snippet
 ```java
 
   /**
-   * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
+   * Returns the assertion of origin (an instance of a sub-class of {@link org.assertj.db.navigation.origin.Origin}.
+   *
+   * @return The assertion of origin.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/ToRow.java`
+Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/output/AbstractOutputterWithOrigin.java`
 #### Snippet
 ```java
-   * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
-   * 
-   * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
-   * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   *
+   * @param selfType Type of this assertion class : a sub-class of {@code AbstractOutputterWithOrigin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   */
+  AbstractOutputterWithOrigin(Class<E> selfType, O origin) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/ToRow.java`
+Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/output/AbstractOutputterWithOrigin.java`
 #### Snippet
 ```java
-   * 
-   * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
-   * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
-   * @throws AssertJDBException If the {@code index} is out of the bounds.
-   * @see org.assertj.db.api.TableAssert#row(int)
+
+/**
+ * Base class for all outputs with an {@link org.assertj.db.navigation.origin.Origin}.
+ *
+ * @author Régis Pouiller
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/ToRow.java`
+Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/output/AbstractOutputterWithOrigin.java`
 #### Snippet
 ```java
-
-  /**
-   * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.
-   * 
-   * @return An object to make assertions on the next {@link Row}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/ToRow.java`
-#### Snippet
-```java
-
-  /**
-   * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.
-   * 
-   * @return An object to make assertions on the next {@link Row}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/ToRow.java`
-#### Snippet
-```java
-   * 
-   * @return An object to make assertions on the next {@link Row}.
-   * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
-   * @see org.assertj.db.api.TableAssert#row()
-   * @see org.assertj.db.api.RequestAssert#row()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/ToRow.java`
-#### Snippet
-```java
-   * 
-   * @return An object to make assertions on the next {@link Row}.
-   * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
-   * @see org.assertj.db.api.TableAssert#row()
-   * @see org.assertj.db.api.RequestAssert#row()
+ *          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
+ *          for more details.
+ * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
+ */
+public abstract class AbstractOutputterWithOrigin<E extends AbstractOutputterWithOrigin<E, O>, O extends Origin>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1434,338 +1398,86 @@ public interface ToRow<R extends RowElement> extends Navigation {
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
-   */
-  T isBeforeOrEqualTo(DateTimeValue dateTime);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before to the date/time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateTimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateTimeValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not before to the date/time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateTimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateTimeValue)
-   */
-  T isBefore(DateTimeValue dateTime);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before to the date value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not before to the date value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateValue)
-   */
-  T isBefore(DateValue date);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before or equal to the date value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not before or equal to the date value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
-   */
-  T isBeforeOrEqualTo(DateValue date);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/output/AbstractOutputterWithOrigin.java`
-#### Snippet
-```java
-   *
-   * @param selfType Type of this assertion class : a sub-class of {@code AbstractOutputterWithOrigin}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   */
-  AbstractOutputterWithOrigin(Class<E> selfType, O origin) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/output/AbstractOutputterWithOrigin.java`
-#### Snippet
-```java
-
-/**
- * Base class for all outputs with an {@link org.assertj.db.navigation.origin.Origin}.
- *
- * @author Régis Pouiller
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/output/AbstractOutputterWithOrigin.java`
-#### Snippet
-```java
- *          target="_blank">Emulating 'self types' using Java Generics to simplify fluent API implementation</a>&quot;
- *          for more details.
- * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
- */
-public abstract class AbstractOutputterWithOrigin<E extends AbstractOutputterWithOrigin<E, O>, O extends Origin>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/output/AbstractOutputterWithOrigin.java`
+in `src/main/java/org/assertj/db/navigation/ToRow.java`
 #### Snippet
 ```java
 
   /**
-   * Returns the assertion of origin (an instance of a sub-class of {@link org.assertj.db.navigation.origin.Origin}.
-   *
-   * @return The assertion of origin.
+   * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.
+   * 
+   * @return An object to make assertions on the next {@link Row}.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+in `src/main/java/org/assertj/db/navigation/ToRow.java`
 #### Snippet
 ```java
-   * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
-   */
-  T isAfterOrEqualTo(DateTimeValue dateTime);
+
+  /**
+   * Returns assertion methods on the next {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}.
+   * 
+   * @return An object to make assertions on the next {@link Row}.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+in `src/main/java/org/assertj/db/navigation/ToRow.java`
 #### Snippet
 ```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not after or equal to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
-   */
+   * 
+   * @return An object to make assertions on the next {@link Row}.
+   * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
+   * @see org.assertj.db.api.TableAssert#row()
+   * @see org.assertj.db.api.RequestAssert#row()
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+in `src/main/java/org/assertj/db/navigation/ToRow.java`
 #### Snippet
 ```java
-   * @throws AssertionError If the value is not after or equal to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
-   */
-  T isAfterOrEqualTo(TimeValue time);
+   * 
+   * @return An object to make assertions on the next {@link Row}.
+   * @throws AssertJDBException If there are no more {@link org.assertj.db.type.Row} in the list of {@link org.assertj.db.type.Row}s.
+   * @see org.assertj.db.api.TableAssert#row()
+   * @see org.assertj.db.api.RequestAssert#row()
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+in `src/main/java/org/assertj/db/navigation/ToRow.java`
 #### Snippet
 ```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not after or equal to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateValue)
-   */
+
+  /**
+   * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+in `src/main/java/org/assertj/db/navigation/ToRow.java`
 #### Snippet
 ```java
-   * @throws AssertionError If the value is not after or equal to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateValue)
-   */
-  T isAfterOrEqualTo(DateValue date);
+   * Returns assertion methods on the {@link org.assertj.db.type.Row} at the {@code index} in parameter.
+   * 
+   * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
+   * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+in `src/main/java/org/assertj/db/navigation/ToRow.java`
 #### Snippet
 ```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before or equal to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not before or equal to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
-   */
-  T isBeforeOrEqualTo(TimeValue time);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not before to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.TimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.TimeValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not before to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.TimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.TimeValue)
-   */
-  T isBefore(TimeValue time);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not after to the date/time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateTimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateTimeValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not after to the date/time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateTimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateTimeValue)
-   */
-  T isAfter(DateTimeValue dateTime);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not after to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.TimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.TimeValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not after to the time value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.TimeValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.TimeValue)
-   */
-  T isAfter(TimeValue time);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the value is not after to the date value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateValue)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
-#### Snippet
-```java
-   * @throws AssertionError If the value is not after to the date value in parameter.
-   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateValue)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateValue)
-   */
-  T isAfter(DateValue date);
+   * 
+   * @param index The index corresponding to the {@link org.assertj.db.type.Row}.
+   * @return An object to make assertions on the {@link org.assertj.db.type.Row}.
+   * @throws AssertJDBException If the {@code index} is out of the bounds.
+   * @see org.assertj.db.api.TableAssert#row(int)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1853,27 +1565,291 @@ public interface ToValue<V extends ValueElement> extends Navigation {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/type/lettercase/CaseConversion.java`
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
 #### Snippet
 ```java
-
-  /**
-   * Converts the {@link java.lang.String} in parameter to another.
-   * @param value The {@link java.lang.String} to convert.
-   * @return The result.
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before or equal to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/type/lettercase/CaseConversion.java`
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
 #### Snippet
 ```java
-  /**
-   * Converts the {@link java.lang.String} in parameter to another.
-   * @param value The {@link java.lang.String} to convert.
-   * @return The result.
+   * @throws AssertionError If the value is not before or equal to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateValue)
    */
+  T isBeforeOrEqualTo(DateValue date);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateTimeValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not before to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateTimeValue)
+   */
+  T isBefore(DateTimeValue dateTime);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not after or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.TimeValue)
+   */
+  T isAfterOrEqualTo(TimeValue time);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateTimeValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not after to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateTimeValue)
+   */
+  T isAfter(DateTimeValue dateTime);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not before or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.TimeValue)
+   */
+  T isBeforeOrEqualTo(TimeValue time);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.TimeValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not before to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.TimeValue)
+   */
+  T isBefore(TimeValue time);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.TimeValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not after to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.TimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.TimeValue)
+   */
+  T isAfter(TimeValue time);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not after or equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateTimeValue)
+   */
+  T isAfterOrEqualTo(DateTimeValue dateTime);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not before to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBefore(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBefore(org.assertj.db.type.DateValue)
+   */
+  T isBefore(DateValue date);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not after to the date value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfter(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfter(org.assertj.db.type.DateValue)
+   */
+  T isAfter(DateValue date);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not before or equal to the date/time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isBeforeOrEqualTo(org.assertj.db.type.DateTimeValue)
+   */
+  T isBeforeOrEqualTo(DateTimeValue dateTime);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the value is not after or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateValue)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueChronology.java`
+#### Snippet
+```java
+   * @throws AssertionError If the value is not after or equal to the time value in parameter.
+   * @see org.assertj.db.api.AbstractValueAssert#isAfterOrEqualTo(org.assertj.db.type.DateValue)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isAfterOrEqualTo(org.assertj.db.type.DateValue)
+   */
+  T isAfterOrEqualTo(DateValue date);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1889,159 +1865,27 @@ in `src/main/java/org/assertj/db/type/lettercase/CaseConversion.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.exception` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/type/lettercase/CaseConversion.java`
 #### Snippet
 ```java
-   * @param index Index of the instance.
-   * @return The instance.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+
+  /**
+   * Converts the {@link java.lang.String} in parameter to another.
+   * @param value The {@link java.lang.String} to convert.
+   * @return The result.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/type/lettercase/CaseConversion.java`
+#### Snippet
+```java
+  /**
+   * Converts the {@link java.lang.String} in parameter to another.
+   * @param value The {@link java.lang.String} to convert.
+   * @return The result.
    */
-  public N getModifiedChangeColumnInstance(Change change, int index) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.exception` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
-   * @param change The change
-   * @return The instance.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public N getChangeColumnInstance(Change change) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.exception` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
-   * @param comparison      Case comparison for column name.
-   * @return The instance.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public N getModifiedChangeColumnInstance(Change change, String columnName, CaseComparison comparison) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.exception` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
-   * @param change The change
-   * @return The instance.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public N getModifiedChangeColumnInstance(Change change) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.exception` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
-   * @param index Index of the instance.
-   * @return The instance.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public N getChangeColumnInstance(Change change, int index) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.exception` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
-   * @param comparison      Case comparison for column name.
-   * @return The instance.
-   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
-   */
-  public N getChangeColumnInstance(Change change, String columnName, CaseComparison comparison) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnDataType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of data is not request.
-   * @see org.assertj.db.type.DataType#REQUEST
-   * @see org.assertj.db.api.ChangeAssert#isOnRequest()
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.global` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
- * Position during navigation.
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
- * Position during navigation.
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnDataType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of data is not table.
-   * @see org.assertj.db.type.DataType#TABLE
-   * @see org.assertj.db.api.ChangeAssert#isOnTable()
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.global` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
- * @author Régis Pouiller
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
-#### Snippet
-```java
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
- * @author Régis Pouiller
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnDataType.java`
-#### Snippet
-```java
-   * @see #isOnTable()
-   * @see #isOnRequest()
-   * @see org.assertj.db.api.ChangeAssert#isOnDataType(org.assertj.db.type.DataType)
-   */
-  T isOnDataType(DataType expected);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2069,6 +1913,114 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnDataType.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnDataType.java`
+#### Snippet
+```java
+   * @see #isOnTable()
+   * @see #isOnRequest()
+   * @see org.assertj.db.api.ChangeAssert#isOnDataType(org.assertj.db.type.DataType)
+   */
+  T isOnDataType(DataType expected);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnDataType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of data is not request.
+   * @see org.assertj.db.type.DataType#REQUEST
+   * @see org.assertj.db.api.ChangeAssert#isOnRequest()
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnDataType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of data is not table.
+   * @see org.assertj.db.type.DataType#TABLE
+   * @see org.assertj.db.api.ChangeAssert#isOnTable()
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.exception` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+   * @param comparison      Case comparison for column name.
+   * @return The instance.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public N getModifiedChangeColumnInstance(Change change, String columnName, CaseComparison comparison) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.exception` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+   * @param index Index of the instance.
+   * @return The instance.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public N getChangeColumnInstance(Change change, int index) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.exception` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+   * @param change The change
+   * @return The instance.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public N getChangeColumnInstance(Change change) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.exception` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+   * @param change The change
+   * @return The instance.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public N getModifiedChangeColumnInstance(Change change) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.global` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+ * Position during navigation.
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+ * Position during navigation.
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ *
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/assertj/db/type/Value.java`
 #### Snippet
@@ -2078,6 +2030,114 @@ in `src/main/java/org/assertj/db/type/Value.java`
     if (object instanceof java.util.UUID) {
       return ValueType.UUID;
     }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.global` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ *
+ * @author Régis Pouiller
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ *
+ * @author Régis Pouiller
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.exception` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+   * @param index Index of the instance.
+   * @return The instance.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public N getModifiedChangeColumnInstance(Change change, int index) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.exception` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithColumnsChange.java`
+#### Snippet
+```java
+   * @param comparison      Case comparison for column name.
+   * @return The instance.
+   * @throws org.assertj.db.exception.AssertJDBException If the {@code index} is out of the bounds.
+   */
+  public N getChangeColumnInstance(Change change, String columnName, CaseComparison comparison) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
+#### Snippet
+```java
+   * @param changes The changes
+   * @param tableName  Name of the table on which is the instance of change assert.
+   * @param pksValues The values of the primary key corresponding to the {@link org.assertj.db.type.Change}.
+   * @return The change assert implementation.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.global` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
+#### Snippet
+```java
+ * Position during navigation.
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
+#### Snippet
+```java
+ * Position during navigation.
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.global` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
+#### Snippet
+```java
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ *
+ * @author Régis Pouiller
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
+#### Snippet
+```java
+ *
+ * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
+ *
+ * @author Régis Pouiller
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2146,10 +2206,10 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
 #### Snippet
 ```java
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the column is not text.
-   * @see org.assertj.db.type.ValueType#TEXT
-   * @see org.assertj.db.api.AbstractColumnAssert#isText(boolean)
-   * @see org.assertj.db.api.ChangeColumnAssert#isText(boolean)
+   * @throws AssertionError If the type of the column is not time.
+   * @see org.assertj.db.type.ValueType#TIME
+   * @see org.assertj.db.api.AbstractColumnAssert#isTime(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isTime(boolean)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2194,58 +2254,22 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
 #### Snippet
 ```java
    * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the column is not date/time.
+   * @see org.assertj.db.type.ValueType#DATE_TIME
+   * @see org.assertj.db.api.AbstractColumnAssert#isDateTime(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isDateTime(boolean)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
    * @throws AssertionError If the type of the column is not date.
    * @see org.assertj.db.type.ValueType#DATE
    * @see org.assertj.db.api.AbstractColumnAssert#isDate(boolean)
    * @see org.assertj.db.api.ChangeColumnAssert#isDate(boolean)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the column is not number.
-   * @see org.assertj.db.type.ValueType#NUMBER
-   * @see org.assertj.db.api.AbstractColumnAssert#isNumber(boolean)
-   * @see org.assertj.db.api.ChangeColumnAssert#isNumber(boolean)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the column is not time.
-   * @see org.assertj.db.type.ValueType#TIME
-   * @see org.assertj.db.api.AbstractColumnAssert#isTime(boolean)
-   * @see org.assertj.db.api.ChangeColumnAssert#isTime(boolean)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
-#### Snippet
-```java
-/**
- * Defines the assertion methods on the type of a column.
- * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
- *
- * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
-#### Snippet
-```java
-   * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the column is not boolean.
-   * @see org.assertj.db.type.ValueType#BOOLEAN
-   * @see org.assertj.db.api.AbstractColumnAssert#isBoolean(boolean)
-   * @see org.assertj.db.api.ChangeColumnAssert#isBoolean(boolean)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2278,10 +2302,22 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
 #### Snippet
 ```java
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the column is not date/time.
-   * @see org.assertj.db.type.ValueType#DATE_TIME
-   * @see org.assertj.db.api.AbstractColumnAssert#isDateTime(boolean)
-   * @see org.assertj.db.api.ChangeColumnAssert#isDateTime(boolean)
+   * @throws AssertionError If the type of the column is not UUID.
+   * @see org.assertj.db.type.ValueType#UUID
+   * @see org.assertj.db.api.AbstractColumnAssert#isUUID(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isUUID(boolean)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
+#### Snippet
+```java
+/**
+ * Defines the assertion methods on the type of a column.
+ * <p>The different type of values are enumerated in {@link org.assertj.db.type.ValueType}.</p>
+ *
+ * @param <T> The "self" type of this assertion class. Please read &quot;<a href="http://bit.ly/1IZIRcY"
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2290,10 +2326,34 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
 #### Snippet
 ```java
    * @return {@code this} assertion object.
-   * @throws AssertionError If the type of the column is not UUID.
-   * @see org.assertj.db.type.ValueType#UUID
-   * @see org.assertj.db.api.AbstractColumnAssert#isUUID(boolean)
-   * @see org.assertj.db.api.ChangeColumnAssert#isUUID(boolean)
+   * @throws AssertionError If the type of the column is not text.
+   * @see org.assertj.db.type.ValueType#TEXT
+   * @see org.assertj.db.api.AbstractColumnAssert#isText(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isText(boolean)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the column is not number.
+   * @see org.assertj.db.type.ValueType#NUMBER
+   * @see org.assertj.db.api.AbstractColumnAssert#isNumber(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isNumber(boolean)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.type` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/assertions/AssertOnColumnType.java`
+#### Snippet
+```java
+   * @return {@code this} assertion object.
+   * @throws AssertionError If the type of the column is not boolean.
+   * @see org.assertj.db.type.ValueType#BOOLEAN
+   * @see org.assertj.db.api.AbstractColumnAssert#isBoolean(boolean)
+   * @see org.assertj.db.api.ChangeColumnAssert#isBoolean(boolean)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2309,63 +2369,15 @@ in `src/main/java/org/assertj/db/type/lettercase/CaseComparison.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.type` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
+Qualifier `org.assertj.db.error` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/error/ShouldBeEqualWithEndPoint.java`
 #### Snippet
 ```java
-   * @param changes The changes
-   * @param tableName  Name of the table on which is the instance of change assert.
-   * @param pksValues The values of the primary key corresponding to the {@link org.assertj.db.type.Change}.
-   * @return The change assert implementation.
-   */
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.global` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
-#### Snippet
-```java
- * Position during navigation.
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
-#### Snippet
-```java
- * Position during navigation.
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.global` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
-#### Snippet
-```java
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
- * @author Régis Pouiller
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
-#### Snippet
-```java
- *
- * @param <E> The class of the actual position (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- * @param <N> The class of the next position where the navigation go (an sub-class of {@link org.assertj.db.global.AbstractElement} and of {@link org.assertj.db.navigation.Navigation}).
- *
- * @author Régis Pouiller
+  /**
+   * Creates a new <code>{@link org.assertj.db.error.ShouldBeEqualWithEndPoint}</code>.
+   *
+   * @return the created {@code ErrorMessageFactory}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2378,18 +2390,6 @@ in `src/main/java/org/assertj/db/error/ShouldBeEqualWithEndPoint.java`
    * Creates a new <code>{@link org.assertj.db.error.ShouldBeEqualWithEndPoint}</code>.
    *
    * @param actual The actual value in the failed assertion.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.error` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/error/ShouldBeEqualWithEndPoint.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.db.error.ShouldBeEqualWithEndPoint}</code>.
-   *
-   * @return the created {@code ErrorMessageFactory}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2453,6 +2453,18 @@ public interface OriginWithChanges<CHS extends ChangesElement, CH extends Change
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.error` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/error/ShouldBeValueTypeOfAnyWithStartPoint.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueTypeOfAnyWithStartPoint}</code>.
+   *
+   * @param actual The actual value in the failed assertion.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.db.type` is unnecessary and can be removed
 in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnChangeType.java`
 #### Snippet
@@ -2465,15 +2477,27 @@ in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnChangeType.java
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.error` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/error/ShouldBeValueTypeOfAnyWithStartPoint.java`
+Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/AbstractAssertWithOrigin.java`
+#### Snippet
+```java
+   * 
+   * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOrigin}.
+   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
+   */
+  AbstractAssertWithOrigin(Class<E> selfType, O origin) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
+in `src/main/java/org/assertj/db/api/AbstractAssertWithOrigin.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new <code>{@link org.assertj.db.error.ShouldBeValueTypeOfAnyWithStartPoint}</code>.
-   *
-   * @param actual The actual value in the failed assertion.
+   * Returns the assertion of origin (an instance of a sub-class of {@link org.assertj.db.navigation.origin.Origin}.
+   * 
+   * @return The assertion of origin.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2498,30 +2522,6 @@ in `src/main/java/org/assertj/db/api/AbstractAssertWithOrigin.java`
  * @param <O> The type of the assertion class of {@link org.assertj.db.navigation.origin.Origin}.
  */
 public abstract class AbstractAssertWithOrigin<E extends AbstractAssertWithOrigin<E, O>, O extends Origin>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/AbstractAssertWithOrigin.java`
-#### Snippet
-```java
-
-  /**
-   * Returns the assertion of origin (an instance of a sub-class of {@link org.assertj.db.navigation.origin.Origin}.
-   * 
-   * @return The assertion of origin.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.db.navigation.origin` is unnecessary and can be removed
-in `src/main/java/org/assertj/db/api/AbstractAssertWithOrigin.java`
-#### Snippet
-```java
-   * 
-   * @param selfType Type of this assertion class : a sub-class of {@code AbstractAssertWithOrigin}.
-   * @param origin The assertion of {@link org.assertj.db.navigation.origin.Origin}.
-   */
-  AbstractAssertWithOrigin(Class<E> selfType, O origin) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2738,9 +2738,9 @@ in `src/main/java/org/assertj/db/type/Table.java`
 ```java
    * @since 1.2.0
    */
-  private Character endDelimiter = null;
-
+  private Character startDelimiter = null;
   /**
+   * End delimiter for column name and table name.
 ```
 
 ### RedundantFieldInitialization
@@ -2750,9 +2750,9 @@ in `src/main/java/org/assertj/db/type/Table.java`
 ```java
    * @since 1.2.0
    */
-  private Character startDelimiter = null;
+  private Character endDelimiter = null;
+
   /**
-   * End delimiter for column name and table name.
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -2783,7 +2783,7 @@ in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-10-05-45-01.918.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-11-20-33-29.593.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2803,7 +2803,7 @@ in `src/main/java/org/assertj/db/type/lettercase/CaseConversions.java`
       if (value == null) {
         return null;
       }
-      return value.toUpperCase();
+      return value.toLowerCase();
 ```
 
 ### ReturnNull
@@ -2815,19 +2815,19 @@ in `src/main/java/org/assertj/db/type/lettercase/CaseConversions.java`
       if (value == null) {
         return null;
       }
-      return value.toLowerCase();
+      return value.toUpperCase();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/assertj/db/util/Values.java`
+in `src/main/java/org/assertj/db/type/Table.java`
 #### Snippet
 ```java
-      return (Long) object;
+  public Order[] getColumnsToOrder() {
+    if (columnsToOrder == null) {
+      return null;
     }
-    return null;
-  }
-
+    return columnsToOrder.clone();
 ```
 
 ### ReturnNull
@@ -2856,14 +2856,14 @@ in `src/main/java/org/assertj/db/type/Table.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/assertj/db/type/Table.java`
+in `src/main/java/org/assertj/db/util/Values.java`
 #### Snippet
 ```java
-  public Order[] getColumnsToOrder() {
-    if (columnsToOrder == null) {
-      return null;
+      return (Long) object;
     }
-    return columnsToOrder.clone();
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -2978,14 +2978,14 @@ in `src/main/java/org/assertj/db/util/RowComparator.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/assertj/db/util/Changes.java`
+in `src/main/java/org/assertj/db/type/Table.java`
 #### Snippet
 ```java
-    }
-
-    return indexesList.toArray(new Integer[0]);
-  }
-
+        }
+      }
+      this.columnsToOrder = columnsToOrderList.toArray(new Order[0]);
+    } else {
+      this.columnsToOrder = null;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3014,14 +3014,14 @@ in `src/main/java/org/assertj/db/type/Table.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/assertj/db/type/Table.java`
+in `src/main/java/org/assertj/db/util/Changes.java`
 #### Snippet
 ```java
-        }
-      }
-      this.columnsToOrder = columnsToOrderList.toArray(new Order[0]);
-    } else {
-      this.columnsToOrder = null;
+    }
+
+    return indexesList.toArray(new Integer[0]);
+  }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3074,14 +3074,14 @@ in `src/main/java/org/assertj/db/type/Changes.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/assertj/db/output/impl/HtmlOutput.java`
+in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
 #### Snippet
 ```java
-    String columnName = column.getName();
-    List<Value> valuesList = column.getValuesList();
-    Value[] values = valuesList.toArray(new Value[0]);
-    String type = OutputType.getType(values);
-
+    for (Change change : changesList) {
+      List<Value> pksValueList = change.getPksValueList();
+      Value[] values = pksValueList.toArray(new Value[0]);
+      boolean equal = false;
+      if (pksValues.length == values.length) {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3110,25 +3110,13 @@ in `src/main/java/org/assertj/db/output/impl/HtmlOutput.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/assertj/db/navigation/PositionWithChanges.java`
+in `src/main/java/org/assertj/db/output/impl/HtmlOutput.java`
 #### Snippet
 ```java
-    for (Change change : changesList) {
-      List<Value> pksValueList = change.getPksValueList();
-      Value[] values = pksValueList.toArray(new Value[0]);
-      boolean equal = false;
-      if (pksValues.length == values.length) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/assertj/db/output/impl/OutputType.java`
-#### Snippet
-```java
-      stringBuildersList.add(pksValueStringBuilder);
-    }
-    return stringBuildersList.toArray(new StringBuilder[0]);
-  }
+    String columnName = column.getName();
+    List<Value> valuesList = column.getValuesList();
+    Value[] values = valuesList.toArray(new Value[0]);
+    String type = OutputType.getType(values);
 
 ```
 
@@ -3158,6 +3146,18 @@ in `src/main/java/org/assertj/db/output/impl/OutputType.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `src/main/java/org/assertj/db/output/impl/OutputType.java`
+#### Snippet
+```java
+      stringBuildersList.add(pksValueStringBuilder);
+    }
+    return stringBuildersList.toArray(new StringBuilder[0]);
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `src/main/java/org/assertj/db/type/Row.java`
 #### Snippet
 ```java
@@ -3166,18 +3166,6 @@ in `src/main/java/org/assertj/db/type/Row.java`
     return pksValuesList.toArray(new Value[0]);
   }
 
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
-  public String getChangesOutput(WritableAssertionInfo info, Changes changes) {
-    List<Change> changesList = changes.getChangesList();
-    Change[] changesArray = changesList.toArray(new Change[0]);
-    int indexColumnSize = getIndexColumnSize(changesList.size());
-    int changeTypeColumnSize = getChangeTypeColumnSize(changesArray);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3209,11 +3197,11 @@ Allocation of zero length array
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
-    String columnName = column.getName();
-    List<Value> valuesList = column.getValuesList();
-    Value[] values = valuesList.toArray(new Value[0]);
-    int indexColumnSize = getIndexColumnSize(values.length);
-    String type = OutputType.getType(values);
+    List<String> columnsNameList = table.getColumnsNameList();
+    List<Row> rowsList = table.getRowsList();
+    Row[] rows = rowsList.toArray(new Row[0]);
+
+    List<String> typesList = OutputType.getTypesList(rows);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3233,110 +3221,26 @@ Allocation of zero length array
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
-    List<String> columnsNameList = table.getColumnsNameList();
-    List<Row> rowsList = table.getRowsList();
-    Row[] rows = rowsList.toArray(new Row[0]);
+  public String getChangesOutput(WritableAssertionInfo info, Changes changes) {
+    List<Change> changesList = changes.getChangesList();
+    Change[] changesArray = changesList.toArray(new Change[0]);
+    int indexColumnSize = getIndexColumnSize(changesList.size());
+    int changeTypeColumnSize = getChangeTypeColumnSize(changesArray);
+```
 
-    List<String> typesList = OutputType.getTypesList(rows);
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+    String columnName = column.getName();
+    List<Value> valuesList = column.getValuesList();
+    Value[] values = valuesList.toArray(new Value[0]);
+    int indexColumnSize = getIndexColumnSize(values.length);
+    String type = OutputType.getType(values);
 ```
 
 ## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-      } else {
-        try {
-          bi = new BigInteger("" + object);
-        } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-      } else {
-        try {
-          bd = new BigDecimal("" + object);
-        } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-        return Double.compare(d, expectedD);
-      } else if (object instanceof BigInteger) {
-        BigInteger bi = new BigInteger("" + expected);
-        return ((BigInteger) object).compareTo(bi);
-      } else if (object instanceof BigDecimal) {
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-        return ((BigInteger) object).compareTo(bi);
-      } else if (object instanceof BigDecimal) {
-        BigDecimal bd = new BigDecimal("" + expected);
-        return ((BigDecimal) object).compareTo(bd);
-      } else if (object instanceof Byte) {
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-   */
-  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
-    BigDecimal bigExpected = new BigDecimal("" + expected);
-    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
-    BigDecimal bigExpected = new BigDecimal("" + expected);
-    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
-    BigDecimal bigMax = bigExpected.add(bigTolerance);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-        }
-      } else if (number instanceof BigInteger) {
-        BigInteger bi = new BigInteger("" + expected);
-        if (((BigInteger) number).compareTo(bi) == 0) {
-          return true;
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-        }
-      } else if (number instanceof BigDecimal) {
-        BigDecimal bd = new BigDecimal("" + expected);
-        if (((BigDecimal) number).compareTo(bd) == 0) {
-          return true;
-```
-
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `src/main/java/org/assertj/db/util/Values.java`
@@ -3359,30 +3263,6 @@ in `src/main/java/org/assertj/db/util/Values.java`
     BigInteger bigTolerance = new BigInteger("" + tolerance);
     BigInteger bigMin = bigExpected.subtract(bigTolerance);
     BigInteger bigMax = bigExpected.add(bigTolerance);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-    } else {
-      try {
-        bd = new BigDecimal("" + object);
-      } catch (NumberFormatException e) {
-        throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-    }
-
-    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-    BigDecimal bigMin = expected.subtract(bigTolerance);
-    BigDecimal bigMax = expected.add(bigTolerance);
 ```
 
 ### TrivialStringConcatenation
@@ -3438,6 +3318,78 @@ Empty string used in concatenation
 in `src/main/java/org/assertj/db/util/Values.java`
 #### Snippet
 ```java
+   */
+  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
+    BigDecimal bigExpected = new BigDecimal("" + expected);
+    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
+    BigDecimal bigExpected = new BigDecimal("" + expected);
+    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
+    BigDecimal bigMax = bigExpected.add(bigTolerance);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+    } else {
+      try {
+        bd = new BigDecimal("" + object);
+      } catch (NumberFormatException e) {
+        throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+    }
+
+    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+    BigDecimal bigMin = expected.subtract(bigTolerance);
+    BigDecimal bigMax = expected.add(bigTolerance);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+        }
+      } else if (number instanceof BigInteger) {
+        BigInteger bi = new BigInteger("" + expected);
+        if (((BigInteger) number).compareTo(bi) == 0) {
+          return true;
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+        }
+      } else if (number instanceof BigDecimal) {
+        BigDecimal bd = new BigDecimal("" + expected);
+        if (((BigDecimal) number).compareTo(bd) == 0) {
+          return true;
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
     } else {
       try {
         bi = new BigInteger("" + object);
@@ -3455,6 +3407,54 @@ in `src/main/java/org/assertj/db/util/Values.java`
     BigInteger bigTolerance = new BigInteger("" + tolerance);
     BigInteger bigMin = expected.subtract(bigTolerance);
     BigInteger bigMax = expected.add(bigTolerance);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+      } else {
+        try {
+          bi = new BigInteger("" + object);
+        } catch (NumberFormatException e) {
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+      } else {
+        try {
+          bd = new BigDecimal("" + object);
+        } catch (NumberFormatException e) {
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+        return Double.compare(d, expectedD);
+      } else if (object instanceof BigInteger) {
+        BigInteger bi = new BigInteger("" + expected);
+        return ((BigInteger) object).compareTo(bi);
+      } else if (object instanceof BigDecimal) {
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+        return ((BigInteger) object).compareTo(bi);
+      } else if (object instanceof BigDecimal) {
+        BigDecimal bd = new BigDecimal("" + expected);
+        return ((BigDecimal) object).compareTo(bd);
+      } else if (object instanceof Byte) {
 ```
 
 ### TrivialStringConcatenation
@@ -3510,6 +3510,18 @@ Empty string used in concatenation
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
+   */
+  private static int getColumnSize(String columnName, Object... objects) {
+    int size = ("" + columnName).length();
+    for (Object object : objects) {
+      int valueSize = getText(object).length();
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
 
     int changeTypeColumnSize = getColumnSize("TYPE", changeType);
     int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
@@ -3534,47 +3546,11 @@ Empty string used in concatenation
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
-      DataType dataType = change.getDataType();
-      String dataName = OutputType.getDataName(change);
-      int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
-      if (size < dataTypeColumnSize) {
-        size = dataTypeColumnSize;
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
     for (Integer size : sizesList) {
       if (index < otherColumnsContent.length) {
         stringBuilder.append(getFilledText("" + otherColumnsContent[index], size));
         stringBuilder.append("|");
       }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
-      // Column name
-      stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
-                                                 "", "TYPE", "" + dataType, "PRIMARY", ""));
-      // Type
-      stringBuilder.append(getCompleteType(sizesList, typesList,
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
-   */
-  private static int getColumnSize(String columnName, Object... objects) {
-    int size = ("" + columnName).length();
-    for (Object object : objects) {
-      int valueSize = getText(object).length();
 ```
 
 ### TrivialStringConcatenation
@@ -3594,11 +3570,11 @@ Empty string used in concatenation
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
-    for (int size : sizesList) {
-      if (index < otherColumnsContent.length) {
-        stringBuilder.append(getFilledText("" + otherColumnsContent[index], size));
-      } else {
-        stringBuilder.append(getCellLine(size));
+      DataType dataType = change.getDataType();
+      String dataName = OutputType.getDataName(change);
+      int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
+      if (size < dataTypeColumnSize) {
+        size = dataTypeColumnSize;
 ```
 
 ### TrivialStringConcatenation
@@ -3613,7 +3589,43 @@ in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 
 ```
 
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+      // Column name
+      stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
+                                                 "", "TYPE", "" + dataType, "PRIMARY", ""));
+      // Type
+      stringBuilder.append(getCompleteType(sizesList, typesList,
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+    for (int size : sizesList) {
+      if (index < otherColumnsContent.length) {
+        stringBuilder.append(getFilledText("" + otherColumnsContent[index], size));
+      } else {
+        stringBuilder.append(getCellLine(size));
+```
+
 ## RuleId[id=NullArgumentToVariableArgMethod]
+### NullArgumentToVariableArgMethod
+Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+    int indexColumnSize = getIndexColumnSize(rows.length);
+    StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
+                                           indexColumnSize,
+```
+
 ### NullArgumentToVariableArgMethod
 Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
@@ -3624,6 +3636,18 @@ in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
                                            changeTypeColumnSize,
+```
+
+### NullArgumentToVariableArgMethod
+Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+    int indexColumnSize = getIndexColumnSize(rows.length);
+    StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
+                                           indexColumnSize,
 ```
 
 ### NullArgumentToVariableArgMethod
@@ -3648,30 +3672,6 @@ in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
     List<Integer> sizesList = getSizesList(getColumnSizesList(row),
                                            primaryKeyColumnSize);
-```
-
-### NullArgumentToVariableArgMethod
-Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
-    int indexColumnSize = getIndexColumnSize(rows.length);
-    StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
-    List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
-                                           indexColumnSize,
-```
-
-### NullArgumentToVariableArgMethod
-Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
-    int indexColumnSize = getIndexColumnSize(rows.length);
-    StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
-    List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
-                                           indexColumnSize,
 ```
 
 ## RuleId[id=BoundedWildcard]
@@ -3717,8 +3717,8 @@ in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnValuesNullity.j
 #### Snippet
 ```java
    */
-  public static <A extends AbstractAssert<?>> A hasOnlyNullValues(A assertion, WritableAssertionInfo info,
-                                                               List<Value> valuesList) {
+  public static <A extends AbstractAssert<?>> A hasOnlyNotNullValues(A assertion, WritableAssertionInfo info,
+                                                                  List<Value> valuesList) {
     int index = 0;
     for (Value value : valuesList) {
 ```
@@ -3729,8 +3729,8 @@ in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnValuesNullity.j
 #### Snippet
 ```java
    */
-  public static <A extends AbstractAssert<?>> A hasOnlyNotNullValues(A assertion, WritableAssertionInfo info,
-                                                                  List<Value> valuesList) {
+  public static <A extends AbstractAssert<?>> A hasOnlyNullValues(A assertion, WritableAssertionInfo info,
+                                                               List<Value> valuesList) {
     int index = 0;
     for (Value value : valuesList) {
 ```
@@ -3761,18 +3761,6 @@ in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnRowEquality.jav
 
 ### BoundedWildcard
 Can generalize to `? extends Value`
-in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnRowCondition.java`
-#### Snippet
-```java
-
-  public static <A extends AbstractAssert<?>> A hasValuesSatisfying(A assertion, WritableAssertionInfo info,
-                                                                    List<Value> valuesList, Object... expected) {
-
-    if (valuesList.size() != expected.length) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Value`
 in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnColumnContent.java`
 #### Snippet
 ```java
@@ -3781,6 +3769,18 @@ in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnColumnContent.j
                                                        List<Value> valuesList, Object... expected) {
     AssertionsOnNumberOfRows.hasNumberOfRows(assertion, info, valuesList.size(), expected.length);
     List<Value> list = new ArrayList<>(valuesList);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Value`
+in `src/main/java/org/assertj/db/api/assertions/impl/AssertionsOnRowCondition.java`
+#### Snippet
+```java
+
+  public static <A extends AbstractAssert<?>> A hasValuesSatisfying(A assertion, WritableAssertionInfo info,
+                                                                    List<Value> valuesList, Object... expected) {
+
+    if (valuesList.size() != expected.length) {
 ```
 
 ### BoundedWildcard
