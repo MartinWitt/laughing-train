@@ -35,18 +35,6 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 #### Snippet
 ```java
             String namespace,
-            MetricNamespace metrics,
-            Optional<String> libraryName,
-            String packageName,
-            ImplementationVisibility visibility) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
             String metricName,
             Optional<String> libraryName,
             MetricNamespace metricNamespace,
@@ -63,6 +51,18 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             Optional<String> libraryName,
             MetricDefinition definition,
             MetricNamespace metricNamespace,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+            String namespace,
+            MetricNamespace metrics,
+            Optional<String> libraryName,
+            String packageName,
+            ImplementationVisibility visibility) {
 ```
 
 ## RuleId[id=IOResource]
@@ -180,6 +180,18 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMe
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends List`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+#### Snippet
+```java
+    }
+
+    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
+        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends RegularFile`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/ProviderUtils.java`
 #### Snippet
@@ -193,7 +205,7 @@ public final class ProviderUtils {
 
 ### BoundedWildcard
 Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
 #### Snippet
 ```java
     }
@@ -204,15 +216,27 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+Can generalize to `? extends Directory`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
 ```java
-    }
 
-    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
-        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
-    }
+    private static TaskProvider<CompileMetricSchemaTask> createCompileSchemaTask(
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directory`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+
+    private static void configureIdea(
+            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
+        project.getPluginManager().withPlugin("idea", _plugin -> {
+            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
 ```
 
 ### BoundedWildcard
@@ -237,30 +261,6 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
             TaskProvider<CompileMetricSchemaTask> compileSchemaTask) {
         Provider<RegularFile> manifestFile = metricSchemaDir.map(dir -> dir.file("manifest.json"));
         Configuration runtimeClasspath = project.getConfigurations().getByName("runtimeClasspath");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static void configureIdea(
-            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
-        project.getPluginManager().withPlugin("idea", _plugin -> {
-            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static TaskProvider<CompileMetricSchemaTask> createCompileSchemaTask(
-            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
-        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
-        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -321,9 +321,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
-        if (!artifact.getFile().exists()) {
-            log.debug("Artifact did not exist: {}", artifact.getFile());
+    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
+        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
+            return Optional.empty();
 ```
 
 ### OptionalContainsCollection
@@ -333,9 +333,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
-        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
-            return Optional.empty();
+    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
+        if (!artifact.getFile().exists()) {
+            log.debug("Artifact did not exist: {}", artifact.getFile());
 ```
 
 ## RuleId[id=UnstableApiUsage]
