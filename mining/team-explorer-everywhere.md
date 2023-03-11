@@ -5,7 +5,7 @@ I found 12 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | HtmlWrongAttributeValue | 12 | false |
-## RuleId[ruleID=HtmlWrongAttributeValue]
+## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
 in `source/com.microsoft.tfs.util/tests/com/microsoft/tfs/util/htmlfilter/stripped.html`
