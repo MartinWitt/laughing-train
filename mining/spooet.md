@@ -115,18 +115,6 @@ in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-		String result = "null";
-		if (defaultExpression !=null) {
-			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
-		}
-		field.initializer(result);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
 #### Snippet
 ```java
@@ -135,6 +123,18 @@ in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
 		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
 	}
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+		String result = "null";
+		if (defaultExpression !=null) {
+			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
+		}
+		field.initializer(result);
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
