@@ -62,18 +62,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `CheckVersionTask` has no concrete subclass
-in `src/main/java/com/palantir/gradle/externalpublish/CheckVersionTask.java`
-#### Snippet
-```java
-import org.gradle.api.tasks.TaskAction;
-
-public abstract class CheckVersionTask extends DefaultTask {
-    @TaskAction
-    public final void checkVersion() {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `CheckSigningKeyTask` has no concrete subclass
 in `src/main/java/com/palantir/gradle/externalpublish/CheckSigningKeyTask.java`
 #### Snippet
@@ -83,6 +71,18 @@ import org.gradle.api.tasks.TaskAction;
 public abstract class CheckSigningKeyTask extends DefaultTask {
     @TaskAction
     public final void checkSigningKey() {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CheckVersionTask` has no concrete subclass
+in `src/main/java/com/palantir/gradle/externalpublish/CheckVersionTask.java`
+#### Snippet
+```java
+import org.gradle.api.tasks.TaskAction;
+
+public abstract class CheckVersionTask extends DefaultTask {
+    @TaskAction
+    public final void checkVersion() {
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -100,13 +100,37 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
 #### Snippet
 ```java
-        project.getPluginManager().apply(JavaLibraryPlugin.class);
+        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
 
-        project.getTasks().withType(Jar.class).named("jar").configure(jar -> {
-            jar.getManifest().attributes(Collections.singletonMap("Implementation-Version", project.getVersion()));
+        publishPluginsTask.configure(publishPlugins -> {
+            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
+#### Snippet
+```java
+        TaskProvider<?> checkSigningKeyTask = rootProject
+                .getTasks()
+                .register("checkSigningKey", CheckSigningKeyTask.class, checkSigningKey -> {
+                    checkSigningKey.onlyIf(_ignored -> !EnvironmentVariables.isFork(rootProject));
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
+#### Snippet
+```java
+                .configure(distTar -> distTar.setCompression(Compression.GZIP));
+
+        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
+            createStartScripts.doLast(new FixWindowsStartScripts());
         });
 ```
 
@@ -124,14 +148,14 @@ in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvo
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
 #### Snippet
 ```java
-        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
+        project.getPluginManager().apply(JavaLibraryPlugin.class);
 
-        publishPluginsTask.configure(publishPlugins -> {
-            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
-        });
+        project.getTasks().withType(Jar.class).named("jar").configure(jar -> {
+            jar.getManifest()
+                    .attributes(
 ```
 
 ### CodeBlock2Expr
@@ -192,29 +216,5 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
         project.getTasks().withType(PublishToMavenRepository.class).configureEach(publishTask -> {
             publishTask.onlyIf(_ignored -> {
                 if (publishTask.getRepository().getName().equals("sonatype")) {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
-#### Snippet
-```java
-        TaskProvider<?> checkSigningKeyTask = rootProject
-                .getTasks()
-                .register("checkSigningKey", CheckSigningKeyTask.class, checkSigningKey -> {
-                    checkSigningKey.onlyIf(_ignored -> !EnvironmentVariables.isFork(rootProject));
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
-#### Snippet
-```java
-                .configure(distTar -> distTar.setCompression(Compression.GZIP));
-
-        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
-            createStartScripts.doLast(new FixWindowsStartScripts());
-        });
 ```
 
