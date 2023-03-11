@@ -1,7 +1,7 @@
 # incubator-streampark 
  
 # Bad smells
-I found 304 bad smells with 22 repairable:
+I found 305 bad smells with 22 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 50 | false |
@@ -43,6 +43,7 @@ I found 304 bad smells with 22 repairable:
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | CodeBlock2Expr | 1 | true |
 | Lombok | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | StringBufferReplaceableByStringBuilder | 1 | false |
 | NonFinalFieldOfException | 1 | false |
@@ -147,18 +148,6 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 ```
 
 ### SizeReplaceableByIsEmpty
-`maps.size() > 0` can be replaced with '!maps.isEmpty()'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-      throws InstantiationException, IllegalAccessException {
-    List<T> list = new ArrayList<>();
-    if (maps != null && maps.size() > 0) {
-      Map<String, Object> map;
-      T bean;
-```
-
-### SizeReplaceableByIsEmpty
 `objList.size() > 0` can be replaced with '!objList.isEmpty()'
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
@@ -171,15 +160,15 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ```
 
 ### SizeReplaceableByIsEmpty
-`sql.length() > 0` can be replaced with '!sql.isEmpty()'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/SqlCompleteServiceImpl.java`
+`maps.size() > 0` can be replaced with '!maps.isEmpty()'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
 ```java
-  @Override
-  public List<String> getComplete(String sql) {
-    if (sql.length() > 0 && BLACK_SET.contains(sql.charAt(sql.length() - 1))) {
-      return new ArrayList<>();
-    }
+      throws InstantiationException, IllegalAccessException {
+    List<T> list = new ArrayList<>();
+    if (maps != null && maps.size() > 0) {
+      Map<String, Object> map;
+      T bean;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -192,6 +181,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
       if (now.getNext().size() == 0 || now.isStop()) {
         returnSource.add(new WordWithFrequency(buffer + now.getStep(), now.getCount()));
       } else {
+```
+
+### SizeReplaceableByIsEmpty
+`sql.length() > 0` can be replaced with '!sql.isEmpty()'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/SqlCompleteServiceImpl.java`
+#### Snippet
+```java
+  @Override
+  public List<String> getComplete(String sql) {
+    if (sql.length() > 0 && BLACK_SET.contains(sql.charAt(sql.length() - 1))) {
+      return new ArrayList<>();
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -367,6 +368,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ```
 
 ### BoundedWildcard
+Can generalize to `? super File`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/ProjectBuildTask.java`
+#### Snippet
+```java
+  }
+
+  private void findTarOrJar(List<File> list, File path) {
+    for (File file : Objects.requireNonNull(path.listFiles())) {
+      // navigate to the target directory:
+```
+
+### BoundedWildcard
 Can generalize to `? super BuildState`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/ProjectBuildTask.java`
 #### Snippet
@@ -388,18 +401,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
       Consumer<Logger> notifyReleaseConsumer) {
     super(logPath, true);
     this.project = project;
-```
-
-### BoundedWildcard
-Can generalize to `? super File`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/ProjectBuildTask.java`
-#### Snippet
-```java
-  }
-
-  private void findTarOrJar(List<File> list, File path) {
-    for (File file : Objects.requireNonNull(path.listFiles())) {
-      // navigate to the target directory:
 ```
 
 ### BoundedWildcard
@@ -441,18 +442,6 @@ public abstract class CompatibleKubernetesWatcher<
 
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/utils/YarnQueueLabelExpression.java`
-#### Snippet
-```java
-
-  private final String queue;
-  private @Nullable final String labelExpression;
-
-  private YarnQueueLabelExpression(String queue, String labelExpression) {
-```
-
-### MissortedModifiers
 Missorted modifiers `public @Nonnull`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/utils/YarnQueueLabelExpression.java`
 #### Snippet
@@ -462,6 +451,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
   public @Nonnull String getQueue() {
     return queue;
   }
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/utils/YarnQueueLabelExpression.java`
+#### Snippet
+```java
+
+  private final String queue;
+  private @Nullable final String labelExpression;
+
+  private YarnQueueLabelExpression(String queue, String labelExpression) {
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -571,18 +572,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
         dataTypeClass = String.class,
         defaultValue = ""),
     @ApiImplicitParam(
-        name = "allowNonRestored",
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/controller/ApplicationController.java`
-#### Snippet
-```java
-        paramType = "query",
-        dataTypeClass = String.class,
-        defaultValue = ""),
-    @ApiImplicitParam(
         name = "args",
 ```
 
@@ -608,6 +597,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
         defaultValue = "")
   })
   @PostMapping(value = "copy", consumes = "application/x-www-form-urlencoded")
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/controller/ApplicationController.java`
+#### Snippet
+```java
+        paramType = "query",
+        dataTypeClass = String.class,
+        defaultValue = ""),
+    @ApiImplicitParam(
+        name = "allowNonRestored",
 ```
 
 ## RuleId[id=UnnecessarySuperQualifier]
@@ -701,6 +702,18 @@ public class OssConfig extends StorageServiceConfig {
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `label` is accessed in both synchronized and unsynchronized contexts
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
+#### Snippet
+```java
+  private int batchCount = 0;
+  private long batchSize = 0;
+  private String label;
+  private String database;
+  private String table;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `batchSize` is accessed in both synchronized and unsynchronized contexts
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
@@ -722,18 +735,6 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
   private ArrayList<byte[]> buffer = new ArrayList<>();
   private int batchCount = 0;
   private long batchSize = 0;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `label` is accessed in both synchronized and unsynchronized contexts
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
-#### Snippet
-```java
-  private int batchCount = 0;
-  private long batchSize = 0;
-  private String label;
-  private String database;
-  private String table;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -948,11 +949,11 @@ Field initialization to `false` is redundant
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
 #### Snippet
 ```java
-  private final Map<String, DorisSinkBufferEntry> bufferMap = new ConcurrentHashMap<>();
   private final Long timeout = 3000L;
   private volatile boolean closed = false;
   private volatile boolean flushThreadAlive = false;
   private volatile Throwable flushException;
+
 ```
 
 ### RedundantFieldInitialization
@@ -960,23 +961,11 @@ Field initialization to `false` is redundant
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
 #### Snippet
 ```java
+  private final Map<String, DorisSinkBufferEntry> bufferMap = new ConcurrentHashMap<>();
   private final Long timeout = 3000L;
   private volatile boolean closed = false;
   private volatile boolean flushThreadAlive = false;
   private volatile Throwable flushException;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/domain/router/VueRouter.java`
-#### Snippet
-```java
-  @JsonIgnore private boolean hasParent = false;
-
-  @JsonIgnore private boolean hasChildren = false;
-
-  public void initChildren() {
 ```
 
 ### RedundantFieldInitialization
@@ -989,6 +978,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
   @JsonIgnore private boolean hasParent = false;
 
   @JsonIgnore private boolean hasChildren = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/domain/router/VueRouter.java`
+#### Snippet
+```java
+  @JsonIgnore private boolean hasParent = false;
+
+  @JsonIgnore private boolean hasChildren = false;
+
+  public void initChildren() {
 ```
 
 ### RedundantFieldInitialization
@@ -1032,11 +1033,11 @@ Field initialization to `false` is redundant
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Setting.java`
 #### Snippet
 ```java
+
   private String description;
   private transient boolean editable = false;
   private transient boolean submitting = false;
 
-  private transient String flinkHome;
 ```
 
 ### RedundantFieldInitialization
@@ -1044,23 +1045,11 @@ Field initialization to `false` is redundant
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Setting.java`
 #### Snippet
 ```java
-
   private String description;
   private transient boolean editable = false;
   private transient boolean submitting = false;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/FlinkSql.java`
-#### Snippet
-```java
-  private transient boolean sqlDifference = false;
-  /** dependency diff */
-  private transient boolean dependencyDifference = false;
-
-  public FlinkSql() {}
+  private transient String flinkHome;
 ```
 
 ### RedundantFieldInitialization
@@ -1085,6 +1074,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
   private transient boolean sqlDifference = false;
   /** dependency diff */
   private transient boolean dependencyDifference = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/FlinkSql.java`
+#### Snippet
+```java
+  private transient boolean sqlDifference = false;
+  /** dependency diff */
+  private transient boolean dependencyDifference = false;
+
+  public FlinkSql() {}
 ```
 
 ### RedundantFieldInitialization
@@ -1150,18 +1151,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ClusterState.java`
-#### Snippet
-```java
- * @since: 1.2.3
- */
-public enum ClusterState implements Serializable {
-    /**
-     * The cluster was just created but not started
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Semantic.java`
 #### Snippet
 ```java
@@ -1170,30 +1159,6 @@ import java.io.Serializable;
 public enum Semantic implements Serializable {
 
     /**
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
-#### Snippet
-```java
- * kubernetes.rest-service.exposed.type
- */
-public enum FlinkK8sRestExposedType implements Serializable {
-
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveOrder.java`
-#### Snippet
-```java
- * classloader.resolve-order
- */
-public enum ResolveOrder implements Serializable {
-    /**
-     * parent-first
 ```
 
 ### RedundantImplements
@@ -1210,14 +1175,38 @@ public enum DevelopmentMode implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ApplicationType.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ClusterState.java`
 #### Snippet
 ```java
-import java.io.Serializable;
-
-public enum ApplicationType implements Serializable {
+ * @since: 1.2.3
+ */
+public enum ClusterState implements Serializable {
     /**
-     * StreamPark Flink
+     * The cluster was just created but not started
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveOrder.java`
+#### Snippet
+```java
+ * classloader.resolve-order
+ */
+public enum ResolveOrder implements Serializable {
+    /**
+     * parent-first
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
+#### Snippet
+```java
+ * kubernetes.rest-service.exposed.type
+ */
+public enum FlinkK8sRestExposedType implements Serializable {
+
+    /**
 ```
 
 ### RedundantImplements
@@ -1246,6 +1235,18 @@ public enum FlinkSqlValidationFailedType implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ApplicationType.java`
+#### Snippet
+```java
+import java.io.Serializable;
+
+public enum ApplicationType implements Serializable {
+    /**
+     * StreamPark Flink
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
 in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ExecutionMode.java`
 #### Snippet
 ```java
@@ -1270,18 +1271,6 @@ public enum OptionState implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/StopFrom.java`
-#### Snippet
-```java
-import java.io.Serializable;
-
-public enum StopFrom implements Serializable {
-  /** None */
-  NONE,
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/NoticeType.java`
 #### Snippet
 ```java
@@ -1290,6 +1279,18 @@ import java.util.Arrays;
 public enum NoticeType implements Serializable {
   /** exception */
   EXCEPTION(1),
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/StopFrom.java`
+#### Snippet
+```java
+import java.io.Serializable;
+
+public enum StopFrom implements Serializable {
+  /** None */
+  NONE,
 ```
 
 ### RedundantImplements
@@ -1306,30 +1307,6 @@ public enum EffectiveType implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/BuildState.java`
-#### Snippet
-```java
-import java.util.Arrays;
-
-public enum BuildState implements Serializable {
-
-  /** has changed, need rebuild */
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/CheckPointStatus.java`
-#### Snippet
-```java
-import java.util.Arrays;
-
-public enum CheckPointStatus implements Serializable {
-  /** IN_PROGRESS */
-  IN_PROGRESS(1),
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/AccessTokenState.java`
 #### Snippet
 ```java
@@ -1342,14 +1319,14 @@ public enum AccessTokenState implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/AppExistsState.java`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/BuildState.java`
 #### Snippet
 ```java
-import java.io.Serializable;
+import java.util.Arrays;
 
-public enum AppExistsState implements Serializable {
+public enum BuildState implements Serializable {
 
-  /** no exists */
+  /** has changed, need rebuild */
 ```
 
 ### RedundantImplements
@@ -1378,30 +1355,6 @@ public enum FlinkAppState implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/ReleaseState.java`
-#### Snippet
-```java
-import java.util.Arrays;
-
-public enum ReleaseState implements Serializable {
-
-  /** release failed */
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/ResourceFrom.java`
-#### Snippet
-```java
-import java.util.Arrays;
-
-public enum ResourceFrom implements Serializable {
-
-  /** cicd(build from cvs) */
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/GitAuthorizedError.java`
 #### Snippet
 ```java
@@ -1410,6 +1363,30 @@ import java.io.Serializable;
 public enum GitAuthorizedError implements Serializable {
 
   /** success */
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/AppExistsState.java`
+#### Snippet
+```java
+import java.io.Serializable;
+
+public enum AppExistsState implements Serializable {
+
+  /** no exists */
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/CheckPointStatus.java`
+#### Snippet
+```java
+import java.util.Arrays;
+
+public enum CheckPointStatus implements Serializable {
+  /** IN_PROGRESS */
+  IN_PROGRESS(1),
 ```
 
 ### RedundantImplements
@@ -1426,18 +1403,6 @@ public enum CheckPointType implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/ChangedType.java`
-#### Snippet
-```java
-import java.util.Arrays;
-
-public enum ChangedType implements Serializable {
-  /** none changed */
-  NONE(0),
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/ConfigFileType.java`
 #### Snippet
 ```java
@@ -1450,6 +1415,30 @@ public enum ConfigFileType implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/ReleaseState.java`
+#### Snippet
+```java
+import java.util.Arrays;
+
+public enum ReleaseState implements Serializable {
+
+  /** release failed */
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/ChangedType.java`
+#### Snippet
+```java
+import java.util.Arrays;
+
+public enum ChangedType implements Serializable {
+  /** none changed */
+  NONE(0),
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/CandidateType.java`
 #### Snippet
 ```java
@@ -1458,6 +1447,31 @@ import java.util.Arrays;
 public enum CandidateType implements Serializable {
 
   /** non candidate */
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/enums/ResourceFrom.java`
+#### Snippet
+```java
+import java.util.Arrays;
+
+public enum ResourceFrom implements Serializable {
+
+  /** cicd(build from cvs) */
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-11-16-30-38.827.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
@@ -1499,78 +1513,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/FlinkEnv.java`
-#### Snippet
-```java
-  public void doSetFlinkConf() throws ApiDetailException {
-    try {
-      File yaml = new File(this.flinkHome.concat("/conf/flink-conf.yaml"));
-      String flinkConf = FileUtils.readFileToString(yaml);
-      this.flinkConf = DeflaterUtils.zipString(flinkConf);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
-#### Snippet
-```java
-
-  private YarnAppInfo httpYarnAppInfo(Application application) throws Exception {
-    String reqURL = "ws/v1/cluster/apps/".concat(application.getAppId());
-    return yarnRestRequest(reqURL, YarnAppInfo.class);
-  }
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
-#### Snippet
-```java
-    String branches = this.getBranches() == null ? "main" : this.getBranches();
-    String rootName = url.replaceAll(".*/|\\.git|\\.svn", "");
-    String fullName = rootName.concat("-").concat(branches);
-    String path = String.format("%s/%s/%s", sourcePath.getAbsolutePath(), getName(), fullName);
-    return new File(path);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
-#### Snippet
-```java
-    String branches = this.getBranches() == null ? "main" : this.getBranches();
-    String rootName = url.replaceAll(".*/|\\.git|\\.svn", "");
-    String fullName = rootName.concat("-").concat(branches);
-    String path = String.format("%s/%s/%s", sourcePath.getAbsolutePath(), getName(), fullName);
-    return new File(path);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
-#### Snippet
-```java
-    if (CommonUtils.notEmpty(this.getPom())) {
-      buildHome =
-          new File(buildHome.concat("/").concat(this.getPom())).getParentFile().getAbsolutePath();
-    }
-    return buildHome;
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
-#### Snippet
-```java
-    if (CommonUtils.notEmpty(this.getPom())) {
-      buildHome =
-          new File(buildHome.concat("/").concat(this.getPom())).getParentFile().getAbsolutePath();
-    }
-    return buildHome;
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
 #### Snippet
 ```java
@@ -1591,6 +1533,78 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
         mvn = WebUtils.getAppHome().concat("/bin/mvnw");
       }
     }
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
+#### Snippet
+```java
+    String branches = this.getBranches() == null ? "main" : this.getBranches();
+    String rootName = url.replaceAll(".*/|\\.git|\\.svn", "");
+    String fullName = rootName.concat("-").concat(branches);
+    String path = String.format("%s/%s/%s", sourcePath.getAbsolutePath(), getName(), fullName);
+    return new File(path);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
+#### Snippet
+```java
+    String branches = this.getBranches() == null ? "main" : this.getBranches();
+    String rootName = url.replaceAll(".*/|\\.git|\\.svn", "");
+    String fullName = rootName.concat("-").concat(branches);
+    String path = String.format("%s/%s/%s", sourcePath.getAbsolutePath(), getName(), fullName);
+    return new File(path);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
+#### Snippet
+```java
+    if (CommonUtils.notEmpty(this.getPom())) {
+      buildHome =
+          new File(buildHome.concat("/").concat(this.getPom())).getParentFile().getAbsolutePath();
+    }
+    return buildHome;
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
+#### Snippet
+```java
+    if (CommonUtils.notEmpty(this.getPom())) {
+      buildHome =
+          new File(buildHome.concat("/").concat(this.getPom())).getParentFile().getAbsolutePath();
+    }
+    return buildHome;
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/FlinkEnv.java`
+#### Snippet
+```java
+  public void doSetFlinkConf() throws ApiDetailException {
+    try {
+      File yaml = new File(this.flinkHome.concat("/conf/flink-conf.yaml"));
+      String flinkConf = FileUtils.readFileToString(yaml);
+      this.flinkConf = DeflaterUtils.zipString(flinkConf);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
+#### Snippet
+```java
+
+  private YarnAppInfo httpYarnAppInfo(Application application) throws Exception {
+    String reqURL = "ws/v1/cluster/apps/".concat(application.getAppId());
+    return yarnRestRequest(reqURL, YarnAppInfo.class);
+  }
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -1718,6 +1732,18 @@ Call to `concat()` can be replaced with '+' expression
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/AppBuildPipeServiceImpl.java`
 #### Snippet
 ```java
+                      commonService.getUserId(),
+                      app.getId(),
+                      app.getJobName().concat(" release failed"),
+                      Utils.stringifyException(snapshot.error().exception()),
+                      NoticeType.EXCEPTION);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/AppBuildPipeServiceImpl.java`
+#### Snippet
+```java
       case YARN_APPLICATION:
         String yarnProvidedPath = app.getAppLib();
         String localWorkspace = app.getLocalAppHome().concat("/lib");
@@ -1727,14 +1753,14 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/AppBuildPipeServiceImpl.java`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Application.java`
 #### Snippet
 ```java
-                      commonService.getUserId(),
-                      app.getId(),
-                      app.getJobName().concat(" release failed"),
-                      Utils.stringifyException(snapshot.error().exception()),
-                      NoticeType.EXCEPTION);
+  @JsonIgnore
+  public String getAppLib() {
+    return getAppHome().concat("/lib");
+  }
+
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -1759,18 +1785,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
             "unsupported executionMode ".concat(getExecutionModeEnum().getName()));
     }
   }
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Application.java`
-#### Snippet
-```java
-  @JsonIgnore
-  public String getAppLib() {
-    return getAppHome().concat("/lib");
-  }
-
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -1912,6 +1926,18 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/config/SwaggerConfig.java`
+#### Snippet
+```java
+                        Collections.singletonList(
+                            SecurityReference.builder()
+                                .scopes(new AuthorizationScope[0])
+                                .reference("Authorization")
+                                .build()))
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/ObjectUtils.java`
 #### Snippet
 ```java
@@ -1932,18 +1958,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
       return new Object[0];
     }
     @SuppressWarnings("rawtypes")
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/config/SwaggerConfig.java`
-#### Snippet
-```java
-                        Collections.singletonList(
-                            SecurityReference.builder()
-                                .scopes(new AuthorizationScope[0])
-                                .reference("Authorization")
-                                .build()))
 ```
 
 ### ZeroLengthArrayInitialization
@@ -2070,13 +2084,109 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ```
 
 ### IndexOfReplaceableByContains
-`OS.indexOf("osf1") >= 0` can be replaced with 'OS.contains("osf1")'
+`OS.indexOf("os/390") >= 0` can be replaced with 'OS.contains("os/390")'
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
 ```java
 
-  public static boolean isOSF1() {
-    return OS.indexOf("osf1") >= 0;
+  public static boolean isOS390() {
+    return OS.indexOf("os/390") >= 0;
+  }
+
+```
+
+### IndexOfReplaceableByContains
+`OS.indexOf("netware") >= 0` can be replaced with 'OS.contains("netware")'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static boolean isNetWare() {
+    return OS.indexOf("netware") >= 0;
+  }
+
+```
+
+### IndexOfReplaceableByContains
+`OS.indexOf("mac") >= 0` can be replaced with 'OS.contains("mac")'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static boolean isMacOS() {
+    return OS.indexOf("mac") >= 0 && OS.indexOf("os") > 0 && OS.indexOf("x") < 0;
+  }
+
+```
+
+### IndexOfReplaceableByContains
+`OS.indexOf("x") < 0` can be replaced with '!OS.contains("x")'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static boolean isMacOS() {
+    return OS.indexOf("mac") >= 0 && OS.indexOf("os") > 0 && OS.indexOf("x") < 0;
+  }
+
+```
+
+### IndexOfReplaceableByContains
+`OS.indexOf("openvms") >= 0` can be replaced with 'OS.contains("openvms")'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static boolean isOpenVMS() {
+    return OS.indexOf("openvms") >= 0;
+  }
+
+```
+
+### IndexOfReplaceableByContains
+`OS.indexOf("sunos") >= 0` can be replaced with 'OS.contains("sunos")'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static boolean isSunOS() {
+    return OS.indexOf("sunos") >= 0;
+  }
+
+```
+
+### IndexOfReplaceableByContains
+`OS.indexOf("windows") >= 0` can be replaced with 'OS.contains("windows")'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static boolean isWindows() {
+    return OS.indexOf("windows") >= 0;
+  }
+
+```
+
+### IndexOfReplaceableByContains
+`OS.indexOf("freebsd") >= 0` can be replaced with 'OS.contains("freebsd")'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static boolean isFreeBSD() {
+    return OS.indexOf("freebsd") >= 0;
+  }
+
+```
+
+### IndexOfReplaceableByContains
+`OS.indexOf("os/2") >= 0` can be replaced with 'OS.contains("os/2")'
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static boolean isOS2() {
+    return OS.indexOf("os/2") >= 0;
   }
 
 ```
@@ -2106,25 +2216,25 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ```
 
 ### IndexOfReplaceableByContains
-`OS.indexOf("netware") >= 0` can be replaced with 'OS.contains("netware")'
+`OS.indexOf("mac") >= 0` can be replaced with 'OS.contains("mac")'
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
 ```java
 
-  public static boolean isNetWare() {
-    return OS.indexOf("netware") >= 0;
+  public static boolean isMacOSX() {
+    return OS.indexOf("mac") >= 0 && OS.indexOf("os") > 0 && OS.indexOf("x") > 0;
   }
 
 ```
 
 ### IndexOfReplaceableByContains
-`OS.indexOf("mpe/ix") >= 0` can be replaced with 'OS.contains("mpe/ix")'
+`OS.indexOf("osf1") >= 0` can be replaced with 'OS.contains("osf1")'
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
 ```java
 
-  public static boolean isMPEiX() {
-    return OS.indexOf("mpe/ix") >= 0;
+  public static boolean isOSF1() {
+    return OS.indexOf("osf1") >= 0;
   }
 
 ```
@@ -2142,49 +2252,13 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ```
 
 ### IndexOfReplaceableByContains
-`OS.indexOf("sunos") >= 0` can be replaced with 'OS.contains("sunos")'
+`OS.indexOf("mpe/ix") >= 0` can be replaced with 'OS.contains("mpe/ix")'
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
 ```java
 
-  public static boolean isSunOS() {
-    return OS.indexOf("sunos") >= 0;
-  }
-
-```
-
-### IndexOfReplaceableByContains
-`OS.indexOf("os/2") >= 0` can be replaced with 'OS.contains("os/2")'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-
-  public static boolean isOS2() {
-    return OS.indexOf("os/2") >= 0;
-  }
-
-```
-
-### IndexOfReplaceableByContains
-`OS.indexOf("linux") >= 0` can be replaced with 'OS.contains("linux")'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-
-  public static boolean isLinux() {
-    return OS.indexOf("linux") >= 0;
-  }
-
-```
-
-### IndexOfReplaceableByContains
-`OS.indexOf("freebsd") >= 0` can be replaced with 'OS.contains("freebsd")'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-
-  public static boolean isFreeBSD() {
-    return OS.indexOf("freebsd") >= 0;
+  public static boolean isMPEiX() {
+    return OS.indexOf("mpe/ix") >= 0;
   }
 
 ```
@@ -2202,73 +2276,13 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ```
 
 ### IndexOfReplaceableByContains
-`OS.indexOf("windows") >= 0` can be replaced with 'OS.contains("windows")'
+`OS.indexOf("linux") >= 0` can be replaced with 'OS.contains("linux")'
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
 ```java
 
-  public static boolean isWindows() {
-    return OS.indexOf("windows") >= 0;
-  }
-
-```
-
-### IndexOfReplaceableByContains
-`OS.indexOf("os/390") >= 0` can be replaced with 'OS.contains("os/390")'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-
-  public static boolean isOS390() {
-    return OS.indexOf("os/390") >= 0;
-  }
-
-```
-
-### IndexOfReplaceableByContains
-`OS.indexOf("openvms") >= 0` can be replaced with 'OS.contains("openvms")'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-
-  public static boolean isOpenVMS() {
-    return OS.indexOf("openvms") >= 0;
-  }
-
-```
-
-### IndexOfReplaceableByContains
-`OS.indexOf("mac") >= 0` can be replaced with 'OS.contains("mac")'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-
-  public static boolean isMacOSX() {
-    return OS.indexOf("mac") >= 0 && OS.indexOf("os") > 0 && OS.indexOf("x") > 0;
-  }
-
-```
-
-### IndexOfReplaceableByContains
-`OS.indexOf("mac") >= 0` can be replaced with 'OS.contains("mac")'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-
-  public static boolean isMacOS() {
-    return OS.indexOf("mac") >= 0 && OS.indexOf("os") > 0 && OS.indexOf("x") < 0;
-  }
-
-```
-
-### IndexOfReplaceableByContains
-`OS.indexOf("x") < 0` can be replaced with '!OS.contains("x")'
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
-#### Snippet
-```java
-
-  public static boolean isMacOS() {
-    return OS.indexOf("mac") >= 0 && OS.indexOf("os") > 0 && OS.indexOf("x") < 0;
+  public static boolean isLinux() {
+    return OS.indexOf("linux") >= 0;
   }
 
 ```
@@ -2567,6 +2581,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ```
 
 ### DataFlowIssue
+Method invocation `put` may produce `NullPointerException`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+          .data(new String(fileContent, StandardCharsets.UTF_8))
+          .put("offset", endOffset)
+          .put("readFinished", readFinished);
+    } catch (IOException e) {
+      String error =
+```
+
+### DataFlowIssue
 Dereference of `files` may produce `NullPointerException`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/ProjectServiceImpl.java`
 #### Snippet
@@ -2588,18 +2614,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
       for (File item : files) {
         eachFile(item, list, true);
       }
-```
-
-### DataFlowIssue
-Method invocation `put` may produce `NullPointerException`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-          .data(new String(fileContent, StandardCharsets.UTF_8))
-          .put("offset", endOffset)
-          .put("readFinished", readFinished);
-    } catch (IOException e) {
-      String error =
 ```
 
 ### DataFlowIssue
@@ -2851,6 +2865,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+#### Snippet
+```java
+
+  public static String uuid() {
+    return UUID.randomUUID().toString().replaceAll("-", "");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/ProjectBuildTask.java`
 #### Snippet
@@ -2864,14 +2890,14 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
 #### Snippet
 ```java
-
-  public static String uuid() {
-    return UUID.randomUUID().toString().replaceAll("-", "");
-  }
-
+    }
+    String branches = this.getBranches() == null ? "main" : this.getBranches();
+    String rootName = url.replaceAll(".*/|\\.git|\\.svn", "");
+    String fullName = rootName.concat("-").concat(branches);
+    String path = String.format("%s/%s/%s", sourcePath.getAbsolutePath(), getName(), fullName);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2884,18 +2910,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
       return this.getExternalPath().replaceFirst("^hdfs:/[^/]", "hdfs:///");
     }
   }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/Project.java`
-#### Snippet
-```java
-    }
-    String branches = this.getBranches() == null ? "main" : this.getBranches();
-    String rootName = url.replaceAll(".*/|\\.git|\\.svn", "");
-    String fullName = rootName.concat("-").concat(branches);
-    String path = String.format("%s/%s/%s", sourcePath.getAbsolutePath(), getName(), fullName);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3051,11 +3065,11 @@ Assignment to method parameter `offset`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
 ```java
-    while (offset > 0) {
-      prefix += "0";
-      offset -= 1;
-    }
 
+  public static String toPercent(Number number, int offset) {
+    offset += 2;
+    Double num = fixedNum(number, offset);
+    return (num * 100) + "%";
 ```
 
 ### AssignmentToMethodParameter
@@ -3063,11 +3077,11 @@ Assignment to method parameter `offset`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/base/util/CommonUtils.java`
 #### Snippet
 ```java
+    while (offset > 0) {
+      prefix += "0";
+      offset -= 1;
+    }
 
-  public static String toPercent(Number number, int offset) {
-    offset += 2;
-    Double num = fixedNum(number, offset);
-    return (num * 100) + "%";
 ```
 
 ### AssignmentToMethodParameter
@@ -3145,43 +3159,7 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ClusterState.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Semantic.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveOrder.java`
 #### Snippet
 ```java
             }
@@ -3205,14 +3183,38 @@ in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Developm
 
 ### ReturnNull
 Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ApplicationType.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ClusterState.java`
 #### Snippet
 ```java
             }
         }
         return null;
     }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveOrder.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -3225,6 +3227,18 @@ in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkSql
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ApplicationType.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -3269,7 +3283,7 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 #### Snippet
 ```java
     } catch (Exception e) {
-      log.info("token encrypt failed: ", e);
+      log.info("token decrypt failed: ", e);
       return null;
     }
   }
@@ -3281,7 +3295,7 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 #### Snippet
 ```java
     } catch (Exception e) {
-      log.info("token decrypt failed: ", e);
+      log.info("token encrypt failed: ", e);
       return null;
     }
   }
@@ -3328,6 +3342,18 @@ Return of `null`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/bean/AppBuildDockerResolvedDetail.java`
 #### Snippet
 ```java
+    public static ImagePush of(DockerPushSnapshot snapshot) {
+      if (snapshot == null) {
+        return null;
+      }
+      return new ImagePush()
+```
+
+### ReturnNull
+Return of `null`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/bean/AppBuildDockerResolvedDetail.java`
+#### Snippet
+```java
     public static ImagePull of(DockerPullSnapshot snapshot) {
       if (snapshot == null) {
         return null;
@@ -3345,18 +3371,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
         return null;
       }
       return new ImageBuild()
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/bean/AppBuildDockerResolvedDetail.java`
-#### Snippet
-```java
-    public static ImagePush of(DockerPushSnapshot snapshot) {
-      if (snapshot == null) {
-        return null;
-      }
-      return new ImagePush()
 ```
 
 ### ReturnNull
@@ -3397,34 +3411,10 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 
 ### ReturnNull
 Return of `null`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/FlinkCluster.java`
 #### Snippet
 ```java
-    String result = YarnUtils.restRequest(url);
-    if (null == result) {
-      return null;
-    }
-    return JacksonUtils.read(result, clazz);
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
-#### Snippet
-```java
-      return flinkCluster;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
-#### Snippet
-```java
-      }
+      //
     }
     return null;
   }
@@ -3460,6 +3450,18 @@ Return of `null`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
 #### Snippet
 ```java
+    String result = YarnUtils.restRequest(url);
+    if (null == result) {
+      return null;
+    }
+    return JacksonUtils.read(result, clazz);
+```
+
+### ReturnNull
+Return of `null`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
+#### Snippet
+```java
       }
     }
     return null;
@@ -3469,10 +3471,22 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 
 ### ReturnNull
 Return of `null`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/entity/FlinkCluster.java`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
 #### Snippet
 ```java
-      //
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/task/FlinkRESTAPIWatcher.java`
+#### Snippet
+```java
+      return flinkCluster;
     }
     return null;
   }
@@ -3541,6 +3555,18 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
 
 ### ReturnNull
 Return of `null`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/alert/impl/AlertServiceImpl.java`
+#### Snippet
+```java
+        return HttpCallbackAlertNotifyServiceImpl.class;
+      default:
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/impl/ProjectServiceImpl.java`
 #### Snippet
 ```java
@@ -3561,18 +3587,6 @@ in `streampark-console/streampark-console-service/src/main/java/org/apache/strea
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/core/service/alert/impl/AlertServiceImpl.java`
-#### Snippet
-```java
-        return HttpCallbackAlertNotifyServiceImpl.class;
-      default:
-        return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -3664,32 +3678,32 @@ Return of `null`
 in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/system/authentication/JWTUtil.java`
 #### Snippet
 ```java
+    } catch (JWTDecodeException e) {
+      log.error("error：{}", e.getMessage());
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/system/authentication/JWTUtil.java`
+#### Snippet
+```java
+    } catch (JWTDecodeException e) {
+      log.error("error：{}", e.getMessage());
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/system/authentication/JWTUtil.java`
+#### Snippet
+```java
     } catch (Exception e) {
       log.error("error：{}", e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/system/authentication/JWTUtil.java`
-#### Snippet
-```java
-    } catch (JWTDecodeException e) {
-      log.error("error：{}", e.getMessage());
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-console/streampark-console-service/src/main/java/org/apache/streampark/console/system/authentication/JWTUtil.java`
-#### Snippet
-```java
-    } catch (JWTDecodeException e) {
-      log.error("error：{}", e.getMessage());
       return null;
     }
   }
