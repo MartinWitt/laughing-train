@@ -177,6 +177,18 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
+#### Snippet
+```java
+    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
+    stream.writeObject(msg);
+    System.err.println("[attachme] Successfully notified attachme listener");
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
 in `agent/src/main/java/com/attachme/agent/Agent.java`
 #### Snippet
 ```java
@@ -259,18 +271,6 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
     }
 ```
 
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
-#### Snippet
-```java
-    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
-    stream.writeObject(msg);
-    System.err.println("[attachme] Successfully notified attachme listener");
-  }
-
-```
-
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'connection' in a Serializable class
@@ -299,18 +299,6 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
-#### Snippet
-```java
-    @Override
-    public Icon getIcon() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `agent/src/main/java/com/attachme/agent/PortResolver.java`
 #### Snippet
 ```java
@@ -319,6 +307,18 @@ in `agent/src/main/java/com/attachme/agent/PortResolver.java`
       return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
+#### Snippet
+```java
+    @Override
+    public Icon getIcon() {
+      return null;
+    }
+
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -375,18 +375,6 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
-#### Snippet
-```java
-      return;
-    }
-    RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
-    AttachmeDebugger.attach(project, config, msg.getPid());
-  }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
 in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
 #### Snippet
 ```java
@@ -395,6 +383,18 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
     portField.setText(s.getPort() + "");
   }
 
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
+#### Snippet
+```java
+      return;
+    }
+    RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
+    AttachmeDebugger.attach(project, config, msg.getPid());
+  }
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
