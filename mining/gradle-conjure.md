@@ -26,7 +26,7 @@ I found 73 bad smells with 15 repairable:
 | UnusedAssignment | 1 | false |
 | StringConcatenationInsideStringBufferAppend | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/OsUtils.java`
@@ -63,7 +63,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
                     .map(language -> projectName + "-" + language)
 ```
 
-## RuleId[ruleID=SimplifyOptionalCallChains]
+## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJavaStartScript.java`
@@ -88,7 +88,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServ
                     + serviceDependency.getMaximumVersion());
 ```
 
-## RuleId[ruleID=UnnecessarySuperQualifier]
+## RuleId[id=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassLoader.java`
@@ -101,19 +101,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassL
             while (parentResources.hasMoreElements()) {
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Method invocation `getSourceSets` may produce `NullPointerException`
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-        org.gradle.api.plugins.JavaPluginConvention javaPlugin =
-                subproj.getConvention().findPlugin(org.gradle.api.plugins.JavaPluginConvention.class);
-        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(subproj.files(JAVA_GENERATED_SOURCE_DIRNAME));
-    }
-
-```
-
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 `null` is returned by the method declared as @NonNullApi
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
@@ -126,7 +114,19 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
                                                     CompileConjureTypeScriptTask::getPackageName)));
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### DataFlowIssue
+Method invocation `getSourceSets` may produce `NullPointerException`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+        org.gradle.api.plugins.JavaPluginConvention javaPlugin =
+                subproj.getConvention().findPlugin(org.gradle.api.plugins.JavaPluginConvention.class);
+        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(subproj.files(JAVA_GENERATED_SOURCE_DIRNAME));
+    }
+
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.gradle.api.plugins` is unnecessary, and can be replaced with an import
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConfigureEndpointVersionBoundsTask.java`
@@ -175,7 +175,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
     }
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `CompileIrTask()` of an abstract class should not be declared 'public'
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileIrTask.java`
@@ -213,18 +213,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTas
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GenerateConjureServiceDependenciesTask()` of an abstract class should not be declared 'public'
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
-#### Snippet
-```java
-    private Supplier<Set<ServiceDependency>> conjureServiceDependencies;
-
-    public GenerateConjureServiceDependenciesTask() {
-        getOutputFile().convention(getProject().getLayout().getBuildDirectory().file("service-dependencies.json"));
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `ExtractExecutableTask()` of an abstract class should not be declared 'public'
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
 #### Snippet
@@ -234,6 +222,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTa
     public ExtractExecutableTask() {
         // Memoize this because we are re-using it in the doLast action.
         Supplier<File> tarFile = Suppliers.memoize(this::resolveTarFile);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `GenerateConjureServiceDependenciesTask()` of an abstract class should not be declared 'public'
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
+#### Snippet
+```java
+    private Supplier<Set<ServiceDependency>> conjureServiceDependencies;
+
+    public GenerateConjureServiceDependenciesTask() {
+        getOutputFile().convention(getProject().getLayout().getBuildDirectory().file("service-dependencies.json"));
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -248,7 +248,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResour
                 createNewRunner(getParameters().getExecutable().getAsFile().get());
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
+## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePublishPlugin.java`
@@ -275,6 +275,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePublishPlugi
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
+#### Snippet
+```java
+
+    private static void createServiceDependenciesTask(Project project, ConjureProductDependenciesExtension ext) {
+        project.getTasks().register(SERVICE_DEPENDENCIES_TASK, GenerateConjureServiceDependenciesTask.class, task -> {
+            task.setConjureServiceDependencies(ext::getProductDependencies);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureJavaServiceDependencies.java`
 #### Snippet
 ```java
@@ -287,13 +299,25 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureJavaServiceD
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
 ```java
+        TaskProvider<Task> cleanTask = project.getTasks().named(LifecycleBasePlugin.CLEAN_TASK_NAME);
+        // This replicates what the built in gradle CleanRule does, but using task-avoidance APIs
+        TaskProvider<Delete> cleanerTask = project.getTasks().register(cleanTaskName, Delete.class, t -> {
+            t.delete(creatorTask.map(Task::getOutputs).map(TaskOutputs::getFiles));
+        });
+```
 
-    private static void createServiceDependenciesTask(Project project, ConjureProductDependenciesExtension ext) {
-        project.getTasks().register(SERVICE_DEPENDENCIES_TASK, GenerateConjureServiceDependenciesTask.class, task -> {
-            task.setConjureServiceDependencies(ext::getProductDependencies);
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+            t.delete(creatorTask.map(Task::getOutputs).map(TaskOutputs::getFiles));
+        });
+        cleanTask.configure(t -> {
+            t.dependsOn(cleanerTask);
         });
 ```
 
@@ -321,31 +345,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
                                 extractSubprojectLanguage(projectName, childProjectName));
 ```
 
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-        TaskProvider<Task> cleanTask = project.getTasks().named(LifecycleBasePlugin.CLEAN_TASK_NAME);
-        // This replicates what the built in gradle CleanRule does, but using task-avoidance APIs
-        TaskProvider<Delete> cleanerTask = project.getTasks().register(cleanTaskName, Delete.class, t -> {
-            t.delete(creatorTask.map(Task::getOutputs).map(TaskOutputs::getFiles));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-            t.delete(creatorTask.map(Task::getOutputs).map(TaskOutputs::getFiles));
-        });
-        cleanTask.configure(t -> {
-            t.dependsOn(cleanerTask);
-        });
-```
-
-## RuleId[ruleID=RegExpRedundantEscape]
+## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJavaStartScript.java`
@@ -358,7 +358,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJava
     static Optional<StartScriptInfo> maybeParseStartScript(Path script) {
 ```
 
-## RuleId[ruleID=RedundantComparatorComparing]
+## RuleId[id=RedundantComparatorComparing]
 ### RedundantComparatorComparing
 'Entry.comparingByKey()' can be used instead
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/RenderGeneratorOptions.java`
@@ -371,7 +371,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/RenderGeneratorOpti
                     Object value = entry.getValue();
 ```
 
-## RuleId[ruleID=ObsoleteCollection]
+## RuleId[id=ObsoleteCollection]
 ### ObsoleteCollection
 Obsolete collection type `Vector` used
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassLoader.java`
@@ -396,7 +396,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassL
         Enumeration<URL> childResources = findResources(name);
 ```
 
-## RuleId[ruleID=EmptyMethod]
+## RuleId[id=EmptyMethod]
 ### EmptyMethod
 The method is empty
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTask.java`
@@ -421,17 +421,17 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureJavaLocalGen
     }
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `gradle-conjure-api/src/main/java/com/palantir/gradle/conjure/api/ServiceDependency.java`
+Field initialization to `null` is redundant
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
 #### Snippet
 ```java
 
-    @JsonProperty("optional")
-    private boolean optional = false;
+    private TaskProvider<CompileIrTask> compileIrProvider = null;
+    private ConjureExtension conjureExtension = null;
 
-    public String getProductGroup() {
+    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -447,18 +447,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
+Field initialization to `false` is redundant
+in `gradle-conjure-api/src/main/java/com/palantir/gradle/conjure/api/ServiceDependency.java`
 #### Snippet
 ```java
 
-    private TaskProvider<CompileIrTask> compileIrProvider = null;
-    private ConjureExtension conjureExtension = null;
+    @JsonProperty("optional")
+    private boolean optional = false;
 
-    @Override
+    public String getProductGroup() {
 ```
 
-## RuleId[ruleID=AbstractMethodCallInConstructor]
+## RuleId[id=AbstractMethodCallInConstructor]
 ### AbstractMethodCallInConstructor
 Call to 'abstract' method `getConjureExtensions()` during object construction
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileIrTask.java`
@@ -493,18 +493,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjureTypeS
         getPackageVersion()
                 .convention(getProject().provider(() -> project.getVersion().toString()));
         doFirst(new Action<Task>() {
-```
-
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getOutputFile()` during object construction
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
-#### Snippet
-```java
-
-    public GenerateConjureServiceDependenciesTask() {
-        getOutputFile().convention(getProject().getLayout().getBuildDirectory().file("service-dependencies.json"));
-    }
-
 ```
 
 ### AbstractMethodCallInConstructor
@@ -555,19 +543,19 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTa
         doFirst(new Action<Task>() {
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getOutputFile()` during object construction
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
 #### Snippet
 ```java
-        String projectName = getDerivedProjectName(parentProject, projectSuffix);
-        if (!derivedProjectExists(parentProject, projectName)) {
-            return null;
-        }
+
+    public GenerateConjureServiceDependenciesTask() {
+        getOutputFile().convention(getProject().getLayout().getBuildDirectory().file("service-dependencies.json"));
+    }
 
 ```
 
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
@@ -580,7 +568,19 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
                                                     CompileConjureTypeScriptTask::getPackageName)));
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+### ReturnNull
+Return of `null`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+        String projectName = getDerivedProjectName(parentProject, projectSuffix);
+        if (!derivedProjectExists(parentProject, projectName)) {
+            return null;
+        }
+
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `writeGitignoreTask` is redundant
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
@@ -593,7 +593,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
                     task.setOutputDirectory(outputDir);
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResource.java`
@@ -606,19 +606,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResour
             } catch (Throwable t) {
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends CompileIrTask`
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
-#### Snippet
-```java
-    }
-
-    private static void createOutgoingConfiguration(Project project, TaskProvider<CompileIrTask> compileIr) {
-        Configuration conjureIr = project.getConfigurations().create(CONJURE_IR_CONFIGURATION, conf -> {
-            conf.setCanBeResolved(false);
-```
-
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Copy`
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
@@ -629,6 +617,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.j
             TaskProvider<Copy> copyConjureSourcesTask) {
         TaskProvider<ExtractExecutableTask> extractCompilerTask = ExtractConjurePlugin.applyConjureCompiler(project);
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompileIrTask`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
+#### Snippet
+```java
+    }
+
+    private static void createOutgoingConfiguration(Project project, TaskProvider<CompileIrTask> compileIr) {
+        Configuration conjureIr = project.getConfigurations().create(CONJURE_IR_CONFIGURATION, conf -> {
+            conf.setCanBeResolved(false);
 ```
 
 ### BoundedWildcard
@@ -680,15 +680,15 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/RenderGeneratorOpti
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
+Can generalize to `? extends GenerateConjureServiceDependenciesTask`
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
 ```java
-    }
-
-    private static <T> Set<T> mutableSetWithExtraEntry(Set<T> set, T extraItem) {
-        Set<T> newSet = new LinkedHashSet<>(set);
-        newSet.add(extraItem);
+            TaskProvider<?> compileConjure,
+            TaskProvider<?> compileIrTask,
+            TaskProvider<GenerateConjureServiceDependenciesTask> productDependencyTask) {
+        String typescriptProjectName = project.getName() + "-typescript";
+        if (derivedProjectExists(project, typescriptProjectName)) {
 ```
 
 ### BoundedWildcard
@@ -728,6 +728,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+    }
+
+    private static <T> Set<T> mutableSetWithExtraEntry(Set<T> set, T extraItem) {
+        Set<T> newSet = new LinkedHashSet<>(set);
+        newSet.add(extraItem);
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
@@ -739,19 +751,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
             TaskProvider<?> compileIrTask,
 ```
 
-### BoundedWildcard
-Can generalize to `? extends GenerateConjureServiceDependenciesTask`
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-            TaskProvider<?> compileConjure,
-            TaskProvider<?> compileIrTask,
-            TaskProvider<GenerateConjureServiceDependenciesTask> productDependencyTask) {
-        String typescriptProjectName = project.getName() + "-typescript";
-        if (derivedProjectExists(project, typescriptProjectName)) {
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `CompileIrTask` has no concrete subclass
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileIrTask.java`
@@ -825,18 +825,6 @@ public abstract class ConjureLocalGenerateGenericTask extends ConjureLocalGenera
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GenerateConjureServiceDependenciesTask` has no concrete subclass
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
-#### Snippet
-```java
-import org.gradle.api.tasks.TaskAction;
-
-public abstract class GenerateConjureServiceDependenciesTask extends DefaultTask {
-    private static final Pattern GROUP_PATTERN = Pattern.compile("^[^:@?\\s]+");
-    private static final Pattern NAME_PATTERN = Pattern.compile("^[^:@?\\s]+");
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ExtractExecutableTask` has no concrete subclass
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
 #### Snippet
@@ -846,6 +834,18 @@ import org.gradle.api.tasks.TaskProvider;
 public abstract class ExtractExecutableTask extends Sync {
     private FileCollection archive;
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GenerateConjureServiceDependenciesTask` has no concrete subclass
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
+#### Snippet
+```java
+import org.gradle.api.tasks.TaskAction;
+
+public abstract class GenerateConjureServiceDependenciesTask extends DefaultTask {
+    private static final Pattern GROUP_PATTERN = Pattern.compile("^[^:@?\\s]+");
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[^:@?\\s]+");
 ```
 
 ### AbstractClassNeverImplemented
@@ -860,7 +860,7 @@ public abstract class ConjureRunnerResource implements BuildService<Params>, Clo
     private static final Logger log = LoggerFactory.getLogger(ConjureRunnerResource.class);
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `compileIr` initializer `null` is redundant
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePublishPlugin.java`
@@ -873,7 +873,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePublishPlugi
             compileIr = project.getTasks().named(ConjurePlugin.CONJURE_IR, CompileIrTask.class);
 ```
 
-## RuleId[ruleID=UnstableApiUsage]
+## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
 'com.google.common.base.Utf8' is marked unstable with @Beta
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJavaStartScript.java`
@@ -898,7 +898,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJava
             } else {
 ```
 
-## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
+## RuleId[id=StringConcatenationInsideStringBufferAppend]
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjurePythonTask.java`
@@ -911,7 +911,7 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjurePytho
         getGroup(matcher, "dirty").ifPresent(dirty -> version.append('.').append(dirty));
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjureTypeScriptTask.java`
