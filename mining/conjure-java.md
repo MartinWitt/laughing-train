@@ -97,18 +97,6 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/UnionGenerat
 
 ### SimplifyStreamApiCallChains
 Can be replaced with 'count()'
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
-#### Snippet
-```java
-                    maybeEndpoints.stream()
-                            .filter(Predicates.not(Optional::isPresent))
-                            .collect(Collectors.toList())
-                            .isEmpty(),
-                    "Failed validation");
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'count()'
 in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
 #### Snippet
 ```java
@@ -117,6 +105,18 @@ in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/
                         .collect(Collectors.toList())
                         .isEmpty()
                 || maybeReturnType.isEmpty()) {
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with 'count()'
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
+#### Snippet
+```java
+                    maybeEndpoints.stream()
+                            .filter(Predicates.not(Optional::isPresent))
+                            .collect(Collectors.toList())
+                            .isEmpty(),
+                    "Failed validation");
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -188,8 +188,8 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/UndertowS
 #### Snippet
 ```java
 
-    private boolean hasHeaderArgument(List<ArgumentDefinition> args) {
-        return Iterables.any(args, arg -> arg.getParamType().accept(ParameterTypeVisitor.IS_HEADER));
+    private boolean hasPathArgument(List<ArgumentDefinition> args) {
+        return Iterables.any(args, arg -> arg.getParamType().accept(ParameterTypeVisitor.IS_PATH));
     }
 
 ```
@@ -212,8 +212,8 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/UndertowS
 #### Snippet
 ```java
 
-    private boolean hasPathArgument(List<ArgumentDefinition> args) {
-        return Iterables.any(args, arg -> arg.getParamType().accept(ParameterTypeVisitor.IS_PATH));
+    private boolean hasHeaderArgument(List<ArgumentDefinition> args) {
+        return Iterables.any(args, arg -> arg.getParamType().accept(ParameterTypeVisitor.IS_HEADER));
     }
 
 ```
@@ -349,30 +349,6 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/AliasGenerat
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TypeName`
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/SafetyEvaluator.java`
-#### Snippet
-```java
-        private final Type.Visitor<Optional<LogSafety>> fieldVisitor;
-
-        private TypeDefinitionSafetyVisitor(Map<TypeName, TypeDefinition> definitionMap, Set<TypeName> inProgress) {
-            this.inProgress = inProgress;
-            this.fieldVisitor = new FieldSafetyVisitor(definitionMap, this);
-```
-
-### BoundedWildcard
-Can generalize to `? extends EnrichedField`
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanGenerator.java`
-#### Snippet
-```java
-        }
-
-        static ImmutableList<FieldSpec> toPoetSpecs(Collection<EnrichedField> fields) {
-            return fields.stream().map(EnrichedField::poetSpec).collect(ImmutableList.toImmutableList());
-        }
-```
-
-### BoundedWildcard
 Can generalize to `? extends EnrichedField`
 in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanGenerator.java`
 #### Snippet
@@ -391,9 +367,9 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanGenerato
 ```java
     }
 
-    private static boolean useCachedHashCode(Collection<EnrichedField> fields) {
-        if (fields.size() == 1) {
-            EnrichedField field = Iterables.getOnlyElement(fields);
+    private static MethodSpec createValidateFields(Collection<EnrichedField> fields) {
+        MethodSpec.Builder builder =
+                MethodSpec.methodBuilder("validateFields").addModifiers(Modifier.PRIVATE, Modifier.STATIC);
 ```
 
 ### BoundedWildcard
@@ -415,9 +391,33 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanGenerato
 ```java
     }
 
-    private static MethodSpec createValidateFields(Collection<EnrichedField> fields) {
-        MethodSpec.Builder builder =
-                MethodSpec.methodBuilder("validateFields").addModifiers(Modifier.PRIVATE, Modifier.STATIC);
+    private static boolean useCachedHashCode(Collection<EnrichedField> fields) {
+        if (fields.size() == 1) {
+            EnrichedField field = Iterables.getOnlyElement(fields);
+```
+
+### BoundedWildcard
+Can generalize to `? extends EnrichedField`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanGenerator.java`
+#### Snippet
+```java
+        }
+
+        static ImmutableList<FieldSpec> toPoetSpecs(Collection<EnrichedField> fields) {
+            return fields.stream().map(EnrichedField::poetSpec).collect(ImmutableList.toImmutableList());
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super TypeName`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/SafetyEvaluator.java`
+#### Snippet
+```java
+        private final Type.Visitor<Optional<LogSafety>> fieldVisitor;
+
+        private TypeDefinitionSafetyVisitor(Map<TypeName, TypeDefinition> definitionMap, Set<TypeName> inProgress) {
+            this.inProgress = inProgress;
+            this.fieldVisitor = new FieldSafetyVisitor(definitionMap, this);
 ```
 
 ### BoundedWildcard
@@ -449,71 +449,11 @@ Can generalize to `? extends EnrichedField`
 in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
 #### Snippet
 ```java
-    }
-
-    private Collection<MethodSpec> maybeCreateValidateFieldsMethods(Collection<EnrichedField> enrichedFields) {
-        List<EnrichedField> primitives =
-                enrichedFields.stream().filter(EnrichedField::isPrimitive).collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends EnrichedField`
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
-#### Snippet
-```java
-            ClassName builderClass,
-            TypeMapper typeMapper,
-            List<EnrichedField> fieldsNeedingBuilderStage,
-            List<EnrichedField> otherFields,
-            SafetyEvaluator safetyEvaluator) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends EnrichedField`
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
-#### Snippet
-```java
-            TypeMapper typeMapper,
-            List<EnrichedField> fieldsNeedingBuilderStage,
-            List<EnrichedField> otherFields,
-            SafetyEvaluator safetyEvaluator) {
-        List<TypeSpec.Builder> interfaces = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends EnrichedField`
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
-#### Snippet
-```java
-    }
-
-    private MethodSpec createFromObject(Collection<EnrichedField> enrichedFields, boolean override) {
-        CodeBlock assignmentBlock = CodeBlocks.of(Collections2.transform(
-                enrichedFields,
-```
-
-### BoundedWildcard
-Can generalize to `? extends EnrichedField`
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
-#### Snippet
-```java
 
     private MethodSpec createBuild(
             Collection<EnrichedField> enrichedFields, Collection<FieldSpec> fields, boolean override) {
         MethodSpec.Builder method = MethodSpec.methodBuilder("build")
                 .addAnnotations(ConjureAnnotations.override(override))
-```
-
-### BoundedWildcard
-Can generalize to `? extends EnrichedField`
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
-#### Snippet
-```java
-
-    private Iterable<MethodSpec> createSetters(
-            Collection<EnrichedField> fields,
-            Map<com.palantir.conjure.spec.TypeName, TypeDefinition> typesMap,
-            boolean override) {
 ```
 
 ### BoundedWildcard
@@ -553,15 +493,63 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderG
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TypeName`
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/UnionGenerator.java`
+Can generalize to `? extends EnrichedField`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
+#### Snippet
+```java
+            ClassName builderClass,
+            TypeMapper typeMapper,
+            List<EnrichedField> fieldsNeedingBuilderStage,
+            List<EnrichedField> otherFields,
+            SafetyEvaluator safetyEvaluator) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends EnrichedField`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
+#### Snippet
+```java
+            TypeMapper typeMapper,
+            List<EnrichedField> fieldsNeedingBuilderStage,
+            List<EnrichedField> otherFields,
+            SafetyEvaluator safetyEvaluator) {
+        List<TypeSpec.Builder> interfaces = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends EnrichedField`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
+#### Snippet
+```java
+
+    private Iterable<MethodSpec> createSetters(
+            Collection<EnrichedField> fields,
+            Map<com.palantir.conjure.spec.TypeName, TypeDefinition> typesMap,
+            boolean override) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends EnrichedField`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
 #### Snippet
 ```java
     }
 
-    private static List<MethodSpec> generateMemberVisitMethods(Map<FieldDefinition, TypeName> memberTypes) {
-        return memberTypes.entrySet().stream()
-                .map(entry -> {
+    private MethodSpec createFromObject(Collection<EnrichedField> enrichedFields, boolean override) {
+        CodeBlock assignmentBlock = CodeBlocks.of(Collections2.transform(
+                enrichedFields,
+```
+
+### BoundedWildcard
+Can generalize to `? extends EnrichedField`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
+#### Snippet
+```java
+    }
+
+    private Collection<MethodSpec> maybeCreateValidateFieldsMethods(Collection<EnrichedField> enrichedFields) {
+        List<EnrichedField> primitives =
+                enrichedFields.stream().filter(EnrichedField::isPrimitive).collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
@@ -577,6 +565,18 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/UnionGenerat
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends TypeName`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/UnionGenerator.java`
+#### Snippet
+```java
+    }
+
+    private static List<MethodSpec> generateMemberVisitMethods(Map<FieldDefinition, TypeName> memberTypes) {
+        return memberTypes.entrySet().stream()
+                .map(entry -> {
+```
+
+### BoundedWildcard
 Can generalize to `? super ArgumentDefinition`
 in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/UndertowServiceHandlerGenerator.java`
 #### Snippet
@@ -589,15 +589,15 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/UndertowS
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DefaultErrorContext`
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
+Can generalize to `? extends ArgumentDefinition`
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
 #### Snippet
 ```java
     }
 
-    private void validationStep(Consumer<DefaultErrorContext> validationFunction) {
-        processingStep(ctx -> {
-            validationFunction.accept(ctx);
+    private static List<ArgumentDefinition> getPathMultiParams(List<ArgumentDefinition> argumentDefinitions) {
+        return argumentDefinitions.stream()
+                .filter(definition -> IS_PATH_MULTI_PARAMETER.apply(definition.paramType()))
 ```
 
 ### BoundedWildcard
@@ -613,15 +613,15 @@ in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArgumentDefinition`
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
+Can generalize to `? super DefaultErrorContext`
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
 #### Snippet
 ```java
     }
 
-    private static List<ArgumentDefinition> getPathMultiParams(List<ArgumentDefinition> argumentDefinitions) {
-        return argumentDefinitions.stream()
-                .filter(definition -> IS_PATH_MULTI_PARAMETER.apply(definition.paramType()))
+    private void validationStep(Consumer<DefaultErrorContext> validationFunction) {
+        processingStep(ctx -> {
+            validationFunction.accept(ctx);
 ```
 
 ### BoundedWildcard
@@ -649,18 +649,6 @@ in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/underto
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/DefaultSerDe.java`
-#### Snippet
-```java
-        private final Serializer<T> delegate;
-
-        OptionalValueDelegatingSerializer(Serializer<T> delegate) {
-            this.delegate = delegate;
-        }
-```
-
-### BoundedWildcard
 Can generalize to `? super Optional`
 in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/DefaultSerDe.java`
 #### Snippet
@@ -668,6 +656,18 @@ in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/underto
         private final Serializer<Optional<T>> delegate;
 
         OptionalDelegatingSerializer(Serializer<Optional<T>> delegate) {
+            this.delegate = delegate;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/DefaultSerDe.java`
+#### Snippet
+```java
+        private final Serializer<T> delegate;
+
+        OptionalValueDelegatingSerializer(Serializer<T> delegate) {
             this.delegate = delegate;
         }
 ```
@@ -697,27 +697,123 @@ in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undert
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/TracedEncoding.java`
+Can generalize to `? extends Endpoint`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
 #### Snippet
 ```java
-        private final ImmutableMap<String, String> tags;
+    }
 
-        TracedSerializer(Serializer<T> delegate, String operation, ImmutableMap<String, String> tags) {
-            this.delegate = delegate;
-            this.operation = operation;
+    private static List<Endpoint> applyHeadEndpoints(RoutingHandler routingHandler, List<Endpoint> endpoints) {
+        List<Endpoint> result = new ArrayList<>(endpoints.size());
+        for (Endpoint endpoint : endpoints) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends EndpointHandlerWrapper`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
+#### Snippet
+```java
+        }
+
+        private static Endpoint wrap(Endpoint input, List<EndpointHandlerWrapper> wrappers) {
+            Endpoint current = input;
+            for (EndpointHandlerWrapper wrapper : wrappers) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Endpoint`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
+#### Snippet
+```java
+        }
+
+        private static void checkOverlappingPaths(List<Endpoint> endpoints) {
+            Set<String> duplicates = endpoints.stream()
+                    .collect(Collectors.groupingBy(endpoint ->
+```
+
+### BoundedWildcard
+Can generalize to `? extends Endpoint`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
+#### Snippet
+```java
+        @Deprecated
+        @CanIgnoreReturnValue
+        public Builder addAllEndpoints(Iterable<Endpoint> values) {
+            Preconditions.checkNotNull(values, "Values is required");
+            for (Endpoint endpoint : values) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Endpoint`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
+#### Snippet
+```java
+    }
+
+    private static void registerOptionsEndpoints(RoutingHandler routingHandler, List<Endpoint> endpoints) {
+        endpoints.stream()
+                .collect(ImmutableSetMultimap.toImmutableSetMultimap(
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/TracedEncoding.java`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureBodySerDe.java`
 #### Snippet
 ```java
-        private final ImmutableMap<String, String> tags;
+        private final TypeMarker<T> marker;
 
-        TracedDeserializer(Deserializer<T> delegate, String operation, ImmutableMap<String, String> tags) {
-            this.delegate = delegate;
-            this.operation = operation;
+        EncodingDeserializerRegistry(List<Encoding> encodings, TypeMarker<T> token, Optional<Endpoint> endpoint) {
+            this.encodings = encodings.stream()
+                    .map(encoding -> new EncodingDeserializerContainer<>(encoding, token, endpoint))
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
+#### Snippet
+```java
+    }
+
+    public static <T> ParamDecoder<T> complexParamDecoder(PlainSerDe serde, Function<String, T> factory) {
+        return DelegatingParamDecoder.of(value -> serde.deserializeComplex(value, factory));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
+#### Snippet
+```java
+
+    public static <T> CollectionParamDecoder<T> complexCollectionParamDecoder(
+            PlainSerDe serde, Function<String, T> factory) {
+        return DelegatingCollectionParamDecoder.of(value -> serde.deserializeComplex(value, factory));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
+#### Snippet
+```java
+        private final Optional<T> noValuePresent;
+
+        private DelegatingParamDecoder(Function<String, T> factory, Optional<T> noValuePresent) {
+            this.factory = factory;
+            this.noValuePresent = noValuePresent;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
+#### Snippet
+```java
+        private final Optional<T> noValuePresent;
+
+        private DelegatingParamDecoder(Function<String, T> factory, Optional<T> noValuePresent) {
+            this.factory = factory;
+            this.noValuePresent = noValuePresent;
 ```
 
 ### BoundedWildcard
@@ -745,123 +841,51 @@ in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/underto
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
+Can generalize to `? super T`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/TracedEncoding.java`
 #### Snippet
 ```java
+        private final ImmutableMap<String, String> tags;
 
-    public static <T> CollectionParamDecoder<T> complexCollectionParamDecoder(
-            PlainSerDe serde, Function<String, T> factory) {
-        return DelegatingCollectionParamDecoder.of(value -> serde.deserializeComplex(value, factory));
-    }
+        TracedSerializer(Serializer<T> delegate, String operation, ImmutableMap<String, String> tags) {
+            this.delegate = delegate;
+            this.operation = operation;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/TracedEncoding.java`
 #### Snippet
 ```java
-    }
+        private final ImmutableMap<String, String> tags;
 
-    public static <T> ParamDecoder<T> complexParamDecoder(PlainSerDe serde, Function<String, T> factory) {
-        return DelegatingParamDecoder.of(value -> serde.deserializeComplex(value, factory));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
-#### Snippet
-```java
-        private final Optional<T> noValuePresent;
-
-        private DelegatingParamDecoder(Function<String, T> factory, Optional<T> noValuePresent) {
-            this.factory = factory;
-            this.noValuePresent = noValuePresent;
+        TracedDeserializer(Deserializer<T> delegate, String operation, ImmutableMap<String, String> tags) {
+            this.delegate = delegate;
+            this.operation = operation;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureAsyncRequestProcessing.java`
 #### Snippet
 ```java
-        private final Optional<T> noValuePresent;
 
-        private DelegatingParamDecoder(Function<String, T> factory, Optional<T> noValuePresent) {
-            this.factory = factory;
-            this.noValuePresent = noValuePresent;
+    private <T> void writeCompleteFuture(
+            ListenableFuture<T> future, ReturnValueWriter<T> returnValueWriter, HttpServerExchange exchange)
+            throws IOException {
+        try {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Endpoint`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
+Can generalize to `? super T`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureAsyncRequestProcessing.java`
 #### Snippet
 ```java
-        @Deprecated
-        @CanIgnoreReturnValue
-        public Builder addAllEndpoints(Iterable<Endpoint> values) {
-            Preconditions.checkNotNull(values, "Values is required");
-            for (Endpoint endpoint : values) {
-```
 
-### BoundedWildcard
-Can generalize to `? extends Endpoint`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
-#### Snippet
-```java
-        }
-
-        private static void checkOverlappingPaths(List<Endpoint> endpoints) {
-            Set<String> duplicates = endpoints.stream()
-                    .collect(Collectors.groupingBy(endpoint ->
-```
-
-### BoundedWildcard
-Can generalize to `? extends Endpoint`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
-#### Snippet
-```java
-    }
-
-    private static void registerOptionsEndpoints(RoutingHandler routingHandler, List<Endpoint> endpoints) {
-        endpoints.stream()
-                .collect(ImmutableSetMultimap.toImmutableSetMultimap(
-```
-
-### BoundedWildcard
-Can generalize to `? extends EndpointHandlerWrapper`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
-#### Snippet
-```java
-        }
-
-        private static Endpoint wrap(Endpoint input, List<EndpointHandlerWrapper> wrappers) {
-            Endpoint current = input;
-            for (EndpointHandlerWrapper wrapper : wrappers) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Endpoint`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureHandler.java`
-#### Snippet
-```java
-    }
-
-    private static List<Endpoint> applyHeadEndpoints(RoutingHandler routingHandler, List<Endpoint> endpoints) {
-        List<Endpoint> result = new ArrayList<>(endpoints.size());
-        for (Endpoint endpoint : endpoints) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureBodySerDe.java`
-#### Snippet
-```java
-        private final TypeMarker<T> marker;
-
-        EncodingDeserializerRegistry(List<Encoding> encodings, TypeMarker<T> token, Optional<Endpoint> endpoint) {
-            this.encodings = encodings.stream()
-                    .map(encoding -> new EncodingDeserializerContainer<>(encoding, token, endpoint))
+    private <T> void writeCompleteFuture(
+            ListenableFuture<T> future, ReturnValueWriter<T> returnValueWriter, HttpServerExchange exchange)
+            throws IOException {
+        try {
 ```
 
 ### BoundedWildcard
@@ -886,66 +910,6 @@ in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undert
             ReturnValueWriter<T> returnValueWriter,
             Duration requestAsyncTimeout,
             HttpServerExchange exchange) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureAsyncRequestProcessing.java`
-#### Snippet
-```java
-
-    private <T> void writeCompleteFuture(
-            ListenableFuture<T> future, ReturnValueWriter<T> returnValueWriter, HttpServerExchange exchange)
-            throws IOException {
-        try {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureAsyncRequestProcessing.java`
-#### Snippet
-```java
-
-    private <T> void writeCompleteFuture(
-            ListenableFuture<T> future, ReturnValueWriter<T> returnValueWriter, HttpServerExchange exchange)
-            throws IOException {
-        try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjurePlainSerDe.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Set<T> deserializeComplexSet(@Nullable Iterable<String> in, Function<String, T> factory) {
-        if (in == null) {
-            return Collections.emptySet();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjurePlainSerDe.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T deserializeComplex(@Nullable String in, Function<String, T> factory) {
-        return factory.apply(deserializeString(checkArgumentNotNull(in)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjurePlainSerDe.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T deserializeComplex(@Nullable Iterable<String> in, Function<String, T> factory) {
-        return factory.apply(deserializeString(in));
-    }
 ```
 
 ### BoundedWildcard
@@ -982,6 +946,42 @@ in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undert
     public <T> Optional<T> deserializeOptionalComplex(@Nullable Iterable<String> in, Function<String, T> factory) {
         return deserializeOptionalString(in).map(factory);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjurePlainSerDe.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T deserializeComplex(@Nullable Iterable<String> in, Function<String, T> factory) {
+        return factory.apply(deserializeString(in));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjurePlainSerDe.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T deserializeComplex(@Nullable String in, Function<String, T> factory) {
+        return factory.apply(deserializeString(checkArgumentNotNull(in)));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjurePlainSerDe.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Set<T> deserializeComplexSet(@Nullable Iterable<String> in, Function<String, T> factory) {
+        if (in == null) {
+            return Collections.emptySet();
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -1060,27 +1060,15 @@ public final class Packages {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'documentation'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/util/Javadoc.java`
-#### Snippet
-```java
-    }
-
-    public static Optional<String> render(Optional<Documentation> documentation, Optional<Documentation> deprecation) {
-        if (!documentation.isPresent() && !deprecation.isPresent()) {
-            return Optional.empty();
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'deprecation'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/util/Javadoc.java`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/ConjureAnnotations.java`
 #### Snippet
 ```java
     }
 
-    public static Optional<String> render(Optional<Documentation> documentation, Optional<Documentation> deprecation) {
-        if (!documentation.isPresent() && !deprecation.isPresent()) {
-            return Optional.empty();
+    public static ImmutableList<AnnotationSpec> deprecation(Optional<Documentation> deprecation) {
+        return deprecation.isPresent() ? DEPRECATED : ImmutableList.of();
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1108,15 +1096,27 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/ConjureAnnotations
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'deprecation'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/ConjureAnnotations.java`
+`Optional` used as type for parameter 'documentation'
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/util/Javadoc.java`
 #### Snippet
 ```java
     }
 
-    public static ImmutableList<AnnotationSpec> deprecation(Optional<Documentation> deprecation) {
-        return deprecation.isPresent() ? DEPRECATED : ImmutableList.of();
+    public static Optional<String> render(Optional<Documentation> documentation, Optional<Documentation> deprecation) {
+        if (!documentation.isPresent() && !deprecation.isPresent()) {
+            return Optional.empty();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'deprecation'
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/util/Javadoc.java`
+#### Snippet
+```java
     }
+
+    public static Optional<String> render(Optional<Documentation> documentation, Optional<Documentation> deprecation) {
+        if (!documentation.isPresent() && !deprecation.isPresent()) {
+            return Optional.empty();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1168,27 +1168,15 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/JerseySer
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'type'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DefaultStaticFactoryMethodGenerator.java`
+`Optional` used as type for parameter 'auth'
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/Retrofit2ServiceGenerator.java`
 #### Snippet
 ```java
     }
 
-    private Optional<FieldSpec> deserializer(EndpointName endpointName, Optional<Type> type) {
-        TypeName className = Primitives.box(returnTypes.baseType(type));
-        if (isBinaryOrOptionalBinary(className, returnTypes)) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'apiVersion'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DialogueEndpointsGenerator.java`
-#### Snippet
-```java
-    }
-
-    private static TypeSpec endpointField(EndpointDefinition def, String serviceName, Optional<String> apiVersion) {
-        TypeSpec.Builder builder = TypeSpec.anonymousClassBuilder("");
-        def.getDocs().ifPresent(docs -> builder.addJavadoc("$L", Javadoc.render(docs)));
+    private Optional<ParameterSpec> getAuthParameter(Optional<AuthType> auth) {
+        if (!auth.isPresent()) {
+            return Optional.empty();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1216,15 +1204,27 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'auth'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/Retrofit2ServiceGenerator.java`
+`Optional` used as type for parameter 'apiVersion'
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DialogueEndpointsGenerator.java`
 #### Snippet
 ```java
     }
 
-    private Optional<ParameterSpec> getAuthParameter(Optional<AuthType> auth) {
-        if (!auth.isPresent()) {
-            return Optional.empty();
+    private static TypeSpec endpointField(EndpointDefinition def, String serviceName, Optional<String> apiVersion) {
+        TypeSpec.Builder builder = TypeSpec.anonymousClassBuilder("");
+        def.getDocs().ifPresent(docs -> builder.addJavadoc("$L", Javadoc.render(docs)));
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'type'
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DefaultStaticFactoryMethodGenerator.java`
+#### Snippet
+```java
+    }
+
+    private Optional<FieldSpec> deserializer(EndpointName endpointName, Optional<Type> type) {
+        TypeName className = Primitives.box(returnTypes.baseType(type));
+        if (isBinaryOrOptionalBinary(className, returnTypes)) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1237,18 +1237,6 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/SafetyEvalua
         private Optional<LogSafety> getSafety(Type type, Optional<LogSafety> safety) {
             return safety.or(() -> type.accept(fieldVisitor));
         }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'ENUM_SAFETY'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/SafetyEvaluator.java`
-#### Snippet
-```java
-     * for past and future values which are known at compile-time in that version.
-     */
-    public static final Optional<LogSafety> ENUM_SAFETY = Optional.of(LogSafety.SAFE);
-    /**
-     * Unknown variant should be considered unsafe because we don't know what kind of data it may contain,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1273,6 +1261,18 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/SafetyEvalua
     public static boolean allows(Optional<LogSafety> required, Optional<LogSafety> given) {
         if (required.isEmpty() || given.isEmpty()) {
             // If there is no requirement, all inputs are allowed.
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'UNKNOWN_UNION_VARINT_SAFETY'
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/SafetyEvaluator.java`
+#### Snippet
+```java
+     * better tooling to extract safe components.
+     */
+    public static final Optional<LogSafety> UNKNOWN_UNION_VARINT_SAFETY = Optional.empty();
+
+    private final Map<TypeName, TypeDefinition> definitionMap;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1312,27 +1312,15 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/SafetyEvalua
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'UNKNOWN_UNION_VARINT_SAFETY'
+`Optional` used as type for field 'ENUM_SAFETY'
 in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/SafetyEvaluator.java`
 #### Snippet
 ```java
-     * better tooling to extract safe components.
+     * for past and future values which are known at compile-time in that version.
      */
-    public static final Optional<LogSafety> UNKNOWN_UNION_VARINT_SAFETY = Optional.empty();
-
-    private final Map<TypeName, TypeDefinition> definitionMap;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'builderInterfaceClass'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
-#### Snippet
-```java
-            Map<com.palantir.conjure.spec.TypeName, TypeDefinition> typesMap,
-            String className,
-            Optional<String> builderInterfaceClass) {
-        Collection<EnrichedField> enrichedFields = enrichFields(typeDef.getFields());
-        Collection<FieldSpec> poetFields = EnrichedField.toPoetSpecs(enrichedFields);
+    public static final Optional<LogSafety> ENUM_SAFETY = Optional.of(LogSafety.SAFE);
+    /**
+     * Unknown variant should be considered unsafe because we don't know what kind of data it may contain,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1345,6 +1333,18 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderG
             EnrichedField enriched, Type itemType, boolean override, Optional<LogSafety> safety) {
         FieldSpec field = enriched.poetSpec();
         return BeanBuilderAuxiliarySettersUtils.createItemSetterBuilder(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'builderInterfaceClass'
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/BeanBuilderGenerator.java`
+#### Snippet
+```java
+            Map<com.palantir.conjure.spec.TypeName, TypeDefinition> typesMap,
+            String className,
+            Optional<String> builderInterfaceClass) {
+        Collection<EnrichedField> enrichedFields = enrichFields(typeDef.getFields());
+        Collection<FieldSpec> poetFields = EnrichedField.toPoetSpecs(enrichedFields);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1396,18 +1396,6 @@ in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'className'
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/ParamTypesResolver.java`
-#### Snippet
-```java
-    @VisibleForTesting
-    static String getDefaultDecoderMethodName(
-            Optional<String> className, ContainerType inputType, ContainerType outType) {
-        Preconditions.checkState(
-                INPUT_TYPES.contains(inputType),
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'listType'
 in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/ParamTypesResolver.java`
 #### Snippet
@@ -1441,6 +1429,18 @@ in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/
             Optional<TypeMirror> listType, Optional<TypeMirror> setType, Optional<TypeMirror> optionalType) {
         if (listType.isPresent()) {
             return ContainerType.LIST;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'className'
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/ParamTypesResolver.java`
+#### Snippet
+```java
+    @VisibleForTesting
+    static String getDefaultDecoderMethodName(
+            Optional<String> className, ContainerType inputType, ContainerType outType) {
+        Preconditions.checkState(
+                INPUT_TYPES.contains(inputType),
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1480,42 +1480,6 @@ in `conjure-undertow-processor-example/src/main/java/com/palantir/conjure/java/u
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'noValuePresent'
-in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
-#### Snippet
-```java
-
-        private final Function<String, T> factory;
-        private final Optional<T> noValuePresent;
-
-        private DelegatingParamDecoder(Function<String, T> factory, Optional<T> noValuePresent) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'noValuePresent'
-in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
-#### Snippet
-```java
-        private final Optional<T> noValuePresent;
-
-        private DelegatingParamDecoder(Function<String, T> factory, Optional<T> noValuePresent) {
-            this.factory = factory;
-            this.noValuePresent = noValuePresent;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'endpoint'
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureBodySerDe.java`
-#### Snippet
-```java
-        private final Encoding.Deserializer<T> deserializer;
-
-        EncodingDeserializerContainer(Encoding encoding, TypeMarker<T> token, Optional<Endpoint> endpoint) {
-            this.encoding = encoding;
-            this.deserializer = endpoint.isPresent()
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'endpoint'
 in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureBodySerDe.java`
 #### Snippet
@@ -1544,6 +1508,18 @@ in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undert
 in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureBodySerDe.java`
 #### Snippet
 ```java
+        private final Encoding.Deserializer<T> deserializer;
+
+        EncodingDeserializerContainer(Encoding encoding, TypeMarker<T> token, Optional<Endpoint> endpoint) {
+            this.encoding = encoding;
+            this.deserializer = endpoint.isPresent()
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'endpoint'
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/ConjureBodySerDe.java`
+#### Snippet
+```java
         private final Encoding.Serializer<T> serializer;
 
         EncodingSerializerContainer(Encoding encoding, TypeMarker<T> token, Optional<Endpoint> endpoint) {
@@ -1551,19 +1527,31 @@ in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undert
             this.serializer = endpoint.isPresent()
 ```
 
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `conjure-java/src/main/java/com/palantir/conjure/java/cli/ConjureJavaCli.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'noValuePresent'
+in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
 #### Snippet
 ```java
-    @Override
-    public void run() {
-        CommandLine.usage(this, System.out);
-    }
+        private final Optional<T> noValuePresent;
 
+        private DelegatingParamDecoder(Function<String, T> factory, Optional<T> noValuePresent) {
+            this.factory = factory;
+            this.noValuePresent = noValuePresent;
 ```
 
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'noValuePresent'
+in `conjure-undertow-annotations/src/main/java/com/palantir/conjure/java/undertow/annotations/ParamDecoders.java`
+#### Snippet
+```java
+
+        private final Function<String, T> factory;
+        private final Optional<T> noValuePresent;
+
+        private DelegatingParamDecoder(Function<String, T> factory, Optional<T> noValuePresent) {
+```
+
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `conjure-java/src/main/java/com/palantir/conjure/java/cli/ConjureJavaCli.java`
@@ -1574,6 +1562,18 @@ in `conjure-java/src/main/java/com/palantir/conjure/java/cli/ConjureJavaCli.java
                 System.err.println("[WARNING] Using deprecated ByteBuffer codegen, please enable the "
                         + "--useImmutableBytes feature flag to opt into the preferred implementation");
             }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `conjure-java/src/main/java/com/palantir/conjure/java/cli/ConjureJavaCli.java`
+#### Snippet
+```java
+    @Override
+    public void run() {
+        CommandLine.usage(this, System.out);
+    }
+
 ```
 
 ## RuleId[id=JavaLangImport]
@@ -1891,6 +1891,30 @@ import java.util.List;
 
 ### JavaLangImport
 Unnecessary import from the 'java.lang' package
+in `conjure-java-core/src/integrationInput/java/com/palantir/product/EteBinaryServiceAsync.java`
+#### Snippet
+```java
+import com.palantir.tokens.auth.AuthHeader;
+import java.io.InputStream;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Optional;
+```
+
+### JavaLangImport
+Unnecessary import from the 'java.lang' package
+in `conjure-java-core/src/integrationInput/java/com/palantir/product/EteBinaryServiceAsync.java`
+#### Snippet
+```java
+import java.io.InputStream;
+import java.lang.Override;
+import java.lang.String;
+import java.util.Optional;
+import javax.annotation.processing.Generated;
+```
+
+### JavaLangImport
+Unnecessary import from the 'java.lang' package
 in `conjure-java-core/src/integrationInput/java/com/palantir/product/EmptyPathServiceAsync.java`
 #### Snippet
 ```java
@@ -1923,30 +1947,6 @@ import java.lang.Override;
 import java.lang.String;
 import javax.annotation.processing.Generated;
 
-```
-
-### JavaLangImport
-Unnecessary import from the 'java.lang' package
-in `conjure-java-core/src/integrationInput/java/com/palantir/product/EteBinaryServiceAsync.java`
-#### Snippet
-```java
-import com.palantir.tokens.auth.AuthHeader;
-import java.io.InputStream;
-import java.lang.Override;
-import java.lang.String;
-import java.util.Optional;
-```
-
-### JavaLangImport
-Unnecessary import from the 'java.lang' package
-in `conjure-java-core/src/integrationInput/java/com/palantir/product/EteBinaryServiceAsync.java`
-#### Snippet
-```java
-import java.io.InputStream;
-import java.lang.Override;
-import java.lang.String;
-import java.util.Optional;
-import javax.annotation.processing.Generated;
 ```
 
 ### JavaLangImport
@@ -2109,14 +2109,14 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/JerseySer
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DialogueEndpointsGenerator.java`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/Retrofit2ServiceGenerator.java`
 #### Snippet
 ```java
-        });
 
-        if (!options.apiVersion().isPresent()) {
-            enumBuilder.addField(FieldSpec.builder(
-                            TypeName.get(String.class), "VERSION", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+    private Optional<ParameterSpec> getAuthParameter(Optional<AuthType> auth) {
+        if (!auth.isPresent()) {
+            return Optional.empty();
+        }
 ```
 
 ### SimplifyOptionalCallChains
@@ -2133,14 +2133,14 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/Retrofit2
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/Retrofit2ServiceGenerator.java`
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DialogueEndpointsGenerator.java`
 #### Snippet
 ```java
+        });
 
-    private Optional<ParameterSpec> getAuthParameter(Optional<AuthType> auth) {
-        if (!auth.isPresent()) {
-            return Optional.empty();
-        }
+        if (!options.apiVersion().isPresent()) {
+            enumBuilder.addField(FieldSpec.builder(
+                            TypeName.get(String.class), "VERSION", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
 ```
 
 ### SimplifyOptionalCallChains
@@ -2197,18 +2197,6 @@ Qualifier `io.undertow.util` is unnecessary, and can be replaced with an import
 in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/UndertowServiceHandlerGenerator.java`
 #### Snippet
 ```java
-            code.addStatement(
-                    "$1T $2N = $3N.getRequestHeaders()",
-                    io.undertow.util.HeaderMap.class,
-                    HEADER_PARAMS_VAR_NAME,
-                    EXCHANGE_VAR_NAME);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.undertow.util` is unnecessary, and can be replaced with an import
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/UndertowServiceHandlerGenerator.java`
-#### Snippet
-```java
                     PATH_PARAMS_VAR_NAME,
                     EXCHANGE_VAR_NAME,
                     io.undertow.util.PathTemplateMatch.class);
@@ -2217,15 +2205,15 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/UndertowS
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.undertow.server` is unnecessary and can be removed
-in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/EndpointHandlerWrapper.java`
+Qualifier `io.undertow.util` is unnecessary, and can be replaced with an import
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/UndertowServiceHandlerGenerator.java`
 #### Snippet
 ```java
- * Adding logic pre and post handling by the next handlers, by adding the logic before and after
- * {@link HttpHandler#handleRequest(HttpServerExchange)} - Adding logic post completion of the request by all handlers
- * {@link io.undertow.server.HttpServerExchange#addExchangeCompleteListener(ExchangeCompletionListener)} - Catching and
- * handling exceptions surrounding {@link HttpHandler#handleRequest(HttpServerExchange)} with try ... catch ... finally.
- */
+            code.addStatement(
+                    "$1T $2N = $3N.getRequestHeaders()",
+                    io.undertow.util.HeaderMap.class,
+                    HEADER_PARAMS_VAR_NAME,
+                    EXCHANGE_VAR_NAME);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2238,6 +2226,18 @@ in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/
      * {@link com.palantir.conjure.java.undertow.annotations.ParamDecoders}.
      *
      * E.g. calling {@code getDefaultDecoderMethodName(String, LIST, OPTIONAL} will return
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.undertow.server` is unnecessary and can be removed
+in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undertow/runtime/EndpointHandlerWrapper.java`
+#### Snippet
+```java
+ * Adding logic pre and post handling by the next handlers, by adding the logic before and after
+ * {@link HttpHandler#handleRequest(HttpServerExchange)} - Adding logic post completion of the request by all handlers
+ * {@link io.undertow.server.HttpServerExchange#addExchangeCompleteListener(ExchangeCompletionListener)} - Catching and
+ * handling exceptions surrounding {@link HttpHandler#handleRequest(HttpServerExchange)} with try ... catch ... finally.
+ */
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -2475,18 +2475,6 @@ in `conjure-java-undertow-runtime/src/main/java/com/palantir/conjure/java/undert
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `method` is redundant
-in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DefaultStaticFactoryMethodGenerator.java`
-#### Snippet
-```java
-                "Creates a synchronous/blocking client for a $L service.",
-                "Creates an " + "asynchronous/non-blocking client for a $L service.");
-        MethodSpec method = MethodSpec.methodBuilder("of")
-                .addModifiers(Modifier.STATIC, Modifier.PUBLIC)
-                .addJavadoc(javadoc, def.getServiceName().getName())
-```
-
-### UnnecessaryLocalVariable
 Local variable `build` is redundant
 in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DialogueEndpointsGenerator.java`
 #### Snippet
@@ -2496,6 +2484,18 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/
         CodeBlock build = pathTemplateBuilder.add(".build()").build();
         return build;
     }
+```
+
+### UnnecessaryLocalVariable
+Local variable `method` is redundant
+in `conjure-java-core/src/main/java/com/palantir/conjure/java/services/dialogue/DefaultStaticFactoryMethodGenerator.java`
+#### Snippet
+```java
+                "Creates a synchronous/blocking client for a $L service.",
+                "Creates an " + "asynchronous/non-blocking client for a $L service.");
+        MethodSpec method = MethodSpec.methodBuilder("of")
+                .addModifiers(Modifier.STATIC, Modifier.PUBLIC)
+                .addJavadoc(javadoc, def.getServiceName().getName())
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -2623,18 +2623,6 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/types/UnionGenerat
 
 ### OptionalGetWithoutIsPresent
 `Optional::get` without 'isPresent()' check
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
-#### Snippet
-```java
-                            .isEmpty(),
-                    "Failed validation");
-            return maybeEndpoints.stream().map(Optional::get).collect(Collectors.toList());
-        });
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional::get` without 'isPresent()' check
 in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
 #### Snippet
 ```java
@@ -2643,6 +2631,18 @@ in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/
                 args.stream().map(Optional::get).collect(Collectors.toList());
 
         List<ArgumentDefinition> multiPathParams = getPathMultiParams(argumentDefinitions);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional::get` without 'isPresent()' check
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
+#### Snippet
+```java
+                            .isEmpty(),
+                    "Failed validation");
+            return maybeEndpoints.stream().map(Optional::get).collect(Collectors.toList());
+        });
+
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -2660,26 +2660,74 @@ in `conjure-java-core/src/main/java/com/palantir/conjure/java/util/TypeFunctions
 
 ### UnstableApiUsage
 'com.google.auto.common.MoreElements' is marked unstable with @Beta
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
 #### Snippet
 ```java
-                        roundEnv.getElementsAnnotatedWith(Handle.Generate.class).stream())
-                .distinct()
-                .filter(element -> MoreElements.getAnnotationMirror(element, Handle.Generate.class)
-                        .toJavaUtil()
-                        .map(mirror -> ImmutableAnnotationReflector.of(mirror).getAnnotationValue(Boolean.class))
+    public Optional<EndpointDefinition> tryParseEndpointDefinition(
+            DeclaredType annotatedType, ExecutableElement element) {
+        AnnotationReflector requestAnnotationReflector = MoreElements.getAnnotationMirror(element, Handle.class)
+                .toJavaUtil()
+                .map(ImmutableAnnotationReflector::of)
 ```
 
 ### UnstableApiUsage
 'getAnnotationMirror(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
 #### Snippet
 ```java
-                        roundEnv.getElementsAnnotatedWith(Handle.Generate.class).stream())
-                .distinct()
-                .filter(element -> MoreElements.getAnnotationMirror(element, Handle.Generate.class)
-                        .toJavaUtil()
-                        .map(mirror -> ImmutableAnnotationReflector.of(mirror).getAnnotationValue(Boolean.class))
+    public Optional<EndpointDefinition> tryParseEndpointDefinition(
+            DeclaredType annotatedType, ExecutableElement element) {
+        AnnotationReflector requestAnnotationReflector = MoreElements.getAnnotationMirror(element, Handle.class)
+                .toJavaUtil()
+                .map(ImmutableAnnotationReflector::of)
+```
+
+### UnstableApiUsage
+'com.google.auto.common.MoreElements' is marked unstable with @Beta
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
+#### Snippet
+```java
+                .returns(maybeReturnType.get())
+                .addAllArguments(argumentDefinitions)
+                .deprecated(MoreElements.isAnnotationPresent(element, Deprecated.class)
+                        || MoreElements.isAnnotationPresent(element.getEnclosingElement(), Deprecated.class))
+                .addTags(requestAnnotationReflector.getAnnotationValue("tags", String[].class))
+```
+
+### UnstableApiUsage
+'isAnnotationPresent(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
+#### Snippet
+```java
+                .returns(maybeReturnType.get())
+                .addAllArguments(argumentDefinitions)
+                .deprecated(MoreElements.isAnnotationPresent(element, Deprecated.class)
+                        || MoreElements.isAnnotationPresent(element.getEnclosingElement(), Deprecated.class))
+                .addTags(requestAnnotationReflector.getAnnotationValue("tags", String[].class))
+```
+
+### UnstableApiUsage
+'com.google.auto.common.MoreElements' is marked unstable with @Beta
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
+#### Snippet
+```java
+                .addAllArguments(argumentDefinitions)
+                .deprecated(MoreElements.isAnnotationPresent(element, Deprecated.class)
+                        || MoreElements.isAnnotationPresent(element.getEnclosingElement(), Deprecated.class))
+                .addTags(requestAnnotationReflector.getAnnotationValue("tags", String[].class))
+                .build());
+```
+
+### UnstableApiUsage
+'isAnnotationPresent(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
+#### Snippet
+```java
+                .addAllArguments(argumentDefinitions)
+                .deprecated(MoreElements.isAnnotationPresent(element, Deprecated.class)
+                        || MoreElements.isAnnotationPresent(element.getEnclosingElement(), Deprecated.class))
+                .addTags(requestAnnotationReflector.getAnnotationValue("tags", String[].class))
+                .build());
 ```
 
 ### UnstableApiUsage
@@ -2804,74 +2852,26 @@ in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/
 
 ### UnstableApiUsage
 'com.google.auto.common.MoreElements' is marked unstable with @Beta
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
 #### Snippet
 ```java
-    public Optional<EndpointDefinition> tryParseEndpointDefinition(
-            DeclaredType annotatedType, ExecutableElement element) {
-        AnnotationReflector requestAnnotationReflector = MoreElements.getAnnotationMirror(element, Handle.class)
-                .toJavaUtil()
-                .map(ImmutableAnnotationReflector::of)
+                        roundEnv.getElementsAnnotatedWith(Handle.Generate.class).stream())
+                .distinct()
+                .filter(element -> MoreElements.getAnnotationMirror(element, Handle.Generate.class)
+                        .toJavaUtil()
+                        .map(mirror -> ImmutableAnnotationReflector.of(mirror).getAnnotationValue(Boolean.class))
 ```
 
 ### UnstableApiUsage
 'getAnnotationMirror(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
+in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/ConjureUndertowAnnotationProcessor.java`
 #### Snippet
 ```java
-    public Optional<EndpointDefinition> tryParseEndpointDefinition(
-            DeclaredType annotatedType, ExecutableElement element) {
-        AnnotationReflector requestAnnotationReflector = MoreElements.getAnnotationMirror(element, Handle.class)
-                .toJavaUtil()
-                .map(ImmutableAnnotationReflector::of)
-```
-
-### UnstableApiUsage
-'com.google.auto.common.MoreElements' is marked unstable with @Beta
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
-#### Snippet
-```java
-                .returns(maybeReturnType.get())
-                .addAllArguments(argumentDefinitions)
-                .deprecated(MoreElements.isAnnotationPresent(element, Deprecated.class)
-                        || MoreElements.isAnnotationPresent(element.getEnclosingElement(), Deprecated.class))
-                .addTags(requestAnnotationReflector.getAnnotationValue("tags", String[].class))
-```
-
-### UnstableApiUsage
-'isAnnotationPresent(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
-#### Snippet
-```java
-                .returns(maybeReturnType.get())
-                .addAllArguments(argumentDefinitions)
-                .deprecated(MoreElements.isAnnotationPresent(element, Deprecated.class)
-                        || MoreElements.isAnnotationPresent(element.getEnclosingElement(), Deprecated.class))
-                .addTags(requestAnnotationReflector.getAnnotationValue("tags", String[].class))
-```
-
-### UnstableApiUsage
-'com.google.auto.common.MoreElements' is marked unstable with @Beta
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
-#### Snippet
-```java
-                .addAllArguments(argumentDefinitions)
-                .deprecated(MoreElements.isAnnotationPresent(element, Deprecated.class)
-                        || MoreElements.isAnnotationPresent(element.getEnclosingElement(), Deprecated.class))
-                .addTags(requestAnnotationReflector.getAnnotationValue("tags", String[].class))
-                .build());
-```
-
-### UnstableApiUsage
-'isAnnotationPresent(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
-in `conjure-undertow-processor/src/main/java/com/palantir/conjure/java/undertow/processor/data/EndpointDefinitions.java`
-#### Snippet
-```java
-                .addAllArguments(argumentDefinitions)
-                .deprecated(MoreElements.isAnnotationPresent(element, Deprecated.class)
-                        || MoreElements.isAnnotationPresent(element.getEnclosingElement(), Deprecated.class))
-                .addTags(requestAnnotationReflector.getAnnotationValue("tags", String[].class))
-                .build());
+                        roundEnv.getElementsAnnotatedWith(Handle.Generate.class).stream())
+                .distinct()
+                .filter(element -> MoreElements.getAnnotationMirror(element, Handle.Generate.class)
+                        .toJavaUtil()
+                        .map(mirror -> ImmutableAnnotationReflector.of(mirror).getAnnotationValue(Boolean.class))
 ```
 
 ### UnstableApiUsage
