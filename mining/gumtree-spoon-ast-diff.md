@@ -17,8 +17,8 @@ I found 54 bad smells with 9 repairable:
 | EqualsAndHashcode | 2 | false |
 | UnusedAssignment | 2 | false |
 | StringOperationCanBeSimplified | 1 | false |
-| CommentedOutCode | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
+| CommentedOutCode | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | EqualsBetweenInconvertibleTypes | 1 | false |
@@ -56,6 +56,18 @@ in `src/main/java/gumtree/spoon/diff/Diff.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
+Method invocation `getRoleInParent` may produce `NullPointerException`
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+			nodeTypeName = element.getRoleInParent().toString();
+		}
+		if (element.getRoleInParent() == CtRole.SUPER_TYPE) {
+			nodeTypeName = "SUPER_TYPE";
+		}
+```
+
+### DataFlowIssue
 Argument `cu` might be null
 in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 #### Snippet
@@ -91,18 +103,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 
 ```
 
-### DataFlowIssue
-Method invocation `getRoleInParent` may produce `NullPointerException`
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-			nodeTypeName = element.getRoleInParent().toString();
-		}
-		if (element.getRoleInParent() == CtRole.SUPER_TYPE) {
-			nodeTypeName = "SUPER_TYPE";
-		}
-```
-
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -121,11 +121,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ### UnnecessarySemicolon
@@ -133,11 +133,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -153,19 +153,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-		// 1000 OK
-		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
-		// System.setProperty("gumtree.match.bu.size","10");
-		// System.setProperty("gt.bum.szt", "1000");
-	}
-```
-
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'getNode' is still used
@@ -176,6 +163,19 @@ in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 	@Deprecated
 	public CtElement getNode() {
 		return node;
+	}
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+		// 1000 OK
+		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
+		// System.setProperty("gumtree.match.bu.size","10");
+		// System.setProperty("gt.bum.szt", "1000");
 	}
 ```
 
@@ -269,6 +269,30 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
+
+	public ActionClassifier(MappingStore mappings, List<Action> actions) {
+		clean();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	 * @return
+	 */
+	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
+		List<Operation> newOps = new ArrayList<>();
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends NodePainter`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
@@ -294,50 +318,14 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 
 ### BoundedWildcard
 Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	 * @return
-	 */
-	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
-		List<Operation> newOps = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
-
-	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-		clean();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### BoundedWildcard
@@ -359,9 +347,9 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ### BoundedWildcard
@@ -374,6 +362,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
 		List<Operation> collect = actions.stream().map(action -> {
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
 ```
 
 ## RuleId[id=EqualsBetweenInconvertibleTypes]
@@ -494,18 +494,6 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-	 * By default, comments are ignored
-	 */
-	private boolean includeComments = false;
-
-	public AstComparator() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
 ```java
@@ -514,6 +502,18 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	boolean nolabel = false;
 
 	TreeScanner(TreeContext treeContext, Tree root) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+	 * By default, comments are ignored
+	 */
+	private boolean includeComments = false;
+
+	public AstComparator() {
 ```
 
 ### RedundantFieldInitialization
@@ -544,18 +544,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ## RuleId[id=EqualsAndHashcode]
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
-#### Snippet
-```java
- * 
- */
-public class CtWrapper<L> extends CtElementImpl {
-
-	/**
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
 in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 #### Snippet
 ```java
@@ -566,19 +554,32 @@ public class CtVirtualElement extends CtWrapper<String> {
 	protected Collection<?> children;
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
 in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 #### Snippet
 ```java
-	@Override
-	public String toString() {
-		return (value != null) ? value.toString() : null;
-	}
+ * 
+ */
+public class CtWrapper<L> extends CtElementImpl {
 
+	/**
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-11-15-24-25.083.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/gumtree/spoon/diff/support/SpoonSupport.java`
@@ -589,6 +590,18 @@ in `src/main/java/gumtree/spoon/diff/support/SpoonSupport.java`
 		return null;
 	}
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		return (value != null) ? value.toString() : null;
+	}
+
 ```
 
 ### ReturnNull
@@ -625,19 +638,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 		return null;
 	}
 
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-12-15-09.728.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
