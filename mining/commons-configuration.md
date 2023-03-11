@@ -1,7 +1,7 @@
 # commons-configuration 
  
 # Bad smells
-I found 348 bad smells with 10 repairable:
+I found 347 bad smells with 10 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 112 | false |
@@ -45,21 +45,8 @@ I found 348 bad smells with 10 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | JavaReflectionInvocation | 1 | false |
 | UseOfPropertiesAsHashtable | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new BuilderParameters\[params.size()\]'
-in `src/main/java/org/apache/commons/configuration2/builder/combined/BaseConfigurationBuilderProvider.java`
-#### Snippet
-```java
-    protected void configureBuilder(final BasicConfigurationBuilder<? extends Configuration> builder, final ConfigurationDeclaration decl,
-        final Collection<BuilderParameters> params) throws Exception {
-        builder.configure(params.toArray(new BuilderParameters[params.size()]));
-    }
-
-```
-
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[keys.size()\]'
 in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertySource.java`
@@ -68,6 +55,18 @@ in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationProperty
             keys.add(keysIterator.next());
         }
         return keys.toArray(new String[keys.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new BuilderParameters\[params.size()\]'
+in `src/main/java/org/apache/commons/configuration2/builder/combined/BaseConfigurationBuilderProvider.java`
+#### Snippet
+```java
+    protected void configureBuilder(final BasicConfigurationBuilder<? extends Configuration> builder, final ConfigurationDeclaration decl,
+        final Collection<BuilderParameters> params) throws Exception {
+        builder.configure(params.toArray(new BuilderParameters[params.size()]));
     }
 
 ```
@@ -326,18 +325,6 @@ in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'propertyValue' in a Serializable class
-in `src/main/java/org/apache/commons/configuration2/event/ConfigurationEvent.java`
-#### Snippet
-```java
-
-    /** Stores the property value. */
-    private final Object propertyValue;
-
-    /** Stores the before update flag. */
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'attributeResult' in a Serializable class
 in `src/main/java/org/apache/commons/configuration2/tree/xpath/ConfigurationAttributePointer.java`
 #### Snippet
@@ -371,6 +358,18 @@ in `src/main/java/org/apache/commons/configuration2/event/ConfigurationErrorEven
     private final Object propertyValue;
 
     /** Stores the exception that caused this event. */
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'propertyValue' in a Serializable class
+in `src/main/java/org/apache/commons/configuration2/event/ConfigurationEvent.java`
+#### Snippet
+```java
+
+    /** Stores the property value. */
+    private final Object propertyValue;
+
+    /** Stores the before update flag. */
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -415,18 +414,6 @@ public class DefaultEntityResolver implements EntityResolver, EntityRegistry {
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder buf` can be replaced with 'String'
-in `src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java`
-#### Snippet
-```java
-            final String statement;
-            if (nameCol && configurationNameColumn != null) {
-                final StringBuilder buf = new StringBuilder(sql);
-                buf.append(" AND ").append(configurationNameColumn).append("=?");
-                statement = buf.toString();
-```
-
-### StringBufferReplaceableByString
-`StringBuilder buf` can be replaced with 'String'
 in `src/main/java/org/apache/commons/configuration2/tree/xpath/XPathExpressionEngine.java`
 #### Snippet
 ```java
@@ -435,6 +422,18 @@ in `src/main/java/org/apache/commons/configuration2/tree/xpath/XPathExpressionEn
                 final StringBuilder buf = new StringBuilder(key.length() + 1);
                 buf.append(keyExisting).append(SPACE);
                 buf.append(key.substring(pos + 1));
+```
+
+### StringBufferReplaceableByString
+`StringBuilder buf` can be replaced with 'String'
+in `src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java`
+#### Snippet
+```java
+            final String statement;
+            if (nameCol && configurationNameColumn != null) {
+                final StringBuilder buf = new StringBuilder(sql);
+                buf.append(" AND ").append(configurationNameColumn).append("=?");
+                statement = buf.toString();
 ```
 
 ## RuleId[id=NonShortCircuitBoolean]
@@ -465,6 +464,30 @@ in `src/main/java/org/apache/commons/configuration2/reloading/CombinedReloadingC
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
+#### Snippet
+```java
+            return content.getInputStream();
+        } catch (final FileSystemException fse) {
+            final String msg = "Unable to access " + url.toString();
+            throw new ConfigurationException(msg, fse);
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/configuration2/tree/TreeUtils.java`
+#### Snippet
+```java
+        result.getAttributes().forEach((k, v) -> buffer.append(' ').append(k).append("='").append(v).append("'"));
+        buffer.append(">");
+        stream.print(buffer.toString());
+        if (result.getValue() != null) {
+            stream.print(result.getValue());
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java`
 #### Snippet
 ```java
@@ -487,65 +510,41 @@ in `src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfigu
         } else if (value instanceof Boolean) {
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/configuration2/tree/TreeUtils.java`
-#### Snippet
-```java
-        result.getAttributes().forEach((k, v) -> buffer.append(' ').append(k).append("='").append(v).append("'"));
-        buffer.append(">");
-        stream.print(buffer.toString());
-        if (result.getValue() != null) {
-            stream.print(result.getValue());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
-#### Snippet
-```java
-            return content.getInputStream();
-        } catch (final FileSystemException fse) {
-            final String msg = "Unable to access " + url.toString();
-            throw new ConfigurationException(msg, fse);
-        }
-```
-
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends BuilderParameters`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/BaseConfigurationBuilderProvider.java`
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/configuration2/tree/xpath/ConfigurationNodeIteratorChildren.java`
 #### Snippet
 ```java
-     * @param params the collection with (uninitialized) parameter objects
+     * @return the start node's index
      */
-    protected void inheritParentBuilderProperties(final ConfigurationDeclaration decl, final Collection<BuilderParameters> params) {
-        params.forEach(p -> decl.getConfigurationBuilder().initChildBuilderParameters(p));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/configuration2/event/BaseEventSource.java`
-#### Snippet
-```java
-     *         currently registered listeners; it cannot be manipulated)
-     */
-    public <T extends Event> Collection<EventListener<? super T>> getEventListeners(final EventType<T> eventType) {
-        final List<EventListener<? super T>> result = new LinkedList<>();
-        eventListeners.getEventListeners(eventType).forEach(result::add);
+    private int findStartIndex(final List<T> children, final T startNode) {
+        int index = 0;
+        for (final T child : children) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
+in `src/main/java/org/apache/commons/configuration2/tree/xpath/ConfigurationNodeIteratorAttribute.java`
 #### Snippet
 ```java
-     * @throws IllegalArgumentException if the map is <b>null</b>
+     * @param name the name of the current attribute
      */
-    public static void put(final FileLocator locator, final Map<String, Object> map) {
-        if (map == null) {
-            throw new IllegalArgumentException("Map must not be null!");
+    private void addAttributeData(final ConfigurationNodePointer<T> parent, final List<String> result, final String name) {
+        if (parent.getNodeHandler().getAttributeValue(parent.getConfigurationNode(), name) != null) {
+            result.add(name);
+```
+
+### BoundedWildcard
+Can generalize to `? extends BuilderParameters`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/FileExtensionConfigurationBuilderProvider.java`
+#### Snippet
+```java
+     * @return the file name or <b>null</b> if unspecified
+     */
+    private static String fetchCurrentFileName(final Collection<BuilderParameters> params) {
+        for (final BuilderParameters p : params) {
+            if (p instanceof FileBasedBuilderParametersImpl) {
 ```
 
 ### BoundedWildcard
@@ -567,8 +566,8 @@ in `src/main/java/org/apache/commons/configuration2/builder/combined/ReloadingMu
 ```java
      * @throws IllegalArgumentException if the result class is <b>null</b>
      */
-    public ReloadingMultiFileConfigurationBuilder(final Class<T> resCls, final Map<String, Object> params, final boolean allowFailOnInit) {
-        super(resCls, params, allowFailOnInit);
+    public ReloadingMultiFileConfigurationBuilder(final Class<T> resCls) {
+        super(resCls);
     }
 ```
 
@@ -579,105 +578,9 @@ in `src/main/java/org/apache/commons/configuration2/builder/combined/ReloadingMu
 ```java
      * @throws IllegalArgumentException if the result class is <b>null</b>
      */
-    public ReloadingMultiFileConfigurationBuilder(final Class<T> resCls) {
-        super(resCls);
+    public ReloadingMultiFileConfigurationBuilder(final Class<T> resCls, final Map<String, Object> params, final boolean allowFailOnInit) {
+        super(resCls, params, allowFailOnInit);
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends BuilderParameters`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/FileExtensionConfigurationBuilderProvider.java`
-#### Snippet
-```java
-     * @return the file name or <b>null</b> if unspecified
-     */
-    private static String fetchCurrentFileName(final Collection<BuilderParameters> params) {
-        for (final BuilderParameters p : params) {
-            if (p instanceof FileBasedBuilderParametersImpl) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConfigurationBuilderProvider`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedBuilderParametersImpl.java`
-#### Snippet
-```java
-     * @throws IllegalArgumentException if the map with providers is <b>null</b> or contains <b>null</b> entries
-     */
-    public CombinedBuilderParametersImpl registerMissingProviders(final Map<String, ConfigurationBuilderProvider> providers) {
-        if (providers == null) {
-            throw new IllegalArgumentException("Map with providers must not be null!");
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
-#### Snippet
-```java
-     * @throws ConversionException if a conversion cannot be performed
-     */
-    private <T> void convertToCollection(final Object src, final Class<T> elemClass, final ConfigurationInterpolator ci, final Collection<T> dest) {
-        extractValues(ci.interpolate(src)).forEach(o -> dest.add(convert(o, elemClass, ci)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
-#### Snippet
-```java
-     * @throws ConversionException if a conversion cannot be performed
-     */
-    private <T> void convertToCollection(final Object src, final Class<T> elemClass, final ConfigurationInterpolator ci, final Collection<T> dest) {
-        extractValues(ci.interpolate(src)).forEach(o -> dest.add(convert(o, elemClass, ci)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
-#### Snippet
-```java
-     * @throws NamingException If JNDI has an issue.
-     */
-    private void recursiveGetKeys(final Set<String> keys, final Context context, final String prefix, final Set<Context> processedCtx) throws NamingException {
-        processedCtx.add(context);
-        NamingEnumeration<NameClassPair> elements = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super Context`
-in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
-#### Snippet
-```java
-     * @throws NamingException If JNDI has an issue.
-     */
-    private void recursiveGetKeys(final Set<String> keys, final Context context, final String prefix, final Set<Context> processedCtx) throws NamingException {
-        processedCtx.add(context);
-        NamingEnumeration<NameClassPair> elements = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/configuration2/AbstractYAMLBasedConfiguration.java`
-#### Snippet
-```java
-     * @param value the value
-     */
-    private static void addEntry(final Map<String, Object> map, final String key, final Object value) {
-        final Object oldValue = map.get(key);
-        if (oldValue == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/configuration2/tree/DefaultExpressionEngine.java`
-#### Snippet
-```java
-     * @param handler the node handler
-     */
-    private <T> void processSubNodes(final DefaultConfigurationKey.KeyIterator keyPart, final List<T> subNodes, final Collection<QueryResult<T>> nodes,
-        final NodeHandler<T> handler) {
-        if (keyPart.hasIndex()) {
 ```
 
 ### BoundedWildcard
@@ -705,15 +608,99 @@ in `src/main/java/org/apache/commons/configuration2/tree/xpath/XPathExpressionEn
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ReloadingController`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/ReloadingCombinedConfigurationBuilder.java`
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
 #### Snippet
 ```java
-     * @param builder the builder object to be checked
+     * @throws IllegalArgumentException if the map is <b>null</b>
      */
-    public static void obtainReloadingController(final Collection<ReloadingController> subControllers, final Object builder) {
-        if (builder instanceof ReloadingControllerSupport) {
-            subControllers.add(((ReloadingControllerSupport) builder).getReloadingController());
+    public static void put(final FileLocator locator, final Map<String, Object> map) {
+        if (map == null) {
+            throw new IllegalArgumentException("Map must not be null!");
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/configuration2/HierarchicalConfigurationXMLReader.java`
+#### Snippet
+```java
+         * @return an object with all attributes of this node
+         */
+        protected Attributes fetchAttributes(final T node, final NodeHandler<T> handler) {
+            final AttributesImpl attrs = new AttributesImpl();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/configuration2/HierarchicalConfigurationXMLReader.java`
+#### Snippet
+```java
+         * @return the name for this node
+         */
+        private String nodeName(final T node, final NodeHandler<T> handler) {
+            final String nodeName = handler.nodeName(node);
+            return nodeName == null ? getRootName() : nodeName;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/configuration2/tree/DefaultExpressionEngine.java`
+#### Snippet
+```java
+     * @param handler the node handler
+     */
+    private <T> void processSubNodes(final DefaultConfigurationKey.KeyIterator keyPart, final List<T> subNodes, final Collection<QueryResult<T>> nodes,
+        final NodeHandler<T> handler) {
+        if (keyPart.hasIndex()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/configuration2/AbstractYAMLBasedConfiguration.java`
+#### Snippet
+```java
+     * @param value the value
+     */
+    private static void addEntry(final Map<String, Object> map, final String key, final Object value) {
+        final Object oldValue = map.get(key);
+        if (oldValue == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/configuration2/event/BaseEventSource.java`
+#### Snippet
+```java
+     *         currently registered listeners; it cannot be manipulated)
+     */
+    public <T extends Event> Collection<EventListener<? super T>> getEventListeners(final EventType<T> eventType) {
+        final List<EventListener<? super T>> result = new LinkedList<>();
+        eventListeners.getEventListeners(eventType).forEach(result::add);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
+#### Snippet
+```java
+     * @throws ConversionException if a conversion cannot be performed
+     */
+    private <T> void convertToCollection(final Object src, final Class<T> elemClass, final ConfigurationInterpolator ci, final Collection<T> dest) {
+        extractValues(ci.interpolate(src)).forEach(o -> dest.add(convert(o, elemClass, ci)));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
+#### Snippet
+```java
+     * @throws ConversionException if a conversion cannot be performed
+     */
+    private <T> void convertToCollection(final Object src, final Class<T> elemClass, final ConfigurationInterpolator ci, final Collection<T> dest) {
+        extractValues(ci.interpolate(src)).forEach(o -> dest.add(convert(o, elemClass, ci)));
+    }
 ```
 
 ### BoundedWildcard
@@ -741,6 +728,18 @@ in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterp
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ReloadingController`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/ReloadingCombinedConfigurationBuilder.java`
+#### Snippet
+```java
+     * @param builder the builder object to be checked
+     */
+    public static void obtainReloadingController(final Collection<ReloadingController> subControllers, final Object builder) {
+        if (builder instanceof ReloadingControllerSupport) {
+            subControllers.add(((ReloadingControllerSupport) builder).getReloadingController());
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/org/apache/commons/configuration2/builder/fluent/Configurations.java`
 #### Snippet
@@ -750,18 +749,6 @@ in `src/main/java/org/apache/commons/configuration2/builder/fluent/Configuration
     private <T extends FileBasedConfiguration> FileBasedConfigurationBuilder<T> createFileBasedBuilder(final Class<T> configClass) {
         return new FileBasedConfigurationBuilder<>(configClass);
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super ImmutableNode`
-in `src/main/java/org/apache/commons/configuration2/XMLListReference.java`
-#### Snippet
-```java
-     * @param elem the current XML element
-     */
-    public static void assignListReference(final Map<ImmutableNode, Object> refs, final ImmutableNode node, final Element elem) {
-        if (refs != null) {
-            refs.put(node, new XMLListReference(elem));
 ```
 
 ### BoundedWildcard
@@ -790,30 +777,6 @@ in `src/main/java/org/apache/commons/configuration2/tree/NodeSelector.java`
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `src/main/java/org/apache/commons/configuration2/HierarchicalConfigurationXMLReader.java`
-#### Snippet
-```java
-         * @return the name for this node
-         */
-        private String nodeName(final T node, final NodeHandler<T> handler) {
-            final String nodeName = handler.nodeName(node);
-            return nodeName == null ? getRootName() : nodeName;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/configuration2/HierarchicalConfigurationXMLReader.java`
-#### Snippet
-```java
-         * @return an object with all attributes of this node
-         */
-        protected Attributes fetchAttributes(final T node, final NodeHandler<T> handler) {
-            final AttributesImpl attrs = new AttributesImpl();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
 in `src/main/java/org/apache/commons/configuration2/tree/QueryResult.java`
 #### Snippet
 ```java
@@ -834,54 +797,6 @@ in `src/main/java/org/apache/commons/configuration2/HierarchicalConfigurationCon
         final Set<String> keySet) {
         final DefaultConfigurationKey.KeyIterator it = keyLast.differenceKey(keyAct).iterator();
         final DefaultConfigurationKey k = keyLast.commonKey(keyAct);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/configuration2/beanutils/XMLBeanDeclaration.java`
-#### Snippet
-```java
-         * @return the wrapped nodes
-         */
-        List<NodeData<T>> wrapInNodeData(final List<T> nodes) {
-            return nodes.stream().map(n -> new NodeData<>(n, nodeHandler)).collect(Collectors.toList());
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/configuration2/AbstractHierarchicalConfiguration.java`
-#### Snippet
-```java
-         */
-        @Override
-        public void visitBeforeChildren(final T node, final NodeHandler<T> handler) {
-            defined = handler.getValue(node) != null || !handler.getAttributes(node).isEmpty();
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/configuration2/AbstractHierarchicalConfiguration.java`
-#### Snippet
-```java
-     */
-    @Override
-    public String nodeKey(final T node, final Map<T, String> cache, final NodeHandler<T> handler) {
-        final List<T> paths = new LinkedList<>();
-        T currentNode = node;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/configuration2/AbstractHierarchicalConfiguration.java`
-#### Snippet
-```java
-         * @param handler the {@code NodeHandler}
-         */
-        public void handleAttributeKeys(final String parentKey, final T node, final NodeHandler<T> handler) {
-            handler.getAttributes(node).forEach(attr -> keyList.add(getExpressionEngine().attributeKey(parentKey, attr)));
-        }
 ```
 
 ### BoundedWildcard
@@ -910,38 +825,62 @@ in `src/main/java/org/apache/commons/configuration2/tree/NodeTracker.java`
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/java/org/apache/commons/configuration2/tree/xpath/ConfigurationNodeIteratorAttribute.java`
+in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
 #### Snippet
 ```java
-     * @param name the name of the current attribute
+     * @throws NamingException If JNDI has an issue.
      */
-    private void addAttributeData(final ConfigurationNodePointer<T> parent, final List<String> result, final String name) {
-        if (parent.getNodeHandler().getAttributeValue(parent.getConfigurationNode(), name) != null) {
-            result.add(name);
+    private void recursiveGetKeys(final Set<String> keys, final Context context, final String prefix, final Set<Context> processedCtx) throws NamingException {
+        processedCtx.add(context);
+        NamingEnumeration<NameClassPair> elements = null;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/configuration2/tree/xpath/ConfigurationNodeIteratorChildren.java`
+Can generalize to `? super Context`
+in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
 #### Snippet
 ```java
-     * @return the start node's index
+     * @throws NamingException If JNDI has an issue.
      */
-    private int findStartIndex(final List<T> children, final T startNode) {
-        int index = 0;
-        for (final T child : children) {
+    private void recursiveGetKeys(final Set<String> keys, final Context context, final String prefix, final Set<Context> processedCtx) throws NamingException {
+        processedCtx.add(context);
+        NamingEnumeration<NameClassPair> elements = null;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super URL`
-in `src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java`
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/configuration2/AbstractHierarchicalConfiguration.java`
 #### Snippet
 ```java
-     * @throws ConfigurationException if loading fails
+         * @param handler the {@code NodeHandler}
+         */
+        public void handleAttributeKeys(final String parentKey, final T node, final NodeHandler<T> handler) {
+            handler.getAttributes(node).forEach(attr -> keyList.add(getExpressionEngine().attributeKey(parentKey, attr)));
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/configuration2/AbstractHierarchicalConfiguration.java`
+#### Snippet
+```java
      */
-    private void loadIncludeFile(final String fileName, final boolean optional, final Deque<URL> seenStack) throws ConfigurationException {
-        if (locator == null) {
-            throw new ConfigurationException(
+    @Override
+    public String nodeKey(final T node, final Map<T, String> cache, final NodeHandler<T> handler) {
+        final List<T> paths = new LinkedList<>();
+        T currentNode = node;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/configuration2/AbstractHierarchicalConfiguration.java`
+#### Snippet
+```java
+         */
+        @Override
+        public void visitBeforeChildren(final T node, final NodeHandler<T> handler) {
+            defined = handler.getValue(node) != null || !handler.getAttributes(node).isEmpty();
+        }
 ```
 
 ### BoundedWildcard
@@ -954,6 +893,54 @@ in `src/main/java/org/apache/commons/configuration2/plist/PropertyListConfigurat
     private void printNode(final PrintWriter out, final int indentLevel, final ImmutableNode node, final NodeHandler<ImmutableNode> handler) {
         final String padding = StringUtils.repeat(" ", indentLevel * INDENT_SIZE);
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConfigurationBuilderProvider`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedBuilderParametersImpl.java`
+#### Snippet
+```java
+     * @throws IllegalArgumentException if the map with providers is <b>null</b> or contains <b>null</b> entries
+     */
+    public CombinedBuilderParametersImpl registerMissingProviders(final Map<String, ConfigurationBuilderProvider> providers) {
+        if (providers == null) {
+            throw new IllegalArgumentException("Map with providers must not be null!");
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/configuration2/beanutils/XMLBeanDeclaration.java`
+#### Snippet
+```java
+         * @return the wrapped nodes
+         */
+        List<NodeData<T>> wrapInNodeData(final List<T> nodes) {
+            return nodes.stream().map(n -> new NodeData<>(n, nodeHandler)).collect(Collectors.toList());
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super ImmutableNode`
+in `src/main/java/org/apache/commons/configuration2/XMLListReference.java`
+#### Snippet
+```java
+     * @param elem the current XML element
+     */
+    public static void assignListReference(final Map<ImmutableNode, Object> refs, final ImmutableNode node, final Element elem) {
+        if (refs != null) {
+            refs.put(node, new XMLListReference(elem));
+```
+
+### BoundedWildcard
+Can generalize to `? extends BuilderParameters`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/BaseConfigurationBuilderProvider.java`
+#### Snippet
+```java
+     * @param params the collection with (uninitialized) parameter objects
+     */
+    protected void inheritParentBuilderProperties(final ConfigurationDeclaration decl, final Collection<BuilderParameters> params) {
+        params.forEach(p -> decl.getConfigurationBuilder().initChildBuilderParameters(p));
+    }
 ```
 
 ### BoundedWildcard
@@ -993,6 +980,30 @@ in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedCon
 ```
 
 ### BoundedWildcard
+Can generalize to `? super URL`
+in `src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java`
+#### Snippet
+```java
+     * @throws ConfigurationException if loading fails
+     */
+    private void loadIncludeFile(final String fileName, final boolean optional, final Deque<URL> seenStack) throws ConfigurationException {
+        if (locator == null) {
+            throw new ConfigurationException(
+```
+
+### BoundedWildcard
+Can generalize to `? extends NodeSelector`
+in `src/main/java/org/apache/commons/configuration2/BaseHierarchicalConfiguration.java`
+#### Snippet
+```java
+     */
+    private List<HierarchicalConfiguration<ImmutableNode>> createConnectedSubConfigurations(final InMemoryNodeModelSupport parentModelSupport,
+        final Collection<NodeSelector> selectors) {
+        return selectors.stream().map(sel -> createSubConfigurationForTrackedNode(sel, parentModelSupport)).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? super ImmutableNode`
 in `src/main/java/org/apache/commons/configuration2/BaseHierarchicalConfiguration.java`
 #### Snippet
@@ -1026,18 +1037,6 @@ in `src/main/java/org/apache/commons/configuration2/BaseHierarchicalConfiguratio
         private boolean isLeafNode(final ImmutableNode node, final NodeHandler<ImmutableNode> handler) {
             return handler.getChildren(node).isEmpty();
         }
-```
-
-### BoundedWildcard
-Can generalize to `? extends NodeSelector`
-in `src/main/java/org/apache/commons/configuration2/BaseHierarchicalConfiguration.java`
-#### Snippet
-```java
-     */
-    private List<HierarchicalConfiguration<ImmutableNode>> createConnectedSubConfigurations(final InMemoryNodeModelSupport parentModelSupport,
-        final Collection<NodeSelector> selectors) {
-        return selectors.stream().map(sel -> createSubConfigurationForTrackedNode(sel, parentModelSupport)).collect(Collectors.toList());
-    }
 ```
 
 ### BoundedWildcard
@@ -1089,30 +1088,6 @@ in `src/main/java/org/apache/commons/configuration2/tree/InMemoryNodeModel.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ImmutableNode`
-in `src/main/java/org/apache/commons/configuration2/tree/InMemoryNodeModel.java`
-#### Snippet
-```java
-     * @param root the root node of the current tree
-     */
-    static void updateParentMapping(final Map<ImmutableNode, ImmutableNode> parents, final ImmutableNode root) {
-        NodeTreeWalker.INSTANCE.walkBFS(root, new ConfigurationNodeVisitorAdapter<ImmutableNode>() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? super ImmutableNode`
-in `src/main/java/org/apache/commons/configuration2/tree/InMemoryNodeModel.java`
-#### Snippet
-```java
-     * @param root the root node of the current tree
-     */
-    static void updateParentMapping(final Map<ImmutableNode, ImmutableNode> parents, final ImmutableNode root) {
-        NodeTreeWalker.INSTANCE.walkBFS(root, new ConfigurationNodeVisitorAdapter<ImmutableNode>() {
-            @Override
-```
-
-### BoundedWildcard
 Can generalize to `? super Collection`
 in `src/main/java/org/apache/commons/configuration2/tree/InMemoryNodeModel.java`
 #### Snippet
@@ -1122,6 +1097,30 @@ in `src/main/java/org/apache/commons/configuration2/tree/InMemoryNodeModel.java`
     private static TreeData createSelectorsForTrackedNodes(final Mutable<Collection<NodeSelector>> refSelectors, final List<ImmutableNode> nodes,
             final TreeData current, final NodeKeyResolver<ImmutableNode> resolver) {
         final List<NodeSelector> selectors = new ArrayList<>(nodes.size());
+```
+
+### BoundedWildcard
+Can generalize to `? super ImmutableNode`
+in `src/main/java/org/apache/commons/configuration2/tree/InMemoryNodeModel.java`
+#### Snippet
+```java
+     * @param root the root node of the current tree
+     */
+    static void updateParentMapping(final Map<ImmutableNode, ImmutableNode> parents, final ImmutableNode root) {
+        NodeTreeWalker.INSTANCE.walkBFS(root, new ConfigurationNodeVisitorAdapter<ImmutableNode>() {
+            @Override
+```
+
+### BoundedWildcard
+Can generalize to `? super ImmutableNode`
+in `src/main/java/org/apache/commons/configuration2/tree/InMemoryNodeModel.java`
+#### Snippet
+```java
+     * @param root the root node of the current tree
+     */
+    static void updateParentMapping(final Map<ImmutableNode, ImmutableNode> parents, final ImmutableNode root) {
+        NodeTreeWalker.INSTANCE.walkBFS(root, new ConfigurationNodeVisitorAdapter<ImmutableNode>() {
+            @Override
 ```
 
 ## RuleId[id=RedundantSuppression]
@@ -1202,24 +1201,12 @@ in `src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/configuration2/builder/BasicBuilderParameters.java`
+in `src/main/java/org/apache/commons/configuration2/builder/PropertiesBuilderParametersImpl.java`
 #### Snippet
 ```java
     @Override
-    public BasicBuilderParameters setThrowExceptionOnMissing(final boolean b) {
-        return setProperty(PROP_THROW_EXCEPTION_ON_MISSING, Boolean.valueOf(b));
-    }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/configuration2/builder/XMLBuilderParametersImpl.java`
-#### Snippet
-```java
-    @Override
-    public XMLBuilderParametersImpl setValidating(final boolean f) {
-        storeProperty(PROP_VALIDATING, Boolean.valueOf(f));
+    public PropertiesBuilderParametersImpl setIncludesAllowed(final boolean f) {
+        storeProperty(PROP_INCLUDES_ALLOWED, Boolean.valueOf(f));
         return this;
     }
 ```
@@ -1238,14 +1225,26 @@ in `src/main/java/org/apache/commons/configuration2/builder/XMLBuilderParameters
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/configuration2/tree/ModelTransaction.java`
+in `src/main/java/org/apache/commons/configuration2/builder/XMLBuilderParametersImpl.java`
 #### Snippet
 ```java
-     */
-    Operations fetchOperations(final ImmutableNode target, final int level) {
-        final Integer nodeLevel = Integer.valueOf(level == LEVEL_UNKNOWN ? level(target) : level);
-        final Map<ImmutableNode, Operations> levelOperations = operations.computeIfAbsent(nodeLevel, k -> new HashMap<>());
-        Operations ops = levelOperations.get(target);
+    @Override
+    public XMLBuilderParametersImpl setValidating(final boolean f) {
+        storeProperty(PROP_VALIDATING, Boolean.valueOf(f));
+        return this;
+    }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/configuration2/builder/BasicBuilderParameters.java`
+#### Snippet
+```java
+    @Override
+    public BasicBuilderParameters setThrowExceptionOnMissing(final boolean b) {
+        return setProperty(PROP_THROW_EXCEPTION_ON_MISSING, Boolean.valueOf(b));
+    }
+
 ```
 
 ### UnnecessaryBoxing
@@ -1262,14 +1261,26 @@ in `src/main/java/org/apache/commons/configuration2/builder/DatabaseBuilderParam
 
 ### UnnecessaryBoxing
 Unnecessary boxing
+in `src/main/java/org/apache/commons/configuration2/tree/ModelTransaction.java`
+#### Snippet
+```java
+     */
+    Operations fetchOperations(final ImmutableNode target, final int level) {
+        final Integer nodeLevel = Integer.valueOf(level == LEVEL_UNKNOWN ? level(target) : level);
+        final Map<ImmutableNode, Operations> levelOperations = operations.computeIfAbsent(nodeLevel, k -> new HashMap<>());
+        Operations ops = levelOperations.get(target);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
 in `src/main/java/org/apache/commons/configuration2/convert/PropertyConverter.java`
 #### Snippet
 ```java
-        final String strValue = String.valueOf(value);
-        if (strValue.length() == 1) {
-            return Character.valueOf(strValue.charAt(0));
+            return (Double) n;
         }
-        throw new ConversionException(String.format("The value '%s' cannot be converted to a Character object!", strValue));
+        return Double.valueOf(n.doubleValue());
+    }
+
 ```
 
 ### UnnecessaryBoxing
@@ -1289,23 +1300,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/configuration2/convert/PropertyConverter.java`
 #### Snippet
 ```java
-            return (Double) n;
+        final String strValue = String.valueOf(value);
+        if (strValue.length() == 1) {
+            return Character.valueOf(strValue.charAt(0));
         }
-        return Double.valueOf(n.doubleValue());
-    }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/configuration2/builder/PropertiesBuilderParametersImpl.java`
-#### Snippet
-```java
-    @Override
-    public PropertiesBuilderParametersImpl setIncludesAllowed(final boolean f) {
-        storeProperty(PROP_INCLUDES_ALLOWED, Boolean.valueOf(f));
-        return this;
-    }
+        throw new ConversionException(String.format("The value '%s' cannot be converted to a Character object!", strValue));
 ```
 
 ### UnnecessaryBoxing
@@ -1372,6 +1371,18 @@ in `src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `src/main/java/org/apache/commons/configuration2/builder/combined/MultiFileConfigurationBuilder.java`
+#### Snippet
+```java
+        String fileName;
+        final Boolean reentrant = inInterpolation.get();
+        if (reentrant != null && reentrant.booleanValue()) {
+            fileName = multiParams.getFilePattern();
+        } else {
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java`
 #### Snippet
 ```java
@@ -1384,14 +1395,38 @@ in `src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfigu
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `src/main/java/org/apache/commons/configuration2/builder/combined/MultiFileConfigurationBuilder.java`
+in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
 #### Snippet
 ```java
-        String fileName;
-        final Boolean reentrant = inInterpolation.get();
-        if (reentrant != null && reentrant.booleanValue()) {
-            fileName = multiParams.getFilePattern();
-        } else {
+    public byte getByte(final String key) {
+        final Byte b = convert(Byte.class, key, null, true);
+        return checkNonNullValue(key, b).byteValue();
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
+#### Snippet
+```java
+    public boolean getBoolean(final String key) {
+        final Boolean b = convert(Boolean.class, key, null, true);
+        return checkNonNullValue(key, b).booleanValue();
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public long getLong(final String key, final long defaultValue) {
+        return getLong(key, Long.valueOf(defaultValue)).longValue();
+    }
+
 ```
 
 ### UnnecessaryUnboxing
@@ -1411,9 +1446,9 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
 #### Snippet
 ```java
-    public float getFloat(final String key) {
-        final Float f = convert(Float.class, key, null, true);
-        return checkNonNullValue(key, f).floatValue();
+    public int getInt(final String key) {
+        final Integer i = convert(Integer.class, key, null, true);
+        return checkNonNullValue(key, i).intValue();
     }
 
 ```
@@ -1436,68 +1471,8 @@ in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
 #### Snippet
 ```java
     @Override
-    public byte getByte(final String key, final byte defaultValue) {
-        return getByte(key, Byte.valueOf(defaultValue)).byteValue();
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public int getInt(final String key, final int defaultValue) {
-        return getInteger(key, Integer.valueOf(defaultValue)).intValue();
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
-#### Snippet
-```java
-    public long getLong(final String key) {
-        final Long l = convert(Long.class, key, null, true);
-        return checkNonNullValue(key, l).longValue();
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
-#### Snippet
-```java
-    public byte getByte(final String key) {
-        final Byte b = convert(Byte.class, key, null, true);
-        return checkNonNullValue(key, b).byteValue();
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public long getLong(final String key, final long defaultValue) {
-        return getLong(key, Long.valueOf(defaultValue)).longValue();
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
-#### Snippet
-```java
-    public int getInt(final String key) {
-        final Integer i = convert(Integer.class, key, null, true);
-        return checkNonNullValue(key, i).intValue();
+    public boolean getBoolean(final String key, final boolean defaultValue) {
+        return getBoolean(key, Boolean.valueOf(defaultValue)).booleanValue();
     }
 
 ```
@@ -1531,9 +1506,45 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
 #### Snippet
 ```java
-    public boolean getBoolean(final String key) {
-        final Boolean b = convert(Boolean.class, key, null, true);
-        return checkNonNullValue(key, b).booleanValue();
+    public long getLong(final String key) {
+        final Long l = convert(Long.class, key, null, true);
+        return checkNonNullValue(key, l).longValue();
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public int getInt(final String key, final int defaultValue) {
+        return getInteger(key, Integer.valueOf(defaultValue)).intValue();
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
+#### Snippet
+```java
+    public float getFloat(final String key) {
+        final Float f = convert(Float.class, key, null, true);
+        return checkNonNullValue(key, f).floatValue();
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
+#### Snippet
+```java
+    @Override
+    public byte getByte(final String key, final byte defaultValue) {
+        return getByte(key, Byte.valueOf(defaultValue)).byteValue();
     }
 
 ```
@@ -1546,18 +1557,6 @@ in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
     public double getDouble(final String key) {
         final Double d = convert(Double.class, key, null, true);
         return checkNonNullValue(key, d).doubleValue();
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
-#### Snippet
-```java
-    @Override
-    public boolean getBoolean(final String key, final boolean defaultValue) {
-        return getBoolean(key, Boolean.valueOf(defaultValue)).booleanValue();
     }
 
 ```
@@ -1687,6 +1686,30 @@ in `src/main/java/org/apache/commons/configuration2/plist/PropertyListConfigurat
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/io/FileUtils.java`
+#### Snippet
+```java
+    /**
+     * Decodes the specified URL as per RFC 3986, i.e. transforms percent-encoded octets to characters by decoding with the
+     * UTF-8 character set. This function is primarily intended for usage with {@link java.net.URL} which unfortunately does
+     * not enforce proper URLs. As such, this method will leniently accept invalid characters or malformed percent-encoded
+     * octets and simply pass them literally through to the result string. Except for rare edge cases, this will make
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ConfigurationMap.java`
+#### Snippet
+```java
+/**
+ * <p>
+ * The {@code ConfigurationMap} wraps a configuration-collection {@link org.apache.commons.configuration2.Configuration}
+ * instance to provide a {@code Map} interface.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/configuration2/ConfigurationMap.java`
 #### Snippet
@@ -1723,14 +1746,14 @@ in `src/main/java/org/apache/commons/configuration2/ConfigurationMap.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ConfigurationMap.java`
+Qualifier `org.apache.commons.configuration2.tree` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/CombinedConfiguration.java`
 #### Snippet
 ```java
-/**
- * <p>
- * The {@code ConfigurationMap} wraps a configuration-collection {@link org.apache.commons.configuration2.Configuration}
- * instance to provide a {@code Map} interface.
+ * methods. After that the configurations can be accessed either by name (if one was provided when the configuration was
+ * added) or by index. For the whole set of managed configurations a logical node structure is constructed. For this
+ * purpose a {@link org.apache.commons.configuration2.tree.NodeCombiner NodeCombiner} object can be set. This makes it
+ * possible to specify different algorithms for the combination process.
  * </p>
 ```
 
@@ -1747,78 +1770,6 @@ in `src/main/java/org/apache/commons/configuration2/CombinedConfiguration.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.tree` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/CombinedConfiguration.java`
-#### Snippet
-```java
- * methods. After that the configurations can be accessed either by name (if one was provided when the configuration was
- * added) or by index. For the whole set of managed configurations a logical node structure is constructed. For this
- * purpose a {@link org.apache.commons.configuration2.tree.NodeCombiner NodeCombiner} object can be set. This makes it
- * possible to specify different algorithms for the combination process.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.springframework.beans.factory.FactoryBean#isSingleton()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.springframework.beans.factory.FactoryBean#getObjectType()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
-#### Snippet
-```java
- * </p>
- *
- * @see java.util.Properties
- * @see org.springframework.core.io.support.PropertiesLoaderSupport
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.springframework.beans.factory.FactoryBean#getObject()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.configuration2.reloading` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/configuration2/reloading/ManagedReloadingDetector.java`
 #### Snippet
@@ -1831,171 +1782,27 @@ in `src/main/java/org/apache/commons/configuration2/reloading/ManagedReloadingDe
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/io/FileUtils.java`
+Qualifier `org.apache.commons.configuration2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/beanutils/ConfigurationDynaClass.java`
 #### Snippet
 ```java
-    /**
-     * Decodes the specified URL as per RFC 3986, i.e. transforms percent-encoded octets to characters by decoding with the
-     * UTF-8 character set. This function is primarily intended for usage with {@link java.net.URL} which unfortunately does
-     * not enforce proper URLs. As such, this method will leniently accept invalid characters or malformed percent-encoded
-     * octets and simply pass them literally through to the result string. Except for rare edge cases, this will make
+/**
+ * The {@code ConfigurationDynaClass} dynamically determines properties for a {@code ConfigurationDynaBean} from a
+ * wrapped configuration-collection {@link org.apache.commons.configuration2.Configuration} instance.
+ *
+ * @since 1.0-rc1
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/resolver/DefaultEntityResolver.java`
 #### Snippet
 ```java
-     * @return The associated enum if key is found and has valid format, default value otherwise.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Enum.
-     * @since 2.8.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param defaultValue The default value.
-     * @return The associated float if key is found and has valid format, default value otherwise.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Float.
+     * @param systemId the system identifier of the entity being referenced
+     * @return an input source for the specified entity
+     * @throws org.xml.sax.SAXException if a parsing exception occurs
      */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated List of strings.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         List.
-     * @see #getList(Class, String, List)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param defaultValue The default value.
-     * @return The associated Duration if key is found and has valid format, default value otherwise.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Duration.
-     * @since 2.8.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param key The configuration key.
-     * @return The associated properties if key is found.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         String/List.
-     * @throws IllegalArgumentException if one of the tokens is malformed (does not contain an equals sign).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated string.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         String.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param defaultValue the default value (may be <b>null</b>)
-     * @return the collection to which data was added
-     * @throws org.apache.commons.configuration2.ex.ConversionException if the conversion is not possible
-     * @since 2.0
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated enum.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         String.
-     * @since 2.8.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated string array if key is found.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         String/List of Strings.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated string if key is found and has valid format, default value otherwise.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         String.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated long.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Long.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated List.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         List.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param key The configuration key.
-     * @return The associated float.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Float.
-     */
+    @SuppressWarnings("resource") // The stream is managed by the InputSource returned by this method.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2015,58 +1822,10 @@ Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be remov
 in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
-     * @param key The configuration key.
-     * @return The associated boolean.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Boolean.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated array if the key is found, and the value compatible with the type specified.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not
-     *         compatible with an array of the specified class.
-     * @throws IllegalArgumentException if the default value is not an array of the specified type
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param defaultValue The default value.
-     * @return The associated int if key is found and has valid format, default value otherwise.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Integer.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param defaultValue The default value.
-     * @return The associated boolean if key is found and has valid format, default value otherwise.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Boolean.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated short.
+     * @return The associated long.
      *
      * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Short.
+     *         Long.
      */
 ```
 
@@ -2087,6 +1846,18 @@ Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be remov
 in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
+     * @param defaultValue The default value.
+     * @return The associated Duration if key is found and has valid format, default value otherwise.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Duration.
+     * @since 2.8.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
      * @param key The configuration key.
      * @return The associated int.
      * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
@@ -2099,59 +1870,11 @@ Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be remov
 in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
-     * @return The associated list if the key is found.
+     * @return The associated array if the key is found, and the value compatible with the type specified.
      *
      * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not
-     *         compatible with a list of the specified class.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param key The configuration key.
-     * @return The associated Duration if key is found and has valid format, default value otherwise.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Duration.
-     * @since 2.8.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated long if key is found and has valid format, default value otherwise.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Long.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param defaultValue The default value.
-     * @return The associated double if key is found and has valid format, default value otherwise.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Double.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param defaultValue The default value.
-     * @return The associated boolean.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Boolean.
-     */
+     *         compatible with an array of the specified class.
+     * @throws IllegalArgumentException if the default value is not an array of the specified type
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2183,8 +1906,44 @@ Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be remov
 in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
+     * @param key The configuration key.
+     * @return The associated byte.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Byte.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param key The configuration key.
+     * @return The associated properties if key is found.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         String/List.
+     * @throws IllegalArgumentException if one of the tokens is malformed (does not contain an equals sign).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated List of strings.
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         List.
+     * @see #getList(Class, String, List)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
      * @param defaultValue The default value.
-     * @return The associated int.
+     * @return The associated int if key is found and has valid format, default value otherwise.
      * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
      *         Integer.
      */
@@ -2196,33 +1955,9 @@ in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
      * @param defaultValue The default value.
-     * @return The associated byte if key is found and has valid format, default value otherwise.
+     * @return The associated boolean if key is found and has valid format, default value otherwise.
      * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Byte.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @return The associated List.
-     *
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not
-     *         compatible with a list of the specified class.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
-#### Snippet
-```java
-     * @param defaultValue The default value.
-     * @return The associated double.
-     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Double.
+     *         Boolean.
      */
 ```
 
@@ -2243,11 +1978,107 @@ Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be remov
 in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
-     * @return the value of the requested type for the key
+     * @param defaultValue The default value.
+     * @return The associated boolean.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Boolean.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated string.
      *
-     * @throws org.apache.commons.configuration2.ex.ConversionException if the value is not compatible with the requested
-     *         type
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         String.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated long if key is found and has valid format, default value otherwise.
      *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Long.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param defaultValue The default value.
+     * @return The associated byte if key is found and has valid format, default value otherwise.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Byte.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param defaultValue The default value.
+     * @return The associated float if key is found and has valid format, default value otherwise.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Float.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param defaultValue The default value.
+     * @return The associated double.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Double.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param defaultValue The default value.
+     * @return The associated int.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Integer.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated string array if key is found.
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         String/List of Strings.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated List.
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         List.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2259,6 +2090,18 @@ in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
      * @return the collection to which data was added
      * @throws org.apache.commons.configuration2.ex.ConversionException if the conversion is not possible
      * @since 2.0
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated string if key is found and has valid format, default value otherwise.
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         String.
      */
 ```
 
@@ -2279,6 +2122,54 @@ Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be remov
 in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
+     * @return The associated list if the key is found.
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not
+     *         compatible with a list of the specified class.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param key The configuration key.
+     * @return The associated float.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Float.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param defaultValue The default value.
+     * @return The associated double if key is found and has valid format, default value otherwise.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Double.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param key The configuration key.
+     * @return The associated boolean.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Boolean.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
      * @param key The configuration key.
      * @return The associated double.
      * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
@@ -2291,11 +2182,11 @@ Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be remov
 in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
-     * @param key The configuration key.
-     * @return The associated byte.
+     * @return The associated enum.
+     *
      * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
-     *         Byte.
-     */
+     *         String.
+     * @since 2.8.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2323,15 +2214,75 @@ in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/resolver/DefaultEntityResolver.java`
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
 #### Snippet
 ```java
-     * @param systemId the system identifier of the entity being referenced
-     * @return an input source for the specified entity
-     * @throws org.xml.sax.SAXException if a parsing exception occurs
+     * @param key The configuration key.
+     * @return The associated Duration if key is found and has valid format, default value otherwise.
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Duration.
+     * @since 2.8.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated short.
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Short.
      */
-    @SuppressWarnings("resource") // The stream is managed by the InputSource returned by this method.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated enum if key is found and has valid format, default value otherwise.
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not a
+     *         Enum.
+     * @since 2.8.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return the value of the requested type for the key
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException if the value is not compatible with the requested
+     *         type
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @param defaultValue the default value (may be <b>null</b>)
+     * @return the collection to which data was added
+     * @throws org.apache.commons.configuration2.ex.ConversionException if the conversion is not possible
+     * @since 2.0
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.configuration2.ex` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java`
+#### Snippet
+```java
+     * @return The associated List.
+     *
+     * @throws org.apache.commons.configuration2.ex.ConversionException is thrown if the key maps to an object that is not
+     *         compatible with a list of the specified class.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2368,18 +2319,6 @@ in `src/main/java/org/apache/commons/configuration2/beanutils/ConfigurationDynaB
  * {@link org.apache.commons.configuration2.Configuration#getList(String)} method. Setting an indexed property is
  * supported, too.
  * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.configuration2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/configuration2/beanutils/ConfigurationDynaClass.java`
-#### Snippet
-```java
-/**
- * The {@code ConfigurationDynaClass} dynamically determines properties for a {@code ConfigurationDynaBean} from a
- * wrapped configuration-collection {@link org.apache.commons.configuration2.Configuration} instance.
- *
- * @since 1.0-rc1
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2455,6 +2394,66 @@ in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
+#### Snippet
+```java
+ * </p>
+ *
+ * @see java.util.Properties
+ * @see org.springframework.core.io.support.PropertiesLoaderSupport
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.springframework.beans.factory.FactoryBean#isSingleton()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.springframework.beans.factory.FactoryBean#getObject()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.springframework.beans.factory.FactoryBean#getObjectType()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.configuration2.beanutils` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
 #### Snippet
@@ -2464,55 +2463,6 @@ in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedCon
  * (namely {@link org.apache.commons.configuration2.beanutils.XMLBeanDeclaration XMLBeanDeclaration} will be used to
  * extract the configuration's initialization parameters, which allows for complex initialization scenarios).
  * </p>
-```
-
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/configuration2/resolver/CatalogResolver.java`
-#### Snippet
-```java
-                    catalog.loadSystemCatalogs();
-                } catch (final Exception ex) {
-                    ex.printStackTrace();
-                }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
-#### Snippet
-```java
-            return getManager().resolveName(base, name.getBaseName()).getURI();
-        } catch (final FileSystemException fse) {
-            fse.printStackTrace();
-            return null;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
-#### Snippet
-```java
-            return parent != null ? parent.getURI() : null;
-        } catch (final FileSystemException fse) {
-            fse.printStackTrace();
-            return null;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
-#### Snippet
-```java
-            return resolveURI(path).getBaseName();
-        } catch (final FileSystemException fse) {
-            fse.printStackTrace();
-            return null;
-        }
 ```
 
 ## RuleId[id=NestedAssignment]
@@ -2538,6 +2488,55 @@ in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBu
                     result = resObj = createResult();
                     created = true;
                 }
+```
+
+## RuleId[id=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
+#### Snippet
+```java
+            return resolveURI(path).getBaseName();
+        } catch (final FileSystemException fse) {
+            fse.printStackTrace();
+            return null;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
+#### Snippet
+```java
+            return parent != null ? parent.getURI() : null;
+        } catch (final FileSystemException fse) {
+            fse.printStackTrace();
+            return null;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
+#### Snippet
+```java
+            return getManager().resolveName(base, name.getBaseName()).getURI();
+        } catch (final FileSystemException fse) {
+            fse.printStackTrace();
+            return null;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/configuration2/resolver/CatalogResolver.java`
+#### Snippet
+```java
+                    catalog.loadSystemCatalogs();
+                } catch (final Exception ex) {
+                    ex.printStackTrace();
+                }
+
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -2580,30 +2579,6 @@ in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedBui
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `reloadingController` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/configuration2/builder/combined/ReloadingCombinedConfigurationBuilder.java`
-#### Snippet
-```java
-public class ReloadingCombinedConfigurationBuilder extends CombinedConfigurationBuilder implements ReloadingControllerSupport {
-    /** The reloading controller used by this builder. */
-    private ReloadingController reloadingController;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `resetParameters` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/configuration2/builder/FileBasedConfigurationBuilder.java`
-#### Snippet
-```java
-
-    /** A flag whether the builder's parameters were reset. */
-    private boolean resetParameters;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `autoSaveListener` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/configuration2/builder/FileBasedConfigurationBuilder.java`
 #### Snippet
@@ -2628,6 +2603,30 @@ in `src/main/java/org/apache/commons/configuration2/builder/FileBasedConfigurati
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `resetParameters` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/configuration2/builder/FileBasedConfigurationBuilder.java`
+#### Snippet
+```java
+
+    /** A flag whether the builder's parameters were reset. */
+    private boolean resetParameters;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `reloadingController` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/configuration2/builder/combined/ReloadingCombinedConfigurationBuilder.java`
+#### Snippet
+```java
+public class ReloadingCombinedConfigurationBuilder extends CombinedConfigurationBuilder implements ReloadingControllerSupport {
+    /** The reloading controller used by this builder. */
+    private ReloadingController reloadingController;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `parameters` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBuilder.java`
 #### Snippet
@@ -2640,27 +2639,15 @@ in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBu
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentXMLParameters` is accessed in both synchronized and unsynchronized contexts
+Field `definitionConfiguration` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
 #### Snippet
 ```java
 
-    /** The current XML parameters object. */
-    private XMLBuilderParametersImpl currentXMLParameters;
+    /** Stores temporarily the configuration with the builder definitions. */
+    private HierarchicalConfiguration<?> definitionConfiguration;
 
-    /** The configuration that is currently constructed. */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentParameters` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
-#### Snippet
-```java
-
-    /** Stores the current parameters object. */
-    private CombinedBuilderParametersImpl currentParameters;
-
-    /** The current XML parameters object. */
+    /** The object with data about configuration sources. */
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2676,15 +2663,27 @@ in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedCon
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `definitionConfiguration` is accessed in both synchronized and unsynchronized contexts
+Field `currentParameters` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
 #### Snippet
 ```java
 
-    /** Stores temporarily the configuration with the builder definitions. */
-    private HierarchicalConfiguration<?> definitionConfiguration;
+    /** Stores the current parameters object. */
+    private CombinedBuilderParametersImpl currentParameters;
 
-    /** The object with data about configuration sources. */
+    /** The current XML parameters object. */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `currentXMLParameters` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
+#### Snippet
+```java
+
+    /** The current XML parameters object. */
+    private XMLBuilderParametersImpl currentXMLParameters;
+
+    /** The configuration that is currently constructed. */
 ```
 
 ## RuleId[id=JavaReflectionInvocation]
@@ -2727,27 +2726,15 @@ in `src/main/java/org/apache/commons/configuration2/io/FileHandler.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `key`
-in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
+Assignment to method parameter `lookup`
+in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
 #### Snippet
 ```java
-
-        try {
-            key = key.replace('.', '/');
-            return getBaseContext().lookup(key);
-        } catch (final NameNotFoundException | NotContextException nctxex) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `key`
-in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
-#### Snippet
-```java
-            return false;
+    public static Lookup nullSafeLookup(Lookup lookup) {
+        if (lookup == null) {
+            lookup = DummyLookup.INSTANCE;
         }
-        key = key.replace('.', '/');
-        try {
-            // throws a NamingException if JNDI doesn't contain the key.
+        return lookup;
 ```
 
 ### AssignmentToMethodParameter
@@ -2763,15 +2750,27 @@ in `src/main/java/org/apache/commons/configuration2/web/BaseWebConfiguration.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `lookup`
-in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
+Assignment to method parameter `key`
+in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
 #### Snippet
 ```java
-    public static Lookup nullSafeLookup(Lookup lookup) {
-        if (lookup == null) {
-            lookup = DummyLookup.INSTANCE;
+            return false;
         }
-        return lookup;
+        key = key.replace('.', '/');
+        try {
+            // throws a NamingException if JNDI doesn't contain the key.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `key`
+in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
+#### Snippet
+```java
+
+        try {
+            key = key.replace('.', '/');
+            return getBaseContext().lookup(key);
+        } catch (final NameNotFoundException | NotContextException nctxex) {
 ```
 
 ### AssignmentToMethodParameter
@@ -2801,18 +2800,6 @@ in `src/main/java/org/apache/commons/configuration2/plist/PropertyListConfigurat
 ## RuleId[id=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `src/main/java/org/apache/commons/configuration2/resolver/CatalogResolver.java`
-#### Snippet
-```java
-                    }
-                    // try again!
-                    continue;
-                } finally {
-                    try {
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
 in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
 #### Snippet
 ```java
@@ -2823,65 +2810,28 @@ in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
             }
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-06-18-58-59.902.html`
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `src/main/java/org/apache/commons/configuration2/resolver/CatalogResolver.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+                    }
+                    // try again!
+                    continue;
+                } finally {
+                    try {
 ```
 
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/CombinedLocationStrategy.java`
+in `src/main/java/org/apache/commons/configuration2/tree/xpath/ConfigurationNodeIteratorBase.java`
 #### Snippet
 ```java
+    public NodePointer getNodePointer() {
+        if (getPosition() < 1 && !setPosition(1)) {
+            return null;
         }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/ClasspathLocationStrategy.java`
-#### Snippet
-```java
-    @Override
-    public URL locate(final FileSystem fileSystem, final FileLocator locator) {
-        return StringUtils.isEmpty(locator.getFileName()) ? null : FileLocatorUtils.locateFromClasspath(locator.getFileName());
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/BasePathLocationStrategy.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/HomeDirectoryLocationStrategy.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
 
 ```
 
@@ -2911,278 +2861,14 @@ in `src/main/java/org/apache/commons/configuration2/tree/xpath/ConfigurationNode
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
+in `src/main/java/org/apache/commons/configuration2/io/FileUtils.java`
 #### Snippet
 ```java
-
-        final URL url = locate(locator);
-        return url != null ? createFullyInitializedLocatorFromURL(locator, url) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
-#### Snippet
-```java
-            return uri.toURL();
-        } catch (final MalformedURLException e) {
+    public static File toFile(final URL url) {
+        if (url == null || !"file".equalsIgnoreCase(url.getProtocol())) {
             return null;
         }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
-#### Snippet
-```java
-    public static URL locate(final FileLocator locator) {
-        if (locator == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
-#### Snippet
-```java
-    static String getFileName(final URL url) {
-        if (url == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
-#### Snippet
-```java
-
-        if (path.endsWith("/") || StringUtils.isEmpty(path)) {
-            return null;
-        }
-        return path.substring(path.lastIndexOf("/") + 1);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
-#### Snippet
-```java
-    static String getBasePath(final URL url) {
-        if (url == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/ConfigurationDeclaration.java`
-#### Snippet
-```java
-    @Override
-    public String getBeanClassName() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/ConfigurationXMLReader.java`
-#### Snippet
-```java
-    @Override
-    public Object getProperty(final String name) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/ConfigurationXMLReader.java`
-#### Snippet
-```java
-    @Override
-    public EntityResolver getEntityResolver() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/ConfigurationXMLReader.java`
-#### Snippet
-```java
-    @Override
-    public ErrorHandler getErrorHandler() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/ConfigurationXMLReader.java`
-#### Snippet
-```java
-    @Override
-    public DTDHandler getDTDHandler() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/CombinedConfiguration.java`
-#### Snippet
-```java
-        final Set<Configuration> sources = getSources(key);
-        if (sources.isEmpty()) {
-            return null;
-        }
-        final Iterator<Configuration> iterator = sources.iterator();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/CombinedConfiguration.java`
-#### Snippet
-```java
-        private Collection<String> parseAt(final String at) {
-            if (StringUtils.isEmpty(at)) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/xpath/ConfigurationNodeIteratorBase.java`
-#### Snippet
-```java
-    public NodePointer getNodePointer() {
-        if (getPosition() < 1 && !setPosition(1)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/web/ServletRequestConfiguration.java`
-#### Snippet
-```java
-
-        if (values == null || values.length == 0) {
-            return null;
-        }
-        if (values.length == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileHandler.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileHandler.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileHandler.java`
-#### Snippet
-```java
-    private static File createFile(final FileLocator loc) {
-        if (loc.getFileName() == null && loc.getSourceURL() == null) {
-            return null;
-        }
-        if (loc.getSourceURL() != null) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass.java`
-#### Snippet
-```java
-    @Override
-    public String getName() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
-#### Snippet
-```java
-     */
-    private static <T> T[] defensiveCopy(final T[] src) {
-        return src != null ? src.clone() : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/FileExtensionConfigurationBuilderProvider.java`
-#### Snippet
-```java
-    private static String extractExtension(final String fileName) {
-        if (fileName == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/FileExtensionConfigurationBuilderProvider.java`
-#### Snippet
-```java
-
-        final int pos = fileName.lastIndexOf(EXT_SEPARATOR);
-        return pos < 0 ? null : fileName.substring(pos + 1);
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/FileExtensionConfigurationBuilderProvider.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
+        String fileName = url.getFile().replace('/', File.separatorChar);
 ```
 
 ### ReturnNull
@@ -3223,31 +2909,19 @@ in `src/main/java/org/apache/commons/configuration2/io/DefaultFileSystem.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java`
+in `src/main/java/org/apache/commons/configuration2/reloading/FileHandlerReloadingDetector.java`
 #### Snippet
 ```java
-                    return results.size() > 1 ? results : results.get(0);
-                }
+                return FileLocatorUtils.fileFromURL(new URL(path.substring(0, path.indexOf('!'))));
+            } catch (final MalformedURLException mex) {
                 return null;
             }
-        };
+        }
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java`
-#### Snippet
-```java
-            protected Integer performOperation() throws SQLException {
-                try (ResultSet rs = openResultSet(String.format(SQL_IS_EMPTY, table), true)) {
-                    return rs.next() ? Integer.valueOf(rs.getInt(1)) : null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/AbsoluteNameLocationStrategy.java`
+in `src/main/java/org/apache/commons/configuration2/io/CombinedLocationStrategy.java`
 #### Snippet
 ```java
         }
@@ -3259,79 +2933,7 @@ in `src/main/java/org/apache/commons/configuration2/io/AbsoluteNameLocationStrat
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
-#### Snippet
-```java
-    protected Object extractConversionValue(final Object container, final Class<?> targetCls, final ConfigurationInterpolator ci) {
-        final Collection<?> values = extractValues(container, 1);
-        return values.isEmpty() ? null : ci.interpolate(values.iterator().next());
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
-#### Snippet
-```java
-    public Object toArray(final Object src, final Class<?> elemClass, final ConfigurationInterpolator ci) {
-        if (src == null) {
-            return null;
-        }
-        if (isEmptyElement(src)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
-#### Snippet
-```java
-    protected <T> T convertValue(final Object src, final Class<T> targetCls, final ConfigurationInterpolator ci) {
-        if (src == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
-#### Snippet
-```java
-    protected Object getPropertyInternal(String key) {
-        if (clearedProperties.contains(key)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
-#### Snippet
-```java
-        } catch (final NameNotFoundException | NotContextException nctxex) {
-            // expected exception, no need to log it
-            return null;
-        } catch (final NamingException e) {
-            fireError(ConfigurationErrorEvent.READ, ConfigurationErrorEvent.READ, key, null, e);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
-#### Snippet
-```java
-        } catch (final NamingException e) {
-            fireError(ConfigurationErrorEvent.READ, ConfigurationErrorEvent.READ, key, null, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
+in `src/main/java/org/apache/commons/configuration2/tree/MergeCombiner.java`
 #### Snippet
 ```java
         }
@@ -3343,43 +2945,19 @@ in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/MultiWrapDynaClass.java`
 #### Snippet
 ```java
-                return stack.remove(stack.size() - 1);
-            }
-            return null;
-        }
+    @Override
+    public String getName() {
+        return null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java`
-#### Snippet
-```java
-                return stack.get(stack.size() - 1);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/FileUtils.java`
-#### Snippet
-```java
-    public static File toFile(final URL url) {
-        if (url == null || !"file".equalsIgnoreCase(url.getProtocol())) {
-            return null;
-        }
-        String fileName = url.getFile().replace('/', File.separatorChar);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/resolver/CatalogResolver.java`
+in `src/main/java/org/apache/commons/configuration2/io/FileHandler.java`
 #### Snippet
 ```java
         }
@@ -3391,83 +2969,71 @@ in `src/main/java/org/apache/commons/configuration2/resolver/CatalogResolver.jav
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/OverrideCombiner.java`
+in `src/main/java/org/apache/commons/configuration2/io/FileHandler.java`
 #### Snippet
 ```java
-            return HANDLER.getChildren(node2, child.getNodeName()).get(0);
         }
+
         return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/FileHandler.java`
+#### Snippet
+```java
+    private static File createFile(final FileLocator loc) {
+        if (loc.getFileName() == null && loc.getSourceURL() == null) {
+            return null;
+        }
+        if (loc.getSourceURL() != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/FileExtensionConfigurationBuilderProvider.java`
+#### Snippet
+```java
+    private static String extractExtension(final String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/FileExtensionConfigurationBuilderProvider.java`
+#### Snippet
+```java
+
+        final int pos = fileName.lastIndexOf(EXT_SEPARATOR);
+        return pos < 0 ? null : fileName.substring(pos + 1);
     }
 }
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/UnionCombiner.java`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/FileExtensionConfigurationBuilderProvider.java`
 #### Snippet
 ```java
             }
         }
         return null;
     }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
-#### Snippet
-```java
-            return value != null
-                ? stringConverter.apply(value)
-                : null;
-        });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
-#### Snippet
-```java
-                    return Array.getLength(obj) > 0
-                            ? Array.get(obj, 0)
-                            : null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
-#### Snippet
-```java
-            return it.hasNext()
-                    ? it.next()
-                    : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
-#### Snippet
-```java
-    public Object resolve(final String var) {
-        if (var == null) {
-            return null;
-        }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/ConfigurationDeclaration.java`
 #### Snippet
 ```java
-            return getParentInterpolator().resolve(var);
-        }
+    @Override
+    public String getBeanClassName() {
         return null;
     }
 
@@ -3475,97 +3041,25 @@ in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterp
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/FileBasedConfigurationBuilder.java`
+in `src/main/java/org/apache/commons/configuration2/CombinedConfiguration.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/BasicBuilderParameters.java`
-#### Snippet
-```java
-        final Map<?, ?> prefixes = fetchParameter(params, PROP_PREFIX_LOOKUPS, Map.class);
-        if (prefixes == null) {
+        final Set<Configuration> sources = getSources(key);
+        if (sources.isEmpty()) {
             return null;
         }
-        prefixes.forEach((k, v) -> {
+        final Iterator<Configuration> iterator = sources.iterator();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/BasicBuilderParameters.java`
+in `src/main/java/org/apache/commons/configuration2/CombinedConfiguration.java`
 #### Snippet
 ```java
-        final Object value = params.get(key);
-        if (value == null) {
-            return null;
-        }
-        if (!expClass.isInstance(value)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/BasicBuilderParameters.java`
-#### Snippet
-```java
-        final Collection<?> col = fetchParameter(params, PROP_DEFAULT_LOOKUPS, Collection.class);
-        if (col == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/resolver/DefaultEntityResolver.java`
-#### Snippet
-```java
-        }
-        // default processing behavior
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBuilder.java`
-#### Snippet
-```java
-            @Override
-            public String getBeanFactoryName() {
+        private Collection<String> parseAt(final String at) {
+            if (StringUtils.isEmpty(at)) {
                 return null;
             }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBuilder.java`
-#### Snippet
-```java
-            @Override
-            public Object getBeanFactoryParameter() {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/NodeSelector.java`
-#### Snippet
-```java
-        }
-
-        return nodes.size() == 1 ? nodes.get(0) : null;
-    }
 
 ```
 
@@ -3583,170 +3077,38 @@ in `src/main/java/org/apache/commons/configuration2/beanutils/ConfigurationDynaC
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/interpol/ConstantLookup.java`
+in `src/main/java/org/apache/commons/configuration2/web/ServletRequestConfiguration.java`
 #### Snippet
 ```java
-    public Object lookup(final String var) {
-        if (var == null) {
+
+        if (values == null || values.length == 0) {
             return null;
         }
-        return CACHE.computeIfAbsent(var, k -> {
+        if (values.length == 1) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/TreeData.java`
-#### Snippet
-```java
-    public ImmutableNode getParent(final ImmutableNode node) {
-        if (node == getRootNode()) {
-            return null;
-        }
-        final ImmutableNode org = handleReplacements(node, inverseReplacementMapping);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
-#### Snippet
-```java
-            throw new NoSuchElementException('\'' + key + "' doesn't map to an existing object");
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
-#### Snippet
-```java
-            throw new NoSuchElementException('\'' + key + "' doesn't map to an existing object");
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
+in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
 #### Snippet
 ```java
 
-            final DefaultConversionHandler orgHandler = getOriginalConversionHandler();
-            return orgHandler != null ? orgHandler.getDateFormat() : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
-#### Snippet
-```java
-    private DefaultConversionHandler getOriginalConversionHandler() {
-        final ConversionHandler handler = super.getConversionHandler();
-        return (DefaultConversionHandler) (handler instanceof DefaultConversionHandler ? handler : null);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/interpol/ExprLookup.java`
-#### Snippet
-```java
-
-        public Variable getVariable() {
-            return !isEmpty() ? get(size() - 1) : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/beanutils/BeanHelper.java`
-#### Snippet
-```java
-            final PropertyDescriptor desc = BEAN_UTILS_BEAN.getPropertyUtils().getPropertyDescriptor(bean, propName);
-            if (desc == null) {
+            if (!file.exists()) {
                 return null;
             }
-            return desc.getPropertyType();
+            final FileName path = file.getName();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/beanutils/BeanHelper.java`
+in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
 #### Snippet
 ```java
-            return desc.getPropertyType();
-        } catch (final Exception ex) {
+            return new URL(null, path.getURI(), handler);
+        } catch (final FileSystemException | MalformedURLException fse) {
             return null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/beanutils/DefaultBeanFactory.java`
-#### Snippet
-```java
-    @Override
-    public Class<?> getDefaultBeanClass() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/beanutils/XMLBeanDeclaration.java`
-#### Snippet
-```java
-    private String getAttribute(final NodeData<?> nodeData, final String attribute) {
-        final Object value = nodeData.getAttribute(attribute);
-        return value == null ? null : String.valueOf(interpolate(value));
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/convert/LegacyListDelimiterHandler.java`
-#### Snippet
-```java
-    @Override
-    protected String escapeString(final String s) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/convert/LegacyListDelimiterHandler.java`
-#### Snippet
-```java
-            return buf.toString();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/MergeCombiner.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -3771,6 +3133,18 @@ in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
             return parent != null ? parent.getURI() : null;
         } catch (final FileSystemException fse) {
             fse.printStackTrace();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
+#### Snippet
+```java
+        } catch (final FileSystemException fse) {
+            fse.printStackTrace();
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -3835,11 +3209,83 @@ in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
+in `src/main/java/org/apache/commons/configuration2/beanutils/DefaultBeanFactory.java`
 #### Snippet
 ```java
-        } catch (final FileSystemException fse) {
-            fse.printStackTrace();
+    @Override
+    public Class<?> getDefaultBeanClass() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
+#### Snippet
+```java
+    static String getFileName(final URL url) {
+        if (url == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
+#### Snippet
+```java
+
+        if (path.endsWith("/") || StringUtils.isEmpty(path)) {
+            return null;
+        }
+        return path.substring(path.lastIndexOf("/") + 1);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
+#### Snippet
+```java
+    public static URL locate(final FileLocator locator) {
+        if (locator == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
+#### Snippet
+```java
+
+        final URL url = locate(locator);
+        return url != null ? createFullyInitializedLocatorFromURL(locator, url) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
+#### Snippet
+```java
+    static String getBasePath(final URL url) {
+        if (url == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java`
+#### Snippet
+```java
+            return uri.toURL();
+        } catch (final MalformedURLException e) {
             return null;
         }
     }
@@ -3847,26 +3293,554 @@ in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
+in `src/main/java/org/apache/commons/configuration2/resolver/DefaultEntityResolver.java`
 #### Snippet
 ```java
+        }
+        // default processing behavior
+        return null;
+    }
 
-            if (!file.exists()) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java`
+#### Snippet
+```java
+            protected Integer performOperation() throws SQLException {
+                try (ResultSet rs = openResultSet(String.format(SQL_IS_EMPTY, table), true)) {
+                    return rs.next() ? Integer.valueOf(rs.getInt(1)) : null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java`
+#### Snippet
+```java
+                    return results.size() > 1 ? results : results.get(0);
+                }
                 return null;
             }
-            final FileName path = file.getName();
+        };
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/io/VFSFileSystem.java`
+in `src/main/java/org/apache/commons/configuration2/io/BasePathLocationStrategy.java`
 #### Snippet
 ```java
-            return new URL(null, path.getURI(), handler);
-        } catch (final FileSystemException | MalformedURLException fse) {
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/ConfigurationXMLReader.java`
+#### Snippet
+```java
+    @Override
+    public DTDHandler getDTDHandler() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/ConfigurationXMLReader.java`
+#### Snippet
+```java
+    @Override
+    public ErrorHandler getErrorHandler() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/ConfigurationXMLReader.java`
+#### Snippet
+```java
+    @Override
+    public Object getProperty(final String name) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/ConfigurationXMLReader.java`
+#### Snippet
+```java
+    @Override
+    public EntityResolver getEntityResolver() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/ClasspathLocationStrategy.java`
+#### Snippet
+```java
+    @Override
+    public URL locate(final FileSystem fileSystem, final FileLocator locator) {
+        return StringUtils.isEmpty(locator.getFileName()) ? null : FileLocatorUtils.locateFromClasspath(locator.getFileName());
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/AbsoluteNameLocationStrategy.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/tree/TreeData.java`
+#### Snippet
+```java
+    public ImmutableNode getParent(final ImmutableNode node) {
+        if (node == getRootNode()) {
+            return null;
+        }
+        final ImmutableNode org = handleReplacements(node, inverseReplacementMapping);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
+#### Snippet
+```java
+    protected Object extractConversionValue(final Object container, final Class<?> targetCls, final ConfigurationInterpolator ci) {
+        final Collection<?> values = extractValues(container, 1);
+        return values.isEmpty() ? null : ci.interpolate(values.iterator().next());
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
+#### Snippet
+```java
+    protected <T> T convertValue(final Object src, final Class<T> targetCls, final ConfigurationInterpolator ci) {
+        if (src == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/convert/DefaultConversionHandler.java`
+#### Snippet
+```java
+    public Object toArray(final Object src, final Class<?> elemClass, final ConfigurationInterpolator ci) {
+        if (src == null) {
+            return null;
+        }
+        if (isEmptyElement(src)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
+#### Snippet
+```java
+                    return Array.getLength(obj) > 0
+                            ? Array.get(obj, 0)
+                            : null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
+#### Snippet
+```java
+            return it.hasNext()
+                    ? it.next()
+                    : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
+#### Snippet
+```java
+            return value != null
+                ? stringConverter.apply(value)
+                : null;
+        });
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
+#### Snippet
+```java
+    public Object resolve(final String var) {
+        if (var == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java`
+#### Snippet
+```java
+            return getParentInterpolator().resolve(var);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/FileBasedConfigurationBuilder.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/tree/OverrideCombiner.java`
+#### Snippet
+```java
+            return HANDLER.getChildren(node2, child.getNodeName()).get(0);
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/tree/UnionCombiner.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/resolver/CatalogResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/interpol/DummyLookup.java`
+#### Snippet
+```java
+    @Override
+    public Object lookup(final String variable) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/interpol/ConstantLookup.java`
+#### Snippet
+```java
+    public Object lookup(final String var) {
+        if (var == null) {
+            return null;
+        }
+        return CACHE.computeIfAbsent(var, k -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/interpol/ExprLookup.java`
+#### Snippet
+```java
+
+        public Variable getVariable() {
+            return !isEmpty() ? get(size() - 1) : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/BasicBuilderParameters.java`
+#### Snippet
+```java
+        final Collection<?> col = fetchParameter(params, PROP_DEFAULT_LOOKUPS, Collection.class);
+        if (col == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/BasicBuilderParameters.java`
+#### Snippet
+```java
+        final Map<?, ?> prefixes = fetchParameter(params, PROP_PREFIX_LOOKUPS, Map.class);
+        if (prefixes == null) {
+            return null;
+        }
+        prefixes.forEach((k, v) -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/BasicBuilderParameters.java`
+#### Snippet
+```java
+        final Object value = params.get(key);
+        if (value == null) {
+            return null;
+        }
+        if (!expClass.isInstance(value)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
+#### Snippet
+```java
+
+            final DefaultConversionHandler orgHandler = getOriginalConversionHandler();
+            return orgHandler != null ? orgHandler.getDateFormat() : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
+#### Snippet
+```java
+            throw new NoSuchElementException('\'' + key + "' doesn't map to an existing object");
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
+#### Snippet
+```java
+    private DefaultConversionHandler getOriginalConversionHandler() {
+        final ConversionHandler handler = super.getConversionHandler();
+        return (DefaultConversionHandler) (handler instanceof DefaultConversionHandler ? handler : null);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/DataConfiguration.java`
+#### Snippet
+```java
+            throw new NoSuchElementException('\'' + key + "' doesn't map to an existing object");
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/tree/NodeSelector.java`
+#### Snippet
+```java
+        }
+
+        return nodes.size() == 1 ? nodes.get(0) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/spring/ConfigurationPropertiesFactoryBean.java`
+#### Snippet
+```java
+     */
+    private static <T> T[] defensiveCopy(final T[] src) {
+        return src != null ? src.clone() : null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/tree/NodeTracker.java`
+#### Snippet
+```java
+         */
+        public TrackedNodeData observerRemoved() {
+            return observerCount <= 1 ? null : new TrackedNodeData(node, observerCount - 1, getDetachedModel());
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/beanutils/BeanHelper.java`
+#### Snippet
+```java
+            final PropertyDescriptor desc = BEAN_UTILS_BEAN.getPropertyUtils().getPropertyDescriptor(bean, propName);
+            if (desc == null) {
+                return null;
+            }
+            return desc.getPropertyType();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/beanutils/BeanHelper.java`
+#### Snippet
+```java
+            return desc.getPropertyType();
+        } catch (final Exception ex) {
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
+#### Snippet
+```java
+    protected Object getPropertyInternal(String key) {
+        if (clearedProperties.contains(key)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
+#### Snippet
+```java
+        } catch (final NameNotFoundException | NotContextException nctxex) {
+            // expected exception, no need to log it
+            return null;
+        } catch (final NamingException e) {
+            fireError(ConfigurationErrorEvent.READ, ConfigurationErrorEvent.READ, key, null, e);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/JNDIConfiguration.java`
+#### Snippet
+```java
+        } catch (final NamingException e) {
+            fireError(ConfigurationErrorEvent.READ, ConfigurationErrorEvent.READ, key, null, e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/tree/NodeCombiner.java`
+#### Snippet
+```java
+            @Override
+            public ImmutableNode getParent(final ImmutableNode node) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/tree/NodeCombiner.java`
+#### Snippet
+```java
+            @Override
+            public ImmutableNode getRootNode() {
+                return null;
+            }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBuilder.java`
+#### Snippet
+```java
+            @Override
+            public Object getBeanFactoryParameter() {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBuilder.java`
+#### Snippet
+```java
+            @Override
+            public String getBeanFactoryName() {
+                return null;
+            }
+
 ```
 
 ### ReturnNull
@@ -3895,23 +3869,11 @@ in `src/main/java/org/apache/commons/configuration2/AbstractHierarchicalConfigur
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/reloading/FileHandlerReloadingDetector.java`
+in `src/main/java/org/apache/commons/configuration2/plist/PropertyListConfiguration.java`
 #### Snippet
 ```java
-                return FileLocatorUtils.fileFromURL(new URL(path.substring(0, path.indexOf('!'))));
-            } catch (final MalformedURLException mex) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/reloading/VFSFileHandlerReloadingDetector.java`
-#### Snippet
-```java
-    protected FileObject getFileObject() {
-        if (!getFileHandler().isLocationDefined()) {
+    String quoteString(String s) {
+        if (s == null) {
             return null;
         }
 
@@ -3919,26 +3881,122 @@ in `src/main/java/org/apache/commons/configuration2/reloading/VFSFileHandlerRelo
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/NodeTracker.java`
+in `src/main/java/org/apache/commons/configuration2/beanutils/XMLBeanDeclaration.java`
 #### Snippet
 ```java
-         */
-        public TrackedNodeData observerRemoved() {
-            return observerCount <= 1 ? null : new TrackedNodeData(node, observerCount - 1, getDetachedModel());
+    private String getAttribute(final NodeData<?> nodeData, final String attribute) {
+        final Object value = nodeData.getAttribute(attribute);
+        return value == null ? null : String.valueOf(interpolate(value));
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/io/HomeDirectoryLocationStrategy.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java`
+#### Snippet
+```java
+                return stack.remove(stack.size() - 1);
+            }
+            return null;
         }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/interpol/DummyLookup.java`
+in `src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java`
+#### Snippet
+```java
+                return stack.get(stack.size() - 1);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/convert/LegacyListDelimiterHandler.java`
 #### Snippet
 ```java
     @Override
-    public Object lookup(final String variable) {
+    protected String escapeString(final String s) {
         return null;
     }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/convert/LegacyListDelimiterHandler.java`
+#### Snippet
+```java
+            return buf.toString();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/ConfigurationUtils.java`
+#### Snippet
+```java
+    public static HierarchicalConfiguration<?> convertToHierarchical(final Configuration conf, final ExpressionEngine engine) {
+        if (conf == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/ConfigurationUtils.java`
+#### Snippet
+```java
+    public static Configuration cloneConfiguration(final Configuration config) throws ConfigurationRuntimeException {
+        if (config == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
+#### Snippet
+```java
+            return (FileSystem) fetchBeanHelper().createBean(decl);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
+#### Snippet
+```java
+    private Map<String, ? extends Lookup> fetchPrefixLookups() {
+        final CombinedConfiguration cc = getConfigurationUnderConstruction();
+        return cc != null ? cc.getInterpolator().getLookups() : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -3946,11 +4004,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java`
 #### Snippet
 ```java
-                        break;
-                    }
-                    return null;
-                }
-
+    protected static String unescapeJava(final String str, final boolean jupCompatible) {
+        if (str == null) {
+            return null;
+        }
+        final int sz = str.length();
 ```
 
 ### ReturnNull
@@ -3970,70 +4028,10 @@ Return of `null`
 in `src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java`
 #### Snippet
 ```java
-    protected static String unescapeJava(final String str, final boolean jupCompatible) {
-        if (str == null) {
-            return null;
-        }
-        final int sz = str.length();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/ConfigurationUtils.java`
-#### Snippet
-```java
-    public static Configuration cloneConfiguration(final Configuration config) throws ConfigurationRuntimeException {
-        if (config == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/ConfigurationUtils.java`
-#### Snippet
-```java
-    public static HierarchicalConfiguration<?> convertToHierarchical(final Configuration conf, final ExpressionEngine engine) {
-        if (conf == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/NodeCombiner.java`
-#### Snippet
-```java
-            @Override
-            public ImmutableNode getRootNode() {
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/tree/NodeCombiner.java`
-#### Snippet
-```java
-            @Override
-            public ImmutableNode getParent(final ImmutableNode node) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/plist/PropertyListConfiguration.java`
-#### Snippet
-```java
-    String quoteString(String s) {
-        if (s == null) {
-            return null;
-        }
+                        break;
+                    }
+                    return null;
+                }
 
 ```
 
@@ -4063,6 +4061,18 @@ in `src/main/java/org/apache/commons/configuration2/PropertiesConfigurationLayou
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/configuration2/reloading/VFSFileHandlerReloadingDetector.java`
+#### Snippet
+```java
+    protected FileObject getFileObject() {
+        if (!getFileHandler().isLocationDefined()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/configuration2/tree/DefaultConfigurationKey.java`
 #### Snippet
 ```java
@@ -4075,30 +4085,6 @@ in `src/main/java/org/apache/commons/configuration2/tree/DefaultConfigurationKey
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
-#### Snippet
-```java
-            return (FileSystem) fetchBeanHelper().createBean(decl);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/builder/combined/CombinedConfigurationBuilder.java`
-#### Snippet
-```java
-    private Map<String, ? extends Lookup> fetchPrefixLookups() {
-        final CombinedConfiguration cc = getConfigurationUnderConstruction();
-        return cc != null ? cc.getInterpolator().getLookups() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/configuration2/XMLConfiguration.java`
 #### Snippet
 ```java
@@ -4106,6 +4092,18 @@ in `src/main/java/org/apache/commons/configuration2/XMLConfiguration.java`
         final XMLDocumentHelper docHelper = getDocumentHelper();
         return docHelper != null ? docHelper.getDocument() : null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
+#### Snippet
+```java
+    private static <T> Collection<T> handleDefaultCollection(final Collection<T> target, final Collection<T> defaultValue) {
+        if (defaultValue == null) {
+            return null;
+        }
 
 ```
 
@@ -4138,9 +4136,9 @@ Return of `null`
 in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
 #### Snippet
 ```java
-
-        final String value = getString(key);
-        return value != null ? decoder.decode(value) : null;
+            }
+        }
+        return null;
     }
 
 ```
@@ -4150,21 +4148,9 @@ Return of `null`
 in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
 #### Snippet
 ```java
-    private static <T> Collection<T> handleDefaultCollection(final Collection<T> target, final Collection<T> defaultValue) {
-        if (defaultValue == null) {
-            return null;
-        }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
+        final String value = getString(key);
+        return value != null ? decoder.decode(value) : null;
     }
 
 ```
@@ -4187,11 +4173,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBuilder.java`
 #### Snippet
 ```java
-        boolean created = false;
-        if (resObj == null) {
-            synchronized (this) {
-                resObj = result;
-                if (resObj == null) {
+    public void resetResult() {
+        final T oldResult;
+        synchronized (this) {
+            oldResult = result;
+            result = null;
 ```
 
 ### SynchronizeOnThis
@@ -4199,11 +4185,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/configuration2/builder/BasicConfigurationBuilder.java`
 #### Snippet
 ```java
-    public void resetResult() {
-        final T oldResult;
-        synchronized (this) {
-            oldResult = result;
-            result = null;
+        boolean created = false;
+        if (resObj == null) {
+            synchronized (this) {
+                resObj = result;
+                if (resObj == null) {
 ```
 
 ### SynchronizeOnThis
