@@ -138,10 +138,10 @@ in `src/main/java/com/uber/rss/clients/ClientBase.java`
 #### Snippet
 ```java
     }
-
-    private final void checkOKResponseStatus(int responseStatus) {
-        switch (responseStatus) {
-            case MessageConstants.RESPONSE_STATUS_OK:
+    
+    private final void checkHeaderResponseStatus(int responseStatus) {
+        if (responseStatus == MessageConstants.RESPONSE_STATUS_SERVER_BUSY) {
+            throw new RssServerBusyException(String.format("Server busy: %s", connectionInfo));
 ```
 
 ### FinalPrivateMethod
@@ -150,10 +150,10 @@ in `src/main/java/com/uber/rss/clients/ClientBase.java`
 #### Snippet
 ```java
     }
-    
-    private final void checkHeaderResponseStatus(int responseStatus) {
-        if (responseStatus == MessageConstants.RESPONSE_STATUS_SERVER_BUSY) {
-            throw new RssServerBusyException(String.format("Server busy: %s", connectionInfo));
+
+    private final void checkOKResponseStatus(int responseStatus) {
+        switch (responseStatus) {
+            case MessageConstants.RESPONSE_STATUS_OK:
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -238,42 +238,6 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 ```java
     }
 
-    public static final long readLong(byte[] bytes, int index) {
-        return ((long) bytes[index] & 0xff) << 56 |
-            ((long) bytes[index + 1] & 0xff) << 48 |
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
-#### Snippet
-```java
-    }
-
-    public static final void readBytesToStream(ByteBuf buf, OutputStream stream) throws IOException {
-        final int maxNumBytes = 64000;
-        byte[] bytes = new byte[maxNumBytes];
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
-#### Snippet
-```java
-    }
-
-    public static final void writeInt(byte[] bytes, int index, int value) {
-        bytes[index] = (byte) (value >>> 24);
-        bytes[index + 1] = (byte) (value >>> 16);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
-#### Snippet
-```java
-    }
-
     public static final byte[] readBytes(ByteBuf buf) {
         // TODO a better implementation?
         byte[] bytes = new byte[buf.readableBytes()];
@@ -286,9 +250,9 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 ```java
     }
 
-    public static final int readInt(byte[] bytes, int index) {
-        return (bytes[index] & 0xff) << 24 |
-            (bytes[index + 1] & 0xff) << 16 |
+    public static final void writeLengthAndString(ByteBuf buf, String str) {
+        if (str == null) {
+            buf.writeInt(-1);
 ```
 
 ### FinalStaticMethod
@@ -310,9 +274,21 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 ```java
     }
 
-    public static final void writeLengthAndString(ByteBuf buf, String str) {
-        if (str == null) {
-            buf.writeInt(-1);
+    public static final void readBytesToStream(ByteBuf buf, OutputStream stream) throws IOException {
+        final int maxNumBytes = 64000;
+        byte[] bytes = new byte[maxNumBytes];
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
+#### Snippet
+```java
+    }
+    
+    public static final String readLengthAndString(ByteBuf buf) {
+        int length = buf.readInt();
+        if (length == -1) {
 ```
 
 ### FinalStaticMethod
@@ -333,10 +309,34 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 #### Snippet
 ```java
     }
-    
-    public static final String readLengthAndString(ByteBuf buf) {
-        int length = buf.readInt();
-        if (length == -1) {
+
+    public static final void writeInt(byte[] bytes, int index, int value) {
+        bytes[index] = (byte) (value >>> 24);
+        bytes[index + 1] = (byte) (value >>> 16);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
+#### Snippet
+```java
+    }
+
+    public static final long readLong(byte[] bytes, int index) {
+        return ((long) bytes[index] & 0xff) << 56 |
+            ((long) bytes[index + 1] & 0xff) << 48 |
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
+#### Snippet
+```java
+    }
+
+    public static final int readInt(byte[] bytes, int index) {
+        return (bytes[index] & 0xff) << 24 |
+            (bytes[index + 1] & 0xff) << 16 |
 ```
 
 ## RuleId[id=SillyAssignment]
@@ -428,14 +428,26 @@ in `src/main/java/com/uber/rss/clients/ClientBase.java`
 
 ### BoundedWildcard
 Can generalize to `? extends ServerDetail`
-in `src/main/java/com/uber/rss/clients/ServerReplicationGroupUtil.java`
+in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
 #### Snippet
 ```java
-   * @return
+   * @param servers servers to check
    */
-  public static List<ServerReplicationGroup> createReplicationGroups(Collection<ServerDetail> servers, int numReplicas) {
-    if (servers.isEmpty()) {
-      throw new IllegalArgumentException("Invalid argument: servers is empty");
+    public static void checkServersAlive(ServiceRegistry serviceRegistry, String dataCenter, String cluster, Collection<ServerDetail> servers) {
+      List<String> serverIds = servers.stream().map(t->t.getServerId()).collect(Collectors.toList());
+      List<ServerDetail> latestServers;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServerDetail`
+in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
+#### Snippet
+```java
+    }
+
+    public static List<ServerDetail>  excludeByHosts(List<ServerDetail> servers, int maxCount, Collection<String> excludeHosts) {
+        return servers.stream().filter(t->!shouldExclude(t.getConnectionString(), excludeHosts))
+          .limit(maxCount)
 ```
 
 ### BoundedWildcard
@@ -452,38 +464,14 @@ in `src/main/java/com/uber/rss/util/AsyncSocketCompletionHandler.java`
 
 ### BoundedWildcard
 Can generalize to `? extends ServerDetail`
-in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
+in `src/main/java/com/uber/rss/clients/ServerReplicationGroupUtil.java`
 #### Snippet
 ```java
-    }
-
-    public static List<ServerDetail>  excludeByHosts(List<ServerDetail> servers, int maxCount, Collection<String> excludeHosts) {
-        return servers.stream().filter(t->!shouldExclude(t.getConnectionString(), excludeHosts))
-          .limit(maxCount)
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServerDetail`
-in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
-#### Snippet
-```java
-   * @param servers servers to check
+   * @return
    */
-    public static void checkServersAlive(ServiceRegistry serviceRegistry, String dataCenter, String cluster, Collection<ServerDetail> servers) {
-      List<String> serverIds = servers.stream().map(t->t.getServerId()).collect(Collectors.toList());
-      List<ServerDetail> latestServers;
-```
-
-### BoundedWildcard
-Can generalize to `? super ZooKeeperServiceRegistry`
-in `src/main/java/com/uber/rss/metadata/ZooKeeperFaultTolerantServiceRegistry.java`
-#### Snippet
-```java
-    }
-
-    private <T> T invokeUnderlyingRegistries(Function<ZooKeeperServiceRegistry, T> func) {
-        List<Throwable> exceptions = new ArrayList<>();
-
+  public static List<ServerReplicationGroup> createReplicationGroups(Collection<ServerDetail> servers, int numReplicas) {
+    if (servers.isEmpty()) {
+      throw new IllegalArgumentException("Invalid argument: servers is empty");
 ```
 
 ### BoundedWildcard
@@ -496,6 +484,18 @@ in `src/main/java/com/uber/rss/clients/ServerBusyRetriableWriteClient.java`
     public ServerBusyRetriableWriteClient(Callable<SingleServerWriteClient> creator, long maxTryingMillis, String user, String appId, String appAttempt) {
         this.creator = creator;
         this.maxTryingMillis = maxTryingMillis;
+```
+
+### BoundedWildcard
+Can generalize to `? super ZooKeeperServiceRegistry`
+in `src/main/java/com/uber/rss/metadata/ZooKeeperFaultTolerantServiceRegistry.java`
+#### Snippet
+```java
+    }
+
+    private <T> T invokeUnderlyingRegistries(Function<ZooKeeperServiceRegistry, T> func) {
+        List<Throwable> exceptions = new ArrayList<>();
+
 ```
 
 ### BoundedWildcard
@@ -607,6 +607,18 @@ in `src/main/java/com/uber/rss/handlers/DownloadServerHandler.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Integer`
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    }
+
+    public void setServerPorts(List<Integer> serverPorts) {
+        this.serverPorts = serverPorts;
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
 #### Snippet
@@ -630,18 +642,6 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
             int delayMillis = random.nextInt(mapDelay);
 ```
 
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    }
-
-    public void setServerPorts(List<Integer> serverPorts) {
-        this.serverPorts = serverPorts;
-    }
-```
-
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
@@ -656,18 +656,6 @@ in `src/main/java/com/uber/rss/clients/PooledShuffleDataSyncWriteClient.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/clients/ServerConnectionStringCache.java`
-#### Snippet
-```java
-public class ServerConnectionStringCache {
-
-  private final static ServerConnectionStringCache instance = new ServerConnectionStringCache();
-
-  public static ServerConnectionStringCache getInstance() {
-```
-
-### MissortedModifiers
 Missorted modifiers `final private`
 in `src/main/java/com/uber/rss/common/ServerList.java`
 #### Snippet
@@ -677,6 +665,18 @@ public class ServerList {
   final private List<ServerDetail> serverList;
 
   @JsonCreator
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/clients/ServerConnectionStringCache.java`
+#### Snippet
+```java
+public class ServerConnectionStringCache {
+
+  private final static ServerConnectionStringCache instance = new ServerConnectionStringCache();
+
+  public static ServerConnectionStringCache getInstance() {
 ```
 
 ### MissortedModifiers
@@ -708,90 +708,6 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-    public final static int MESSAGE_ConnectRegistryResponse = -314;
-    public final static int MESSAGE_GetBusyStatusRequest = -320;
-    public final static int MESSAGE_GetBusyStatusResponse = -321;
-    public final static int MESSAGE_ConnectDownloadRequestMessage = -351;
-    public final static int MESSAGE_GetDataAvailabilityRequestMessage = -352;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_ConnectRegistryRequest = -313;
-    public final static int MESSAGE_ConnectRegistryResponse = -314;
-    public final static int MESSAGE_GetBusyStatusRequest = -320;
-    public final static int MESSAGE_GetBusyStatusResponse = -321;
-    public final static int MESSAGE_ConnectDownloadRequestMessage = -351;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_ConnectDownloadResponse = -307;
-    public final static int MESSAGE_GetDataAvailabilityRequest = -310;
-    public final static int MESSAGE_GetDataAvailabilityResponse = -309;
-    public final static int MESSAGE_ConnectNotifyRequest = -311;
-    public final static int MESSAGE_ConnectNotifyResponse = -312;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static byte DOWNLOAD_UPLINK_MAGIC_BYTE = 'd';
-    public final static byte NOTIFY_UPLINK_MAGIC_BYTE = 'c';
-    public final static byte REGISTRY_UPLINK_MAGIC_BYTE = 'r';
-
-    public final static byte UPLOAD_UPLINK_VERSION_3 = 3;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_GetDataAvailabilityResponse = -309;
-    public final static int MESSAGE_ConnectNotifyRequest = -311;
-    public final static int MESSAGE_ConnectNotifyResponse = -312;
-    public final static int MESSAGE_ConnectRegistryRequest = -313;
-    public final static int MESSAGE_ConnectRegistryResponse = -314;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-
-    public final static int MESSAGE_GetServersResponse = -16;
-    public final static int MESSAGE_RegisterServerResponse = -19;
-
-    public final static int MESSAGE_ConnectUploadRequest = -301;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static byte RESPONSE_STATUS_OK = 20;
-    public final static byte RESPONSE_STATUS_SHUFFLE_STAGE_NOT_STARTED = 44;
-    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
-    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
-    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
     public final static byte UPLOAD_UPLINK_VERSION_3 = 3;
     public final static byte DOWNLOAD_UPLINK_VERSION_3 = 3;
     public final static byte NOTIFY_UPLINK_VERSION_3 = 3;
@@ -804,10 +720,10 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-    public final static int MESSAGE_FinishApplicationAttemptRequest = -7;
-    public final static int MESSAGE_RegisterServerRequest = -9;
-    public final static int MESSAGE_GetServersRequest = -10;
-    public final static int MESSAGE_FinishApplicationJobRequest = -12;
+    public final static byte UPLOAD_UPLINK_MAGIC_BYTE = 'u';
+    public final static byte DOWNLOAD_UPLINK_MAGIC_BYTE = 'd';
+    public final static byte NOTIFY_UPLINK_MAGIC_BYTE = 'c';
+    public final static byte REGISTRY_UPLINK_MAGIC_BYTE = 'r';
 
 ```
 
@@ -816,11 +732,215 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-    public final static int MESSAGE_ConnectDownloadRequest = -318;
-    public final static int MESSAGE_ConnectDownloadResponse = -307;
+    public final static int MESSAGE_ConnectUploadRequest = -301;
+    public final static int MESSAGE_ConnectUploadResponse = -302;
+    public final static int MESSAGE_StartUploadMessage = -303;
+    public final static int MESSAGE_FinishUploadMessage = -317;
+    public final static int MESSAGE_HeartbeatMessage = -319;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_ConnectRegistryRequest = -313;
+    public final static int MESSAGE_ConnectRegistryResponse = -314;
+    public final static int MESSAGE_GetBusyStatusRequest = -320;
+    public final static int MESSAGE_GetBusyStatusResponse = -321;
+    public final static int MESSAGE_ConnectDownloadRequestMessage = -351;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static byte RESPONSE_STATUS_SHUFFLE_STAGE_NOT_STARTED = 44;
+    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
+    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
+    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
+    public final static byte RESPONSE_STATUS_STALE_TASK_ATTEMPT = 55;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_FinishApplicationJobRequest = -12;
+
+    public final static int MESSAGE_GetServersResponse = -16;
+    public final static int MESSAGE_RegisterServerResponse = -19;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_ConnectNotifyResponse = -312;
+    public final static int MESSAGE_ConnectRegistryRequest = -313;
+    public final static int MESSAGE_ConnectRegistryResponse = -314;
+    public final static int MESSAGE_GetBusyStatusRequest = -320;
+    public final static int MESSAGE_GetBusyStatusResponse = -321;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
     public final static int MESSAGE_GetDataAvailabilityRequest = -310;
     public final static int MESSAGE_GetDataAvailabilityResponse = -309;
     public final static int MESSAGE_ConnectNotifyRequest = -311;
+    public final static int MESSAGE_ConnectNotifyResponse = -312;
+    public final static int MESSAGE_ConnectRegistryRequest = -313;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_RegisterServerResponse = -19;
+
+    public final static int MESSAGE_ConnectUploadRequest = -301;
+    public final static int MESSAGE_ConnectUploadResponse = -302;
+    public final static int MESSAGE_StartUploadMessage = -303;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_StartUploadMessage = -303;
+    public final static int MESSAGE_FinishUploadMessage = -317;
+    public final static int MESSAGE_HeartbeatMessage = -319;
+    public final static int MESSAGE_ConnectDownloadRequest = -318;
+    public final static int MESSAGE_ConnectDownloadResponse = -307;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+
+    public final static byte RESPONSE_STATUS_OK = 20;
+    public final static byte RESPONSE_STATUS_SHUFFLE_STAGE_NOT_STARTED = 44;
+    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
+    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
+    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
+    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
+    public final static byte RESPONSE_STATUS_STALE_TASK_ATTEMPT = 55;
+    public final static byte RESPONSE_STATUS_UNSPECIFIED = 0;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+
+    public final static int MESSAGE_ConnectUploadRequest = -301;
+    public final static int MESSAGE_ConnectUploadResponse = -302;
+    public final static int MESSAGE_StartUploadMessage = -303;
+    public final static int MESSAGE_FinishUploadMessage = -317;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+
+public class MessageConstants {
+    public final static byte UPLOAD_UPLINK_MAGIC_BYTE = 'u';
+    public final static byte DOWNLOAD_UPLINK_MAGIC_BYTE = 'd';
+    public final static byte NOTIFY_UPLINK_MAGIC_BYTE = 'c';
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_GetBusyStatusResponse = -321;
+    public final static int MESSAGE_ConnectDownloadRequestMessage = -351;
+    public final static int MESSAGE_GetDataAvailabilityRequestMessage = -352;
+    // State store data item
+    public final static int MESSAGE_StageInfoStateItem = -401;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+public class MessageConstants {
+    public final static byte UPLOAD_UPLINK_MAGIC_BYTE = 'u';
+    public final static byte DOWNLOAD_UPLINK_MAGIC_BYTE = 'd';
+    public final static byte NOTIFY_UPLINK_MAGIC_BYTE = 'c';
+    public final static byte REGISTRY_UPLINK_MAGIC_BYTE = 'r';
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_AppDeletionStateItem = -404;
+    public final static int MESSAGE_StageCorruptionStateItem = -405;
+    public final static int MESSAGE_TaskAttemptCommitStateItem = -407;
+
+    // Other constants
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_GetDataAvailabilityRequestMessage = -352;
+    // State store data item
+    public final static int MESSAGE_StageInfoStateItem = -401;
+    public final static int MESSAGE_AppDeletionStateItem = -404;
+    public final static int MESSAGE_StageCorruptionStateItem = -405;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static byte DOWNLOAD_UPLINK_VERSION_3 = 3;
+    public final static byte NOTIFY_UPLINK_VERSION_3 = 3;
+    public final static byte REGISTRY_UPLINK_VERSION_3 = 3;
+
+    public final static byte RESPONSE_STATUS_OK = 20;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    // State store data item
+    public final static int MESSAGE_StageInfoStateItem = -401;
+    public final static int MESSAGE_AppDeletionStateItem = -404;
+    public final static int MESSAGE_StageCorruptionStateItem = -405;
+    public final static int MESSAGE_TaskAttemptCommitStateItem = -407;
 ```
 
 ### MissortedModifiers
@@ -840,11 +960,11 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-public class MessageConstants {
-    public final static byte UPLOAD_UPLINK_MAGIC_BYTE = 'u';
-    public final static byte DOWNLOAD_UPLINK_MAGIC_BYTE = 'd';
-    public final static byte NOTIFY_UPLINK_MAGIC_BYTE = 'c';
-    public final static byte REGISTRY_UPLINK_MAGIC_BYTE = 'r';
+    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
+    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
+    public final static byte RESPONSE_STATUS_STALE_TASK_ATTEMPT = 55;
+    public final static byte RESPONSE_STATUS_UNSPECIFIED = 0;
+
 ```
 
 ### MissortedModifiers
@@ -852,59 +972,11 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-    public final static int MESSAGE_FinishApplicationJobRequest = -12;
 
     public final static int MESSAGE_GetServersResponse = -16;
     public final static int MESSAGE_RegisterServerResponse = -19;
 
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static byte RESPONSE_STATUS_SHUFFLE_STAGE_NOT_STARTED = 44;
-    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
-    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
-    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
-    public final static byte RESPONSE_STATUS_STALE_TASK_ATTEMPT = 55;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_GetBusyStatusRequest = -320;
-    public final static int MESSAGE_GetBusyStatusResponse = -321;
-    public final static int MESSAGE_ConnectDownloadRequestMessage = -351;
-    public final static int MESSAGE_GetDataAvailabilityRequestMessage = -352;
-    // State store data item
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_HeartbeatMessage = -319;
-    public final static int MESSAGE_ConnectDownloadRequest = -318;
-    public final static int MESSAGE_ConnectDownloadResponse = -307;
-    public final static int MESSAGE_GetDataAvailabilityRequest = -310;
-    public final static int MESSAGE_GetDataAvailabilityResponse = -309;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_RegisterServerResponse = -19;
-
     public final static int MESSAGE_ConnectUploadRequest = -301;
-    public final static int MESSAGE_ConnectUploadResponse = -302;
-    public final static int MESSAGE_StartUploadMessage = -303;
 ```
 
 ### MissortedModifiers
@@ -912,251 +984,11 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
-    public final static byte RESPONSE_STATUS_STALE_TASK_ATTEMPT = 55;
-    public final static byte RESPONSE_STATUS_UNSPECIFIED = 0;
-
-    // Control messages
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_RegisterServerRequest = -9;
-    public final static int MESSAGE_GetServersRequest = -10;
-    public final static int MESSAGE_FinishApplicationJobRequest = -12;
-
-    public final static int MESSAGE_GetServersResponse = -16;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static byte DOWNLOAD_UPLINK_VERSION_3 = 3;
-    public final static byte NOTIFY_UPLINK_VERSION_3 = 3;
-    public final static byte REGISTRY_UPLINK_VERSION_3 = 3;
-
-    public final static byte RESPONSE_STATUS_OK = 20;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_ConnectNotifyResponse = -312;
-    public final static int MESSAGE_ConnectRegistryRequest = -313;
-    public final static int MESSAGE_ConnectRegistryResponse = -314;
-    public final static int MESSAGE_GetBusyStatusRequest = -320;
-    public final static int MESSAGE_GetBusyStatusResponse = -321;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    // State store data item
-    public final static int MESSAGE_StageInfoStateItem = -401;
-    public final static int MESSAGE_AppDeletionStateItem = -404;
-    public final static int MESSAGE_StageCorruptionStateItem = -405;
-    public final static int MESSAGE_TaskAttemptCommitStateItem = -407;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_ConnectUploadResponse = -302;
-    public final static int MESSAGE_StartUploadMessage = -303;
-    public final static int MESSAGE_FinishUploadMessage = -317;
-    public final static int MESSAGE_HeartbeatMessage = -319;
-    public final static int MESSAGE_ConnectDownloadRequest = -318;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
-    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
-    public final static byte RESPONSE_STATUS_STALE_TASK_ATTEMPT = 55;
-    public final static byte RESPONSE_STATUS_UNSPECIFIED = 0;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    // Control messages
     public final static int MESSAGE_FinishApplicationAttemptRequest = -7;
     public final static int MESSAGE_RegisterServerRequest = -9;
     public final static int MESSAGE_GetServersRequest = -10;
     public final static int MESSAGE_FinishApplicationJobRequest = -12;
-```
 
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_ConnectNotifyRequest = -311;
-    public final static int MESSAGE_ConnectNotifyResponse = -312;
-    public final static int MESSAGE_ConnectRegistryRequest = -313;
-    public final static int MESSAGE_ConnectRegistryResponse = -314;
-    public final static int MESSAGE_GetBusyStatusRequest = -320;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static byte UPLOAD_UPLINK_MAGIC_BYTE = 'u';
-    public final static byte DOWNLOAD_UPLINK_MAGIC_BYTE = 'd';
-    public final static byte NOTIFY_UPLINK_MAGIC_BYTE = 'c';
-    public final static byte REGISTRY_UPLINK_MAGIC_BYTE = 'r';
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_GetBusyStatusResponse = -321;
-    public final static int MESSAGE_ConnectDownloadRequestMessage = -351;
-    public final static int MESSAGE_GetDataAvailabilityRequestMessage = -352;
-    // State store data item
-    public final static int MESSAGE_StageInfoStateItem = -401;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-
-    public final static int MESSAGE_ConnectUploadRequest = -301;
-    public final static int MESSAGE_ConnectUploadResponse = -302;
-    public final static int MESSAGE_StartUploadMessage = -303;
-    public final static int MESSAGE_FinishUploadMessage = -317;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static byte REGISTRY_UPLINK_VERSION_3 = 3;
-
-    public final static byte RESPONSE_STATUS_OK = 20;
-    public final static byte RESPONSE_STATUS_SHUFFLE_STAGE_NOT_STARTED = 44;
-    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_FinishUploadMessage = -317;
-    public final static int MESSAGE_HeartbeatMessage = -319;
-    public final static int MESSAGE_ConnectDownloadRequest = -318;
-    public final static int MESSAGE_ConnectDownloadResponse = -307;
-    public final static int MESSAGE_GetDataAvailabilityRequest = -310;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-
-    // Control messages
-    public final static int MESSAGE_FinishApplicationAttemptRequest = -7;
-    public final static int MESSAGE_RegisterServerRequest = -9;
-    public final static int MESSAGE_GetServersRequest = -10;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_StartUploadMessage = -303;
-    public final static int MESSAGE_FinishUploadMessage = -317;
-    public final static int MESSAGE_HeartbeatMessage = -319;
-    public final static int MESSAGE_ConnectDownloadRequest = -318;
-    public final static int MESSAGE_ConnectDownloadResponse = -307;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
-    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
-    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
-    public final static byte RESPONSE_STATUS_STALE_TASK_ATTEMPT = 55;
-    public final static byte RESPONSE_STATUS_UNSPECIFIED = 0;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_ConnectUploadRequest = -301;
-    public final static int MESSAGE_ConnectUploadResponse = -302;
-    public final static int MESSAGE_StartUploadMessage = -303;
-    public final static int MESSAGE_FinishUploadMessage = -317;
-    public final static int MESSAGE_HeartbeatMessage = -319;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-    public final static int MESSAGE_GetDataAvailabilityRequest = -310;
-    public final static int MESSAGE_GetDataAvailabilityResponse = -309;
-    public final static int MESSAGE_ConnectNotifyRequest = -311;
-    public final static int MESSAGE_ConnectNotifyResponse = -312;
-    public final static int MESSAGE_ConnectRegistryRequest = -313;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-
-    public final static byte RESPONSE_STATUS_OK = 20;
-    public final static byte RESPONSE_STATUS_SHUFFLE_STAGE_NOT_STARTED = 44;
-    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
-    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/messages/MessageConstants.java`
-#### Snippet
-```java
-
-    public final static byte UPLOAD_UPLINK_VERSION_3 = 3;
-    public final static byte DOWNLOAD_UPLINK_VERSION_3 = 3;
-    public final static byte NOTIFY_UPLINK_VERSION_3 = 3;
-    public final static byte REGISTRY_UPLINK_VERSION_3 = 3;
 ```
 
 ### MissortedModifiers
@@ -1176,11 +1008,119 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
+    public final static int MESSAGE_GetDataAvailabilityResponse = -309;
+    public final static int MESSAGE_ConnectNotifyRequest = -311;
+    public final static int MESSAGE_ConnectNotifyResponse = -312;
+    public final static int MESSAGE_ConnectRegistryRequest = -313;
+    public final static int MESSAGE_ConnectRegistryResponse = -314;
+```
 
-public class MessageConstants {
-    public final static byte UPLOAD_UPLINK_MAGIC_BYTE = 'u';
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
+    public final static byte RESPONSE_STATUS_STALE_TASK_ATTEMPT = 55;
+    public final static byte RESPONSE_STATUS_UNSPECIFIED = 0;
+
+    // Control messages
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_ConnectDownloadResponse = -307;
+    public final static int MESSAGE_GetDataAvailabilityRequest = -310;
+    public final static int MESSAGE_GetDataAvailabilityResponse = -309;
+    public final static int MESSAGE_ConnectNotifyRequest = -311;
+    public final static int MESSAGE_ConnectNotifyResponse = -312;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_ConnectDownloadRequest = -318;
+    public final static int MESSAGE_ConnectDownloadResponse = -307;
+    public final static int MESSAGE_GetDataAvailabilityRequest = -310;
+    public final static int MESSAGE_GetDataAvailabilityResponse = -309;
+    public final static int MESSAGE_ConnectNotifyRequest = -311;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_ConnectRegistryResponse = -314;
+    public final static int MESSAGE_GetBusyStatusRequest = -320;
+    public final static int MESSAGE_GetBusyStatusResponse = -321;
+    public final static int MESSAGE_ConnectDownloadRequestMessage = -351;
+    public final static int MESSAGE_GetDataAvailabilityRequestMessage = -352;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_ConnectNotifyRequest = -311;
+    public final static int MESSAGE_ConnectNotifyResponse = -312;
+    public final static int MESSAGE_ConnectRegistryRequest = -313;
+    public final static int MESSAGE_ConnectRegistryResponse = -314;
+    public final static int MESSAGE_GetBusyStatusRequest = -320;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static byte REGISTRY_UPLINK_VERSION_3 = 3;
+
+    public final static byte RESPONSE_STATUS_OK = 20;
+    public final static byte RESPONSE_STATUS_SHUFFLE_STAGE_NOT_STARTED = 44;
+    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+
+    public final static byte UPLOAD_UPLINK_VERSION_3 = 3;
+    public final static byte DOWNLOAD_UPLINK_VERSION_3 = 3;
+    public final static byte NOTIFY_UPLINK_VERSION_3 = 3;
+    public final static byte REGISTRY_UPLINK_VERSION_3 = 3;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+
+    // Control messages
+    public final static int MESSAGE_FinishApplicationAttemptRequest = -7;
+    public final static int MESSAGE_RegisterServerRequest = -9;
+    public final static int MESSAGE_GetServersRequest = -10;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
     public final static byte DOWNLOAD_UPLINK_MAGIC_BYTE = 'd';
     public final static byte NOTIFY_UPLINK_MAGIC_BYTE = 'c';
+    public final static byte REGISTRY_UPLINK_MAGIC_BYTE = 'r';
+
+    public final static byte UPLOAD_UPLINK_VERSION_3 = 3;
 ```
 
 ### MissortedModifiers
@@ -1188,11 +1128,11 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-    public final static int MESSAGE_StageInfoStateItem = -401;
-    public final static int MESSAGE_AppDeletionStateItem = -404;
-    public final static int MESSAGE_StageCorruptionStateItem = -405;
-    public final static int MESSAGE_TaskAttemptCommitStateItem = -407;
-
+    public final static int MESSAGE_FinishUploadMessage = -317;
+    public final static int MESSAGE_HeartbeatMessage = -319;
+    public final static int MESSAGE_ConnectDownloadRequest = -318;
+    public final static int MESSAGE_ConnectDownloadResponse = -307;
+    public final static int MESSAGE_GetDataAvailabilityRequest = -310;
 ```
 
 ### MissortedModifiers
@@ -1200,11 +1140,11 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
+    public final static int MESSAGE_GetBusyStatusRequest = -320;
+    public final static int MESSAGE_GetBusyStatusResponse = -321;
+    public final static int MESSAGE_ConnectDownloadRequestMessage = -351;
     public final static int MESSAGE_GetDataAvailabilityRequestMessage = -352;
     // State store data item
-    public final static int MESSAGE_StageInfoStateItem = -401;
-    public final static int MESSAGE_AppDeletionStateItem = -404;
-    public final static int MESSAGE_StageCorruptionStateItem = -405;
 ```
 
 ### MissortedModifiers
@@ -1212,23 +1152,71 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-    public final static int MESSAGE_AppDeletionStateItem = -404;
-    public final static int MESSAGE_StageCorruptionStateItem = -405;
-    public final static int MESSAGE_TaskAttemptCommitStateItem = -407;
+    public final static int MESSAGE_RegisterServerRequest = -9;
+    public final static int MESSAGE_GetServersRequest = -10;
+    public final static int MESSAGE_FinishApplicationJobRequest = -12;
 
-    // Other constants
+    public final static int MESSAGE_GetServersResponse = -16;
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/clients/UnpooledWriteClientFactory.java`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
 #### Snippet
 ```java
-  private static final Logger logger = LoggerFactory.getLogger(UnpooledWriteClientFactory.class);
+    public final static int MESSAGE_StageInfoStateItem = -401;
+    public final static int MESSAGE_AppDeletionStateItem = -404;
+    public final static int MESSAGE_StageCorruptionStateItem = -405;
+    public final static int MESSAGE_TaskAttemptCommitStateItem = -407;
 
-  private final static UnpooledWriteClientFactory instance = new UnpooledWriteClientFactory();
+```
 
-  public static UnpooledWriteClientFactory getInstance() {
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_HeartbeatMessage = -319;
+    public final static int MESSAGE_ConnectDownloadRequest = -318;
+    public final static int MESSAGE_ConnectDownloadResponse = -307;
+    public final static int MESSAGE_GetDataAvailabilityRequest = -310;
+    public final static int MESSAGE_GetDataAvailabilityResponse = -309;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static int MESSAGE_ConnectUploadResponse = -302;
+    public final static int MESSAGE_StartUploadMessage = -303;
+    public final static int MESSAGE_FinishUploadMessage = -317;
+    public final static int MESSAGE_HeartbeatMessage = -319;
+    public final static int MESSAGE_ConnectDownloadRequest = -318;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    // Control messages
+    public final static int MESSAGE_FinishApplicationAttemptRequest = -7;
+    public final static int MESSAGE_RegisterServerRequest = -9;
+    public final static int MESSAGE_GetServersRequest = -10;
+    public final static int MESSAGE_FinishApplicationJobRequest = -12;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/messages/MessageConstants.java`
+#### Snippet
+```java
+    public final static byte RESPONSE_STATUS_OK = 20;
+    public final static byte RESPONSE_STATUS_SHUFFLE_STAGE_NOT_STARTED = 44;
+    public final static byte RESPONSE_STATUS_FILE_CORRUPTED = 45;
+    public final static byte RESPONSE_STATUS_SERVER_BUSY = 53;
+    public final static byte RESPONSE_STATUS_APP_TOO_MUCH_DATA = 54;
 ```
 
 ### MissortedModifiers
@@ -1241,6 +1229,18 @@ in `src/main/java/com/uber/rss/clients/ShuffleDataSyncWriteClientBase.java`
   abstract public void writeDataBlock(int partition, ByteBuffer value);
 
   @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/clients/UnpooledWriteClientFactory.java`
+#### Snippet
+```java
+  private static final Logger logger = LoggerFactory.getLogger(UnpooledWriteClientFactory.class);
+
+  private final static UnpooledWriteClientFactory instance = new UnpooledWriteClientFactory();
+
+  public static UnpooledWriteClientFactory getInstance() {
 ```
 
 ### MissortedModifiers
@@ -1284,11 +1284,23 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
 #### Snippet
 ```java
-
-  public final static String STATE_DIR_NAME = "state";
   public final static String STATE_FILE_PREFIX = "v1_";
 
   public final static long DEFAULT_ROTATION_MILLIS = 60 * 60 * 1000L;
+  public final static long DEFAULT_RETENTION_MILLIS = ShuffleExecutor.DEFAULT_APP_FILE_RETENTION_MILLIS;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
+#### Snippet
+```java
+  public final static long DEFAULT_RETENTION_MILLIS = ShuffleExecutor.DEFAULT_APP_FILE_RETENTION_MILLIS;
+
+  private final static TimeZone utcTimeZone;
+  private final static DateFormat dateFormat;
+
 ```
 
 ### MissortedModifiers
@@ -1320,18 +1332,6 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
 #### Snippet
 ```java
-  public final static String STATE_FILE_PREFIX = "v1_";
-
-  public final static long DEFAULT_ROTATION_MILLIS = 60 * 60 * 1000L;
-  public final static long DEFAULT_RETENTION_MILLIS = ShuffleExecutor.DEFAULT_APP_FILE_RETENTION_MILLIS;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
-#### Snippet
-```java
 
   private final static TimeZone utcTimeZone;
   private final static DateFormat dateFormat;
@@ -1344,11 +1344,11 @@ Missorted modifiers `final static`
 in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
 #### Snippet
 ```java
-  public final static long DEFAULT_RETENTION_MILLIS = ShuffleExecutor.DEFAULT_APP_FILE_RETENTION_MILLIS;
 
-  private final static TimeZone utcTimeZone;
-  private final static DateFormat dateFormat;
+  public final static String STATE_DIR_NAME = "state";
+  public final static String STATE_FILE_PREFIX = "v1_";
 
+  public final static long DEFAULT_ROTATION_MILLIS = 60 * 60 * 1000L;
 ```
 
 ## RuleId[id=ExplicitArrayFilling]
@@ -1396,10 +1396,10 @@ in `src/main/java/com/uber/rss/util/FileUtils.java`
 #### Snippet
 ```java
             try {
-                logger.info("Deleting file: " + fileToDelete);
-                fileToDelete.delete();
+                logger.info("Deleting dir: " + rootDir);
+                rootDir.delete();
             } catch (Throwable ex) {
-                logger.info("Failed to delete file: " + fileToDelete, ex);
+                logger.info("Failed to delete dir: " + rootDir, ex);
 ```
 
 ### IgnoreResultOfCall
@@ -1408,10 +1408,10 @@ in `src/main/java/com/uber/rss/util/FileUtils.java`
 #### Snippet
 ```java
             try {
-                logger.info("Deleting dir: " + rootDir);
-                rootDir.delete();
+                logger.info("Deleting file: " + fileToDelete);
+                fileToDelete.delete();
             } catch (Throwable ex) {
-                logger.info("Failed to delete dir: " + rootDir, ex);
+                logger.info("Failed to delete file: " + fileToDelete, ex);
 ```
 
 ### IgnoreResultOfCall
@@ -2204,18 +2204,6 @@ in `src/main/java/com/uber/rss/metadata/ZooKeeperServiceRegistry.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `fileStartIndex` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
-#### Snippet
-```java
-  private final Map<Integer, Map<String, Long>> finalizedFiles = new HashMap<>();
-
-  private int fileStartIndex;
-
-  private int numPartitions;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `closed` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
 #### Snippet
@@ -2228,15 +2216,15 @@ in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentClient` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
+Field `fileStartIndex` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
 #### Snippet
 ```java
-  private long shuffleReadBytesOfFinishedClients = 0;
+  private final Map<Integer, Map<String, Long>> finalizedFiles = new HashMap<>();
 
-  private ReplicatedReadClient currentClient;
+  private int fileStartIndex;
 
-  public MultiServerSocketReadClient(Collection<ServerReplicationGroup> servers,
+  private int numPartitions;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2249,6 +2237,18 @@ in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
   private int nextClientIndex = 0;
   private long shuffleReadBytesOfFinishedClients = 0;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `currentClient` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
+#### Snippet
+```java
+  private long shuffleReadBytesOfFinishedClients = 0;
+
+  private ReplicatedReadClient currentClient;
+
+  public MultiServerSocketReadClient(Collection<ServerReplicationGroup> servers,
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2375,18 +2375,6 @@ in `src/main/java/com/uber/rss/storage/ShuffleFileOutputStream.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
-#### Snippet
-```java
-  private final TaskAttemptCollection taskAttempts = new TaskAttemptCollection();
-
-  private boolean stateSaved = false;
-
-  /***
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
 #### Snippet
 ```java
@@ -2395,18 +2383,6 @@ in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
     private boolean isDirty = false;
 
     private final ConcurrentHashMap<String, Long> streamPersistedBytesSnapshots = new ConcurrentHashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/uber/rss/util/CountedOutputStream.java`
-#### Snippet
-```java
-
-public class CountedOutputStream extends OutputStream {
-    private long writtenBytes = 0;
-
-    private OutputStream underlyingStream;
 ```
 
 ### RedundantFieldInitialization
@@ -2431,6 +2407,30 @@ in `src/main/java/com/uber/rss/clients/RecordSocketReadClient.java`
     private ReadClientMetrics metrics = null;
 
     protected RecordSocketReadClient(String host, int port, int timeoutMillis, String user, AppShufflePartitionId appShufflePartitionId, Collection<Long> fetchTaskAttemptIds, long dataAvailablePollInterval, long dataAvailableWaitTime) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/uber/rss/util/CountedOutputStream.java`
+#### Snippet
+```java
+
+public class CountedOutputStream extends OutputStream {
+    private long writtenBytes = 0;
+
+    private OutputStream underlyingStream;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
+#### Snippet
+```java
+  private final TaskAttemptCollection taskAttempts = new TaskAttemptCollection();
+
+  private boolean stateSaved = false;
+
+  /***
 ```
 
 ### RedundantFieldInitialization
@@ -2459,6 +2459,30 @@ in `src/main/java/com/uber/rss/clients/LazyWriteClient.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `src/main/java/com/uber/rss/clients/ServerBusyRetriableWriteClient.java`
+#### Snippet
+```java
+    private SingleServerWriteClient delegate;
+
+    private WriteClientMetrics metrics = null;
+
+    public ServerBusyRetriableWriteClient(Callable<SingleServerWriteClient> creator, long maxTryingMillis, String user, String appId, String appAttempt) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/uber/rss/StreamServerConfig.java`
+#### Snippet
+```java
+  private String principal = null;
+
+  private Configuration hadoopConfig = null;
+
+  private long stateCommitIntervalMillis = 60000;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `src/main/java/com/uber/rss/StreamServerConfig.java`
 #### Snippet
 ```java
@@ -2482,6 +2506,18 @@ in `src/main/java/com/uber/rss/StreamServerConfig.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/uber/rss/StreamServerConfig.java`
+#### Snippet
+```java
+  private String zooKeeperServers = ZooKeeperServiceRegistry.getDefaultServers();
+
+  private String zooKeeperServersBackup = null;
+
+  private String registryServer = null;
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/com/uber/rss/StreamServerConfig.java`
 #### Snippet
@@ -2498,47 +2534,11 @@ Field initialization to `null` is redundant
 in `src/main/java/com/uber/rss/StreamServerConfig.java`
 #### Snippet
 ```java
-  private String zooKeeperServers = ZooKeeperServiceRegistry.getDefaultServers();
-
-  private String zooKeeperServersBackup = null;
-
-  private String registryServer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/uber/rss/StreamServerConfig.java`
-#### Snippet
-```java
   private long appMaxWriteBytes = ShuffleExecutor.DEFAULT_APP_MAX_WRITE_BYTES;
 
   private String keytab = null;
 
   private String principal = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/uber/rss/StreamServerConfig.java`
-#### Snippet
-```java
-  private String principal = null;
-
-  private Configuration hadoopConfig = null;
-
-  private long stateCommitIntervalMillis = 60000;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/uber/rss/clients/ServerBusyRetriableWriteClient.java`
-#### Snippet
-```java
-    private SingleServerWriteClient delegate;
-
-    private WriteClientMetrics metrics = null;
-
-    public ServerBusyRetriableWriteClient(Callable<SingleServerWriteClient> creator, long maxTryingMillis, String user, String appId, String appAttempt) {
 ```
 
 ### RedundantFieldInitialization
@@ -2558,6 +2558,18 @@ Field initialization to `0` is redundant
 in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
 #### Snippet
 ```java
+  private final List<ServerReplicationGroup> servers;
+
+  private int nextClientIndex = 0;
+  private long shuffleReadBytesOfFinishedClients = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
+#### Snippet
+```java
 
   private int nextClientIndex = 0;
   private long shuffleReadBytesOfFinishedClients = 0;
@@ -2567,14 +2579,14 @@ in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
+in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
 ```java
-  private final List<ServerReplicationGroup> servers;
+  private class ClientAndState {
+    final PooledShuffleDataSyncWriteClient client;
+    long lastActiveTime = 0;
 
-  private int nextClientIndex = 0;
-  private long shuffleReadBytesOfFinishedClients = 0;
-
+    public ClientAndState(PooledShuffleDataSyncWriteClient client) {
 ```
 
 ### RedundantFieldInitialization
@@ -2602,18 +2614,6 @@ in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
-#### Snippet
-```java
-  private class ClientAndState {
-    final PooledShuffleDataSyncWriteClient client;
-    long lastActiveTime = 0;
-
-    public ClientAndState(PooledShuffleDataSyncWriteClient client) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
 #### Snippet
@@ -2626,15 +2626,39 @@ in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
+Field initialization to `false` is redundant
+in `src/main/java/com/uber/rss/util/MovingAverageCalculator.java`
 #### Snippet
 ```java
+    private final AtomicLongArray values;
+    private AtomicInteger index = new AtomicInteger(0);
+    private volatile boolean fullyFilled = false;
 
-    private String connectionInfo = "";
-    private String appId = null;
-    private String appAttempt = null;
+    public MovingAverageCalculator(int capacity) {
+```
 
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
+#### Snippet
+```java
+    private int maxValueLen = 10000;
+
+    private Runnable actionToSimulateBadServer = null;
+
+    public void setRssServers(List<ServerDetail> rssServers, int numReplicas) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
+#### Snippet
+```java
+    
+    // Expected total records in the files
+    private long expectedTotalRecords = 0;
+
+    private Map<Integer, Long> expectedTotalRecordsForEachPartition;
 ```
 
 ### RedundantFieldInitialization
@@ -2662,62 +2686,14 @@ in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/com/uber/rss/util/MovingAverageCalculator.java`
-#### Snippet
-```java
-    private final AtomicLongArray values;
-    private AtomicInteger index = new AtomicInteger(0);
-    private volatile boolean fullyFilled = false;
-
-    public MovingAverageCalculator(int capacity) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
-#### Snippet
-```java
-    
-    // Expected total records in the files
-    private long expectedTotalRecords = 0;
-
-    private Map<Integer, Long> expectedTotalRecordsForEachPartition;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
 #### Snippet
 ```java
-    private int maxValueLen = 10000;
 
-    private Runnable actionToSimulateBadServer = null;
-
-    public void setRssServers(List<ServerDetail> rssServers, int numReplicas) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
-#### Snippet
-```java
-  private long dataLength = -1;
-
-  private int totalReadDataBlocks = 0;
-  private FixedLengthInputStream fixedLengthInputStream;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
-#### Snippet
-```java
-  private Set<Long> commitTaskAttemptIds;
-
-  private boolean downloadStarted = false;
-  private long dataLength = -1;
+    private String connectionInfo = "";
+    private String appId = null;
+    private String appAttempt = null;
 
 ```
 
@@ -2746,6 +2722,30 @@ in `src/main/java/com/uber/rss/decoders/StreamServerMessageDecoder.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
+#### Snippet
+```java
+  private long dataLength = -1;
+
+  private int totalReadDataBlocks = 0;
+  private FixedLengthInputStream fixedLengthInputStream;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
+#### Snippet
+```java
+  private Set<Long> commitTaskAttemptIds;
+
+  private boolean downloadStarted = false;
+  private long dataLength = -1;
+
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/com/uber/rss/clients/NotifyClient.java`
 #### Snippet
@@ -2755,6 +2755,18 @@ in `src/main/java/com/uber/rss/clients/NotifyClient.java`
   private NotifyClientMetrics metrics = null;
 
   public NotifyClient(String host, int port, int timeoutMillis, String user) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
+#### Snippet
+```java
+    protected TState state;
+
+    protected long totalBytes = 0;
+
+    protected int currentReadCursor = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -2783,18 +2795,6 @@ in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
-#### Snippet
-```java
-    protected TState state;
-
-    protected long totalBytes = 0;
-
-    protected int currentReadCursor = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `src/main/java/com/uber/rss/clients/DataBlockSyncWriteClient.java`
 #### Snippet
 ```java
@@ -2803,6 +2803,18 @@ in `src/main/java/com/uber/rss/clients/DataBlockSyncWriteClient.java`
   private long totalWriteBytes = 0;
   private long startUploadShuffleByteSnapshot = 0;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/uber/rss/clients/DataBlockSyncWriteClient.java`
+#### Snippet
+```java
+
+  private long totalWriteBytes = 0;
+  private long startUploadShuffleByteSnapshot = 0;
+
+  private WriteClientMetrics metrics = null;
 ```
 
 ### RedundantFieldInitialization
@@ -2819,14 +2831,14 @@ in `src/main/java/com/uber/rss/clients/DataBlockSyncWriteClient.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `src/main/java/com/uber/rss/clients/DataBlockSyncWriteClient.java`
+in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
 #### Snippet
 ```java
+  private final boolean checkDataConsistency;
 
-  private long totalWriteBytes = 0;
-  private long startUploadShuffleByteSnapshot = 0;
+  private int currentClientIndex = 0;
+  private boolean endOfRead = false;
 
-  private WriteClientMetrics metrics = null;
 ```
 
 ### RedundantFieldInitialization
@@ -2839,18 +2851,6 @@ in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
   private boolean endOfRead = false;
 
   private long shuffleReadBytes = -1;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
-#### Snippet
-```java
-  private final boolean checkDataConsistency;
-
-  private int currentClientIndex = 0;
-  private boolean endOfRead = false;
-
 ```
 
 ### RedundantFieldInitialization
@@ -2902,27 +2902,15 @@ in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    private List<ServerDetail> serverDetails = new ArrayList<>();
-
-    private boolean useEpoll = false;
-    
-    private String workDir = "/tmp/rss";
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
 #### Snippet
 ```java
-    // This tool generates a range of map tasks to simulate uploading data.
-    // This field specifies the lower bound (inclusive) of the map id.
-    private int startMapId = 0;
-
-    // This tool generates a range of map tasks to simulate uploading data.
+    // If this value is not zero, map tasks will sleep that amount of milliseconds after uploading
+    // each record.
+    private int mapSlowness = 0;
+    
+    // How long the client should wait before timeout
 ```
 
 ### RedundantFieldInitialization
@@ -2942,11 +2930,23 @@ Field initialization to `0` is redundant
 in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
 #### Snippet
 ```java
-    // If this value is not zero, map tasks will sleep that amount of milliseconds after uploading
-    // each record.
-    private int mapSlowness = 0;
+    // This tool generates a range of map tasks to simulate uploading data.
+    // This field specifies the lower bound (inclusive) of the map id.
+    private int startMapId = 0;
+
+    // This tool generates a range of map tasks to simulate uploading data.
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    private List<ServerDetail> serverDetails = new ArrayList<>();
+
+    private boolean useEpoll = false;
     
-    // How long the client should wait before timeout
+    private String workDir = "/tmp/rss";
 ```
 
 ## RuleId[id=RedundantImplements]
@@ -3014,18 +3014,6 @@ in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
 
 ## RuleId[id=NonFinalFieldOfException]
 ### NonFinalFieldOfException
-Non-final field `currentConnections` of exception class
-in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
-#### Snippet
-```java
-public class RssMaxConnectionsException extends Exception {
-    private String message;
-    private int currentConnections = -1;
-    private int maxConnections = -1;
-
-```
-
-### NonFinalFieldOfException
 Non-final field `maxConnections` of exception class
 in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
 #### Snippet
@@ -3035,6 +3023,18 @@ in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
     private int maxConnections = -1;
 
     public RssMaxConnectionsException(int currentConnections, int maxConnections, String message) {
+```
+
+### NonFinalFieldOfException
+Non-final field `currentConnections` of exception class
+in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
+#### Snippet
+```java
+public class RssMaxConnectionsException extends Exception {
+    private String message;
+    private int currentConnections = -1;
+    private int maxConnections = -1;
+
 ```
 
 ### NonFinalFieldOfException
@@ -3055,11 +3055,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
 ```java
-    public ShuffleDataSyncWriteClient getOrCreateClient(int timeoutMillis, boolean finishUploadAck, ShuffleWriteConfig shuffleWriteConfig) {
-      ClientAndState clientAndState;
+
+    public void returnClientToPool(PooledShuffleDataSyncWriteClient client) {
       synchronized (this) {
-        if (!idleClients.isEmpty()) {
-          clientAndState = idleClients.remove(0);
+        for (ClientAndState entry: idleClients) {
+          if (entry.client.getClientId() == client.getClientId()) {
 ```
 
 ### SynchronizeOnThis
@@ -3080,10 +3080,34 @@ in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
 ```java
 
-  public int getNumCreatedClients() {
+    public void closeClient() {
+      synchronized (this) {
+        try {
+          client.closeWithoutReuse();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
+#### Snippet
+```java
+    public ShuffleDataSyncWriteClient getOrCreateClient(int timeoutMillis, boolean finishUploadAck, ShuffleWriteConfig shuffleWriteConfig) {
+      ClientAndState clientAndState;
+      synchronized (this) {
+        if (!idleClients.isEmpty()) {
+          clientAndState = idleClients.remove(0);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
+#### Snippet
+```java
+    idleCheck.cancel();
+
     synchronized (this) {
-      return pools.values().stream().mapToInt(t->t.numCreatedClients).sum();
-    }
+      pools.values().stream().forEach(pool -> pool.idleClients.forEach(clientAndState -> {
+        try {
 ```
 
 ### SynchronizeOnThis
@@ -3104,34 +3128,10 @@ in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
 ```java
 
-    public void returnClientToPool(PooledShuffleDataSyncWriteClient client) {
-      synchronized (this) {
-        for (ClientAndState entry: idleClients) {
-          if (entry.client.getClientId() == client.getClientId()) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
-#### Snippet
-```java
-    idleCheck.cancel();
-
+  public int getNumCreatedClients() {
     synchronized (this) {
-      pools.values().stream().forEach(pool -> pool.idleClients.forEach(clientAndState -> {
-        try {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
-#### Snippet
-```java
-
-    public void closeClient() {
-      synchronized (this) {
-        try {
-          client.closeWithoutReuse();
+      return pools.values().stream().mapToInt(t->t.numCreatedClients).sum();
+    }
 ```
 
 ### SynchronizeOnThis
@@ -3151,11 +3151,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
 ```java
-  private void closeLongIdleClients() {
-    List<ClientPool> poolsToCheck = new ArrayList<>();
-    synchronized (this) {
-      poolsToCheck.addAll(pools.values());
-    }
+
+    public PooledShuffleDataSyncWriteClient getConnectedClient() {
+      synchronized (this) {
+        if (lastActiveTime > 0) {
+          return client;
 ```
 
 ### SynchronizeOnThis
@@ -3163,11 +3163,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
 ```java
-
-    public PooledShuffleDataSyncWriteClient getConnectedClient() {
-      synchronized (this) {
-        if (lastActiveTime > 0) {
-          return client;
+  private void closeLongIdleClients() {
+    List<ClientPool> poolsToCheck = new ArrayList<>();
+    synchronized (this) {
+      poolsToCheck.addAll(pools.values());
+    }
 ```
 
 ### SynchronizeOnThis
@@ -3187,18 +3187,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
 #### Snippet
 ```java
-
-  private void createNewFileIfNecessary() {
-    synchronized (this) {
-      if (closed) {
-        logger.info(String.format("State store already closed, do not create new file, %s", this));
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
-#### Snippet
-```java
   public void close() {
     try {
       synchronized (this) {
@@ -3211,11 +3199,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
 #### Snippet
 ```java
-
-  public void commit() {
+    byte[] messageTypeBytes = ByteBufUtils.convertIntToBytes(item.getMessageType());
+    byte[] lengthBytes = ByteBufUtils.convertIntToBytes(bytes.length);
     synchronized (this) {
       try {
-        currentFileStream.flush();
+        currentFileStream.write(messageTypeBytes);
 ```
 
 ### SynchronizeOnThis
@@ -3223,11 +3211,23 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
 #### Snippet
 ```java
-    byte[] messageTypeBytes = ByteBufUtils.convertIntToBytes(item.getMessageType());
-    byte[] lengthBytes = ByteBufUtils.convertIntToBytes(bytes.length);
+
+  private void createNewFileIfNecessary() {
+    synchronized (this) {
+      if (closed) {
+        logger.info(String.format("State store already closed, do not create new file, %s", this));
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
+#### Snippet
+```java
+
+  public void commit() {
     synchronized (this) {
       try {
-        currentFileStream.write(messageTypeBytes);
+        currentFileStream.flush();
 ```
 
 ## RuleId[id=RedundantStringFormatCall]
@@ -3378,18 +3378,6 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `initialFileSize` initializer `0L` is redundant
-in `src/main/java/com/uber/rss/storage/ShuffleFileOutputStream.java`
-#### Snippet
-```java
-    private final String filePath;
-    private OutputStream outputStream;
-    private long initialFileSize = 0L;
-    private CountedOutputStream internalCountedOutputStream;
-
-```
-
-### UnusedAssignment
 Variable `bytes` initializer `null` is redundant
 in `src/main/java/com/uber/rss/metadata/ZooKeeperServiceRegistry.java`
 #### Snippet
@@ -3399,6 +3387,18 @@ in `src/main/java/com/uber/rss/metadata/ZooKeeperServiceRegistry.java`
         byte[] bytes = null;
         try {
             bytes = zk.getData().forPath(nodePath);
+```
+
+### UnusedAssignment
+Variable `initialFileSize` initializer `0L` is redundant
+in `src/main/java/com/uber/rss/storage/ShuffleFileOutputStream.java`
+#### Snippet
+```java
+    private final String filePath;
+    private OutputStream outputStream;
+    private long initialFileSize = 0L;
+    private CountedOutputStream internalCountedOutputStream;
+
 ```
 
 ### UnusedAssignment
@@ -3462,18 +3462,6 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressToolLongRun.java`
 ```
 
 ### UnusedAssignment
-Variable `currentConnections` initializer `-1` is redundant
-in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
-#### Snippet
-```java
-public class RssMaxConnectionsException extends Exception {
-    private String message;
-    private int currentConnections = -1;
-    private int maxConnections = -1;
-
-```
-
-### UnusedAssignment
 Variable `maxConnections` initializer `-1` is redundant
 in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
 #### Snippet
@@ -3483,6 +3471,18 @@ in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
     private int maxConnections = -1;
 
     public RssMaxConnectionsException(int currentConnections, int maxConnections, String message) {
+```
+
+### UnusedAssignment
+Variable `currentConnections` initializer `-1` is redundant
+in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
+#### Snippet
+```java
+public class RssMaxConnectionsException extends Exception {
+    private String message;
+    private int currentConnections = -1;
+    private int maxConnections = -1;
+
 ```
 
 ### UnusedAssignment
@@ -3659,18 +3659,6 @@ in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 ```
 
 ### FieldMayBeStatic
-Field `CONCURRENT_CONNS` may be 'static'
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
-#### Snippet
-```java
-    private ChannelIdleCheck idleCheck;
-
-    final int CONCURRENT_CONNS = 1;
-
-    public UploadChannelInboundHandler(String serverId,
-```
-
-### FieldMayBeStatic
 Field `INTERNAL_WAKEUP_MILLIS` may be 'static'
 in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
 #### Snippet
@@ -3680,6 +3668,18 @@ in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
     private final int INTERNAL_WAKEUP_MILLIS = 1000;
 
     private final String rootDir;
+```
+
+### FieldMayBeStatic
+Field `CONCURRENT_CONNS` may be 'static'
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
+#### Snippet
+```java
+    private ChannelIdleCheck idleCheck;
+
+    final int CONCURRENT_CONNS = 1;
+
+    public UploadChannelInboundHandler(String serverId,
 ```
 
 ### FieldMayBeStatic
@@ -3696,14 +3696,14 @@ in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `RssBuildInfo` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/rss/RssBuildInfo.java`
+Class `M3Stats` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/rss/metrics/M3Stats.java`
 #### Snippet
 ```java
-import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class RssBuildInfo {
-    public static String UnknownValue = "<unknown>";
+public class M3Stats {
+    private static final Logger logger = LoggerFactory.getLogger(M3Stats.class);
 
 ```
 
@@ -3720,15 +3720,27 @@ public class NetworkUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `M3Stats` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/rss/metrics/M3Stats.java`
+Class `RssBuildInfo` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/rss/RssBuildInfo.java`
 #### Snippet
 ```java
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Properties;
 
-public class M3Stats {
-    private static final Logger logger = LoggerFactory.getLogger(M3Stats.class);
+public class RssBuildInfo {
+    public static String UnknownValue = "<unknown>";
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LogUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/rss/util/LogUtils.java`
+#### Snippet
+```java
+package com.uber.rss.util;
+
+public class LogUtils {
+
+    public static double calculateMegaBytesPerSecond(long durationMillis, long bytes) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3756,15 +3768,15 @@ public class StreamUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LogUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/rss/util/LogUtils.java`
+Class `ServiceRegistryUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
 #### Snippet
 ```java
-package com.uber.rss.util;
+import java.util.stream.Collectors;
 
-public class LogUtils {
+public class ServiceRegistryUtils {
+    private static final Logger logger = LoggerFactory.getLogger(ServiceRegistryUtils.class);
 
-    public static double calculateMegaBytesPerSecond(long durationMillis, long bytes) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3800,18 +3812,6 @@ import java.util.List;
 
 public class ServerReplicationGroupUtil {
   private static final Logger logger = LoggerFactory.getLogger(ServerReplicationGroupUtil.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ServiceRegistryUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class ServiceRegistryUtils {
-    private static final Logger logger = LoggerFactory.getLogger(ServiceRegistryUtils.class);
 
 ```
 
@@ -3912,18 +3912,6 @@ public class ThreadUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SocketUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/rss/util/SocketUtils.java`
-#### Snippet
-```java
-import java.util.concurrent.Future;
-
-public class SocketUtils {
-    public static byte[] readBytes(InputStream stream, int numBytes) {
-        if (numBytes == 0) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `JsonUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/uber/rss/util/JsonUtils.java`
 #### Snippet
@@ -3933,6 +3921,18 @@ import java.io.IOException;
 public class JsonUtils {
     protected static ObjectMapper mapper = new ObjectMapper();
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SocketUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/rss/util/SocketUtils.java`
+#### Snippet
+```java
+import java.util.concurrent.Future;
+
+public class SocketUtils {
+    public static byte[] readBytes(InputStream stream, int numBytes) {
+        if (numBytes == 0) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4021,18 +4021,6 @@ in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
 ```
 
 ### DataFlowIssue
-Dereference of `rootDirFile.listFiles()` may produce `NullPointerException`
-in `src/main/java/com/uber/rss/util/FileUtils.java`
-#### Snippet
-```java
-
-        // delete empty directories
-        for (File childFile: rootDirFile.listFiles()) {
-            if (childFile.isDirectory()) {
-                deleteDirRecursively(childFile);
-```
-
-### DataFlowIssue
 Dereference of `childFiles` may produce `NullPointerException`
 in `src/main/java/com/uber/rss/util/FileUtils.java`
 #### Snippet
@@ -4042,6 +4030,18 @@ in `src/main/java/com/uber/rss/util/FileUtils.java`
         if (childFiles.length == 0) {
             try {
                 logger.info("Deleting dir: " + rootDir);
+```
+
+### DataFlowIssue
+Dereference of `rootDirFile.listFiles()` may produce `NullPointerException`
+in `src/main/java/com/uber/rss/util/FileUtils.java`
+#### Snippet
+```java
+
+        // delete empty directories
+        for (File childFile: rootDirFile.listFiles()) {
+            if (childFile.isDirectory()) {
+                deleteDirRecursively(childFile);
 ```
 
 ### DataFlowIssue
@@ -4316,18 +4316,6 @@ Lambda can be replaced with method reference
 in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
 #### Snippet
 ```java
-          }
-        })
-            .filter(t -> t != null)
-            .sorted((o1, o2) -> {
-                // We wanted to keep 500 ms offset to compare
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
-#### Snippet
-```java
    */
     public static void checkServersAlive(ServiceRegistry serviceRegistry, String dataCenter, String cluster, Collection<ServerDetail> servers) {
       List<String> serverIds = servers.stream().map(t->t.getServerId()).collect(Collectors.toList());
@@ -4345,6 +4333,18 @@ in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
         String serversInfo = servers.stream().map(t->t.toString()).collect(Collectors.joining(", "));
         throw new RssServerDownException(String.format("Some of the servers were down: %s", serversInfo));
       }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
+#### Snippet
+```java
+          }
+        })
+            .filter(t -> t != null)
+            .sorted((o1, o2) -> {
+                // We wanted to keep 500 ms offset to compare
 ```
 
 ### Convert2MethodRef
@@ -4412,11 +4412,11 @@ Lambda can be replaced with method reference
 in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
 #### Snippet
 ```java
-        closeMetrics();
+    @Override
+    public void connect() {
+        servers.parallelStream().forEach(t -> connectSingleClient(t));
 
-        Arrays.stream(clients).parallel().forEach(t -> closeClient(t));
-    }
-
+        // use synchronize to make sure reads on clients array element getting latest value from other threads
 ```
 
 ### Convert2MethodRef
@@ -4424,11 +4424,11 @@ Lambda can be replaced with method reference
 in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
 #### Snippet
 ```java
-    @Override
-    public void connect() {
-        servers.parallelStream().forEach(t -> connectSingleClient(t));
+        closeMetrics();
 
-        // use synchronize to make sure reads on clients array element getting latest value from other threads
+        Arrays.stream(clients).parallel().forEach(t -> closeClient(t));
+    }
+
 ```
 
 ### Convert2MethodRef
@@ -4532,11 +4532,11 @@ Lambda can be replaced with method reference
 in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
 #### Snippet
 ```java
-    @Override
-    public void connect() {
-        servers.parallelStream().forEach(t -> connectSingleClient(t));
+            waitThreadsExit();
+        } finally {
+            Arrays.stream(clients).parallel().forEach(t -> closeClient(t));
+        }
 
-        // use synchronize to make sure reads on clients array element getting latest value from other threads
 ```
 
 ### Convert2MethodRef
@@ -4544,11 +4544,11 @@ Lambda can be replaced with method reference
 in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
 #### Snippet
 ```java
-            waitThreadsExit();
-        } finally {
-            Arrays.stream(clients).parallel().forEach(t -> closeClient(t));
-        }
+    @Override
+    public void connect() {
+        servers.parallelStream().forEach(t -> connectSingleClient(t));
 
+        // use synchronize to make sure reads on clients array element getting latest value from other threads
 ```
 
 ### Convert2MethodRef
@@ -5259,54 +5259,6 @@ Return of `null`
 in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
 #### Snippet
 ```java
-      long position = fileStream.getChannel().position();
-      if (position >= fileSize) {
-        return null;
-      }
-      byte[] bytes = StreamUtils.readBytes(fileStream, numBytes);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
-#### Snippet
-```java
-      if (bytes == null) {
-        logger.info(String.format("Finished reading state file %s after reading %s bytes", currentFile, position));
-        return null;
-      } else if (bytes.length < numBytes) {
-        logger.warn(String.format("Hit corrupted state file %s after reading %s bytes", currentFile, position));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
-#### Snippet
-```java
-      } else if (bytes.length < numBytes) {
-        logger.warn(String.format("Hit corrupted state file %s after reading %s bytes", currentFile, position));
-        return null;
-      } else {
-        return bytes;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
-#### Snippet
-```java
-    } catch (Throwable e) {
-      logger.warn(String.format("Failed to read state file %s", currentFile), e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
-#### Snippet
-```java
     if (bytes == null) {
       closeCurrentFileStream();
       return null;
@@ -5381,6 +5333,54 @@ in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
 ```java
       return messages.get(nextMessageIndex++);
     } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
+#### Snippet
+```java
+      long position = fileStream.getChannel().position();
+      if (position >= fileSize) {
+        return null;
+      }
+      byte[] bytes = StreamUtils.readBytes(fileStream, numBytes);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
+#### Snippet
+```java
+      if (bytes == null) {
+        logger.info(String.format("Finished reading state file %s after reading %s bytes", currentFile, position));
+        return null;
+      } else if (bytes.length < numBytes) {
+        logger.warn(String.format("Hit corrupted state file %s after reading %s bytes", currentFile, position));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
+#### Snippet
+```java
+      } else if (bytes.length < numBytes) {
+        logger.warn(String.format("Hit corrupted state file %s after reading %s bytes", currentFile, position));
+        return null;
+      } else {
+        return bytes;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
+#### Snippet
+```java
+    } catch (Throwable e) {
+      logger.warn(String.format("Failed to read state file %s", currentFile), e);
       return null;
     }
   }
@@ -5487,11 +5487,11 @@ Return of `null`
 in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
 #### Snippet
 ```java
-      currentClient = null;
-      if (nextClientIndex == servers.size()) {
+        exceptionWrapper.setException(ex);
+        closeClient(aClient);
         return null;
-      } else if (nextClientIndex < servers.size()) {
-        connectAndInitializeClient();
+      }
+    });
 ```
 
 ### ReturnNull
@@ -5499,11 +5499,11 @@ Return of `null`
 in `src/main/java/com/uber/rss/clients/MultiServerSocketReadClient.java`
 #### Snippet
 ```java
-        exceptionWrapper.setException(ex);
-        closeClient(aClient);
+      currentClient = null;
+      if (nextClientIndex == servers.size()) {
         return null;
-      }
-    });
+      } else if (nextClientIndex < servers.size()) {
+        connectAndInitializeClient();
 ```
 
 ### ReturnNull
@@ -5528,6 +5528,18 @@ in `src/main/java/com/uber/rss/util/AsyncSocketState.java`
             return null;
         }
         
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
+#### Snippet
+```java
+          return getDataAvailabilityResponse;
+        } else {
+          return null;
+        }
+      });
 ```
 
 ### ReturnNull
@@ -5568,18 +5580,6 @@ in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
-#### Snippet
-```java
-          return getDataAvailabilityResponse;
-        } else {
-          return null;
-        }
-      });
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 #### Snippet
 ```java
@@ -5616,30 +5616,6 @@ in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/rss/util/RetryUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/rss/util/RetryUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
 #### Snippet
 ```java
@@ -5672,6 +5648,30 @@ in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
         return null;
       } catch (RssInconsistentReplicaException | RssNonRecoverableException ex) {
         M3Stats.addException(ex, this.getClass().getSimpleName());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/rss/util/RetryUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/rss/util/RetryUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -5748,18 +5748,6 @@ in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `writeClient` is redundant
-in `src/main/java/com/uber/rss/clients/UnpooledWriteClientFactory.java`
-#### Snippet
-```java
-  @Override
-  public ShuffleDataSyncWriteClient getOrCreateClient(String host, int port, int timeoutMillis, boolean finishUploadAck, String user, String appId, String appAttempt, ShuffleWriteConfig shuffleWriteConfig) {
-    final ShuffleDataSyncWriteClient writeClient = new PlainShuffleDataSyncWriteClient(
-        host,
-        port,
-```
-
-### UnnecessaryLocalVariable
 Local variable `numValueBytes` is redundant
 in `src/main/java/com/uber/rss/clients/ShuffleDataSyncWriteClientBase.java`
 #### Snippet
@@ -5772,15 +5760,15 @@ in `src/main/java/com/uber/rss/clients/ShuffleDataSyncWriteClientBase.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `value` is redundant
-in `src/main/java/com/uber/rss/util/SocketUtils.java`
+Local variable `writeClient` is redundant
+in `src/main/java/com/uber/rss/clients/UnpooledWriteClientFactory.java`
 #### Snippet
 ```java
-        ByteBuf buf = Unpooled.wrappedBuffer(bytes);
-        try {
-            long value = buf.readLong();
-            return value;
-        } finally {
+  @Override
+  public ShuffleDataSyncWriteClient getOrCreateClient(String host, int port, int timeoutMillis, boolean finishUploadAck, String user, String appId, String appAttempt, ShuffleWriteConfig shuffleWriteConfig) {
+    final ShuffleDataSyncWriteClient writeClient = new PlainShuffleDataSyncWriteClient(
+        host,
+        port,
 ```
 
 ### UnnecessaryLocalVariable
@@ -5796,6 +5784,18 @@ in `src/main/java/com/uber/rss/util/SocketUtils.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `value` is redundant
+in `src/main/java/com/uber/rss/util/SocketUtils.java`
+#### Snippet
+```java
+        ByteBuf buf = Unpooled.wrappedBuffer(bytes);
+        try {
+            long value = buf.readLong();
+            return value;
+        } finally {
+```
+
+### UnnecessaryLocalVariable
 Local variable `persistedBytes` is redundant
 in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
 #### Snippet
@@ -5805,30 +5805,6 @@ in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
         List<FilePathAndLength>  persistedBytes = stageState.getPersistedBytesSnapshot(partition);
         return persistedBytes;
     }
-```
-
-### UnnecessaryLocalVariable
-Local variable `getDataAvailabilityResponse` is redundant
-in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
-#### Snippet
-```java
-    GetDataAvailabilityRequest request = new GetDataAvailabilityRequest();
-    writeControlMessageAndWaitResponseStatus(request);
-    GetDataAvailabilityResponse getDataAvailabilityResponse = readResponseMessage(MessageConstants.MESSAGE_GetDataAvailabilityResponse, GetDataAvailabilityResponse::deserialize);
-    return getDataAvailabilityResponse;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `targetState` is redundant
-in `src/main/java/com/uber/rss/execution/TaskAttemptIdAndState.java`
-#### Snippet
-```java
-
-  public void markCommitted() {
-    TaskAttemptState targetState = TaskAttemptState.COMMITTED;
-    state = targetState;
-  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -5865,6 +5841,30 @@ in `src/main/java/com/uber/rss/decoders/StreamServerMessageDecoder.java`
         GetBusyStatusResponse getBusyStatusResponse = GetBusyStatusResponse.deserialize(in);
         return getBusyStatusResponse;
       case MessageConstants.MESSAGE_ConnectDownloadRequest:
+```
+
+### UnnecessaryLocalVariable
+Local variable `targetState` is redundant
+in `src/main/java/com/uber/rss/execution/TaskAttemptIdAndState.java`
+#### Snippet
+```java
+
+  public void markCommitted() {
+    TaskAttemptState targetState = TaskAttemptState.COMMITTED;
+    state = targetState;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `getDataAvailabilityResponse` is redundant
+in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
+#### Snippet
+```java
+    GetDataAvailabilityRequest request = new GetDataAvailabilityRequest();
+    writeControlMessageAndWaitResponseStatus(request);
+    GetDataAvailabilityResponse getDataAvailabilityResponse = readResponseMessage(MessageConstants.MESSAGE_GetDataAvailabilityResponse, GetDataAvailabilityResponse::deserialize);
+    return getDataAvailabilityResponse;
+  }
 ```
 
 ### UnnecessaryLocalVariable
