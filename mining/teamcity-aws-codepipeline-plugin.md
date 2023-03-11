@@ -73,18 +73,6 @@ in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/co
 ```
 
 ### StaticCallOnSubclass
-Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
-#### Snippet
-```java
-  private void makeArtifactCopy(@NotNull File inputFolder, @NotNull File artifactFile, @NotNull String path, @NotNull AgentRunningBuild build) {
-    final File dest = new File(inputFolder, path);
-    FileUtil.createParentDirs(dest);
-    try {
-      FileUtil.copy(artifactFile, dest);
-```
-
-### StaticCallOnSubclass
 Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
 #### Snippet
@@ -118,6 +106,18 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
     return FileUtil.toSystemIndependentName(message).replace(checkoutDir + "/", StringUtil.EMPTY).replace(checkoutDir, StringUtil.EMPTY);
   }
 
+```
+
+### StaticCallOnSubclass
+Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
+in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
+#### Snippet
+```java
+  private void makeArtifactCopy(@NotNull File inputFolder, @NotNull File artifactFile, @NotNull String path, @NotNull AgentRunningBuild build) {
+    final File dest = new File(inputFolder, path);
+    FileUtil.createParentDirs(dest);
+    try {
+      FileUtil.copy(artifactFile, dest);
 ```
 
 ## RuleId[id=DataFlowIssue]
