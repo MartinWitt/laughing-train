@@ -1,26 +1,22 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-
-import org.eclipse.microprofile.graphql.Description;
-import org.eclipse.microprofile.graphql.GraphQLApi;
-import org.eclipse.microprofile.graphql.Mutation;
-import org.eclipse.microprofile.graphql.Query;
-
 import com.google.common.flogger.FluentLogger;
-
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.services.RefactorService;
 import io.quarkus.security.Authenticated;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import org.eclipse.microprofile.graphql.Description;
+import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.Mutation;
+import org.eclipse.microprofile.graphql.Query;
 import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 
@@ -48,7 +44,12 @@ public class RefactorGraphQL {
         Set<BadSmell> badSmellsToRefactor = badSmellIdentifier.stream()
                 .map(badSmellRepository::findByIdentifier)
                 .collect(Collectors.flatMapping(Collection::stream, Collectors.toSet()));
-        logger.atInfo().log("Refactoring %s", badSmellsToRefactor.stream().map(BadSmell::ruleID).map(RuleId::id).toList());
+        logger.atInfo().log(
+                "Refactoring %s",
+                badSmellsToRefactor.stream()
+                        .map(BadSmell::ruleID)
+                        .map(RuleId::id)
+                        .toList());
         refactorService.refactor(badSmellsToRefactor);
 
         return "Refactoring done";
