@@ -11,8 +11,6 @@ import java.nio.file.Path;
 import java.util.List;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.NoFilepatternException;
-import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.lib.AnyObjectId;
@@ -42,7 +40,7 @@ public class DiffCleaner {
 
         try (Git git = Git.open(path.toFile());
                 ObjectReader reader = git.getRepository().newObjectReader();
-                DiffFormatter df = new DiffFormatter(out) ) {
+                DiffFormatter df = new DiffFormatter(out)) {
             CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
             oldTreeIter.reset(reader, getLastCommit(git));
             String shortPath = getRelativeRepoPath(change, git);
