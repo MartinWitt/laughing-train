@@ -16,13 +16,13 @@ I found 56 bad smells with 6 repairable:
 | IfStatementWithIdenticalBranches | 1 | false |
 | DataFlowIssue | 1 | false |
 | NestedAssignment | 1 | false |
-| DeprecatedIsStillUsed | 1 | false |
 | CodeBlock2Expr | 1 | true |
+| DeprecatedIsStillUsed | 1 | false |
 | GroovyUnusedAssignment | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
-| StringEqualsEmptyString | 1 | false |
 | ConstantValue | 1 | false |
-## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+| StringEqualsEmptyString | 1 | false |
+## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new ReportPlugin\[reportingPlugins.size()\]'
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
@@ -35,7 +35,7 @@ in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo
 
 ```
 
-## RuleId[ruleID=MissingDeprecatedAnnotation]
+## RuleId[id=MissingDeprecatedAnnotation]
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
@@ -48,7 +48,7 @@ in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo
     /**
 ```
 
-## RuleId[ruleID=IfStatementWithIdenticalBranches]
+## RuleId[id=IfStatementWithIdenticalBranches]
 ### IfStatementWithIdenticalBranches
 Common part can be extracted from 'if'
 in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
@@ -61,7 +61,7 @@ in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
                     doxiaBean = new DoxiaBean(i18nContext, i18nDocuments, i18nGeneratedSiteContext);
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `inStream` might be null
 in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
@@ -74,7 +74,7 @@ in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
             throw new MojoExecutionException("Unable to construct temporary webapp for running site", e);
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.project` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
@@ -183,7 +183,7 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
      *
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
@@ -196,7 +196,7 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
             current = parent;
 ```
 
-## RuleId[ruleID=UnnecessaryStringEscape]
+## RuleId[id=UnnecessaryStringEscape]
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
 in `src/main/java/org/apache/maven/plugins/site/descriptor/EffectiveSiteMojo.java`
@@ -221,20 +221,7 @@ in `src/main/java/org/apache/maven/plugins/site/descriptor/EffectiveSiteMojo.jav
         writer.writeMarkup(effectiveSite);
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'xdocDirectory' is still used
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${basedir}/xdocs")
-    private File xdocDirectory;
-
-    /**
-```
-
-## RuleId[ruleID=CodeBlock2Expr]
+## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
@@ -247,7 +234,20 @@ in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo
         });
 ```
 
-## RuleId[ruleID=Java8MapApi]
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'xdocDirectory' is still used
+in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${basedir}/xdocs")
+    private File xdocDirectory;
+
+    /**
+```
+
+## RuleId[id=Java8MapApi]
 ### Java8MapApi
 Can be replaced with single 'Map.computeIfAbsent' method call
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
@@ -272,7 +272,7 @@ in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo
         }
 ```
 
-## RuleId[ruleID=GroovyUnusedAssignment]
+## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
 in `src/it/projects/full-reporting/verify.groovy`
@@ -285,10 +285,10 @@ in `src/it/projects/full-reporting/verify.groovy`
 
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
+## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-24-09-23-05.189.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-12-18-23-19.305.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -298,7 +298,7 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-24-09-23-05.189.
           </tbody>
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
@@ -436,6 +436,18 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 #### Snippet
 ```java
+        }
+        getLog().debug("getProxy 'protocol': " + protocol + " no ProxyInfo found");
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
 
         if (proxyInfo == null) {
             return null;
@@ -491,19 +503,7 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
         }
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
-#### Snippet
-```java
-        }
-        getLog().debug("getProxy 'protocol': " + protocol + " no ProxyInfo found");
-        return null;
-    }
-
-```
-
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `doxiaDocuments.size() > 0` can be replaced with '!doxiaDocuments.isEmpty()'
 in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
@@ -528,7 +528,7 @@ in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo
                     }
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends MavenProject`
 in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
@@ -551,30 +551,6 @@ in `src/main/java/org/apache/maven/plugins/site/render/SiteMap.java`
     private static void extractItems(List<MenuItem> items, Sink sink) {
         if (items == null || items.isEmpty()) {
             return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenReport`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-     * @return A map keyed category having the report itself as value
-     */
-    protected Map<String, List<MavenReport>> categoriseReports(Collection<MavenReport> reports) {
-        Map<String, List<MavenReport>> categories = new LinkedHashMap<>();
-        for (MavenReport report : reports) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenReport`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-    }
-
-    private void populateItemRefs(List<MenuItem> items, Locale locale, Map<String, MavenReport> reportsByOutputName) {
-        for (Iterator<MenuItem> i = items.iterator(); i.hasNext(); ) {
-            MenuItem item = i.next();
 ```
 
 ### BoundedWildcard
@@ -613,20 +589,31 @@ in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo
         for (MavenReportExecution mavenReportExecution : reports) {
 ```
 
-## RuleId[ruleID=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+### BoundedWildcard
+Can generalize to `? extends MavenReport`
+in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
 #### Snippet
 ```java
-        relative = relative.replace('\\', '/');
-
-        return ("".equals(relative)) ? "./" : relative;
-    }
-
+     * @return A map keyed category having the report itself as value
+     */
+    protected Map<String, List<MavenReport>> categoriseReports(Collection<MavenReport> reports) {
+        Map<String, List<MavenReport>> categories = new LinkedHashMap<>();
+        for (MavenReport report : reports) {
 ```
 
-## RuleId[ruleID=ConstantValue]
+### BoundedWildcard
+Can generalize to `? extends MavenReport`
+in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
+#### Snippet
+```java
+    }
+
+    private void populateItemRefs(List<MenuItem> items, Locale locale, Map<String, MavenReport> reportsByOutputName) {
+        for (Iterator<MenuItem> i = items.iterator(); i.hasNext(); ) {
+            MenuItem item = i.next();
+```
+
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `proxyInfo == null` is always `true`
 in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
@@ -639,7 +626,20 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
                 wagon.connect(repository, authenticationInfo);
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=StringEqualsEmptyString]
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+        relative = relative.replace('\\', '/');
+
+        return ("".equals(relative)) ? "./" : relative;
+    }
+
+```
+
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
