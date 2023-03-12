@@ -278,8 +278,8 @@ public class QodanaAnalyzer {
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
             this.resultPathString = resultFolder + "/qodana.sarif.json";
-            logger.atInfo().log("Result folder set to %s", resultFolder);
-            logger.atInfo().log("Result path set to %s", resultPathString);
+            logger.atFine().log("Result folder set to %s", resultFolder);
+            logger.atFine().log("Result path set to %s", resultPathString);
             return this;
         }
 

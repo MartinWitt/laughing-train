@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.services.RefactorService;
@@ -43,7 +44,12 @@ public class RefactorGraphQL {
         Set<BadSmell> badSmellsToRefactor = badSmellIdentifier.stream()
                 .map(badSmellRepository::findByIdentifier)
                 .collect(Collectors.flatMapping(Collection::stream, Collectors.toSet()));
-        logger.atInfo().log("Refactoring %s", badSmellsToRefactor);
+        logger.atInfo().log(
+                "Refactoring %s",
+                badSmellsToRefactor.stream()
+                        .map(BadSmell::ruleID)
+                        .map(RuleId::id)
+                        .toList());
         refactorService.refactor(badSmellsToRefactor);
 
         return "Refactoring done";

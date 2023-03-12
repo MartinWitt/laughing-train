@@ -43,6 +43,7 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
+import xyz.keksdose.spoon.code_solver.diffs.DiffCleaner;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
@@ -71,6 +72,12 @@ public class RefactorService {
 
     @Inject
     ProjectConfigService projectConfigService;
+
+    DiffCleaner diffCleaner;
+
+    public RefactorService() {
+        diffCleaner = new DiffCleaner();
+    }
 
     public Uni<String> refactor(Collection<? extends BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
@@ -130,6 +137,9 @@ public class RefactorService {
             TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
             transformationEngine.setChangeListener(listener);
             Changelog log = transformationEngine.applyToGivenPath(refactorPath);
+            log.getChanges()
+                    .forEach(change ->
+                            diffCleaner.clean(success.project().folder().toPath(), change));
             try {
                 GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
                 GHRepository repository = createForkIfMissing(success, github);
@@ -144,10 +154,13 @@ public class RefactorService {
     }
 
     private GHRepository createForkIfMissing(ProjectResult.Success success, GitHub github) throws IOException {
+        logger.atInfo().log("Creating fork for %s", success.project().getOwnerRepoName());
         @Var GHRepository repository = github.getRepository(success.project().getOwnerRepoName());
         if (github.getMyself().getRepository(success.project().name()) == null) {
+            logger.atInfo().log("Forking %s", success.project().getOwnerRepoName());
             repository = repository.fork();
         } else {
+            logger.atInfo().log("Found fork %s", success.project().name());
             repository = github.getMyself().getRepository(success.project().name());
         }
         return repository;
