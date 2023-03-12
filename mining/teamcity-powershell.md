@@ -11,7 +11,7 @@ I found 33 bad smells with 3 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | CommentedOutCode | 1 | false |
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
@@ -24,7 +24,7 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
     return result;
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
@@ -35,18 +35,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Legacy
 class LegacyKeys {
 
   private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Loggers` has only 'static' members, and lacks a 'private' constructor
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Loggers.java`
-#### Snippet
-```java
-import com.intellij.openapi.diagnostic.Logger;
-
-public class Loggers {
-
-    public static final Logger DETECTION_LOGGER = Logger.getInstance("jetbrains.buildServer.powershell.agent.DETECT");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -61,7 +49,19 @@ public class PowerShellConstants {
   public static final String PLUGIN_NAME = "powershell-runner";
 ```
 
-## RuleId[ruleID=StaticCallOnSubclass]
+### UtilityClassWithoutPrivateConstructor
+Class `Loggers` has only 'static' members, and lacks a 'private' constructor
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Loggers.java`
+#### Snippet
+```java
+import com.intellij.openapi.diagnostic.Logger;
+
+public class Loggers {
+
+    public static final Logger DETECTION_LOGGER = Logger.getInstance("jetbrains.buildServer.powershell.agent.DETECT");
+```
+
+## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
@@ -123,18 +123,6 @@ in `powershell-server/src/main/java/jetbrains/buildServer/powershell/server/Powe
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
-#### Snippet
-```java
-  private boolean isInternalPropertySetExecutionPolicy(@NotNull final String name, boolean def) {
-    final String prop = getConfigParameters().get("teamcity.powershell." + name);
-    if (StringUtil.isEmptyOrSpaces(prop)) {
-      return def;
-    } else {
-```
-
-### StaticCallOnSubclass
 Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
 #### Snippet
@@ -148,26 +136,14 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/servic
 
 ### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
 #### Snippet
 ```java
-    }
-    addVersion(result, runnerParams, info); // version must be the 1st arg after executable path
-    if (!StringUtil.isEmptyOrSpaces(runnerParams.get(RUNNER_NO_PROFILE))) {
-      result.add("-NoProfile");
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-    if (isExplicitVersionSupported(info)) {
-      final String minVersion = runnerParams.get(RUNNER_MIN_VERSION);
-      if (!StringUtil.isEmptyOrSpaces(minVersion)) {
-        list.add("-Version");
-        list.add(minVersion);
+  private boolean isInternalPropertySetExecutionPolicy(@NotNull final String name, boolean def) {
+    final String prop = getConfigParameters().get("teamcity.powershell." + name);
+    if (StringUtil.isEmptyOrSpaces(prop)) {
+      return def;
+    } else {
 ```
 
 ### StaticCallOnSubclass
@@ -195,15 +171,27 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerS
 ```
 
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-        final List<String> outputLines = myRunner.runDetectionScript(executablePath, scriptPath, additionalParameters);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
-        }
-        if (outputLines.size() == 3) {
+    }
+    addVersion(result, runnerParams, info); // version must be the 1st arg after executable path
+    if (!StringUtil.isEmptyOrSpaces(runnerParams.get(RUNNER_NO_PROFILE))) {
+      result.add("-NoProfile");
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
+#### Snippet
+```java
+    if (isExplicitVersionSupported(info)) {
+      final String minVersion = runnerParams.get(RUNNER_MIN_VERSION);
+      if (!StringUtil.isEmptyOrSpaces(minVersion)) {
+        list.add("-Version");
+        list.add(minVersion);
 ```
 
 ### StaticCallOnSubclass
@@ -218,7 +206,19 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### StaticCallOnSubclass
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
+#### Snippet
+```java
+        final List<String> outputLines = myRunner.runDetectionScript(executablePath, scriptPath, additionalParameters);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
+        }
+        if (outputLines.size() == 3) {
+```
+
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
@@ -231,7 +231,7 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system
       }
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import com.intellij.execution.configurations.ParametersList;`
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
@@ -244,7 +244,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.SystemInfo;
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
@@ -267,18 +267,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Legacy
   static void fillLegacyKeys(@NotNull final Map<String, String> parameters,
                              @NotNull final PowerShellBitness bit,
                              @NotNull final PowerShellInfo info) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
-#### Snippet
-```java
-  }
-
-  private void checkPathAndAdd(@NotNull final Set<String> paths, String path) {
-    if (!isEmptyOrSpaces(path)) {
-      File base = new File(path, "PowerShell");
 ```
 
 ### BoundedWildcard
@@ -295,6 +283,18 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
+#### Snippet
+```java
+  }
+
+  private void checkPathAndAdd(@NotNull final Set<String> paths, String path) {
+    if (!isEmptyOrSpaces(path)) {
+      File base = new File(path, "PowerShell");
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/PowerShellInfo.java`
 #### Snippet
 ```java
@@ -315,6 +315,30 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
   public void saveInfo(@NotNull final Map<String, String> agentParameters) {
     if (!myVirtual) {
       Map<String, String> parameters = toConfigurationParameters();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
+#### Snippet
+```java
+   * Helps with agent requirements
+   */
+  private void provideMaxVersions(Map<String, String> parameters) {
+    for (PowerShellBitness bitness : PowerShellBitness.values()) {
+      for (PowerShellEdition edition : PowerShellEdition.values()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
+#### Snippet
+```java
+   * Helps with agent requirements
+   */
+  private void provideMaxVersions(Map<String, String> parameters) {
+    for (PowerShellBitness bitness : PowerShellBitness.values()) {
+      for (PowerShellEdition edition : PowerShellEdition.values()) {
 ```
 
 ### BoundedWildcard
@@ -331,26 +355,14 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerS
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-   * Helps with agent requirements
+   * @param key runner parameter key
    */
-  private void provideMaxVersions(Map<String, String> parameters) {
-    for (PowerShellBitness bitness : PowerShellBitness.values()) {
-      for (PowerShellEdition edition : PowerShellEdition.values()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
-#### Snippet
-```java
-   * Helps with agent requirements
-   */
-  private void provideMaxVersions(Map<String, String> parameters) {
-    for (PowerShellBitness bitness : PowerShellBitness.values()) {
-      for (PowerShellEdition edition : PowerShellEdition.values()) {
+  private void addCustomArguments(@NotNull final List<String> args,
+                                  @NotNull final Map<String, String> runnerParams,
+                                  Map<String, String> sharedConfigParams,
 ```
 
 ### BoundedWildcard
@@ -363,18 +375,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerS
   private void addVersion(@NotNull final List<String> list,
                           @NotNull final Map<String, String> runnerParams,
                           @NotNull final PowerShellInfo info) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-   * @param key runner parameter key
-   */
-  private void addCustomArguments(@NotNull final List<String> args,
-                                  @NotNull final Map<String, String> runnerParams,
-                                  Map<String, String> sharedConfigParams,
 ```
 
 ### BoundedWildcard
@@ -401,7 +401,7 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
                                 List<String> executablesToCheck,
 ```
 
-## RuleId[ruleID=CommentedOutCode]
+## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (4 lines)
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/ScriptGenerator.java`
