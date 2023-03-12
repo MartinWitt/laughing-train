@@ -159,18 +159,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
 ```
 
 ### MismatchedArrayReadWrite
-Contents of array `cpFieldDescriptor` are written to, but never read
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
-#### Snippet
-```java
-    private double[] cpDouble;
-    private String[] cpFieldClass;
-    private String[] cpFieldDescriptor;
-    private int[] cpFieldClassInts;
-    private int[] cpFieldDescriptorInts;
-```
-
-### MismatchedArrayReadWrite
 Contents of array `cpIMethodDescriptor` are written to, but never read
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
 #### Snippet
@@ -180,6 +168,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
     private String[] cpIMethodDescriptor;
     private int[] cpIMethodClassInts;
     private int[] cpIMethodDescriptorInts;
+```
+
+### MismatchedArrayReadWrite
+Contents of array `cpFieldDescriptor` are written to, but never read
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
+#### Snippet
+```java
+    private double[] cpDouble;
+    private String[] cpFieldClass;
+    private String[] cpFieldDescriptor;
+    private int[] cpFieldClassInts;
+    private int[] cpFieldDescriptorInts;
 ```
 
 ### MismatchedArrayReadWrite
@@ -245,6 +245,18 @@ final class PureJavaCrc32C implements Checksum {
 ```
 
 ### PointlessArithmeticExpression
+`1024L * 1024 * 1` can be replaced with '1024L \* 1024'
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+    private Archive tryToLocateEndHeader(final byte[] password) throws IOException {
+        final ByteBuffer nidBuf = ByteBuffer.allocate(1);
+        final long searchLimit = 1024L * 1024 * 1;
+        // Main header, plus bytes that readStartHeader would read
+        final long previousDataSize = channel.position() + 20;
+```
+
+### PointlessArithmeticExpression
 `SIGNATURE_HEADER_SIZE + archive.packPos + 0` can be replaced with 'SIGNATURE_HEADER_SIZE + archive.packPos'
 in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 #### Snippet
@@ -255,18 +267,6 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
                 0;
 
         channel.position(folderOffset);
-```
-
-### PointlessArithmeticExpression
-`1024L * 1024 * 1` can be replaced with '1024L \* 1024'
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-    private Archive tryToLocateEndHeader(final byte[] password) throws IOException {
-        final ByteBuffer nidBuf = ByteBuffer.allocate(1);
-        final long searchLimit = 1024L * 1024 * 1;
-        // Main header, plus bytes that readStartHeader would read
-        final long previousDataSize = channel.position() + 20;
 ```
 
 ## RuleId[id=MagicConstant]
@@ -347,6 +347,18 @@ Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
 #### Snippet
 ```java
+     */
+    private void setDefaults(final ZipArchiveEntry entry) {
+        if (entry.getMethod() == -1) { // not specified
+            entry.setMethod(method);
+        }
+```
+
+### MagicConstant
+Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
         if (ae instanceof ZipArchiveEntry) {
             final ZipArchiveEntry zae = (ZipArchiveEntry) ae;
             return zae.getMethod() != ZipMethod.IMPLODING.getCode()
@@ -364,54 +376,6 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStre
                 && zae.getMethod() != ZipMethod.UNSHRINKING.getCode()
                 && ZipUtil.canHandleEntryData(zae);
         }
-```
-
-### MagicConstant
-Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-     */
-    private void setDefaults(final ZipArchiveEntry entry) {
-        if (entry.getMethod() == -1) { // not specified
-            entry.setMethod(method);
-        }
-```
-
-### MagicConstant
-Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java`
-#### Snippet
-```java
-        return entry.getCompressedSize() != ArchiveEntry.SIZE_UNKNOWN
-            || entry.getMethod() == ZipEntry.DEFLATED
-            || entry.getMethod() == ZipMethod.ENHANCED_DEFLATED.getCode()
-            || (entry.getGeneralPurposeBit().usesDataDescriptor()
-                && allowStoredEntriesWithDataDescriptor
-```
-
-### MagicConstant
-Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java`
-#### Snippet
-```java
-        off += SHORT;
-
-        current.entry.setMethod(ZipShort.getValue(lfhBuf, off));
-        off += SHORT;
-
-```
-
-### MagicConstant
-Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java`
-#### Snippet
-```java
-                || (allowStoredEntriesWithDataDescriptor && entry.getMethod() == ZipEntry.STORED)
-                || entry.getMethod() == ZipEntry.DEFLATED
-                || entry.getMethod() == ZipMethod.ENHANCED_DEFLATED.getCode();
-    }
-}
 ```
 
 ### MagicConstant
@@ -460,6 +424,42 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStrea
                 || current.entry.getMethod() == ZipMethod.BZIP2.getCode()) {
             read = current.inputStream.read(buffer, offset, length);
         } else {
+```
+
+### MagicConstant
+Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java`
+#### Snippet
+```java
+        return entry.getCompressedSize() != ArchiveEntry.SIZE_UNKNOWN
+            || entry.getMethod() == ZipEntry.DEFLATED
+            || entry.getMethod() == ZipMethod.ENHANCED_DEFLATED.getCode()
+            || (entry.getGeneralPurposeBit().usesDataDescriptor()
+                && allowStoredEntriesWithDataDescriptor
+```
+
+### MagicConstant
+Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java`
+#### Snippet
+```java
+        off += SHORT;
+
+        current.entry.setMethod(ZipShort.getValue(lfhBuf, off));
+        off += SHORT;
+
+```
+
+### MagicConstant
+Should be one of: ZipEntry.STORED, ZipEntry.DEFLATED
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java`
+#### Snippet
+```java
+                || (allowStoredEntriesWithDataDescriptor && entry.getMethod() == ZipEntry.STORED)
+                || entry.getMethod() == ZipEntry.DEFLATED
+                || entry.getMethod() == ZipMethod.ENHANCED_DEFLATED.getCode();
+    }
+}
 ```
 
 ## RuleId[id=SuspiciousSystemArraycopy]
@@ -518,33 +518,9 @@ Referencing subclass BHSDCodec from superclass Codec initializer might lead to c
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
 #### Snippet
 ```java
-     * BYTE1 = (1,256): Used for storing plain bytes.
-     */
-    public static final BHSDCodec BYTE1 = new BHSDCodec(1, 256);
-
-    /**
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BHSDCodec from superclass Codec initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
-#### Snippet
-```java
-     * UNSIGNED5 = (5,64): Used for small unsigned values.
-     */
-    public static final BHSDCodec UNSIGNED5 = new BHSDCodec(5, 64);
-
-    public int lastBandLength;
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BHSDCodec from superclass Codec initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
-#### Snippet
-```java
      * values.
      */
-    public static final BHSDCodec DELTA5 = new BHSDCodec(5, 64, 1, 1);
+    public static final BHSDCodec UDELTA5 = new BHSDCodec(5, 64, 0, 1);
 
     /**
 ```
@@ -554,9 +530,9 @@ Referencing subclass BHSDCodec from superclass Codec initializer might lead to c
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
 #### Snippet
 ```java
-     * values, but where most of them are expected to be non-negative.
+     * BRANCH5 = (5,4,2): Used for storing branching information in bytecode.
      */
-    public static final BHSDCodec MDELTA5 = new BHSDCodec(5, 64, 2, 1);
+    public static final BHSDCodec BRANCH5 = new BHSDCodec(5, 4, 2);
 
     /**
 ```
@@ -590,6 +566,30 @@ Referencing subclass BHSDCodec from superclass Codec initializer might lead to c
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
 #### Snippet
 ```java
+     * BYTE1 = (1,256): Used for storing plain bytes.
+     */
+    public static final BHSDCodec BYTE1 = new BHSDCodec(1, 256);
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass BHSDCodec from superclass Codec initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
+#### Snippet
+```java
+     * UNSIGNED5 = (5,64): Used for small unsigned values.
+     */
+    public static final BHSDCodec UNSIGNED5 = new BHSDCodec(5, 64);
+
+    public int lastBandLength;
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass BHSDCodec from superclass Codec initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
+#### Snippet
+```java
      * SIGNED5 = (5,64,1): Used for small signed values.
      */
     public static final BHSDCodec SIGNED5 = new BHSDCodec(5, 64, 1);
@@ -602,9 +602,9 @@ Referencing subclass BHSDCodec from superclass Codec initializer might lead to c
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
 #### Snippet
 ```java
-     * BRANCH5 = (5,4,2): Used for storing branching information in bytecode.
+     * values, but where most of them are expected to be non-negative.
      */
-    public static final BHSDCodec BRANCH5 = new BHSDCodec(5, 4, 2);
+    public static final BHSDCodec MDELTA5 = new BHSDCodec(5, 64, 2, 1);
 
     /**
 ```
@@ -616,7 +616,7 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
 ```java
      * values.
      */
-    public static final BHSDCodec UDELTA5 = new BHSDCodec(5, 64, 0, 1);
+    public static final BHSDCodec DELTA5 = new BHSDCodec(5, 64, 1, 1);
 
     /**
 ```
@@ -635,18 +635,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/B
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BHSDCodec.java`
-#### Snippet
-```java
-    }
-
-    // private long cast32(long u) {
-    // u = (long) ((long) ((u + Math.pow(2, 31)) % Math.pow(2, 32)) -
-    // Math.pow(2, 31));
-```
-
-### CommentedOutCode
 Commented out code (14 lines)
 in `src/main/java/org/apache/commons/compress/harmony/pack200/BHSDCodec.java`
 #### Snippet
@@ -659,15 +647,27 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BHSDCodec.java`
 ```
 
 ### CommentedOutCode
-Commented out code (7 lines)
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
+Commented out code (5 lines)
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BHSDCodec.java`
 #### Snippet
 ```java
-        PackingUtils.log("Wrote " + encodedBand.length + " bytes from bcInitRef[" + bcInitRef.size() + "]");
+    }
 
-        // out.write(encodeBandInt(cpEntryintegerListToArray(bcEscRef),
-        // Codec.UNSIGNED5));
-        // out.write(encodeBandInt(integerListToArray(bcEscRefSize),
+    // private long cast32(long u) {
+    // u = (long) ((long) ((u + Math.pow(2, 31)) % Math.pow(2, 32)) -
+    // Math.pow(2, 31));
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
+#### Snippet
+```java
+        byte[] encodedBand = null;
+        // Useful for debugging
+//        if (ints.length > 0) {
+//            System.out.println("encoding " + name + " " + ints.length);
+//        }
 ```
 
 ### CommentedOutCode
@@ -683,15 +683,15 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
+Commented out code (7 lines)
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 #### Snippet
 ```java
-        byte[] encodedBand = null;
-        // Useful for debugging
-//        if (ints.length > 0) {
-//            System.out.println("encoding " + name + " " + ints.length);
-//        }
+        PackingUtils.log("Wrote " + encodedBand.length + " bytes from bcInitRef[" + bcInitRef.size() + "]");
+
+        // out.write(encodeBandInt(cpEntryintegerListToArray(bcEscRef),
+        // Codec.UNSIGNED5));
+        // out.write(encodeBandInt(integerListToArray(bcEscRefSize),
 ```
 
 ### CommentedOutCode
@@ -744,6 +744,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
 
 ### CommentedOutCode
 Commented out code (4 lines)
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+			anySyntheticClasses = true;
+		}
+//		if ((flags & Opcodes.ACC_DEPRECATED) != 0) { // ASM uses (1<<17) flag for deprecated
+//			flags = flags & ~Opcodes.ACC_DEPRECATED;
+//			flags = flags | (1 << 20);
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
 #### Snippet
 ```java
@@ -756,14 +768,14 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStre
 
 ### CommentedOutCode
 Commented out code (4 lines)
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
 #### Snippet
 ```java
-			anySyntheticClasses = true;
-		}
-//		if ((flags & Opcodes.ACC_DEPRECATED) != 0) { // ASM uses (1<<17) flag for deprecated
-//			flags = flags & ~Opcodes.ACC_DEPRECATED;
-//			flags = flags | (1 << 20);
+                final Dirent d = new Dirent(ino, entry.getIno(), type, name);
+
+                /*
+                if ((type == 4) && names.containsKey(ino)) {
+                    System.out.println("we already have ino: " +
 ```
 
 ### CommentedOutCode
@@ -800,18 +812,6 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.ja
         //entry.flags = DumpArchiveUtil.convert32(buffer, 132);
         //entry.blocks = DumpArchiveUtil.convert32(buffer, 136);
         entry.generation = DumpArchiveUtil.convert32(buffer, 140);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
-#### Snippet
-```java
-                final Dirent d = new Dirent(ino, entry.getIno(), type, name);
-
-                /*
-                if ((type == 4) && names.containsKey(ino)) {
-                    System.out.println("we already have ino: " +
 ```
 
 ### CommentedOutCode
@@ -917,24 +917,6 @@ in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveEntry.ja
 
 ### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                    break;
-                }
-                case NID.kDummy: {
-                    // 7z 9.20 asserts the content is all zeros and ignores the property
-                    // Compress up to 1.8.1 would throw an exception, now we ignore it (see COMPRESS-287
-
-                    skipBytesFully(header, size);
-                    break;
-                }
-
-                default: {
-```
-
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
 in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java`
 #### Snippet
 ```java
@@ -955,6 +937,24 @@ in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorI
             throw new IllegalStateException();
 
         case NO_RAND_PART_B_STATE:
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                    break;
+                }
+                case NID.kDummy: {
+                    // 7z 9.20 asserts the content is all zeros and ignores the property
+                    // Compress up to 1.8.1 would throw an exception, now we ignore it (see COMPRESS-287
+
+                    skipBytesFully(header, size);
+                    break;
+                }
+
+                default: {
 ```
 
 ## RuleId[id=FinalPrivateMethod]
@@ -1020,6 +1020,54 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
 ```
 
 ### OctalLiteral
+Octal integer `07777`
+in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
+#### Snippet
+```java
+     * Bits used for permissions (and sticky bit)
+     */
+    int PERM_MASK = 07777;
+    /**
+     * Bits used to indicate the file system object type.
+```
+
+### OctalLiteral
+Octal integer `0777`
+in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
+#### Snippet
+```java
+     * Default permissions for symbolic links.
+     */
+    int DEFAULT_LINK_PERM = 0777;
+
+    /**
+```
+
+### OctalLiteral
+Octal integer `040000`
+in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
+#### Snippet
+```java
+     * Indicates directories.
+     */
+    int DIR_FLAG = 040000;
+
+    // ----------------------------------------------------------
+```
+
+### OctalLiteral
+Octal integer `0120000`
+in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
+#### Snippet
+```java
+     * Indicates symbolic links.
+     */
+    int LINK_FLAG = 0120000;
+    /**
+     * Indicates plain files.
+```
+
+### OctalLiteral
 Octal integer `0100000`
 in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
 #### Snippet
@@ -1044,30 +1092,6 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
 ```
 
 ### OctalLiteral
-Octal integer `0777`
-in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
-#### Snippet
-```java
-     * Default permissions for symbolic links.
-     */
-    int DEFAULT_LINK_PERM = 0777;
-
-    /**
-```
-
-### OctalLiteral
-Octal integer `0120000`
-in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
-#### Snippet
-```java
-     * Indicates symbolic links.
-     */
-    int LINK_FLAG = 0120000;
-    /**
-     * Indicates plain files.
-```
-
-### OctalLiteral
 Octal integer `0644`
 in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
 #### Snippet
@@ -1077,30 +1101,6 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
     int DEFAULT_FILE_PERM = 0644;
 }
 
-```
-
-### OctalLiteral
-Octal integer `040000`
-in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
-#### Snippet
-```java
-     * Indicates directories.
-     */
-    int DIR_FLAG = 040000;
-
-    // ----------------------------------------------------------
-```
-
-### OctalLiteral
-Octal integer `07777`
-in `src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java`
-#### Snippet
-```java
-     * Bits used for permissions (and sticky bit)
-     */
-    int PERM_MASK = 07777;
-    /**
-     * Bits used to indicate the file system object type.
 ```
 
 ### OctalLiteral
@@ -1116,219 +1116,15 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java
 ```
 
 ### OctalLiteral
-Octal integer `0170000`
+Octal integer `0060000`
 in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
 #### Snippet
 ```java
-
-    /** Mask for all file type bits. */
-    int S_IFMT   = 0170000;
-
-    /** Defines a socket */
-```
-
-### OctalLiteral
-Octal integer `0000200`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Permits the owner of a file to write to the file */
-    int C_IWUSR  = 0000200;
-
-    /** Permits the owner of a file to execute the file or to search the directory */
-```
-
-### OctalLiteral
-Octal integer `0004000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Set user ID */
-    int C_ISUID  = 0004000;
-
-    /** Set group ID */
-```
-
-### OctalLiteral
-Octal integer `0120000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Defines a symbolic link */
-    int C_ISLNK  = 0120000;
-
-    /** HP/UX network special (C_ISCTG) */
-```
-
-### OctalLiteral
-Octal integer `0001000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** On directories, restricted deletion flag. */
-    int C_ISVTX  = 0001000;
-
-
-```
-
-### OctalLiteral
-Octal integer `0000002`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Permits others to write to the file */
-    int C_IWOTH  = 0000002;
-
-    /** Permits others to execute the file or to search the directory */
-```
-
-### OctalLiteral
-Octal integer `0000020`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Permits a file's group to write to the file */
-    int C_IWGRP  = 0000020;
-
-    /** Permits a file's group to execute the file or to search the directory */
-```
-
-### OctalLiteral
-Octal integer `0000001`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Permits others to execute the file or to search the directory */
-    int C_IXOTH  = 0000001;
-
-    /** The special trailer marker */
-```
-
-### OctalLiteral
-Octal integer `0000040`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Permits a file's group to read the file */
-    int C_IRGRP  = 0000040;
-
-    /** Permits a file's group to write to the file */
-```
-
-### OctalLiteral
-Octal integer `0040000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Defines a directory */
-    int C_ISDIR  = 0040000;
-
-    /** Defines a character device */
-```
-
-### OctalLiteral
-Octal integer `0010000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Defines a pipe */
-    int C_ISFIFO = 0010000;
-
-
-```
-
-### OctalLiteral
-Octal integer `070707`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** magic number of a cpio entry in the old binary format */
-    int MAGIC_OLD_BINARY = 070707;
-
-    /** write/read a CpioArchiveEntry in the new format. FORMAT_ constants are internal. */
-```
-
-### OctalLiteral
-Octal integer `0000400`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Permits the owner of a file to read the file */
-    int C_IRUSR  = 0000400;
-
-    /** Permits the owner of a file to write to the file */
-```
-
-### OctalLiteral
-Octal integer `0002000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Set group ID */
-    int C_ISGID  = 0002000;
-
-    /** On directories, restricted deletion flag. */
-```
-
-### OctalLiteral
-Octal integer `0100000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Defines a regular file */
-    int C_ISREG  = 0100000;
 
     /** Defines a block device */
-```
+    int C_ISBLK  = 0060000;
 
-### OctalLiteral
-Octal integer `0110000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** HP/UX network special (C_ISCTG) */
-    int C_ISNWK  = 0110000;
-
-    /** Defines a regular file */
-```
-
-### OctalLiteral
-Octal integer `0000100`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Permits the owner of a file to execute the file or to search the directory */
-    int C_IXUSR  = 0000100;
-
-
-```
-
-### OctalLiteral
-Octal integer `0020000`
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
-#### Snippet
-```java
-
-    /** Defines a character device */
-    int C_ISCHR  = 0020000;
-
-    /** Defines a pipe */
+    /** Defines a directory */
 ```
 
 ### OctalLiteral
@@ -1344,15 +1140,87 @@ in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
 ```
 
 ### OctalLiteral
-Octal integer `0140000`
+Octal integer `0000001`
 in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
 #### Snippet
 ```java
 
+    /** Permits others to execute the file or to search the directory */
+    int C_IXOTH  = 0000001;
+
+    /** The special trailer marker */
+```
+
+### OctalLiteral
+Octal integer `0001000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** On directories, restricted deletion flag. */
+    int C_ISVTX  = 0001000;
+
+
+```
+
+### OctalLiteral
+Octal integer `0100000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Defines a regular file */
+    int C_ISREG  = 0100000;
+
+    /** Defines a block device */
+```
+
+### OctalLiteral
+Octal integer `0170000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Mask for all file type bits. */
+    int S_IFMT   = 0170000;
+
     /** Defines a socket */
-    int C_ISSOCK = 0140000;
+```
+
+### OctalLiteral
+Octal integer `0000020`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Permits a file's group to write to the file */
+    int C_IWGRP  = 0000020;
+
+    /** Permits a file's group to execute the file or to search the directory */
+```
+
+### OctalLiteral
+Octal integer `0040000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Defines a directory */
+    int C_ISDIR  = 0040000;
+
+    /** Defines a character device */
+```
+
+### OctalLiteral
+Octal integer `0120000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
 
     /** Defines a symbolic link */
+    int C_ISLNK  = 0120000;
+
+    /** HP/UX network special (C_ISCTG) */
 ```
 
 ### OctalLiteral
@@ -1368,15 +1236,147 @@ in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
 ```
 
 ### OctalLiteral
-Octal integer `0060000`
+Octal integer `0004000`
 in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
 #### Snippet
 ```java
 
-    /** Defines a block device */
-    int C_ISBLK  = 0060000;
+    /** Set user ID */
+    int C_ISUID  = 0004000;
 
-    /** Defines a directory */
+    /** Set group ID */
+```
+
+### OctalLiteral
+Octal integer `0002000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Set group ID */
+    int C_ISGID  = 0002000;
+
+    /** On directories, restricted deletion flag. */
+```
+
+### OctalLiteral
+Octal integer `0000200`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Permits the owner of a file to write to the file */
+    int C_IWUSR  = 0000200;
+
+    /** Permits the owner of a file to execute the file or to search the directory */
+```
+
+### OctalLiteral
+Octal integer `0020000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Defines a character device */
+    int C_ISCHR  = 0020000;
+
+    /** Defines a pipe */
+```
+
+### OctalLiteral
+Octal integer `0110000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** HP/UX network special (C_ISCTG) */
+    int C_ISNWK  = 0110000;
+
+    /** Defines a regular file */
+```
+
+### OctalLiteral
+Octal integer `0000400`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Permits the owner of a file to read the file */
+    int C_IRUSR  = 0000400;
+
+    /** Permits the owner of a file to write to the file */
+```
+
+### OctalLiteral
+Octal integer `0000002`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Permits others to write to the file */
+    int C_IWOTH  = 0000002;
+
+    /** Permits others to execute the file or to search the directory */
+```
+
+### OctalLiteral
+Octal integer `0140000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Defines a socket */
+    int C_ISSOCK = 0140000;
+
+    /** Defines a symbolic link */
+```
+
+### OctalLiteral
+Octal integer `070707`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** magic number of a cpio entry in the old binary format */
+    int MAGIC_OLD_BINARY = 070707;
+
+    /** write/read a CpioArchiveEntry in the new format. FORMAT_ constants are internal. */
+```
+
+### OctalLiteral
+Octal integer `0010000`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Defines a pipe */
+    int C_ISFIFO = 0010000;
+
+
+```
+
+### OctalLiteral
+Octal integer `0000100`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Permits the owner of a file to execute the file or to search the directory */
+    int C_IXUSR  = 0000100;
+
+
+```
+
+### OctalLiteral
+Octal integer `0000040`
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioConstants.java`
+#### Snippet
+```java
+
+    /** Permits a file's group to read the file */
+    int C_IRGRP  = 0000040;
+
+    /** Permits a file's group to write to the file */
 ```
 
 ### OctalLiteral
@@ -1416,78 +1416,6 @@ in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputSt
 ```
 
 ### OctalLiteral
-Octal integer `00040`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-        USER_WRITE(00200),
-        USER_EXEC(00100),
-        GROUP_READ(00040),
-        GROUP_WRITE(00020),
-        GROUP_EXEC(00010),
-```
-
-### OctalLiteral
-Octal integer `00400`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-        SETGUI(02000),
-        STICKY(01000),
-        USER_READ(00400),
-        USER_WRITE(00200),
-        USER_EXEC(00100),
-```
-
-### OctalLiteral
-Octal integer `00001`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-        WORLD_READ(00004),
-        WORLD_WRITE(00002),
-        WORLD_EXEC(00001);
-
-        public static Set<PERMISSION> find(final int code) {
-```
-
-### OctalLiteral
-Octal integer `00020`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-        USER_EXEC(00100),
-        GROUP_READ(00040),
-        GROUP_WRITE(00020),
-        GROUP_EXEC(00010),
-        WORLD_READ(00004),
-```
-
-### OctalLiteral
-Octal integer `00004`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-        GROUP_WRITE(00020),
-        GROUP_EXEC(00010),
-        WORLD_READ(00004),
-        WORLD_WRITE(00002),
-        WORLD_EXEC(00001);
-```
-
-### OctalLiteral
-Octal integer `02000`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-    public enum PERMISSION {
-        SETUID(04000),
-        SETGUI(02000),
-        STICKY(01000),
-        USER_READ(00400),
-```
-
-### OctalLiteral
 Octal integer `00010`
 in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
 #### Snippet
@@ -1497,18 +1425,6 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.ja
         GROUP_EXEC(00010),
         WORLD_READ(00004),
         WORLD_WRITE(00002),
-```
-
-### OctalLiteral
-Octal integer `04000`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-public class DumpArchiveEntry implements ArchiveEntry {
-    public enum PERMISSION {
-        SETUID(04000),
-        SETGUI(02000),
-        STICKY(01000),
 ```
 
 ### OctalLiteral
@@ -1524,6 +1440,78 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.ja
 ```
 
 ### OctalLiteral
+Octal integer `00001`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+        WORLD_READ(00004),
+        WORLD_WRITE(00002),
+        WORLD_EXEC(00001);
+
+        public static Set<PERMISSION> find(final int code) {
+```
+
+### OctalLiteral
+Octal integer `02000`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+    public enum PERMISSION {
+        SETUID(04000),
+        SETGUI(02000),
+        STICKY(01000),
+        USER_READ(00400),
+```
+
+### OctalLiteral
+Octal integer `00040`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+        USER_WRITE(00200),
+        USER_EXEC(00100),
+        GROUP_READ(00040),
+        GROUP_WRITE(00020),
+        GROUP_EXEC(00010),
+```
+
+### OctalLiteral
+Octal integer `01000`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+        SETUID(04000),
+        SETGUI(02000),
+        STICKY(01000),
+        USER_READ(00400),
+        USER_WRITE(00200),
+```
+
+### OctalLiteral
+Octal integer `00400`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+        SETGUI(02000),
+        STICKY(01000),
+        USER_READ(00400),
+        USER_WRITE(00200),
+        USER_EXEC(00100),
+```
+
+### OctalLiteral
+Octal integer `04000`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+public class DumpArchiveEntry implements ArchiveEntry {
+    public enum PERMISSION {
+        SETUID(04000),
+        SETGUI(02000),
+        STICKY(01000),
+```
+
+### OctalLiteral
 Octal integer `07777`
 in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
 #### Snippet
@@ -1533,18 +1521,6 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.ja
         this.mode = mode & 07777;
         this.permissions = PERMISSION.find(mode);
     }
-```
-
-### OctalLiteral
-Octal integer `00200`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-        STICKY(01000),
-        USER_READ(00400),
-        USER_WRITE(00200),
-        USER_EXEC(00100),
-        GROUP_READ(00040),
 ```
 
 ### OctalLiteral
@@ -1560,15 +1536,39 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.ja
 ```
 
 ### OctalLiteral
-Octal integer `01000`
+Octal integer `00004`
 in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
 #### Snippet
 ```java
-        SETUID(04000),
-        SETGUI(02000),
+        GROUP_WRITE(00020),
+        GROUP_EXEC(00010),
+        WORLD_READ(00004),
+        WORLD_WRITE(00002),
+        WORLD_EXEC(00001);
+```
+
+### OctalLiteral
+Octal integer `00020`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+        USER_EXEC(00100),
+        GROUP_READ(00040),
+        GROUP_WRITE(00020),
+        GROUP_EXEC(00010),
+        WORLD_READ(00004),
+```
+
+### OctalLiteral
+Octal integer `00200`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
         STICKY(01000),
         USER_READ(00400),
         USER_WRITE(00200),
+        USER_EXEC(00100),
+        GROUP_READ(00040),
 ```
 
 ### OctalLiteral
@@ -1597,18 +1597,6 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`classes.size() > 0` can be replaced with '!classes.isEmpty()'
-in `src/main/java/org/apache/commons/compress/harmony/pack200/CPSignature.java`
-#### Snippet
-```java
-            return classes.size() - ((CPSignature) arg0).classes.size();
-        }
-        if (classes.size() > 0) {
-            for (int i = classes.size() - 1; i >= 0; i--) {
-                final CPClass cpClass = classes.get(i);
-```
-
-### SizeReplaceableByIsEmpty
 `band_headers.size() > 0` can be replaced with '!band_headers.isEmpty()'
 in `src/main/java/org/apache/commons/compress/harmony/pack200/SegmentHeader.java`
 #### Snippet
@@ -1630,6 +1618,30 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/SegmentHeader.java
         if (band_headers.size() > 0) {
             out.write(encodeScalar(band_headers.toArray(), Codec.BYTE1));
         }
+```
+
+### SizeReplaceableByIsEmpty
+`classes.size() > 0` can be replaced with '!classes.isEmpty()'
+in `src/main/java/org/apache/commons/compress/harmony/pack200/CPSignature.java`
+#### Snippet
+```java
+            return classes.size() - ((CPSignature) arg0).classes.size();
+        }
+        if (classes.size() > 0) {
+            for (int i = classes.size() - 1; i >= 0; i--) {
+                final CPClass cpClass = classes.get(i);
+```
+
+### SizeReplaceableByIsEmpty
+`attributeActions.size() > 0` can be replaced with '!attributeActions.isEmpty()'
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingOptions.java`
+#### Snippet
+```java
+
+    private void addOrUpdateAttributeActions(final List<Attribute> prototypes, final Map<String, String> attributeActions, final int tag) {
+        if (attributeActions != null && attributeActions.size() > 0) {
+            NewAttribute newAttribute;
+            for (final String name : attributeActions.keySet()) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1657,27 +1669,15 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/Archive.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`attributeActions.size() > 0` can be replaced with '!attributeActions.isEmpty()'
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingOptions.java`
+`name.length() == 0` can be replaced with 'name.isEmpty()'
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/AttributeLayout.java`
 #### Snippet
 ```java
-
-    private void addOrUpdateAttributeActions(final List<Attribute> prototypes, final Map<String, String> attributeActions, final int tag) {
-        if (attributeActions != null && attributeActions.size() > 0) {
-            NewAttribute newAttribute;
-            for (final String name : attributeActions.keySet()) {
-```
-
-### SizeReplaceableByIsEmpty
-`bcCodes.size() > 0` can be replaced with '!bcCodes.isEmpty()'
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
-#### Snippet
-```java
-        updateRenumbering();
-        boolean aload_0 = false;
-        if (bcCodes.size() > 0 && (bcCodes.get(bcCodes.size() - 1)) == ALOAD_0) {
-            bcCodes.remove(bcCodes.size() - 1);
-            aload_0 = true;
+            throw new Pack200Exception("Cannot have a null layout");
+        }
+        if (name == null || name.length() == 0) {
+            throw new Pack200Exception("Cannot have an unnamed layout");
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1693,15 +1693,15 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`name.length() == 0` can be replaced with 'name.isEmpty()'
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/AttributeLayout.java`
+`bcCodes.size() > 0` can be replaced with '!bcCodes.isEmpty()'
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 #### Snippet
 ```java
-            throw new Pack200Exception("Cannot have a null layout");
-        }
-        if (name == null || name.length() == 0) {
-            throw new Pack200Exception("Cannot have an unnamed layout");
-        }
+        updateRenumbering();
+        boolean aload_0 = false;
+        if (bcCodes.size() > 0 && (bcCodes.get(bcCodes.size() - 1)) == ALOAD_0) {
+            bcCodes.remove(bcCodes.size() - 1);
+            aload_0 = true;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1767,18 +1767,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/IcTuple.java`
 
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/compress/archivers/arj/LocalFileHeader.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("LocalFileHeader [archiverVersionNumber=");
-        builder.append(archiverVersionNumber);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
 in `src/main/java/org/apache/commons/compress/archivers/arj/MainHeader.java`
 #### Snippet
 ```java
@@ -1786,6 +1774,18 @@ in `src/main/java/org/apache/commons/compress/archivers/arj/MainHeader.java`
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("MainHeader [archiverVersionNumber=");
+        builder.append(archiverVersionNumber);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/compress/archivers/arj/LocalFileHeader.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("LocalFileHeader [archiverVersionNumber=");
         builder.append(archiverVersionNumber);
 ```
 
@@ -1907,30 +1907,6 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveUtil.jav
 in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveUtil.java`
 #### Snippet
 ```java
-     * @return Whether the buffer contains a tape segment header.
-     */
-    public static final boolean verify(final byte[] buffer) {
-        // verify magic. for now only accept NFS_MAGIC.
-        final int magic = convert32(buffer, 24);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveUtil.java`
-#### Snippet
-```java
-     * @return the 2-byte entry as an int
-     */
-    public static final int convert16(final byte[] buffer, final int offset) {
-        return (int) ByteUtils.fromLittleEndian(buffer, offset, 2);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveUtil.java`
-#### Snippet
-```java
      * @return the ino associated with this buffer.
      */
     public static final int getIno(final byte[] buffer) {
@@ -1943,10 +1919,34 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveUtil.jav
 in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveUtil.java`
 #### Snippet
 ```java
+     * @return Whether the buffer contains a tape segment header.
+     */
+    public static final boolean verify(final byte[] buffer) {
+        // verify magic. for now only accept NFS_MAGIC.
+        final int magic = convert32(buffer, 24);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveUtil.java`
+#### Snippet
+```java
      * @return the 4-byte entry as an int
      */
     public static final int convert32(final byte[] buffer, final int offset) {
         return (int) ByteUtils.fromLittleEndian(buffer, offset, 4);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveUtil.java`
+#### Snippet
+```java
+     * @return the 2-byte entry as an int
+     */
+    public static final int convert16(final byte[] buffer, final int offset) {
+        return (int) ByteUtils.fromLittleEndian(buffer, offset, 2);
     }
 ```
 
@@ -2098,6 +2098,18 @@ in `src/main/java/org/apache/commons/compress/changes/ChangeSetPerformer.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Attribute`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingOptions.java`
+#### Snippet
+```java
+    }
+
+    private void addOrUpdateAttributeActions(final List<Attribute> prototypes, final Map<String, String> attributeActions, final int tag) {
+        if (attributeActions != null && attributeActions.size() > 0) {
+            NewAttribute newAttribute;
+```
+
+### BoundedWildcard
 Can generalize to `? extends PackingFile`
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Archive.java`
 #### Snippet
@@ -2134,18 +2146,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/Archive.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Character`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
-#### Snippet
-```java
-    }
-
-    private void addCharacters(final List<Character> chars, final char[] charArray) {
-        for (final char element : charArray) {
-            chars.add(Character.valueOf(element));
-```
-
-### BoundedWildcard
 Can generalize to `? extends CPMethodOrField`
 in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 #### Snippet
@@ -2158,27 +2158,27 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Attribute`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingOptions.java`
+Can generalize to `? super Character`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 #### Snippet
 ```java
     }
 
-    private void addOrUpdateAttributeActions(final List<Attribute> prototypes, final Map<String, String> attributeActions, final int tag) {
-        if (attributeActions != null && attributeActions.size() > 0) {
-            NewAttribute newAttribute;
+    private void addCharacters(final List<Character> chars, final char[] charArray) {
+        for (final char element : charArray) {
+            chars.add(Character.valueOf(element));
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CPMethodOrField`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
+Can generalize to `? extends CPUTF8`
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/MetadataBandGroup.java`
 #### Snippet
 ```java
     }
 
-    private List<Integer> getIndexInClass(final List<CPMethodOrField> cPMethodOrFieldList) {
-        return cPMethodOrFieldList.stream().collect(Collectors.mapping(CPMethodOrField::getIndexInClass, Collectors.toList()));
-    }
+    private Annotation getAnnotation(final CPUTF8 type, final int pairCount, final Iterator<CPUTF8> namesIterator) {
+        final CPUTF8[] elementNames = new CPUTF8[pairCount];
+        final ElementValue[] elementValues = new ElementValue[pairCount];
 ```
 
 ### BoundedWildcard
@@ -2194,15 +2194,15 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CPUTF8`
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/MetadataBandGroup.java`
+Can generalize to `? extends CPMethodOrField`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 #### Snippet
 ```java
     }
 
-    private Annotation getAnnotation(final CPUTF8 type, final int pairCount, final Iterator<CPUTF8> namesIterator) {
-        final CPUTF8[] elementNames = new CPUTF8[pairCount];
-        final ElementValue[] elementValues = new ElementValue[pairCount];
+    private List<Integer> getIndexInClass(final List<CPMethodOrField> cPMethodOrFieldList) {
+        return cPMethodOrFieldList.stream().collect(Collectors.mapping(CPMethodOrField::getIndexInClass, Collectors.toList()));
+    }
 ```
 
 ### BoundedWildcard
@@ -2258,11 +2258,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java`
 #### Snippet
 ```java
-     */
-    private boolean handleLongName(final TarArchiveEntry entry, final String name,
-        final Map<String, String> paxHeaders,
-        final String paxHeaderName, final byte linkType, final String fieldName)
-        throws IOException {
+    }
+
+    private void addPaxHeaderForBigNumber(final Map<String, String> paxHeaders,
+        final String header, final long value,
+        final long maxValue) {
 ```
 
 ### BoundedWildcard
@@ -2270,11 +2270,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java`
 #### Snippet
 ```java
-     */
-    private boolean handleLongName(final TarArchiveEntry entry, final String name,
-        final Map<String, String> paxHeaders,
-        final String paxHeaderName, final byte linkType, final String fieldName)
-        throws IOException {
+    }
+
+    private void addPaxHeaderForBigNumber(final Map<String, String> paxHeaders,
+        final String header, final long value,
+        final long maxValue) {
 ```
 
 ### BoundedWildcard
@@ -2306,11 +2306,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java`
 #### Snippet
 ```java
-    }
-
-    private void addPaxHeaderForBigNumber(final Map<String, String> paxHeaders,
-        final String header, final long value,
-        final long maxValue) {
+     */
+    private boolean handleLongName(final TarArchiveEntry entry, final String name,
+        final Map<String, String> paxHeaders,
+        final String paxHeaderName, final byte linkType, final String fieldName)
+        throws IOException {
 ```
 
 ### BoundedWildcard
@@ -2318,11 +2318,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java`
 #### Snippet
 ```java
-    }
-
-    private void addPaxHeaderForBigNumber(final Map<String, String> paxHeaders,
-        final String header, final long value,
-        final long maxValue) {
+     */
+    private boolean handleLongName(final TarArchiveEntry entry, final String name,
+        final Map<String, String> paxHeaders,
+        final String paxHeaderName, final byte linkType, final String fieldName)
+        throws IOException {
 ```
 
 ### BoundedWildcard
@@ -2366,11 +2366,11 @@ Can generalize to `? extends SeekableByteChannel`
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipSplitReadOnlySeekableByteChannel.java`
 #### Snippet
 ```java
+     * @throws IOException
      */
-    public static SeekableByteChannel forOrderedSeekableByteChannels(final SeekableByteChannel lastSegmentChannel,
-        final Iterable<SeekableByteChannel> channels) throws IOException {
-        Objects.requireNonNull(channels, "channels");
-        Objects.requireNonNull(lastSegmentChannel, "lastSegmentChannel");
+    private void assertSplitSignature(final List<SeekableByteChannel> channels)
+        throws IOException {
+        final SeekableByteChannel channel = channels.get(0);
 ```
 
 ### BoundedWildcard
@@ -2390,11 +2390,11 @@ Can generalize to `? extends SeekableByteChannel`
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipSplitReadOnlySeekableByteChannel.java`
 #### Snippet
 ```java
-     * @throws IOException
      */
-    private void assertSplitSignature(final List<SeekableByteChannel> channels)
-        throws IOException {
-        final SeekableByteChannel channel = channels.get(0);
+    public static SeekableByteChannel forOrderedSeekableByteChannels(final SeekableByteChannel lastSegmentChannel,
+        final Iterable<SeekableByteChannel> channels) throws IOException {
+        Objects.requireNonNull(channels, "channels");
+        Objects.requireNonNull(lastSegmentChannel, "lastSegmentChannel");
 ```
 
 ### BoundedWildcard
@@ -2482,18 +2482,6 @@ in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamFactor
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TarArchiveStructSparse`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
-#### Snippet
-```java
-     */
-    protected static Map<String, String> parsePaxHeaders(final InputStream inputStream,
-            final List<TarArchiveStructSparse> sparseHeaders, final Map<String, String> globalPaxHeaders,
-            final long headerSize) throws IOException {
-        final Map<String, String> headers = new HashMap<>(globalPaxHeaders);
-```
-
-### BoundedWildcard
 Can generalize to `? super Integer`
 in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 #### Snippet
@@ -2515,6 +2503,18 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
     private void checkEntryIsInitialized(final Map<Integer, SevenZArchiveEntry> archiveEntries, final int index) {
         if (archiveEntries.get(index) == null) {
             archiveEntries.put(index, new SevenZArchiveEntry());
+```
+
+### BoundedWildcard
+Can generalize to `? super TarArchiveStructSparse`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
+#### Snippet
+```java
+     */
+    protected static Map<String, String> parsePaxHeaders(final InputStream inputStream,
+            final List<TarArchiveStructSparse> sparseHeaders, final Map<String, String> globalPaxHeaders,
+            final long headerSize) throws IOException {
+        final Map<String, String> headers = new HashMap<>(globalPaxHeaders);
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -2562,9 +2562,33 @@ in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messa
 ```java
      * @return String the message for that key in the system message bundle.
      */
-    static public String getString(final String msg, final Object[] args) {
-        String format = msg;
+    static public String getString(final String msg, final Object arg1, final Object arg2) {
+        return getString(msg, new Object[] {arg1, arg2});
+    }
+```
 
+### MissortedModifiers
+Missorted modifiers `static public`
+in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
+#### Snippet
+```java
+     * @return String the message for that key in the system message bundle.
+     */
+    static public String getString(final String msg) {
+        if (bundle == null) {
+            return msg;
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
+#### Snippet
+```java
+     * @return String the message for that key in the system message bundle.
+     */
+    static public String getString(final String msg, final char arg) {
+        return getString(msg, new Object[] {String.valueOf(arg)});
+    }
 ```
 
 ### MissortedModifiers
@@ -2592,54 +2616,6 @@ in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messa
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static public`
-in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
-#### Snippet
-```java
-     * @return String the message for that key in the system message bundle.
-     */
-    static public String getString(final String msg, final Object arg) {
-        return getString(msg, new Object[] {arg});
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
-#### Snippet
-```java
-     * @return String the message for that key in the system message bundle.
-     */
-    static public String getString(final String msg, final char arg) {
-        return getString(msg, new Object[] {String.valueOf(arg)});
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
-#### Snippet
-```java
-     * @return String the message for that key in the system message bundle.
-     */
-    static public String getString(final String msg) {
-        if (bundle == null) {
-            return msg;
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
-#### Snippet
-```java
-     * @return String the message for that key in the system message bundle.
-     */
-    static public String getString(final String msg, final Object arg1, final Object arg2) {
-        return getString(msg, new Object[] {arg1, arg2});
-    }
-```
-
-### MissortedModifiers
 Missorted modifiers `static private`
 in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
 #### Snippet
@@ -2649,6 +2625,30 @@ in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messa
     static private ResourceBundle bundle = null;
 
     static {
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
+#### Snippet
+```java
+     * @return String the message for that key in the system message bundle.
+     */
+    static public String getString(final String msg, final Object[] args) {
+        String format = msg;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `src/main/java/org/apache/commons/compress/harmony/archive/internal/nls/Messages.java`
+#### Snippet
+```java
+     * @return String the message for that key in the system message bundle.
+     */
+    static public String getString(final String msg, final Object arg) {
+        return getString(msg, new Object[] {arg});
+    }
 ```
 
 ### MissortedModifiers
@@ -2668,11 +2668,11 @@ Missorted modifiers `final static`
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipSplitOutputStream.java`
 #### Snippet
 ```java
+     * Maximum PKSFX segment size = 2,147,483,647 bytes
      */
     private final static long ZIP_SEGMENT_MIN_SIZE = 64 * 1024L;
     private final static long ZIP_SEGMENT_MAX_SIZE = 4294967295L;
     private OutputStream outputStream;
-    private Path zipFile;
 ```
 
 ### MissortedModifiers
@@ -2680,11 +2680,11 @@ Missorted modifiers `final static`
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipSplitOutputStream.java`
 #### Snippet
 ```java
-     * Maximum PKSFX segment size = 2,147,483,647 bytes
      */
     private final static long ZIP_SEGMENT_MIN_SIZE = 64 * 1024L;
     private final static long ZIP_SEGMENT_MAX_SIZE = 4294967295L;
     private OutputStream outputStream;
+    private Path zipFile;
 ```
 
 ### MissortedModifiers
@@ -2750,6 +2750,18 @@ in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputSt
 
 ### NegativeIntConstantInLongContext
 Negative int hexadecimal constant in long context
+in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorInputStream.java`
+#### Snippet
+```java
+        maybeFinishCurrentBlock();
+        final long len = ByteUtils.fromLittleEndian(supplier, 4);
+        final boolean uncompressed = (len & UNCOMPRESSED_FLAG_MASK) != 0;
+        final int realLen = (int) (len & (~UNCOMPRESSED_FLAG_MASK));
+        if (realLen == 0) {
+```
+
+### NegativeIntConstantInLongContext
+Negative int hexadecimal constant in long context
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
 #### Snippet
 ```java
@@ -2770,18 +2782,6 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java
         return (int) (userId & 0xffffffff);
     }
 
-```
-
-### NegativeIntConstantInLongContext
-Negative int hexadecimal constant in long context
-in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorInputStream.java`
-#### Snippet
-```java
-        maybeFinishCurrentBlock();
-        final long len = ByteUtils.fromLittleEndian(supplier, 4);
-        final boolean uncompressed = (len & UNCOMPRESSED_FLAG_MASK) != 0;
-        final int realLen = (int) (len & (~UNCOMPRESSED_FLAG_MASK));
-        if (realLen == 0) {
 ```
 
 ## RuleId[id=IfStatementMissingBreakInLoop]
@@ -2808,6 +2808,54 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/Segment.java`
             in.read(data);
             internalBuffer = new BufferedInputStream(new ByteArrayInputStream(data));
         } else {
+```
+
+### IgnoreResultOfCall
+Result of `StringReader.read()` is ignored
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+    private UnionCase readNextUnionCase(final StringReader reader) throws IOException {
+        reader.mark(2);
+        reader.read(); // '('
+        final int next = reader.read();
+        char ch = (char) next;
+```
+
+### IgnoreResultOfCall
+Result of `StringReader.read()` is ignored
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        }
+        reader.reset();
+        reader.read(); // '('
+        final List<Integer> tags = new ArrayList<>();
+        Integer nextTag;
+```
+
+### IgnoreResultOfCall
+Result of `StringReader.read()` is ignored
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+            if (nextTag != null) {
+                tags.add(nextTag);
+                reader.read(); // ',' or ')'
+            }
+        } while (nextTag != null);
+```
+
+### IgnoreResultOfCall
+Result of `StringReader.read()` is ignored
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+            }
+        } while (nextTag != null);
+        reader.read(); // '['
+        reader.mark(1);
+        ch = (char) reader.read();
 ```
 
 ### IgnoreResultOfCall
@@ -2868,54 +2916,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.
             reader.read(); // ')'
             return new Call(number);
         // Reference
-```
-
-### IgnoreResultOfCall
-Result of `StringReader.read()` is ignored
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-    private UnionCase readNextUnionCase(final StringReader reader) throws IOException {
-        reader.mark(2);
-        reader.read(); // '('
-        final int next = reader.read();
-        char ch = (char) next;
-```
-
-### IgnoreResultOfCall
-Result of `StringReader.read()` is ignored
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-        }
-        reader.reset();
-        reader.read(); // '('
-        final List<Integer> tags = new ArrayList<>();
-        Integer nextTag;
-```
-
-### IgnoreResultOfCall
-Result of `StringReader.read()` is ignored
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-            if (nextTag != null) {
-                tags.add(nextTag);
-                reader.read(); // ',' or ')'
-            }
-        } while (nextTag != null);
-```
-
-### IgnoreResultOfCall
-Result of `StringReader.read()` is ignored
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-            }
-        } while (nextTag != null);
-        reader.read(); // '['
-        reader.mark(1);
-        ch = (char) reader.read();
 ```
 
 ### IgnoreResultOfCall
@@ -3092,6 +3092,42 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 #### Snippet
 ```java
+        final int[] cpUtf8BigSuffix = new int[bigSuffix.size()];
+        final int[][] cpUtf8BigChars = new int[bigSuffix.size()][];
+        Arrays.setAll(cpUtf8Chars, i -> chars.get(i).charValue());
+        for (int i = 0; i < cpUtf8BigSuffix.length; i++) {
+            final int numBigChars = bigSuffix.get(i).intValue();
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
+#### Snippet
+```java
+        Arrays.setAll(cpUtf8Chars, i -> chars.get(i).charValue());
+        for (int i = 0; i < cpUtf8BigSuffix.length; i++) {
+            final int numBigChars = bigSuffix.get(i).intValue();
+            cpUtf8BigSuffix[i] = numBigChars;
+            cpUtf8BigChars[i] = new int[numBigChars];
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
+#### Snippet
+```java
+            cpUtf8BigSuffix[i] = numBigChars;
+            cpUtf8BigChars[i] = new int[numBigChars];
+            Arrays.setAll(cpUtf8BigChars[i], j -> bigChars.remove(0).charValue());
+        }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
+#### Snippet
+```java
         if (constant == null) {
             if (value instanceof Integer) {
                 constant = new CPInt(((Integer) value).intValue());
@@ -3140,42 +3176,6 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 #### Snippet
 ```java
-        final int[] cpUtf8BigSuffix = new int[bigSuffix.size()];
-        final int[][] cpUtf8BigChars = new int[bigSuffix.size()][];
-        Arrays.setAll(cpUtf8Chars, i -> chars.get(i).charValue());
-        for (int i = 0; i < cpUtf8BigSuffix.length; i++) {
-            final int numBigChars = bigSuffix.get(i).intValue();
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
-#### Snippet
-```java
-        Arrays.setAll(cpUtf8Chars, i -> chars.get(i).charValue());
-        for (int i = 0; i < cpUtf8BigSuffix.length; i++) {
-            final int numBigChars = bigSuffix.get(i).intValue();
-            cpUtf8BigSuffix[i] = numBigChars;
-            cpUtf8BigChars[i] = new int[numBigChars];
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
-#### Snippet
-```java
-            cpUtf8BigSuffix[i] = numBigChars;
-            cpUtf8BigChars[i] = new int[numBigChars];
-            Arrays.setAll(cpUtf8BigChars[i], j -> bigChars.remove(0).charValue());
-        }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
-#### Snippet
-```java
 				mOrF.setIndexInClass(0);
 			} else {
 				final int theIndex = index.intValue();
@@ -3205,18 +3205,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 					final int theIndex = constructorIndex.intValue();
 					mOrF.setIndexInClassForConstructor(theIndex);
 					classNameToConstructorIndex.put(cpClassName, Integer.valueOf(theIndex + 1));
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
-#### Snippet
-```java
-                    final int relativeOffset = bcLabelRelativeOffsets.get(i);
-                    bcLabel.add(i,
-                        Integer.valueOf(bciRenumbering.get(offset.intValue()) - bciRenumbering.get(relativeOffset)));
-                }
-            }
 ```
 
 ### UnnecessaryUnboxing
@@ -3257,14 +3245,26 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
+#### Snippet
+```java
+                    final int relativeOffset = bcLabelRelativeOffsets.get(i);
+                    bcLabel.add(i,
+                        Integer.valueOf(bciRenumbering.get(offset.intValue()) - bciRenumbering.get(relativeOffset)));
+                }
+            }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
-        public void visitEnum(final String name, final String desc, final String value) {
-            final Integer numCases = caseArrayN.remove(caseArrayN.size() - 1);
-            caseArrayN.add(Integer.valueOf(numCases.intValue() + 1));
-            tags.add("e");
-            values.add(desc);
+                public void visit(final String name, final Object value) {
+                    final Integer numPairs = nestPairN.remove(nestPairN.size() - 1);
+                    nestPairN.add(Integer.valueOf(numPairs.intValue() + 1));
+                    nestNameRU.add(name);
+                    addValueAndTag(value, tags, values);
 ```
 
 ### UnnecessaryUnboxing
@@ -3277,6 +3277,18 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
                     nestPairN.add(Integer.valueOf(numPairs.intValue() + 1));
                     tags.add("e");
                     nestNameRU.add(name);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
+#### Snippet
+```java
+        public void visit(String name, final Object value) {
+            final Integer numCases = caseArrayN.remove(indexInCaseArrayN);
+            caseArrayN.add(indexInCaseArrayN, Integer.valueOf(numCases.intValue() + 1));
+            if (name == null) {
+                name = "";
 ```
 
 ### UnnecessaryUnboxing
@@ -3308,23 +3320,11 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
-                public void visit(final String name, final Object value) {
-                    final Integer numPairs = nestPairN.remove(nestPairN.size() - 1);
-                    nestPairN.add(Integer.valueOf(numPairs.intValue() + 1));
-                    nestNameRU.add(name);
-                    addValueAndTag(value, tags, values);
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
-#### Snippet
-```java
-        public void visit(String name, final Object value) {
-            final Integer numCases = caseArrayN.remove(indexInCaseArrayN);
-            caseArrayN.add(indexInCaseArrayN, Integer.valueOf(numCases.intValue() + 1));
-            if (name == null) {
-                name = "";
+        public void visitEnum(final String name, final String desc, final String value) {
+            final Integer numCases = caseArrayN.remove(caseArrayN.size() - 1);
+            caseArrayN.add(Integer.valueOf(numCases.intValue() + 1));
+            tags.add("e");
+            values.add(desc);
 ```
 
 ### UnnecessaryUnboxing
@@ -3401,18 +3401,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/MetadataBandGroup.
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-        // Call
-        case '(':
-            final int number = readNumber(reader).intValue();
-            reader.read(); // ')'
-            return new Call(number);
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantPool.java`
 #### Snippet
 ```java
@@ -3421,66 +3409,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantP
             final int arrayIndex = element.intValue();
             if (regexMatches(secondaryCompareRegex, secondaryArray[arrayIndex])) {
                 instanceCount++;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-                    final Integer bytecodeIndex = labelsToOffsets.get(label);
-                    final Integer renumberedOffset = Integer
-                        .valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - ((Integer) relative.get(i)).intValue());
-                    band.add(i, renumberedOffset);
-                }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-                    final Integer bytecodeIndex = labelsToOffsets.get(label);
-                    final Integer renumberedOffset = Integer
-                        .valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - ((Integer) relative.get(i)).intValue());
-                    band.add(i, renumberedOffset);
-                }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-
-        public int latestValue() {
-            return ((Integer) band.get(band.size() - 1)).intValue();
-        }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-                        band.remove(i);
-                        final Integer bytecodeIndex = labelsToOffsets.get(label);
-                        band.add(i, Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())));
-                    }
-                }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-        // Call
-        case '(':
-            final int number = readNumber(stream).intValue();
-            stream.read(); // ')'
-            return new Call(number);
 ```
 
 ### UnnecessaryUnboxing
@@ -3512,11 +3440,11 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
 #### Snippet
 ```java
-            final Integer index = mapDescriptor.get(descriptor);
+            final Integer index = mapClass.get(string);
             if (index != null) {
-                return cpNameAndTypeValue(index.intValue());
+                return cpClassValue(index.intValue());
             }
-            final int colon = descriptor.indexOf(':');
+            cpString = new CPClass(cpUTF8Value(string, false), -1);
 ```
 
 ### UnnecessaryUnboxing
@@ -3524,11 +3452,11 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
 #### Snippet
 ```java
-            final Integer index = mapClass.get(string);
+            final Integer index = mapDescriptor.get(descriptor);
             if (index != null) {
-                return cpClassValue(index.intValue());
+                return cpNameAndTypeValue(index.intValue());
             }
-            cpString = new CPClass(cpUTF8Value(string, false), -1);
+            final int colon = descriptor.indexOf(':');
 ```
 
 ### UnnecessaryUnboxing
@@ -3545,6 +3473,66 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/BCIRenu
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+                        band.remove(i);
+                        final Integer bytecodeIndex = labelsToOffsets.get(label);
+                        band.add(i, Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())));
+                    }
+                }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+                    final Integer bytecodeIndex = labelsToOffsets.get(label);
+                    final Integer renumberedOffset = Integer
+                        .valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - ((Integer) relative.get(i)).intValue());
+                    band.add(i, renumberedOffset);
+                }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+                    final Integer bytecodeIndex = labelsToOffsets.get(label);
+                    final Integer renumberedOffset = Integer
+                        .valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - ((Integer) relative.get(i)).intValue());
+                    band.add(i, renumberedOffset);
+                }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        // Call
+        case '(':
+            final int number = readNumber(reader).intValue();
+            reader.read(); // ')'
+            return new Call(number);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+
+        public int latestValue() {
+            return ((Integer) band.get(band.size() - 1)).intValue();
+        }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LocalVariableTypeTableAttribute.java`
 #### Snippet
 ```java
@@ -3553,6 +3541,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LocalVa
                 final int stopValue = byteCodeOffsets.get(stopIndex).intValue();
                 revisedLength = stopValue - startPc;
             }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+        // Call
+        case '(':
+            final int number = readNumber(stream).intValue();
+            stream.read(); // ')'
+            return new Call(number);
 ```
 
 ### UnnecessaryUnboxing
@@ -3620,6 +3620,30 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
 #### Snippet
 ```java
+    protected void writeBody(final DataOutputStream dos) throws IOException {
+        for (int i = 0; i < lengths.size(); i++) {
+            final int length = lengths.get(i).intValue();
+            final Object obj = body.get(i);
+            long value = 0;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
+#### Snippet
+```java
+            long value = 0;
+            if (obj instanceof Long) {
+                value = ((Long) obj).longValue();
+            } else if (obj instanceof ClassFileEntry) {
+                value = pool.indexOf(((ClassFileEntry) obj));
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
+#### Snippet
+```java
                 if (obj instanceof BCIndex) {
                     final BCIndex bcIndex = (BCIndex) obj;
                     bcIndex.setActualValue(byteCodeOffsets.get(bcIndex.index).intValue());
@@ -3677,30 +3701,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttr
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
-#### Snippet
-```java
-    protected void writeBody(final DataOutputStream dos) throws IOException {
-        for (int i = 0; i < lengths.size(); i++) {
-            final int length = lengths.get(i).intValue();
-            final Object obj = body.get(i);
-            long value = 0;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
-#### Snippet
-```java
-            long value = 0;
-            if (obj instanceof Long) {
-                value = ((Long) obj).longValue();
-            } else if (obj instanceof ClassFileEntry) {
-                value = pool.indexOf(((ClassFileEntry) obj));
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/CodeAttribute.java`
 #### Snippet
 ```java
@@ -3709,6 +3709,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/CodeAtt
             final int lastBytecodePosition = byteCodeOffsets.get(byteCodeOffsets.size() - 1).intValue();
             // This code assumes all multiple byte bytecodes are
             // replaced by a single-byte bytecode followed by
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LocalVariableTableAttribute.java`
+#### Snippet
+```java
+            } else {
+                // We're indexed into the byte code array
+                final int stopValue = byteCodeOffsets.get(stopIndex).intValue();
+                revisedLength = stopValue - startPc;
+            }
 ```
 
 ### UnnecessaryUnboxing
@@ -3733,18 +3745,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/S
                 .intValue();
             replacementTargets[index] = targetValue - sourceValue;
         }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LocalVariableTableAttribute.java`
-#### Snippet
-```java
-            } else {
-                // We're indexed into the byte code array
-                final int stopValue = byteCodeOffsets.get(stopIndex).intValue();
-                revisedLength = stopValue - startPc;
-            }
 ```
 
 ### UnnecessaryUnboxing
@@ -3776,18 +3776,6 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/BcBands.java`
 #### Snippet
 ```java
-        int bcCaseValueCount = 0;
-        for (int i = 0; i < bcCaseCount.length; i++) {
-            final boolean isTableSwitch = switchIsTableSwitch.get(i).booleanValue();
-            if (isTableSwitch) {
-                bcCaseValueCount += 1;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/BcBands.java`
-#### Snippet
-```java
         final int[] wideByteCodeArray = new int[wideByteCodes.size()];
         for (int index = 0; index < wideByteCodeArray.length; index++) {
             wideByteCodeArray[index] = wideByteCodes.get(index).intValue();
@@ -3797,14 +3785,14 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/BcBands.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/BcBands.java`
 #### Snippet
 ```java
-			}
-			final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-			tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 23)));
-		} else {
-			if (tempMethodRIPA == null) {
+        int bcCaseValueCount = 0;
+        for (int i = 0; i < bcCaseCount.length; i++) {
+            final boolean isTableSwitch = switchIsTableSwitch.get(i).booleanValue();
+            if (isTableSwitch) {
+                bcCaseValueCount += 1;
 ```
 
 ### UnnecessaryUnboxing
@@ -3812,11 +3800,11 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
+				final int flagIndex = bands.getFlagIndex();
+				final Long flags = tempFieldFlags.remove(tempFieldFlags.size() - 1);
+				tempFieldFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
+				return;
 			}
-			final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-			tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 24)));
-		}
-	}
 ```
 
 ### UnnecessaryUnboxing
@@ -3824,11 +3812,47 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
-		tempMethodFlags.add(newFlag);
-		codeMaxStack.add(maxStack);
-		if ((newFlag.longValue() & (1 << 3)) == 0) { // not static
-			maxLocals--; // minus 'this' local
 		}
+		if (codeFlags.size() > 0) {
+			final long latestCodeFlag = codeFlags.get(codeFlags.size() - 1).longValue();
+			final int latestLocalVariableTableN = codeLocalVariableTableN.get(codeLocalVariableTableN.size() - 1);
+			if (latestCodeFlag == (1 << 2) && latestLocalVariableTableN == 0) {
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+				final Integer renumberedOffset = Integer
+						.valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - relative.get(i).intValue());
+				list.add(i, renumberedOffset);
+			}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+				final Integer renumberedOffset = Integer
+						.valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - relative.get(i).intValue());
+				list.add(i, renumberedOffset);
+			}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				final int flagIndex = bands.getFlagIndex();
+				final Long flags = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+				tempMethodFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
+				return;
+			}
 ```
 
 ### UnnecessaryUnboxing
@@ -3860,22 +3884,10 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
-				final Integer renumberedOffset = Integer
-						.valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - relative.get(i).intValue());
-				list.add(i, renumberedOffset);
-			}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
-				final Integer renumberedOffset = Integer
-						.valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - relative.get(i).intValue());
-				list.add(i, renumberedOffset);
+				final int flagIndex = bands.getFlagIndex();
+				final Long flags = codeFlags.remove(codeFlags.size() - 1);
+				codeFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
+				return;
 			}
 ```
 
@@ -3896,95 +3908,11 @@ Unnecessary unboxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
-				list.remove(i);
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
-				final Integer renumberedOffset = Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())
-						- relative.get(i).intValue() - firstOffset.get(i).intValue());
-				list.add(i, renumberedOffset);
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
-				final Integer renumberedOffset = Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())
-						- relative.get(i).intValue() - firstOffset.get(i).intValue());
-				list.add(i, renumberedOffset);
-			}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
-				final Integer renumberedOffset = Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())
-						- relative.get(i).intValue() - firstOffset.get(i).intValue());
-				list.add(i, renumberedOffset);
-			}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
+		tempMethodFlags.add(newFlag);
+		codeMaxStack.add(maxStack);
+		if ((newFlag.longValue() & (1 << 3)) == 0) { // not static
+			maxLocals--; // minus 'this' local
 		}
-		if (codeFlags.size() > 0) {
-			final long latestCodeFlag = codeFlags.get(codeFlags.size() - 1).longValue();
-			final int latestLocalVariableTableN = codeLocalVariableTableN.get(codeLocalVariableTableN.size() - 1);
-			if (latestCodeFlag == (1 << 2) && latestLocalVariableTableN == 0) {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				final int flagIndex = bands.getFlagIndex();
-				final Long flags = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-				tempMethodFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
-				return;
-			}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				final int flagIndex = bands.getFlagIndex();
-				final Long flags = tempFieldFlags.remove(tempFieldFlags.size() - 1);
-				tempFieldFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
-				return;
-			}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				final int flagIndex = bands.getFlagIndex();
-				final Long flags = codeFlags.remove(codeFlags.size() - 1);
-				codeFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
-				return;
-			}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-		method_AD_bands.addAnnotation(null, nameRU, tags, values, caseArrayN, nestTypeRS, nestNameRU, nestPairN);
-		final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-		tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 25)));
-	}
-
 ```
 
 ### UnnecessaryUnboxing
@@ -4023,19 +3951,79 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 					for (int i = 0; i < numLocalVariables; i++) {
 ```
 
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `resolve()` only delegates to its super method
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LineNumberTableAttribute.java`
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
-     */
-    @Override
-    protected void resolve(final ClassConstantPool pool) {
-        super.resolve(pool);
-    }
+			}
+			final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+			tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 23)));
+		} else {
+			if (tempMethodRIPA == null) {
 ```
 
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+			}
+			final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+			tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 24)));
+		}
+	}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+		method_AD_bands.addAnnotation(null, nameRU, tags, values, caseArrayN, nestTypeRS, nestNameRU, nestPairN);
+		final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+		tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 25)));
+	}
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				list.remove(i);
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+				final Integer renumberedOffset = Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())
+						- relative.get(i).intValue() - firstOffset.get(i).intValue());
+				list.add(i, renumberedOffset);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+				final Integer renumberedOffset = Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())
+						- relative.get(i).intValue() - firstOffset.get(i).intValue());
+				list.add(i, renumberedOffset);
+			}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+				final Integer renumberedOffset = Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())
+						- relative.get(i).intValue() - firstOffset.get(i).intValue());
+				list.add(i, renumberedOffset);
+			}
+```
+
+## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `getNestedClassFileEntries()` is identical to its super method
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LineNumberTableAttribute.java`
@@ -4045,6 +4033,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LineNum
     @Override
     protected ClassFileEntry[] getNestedClassFileEntries() {
         return new ClassFileEntry[] {getAttributeName()};
+    }
+```
+
+### RedundantMethodOverride
+Method `resolve()` only delegates to its super method
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LineNumberTableAttribute.java`
+#### Snippet
+```java
+     */
+    @Override
+    protected void resolve(final ClassConstantPool pool) {
+        super.resolve(pool);
     }
 ```
 
@@ -4103,8 +4103,8 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
 				final int flagIndex = bands.getFlagIndex();
-				final Long flags = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-				tempMethodFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
+				final Long flags = tempFieldFlags.remove(tempFieldFlags.size() - 1);
+				tempFieldFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
 				return;
 			}
 ```
@@ -4115,8 +4115,8 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
 				final int flagIndex = bands.getFlagIndex();
-				final Long flags = tempFieldFlags.remove(tempFieldFlags.size() - 1);
-				tempFieldFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
+				final Long flags = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+				tempMethodFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
 				return;
 			}
 ```
@@ -4158,110 +4158,14 @@ in `src/main/java/org/apache/commons/compress/compressors/snappy/SnappyCompresso
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-8 \* timesDefined: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                        throw new IOException("Not implemented");
-                    }
-                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
-                        throw new IOException("invalid creation dates size");
-                    }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-8 \* timesDefined: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                        throw new IOException("Not implemented");
-                    }
-                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
-                        throw new IOException("invalid creation dates size");
-                    }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-8 \* timesDefined: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                        throw new IOException("Not implemented");
-                    }
-                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
-                        throw new IOException("invalid access dates size");
-                    }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-8 \* timesDefined: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                        throw new IOException("Not implemented");
-                    }
-                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
-                        throw new IOException("invalid access dates size");
-                    }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-8 \* timesDefined: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                        throw new IOException("Not implemented");
-                    }
-                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
-                        throw new IOException("invalid modification dates size");
-                    }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-8 \* timesDefined: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                        throw new IOException("Not implemented");
-                    }
-                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
-                        throw new IOException("invalid modification dates size");
-                    }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-4 \* attributesDefined: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                        throw new IOException("Not implemented");
-                    }
-                    if (skipBytesFully(header, 4 * attributesDefined) < 4 * attributesDefined) {
-                        throw new IOException("invalid windows attributes size");
-                    }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-4 \* attributesDefined: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-                        throw new IOException("Not implemented");
-                    }
-                    if (skipBytesFully(header, 4 * attributesDefined) < 4 * attributesDefined) {
-                        throw new IOException("invalid windows attributes size");
-                    }
-```
-
-### IntegerMultiplicationImplicitCastToLong
 4 \* crcsDefined: integer multiplication implicitly cast to long
 in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 #### Snippet
 ```java
-            final int crcsDefined = readAllOrBits(header, stats.numberOfPackedStreams)
-                .cardinality();
+            stats.folderHasCrc = readAllOrBits(header, stats.numberOfFolders);
+            final int crcsDefined = stats.folderHasCrc.cardinality();
             if (skipBytesFully(header, 4 * crcsDefined) < 4 * crcsDefined) {
-                throw new IOException("invalid number of CRCs in PackInfo");
+                throw new IOException("invalid number of CRCs in UnpackInfo");
             }
 ```
 
@@ -4270,10 +4174,10 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 #### Snippet
 ```java
-            final int crcsDefined = readAllOrBits(header, stats.numberOfPackedStreams)
-                .cardinality();
+            stats.folderHasCrc = readAllOrBits(header, stats.numberOfFolders);
+            final int crcsDefined = stats.folderHasCrc.cardinality();
             if (skipBytesFully(header, 4 * crcsDefined) < 4 * crcsDefined) {
-                throw new IOException("invalid number of CRCs in PackInfo");
+                throw new IOException("invalid number of CRCs in UnpackInfo");
             }
 ```
 
@@ -4338,14 +4242,110 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
+8 \* timesDefined: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                        throw new IOException("Not implemented");
+                    }
+                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
+                        throw new IOException("invalid creation dates size");
+                    }
+```
+
+### IntegerMultiplicationImplicitCastToLong
+8 \* timesDefined: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                        throw new IOException("Not implemented");
+                    }
+                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
+                        throw new IOException("invalid creation dates size");
+                    }
+```
+
+### IntegerMultiplicationImplicitCastToLong
+8 \* timesDefined: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                        throw new IOException("Not implemented");
+                    }
+                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
+                        throw new IOException("invalid access dates size");
+                    }
+```
+
+### IntegerMultiplicationImplicitCastToLong
+8 \* timesDefined: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                        throw new IOException("Not implemented");
+                    }
+                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
+                        throw new IOException("invalid access dates size");
+                    }
+```
+
+### IntegerMultiplicationImplicitCastToLong
+8 \* timesDefined: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                        throw new IOException("Not implemented");
+                    }
+                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
+                        throw new IOException("invalid modification dates size");
+                    }
+```
+
+### IntegerMultiplicationImplicitCastToLong
+8 \* timesDefined: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                        throw new IOException("Not implemented");
+                    }
+                    if (skipBytesFully(header, 8 * timesDefined) < 8 * timesDefined) {
+                        throw new IOException("invalid modification dates size");
+                    }
+```
+
+### IntegerMultiplicationImplicitCastToLong
+4 \* attributesDefined: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                        throw new IOException("Not implemented");
+                    }
+                    if (skipBytesFully(header, 4 * attributesDefined) < 4 * attributesDefined) {
+                        throw new IOException("invalid windows attributes size");
+                    }
+```
+
+### IntegerMultiplicationImplicitCastToLong
+4 \* attributesDefined: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+                        throw new IOException("Not implemented");
+                    }
+                    if (skipBytesFully(header, 4 * attributesDefined) < 4 * attributesDefined) {
+                        throw new IOException("invalid windows attributes size");
+                    }
+```
+
+### IntegerMultiplicationImplicitCastToLong
 4 \* crcsDefined: integer multiplication implicitly cast to long
 in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 #### Snippet
 ```java
-            stats.folderHasCrc = readAllOrBits(header, stats.numberOfFolders);
-            final int crcsDefined = stats.folderHasCrc.cardinality();
+            final int crcsDefined = readAllOrBits(header, stats.numberOfPackedStreams)
+                .cardinality();
             if (skipBytesFully(header, 4 * crcsDefined) < 4 * crcsDefined) {
-                throw new IOException("invalid number of CRCs in UnpackInfo");
+                throw new IOException("invalid number of CRCs in PackInfo");
             }
 ```
 
@@ -4354,10 +4354,10 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 #### Snippet
 ```java
-            stats.folderHasCrc = readAllOrBits(header, stats.numberOfFolders);
-            final int crcsDefined = stats.folderHasCrc.cardinality();
+            final int crcsDefined = readAllOrBits(header, stats.numberOfPackedStreams)
+                .cardinality();
             if (skipBytesFully(header, 4 * crcsDefined) < 4 * crcsDefined) {
-                throw new IOException("invalid number of CRCs in UnpackInfo");
+                throw new IOException("invalid number of CRCs in PackInfo");
             }
 ```
 
@@ -4398,19 +4398,920 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
 
 ```
 
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`z = z << s` could be simplified to 'z \<\<= s'
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BHSDCodec.java`
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/utils/IOUtils.java`
 #### Snippet
 ```java
-                z = (-z << s) - 1;
-            } else if (s == 1) {
-                z = z << s;
-            } else {
-                z += (z - z % 3) / 3;
+        int n = 0;
+        long count = 0;
+        while (count < len && -1 != (n = input.read(buffer, 0, (int) Math.min(len - count, buffer.length)))) {
+            if (output != null) {
+                output.write(buffer, 0, n);
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/utils/IOUtils.java`
+#### Snippet
+```java
+        int n = 0;
+        long count=0;
+        while (-1 != (n = input.read(buffer))) {
+            if (output != null) {
+                output.write(buffer, 0, n);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
+#### Snippet
+```java
+        int last = firstValue;
+        for (int i = 1; i < n + 1; i++) {
+            result[i] = last = decode(in, last);
+        }
+        return result;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
+#### Snippet
+```java
+        int last = 0;
+        for (int i = 0; i < n; i++) {
+            result[i] = last = decode(in, last);
+        }
+        return result;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/changes/ChangeSetPerformer.java`
+#### Snippet
+```java
+        @Override
+        public boolean hasNext() throws IOException {
+            return (next = in.getNextEntry()) != null;
+        }
+        @Override
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/IntList.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException();
+        }
+        firstIndex = lastIndex = 0;
+        array = new int[capacity];
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/IntList.java`
+#### Snippet
+```java
+        }
+        if (firstIndex == lastIndex) {
+            firstIndex = lastIndex = 0;
+        }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/IntList.java`
+#### Snippet
+```java
+        if (firstIndex != lastIndex) {
+            Arrays.fill(array, firstIndex, lastIndex, -1);
+            firstIndex = lastIndex = 0;
+            modCount++;
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PopulationCodec.java`
+#### Snippet
+```java
+            if (index == 0) {
+                lastBandLength++;
+                result[i] = last = unfavouredCodec.decode(in, last);
+            } else {
+                result[i] = favoured[index - 1];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
+#### Snippet
+```java
+        JarEntry jarEntry;
+        byte[] bytes;
+        while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
+            bytes = readJarEntry(jarEntry, new BufferedInputStream(jarInputStream));
+            packingFileList.add(new PackingFile(bytes, jarEntry));
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
+#### Snippet
+```java
+				try (InputStream inputStream = jarFile.getInputStream(jarEntry)) {
+					int bytesRead;
+					while ((bytesRead = inputStream.read(bytes)) != -1) {
+						jarOutputStream.write(bytes, 0, bytesRead);
+					}
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
+#### Snippet
+```java
+			JarEntry jarEntry;
+			int bytesRead;
+			while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
+				jarOutputStream.putNextEntry(jarEntry);
+				while ((bytesRead = jarInputStream.read(bytes)) != -1) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
+#### Snippet
+```java
+			while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
+				jarOutputStream.putNextEntry(jarEntry);
+				while ((bytesRead = jarInputStream.read(bytes)) != -1) {
+					jarOutputStream.write(bytes, 0, bytesRead);
+				}
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/Archive.java`
+#### Snippet
+```java
+                final JarInputStream jarInputStream = new JarInputStream(inputStream);
+                JarEntry jarEntry;
+                while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
+                    outputStream.putNextEntry(jarEntry);
+                    final byte[] bytes = new byte[16384];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+            final StringReader stream = new StringReader(contents);
+            LayoutElement e;
+            while ((e = readNextLayoutElement(stream)) != null) {
+                layoutElements.add(e);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        int i;
+        int length = 0;
+        while ((i = (stream.read())) != -1 && Character.isDigit((char) i)) {
+            length++;
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        final List<LayoutElement> layoutElements = new ArrayList<>();
+        LayoutElement e;
+        while ((e = readNextLayoutElement(reader)) != null) {
+            layoutElements.add(e);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+            final StringReader reader = new StringReader(layout);
+            AttributeLayoutElement e;
+            while ((e = readNextAttributeElement(reader)) != null) {
+                attributeLayoutElements.add(e);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+            final List<UnionCase> unionCases = new ArrayList<>();
+            UnionCase c;
+            while ((c = readNextUnionCase(reader)) != null) {
+                unionCases.add(c);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+        int i;
+        int length = 0;
+        while ((i = (stream.read())) != -1 && Character.isDigit((char) i)) {
+            length++;
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+            final List<UnionCase> unionCases = new ArrayList<>();
+            UnionCase c;
+            while ((c = readNextUnionCase(stream)) != null) {
+                unionCases.add(c);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+        final List<LayoutElement> layoutElements = new ArrayList<>();
+        LayoutElement e;
+        while ((e = readNextLayoutElement(stream)) != null) {
+            layoutElements.add(e);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+            final StringReader stream = new StringReader(contents);
+            LayoutElement e;
+            while ((e = readNextLayoutElement(stream)) != null) {
+                layoutElements.add(e);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+            final StringReader stream = new StringReader(attributeLayout.getLayout());
+            AttributeLayoutElement e;
+            while ((e = readNextAttributeElement(stream)) != null) {
+                attributeLayoutElements.add(e);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/ClassFile.java`
+#### Snippet
+```java
+        for (int i = 1; i <= pool.size(); i++) {
+            ConstantPoolEntry entry;
+            (entry = (ConstantPoolEntry) pool.get(i)).doWrite(dos);
+            // Doubles and longs take up two spaces in the pool, but only one
+            // gets written
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
+#### Snippet
+```java
+            System.out.println("Created " + ais.toString());
+            ArchiveEntry ae;
+            while ((ae = ais.getNextEntry()) != null) {
+                System.out.println(ae.getName());
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
+#### Snippet
+```java
+            System.out.println("Created " + z);
+            ArchiveEntry ae;
+            while ((ae = z.getNextEntry()) != null) {
+                final String name = ae.getName() == null ? z.getDefaultName() + " (entry name was null)"
+                    : ae.getName();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStream.java`
+#### Snippet
+```java
+                final ArrayList<byte[]> extendedHeaders = new ArrayList<>();
+                int extendedHeaderSize;
+                while ((extendedHeaderSize = read16(in)) > 0) {
+                    final byte[] extendedHeaderBytes = readRange(in, extendedHeaderSize);
+                    final long extendedHeaderCrc32 = 0xffffFFFFL & read32(in);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStream.java`
+#### Snippet
+```java
+        try (final ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+            int nextByte;
+            while ((nextByte = dataIn.readUnsignedByte()) != 0) {
+                buffer.write(nextByte);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/BcBands.java`
+#### Snippet
+```java
+                    final ByteArrayOutputStream codeBytes = new ByteArrayOutputStream();
+                    byte code;
+                    while ((code = (byte) (0xff & in.read())) != -1) {
+                        codeBytes.write(code);
+                    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarFile.java`
+#### Snippet
+```java
+
+        TarArchiveEntry entry;
+        while ((entry = getNextTarEntry()) != null) {
+            entries.add(entry);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarFile.java`
+#### Snippet
+```java
+        int length;
+        try (final InputStream in = getInputStream(currEntry)) {
+            while ((length = in.read(smallBuf)) >= 0) {
+                longName.write(smallBuf, 0, length);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
+#### Snippet
+```java
+        final ByteArrayOutputStream longName = new ByteArrayOutputStream();
+        int length = 0;
+        while ((length = read(smallBuf)) >= 0) {
+            longName.write(smallBuf, 0, length);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("Block size must be a multiple of 512 bytes. Attempt to use set size of " + blockSize);
+        }
+        out = new FixedLengthBlockOutputStream(countingOut = new CountingOutputStream(os),
+                                               RECORD_SIZE);
+        this.encoding = encoding;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/zip/StreamCompressor.java`
+#### Snippet
+```java
+        int length;
+
+        while ((length = source.read(readerBuf, 0, readerBuf.length)) >= 0) {
+            write(readerBuf, 0, length, method);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java`
+#### Snippet
+```java
+        long device = entry.getDevice();
+        if (CPIO_TRAILER.equals(entry.getName())) {
+            inode = device = 0;
+        } else if (inode == 0 && device == 0) {
+            inode = nextArtificalDeviceAndInode & 0xFFFF;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java`
+#### Snippet
+```java
+        long devMin = entry.getDeviceMin();
+        if (CPIO_TRAILER.equals(entry.getName())) {
+            inode = devMin = 0;
+        } else if (inode == 0 && devMin == 0) {
+            inode = nextArtificalDeviceAndInode & 0xFFFFFFFF;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java`
+#### Snippet
+```java
+        long device = entry.getDevice();
+        if (CPIO_TRAILER.equals(entry.getName())) {
+            inode = device = 0;
+        } else if (inode == 0 && device == 0) {
+            inode = nextArtificalDeviceAndInode & 0777777;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+                    && entry.entry.getSize() != ArchiveEntry.SIZE_UNKNOWN) {
+                // actually, we already know the sizes
+                compressedSize = size = new ZipEightByteInteger(entry.entry.getSize());
+            } else {
+                // just a placeholder, real data will be in data
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+                // just a placeholder, real data will be in data
+                // descriptor or inserted later via SeekableByteChannel
+                compressedSize = size = ZipEightByteInteger.ZERO;
+            }
+            z64.setSize(size);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+        entry.hasWritten = true;
+        int length;
+        while ((length = src.read(copyBuffer)) >= 0 )
+        {
+            streamCompressor.writeCounted(copyBuffer, 0, length);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
+#### Snippet
+```java
+        try (final SevenZFile archive = new SevenZFile(f)) {
+            SevenZArchiveEntry ae;
+            while((ae=archive.getNextEntry()) != null) {
+                mode.takeAction(archive, ae);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java`
+#### Snippet
+```java
+        int currentByte = -1;
+        boolean skipReadCall = false;
+        while (skipReadCall || (currentByte = readOneByte()) > -1) {
+            skipReadCall = false;
+            if (!isFirstByteOfEocdSig(currentByte)) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+        header.volume = DumpArchiveUtil.convert32(buffer, 12);
+        //header.tapea = DumpArchiveUtil.convert32(buffer, 16);
+        entry.ino = header.ino = DumpArchiveUtil.convert32(buffer, 20);
+
+        //header.magic = DumpArchiveUtil.convert32(buffer, 24);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/examples/Expander.java`
+#### Snippet
+```java
+            final byte[] buffer = new byte[8192];
+            int n;
+            while (-1 != (n = archive.read(buffer))) {
+                if (out != null) {
+                    out.write(buffer, 0, n);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java`
+#### Snippet
+```java
+        final byte[] buffer = new byte[8024];
+        int n = 0;
+        while (-1 != (n = inputStream.read(buffer))) {
+            write(buffer, 0, n);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/lzma/LZMACompressorInputStream.java`
+#### Snippet
+```java
+    public LZMACompressorInputStream(final InputStream inputStream)
+            throws IOException {
+        in = new LZMAInputStream(countingStream = new CountingInputStream(inputStream), -1);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/lzma/LZMACompressorInputStream.java`
+#### Snippet
+```java
+            throws IOException {
+        try {
+            in = new LZMAInputStream(countingStream = new CountingInputStream(inputStream), memoryLimitInKb);
+        } catch (final org.tukaani.xz.MemoryLimitException e) {
+            //convert to commons-compress exception
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/gzip/GzipCompressorInputStream.java`
+#### Snippet
+```java
+        try (final ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            int b = 0;
+            while ((b = inData.readUnsignedByte()) != 0x00) { // NOPMD NOSONAR
+                bos.write(b);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/brotli/BrotliCompressorInputStream.java`
+#### Snippet
+```java
+
+    public BrotliCompressorInputStream(final InputStream in) throws IOException {
+        decIS = new BrotliInputStream(countingStream = new CountingInputStream(in));
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/deflate/DeflateCompressorInputStream.java`
+#### Snippet
+```java
+                                        final DeflateParameters parameters) {
+        inflater = new Inflater(!parameters.withZlibHeader());
+        in = new InflaterInputStream(countingStream = new CountingInputStream(inputStream), inflater);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/snappy/SnappyCompressorInputStream.java`
+#### Snippet
+```java
+            throws IOException {
+        super(is, blockSize);
+        uncompressedBytesRemaining = size = (int) readSize();
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.java`
+#### Snippet
+```java
+    while(len > 7) {
+      final int c0 =(b[off+0] ^ localCrc) & 0xff;
+      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.java`
+#### Snippet
+```java
+      final int c0 =(b[off+0] ^ localCrc) & 0xff;
+      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+      localCrc = (T[T8_7_START + c0] ^ T[T8_6_START + c1])
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.java`
+#### Snippet
+```java
+      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
+      localCrc = (T[T8_7_START + c0] ^ T[T8_6_START + c1])
+          ^ (T[T8_5_START + c2] ^ T[T8_4_START + c3]);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/zstandard/ZstdCompressorInputStream.java`
+#### Snippet
+```java
+     */
+    public ZstdCompressorInputStream(final InputStream in, final BufferPool bufferPool) throws IOException {
+        this.decIS = new ZstdInputStream(countingStream = new CountingInputStream(in), bufferPool);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/zstandard/ZstdCompressorInputStream.java`
+#### Snippet
+```java
+
+    public ZstdCompressorInputStream(final InputStream in) throws IOException {
+        this.decIS = new ZstdInputStream(countingStream = new CountingInputStream(in));
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java`
+#### Snippet
+```java
+            // than others.
+            if ((ttShadow == null) || (ttShadow.length < length)) {
+                this.tt = ttShadow = new int[length];
+            }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java`
+#### Snippet
+```java
+        int destOffs = offs;
+        int b;
+        while (destOffs < hi && ((b = read0()) >= 0)) {
+            dest[destOffs++] = (byte) b;
+            count(1);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java`
+#### Snippet
+```java
+                this.su_rNToGo--;
+            }
+            this.su_ch2 = su_ch2Shadow ^= (this.su_rNToGo == 1) ? 1 : 0;
+            this.su_i2++;
+            this.currentState = RAND_PART_B_STATE;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/lz77support/Parameters.java`
+#### Snippet
+```java
+         */
+        public Builder tunedForCompressionRatio() {
+            niceBackReferenceLength = lazyThreshold = maxBackReferenceLength;
+            maxCandidates = Math.max(32, windowSize / 16);
+            lazyMatches = true;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
+#### Snippet
+```java
+                        if (onceRunned) {
+                            fmap[j] = a;
+                            if ((j -= h) <= mj) { //NOSONAR
+                                break HAMMER;
+                            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
+#### Snippet
+```java
+                                    if (block[i1 + 4] == block[i2 + 4]) {
+                                        if (block[i1 + 5] == block[i2 + 5]) {
+                                            if (block[(i1 += 6)] == block[(i2 += 6)]) { //NOSONAR
+                                                int x = lastShadow;
+                                                X: while (x > 0) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
+#### Snippet
+```java
+                                    if (block[i1 + 4] == block[i2 + 4]) {
+                                        if (block[i1 + 5] == block[i2 + 5]) {
+                                            if (block[(i1 += 6)] == block[(i2 += 6)]) { //NOSONAR
+                                                int x = lastShadow;
+                                                X: while (x > 0) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
+#### Snippet
+```java
+                                                                            if (block[i1 + 4] == block[i2 + 4]) {
+                                                                                if (quadrant[i1 + 3] == quadrant[i2 + 3]) {
+                                                                                    if ((i1 += 4) >= lastPlus1) { //NOSONAR
+                                                                                        i1 -= lastPlus1;
+                                                                                    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
+#### Snippet
+```java
+                                                                                        i1 -= lastPlus1;
+                                                                                    }
+                                                                                    if ((i2 += 4) >= lastPlus1) { //NOSONAR
+                                                                                        i2 -= lastPlus1;
+                                                                                    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
+#### Snippet
+```java
+            }
+
+            unLo = ltLo = lo;
+            unHi = gtHi = hi;
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
+#### Snippet
+```java
+
+            unLo = ltLo = lo;
+            unHi = gtHi = hi;
+
+            // looks like the ternary partition attributed to Wegner
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/lz77support/AbstractLZ77CompressorInputStream.java`
+#### Snippet
+```java
+        this.windowSize = windowSize;
+        buf = new byte[3 * windowSize];
+        writeIndex = readIndex = 0;
+        bytesRemaining = 0;
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/lz77support/LZ77Compressor.java`
+#### Snippet
+```java
+            missedInserts = len;
+        }
+        blockStart = currentPosition = len;
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+        }
+        buildDecodingStream(currentEntryIndex, false);
+        uncompressedBytesReadFromCurrentEntry = compressedBytesReadFromCurrentEntry = 0;
+        return entry;
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
+#### Snippet
+```java
+                heap[zz] = tmp;
+                nNodes++;
+                parent[n1] = parent[n2] = nNodes;
+
+                final int weight_n1 = weight[n1];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
+#### Snippet
+```java
+                int k = i;
+
+                for (int parent_k; (parent_k = parent[k]) >= 0;) {
+                    k = parent_k;
+                    j++;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
+#### Snippet
+```java
+            int len = 0;
+            int read = 0;
+            while((ch = inputStream.read()) != -1) {
+                read++;
+                totalRead++;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
+#### Snippet
+```java
+                    // Get keyword
+                    final ByteArrayOutputStream coll = new ByteArrayOutputStream();
+                    while((ch = inputStream.read()) != -1) {
+                        read++;
+                        totalRead++;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
+#### Snippet
+```java
+        long bytesRead = 0;
+
+        while ((number = inputStream.read()) != '\n') {
+            bytesRead += 1;
+            if (number == -1) {
+```
+
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `z = z - (z >>> s)` could be simplified to 'z -= (z \>\>\> s)'
 in `src/main/java/org/apache/commons/compress/harmony/pack200/BHSDCodec.java`
@@ -4421,6 +5322,18 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BHSDCodec.java`
                 z = z - (z >>> s);
             }
         }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`z = z << s` could be simplified to 'z \<\<= s'
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BHSDCodec.java`
+#### Snippet
+```java
+                z = (-z << s) - 1;
+            } else if (s == 1) {
+                z = z << s;
+            } else {
+                z += (z - z % 3) / 3;
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -4627,919 +5540,6 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
             }
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/utils/IOUtils.java`
-#### Snippet
-```java
-        int n = 0;
-        long count = 0;
-        while (count < len && -1 != (n = input.read(buffer, 0, (int) Math.min(len - count, buffer.length)))) {
-            if (output != null) {
-                output.write(buffer, 0, n);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/utils/IOUtils.java`
-#### Snippet
-```java
-        int n = 0;
-        long count=0;
-        while (-1 != (n = input.read(buffer))) {
-            if (output != null) {
-                output.write(buffer, 0, n);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
-#### Snippet
-```java
-        int last = firstValue;
-        for (int i = 1; i < n + 1; i++) {
-            result[i] = last = decode(in, last);
-        }
-        return result;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Codec.java`
-#### Snippet
-```java
-        int last = 0;
-        for (int i = 0; i < n; i++) {
-            result[i] = last = decode(in, last);
-        }
-        return result;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/changes/ChangeSetPerformer.java`
-#### Snippet
-```java
-        @Override
-        public boolean hasNext() throws IOException {
-            return (next = in.getNextEntry()) != null;
-        }
-        @Override
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/IntList.java`
-#### Snippet
-```java
-        if (firstIndex != lastIndex) {
-            Arrays.fill(array, firstIndex, lastIndex, -1);
-            firstIndex = lastIndex = 0;
-            modCount++;
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/IntList.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException();
-        }
-        firstIndex = lastIndex = 0;
-        array = new int[capacity];
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/IntList.java`
-#### Snippet
-```java
-        }
-        if (firstIndex == lastIndex) {
-            firstIndex = lastIndex = 0;
-        }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PopulationCodec.java`
-#### Snippet
-```java
-            if (index == 0) {
-                lastBandLength++;
-                result[i] = last = unfavouredCodec.decode(in, last);
-            } else {
-                result[i] = favoured[index - 1];
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
-#### Snippet
-```java
-				try (InputStream inputStream = jarFile.getInputStream(jarEntry)) {
-					int bytesRead;
-					while ((bytesRead = inputStream.read(bytes)) != -1) {
-						jarOutputStream.write(bytes, 0, bytesRead);
-					}
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
-#### Snippet
-```java
-			JarEntry jarEntry;
-			int bytesRead;
-			while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
-				jarOutputStream.putNextEntry(jarEntry);
-				while ((bytesRead = jarInputStream.read(bytes)) != -1) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
-#### Snippet
-```java
-			while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
-				jarOutputStream.putNextEntry(jarEntry);
-				while ((bytesRead = jarInputStream.read(bytes)) != -1) {
-					jarOutputStream.write(bytes, 0, bytesRead);
-				}
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
-#### Snippet
-```java
-        JarEntry jarEntry;
-        byte[] bytes;
-        while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
-            bytes = readJarEntry(jarEntry, new BufferedInputStream(jarInputStream));
-            packingFileList.add(new PackingFile(bytes, jarEntry));
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/Archive.java`
-#### Snippet
-```java
-                final JarInputStream jarInputStream = new JarInputStream(inputStream);
-                JarEntry jarEntry;
-                while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
-                    outputStream.putNextEntry(jarEntry);
-                    final byte[] bytes = new byte[16384];
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-            final List<UnionCase> unionCases = new ArrayList<>();
-            UnionCase c;
-            while ((c = readNextUnionCase(reader)) != null) {
-                unionCases.add(c);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-            final StringReader reader = new StringReader(layout);
-            AttributeLayoutElement e;
-            while ((e = readNextAttributeElement(reader)) != null) {
-                attributeLayoutElements.add(e);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-            final StringReader stream = new StringReader(contents);
-            LayoutElement e;
-            while ((e = readNextLayoutElement(stream)) != null) {
-                layoutElements.add(e);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-        final List<LayoutElement> layoutElements = new ArrayList<>();
-        LayoutElement e;
-        while ((e = readNextLayoutElement(reader)) != null) {
-            layoutElements.add(e);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-        int i;
-        int length = 0;
-        while ((i = (stream.read())) != -1 && Character.isDigit((char) i)) {
-            length++;
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-            final StringReader stream = new StringReader(contents);
-            LayoutElement e;
-            while ((e = readNextLayoutElement(stream)) != null) {
-                layoutElements.add(e);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-            final List<UnionCase> unionCases = new ArrayList<>();
-            UnionCase c;
-            while ((c = readNextUnionCase(stream)) != null) {
-                unionCases.add(c);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-            final StringReader stream = new StringReader(attributeLayout.getLayout());
-            AttributeLayoutElement e;
-            while ((e = readNextAttributeElement(stream)) != null) {
-                attributeLayoutElements.add(e);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-        final List<LayoutElement> layoutElements = new ArrayList<>();
-        LayoutElement e;
-        while ((e = readNextLayoutElement(stream)) != null) {
-            layoutElements.add(e);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-        int i;
-        int length = 0;
-        while ((i = (stream.read())) != -1 && Character.isDigit((char) i)) {
-            length++;
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/ClassFile.java`
-#### Snippet
-```java
-        for (int i = 1; i <= pool.size(); i++) {
-            ConstantPoolEntry entry;
-            (entry = (ConstantPoolEntry) pool.get(i)).doWrite(dos);
-            // Doubles and longs take up two spaces in the pool, but only one
-            // gets written
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
-#### Snippet
-```java
-            System.out.println("Created " + ais.toString());
-            ArchiveEntry ae;
-            while ((ae = ais.getNextEntry()) != null) {
-                System.out.println(ae.getName());
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
-#### Snippet
-```java
-            System.out.println("Created " + z);
-            ArchiveEntry ae;
-            while ((ae = z.getNextEntry()) != null) {
-                final String name = ae.getName() == null ? z.getDefaultName() + " (entry name was null)"
-                    : ae.getName();
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStream.java`
-#### Snippet
-```java
-                final ArrayList<byte[]> extendedHeaders = new ArrayList<>();
-                int extendedHeaderSize;
-                while ((extendedHeaderSize = read16(in)) > 0) {
-                    final byte[] extendedHeaderBytes = readRange(in, extendedHeaderSize);
-                    final long extendedHeaderCrc32 = 0xffffFFFFL & read32(in);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStream.java`
-#### Snippet
-```java
-        try (final ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
-            int nextByte;
-            while ((nextByte = dataIn.readUnsignedByte()) != 0) {
-                buffer.write(nextByte);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/BcBands.java`
-#### Snippet
-```java
-                    final ByteArrayOutputStream codeBytes = new ByteArrayOutputStream();
-                    byte code;
-                    while ((code = (byte) (0xff & in.read())) != -1) {
-                        codeBytes.write(code);
-                    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
-#### Snippet
-```java
-        final ByteArrayOutputStream longName = new ByteArrayOutputStream();
-        int length = 0;
-        while ((length = read(smallBuf)) >= 0) {
-            longName.write(smallBuf, 0, length);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarFile.java`
-#### Snippet
-```java
-        int length;
-        try (final InputStream in = getInputStream(currEntry)) {
-            while ((length = in.read(smallBuf)) >= 0) {
-                longName.write(smallBuf, 0, length);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarFile.java`
-#### Snippet
-```java
-
-        TarArchiveEntry entry;
-        while ((entry = getNextTarEntry()) != null) {
-            entries.add(entry);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("Block size must be a multiple of 512 bytes. Attempt to use set size of " + blockSize);
-        }
-        out = new FixedLengthBlockOutputStream(countingOut = new CountingOutputStream(os),
-                                               RECORD_SIZE);
-        this.encoding = encoding;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/zip/StreamCompressor.java`
-#### Snippet
-```java
-        int length;
-
-        while ((length = source.read(readerBuf, 0, readerBuf.length)) >= 0) {
-            write(readerBuf, 0, length, method);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-                    && entry.entry.getSize() != ArchiveEntry.SIZE_UNKNOWN) {
-                // actually, we already know the sizes
-                compressedSize = size = new ZipEightByteInteger(entry.entry.getSize());
-            } else {
-                // just a placeholder, real data will be in data
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-                // just a placeholder, real data will be in data
-                // descriptor or inserted later via SeekableByteChannel
-                compressedSize = size = ZipEightByteInteger.ZERO;
-            }
-            z64.setSize(size);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-        entry.hasWritten = true;
-        int length;
-        while ((length = src.read(copyBuffer)) >= 0 )
-        {
-            streamCompressor.writeCounted(copyBuffer, 0, length);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java`
-#### Snippet
-```java
-        long devMin = entry.getDeviceMin();
-        if (CPIO_TRAILER.equals(entry.getName())) {
-            inode = devMin = 0;
-        } else if (inode == 0 && devMin == 0) {
-            inode = nextArtificalDeviceAndInode & 0xFFFFFFFF;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java`
-#### Snippet
-```java
-        long device = entry.getDevice();
-        if (CPIO_TRAILER.equals(entry.getName())) {
-            inode = device = 0;
-        } else if (inode == 0 && device == 0) {
-            inode = nextArtificalDeviceAndInode & 0xFFFF;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java`
-#### Snippet
-```java
-        long device = entry.getDevice();
-        if (CPIO_TRAILER.equals(entry.getName())) {
-            inode = device = 0;
-        } else if (inode == 0 && device == 0) {
-            inode = nextArtificalDeviceAndInode & 0777777;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java`
-#### Snippet
-```java
-        int currentByte = -1;
-        boolean skipReadCall = false;
-        while (skipReadCall || (currentByte = readOneByte()) > -1) {
-            skipReadCall = false;
-            if (!isFirstByteOfEocdSig(currentByte)) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
-#### Snippet
-```java
-        try (final SevenZFile archive = new SevenZFile(f)) {
-            SevenZArchiveEntry ae;
-            while((ae=archive.getNextEntry()) != null) {
-                mode.takeAction(archive, ae);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-        header.volume = DumpArchiveUtil.convert32(buffer, 12);
-        //header.tapea = DumpArchiveUtil.convert32(buffer, 16);
-        entry.ino = header.ino = DumpArchiveUtil.convert32(buffer, 20);
-
-        //header.magic = DumpArchiveUtil.convert32(buffer, 24);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/examples/Expander.java`
-#### Snippet
-```java
-            final byte[] buffer = new byte[8192];
-            int n;
-            while (-1 != (n = archive.read(buffer))) {
-                if (out != null) {
-                    out.write(buffer, 0, n);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java`
-#### Snippet
-```java
-        final byte[] buffer = new byte[8024];
-        int n = 0;
-        while (-1 != (n = inputStream.read(buffer))) {
-            write(buffer, 0, n);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/gzip/GzipCompressorInputStream.java`
-#### Snippet
-```java
-        try (final ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-            int b = 0;
-            while ((b = inData.readUnsignedByte()) != 0x00) { // NOPMD NOSONAR
-                bos.write(b);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/lzma/LZMACompressorInputStream.java`
-#### Snippet
-```java
-    public LZMACompressorInputStream(final InputStream inputStream)
-            throws IOException {
-        in = new LZMAInputStream(countingStream = new CountingInputStream(inputStream), -1);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/lzma/LZMACompressorInputStream.java`
-#### Snippet
-```java
-            throws IOException {
-        try {
-            in = new LZMAInputStream(countingStream = new CountingInputStream(inputStream), memoryLimitInKb);
-        } catch (final org.tukaani.xz.MemoryLimitException e) {
-            //convert to commons-compress exception
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/brotli/BrotliCompressorInputStream.java`
-#### Snippet
-```java
-
-    public BrotliCompressorInputStream(final InputStream in) throws IOException {
-        decIS = new BrotliInputStream(countingStream = new CountingInputStream(in));
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
-#### Snippet
-```java
-        long bytesRead = 0;
-
-        while ((number = inputStream.read()) != '\n') {
-            bytesRead += 1;
-            if (number == -1) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
-#### Snippet
-```java
-            int len = 0;
-            int read = 0;
-            while((ch = inputStream.read()) != -1) {
-                read++;
-                totalRead++;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java`
-#### Snippet
-```java
-                    // Get keyword
-                    final ByteArrayOutputStream coll = new ByteArrayOutputStream();
-                    while((ch = inputStream.read()) != -1) {
-                        read++;
-                        totalRead++;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/snappy/SnappyCompressorInputStream.java`
-#### Snippet
-```java
-            throws IOException {
-        super(is, blockSize);
-        uncompressedBytesRemaining = size = (int) readSize();
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/deflate/DeflateCompressorInputStream.java`
-#### Snippet
-```java
-                                        final DeflateParameters parameters) {
-        inflater = new Inflater(!parameters.withZlibHeader());
-        in = new InflaterInputStream(countingStream = new CountingInputStream(inputStream), inflater);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.java`
-#### Snippet
-```java
-    while(len > 7) {
-      final int c0 =(b[off+0] ^ localCrc) & 0xff;
-      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.java`
-#### Snippet
-```java
-      final int c0 =(b[off+0] ^ localCrc) & 0xff;
-      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-      localCrc = (T[T8_7_START + c0] ^ T[T8_6_START + c1])
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.java`
-#### Snippet
-```java
-      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff; //NOSONAR
-      localCrc = (T[T8_7_START + c0] ^ T[T8_6_START + c1])
-          ^ (T[T8_5_START + c2] ^ T[T8_4_START + c3]);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/zstandard/ZstdCompressorInputStream.java`
-#### Snippet
-```java
-
-    public ZstdCompressorInputStream(final InputStream in) throws IOException {
-        this.decIS = new ZstdInputStream(countingStream = new CountingInputStream(in));
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/zstandard/ZstdCompressorInputStream.java`
-#### Snippet
-```java
-     */
-    public ZstdCompressorInputStream(final InputStream in, final BufferPool bufferPool) throws IOException {
-        this.decIS = new ZstdInputStream(countingStream = new CountingInputStream(in), bufferPool);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
-#### Snippet
-```java
-                heap[zz] = tmp;
-                nNodes++;
-                parent[n1] = parent[n2] = nNodes;
-
-                final int weight_n1 = weight[n1];
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
-#### Snippet
-```java
-                int k = i;
-
-                for (int parent_k; (parent_k = parent[k]) >= 0;) {
-                    k = parent_k;
-                    j++;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
-#### Snippet
-```java
-            }
-
-            unLo = ltLo = lo;
-            unHi = gtHi = hi;
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
-#### Snippet
-```java
-
-            unLo = ltLo = lo;
-            unHi = gtHi = hi;
-
-            // looks like the ternary partition attributed to Wegner
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
-#### Snippet
-```java
-                        if (onceRunned) {
-                            fmap[j] = a;
-                            if ((j -= h) <= mj) { //NOSONAR
-                                break HAMMER;
-                            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
-#### Snippet
-```java
-                                    if (block[i1 + 4] == block[i2 + 4]) {
-                                        if (block[i1 + 5] == block[i2 + 5]) {
-                                            if (block[(i1 += 6)] == block[(i2 += 6)]) { //NOSONAR
-                                                int x = lastShadow;
-                                                X: while (x > 0) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
-#### Snippet
-```java
-                                    if (block[i1 + 4] == block[i2 + 4]) {
-                                        if (block[i1 + 5] == block[i2 + 5]) {
-                                            if (block[(i1 += 6)] == block[(i2 += 6)]) { //NOSONAR
-                                                int x = lastShadow;
-                                                X: while (x > 0) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
-#### Snippet
-```java
-                                                                            if (block[i1 + 4] == block[i2 + 4]) {
-                                                                                if (quadrant[i1 + 3] == quadrant[i2 + 3]) {
-                                                                                    if ((i1 += 4) >= lastPlus1) { //NOSONAR
-                                                                                        i1 -= lastPlus1;
-                                                                                    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
-#### Snippet
-```java
-                                                                                        i1 -= lastPlus1;
-                                                                                    }
-                                                                                    if ((i2 += 4) >= lastPlus1) { //NOSONAR
-                                                                                        i2 -= lastPlus1;
-                                                                                    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-        }
-        buildDecodingStream(currentEntryIndex, false);
-        uncompressedBytesReadFromCurrentEntry = compressedBytesReadFromCurrentEntry = 0;
-        return entry;
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/lz77support/Parameters.java`
-#### Snippet
-```java
-         */
-        public Builder tunedForCompressionRatio() {
-            niceBackReferenceLength = lazyThreshold = maxBackReferenceLength;
-            maxCandidates = Math.max(32, windowSize / 16);
-            lazyMatches = true;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/lz77support/LZ77Compressor.java`
-#### Snippet
-```java
-            missedInserts = len;
-        }
-        blockStart = currentPosition = len;
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/lz77support/AbstractLZ77CompressorInputStream.java`
-#### Snippet
-```java
-        this.windowSize = windowSize;
-        buf = new byte[3 * windowSize];
-        writeIndex = readIndex = 0;
-        bytesRemaining = 0;
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java`
-#### Snippet
-```java
-                this.su_rNToGo--;
-            }
-            this.su_ch2 = su_ch2Shadow ^= (this.su_rNToGo == 1) ? 1 : 0;
-            this.su_i2++;
-            this.currentState = RAND_PART_B_STATE;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java`
-#### Snippet
-```java
-            // than others.
-            if ((ttShadow == null) || (ttShadow.length < length)) {
-                this.tt = ttShadow = new int[length];
-            }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java`
-#### Snippet
-```java
-        int destOffs = offs;
-        int b;
-        while (destOffs < hi && ((b = read0()) >= 0)) {
-            dest[destOffs++] = (byte) b;
-            count(1);
-```
-
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `defaultAttributeNames` are updated, but never queried
@@ -5645,11 +5645,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttribute.java`
 #### Snippet
 ```java
-    private boolean contextClass = false;
 
     private boolean contextMethod = false;
     private boolean contextField = false;
     private boolean contextCode = false;
+    private final String layout;
 ```
 
 ### RedundantFieldInitialization
@@ -5681,23 +5681,35 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttribute.java`
 #### Snippet
 ```java
+    private boolean contextClass = false;
 
     private boolean contextMethod = false;
     private boolean contextField = false;
     private boolean contextCode = false;
-    private final String layout;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
 #### Snippet
 ```java
-    private static class PackingLogger extends Logger {
 
-        private boolean verbose = false;
+        // The number of bytes saved by using betterCodec instead of the default codec
+        private int saved = 0;
 
-        protected PackingLogger(final String name, final String resourceBundleName) {
+        // Extra metadata to pass to the segment header (to be appended to the
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
+#### Snippet
+```java
+
+        private int deltaIsAscending = 0;
+        private int smallDeltaCount = 0;
+
+        private double averageAbsoluteDelta = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -5717,35 +5729,11 @@ Field initialization to `0` is redundant
 in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
 #### Snippet
 ```java
-
-        // The number of Codecs tried so far
-        private int numCodecsTried = 0;
-
-        // The number of bytes saved by using betterCodec instead of the default codec
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
-#### Snippet
-```java
         private int smallDeltaCount = 0;
 
         private double averageAbsoluteDelta = 0;
         private double averageAbsoluteValue = 0;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
-#### Snippet
-```java
-
-        private int deltaIsAscending = 0;
-        private int smallDeltaCount = 0;
-
-        private double averageAbsoluteDelta = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -5766,10 +5754,22 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
 #### Snippet
 ```java
 
-        // The number of bytes saved by using betterCodec instead of the default codec
-        private int saved = 0;
+        // The number of Codecs tried so far
+        private int numCodecsTried = 0;
 
-        // Extra metadata to pass to the segment header (to be appended to the
+        // The number of bytes saved by using betterCodec instead of the default codec
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingUtils.java`
+#### Snippet
+```java
+    private static class PackingLogger extends Logger {
+
+        private boolean verbose = false;
+
+        protected PackingLogger(final String name, final String resourceBundleName) {
 ```
 
 ### RedundantFieldInitialization
@@ -5825,35 +5825,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
-	private boolean anySyntheticFields = false;
-
-	private boolean anySyntheticMethods = false;
-	private final Segment segment;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
 	private TempParamAnnotation tempMethodRVPA;
 	private TempParamAnnotation tempMethodRIPA;
 	private boolean anySyntheticClasses = false;
 	private boolean anySyntheticFields = false;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-	private TempParamAnnotation tempMethodRIPA;
-	private boolean anySyntheticClasses = false;
-	private boolean anySyntheticFields = false;
-
-	private boolean anySyntheticMethods = false;
 ```
 
 ### RedundantFieldInitialization
@@ -5866,6 +5842,30 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 	private int numMethodArgs = 0;
 	private int[] class_InnerClasses_N;
 	private CPClass[] class_InnerClasses_RC;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+	private boolean anySyntheticFields = false;
+
+	private boolean anySyntheticMethods = false;
+	private final Segment segment;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+	private TempParamAnnotation tempMethodRIPA;
+	private boolean anySyntheticClasses = false;
+	private boolean anySyntheticFields = false;
+
+	private boolean anySyntheticMethods = false;
 ```
 
 ### RedundantFieldInitialization
@@ -6089,7 +6089,7 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-14-29-47.923.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-12-07-01-24.204.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -6117,10 +6117,10 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
 #### Snippet
 ```java
-    private ZipExtraField[] getParseableExtraFields() {
-        final ZipExtraField[] parseableExtraFields = getParseableExtraFieldsNoCopy();
-        return (parseableExtraFields == extraFields) ? copyOf(parseableExtraFields, parseableExtraFields.length)
-            : parseableExtraFields;
+    private ZipExtraField[] getAllExtraFields() {
+        final ZipExtraField[] allExtraFieldsNoCopy = getAllExtraFieldsNoCopy();
+        return (allExtraFieldsNoCopy == extraFields) ? copyOf(allExtraFieldsNoCopy, allExtraFieldsNoCopy.length)
+            : allExtraFieldsNoCopy;
     }
 ```
 
@@ -6129,10 +6129,10 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
 #### Snippet
 ```java
-    private ZipExtraField[] getAllExtraFields() {
-        final ZipExtraField[] allExtraFieldsNoCopy = getAllExtraFieldsNoCopy();
-        return (allExtraFieldsNoCopy == extraFields) ? copyOf(allExtraFieldsNoCopy, allExtraFieldsNoCopy.length)
-            : allExtraFieldsNoCopy;
+    private ZipExtraField[] getParseableExtraFields() {
+        final ZipExtraField[] parseableExtraFields = getParseableExtraFieldsNoCopy();
+        return (parseableExtraFields == extraFields) ? copyOf(parseableExtraFields, parseableExtraFields.length)
+            : parseableExtraFields;
     }
 ```
 
@@ -6241,9 +6241,9 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/BandSet.java`
 ```java
         final int count = counts.length;
         if (count == 0) {
-            return new String[][] {{}};
+            return new long[][] {{}};
         }
-        final String[][] result = new String[count][];
+        int sum = 0;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -6253,9 +6253,9 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/BandSet.java`
 ```java
         final int count = counts.length;
         if (count == 0) {
-            return new long[][] {{}};
+            return new String[][] {{}};
         }
-        int sum = 0;
+        final String[][] result = new String[count][];
 ```
 
 ### ZeroLengthArrayInitialization
@@ -6489,18 +6489,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 ```
 
 ### UnusedAssignment
-Variable `context` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
-#### Snippet
-```java
-    public class SegmentAnnotationVisitor extends AnnotationVisitor {
-
-        private int context = -1;
-        private int parameter = -1;
-        private String desc;
-```
-
-### UnusedAssignment
 The value `""` assigned to `name` is never used
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
@@ -6510,6 +6498,18 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
                 name = "";
             }
             addValueAndTag(value, tags, values);
+```
+
+### UnusedAssignment
+Variable `context` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
+#### Snippet
+```java
+    public class SegmentAnnotationVisitor extends AnnotationVisitor {
+
+        private int context = -1;
+        private int parameter = -1;
+        private String desc;
 ```
 
 ### UnusedAssignment
@@ -6553,18 +6553,6 @@ Variable `realIndex` initializer `-1` is redundant
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantPool.java`
 #### Snippet
 ```java
-    public ConstantPoolEntry getInitMethodPoolEntry(final int cp, final long value, final String desiredClassName)
-        throws Pack200Exception {
-        int realIndex = -1;
-        if (cp != CP_METHOD) {
-            // TODO really an error?
-```
-
-### UnusedAssignment
-Variable `realIndex` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantPool.java`
-#### Snippet
-```java
         final String desiredClassName) throws Pack200Exception {
         final int index = (int) desiredIndex;
         int realIndex = -1;
@@ -6585,6 +6573,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantP
 ```
 
 ### UnusedAssignment
+Variable `realIndex` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantPool.java`
+#### Snippet
+```java
+    public ConstantPoolEntry getInitMethodPoolEntry(final int cp, final long value, final String desiredClassName)
+        throws Pack200Exception {
+        int realIndex = -1;
+        if (cp != CP_METHOD) {
+            // TODO really an error?
+```
+
+### UnusedAssignment
 Variable `nullsAllowed` initializer `false` is redundant
 in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
 #### Snippet
@@ -6594,18 +6594,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.
         private boolean nullsAllowed = false;
 
         public Reference(final String tag) {
-```
-
-### UnusedAssignment
-Variable `innerClassAccessFlags` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/InnerClassesAttribute.java`
-#### Snippet
-```java
-        int outerClassInfoIndex = -1;
-        int innerNameIndex = -1;
-        int innerClassAccessFlags = -1;
-
-        public InnerClassesEntry(final CPClass innerClass, final CPClass outerClass, final CPUTF8 innerName,
 ```
 
 ### UnusedAssignment
@@ -6621,6 +6609,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LocalVa
 ```
 
 ### UnusedAssignment
+Variable `innerClassAccessFlags` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/InnerClassesAttribute.java`
+#### Snippet
+```java
+        int outerClassInfoIndex = -1;
+        int innerNameIndex = -1;
+        int innerClassAccessFlags = -1;
+
+        public InnerClassesEntry(final CPClass innerClass, final CPClass outerClass, final CPUTF8 innerName,
+```
+
+### UnusedAssignment
 Variable `nested` initializer `null` is redundant
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/ClassSpecificReferenceForm.java`
 #### Snippet
@@ -6630,6 +6630,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/C
         ClassFileEntry[] nested = null;
         nested = new ClassFileEntry[] {
             globalPool.getClassSpecificPoolEntry(getPoolID(), offset, context(operandManager))};
+```
+
+### UnusedAssignment
+Variable `revisedLength` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LocalVariableTableAttribute.java`
+#### Snippet
+```java
+        for (int index = 0; index < lengths.length; index++) {
+            final int startPc = startPcs[index];
+            int revisedLength = -1;
+            final int encodedLength = lengths[index];
+
 ```
 
 ### UnusedAssignment
@@ -6654,18 +6666,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/N
         ClassFileEntry[] nested = null;
         nested = new ClassFileEntry[] {
             globalPool.getInitMethodPoolEntry(SegmentConstantPool.CP_METHOD, offset, context(operandManager))};
-```
-
-### UnusedAssignment
-Variable `revisedLength` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/LocalVariableTableAttribute.java`
-#### Snippet
-```java
-        for (int index = 0; index < lengths.length; index++) {
-            final int startPc = startPcs[index];
-            int revisedLength = -1;
-            final int encodedLength = lengths[index];
-
 ```
 
 ### UnusedAssignment
@@ -6706,18 +6706,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/I
 
 ### UnusedAssignment
 Variable `nested` initializer `null` is redundant
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/ReferenceForm.java`
-#### Snippet
-```java
-        throws Pack200Exception {
-        final SegmentConstantPool globalPool = operandManager.globalConstantPool();
-        ClassFileEntry[] nested = null;
-        nested = new ClassFileEntry[] {globalPool.getConstantPoolEntry(getPoolID(), offset)};
-        Objects.requireNonNull(nested[0], "Null nested entries are not allowed");
-```
-
-### UnusedAssignment
-Variable `nested` initializer `null` is redundant
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/ClassRefForm.java`
 #### Snippet
 ```java
@@ -6726,6 +6714,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/C
         ClassFileEntry[] nested = null;
         // How do I get this class?
         nested = new ClassFileEntry[] {globalPool.getClassPoolEntry(operandManager.getCurrentClass())};
+```
+
+### UnusedAssignment
+Variable `nested` initializer `null` is redundant
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/ReferenceForm.java`
+#### Snippet
+```java
+        throws Pack200Exception {
+        final SegmentConstantPool globalPool = operandManager.globalConstantPool();
+        ClassFileEntry[] nested = null;
+        nested = new ClassFileEntry[] {globalPool.getConstantPoolEntry(getPoolID(), offset)};
+        Objects.requireNonNull(nested[0], "Null nested entries are not allowed");
 ```
 
 ### UnusedAssignment
@@ -6765,18 +6765,6 @@ in `src/main/java/org/apache/commons/compress/archivers/ar/ArArchiveOutputStream
 ```
 
 ### UnusedAssignment
-Variable `signatureLength` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java`
-#### Snippet
-```java
-        final byte[] signature = new byte[SIGNATURE_SIZE];
-        in.mark(signature.length);
-        int signatureLength = -1;
-        try {
-            signatureLength = IOUtils.readFully(in, signature);
-```
-
-### UnusedAssignment
 Variable `first` initializer `0` is redundant
 in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStream.java`
 #### Snippet
@@ -6789,15 +6777,15 @@ in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStrea
 ```
 
 ### UnusedAssignment
-Variable `length` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
+Variable `signatureLength` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java`
 #### Snippet
 ```java
-        // read in the name
-        final ByteArrayOutputStream longName = new ByteArrayOutputStream();
-        int length = 0;
-        while ((length = read(smallBuf)) >= 0) {
-            longName.write(smallBuf, 0, length);
+        final byte[] signature = new byte[SIGNATURE_SIZE];
+        in.mark(signature.length);
+        int signatureLength = -1;
+        try {
+            signatureLength = IOUtils.readFully(in, signature);
 ```
 
 ### UnusedAssignment
@@ -6813,27 +6801,15 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStrea
 ```
 
 ### UnusedAssignment
-The value `WORD` assigned to `offset` is never used
-in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
+Variable `length` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
 #### Snippet
 ```java
-        if (remaining >= WORD) {
-            diskStart = new ZipLong(buffer, offset);
-            offset += WORD; // NOSONAR - assignment as documentation
-            remaining -= WORD; // NOSONAR - assignment as documentation
-        }
-```
-
-### UnusedAssignment
-The value `WORD` assigned to `remaining` is never used
-in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
-#### Snippet
-```java
-            diskStart = new ZipLong(buffer, offset);
-            offset += WORD; // NOSONAR - assignment as documentation
-            remaining -= WORD; // NOSONAR - assignment as documentation
-        }
-    }
+        // read in the name
+        final ByteArrayOutputStream longName = new ByteArrayOutputStream();
+        int length = 0;
+        while ((length = read(smallBuf)) >= 0) {
+            longName.write(smallBuf, 0, length);
 ```
 
 ### UnusedAssignment
@@ -6861,15 +6837,27 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInforma
 ```
 
 ### UnusedAssignment
-The value `4` assigned to `offset` is never used
-in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java`
+The value `WORD` assigned to `offset` is never used
+in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
 #### Snippet
 ```java
-        if (bit2_createTimePresent && offset + 4 <= len) {
-            createTime = new ZipLong(data, offset);
-            offset += 4; // NOSONAR - assignment as documentation
-        } else {
-            bit2_createTimePresent = false;
+        if (remaining >= WORD) {
+            diskStart = new ZipLong(buffer, offset);
+            offset += WORD; // NOSONAR - assignment as documentation
+            remaining -= WORD; // NOSONAR - assignment as documentation
+        }
+```
+
+### UnusedAssignment
+The value `WORD` assigned to `remaining` is never used
+in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
+#### Snippet
+```java
+            diskStart = new ZipLong(buffer, offset);
+            offset += WORD; // NOSONAR - assignment as documentation
+            remaining -= WORD; // NOSONAR - assignment as documentation
+        }
+    }
 ```
 
 ### UnusedAssignment
@@ -6885,6 +6873,18 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimest
 ```
 
 ### UnusedAssignment
+The value `4` assigned to `offset` is never used
+in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java`
+#### Snippet
+```java
+        if (bit2_createTimePresent && offset + 4 <= len) {
+            createTime = new ZipLong(data, offset);
+            offset += 4; // NOSONAR - assignment as documentation
+        } else {
+            bit2_createTimePresent = false;
+```
+
+### UnusedAssignment
 Variable `c` initializer `null` is redundant
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
 #### Snippet
@@ -6894,30 +6894,6 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java
             ZipExtraField c = null;
             if (l instanceof UnparseableExtraFieldData) {
                 c = findUnparseable(centralFields);
-```
-
-### UnusedAssignment
-Variable `pos` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioUtil.java`
-#### Snippet
-```java
-
-        long ret;
-        int pos = 0;
-        final byte[] tmpNumber = Arrays.copyOf(number, number.length);
-
-```
-
-### UnusedAssignment
-Variable `tmp` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioUtil.java`
-#### Snippet
-```java
-
-        if (!swapHalfWord) {
-            byte tmp = 0;
-            for (pos = 0; pos < tmpNumber.length; pos++) {
-                tmp = tmpNumber[pos];
 ```
 
 ### UnusedAssignment
@@ -6945,15 +6921,39 @@ in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioUtil.java`
 ```
 
 ### UnusedAssignment
-Variable `streamCompressor` initializer `null` is redundant
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+Variable `pos` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioUtil.java`
 #### Snippet
 ```java
-        OutputStream outputStream = null;
-        SeekableByteChannel channel = null;
-        StreamCompressor streamCompressor = null;
-        try {
-            channel = Files.newByteChannel(file,
+
+        long ret;
+        int pos = 0;
+        final byte[] tmpNumber = Arrays.copyOf(number, number.length);
+
+```
+
+### UnusedAssignment
+Variable `tmp` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioUtil.java`
+#### Snippet
+```java
+
+        if (!swapHalfWord) {
+            byte tmp = 0;
+            for (pos = 0; pos < tmpNumber.length; pos++) {
+                tmp = tmpNumber[pos];
+```
+
+### UnusedAssignment
+Variable `n` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/archivers/dump/TapeInputStream.java`
+#### Snippet
+```java
+            }
+
+            long n = 0;
+
+            if ((readOffset + (len - bytes)) <= blockSize) {
 ```
 
 ### UnusedAssignment
@@ -6969,15 +6969,15 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/TapeInputStream.jav
 ```
 
 ### UnusedAssignment
-Variable `n` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/archivers/dump/TapeInputStream.java`
+Variable `streamCompressor` initializer `null` is redundant
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
 #### Snippet
 ```java
-            }
-
-            long n = 0;
-
-            if ((readOffset + (len - bytes)) <= blockSize) {
+        OutputStream outputStream = null;
+        SeekableByteChannel channel = null;
+        StreamCompressor streamCompressor = null;
+        try {
+            channel = Files.newByteChannel(file,
 ```
 
 ### UnusedAssignment
@@ -7041,6 +7041,54 @@ in `src/main/java/org/apache/commons/compress/archivers/examples/Expander.java`
 ```
 
 ### UnusedAssignment
+Variable `backReferenceOffset` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/compressors/lz4/BlockLZ4CompressorInputStream.java`
+#### Snippet
+```java
+     */
+    private boolean initializeBackReference() throws IOException {
+        int backReferenceOffset = 0;
+        try {
+            backReferenceOffset = (int) ByteUtils.fromLittleEndian(supplier, 2);
+```
+
+### UnusedAssignment
+Variable `n` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java`
+#### Snippet
+```java
+    public void write(final InputStream inputStream) throws IOException {
+        final byte[] buffer = new byte[8024];
+        int n = 0;
+        while (-1 != (n = inputStream.read(buffer))) {
+            write(buffer, 0, n);
+```
+
+### UnusedAssignment
+Variable `signatureLength` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamFactory.java`
+#### Snippet
+```java
+        final byte[] signature = new byte[12];
+        inputStream.mark(signature.length);
+        int signatureLength = -1;
+        try {
+            signatureLength = IOUtils.readFully(inputStream, signature);
+```
+
+### UnusedAssignment
+Variable `b` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/compressors/gzip/GzipCompressorInputStream.java`
+#### Snippet
+```java
+    private static byte[] readToNull(final DataInput inData) throws IOException {
+        try (final ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            int b = 0;
+            while ((b = inData.readUnsignedByte()) != 0x00) { // NOPMD NOSONAR
+                bos.write(b);
+```
+
+### UnusedAssignment
 The value `REALSIZELEN_GNU` assigned to `offset` is never used
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
 #### Snippet
@@ -7089,54 +7137,6 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java
 ```
 
 ### UnusedAssignment
-Variable `n` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java`
-#### Snippet
-```java
-    public void write(final InputStream inputStream) throws IOException {
-        final byte[] buffer = new byte[8024];
-        int n = 0;
-        while (-1 != (n = inputStream.read(buffer))) {
-            write(buffer, 0, n);
-```
-
-### UnusedAssignment
-Variable `backReferenceOffset` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/compressors/lz4/BlockLZ4CompressorInputStream.java`
-#### Snippet
-```java
-     */
-    private boolean initializeBackReference() throws IOException {
-        int backReferenceOffset = 0;
-        try {
-            backReferenceOffset = (int) ByteUtils.fromLittleEndian(supplier, 2);
-```
-
-### UnusedAssignment
-Variable `signatureLength` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamFactory.java`
-#### Snippet
-```java
-        final byte[] signature = new byte[12];
-        inputStream.mark(signature.length);
-        int signatureLength = -1;
-        try {
-            signatureLength = IOUtils.readFully(inputStream, signature);
-```
-
-### UnusedAssignment
-Variable `b` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/compressors/gzip/GzipCompressorInputStream.java`
-#### Snippet
-```java
-    private static byte[] readToNull(final DataInput inData) throws IOException {
-        try (final ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-            int b = 0;
-            while ((b = inData.readUnsignedByte()) != 0x00) { // NOPMD NOSONAR
-                bos.write(b);
-```
-
-### UnusedAssignment
 Variable `more` initializer `false` is redundant
 in `src/main/java/org/apache/commons/compress/compressors/snappy/SnappyCompressorOutputStream.java`
 #### Snippet
@@ -7146,6 +7146,18 @@ in `src/main/java/org/apache/commons/compress/compressors/snappy/SnappyCompresso
         boolean more = false;
         do {
             int currentByte = (int) (uncompressedSize & 0x7F);
+```
+
+### UnusedAssignment
+Variable `b` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/compressors/snappy/SnappyCompressorInputStream.java`
+#### Snippet
+```java
+        int index = 0;
+        long sz = 0;
+        int b = 0;
+
+        do {
 ```
 
 ### UnusedAssignment
@@ -7173,18 +7185,6 @@ in `src/main/java/org/apache/commons/compress/compressors/snappy/SnappyCompresso
 ```
 
 ### UnusedAssignment
-Variable `b` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/compressors/snappy/SnappyCompressorInputStream.java`
-#### Snippet
-```java
-        int index = 0;
-        long sz = 0;
-        int b = 0;
-
-        do {
-```
-
-### UnusedAssignment
 The value `8` assigned to `localCrc` is never used
 in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.java`
 #### Snippet
@@ -7209,39 +7209,15 @@ in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.
 ```
 
 ### UnusedAssignment
-Variable `yy` initializer `0` is redundant
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
+The value `getUnsignedByte(header)` assigned to `nid` is never used
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 #### Snippet
 ```java
-                nHeap--;
-
-                int yy = 0;
-                int zz = 1;
-                int tmp = heap[1];
-```
-
-### UnusedAssignment
-The value `0` assigned to `yy` is never used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
-#### Snippet
-```java
-                nHeap--;
-
-                yy = 0;
-                zz = 1;
-                tmp = heap[1];
-```
-
-### UnusedAssignment
-The value `0` assigned to `tmp` is never used
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
-#### Snippet
-```java
-                heap[nHeap] = nNodes;
-
-                tmp = 0;
-                zz = nHeap;
-                tmp = heap[zz];
+        if (nid == NID.kFilesInfo) {
+            readFilesInfo(header, archive);
+            nid = getUnsignedByte(header);
+        }
+    }
 ```
 
 ### UnusedAssignment
@@ -7254,30 +7230,6 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
             nid = getUnsignedByte(header);
         }
 
-```
-
-### UnusedAssignment
-The value `getUnsignedByte(header)` assigned to `nid` is never used
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-        if (nid == NID.kSubStreamsInfo) {
-            readSubStreamsInfo(header, archive);
-            nid = getUnsignedByte(header);
-        }
-    }
-```
-
-### UnusedAssignment
-The value `getUnsignedByte(header)` assigned to `nid` is never used
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-        if (nid == NID.kFilesInfo) {
-            readFilesInfo(header, archive);
-            nid = getUnsignedByte(header);
-        }
-    }
 ```
 
 ### UnusedAssignment
@@ -7321,11 +7273,59 @@ The value `getUnsignedByte(header)` assigned to `nid` is never used
 in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
 #### Snippet
 ```java
+        if (nid == NID.kSubStreamsInfo) {
+            readSubStreamsInfo(header, archive);
+            nid = getUnsignedByte(header);
+        }
+    }
+```
+
+### UnusedAssignment
+The value `getUnsignedByte(header)` assigned to `nid` is never used
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
             }
 
             nid = getUnsignedByte(header);
         }
     }
+```
+
+### UnusedAssignment
+Variable `yy` initializer `0` is redundant
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
+#### Snippet
+```java
+                nHeap--;
+
+                int yy = 0;
+                int zz = 1;
+                int tmp = heap[1];
+```
+
+### UnusedAssignment
+The value `0` assigned to `yy` is never used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
+#### Snippet
+```java
+                nHeap--;
+
+                yy = 0;
+                zz = 1;
+                tmp = heap[1];
+```
+
+### UnusedAssignment
+The value `0` assigned to `tmp` is never used
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
+#### Snippet
+```java
+                heap[nHeap] = nNodes;
+
+                tmp = 0;
+                zz = nHeap;
+                tmp = heap[zz];
 ```
 
 ## RuleId[id=IndexOfReplaceableByContains]
@@ -7463,18 +7463,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/Archive.java`
 ```
 
 ### ConstantValue
-Condition `certificates != null` is always `false`
-in `src/main/java/org/apache/commons/compress/archivers/jar/JarArchiveEntry.java`
-#### Snippet
-```java
-    @Deprecated
-    public Certificate[] getCertificates() {
-        if (certificates != null) { // never true currently // NOSONAR
-            return Arrays.copyOf(certificates, certificates.length);
-        }
-```
-
-### ConstantValue
 Value `manifestAttributes` is always 'null'
 in `src/main/java/org/apache/commons/compress/archivers/jar/JarArchiveEntry.java`
 #### Snippet
@@ -7484,6 +7472,18 @@ in `src/main/java/org/apache/commons/compress/archivers/jar/JarArchiveEntry.java
         return manifestAttributes;
     }
 
+```
+
+### ConstantValue
+Condition `certificates != null` is always `false`
+in `src/main/java/org/apache/commons/compress/archivers/jar/JarArchiveEntry.java`
+#### Snippet
+```java
+    @Deprecated
+    public Certificate[] getCertificates() {
+        if (certificates != null) { // never true currently // NOSONAR
+            return Arrays.copyOf(certificates, certificates.length);
+        }
 ```
 
 ### ConstantValue
@@ -7523,6 +7523,54 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipUtil.java`
 ```
 
 ### ConstantValue
+Condition `label instanceof Label` is always `false`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				break;
+			}
+			if (label instanceof Label) {
+				list.remove(i);
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+```
+
+### ConstantValue
+Value `label` is always 'null'
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				break;
+			}
+			if (label instanceof Label) {
+				list.remove(i);
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+```
+
+### ConstantValue
+Condition `label instanceof Label` is always `false`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				break;
+			}
+			if (label instanceof Label) {
+				list.remove(i);
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+```
+
+### ConstantValue
+Value `label` is always 'null'
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				break;
+			}
+			if (label instanceof Label) {
+				list.remove(i);
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+```
+
+### ConstantValue
 Value `channel` is always 'null'
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
 #### Snippet
@@ -7535,51 +7583,68 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStre
 ```
 
 ### ConstantValue
-Condition `label instanceof Label` is always `false`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+Condition `!active.isSparseRecord(readIdx++) && raw.skip(DumpArchiveConstants.TP_SIZE) == -...` is always `false`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
 #### Snippet
 ```java
-				break;
-			}
-			if (label instanceof Label) {
-				list.remove(i);
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
+            // the unnecessary decompression time adds up.
+            while (readIdx < active.getHeaderCount()) {
+                if (!active.isSparseRecord(readIdx++)
+                    && raw.skip(DumpArchiveConstants.TP_SIZE) == -1) {
+                    throw new EOFException();
+                }
 ```
 
 ### ConstantValue
-Value `label` is always 'null'
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+Condition `raw.skip(DumpArchiveConstants.TP_SIZE) == -1` is always `false` when reached
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
 #### Snippet
 ```java
-				break;
-			}
-			if (label instanceof Label) {
-				list.remove(i);
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
+            while (readIdx < active.getHeaderCount()) {
+                if (!active.isSparseRecord(readIdx++)
+                    && raw.skip(DumpArchiveConstants.TP_SIZE) == -1) {
+                    throw new EOFException();
+                }
 ```
 
 ### ConstantValue
-Condition `label instanceof Label` is always `false`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+Condition `raw.skip((long) DumpArchiveConstants.TP_SIZE * (active.getHeaderCount()...` is always `false`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
 #### Snippet
 ```java
-				break;
-			}
-			if (label instanceof Label) {
-				list.remove(i);
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
+            // skip any remaining segments for prior file.
+            while (DumpArchiveConstants.SEGMENT_TYPE.ADDR == active.getHeaderType()) {
+                if (raw.skip((long) DumpArchiveConstants.TP_SIZE
+                             * (active.getHeaderCount()
+                                - active.getHeaderHoles())) == -1) {
+                    throw new EOFException();
+                }
 ```
 
 ### ConstantValue
-Value `label` is always 'null'
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+Condition `raw.skip((long) DumpArchiveConstants.TP_SIZE * active.getHeaderCount()) == -1` is always `false`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
 #### Snippet
 ```java
-				break;
-			}
-			if (label instanceof Label) {
-				list.remove(i);
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
+
+        // we don't do anything with this yet.
+        if (raw.skip((long) DumpArchiveConstants.TP_SIZE * active.getHeaderCount())
+            == -1) {
+            throw new EOFException();
+        }
+```
+
+### ConstantValue
+Condition `raw.skip((long) DumpArchiveConstants.TP_SIZE * active.getHeaderCount()) == -1` is always `false`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
+#### Snippet
+```java
+
+        // we don't do anything with this yet.
+        if (raw.skip((long) DumpArchiveConstants.TP_SIZE * active.getHeaderCount())
+            == -1) {
+            throw new EOFException();
+        }
 ```
 
 ### ConstantValue
@@ -7653,71 +7718,6 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.ja
                 || (summary != null && !summary.equals(rhs.summary))) { // NOSONAR
             return false;
         }
-```
-
-### ConstantValue
-Condition `raw.skip((long) DumpArchiveConstants.TP_SIZE * active.getHeaderCount()) == -1` is always `false`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
-#### Snippet
-```java
-
-        // we don't do anything with this yet.
-        if (raw.skip((long) DumpArchiveConstants.TP_SIZE * active.getHeaderCount())
-            == -1) {
-            throw new EOFException();
-        }
-```
-
-### ConstantValue
-Condition `raw.skip((long) DumpArchiveConstants.TP_SIZE * active.getHeaderCount()) == -1` is always `false`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
-#### Snippet
-```java
-
-        // we don't do anything with this yet.
-        if (raw.skip((long) DumpArchiveConstants.TP_SIZE * active.getHeaderCount())
-            == -1) {
-            throw new EOFException();
-        }
-```
-
-### ConstantValue
-Condition `!active.isSparseRecord(readIdx++) && raw.skip(DumpArchiveConstants.TP_SIZE) == -...` is always `false`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
-#### Snippet
-```java
-            // the unnecessary decompression time adds up.
-            while (readIdx < active.getHeaderCount()) {
-                if (!active.isSparseRecord(readIdx++)
-                    && raw.skip(DumpArchiveConstants.TP_SIZE) == -1) {
-                    throw new EOFException();
-                }
-```
-
-### ConstantValue
-Condition `raw.skip(DumpArchiveConstants.TP_SIZE) == -1` is always `false` when reached
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
-#### Snippet
-```java
-            while (readIdx < active.getHeaderCount()) {
-                if (!active.isSparseRecord(readIdx++)
-                    && raw.skip(DumpArchiveConstants.TP_SIZE) == -1) {
-                    throw new EOFException();
-                }
-```
-
-### ConstantValue
-Condition `raw.skip((long) DumpArchiveConstants.TP_SIZE * (active.getHeaderCount()...` is always `false`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
-#### Snippet
-```java
-            // skip any remaining segments for prior file.
-            while (DumpArchiveConstants.SEGMENT_TYPE.ADDR == active.getHeaderType()) {
-                if (raw.skip((long) DumpArchiveConstants.TP_SIZE
-                             * (active.getHeaderCount()
-                                - active.getHeaderHoles())) == -1) {
-                    throw new EOFException();
-                }
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
@@ -7965,42 +7965,6 @@ public final class Lister {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Flags` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/compress/archivers/arj/LocalFileHeader.java`
-#### Snippet
-```java
-        static final int CHAPTER_LABEL = 5;
-    }
-    static class Flags {
-        static final int GARBLED = 0x01;
-        static final int VOLUME = 0x04;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FileTypes` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/compress/archivers/arj/LocalFileHeader.java`
-#### Snippet
-```java
-
-class LocalFileHeader {
-    static class FileTypes {
-        static final int BINARY = 0;
-        static final int SEVEN_BIT_TEXT = 1;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Methods` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/compress/archivers/arj/LocalFileHeader.java`
-#### Snippet
-```java
-        static final int BACKUP = 0x20;
-    }
-    static class Methods {
-        static final int STORED = 0;
-        static final int COMPRESSED_MOST = 1;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HostOS` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/compress/archivers/arj/MainHeader.java`
 #### Snippet
@@ -8034,6 +7998,42 @@ in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveEntry.java
     public static class HostOs {
         public static final int DOS = 0;
         public static final int PRIMOS = 1;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Flags` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/compress/archivers/arj/LocalFileHeader.java`
+#### Snippet
+```java
+        static final int CHAPTER_LABEL = 5;
+    }
+    static class Flags {
+        static final int GARBLED = 0x01;
+        static final int VOLUME = 0x04;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileTypes` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/compress/archivers/arj/LocalFileHeader.java`
+#### Snippet
+```java
+
+class LocalFileHeader {
+    static class FileTypes {
+        static final int BINARY = 0;
+        static final int SEVEN_BIT_TEXT = 1;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Methods` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/compress/archivers/arj/LocalFileHeader.java`
+#### Snippet
+```java
+        static final int BACKUP = 0x20;
+    }
+    static class Methods {
+        static final int STORED = 0;
+        static final int COMPRESSED_MOST = 1;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -8266,18 +8266,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BandSet.java`
 ```
 
 ### DataFlowIssue
-Method invocation `intValue` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-        // Call
-        case '(':
-            final int number = readNumber(reader).intValue();
-            reader.read(); // ')'
-            return new Call(number);
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
 #### Snippet
@@ -8287,6 +8275,18 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.
                 length = 0;
                 break;
             }
+```
+
+### DataFlowIssue
+Method invocation `intValue` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        // Call
+        case '(':
+            final int number = readNumber(reader).intValue();
+            reader.read(); // ')'
+            return new Call(number);
 ```
 
 ### DataFlowIssue
@@ -8350,30 +8350,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttr
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-        } catch (final IOException e) { // NOSONAR
-            IOUtils.closeQuietly(channel);
-            channel = null;
-            outputStream = Files.newOutputStream(file, options);
-            streamCompressor = StreamCompressor.create(outputStream, def);
-```
-
-### DataFlowIssue
-Result of 'min' is the same as the first argument making the call meaningless
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-            ZipLong.putLong(ZipConstants.ZIP64_MAGIC, buf, CFH_LFH_OFFSET);
-        } else {
-            ZipLong.putLong(Math.min(entryMetaData.offset, ZipConstants.ZIP64_MAGIC), buf, CFH_LFH_OFFSET);
-        }
-
-```
-
-### DataFlowIssue
 Condition `label instanceof Integer` is redundant and can be replaced with a null check
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
@@ -8411,15 +8387,27 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/TapeInputStream.jav
 ```
 
 ### DataFlowIssue
-Method invocation `hasBeenWritten` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/compress/compressors/lz4/BlockLZ4CompressorOutputStream.java`
+Result of 'min' is the same as the first argument making the call meaningless
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
 #### Snippet
 ```java
-        for (int i = pairsToKeep; i < size; i++) {
-            final Pair p = pairs.peekFirst();
-            if (!p.hasBeenWritten()) {
-                break;
-            }
+            ZipLong.putLong(ZipConstants.ZIP64_MAGIC, buf, CFH_LFH_OFFSET);
+        } else {
+            ZipLong.putLong(Math.min(entryMetaData.offset, ZipConstants.ZIP64_MAGIC), buf, CFH_LFH_OFFSET);
+        }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+        } catch (final IOException e) { // NOSONAR
+            IOUtils.closeQuietly(channel);
+            channel = null;
+            outputStream = Files.newOutputStream(file, options);
+            streamCompressor = StreamCompressor.create(outputStream, def);
 ```
 
 ### DataFlowIssue
@@ -8432,6 +8420,18 @@ in `src/main/java/org/apache/commons/compress/compressors/lz4/BlockLZ4Compressor
             final byte b = block[block.length - 1];
             if (b != 0) { // the fresh array contains 0s anyway
                 Arrays.fill(expanded, b);
+```
+
+### DataFlowIssue
+Method invocation `hasBeenWritten` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/compress/compressors/lz4/BlockLZ4CompressorOutputStream.java`
+#### Snippet
+```java
+        for (int i = pairsToKeep; i < size; i++) {
+            final Pair p = pairs.peekFirst();
+            if (!p.hasBeenWritten()) {
+                break;
+            }
 ```
 
 ### DataFlowIssue
@@ -8465,8 +8465,8 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 #### Snippet
 ```java
 
-    private List<Integer> getIndexInClass(final List<CPMethodOrField> cPMethodOrFieldList) {
-        return cPMethodOrFieldList.stream().collect(Collectors.mapping(CPMethodOrField::getIndexInClass, Collectors.toList()));
+    private List<Integer> getIndexInClassForConstructor(final List<CPMethodOrField> cPMethodList) {
+        return cPMethodList.stream().collect(Collectors.mapping(CPMethodOrField::getIndexInClassForConstructor, Collectors.toList()));
     }
 
 ```
@@ -8477,8 +8477,8 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 #### Snippet
 ```java
 
-    private List<Integer> getIndexInClassForConstructor(final List<CPMethodOrField> cPMethodList) {
-        return cPMethodList.stream().collect(Collectors.mapping(CPMethodOrField::getIndexInClassForConstructor, Collectors.toList()));
+    private List<Integer> getIndexInClass(final List<CPMethodOrField> cPMethodOrFieldList) {
+        return cPMethodOrFieldList.stream().collect(Collectors.mapping(CPMethodOrField::getIndexInClass, Collectors.toList()));
     }
 
 ```
@@ -8618,18 +8618,6 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStre
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ntfsTimeToJavaTime' is still used
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZArchiveEntry.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Date ntfsTimeToJavaTime(final long ntfsTime) {
-        return TimeUtils.ntfsTimeToDate(ntfsTime);
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'javaTimeToNtfsTime' is still used
 in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZArchiveEntry.java`
 #### Snippet
@@ -8638,6 +8626,18 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZArchiveEntr
     @Deprecated
     public static long javaTimeToNtfsTime(final Date date) {
         return TimeUtils.toNtfsTime(date);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ntfsTimeToJavaTime' is still used
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZArchiveEntry.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Date ntfsTimeToJavaTime(final long ntfsTime) {
+        return TimeUtils.ntfsTimeToDate(ntfsTime);
     }
 ```
 
@@ -8949,18 +8949,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.
 ```
 
 ### InnerClassMayBeStatic
-Inner class `UnionCase` may be 'static'
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-     * A Union case
-     */
-    public class UnionCase extends LayoutElement {
-
-        private List<LayoutElement> body;
-```
-
-### InnerClassMayBeStatic
 Inner class `Call` may be 'static'
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
 #### Snippet
@@ -8970,6 +8958,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBand
     public class Call extends LayoutElement {
 
         private final int callableIndex;
+```
+
+### InnerClassMayBeStatic
+Inner class `UnionCase` may be 'static'
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+     * A Union case
+     */
+    public class UnionCase extends LayoutElement {
+
+        private List<LayoutElement> body;
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
@@ -9066,18 +9066,6 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 #### Snippet
 ```java
-    private void addCharacters(final List<Character> chars, final char[] charArray) {
-        for (final char element : charArray) {
-            chars.add(Character.valueOf(element));
-        }
-    }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
-#### Snippet
-```java
                 // do better?)
                 cpUtf8Suffix[i - 1] = 0;
                 bigSuffix.add(Integer.valueOf(suffix.length));
@@ -9159,26 +9147,14 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 #### Snippet
 ```java
-                    final int relativeOffset = bcLabelRelativeOffsets.get(i);
-                    bcLabel.add(i,
-                        Integer.valueOf(bciRenumbering.get(offset.intValue()) - bciRenumbering.get(relativeOffset)));
-                }
-            }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
-#### Snippet
-```java
-
-    public void visitLabel(final Label label) {
-        labelsToOffsets.put(label, Integer.valueOf(byteCodeOffset));
+    private void addCharacters(final List<Character> chars, final char[] charArray) {
+        for (final char element : charArray) {
+            chars.add(Character.valueOf(element));
+        }
     }
-
 ```
 
 ### UnnecessaryBoxing
@@ -9246,9 +9222,9 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/AttributeLayoutMap.java`
 #### Snippet
 ```java
-
-    public void add(final AttributeLayout layout) {
-        getLayout(layout.getContext()).put(Integer.valueOf(layout.getIndex()), layout);
+    public AttributeLayout getAttributeLayout(final int index, final int context) {
+        final Map<Integer, AttributeLayout> map = getLayout(context);
+        return map.get(Integer.valueOf(index));
     }
 
 ```
@@ -9258,11 +9234,35 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/AttributeLayoutMap.java`
 #### Snippet
 ```java
-    public AttributeLayout getAttributeLayout(final int index, final int context) {
-        final Map<Integer, AttributeLayout> map = getLayout(context);
-        return map.get(Integer.valueOf(index));
+
+    public void add(final AttributeLayout layout) {
+        getLayout(layout.getContext()).put(Integer.valueOf(layout.getIndex()), layout);
     }
 
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
+#### Snippet
+```java
+
+    public void visitLabel(final Label label) {
+        labelsToOffsets.put(label, Integer.valueOf(byteCodeOffset));
+    }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
+#### Snippet
+```java
+                    final int relativeOffset = bcLabelRelativeOffsets.get(i);
+                    bcLabel.add(i,
+                        Integer.valueOf(bciRenumbering.get(offset.intValue()) - bciRenumbering.get(relativeOffset)));
+                }
+            }
 ```
 
 ### UnnecessaryBoxing
@@ -9282,11 +9282,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
-        public void visitEnum(final String name, final String desc, final String value) {
-            final Integer numCases = caseArrayN.remove(caseArrayN.size() - 1);
-            caseArrayN.add(Integer.valueOf(numCases.intValue() + 1));
-            tags.add("e");
-            values.add(desc);
+            }
+            nameRU.add(name);
+            caseArrayN.add(Integer.valueOf(0));
+            return new ArrayVisitor(caseArrayN, tags, nameRU, values);
+        }
 ```
 
 ### UnnecessaryBoxing
@@ -9294,11 +9294,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
-            nameRU.add(name);
-            nestTypeRS.add(desc);
-            nestPairN.add(Integer.valueOf(0));
-            return new AnnotationVisitor(context, av) {
-                @Override
+                public void visit(final String name, final Object value) {
+                    final Integer numPairs = nestPairN.remove(nestPairN.size() - 1);
+                    nestPairN.add(Integer.valueOf(numPairs.intValue() + 1));
+                    nestNameRU.add(name);
+                    addValueAndTag(value, tags, values);
 ```
 
 ### UnnecessaryBoxing
@@ -9318,11 +9318,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
-            }
-            nameRU.add(name);
-            caseArrayN.add(Integer.valueOf(0));
-            return new ArrayVisitor(caseArrayN, tags, nameRU, values);
-        }
+        public void visit(String name, final Object value) {
+            final Integer numCases = caseArrayN.remove(indexInCaseArrayN);
+            caseArrayN.add(indexInCaseArrayN, Integer.valueOf(numCases.intValue() + 1));
+            if (name == null) {
+                name = "";
 ```
 
 ### UnnecessaryBoxing
@@ -9378,35 +9378,35 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
-                public void visit(final String name, final Object value) {
-                    final Integer numPairs = nestPairN.remove(nestPairN.size() - 1);
-                    nestPairN.add(Integer.valueOf(numPairs.intValue() + 1));
-                    nestNameRU.add(name);
-                    addValueAndTag(value, tags, values);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
-#### Snippet
-```java
-        public void visit(String name, final Object value) {
-            final Integer numCases = caseArrayN.remove(indexInCaseArrayN);
-            caseArrayN.add(indexInCaseArrayN, Integer.valueOf(numCases.intValue() + 1));
-            if (name == null) {
-                name = "";
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
-#### Snippet
-```java
             }
             nameRU.add(name);
             caseArrayN.add(Integer.valueOf(0));
             return new ArrayVisitor(caseArrayN, tags, nameRU, values);
         }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
+#### Snippet
+```java
+            nameRU.add(name);
+            nestTypeRS.add(desc);
+            nestPairN.add(Integer.valueOf(0));
+            return new AnnotationVisitor(context, av) {
+                @Override
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
+#### Snippet
+```java
+        public void visitEnum(final String name, final String desc, final String value) {
+            final Integer numCases = caseArrayN.remove(caseArrayN.size() - 1);
+            caseArrayN.add(Integer.valueOf(numCases.intValue() + 1));
+            tags.add("e");
+            values.add(desc);
 ```
 
 ### UnnecessaryBoxing
@@ -9435,122 +9435,14 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/IcBands.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-                    final Integer bytecodeIndex = labelsToOffsets.get(label);
-                    final Integer renumberedOffset = Integer
-                        .valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - ((Integer) relative.get(i)).intValue());
-                    band.add(i, renumberedOffset);
-                }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-                        band.remove(i);
-                        final Integer bytecodeIndex = labelsToOffsets.get(label);
-                        band.add(i, Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())));
-                    }
-                }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-
-        public boolean hasTag(final long l) {
-            return tags.contains(Integer.valueOf((int) l));
-        }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-            }
-            if (val == null) {
-                val = Integer.valueOf(value);
-            }
-            band.add(val);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-            throw new IOException("Error reading from the input stream");
-        }
-        return Integer.valueOf(Integer.parseInt((negative ? "-" : "") + new String(digits)));
-    }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-
-        public boolean hasTag(final long l) {
-            return tags.contains(Integer.valueOf((int) l));
-        }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-
-        public boolean hasTag(final int i) {
-            return tags.contains(Integer.valueOf(i));
-        }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-            throw new IOException("Error reading from the input stream");
-        }
-        return Integer.valueOf(Integer.parseInt((negative ? "-" : "") + new String(digits)));
-    }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
 #### Snippet
 ```java
-
-    public CPInteger cpIntegerValue(final int index) {
-        final Integer i = Integer.valueOf(cpInt[index]);
-        CPInteger cpInteger = integersToCPIntegers.get(i);
-        if (cpInteger == null) {
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
-#### Snippet
-```java
-
-    public CPDouble cpDoubleValue(final int index) {
-        final Double dbl = Double.valueOf(cpDouble[index]);
-        CPDouble cpDouble = doublesToCPDoubles.get(dbl);
-        if (cpDouble == null) {
+        for (int i = 0; i < cpClassCount; i++) {
+            cpClass[i] = cpUTF8[cpClassInts[i]];
+            mapClass.put(cpClass[i], Integer.valueOf(i));
+        }
+    }
 ```
 
 ### UnnecessaryBoxing
@@ -9583,10 +9475,10 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
 #### Snippet
 ```java
 
-    public CPFloat cpFloatValue(final int index) {
-        final Float f = Float.valueOf(cpFloat[index]);
-        CPFloat cpFloat = floatsToCPFloats.get(f);
-        if (cpFloat == null) {
+    public CPInteger cpIntegerValue(final int index) {
+        final Integer i = Integer.valueOf(cpInt[index]);
+        CPInteger cpInteger = integersToCPIntegers.get(i);
+        if (cpInteger == null) {
 ```
 
 ### UnnecessaryBoxing
@@ -9606,11 +9498,23 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
 #### Snippet
 ```java
-        for (int i = 0; i < cpClassCount; i++) {
-            cpClass[i] = cpUTF8[cpClassInts[i]];
-            mapClass.put(cpClass[i], Integer.valueOf(i));
-        }
-    }
+
+    public CPFloat cpFloatValue(final int index) {
+        final Float f = Float.valueOf(cpFloat[index]);
+        CPFloat cpFloat = floatsToCPFloats.get(f);
+        if (cpFloat == null) {
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
+#### Snippet
+```java
+
+    public CPDouble cpDoubleValue(final int index) {
+        final Double dbl = Double.valueOf(cpDouble[index]);
+        CPDouble cpDouble = doublesToCPDoubles.get(dbl);
+        if (cpDouble == null) {
 ```
 
 ### UnnecessaryBoxing
@@ -9651,6 +9555,102 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/CpBands.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+                        band.remove(i);
+                        final Integer bytecodeIndex = labelsToOffsets.get(label);
+                        band.add(i, Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())));
+                    }
+                }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+                    final Integer bytecodeIndex = labelsToOffsets.get(label);
+                    final Integer renumberedOffset = Integer
+                        .valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - ((Integer) relative.get(i)).intValue());
+                    band.add(i, renumberedOffset);
+                }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+            }
+            if (val == null) {
+                val = Integer.valueOf(value);
+            }
+            band.add(val);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+            throw new IOException("Error reading from the input stream");
+        }
+        return Integer.valueOf(Integer.parseInt((negative ? "-" : "") + new String(digits)));
+    }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+
+        public boolean hasTag(final long l) {
+            return tags.contains(Integer.valueOf((int) l));
+        }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+            throw new IOException("Error reading from the input stream");
+        }
+        return Integer.valueOf(Integer.parseInt((negative ? "-" : "") + new String(digits)));
+    }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+
+        public boolean hasTag(final long l) {
+            return tags.contains(Integer.valueOf((int) l));
+        }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+
+        public boolean hasTag(final int i) {
+            return tags.contains(Integer.valueOf(i));
+        }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/ClassConstantPool.java`
 #### Snippet
 ```java
@@ -9679,33 +9679,9 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttr
 #### Snippet
 ```java
 
-    public void addInteger(final int length, final long value) {
+    public void addBCIndex(final int length, final int value) {
         lengths.add(Integer.valueOf(length));
-        body.add(Long.valueOf(value));
-    }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
-#### Snippet
-```java
-    public void addInteger(final int length, final long value) {
-        lengths.add(Integer.valueOf(length));
-        body.add(Long.valueOf(value));
-    }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
-#### Snippet
-```java
-
-    public void addToBody(final int length, final Object value) {
-        lengths.add(Integer.valueOf(length));
-        body.add(value);
+        body.add(new BCIndex(value));
     }
 ```
 
@@ -9727,6 +9703,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttr
 #### Snippet
 ```java
 
+    public void addToBody(final int length, final Object value) {
+        lengths.add(Integer.valueOf(length));
+        body.add(value);
+    }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
+#### Snippet
+```java
+
     public void addBCLength(final int length, final int value) {
         lengths.add(Integer.valueOf(length));
         body.add(new BCLength(value));
@@ -9739,10 +9727,22 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttr
 #### Snippet
 ```java
 
-    public void addBCIndex(final int length, final int value) {
+    public void addInteger(final int length, final long value) {
         lengths.add(Integer.valueOf(length));
-        body.add(new BCIndex(value));
+        body.add(Long.valueOf(value));
     }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/NewAttribute.java`
+#### Snippet
+```java
+    public void addInteger(final int length, final long value) {
+        lengths.add(Integer.valueOf(length));
+        body.add(Long.valueOf(value));
+    }
+
 ```
 
 ### UnnecessaryBoxing
@@ -9798,11 +9798,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
+				final int flagIndex = bands.getFlagIndex();
+				final Long flags = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+				tempMethodFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
+				return;
 			}
-			final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-			tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 23)));
-		} else {
-			if (tempMethodRIPA == null) {
 ```
 
 ### UnnecessaryBoxing
@@ -9810,23 +9810,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
+				final int flagIndex = bands.getFlagIndex();
+				final Long flags = codeFlags.remove(codeFlags.size() - 1);
+				codeFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
+				return;
 			}
-			final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-			tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 24)));
-		}
-	}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-	public void addMaxStack(final int maxStack, int maxLocals) {
-		final Long latestFlag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-		final Long newFlag = Long.valueOf(latestFlag.intValue() | (1 << 17));
-		tempMethodFlags.add(newFlag);
-		codeMaxStack.add(maxStack);
 ```
 
 ### UnnecessaryBoxing
@@ -9846,11 +9834,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
-				list.remove(i);
-				final Integer bytecodeIndex = labelsToOffsets.get(label);
-				final Integer renumberedOffset = Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())
-						- relative.get(i).intValue() - firstOffset.get(i).intValue());
-				list.add(i, renumberedOffset);
+				removed++;
+			} else if (!segment.getSegmentHeader().have_all_code_flags()) {
+				codeFlags.add(Long.valueOf(0));
+			}
+		}
 ```
 
 ### UnnecessaryBoxing
@@ -9858,11 +9846,23 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
-		codeHandlerCount.add(0);
-		if (!stripDebug) {
-			codeFlags.add(Long.valueOf(1 << 2));
-			codeLocalVariableTableN.add(0);
-		}
+	public void addMaxStack(final int maxStack, int maxLocals) {
+		final Long latestFlag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+		final Long newFlag = Long.valueOf(latestFlag.intValue() | (1 << 17));
+		tempMethodFlags.add(newFlag);
+		codeMaxStack.add(maxStack);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+			if ((latestCodeFlag.intValue() & (1 << 3)) == 0) {
+				codeFlags.remove(codeFlags.size() - 1);
+				codeFlags.add(Long.valueOf(latestCodeFlag.intValue() | (1 << 3)));
+				codeLocalVariableTypeTableN.add(1);
+			} else {
 ```
 
 ### UnnecessaryBoxing
@@ -9882,11 +9882,83 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
+				final int flagIndex = bands.getFlagIndex();
+				final Long flags = tempFieldFlags.remove(tempFieldFlags.size() - 1);
+				tempFieldFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
+				return;
+			}
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				codeLocalVariableTableN.remove(codeLocalVariableTableN.size() - 1);
+				codeFlags.remove(codeFlags.size() - 1);
+				codeFlags.add(Long.valueOf(0));
+			}
+		}
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+				final Integer bytecodeIndex = labelsToOffsets.get(label);
+				final Integer renumberedOffset = Integer
+						.valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - relative.get(i).intValue());
+				list.add(i, renumberedOffset);
+			}
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
 			flags = flags | (1 << 20);
 		}
 		tempMethodFlags.add(Long.valueOf(flags));
 		numMethodArgs = countArgs(desc);
 		if (!anySyntheticMethods && ((flags & (1 << 12)) != 0)
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+		if ((latestCodeFlag.intValue() & (1 << 1)) == 0) {
+			codeFlags.remove(codeFlags.size() - 1);
+			codeFlags.add(Long.valueOf(latestCodeFlag.intValue() | (1 << 1)));
+			codeLineNumberTableN.add(1);
+		} else {
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+			}
+			final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+			tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 23)));
+		} else {
+			if (tempMethodRIPA == null) {
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+			}
+			final Long flag = tempMethodFlags.remove(tempMethodFlags.size() - 1);
+			tempMethodFlags.add(Long.valueOf(flag.longValue() | (1 << 24)));
+		}
+	}
 ```
 
 ### UnnecessaryBoxing
@@ -9942,47 +10014,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
+				list.remove(i);
 				final Integer bytecodeIndex = labelsToOffsets.get(label);
-				final Integer renumberedOffset = Integer
-						.valueOf(bciRenumbering.get(bytecodeIndex.intValue()) - relative.get(i).intValue());
+				final Integer renumberedOffset = Integer.valueOf(bciRenumbering.get(bytecodeIndex.intValue())
+						- relative.get(i).intValue() - firstOffset.get(i).intValue());
 				list.add(i, renumberedOffset);
-			}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				removed++;
-			} else if (!segment.getSegmentHeader().have_all_code_flags()) {
-				codeFlags.add(Long.valueOf(0));
-			}
-		}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-			if ((latestCodeFlag.intValue() & (1 << 3)) == 0) {
-				codeFlags.remove(codeFlags.size() - 1);
-				codeFlags.add(Long.valueOf(latestCodeFlag.intValue() | (1 << 3)));
-				codeLocalVariableTypeTableN.add(1);
-			} else {
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				codeLocalVariableTableN.remove(codeLocalVariableTableN.size() - 1);
-				codeFlags.remove(codeFlags.size() - 1);
-				codeFlags.add(Long.valueOf(0));
-			}
-		}
 ```
 
 ### UnnecessaryBoxing
@@ -10002,47 +10038,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
 ```java
-				final int flagIndex = bands.getFlagIndex();
-				final Long flags = tempMethodFlags.remove(tempMethodFlags.size() - 1);
-				tempMethodFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
-				return;
-			}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-		if ((latestCodeFlag.intValue() & (1 << 1)) == 0) {
-			codeFlags.remove(codeFlags.size() - 1);
-			codeFlags.add(Long.valueOf(latestCodeFlag.intValue() | (1 << 1)));
-			codeLineNumberTableN.add(1);
-		} else {
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				final int flagIndex = bands.getFlagIndex();
-				final Long flags = tempFieldFlags.remove(tempFieldFlags.size() - 1);
-				tempFieldFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
-				return;
-			}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-				final int flagIndex = bands.getFlagIndex();
-				final Long flags = codeFlags.remove(codeFlags.size() - 1);
-				codeFlags.add(Long.valueOf(flags.longValue() | (1 << flagIndex)));
-				return;
-			}
+		codeHandlerCount.add(0);
+		if (!stripDebug) {
+			codeFlags.add(Long.valueOf(1 << 2));
+			codeLocalVariableTableN.add(0);
+		}
 ```
 
 ## RuleId[id=NonStrictComparisonCanBeEquality]
@@ -10112,30 +10112,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
 #### Snippet
 ```java
-    private static void listZipUsingZipFile(final File f) throws IOException {
-        try (ZipFile z = new ZipFile(f)) {
-            System.out.println("Created " + z);
-            for (final Enumeration<ZipArchiveEntry> en = z.getEntries(); en.hasMoreElements(); ) {
-                System.out.println(en.nextElement().getName());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
-#### Snippet
-```java
-            System.out.println("Created " + z);
-            for (final Enumeration<ZipArchiveEntry> en = z.getEntries(); en.hasMoreElements(); ) {
-                System.out.println(en.nextElement().getName());
-            }
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
-#### Snippet
-```java
 
     private static void usage() {
         System.out.println("Parameters: archive-name [archive-type]\n");
@@ -10165,30 +10141,6 @@ in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
         System.out.println("The magic archive-type 'tarfile' prefers TarFile over TarArchiveInputStream");
     }
 
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
-#### Snippet
-```java
-            return;
-        }
-        System.out.println("Analysing " + args[0]);
-        final File f = new File(args[0]);
-        if (!f.isFile()) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
-#### Snippet
-```java
-        final File f = new File(args[0]);
-        if (!f.isFile()) {
-            System.err.println(f + " doesn't exist or is a directory");
-        }
-        final String format = args.length > 1 ? args[1] : detectFormat(f);
 ```
 
 ### SystemOutErr
@@ -10220,6 +10172,54 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
 #### Snippet
 ```java
+    private static void listZipUsingZipFile(final File f) throws IOException {
+        try (ZipFile z = new ZipFile(f)) {
+            System.out.println("Created " + z);
+            for (final Enumeration<ZipArchiveEntry> en = z.getEntries(); en.hasMoreElements(); ) {
+                System.out.println(en.nextElement().getName());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
+#### Snippet
+```java
+            System.out.println("Created " + z);
+            for (final Enumeration<ZipArchiveEntry> en = z.getEntries(); en.hasMoreElements(); ) {
+                System.out.println(en.nextElement().getName());
+            }
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
+#### Snippet
+```java
+            return;
+        }
+        System.out.println("Analysing " + args[0]);
+        final File f = new File(args[0]);
+        if (!f.isFile()) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
+#### Snippet
+```java
+        final File f = new File(args[0]);
+        if (!f.isFile()) {
+            System.err.println(f + " doesn't exist or is a directory");
+        }
+        final String format = args.length > 1 ? args[1] : detectFormat(f);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
+#### Snippet
+```java
     private static void list7z(final File f) throws IOException {
         try (SevenZFile z = new SevenZFile(f)) {
             System.out.println("Created " + z);
@@ -10237,42 +10237,6 @@ in `src/main/java/org/apache/commons/compress/archivers/Lister.java`
                 System.out.println(name);
             }
         }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
-#### Snippet
-```java
-
-    private static void usage() {
-        System.out.println("Parameters: archive-name [list]");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
-#### Snippet
-```java
-        }
-        final Mode mode = grabMode(args);
-        System.out.println(mode.getMessage() + " " + args[0]);
-        final File f = new File(args[0]);
-        if (!f.isFile()) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
-#### Snippet
-```java
-        final File f = new File(args[0]);
-        if (!f.isFile()) {
-            System.err.println(f + " doesn't exist or is a directory");
-        }
-        try (final SevenZFile archive = new SevenZFile(f)) {
 ```
 
 ### SystemOutErr
@@ -10360,6 +10324,42 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
 ```
 
 ### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
+#### Snippet
+```java
+
+    private static void usage() {
+        System.out.println("Parameters: archive-name [list]");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
+#### Snippet
+```java
+        }
+        final Mode mode = grabMode(args);
+        System.out.println(mode.getMessage() + " " + args[0]);
+        final File f = new File(args[0]);
+        if (!f.isFile()) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/CLI.java`
+#### Snippet
+```java
+        final File f = new File(args[0]);
+        if (!f.isFile()) {
+            System.err.println(f + " doesn't exist or is a directory");
+        }
+        try (final SevenZFile archive = new SevenZFile(f)) {
+```
+
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
 #### Snippet
@@ -10390,8 +10390,8 @@ in `src/main/java/org/apache/commons/compress/archivers/ar/ArArchiveInputStream.
 #### Snippet
 ```java
      */
-    private boolean isGNULongName(final String name) {
-        return name != null && name.matches(GNU_LONGNAME_PATTERN);
+    private static boolean isBSDLongName(final String name) {
+        return name != null && name.matches(BSD_LONGNAME_PATTERN);
     }
 
 ```
@@ -10402,8 +10402,8 @@ in `src/main/java/org/apache/commons/compress/archivers/ar/ArArchiveInputStream.
 #### Snippet
 ```java
      */
-    private static boolean isBSDLongName(final String name) {
-        return name != null && name.matches(BSD_LONGNAME_PATTERN);
+    private boolean isGNULongName(final String name) {
+        return name != null && name.matches(GNU_LONGNAME_PATTERN);
     }
 
 ```
@@ -10467,66 +10467,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/S
         final org.apache.commons.compress.harmony.unpack200.bytecode.OperandManager operandManager) {
         return operandManager.getSuperClass();
     }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
-#### Snippet
-```java
-     * @param name
-     *            the archive name, i.e.
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#AR},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#ZIP},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#TAR},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
-#### Snippet
-```java
-     *            the archive name, i.e.
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#AR},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#ZIP},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#TAR},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#JAR}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
-#### Snippet
-```java
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#AR},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#ZIP},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#TAR},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#JAR}
-     *            or
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
-#### Snippet
-```java
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#ZIP},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#TAR},
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#JAR}
-     *            or
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#CPIO}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
-#### Snippet
-```java
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#JAR}
-     *            or
-     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#CPIO}
-     * @param out
-     *            the output stream
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10626,6 +10566,66 @@ in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
+#### Snippet
+```java
+     * @param name
+     *            the archive name, i.e.
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#AR},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#ZIP},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#TAR},
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
+#### Snippet
+```java
+     *            the archive name, i.e.
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#AR},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#ZIP},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#TAR},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#JAR}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
+#### Snippet
+```java
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#AR},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#ZIP},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#TAR},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#JAR}
+     *            or
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
+#### Snippet
+```java
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#ZIP},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#TAR},
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#JAR}
+     *            or
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#CPIO}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.archivers` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/ArchiveStreamProvider.java`
+#### Snippet
+```java
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#JAR}
+     *            or
+     *            {@value org.apache.commons.compress.archivers.ArchiveStreamFactory#CPIO}
+     * @param out
+     *            the output stream
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util.jar` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/compress/archivers/jar/JarArchiveEntry.java`
 #### Snippet
@@ -10674,63 +10674,15 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimest
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/ParallelScatterZipCreator.java`
+Qualifier `java.util.zip` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
 #### Snippet
 ```java
+ * @NotThreadSafe
+ */
+public class ZipArchiveEntry extends java.util.zip.ZipEntry implements ArchiveEntry, EntryStreamOffsets {
+
     /**
-     * Constructs a ParallelScatterZipCreator with default threads, which is set to the number of available
-     * processors, as defined by {@link java.lang.Runtime#availableProcessors}
-     */
-    public ParallelScatterZipCreator() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/ParallelScatterZipCreator.java`
-#### Snippet
-```java
- * </p>
- * <p>
- * The client can supply an {@link java.util.concurrent.ExecutorService}, but for reasons of memory model consistency, this will be shut down by this class
- * prior to completion.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.zip` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/StreamCompressor.java`
-#### Snippet
-```java
-/**
- * Encapsulates a {@link Deflater} and crc calculator, handling multiple types of output streams.
- * Currently {@link java.util.zip.ZipEntry#DEFLATED} and {@link java.util.zip.ZipEntry#STORED} are the only
- * supported compression methods.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.zip` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/StreamCompressor.java`
-#### Snippet
-```java
-/**
- * Encapsulates a {@link Deflater} and crc calculator, handling multiple types of output streams.
- * Currently {@link java.util.zip.ZipEntry#DEFLATED} and {@link java.util.zip.ZipEntry#STORED} are the only
- * supported compression methods.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipEncoding.java`
-#### Snippet
-```java
- *
- * <p>The main reason for defining an own encoding layer comes from
- * the problems with {@link java.lang.String#getBytes(String)
- * String.getBytes}, which encodes unknown characters as ASCII
- * quotation marks ('?'). Quotation marks are per definition an
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10762,6 +10714,18 @@ Qualifier `java.util.zip` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
 #### Snippet
 ```java
+
+    /**
+     * Workaround for the fact that, as of Java 17, {@link java.util.zip.ZipEntry} parses NTFS
+     * timestamps with a maximum precision of microseconds, which is lower than the 100ns precision
+     * provided by this extra field.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.zip` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
+#### Snippet
+```java
      * @throws ZipException on error
      */
     public ZipArchiveEntry(final java.util.zip.ZipEntry entry) throws ZipException {
@@ -10776,9 +10740,9 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java
 ```java
 
     /**
-     * Workaround for the fact that, as of Java 17, {@link java.util.zip.ZipEntry} parses NTFS
-     * timestamps with a maximum precision of microseconds, which is lower than the 100ns precision
-     * provided by this extra field.
+     * The {@link java.util.zip.ZipEntry} base class only supports
+     * the compression methods STORED and DEFLATED. We override the
+     * field so that any compression methods can be used.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10819,26 +10783,62 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util.zip` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
+in `src/main/java/org/apache/commons/compress/archivers/zip/StreamCompressor.java`
 #### Snippet
 ```java
-
-    /**
-     * The {@link java.util.zip.ZipEntry} base class only supports
-     * the compression methods STORED and DEFLATED. We override the
-     * field so that any compression methods can be used.
+/**
+ * Encapsulates a {@link Deflater} and crc calculator, handling multiple types of output streams.
+ * Currently {@link java.util.zip.ZipEntry#DEFLATED} and {@link java.util.zip.ZipEntry#STORED} are the only
+ * supported compression methods.
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util.zip` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
+in `src/main/java/org/apache/commons/compress/archivers/zip/StreamCompressor.java`
 #### Snippet
 ```java
- * @NotThreadSafe
- */
-public class ZipArchiveEntry extends java.util.zip.ZipEntry implements ArchiveEntry, EntryStreamOffsets {
+/**
+ * Encapsulates a {@link Deflater} and crc calculator, handling multiple types of output streams.
+ * Currently {@link java.util.zip.ZipEntry#DEFLATED} and {@link java.util.zip.ZipEntry#STORED} are the only
+ * supported compression methods.
+ *
+```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/zip/ParallelScatterZipCreator.java`
+#### Snippet
+```java
     /**
+     * Constructs a ParallelScatterZipCreator with default threads, which is set to the number of available
+     * processors, as defined by {@link java.lang.Runtime#availableProcessors}
+     */
+    public ParallelScatterZipCreator() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/zip/ParallelScatterZipCreator.java`
+#### Snippet
+```java
+ * </p>
+ * <p>
+ * The client can supply an {@link java.util.concurrent.ExecutorService}, but for reasons of memory model consistency, this will be shut down by this class
+ * prior to completion.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipEncoding.java`
+#### Snippet
+```java
+ *
+ * <p>The main reason for defining an own encoding layer comes from
+ * the problems with {@link java.lang.String#getBytes(String)
+ * String.getBytes}, which encodes unknown characters as ASCII
+ * quotation marks ('?'). Quotation marks are per definition an
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10851,66 +10851,6 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/NioZipEncoding.java`
  * java.nio.charset.Charset Charset} to encode names.
  * <p>The methods of this class are reentrant.</p>
  * @Immutable
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.zip` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-     * Default compression method for next entry.
-     */
-    private int method = java.util.zip.ZipEntry.DEFLATED;
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.zip` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-     * Compression method for deflated entries.
-     */
-    public static final int DEFLATED = java.util.zip.ZipEntry.DEFLATED;
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.channels` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
- *
- * <p>This class will try to use {@link
- * java.nio.channels.SeekableByteChannel} when it knows that the
- * output is going to go to a file and no split archive shall be
- * created.</p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.zip` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-     * Compression method for stored entries.
-     */
-    public static final int STORED = java.util.zip.ZipEntry.STORED;
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
-#### Snippet
-```java
-     * when calling {@link #putArchiveEntry} or the archive is written
-     * to a seekable output (i.e. you have used the {@link
-     * #ZipArchiveOutputStream(java.io.File) File-arg constructor}) -
-     * this mode is not valid when the output stream is not seekable
-     * and the uncompressed size is unknown when {@link
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10998,6 +10938,126 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/TapeInputStream.jav
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+     * when calling {@link #putArchiveEntry} or the archive is written
+     * to a seekable output (i.e. you have used the {@link
+     * #ZipArchiveOutputStream(java.io.File) File-arg constructor}) -
+     * this mode is not valid when the output stream is not seekable
+     * and the uncompressed size is unknown when {@link
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.zip` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+     * Compression method for deflated entries.
+     */
+    public static final int DEFLATED = java.util.zip.ZipEntry.DEFLATED;
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.channels` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+ *
+ * <p>This class will try to use {@link
+ * java.nio.channels.SeekableByteChannel} when it knows that the
+ * output is going to go to a file and no split archive shall be
+ * created.</p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.zip` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+     * Default compression method for next entry.
+     */
+    private int method = java.util.zip.ZipEntry.DEFLATED;
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.zip` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java`
+#### Snippet
+```java
+     * Compression method for stored entries.
+     */
+    public static final int STORED = java.util.zip.ZipEntry.STORED;
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
+#### Snippet
+```java
+     * @param name
+     *            the compressor name, i.e.
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#GZIP},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#BZIP2},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#XZ},
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
+#### Snippet
+```java
+     *            the compressor name, i.e.
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#GZIP},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#BZIP2},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#XZ},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#PACK200}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
+#### Snippet
+```java
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#GZIP},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#BZIP2},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#XZ},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#PACK200}
+     *            or
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
+#### Snippet
+```java
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#BZIP2},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#XZ},
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#PACK200}
+     *            or
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#DEFLATE}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
+#### Snippet
+```java
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#PACK200}
+     *            or
+     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#DEFLATE}
+     * @param out
+     *            the output stream
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
 #### Snippet
@@ -11103,66 +11163,6 @@ in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvid
      *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#DEFLATE}
      * @param in
      *            the input stream
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
-#### Snippet
-```java
-     * @param name
-     *            the compressor name, i.e.
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#GZIP},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#BZIP2},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#XZ},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
-#### Snippet
-```java
-     *            the compressor name, i.e.
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#GZIP},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#BZIP2},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#XZ},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#PACK200}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
-#### Snippet
-```java
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#GZIP},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#BZIP2},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#XZ},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#PACK200}
-     *            or
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
-#### Snippet
-```java
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#BZIP2},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#XZ},
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#PACK200}
-     *            or
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#DEFLATE}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.compress.compressors` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/compress/compressors/CompressorStreamProvider.java`
-#### Snippet
-```java
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#PACK200}
-     *            or
-     *            {@value org.apache.commons.compress.compressors.CompressorStreamFactory#DEFLATE}
-     * @param out
-     *            the output stream
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11289,18 +11289,6 @@ public abstract class CPConstantNumber extends CPConstant {
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AnnotationsAttribute()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/AnnotationsAttribute.java`
-#### Snippet
-```java
-    }
-
-    public AnnotationsAttribute(final CPUTF8 attributeName) {
-        super(attributeName);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `CPRef()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/CPRef.java`
 #### Snippet
@@ -11321,6 +11309,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/Attribu
 
     public Attribute(final CPUTF8 attributeName) {
         this.attributeName = attributeName;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AnnotationsAttribute()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/AnnotationsAttribute.java`
+#### Snippet
+```java
+    }
+
+    public AnnotationsAttribute(final CPUTF8 attributeName) {
+        super(attributeName);
     }
 ```
 
@@ -11401,11 +11401,11 @@ Constructor `ByteCodeForm()` of an abstract class should not be declared 'public
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/ByteCodeForm.java`
 #### Snippet
 ```java
-     * @param name String printable name of the opcode
+     *        by -1.
      */
-    public ByteCodeForm(final int opcode, final String name) {
-        this(opcode, name, new int[] {opcode});
-    }
+    public ByteCodeForm(final int opcode, final String name, final int[] rewrite) {
+        this.opcode = opcode;
+        this.name = name;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11413,11 +11413,11 @@ Constructor `ByteCodeForm()` of an abstract class should not be declared 'public
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/forms/ByteCodeForm.java`
 #### Snippet
 ```java
-     *        by -1.
+     * @param name String printable name of the opcode
      */
-    public ByteCodeForm(final int opcode, final String name, final int[] rewrite) {
-        this.opcode = opcode;
-        this.name = name;
+    public ByteCodeForm(final int opcode, final String name) {
+        this(opcode, name, new int[] {opcode});
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11519,12 +11519,24 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/IcBands.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `passFileName`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingOptions.java`
+#### Snippet
+```java
+            fileSeparator += "\\";
+        }
+        passFileName = passFileName.replaceAll(fileSeparator, "/");
+        passFiles.add(passFileName);
+    }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `options`
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Archive.java`
 #### Snippet
 ```java
-    public Archive(final JarFile jarFile, OutputStream outputStream, PackingOptions options) throws IOException {
-        if (options == null) { // use all defaults
+        if (options == null) {
+            // use all defaults
             options = new PackingOptions();
         }
         this.options = options;
@@ -11547,8 +11559,8 @@ Assignment to method parameter `options`
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Archive.java`
 #### Snippet
 ```java
-        if (options == null) {
-            // use all defaults
+    public Archive(final JarFile jarFile, OutputStream outputStream, PackingOptions options) throws IOException {
+        if (options == null) { // use all defaults
             options = new PackingOptions();
         }
         this.options = options;
@@ -11579,51 +11591,15 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `passFileName`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/PackingOptions.java`
+Assignment to method parameter `value`
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/AttributeLayout.java`
 #### Snippet
 ```java
-            fileSeparator += "\\";
-        }
-        passFileName = passFileName.replaceAll(fileSeparator, "/");
-        passFiles.add(passFileName);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `opcode`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
-#### Snippet
-```java
-        final CPMethodOrField cpField = cpBands.getCPField(owner, name, desc);
-        if (aload_0) {
-            opcode += 7;
-        }
-        if (owner.equals(currentClass)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `opcode`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
-#### Snippet
-```java
-        }
-        if (owner.equals(currentClass)) {
-            opcode += 24; // change to getstatic_this, putstatic_this etc.
-            bcThisField.add(cpField);
-//        } else if (owner.equals(superClass)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `opcode`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
-#### Snippet
-```java
-        } else {
-            if (aload_0) {
-                opcode -= 7;
-                bcCodes.add(ALOAD_0); // add aload_0 back in because
-                // there's no special rewrite in
+            // references
+            if (layout.indexOf('N') != -1) {
+                value--;
+            }
+            if (layout.startsWith("RU")) { //$NON-NLS-1$
 ```
 
 ### AssignmentToMethodParameter
@@ -11711,15 +11687,39 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/AttributeLayout.java`
+Assignment to method parameter `opcode`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
 #### Snippet
 ```java
-            // references
-            if (layout.indexOf('N') != -1) {
-                value--;
-            }
-            if (layout.startsWith("RU")) { //$NON-NLS-1$
+        final CPMethodOrField cpField = cpBands.getCPField(owner, name, desc);
+        if (aload_0) {
+            opcode += 7;
+        }
+        if (owner.equals(currentClass)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `opcode`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
+#### Snippet
+```java
+        }
+        if (owner.equals(currentClass)) {
+            opcode += 24; // change to getstatic_this, putstatic_this etc.
+            bcThisField.add(cpField);
+//        } else if (owner.equals(superClass)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `opcode`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/BcBands.java`
+#### Snippet
+```java
+        } else {
+            if (aload_0) {
+                opcode -= 7;
+                bcCodes.add(ALOAD_0); // add aload_0 back in because
+                // there's no special rewrite in
 ```
 
 ### AssignmentToMethodParameter
@@ -11727,19 +11727,7 @@ Assignment to method parameter `name`
 in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
-            tags.add("@");
-            if (name == null) {
-                name = "";
-            }
-            nameRU.add(name);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
-#### Snippet
-```java
-            tags.add("e");
+            tags.add("[");
             if (name == null) {
                 name = "";
             }
@@ -11752,18 +11740,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
         public void visit(String name, final Object value) {
-            if (name == null) {
-                name = "";
-            }
-            nameRU.add(name);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
-#### Snippet
-```java
-            tags.add("[");
             if (name == null) {
                 name = "";
             }
@@ -11788,6 +11764,30 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
 #### Snippet
 ```java
             tags.add("[");
+            if (name == null) {
+                name = "";
+            }
+            nameRU.add(name);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
+#### Snippet
+```java
+            tags.add("@");
+            if (name == null) {
+                name = "";
+            }
+            nameRU.add(name);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/Segment.java`
+#### Snippet
+```java
+            tags.add("e");
             if (name == null) {
                 name = "";
             }
@@ -11840,18 +11840,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/bytecode/ClassCo
         return entries.get(--i);
     }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `numToRead`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
-#### Snippet
-```java
-        }
-
-        numToRead = Math.min(numToRead, available());
-
-        if (currEntry.isSparse()) {
 ```
 
 ### AssignmentToMethodParameter
@@ -11927,6 +11915,42 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `numToRead`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
+#### Snippet
+```java
+        }
+
+        numToRead = Math.min(numToRead, available());
+
+        if (currEntry.isSparse()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
+#### Snippet
+```java
+        } else if (length == 3 * DWORD) {
+            size = new ZipEightByteInteger(buffer, offset);
+            offset += DWORD;
+            compressedSize = new ZipEightByteInteger(buffer, offset);
+            offset += DWORD;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
+#### Snippet
+```java
+            offset += DWORD;
+            compressedSize = new ZipEightByteInteger(buffer, offset);
+            offset += DWORD;
+            relativeHeaderOffset = new ZipEightByteInteger(buffer, offset);
+        } else if (length % DWORD == WORD) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `offset`
 in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
 #### Snippet
@@ -11976,42 +12000,6 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInforma
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
-#### Snippet
-```java
-        } else if (length == 3 * DWORD) {
-            size = new ZipEightByteInteger(buffer, offset);
-            offset += DWORD;
-            compressedSize = new ZipEightByteInteger(buffer, offset);
-            offset += DWORD;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java`
-#### Snippet
-```java
-            offset += DWORD;
-            compressedSize = new ZipEightByteInteger(buffer, offset);
-            offset += DWORD;
-            relativeHeaderOffset = new ZipEightByteInteger(buffer, offset);
-        } else if (length % DWORD == WORD) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipUtil.java`
-#### Snippet
-```java
-            // If someone passes in a -2, they probably mean 4294967294
-            // (For example, Unix UID/GID's are 32 bit unsigned.)
-            l = ZipUtil.adjustToLong((int) l);
-        }
-        return BigInteger.valueOf(l);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
 in `src/main/java/org/apache/commons/compress/archivers/zip/X7875_NewUnix.java`
 #### Snippet
 ```java
@@ -12056,6 +12044,18 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/X7875_NewUnix.java`
         final int gidSize = signedByteToUnsignedInt(data[offset++]);
         if (uidSize + 3 + gidSize > length) {
             throw new ZipException("X7875_NewUnix invalid: gidSize " + gidSize
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipUtil.java`
+#### Snippet
+```java
+            // If someone passes in a -2, they probably mean 4294967294
+            // (For example, Unix UID/GID's are 32 bit unsigned.)
+            l = ZipUtil.adjustToLong((int) l);
+        }
+        return BigInteger.valueOf(l);
 ```
 
 ### AssignmentToMethodParameter
@@ -12119,6 +12119,30 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `maxLocals`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+		codeMaxStack.add(maxStack);
+		if ((newFlag.longValue() & (1 << 3)) == 0) { // not static
+			maxLocals--; // minus 'this' local
+		}
+		maxLocals -= numMethodArgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `maxLocals`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
+#### Snippet
+```java
+			maxLocals--; // minus 'this' local
+		}
+		maxLocals -= numMethodArgs;
+		codeMaxLocals.add(maxLocals);
+	}
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `flags`
 in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 #### Snippet
@@ -12164,30 +12188,6 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
 			flags = flags | (1 << 20);
 		}
 		tempMethodFlags.add(Long.valueOf(flags));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `maxLocals`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-		codeMaxStack.add(maxStack);
-		if ((newFlag.longValue() & (1 << 3)) == 0) { // not static
-			maxLocals--; // minus 'this' local
-		}
-		maxLocals -= numMethodArgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `maxLocals`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/ClassBands.java`
-#### Snippet
-```java
-			maxLocals--; // minus 'this' local
-		}
-		maxLocals -= numMethodArgs;
-		codeMaxLocals.add(maxLocals);
-	}
 ```
 
 ### AssignmentToMethodParameter
@@ -12287,30 +12287,6 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStrea
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-        if (name != null) {
-            if (isDirectory() && !name.endsWith("/")) {
-                name += "/";
-            }
-            if (name.startsWith("./")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
-#### Snippet
-```java
-            }
-            if (name.startsWith("./")) {
-                name = name.substring(2);
-            }
-        }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `entry`
 in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
 #### Snippet
@@ -12360,6 +12336,162 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStr
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+        if (name != null) {
+            if (isDirectory() && !name.endsWith("/")) {
+                name += "/";
+            }
+            if (name.startsWith("./")) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveEntry.java`
+#### Snippet
+```java
+            }
+            if (name.startsWith("./")) {
+                name = name.substring(2);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `src/main/java/org/apache/commons/compress/compressors/lz4/XXHash32.java`
+#### Snippet
+```java
+            System.arraycopy(b, off, buffer, pos, size);
+            process(buffer, 0);
+            off += size;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `src/main/java/org/apache/commons/compress/compressors/lz4/XXHash32.java`
+#### Snippet
+```java
+        while (off <= limit) {
+            process(b, off);
+            off += BUF_SIZE;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java`
+#### Snippet
+```java
+        for (; i > 0; i--) {
+            header.write((int) (0xff & value));
+            value >>>= 8;
+        }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorInputStream.java`
+#### Snippet
+```java
+
+    private void appendToBlockDependencyBuffer(final byte[] b, final int off, int len) {
+        len = Math.min(len, blockDependencyBuffer.length);
+        if (len > 0) {
+            final int keep = blockDependencyBuffer.length - len;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorOutputStream.java`
+#### Snippet
+```java
+            while (len > blockDataLength) {
+                System.arraycopy(data, off, blockData, 0, blockDataLength);
+                off += blockDataLength;
+                len -= blockDataLength;
+                currentIndex = blockDataLength;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorOutputStream.java`
+#### Snippet
+```java
+                System.arraycopy(data, off, blockData, 0, blockDataLength);
+                off += blockDataLength;
+                len -= blockDataLength;
+                currentIndex = blockDataLength;
+                flushBlock();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorOutputStream.java`
+#### Snippet
+```java
+
+    private void appendToBlockDependencyBuffer(final byte[] b, final int off, int len) {
+        len = Math.min(len, blockDependencyBuffer.length);
+        if (len > 0) {
+            final int keep = blockDependencyBuffer.length - len;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `src/main/java/org/apache/commons/compress/compressors/lz4/BlockLZ4CompressorOutputStream.java`
+#### Snippet
+```java
+            while (length >= 255) {
+                out.write(255);
+                length -= 255;
+            }
+            out.write(length);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `repeat`
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/CRC.java`
+#### Snippet
+```java
+        void updateCRC(final int inCh, int repeat) {
+            int globalCrcShadow = this.globalCrc;
+            while (repeat-- > 0) {
+                final int temp = (globalCrcShadow >> 24) ^ inCh;
+                globalCrcShadow = (globalCrcShadow << 8) ^ crc32Table[(temp >= 0)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `src/main/java/org/apache/commons/compress/compressors/gzip/GzipCompressorInputStream.java`
+#### Snippet
+```java
+
+            crc.update(b, off, ret);
+            off += ret;
+            len -= ret;
+            size += ret;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/compress/compressors/gzip/GzipCompressorInputStream.java`
+#### Snippet
+```java
+            crc.update(b, off, ret);
+            off += ret;
+            len -= ret;
+            size += ret;
+            count(ret);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
 #### Snippet
 ```java
@@ -12368,6 +12500,30 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java
         name = normalizeFileName(name, preserveAbsolutePath);
         final boolean isDir = name.endsWith("/");
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
+#### Snippet
+```java
+    private int writeEntryHeaderOptionalTimeField(final FileTime time, int offset, final byte[] outbuf, final int fieldLength) {
+        if (time != null) {
+            offset = writeEntryHeaderField(TimeUtils.toUnixTime(time), outbuf, offset, fieldLength, true);
+        } else {
+            offset = fill(0, offset, outbuf, fieldLength);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
+#### Snippet
+```java
+            offset = writeEntryHeaderField(TimeUtils.toUnixTime(time), outbuf, offset, fieldLength, true);
+        } else {
+            offset = fill(0, offset, outbuf, fieldLength);
+        }
+        return offset;
 ```
 
 ### AssignmentToMethodParameter
@@ -12419,159 +12575,27 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
-#### Snippet
-```java
-    private int writeEntryHeaderOptionalTimeField(final FileTime time, int offset, final byte[] outbuf, final int fieldLength) {
-        if (time != null) {
-            offset = writeEntryHeaderField(TimeUtils.toUnixTime(time), outbuf, offset, fieldLength, true);
-        } else {
-            offset = fill(0, offset, outbuf, fieldLength);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
-#### Snippet
-```java
-            offset = writeEntryHeaderField(TimeUtils.toUnixTime(time), outbuf, offset, fieldLength, true);
-        } else {
-            offset = fill(0, offset, outbuf, fieldLength);
-        }
-        return offset;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java`
-#### Snippet
-```java
-        for (; i > 0; i--) {
-            header.write((int) (0xff & value));
-            value >>>= 8;
-        }
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `off`
-in `src/main/java/org/apache/commons/compress/compressors/lz4/XXHash32.java`
+in `src/main/java/org/apache/commons/compress/compressors/snappy/FramedSnappyCompressorOutputStream.java`
 #### Snippet
 ```java
-            System.arraycopy(b, off, buffer, pos, size);
-            process(buffer, 0);
-            off += size;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `src/main/java/org/apache/commons/compress/compressors/lz4/XXHash32.java`
-#### Snippet
-```java
-        while (off <= limit) {
-            process(b, off);
-            off += BUF_SIZE;
-        }
-
+            while (len > MAX_COMPRESSED_BUFFER_SIZE) {
+                System.arraycopy(data, off, buffer, 0, MAX_COMPRESSED_BUFFER_SIZE);
+                off += MAX_COMPRESSED_BUFFER_SIZE;
+                len -= MAX_COMPRESSED_BUFFER_SIZE;
+                currentIndex = MAX_COMPRESSED_BUFFER_SIZE;
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorOutputStream.java`
+in `src/main/java/org/apache/commons/compress/compressors/snappy/FramedSnappyCompressorOutputStream.java`
 #### Snippet
 ```java
-
-    private void appendToBlockDependencyBuffer(final byte[] b, final int off, int len) {
-        len = Math.min(len, blockDependencyBuffer.length);
-        if (len > 0) {
-            final int keep = blockDependencyBuffer.length - len;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorOutputStream.java`
-#### Snippet
-```java
-            while (len > blockDataLength) {
-                System.arraycopy(data, off, blockData, 0, blockDataLength);
-                off += blockDataLength;
-                len -= blockDataLength;
-                currentIndex = blockDataLength;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorOutputStream.java`
-#### Snippet
-```java
-                System.arraycopy(data, off, blockData, 0, blockDataLength);
-                off += blockDataLength;
-                len -= blockDataLength;
-                currentIndex = blockDataLength;
-                flushBlock();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/compress/compressors/lz4/FramedLZ4CompressorInputStream.java`
-#### Snippet
-```java
-
-    private void appendToBlockDependencyBuffer(final byte[] b, final int off, int len) {
-        len = Math.min(len, blockDependencyBuffer.length);
-        if (len > 0) {
-            final int keep = blockDependencyBuffer.length - len;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `src/main/java/org/apache/commons/compress/compressors/gzip/GzipCompressorInputStream.java`
-#### Snippet
-```java
-
-            crc.update(b, off, ret);
-            off += ret;
-            len -= ret;
-            size += ret;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/compress/compressors/gzip/GzipCompressorInputStream.java`
-#### Snippet
-```java
-            crc.update(b, off, ret);
-            off += ret;
-            len -= ret;
-            size += ret;
-            count(ret);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `repeat`
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/CRC.java`
-#### Snippet
-```java
-        void updateCRC(final int inCh, int repeat) {
-            int globalCrcShadow = this.globalCrc;
-            while (repeat-- > 0) {
-                final int temp = (globalCrcShadow >> 24) ^ inCh;
-                globalCrcShadow = (globalCrcShadow << 8) ^ crc32Table[(temp >= 0)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `src/main/java/org/apache/commons/compress/compressors/lz4/BlockLZ4CompressorOutputStream.java`
-#### Snippet
-```java
-            while (length >= 255) {
-                out.write(255);
-                length -= 255;
-            }
-            out.write(length);
+                System.arraycopy(data, off, buffer, 0, MAX_COMPRESSED_BUFFER_SIZE);
+                off += MAX_COMPRESSED_BUFFER_SIZE;
+                len -= MAX_COMPRESSED_BUFFER_SIZE;
+                currentIndex = MAX_COMPRESSED_BUFFER_SIZE;
+                flushBuffer();
 ```
 
 ### AssignmentToMethodParameter
@@ -12608,30 +12632,6 @@ in `src/main/java/org/apache/commons/compress/compressors/snappy/FramedSnappyCom
         x &= 0xffffFFFFL;
         return x;
     }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `src/main/java/org/apache/commons/compress/compressors/snappy/FramedSnappyCompressorOutputStream.java`
-#### Snippet
-```java
-            while (len > MAX_COMPRESSED_BUFFER_SIZE) {
-                System.arraycopy(data, off, buffer, 0, MAX_COMPRESSED_BUFFER_SIZE);
-                off += MAX_COMPRESSED_BUFFER_SIZE;
-                len -= MAX_COMPRESSED_BUFFER_SIZE;
-                currentIndex = MAX_COMPRESSED_BUFFER_SIZE;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/compress/compressors/snappy/FramedSnappyCompressorOutputStream.java`
-#### Snippet
-```java
-                System.arraycopy(data, off, buffer, 0, MAX_COMPRESSED_BUFFER_SIZE);
-                off += MAX_COMPRESSED_BUFFER_SIZE;
-                len -= MAX_COMPRESSED_BUFFER_SIZE;
-                currentIndex = MAX_COMPRESSED_BUFFER_SIZE;
-                flushBuffer();
 ```
 
 ### AssignmentToMethodParameter
@@ -12779,30 +12779,6 @@ in `src/main/java/org/apache/commons/compress/compressors/snappy/PureJavaCrc32C.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
-#### Snippet
-```java
-    private void write0(int b) throws IOException {
-        if (this.currentChar != -1) {
-            b &= 0xff;
-            if (this.currentChar == b) {
-                if (++this.runLength > 254) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offs`
-in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
-#### Snippet
-```java
-
-        for (final int hi = offs + len; offs < hi;) {
-            write0(buf[offs++]);
-        }
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `props`
 in `src/main/java/org/apache/commons/compress/compressors/pack200/Pack200Utils.java`
 #### Snippet
@@ -12887,18 +12863,6 @@ in `src/main/java/org/apache/commons/compress/compressors/bzip2/BlockSort.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `bytesToSkip`
-in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
-#### Snippet
-```java
-        final int maxSkip = input.remaining();
-        if (maxSkip < bytesToSkip) {
-            bytesToSkip = maxSkip;
-        }
-        input.position(current + (int) bytesToSkip);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `matchHead`
 in `src/main/java/org/apache/commons/compress/compressors/lz77support/LZ77Compressor.java`
 #### Snippet
@@ -12934,7 +12898,55 @@ in `src/main/java/org/apache/commons/compress/compressors/lz77support/LZ77Compre
         if (len > 0) {
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `bytesToSkip`
+in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java`
+#### Snippet
+```java
+        final int maxSkip = input.remaining();
+        if (maxSkip < bytesToSkip) {
+            bytesToSkip = maxSkip;
+        }
+        input.position(current + (int) bytesToSkip);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offs`
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
+#### Snippet
+```java
+
+        for (final int hi = offs + len; offs < hi;) {
+            write0(buf[offs++]);
+        }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorOutputStream.java`
+#### Snippet
+```java
+    private void write0(int b) throws IOException {
+        if (this.currentChar != -1) {
+            b &= 0xff;
+            if (this.currentChar == b) {
+                if (++this.runLength > 254) {
+```
+
 ## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/utils/FileNameUtils.java`
+#### Snippet
+```java
+    public static String getBaseName(final String filename) {
+        if (filename == null) {
+            return null;
+        }
+        return fileNameToBaseName(new File(filename).getName());
+```
+
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/commons/compress/utils/FileNameUtils.java`
@@ -12957,18 +12969,6 @@ in `src/main/java/org/apache/commons/compress/utils/FileNameUtils.java`
         return fileName != null ? fileNameToBaseName(fileName.toString()) : null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/utils/FileNameUtils.java`
-#### Snippet
-```java
-    public static String getExtension(final String filename) {
-        if (filename == null) {
-            return null;
-        }
-        return fileNameToExtension(new File(filename).getName());
 ```
 
 ### ReturnNull
@@ -13000,11 +13000,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/utils/FileNameUtils.java`
 #### Snippet
 ```java
-    public static String getBaseName(final String filename) {
+    public static String getExtension(final String filename) {
         if (filename == null) {
             return null;
         }
-        return fileNameToBaseName(new File(filename).getName());
+        return fileNameToExtension(new File(filename).getName());
 ```
 
 ### ReturnNull
@@ -13084,18 +13084,6 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 #### Snippet
 ```java
-    public CPClass getCPClass(String className) {
-        if (className == null) {
-            return null;
-        }
-        className = className.replace('.', '/');
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
-#### Snippet
-```java
     public CPUTF8 getCPUtf8(final String utf8) {
         if (utf8 == null) {
             return null;
@@ -13117,14 +13105,14 @@ in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/MetadataBandGroup.java`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/CpBands.java`
 #### Snippet
 ```java
-            return getAnnotation(type, numPairs, nestname_RU_Iterator);
+    public CPClass getCPClass(String className) {
+        if (className == null) {
+            return null;
         }
-        return null;
-    }
-
+        className = className.replace('.', '/');
 ```
 
 ### ReturnNull
@@ -13141,74 +13129,14 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/AttributeLayoutM
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/MetadataBandGroup.java`
 #### Snippet
 ```java
-        final int nextChar = reader.read();
-        if (nextChar == -1) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-            return new Reference(string.toString());
+            return getAnnotation(type, numPairs, nestname_RU_Iterator);
         }
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-        final int next = reader.read();
-        if (next == -1) {
-            return null;
-        }
-        if (next == '[') {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-        if (ch == ')' || next == -1) {
-            reader.reset();
-            return null;
-        }
-        reader.reset();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
-#### Snippet
-```java
-        stream.reset();
-        if (length == 0) {
-            return null;
-        }
-        final char[] digits = new char[length];
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantPool.java`
-#### Snippet
-```java
-        final int index = (int) value;
-        if (index == -1) {
-            return null;
-        }
-        if (index < 0) {
 ```
 
 ### ReturnNull
@@ -13237,6 +13165,90 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantP
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/SegmentConstantPool.java`
+#### Snippet
+```java
+        final int index = (int) value;
+        if (index == -1) {
+            return null;
+        }
+        if (index < 0) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        stream.reset();
+        if (length == 0) {
+            return null;
+        }
+        final char[] digits = new char[length];
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        if (ch == ')' || next == -1) {
+            reader.reset();
+            return null;
+        }
+        reader.reset();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        final int next = reader.read();
+        if (next == -1) {
+            return null;
+        }
+        if (next == '[') {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+        final int nextChar = reader.read();
+        if (nextChar == -1) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/harmony/pack200/NewAttributeBands.java`
+#### Snippet
+```java
+            return new Reference(string.toString());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+        stream.reset();
+        if (length == 0) {
+            return null;
+        }
+        final char[] digits = new char[length];
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
 #### Snippet
 ```java
@@ -13245,6 +13257,18 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBand
             return null;
         }
         stream.reset();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
+#### Snippet
+```java
+        final int next = stream.read();
+        if (next == -1) {
+            return null;
+        }
+        if (next == '[') {
 ```
 
 ### ReturnNull
@@ -13269,30 +13293,6 @@ in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBand
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-        final int next = stream.read();
-        if (next == -1) {
-            return null;
-        }
-        if (next == '[') {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/harmony/unpack200/NewAttributeBands.java`
-#### Snippet
-```java
-        stream.reset();
-        if (length == 0) {
-            return null;
-        }
-        final char[] digits = new char[length];
 ```
 
 ### ReturnNull
@@ -13384,18 +13384,6 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStream.java`
 #### Snippet
 ```java
-            if (basicHeaderSize == 0) {
-                // end of archive
-                return null;
-            }
-            if (basicHeaderSize <= 2600) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStream.java`
-#### Snippet
-```java
         }
         currentInputStream = null;
         return null;
@@ -13417,74 +13405,62 @@ in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStrea
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
+in `src/main/java/org/apache/commons/compress/archivers/arj/ArjArchiveInputStream.java`
 #### Snippet
 ```java
-            // Bugzilla: 40334
-            // Malformed tar file - long entry name not followed by entry
-            return null;
-        }
-        byte[] longNameData = longName.toByteArray();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
-#### Snippet
-```java
-        count(readNow);
-        if (readNow != recordSize) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
-#### Snippet
-```java
-    public TarArchiveEntry getNextTarEntry() throws IOException {
-        if (isAtEOF()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
-#### Snippet
-```java
-            /* hit EOF */
-            currEntry = null;
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
-#### Snippet
-```java
-                // Malformed tar file - long link entry name not followed by
-                // entry
+            if (basicHeaderSize == 0) {
+                // end of archive
                 return null;
             }
-            currEntry.setLinkName(zipEncoding.decode(longLinkData));
+            if (basicHeaderSize <= 2600) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
+in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
 #### Snippet
 ```java
-                // Malformed tar file - long entry name not followed by
-                // entry
-                return null;
-            }
+    private static Date zipToDate(final ZipEightByteInteger z) {
+        if (z == null || ZipEightByteInteger.ZERO.equals(z)) {
+            return null;
+        }
+        return TimeUtils.ntfsTimeToDate(z.getLongValue());
+```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
+#### Snippet
+```java
+    private static ZipEightByteInteger fileTimeToZip(final FileTime time) {
+        if (time == null) {
+            return null;
+        }
+        return new ZipEightByteInteger(TimeUtils.toNtfsTime(time));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
+#### Snippet
+```java
+    private static ZipEightByteInteger dateToZip(final Date d) {
+        if (d == null) {
+            return null;
+        }
+        return new ZipEightByteInteger(TimeUtils.toNtfsTime(d));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
+#### Snippet
+```java
+    private static FileTime zipToFileTime(final ZipEightByteInteger z) {
+        if (z == null || ZipEightByteInteger.ZERO.equals(z)) {
+            return null;
+        }
+        return TimeUtils.ntfsTimeToFileTime(z.getLongValue());
 ```
 
 ### ReturnNull
@@ -13509,18 +13485,6 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ExtraFieldUtils.java
                 return null;
             default:
                 throw new ZipException("Unknown UnparseableExtraField key: " + key);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/tar/TarFile.java`
-#### Snippet
-```java
-            // Bugzilla: 40334
-            // Malformed tar file - long entry name not followed by entry
-            return null;
-        }
-        byte[] longNameData = longName.toByteArray();
 ```
 
 ### ReturnNull
@@ -13576,6 +13540,18 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarFile.java`
 #### Snippet
 ```java
+            // Bugzilla: 40334
+            // Malformed tar file - long entry name not followed by entry
+            return null;
+        }
+        byte[] longNameData = longName.toByteArray();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarFile.java`
+#### Snippet
+```java
         final int readNow = archive.read(recordBuffer);
         if (readNow != recordSize) {
             return null;
@@ -13585,61 +13561,85 @@ in `src/main/java/org/apache/commons/compress/archivers/tar/TarFile.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
 #### Snippet
 ```java
-    private static ZipEightByteInteger fileTimeToZip(final FileTime time) {
-        if (time == null) {
+    public TarArchiveEntry getNextTarEntry() throws IOException {
+        if (isAtEOF()) {
             return null;
         }
-        return new ZipEightByteInteger(TimeUtils.toNtfsTime(time));
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
 #### Snippet
 ```java
-    private static Date zipToDate(final ZipEightByteInteger z) {
-        if (z == null || ZipEightByteInteger.ZERO.equals(z)) {
+            /* hit EOF */
+            currEntry = null;
             return null;
         }
-        return TimeUtils.ntfsTimeToDate(z.getLongValue());
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
 #### Snippet
 ```java
-    private static ZipEightByteInteger dateToZip(final Date d) {
-        if (d == null) {
-            return null;
-        }
-        return new ZipEightByteInteger(TimeUtils.toNtfsTime(d));
+                // Malformed tar file - long link entry name not followed by
+                // entry
+                return null;
+            }
+            currEntry.setLinkName(zipEncoding.decode(longLinkData));
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/X000A_NTFS.java`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
 #### Snippet
 ```java
-    private static FileTime zipToFileTime(final ZipEightByteInteger z) {
-        if (z == null || ZipEightByteInteger.ZERO.equals(z)) {
-            return null;
-        }
-        return TimeUtils.ntfsTimeToFileTime(z.getLongValue());
+                // Malformed tar file - long entry name not followed by
+                // entry
+                return null;
+            }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipUtil.java`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
 #### Snippet
 ```java
+        count(readNow);
+        if (readNow != recordSize) {
+            return null;
         }
-        // TODO log this anywhere?
-        return null;
-    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java`
+#### Snippet
+```java
+            // Bugzilla: 40334
+            // Malformed tar file - long entry name not followed by entry
+            return null;
+        }
+        byte[] longNameData = longName.toByteArray();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/X7875_NewUnix.java`
+#### Snippet
+```java
+    static byte[] trimLeadingZeroesForceMinLength(final byte[] array) {
+        if (array == null) {
+            return null;
+        }
 
 ```
 
@@ -13657,14 +13657,38 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/X7875_NewUnix.java`
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipUtil.java`
 #### Snippet
 ```java
-    static byte[] trimLeadingZeroesForceMinLength(final byte[] array) {
-        if (array == null) {
-            return null;
         }
+        // TODO log this anywhere?
+        return null;
+    }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java`
+#### Snippet
+```java
+     */
+    private static ZipLong fileTimeToZipLong(final FileTime time) {
+        return time == null ? null : unixTimeToZipLong(TimeUtils.toUnixTime(time));
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java`
+#### Snippet
+```java
+
+    private static FileTime unixTimeToFileTime(final ZipLong unixTime) {
+        return unixTime != null ? TimeUtils.unixTimeToFileTime(unixTime.getIntValue()) : null;
+    }
+    // The 3 boolean fields (below) come from this flags byte.  The remaining 5 bits
 ```
 
 ### ReturnNull
@@ -13685,32 +13709,8 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimest
 #### Snippet
 ```java
 
-    private static FileTime unixTimeToFileTime(final ZipLong unixTime) {
-        return unixTime != null ? TimeUtils.unixTimeToFileTime(unixTime.getIntValue()) : null;
-    }
-    // The 3 boolean fields (below) come from this flags byte.  The remaining 5 bits
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java`
-#### Snippet
-```java
-
     private static Date zipLongToDate(final ZipLong unixTime) {
         return unixTime != null ? new Date(unixTime.getIntValue() * 1000L) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java`
-#### Snippet
-```java
-     */
-    private static ZipLong fileTimeToZipLong(final FileTime time) {
-        return time == null ? null : unixTimeToZipLong(TimeUtils.toUnixTime(time));
     }
 
 ```
@@ -13720,7 +13720,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
 #### Snippet
 ```java
-            }
+            return Arrays.copyOf(rawName, rawName.length);
         }
         return null;
     }
@@ -13732,7 +13732,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java`
 #### Snippet
 ```java
-            return Arrays.copyOf(rawName, rawName.length);
+            }
         }
         return null;
     }
@@ -13753,6 +13753,30 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/AbstractUnicodeExtra
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveConstants.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveConstants.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java`
 #### Snippet
 ```java
@@ -13761,30 +13785,6 @@ in `src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStr
             return null;
         }
         return this.entry;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveConstants.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveConstants.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -13840,18 +13840,6 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
 #### Snippet
 ```java
-            pending.put(entry.getIno(), entry);
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
-#### Snippet
-```java
         while (entry == null) {
             if (hasHitEOF) {
                 return null;
@@ -13868,6 +13856,18 @@ in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStr
 
                 return null;
             }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java`
+#### Snippet
+```java
+            pending.put(entry.getIno(), entry);
+
+            return null;
+        }
 
 ```
 
@@ -13891,42 +13891,6 @@ in `src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZMethod.java
             }
         }
         return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
-#### Snippet
-```java
-        throws IOException {
-        if (!(zipEntry instanceof Entry)) {
-            return null;
-        }
-        // cast validity is checked just above
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
-#### Snippet
-```java
-    public ZipArchiveEntry getEntry(final String name) {
-        final LinkedList<ZipArchiveEntry> entriesOfThatName = nameMap.get(name);
-        return entriesOfThatName != null ? entriesOfThatName.getFirst() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
-#### Snippet
-```java
-    public InputStream getContentBeforeFirstLocalFileHeader() {
-        return firstLocalFileHeaderOffset == 0
-                ? null : createBoundedInputStream(0, firstLocalFileHeaderOffset);
     }
 
 ```
@@ -13965,6 +13929,42 @@ in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
             return null;
         }
         return createBoundedInputStream(start, ze.getCompressedSize());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
+#### Snippet
+```java
+        throws IOException {
+        if (!(zipEntry instanceof Entry)) {
+            return null;
+        }
+        // cast validity is checked just above
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
+#### Snippet
+```java
+    public InputStream getContentBeforeFirstLocalFileHeader() {
+        return firstLocalFileHeaderOffset == 0
+                ? null : createBoundedInputStream(0, firstLocalFileHeaderOffset);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java`
+#### Snippet
+```java
+    public ZipArchiveEntry getEntry(final String name) {
+        final LinkedList<ZipArchiveEntry> entriesOfThatName = nameMap.get(name);
+        return entriesOfThatName != null ? entriesOfThatName.getFirst() : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -14008,11 +14008,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
 #### Snippet
 ```java
-    private static FileTime fileTimeFromOptionalSeconds(final long seconds) {
-        if (seconds <= 0) {
+    public File getFile() {
+        if (file == null) {
             return null;
         }
-        return TimeUtils.unixTimeToFileTime(seconds);
+        return file.toFile();
 ```
 
 ### ReturnNull
@@ -14020,11 +14020,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java`
 #### Snippet
 ```java
-    public File getFile() {
-        if (file == null) {
+    private static FileTime fileTimeFromOptionalSeconds(final long seconds) {
+        if (seconds <= 0) {
             return null;
         }
-        return file.toFile();
+        return TimeUtils.unixTimeToFileTime(seconds);
 ```
 
 ### ReturnNull
