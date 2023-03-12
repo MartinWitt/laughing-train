@@ -154,10 +154,13 @@ public class RefactorService {
     }
 
     private GHRepository createForkIfMissing(ProjectResult.Success success, GitHub github) throws IOException {
+        logger.atInfo().log("Creating fork for %s", success.project().getOwnerRepoName());
         @Var GHRepository repository = github.getRepository(success.project().getOwnerRepoName());
         if (github.getMyself().getRepository(success.project().name()) == null) {
+            logger.atInfo().log("Forking %s", success.project().getOwnerRepoName());
             repository = repository.fork();
         } else {
+            logger.atInfo().log("Found fork %s", success.project().name());
             repository = github.getMyself().getRepository(success.project().name());
         }
         return repository;
