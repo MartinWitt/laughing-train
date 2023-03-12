@@ -158,6 +158,18 @@ in `src/main/java/org/apache/commons/exec/util/StringUtils.java`
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/org/apache/commons/exec/environment/OpenVmsProcessingEnvironment.java`
+#### Snippet
+```java
+package org.apache.commons.exec.environment;
+
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.util.HashMap;
+```
+
+### CommentedOutCode
 Commented out code (55 lines)
 in `src/main/java/org/apache/commons/exec/environment/OpenVmsProcessingEnvironment.java`
 #### Snippet
@@ -171,38 +183,14 @@ in `src/main/java/org/apache/commons/exec/environment/OpenVmsProcessingEnvironme
 
 ### CommentedOutCode
 Commented out code (6 lines)
-in `src/main/java/org/apache/commons/exec/environment/OpenVmsProcessingEnvironment.java`
-#### Snippet
-```java
-package org.apache.commons.exec.environment;
-
-//import java.io.BufferedReader;
-//import java.io.IOException;
-//import java.util.HashMap;
-```
-
-### CommentedOutCode
-Commented out code (28 lines)
 in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
 #### Snippet
 ```java
-
-// No longer needed
-//        if (procEnvironment == null) {
-//            procEnvironment = createEnvironmentMap();
-//            final BufferedReader in = runProcEnvCommand();
-```
-
-### CommentedOutCode
-Commented out code (25 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-    }
-
-//    /**
-//     * ByteArrayOutputStream#toString doesn't seem to work reliably on OS/390,
-//     * at least not the way we use it in the execution context.
+    @Deprecated
+    protected BufferedReader runProcEnvCommand() throws IOException {
+//        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        final Executor exe = new DefaultExecutor();
+//        exe.setStreamHandler(new PumpStreamHandler(out));
 ```
 
 ### CommentedOutCode
@@ -230,15 +218,27 @@ in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironme
 ```
 
 ### CommentedOutCode
-Commented out code (6 lines)
+Commented out code (25 lines)
 in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
 #### Snippet
 ```java
-    @Deprecated
-    protected BufferedReader runProcEnvCommand() throws IOException {
-//        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        final Executor exe = new DefaultExecutor();
-//        exe.setStreamHandler(new PumpStreamHandler(out));
+    }
+
+//    /**
+//     * ByteArrayOutputStream#toString doesn't seem to work reliably on OS/390,
+//     * at least not the way we use it in the execution context.
+```
+
+### CommentedOutCode
+Commented out code (28 lines)
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+
+// No longer needed
+//        if (procEnvironment == null) {
+//            procEnvironment = createEnvironmentMap();
+//            final BufferedReader in = runProcEnvCommand();
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -268,50 +268,50 @@ in `src/main/java/org/apache/commons/exec/ShutdownHookProcessDestroyer.java`
 
 ### ObsoleteCollection
 Obsolete collection type `Vector` used
-in `src/main/java/org/apache/commons/exec/Watchdog.java`
+in `src/main/java/org/apache/commons/exec/CommandLine.java`
 #### Snippet
 ```java
-public class Watchdog implements Runnable {
+     * The arguments of the command.
+     */
+    private final Vector<Argument> arguments = new Vector<>();
 
-    private final Vector<TimeoutObserver> observers = new Vector<>(1);
-
-    private final long timeoutMillis;
+    /**
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Vector<>` used
-in `src/main/java/org/apache/commons/exec/Watchdog.java`
+in `src/main/java/org/apache/commons/exec/CommandLine.java`
 #### Snippet
 ```java
-public class Watchdog implements Runnable {
+     * The arguments of the command.
+     */
+    private final Vector<Argument> arguments = new Vector<>();
 
-    private final Vector<TimeoutObserver> observers = new Vector<>(1);
-
-    private final long timeoutMillis;
+    /**
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Vector` used
-in `src/main/java/org/apache/commons/exec/CommandLine.java`
+in `src/main/java/org/apache/commons/exec/Watchdog.java`
 #### Snippet
 ```java
-     * The arguments of the command.
-     */
-    private final Vector<Argument> arguments = new Vector<>();
+public class Watchdog implements Runnable {
 
-    /**
+    private final Vector<TimeoutObserver> observers = new Vector<>(1);
+
+    private final long timeoutMillis;
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Vector<>` used
-in `src/main/java/org/apache/commons/exec/CommandLine.java`
+in `src/main/java/org/apache/commons/exec/Watchdog.java`
 #### Snippet
 ```java
-     * The arguments of the command.
-     */
-    private final Vector<Argument> arguments = new Vector<>();
+public class Watchdog implements Runnable {
 
-    /**
+    private final Vector<TimeoutObserver> observers = new Vector<>(1);
+
+    private final long timeoutMillis;
 ```
 
 ## RuleId[id=NonSynchronizedMethodOverridesSynchronizedMethod]
@@ -553,26 +553,14 @@ in `src/main/java/org/apache/commons/exec/PumpStreamHandler.java`
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/Executor.java`
+in `src/main/java/org/apache/commons/exec/ExecuteResultHandler.java`
 #### Snippet
 ```java
-     * Define the {@code exitValue} of the process to be considered
-     * successful. If a different exit value is returned by
-     * the process then {@link org.apache.commons.exec.Executor#execute(CommandLine)}
-     * will throw an {@link org.apache.commons.exec.ExecuteException}
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/Executor.java`
-#### Snippet
-```java
-     * successful. If a different exit value is returned by
-     * the process then {@link org.apache.commons.exec.Executor#execute(CommandLine)}
-     * will throw an {@link org.apache.commons.exec.ExecuteException}
-     *
-     * @param value the exit code representing successful execution
+ * the executed process, i.e. the exit value or an exception.
+ *
+ * @see org.apache.commons.exec.Executor#execute(CommandLine, java.util.Map, ExecuteResultHandler)
+ *
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -613,14 +601,26 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/ExecuteResultHandler.java`
+in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
- * the executed process, i.e. the exit value or an exception.
- *
- * @see org.apache.commons.exec.Executor#execute(CommandLine, java.util.Map, ExecuteResultHandler)
- *
- */
+     * Define the {@code exitValue} of the process to be considered
+     * successful. If a different exit value is returned by
+     * the process then {@link org.apache.commons.exec.Executor#execute(CommandLine)}
+     * will throw an {@link org.apache.commons.exec.ExecuteException}
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/Executor.java`
+#### Snippet
+```java
+     * successful. If a different exit value is returned by
+     * the process then {@link org.apache.commons.exec.Executor#execute(CommandLine)}
+     * will throw an {@link org.apache.commons.exec.ExecuteException}
+     *
+     * @param value the exit code representing successful execution
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -664,21 +664,9 @@ Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/exec/LogOutputStream.java`
 #### Snippet
 ```java
-     *
-     * @param cc data to log (byte).
-     * @see java.io.OutputStream#write(int)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/LogOutputStream.java`
-#### Snippet
-```java
-     * Writes all remaining data from the buffer.
-     *
-     * @see java.io.OutputStream#close()
+     * @param len the length of block
+     * @throws IOException if the data cannot be written into the stream.
+     * @see java.io.OutputStream#write(byte[], int, int)
      */
     @Override
 ```
@@ -700,9 +688,21 @@ Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/exec/LogOutputStream.java`
 #### Snippet
 ```java
-     * @param len the length of block
-     * @throws IOException if the data cannot be written into the stream.
-     * @see java.io.OutputStream#write(byte[], int, int)
+     * Writes all remaining data from the buffer.
+     *
+     * @see java.io.OutputStream#close()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/LogOutputStream.java`
+#### Snippet
+```java
+     *
+     * @param cc data to log (byte).
+     * @see java.io.OutputStream#write(int)
      */
     @Override
 ```
@@ -716,18 +716,6 @@ in `src/main/java/org/apache/commons/exec/ProcessDestroyer.java`
      * @return {@code true} if the specified
      *      {@link java.lang.Process} was
      *      successfully removed
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/ProcessDestroyer.java`
-#### Snippet
-```java
-     *      the process to add
-     * @return {@code true} if the specified
-     *      {@link java.lang.Process} was
-     *      successfully added
      */
 ```
 
@@ -753,6 +741,18 @@ in `src/main/java/org/apache/commons/exec/ProcessDestroyer.java`
  * @see org.apache.commons.exec.ShutdownHookProcessDestroyer
  *
  */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/ProcessDestroyer.java`
+#### Snippet
+```java
+     *      the process to add
+     * @return {@code true} if the specified
+     *      {@link java.lang.Process} was
+     *      successfully added
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -832,57 +832,9 @@ Qualifier `org.apache.commons.exec` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 #### Snippet
 ```java
-    }
-
-    /** @see org.apache.commons.exec.Executor#setExitValue(int) */
-    @Override
-    public void setExitValue(final int value) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
 
     /**
-     * @see org.apache.commons.exec.Executor#setWatchdog(org.apache.commons.exec.ExecuteWatchdog)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.exec.Executor#setWatchdog(org.apache.commons.exec.ExecuteWatchdog)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-
-
-    /** @see org.apache.commons.exec.Executor#setExitValues(int[]) */
-    @Override
-    public void setExitValues(final int[] values) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.exec.Executor#setProcessDestroyer(ProcessDestroyer)
+     * @see org.apache.commons.exec.Executor#getProcessDestroyer()
      */
     @Override
 ```
@@ -912,6 +864,66 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+     * into our {@code System.out} and {@code System.err} to avoid
+     * into our {@code System.out} and {@code System.err} to avoid
+     * a blocked or deadlocked subprocess (see{@link java.lang.Process Process}).
+     */
+    public DefaultExecutor() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.exec.Executor#getWorkingDirectory()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.exec.Executor#setStreamHandler(org.apache.commons.exec.ExecuteStreamHandler)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.exec.Executor#setStreamHandler(org.apache.commons.exec.ExecuteStreamHandler)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.exec.Executor#getStreamHandler()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.exec` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 #### Snippet
@@ -919,6 +931,66 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 
     /**
      * @see org.apache.commons.exec.Executor#execute(CommandLine)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.commons.exec.Executor#setExitValue(int) */
+    @Override
+    public void setExitValue(final int value) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.exec.Executor#execute(CommandLine,
+     *      org.apache.commons.exec.ExecuteResultHandler)
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+    /**
+     * @see org.apache.commons.exec.Executor#execute(CommandLine,
+     *      org.apache.commons.exec.ExecuteResultHandler)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.exec.Executor#setWatchdog(org.apache.commons.exec.ExecuteWatchdog)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.exec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.exec.Executor#setWatchdog(org.apache.commons.exec.ExecuteWatchdog)
      */
     @Override
 ```
@@ -1002,7 +1074,7 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 ```java
 
     /**
-     * @see org.apache.commons.exec.Executor#setStreamHandler(org.apache.commons.exec.ExecuteStreamHandler)
+     * @see org.apache.commons.exec.Executor#setProcessDestroyer(ProcessDestroyer)
      */
     @Override
 ```
@@ -1013,82 +1085,10 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 #### Snippet
 ```java
 
-    /**
-     * @see org.apache.commons.exec.Executor#setStreamHandler(org.apache.commons.exec.ExecuteStreamHandler)
-     */
+
+    /** @see org.apache.commons.exec.Executor#setExitValues(int[]) */
     @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-     * into our {@code System.out} and {@code System.err} to avoid
-     * into our {@code System.out} and {@code System.err} to avoid
-     * a blocked or deadlocked subprocess (see{@link java.lang.Process Process}).
-     */
-    public DefaultExecutor() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.exec.Executor#getStreamHandler()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.exec.Executor#getProcessDestroyer()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.exec.Executor#execute(CommandLine,
-     *      org.apache.commons.exec.ExecuteResultHandler)
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-    /**
-     * @see org.apache.commons.exec.Executor#execute(CommandLine,
-     *      org.apache.commons.exec.ExecuteResultHandler)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.exec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.exec.Executor#getWorkingDirectory()
-     */
-    @Override
+    public void setExitValues(final int[] values) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1206,18 +1206,6 @@ in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironme
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/exec/LogOutputStream.java`
-#### Snippet
-```java
-    private final ByteArrayOutputStreamX buffer = new ByteArrayOutputStreamX(INTIAL_SIZE);
-
-    private boolean skip = false;
-
-    private final int level;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/exec/ShutdownHookProcessDestroyer.java`
 #### Snippet
 ```java
@@ -1253,6 +1241,18 @@ in `src/main/java/org/apache/commons/exec/ShutdownHookProcessDestroyer.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/exec/LogOutputStream.java`
+#### Snippet
+```java
+    private final ByteArrayOutputStreamX buffer = new ByteArrayOutputStreamX(INTIAL_SIZE);
+
+    private boolean skip = false;
+
+    private final int level;
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/exec/PumpStreamHandler.java`
 #### Snippet
@@ -1262,6 +1262,19 @@ in `src/main/java/org/apache/commons/exec/PumpStreamHandler.java`
     private IOException caught = null;
 
     /**
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-12-15-12-36.394.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=ReturnNull]
@@ -1291,18 +1304,6 @@ in `src/main/java/org/apache/commons/exec/util/MapUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/exec/environment/EnvironmentUtils.java`
-#### Snippet
-```java
-    public static String[] toStrings(final Map<String, String> environment) {
-        if (environment == null) {
-            return null;
-        }
-        final String[] result = new String[environment.size()];
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
 #### Snippet
 ```java
@@ -1313,17 +1314,16 @@ in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironme
 
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-08-21-22-26.017.html`
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/exec/environment/EnvironmentUtils.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+    public static String[] toStrings(final Map<String, String> environment) {
+        if (environment == null) {
+            return null;
+        }
+        final String[] result = new String[environment.size()];
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -1370,11 +1370,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/exec/ExecuteWatchdog.java`
 #### Snippet
 ```java
+        this.process = processToMonitor;
         this.processStarted = true;
-        this.caught = e;
         this.notifyAll();
-    }
-
+        if (this.hasWatchdog) {
+            watchdog.start();
 ```
 
 ### SynchronizeOnThis
@@ -1382,11 +1382,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/exec/ExecuteWatchdog.java`
 #### Snippet
 ```java
-        this.process = processToMonitor;
         this.processStarted = true;
+        this.caught = e;
         this.notifyAll();
-        if (this.hasWatchdog) {
-            watchdog.start();
+    }
+
 ```
 
 ### SynchronizeOnThis
@@ -1492,34 +1492,10 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
      */
-    void execute(CommandLine command, ExecuteResultHandler handler)
-        throws ExecuteException, IOException;
-
-    /**
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/exec/Executor.java`
-#### Snippet
-```java
-     */
     void execute(CommandLine command, Map<String, String> environment, ExecuteResultHandler handler)
         throws ExecuteException, IOException;
 }
 
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/exec/Executor.java`
-#### Snippet
-```java
-     */
-    int execute(CommandLine command, Map<String, String> environment)
-        throws ExecuteException, IOException;
-
-    /**
 ```
 
 ### DuplicateThrows
@@ -1536,14 +1512,38 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/exec/Executor.java`
+#### Snippet
+```java
+     */
+    void execute(CommandLine command, ExecuteResultHandler handler)
+        throws ExecuteException, IOException;
+
+    /**
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/exec/Executor.java`
+#### Snippet
+```java
+     */
+    int execute(CommandLine command, Map<String, String> environment)
+        throws ExecuteException, IOException;
+
+    /**
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
 in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 #### Snippet
 ```java
     @Override
-    public void execute(final CommandLine command, final ExecuteResultHandler handler)
-            throws ExecuteException, IOException {
-        execute(command, null, handler);
-    }
+    public void execute(final CommandLine command, final Map<String, String> environment,
+            final ExecuteResultHandler handler) throws ExecuteException, IOException {
+
+        if (workingDirectory != null && !workingDirectory.exists()) {
 ```
 
 ### DuplicateThrows
@@ -1576,10 +1576,10 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 #### Snippet
 ```java
     @Override
-    public void execute(final CommandLine command, final Map<String, String> environment,
-            final ExecuteResultHandler handler) throws ExecuteException, IOException {
-
-        if (workingDirectory != null && !workingDirectory.exists()) {
+    public void execute(final CommandLine command, final ExecuteResultHandler handler)
+            throws ExecuteException, IOException {
+        execute(command, null, handler);
+    }
 ```
 
 ## RuleId[id=BusyWait]
@@ -1589,7 +1589,7 @@ in `src/main/java/org/apache/commons/exec/DefaultExecuteResultHandler.java`
 #### Snippet
 ```java
 
-        while (!hasResult() && System.currentTimeMillis() < untilMillis) {
+        while (!hasResult()) {
             Thread.sleep(SLEEP_TIME_MS);
         }
     }
@@ -1601,7 +1601,7 @@ in `src/main/java/org/apache/commons/exec/DefaultExecuteResultHandler.java`
 #### Snippet
 ```java
 
-        while (!hasResult()) {
+        while (!hasResult() && System.currentTimeMillis() < untilMillis) {
             Thread.sleep(SLEEP_TIME_MS);
         }
     }
