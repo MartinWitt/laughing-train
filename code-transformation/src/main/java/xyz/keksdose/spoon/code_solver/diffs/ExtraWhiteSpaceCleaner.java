@@ -15,6 +15,7 @@ public class ExtraWhiteSpaceCleaner implements GitDiffCleaner {
 
     @Override
     public String clean(@Var String content, GitLineChange gitLineChange, Change change, String lineEnding) {
+        boolean endsWithLineEnding = endsWithLineEnding(content, lineEnding);
         Patch<String> patch = DiffUtils.diffInline(gitLineChange.oldContent(), gitLineChange.newContent());
         for (AbstractDelta<String> delta : patch.getDeltas()) {
             logger.atInfo().log("Delta: %s", delta);
@@ -27,9 +28,19 @@ public class ExtraWhiteSpaceCleaner implements GitDiffCleaner {
                 content = content.lines()
                         .map(v -> changeIfMatches(insertDelta, v, gitLineChange))
                         .collect(Collectors.joining(lineEnding));
+                if (endsWithLineEnding) {
+                    content += lineEnding;
+                }
             }
         }
         return content;
+    }
+
+    /**
+     * Checks if the content ends with the line ending of the file.
+     */
+    private boolean endsWithLineEnding(String content, String lineEnding) {
+        return content.endsWith(lineEnding);
     }
 
     private String changeIfMatches(ChangeDelta<String> delta, String content, GitLineChange gitLineChange) {
