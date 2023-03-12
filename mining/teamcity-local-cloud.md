@@ -34,42 +34,6 @@ Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 #### Snippet
 ```java
-  public String generateAgentName(@NotNull final AgentDescription agentDescription) {
-    final LocalCloudImage image = findImage(agentDescription);
-    if (image == null) return null;
-
-    final String instanceId = findInstanceId(agentDescription);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-
-    final String instanceId = findInstanceId(agentDescription);
-    if (instanceId == null) return null;
-
-    return generateAgentName(image, instanceId);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-  private LocalCloudImage findImage(@NotNull final AgentDescription agentDescription) {
-    final String imageId = agentDescription.getConfigurationParameters().get(LocalCloudConstants.IMAGE_ID_PARAM_NAME);
-    return imageId == null ? null : findImageById(imageId);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
   public LocalCloudInstance findInstanceByAgent(@NotNull final AgentDescription agentDescription) {
     final LocalCloudImage image = findImage(agentDescription);
     if (image == null) return null;
@@ -94,9 +58,45 @@ Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 #### Snippet
 ```java
+  public String generateAgentName(@NotNull final AgentDescription agentDescription) {
+    final LocalCloudImage image = findImage(agentDescription);
+    if (image == null) return null;
+
+    final String instanceId = findInstanceId(agentDescription);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+
+    final String instanceId = findInstanceId(agentDescription);
+    if (instanceId == null) return null;
+
+    return generateAgentName(image, instanceId);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
       }
     }
     return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+  private LocalCloudImage findImage(@NotNull final AgentDescription agentDescription) {
+    final String imageId = agentDescription.getConfigurationParameters().get(LocalCloudConstants.IMAGE_ID_PARAM_NAME);
+    return imageId == null ? null : findImageById(imageId);
   }
 
 ```
@@ -171,8 +171,8 @@ Double brace initialization
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
 #### Snippet
 ```java
-      if (agentHomeDir.isDirectory()) {
-        FileUtil.copyDir(agentHomeDir, myBaseDir, new FileFilter() {
+        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
+
           private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
             Collections.addAll(this, "work", "temp", "system", "contrib");
           }};
@@ -183,8 +183,8 @@ Double brace initialization
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
 #### Snippet
 ```java
-        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
-
+      if (agentHomeDir.isDirectory()) {
+        FileUtil.copyDir(agentHomeDir, myBaseDir, new FileFilter() {
           private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
             Collections.addAll(this, "work", "temp", "system", "contrib");
           }};
