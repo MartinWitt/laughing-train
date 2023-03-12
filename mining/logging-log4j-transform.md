@@ -11,7 +11,7 @@ I found 9 bad smells with 1 repairable:
 | ReturnNull | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationMethodVisitor.java`
@@ -36,7 +36,7 @@ in `log4j-transform-maven-shade-plugin-extensions/src/main/java/org/apache/loggi
 
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
+## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'argumentTypes' in a Serializable class
 in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
@@ -49,7 +49,7 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaTyp
     private SupplierLambdaType(final Type... argumentTypes) {
 ```
 
-## RuleId[ruleID=UnnecessaryModifier]
+## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
@@ -62,7 +62,7 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaTyp
     }
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationClassVisitor.java`
@@ -75,10 +75,10 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationClassVisi
 
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
+## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-28-14-28-06.085.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-12-11-10-22.280.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -88,7 +88,7 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-28-14-28-06.085.
           </tbody>
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationCacheGenerator.java`
@@ -101,7 +101,7 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationCacheGene
             locations.add(location);
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Path`
 in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/LocationMojo.java`
