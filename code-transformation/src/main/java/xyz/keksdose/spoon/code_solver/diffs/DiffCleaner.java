@@ -42,7 +42,7 @@ public class DiffCleaner {
 
         try (Git git = Git.open(path.toFile());
                 ObjectReader reader = git.getRepository().newObjectReader();
-                DiffFormatter df = new DiffFormatter(out); ) {
+                DiffFormatter df = new DiffFormatter(out) ) {
             CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
             oldTreeIter.reset(reader, getLastCommit(git));
             String shortPath = getRelativeRepoPath(change, git);
@@ -58,7 +58,6 @@ public class DiffCleaner {
             setDiffFormaterSettings(git, df);
             createDiffs(df, diffs);
             var list = out.toString().lines().toList();
-            System.out.println(out.toString());
             PeekingIterator<String> it = Iterators.peekingIterator(list.iterator());
             while (it.hasNext()) {
                 var line = it.next();
@@ -109,11 +108,11 @@ public class DiffCleaner {
                 .toString();
     }
 
-    private AnyObjectId getLastCommit(Git git) throws NoHeadException, GitAPIException {
+    private AnyObjectId getLastCommit(Git git) throws GitAPIException {
         return git.log().setMaxCount(1).call().iterator().next().getTree().getId();
     }
 
-    private RevTree createFakeCommit(Git git, String shortPath) throws NoFilepatternException, GitAPIException {
+    private RevTree createFakeCommit(Git git, String shortPath) throws GitAPIException {
         git.add().addFilepattern(shortPath).call();
         return git.commit().setSign(false).setMessage("fake commit").call().getTree();
     }
