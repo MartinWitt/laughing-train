@@ -58,30 +58,6 @@ Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 #### Snippet
 ```java
-  public String generateAgentName(@NotNull final AgentDescription agentDescription) {
-    final LocalCloudImage image = findImage(agentDescription);
-    if (image == null) return null;
-
-    final String instanceId = findInstanceId(agentDescription);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-
-    final String instanceId = findInstanceId(agentDescription);
-    if (instanceId == null) return null;
-
-    return generateAgentName(image, instanceId);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
       }
     }
     return null;
@@ -99,6 +75,30 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
     return imageId == null ? null : findImageById(imageId);
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+  public String generateAgentName(@NotNull final AgentDescription agentDescription) {
+    final LocalCloudImage image = findImage(agentDescription);
+    if (image == null) return null;
+
+    final String instanceId = findInstanceId(agentDescription);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+
+    final String instanceId = findInstanceId(agentDescription);
+    if (instanceId == null) return null;
+
+    return generateAgentName(image, instanceId);
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
