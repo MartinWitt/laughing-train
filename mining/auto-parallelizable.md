@@ -25,6 +25,18 @@ in `integ-test/src/main/java/integtest/DoIt.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
+#### Snippet
+```java
+    @SuppressWarnings("checkstyle:RegexpSinglelineJava")
+    static void action(Params params, @Inject ProviderFactory providerFactory) {
+        System.out.println("provider: "
+                + providerFactory
+                        .gradleProperty("autoparallelizable-inject-test")
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `integ-test/src/main/java/integtest/DoIt.java`
 #### Snippet
 ```java
@@ -37,7 +49,43 @@ in `integ-test/src/main/java/integtest/DoIt.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
+#### Snippet
+```java
+                        .gradleProperty("autoparallelizable-inject-test")
+                        .get());
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+        System.out.println("files: "
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
+#### Snippet
+```java
+                        .get());
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 #### Snippet
 ```java
         System.out.println("string: " + params.getStringValue().get());
@@ -69,54 +117,6 @@ in `integ-test/src/main/java/integtest/DoIt.java`
         System.out.println("files: "
                 + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
-#### Snippet
-```java
-    @SuppressWarnings("checkstyle:RegexpSinglelineJava")
-    static void action(Params params, @Inject ProviderFactory providerFactory) {
-        System.out.println("provider: "
-                + providerFactory
-                        .gradleProperty("autoparallelizable-inject-test")
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
-#### Snippet
-```java
-                        .gradleProperty("autoparallelizable-inject-test")
-                        .get());
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
-#### Snippet
-```java
-                        .get());
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
-#### Snippet
-```java
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-        System.out.println("files: "
 ```
 
 ### SystemOutErr
