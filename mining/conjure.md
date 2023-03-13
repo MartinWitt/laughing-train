@@ -15,8 +15,8 @@ I found 128 bad smells with 4 repairable:
 | SystemOutErr | 2 | false |
 | SimplifyOptionalCallChains | 2 | false |
 | DeprecatedIsStillUsed | 2 | false |
-| UnnecessarySemicolon | 1 | false |
 | DataFlowIssue | 1 | false |
+| UnnecessarySemicolon | 1 | false |
 | NestedAssignment | 1 | false |
 | CommentedOutCode | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
@@ -29,15 +29,27 @@ I found 128 bad smells with 4 repairable:
 | ConstantValue | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'defaultPackage'
-in `conjure-core/src/main/java/com/palantir/conjure/defs/TypeDefinitionParserVisitor.java`
+`Optional` used as type for parameter 'declaredSafety'
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/SafetyValidator.java`
 #### Snippet
 ```java
-    public TypeDefinitionParserVisitor(
-            String typeName,
-            Optional<String> defaultPackage,
-            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
-        this.name = typeName;
+
+        private Stream<String> validateType(
+                Type type, Optional<LogSafety> declaredSafety, String qualifiedTypeReference) {
+            if (declaredSafety.isPresent()) {
+                return type.accept(new SafetyTypeVisitor(qualifiedTypeReference));
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'declaredSafety'
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/SafetyValidator.java`
+#### Snippet
+```java
+            EndpointDefinition endpointDefinition,
+            ArgumentName argumentName,
+            Optional<LogSafety> declaredSafety,
+            Type type,
+            SafetyDeclarationRequirements safetyDeclarations) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -50,6 +62,18 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/TypeDefinitionParserVis
     private final Optional<String> defaultPackage;
     private final ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver;
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'defaultPackage'
+in `conjure-core/src/main/java/com/palantir/conjure/defs/TypeDefinitionParserVisitor.java`
+#### Snippet
+```java
+    public TypeDefinitionParserVisitor(
+            String typeName,
+            Optional<String> defaultPackage,
+            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
+        this.name = typeName;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -69,11 +93,11 @@ in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
 in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
 #### Snippet
 ```java
-        }
 
-        public ImportNotFoundException(File file, Optional<File> importedFrom) {
-            super(getErrorMessage(file, importedFrom));
-        }
+    private static AnnotatedConjureSourceFile parseSingleFile(
+            CachingParser parser, File file, Optional<File> importedFrom) {
+        ConjureSourceFile parsed = parser.parse(file, importedFrom);
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -81,11 +105,11 @@ in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
 in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
 #### Snippet
 ```java
+        }
 
-    private static AnnotatedConjureSourceFile parseSingleFile(
-            CachingParser parser, File file, Optional<File> importedFrom) {
-        ConjureSourceFile parsed = parser.parse(file, importedFrom);
-
+        public ImportNotFoundException(File file, Optional<File> importedFrom) {
+            super(getErrorMessage(file, importedFrom));
+        }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -110,30 +134,6 @@ in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
         ConjureSourceFile parse(File file, Optional<File> importedFrom) {
             // HashMap.computeIfAbsent does not work with recursion; the size of the map gets corrupted,
             // and if the map gets resized during the recursion, some of the new nodes can be put in wrong
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'declaredSafety'
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/SafetyValidator.java`
-#### Snippet
-```java
-            EndpointDefinition endpointDefinition,
-            ArgumentName argumentName,
-            Optional<LogSafety> declaredSafety,
-            Type type,
-            SafetyDeclarationRequirements safetyDeclarations) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'declaredSafety'
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/SafetyValidator.java`
-#### Snippet
-```java
-
-        private Stream<String> validateType(
-                Type type, Optional<LogSafety> declaredSafety, String qualifiedTypeReference) {
-            if (declaredSafety.isPresent()) {
-                return type.accept(new SafetyTypeVisitor(qualifiedTypeReference));
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -186,18 +186,6 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
 
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `conjure/src/main/java/com/palantir/conjure/cli/ConjureCli.java`
-#### Snippet
-```java
-        public void run() {
-            if (unmatchedOptions != null && !unmatchedOptions.isEmpty()) {
-                System.err.println("Ignoring unknown options: " + unmatchedOptions);
-            }
-            CliConfiguration config = getConfiguration();
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `conjure/src/main/java/com/palantir/conjure/cli/ConjureCli.java`
 #### Snippet
@@ -209,7 +197,31 @@ in `conjure/src/main/java/com/palantir/conjure/cli/ConjureCli.java`
 
 ```
 
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `conjure/src/main/java/com/palantir/conjure/cli/ConjureCli.java`
+#### Snippet
+```java
+        public void run() {
+            if (unmatchedOptions != null && !unmatchedOptions.isEmpty()) {
+                System.err.println("Ignoring unknown options: " + unmatchedOptions);
+            }
+            CliConfiguration config = getConfiguration();
+```
+
 ## RuleId[id=SimplifyOptionalCallChains]
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
+#### Snippet
+```java
+                    dealiasingTypeVisitor.dealias(input).fold(_typeDefinition -> Optional.empty(), Optional::of);
+            // typeDef isn't bearertoken
+            if (!dealiased.isPresent()) {
+                return true;
+            }
+```
+
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
 in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
@@ -222,16 +234,17 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
             }
 ```
 
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `accept` may produce `NullPointerException`
+in `conjure-generator-common/src/main/java/com/palantir/conjure/visitor/DealiasingTypeVisitor.java`
 #### Snippet
 ```java
-                    dealiasingTypeVisitor.dealias(input).fold(_typeDefinition -> Optional.empty(), Optional::of);
-            // typeDef isn't bearertoken
-            if (!dealiased.isPresent()) {
-                return true;
-            }
+        Preconditions.checkState(
+                typeDefinition != null, "Referenced TypeDefinition not found in map of types for TypeName: %s", value);
+        return typeDefinition.accept(new TypeDefinition.Visitor<Either<TypeDefinition, Type>>() {
+            @Override
+            public Either<TypeDefinition, Type> visitAlias(AliasDefinition value) {
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -248,6 +261,138 @@ public enum ExpectationResult {
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureValidator.java`
+#### Snippet
+```java
+package com.palantir.conjure.defs.validator;
+
+@com.google.errorprone.annotations.Immutable
+public interface ConjureValidator<T> {
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/TypeNameValidator.java`
+#### Snippet
+```java
+
+    static final List<String> PRIMITIVE_TYPES =
+            Lists.transform(java.util.Arrays.asList(PrimitiveType.Value.values()), PrimitiveType.Value::name);
+
+    public static void validate(TypeName typeName) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ServiceDefinitionValidator.java`
+#### Snippet
+```java
+     * This ensures that ExperimentalFeatures.DisambiguateRetrofitServices won't cause collisions.
+     */
+    @com.google.errorprone.annotations.Immutable
+    private static final class IllegalSuffixesValidator implements ConjureValidator<ServiceDefinition> {
+        private static final String RETROFIT_SUFFIX = "Retrofit";
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ServiceDefinitionValidator.java`
+#### Snippet
+```java
+    private static final Pattern PATHVAR_PATTERN = Pattern.compile(Pattern.quote("{") + ".+?" + Pattern.quote("}"));
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class UniquePathMethodsValidator implements ConjureValidator<ServiceDefinition> {
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ServiceDefinitionValidator.java`
+#### Snippet
+```java
+import java.util.regex.Pattern;
+
+@com.google.errorprone.annotations.Immutable
+public enum ServiceDefinitionValidator implements ConjureValidator<ServiceDefinition> {
+    UNIQUE_PATH_METHODS(new UniquePathMethodsValidator()),
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class NoClobberTypeValidator implements ConjureValidator<UnionDefinition> {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class KeySyntaxValidator implements ConjureValidator<UnionDefinition> {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefinitionValidator.java`
+#### Snippet
+```java
+import com.palantir.conjure.spec.UnionDefinition;
+
+@com.google.errorprone.annotations.Immutable
+public enum UnionDefinitionValidator implements ConjureValidator<UnionDefinition> {
+    KEY_SYNTAX(new KeySyntaxValidator()),
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class NoTrailingUnderscoreValidator implements ConjureValidator<UnionDefinition> {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UniqueFieldNamesValidator.java`
+#### Snippet
+```java
+ * {@link CaseConverter.Case#LOWER_CAMEL_CASE lower camel case}.
+ */
+@com.google.errorprone.annotations.Immutable
+public final class UniqueFieldNamesValidator implements ConjureValidator<Set<FieldName>> {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EnumDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class UniqueEnumValuesValidator implements ConjureValidator<EnumDefinition> {
+
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
 in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EnumDefinitionValidator.java`
@@ -274,50 +419,98 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EnumDefinitio
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EnumDefinitionValidator.java`
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
 #### Snippet
 ```java
     }
 
     @com.google.errorprone.annotations.Immutable
-    private static final class UniqueEnumValuesValidator implements ConjureValidator<EnumDefinition> {
+    private static final class NoRecursiveTypesValidator implements ConjureValidator<ConjureDefinition> {
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class IllegalMapKeyValidator implements ConjureValidator<ConjureDefinition> {
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/TypeName.java`
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
 #### Snippet
 ```java
- * Represents the name of a conjure {@link NamedTypesDefinition#objects() object}.
- */
-@com.google.errorprone.annotations.Immutable
-@Value.Immutable
-@ConjureImmutablesStyle
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class IllegalVersionValidator implements ConjureValidator<ConjureDefinition> {
+        @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureValidator.java`
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
 #### Snippet
 ```java
-package com.palantir.conjure.defs.validator;
+    }
 
-@com.google.errorprone.annotations.Immutable
-public interface ConjureValidator<T> {
-    /**
+    @com.google.errorprone.annotations.Immutable
+    private static final class UniqueServiceNamesValidator implements ConjureValidator<ConjureDefinition> {
+        @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UniqueFieldNamesValidator.java`
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
 #### Snippet
 ```java
- * {@link CaseConverter.Case#LOWER_CAMEL_CASE lower camel case}.
- */
-@com.google.errorprone.annotations.Immutable
-public final class UniqueFieldNamesValidator implements ConjureValidator<Set<FieldName>> {
+    }
 
+    @com.google.errorprone.annotations.Immutable
+    private static final class LogSafetyConjureDefinitionValidator implements ConjureValidator<ConjureDefinition> {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class UniqueNamesValidator implements ConjureValidator<ConjureDefinition> {
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
+#### Snippet
+```java
+import java.util.stream.Stream;
+
+@com.google.errorprone.annotations.Immutable
+public enum ConjureDefinitionValidator implements ConjureValidator<ConjureDefinition> {
+    UNIQUE_SERVICE_NAMES(new UniqueServiceNamesValidator()),
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    public static final class NoNestedOptionalValidator implements ConjureValidator<ConjureDefinition> {
+        @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -358,14 +551,26 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EnumValueDefi
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureContextualValidator.java`
 #### Snippet
 ```java
-    }
+import com.palantir.conjure.visitor.DealiasingTypeVisitor;
 
-    @com.google.errorprone.annotations.Immutable
-    private static final class NoComplexQueryParamValidator implements ConjureContextualValidator<EndpointDefinition> {
-        @Override
+@com.google.errorprone.annotations.Immutable
+public interface ConjureContextualValidator<T> {
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/TypeName.java`
+#### Snippet
+```java
+ * Represents the name of a conjure {@link NamedTypesDefinition#objects() object}.
+ */
+@com.google.errorprone.annotations.Immutable
+@Value.Immutable
+@ConjureImmutablesStyle
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -376,8 +581,8 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
     }
 
     @com.google.errorprone.annotations.Immutable
-    private static final class NoComplexHeaderParamValidator implements ConjureContextualValidator<EndpointDefinition> {
-
+    private static final class SingleBodyParamValidator implements ConjureValidator<EndpointDefinition> {
+        @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -400,31 +605,7 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
     }
 
     @com.google.errorprone.annotations.Immutable
-    private static final class PathParamValidator implements ConjureValidator<EndpointDefinition> {
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class NoGetBodyParamValidator implements ConjureValidator<EndpointDefinition> {
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class NoBearerTokenPathOrQueryParams
+    private static final class NoOptionalBinaryBodyParamValidator
             implements ConjureContextualValidator<EndpointDefinition> {
 ```
 
@@ -436,7 +617,7 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
     }
 
     @com.google.errorprone.annotations.Immutable
-    private static final class NoComplexPathParamValidator implements ConjureContextualValidator<EndpointDefinition> {
+    private static final class NoComplexQueryParamValidator implements ConjureContextualValidator<EndpointDefinition> {
         @Override
 ```
 
@@ -460,8 +641,8 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
     }
 
     @com.google.errorprone.annotations.Immutable
-    private static final class NoOptionalBinaryBodyParamValidator
-            implements ConjureContextualValidator<EndpointDefinition> {
+    private static final class NoGetBodyParamValidator implements ConjureValidator<EndpointDefinition> {
+        @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -472,8 +653,44 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
     }
 
     @com.google.errorprone.annotations.Immutable
-    private static final class SingleBodyParamValidator implements ConjureValidator<EndpointDefinition> {
+    private static final class NoComplexPathParamValidator implements ConjureContextualValidator<EndpointDefinition> {
         @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class ParameterNameValidator implements ConjureValidator<EndpointDefinition> {
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class PathParamValidator implements ConjureValidator<EndpointDefinition> {
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    @com.google.errorprone.annotations.Immutable
+    private static final class NoComplexHeaderParamValidator implements ConjureContextualValidator<EndpointDefinition> {
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -496,212 +713,20 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
     }
 
     @com.google.errorprone.annotations.Immutable
-    private static final class ParameterNameValidator implements ConjureValidator<EndpointDefinition> {
-        @Override
+    private static final class NoBearerTokenPathOrQueryParams
+            implements ConjureContextualValidator<EndpointDefinition> {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureContextualValidator.java`
+Qualifier `com.palantir.conjure.parser.types` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java`
 #### Snippet
 ```java
-import com.palantir.conjure.visitor.DealiasingTypeVisitor;
-
-@com.google.errorprone.annotations.Immutable
-public interface ConjureContextualValidator<T> {
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/TypeNameValidator.java`
-#### Snippet
-```java
-
-    static final List<String> PRIMITIVE_TYPES =
-            Lists.transform(java.util.Arrays.asList(PrimitiveType.Value.values()), PrimitiveType.Value::name);
-
-    public static void validate(TypeName typeName) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class KeySyntaxValidator implements ConjureValidator<UnionDefinition> {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class NoClobberTypeValidator implements ConjureValidator<UnionDefinition> {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class NoTrailingUnderscoreValidator implements ConjureValidator<UnionDefinition> {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefinitionValidator.java`
-#### Snippet
-```java
-import com.palantir.conjure.spec.UnionDefinition;
-
-@com.google.errorprone.annotations.Immutable
-public enum UnionDefinitionValidator implements ConjureValidator<UnionDefinition> {
-    KEY_SYNTAX(new KeySyntaxValidator()),
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ServiceDefinitionValidator.java`
-#### Snippet
-```java
-    private static final Pattern PATHVAR_PATTERN = Pattern.compile(Pattern.quote("{") + ".+?" + Pattern.quote("}"));
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class UniquePathMethodsValidator implements ConjureValidator<ServiceDefinition> {
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ServiceDefinitionValidator.java`
-#### Snippet
-```java
-import java.util.regex.Pattern;
-
-@com.google.errorprone.annotations.Immutable
-public enum ServiceDefinitionValidator implements ConjureValidator<ServiceDefinition> {
-    UNIQUE_PATH_METHODS(new UniquePathMethodsValidator()),
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ServiceDefinitionValidator.java`
-#### Snippet
-```java
-     * This ensures that ExperimentalFeatures.DisambiguateRetrofitServices won't cause collisions.
-     */
-    @com.google.errorprone.annotations.Immutable
-    private static final class IllegalSuffixesValidator implements ConjureValidator<ServiceDefinition> {
-        private static final String RETROFIT_SUFFIX = "Retrofit";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class UniqueNamesValidator implements ConjureValidator<ConjureDefinition> {
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
-#### Snippet
-```java
-import java.util.stream.Stream;
-
-@com.google.errorprone.annotations.Immutable
-public enum ConjureDefinitionValidator implements ConjureValidator<ConjureDefinition> {
-    UNIQUE_SERVICE_NAMES(new UniqueServiceNamesValidator()),
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class IllegalMapKeyValidator implements ConjureValidator<ConjureDefinition> {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class LogSafetyConjureDefinitionValidator implements ConjureValidator<ConjureDefinition> {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class IllegalVersionValidator implements ConjureValidator<ConjureDefinition> {
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class UniqueServiceNamesValidator implements ConjureValidator<ConjureDefinition> {
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    private static final class NoRecursiveTypesValidator implements ConjureValidator<ConjureDefinition> {
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.errorprone.annotations` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/ConjureDefinitionValidator.java`
-#### Snippet
-```java
-    }
-
-    @com.google.errorprone.annotations.Immutable
-    public static final class NoNestedOptionalValidator implements ConjureValidator<ConjureDefinition> {
-        @Override
+    public static TypeName createTypeName(
+            String name,
+            com.palantir.conjure.parser.types.BaseObjectTypeDefinition def,
+            Optional<String> defaultPackage) {
+        TypeName type = TypeName.of(name, parsePackageOrElseThrow(def.conjurePackage(), defaultPackage));
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -721,35 +746,11 @@ Qualifier `com.palantir.conjure.parser.types.complex` is unnecessary, and can be
 in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java`
 #### Snippet
 ```java
-    public static TypeDefinition parseObjectType(
-            TypeName name,
-            com.palantir.conjure.parser.types.complex.ObjectTypeDefinition def,
-            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
-        ObjectDefinition objectType = ObjectDefinition.builder()
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.conjure.parser.types.complex` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java`
-#### Snippet
-```java
-    public static ErrorDefinition parseErrorType(
-            TypeName name,
-            com.palantir.conjure.parser.types.complex.ErrorTypeDefinition def,
-            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
-        ErrorDefinition errorType = ErrorDefinition.builder()
-```
+    public static TypeDefinition parseEnumType(
+            TypeName name, com.palantir.conjure.parser.types.complex.EnumTypeDefinition def) {
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.conjure.parser.types.reference` is unnecessary, and can be replaced with an import
-in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java`
-#### Snippet
-```java
-    public static TypeDefinition parseAliasType(
-            TypeName name,
-            com.palantir.conjure.parser.types.reference.AliasTypeDefinition def,
-            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
-        return TypeDefinition.alias(AliasDefinition.builder()
+        EnumDefinition enumType = EnumDefinition.builder()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -762,6 +763,18 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
             com.palantir.conjure.parser.services.AuthDefinition authDefinition) {
 
         switch (authDefinition.type()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.palantir.conjure.parser.types.reference` is unnecessary, and can be replaced with an import
+in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java`
+#### Snippet
+```java
+    public static TypeDefinition parseAliasType(
+            TypeName name,
+            com.palantir.conjure.parser.types.reference.AliasTypeDefinition def,
+            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
+        return TypeDefinition.alias(AliasDefinition.builder()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -789,15 +802,15 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.conjure.parser.types` is unnecessary, and can be replaced with an import
+Qualifier `com.palantir.conjure.parser.types.complex` is unnecessary, and can be replaced with an import
 in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java`
 #### Snippet
 ```java
-    public static TypeName createTypeName(
-            String name,
-            com.palantir.conjure.parser.types.BaseObjectTypeDefinition def,
-            Optional<String> defaultPackage) {
-        TypeName type = TypeName.of(name, parsePackageOrElseThrow(def.conjurePackage(), defaultPackage));
+    public static TypeDefinition parseObjectType(
+            TypeName name,
+            com.palantir.conjure.parser.types.complex.ObjectTypeDefinition def,
+            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
+        ObjectDefinition objectType = ObjectDefinition.builder()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -805,24 +818,11 @@ Qualifier `com.palantir.conjure.parser.types.complex` is unnecessary, and can be
 in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java`
 #### Snippet
 ```java
-
-    public static TypeDefinition parseEnumType(
-            TypeName name, com.palantir.conjure.parser.types.complex.EnumTypeDefinition def) {
-
-        EnumDefinition enumType = EnumDefinition.builder()
-```
-
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `accept` may produce `NullPointerException`
-in `conjure-generator-common/src/main/java/com/palantir/conjure/visitor/DealiasingTypeVisitor.java`
-#### Snippet
-```java
-        Preconditions.checkState(
-                typeDefinition != null, "Referenced TypeDefinition not found in map of types for TypeName: %s", value);
-        return typeDefinition.accept(new TypeDefinition.Visitor<Either<TypeDefinition, Type>>() {
-            @Override
-            public Either<TypeDefinition, Type> visitAlias(AliasDefinition value) {
+    public static ErrorDefinition parseErrorType(
+            TypeName name,
+            com.palantir.conjure.parser.types.complex.ErrorTypeDefinition def,
+            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
+        ErrorDefinition errorType = ErrorDefinition.builder()
 ```
 
 ## RuleId[id=NestedAssignment]
@@ -846,9 +846,9 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
 ```java
 
     @Deprecated
-    static ConjureDefinition parseConjureDef(Collection<AnnotatedConjureSourceFile> annotatedParsedDefs) {
-        return parseConjureDef(annotatedParsedDefs.stream()
-                .collect(Collectors.toMap(source -> source.sourceFile().getAbsolutePath(), Function.identity())));
+    static ConjureDefinition parseConjureDef(Map<String, AnnotatedConjureSourceFile> annotatedParsedDefs) {
+        return parseConjureDef(annotatedParsedDefs, SafetyDeclarationRequirements.ALLOWED);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -858,9 +858,9 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
 ```java
 
     @Deprecated
-    static ConjureDefinition parseConjureDef(Map<String, AnnotatedConjureSourceFile> annotatedParsedDefs) {
-        return parseConjureDef(annotatedParsedDefs, SafetyDeclarationRequirements.ALLOWED);
-    }
+    static ConjureDefinition parseConjureDef(Collection<AnnotatedConjureSourceFile> annotatedParsedDefs) {
+        return parseConjureDef(annotatedParsedDefs.stream()
+                .collect(Collectors.toMap(source -> source.sourceFile().getAbsolutePath(), Function.identity())));
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -885,8 +885,8 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefiniti
         @Override
         public void validate(UnionDefinition definition) {
             definition.getUnion().forEach(fieldDef -> {
-                com.palantir.logsafe.Preconditions.checkArgument(
-                        !fieldDef.getFieldName().get().equals("type"), "Union member key must not be 'type'");
+                Preconditions.checkArgument(
+                        !fieldDef.getFieldName().get().endsWith("_"),
 ```
 
 ### CodeBlock2Expr
@@ -897,8 +897,8 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/UnionDefiniti
         @Override
         public void validate(UnionDefinition definition) {
             definition.getUnion().forEach(fieldDef -> {
-                Preconditions.checkArgument(
-                        !fieldDef.getFieldName().get().endsWith("_"),
+                com.palantir.logsafe.Preconditions.checkArgument(
+                        !fieldDef.getFieldName().get().equals("type"), "Union member key must not be 'type'");
 ```
 
 ### CodeBlock2Expr
@@ -954,6 +954,18 @@ in `conjure-core/src/main/java/com/palantir/conjure/parser/KebabCaseEnforcingAnn
 
 ### ReturnNull
 Return of `null`
+in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `conjure-core/src/main/java/com/palantir/parsec/parsers/RawStringParser.java`
 #### Snippet
 ```java
@@ -1005,11 +1017,23 @@ Return of `null`
 in `conjure-core/src/main/java/com/palantir/conjure/parser/types/TypeParser.java`
 #### Snippet
 ```java
-            ExpectationResult result = Parsers.expect("optional").parse(input);
-            if (Parsers.nullOrUnexpected(result)) {
+            if (typeReference == null) {
+                mark.rewind();
                 return null;
             }
+            TypeName typeName = TypeName.of(typeReference);
+```
 
+### ReturnNull
+Return of `null`
+in `conjure-core/src/main/java/com/palantir/conjure/parser/types/TypeParser.java`
+#### Snippet
+```java
+            String namespace = NAMESPACE_PARSER.parse(input);
+            if (Parsers.nullOrUnexpected(Parsers.expect(".").parse(input))) {
+                return null;
+            }
+            String ref = TypeReferenceParser.REF_PARSER.parse(input);
 ```
 
 ### ReturnNull
@@ -1041,46 +1065,10 @@ Return of `null`
 in `conjure-core/src/main/java/com/palantir/conjure/parser/types/TypeParser.java`
 #### Snippet
 ```java
-            if (typeReference == null) {
-                mark.rewind();
+            ExpectationResult result = Parsers.expect("optional").parse(input);
+            if (Parsers.nullOrUnexpected(result)) {
                 return null;
             }
-            TypeName typeName = TypeName.of(typeReference);
-```
-
-### ReturnNull
-Return of `null`
-in `conjure-core/src/main/java/com/palantir/conjure/parser/types/TypeParser.java`
-#### Snippet
-```java
-            String namespace = NAMESPACE_PARSER.parse(input);
-            if (Parsers.nullOrUnexpected(Parsers.expect(".").parse(input))) {
-                return null;
-            }
-            String ref = TypeReferenceParser.REF_PARSER.parse(input);
-```
-
-### ReturnNull
-Return of `null`
-in `conjure-core/src/main/java/com/palantir/parsec/parsers/IntegerParser.java`
-#### Snippet
-```java
-    public Integer parse(ParserState input) throws ParseException {
-        String str = RAW_INT_PARSER.parse(input);
-        return str != null ? Integer.valueOf(str) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
 
 ```
 
@@ -1101,6 +1089,18 @@ Return of `null`
 in `conjure-core/src/main/java/com/palantir/parsec/Parsers.java`
 #### Snippet
 ```java
+                }
+
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `conjure-core/src/main/java/com/palantir/parsec/Parsers.java`
+#### Snippet
+```java
 
                 if (input.curr() != -1) {
                     return null;
@@ -1110,13 +1110,13 @@ in `conjure-core/src/main/java/com/palantir/parsec/Parsers.java`
 
 ### ReturnNull
 Return of `null`
-in `conjure-core/src/main/java/com/palantir/parsec/Parsers.java`
+in `conjure-core/src/main/java/com/palantir/parsec/parsers/IntegerParser.java`
 #### Snippet
 ```java
-                }
-
-                return null;
-            }
+    public Integer parse(ParserState input) throws ParseException {
+        String str = RAW_INT_PARSER.parse(input);
+        return str != null ? Integer.valueOf(str) : null;
+    }
 
 ```
 
@@ -1199,6 +1199,30 @@ in `conjure-generator-common/src/main/java/com/palantir/conjure/KebabCasePattern
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends A`
+in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
+#### Snippet
+```java
+    private Parser<?> separator;
+
+    public KeyValueParser(Parser<A> keyParser, Parser<?> separator, Parser<B> valueParser) {
+        this.keyParser = keyParser;
+        this.separator = separator;
+```
+
+### BoundedWildcard
+Can generalize to `? extends B`
+in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
+#### Snippet
+```java
+    private Parser<?> separator;
+
+    public KeyValueParser(Parser<A> keyParser, Parser<?> separator, Parser<B> valueParser) {
+        this.keyParser = keyParser;
+        this.separator = separator;
+```
+
+### BoundedWildcard
+Can generalize to `? extends A`
 in `conjure-core/src/main/java/com/palantir/parsec/parsers/MapParser.java`
 #### Snippet
 ```java
@@ -1219,6 +1243,30 @@ in `conjure-core/src/main/java/com/palantir/parsec/parsers/MapParser.java`
     public MapParser(Parser<A> keyParser, Parser<B> valueParser, Parser<?> separator) {
         this.keyParser = keyParser;
         this.valueParser = valueParser;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `conjure-core/src/main/java/com/palantir/parsec/parsers/ListParser.java`
+#### Snippet
+```java
+    private final Parser<T> valueParser;
+
+    public ListParser(Parser<T> valueParser, Parser<?> separator) {
+        this.valueParser = valueParser;
+        this.separator = separator;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `conjure-core/src/main/java/com/palantir/parsec/parsers/BetweenParser.java`
+#### Snippet
+```java
+    private final String description;
+
+    public BetweenParser(Parser<?> start, Parser<T> parser, Parser<?> end, String description) {
+        this.start = start;
+        this.parser = parser;
 ```
 
 ### BoundedWildcard
@@ -1246,85 +1294,13 @@ in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AnnotatedConjureSourceFile`
-in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureTypeParserVisitor.java`
-#### Snippet
-```java
-                TypesDefinition types,
-                Map<Namespace, String> importProviders,
-                Map<String, AnnotatedConjureSourceFile> externalTypes) {
-            this.types = types;
-            this.importProviders = importProviders;
-```
-
-### BoundedWildcard
-Can generalize to `? extends A`
-in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
-#### Snippet
-```java
-    private Parser<?> separator;
-
-    public KeyValueParser(Parser<A> keyParser, Parser<?> separator, Parser<B> valueParser) {
-        this.keyParser = keyParser;
-        this.separator = separator;
-```
-
-### BoundedWildcard
-Can generalize to `? extends B`
-in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
-#### Snippet
-```java
-    private Parser<?> separator;
-
-    public KeyValueParser(Parser<A> keyParser, Parser<?> separator, Parser<B> valueParser) {
-        this.keyParser = keyParser;
-        this.separator = separator;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `conjure-core/src/main/java/com/palantir/parsec/parsers/BetweenParser.java`
-#### Snippet
-```java
-    private final String description;
-
-    public BetweenParser(Parser<?> start, Parser<T> parser, Parser<?> end, String description) {
-        this.start = start;
-        this.parser = parser;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `conjure-core/src/main/java/com/palantir/parsec/parsers/ListParser.java`
-#### Snippet
-```java
-    private final Parser<T> valueParser;
-
-    public ListParser(Parser<T> valueParser, Parser<?> separator) {
-        this.valueParser = valueParser;
-        this.separator = separator;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `conjure-core/src/main/java/com/palantir/parsec/parsers/DefaultingDispatchingParser.java`
-#### Snippet
-```java
-     * @param defaultParser the default parser to apply
-     */
-    public void setDefaultParser(Parser<T> defaultParser) {
-        this.defaultParser = defaultParser;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `conjure-core/src/main/java/com/palantir/parsec/Parsers.java`
 #### Snippet
 ```java
-     * @return the specified parser
-     */
-    public static <T> Parser<T> prefix(final Parser<?> prefix, final Parser<T> parser) {
+    }
+
+    public static <T> Parser<T> eof(Parser<T> parser) {
         return new Parser<T>() {
             @Override
 ```
@@ -1346,11 +1322,35 @@ Can generalize to `? extends T`
 in `conjure-core/src/main/java/com/palantir/parsec/Parsers.java`
 #### Snippet
 ```java
-    }
-
-    public static <T> Parser<T> eof(Parser<T> parser) {
+     * @return the specified parser
+     */
+    public static <T> Parser<T> prefix(final Parser<?> prefix, final Parser<T> parser) {
         return new Parser<T>() {
             @Override
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `conjure-core/src/main/java/com/palantir/parsec/parsers/DefaultingDispatchingParser.java`
+#### Snippet
+```java
+     * @param defaultParser the default parser to apply
+     */
+    public void setDefaultParser(Parser<T> defaultParser) {
+        this.defaultParser = defaultParser;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnotatedConjureSourceFile`
+in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureTypeParserVisitor.java`
+#### Snippet
+```java
+                TypesDefinition types,
+                Map<Namespace, String> importProviders,
+                Map<String, AnnotatedConjureSourceFile> externalTypes) {
+            this.types = types;
+            this.importProviders = importProviders;
 ```
 
 ### BoundedWildcard
@@ -1377,78 +1377,17 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
                 .map(ConjurePackage::name)
 ```
 
-## RuleId[id=RegExpDuplicateAlternationBranch]
-### RegExpDuplicateAlternationBranch
-Duplicate branch in alternation
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/HttpPathValidator.java`
-#### Snippet
-```java
-    private static final Pattern PARAM_SEGMENT_PATTERN = Pattern.compile("^\\{" + PATTERN + "}$");
-    private static final Pattern PARAM_REGEX_SEGMENT_PATTERN =
-            Pattern.compile("^\\{" + PATTERN + "(" + Pattern.quote(":.+") + "|" + Pattern.quote(":.*") + ")" + "}$");
-
-    /**
-```
-
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `Namespace` has no concrete subclass
-in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/Namespace.java`
+Abstract class `ParameterName` has no concrete subclass
+in `conjure-core/src/main/java/com/palantir/conjure/parser/services/ParameterName.java`
 #### Snippet
 ```java
 @Value.Immutable
 @ConjureImmutablesStyle
-public abstract class Namespace {
+public abstract class ParameterName {
 
-    private static final Pattern NAMESPACE_PATTERN = Pattern.compile("^[_a-zA-Z][_a-zA-Z0-9]*$");
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ConjurePackage` has no concrete subclass
-in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/ConjurePackage.java`
-#### Snippet
-```java
-@Value.Immutable
-@ConjureImmutablesStyle
-public abstract class ConjurePackage {
-
-    @JsonValue
-```
-
-### AbstractClassNeverImplemented
-Abstract class `TypeName` has no concrete subclass
-in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/TypeName.java`
-#### Snippet
-```java
-@Value.Immutable
-@ConjureImmutablesStyle
-public abstract class TypeName {
-
-    private static final Pattern CUSTOM_TYPE_PATTERN = Pattern.compile("^[A-Z][a-z0-9]+([A-Z][a-z0-9]+)*$");
-```
-
-### AbstractClassNeverImplemented
-Abstract class `FieldName` has no concrete subclass
-in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/FieldName.java`
-#### Snippet
-```java
-@Value.Immutable
-@ConjureImmutablesStyle
-public abstract class FieldName {
-
-    private static final Logger log = LoggerFactory.getLogger(FieldName.class);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ErrorNamespace` has no concrete subclass
-in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/ErrorNamespace.java`
-#### Snippet
-```java
-@Value.Immutable
-@ConjureImmutablesStyle
-public abstract class ErrorNamespace {
-
-    private static final Pattern UPPER_CAMEL_CASE = Pattern.compile("(([A-Z][a-z0-9]+)+)");
+    public static final String PATTERN = "[a-z][a-z0-9]*([A-Z0-9][a-z0-9]+)*";
 ```
 
 ### AbstractClassNeverImplemented
@@ -1476,15 +1415,63 @@ in `conjure-generator-common/src/main/java/com/palantir/conjure/either/Either.ja
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `PathString` has no concrete subclass
-in `conjure-core/src/main/java/com/palantir/conjure/parser/services/PathString.java`
+Abstract class `FieldName` has no concrete subclass
+in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/FieldName.java`
 #### Snippet
 ```java
 @Value.Immutable
 @ConjureImmutablesStyle
-public abstract class PathString {
+public abstract class FieldName {
 
-    /** Returns the well-formed path associated with this path definition. */
+    private static final Logger log = LoggerFactory.getLogger(FieldName.class);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Namespace` has no concrete subclass
+in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/Namespace.java`
+#### Snippet
+```java
+@Value.Immutable
+@ConjureImmutablesStyle
+public abstract class Namespace {
+
+    private static final Pattern NAMESPACE_PATTERN = Pattern.compile("^[_a-zA-Z][_a-zA-Z0-9]*$");
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ErrorNamespace` has no concrete subclass
+in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/ErrorNamespace.java`
+#### Snippet
+```java
+@Value.Immutable
+@ConjureImmutablesStyle
+public abstract class ErrorNamespace {
+
+    private static final Pattern UPPER_CAMEL_CASE = Pattern.compile("(([A-Z][a-z0-9]+)+)");
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ConjurePackage` has no concrete subclass
+in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/ConjurePackage.java`
+#### Snippet
+```java
+@Value.Immutable
+@ConjureImmutablesStyle
+public abstract class ConjurePackage {
+
+    @JsonValue
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CliConfiguration` has no concrete subclass
+in `conjure/src/main/java/com/palantir/conjure/cli/CliConfiguration.java`
+#### Snippet
+```java
+
+@Value.Immutable
+public abstract class CliConfiguration {
+    abstract Collection<File> inputFiles();
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -1500,27 +1487,40 @@ public abstract class ErrorCode {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ParameterName` has no concrete subclass
-in `conjure-core/src/main/java/com/palantir/conjure/parser/services/ParameterName.java`
+Abstract class `PathString` has no concrete subclass
+in `conjure-core/src/main/java/com/palantir/conjure/parser/services/PathString.java`
 #### Snippet
 ```java
 @Value.Immutable
 @ConjureImmutablesStyle
-public abstract class ParameterName {
+public abstract class PathString {
 
-    public static final String PATTERN = "[a-z][a-z0-9]*([A-Z0-9][a-z0-9]+)*";
+    /** Returns the well-formed path associated with this path definition. */
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `CliConfiguration` has no concrete subclass
-in `conjure/src/main/java/com/palantir/conjure/cli/CliConfiguration.java`
+Abstract class `TypeName` has no concrete subclass
+in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/TypeName.java`
 #### Snippet
 ```java
-
 @Value.Immutable
-public abstract class CliConfiguration {
-    abstract Collection<File> inputFiles();
+@ConjureImmutablesStyle
+public abstract class TypeName {
 
+    private static final Pattern CUSTOM_TYPE_PATTERN = Pattern.compile("^[A-Z][a-z0-9]+([A-Z][a-z0-9]+)*$");
+```
+
+## RuleId[id=RegExpDuplicateAlternationBranch]
+### RegExpDuplicateAlternationBranch
+Duplicate branch in alternation
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/HttpPathValidator.java`
+#### Snippet
+```java
+    private static final Pattern PARAM_SEGMENT_PATTERN = Pattern.compile("^\\{" + PATTERN + "}$");
+    private static final Pattern PARAM_REGEX_SEGMENT_PATTERN =
+            Pattern.compile("^\\{" + PATTERN + "(" + Pattern.quote(":.+") + "|" + Pattern.quote(":.*") + ")" + "}$");
+
+    /**
 ```
 
 ## RuleId[id=NonExceptionNameEndsWithException]
