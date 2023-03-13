@@ -1,16 +1,17 @@
 # diffmin 
  
 # Bad smells
-I found 16 bad smells with 1 repairable:
+I found 17 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 10 | false |
 | SystemOutErr | 2 | false |
 | AssignmentToMethodParameter | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `matches`
 in `src/main/java/com/diffmin/SpoonMapping.java`
@@ -23,7 +24,7 @@ in `src/main/java/com/diffmin/SpoonMapping.java`
     }
 ```
 
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/diffmin/Main.java`
@@ -48,7 +49,20 @@ in `src/main/java/com/diffmin/Main.java`
     }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-13-21-09-41.015.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/diffmin/Main.java`
@@ -61,7 +75,7 @@ class Main {
     /**
 ```
 
-## RuleId[ruleID=SetReplaceableByEnumSet]
+## RuleId[id=SetReplaceableByEnumSet]
 ### SetReplaceableByEnumSet
 `HashSet<>` can be replaced with 'EnumSet'
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
@@ -74,7 +88,7 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
                         newModifiers.add((ModifierKind) modifierKind);
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Operation`
 in `src/main/java/com/diffmin/patch/PatchGeneration.java`
@@ -105,58 +119,58 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
 
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
     private static void performMovement(
             Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
         CtElement toBeDeleted = movePatch.getFirst();
         ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
 ```
 
 ### BoundedWildcard
@@ -195,7 +209,7 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
         updatePatches.forEach(PatchApplication::performUpdating);
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
+## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `OptionalInt.getAsInt()` without 'isPresent()' check
 in `src/main/java/com/diffmin/patch/PatchGeneration.java`
