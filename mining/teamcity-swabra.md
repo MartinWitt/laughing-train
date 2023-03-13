@@ -46,14 +46,26 @@ in `agent/src/jetbrains/buildServer/swabra/processes/LockedFileResolver.java`
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
-in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FilesTraversal.java`
+in `agent/src/jetbrains/buildServer/swabra/processes/HandleOutputReader.java`
 #### Snippet
 ```java
-  public FilesTraversal() {}
+  private static final String NO_ADMIN_RIGHTS = "Make sure that you are an administrator.";
 
-  public static interface SimpleProcessor {
-    void process(FileInfo file) throws Exception;
+  public static interface LineProcessor {
+    void processLine(@NotNull String line);
   }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `agent/src/jetbrains/buildServer/swabra/snapshots/FilesCollector.java`
+#### Snippet
+```java
+  private static final String NOT_DELETE_SNAPSHOT = "swabra.preserve.snapshot";
+
+  public static interface CollectionResultHandler {
+    void success();
+    void error();
 ```
 
 ### UnnecessaryModifier
@@ -70,14 +82,14 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FilesTraversal.ja
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
-in `agent/src/jetbrains/buildServer/swabra/snapshots/FilesCollector.java`
+in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FilesTraversal.java`
 #### Snippet
 ```java
-  private static final String NOT_DELETE_SNAPSHOT = "swabra.preserve.snapshot";
+  public FilesTraversal() {}
 
-  public static interface CollectionResultHandler {
-    void success();
-    void error();
+  public static interface SimpleProcessor {
+    void process(FileInfo file) throws Exception;
+  }
 ```
 
 ### UnnecessaryModifier
@@ -90,30 +102,6 @@ in `server/src/jetbrains/buildServer/swabra/serverHealth/SwabraCleanCheckoutWatc
   public Collection<String> getRecentCleanCheckoutCauses(@NotNull SBuildType buildType);
 }
 
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `agent/src/jetbrains/buildServer/swabra/processes/HandleOutputReader.java`
-#### Snippet
-```java
-  private static final String NO_ADMIN_RIGHTS = "Make sure that you are an administrator.";
-
-  public static interface LineProcessor {
-    void processLine(@NotNull String line);
-  }
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `agent/src/jetbrains/buildServer/swabra/processes/LockedFileResolver.java`
-#### Snippet
-```java
-  private static final int DELETION_TRIES = 10;
-
-  public static interface LockingProcessesProvider {
-    @NotNull
-    Collection<ProcessInfo> getLockingProcesses(@NotNull File f) throws GetProcessesException;
 ```
 
 ### UnnecessaryModifier
@@ -141,15 +129,15 @@ in `agent/src/jetbrains/buildServer/swabra/processes/LockedFileResolver.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java`
+Modifier `static` is redundant for inner interfaces
+in `agent/src/jetbrains/buildServer/swabra/processes/LockedFileResolver.java`
 #### Snippet
 ```java
-    private final String myName;
+  private static final int DELETION_TRIES = 10;
 
-    private DirectoryState(@NotNull String name) {
-      myName = name;
-    }
+  public static interface LockingProcessesProvider {
+    @NotNull
+    Collection<ProcessInfo> getLockingProcesses(@NotNull File f) throws GetProcessesException;
 ```
 
 ### UnnecessaryModifier
@@ -164,6 +152,18 @@ in `agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java`
     CLEAN("clean"),
 ```
 
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java`
+#### Snippet
+```java
+    private final String myName;
+
+    private DirectoryState(@NotNull String name) {
+      myName = name;
+    }
+```
+
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `SnapshotUtil` has only 'static' members, and lacks a 'private' constructor
@@ -175,6 +175,18 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/SnapshotUtil.java`
 public class SnapshotUtil {
   private static final String SEPARATOR = "\t";
   private static final String LINE_SEPARATOR = "\r\n";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HandleOutputReader` has only 'static' members, and lacks a 'private' constructor
+in `agent/src/jetbrains/buildServer/swabra/processes/HandleOutputReader.java`
+#### Snippet
+```java
+ * Time: 13:18:51
+ */
+public class HandleOutputReader {
+  private static final Logger LOG = Logger.getLogger(HandleOutputReader.class);
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -198,18 +210,6 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FilesComparator.j
  */
 class FilesComparator {
   private static final String SEPARATOR_REGEX = "/".equals(File.separator) ? "/" : "\\\\";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HandleOutputReader` has only 'static' members, and lacks a 'private' constructor
-in `agent/src/jetbrains/buildServer/swabra/processes/HandleOutputReader.java`
-#### Snippet
-```java
- * Time: 13:18:51
- */
-public class HandleOutputReader {
-  private static final Logger LOG = Logger.getLogger(HandleOutputReader.class);
 
 ```
 
@@ -317,43 +317,6 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FileSystemFilesIt
   private final boolean myVerboseLogging;
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`handleOutput.length() == 0` can be replaced with 'handleOutput.isEmpty()'
-in `agent/src/jetbrains/buildServer/swabra/processes/HandleOutputReader.java`
-#### Snippet
-```java
-
-  public static boolean noResult(@NotNull String handleOutput) {
-    return handleOutput.length() == 0 || handleOutput.contains(NO_RESULT);
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
-`rules.length() == 0` can be replaced with 'rules.isEmpty()'
-in `common/src/jetbrains/buildServer/swabra/SwabraUtil.java`
-#### Snippet
-```java
-
-  public static List<String> splitRules(@NotNull String rules) {
-    return rules.length() == 0 ? Collections.<String>emptyList() : Arrays.asList(rules.split(" *[,\n\r] *"));
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
-`s.length() == 0` can be replaced with 's.isEmpty()'
-in `common/src/jetbrains/buildServer/swabra/SwabraUtil.java`
-#### Snippet
-```java
-  @NotNull
-  public static List<String> fromString(@Nullable String s) {
-    if (s == null || s.length() == 0) return Collections.emptyList();
-    return Arrays.asList(s.split(";"));
-  }
-```
-
 ## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
@@ -362,9 +325,9 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
 ```java
 
     @Override
-    protected void doPostInitProcess(@NotNull final List<SwabraFileRule> includeRules, final List<SwabraFileRule> excludeRules) {
-      sortByFrom(includeRules, false);
-      sortByFrom(excludeRules, true);
+    protected SwabraFileRule createNewIncludeRule(final String line) {
+      return createRule(line, true);
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -398,9 +361,9 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
 ```java
 
     @Override
-    protected SwabraFileRule createNewIncludeRule(final SwabraFileRule includeRule) {
-      return createNewIncludeRule(includeRule.getFrom());
-    }
+    protected void doPostInitProcess(@NotNull final List<SwabraFileRule> includeRules, final List<SwabraFileRule> excludeRules) {
+      sortByFrom(includeRules, false);
+      sortByFrom(excludeRules, true);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -410,8 +373,8 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
 ```java
 
     @Override
-    protected SwabraFileRule createNewIncludeRule(final String line) {
-      return createRule(line, true);
+    protected SwabraFileRule createNewIncludeRule(final SwabraFileRule includeRule) {
+      return createNewIncludeRule(includeRule.getFrom());
     }
 ```
 
@@ -425,6 +388,43 @@ in `server/src/jetbrains/buildServer/swabra/SwabraBuildFeature.java`
       protected ModelAndView doHandle(@NotNull final HttpServletRequest request, @NotNull final HttpServletResponse response) throws Exception {
         final ModelAndView mv = new ModelAndView(jsp);
         mv.getModel().put("handlePresent", toolsRegistry.isToolRegistered(HANDLE_TOOL));
+```
+
+## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`handleOutput.length() == 0` can be replaced with 'handleOutput.isEmpty()'
+in `agent/src/jetbrains/buildServer/swabra/processes/HandleOutputReader.java`
+#### Snippet
+```java
+
+  public static boolean noResult(@NotNull String handleOutput) {
+    return handleOutput.length() == 0 || handleOutput.contains(NO_RESULT);
+  }
+
+```
+
+### SizeReplaceableByIsEmpty
+`s.length() == 0` can be replaced with 's.isEmpty()'
+in `common/src/jetbrains/buildServer/swabra/SwabraUtil.java`
+#### Snippet
+```java
+  @NotNull
+  public static List<String> fromString(@Nullable String s) {
+    if (s == null || s.length() == 0) return Collections.emptyList();
+    return Arrays.asList(s.split(";"));
+  }
+```
+
+### SizeReplaceableByIsEmpty
+`rules.length() == 0` can be replaced with 'rules.isEmpty()'
+in `common/src/jetbrains/buildServer/swabra/SwabraUtil.java`
+#### Snippet
+```java
+
+  public static List<String> splitRules(@NotNull String rules) {
+    return rules.length() == 0 ? Collections.<String>emptyList() : Arrays.asList(rules.split(" *[,\n\r] *"));
+  }
+
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -442,15 +442,27 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FileSystemFilesIt
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super String`
-in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
+Can generalize to `? extends SwabraSettings`
+in `server/src/jetbrains/buildServer/swabra/serverHealth/SwabraClashingConfigurationsDetector.java`
 #### Snippet
 ```java
-  }
+          res.add(CollectionsUtil
+                    .convertCollection(clashed.entrySet(), new Converter<SwabraSettingsGroup, Map.Entry<SwabraSettings, List<SBuildType>>>() {
+                      public SwabraSettingsGroup createFrom(@NotNull final Map.Entry<SwabraSettings, List<SBuildType>> source) {
+                        return new SwabraSettingsGroup(source.getKey(), source.getValue());
+                      }
+```
 
-  private static void addAsRule(@NotNull File baseDir, @NotNull Collection<String> body) {
-    body.add(baseDir.getAbsolutePath());
-  }
+### BoundedWildcard
+Can generalize to `? extends List`
+in `server/src/jetbrains/buildServer/swabra/serverHealth/SwabraClashingConfigurationsDetector.java`
+#### Snippet
+```java
+          res.add(CollectionsUtil
+                    .convertCollection(clashed.entrySet(), new Converter<SwabraSettingsGroup, Map.Entry<SwabraSettings, List<SBuildType>>>() {
+                      public SwabraSettingsGroup createFrom(@NotNull final Map.Entry<SwabraSettings, List<SBuildType>> source) {
+                        return new SwabraSettingsGroup(source.getKey(), source.getValue());
+                      }
 ```
 
 ### BoundedWildcard
@@ -502,30 +514,30 @@ in `agent/src/jetbrains/buildServer/swabra/processes/LockedFileResolver.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SwabraSettings`
-in `server/src/jetbrains/buildServer/swabra/serverHealth/SwabraClashingConfigurationsDetector.java`
+Can generalize to `? super String`
+in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
 #### Snippet
 ```java
-          res.add(CollectionsUtil
-                    .convertCollection(clashed.entrySet(), new Converter<SwabraSettingsGroup, Map.Entry<SwabraSettings, List<SBuildType>>>() {
-                      public SwabraSettingsGroup createFrom(@NotNull final Map.Entry<SwabraSettings, List<SBuildType>> source) {
-                        return new SwabraSettingsGroup(source.getKey(), source.getValue());
-                      }
-```
+  }
 
-### BoundedWildcard
-Can generalize to `? extends List`
-in `server/src/jetbrains/buildServer/swabra/serverHealth/SwabraClashingConfigurationsDetector.java`
-#### Snippet
-```java
-          res.add(CollectionsUtil
-                    .convertCollection(clashed.entrySet(), new Converter<SwabraSettingsGroup, Map.Entry<SwabraSettings, List<SBuildType>>>() {
-                      public SwabraSettingsGroup createFrom(@NotNull final Map.Entry<SwabraSettings, List<SBuildType>> source) {
-                        return new SwabraSettingsGroup(source.getKey(), source.getValue());
-                      }
+  private static void addAsRule(@NotNull File baseDir, @NotNull Collection<String> body) {
+    body.add(baseDir.getAbsolutePath());
+  }
 ```
 
 ## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `server/src/jetbrains/buildServer/swabra/HandleToolType.java`
+#### Snippet
+```java
+  public static final String HANDLE_TOOL_TYPE_NAME = "handleTool";
+
+  private final static HandleToolType INSTANCE = new HandleToolType();
+
+  public static HandleToolType getInstance() {
+```
+
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `server/src/jetbrains/buildServer/swabra/HandleToolVersion.java`
@@ -548,18 +560,6 @@ public class HandleToolUsageProvider implements ToolUsagesProvider {
   private final static String myKey = "teamcity.tools.provideHandleToolToAllAgents";
 
   private final ServerToolManager myServerToolManager;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `server/src/jetbrains/buildServer/swabra/HandleToolType.java`
-#### Snippet
-```java
-  public static final String HANDLE_TOOL_TYPE_NAME = "handleTool";
-
-  private final static HandleToolType INSTANCE = new HandleToolType();
-
-  public static HandleToolType getInstance() {
 ```
 
 ### MissortedModifiers
@@ -626,54 +626,6 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/SnapshotGenerator.java`
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
-#### Snippet
-```java
-
-  private static boolean hasParentOf(String dirPath, String parentDir){
-    File dir = new File(dirPath.replace("/", File.separator).replace("\\", File.separator));
-    File parent = new File(parentDir.replace("/", File.separator).replace("\\", File.separator));
-    while (dir != null){
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
-#### Snippet
-```java
-
-  private static boolean hasParentOf(String dirPath, String parentDir){
-    File dir = new File(dirPath.replace("/", File.separator).replace("\\", File.separator));
-    File parent = new File(parentDir.replace("/", File.separator).replace("\\", File.separator));
-    while (dir != null){
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
-#### Snippet
-```java
-  private static boolean hasParentOf(String dirPath, String parentDir){
-    File dir = new File(dirPath.replace("/", File.separator).replace("\\", File.separator));
-    File parent = new File(parentDir.replace("/", File.separator).replace("\\", File.separator));
-    while (dir != null){
-      if (dir.getPath().equalsIgnoreCase(parent.getPath()))
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
-#### Snippet
-```java
-  private static boolean hasParentOf(String dirPath, String parentDir){
-    File dir = new File(dirPath.replace("/", File.separator).replace("\\", File.separator));
-    File parent = new File(parentDir.replace("/", File.separator).replace("\\", File.separator));
-    while (dir != null){
-      if (dir.getPath().equalsIgnoreCase(parent.getPath()))
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `agent/src/jetbrains/buildServer/swabra/SwabraSettings.java`
 #### Snippet
@@ -683,6 +635,54 @@ in `agent/src/jetbrains/buildServer/swabra/SwabraSettings.java`
     for (String pid : pidsStr.split(" *[,;\n\r] *")) {
       if (StringUtil.isNotEmpty(pid)) res.add(pid);
     }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
+#### Snippet
+```java
+
+  private static boolean hasParentOf(String dirPath, String parentDir){
+    File dir = new File(dirPath.replace("/", File.separator).replace("\\", File.separator));
+    File parent = new File(parentDir.replace("/", File.separator).replace("\\", File.separator));
+    while (dir != null){
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
+#### Snippet
+```java
+
+  private static boolean hasParentOf(String dirPath, String parentDir){
+    File dir = new File(dirPath.replace("/", File.separator).replace("\\", File.separator));
+    File parent = new File(parentDir.replace("/", File.separator).replace("\\", File.separator));
+    while (dir != null){
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
+#### Snippet
+```java
+  private static boolean hasParentOf(String dirPath, String parentDir){
+    File dir = new File(dirPath.replace("/", File.separator).replace("\\", File.separator));
+    File parent = new File(parentDir.replace("/", File.separator).replace("\\", File.separator));
+    while (dir != null){
+      if (dir.getPath().equalsIgnoreCase(parent.getPath()))
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
+#### Snippet
+```java
+  private static boolean hasParentOf(String dirPath, String parentDir){
+    File dir = new File(dirPath.replace("/", File.separator).replace("\\", File.separator));
+    File parent = new File(parentDir.replace("/", File.separator).replace("\\", File.separator));
+    while (dir != null){
+      if (dir.getPath().equalsIgnoreCase(parent.getPath()))
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -719,19 +719,6 @@ in `common/src/jetbrains/buildServer/swabra/SwabraUtil.java`
     return normalizeSeparators ? sb.toString().replace("\\", File.separator).replace("/", File.separator) : sb.toString();
   }
 
-```
-
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
-#### Snippet
-```java
-  private FileInfo processNextRecord() throws IOException {
-    String fileRecord;
-    while ((fileRecord = myReader.readLine()) != null) {
-      final String path = getFilePath(fileRecord);
-      final long length = getFileLength(fileRecord);
 ```
 
 ## RuleId[id=ThrowablePrintStackTrace]
@@ -771,6 +758,19 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/FilesCollectionProcessorMoc
   }
 ```
 
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIterator.java`
+#### Snippet
+```java
+  private FileInfo processNextRecord() throws IOException {
+    String fileRecord;
+    while ((fileRecord = myReader.readLine()) != null) {
+      final String path = getFilePath(fileRecord);
+      final long length = getFileLength(fileRecord);
+```
+
 ## RuleId[id=ReturnFromFinallyBlock]
 ### ReturnFromFinallyBlock
 'return' inside 'finally' block
@@ -800,18 +800,6 @@ in `agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java`
 ## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Comparator() can be replaced with lambda
-in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FileSystemFilesIterator.java`
-#### Snippet
-```java
-    }
-    final List<File> filesList = Arrays.asList(files);
-    Collections.sort(filesList, new Comparator<File>() {
-      public int compare(File o1, File o2) {
-        final int res = FilesComparator.compareByType(o1.isFile(), o2.isFile());
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
 in `server/src/jetbrains/buildServer/swabra/serverHealth/SwabraFrequentCleanCheckoutReport.java`
 #### Snippet
 ```java
@@ -823,15 +811,15 @@ in `server/src/jetbrains/buildServer/swabra/serverHealth/SwabraFrequentCleanChec
 ```
 
 ### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java`
+Anonymous new Comparator() can be replaced with lambda
+in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FileSystemFilesIterator.java`
 #### Snippet
 ```java
-      }
-    });
-    new Thread(new Runnable() {
-      public void run() {
-        cleanupPropertiesAndSnapshots(actualCheckoutDirs);
+    }
+    final List<File> filesList = Arrays.asList(files);
+    Collections.sort(filesList, new Comparator<File>() {
+      public int compare(File o1, File o2) {
+        final int res = FilesComparator.compareByType(o1.isFile(), o2.isFile());
 ```
 
 ### Convert2Lambda
@@ -844,6 +832,18 @@ in `agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java`
     return Arrays.asList(myPropertiesFile.getParentFile().listFiles(new FileFilter() {
       public boolean accept(File pathname) {
         return pathname.getName().endsWith(SNAPSHOT_SUFFIX);
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java`
+#### Snippet
+```java
+      }
+    });
+    new Thread(new Runnable() {
+      public void run() {
+        cleanupPropertiesAndSnapshots(actualCheckoutDirs);
 ```
 
 ## RuleId[id=RedundantFieldInitialization]
@@ -860,6 +860,18 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIter
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
+#### Snippet
+```java
+
+    public List<String> getForPath(@NotNull String path) {
+      path = preparePath(path);
+
+      final ArrayList<String> rules = new ArrayList<String>();
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `path`
 in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
@@ -884,16 +896,17 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
     return from == null ? new File("") : from;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `agent/src/jetbrains/buildServer/swabra/snapshots/SwabraRules.java`
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/swabra.9baeffdd/diagnostic-2023-03-13-08-33-04.307.html`
 #### Snippet
 ```java
-
-    public List<String> getForPath(@NotNull String path) {
-      path = preparePath(path);
-
-      final ArrayList<String> rules = new ArrayList<String>();
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=ReturnNull]
@@ -905,6 +918,54 @@ in `server/src/jetbrains/buildServer/swabra/serverHealth/SwabraSettings.java`
       }
     }
     return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/jetbrains/buildServer/swabra/processes/HandlePathProvider.java`
+#### Snippet
+```java
+    if (StringUtil.isEmptyOrSpaces(path)) {
+      logDetectionDisabled("Path to handle.exe tool is not defined. Use Swabra settings to install handle.exe", logger);
+      return null;
+    }
+    if (!SwabraUtil.unifyPath(path).endsWith(HANDLE_PATH_SUFFIX)) {
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/jetbrains/buildServer/swabra/processes/HandlePathProvider.java`
+#### Snippet
+```java
+    if (!SwabraUtil.unifyPath(path).endsWith(HANDLE_PATH_SUFFIX)) {
+      logDetectionDisabled("Path to handle.exe tool must end with: " + HANDLE_PATH_SUFFIX, logger);
+      return null;
+    }
+    final File handleFile = new File(path);
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/jetbrains/buildServer/swabra/processes/HandlePathProvider.java`
+#### Snippet
+```java
+    if (!handleFile.isFile()) {
+      logDetectionDisabled("No executable found at " + path, logger);
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/jetbrains/buildServer/swabra/SwabraSettings.java`
+#### Snippet
+```java
+  @Nullable
+  public String getHandlePath() {
+    return myHandlePath == null ? null : myHandlePath.getPath();
   }
 
 ```
@@ -931,6 +992,30 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/SnapshotFilesIter
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/jetbrains/buildServer/swabra/processes/WmicProcessDetailsProvider.java`
+#### Snippet
+```java
+      LOG.debug("wmic output:\n" + stdout);
+
+      return noDetailsAvailable(stdout) ? null : stdout;
+
+    } catch (Exception e) {
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/jetbrains/buildServer/swabra/processes/WmicProcessDetailsProvider.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      LOG.warn(e.getMessage(), e);
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -983,42 +1068,6 @@ in `agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FileSystemFilesIt
 
 ### ReturnNull
 Return of `null`
-in `agent/src/jetbrains/buildServer/swabra/processes/HandlePathProvider.java`
-#### Snippet
-```java
-    if (StringUtil.isEmptyOrSpaces(path)) {
-      logDetectionDisabled("Path to handle.exe tool is not defined. Use Swabra settings to install handle.exe", logger);
-      return null;
-    }
-    if (!SwabraUtil.unifyPath(path).endsWith(HANDLE_PATH_SUFFIX)) {
-```
-
-### ReturnNull
-Return of `null`
-in `agent/src/jetbrains/buildServer/swabra/processes/HandlePathProvider.java`
-#### Snippet
-```java
-    if (!SwabraUtil.unifyPath(path).endsWith(HANDLE_PATH_SUFFIX)) {
-      logDetectionDisabled("Path to handle.exe tool must end with: " + HANDLE_PATH_SUFFIX, logger);
-      return null;
-    }
-    final File handleFile = new File(path);
-```
-
-### ReturnNull
-Return of `null`
-in `agent/src/jetbrains/buildServer/swabra/processes/HandlePathProvider.java`
-#### Snippet
-```java
-    if (!handleFile.isFile()) {
-      logDetectionDisabled("No executable found at " + path, logger);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `agent/src/jetbrains/buildServer/swabra/processes/ProcessExecutor.java`
 #### Snippet
 ```java
@@ -1027,42 +1076,6 @@ in `agent/src/jetbrains/buildServer/swabra/processes/ProcessExecutor.java`
         return null;
       }
       @Override
-```
-
-### ReturnNull
-Return of `null`
-in `agent/src/jetbrains/buildServer/swabra/SwabraSettings.java`
-#### Snippet
-```java
-  @Nullable
-  public String getHandlePath() {
-    return myHandlePath == null ? null : myHandlePath.getPath();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `agent/src/jetbrains/buildServer/swabra/processes/WmicProcessDetailsProvider.java`
-#### Snippet
-```java
-      LOG.debug("wmic output:\n" + stdout);
-
-      return noDetailsAvailable(stdout) ? null : stdout;
-
-    } catch (Exception e) {
-```
-
-### ReturnNull
-Return of `null`
-in `agent/src/jetbrains/buildServer/swabra/processes/WmicProcessDetailsProvider.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      LOG.warn(e.getMessage(), e);
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -1099,19 +1112,6 @@ in `agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java`
     return info == null ? null: info.buildTypeId;
   }
 
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/swabra.9baeffdd/diagnostic-2023-03-12-05-06-10.138.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
