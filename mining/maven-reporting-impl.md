@@ -11,10 +11,10 @@ I found 11 bad smells with 2 repairable:
 | AssignmentToForLoopParameter | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | CodeBlock2Expr | 1 | true |
-| IndexOfReplaceableByContains | 1 | false |
 | ConstantValue | 1 | false |
+| IndexOfReplaceableByContains | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[ruleID=MismatchedJavadocCode]
+## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return map but the return type is list
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
@@ -27,7 +27,7 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
     private static List<String> applyPattern(String text) {
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
@@ -40,7 +40,7 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.reporting` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
@@ -53,7 +53,7 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
      */
 ```
 
-## RuleId[ruleID=AssignmentToForLoopParameter]
+## RuleId[id=AssignmentToForLoopParameter]
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
@@ -66,7 +66,7 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
                     segments.add(null);
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `AbstractMavenReport` has no concrete subclass
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
@@ -91,7 +91,7 @@ public abstract class AbstractMavenReportRenderer implements MavenReportRenderer
     protected Sink sink;
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractMavenReportRenderer()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
@@ -104,7 +104,7 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
     }
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
+## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
@@ -117,20 +117,7 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
         });
 ```
 
-## RuleId[ruleID=IndexOfReplaceableByContains]
-### IndexOfReplaceableByContains
-`text.indexOf("${") != -1` can be replaced with 'text.contains("${")'
-in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
-#### Snippet
-```java
-
-        // TODO Special case http://jira.codehaus.org/browse/MEV-40
-        if (text.indexOf("${") != -1) {
-            int lastComma = text.lastIndexOf(",");
-            int lastSemi = text.lastIndexOf("}");
-```
-
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Value `text` is always 'null'
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
@@ -143,7 +130,20 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
 
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=IndexOfReplaceableByContains]
+### IndexOfReplaceableByContains
+`text.indexOf("${") != -1` can be replaced with 'text.contains("${")'
+in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
+#### Snippet
+```java
+
+        // TODO Special case http://jira.codehaus.org/browse/MEV-40
+        if (text.indexOf("${") != -1) {
+            int lastComma = text.lastIndexOf(",");
+            int lastSemi = text.lastIndexOf("}");
+```
+
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
